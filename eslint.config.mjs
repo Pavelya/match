@@ -30,7 +30,13 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-explicit-any': 'error'
     }
   },
-  // Override default ignores of eslint-config-next.
+  {
+    // Allow console in config files and scripts
+    files: ['*.config.{js,mjs,ts}', 'scripts/**', 'prisma/**'],
+    rules: {
+      'no-console': 'off'
+    }
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     '.next/**',

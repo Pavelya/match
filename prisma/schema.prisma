@@ -1,0 +1,321 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ============================================
+// USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  avatar    String?
+  role      UserRole @default(STUDENT)
+
+  // Role-specific relations
+  studentProfile     StudentProfile?
+  coordinatorProfile CoordinatorProfile?
+  agentProfile       UniversityAgentProfile?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}
+
+enum UserRole {
+  STUDENT
+  COORDINATOR
+  UNIVERSITY_AGENT
+  PLATFORM_ADMIN
+}
+
+// ============================================
+// STUDENT MODELS
+// ============================================
+
+model StudentProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  schoolId String?
+  school   IBSchool? @relation(fields: [schoolId], references: [id])
+
+  // Academic data
+  totalIBPoints Int?
+  tokGrade      String? // A, B, C, D, E
+  eeGrade       String? // A, B, C, D, E
+
+  // Courses taken
+  courses StudentCourse[]
+
+  // Preferences
+  preferredFields    FieldOfStudy[]
+  preferredCountries Country[]
+
+  // Saved programs
+  savedPrograms SavedProgram[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([schoolId])
+  @@index([totalIBPoints])
+}
+
+model StudentCourse {
+  id               String         @id @default(cuid())
+  studentProfileId String
+  studentProfile   StudentProfile @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+
+  ibCourseId String
+  ibCourse   IBCourse @relation(fields: [ibCourseId], references: [id])
+
+  level CourseLevel // HL, SL
+  grade Int // 1-7
+
+  @@unique([studentProfileId, ibCourseId])
+  @@index([studentProfileId])
+  @@index([ibCourseId])
+}
+
+enum CourseLevel {
+  HL
+  SL
+}
+
+model IBCourse {
+  id    String @id @default(cuid())
+  name  String
+  code  String @unique
+  group Int // 1-6 (IB curriculum groups)
+
+  studentCourses      StudentCourse[]
+  programRequirements ProgramCourseRequirement[]
+
+  @@index([group])
+}
+
+// ============================================
+// IB SCHOOL & COORDINATOR MODELS
+// ============================================
+
+model IBSchool {
+  id   String @id @default(cuid())
+  name String
+
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id])
+  city      String
+
+  subscriptionTier   SubscriptionTier   @default(REGULAR)
+  subscriptionStatus SubscriptionStatus @default(ACTIVE)
+
+  // Stripe fields - only used for REGULAR tier schools with subscriptions
+  // VIP schools: these fields remain NULL (no payment needed)
+  stripeCustomerId     String? @unique
+  stripeSubscriptionId String? @unique
+
+  studentCount Int?
+  logo         String?
+  email        String?
+  phone        String?
+
+  isVerified Boolean @default(false)
+
+  coordinators CoordinatorProfile[]
+  students     StudentProfile[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([countryId])
+  @@index([subscriptionTier])
+}
+
+enum SubscriptionTier {
+  VIP // Full access FREE - Stripe fields NULL
+  REGULAR // Requires subscription for full access
+}
+
+enum SubscriptionStatus {
+  ACTIVE // Currently active (for REGULAR with subscription, or VIP schools)
+  INACTIVE // REGULAR school without subscription (freemium mode)
+  CANCELLED // REGULAR school cancelled subscription
+}
+
+model CoordinatorProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  schoolId String
+  school   IBSchool @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  // Access level logic:
+  // - VIP school: Full access to all coordinator features (FREE)
+  // - REGULAR school WITH subscription: Full access (PAID)
+  // - REGULAR school WITHOUT subscription: Limited/freemium access
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([schoolId])
+}
+
+// ============================================
+// UNIVERSITY & PROGRAM MODELS
+// ============================================
+
+model University {
+  id              String  @id @default(cuid())
+  name            String
+  abbreviatedName String?
+  description     String  @db.Text
+
+  countryId String
+  country   Country @relation(fields: [countryId], references: [id])
+  city      String
+
+  classification    UniversityType // PUBLIC, PRIVATE
+  studentPopulation Int?
+
+  logo       String?
+  image      String?
+  websiteUrl String
+  email      String?
+  phone      String?
+
+  programs AcademicProgram[]
+  agents   UniversityAgentProfile[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([countryId])
+  @@index([name])
+}
+
+enum UniversityType {
+  PUBLIC
+  PRIVATE
+}
+
+model AcademicProgram {
+  id          String @id @default(cuid())
+  name        String
+  description String @db.Text
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  fieldOfStudyId String
+  fieldOfStudy   FieldOfStudy @relation(fields: [fieldOfStudyId], references: [id])
+
+  degreeType String // Bachelor, Master, etc.
+  duration   String // "4 years"
+
+  // IB Requirements
+  minIBPoints Int?
+
+  // Subject requirements (AND/OR logic)
+  courseRequirements ProgramCourseRequirement[]
+
+  programUrl String?
+
+  savedBy SavedProgram[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([fieldOfStudyId])
+  @@index([universityId])
+  @@index([minIBPoints])
+  @@index([name])
+}
+
+model ProgramCourseRequirement {
+  id        String @id @default(cuid())
+  programId String
+  program   AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  // OR group - requirements with same orGroupId are alternatives
+  orGroupId String?
+
+  ibCourseId String
+  ibCourse   IBCourse @relation(fields: [ibCourseId], references: [id])
+
+  requiredLevel CourseLevel // HL, SL
+  minGrade      Int // 1-7
+  isCritical    Boolean     @default(false)
+
+  @@index([programId])
+  @@index([ibCourseId])
+  @@index([orGroupId])
+}
+
+model UniversityAgentProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  universityId String
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([universityId])
+}
+
+// ============================================
+// REFERENCE DATA MODELS
+// ============================================
+
+model FieldOfStudy {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  iconName String? // Icon identifier for consistent rendering
+
+  programs           AcademicProgram[]
+  interestedStudents StudentProfile[]
+}
+
+model Country {
+  id        String @id @default(cuid())
+  name      String @unique
+  code      String @unique // ISO 3166-1 alpha-2
+  flagEmoji String // For easy display
+
+  universities       University[]
+  schools            IBSchool[]
+  interestedStudents StudentProfile[]
+
+  @@index([code])
+}
+
+model SavedProgram {
+  id               String @id @default(cuid())
+  studentProfileId String
+  studentProfile   StudentProfile @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+
+  programId String
+  program   AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([studentProfileId, programId])
+  @@index([studentProfileId])
+  @@index([programId])
+}

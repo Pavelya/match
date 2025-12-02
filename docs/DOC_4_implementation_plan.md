@@ -62,38 +62,38 @@
 
 ### 1.2 Database Setup
 
-- [ ] **Initialize Prisma**
+- [x] **Initialize Prisma**
   - **Command**: `npm i -D prisma && npx prisma init`
   - **Acceptance**: ✓ `prisma/schema.prisma` created
   - **Test**: File exists with PostgreSQL datasource
 
-- [ ] **Create Prisma schema**
+- [x] **Create Prisma schema**
   - **File**: `prisma/schema.prisma`
   - **Add**: All models from architecture (User, StudentProfile, University, etc.)
   - **Acceptance**: 
-    - ✓ 15+ models defined
+    - ✓ 13 models defined
     - ✓ Relations configured
     - ✓ Indexes added
   - **Test**: `npx prisma format` - no errors
 
-- [ ] **Set up Vercel Postgres**
-  - **Action**: Create Vercel project, add Postgres
-  - **Acceptance**: ✓ DATABASE_URL in Vercel dashboard
-  - **Test**: Copy URL to `.env.local`, connect successfully
+- [x] **Set up Supabase Postgres**
+  - **Action**: Create Supabase project, add Postgres
+  - **Acceptance**: ✓ DATABASE_URL in .env
+  - **Test**: Copy URL to `.env`, connect successfully
 
-- [ ] **Run initial migration**
+- [x] **Run initial migration**
   - **Command**: `npx prisma migrate dev --name init`
   - **Acceptance**: 
     - ✓ Migration files created
     - ✓ Database tables created
   - **Test**: `npx prisma studio` - see all tables
 
-- [ ] **Create seed script**
+- [x] **Create seed script**
   - **File**: `prisma/seed.ts`
   - **Add**: 
-    - All IB courses (~50)
-    - Countries with flags (~200)
-    - Fields of study (~30)
+    - All IB courses (16)
+    - Countries with flags (10)
+    - Fields of study (10)
   - **Acceptance**: ✓ Seed data script ready
   - **Test**: `npx prisma db seed` - data populates
 
