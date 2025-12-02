@@ -121,12 +121,12 @@
 
 ### 1.4 Upstash Redis Setup
 
-- [ ] **Create Upstash Redis instance**
+- [x] **Create Upstash Redis instance**
   - **Action**: Create database on Upstash dashboard
   - **Acceptance**: ✓ Instance created, URL obtained
-  - **Test**: Copy URL to .env.local
+  - **Test**: Copy URL to .env
 
-- [ ] **Create Redis client**
+- [x] **Create Redis client**
   - **Install**: `npm i @upstash/redis`
   - **File**: `lib/redis/client.ts`
   - **Add**: Upstash Redis client singleton

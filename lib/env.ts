@@ -18,8 +18,8 @@ const envSchema = z.object({
   RESEND_API_KEY: z.string().optional(),
 
   // Redis (Upstash)
-  UPSTASH_REDIS_URL: z.string().url().optional(),
-  UPSTASH_REDIS_TOKEN: z.string().optional(),
+  UPSTASH_REDIS_REST_URL: z.string().url(),
+  UPSTASH_REDIS_REST_TOKEN: z.string(),
 
   // Search (Algolia)
   ALGOLIA_APP_ID: z.string().optional(),
