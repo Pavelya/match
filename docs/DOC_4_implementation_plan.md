@@ -99,7 +99,7 @@
 
 ### 1.3 Environment Configuration
 
-- [ ] **Create environment validation**
+- [x] **Create environment validation**
   - **Install**: `npm i zod`
   - **File**: `lib/env.ts`
   - **Add**: Zod schema for all env vars (see architecture)
@@ -108,7 +108,7 @@
     - ✓ TypeScript types exported
   - **Test**: Missing var → app crashes on startup with clear error
 
-- [ ] **Create .env.example**
+- [x] **Create .env.example**
   - **File**: `.env.example`
   - **Add**: All env vars with descriptions
   - **Acceptance**: ✓ No secret values, only placeholders
