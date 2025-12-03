@@ -229,7 +229,7 @@
 
 ### 2.0 Student Authentication Pages
 
-- [ ] **Create sign-in page**
+- [x] **Create sign-in page**
   - **File**: `app/auth/signin/page.tsx`
   - **Features**:
     - Email input for magic link
@@ -241,7 +241,7 @@
     - ✓ Both auth methods visible
   - **Test**: Navigate to `/auth/signin`, see both options
 
-- [ ] **Implement magic link flow**
+- [x] **Implement magic link flow**
   - **Component**: Email input + submit
   - **Logic**: 
     - User enters email → Click "Send magic link"
@@ -256,7 +256,7 @@
     - New email → Account created in DB
     - Existing email → No duplicate, just login
 
-- [ ] **Implement Google OAuth flow**
+- [x] **Implement Google OAuth flow**
   - **Component**: Google button
   - **Logic**:
     - User clicks "Continue with Google"
@@ -272,7 +272,7 @@
     - New Google account → User created
     - Existing Google account → Logged in
 
-- [ ] **Create verify-request page**
+- [x] **Create verify-request page**
   - **File**: `app/auth/verify-request/page.tsx`
   - **Content**: 
     - "Check your email" message
@@ -281,7 +281,7 @@
   - **Acceptance**: ✓ Page shows after magic link sent
   - **Test**: Submit email, land on verify-request page
 
-- [ ] **Create error page**
+- [x] **Create error page**
   - **File**: `app/auth/error/page.tsx`
   - **Content**:
     - Generic error message
@@ -290,7 +290,7 @@
   - **Acceptance**: ✓ Page handles auth errors gracefully
   - **Test**: Force auth error, see error page
 
-- [ ] **Add post-login redirect logic**
+- [x] **Add post-login redirect logic**
   - **Logic**: After successful auth:
     - **New student**: Redirect to `/student/onboarding`
     - **Existing student with profile**: Redirect to `/student/matches`

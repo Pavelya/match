@@ -35,6 +35,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.sub as string
       }
       return session
+    },
+    async redirect({ url, baseUrl }) {
+      // Allow relative callback URLs
+      if (url.startsWith('/')) return `${baseUrl}${url}`
+      // Allow callback URLs on the same origin
+      if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    },
+    async signIn({ user: _user, account }) {
+      // Only handle students (Google OAuth and email magic links)
+      // Coordinators and agents use invitation-only flow (handled separately)
+
+      if (account?.provider === 'google' || account?.provider === 'resend') {
+        // Auto-create user if new (NextAuth + Prisma adapter handles this)
+        // Auto-login if existing (NextAuth handles this)
+
+        // For students, check if they have completed their profile
+        // This will be used for redirect logic in the app
+        return true
+      }
+
+      return true
     }
   }
 })
