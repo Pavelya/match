@@ -6,7 +6,6 @@ import {
   Heading,
   Hr,
   Html,
-  Link,
   Preview,
   Section,
   Text
@@ -24,26 +23,30 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>Sign in to IB Match</Heading>
+
+          <Text style={text}>Hello,</Text>
+
           <Text style={text}>
             Click the button below to securely sign in to your IB Match account. This link will
-            expire in 15 minutes.
+            expire in 10 minutes.
           </Text>
+
           <Section style={buttonContainer}>
             <Button style={button} href={url}>
               Sign in to IB Match
             </Button>
           </Section>
+
           <Text style={text}>
-            Or copy and paste this URL into your browser:{' '}
-            <Link href={url} style={link}>
-              {url}
-            </Link>
+            IB Match helps you connect your predicted IB Diploma grades with university program
+            requirements worldwide, making your academic journey planning simpler and more
+            effective.
           </Text>
+
           <Hr style={hr} />
+
           <Text style={footer}>
-            If you didn&apos;t request this email, you can safely ignore it.
-            <br />
-            This link will expire in 15 minutes for your security.
+            If you didn&apos;t request this link, you can safely ignore this email.
           </Text>
         </Container>
       </Body>
@@ -62,7 +65,8 @@ const container = {
   backgroundColor: '#ffffff',
   margin: '0 auto',
   padding: '20px 0 48px',
-  marginBottom: '64px'
+  marginBottom: '64px',
+  maxWidth: '560px'
 }
 
 const h1 = {
@@ -71,7 +75,8 @@ const h1 = {
   fontWeight: '700',
   margin: '40px 0',
   padding: '0',
-  lineHeight: '36px'
+  lineHeight: '36px',
+  textAlign: 'center' as const
 }
 
 const text = {
@@ -90,18 +95,12 @@ const button = {
   borderRadius: '8px',
   color: '#fff',
   fontSize: '16px',
-  fontWeight: '600',
+  fontWeight: '700',
   textDecoration: 'none',
   textAlign: 'center' as const,
   display: 'block',
   width: '100%',
-  padding: '14px 20px'
-}
-
-const link = {
-  color: '#FF385C',
-  fontSize: '14px',
-  textDecoration: 'underline'
+  padding: '16px 20px'
 }
 
 const hr = {
