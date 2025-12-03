@@ -166,7 +166,7 @@
 
 ### 1.6 Logging Infrastructure
 
-- [ ] **Set up Pino logger**
+- [x] **Set up Pino logger**
   - **Install**: `npm i pino pino-pretty`
   - **File**: `lib/logger/index.ts`
   - **Add**: Logger with context enrichment
@@ -175,7 +175,7 @@
     - ✓ Different log levels
   - **Test**: `logger.info('test')` - outputs JSON
 
-- [ ] **Add request logging middleware**
+- [x] **Add request logging middleware**
   - **File**: `middleware.ts`
   - **Add**: Log all requests with ID, user, duration
   - **Acceptance**: ✓ Every request logged
