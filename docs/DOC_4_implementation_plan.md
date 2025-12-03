@@ -212,14 +212,14 @@
 
 ### ✅ Phase 1 Acceptance Criteria
 
-- [ ] App runs locally without errors
-- [ ] Database migrations applied
-- [ ] Auth flow works (magic link sent)
-- [ ] Logger outputs structured JSON
-- [ ] ESLint blocks console.log
-- [ ] Tailwind theme applied
-- [ ] All env vars validated
-- [ ] Git hooks prevent bad commits
+- [x] App runs locally without errors
+- [x] Database migrations applied
+- [x] Auth flow works (magic link sent)
+- [x] Logger outputs structured JSON
+- [x] ESLint blocks console.log
+- [x] Tailwind theme applied
+- [x] All env vars validated
+- [x] Git hooks prevent bad commits
 
 ---
 
