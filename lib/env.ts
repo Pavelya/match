@@ -11,11 +11,16 @@ const envSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
 
   // NextAuth
-  NEXTAUTH_SECRET: z.string().min(32).optional(),
-  NEXTAUTH_URL: z.string().url().optional(),
+  NEXTAUTH_SECRET: z.string().min(32),
+  NEXTAUTH_URL: z.string().url(),
 
   // Email (Resend)
-  RESEND_API_KEY: z.string().optional(),
+  RESEND_API_KEY: z.string(),
+  EMAIL_FROM: z.string().email(),
+
+  // Google OAuth
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
 
   // Redis (Upstash)
   UPSTASH_REDIS_REST_URL: z.string().url(),

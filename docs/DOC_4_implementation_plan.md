@@ -135,12 +135,12 @@
 
 ### 1.5 Authentication Setup
 
-- [ ] **Install NextAuth.js v5**
+- [x] **Install NextAuth.js v5**
   - **Command**: `npm i next-auth@beta`
   - **Acceptance**: ✓ NextAuth v5 installed
   - **Test**: Check package.json version
 
-- [ ] **Configure NextAuth**
+- [x] **Configure NextAuth**
   - **File**: `lib/auth/config.ts`
   - **Add**: 
     - Email provider (magic links)
@@ -151,14 +151,14 @@
     - ✓ Session strategy set
   - **Test**: Auth routes exist at `/api/auth/*`
 
-- [ ] **Set up Resend for magic links**
+- [x] **Set up Resend for magic links**
   - **Install**: `npm i resend react-email`
   - **Create**: Resend account, get API key
   - **File**: `lib/email/client.ts`
   - **Acceptance**: ✓ Email client configured
   - **Test**: Send test email via Resend dashboard
 
-- [ ] **Create magic link email template**
+- [x] **Create magic link email template**
   - **File**: `emails/magic-link.tsx` (React Email)
   - **Add**: Airbnb-inspired design
   - **Acceptance**: ✓ Template renders in preview
