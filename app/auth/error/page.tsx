@@ -2,7 +2,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default function AuthErrorPage({ searchParams }: { searchParams: { error?: string } }) {
+export default async function AuthErrorPage({
+  searchParams
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
+  const params = await searchParams
   const errorMessages: Record<string, string> = {
     Configuration: 'There is a problem with the server configuration.',
     AccessDenied: 'You do not have permission to sign in.',
@@ -10,7 +15,7 @@ export default function AuthErrorPage({ searchParams }: { searchParams: { error?
     Default: 'An error occurred during sign-in. Please try again.'
   }
 
-  const error = searchParams.error || 'Default'
+  const error = params.error || 'Default'
   const message = errorMessages[error] || errorMessages.Default
 
   return (
