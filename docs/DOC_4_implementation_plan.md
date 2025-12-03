@@ -227,6 +227,81 @@
 
 **Goal**: Build student-facing features including matching algorithm
 
+### 2.0 Student Authentication Pages
+
+- [ ] **Create sign-in page**
+  - **File**: `app/auth/signin/page.tsx`
+  - **Features**:
+    - Email input for magic link
+    - "Continue with Google" button
+    - Clean, Airbnb-inspired design
+    - Auto-detect new vs existing user (handled by NextAuth)
+  - **Acceptance**: 
+    - ✓ Page renders at `/auth/signin`
+    - ✓ Both auth methods visible
+  - **Test**: Navigate to `/auth/signin`, see both options
+
+- [ ] **Implement magic link flow**
+  - **Component**: Email input + submit
+  - **Logic**: 
+    - User enters email → Click "Send magic link"
+    - NextAuth sends email via Resend
+    - **New user**: Creates account automatically on link click
+    - **Existing user**: Logs in automatically on link click
+  - **Acceptance**: 
+    - ✓ Email sent via Resend
+    - ✓ Account created if new
+    - ✓ Logged in if existing
+  - **Test**: 
+    - New email → Account created in DB
+    - Existing email → No duplicate, just login
+
+- [ ] **Implement Google OAuth flow**
+  - **Component**: Google button
+  - **Logic**:
+    - User clicks "Continue with Google"
+    - NextAuth handles OAuth with Google
+    - **New user**: Creates account with Google profile data
+    - **Existing user**: Logs in with Google account
+  - **Acceptance**:
+    - ✓ Google OAuth popup works
+    - ✓ Account created if new
+    - ✓ Logged in if existing
+    - ✓ Profile data (name, avatar) populated
+  - **Test**: 
+    - New Google account → User created
+    - Existing Google account → Logged in
+
+- [ ] **Create verify-request page**
+  - **File**: `app/auth/verify-request/page.tsx`
+  - **Content**: 
+    - "Check your email" message
+    - Email icon
+    - Resend link option (after 60s cooldown)
+  - **Acceptance**: ✓ Page shows after magic link sent
+  - **Test**: Submit email, land on verify-request page
+
+- [ ] **Create error page**
+  - **File**: `app/auth/error/page.tsx`
+  - **Content**:
+    - Generic error message
+    - "Try again" link back to signin
+    - Different messages per error type (optional)
+  - **Acceptance**: ✓ Page handles auth errors gracefully
+  - **Test**: Force auth error, see error page
+
+- [ ] **Add post-login redirect logic**
+  - **Logic**: After successful auth:
+    - **New student**: Redirect to `/student/onboarding`
+    - **Existing student with profile**: Redirect to `/student/matches`
+    - **Existing student without profile**: Redirect to `/student/onboarding`
+  - **File**: Update `lib/auth/config.ts` callbacks
+  - **Acceptance**: ✓ Correct redirect per user state
+  - **Test**: 
+    - New user → Onboarding
+    - Existing with profile → Matches
+    - Existing without profile → Onboarding
+
 ### 2.1 Student Onboarding Wizard
 
 - [ ] **Create onboarding route structure**
