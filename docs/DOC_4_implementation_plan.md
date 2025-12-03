@@ -183,12 +183,12 @@
 
 ### 1.7 Design System Setup
 
-- [ ] **Install shadcn/ui**
+- [x] **Install shadcn/ui**
   - **Command**: `npx shadcn@latest init`
   - **Acceptance**: ✓ shadcn installed, components dir created
   - **Test**: CLI works
 
-- [ ] **Configure Tailwind theme**
+- [x] **Configure Tailwind theme**
   - **File**: `tailwind.config.ts`
   - **Add**: 
     - Airbnb color palette (Primary: #FF385C, etc.)
@@ -197,12 +197,12 @@
   - **Acceptance**: ✓ Theme variables in config
   - **Test**: Use theme color in component, verify it renders
 
-- [ ] **Install base shadcn components**
+- [x] **Install base shadcn components**
   - **Command**: `npx shadcn@latest add button card input dialog`
   - **Acceptance**: ✓ Components in `components/ui/`
   - **Test**: Import Button, renders correctly
 
-- [ ] **Create shared components**
+- [x] **Create shared components**
   - **Files**: 
     - `components/shared/Header.tsx`
     - `components/shared/Footer.tsx`
