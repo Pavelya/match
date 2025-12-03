@@ -1,14 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { auth } from '@/lib/auth/config'
 import { logger } from '@/lib/logger'
 
-export default async function middleware(request: NextRequest) {
+export default function middleware(request: NextRequest) {
   const start = Date.now()
   const requestId = crypto.randomUUID()
-
-  // Get session
-  const session = await auth()
 
   // Log incoming request
   logger.info(
@@ -16,31 +12,21 @@ export default async function middleware(request: NextRequest) {
       requestId,
       method: request.method,
       url: request.url,
-      userId: session?.user?.id,
       userAgent: request.headers.get('user-agent')
     },
     'Incoming request'
   )
 
-  // Protect student routes
-  if (request.nextUrl.pathname.startsWith('/student')) {
-    if (!session) {
-      return NextResponse.redirect(new URL('/auth/signin', request.url))
-    }
-  }
-
-  // Clone response to add headers
   const response = NextResponse.next()
   response.headers.set('x-request-id', requestId)
 
-  // Log response (after request completes)
+  // Log response
   const duration = Date.now() - start
   logger.info(
     {
       requestId,
       method: request.method,
       url: request.url,
-      userId: session?.user?.id,
       duration: `${duration}ms`
     },
     'Request completed'
