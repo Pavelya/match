@@ -22,11 +22,13 @@ export default async function OnboardingPage() {
   })
 
   // Transform to format expected by FieldSelector
-  const fieldsForSelector = fields.map((field) => ({
-    id: field.id,
-    name: field.name,
-    icon: field.iconName || '📚' // Fallback icon if not set
-  }))
+  const fieldsForSelector = fields.map(
+    (field: { id: string; name: string; iconName: string | null }) => ({
+      id: field.id,
+      name: field.name,
+      icon: field.iconName || '📚' // Fallback icon if not set
+    })
+  )
 
   return (
     <div className="space-y-6">
