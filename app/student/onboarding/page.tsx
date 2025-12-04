@@ -21,6 +21,17 @@ export default async function OnboardingPage() {
     }
   })
 
+  // Fetch countries from database (single source of truth)
+  const countries = await prisma.country.findMany({
+    orderBy: { name: 'asc' },
+    select: {
+      id: true,
+      name: true,
+      code: true,
+      flagEmoji: true
+    }
+  })
+
   // Transform to format expected by FieldSelector
   const fieldsForSelector = fields.map(
     (field: { id: string; name: string; iconName: string | null }) => ({
@@ -41,7 +52,7 @@ export default async function OnboardingPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <FieldSelectorClient fields={fieldsForSelector} />
+          <FieldSelectorClient fields={fieldsForSelector} countries={countries} />
         </CardContent>
       </Card>
     </div>

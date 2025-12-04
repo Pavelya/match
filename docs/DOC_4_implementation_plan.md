@@ -323,7 +323,7 @@
     - ✓ Data saves to state
   - **Test**: Select fields, verify stored in React state
 
-- [ ] **2.1.1: Fix hardcoded reference data**
+- [x] **2.1.1: Fix hardcoded reference data**
   - **Issue**: Onboarding uses hardcoded MOCK_FIELDS array
   - **Action**: Replace with database query
   - **File**: `app/student/onboarding/page.tsx`
@@ -337,7 +337,7 @@
     - ✓ Icons load from database
   - **Test**: Add field in DB, appears in onboarding
 
-- [ ] **2.1.2: Add icon management to FieldOfStudy**
+- [x] **2.1.2: Add icon management to FieldOfStudy**
   - **Action**: Ensure iconName field is populated
   - **File**: Update seed script
   - **Changes**:
