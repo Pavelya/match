@@ -72,19 +72,28 @@ export function LocationSelector({
               )}
               onClick={() => toggleCountry(country.id)}
             >
-              <CardContent className="flex items-center gap-3 p-4">
-                <div className="text-3xl">{country.flagEmoji}</div>
-                <div className="flex-1">
-                  <h3 className="font-medium">{country.name}</h3>
-                  <p className="text-xs text-muted-foreground">{country.code}</p>
+              <CardContent className="flex items-center gap-4 p-3">
+                {/* Circular flag background */}
+                <div
+                  className={cn(
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
+                    isSelected ? 'bg-primary/10' : 'bg-muted'
+                  )}
+                >
+                  {country.flagEmoji}
                 </div>
+
+                {/* Country name */}
+                <h3 className="flex-1 text-sm font-medium leading-tight">{country.name}</h3>
+
+                {/* Selection indicator */}
                 {isSelected && (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         d="M5 13l4 4L19 7"
                       />
                     </svg>

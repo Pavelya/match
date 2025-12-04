@@ -38,10 +38,6 @@ export function FieldSelector({
     }
   }
 
-  const isFieldDisabled = (fieldId: string) => {
-    return !selectedFields.includes(fieldId) && selectedFields.length >= maxSelection
-  }
-
   const selectionError = selectedFields.length < minSelection
   const selectionCount = selectedFields.length
 
@@ -61,10 +57,11 @@ export function FieldSelector({
         </p>
       </div>
 
+      {/* Fields grid */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {fields.map((field) => {
           const isSelected = selectedFields.includes(field.id)
-          const disabled = isFieldDisabled(field.id)
+          const isDisabled = !isSelected && selectedFields.length >= maxSelection
 
           return (
             <Card
@@ -72,29 +69,32 @@ export function FieldSelector({
               className={cn(
                 'cursor-pointer transition-all hover:shadow-md',
                 isSelected && 'border-primary bg-primary/5',
-                disabled && 'cursor-not-allowed opacity-50'
+                isDisabled && 'cursor-not-allowed opacity-50'
               )}
-              onClick={() => !disabled && toggleField(field.id)}
+              onClick={() => !isDisabled && toggleField(field.id)}
             >
-              <CardContent className="flex items-center gap-3 p-4">
+              <CardContent className="flex items-center gap-4 p-3">
+                {/* Circular icon background */}
                 <div
                   className={cn(
-                    'flex h-10 w-10 items-center justify-center rounded-lg text-2xl',
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
                     isSelected ? 'bg-primary/10' : 'bg-muted'
                   )}
                 >
-                  {field.icon || '📚'}
+                  {field.icon}
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-medium">{field.name}</h3>
-                </div>
+
+                {/* Field name */}
+                <h3 className="flex-1 text-sm font-medium leading-tight">{field.name}</h3>
+
+                {/* Selection indicator */}
                 {isSelected && (
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={3}
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
