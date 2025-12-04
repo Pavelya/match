@@ -311,7 +311,7 @@
   - **Acceptance**: ✓ Routes accessible after login
   - **Test**: Navigate to `/student/onboarding`
 
-- [ ] **Build Step 1: Fields of Study selection**
+- [x] **Build Step 1: Fields of Study selection**
   - **Component**: `components/student/FieldSelector.tsx`
   - **Features**: 
     - Multi-select fields
@@ -322,6 +322,35 @@
     - ✓ Icons display
     - ✓ Data saves to state
   - **Test**: Select fields, verify stored in React state
+
+- [ ] **2.1.1: Fix hardcoded reference data**
+  - **Issue**: Onboarding uses hardcoded MOCK_FIELDS array
+  - **Action**: Replace with database query
+  - **File**: `app/student/onboarding/page.tsx`
+  - **Changes**:
+    - Convert to server component or use server action
+    - Query `FieldOfStudy` from Prisma
+    - Pass real data to FieldSelector
+  - **Acceptance**:
+    - ✓ Fetches from database
+    - ✓ No hardcoded values
+    - ✓ Icons load from database
+  - **Test**: Add field in DB, appears in onboarding
+
+- [ ] **2.1.2: Add icon management to FieldOfStudy**
+  - **Action**: Ensure iconName field is populated
+  - **File**: Update seed script
+  - **Changes**:
+    - Add/update `iconName` (emoji) for each field in seed
+    - Ensure seed data has all 10 fields with icons
+  - **Seed Data Example**:
+    ```typescript
+    { name: "Engineering", iconName: "⚙️" },
+    { name: "Medicine & Health", iconName: "🏥" },
+    { name: "Computer Science", iconName: "💻" }
+    ```
+  - **Acceptance**: ✓ All seeded fields have iconName
+  - **Test**: Query FieldOfStudy, all have iconName populated
 
 - [ ] **Build Step 2: Location preferences**
   - **Component**: `components/student/LocationSelector.tsx`
@@ -445,6 +474,8 @@
 
 ### 2.3 Algolia Search Setup
 
+**Note**: Reference data (Fields, Countries, IB Courses) are included as **nested objects** in indices, not separate indices. This ensures consistency with database.
+
 - [ ] **Create Algolia account and indexes**
   - **Action**: Create Algolia app, create indexes
   - **Indexes**: 
@@ -477,6 +508,29 @@
   - **Action**: Bulk upload sample programs (50+)
   - **Acceptance**: ✓ All programs indexed
   - **Test**: Search in Algolia dashboard
+
+- [ ] **Implement reference data sync to Algolia**
+  - **Issue**: When Fields/Countries/Courses change, Algolia must re-index
+  - **File**: `lib/algolia/reference-sync.ts`
+  - **Functions**:
+    - `syncFieldOfStudyUpdate(fieldId)` - Re-index all programs with this field
+    - `syncCountryUpdate(countryId)` - Re-index all universities/programs in this country
+    - `syncCourseUpdate(courseId)` - Re-index all programs with this course requirement
+  - **Trigger Points**:
+    - Admin edits FieldOfStudy → Trigger sync
+    - Admin edits Country → Trigger sync
+    - Admin edits IBCourse → Trigger sync
+  - **Strategy**:
+    - Find all affected records (programs, students)
+    - Update nested reference data in Algolia
+    - Batch update for efficiency
+  - **Acceptance**:
+    - ✓ Changing field name updates all Algolia records
+    - ✓ Changes appear in search results immediately
+  - **Test**: 
+    - Edit \"Engineering\" → \"Engineering & Technology\"
+    - Search in Algolia → See new name
+    - Check student profiles → Updated
 
 ### 2.4 Student Recommendation Page
 
@@ -603,9 +657,43 @@
   - **Files**: 
     - `app/admin/dashboard/page.tsx`
     - `app/admin/layout.tsx`
+    - `app/admin/reference-data/page.tsx` (for task 3.1.1)
   - **Middleware**: Protect with admin role check
   - **Acceptance**: ✓ Only admins can access
   - **Test**: Login as non-admin → 403 error
+
+- [ ] **3.1.1: Create Admin Interface for Reference Data Management**
+  - **Priority**: HIGH - Enables single source of truth management
+  - **File**: `app/admin/reference-data/page.tsx`
+  - **Features**:
+    - **Fields of Study**: CRUD interface
+      - Add/Edit/Delete fields
+      - Set name and iconName (emoji picker)
+      - Bulk import from JSON/CSV
+    - **Countries**: CRUD interface
+      - Add/Edit/Delete countries
+      - Set name, code (ISO), flagEmoji
+      - Bulk import
+    - **IB Courses**: CRUD interface
+      - Add/Edit/Delete courses
+      - Set name, code, group (1-6)
+      - Bulk import
+  - **Components**:
+    - `components/admin/reference/FieldManagement.tsx`
+    - `components/admin/reference/CountryManagement.tsx`
+    - `components/admin/reference/CourseManagement.tsx`
+  - **API Routes**:
+    - `app/api/admin/reference/fields/route.ts`
+    - `app/api/admin/reference/countries/route.ts`
+    - `app/api/admin/reference/courses/route.ts`
+  - **Acceptance**:
+    - ✓ Can create/edit/delete all reference data
+    - ✓ Changes immediately affect student onboarding
+    - ✓ Bulk import works for all three types
+  - **Test**: 
+    - Add new field → Student sees it in onboarding
+    - Edit country name → Appears in location selector
+    - Delete course → No longer in course selection
 
 - [ ] **Build admin navigation**
   - **Component**: `components/admin/AdminSidebar.tsx`
