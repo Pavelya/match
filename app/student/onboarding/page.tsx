@@ -32,6 +32,17 @@ export default async function OnboardingPage() {
     }
   })
 
+  // Fetch IB courses from database (single source of truth)
+  const ibCourses = await prisma.iBCourse.findMany({
+    orderBy: [{ group: 'asc' }, { name: 'asc' }],
+    select: {
+      id: true,
+      name: true,
+      code: true,
+      group: true
+    }
+  })
+
   // Transform to format expected by FieldSelector
   const fieldsForSelector = fields.map(
     (field: { id: string; name: string; iconName: string | null }) => ({
@@ -52,7 +63,11 @@ export default async function OnboardingPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <FieldSelectorClient fields={fieldsForSelector} countries={countries} />
+          <FieldSelectorClient
+            fields={fieldsForSelector}
+            countries={countries}
+            courses={ibCourses}
+          />
         </CardContent>
       </Card>
     </div>
