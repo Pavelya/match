@@ -21,18 +21,12 @@ export function StepIndicator({ steps, currentStep, className }: StepIndicatorPr
 
   return (
     <div className={cn('w-full space-y-6', className)}>
-      {/* Top indicator with step count */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Update Your Profile</h1>
-          <p className="text-sm text-muted-foreground">
-            Tell us about your academic interests and scores to find the best program matches.
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-sm font-medium text-muted-foreground">Step {currentStep}</p>
-          <p className="text-sm text-muted-foreground">of {totalSteps}</p>
-        </div>
+      {/* Top heading */}
+      <div>
+        <h1 className="text-2xl font-bold">Update Your Profile</h1>
+        <p className="text-sm text-muted-foreground">
+          Tell us about your academic interests and scores to find the best program matches.
+        </p>
       </div>
 
       {/* Progress bar */}
