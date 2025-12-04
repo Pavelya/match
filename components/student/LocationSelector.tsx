@@ -84,7 +84,7 @@ export function LocationSelector({
                 </div>
 
                 {/* Country name */}
-                <h3 className="flex-1 text-sm font-medium leading-tight">{country.name}</h3>
+                <h3 className="flex-1 font-medium leading-tight">{country.name}</h3>
 
                 {/* Selection indicator */}
                 {isSelected && (
