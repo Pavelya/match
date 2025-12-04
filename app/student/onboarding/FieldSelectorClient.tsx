@@ -28,9 +28,10 @@ interface IBCourse {
 }
 
 interface CourseSelection {
-  courseId: string | null
-  level: 'HL' | 'SL' | null
-  grade: number | null
+  courseId: string
+  courseName: string
+  level: 'HL' | 'SL'
+  grade: number
 }
 
 interface FieldSelectorClientProps {
@@ -47,9 +48,7 @@ export function FieldSelectorClient({ fields, countries, courses }: FieldSelecto
   const [tokGrade, setTokGrade] = useState<string | null>(null)
   const [eeGrade, setEeGrade] = useState<string | null>(null)
   const [useDetailedGrades, setUseDetailedGrades] = useState(false)
-  const [courseSelections, setCourseSelections] = useState<CourseSelection[]>(
-    Array(6).fill({ courseId: null, level: null, grade: null })
-  )
+  const [courseSelections, setCourseSelections] = useState<CourseSelection[]>([])
 
   const handleContinueFromFields = () => {
     if (selectedFields.length >= 3 && selectedFields.length <= 5) {
@@ -101,10 +100,7 @@ export function FieldSelectorClient({ fields, countries, courses }: FieldSelecto
 
   const canContinueFromFields = selectedFields.length >= 3 && selectedFields.length <= 5
   const canContinueFromQuickScore = totalPoints !== null && tokGrade !== null && eeGrade !== null
-  const canContinueFromDetailedGrades =
-    courseSelections.every((sel) => sel.courseId && sel.level && sel.grade !== null) &&
-    tokGrade &&
-    eeGrade
+  const canContinueFromDetailedGrades = courseSelections.length === 6 && tokGrade && eeGrade
 
   return (
     <>

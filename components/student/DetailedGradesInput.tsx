@@ -1,18 +1,12 @@
 'use client'
 
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { SubjectSelectorDialog } from './SubjectSelectorDialog'
+import { X } from 'lucide-react'
 
 const GRADE_OPTIONS = ['A', 'B', 'C', 'D', 'E'] as const
-const LEVEL_OPTIONS = ['HL', 'SL'] as const
-const SUBJECT_GRADES = [7, 6, 5, 4, 3, 2, 1] as const
 
 interface IBCourse {
   id: string
@@ -22,9 +16,10 @@ interface IBCourse {
 }
 
 interface CourseSelection {
-  courseId: string | null
-  level: 'HL' | 'SL' | null
-  grade: number | null
+  courseId: string
+  courseName: string
+  level: 'HL' | 'SL'
+  grade: number
 }
 
 interface DetailedGradesInputProps {
@@ -46,10 +41,16 @@ export function DetailedGradesInput({
   eeGrade,
   onSelectionsChange
 }: DetailedGradesInputProps) {
-  const updateSelection = (index: number, updates: Partial<CourseSelection>) => {
-    const newSelections = [...selections]
-    newSelections[index] = { ...newSelections[index], ...updates }
-    onSelectionsChange(newSelections, tokGrade, eeGrade)
+  const handleAddSubject = (newSelection: CourseSelection) => {
+    onSelectionsChange([...selections, newSelection], tokGrade, eeGrade)
+  }
+
+  const handleRemoveSubject = (courseId: string) => {
+    onSelectionsChange(
+      selections.filter((s) => s.courseId !== courseId),
+      tokGrade,
+      eeGrade
+    )
   }
 
   const handleTokChange = (grade: string) => {
@@ -62,11 +63,9 @@ export function DetailedGradesInput({
 
   // Calculate total points
   const calculateTotal = () => {
-    const subjectPoints = selections.reduce((sum, sel) => {
-      return sum + (sel.grade || 0)
-    }, 0)
+    const subjectPoints = selections.reduce((sum, sel) => sum + sel.grade, 0)
 
-    // TOK/EE bonus points (simplified - in reality it's a matrix)
+    // TOK/EE bonus points (simplified - actual IB matrix is more complex)
     let bonusPoints = 0
     if (tokGrade && eeGrade) {
       const tokValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade)
@@ -74,171 +73,147 @@ export function DetailedGradesInput({
       bonusPoints = Math.min(3, Math.max(0, tokValue + eeValue - 6))
     }
 
-    return subjectPoints + bonusPoints
+    return { subjectPoints, bonusPoints, total: subjectPoints + bonusPoints }
   }
 
-  const totalPoints = calculateTotal()
-  const isComplete =
-    selections.every((sel) => sel.courseId && sel.level && sel.grade !== null) &&
-    tokGrade &&
-    eeGrade
-
-  // Get selected course IDs to avoid duplicates
-  const selectedCourseIds = selections.map((s) => s.courseId).filter(Boolean)
+  const { subjectPoints, bonusPoints, total } = calculateTotal()
+  const isComplete = selections.length === 6 && tokGrade && eeGrade
 
   return (
     <div className="space-y-6">
-      {/* Subject Selections */}
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label className="text-base font-semibold">IB Subjects</Label>
-          <p className="text-sm text-muted-foreground">
-            Select 6 subjects with their levels (HL/SL) and predicted grades
-          </p>
-        </div>
-
-        {selections.map((selection, index) => (
-          <div key={index} className="grid gap-3 sm:grid-cols-3">
-            {/* Course Selector */}
-            <Select
-              value={selection.courseId || ''}
-              onValueChange={(value) => updateSelection(index, { courseId: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder={`Subject ${index + 1}`} />
-              </SelectTrigger>
-              <SelectContent>
-                {courses.map((course) => (
-                  <SelectItem
-                    key={course.id}
-                    value={course.id}
-                    disabled={
-                      selectedCourseIds.includes(course.id) && selection.courseId !== course.id
-                    }
-                  >
-                    {course.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            {/* Level Selector */}
-            <Select
-              value={selection.level || ''}
-              onValueChange={(value) => updateSelection(index, { level: value as 'HL' | 'SL' })}
-              disabled={!selection.courseId}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Level" />
-              </SelectTrigger>
-              <SelectContent>
-                {LEVEL_OPTIONS.map((level) => (
-                  <SelectItem key={level} value={level}>
-                    {level}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            {/* Grade Selector */}
-            <Select
-              value={selection.grade?.toString() || ''}
-              onValueChange={(value) => updateSelection(index, { grade: parseInt(value, 10) })}
-              disabled={!selection.courseId}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Grade" />
-              </SelectTrigger>
-              <SelectContent>
-                {SUBJECT_GRADES.map((grade) => (
-                  <SelectItem key={grade} value={grade.toString()}>
-                    {grade}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      {/* Total Points Display */}
+      <div className="rounded-lg bg-primary/10 p-6">
+        <div className="flex items-baseline justify-between">
+          <div>
+            <p className="text-sm font-medium text-muted-foreground">Total Points</p>
+            <p className="text-xs text-muted-foreground">Based on subjects & bonus points</p>
           </div>
-        ))}
-      </div>
-
-      {/* TOK Grade */}
-      <div className="space-y-3">
-        <Label className="text-base font-semibold">Theory of Knowledge (TOK) Grade</Label>
-        <div className="flex gap-2">
-          {GRADE_OPTIONS.map((grade) => (
-            <button
-              key={grade}
-              onClick={() => handleTokChange(grade)}
-              className={cn(
-                'flex h-12 w-12 items-center justify-center rounded-lg border-2 font-semibold transition-all',
-                tokGrade === grade
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
-              )}
-            >
-              {grade}
-            </button>
-          ))}
+          <p className="text-5xl font-bold text-primary">{total}</p>
         </div>
       </div>
 
-      {/* EE Grade */}
+      {/* Selected Subjects */}
       <div className="space-y-3">
-        <Label className="text-base font-semibold">Extended Essay (EE) Grade</Label>
-        <div className="flex gap-2">
-          {GRADE_OPTIONS.map((grade) => (
-            <button
-              key={grade}
-              onClick={() => handleEeChange(grade)}
-              className={cn(
-                'flex h-12 w-12 items-center justify-center rounded-lg border-2 font-semibold transition-all',
-                eeGrade === grade
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
-              )}
-            >
-              {grade}
-            </button>
-          ))}
+        <div className="flex items-center justify-between">
+          <Label className="text-base font-semibold">Your Selected Subjects</Label>
+          <span className="text-sm font-medium text-primary">
+            {selections.length} subject{selections.length !== 1 ? 's' : ''} selected
+          </span>
+        </div>
+
+        {selections.length > 0 && (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {selections.map((selection) => (
+              <div
+                key={selection.courseId}
+                className="relative rounded-lg border-2 border-muted bg-card p-4"
+              >
+                <button
+                  onClick={() => handleRemoveSubject(selection.courseId)}
+                  className="absolute right-2 top-2 rounded-full p-1 hover:bg-destructive/10 hover:text-destructive"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+                <h3 className="pr-8 font-medium">{selection.courseName}</h3>
+                <div className="mt-2 flex gap-2">
+                  <Badge variant={selection.level === 'HL' ? 'default' : 'secondary'}>
+                    {selection.level}
+                  </Badge>
+                  <Badge variant="outline" className="bg-primary/10">
+                    Grade: {selection.grade}
+                  </Badge>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <SubjectSelectorDialog
+          courses={courses}
+          existingSelections={selections}
+          onAddSubject={handleAddSubject}
+        />
+      </div>
+
+      {/* Core Components Section */}
+      <div className="space-y-4">
+        <Label className="text-base font-semibold">Core Components</Label>
+
+        {/* Extended Essay */}
+        <div className="rounded-lg border-2 border-muted p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="text-2xl">📝</span>
+            <div>
+              <h3 className="font-semibold">Extended Essay</h3>
+              <p className="text-xs text-muted-foreground">
+                Select your predicted Extended Essay grade
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            {GRADE_OPTIONS.map((grade) => (
+              <button
+                key={grade}
+                onClick={() => handleEeChange(grade)}
+                className={cn(
+                  'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
+                  eeGrade === grade
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
+                )}
+              >
+                {grade}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Theory of Knowledge */}
+        <div className="rounded-lg border-2 border-muted p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="text-2xl">💡</span>
+            <div>
+              <h3 className="font-semibold">Theory of Knowledge</h3>
+              <p className="text-xs text-muted-foreground">Select your predicted TOK grade</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            {GRADE_OPTIONS.map((grade) => (
+              <button
+                key={grade}
+                onClick={() => handleTokChange(grade)}
+                className={cn(
+                  'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
+                  tokGrade === grade
+                    ? 'border-primary bg-primary text-primary-foreground'
+                    : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
+                )}
+              >
+                {grade}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Total Score Display */}
+      {/* IB Diploma Score Summary */}
       {isComplete && (
-        <div className="rounded-lg bg-muted p-4">
-          <p className="text-sm font-medium">
-            Total Predicted Score:{' '}
-            <span className="text-2xl font-bold text-primary">{totalPoints}/45</span>
-          </p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Subject points:{' '}
-            {totalPoints -
-              (tokGrade && eeGrade
-                ? Math.min(
-                    3,
-                    Math.max(
-                      0,
-                      5 -
-                        ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade) +
-                        (5 - ['A', 'B', 'C', 'D', 'E'].indexOf(eeGrade)) -
-                        6
-                    )
-                  )
-                : 0)}{' '}
-            + TOK/EE bonus:{' '}
-            {tokGrade && eeGrade
-              ? Math.min(
-                  3,
-                  Math.max(
-                    0,
-                    5 -
-                      ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade) +
-                      (5 - ['A', 'B', 'C', 'D', 'E'].indexOf(eeGrade)) -
-                      6
-                  )
-                )
-              : 0}
-          </p>
+        <div className="rounded-lg bg-muted p-6">
+          <h3 className="mb-4 font-semibold">IB Diploma Score Summary</h3>
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <p className="text-sm text-muted-foreground">Subject Points:</p>
+              <p className="text-3xl font-bold text-primary">{subjectPoints}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">TOK/EE Bonus:</p>
+              <p className="text-3xl font-bold text-primary">+{bonusPoints}</p>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground">Total IB Score:</p>
+              <p className="text-3xl font-bold text-primary">{total}</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
