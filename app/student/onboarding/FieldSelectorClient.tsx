@@ -66,27 +66,13 @@ export function FieldSelectorClient({ fields, countries, courses }: FieldSelecto
   }
 
   const handleContinueFromQuickScore = () => {
-    // TODO: Save all data to database and navigate to next step
-    // eslint-disable-next-line no-console
-    console.log('Onboarding data (quick):', {
-      selectedFields,
-      selectedCountries,
-      totalPoints,
-      tokGrade,
-      eeGrade
-    })
+    // TODO: Implement API call to save onboarding data to database
+    // Will navigate to /student/matches after save
   }
 
   const handleContinueFromDetailedGrades = () => {
-    // TODO: Save all data to database and navigate to next step
-    // eslint-disable-next-line no-console
-    console.log('Onboarding data (detailed):', {
-      selectedFields,
-      selectedCountries,
-      courseSelections,
-      tokGrade,
-      eeGrade
-    })
+    // TODO: Implement API call to save detailed grades to database
+    // Will navigate to /student/matches after save
   }
 
   const handleScoreChange = (points: number | null, tok: string | null, ee: string | null) => {
