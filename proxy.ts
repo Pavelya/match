@@ -1,41 +1,14 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { logger } from '@/lib/logger'
 
-export default function middleware(request: NextRequest) {
-  const start = Date.now()
+export default function proxy(_request: NextRequest) {
   const requestId = crypto.randomUUID()
-
-  // Log incoming request
-  logger.info(
-    {
-      requestId,
-      method: request.method,
-      url: request.url,
-      userAgent: request.headers.get('user-agent')
-    },
-    'Incoming request'
-  )
-
   const response = NextResponse.next()
   response.headers.set('x-request-id', requestId)
-
-  // Log response
-  const duration = Date.now() - start
-  logger.info(
-    {
-      requestId,
-      method: request.method,
-      url: request.url,
-      duration: `${duration}ms`
-    },
-    'Request completed'
-  )
-
   return response
 }
 
-// Configure which routes to run middleware on
+// Configure which routes to run proxy on
 export const config = {
   matcher: [
     /*
