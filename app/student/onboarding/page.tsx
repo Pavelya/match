@@ -1,8 +1,14 @@
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { FieldSelectorClient } from './FieldSelectorClient'
+
+const ONBOARDING_STEPS = [
+  { number: 1, label: 'Study Interests' },
+  { number: 2, label: 'Location Preferences' },
+  { number: 3, label: 'Academic Profile' }
+]
 
 export default async function OnboardingPage() {
   // Check authentication
@@ -55,18 +61,12 @@ export default async function OnboardingPage() {
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle>What do you want to study?</CardTitle>
-          <CardDescription>
-            Select 3-5 fields of study you&apos;re interested in. This will help us find the perfect
-            university programs for you.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
+        <CardContent className="space-y-6 pt-6">
           <FieldSelectorClient
             fields={fieldsForSelector}
             countries={countries}
             courses={ibCourses}
+            steps={ONBOARDING_STEPS}
           />
         </CardContent>
       </Card>

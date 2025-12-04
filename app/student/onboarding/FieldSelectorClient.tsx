@@ -6,6 +6,7 @@ import { FieldSelector } from '@/components/student/FieldSelector'
 import { LocationSelector } from '@/components/student/LocationSelector'
 import { QuickScoreInput } from '@/components/student/QuickScoreInput'
 import { DetailedGradesInput } from '@/components/student/DetailedGradesInput'
+import { StepIndicator } from '@/components/ui/step-indicator'
 
 interface Field {
   id: string
@@ -34,13 +35,24 @@ interface CourseSelection {
   grade: number
 }
 
+interface Step {
+  number: number
+  label: string
+}
+
 interface FieldSelectorClientProps {
   fields: Field[]
   countries: Country[]
   courses: IBCourse[]
+  steps: Step[]
 }
 
-export function FieldSelectorClient({ fields, countries, courses }: FieldSelectorClientProps) {
+export function FieldSelectorClient({
+  fields,
+  countries,
+  courses,
+  steps
+}: FieldSelectorClientProps) {
   const [step, setStep] = useState(1)
   const [selectedFields, setSelectedFields] = useState<string[]>([])
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
@@ -104,6 +116,8 @@ export function FieldSelectorClient({ fields, countries, courses }: FieldSelecto
 
   return (
     <>
+      <StepIndicator steps={steps} currentStep={step} className="mb-8" />
+
       {step === 1 && (
         <>
           <FieldSelector
