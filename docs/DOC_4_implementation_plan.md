@@ -384,7 +384,7 @@
     - ✓ Auto-calculates total points
   - **Test**: Fill all fields, see total = 45 max
 
-- [ ] **Save onboarding data to database**
+- [x] **Save onboarding data to database**
   - **API Route**: `app/api/students/profile/route.ts` (POST)
   - **Action**: Create StudentProfile + courses
   - **Acceptance**: 
@@ -393,7 +393,7 @@
     - ✓ Relations linked
   - **Test**: Complete wizard, check DB via Prisma Studio
 
-- [ ] **Redirect to recommendations**
+- [x] **Redirect to recommendations**
   - **Action**: After save, redirect to `/student/matches`
   - **Acceptance**: ✓ Redirect happens automatically
   - **Test**: Complete wizard, land on matches page
