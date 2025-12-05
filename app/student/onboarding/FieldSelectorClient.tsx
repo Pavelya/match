@@ -130,7 +130,7 @@ export function FieldSelectorClient({
 
           <div className="flex justify-end">
             <Button onClick={handleContinueFromFields} disabled={!canContinueFromFields} size="lg">
-              Continue
+              Continue to Countries →
             </Button>
           </div>
         </>
@@ -146,14 +146,14 @@ export function FieldSelectorClient({
 
           <div className="flex justify-between">
             <Button variant="outline" onClick={() => setStep(1)} size="lg">
-              Back
+              ← Back
             </Button>
             <div className="flex gap-2">
               <Button variant="outline" onClick={handleSkipLocations} size="lg">
                 Skip
               </Button>
               <Button onClick={handleContinueFromLocations} size="lg">
-                Continue
+                Continue to Academic Profile →
               </Button>
             </div>
           </div>

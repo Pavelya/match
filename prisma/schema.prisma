@@ -329,9 +329,10 @@ model UniversityAgentProfile {
 // ============================================
 
 model FieldOfStudy {
-  id       String  @id @default(cuid())
-  name     String  @unique
-  iconName String? // Icon identifier for consistent rendering
+  id          String  @id @default(cuid())
+  name        String  @unique
+  iconName    String? // Icon identifier for consistent rendering
+  description String? // Subcategories/examples shown in cards
 
   programs           AcademicProgram[]
   interestedStudents StudentProfile[]

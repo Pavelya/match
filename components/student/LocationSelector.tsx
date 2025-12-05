@@ -59,7 +59,7 @@ export function LocationSelector({
       />
 
       {/* Countries grid */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         {filteredCountries.map((country) => {
           const isSelected = selectedCountries.includes(country.id)
 

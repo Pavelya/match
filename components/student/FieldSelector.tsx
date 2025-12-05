@@ -7,6 +7,7 @@ interface Field {
   id: string
   name: string
   icon?: string
+  description?: string
 }
 
 interface FieldSelectorProps {
@@ -58,7 +59,7 @@ export function FieldSelector({
       </div>
 
       {/* Fields grid */}
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         {fields.map((field) => {
           const isSelected = selectedFields.includes(field.id)
           const isDisabled = !isSelected && selectedFields.length >= maxSelection
@@ -73,7 +74,7 @@ export function FieldSelector({
               )}
               onClick={() => !isDisabled && toggleField(field.id)}
             >
-              <CardContent className="flex items-center gap-4 p-2">
+              <CardContent className="flex items-start gap-4 p-3">
                 {/* Circular icon background */}
                 <div
                   className={cn(
@@ -84,8 +85,15 @@ export function FieldSelector({
                   {field.icon}
                 </div>
 
-                {/* Field name */}
-                <h3 className="flex-1 font-medium leading-tight">{field.name}</h3>
+                {/* Field name and description */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-medium leading-tight">{field.name}</h3>
+                  {field.description && (
+                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                      {field.description}
+                    </p>
+                  )}
+                </div>
 
                 {/* Selection indicator */}
                 {isSelected && (

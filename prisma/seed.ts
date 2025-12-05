@@ -65,23 +65,63 @@ async function main() {
   }
 
   console.log('Seeding fields of study...')
-  const fieldsOfStudy = [
-    { name: 'Business & Economics', iconName: '💼' },
-    { name: 'Engineering', iconName: '⚙️' },
-    { name: 'Medicine & Health', iconName: '🏥' },
-    { name: 'Computer Science', iconName: '💻' },
-    { name: 'Law', iconName: '⚖️' },
-    { name: 'Arts & Humanities', iconName: '🎨' },
-    { name: 'Natural Sciences', iconName: '🔬' },
-    { name: 'Social Sciences', iconName: '👥' },
-    { name: 'Architecture', iconName: '🏛️' },
-    { name: 'Environmental Studies', iconName: '🌱' }
+  const fields = [
+    {
+      name: 'Business & Economics',
+      iconName: '💼',
+      description: 'Finance, Marketing, International Business, Entrepreneurship'
+    },
+    {
+      name: 'Engineering',
+      iconName: '⚙️',
+      description: 'Mechanical, Electrical, Computer Science, Civil Engineering'
+    },
+    {
+      name: 'Medicine & Health',
+      iconName: '🏥',
+      description: 'Medicine, Nursing, Pharmacy, Public Health, Dentistry'
+    },
+    {
+      name: 'Computer Science',
+      iconName: '💻',
+      description: 'Programming, AI, Data Science, Cybersecurity'
+    },
+    {
+      name: 'Law',
+      iconName: '⚖️',
+      description: 'International Law, Corporate Law, Criminal Justice'
+    },
+    {
+      name: 'Arts & Humanities',
+      iconName: '🎨',
+      description: 'Fine Arts, Literature, History, Philosophy, Languages'
+    },
+    {
+      name: 'Natural Sciences',
+      iconName: '🔬',
+      description: 'Biology, Chemistry, Physics, Mathematics, Environmental Science'
+    },
+    {
+      name: 'Social Sciences',
+      iconName: '👥',
+      description: 'Psychology, Sociology, Political Science, Economics'
+    },
+    {
+      name: 'Architecture',
+      iconName: '🏛️',
+      description: 'Architecture, Urban Planning, Interior Design, Landscape'
+    },
+    {
+      name: 'Environmental Studies',
+      iconName: '🌱',
+      description: 'Sustainability, Climate Science, Conservation, Renewable Energy'
+    }
   ]
 
-  for (const field of fieldsOfStudy) {
+  for (const field of fields) {
     await prisma.fieldOfStudy.upsert({
       where: { name: field.name },
-      update: field,
+      update: { iconName: field.iconName, description: field.description },
       create: field
     })
   }
@@ -92,7 +132,7 @@ async function main() {
 
   console.log(`- ${countries.length} countries`)
 
-  console.log(`- ${fieldsOfStudy.length} fields of study`)
+  console.log(`- ${fields.length} fields of study`)
 }
 
 main()

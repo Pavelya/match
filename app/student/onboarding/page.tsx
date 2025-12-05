@@ -23,7 +23,8 @@ export default async function OnboardingPage() {
     select: {
       id: true,
       name: true,
-      iconName: true
+      iconName: true,
+      description: true
     }
   })
 
@@ -51,15 +52,16 @@ export default async function OnboardingPage() {
 
   // Transform to format expected by FieldSelector
   const fieldsForSelector = fields.map(
-    (field: { id: string; name: string; iconName: string | null }) => ({
+    (field: { id: string; name: string; iconName: string | null; description: string | null }) => ({
       id: field.id,
       name: field.name,
-      icon: field.iconName || '📚' // Fallback icon if not set
+      icon: field.iconName || '📚', // Fallback icon if not set
+      description: field.description || ''
     })
   )
 
   return (
-    <div className="w-full space-y-6 px-8">
+    <div className="mx-auto w-full max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
       <Card>
         <CardContent className="space-y-6 pt-6">
           <FieldSelectorClient
