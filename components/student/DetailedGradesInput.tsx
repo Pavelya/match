@@ -139,59 +139,62 @@ export function DetailedGradesInput({
       <div className="space-y-4">
         <Label className="text-base font-semibold">Core Components</Label>
 
-        {/* Extended Essay */}
-        <div className="rounded-lg border-2 border-muted p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="text-2xl">📝</span>
-            <div>
-              <h3 className="font-semibold">Extended Essay</h3>
-              <p className="text-xs text-muted-foreground">
-                Select your predicted Extended Essay grade
-              </p>
+        {/* Grid layout: stacked on mobile, side-by-side on desktop */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {/* Extended Essay */}
+          <div className="rounded-lg border-2 border-muted p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-2xl">📝</span>
+              <div>
+                <h3 className="font-semibold">Extended Essay</h3>
+                <p className="text-xs text-muted-foreground">
+                  Select your predicted Extended Essay grade
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {GRADE_OPTIONS.map((grade) => (
+                <button
+                  key={grade}
+                  onClick={() => handleEeChange(grade)}
+                  className={cn(
+                    'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
+                    eeGrade === grade
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
+                  )}
+                >
+                  {grade}
+                </button>
+              ))}
             </div>
           </div>
-          <div className="flex gap-2">
-            {GRADE_OPTIONS.map((grade) => (
-              <button
-                key={grade}
-                onClick={() => handleEeChange(grade)}
-                className={cn(
-                  'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
-                  eeGrade === grade
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
-                )}
-              >
-                {grade}
-              </button>
-            ))}
-          </div>
-        </div>
 
-        {/* Theory of Knowledge */}
-        <div className="rounded-lg border-2 border-muted p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <span className="text-2xl">💡</span>
-            <div>
-              <h3 className="font-semibold">Theory of Knowledge</h3>
-              <p className="text-xs text-muted-foreground">Select your predicted TOK grade</p>
+          {/* Theory of Knowledge */}
+          <div className="rounded-lg border-2 border-muted p-4">
+            <div className="mb-3 flex items-center gap-2">
+              <span className="text-2xl">💡</span>
+              <div>
+                <h3 className="font-semibold">Theory of Knowledge</h3>
+                <p className="text-xs text-muted-foreground">Select your predicted TOK grade</p>
+              </div>
             </div>
-          </div>
-          <div className="flex gap-2">
-            {GRADE_OPTIONS.map((grade) => (
-              <button
-                key={grade}
-                onClick={() => handleTokChange(grade)}
-                className={cn(
-                  'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
-                  tokGrade === grade
-                    ? 'border-primary bg-primary text-primary-foreground'
-                    : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
-                )}
-              >
-                {grade}
-              </button>
-            ))}
+            <div className="flex gap-2">
+              {GRADE_OPTIONS.map((grade) => (
+                <button
+                  key={grade}
+                  onClick={() => handleTokChange(grade)}
+                  className={cn(
+                    'flex h-12 w-full items-center justify-center rounded-lg border-2 font-semibold transition-all',
+                    tokGrade === grade
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-muted-foreground/20 hover:border-primary/50 hover:bg-muted'
+                  )}
+                >
+                  {grade}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
