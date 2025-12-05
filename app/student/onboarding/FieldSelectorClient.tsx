@@ -59,7 +59,7 @@ export function FieldSelectorClient({
   const [totalPoints, setTotalPoints] = useState<number | null>(null)
   const [tokGrade, setTokGrade] = useState<string | null>(null)
   const [eeGrade, setEeGrade] = useState<string | null>(null)
-  const [useDetailedGrades, setUseDetailedGrades] = useState(false)
+  const [useDetailedGrades, _setUseDetailedGrades] = useState(true) // Default to detailed grades, hide toggle
   const [courseSelections, setCourseSelections] = useState<CourseSelection[]>([])
 
   const handleContinueFromFields = () => {
@@ -72,6 +72,7 @@ export function FieldSelectorClient({
     setStep(3)
   }
 
+  // Quick score handlers - kept for when/if we bring back quick score option
   const handleContinueFromQuickScore = () => {
     // TODO: Implement API call to save onboarding data to database
     // Will navigate to /student/matches after save
@@ -98,16 +99,7 @@ export function FieldSelectorClient({
     setEeGrade(ee)
   }
 
-  const handleSwitchToDetailed = () => {
-    setUseDetailedGrades(true)
-  }
-
-  const handleSwitchToQuick = () => {
-    setUseDetailedGrades(false)
-  }
-
   const canContinueFromFields = selectedFields.length >= 3 && selectedFields.length <= 5
-  const canContinueFromQuickScore = totalPoints !== null && tokGrade !== null && eeGrade !== null
   const canContinueFromDetailedGrades = courseSelections.length === 6 && tokGrade && eeGrade
 
   return (
@@ -151,70 +143,69 @@ export function FieldSelectorClient({
         </>
       )}
 
-      {step === 3 && !useDetailedGrades && (
+      {step === 3 && (
         <>
-          <QuickScoreInput
-            totalPoints={totalPoints}
-            tokGrade={tokGrade}
-            eeGrade={eeGrade}
-            onScoreChange={handleScoreChange}
-          />
-
-          <div className="text-center">
-            <button
-              onClick={handleSwitchToDetailed}
-              className="text-sm text-primary underline hover:no-underline"
-            >
-              Or enter detailed grades instead
-            </button>
+          {/* Grade entry type toggle - HIDDEN but functionality preserved */}
+          {/* 
+          <div className="flex items-center justify-between rounded-lg border p-4">
+            <div>
+              <h3 className="font-semibold">Grade Entry Method</h3>
+              <p className="text-sm text-muted-foreground">
+                {useDetailedGrades
+                  ? 'Enter individual subject grades'
+                  : 'Enter your total IB Diploma score'}
+              </p>
+            </div>
+            <Switch checked={useDetailedGrades} onCheckedChange={setUseDetailedGrades} />
           </div>
+          */}
 
-          <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep(2)} size="lg">
-              Back
-            </Button>
-            <Button
-              onClick={handleContinueFromQuickScore}
-              disabled={!canContinueFromQuickScore}
-              size="lg"
-            >
-              Continue
-            </Button>
-          </div>
-        </>
-      )}
+          {useDetailedGrades ? (
+            <>
+              <DetailedGradesInput
+                courses={courses}
+                selections={courseSelections}
+                tokGrade={tokGrade}
+                eeGrade={eeGrade}
+                onSelectionsChange={handleDetailedGradesChange}
+              />
 
-      {step === 3 && useDetailedGrades && (
-        <>
-          <DetailedGradesInput
-            courses={courses}
-            selections={courseSelections}
-            tokGrade={tokGrade}
-            eeGrade={eeGrade}
-            onSelectionsChange={handleDetailedGradesChange}
-          />
+              <div className="flex justify-between">
+                <Button variant="outline" onClick={() => setStep(2)} size="lg">
+                  ← Back
+                </Button>
+                <Button
+                  onClick={handleContinueFromDetailedGrades}
+                  disabled={!canContinueFromDetailedGrades}
+                  size="lg"
+                >
+                  Complete Profile
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              <QuickScoreInput
+                totalPoints={totalPoints}
+                tokGrade={tokGrade}
+                eeGrade={eeGrade}
+                onScoreChange={handleScoreChange}
+              />
 
-          <div className="text-center">
-            <button
-              onClick={handleSwitchToQuick}
-              className="text-sm text-primary underline hover:no-underline"
-            >
-              Switch to quick score entry
-            </button>
-          </div>
-
-          <div className="flex justify-between">
-            <Button variant="outline" onClick={() => setStep(2)} size="lg">
-              Back
-            </Button>
-            <Button
-              onClick={handleContinueFromDetailedGrades}
-              disabled={!canContinueFromDetailedGrades}
-              size="lg"
-            >
-              Continue
-            </Button>
-          </div>
+              <div className="flex justify-between">
+                <Button variant="outline" onClick={() => setStep(2)} size="lg">
+                  ← Back
+                </Button>
+                <Button
+                  onClick={handleContinueFromQuickScore}
+                  disabled={totalPoints === null}
+                  size="lg"
+                >
+                  Complete Profile
+                </Button>
+              </div>
+            </>
+          )}
         </>
       )}
     </>
