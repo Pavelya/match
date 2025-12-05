@@ -83,10 +83,10 @@ export function DetailedGradesInput({
     <div className="space-y-6">
       {/* Total Points Display */}
       <div className="rounded-lg bg-primary/10 p-6">
-        <div className="flex items-baseline justify-between">
+        <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-muted-foreground">Total Points</p>
-            <p className="text-xs text-muted-foreground">Based on subjects & bonus points</p>
+            <p className="text-lg font-semibold text-foreground">Total Points</p>
+            <p className="text-sm text-muted-foreground">Based on subjects & bonus points</p>
           </div>
           <p className="text-5xl font-bold text-primary">{total}</p>
         </div>
