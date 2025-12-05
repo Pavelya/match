@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
 interface Country {
@@ -23,13 +21,6 @@ export function LocationSelector({
   selectedCountries,
   onSelectionChange
 }: LocationSelectorProps) {
-  const [searchQuery, setSearchQuery] = useState('')
-
-  // Filter countries by search query
-  const filteredCountries = countries.filter((country) =>
-    country.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-
   const toggleCountry = (countryId: string) => {
     const isSelected = selectedCountries.includes(countryId)
 
@@ -49,18 +40,9 @@ export function LocationSelector({
         <p className="text-sm font-medium text-primary">{selectedCountries.length} selected</p>
       </div>
 
-      {/* Search input */}
-      <Input
-        type="text"
-        placeholder="Search countries..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full"
-      />
-
       {/* Countries grid */}
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-        {filteredCountries.map((country) => {
+        {countries.map((country) => {
           const isSelected = selectedCountries.includes(country.id)
 
           return (
@@ -104,12 +86,6 @@ export function LocationSelector({
           )
         })}
       </div>
-
-      {filteredCountries.length === 0 && (
-        <p className="text-center text-sm text-muted-foreground">
-          No countries found matching &quot;{searchQuery}&quot;
-        </p>
-      )}
     </div>
   )
 }
