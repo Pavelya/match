@@ -73,7 +73,7 @@ export function FieldSelector({
               )}
               onClick={() => !isDisabled && toggleField(field.id)}
             >
-              <CardContent className="flex items-center gap-4 p-2.5">
+              <CardContent className="flex items-center gap-4 p-2">
                 {/* Circular icon background */}
                 <div
                   className={cn(

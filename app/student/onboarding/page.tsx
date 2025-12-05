@@ -59,7 +59,7 @@ export default async function OnboardingPage() {
   )
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-6">
+    <div className="w-full space-y-6 px-8">
       <Card>
         <CardContent className="space-y-6 pt-6">
           <FieldSelectorClient
