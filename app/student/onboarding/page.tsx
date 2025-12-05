@@ -49,7 +49,7 @@ export default async function OnboardingPage() {
     id: field.id,
     name: field.name,
     icon: field.iconName || '📚',
-    description: field.description || ''
+    description: field.description ?? ''
   }))
 
   return (
