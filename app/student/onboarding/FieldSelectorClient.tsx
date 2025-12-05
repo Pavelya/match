@@ -72,10 +72,6 @@ export function FieldSelectorClient({
     setStep(3)
   }
 
-  const handleSkipLocations = () => {
-    setStep(3)
-  }
-
   const handleContinueFromQuickScore = () => {
     // TODO: Implement API call to save onboarding data to database
     // Will navigate to /student/matches after save
@@ -148,14 +144,9 @@ export function FieldSelectorClient({
             <Button variant="outline" onClick={() => setStep(1)} size="lg">
               ← Back
             </Button>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={handleSkipLocations} size="lg">
-                Skip
-              </Button>
-              <Button onClick={handleContinueFromLocations} size="lg">
-                Continue to Academic Profile →
-              </Button>
-            </div>
+            <Button onClick={handleContinueFromLocations} size="lg">
+              Continue to Academic Profile →
+            </Button>
           </div>
         </>
       )}
