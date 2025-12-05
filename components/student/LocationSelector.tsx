@@ -72,11 +72,11 @@ export function LocationSelector({
               )}
               onClick={() => toggleCountry(country.id)}
             >
-              <CardContent className="flex items-center gap-4 p-2">
+              <CardContent className="flex items-center gap-3 p-2.5 sm:p-3">
                 {/* Circular flag background */}
                 <div
                   className={cn(
-                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
+                    'flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full text-xl sm:text-2xl shadow-md',
                     isSelected ? 'bg-primary/10' : 'bg-muted'
                   )}
                 >

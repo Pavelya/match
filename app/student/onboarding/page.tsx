@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
-import { Card, CardContent } from '@/components/ui/card'
 import { FieldSelectorClient } from './FieldSelectorClient'
 
 const ONBOARDING_STEPS = [
@@ -54,16 +53,12 @@ export default async function OnboardingPage() {
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
-      <Card>
-        <CardContent className="space-y-6 pt-6">
-          <FieldSelectorClient
-            fields={fieldsForSelector}
-            countries={countries}
-            courses={ibCourses}
-            steps={ONBOARDING_STEPS}
-          />
-        </CardContent>
-      </Card>
+      <FieldSelectorClient
+        fields={fieldsForSelector}
+        countries={countries}
+        courses={ibCourses}
+        steps={ONBOARDING_STEPS}
+      />
     </div>
   )
 }
