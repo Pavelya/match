@@ -19,13 +19,7 @@ export default async function OnboardingPage() {
 
   // Fetch fields of study from database (single source of truth)
   const fields = await prisma.fieldOfStudy.findMany({
-    orderBy: { name: 'asc' },
-    select: {
-      id: true,
-      name: true,
-      iconName: true,
-      description: true
-    }
+    orderBy: { name: 'asc' }
   })
 
   // Fetch countries from database (single source of truth)
@@ -51,14 +45,12 @@ export default async function OnboardingPage() {
   })
 
   // Transform to format expected by FieldSelector
-  const fieldsForSelector = fields.map(
-    (field: { id: string; name: string; iconName: string | null; description: string | null }) => ({
-      id: field.id,
-      name: field.name,
-      icon: field.iconName || '📚', // Fallback icon if not set
-      description: field.description || ''
-    })
-  )
+  const fieldsForSelector = fields.map((field) => ({
+    id: field.id,
+    name: field.name,
+    icon: field.iconName || '📚',
+    description: field.description || ''
+  }))
 
   return (
     <div className="mx-auto w-full max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
