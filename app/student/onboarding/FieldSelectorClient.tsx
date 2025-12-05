@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { FieldSelector } from '@/components/student/FieldSelector'
 import { LocationSelector } from '@/components/student/LocationSelector'
@@ -40,27 +41,46 @@ interface Step {
   label: string
 }
 
+interface InitialData {
+  selectedFields: string[]
+  selectedCountries: string[]
+  courseSelections: CourseSelection[]
+  tokGrade: string | null
+  eeGrade: string | null
+  totalPoints: number | null
+}
+
 interface FieldSelectorClientProps {
   fields: Field[]
   countries: Country[]
   courses: IBCourse[]
   steps: Step[]
+  initialData?: InitialData
 }
 
 export function FieldSelectorClient({
   fields,
   countries,
   courses,
-  steps
+  steps,
+  initialData
 }: FieldSelectorClientProps) {
   const [step, setStep] = useState(1)
-  const [selectedFields, setSelectedFields] = useState<string[]>([])
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [totalPoints, setTotalPoints] = useState<number | null>(null)
-  const [tokGrade, setTokGrade] = useState<string | null>(null)
-  const [eeGrade, setEeGrade] = useState<string | null>(null)
+  const [selectedFields, setSelectedFields] = useState<string[]>(initialData?.selectedFields || [])
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(
+    initialData?.selectedCountries || []
+  )
+  const [totalPoints, setTotalPoints] = useState<number | null>(initialData?.totalPoints || null)
+  const [tokGrade, setTokGrade] = useState<string | null>(initialData?.tokGrade || null)
+  const [eeGrade, setEeGrade] = useState<string | null>(initialData?.eeGrade || null)
   const [useDetailedGrades, _setUseDetailedGrades] = useState(true) // Default to detailed grades, hide toggle
-  const [courseSelections, setCourseSelections] = useState<CourseSelection[]>([])
+  const [courseSelections, setCourseSelections] = useState<CourseSelection[]>(
+    initialData?.courseSelections || []
+  )
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+
+  const router = useRouter()
 
   const handleContinueFromFields = () => {
     if (selectedFields.length >= 3 && selectedFields.length <= 5) {
@@ -72,15 +92,87 @@ export function FieldSelectorClient({
     setStep(3)
   }
 
-  // Quick score handlers - kept for when/if we bring back quick score option
-  const handleContinueFromQuickScore = () => {
-    // TODO: Implement API call to save onboarding data to database
-    // Will navigate to /student/matches after save
+  // Calculate total IB points from course selections
+  const calculateTotalPoints = () => {
+    if (courseSelections.length !== 6 || !tokGrade || !eeGrade) return null
+
+    const subjectPoints = courseSelections.reduce((sum, sel) => sum + sel.grade, 0)
+
+    // TOK/EE bonus points (simplified - actual IB matrix is more complex)
+    const tokValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade)
+    const eeValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(eeGrade)
+    const bonusPoints = Math.min(3, Math.max(0, tokValue + eeValue - 6))
+
+    return subjectPoints + bonusPoints
   }
 
-  const handleContinueFromDetailedGrades = () => {
-    // TODO: Implement API call to save detailed grades to database
-    // Will navigate to /student/matches after save
+  // Quick score handlers - kept for when/if we bring back quick score option
+  const handleContinueFromQuickScore = async () => {
+    if (!totalPoints || !tokGrade || !eeGrade) return
+
+    setIsSaving(true)
+    setSaveError(null)
+
+    try {
+      const response = await fetch('/api/students/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          interestedFields: selectedFields,
+          preferredCountries: selectedCountries,
+          courseSelections: [],
+          tokGrade,
+          eeGrade,
+          totalIBPoints: totalPoints
+        })
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save profile')
+      }
+
+      router.push('/student/matches')
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Failed to save profile')
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleContinueFromDetailedGrades = async () => {
+    if (courseSelections.length !== 6 || !tokGrade || !eeGrade) return
+
+    setIsSaving(true)
+    setSaveError(null)
+
+    try {
+      const totalPoints = calculateTotalPoints()
+
+      const response = await fetch('/api/students/profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          interestedFields: selectedFields,
+          preferredCountries: selectedCountries,
+          courseSelections,
+          tokGrade,
+          eeGrade,
+          totalIBPoints: totalPoints
+        })
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        throw new Error(error.error || 'Failed to save profile')
+      }
+
+      router.push('/student/matches')
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Failed to save profile')
+    } finally {
+      setIsSaving(false)
+    }
   }
 
   const handleScoreChange = (points: number | null, tok: string | null, ee: string | null) => {
@@ -175,16 +267,22 @@ export function FieldSelectorClient({
                 onSelectionsChange={handleDetailedGradesChange}
               />
 
+              {saveError && (
+                <div className="rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+                  {saveError}
+                </div>
+              )}
+
               <div className="flex justify-between">
-                <Button variant="outline" onClick={() => setStep(2)} size="lg">
+                <Button variant="outline" onClick={() => setStep(2)} size="lg" disabled={isSaving}>
                   ← Back
                 </Button>
                 <Button
                   onClick={handleContinueFromDetailedGrades}
-                  disabled={!canContinueFromDetailedGrades}
+                  disabled={!canContinueFromDetailedGrades || isSaving}
                   size="lg"
                 >
-                  Complete Profile
+                  {isSaving ? 'Saving...' : 'Complete Profile'}
                 </Button>
               </div>
             </>
@@ -197,16 +295,22 @@ export function FieldSelectorClient({
                 onScoreChange={handleScoreChange}
               />
 
+              {saveError && (
+                <div className="rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+                  {saveError}
+                </div>
+              )}
+
               <div className="flex justify-between">
-                <Button variant="outline" onClick={() => setStep(2)} size="lg">
+                <Button variant="outline" onClick={() => setStep(2)} size="lg" disabled={isSaving}>
                   ← Back
                 </Button>
                 <Button
                   onClick={handleContinueFromQuickScore}
-                  disabled={totalPoints === null}
+                  disabled={totalPoints === null || isSaving}
                   size="lg"
                 >
-                  Complete Profile
+                  {isSaving ? 'Saving...' : 'Complete Profile'}
                 </Button>
               </div>
             </>

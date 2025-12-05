@@ -43,6 +43,45 @@ export default async function OnboardingPage() {
     }
   })
 
+  // Fetch existing student profile if it exists (for pre-populating form)
+  const existingProfile = session.user
+    ? await prisma.studentProfile.findUnique({
+        where: { userId: session.user.id },
+        include: {
+          preferredFields: {
+            select: { id: true }
+          },
+          preferredCountries: {
+            select: { id: true }
+          },
+          courses: {
+            include: {
+              ibCourse: {
+                select: { id: true, name: true }
+              }
+            }
+          }
+        }
+      })
+    : null
+
+  // Transform existing profile data for client component
+  const initialData = existingProfile
+    ? {
+        selectedFields: existingProfile.preferredFields.map((f) => f.id),
+        selectedCountries: existingProfile.preferredCountries.map((c) => c.id),
+        courseSelections: existingProfile.courses.map((c) => ({
+          courseId: c.ibCourse.id,
+          courseName: c.ibCourse.name,
+          level: c.level as 'HL' | 'SL',
+          grade: c.grade
+        })),
+        tokGrade: existingProfile.tokGrade,
+        eeGrade: existingProfile.eeGrade,
+        totalPoints: existingProfile.totalIBPoints
+      }
+    : undefined
+
   // Transform to format expected by FieldSelector
   const fieldsForSelector = fields.map((field) => ({
     id: field.id,
@@ -58,6 +97,7 @@ export default async function OnboardingPage() {
         countries={countries}
         courses={ibCourses}
         steps={ONBOARDING_STEPS}
+        initialData={initialData}
       />
     </div>
   )

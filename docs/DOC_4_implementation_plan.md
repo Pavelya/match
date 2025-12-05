@@ -352,7 +352,7 @@
   - **Acceptance**: ✓ All seeded fields have iconName
   - **Test**: Query FieldOfStudy, all have iconName populated
 
-- [ ] **Build Step 2: Location preferences**
+- [x] **Build Step 2: Location preferences**
   - **Component**: `components/student/LocationSelector.tsx`
   - **Features**: 
     - Country search with flags
@@ -364,7 +364,7 @@
     - ✓ Can skip step
   - **Test**: Select countries, verify state
 
-- [ ] **Build Step 3a: Quick IB score input**
+- [x] **Build Step 3a: Quick IB score input**
   - **Component**: `components/student/QuickScoreInput.tsx`
   - **Features**: 
     - Number input 1-45
@@ -372,7 +372,7 @@
   - **Acceptance**: ✓ Input validates range
   - **Test**: Enter 42, verify valid; enter 50, see error
 
-- [ ] **Build Step 3b: Detailed grades input**
+- [x] **Build Step 3b: Detailed grades input**
   - **Component**: `components/student/DetailedGradesInput.tsx`
   - **Features**: 
     - 6 subject selectors (HL/SL, Grade 1-7)
