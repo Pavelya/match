@@ -59,7 +59,7 @@ export function LocationSelector({
       />
 
       {/* Countries grid */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
         {filteredCountries.map((country) => {
           const isSelected = selectedCountries.includes(country.id)
 
@@ -72,11 +72,11 @@ export function LocationSelector({
               )}
               onClick={() => toggleCountry(country.id)}
             >
-              <CardContent className="flex items-center gap-3 p-2.5 sm:p-3">
+              <CardContent className="flex flex-col items-center gap-3 p-4 text-center relative">
                 {/* Circular flag background */}
                 <div
                   className={cn(
-                    'flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full text-xl sm:text-2xl shadow-md',
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
                     isSelected ? 'bg-primary/10' : 'bg-muted'
                   )}
                 >
@@ -84,11 +84,11 @@ export function LocationSelector({
                 </div>
 
                 {/* Country name */}
-                <h3 className="flex-1 font-medium leading-tight">{country.name}</h3>
+                <h3 className="font-semibold leading-tight">{country.name}</h3>
 
-                {/* Selection indicator */}
+                {/* Selection indicator - top right */}
                 {isSelected && (
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="absolute right-2 top-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
                     <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"

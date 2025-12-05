@@ -59,7 +59,7 @@ export function FieldSelector({
       </div>
 
       {/* Fields grid */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
         {fields.map((field) => {
           const isSelected = selectedFields.includes(field.id)
           const isDisabled = !isSelected && selectedFields.length >= maxSelection
@@ -68,17 +68,17 @@ export function FieldSelector({
             <Card
               key={field.id}
               className={cn(
-                'cursor-pointer transition-all hover:shadow-md',
+                'relative cursor-pointer transition-all hover:shadow-md',
                 isSelected && 'border-primary bg-primary/5',
                 isDisabled && 'cursor-not-allowed opacity-50'
               )}
               onClick={() => !isDisabled && toggleField(field.id)}
             >
-              <CardContent className="flex items-start gap-3 p-2.5 sm:p-3">
+              <CardContent className="flex flex-col items-center gap-3 p-4 text-center">
                 {/* Circular icon background */}
                 <div
                   className={cn(
-                    'flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full text-xl sm:text-2xl shadow-md',
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
                     isSelected ? 'bg-primary/10' : 'bg-muted'
                   )}
                 >
@@ -86,18 +86,18 @@ export function FieldSelector({
                 </div>
 
                 {/* Field name and description */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-medium leading-tight">{field.name}</h3>
+                <div className="w-full space-y-1">
+                  <h3 className="font-semibold leading-tight">{field.name}</h3>
                   {field.description && (
-                    <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+                    <p className="text-xs text-muted-foreground line-clamp-2">
                       {field.description}
                     </p>
                   )}
                 </div>
 
-                {/* Selection indicator */}
+                {/* Selection indicator - top right */}
                 {isSelected && (
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="absolute right-2 top-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
                     <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         strokeLinecap="round"
