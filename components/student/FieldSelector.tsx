@@ -59,7 +59,7 @@ export function FieldSelector({
       </div>
 
       {/* Fields grid */}
-      <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {fields.map((field) => {
           const isSelected = selectedFields.includes(field.id)
           const isDisabled = !isSelected && selectedFields.length >= maxSelection
