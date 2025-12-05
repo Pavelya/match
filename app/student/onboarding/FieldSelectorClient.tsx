@@ -145,7 +145,7 @@ export function FieldSelectorClient({
               ← Back
             </Button>
             <Button onClick={handleContinueFromLocations} size="lg">
-              Next Step →
+              Continue to Scores →
             </Button>
           </div>
         </>
