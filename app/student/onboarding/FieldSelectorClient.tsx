@@ -145,7 +145,7 @@ export function FieldSelectorClient({
               ← Back
             </Button>
             <Button onClick={handleContinueFromLocations} size="lg">
-              Continue to Academic Profile →
+              Next Step →
             </Button>
           </div>
         </>
