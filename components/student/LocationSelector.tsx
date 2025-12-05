@@ -44,7 +44,7 @@ export function LocationSelector({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          Select countries you&apos;d like to study in (optional)
+          Select countries you&apos;d like to study in
         </p>
         <p className="text-sm font-medium text-primary">{selectedCountries.length} selected</p>
       </div>
