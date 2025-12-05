@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { FieldSelector } from '@/components/student/FieldSelector'
 import { LocationSelector } from '@/components/student/LocationSelector'
@@ -101,6 +101,11 @@ export function FieldSelectorClient({
 
   const canContinueFromFields = selectedFields.length >= 3 && selectedFields.length <= 5
   const canContinueFromDetailedGrades = courseSelections.length === 6 && tokGrade && eeGrade
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [step])
 
   return (
     <>
