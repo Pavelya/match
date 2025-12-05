@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 
 interface CourseSelection {
   courseId: string
@@ -94,8 +95,13 @@ export async function POST(request: NextRequest) {
       profileId: profile.id
     })
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Error saving student profile:', error)
+    logger.error(
+      {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      },
+      'Failed to save student profile'
+    )
     return NextResponse.json(
       { error: 'Failed to save profile. Please try again.' },
       { status: 500 }
