@@ -29,20 +29,20 @@ interface ProgramCardProps {
     name: string
     university: {
       name: string
-      abbreviation?: string
+      abbreviation?: string | null
     }
     country: {
       name: string
       code: string
-      flagEmoji?: string
+      flagEmoji?: string | null
     }
     fieldOfStudy: {
       name: string
-      iconName?: string
+      iconName?: string | null
     }
     degreeType: string
     duration: string
-    minIBPoints?: number
+    minIBPoints?: number | null
   }
   matchResult?: MatchResult
   isSaved?: boolean

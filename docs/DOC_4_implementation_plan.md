@@ -559,16 +559,19 @@
   - **Acceptance**: ✓ All data displays, reusable across pages ✅
   - **Test**: Render with mock data
 
-- [ ] **Build recommendation page**
-  - **File**: `app/student/matches/page.tsx`
-  - **Features**: 
-    - Fetch matches on load
-    - Display top 10 ProgramCards
-    - Loading state
-    - Empty state
-  - **Acceptance**: 
-    - ✓ Matches display
-    - ✓ Sorted by score
+- [x] **Build recommendation page**
+  - **File**: `app/student/recommendations/page.tsx` ✅
+  - **Features**: ✅
+    - Fetch matches on load from API
+    - Display top 15 ProgramCards with scores
+    - Loading state with spinner
+    - Error state with retry
+    - Empty state if no matches
+    - Refresh recommendations button
+  - **Acceptance**: ✅
+    - ✓ Matches display with scores
+    - ✓ Sorted by score (API handles)
+    - ✓ Program data inline (no separate fetches)
   - **Test**: Login, complete profile, see matches
 
 - [ ] **Add match breakdown modal**

@@ -95,11 +95,41 @@ export async function GET() {
       topScore: matches[0]?.overallScore
     })
 
-    // Return top 15 matches
+    // Return top 15 matches with full program data
     const topMatches = matches.slice(0, 15)
 
+    // Enrich matches with full program data
+    const enrichedMatches = topMatches.map((match) => {
+      const program = programs.find((p) => p.id === match.programId)
+      return {
+        ...match,
+        program: program
+          ? {
+              id: program.id,
+              name: program.name,
+              university: {
+                name: program.university.name,
+                abbreviation: program.university.abbreviatedName
+              },
+              country: {
+                name: program.university.country.name,
+                code: program.university.country.code,
+                flagEmoji: program.university.country.flagEmoji
+              },
+              fieldOfStudy: {
+                name: program.fieldOfStudy.name,
+                iconName: program.fieldOfStudy.iconName
+              },
+              degreeType: program.degreeType,
+              duration: program.duration,
+              minIBPoints: program.minIBPoints
+            }
+          : null
+      }
+    })
+
     return NextResponse.json({
-      matches: topMatches,
+      matches: enrichedMatches,
       studentId,
       totalMatches: matches.length,
       returnedCount: topMatches.length
