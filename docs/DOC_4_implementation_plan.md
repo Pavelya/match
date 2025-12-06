@@ -534,17 +534,17 @@
 
 ### 2.4 Student Recommendation Page
 
-- [ ] **Create matches API route**
-  - **File**: `app/api/students/matches/route.ts` (GET)
-  - **Logic**: 
+- [x] **Create matches API route**
+  - **File**: `app/api/students/matches/route.ts` (GET) ✅
+  - **Logic**: ✅
     - Get student profile
     - Fetch all programs
     - Run matching algorithm
-    - Return top 10
-  - **Acceptance**: 
+    - Return top 15
+  - **Acceptance**: ✅
     - ✓ Returns sorted matches
     - ✓ Uses cache
-  - **Test**: GET request returns top 10 with scores
+  - **Test**: GET request returns top 15 with scores
 
 - [ ] **Build ProgramCard component**
   - **File**: `components/student/ProgramCard.tsx`
