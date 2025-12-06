@@ -546,16 +546,17 @@
     - ✓ Uses cache
   - **Test**: GET request returns top 15 with scores
 
-- [ ] **Build ProgramCard component**
-  - **File**: `components/student/ProgramCard.tsx`
-  - **Props**: program, matchScore, breakdown
-  - **Features**: 
-    - University logo
-    - Match percentage
-    - Location with flag
-    - Field icon
-    - "Save" button
-  - **Acceptance**: ✓ All data displays
+- [x] **Build ProgramCard component**
+  - **File**: `components/student/ProgramCard.tsx` ✅
+  - **Props**: program, matchResult, isSaved, onSave, onUnsave, showMatchDetails ✅
+  - **Features**: ✅
+    - Match score with color-coded badge
+    - University name with location and flag
+    - Field icon and name
+    - Program details (degree, duration, IB points)
+    - Save/unsave button
+    - Expandable match breakdown
+  - **Acceptance**: ✓ All data displays, reusable across pages ✅
   - **Test**: Render with mock data
 
 - [ ] **Build recommendation page**
