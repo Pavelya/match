@@ -574,14 +574,16 @@
     - ✓ Program data inline (no separate fetches)
   - **Test**: Login, complete profile, see matches
 
-- [ ] **Add match breakdown modal**
-  - **Component**: `components/student/MatchBreakdown.tsx`
-  - **Features**: 
-    - Detailed score explanation
-    - Academic/Location/Field breakdown
-    - Course requirements check
-  - **Acceptance**: ✓ All details shown
-  - **Test**: Click "See details" → modal opens
+- [x] **Add match breakdown modal**
+  - **Component**: `components/student/MatchBreakdown.tsx` ✅
+  - **Features**: ✅
+    - Detailed score explanation with visual progress bars
+    - Academic/Location/Field breakdown with icons
+    - Course requirements check with status indicators
+    - Weighting display
+    - Score adjustments (caps/penalties)
+  - **Acceptance**: ✓ All details shown with visuals ✅
+  - **Test**: Click card → expand → click "View Detailed Breakdown" → modal opens
 
 ### 2.5 Program Search Page
 

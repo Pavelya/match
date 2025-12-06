@@ -11,6 +11,7 @@
  * - Academic requirements display
  * - Save/unsave functionality
  * - Expandable match breakdown
+ * - Detailed modal breakdown
  */
 
 'use client'
@@ -19,9 +20,10 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Bookmark, MapPin, Globe, GraduationCap } from 'lucide-react'
+import { Bookmark, MapPin, Globe, GraduationCap, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult } from '@/lib/matching/types'
+import { MatchBreakdown } from './MatchBreakdown'
 
 interface ProgramCardProps {
   program: {
@@ -73,6 +75,7 @@ export function ProgramCard({
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
   const [showBreakdown, setShowBreakdown] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const handleSaveToggle = () => {
     if (saved) {
@@ -88,121 +91,138 @@ export function ProgramCard({
   const matchPercentage = matchScore ? Math.round(matchScore * 100) : null
 
   return (
-    <Card
-      className={cn(
-        'transition-all hover:shadow-md hover:border-primary/50',
-        showMatchDetails && 'cursor-pointer',
-        className
-      )}
-      onClick={showMatchDetails ? () => setShowBreakdown(!showBreakdown) : undefined}
-    >
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 space-y-1">
-            <CardTitle className="text-xl font-bold">{program.name}</CardTitle>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="font-medium">
-                {program.university.abbreviation || program.university.name}
-              </span>
-              {matchPercentage !== null && (
-                <Badge className={cn('font-semibold border', getMatchScoreColor(matchScore!))}>
-                  {matchPercentage}% Match
-                </Badge>
-              )}
-            </div>
-          </div>
-
-          {/* Save button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={(e) => {
-              e.stopPropagation()
-              handleSaveToggle()
-            }}
-            className="shrink-0"
-            aria-label={saved ? 'Unsave program' : 'Save program'}
-          >
-            <Bookmark className={cn('h-5 w-5', saved && 'fill-current text-primary')} />
-          </Button>
-        </div>
-      </CardHeader>
-
-      <CardContent className="space-y-3">
-        {/* Location */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <MapPin className="h-4 w-4 shrink-0" />
-          <span className="flex items-center gap-1.5">
-            {program.country.flagEmoji && (
-              <span className="text-base">{program.country.flagEmoji}</span>
-            )}
-            {program.country.name}
-          </span>
-        </div>
-
-        {/* Field of Study */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Globe className="h-4 w-4 shrink-0" />
-          <span className="flex items-center gap-1.5">
-            {program.fieldOfStudy.iconName && (
-              <span className="text-base">{program.fieldOfStudy.iconName}</span>
-            )}
-            {program.fieldOfStudy.name}
-          </span>
-        </div>
-
-        {/* Program Details */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <GraduationCap className="h-4 w-4 shrink-0" />
-          <span>
-            {program.degreeType} • {program.duration}
-            {program.minIBPoints && ` • ${program.minIBPoints}+ IB Points`}
-          </span>
-        </div>
-
-        {/* Match Breakdown (expandable) */}
-        {showMatchDetails && matchResult && showBreakdown && (
-          <div className="mt-4 space-y-3 rounded-lg border bg-muted/50 p-4">
-            <div className="font-semibold text-sm">Match Breakdown</div>
-
-            <div className="space-y-2">
-              {/* Academic Match */}
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Academic:</span>
-                <span className="font-medium">
-                  {Math.round(matchResult.academicMatch.score * 100)}%
-                </span>
-              </div>
-
-              {/* Field Match */}
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Field:</span>
-                <span className="font-medium">
-                  {Math.round(matchResult.fieldMatch.score * 100)}%
-                </span>
-              </div>
-
-              {/* Location Match */}
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Location:</span>
-                <span className="font-medium">
-                  {Math.round(matchResult.locationMatch.score * 100)}%
-                </span>
-              </div>
-
-              {/* Adjustments if any */}
-              {matchResult.adjustments.caps &&
-                Object.keys(matchResult.adjustments.caps).length > 0 && (
-                  <div className="pt-2 mt-2 border-t">
-                    <div className="text-xs text-muted-foreground">
-                      Note: Score adjusted for requirements
-                    </div>
-                  </div>
-                )}
-            </div>
-          </div>
+    <>
+      <Card
+        className={cn(
+          'transition-all hover:shadow-md hover:border-primary/50',
+          showMatchDetails && 'cursor-pointer',
+          className
         )}
-      </CardContent>
-    </Card>
+        onClick={showMatchDetails ? () => setShowBreakdown(!showBreakdown) : undefined}
+      >
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 space-y-1">
+              <CardTitle className="text-xl font-bold">{program.name}</CardTitle>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span className="font-medium">
+                  {program.university.abbreviation || program.university.name}
+                </span>
+                {matchPercentage !== null && (
+                  <Badge className={cn('font-semibold border', getMatchScoreColor(matchScore!))}>
+                    {matchPercentage}% Match
+                  </Badge>
+                )}
+              </div>
+            </div>
+
+            {/* Save button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={(e) => {
+                e.stopPropagation()
+                handleSaveToggle()
+              }}
+              className="shrink-0"
+              aria-label={saved ? 'Unsave program' : 'Save program'}
+            >
+              <Bookmark className={cn('h-5 w-5', saved && 'fill-current text-primary')} />
+            </Button>
+          </div>
+        </CardHeader>
+
+        <CardContent className="space-y-3">
+          {/* Location */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <MapPin className="h-4 w-4 shrink-0" />
+            <span className="flex items-center gap-1.5">
+              {program.country.flagEmoji && (
+                <span className="text-base">{program.country.flagEmoji}</span>
+              )}
+              {program.country.name}
+            </span>
+          </div>
+
+          {/* Field of Study */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Globe className="h-4 w-4 shrink-0" />
+            <span className="flex items-center gap-1.5">
+              {program.fieldOfStudy.iconName && (
+                <span className="text-base">{program.fieldOfStudy.iconName}</span>
+              )}
+              {program.fieldOfStudy.name}
+            </span>
+          </div>
+
+          {/* Program Details */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <GraduationCap className="h-4 w-4 shrink-0" />
+            <span>
+              {program.degreeType} • {program.duration}
+              {program.minIBPoints && ` • ${program.minIBPoints}+ IB Points`}
+            </span>
+          </div>
+
+          {/* Match Breakdown (expandable) */}
+          {showMatchDetails && matchResult && showBreakdown && (
+            <div className="mt-4 space-y-3 rounded-lg border bg-muted/50 p-4">
+              <div className="font-semibold text-sm">Match Breakdown</div>
+
+              <div className="space-y-2">
+                {/* Academic Match */}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Academic:</span>
+                  <span className="font-medium">
+                    {Math.round(matchResult.academicMatch.score * 100)}%
+                  </span>
+                </div>
+
+                {/* Field Match */}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Field:</span>
+                  <span className="font-medium">
+                    {Math.round(matchResult.fieldMatch.score * 100)}%
+                  </span>
+                </div>
+
+                {/* Location Match */}
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Location:</span>
+                  <span className="font-medium">
+                    {Math.round(matchResult.locationMatch.score * 100)}%
+                  </span>
+                </div>
+
+                {/* View Details Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowModal(true)
+                  }}
+                >
+                  <Info className="h-4 w-4 mr-2" />
+                  View Detailed Breakdown
+                </Button>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Match Breakdown Modal */}
+      {matchResult && (
+        <MatchBreakdown
+          programName={program.name}
+          universityName={program.university.name}
+          matchResult={matchResult}
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+    </>
   )
 }
