@@ -440,15 +440,14 @@
   - **Acceptance**: ✓ All 3 types handled
   - **Test**: Unit tests pass (8 test cases)
 
-- [ ] **Implement penalties and caps**
+- [x] **Implement penalties and caps**
   - **File**: `lib/matching/penalties.ts`
   - **Functions**: 
-    - `applyPointsShortfallPenalty()`
-    - `applyCriticalSubjectCap()`
-    - `applyMultipleDeficienciesPenalty()`
+    - `applyPenaltiesAndCaps()`
+    - Helper functions for penalties
   - **Logic**: Per DOC_2 spec
   - **Acceptance**: ✓ Caps enforced correctly
-  - **Test**: Unit tests pass (10 test cases)
+  - **Test**: Unit tests pass (8 test cases)
 
 - [ ] **Implement overall score calculation**
   - **File**: `lib/matching/scorer.ts`
