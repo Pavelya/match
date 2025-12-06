@@ -45,52 +45,58 @@
 
 :root {
   --radius: 0.5rem;
-  
-  /* Airbnb-inspired color palette */
-  --background: oklch(1 0 0); /* White */
-  --foreground: oklch(0.22 0 0); /* Near black #222 */
-  
+
+  /* Clean blue color palette */
+  --background: oklch(1 0 0);
+  /* White */
+  --foreground: oklch(0.22 0 0);
+  /* Near black #222 */
+
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.22 0 0);
-  
+
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0 0);
-  
-  /* Airbnb Rausch pink #FF385C */
-  --primary: oklch(0.64 0.22 15); /* #FF385C */
+
+  /* Primary Blue #2563EB (Tailwind blue-600) */
+  --primary: oklch(0.546 0.245 262.881);
   --primary-foreground: oklch(1 0 0);
-  
-  --secondary: oklch(0.96 0.01 220);
+
+  --secondary: oklch(0.96 0.01 250);
   --secondary-foreground: oklch(0.22 0 0);
-  
-  --muted: oklch(0.96 0.01 220);
-  --muted-foreground: oklch(0.565 0.02 220);
-  
-  --accent: oklch(0.96 0.01 220);
+
+  --muted: oklch(0.96 0.01 250);
+  --muted-foreground: oklch(0.5 0.02 250);
+
+  --accent: oklch(0.96 0.01 250);
   --accent-foreground: oklch(0.22 0 0);
-  
+
   --destructive: oklch(0.577 0.245 27.325);
-  
-  --border: oklch(0.9 0.01 220);
-  --input: oklch(0.9 0.01 220);
-  --ring: oklch(0.64 0.22 15); /* Match primary */
-  
+
+  --border: oklch(0.9 0.01 250);
+  --input: oklch(0.9 0.01 250);
+  --ring: oklch(0.546 0.245 262.881);
+  /* Match primary blue */
+
   /* Chart colors */
-  --chart-1: oklch(0.64 0.22 15); /* Primary */
+  --chart-1: oklch(0.546 0.245 262.881);
+  /* Primary blue */
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  
+
   /* Sidebar */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.22 0 0);
-  --sidebar-primary: oklch(0.64 0.22 15);
+  --sidebar-primary: oklch(0.546 0.245 262.881);
+  /* Blue */
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0.01 220);
+  --sidebar-accent: oklch(0.96 0.01 250);
   --sidebar-accent-foreground: oklch(0.22 0 0);
-  --sidebar-border: oklch(0.9 0.01 220);
-  --sidebar-ring: oklch(0.64 0.22 15);
+  --sidebar-border: oklch(0.9 0.01 250);
+  --sidebar-ring: oklch(0.546 0.245 262.881);
+  /* Blue */
 }
 
 .dark {
@@ -131,6 +137,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
