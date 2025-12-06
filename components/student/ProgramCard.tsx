@@ -1,29 +1,28 @@
 /**
  * ProgramCard Component
  *
- * Displays a university program with match score and details.
- * Reusable across: recommendations, search, saved programs, admin pages.
+ * Displays a university program with complete match information.
+ * All details visible at once - no click to expand.
  *
  * Features:
- * - Match score visualization with color-coded badge
- * - University and location information
- * - Field of study with icon
- * - Academic requirements display
- * - Save/unsave functionality
- * - Expandable match breakdown
- * - Detailed modal breakdown
+ * - University image placeholder
+ * - Program details header
+ * - Match score with progress bar
+ * - Academic requirements
+ * - Preference matching indicators
+ * - Single CTA: "View Program Details"
  */
 
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Bookmark, MapPin, Globe, GraduationCap, Info } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, Bookmark, GraduationCap, Clock, Globe, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult } from '@/lib/matching/types'
-import { MatchBreakdown } from './MatchBreakdown'
 
 interface ProgramCardProps {
   program: {
@@ -32,6 +31,7 @@ interface ProgramCardProps {
     university: {
       name: string
       abbreviation?: string | null
+      image?: string | null
     }
     country: {
       name: string
@@ -45,23 +45,33 @@ interface ProgramCardProps {
     degreeType: string
     duration: string
     minIBPoints?: number | null
+    city?: string | null
   }
   matchResult?: MatchResult
   isSaved?: boolean
   onSave?: (programId: string) => void
   onUnsave?: (programId: string) => void
-  showMatchDetails?: boolean
   className?: string
 }
 
 /**
- * Get match score color based on percentage
+ * Get match rating text based on score
  */
-function getMatchScoreColor(score: number): string {
-  if (score >= 0.9) return 'bg-green-100 text-green-800 border-green-200'
-  if (score >= 0.75) return 'bg-blue-100 text-blue-800 border-blue-200'
-  if (score >= 0.6) return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-  return 'bg-orange-100 text-orange-800 border-orange-200'
+function getMatchRating(score: number): string {
+  if (score >= 0.9) return 'Excellent Match'
+  if (score >= 0.75) return 'Strong Match'
+  if (score >= 0.6) return 'Good Match'
+  return 'Potential Match'
+}
+
+/**
+ * Get progress bar color based on score
+ */
+function getProgressColor(score: number): string {
+  if (score >= 0.9) return 'bg-green-500'
+  if (score >= 0.75) return 'bg-blue-500'
+  if (score >= 0.6) return 'bg-yellow-500'
+  return 'bg-orange-500'
 }
 
 export function ProgramCard({
@@ -70,12 +80,9 @@ export function ProgramCard({
   isSaved = false,
   onSave,
   onUnsave,
-  showMatchDetails = false,
   className
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
-  const [showBreakdown, setShowBreakdown] = useState(false)
-  const [showModal, setShowModal] = useState(false)
 
   const handleSaveToggle = () => {
     if (saved) {
@@ -87,142 +94,213 @@ export function ProgramCard({
     }
   }
 
-  const matchScore = matchResult?.overallScore
-  const matchPercentage = matchScore ? Math.round(matchScore * 100) : null
+  const matchScore = matchResult?.overallScore ?? 0
+  const matchPercentage = Math.round(matchScore * 100)
+
+  // Determine match description
+  const getMatchDescription = () => {
+    const parts = []
+    if (matchResult?.fieldMatch.isMatch) parts.push('field')
+    if (matchResult?.locationMatch.isMatch) parts.push('location')
+
+    if (parts.length === 2) return 'Aligned with your field and location preferences'
+    if (parts.length === 1) return `Aligned with your ${parts[0]} preferences`
+    return 'Based on your academic profile'
+  }
 
   return (
-    <>
-      <Card
-        className={cn(
-          'transition-all hover:shadow-md hover:border-primary/50',
-          showMatchDetails && 'cursor-pointer',
-          className
-        )}
-        onClick={showMatchDetails ? () => setShowBreakdown(!showBreakdown) : undefined}
-      >
-        <CardHeader className="pb-3">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 space-y-1">
-              <CardTitle className="text-xl font-bold">{program.name}</CardTitle>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="font-medium">
-                  {program.university.abbreviation || program.university.name}
-                </span>
-                {matchPercentage !== null && (
-                  <Badge className={cn('font-semibold border', getMatchScoreColor(matchScore!))}>
-                    {matchPercentage}% Match
-                  </Badge>
-                )}
+    <Card className={cn('overflow-hidden transition-all hover:shadow-lg', className)}>
+      <CardContent className="p-0">
+        {/* Header Section */}
+        <div className="flex gap-6 p-6 pb-4">
+          {/* University Image */}
+          <div className="shrink-0">
+            <div className="relative h-32 w-48 overflow-hidden rounded-lg bg-muted">
+              {program.university.image ? (
+                <Image
+                  src={program.university.image}
+                  alt={program.university.name}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-blue-50">
+                  <GraduationCap className="h-12 w-12 text-blue-300" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Program Info */}
+          <div className="flex-1 space-y-3">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-foreground">{program.name}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {program.university.name}
+                  {program.city && `, ${program.city}`}
+                  {`, ${program.country.name}`}
+                </p>
               </div>
+
+              {/* Save Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleSaveToggle}
+                className="shrink-0"
+                aria-label={saved ? 'Unsave program' : 'Save program'}
+              >
+                <Bookmark className={cn('h-5 w-5', saved && 'fill-primary text-primary')} />
+              </Button>
             </div>
 
-            {/* Save button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleSaveToggle()
-              }}
-              className="shrink-0"
-              aria-label={saved ? 'Unsave program' : 'Save program'}
-            >
-              <Bookmark className={cn('h-5 w-5', saved && 'fill-current text-primary')} />
+            {/* Quick Info Pills */}
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="secondary" className="gap-1.5 font-normal">
+                {program.fieldOfStudy.iconName && <span>{program.fieldOfStudy.iconName}</span>}
+                {program.fieldOfStudy.name}
+              </Badge>
+              <Badge variant="secondary" className="gap-1.5 font-normal">
+                <Clock className="h-3.5 w-3.5" />
+                {program.duration}
+              </Badge>
+              <Badge variant="secondary" className="gap-1.5 font-normal">
+                <GraduationCap className="h-3.5 w-3.5" />
+                {program.degreeType}
+              </Badge>
+            </div>
+
+            {/* View Details CTA */}
+            <Button className="gap-2">
+              View Program Details
+              <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
-        </CardHeader>
+        </div>
 
-        <CardContent className="space-y-3">
-          {/* Location */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 shrink-0" />
-            <span className="flex items-center gap-1.5">
-              {program.country.flagEmoji && (
-                <span className="text-base">{program.country.flagEmoji}</span>
-              )}
-              {program.country.name}
-            </span>
-          </div>
+        {/* Divider */}
+        <div className="border-t" />
 
-          {/* Field of Study */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Globe className="h-4 w-4 shrink-0" />
-            <span className="flex items-center gap-1.5">
-              {program.fieldOfStudy.iconName && (
-                <span className="text-base">{program.fieldOfStudy.iconName}</span>
-              )}
-              {program.fieldOfStudy.name}
-            </span>
-          </div>
+        {/* Match Score Section */}
+        {matchResult && (
+          <div className="p-6 pt-4 space-y-4">
+            {/* Score Header */}
+            <div className="flex items-center justify-between">
+              <span className="font-semibold">{getMatchRating(matchScore)}</span>
+              <span className="text-lg font-bold">{matchPercentage}%</span>
+            </div>
 
-          {/* Program Details */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <GraduationCap className="h-4 w-4 shrink-0" />
-            <span>
-              {program.degreeType} • {program.duration}
-              {program.minIBPoints && ` • ${program.minIBPoints}+ IB Points`}
-            </span>
-          </div>
+            {/* Progress Bar */}
+            <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+              <div
+                className={cn('h-full transition-all duration-500', getProgressColor(matchScore))}
+                style={{ width: `${matchPercentage}%` }}
+              />
+            </div>
 
-          {/* Match Breakdown (expandable) */}
-          {showMatchDetails && matchResult && showBreakdown && (
-            <div className="mt-4 space-y-3 rounded-lg border bg-muted/50 p-4">
-              <div className="font-semibold text-sm">Match Breakdown</div>
+            {/* Match Description */}
+            <p className="text-sm text-muted-foreground">{getMatchDescription()}</p>
 
-              <div className="space-y-2">
-                {/* Academic Match */}
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Academic:</span>
-                  <span className="font-medium">
-                    {Math.round(matchResult.academicMatch.score * 100)}%
-                  </span>
+            {/* Academic Requirements */}
+            {program.minIBPoints && (
+              <div className="space-y-3">
+                <h4 className="font-semibold text-sm">Academic Requirements</h4>
+                <div className="rounded-xl border bg-card p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100">
+                      <GraduationCap className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-medium text-blue-600">Total IB points</p>
+                      <p className="text-sm text-muted-foreground">
+                        Required: {program.minIBPoints} points
+                      </p>
+                      {matchResult.academicMatch.meetsPointsRequirement ? (
+                        <p className="mt-1 flex items-center gap-1 text-sm text-green-600">
+                          <Check className="h-4 w-4" />
+                          Requirement met
+                        </p>
+                      ) : (
+                        <p className="mt-1 text-sm text-orange-600">
+                          {matchResult.academicMatch.pointsShortfall} points short
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Your Preferences */}
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm">Your Preferences</h4>
+              <div className="grid grid-cols-2 gap-3">
+                {/* Field Preference */}
+                <div className="rounded-xl border bg-card p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100">
+                      {program.fieldOfStudy.iconName ? (
+                        <span className="text-xl">{program.fieldOfStudy.iconName}</span>
+                      ) : (
+                        <Globe className="h-5 w-5 text-blue-600" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-blue-600 truncate">
+                        {program.fieldOfStudy.name}
+                      </p>
+                      {matchResult.fieldMatch.isMatch ? (
+                        <p className="mt-1 flex items-center gap-1 text-sm text-green-600">
+                          <Check className="h-4 w-4" />
+                          Matches your field preferences
+                        </p>
+                      ) : matchResult.fieldMatch.noPreferences ? (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          No field preferences set
+                        </p>
+                      ) : (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Different from your preferences
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                {/* Field Match */}
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Field:</span>
-                  <span className="font-medium">
-                    {Math.round(matchResult.fieldMatch.score * 100)}%
-                  </span>
+                {/* Location Preference */}
+                <div className="rounded-xl border bg-card p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-100">
+                      <span className="text-xl">{program.country.flagEmoji || '🌍'}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-blue-600">{program.country.name}</p>
+                      <p className="text-sm text-muted-foreground truncate">
+                        {program.city || program.university.name}
+                      </p>
+                      {matchResult.locationMatch.isMatch ? (
+                        <p className="mt-1 flex items-center gap-1 text-sm text-green-600">
+                          <Check className="h-4 w-4" />
+                          Matches your location preferences
+                        </p>
+                      ) : matchResult.locationMatch.noPreferences ? (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          No location preferences set
+                        </p>
+                      ) : (
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Different from your preferences
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
-
-                {/* Location Match */}
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Location:</span>
-                  <span className="font-medium">
-                    {Math.round(matchResult.locationMatch.score * 100)}%
-                  </span>
-                </div>
-
-                {/* View Details Button */}
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full mt-2"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowModal(true)
-                  }}
-                >
-                  <Info className="h-4 w-4 mr-2" />
-                  View Detailed Breakdown
-                </Button>
               </div>
             </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Match Breakdown Modal */}
-      {matchResult && (
-        <MatchBreakdown
-          programName={program.name}
-          universityName={program.university.name}
-          matchResult={matchResult}
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-    </>
+          </div>
+        )}
+      </CardContent>
+    </Card>
   )
 }

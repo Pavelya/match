@@ -190,7 +190,6 @@ export function RecommendationsClient() {
                 isSaved={savedPrograms.has(match.programId)}
                 onSave={handleSave}
                 onUnsave={handleUnsave}
-                showMatchDetails
               />
             )
           })}
