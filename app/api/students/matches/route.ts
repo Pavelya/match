@@ -15,6 +15,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCachedMatches } from '@/lib/matching'
+import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
 
 export async function GET() {
@@ -76,16 +77,16 @@ export async function GET() {
       hasIBPoints: !!studentProfile.totalIBPoints
     })
 
-    // Get matches (with caching)
+    // Transform Prisma types to matching algorithm types (type-safe)
+    const transformedStudent = transformStudent(studentProfile)
+    const transformedPrograms = transformPrograms(programs)
 
+    // Get matches (with caching) - now fully type-safe!
     const matches = await getCachedMatches(
       studentId,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      studentProfile as any, // Type assertion - Prisma result matches our StudentProfile structure
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      programs as any, // Type assertion - Prisma result matches our program structure
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      'BALANCED' as any // Matching mode
+      transformedStudent,
+      transformedPrograms,
+      'BALANCED'
     )
 
     logger.info('Matches retrieved successfully', {
