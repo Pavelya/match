@@ -508,13 +508,14 @@
   - **Acceptance**: ✓ All programs indexed in Algolia ✅
   - **Test**: Programs visible in database and auto-synced to Algolia
 
-- [ ] **Implement reference data sync to Algolia**
-  - **Issue**: When Fields/Countries/Courses change, Algolia must re-index
-  - **File**: `lib/algolia/reference-sync.ts`
-  - **Functions**:
-    - `syncFieldOfStudyUpdate(fieldId)` - Re-index all programs with this field
-    - `syncCountryUpdate(countryId)` - Re-index all universities/programs in this country
-    - `syncCourseUpdate(courseId)` - Re-index all programs with this course requirement
+- [x] **Implement reference data sync to Algolia**
+  - **Issue**: When Fields/Countries/Courses change, Algolia must re-index ✅
+  - **File**: `lib/algolia/reference-sync-extension.ts` ✅
+  - **Functions**: ✅
+    - `syncProgramsForField(fieldId)` - Re-index all programs with this field
+    - `syncProgramsForCountry(countryId)` - Re-index all programs in this country
+    - `syncProgramsForCourse(courseId)` - Re-index all programs with this course requirement
+  - **Test**: scripts/test-reference-sync.ts ✅ (4 programs re-synced on country update)
   - **Trigger Points**:
     - Admin edits FieldOfStudy → Trigger sync
     - Admin edits Country → Trigger sync
