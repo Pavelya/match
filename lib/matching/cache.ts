@@ -59,11 +59,11 @@ export async function getCachedMatch(studentId: string, input: MatchInput): Prom
     const cached = await redis.get<MatchResult>(cacheKey)
 
     if (cached) {
-      logger.debug({ cacheKey, hit: true }, 'Match cache hit')
+      logger.debug('Match cache hit', { cacheKey, hit: true })
       return cached
     }
 
-    logger.debug({ cacheKey, hit: false }, 'Match cache miss')
+    logger.debug('Match cache miss', { cacheKey, hit: false })
 
     // Calculate fresh result
     const result = calculateMatch(input)
@@ -74,7 +74,7 @@ export async function getCachedMatch(studentId: string, input: MatchInput): Prom
     return result
   } catch (error) {
     // If Redis fails, fall back to direct calculation
-    logger.error({ error, cacheKey }, 'Redis cache error, falling back to direct calculation')
+    logger.error('Redis cache error, falling back to direct calculation', { error, cacheKey })
     return calculateMatch(input)
   }
 }
@@ -105,14 +105,15 @@ export async function getCachedMatches(
     const cached = await redis.get<MatchResult[]>(cacheKey)
 
     if (cached) {
-      logger.debug({ cacheKey, hit: true, count: cached.length }, 'Batch matches cache hit')
+      logger.debug('Batch matches cache hit', { cacheKey, hit: true, count: cached.length })
       return cached
     }
 
-    logger.debug(
-      { cacheKey, hit: false, programCount: programs.length },
-      'Batch matches cache miss'
-    )
+    logger.debug('Batch matches cache miss', {
+      cacheKey,
+      hit: false,
+      programCount: programs.length
+    })
 
     // Calculate fresh results
     const results = calculateMatches(student, programs, mode, weights)
@@ -123,7 +124,7 @@ export async function getCachedMatches(
     return results
   } catch (error) {
     // If Redis fails, fall back to direct calculation
-    logger.error({ error, cacheKey }, 'Redis batch cache error, falling back to direct calculation')
+    logger.error('Redis batch cache error, falling back to direct calculation', { error, cacheKey })
     return calculateMatches(student, programs, mode, weights)
   }
 }
@@ -148,10 +149,10 @@ export async function invalidateStudentCache(studentId: string): Promise<void> {
 
     if (allKeys.length > 0) {
       await redis.del(...allKeys)
-      logger.info({ studentId, deletedKeys: allKeys.length }, 'Student cache invalidated')
+      logger.info('Student cache invalidated', { studentId, deletedKeys: allKeys.length })
     }
   } catch (error) {
-    logger.error({ error, studentId }, 'Failed to invalidate student cache')
+    logger.error('Failed to invalidate student cache', { error, studentId })
   }
 }
 
@@ -171,10 +172,10 @@ export async function invalidateProgramCache(programId: string): Promise<void> {
 
     if (keys.length > 0) {
       await redis.del(...keys)
-      logger.info({ programId, deletedKeys: keys.length }, 'Program cache invalidated')
+      logger.info('Program cache invalidated', { programId, deletedKeys: keys.length })
     }
   } catch (error) {
-    logger.error({ error, programId }, 'Failed to invalidate program cache')
+    logger.error('Failed to invalidate program cache', { error, programId })
   }
 }
 
@@ -191,10 +192,10 @@ export async function clearAllMatchCache(): Promise<void> {
 
     if (allKeys.length > 0) {
       await redis.del(...allKeys)
-      logger.info({ deletedKeys: allKeys.length }, 'All match cache cleared')
+      logger.info('All match cache cleared', { deletedKeys: allKeys.length })
     }
   } catch (error) {
-    logger.error({ error }, 'Failed to clear match cache')
+    logger.error('Failed to clear match cache', { error })
   }
 }
 
@@ -217,7 +218,7 @@ export async function getCacheStats(): Promise<{
       totalKeys: matchKeys.length + batchKeys.length
     }
   } catch (error) {
-    logger.error({ error }, 'Failed to get cache stats')
+    logger.error('Failed to get cache stats', { error })
     return { matchKeys: 0, batchKeys: 0, totalKeys: 0 }
   }
 }

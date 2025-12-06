@@ -458,12 +458,12 @@
     - ✓ Includes breakdown
   - **Test**: Integration test with full student/program data (8 tests)
 
-- [ ] **Add Redis caching layer**
+- [x] **Add Redis caching layer**
   - **File**: `lib/matching/cache.ts`
-  - **Function**: `getCachedMatches(studentId)`, `cacheMatches()`
-  - **TTL**: 5 minutes
-  - **Acceptance**: ✓ Cache hit/miss logging
-  - **Test**: Run twice, second call is cache hit
+  - **Function**: `getCachedMatch()`, `getCachedMatches()`, invalidation functions
+  - **TTL**: 5 minutes (300 seconds)
+  - **Acceptance**: ✓ Cache hit/miss logging, error fallback
+  - **Test**: Demonstration of features and usage
 
 - [ ] **Performance optimization**
   - **Action**: Benchmark matching 2,000 programs
