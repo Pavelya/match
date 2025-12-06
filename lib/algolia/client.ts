@@ -6,6 +6,8 @@ import { env } from '@/lib/env'
  *
  * Singleton client for searching and indexing data in Algolia.
  * Uses application credentials from environment variables.
+ *
+ * Note: Algolia v5 API - indexes are created automatically when you add data.
  */
 
 let algoliaClient: ReturnType<typeof algoliasearch> | null = null
@@ -32,14 +34,3 @@ export const INDEX_NAMES = {
   PROGRAMS: 'programs_production',
   UNIVERSITIES: 'universities_production'
 } as const
-
-/**
- * Get a specific index
- */
-export function getIndex(name: keyof typeof INDEX_NAMES) {
-  return algolia.initIndex(INDEX_NAMES[name])
-}
-
-// Export index instances for convenience
-export const programsIndex = getIndex('PROGRAMS')
-export const universitiesIndex = getIndex('UNIVERSITIES')

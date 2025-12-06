@@ -27,9 +27,9 @@ const envSchema = z.object({
   UPSTASH_REDIS_REST_TOKEN: z.string(),
 
   // Search (Algolia)
-  ALGOLIA_APP_ID: z.string(),
-  ALGOLIA_ADMIN_API_KEY: z.string(),
-  NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: z.string(),
+  ALGOLIA_APP_ID: z.string().optional(),
+  ALGOLIA_ADMIN_API_KEY: z.string().optional(),
+  NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: z.string().optional(),
 
   // Payments (Stripe)
   STRIPE_SECRET_KEY: z.string().optional(),
