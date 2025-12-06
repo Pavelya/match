@@ -449,14 +449,14 @@
   - **Acceptance**: ✓ Caps enforced correctly
   - **Test**: Unit tests pass (8 test cases)
 
-- [ ] **Implement overall score calculation**
+- [x] **Implement overall score calculation**
   - **File**: `lib/matching/scorer.ts`
-  - **Function**: `calculateMatchScore(student, program, weights?)`
+  - **Function**: `calculateMatch(input)`, `calculateMatches()`
   - **Logic**: Combine F_M, L_M, G_M with weights
   - **Acceptance**: 
     - ✓ Returns 0-1 score
     - ✓ Includes breakdown
-  - **Test**: Integration test with full student/program data
+  - **Test**: Integration test with full student/program data (8 tests)
 
 - [ ] **Add Redis caching layer**
   - **File**: `lib/matching/cache.ts`
