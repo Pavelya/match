@@ -1,36 +1,47 @@
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 interface AvatarProps {
   src?: string | null
-  alt?: string
-  fallback?: string
+  alt: string
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
 
-export function Avatar({ src, alt = 'Avatar', fallback, size = 'md', className }: AvatarProps) {
-  const sizeClasses = {
-    sm: 'h-8 w-8 text-xs',
-    md: 'h-10 w-10 text-sm',
-    lg: 'h-12 w-12 text-base'
+const sizeClasses = {
+  sm: 'h-8 w-8',
+  md: 'h-10 w-10',
+  lg: 'h-12 w-12'
+}
+
+export function Avatar({ src, alt, size = 'md', className }: AvatarProps) {
+  const sizeClass = sizeClasses[size]
+
+  if (!src) {
+    // Fallback to initials
+    const initials = alt
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2)
+
+    return (
+      <div
+        className={cn(
+          'flex items-center justify-center rounded-full bg-primary text-primary-foreground font-semibold',
+          sizeClass,
+          className
+        )}
+      >
+        {initials}
+      </div>
+    )
   }
 
-  const initials = fallback || alt.substring(0, 2).toUpperCase()
-
   return (
-    <div
-      className={cn(
-        'relative inline-flex items-center justify-center overflow-hidden rounded-full bg-muted',
-        sizeClasses[size],
-        className
-      )}
-    >
-      {src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt={alt} className="h-full w-full object-cover" />
-      ) : (
-        <span className="font-medium text-muted-foreground">{initials}</span>
-      )}
+    <div className={cn('relative rounded-full overflow-hidden', sizeClass, className)}>
+      <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 48px) 48px" />
     </div>
   )
 }
