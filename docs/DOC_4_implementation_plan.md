@@ -413,12 +413,12 @@
   - **Acceptance**: ✓ All edge cases handled
   - **Test**: Unit tests pass (3 test cases)
 
-- [ ] **Implement Location Match (L_M)**
+- [x] **Implement Location Match (L_M)**
   - **File**: `lib/matching/location-matcher.ts`
   - **Function**: `calculateLocationMatch(studentCountries, programCountry)`
   - **Logic**: Return 1.0 if match or no prefs, 0.0 otherwise
   - **Acceptance**: ✓ Handles empty array
-  - **Test**: Unit tests pass (3 test cases)
+  - **Test**: Unit tests pass (10 test cases)
 
 - [ ] **Implement Subject Requirement Matching**
   - **File**: `lib/matching/subject-matcher.ts`
