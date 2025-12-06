@@ -11,6 +11,7 @@ import { algoliasearch } from 'algoliasearch'
 const prisma = new PrismaClient()
 
 interface AlgoliaProgramRecord {
+  [key: string]: unknown
   objectID: string
   programId: string
   programName: string
