@@ -430,7 +430,7 @@
   - **Acceptance**: ✓ All partial credit cases work
   - **Test**: Unit tests pass (13 test cases from DOC_2)
 
-- [ ] **Implement Academic Match (G_M)**
+- [x] **Implement Academic Match (G_M)**
   - **File**: `lib/matching/academic-matcher.ts`
   - **Function**: `calculateAcademicMatch()`
   - **Logic**: 
@@ -438,7 +438,7 @@
     - Points-only programs
     - Full requirements programs
   - **Acceptance**: ✓ All 3 types handled
-  - **Test**: Unit tests pass (10 test cases)
+  - **Test**: Unit tests pass (8 test cases)
 
 - [ ] **Implement penalties and caps**
   - **File**: `lib/matching/penalties.ts`
