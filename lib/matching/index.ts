@@ -16,6 +16,16 @@
 // Main scoring functions
 export { calculateMatch, calculateMatches } from './scorer'
 
+// Cache functions
+export {
+  getCachedMatch,
+  getCachedMatches,
+  invalidateStudentCache,
+  invalidateProgramCache,
+  clearAllMatchCache,
+  getCacheStats
+} from './cache'
+
 // Component matchers (for testing/debugging)
 export { calculateFieldMatch } from './field-matcher'
 export { calculateLocationMatch } from './location-matcher'
