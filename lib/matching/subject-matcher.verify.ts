@@ -154,13 +154,14 @@ test('Grade shortfall: non-critical subject, 1 point below → ~0.78', () => {
 
 test('Grade shortfall: 2 points below → proportional score', () => {
   const req: SubjectRequirement = {
-    courseId: 'chem',
-    courseName: 'Chemistry',
-    level: 'HL',
-    minimumGrade: 8, // Would need grade 8 (impossible, but for testing)
+    courseId: 'econ',
+    courseName: 'Economics',
+    level: 'SL',
+    minimumGrade: 7,
     isCritical: false
   }
-  // Student has Chemistry HL 6, "requirement" is 8 (2 points below)
+  // Student has Economics SL 4, requirement is 7 (3 points below)
+  // This tests larger gap scores
   const result = calculateSubjectMatch(req, studentCourses)
   expect(result.score).toBeGreaterThan(0.25) // At least minimum
   expect(result.score).toBeLessThan(0.78) // Less than 1-point shortfall
