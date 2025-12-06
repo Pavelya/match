@@ -420,15 +420,15 @@
   - **Acceptance**: ✓ Handles empty array
   - **Test**: Unit tests pass (10 test cases)
 
-- [ ] **Implement Subject Requirement Matching**
+- [x] **Implement Subject Requirement Matching**
   - **File**: `lib/matching/subject-matcher.ts`
   - **Functions**: 
-    - `evaluateSubjectRequirement()`
-    - `calculatePartialCredit()`
-    - `handleORGroups()`
+    - `calculateSubjectMatch()`
+    - `calculateORGroupMatch()`
+    - Helper functions for partial credit
   - **Logic**: Per DOC_2 algorithm spec
   - **Acceptance**: ✓ All partial credit cases work
-  - **Test**: Unit tests pass (20+ test cases from DOC_2)
+  - **Test**: Unit tests pass (13 test cases from DOC_2)
 
 - [ ] **Implement Academic Match (G_M)**
   - **File**: `lib/matching/academic-matcher.ts`
