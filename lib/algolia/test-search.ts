@@ -44,7 +44,8 @@ async function testSearch() {
       ]
     })
 
-    const hits = results[0].hits || []
+    const searchResult = results[0]
+    const hits = 'hits' in searchResult ? searchResult.hits : []
     console.log(`   Search returned ${hits.length} results`)
 
     if (hits.length === 0) {
