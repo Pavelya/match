@@ -490,12 +490,12 @@
   - **Acceptance**: ✓ Client connects ✅
   - **Test**: Run test search ✅
 
-- [ ] **Create sync service**
-  - **File**: `lib/algolia/sync.ts`
-  - **Function**: `syncProgramToAlgolia(program)`
-  - **Action**: Convert Prisma model to Algolia record
-  - **Acceptance**: ✓ All fields mapped
-  - **Test**: Sync one program manually
+- [x] **Create sync service**
+  - **File**: `lib/algolia/sync.ts` ✅
+  - **Function**: `syncProgramToAlgolia(program)` + transform, delete, bulk ✅
+  - **Action**: Convert Prisma model to Algolia record ✅
+  - **Acceptance**: ✓ All fields mapped ✅
+  - **Test**: Sync one program manually (ready for manual test)
 
 - [ ] **Add webhook for auto-sync**
   - **File**: `app/api/webhooks/algolia-sync/route.ts`
