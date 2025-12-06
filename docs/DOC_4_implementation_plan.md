@@ -497,11 +497,11 @@
   - **Acceptance**: ✓ All fields mapped ✅
   - **Test**: Sync one program manually (ready for manual test)
 
-- [ ] **Add webhook for auto-sync**
-  - **File**: `app/api/webhooks/algolia-sync/route.ts`
-  - **Trigger**: On program CREATE/UPDATE/DELETE
-  - **Acceptance**: ✓ Webhook receives events
-  - **Test**: Create program via admin, see in Algolia
+- [x] **Add webhook for auto-sync**
+  - **File**: `lib/algolia/middleware.ts` (Prisma extension) ✅
+  - **Trigger**: On program CREATE/UPDATE/DELETE ✅
+  - **Acceptance**: ✓ Extension hooks all operations ✅
+  - **Test**: Create program via admin, auto-syncs to Algolia
 
 - [ ] **Seed initial programs**
   - **Action**: Bulk upload sample programs (50+)
