@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { invalidateStudentCache } from '@/lib/matching/cache'
 
 interface CourseSelection {
   courseId: string
@@ -45,13 +46,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Please provide TOK and EE grades' }, { status: 400 })
     }
 
+    const studentId = session.user.id
+
     // Upsert student profile (handles both new and existing users)
     const profile = await prisma.studentProfile.upsert({
       where: {
-        userId: session.user.id
+        userId: studentId
       },
       create: {
-        userId: session.user.id,
+        userId: studentId,
         totalIBPoints: data.totalIBPoints,
         tokGrade: data.tokGrade,
         eeGrade: data.eeGrade,
@@ -89,6 +92,10 @@ export async function POST(request: NextRequest) {
         }
       }
     })
+
+    // CRITICAL: Invalidate the matches cache since profile has changed
+    await invalidateStudentCache(studentId)
+    logger.info('Student cache invalidated after profile update', { studentId })
 
     return NextResponse.json({
       success: true,
