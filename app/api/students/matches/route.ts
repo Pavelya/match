@@ -15,6 +15,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCachedMatches } from '@/lib/matching'
+import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
 
@@ -54,27 +55,15 @@ export async function GET() {
       )
     }
 
-    // Fetch all programs
-    const programs = await prisma.academicProgram.findMany({
-      include: {
-        university: {
-          include: {
-            country: true
-          }
-        },
-        fieldOfStudy: true,
-        courseRequirements: {
-          include: {
-            ibCourse: true
-          }
-        }
-      }
-    })
+    // Fetch programs from cache (Redis) instead of DB
+    // This is the key performance optimization - avoids ~300-500ms DB query
+    const programs = await getCachedPrograms()
 
     logger.debug('Data fetched', {
       studentId,
       programCount: programs.length,
-      hasIBPoints: !!studentProfile.totalIBPoints
+      hasIBPoints: !!studentProfile.totalIBPoints,
+      source: 'cache'
     })
 
     // Transform Prisma types to matching algorithm types (type-safe)

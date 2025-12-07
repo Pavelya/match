@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { FieldSelectorClient } from './FieldSelectorClient'
+import { getCachedFields, getCachedCountries, getCachedIBCourses } from '@/lib/reference-data'
 
 const ONBOARDING_STEPS = [
   { number: 1, label: 'Study Interests' },
@@ -16,32 +17,13 @@ export default async function OnboardingPage() {
     redirect('/auth/signin')
   }
 
-  // Fetch fields of study from database (single source of truth)
-  const fields = await prisma.fieldOfStudy.findMany({
-    orderBy: { name: 'asc' }
-  })
-
-  // Fetch countries from database (single source of truth)
-  const countries = await prisma.country.findMany({
-    orderBy: { name: 'asc' },
-    select: {
-      id: true,
-      name: true,
-      code: true,
-      flagEmoji: true
-    }
-  })
-
-  // Fetch IB courses from database (single source of truth)
-  const ibCourses = await prisma.iBCourse.findMany({
-    orderBy: [{ group: 'asc' }, { name: 'asc' }],
-    select: {
-      id: true,
-      name: true,
-      code: true,
-      group: true
-    }
-  })
+  // Fetch reference data from cache (Next.js unstable_cache)
+  // These rarely change, so 1 hour TTL is safe
+  const [fields, countries, ibCourses] = await Promise.all([
+    getCachedFields(),
+    getCachedCountries(),
+    getCachedIBCourses()
+  ])
 
   // Fetch existing student profile if it exists (for pre-populating form)
   const existingProfile = session.user
