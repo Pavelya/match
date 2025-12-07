@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import { ArrowRight, Bookmark, GraduationCap, Clock, Check, X } from 'lucide-react'
+import { ArrowRight, Bookmark, GraduationCap, Clock, Check, X, Circle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult } from '@/lib/matching/types'
 import { FieldIcon } from '@/lib/icons'
@@ -101,9 +101,9 @@ export function ProgramCard({
       <CardContent className="p-0">
         {/* Header Section - Responsive */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-5 sm:p-6">
-          {/* University Image - Fixed aspect ratio */}
+          {/* University Image - Larger for alignment with button */}
           <div className="shrink-0 w-full sm:w-auto">
-            <div className="relative aspect-[16/9] sm:aspect-[4/3] w-full sm:h-36 sm:w-48 overflow-hidden rounded-xl bg-muted">
+            <div className="relative aspect-[16/9] sm:aspect-square w-full sm:h-44 sm:w-44 overflow-hidden rounded-xl bg-muted">
               {program.university.image ? (
                 <Image
                   src={program.university.image}
@@ -120,56 +120,67 @@ export function ProgramCard({
           </div>
 
           {/* Program Info */}
-          <div className="flex-1 space-y-3 sm:space-y-4">
-            {/* Title Row with Save */}
-            <div className="flex items-start justify-between gap-3">
-              <div className="space-y-1">
-                <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
-                  {program.name}
-                </h3>
-                <p className="text-sm text-foreground">
-                  {program.university.name}
-                  {program.city && `, ${program.city}`}
-                  {`, ${program.country.name}`}
-                </p>
+          <div className="flex-1 flex flex-col justify-between min-h-[176px] sm:min-h-0">
+            <div className="space-y-3">
+              {/* Title Row with Save */}
+              <div className="flex items-start justify-between gap-3">
+                <div className="space-y-1">
+                  <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
+                    {program.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {program.university.name}
+                    {program.city && `, ${program.city}`}
+                    {`, ${program.country.name}`}
+                  </p>
+                </div>
+
+                {/* Save Button */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleSaveToggle}
+                  className="shrink-0 -mt-1"
+                  aria-label={saved ? 'Unsave program' : 'Save program'}
+                >
+                  <Bookmark className={cn('h-5 w-5', saved && 'fill-primary text-primary')} />
+                </Button>
               </div>
 
-              {/* Save Button */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleSaveToggle}
-                className="shrink-0 -mt-1"
-                aria-label={saved ? 'Unsave program' : 'Save program'}
-              >
-                <Bookmark className={cn('h-5 w-5', saved && 'fill-primary text-primary')} />
+              {/* Quick Info - Gray background, no border */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-muted/50 px-4 py-3 text-sm">
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <FieldIcon
+                    fieldName={program.fieldOfStudy.name}
+                    className="h-4 w-4 text-muted-foreground"
+                  />
+                  {program.fieldOfStudy.name}
+                </span>
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <Clock className="h-4 w-4 text-muted-foreground" />
+                  {program.duration}
+                </span>
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <GraduationCap className="h-4 w-4 text-muted-foreground" />
+                  {program.degreeType}
+                </span>
+                {/* Show IB points in search mode (when match details are hidden) */}
+                {!showMatchDetails && program.minIBPoints && (
+                  <span className="flex items-center gap-1.5 text-green-600 font-medium">
+                    <Circle className="h-4 w-4 fill-current" />
+                    {program.minIBPoints} IB Points
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* View Details CTA - Aligned with bottom of image */}
+            <div className="mt-3 sm:mt-0">
+              <Button className="gap-2">
+                View Program Details
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
-
-            {/* Quick Info - Bordered box with wrapping items */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border px-4 py-3 text-sm">
-              <span className="flex items-center gap-1.5 text-foreground">
-                <FieldIcon
-                  fieldName={program.fieldOfStudy.name}
-                  className="h-4 w-4 text-muted-foreground"
-                />
-                {program.fieldOfStudy.name}
-              </span>
-              <span className="flex items-center gap-1.5 text-foreground">
-                <Clock className="h-4 w-4 text-muted-foreground" />
-                {program.duration}
-              </span>
-              <span className="flex items-center gap-1.5 text-foreground">
-                <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                {program.degreeType}
-              </span>
-            </div>
-
-            {/* View Details CTA */}
-            <Button className="gap-2">
-              View Program Details
-              <ArrowRight className="h-4 w-4" />
-            </Button>
           </div>
         </div>
 
@@ -204,7 +215,7 @@ export function ProgramCard({
                     'rounded-xl border-2 p-4',
                     matchResult.academicMatch.meetsPointsRequirement
                       ? 'border-primary/20 bg-primary/5'
-                      : 'border-destructive/20 bg-destructive/5'
+                      : 'border-destructive/30 bg-transparent'
                   )}
                 >
                   <div className="flex items-center gap-4">
@@ -213,7 +224,7 @@ export function ProgramCard({
                         'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
                         matchResult.academicMatch.meetsPointsRequirement
                           ? 'bg-primary/10'
-                          : 'bg-destructive/10'
+                          : 'bg-muted'
                       )}
                     >
                       <GraduationCap className="h-6 w-6 text-current opacity-70" />
@@ -231,7 +242,7 @@ export function ProgramCard({
                           <span className="text-sm font-medium text-primary">Met</span>
                         </div>
                       ) : (
-                        <div className="flex items-center gap-1.5 rounded-full bg-destructive/10 px-3 py-1.5">
+                        <div className="flex items-center gap-1.5 rounded-full border border-destructive/30 px-3 py-1.5">
                           <X className="h-4 w-4 text-destructive" />
                           <span className="text-sm font-medium text-destructive">
                             Need {matchResult.academicMatch.pointsShortfall} more
@@ -254,14 +265,14 @@ export function ProgramCard({
                     'rounded-xl border-2 p-4',
                     matchResult.fieldMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
-                      : 'border-destructive/20 bg-destructive/5'
+                      : 'border-destructive/30 bg-transparent'
                   )}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={cn(
                         'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
-                        matchResult.fieldMatch.isMatch ? 'bg-primary/10' : 'bg-destructive/10'
+                        matchResult.fieldMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
                       <FieldIcon
@@ -297,14 +308,14 @@ export function ProgramCard({
                     'rounded-xl border-2 p-4',
                     matchResult.locationMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
-                      : 'border-destructive/20 bg-destructive/5'
+                      : 'border-destructive/30 bg-transparent'
                   )}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={cn(
                         'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
-                        matchResult.locationMatch.isMatch ? 'bg-primary/10' : 'bg-destructive/10'
+                        matchResult.locationMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
                       <span className="text-2xl">{program.country.flagEmoji || '🌍'}</span>
