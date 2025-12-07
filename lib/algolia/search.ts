@@ -99,3 +99,192 @@ export function isAlgoliaAvailable(): boolean {
     return false
   }
 }
+
+// ============================================================
+// SEARCH PAGE FUNCTIONS
+// ============================================================
+
+/**
+ * Search filters for programs
+ */
+export interface SearchFilters {
+  fields?: string[] // Field of study IDs
+  countries?: string[] // Country IDs
+  minPoints?: number // Minimum IB points requirement
+  maxPoints?: number // Maximum IB points requirement
+}
+
+/**
+ * Search result with highlighting
+ */
+export interface ProgramSearchResult {
+  objectID: string
+  programId: string
+  programName: string
+  universityName: string
+  universityAbbreviation?: string
+  fieldOfStudy: { id: string; name: string }
+  country: { id: string; name: string; code: string }
+  degreeType: string
+  duration: string
+  minimumIBPoints?: number
+  // Highlighted fields (if query provided)
+  _highlightResult?: Record<string, { value: string; matchLevel: string }>
+}
+
+/**
+ * Search programs with text query and filters
+ *
+ * Features:
+ * - Typo tolerance (enabled by default in Algolia)
+ * - Faceted filters (field, country, IB points)
+ * - Custom ranking by relevance
+ * - Highlighting for matched terms
+ *
+ * @param query - Text search query
+ * @param filters - Optional filters to apply
+ * @param options - Additional search options
+ * @returns Search results with metadata
+ */
+export async function searchPrograms(
+  query: string,
+  filters?: SearchFilters,
+  options?: {
+    hitsPerPage?: number
+    page?: number
+  }
+): Promise<{
+  hits: ProgramSearchResult[]
+  nbHits: number
+  page: number
+  nbPages: number
+  processingTimeMS: number
+}> {
+  const startTime = performance.now()
+
+  try {
+    // Build filter string
+    const filterParts: string[] = []
+
+    if (filters?.fields && filters.fields.length > 0) {
+      const fieldFilter = filters.fields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
+      filterParts.push(`(${fieldFilter})`)
+    }
+
+    if (filters?.countries && filters.countries.length > 0) {
+      const countryFilter = filters.countries.map((c) => `countryId:${c}`).join(' OR ')
+      filterParts.push(`(${countryFilter})`)
+    }
+
+    if (filters?.minPoints !== undefined) {
+      filterParts.push(`minimumIBPoints >= ${filters.minPoints}`)
+    }
+
+    if (filters?.maxPoints !== undefined) {
+      filterParts.push(`minimumIBPoints <= ${filters.maxPoints}`)
+    }
+
+    const filterString = filterParts.join(' AND ')
+
+    // Execute search
+    const result = await algolia.searchSingleIndex<ProgramSearchResult>({
+      indexName: INDEX_NAMES.PROGRAMS,
+      searchParams: {
+        query,
+        filters: filterString || undefined,
+        hitsPerPage: options?.hitsPerPage ?? 50,
+        page: options?.page ?? 0,
+        // Search attributes (program name, university, field, country)
+        attributesToRetrieve: [
+          'objectID',
+          'programId',
+          'programName',
+          'universityName',
+          'universityAbbreviation',
+          'fieldOfStudy',
+          'country',
+          'degreeType',
+          'duration',
+          'minimumIBPoints'
+        ],
+        // Enable highlighting for UI feedback
+        attributesToHighlight: ['programName', 'universityName'],
+        highlightPreTag: '<mark>',
+        highlightPostTag: '</mark>'
+      }
+    })
+
+    const duration = Math.round(performance.now() - startTime)
+
+    logger.info('program_search', {
+      query: query || '(empty)',
+      filters: filterString || '(none)',
+      hits: result.hits.length,
+      nbHits: result.nbHits,
+      algoliaMs: result.processingTimeMS,
+      totalMs: duration
+    })
+
+    return {
+      hits: result.hits,
+      nbHits: result.nbHits ?? result.hits.length,
+      page: result.page ?? 0,
+      nbPages: result.nbPages ?? 1,
+      processingTimeMS: result.processingTimeMS ?? 0
+    }
+  } catch (error) {
+    logger.error('Program search failed', { error, query })
+    throw error
+  }
+}
+
+/**
+ * Search universities
+ */
+export async function searchUniversities(
+  query: string,
+  options?: { hitsPerPage?: number }
+): Promise<{
+  hits: Array<{
+    objectID: string
+    universityId: string
+    name: string
+    abbreviatedName?: string
+    country: { id: string; name: string; code: string }
+    programCount: number
+  }>
+  nbHits: number
+}> {
+  try {
+    const result = await algolia.searchSingleIndex({
+      indexName: INDEX_NAMES.UNIVERSITIES,
+      searchParams: {
+        query,
+        hitsPerPage: options?.hitsPerPage ?? 20,
+        attributesToRetrieve: [
+          'objectID',
+          'universityId',
+          'name',
+          'abbreviatedName',
+          'country',
+          'programCount'
+        ]
+      }
+    })
+
+    return {
+      hits: result.hits as Array<{
+        objectID: string
+        universityId: string
+        name: string
+        abbreviatedName?: string
+        country: { id: string; name: string; code: string }
+        programCount: number
+      }>,
+      nbHits: result.nbHits ?? result.hits.length
+    }
+  } catch (error) {
+    logger.error('University search failed', { error, query })
+    throw error
+  }
+}

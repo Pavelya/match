@@ -18,7 +18,6 @@ interface AlgoliaUniversityRecord {
   name: string
   abbreviatedName?: string
   description?: string
-  website?: string
   countryId: string
   country: {
     id: string
@@ -67,7 +66,6 @@ async function syncUniversities() {
       name: uni.name,
       abbreviatedName: uni.abbreviatedName ?? undefined,
       description: uni.description ?? undefined,
-      website: uni.website ?? undefined,
 
       countryId: uni.country.id,
       country: {
