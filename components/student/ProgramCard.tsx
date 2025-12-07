@@ -9,7 +9,6 @@
 
 import { useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import { ArrowRight, Bookmark, GraduationCap, Clock, Check, X } from 'lucide-react'
@@ -141,20 +140,20 @@ export function ProgramCard({
               </Button>
             </div>
 
-            {/* Quick Info Pills - Horizontal scroll on mobile */}
-            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
-              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
-                <FieldIcon fieldName={program.fieldOfStudy.name} className="h-3.5 w-3.5" />
+            {/* Quick Info - Single bordered pill with all info */}
+            <div className="inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm text-muted-foreground">
+              <span className="flex items-center gap-1.5">
+                <FieldIcon fieldName={program.fieldOfStudy.name} className="h-4 w-4" />
                 {program.fieldOfStudy.name}
-              </Badge>
-              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
-                <Clock className="h-3.5 w-3.5" />
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
                 {program.duration}
-              </Badge>
-              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
-                <GraduationCap className="h-3.5 w-3.5" />
+              </span>
+              <span className="flex items-center gap-1.5">
+                <GraduationCap className="h-4 w-4" />
                 {program.degreeType}
-              </Badge>
+              </span>
             </div>
 
             {/* View Details CTA */}
