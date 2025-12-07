@@ -36,6 +36,10 @@ const envSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
 
+  // Internal API
+  INTERNAL_API_KEY: z.string().optional(),
+  NEXT_PUBLIC_APP_URL: z.string().url().optional(),
+
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
 })
