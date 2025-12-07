@@ -1,0 +1,10 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background square with rounded corners -->
+  <rect width="500" height="500" fill="#3573E5" rx="50" ry="50"/>
+  
+  <!-- "IB" text -->
+  <text x="250" y="220" font-family="Inter, sans-serif" font-size="160" font-weight="700" fill="white" text-anchor="middle">IB</text>
+  
+  <!-- "Match" text -->
+  <text x="250" y="380" font-family="Inter, sans-serif" font-size="100" font-weight="700" fill="white" text-anchor="middle">Match</text>
+</svg> 
