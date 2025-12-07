@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import { IB_SUBJECT_GROUPS, type IBSubjectGroup } from '@/lib/constants/ib-groups'
 import { ChevronLeft } from 'lucide-react'
+import { SubjectGroupIcon } from '@/lib/icons'
 
 interface IBCourse {
   id: string
@@ -132,9 +133,14 @@ export function SubjectSelectorDialog({
                   <button
                     key={group.id}
                     onClick={() => handleGroupSelect(group)}
-                    className="flex items-center gap-3 rounded-lg border-2 border-muted p-4 text-left transition-all hover:border-primary hover:bg-primary/5"
+                    className="flex items-center gap-4 rounded-lg border-2 border-muted p-4 text-left transition-all hover:border-primary hover:bg-primary/5"
                   >
-                    <span className="text-3xl">{group.icon}</span>
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-muted">
+                      <SubjectGroupIcon
+                        groupId={group.id}
+                        className="h-6 w-6 text-muted-foreground"
+                      />
+                    </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">{group.name}</h3>
                       <p className="text-sm text-muted-foreground">{group.description}</p>

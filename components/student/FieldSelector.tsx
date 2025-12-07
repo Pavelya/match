@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
+import { FieldIcon } from '@/lib/icons'
 
 interface Field {
   id: string
@@ -29,32 +30,28 @@ export function FieldSelector({
     const isSelected = selectedFields.includes(fieldId)
 
     if (isSelected) {
-      // Deselect
       onSelectionChange(selectedFields.filter((id) => id !== fieldId))
-    } else {
-      // Select only if under max limit
-      if (selectedFields.length < maxSelection) {
-        onSelectionChange([...selectedFields, fieldId])
-      }
+    } else if (selectedFields.length < maxSelection) {
+      onSelectionChange([...selectedFields, fieldId])
     }
   }
 
-  const selectionError = selectedFields.length < minSelection
-  const selectionCount = selectedFields.length
+  const selectionError = selectedFields.length > 0 && selectedFields.length < minSelection
 
   return (
     <div className="space-y-4">
+      {/* Selection counter */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          Select {minSelection}-{maxSelection} fields of study
+          Select {minSelection}-{maxSelection} fields of study that interest you
         </p>
         <p
           className={cn(
             'text-sm font-medium',
-            selectionError ? 'text-destructive' : 'text-primary'
+            selectedFields.length >= minSelection ? 'text-primary' : 'text-muted-foreground'
           )}
         >
-          {selectionCount}/{maxSelection} selected
+          {selectedFields.length}/{maxSelection} selected
         </p>
       </div>
 
@@ -78,11 +75,14 @@ export function FieldSelector({
                 {/* Circular icon background */}
                 <div
                   className={cn(
-                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-2xl shadow-md',
+                    'flex h-12 w-12 shrink-0 items-center justify-center rounded-full shadow-md',
                     isSelected ? 'bg-primary/10' : 'bg-muted'
                   )}
                 >
-                  {field.icon}
+                  <FieldIcon
+                    fieldName={field.name}
+                    className={cn('h-6 w-6', isSelected ? 'text-primary' : 'text-muted-foreground')}
+                  />
                 </div>
 
                 {/* Field name and description */}

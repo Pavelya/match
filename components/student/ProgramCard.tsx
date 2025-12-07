@@ -15,6 +15,7 @@ import Image from 'next/image'
 import { ArrowRight, Bookmark, GraduationCap, Clock, Check, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult } from '@/lib/matching/types'
+import { FieldIcon } from '@/lib/icons'
 
 interface ProgramCardProps {
   program: {
@@ -141,9 +142,7 @@ export function ProgramCard({
             {/* Quick Info Pills */}
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary" className="gap-1.5 font-normal">
-                {program.fieldOfStudy.iconName && (
-                  <span className="text-sm">{program.fieldOfStudy.iconName}</span>
-                )}
+                <FieldIcon fieldName={program.fieldOfStudy.name} className="h-3.5 w-3.5" />
                 {program.fieldOfStudy.name}
               </Badge>
               <Badge variant="secondary" className="gap-1.5 font-normal">
@@ -207,7 +206,7 @@ export function ProgramCard({
                           : 'bg-destructive/10'
                       )}
                     >
-                      <span className="text-2xl">🎓</span>
+                      <GraduationCap className="h-6 w-6 text-current opacity-70" />
                     </div>
                     <div className="flex-1">
                       <p className="font-medium">Total IB points</p>
@@ -255,7 +254,13 @@ export function ProgramCard({
                         matchResult.fieldMatch.isMatch ? 'bg-primary/10' : 'bg-destructive/10'
                       )}
                     >
-                      <span className="text-2xl">{program.fieldOfStudy.iconName || '📚'}</span>
+                      <FieldIcon
+                        fieldName={program.fieldOfStudy.name}
+                        className={cn(
+                          'h-6 w-6',
+                          matchResult.fieldMatch.isMatch ? 'text-primary' : 'text-destructive'
+                        )}
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium truncate">{program.fieldOfStudy.name}</p>
