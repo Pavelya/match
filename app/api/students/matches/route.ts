@@ -90,11 +90,18 @@ export async function GET() {
         )
         timings.algoliaSearch = Math.round(performance.now() - algoliaStart)
 
-        if (candidateIds.length > 0) {
+        // Only use Algolia filter if we have enough candidates (at least 50)
+        // to ensure we can return 10 good matches
+        if (candidateIds.length >= 50) {
           // Filter to only candidate programs
           const candidateIdSet = new Set(candidateIds)
           programs = allPrograms.filter((p) => candidateIdSet.has(p.id))
           usedAlgoliaFilter = true
+        } else {
+          logger.info('Algolia returned too few candidates, using all programs', {
+            candidateCount: candidateIds.length,
+            threshold: 50
+          })
         }
       }
     }
@@ -134,8 +141,8 @@ export async function GET() {
       topScore: matches[0]?.overallScore
     })
 
-    // Return top 15 matches with full program data
-    const topMatches = matches.slice(0, 15)
+    // Return top 10 matches with full program data
+    const topMatches = matches.slice(0, 10)
 
     // Enrich matches with full program data (use allPrograms for enrichment)
     const enrichedMatches = topMatches.map((match) => {
