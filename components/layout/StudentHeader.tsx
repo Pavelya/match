@@ -109,7 +109,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-colors',
+                    'group relative px-3 py-2 text-sm font-medium transition-colors',
                     isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
@@ -120,7 +120,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                   )}
                   {/* Hover indicator - gray underline (only when not active) */}
                   {!isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-transparent group-hover:bg-muted-foreground/30 rounded-full transition-colors" />
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-muted-foreground/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
                   )}
                 </Link>
               )
