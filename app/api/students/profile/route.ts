@@ -93,9 +93,11 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // CRITICAL: Invalidate the matches cache since profile has changed
-    await invalidateStudentCache(studentId)
-    logger.info('Student cache invalidated after profile update', { studentId })
+    // Fire-and-forget: Invalidate cache in background (don't block response)
+    // Cache will be rebuilt on next access if needed
+    invalidateStudentCache(studentId)
+      .then(() => logger.info('Student cache invalidated after profile update', { studentId }))
+      .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, studentId }))
 
     // Fire-and-forget: Pre-compute matches in background
     // This ensures /student/matches is fast on first visit
