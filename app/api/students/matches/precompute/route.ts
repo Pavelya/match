@@ -16,6 +16,7 @@ import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
+import { searchCandidatePrograms, isAlgoliaAvailable } from '@/lib/algolia/search'
 
 export async function POST(request: NextRequest) {
   const startTime = performance.now()
@@ -60,8 +61,34 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Student profile not found' }, { status: 404 })
     }
 
-    // Fetch programs from cache
-    const programs = await getCachedPrograms()
+    // Fetch all programs from cache
+    const allPrograms = await getCachedPrograms()
+
+    // Pre-filter using Algolia if available
+    let programs = allPrograms
+    let usedAlgoliaFilter = false
+
+    if (isAlgoliaAvailable()) {
+      const studentPoints = studentProfile.totalIBPoints || 0
+      const studentFields = studentProfile.preferredFields.map((f) => f.id)
+      const studentCountries = studentProfile.preferredCountries.map((c) => c.id)
+
+      const hasPreferences = studentFields.length > 0 || studentCountries.length > 0
+
+      if (hasPreferences) {
+        const candidateIds = await searchCandidatePrograms(
+          studentFields,
+          studentCountries,
+          studentPoints
+        )
+
+        if (candidateIds.length > 0) {
+          const candidateIdSet = new Set(candidateIds)
+          programs = allPrograms.filter((p) => candidateIdSet.has(p.id))
+          usedAlgoliaFilter = true
+        }
+      }
+    }
 
     // Transform to matching algorithm types
     const transformedStudent = transformStudent(studentProfile)
@@ -81,13 +108,15 @@ export async function POST(request: NextRequest) {
       studentId,
       matchCount: matches.length,
       topScore: matches[0]?.overallScore,
-      duration: Math.round(duration)
+      duration: Math.round(duration),
+      usedAlgoliaFilter
     })
 
     return NextResponse.json({
       success: true,
       matchCount: matches.length,
-      duration: Math.round(duration)
+      duration: Math.round(duration),
+      usedAlgoliaFilter
     })
   } catch (error) {
     logger.error('Failed to pre-compute matches', { error })
