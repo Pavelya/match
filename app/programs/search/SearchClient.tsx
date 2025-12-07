@@ -3,6 +3,7 @@
  *
  * Client-side search UI with Algolia integration.
  * Handles real-time search, filters, and results display.
+ * Uses shared ProgramCard component for consistent card appearance.
  */
 
 'use client'
@@ -13,6 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { ProgramCard } from '@/components/student/ProgramCard'
 import {
   Search,
   X,
@@ -24,8 +26,6 @@ import {
   Loader2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { FieldIcon } from '@/lib/icons'
-import Link from 'next/link'
 
 interface SearchClientProps {
   fields: Array<{ id: string; name: string }>
@@ -43,6 +43,31 @@ interface SearchResult {
   degreeType: string
   duration: string
   minimumIBPoints?: number
+}
+
+/**
+ * Transform Algolia search result to ProgramCard format
+ */
+function transformToProgram(result: SearchResult) {
+  return {
+    id: result.programId,
+    name: result.programName,
+    university: {
+      name: result.universityName,
+      abbreviation: result.universityAbbreviation ?? null
+    },
+    country: {
+      name: result.country.name,
+      code: result.country.code,
+      flagEmoji: null // Algolia doesn't have this
+    },
+    fieldOfStudy: {
+      name: result.fieldOfStudy.name
+    },
+    degreeType: result.degreeType,
+    duration: result.duration,
+    minIBPoints: result.minimumIBPoints ?? null
+  }
 }
 
 export function SearchClient({ fields, countries }: SearchClientProps) {
@@ -277,11 +302,15 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
         </p>
       </div>
 
-      {/* Results Grid */}
+      {/* Results Grid - Using ProgramCard with showMatchDetails=false */}
       {results.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-4">
           {results.map((result) => (
-            <SearchResultCard key={result.objectID} result={result} />
+            <ProgramCard
+              key={result.objectID}
+              program={transformToProgram(result)}
+              showMatchDetails={false}
+            />
           ))}
         </div>
       ) : !isLoading ? (
@@ -294,52 +323,5 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
         </Card>
       ) : null}
     </div>
-  )
-}
-
-/**
- * Individual search result card
- */
-function SearchResultCard({ result }: { result: SearchResult }) {
-  return (
-    <Link href={`/programs/${result.programId}`}>
-      <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">
-        <CardContent className="p-5 space-y-3">
-          {/* University */}
-          <div className="text-sm text-muted-foreground">
-            {result.universityAbbreviation || result.universityName}
-          </div>
-
-          {/* Program Name */}
-          <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-2">
-            {result.programName}
-          </h3>
-
-          {/* Meta Info */}
-          <div className="flex flex-wrap gap-2 text-sm">
-            {/* Country */}
-            <Badge variant="outline" className="gap-1">
-              <MapPin className="h-3 w-3" />
-              {result.country.name}
-            </Badge>
-
-            {/* Field */}
-            <Badge variant="outline" className="gap-1">
-              <FieldIcon fieldName={result.fieldOfStudy.name} className="h-3 w-3" />
-              {result.fieldOfStudy.name}
-            </Badge>
-          </div>
-
-          {/* Details */}
-          <div className="pt-2 border-t flex items-center justify-between text-sm text-muted-foreground">
-            <span>{result.degreeType}</span>
-            <span>{result.duration}</span>
-            {result.minimumIBPoints && (
-              <span className="font-medium">{result.minimumIBPoints} IB pts</span>
-            )}
-          </div>
-        </CardContent>
-      </Card>
-    </Link>
   )
 }

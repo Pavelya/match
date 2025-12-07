@@ -1,8 +1,11 @@
 /**
  * ProgramCard Component
  *
- * Displays a university program with complete match information.
- * Clean, consistent design with cohesive color palette.
+ * Displays a university program with optional match information.
+ * Reusable across matches page, search results, and anywhere programs are listed.
+ *
+ * Props:
+ * - showMatchDetails: Set to false to hide match-specific sections (score, requirements, preferences)
  */
 
 'use client'
@@ -40,6 +43,8 @@ interface ProgramCardProps {
     city?: string | null
   }
   matchResult?: MatchResult
+  /** Set to false to hide match-specific sections (score bar, requirements, preferences) */
+  showMatchDetails?: boolean
   isSaved?: boolean
   onSave?: (programId: string) => void
   onUnsave?: (programId: string) => void
@@ -59,6 +64,7 @@ function getMatchRating(score: number): string {
 export function ProgramCard({
   program,
   matchResult,
+  showMatchDetails = true,
   isSaved = false,
   onSave,
   onUnsave,
@@ -167,8 +173,8 @@ export function ProgramCard({
           </div>
         </div>
 
-        {/* Match Score Section */}
-        {matchResult && (
+        {/* Match Score Section - Only shown when matchResult exists AND showMatchDetails is true */}
+        {matchResult && showMatchDetails && (
           <div className="px-5 sm:px-6 pb-5 sm:pb-6 space-y-5">
             {/* Score Header */}
             <div className="space-y-2">
