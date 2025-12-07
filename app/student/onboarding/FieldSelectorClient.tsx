@@ -229,7 +229,7 @@ export function FieldSelectorClient({
             onSelectionChange={setSelectedCountries}
           />
 
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-8">
             <Button variant="outline" onClick={() => setStep(1)} size="lg">
               ← Back
             </Button>
@@ -273,7 +273,7 @@ export function FieldSelectorClient({
                 </div>
               )}
 
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-8">
                 <Button variant="outline" onClick={() => setStep(2)} size="lg" disabled={isSaving}>
                   ← Back
                 </Button>
@@ -301,7 +301,7 @@ export function FieldSelectorClient({
                 </div>
               )}
 
-              <div className="flex justify-between">
+              <div className="flex justify-between mt-8">
                 <Button variant="outline" onClick={() => setStep(2)} size="lg" disabled={isSaving}>
                   ← Back
                 </Button>
