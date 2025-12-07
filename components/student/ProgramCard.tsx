@@ -140,18 +140,21 @@ export function ProgramCard({
               </Button>
             </div>
 
-            {/* Quick Info - Single bordered pill with all info */}
-            <div className="inline-flex items-center gap-3 rounded-full border px-4 py-2 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <FieldIcon fieldName={program.fieldOfStudy.name} className="h-4 w-4" />
+            {/* Quick Info - Bordered box with wrapping items */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl border px-4 py-3 text-sm">
+              <span className="flex items-center gap-1.5 text-foreground">
+                <FieldIcon
+                  fieldName={program.fieldOfStudy.name}
+                  className="h-4 w-4 text-muted-foreground"
+                />
                 {program.fieldOfStudy.name}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4" />
+              <span className="flex items-center gap-1.5 text-foreground">
+                <Clock className="h-4 w-4 text-muted-foreground" />
                 {program.duration}
               </span>
-              <span className="flex items-center gap-1.5">
-                <GraduationCap className="h-4 w-4" />
+              <span className="flex items-center gap-1.5 text-foreground">
+                <GraduationCap className="h-4 w-4 text-muted-foreground" />
                 {program.degreeType}
               </span>
             </div>
