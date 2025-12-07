@@ -11,6 +11,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
@@ -176,9 +177,11 @@ export function ProgramCard({
 
             {/* View Details CTA - Aligned with bottom of image */}
             <div className="mt-3 sm:mt-0">
-              <Button className="gap-2">
-                View Program Details
-                <ArrowRight className="h-4 w-4" />
+              <Button asChild className="gap-2">
+                <Link href={`/programs/${program.id}`}>
+                  View Program Details
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>
