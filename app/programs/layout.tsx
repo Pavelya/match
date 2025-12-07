@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth/config'
 import { StudentHeader } from '@/components/layout/StudentHeader'
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 
 export default async function ProgramsLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -16,7 +17,8 @@ export default async function ProgramsLayout({ children }: { children: React.Rea
           }}
         />
       )}
-      <main>{children}</main>
+      <main className={session ? 'pb-20 md:pb-0' : ''}>{children}</main>
+      {session && <MobileBottomNav />}
     </div>
   )
 }

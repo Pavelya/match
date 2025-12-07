@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { StudentHeader } from '@/components/layout/StudentHeader'
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -18,7 +19,8 @@ export default async function StudentLayout({ children }: { children: React.Reac
           name: session.user?.name
         }}
       />
-      <main>{children}</main>
+      <main className="pb-20 md:pb-0">{children}</main>
+      <MobileBottomNav />
     </div>
   )
 }
