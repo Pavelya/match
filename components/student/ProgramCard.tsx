@@ -96,9 +96,9 @@ export function ProgramCard({
       <CardContent className="p-0">
         {/* Header Section - Responsive */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-5 sm:p-6">
-          {/* University Image */}
-          <div className="shrink-0">
-            <div className="relative h-28 w-full sm:h-36 sm:w-52 overflow-hidden rounded-xl bg-muted">
+          {/* University Image - Fixed aspect ratio */}
+          <div className="shrink-0 w-full sm:w-auto">
+            <div className="relative aspect-[16/9] sm:aspect-[4/3] w-full sm:h-36 sm:w-48 overflow-hidden rounded-xl bg-muted">
               {program.university.image ? (
                 <Image
                   src={program.university.image}
@@ -108,18 +108,20 @@ export function ProgramCard({
                 />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
-                  <GraduationCap className="h-14 w-14 text-primary/30" />
+                  <GraduationCap className="h-12 w-12 text-primary/30" />
                 </div>
               )}
             </div>
           </div>
 
           {/* Program Info */}
-          <div className="flex-1 space-y-4">
+          <div className="flex-1 space-y-3 sm:space-y-4">
             {/* Title Row with Save */}
             <div className="flex items-start justify-between gap-3">
               <div className="space-y-1">
-                <h3 className="text-xl font-bold text-foreground leading-tight">{program.name}</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
+                  {program.name}
+                </h3>
                 <p className="text-sm text-foreground">
                   {program.university.name}
                   {program.city && `, ${program.city}`}
@@ -139,17 +141,17 @@ export function ProgramCard({
               </Button>
             </div>
 
-            {/* Quick Info Pills */}
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary" className="gap-1.5 font-normal">
+            {/* Quick Info Pills - Horizontal scroll on mobile */}
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
                 <FieldIcon fieldName={program.fieldOfStudy.name} className="h-3.5 w-3.5" />
                 {program.fieldOfStudy.name}
               </Badge>
-              <Badge variant="secondary" className="gap-1.5 font-normal">
+              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
                 <Clock className="h-3.5 w-3.5" />
                 {program.duration}
               </Badge>
-              <Badge variant="secondary" className="gap-1.5 font-normal">
+              <Badge variant="secondary" className="gap-1.5 font-normal whitespace-nowrap shrink-0">
                 <GraduationCap className="h-3.5 w-3.5" />
                 {program.degreeType}
               </Badge>
@@ -224,7 +226,7 @@ export function ProgramCard({
                         <div className="flex items-center gap-1.5 rounded-full bg-destructive/10 px-3 py-1.5">
                           <X className="h-4 w-4 text-destructive" />
                           <span className="text-sm font-medium text-destructive">
-                            {matchResult.academicMatch.pointsShortfall} short
+                            Need {matchResult.academicMatch.pointsShortfall} more
                           </span>
                         </div>
                       )}
@@ -267,14 +269,14 @@ export function ProgramCard({
                       {matchResult.fieldMatch.isMatch ? (
                         <div className="flex items-center gap-1 mt-0.5">
                           <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-primary">Matches preferences</span>
+                          <span className="text-sm text-primary">Matches your interests</span>
                         </div>
                       ) : matchResult.fieldMatch.noPreferences ? (
                         <span className="text-sm text-muted-foreground">No preferences set</span>
                       ) : (
                         <div className="flex items-center gap-1 mt-0.5">
                           <X className="h-4 w-4 text-destructive" />
-                          <span className="text-sm text-destructive">Different field</span>
+                          <span className="text-sm text-destructive">Outside your interests</span>
                         </div>
                       )}
                     </div>
@@ -304,14 +306,16 @@ export function ProgramCard({
                       {matchResult.locationMatch.isMatch ? (
                         <div className="flex items-center gap-1 mt-0.5">
                           <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-primary">Matches preferences</span>
+                          <span className="text-sm text-primary">Preferred location</span>
                         </div>
                       ) : matchResult.locationMatch.noPreferences ? (
                         <span className="text-sm text-muted-foreground">No preferences set</span>
                       ) : (
                         <div className="flex items-center gap-1 mt-0.5">
                           <X className="h-4 w-4 text-destructive" />
-                          <span className="text-sm text-destructive">Different location</span>
+                          <span className="text-sm text-destructive">
+                            Not in your preferred locations
+                          </span>
                         </div>
                       )}
                     </div>
