@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { FieldSelectorClient } from './FieldSelectorClient'
 import { getCachedFields, getCachedCountries, getCachedIBCourses } from '@/lib/reference-data'
+import { PageContainer } from '@/components/layout/PageContainer'
 
 const ONBOARDING_STEPS = [
   { number: 1, label: 'Study Interests' },
@@ -73,7 +74,7 @@ export default async function OnboardingPage() {
   }))
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-6 px-4 sm:px-6 lg:px-8">
+    <PageContainer withBackground={false}>
       <FieldSelectorClient
         fields={fieldsForSelector}
         countries={countries}
@@ -81,6 +82,6 @@ export default async function OnboardingPage() {
         steps={ONBOARDING_STEPS}
         initialData={initialData}
       />
-    </div>
+    </PageContainer>
   )
 }

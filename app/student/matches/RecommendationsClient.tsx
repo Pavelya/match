@@ -9,6 +9,7 @@
 
 import { useEffect, useState } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
+import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { Button } from '@/components/ui/button'
 import { Loader2, RefreshCw, AlertCircle } from 'lucide-react'
 import { logger } from '@/lib/logger'
@@ -166,43 +167,37 @@ export function RecommendationsClient() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
-        {/* Header */}
-        <div className="mb-8 space-y-2">
-          <h1 className="text-3xl font-bold">Your Program Recommendations</h1>
-          <p className="text-muted-foreground">
-            We found {matches.totalMatches} programs matching your profile. Showing top{' '}
-            {matches.returnedCount}.
-          </p>
-        </div>
+    <PageContainer>
+      <PageHeader
+        title="Your Program Recommendations"
+        description={`We found ${matches.totalMatches} programs matching your profile. Showing top ${matches.returnedCount}.`}
+      />
 
-        {/* Recommendations Grid */}
-        <div className="space-y-4">
-          {matches.matches.map((match) => {
-            if (!match.program) return null
+      {/* Recommendations Grid */}
+      <div className="space-y-4">
+        {matches.matches.map((match) => {
+          if (!match.program) return null
 
-            return (
-              <ProgramCard
-                key={match.programId}
-                program={match.program}
-                matchResult={match as MatchResult}
-                isSaved={savedPrograms.has(match.programId)}
-                onSave={handleSave}
-                onUnsave={handleUnsave}
-              />
-            )
-          })}
-        </div>
-
-        {/* Refresh Button */}
-        <div className="mt-8 text-center">
-          <Button variant="outline" onClick={fetchRecommendations}>
-            <RefreshCw className="h-4 w-4 mr-2" />
-            Refresh Recommendations
-          </Button>
-        </div>
+          return (
+            <ProgramCard
+              key={match.programId}
+              program={match.program}
+              matchResult={match as MatchResult}
+              isSaved={savedPrograms.has(match.programId)}
+              onSave={handleSave}
+              onUnsave={handleUnsave}
+            />
+          )
+        })}
       </div>
-    </div>
+
+      {/* Refresh Button */}
+      <div className="mt-8 text-center">
+        <Button variant="outline" onClick={fetchRecommendations}>
+          <RefreshCw className="h-4 w-4 mr-2" />
+          Refresh Recommendations
+        </Button>
+      </div>
+    </PageContainer>
   )
 }
