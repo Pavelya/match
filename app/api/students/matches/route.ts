@@ -25,10 +25,13 @@ import { searchCandidatePrograms, isAlgoliaAvailable } from '@/lib/algolia/searc
 
 export async function GET() {
   const startTime = performance.now()
+  const timings: Record<string, number> = {}
 
   try {
     // Get authenticated session
+    const authStart = performance.now()
     const session = await auth()
+    timings.auth = Math.round(performance.now() - authStart)
 
     if (!session?.user?.id) {
       logger.warn('Unauthorized matches request - no session')
@@ -37,9 +40,8 @@ export async function GET() {
 
     const studentId = session.user.id
 
-    logger.info('Fetching matches for student', { studentId })
-
-    // Fetch student profile with all required data
+    // Fetch student profile
+    const profileStart = performance.now()
     const studentProfile = await prisma.studentProfile.findUnique({
       where: { userId: studentId },
       include: {
@@ -52,6 +54,7 @@ export async function GET() {
         preferredCountries: true
       }
     })
+    timings.fetchProfile = Math.round(performance.now() - profileStart)
 
     if (!studentProfile) {
       logger.warn('Student profile not found', { studentId })
@@ -62,7 +65,9 @@ export async function GET() {
     }
 
     // Fetch all programs from cache
+    const programsStart = performance.now()
     const allPrograms = await getCachedPrograms()
+    timings.fetchPrograms = Math.round(performance.now() - programsStart)
 
     // Pre-filter using Algolia if available (reduces 2500 -> ~300 candidates)
     let programs = allPrograms
@@ -77,54 +82,56 @@ export async function GET() {
       const hasPreferences = studentFields.length > 0 || studentCountries.length > 0
 
       if (hasPreferences) {
+        const algoliaStart = performance.now()
         const candidateIds = await searchCandidatePrograms(
           studentFields,
           studentCountries,
           studentPoints
         )
+        timings.algoliaSearch = Math.round(performance.now() - algoliaStart)
 
         if (candidateIds.length > 0) {
           // Filter to only candidate programs
           const candidateIdSet = new Set(candidateIds)
           programs = allPrograms.filter((p) => candidateIdSet.has(p.id))
           usedAlgoliaFilter = true
-
-          logger.info('Algolia pre-filter applied', {
-            allPrograms: allPrograms.length,
-            candidates: programs.length,
-            reduction: `${Math.round((1 - programs.length / allPrograms.length) * 100)}%`
-          })
         }
       }
     }
 
-    logger.debug('Data fetched', {
-      studentId,
-      programCount: programs.length,
-      hasIBPoints: !!studentProfile.totalIBPoints,
-      usedAlgoliaFilter
-    })
-
-    // Transform Prisma types to matching algorithm types (type-safe)
+    // Transform Prisma types to matching algorithm types
+    const transformStart = performance.now()
     const transformedStudent = transformStudent(studentProfile)
     const transformedPrograms = transformPrograms(programs)
+    timings.transform = Math.round(performance.now() - transformStart)
 
-    // Get matches (with caching) - now fully type-safe!
+    // Get matches (with caching)
+    const matchStart = performance.now()
     const matches = await getCachedMatches(
       studentId,
       transformedStudent,
       transformedPrograms,
       'BALANCED'
     )
+    timings.matching = Math.round(performance.now() - matchStart)
 
-    const duration = performance.now() - startTime
+    const totalDuration = Math.round(performance.now() - startTime)
 
-    logger.info('Matches retrieved successfully', {
+    // Log comprehensive performance metrics
+    logger.info('matches_api_performance', {
       studentId,
+      totalDuration,
+      timings,
+      programCount: {
+        total: allPrograms.length,
+        filtered: programs.length,
+        reduction: usedAlgoliaFilter
+          ? `${Math.round((1 - programs.length / allPrograms.length) * 100)}%`
+          : 'none'
+      },
       matchCount: matches.length,
-      topScore: matches[0]?.overallScore,
-      duration: Math.round(duration),
-      usedAlgoliaFilter
+      usedAlgoliaFilter,
+      topScore: matches[0]?.overallScore
     })
 
     // Return top 15 matches with full program data
