@@ -5,7 +5,7 @@
  * and reduce redundant calculations.
  *
  * Cache Strategy:
- * - TTL: 5 minutes (300 seconds)
+ * - TTL: 30 minutes (1800 seconds)
  * - Key Format: match:{studentId}:{programId}:{weightsHash}
  * - Batch Key: matches:{studentId}:{weightsHash}
  */
@@ -15,8 +15,8 @@ import { calculateMatch, calculateMatches } from './scorer'
 import type { MatchInput, MatchResult, WeightConfig } from './types'
 import { logger } from '@/lib/logger'
 
-// Cache TTL in seconds (5 minutes)
-const CACHE_TTL = 300
+// Cache TTL in seconds (30 minutes)
+const CACHE_TTL = 1800
 
 /**
  * Generate a hash for weight configuration

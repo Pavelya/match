@@ -32,9 +32,23 @@
 
 ---
 
-## 🔴 Priority 1: Pre-compute Matches on Profile Save
+### Task 1: Pre-compute Matches on Profile Save
+**Status**: ✅ Done
 
-**Goal**: Eliminate cache misses by pre-computing matches when profile changes.
+**What**: Pre-compute matches when profile is saved (fire-and-forget).
+
+**Files Changed**:
+- `app/api/students/matches/precompute/route.ts` (new)
+- `app/api/students/profile/route.ts`
+- `lib/env.ts`
+
+**Environment Variables to Add**:
+```
+INTERNAL_API_KEY=your-random-secret-key
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+**Test**: Save profile → visit /student/matches → should load instantly (cache hit).
 
 ### What to Change
 
