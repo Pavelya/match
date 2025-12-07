@@ -36,10 +36,11 @@ function getCacheKey(studentId: string, programId: string, weights: WeightConfig
 
 /**
  * Generate cache key for batch matches
+ * Includes program count to ensure different program sets get different cache entries
  */
-function getBatchCacheKey(studentId: string, weights: WeightConfig): string {
+function getBatchCacheKey(studentId: string, weights: WeightConfig, programCount: number): string {
   const weightsHash = hashWeights(weights)
-  return `matches:${studentId}:${weightsHash}`
+  return `matches:${studentId}:${weightsHash}:${programCount}`
 }
 
 /**
@@ -98,7 +99,7 @@ export async function getCachedMatches(
 ): Promise<MatchResult[]> {
   const weightsUsed = weights || { academic: 0.6, location: 0.3, field: 0.1 } // Default
 
-  const cacheKey = getBatchCacheKey(studentId, weightsUsed)
+  const cacheKey = getBatchCacheKey(studentId, weightsUsed, programs.length)
 
   try {
     // Try to get from cache

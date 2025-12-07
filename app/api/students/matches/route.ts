@@ -3,13 +3,12 @@
  *
  * GET /api/students/matches
  *
- * Returns top program matches for the authenticated student based on:
+ * Returns top 10 program matches for the authenticated student based on:
  * - Academic profile (courses, grades, IB points)
  * - Preferences (fields, countries)
  * - Matching algorithm score
  *
  * Performance optimizations:
- * - Algolia pre-filtering (reduces candidates from 2500 to ~300)
  * - Redis cache for programs (1 hour TTL)
  * - Redis cache for matches (30 min TTL)
  */
@@ -21,7 +20,7 @@ import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
-import { searchCandidatePrograms, isAlgoliaAvailable } from '@/lib/algolia/search'
+// Note: Algolia is not used here - matching runs against all programs
 
 export async function GET() {
   const startTime = performance.now()
@@ -69,47 +68,15 @@ export async function GET() {
     const allPrograms = await getCachedPrograms()
     timings.fetchPrograms = Math.round(performance.now() - programsStart)
 
-    // Pre-filter using Algolia if available (reduces 2500 -> ~300 candidates)
-    let programs = allPrograms
-    let usedAlgoliaFilter = false
-
-    if (isAlgoliaAvailable()) {
-      const studentPoints = studentProfile.totalIBPoints || 0
-      const studentFields = studentProfile.preferredFields.map((f) => f.id)
-      const studentCountries = studentProfile.preferredCountries.map((c) => c.id)
-
-      // Only use Algolia if student has preferences to filter by
-      const hasPreferences = studentFields.length > 0 || studentCountries.length > 0
-
-      if (hasPreferences) {
-        const algoliaStart = performance.now()
-        const candidateIds = await searchCandidatePrograms(
-          studentFields,
-          studentCountries,
-          studentPoints
-        )
-        timings.algoliaSearch = Math.round(performance.now() - algoliaStart)
-
-        // Only use Algolia filter if we have enough candidates (at least 50)
-        // to ensure we can return 10 good matches
-        if (candidateIds.length >= 50) {
-          // Filter to only candidate programs
-          const candidateIdSet = new Set(candidateIds)
-          programs = allPrograms.filter((p) => candidateIdSet.has(p.id))
-          usedAlgoliaFilter = true
-        } else {
-          logger.info('Algolia returned too few candidates, using all programs', {
-            candidateCount: candidateIds.length,
-            threshold: 50
-          })
-        }
-      }
-    }
+    // NOTE: We do NOT use Algolia pre-filtering for the matches API.
+    // The matching algorithm must run against ALL programs to correctly
+    // rank and return the top 10 programs by match score.
+    // Algolia pre-filtering is only suitable for search/browse pages.
 
     // Transform Prisma types to matching algorithm types
     const transformStart = performance.now()
     const transformedStudent = transformStudent(studentProfile)
-    const transformedPrograms = transformPrograms(programs)
+    const transformedPrograms = transformPrograms(allPrograms)
     timings.transform = Math.round(performance.now() - transformStart)
 
     // Get matches (with caching)
@@ -129,15 +96,8 @@ export async function GET() {
       studentId,
       totalDuration,
       timings,
-      programCount: {
-        total: allPrograms.length,
-        filtered: programs.length,
-        reduction: usedAlgoliaFilter
-          ? `${Math.round((1 - programs.length / allPrograms.length) * 100)}%`
-          : 'none'
-      },
+      programCount: allPrograms.length,
       matchCount: matches.length,
-      usedAlgoliaFilter,
       topScore: matches[0]?.overallScore
     })
 
