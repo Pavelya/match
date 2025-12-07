@@ -84,7 +84,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
   const avatarColor = user.email ? getAvatarColor(user.email) : avatarColors[0]
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background">
+    <header className="w-full bg-background">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center">
           {/* Logo */}
