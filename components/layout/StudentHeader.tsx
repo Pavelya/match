@@ -84,9 +84,9 @@ export function StudentHeader({ user }: StudentHeaderProps) {
   const avatarColor = user.email ? getAvatarColor(user.email) : avatarColors[0]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
@@ -99,8 +99,8 @@ export function StudentHeader({ user }: StudentHeaderProps) {
             />
           </Link>
 
-          {/* Navigation - Hidden on mobile */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Navigation - Hidden on mobile, close to logo */}
+          <nav className="hidden md:flex items-center ml-6 gap-1">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
 
@@ -109,8 +109,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-colors rounded-lg',
-                    'hover:bg-muted',
+                    'relative px-3 py-2 text-sm font-medium transition-colors',
                     isActive ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
                   )}
                 >
@@ -119,10 +118,17 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                   {isActive && (
                     <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-primary rounded-full" />
                   )}
+                  {/* Hover indicator - gray underline (only when not active) */}
+                  {!isActive && (
+                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-transparent group-hover:bg-muted-foreground/30 rounded-full transition-colors" />
+                  )}
                 </Link>
               )
             })}
           </nav>
+
+          {/* Spacer */}
+          <div className="flex-1" />
 
           {/* Avatar */}
           <div className="shrink-0">
@@ -132,12 +138,13 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                 alt={user.name || 'User avatar'}
                 width={40}
                 height={40}
-                className="rounded-full border-2 border-muted"
+                className="rounded-full object-cover"
+                style={{ width: 40, height: 40 }}
               />
             ) : (
               <div
-                className="flex items-center justify-center w-10 h-10 rounded-full text-white font-semibold text-base"
-                style={{ backgroundColor: avatarColor }}
+                className="flex items-center justify-center rounded-full text-white font-semibold text-base"
+                style={{ backgroundColor: avatarColor, width: 40, height: 40 }}
               >
                 {initial}
               </div>
