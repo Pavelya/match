@@ -58,8 +58,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0 0);
 
-  /* Primary Blue #2563EB (Tailwind blue-600) */
-  --primary: oklch(0.546 0.245 262.881);
+  /* Primary Blue #3573E5 (Logo color) */
+  --primary: oklch(0.576 0.185 254);
   --primary-foreground: oklch(1 0 0);
 
   --secondary: oklch(0.96 0.01 250);
@@ -75,11 +75,11 @@
 
   --border: oklch(0.9 0.01 250);
   --input: oklch(0.9 0.01 250);
-  --ring: oklch(0.546 0.245 262.881);
+  --ring: oklch(0.576 0.185 254);
   /* Match primary blue */
 
   /* Chart colors */
-  --chart-1: oklch(0.546 0.245 262.881);
+  --chart-1: oklch(0.576 0.185 254);
   /* Primary blue */
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -89,13 +89,13 @@
   /* Sidebar */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.22 0 0);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
+  --sidebar-primary: oklch(0.576 0.185 254);
   /* Blue */
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.96 0.01 250);
   --sidebar-accent-foreground: oklch(0.22 0 0);
   --sidebar-border: oklch(0.9 0.01 250);
-  --sidebar-ring: oklch(0.546 0.245 262.881);
+  --sidebar-ring: oklch(0.576 0.185 254);
   /* Blue */
 }
 
