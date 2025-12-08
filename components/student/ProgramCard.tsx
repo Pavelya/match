@@ -195,40 +195,6 @@ export function ProgramCard({
     return 'Based on your academic profile'
   }
 
-  // Check IB points status
-  const getPointsStatus = () => {
-    if (!studentProfile || !program.minIBPoints) return null
-    const studentPoints = studentProfile.totalIBPoints || 0
-    const met = studentPoints >= program.minIBPoints
-    return {
-      met,
-      shortfall: met ? 0 : program.minIBPoints - studentPoints
-    }
-  }
-
-  // Check field/location preferences
-  const getFieldStatus = () => {
-    if (!studentProfile || !program.fieldOfStudy.id) return null
-    const isMatch = studentProfile.preferredFields.some((f) => f.id === program.fieldOfStudy.id)
-    return {
-      isMatch,
-      text: isMatch ? 'Matches your field preferences' : 'Outside your field preferences'
-    }
-  }
-
-  const getLocationStatus = () => {
-    if (!studentProfile || !program.country.id) return null
-    const isMatch = studentProfile.preferredCountries.some((c) => c.id === program.country.id)
-    return {
-      isMatch,
-      text: isMatch ? 'Matches your location preferences' : 'Outside your location preferences'
-    }
-  }
-
-  const pointsStatus = getPointsStatus()
-  const fieldStatus = getFieldStatus()
-  const locationStatus = getLocationStatus()
-
   const isDetailView = variant === 'detail'
 
   // Wrapper component - Card for card variant, div for detail
@@ -251,10 +217,10 @@ export function ProgramCard({
           </Link>
 
           {/* Hero Section */}
-          <div className="flex flex-col md:flex-row gap-6">
-            {/* University Image */}
-            <div className="shrink-0">
-              <div className="relative aspect-[4/3] w-full md:w-48 h-32 overflow-hidden rounded-lg bg-muted">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            {/* University Image - Same size as card variant */}
+            <div className="shrink-0 w-full sm:w-auto">
+              <div className="relative aspect-[16/9] sm:aspect-square w-full sm:h-44 sm:w-44 overflow-hidden rounded-xl bg-muted">
                 {program.university.image ? (
                   <Image
                     src={program.university.image}
@@ -265,7 +231,7 @@ export function ProgramCard({
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
-                    <GraduationCap className="h-10 w-10 text-primary/30" />
+                    <GraduationCap className="h-12 w-12 text-primary/30" />
                   </div>
                 )}
               </div>
@@ -281,20 +247,20 @@ export function ProgramCard({
                 </p>
               </div>
 
-              {/* Quick Info Bar */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 rounded-lg bg-muted/50 px-4 py-2 text-sm">
-                <span className="flex items-center gap-1.5">
+              {/* Quick Info Bar - Same styling as card variant */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-muted/50 px-4 py-3 text-sm">
+                <span className="flex items-center gap-1.5 text-foreground">
                   <FieldIcon
                     fieldName={program.fieldOfStudy.name}
                     className="h-4 w-4 text-muted-foreground"
                   />
                   {program.fieldOfStudy.name}
                 </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 text-foreground">
                   <Clock className="h-4 w-4 text-muted-foreground" />
                   {program.duration}
                 </span>
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 text-foreground">
                   <GraduationCap className="h-4 w-4 text-muted-foreground" />
                   {program.degreeType}
                 </span>
@@ -318,32 +284,18 @@ export function ProgramCard({
             </div>
           </div>
 
-          {/* Match Score Section */}
+          {/* Match Score Section - Same styling as card variant */}
           {matchResult && (
-            <div className="border-t pt-6 space-y-2">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-sm font-medium text-muted-foreground">Match Score</h2>
-                  <p className={cn('font-semibold', matchRating?.color)}>{matchRating?.label}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold">{matchPercentage}%</p>
-                  <p className="text-xs text-muted-foreground">Balanced mode</p>
-                </div>
+                <span className="font-semibold">{matchRating?.label}</span>
+                <span className="text-lg font-bold">{matchPercentage}%</span>
               </div>
 
+              {/* Progress Bar - Same color as card variant */}
               <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                 <div
-                  className={cn(
-                    'h-full transition-all duration-500',
-                    matchPercentage >= 75
-                      ? 'bg-green-500'
-                      : matchPercentage >= 50
-                        ? 'bg-blue-500'
-                        : matchPercentage >= 25
-                          ? 'bg-amber-500'
-                          : 'bg-red-500'
-                  )}
+                  className="h-full bg-primary transition-all duration-500"
                   style={{ width: `${matchPercentage}%` }}
                 />
               </div>
@@ -360,47 +312,52 @@ export function ProgramCard({
             </div>
           )}
 
-          {/* Academic Requirements */}
+          {/* Academic Requirements - Same styling as card variant */}
           {(program.minIBPoints || (program.courseRequirements?.length ?? 0) > 0) && (
-            <div className="space-y-4">
-              <h2 className="text-lg font-semibold">Academic Requirements</h2>
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm">Academic Requirements</h4>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {/* IB Points */}
-                {program.minIBPoints && (
+              <div className="space-y-3">
+                {/* IB Points - Same layout as card variant */}
+                {program.minIBPoints && matchResult && (
                   <div
                     className={cn(
-                      'rounded-lg border p-4',
-                      pointsStatus?.met ? 'border-green-200 bg-green-50' : 'border-muted'
+                      'rounded-xl border-2 p-4',
+                      matchResult.academicMatch.meetsPointsRequirement
+                        ? 'border-primary/20 bg-primary/5'
+                        : 'border-destructive/30 bg-transparent'
                     )}
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
-                        <GraduationCap className="h-5 w-5 text-muted-foreground" />
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={cn(
+                          'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                          matchResult.academicMatch.meetsPointsRequirement
+                            ? 'bg-primary/10'
+                            : 'bg-muted'
+                        )}
+                      >
+                        <GraduationCap className="h-6 w-6 text-current opacity-70" />
                       </div>
                       <div className="flex-1">
                         <p className="font-medium">Total IB points</p>
                         <p className="text-sm text-muted-foreground">
                           Required: {program.minIBPoints} points
                         </p>
-                        {pointsStatus && (
-                          <p
-                            className={cn(
-                              'text-sm mt-1 flex items-center gap-1',
-                              pointsStatus.met ? 'text-green-600' : 'text-red-500'
-                            )}
-                          >
-                            {pointsStatus.met ? (
-                              <>
-                                <Check className="h-3 w-3" /> Requirement met
-                              </>
-                            ) : (
-                              <>
-                                <AlertCircle className="h-3 w-3" /> Need {pointsStatus.shortfall}{' '}
-                                more
-                              </>
-                            )}
-                          </p>
+                      </div>
+                      <div className="shrink-0">
+                        {matchResult.academicMatch.meetsPointsRequirement ? (
+                          <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5">
+                            <Check className="h-4 w-4 text-primary" />
+                            <span className="text-sm font-medium text-primary">Met</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-1.5 rounded-full border border-destructive/30 px-3 py-1.5">
+                            <X className="h-4 w-4 text-destructive" />
+                            <span className="text-sm font-medium text-destructive">
+                              Need {matchResult.academicMatch.pointsShortfall} more
+                            </span>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -459,47 +416,50 @@ export function ProgramCard({
             </div>
           )}
 
-          {/* Your Preferences */}
-          {studentProfile && (
-            <div className="space-y-4">
-              <h2 className="text-lg font-semibold">Your Preferences</h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Your Preferences - Same styling as card variant */}
+          {matchResult && (
+            <div className="space-y-3">
+              <h4 className="font-semibold text-sm">Your Preferences</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {/* Field Preference */}
                 <div
                   className={cn(
-                    'rounded-lg border p-4',
-                    fieldStatus?.isMatch ? 'border-green-200 bg-green-50' : 'border-muted'
+                    'rounded-xl border-2 p-4',
+                    matchResult.fieldMatch.isMatch
+                      ? 'border-primary/20 bg-primary/5'
+                      : 'border-destructive/30 bg-transparent'
                   )}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div
                       className={cn(
-                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                        fieldStatus?.isMatch ? 'bg-green-100' : 'bg-muted'
+                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                        matchResult.fieldMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
                       <FieldIcon
                         fieldName={program.fieldOfStudy.name}
                         className={cn(
-                          'h-5 w-5',
-                          fieldStatus?.isMatch ? 'text-green-600' : 'text-muted-foreground'
+                          'h-6 w-6',
+                          matchResult.fieldMatch.isMatch ? 'text-primary' : 'text-destructive'
                         )}
                       />
                     </div>
-                    <div>
-                      <p className="font-medium">{program.fieldOfStudy.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {program.fieldOfStudy.description}
-                      </p>
-                      <p
-                        className={cn(
-                          'text-sm mt-1',
-                          fieldStatus?.isMatch ? 'text-green-600' : 'text-red-500'
-                        )}
-                      >
-                        {fieldStatus?.text}
-                      </p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">{program.fieldOfStudy.name}</p>
+                      {matchResult.fieldMatch.isMatch ? (
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <Check className="h-4 w-4 text-primary" />
+                          <span className="text-sm text-primary">Matches your interests</span>
+                        </div>
+                      ) : matchResult.fieldMatch.noPreferences ? (
+                        <span className="text-sm text-muted-foreground">No preferences set</span>
+                      ) : (
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <X className="h-4 w-4 text-destructive" />
+                          <span className="text-sm text-destructive">Outside your interests</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -507,30 +467,38 @@ export function ProgramCard({
                 {/* Location Preference */}
                 <div
                   className={cn(
-                    'rounded-lg border p-4',
-                    locationStatus?.isMatch ? 'border-green-200 bg-green-50' : 'border-muted'
+                    'rounded-xl border-2 p-4',
+                    matchResult.locationMatch.isMatch
+                      ? 'border-primary/20 bg-primary/5'
+                      : 'border-destructive/30 bg-transparent'
                   )}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-center gap-3">
                     <div
                       className={cn(
-                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                        locationStatus?.isMatch ? 'bg-green-100' : 'bg-muted'
+                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                        matchResult.locationMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
-                      <span className="text-lg">{program.country.flagEmoji || '🌍'}</span>
+                      <span className="text-2xl">{program.country.flagEmoji || '🌍'}</span>
                     </div>
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <p className="font-medium">{program.country.name}</p>
-                      <p className="text-sm text-muted-foreground">{program.city}</p>
-                      <p
-                        className={cn(
-                          'text-sm mt-1',
-                          locationStatus?.isMatch ? 'text-green-600' : 'text-red-500'
-                        )}
-                      >
-                        {locationStatus?.text}
-                      </p>
+                      {matchResult.locationMatch.isMatch ? (
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <Check className="h-4 w-4 text-primary" />
+                          <span className="text-sm text-primary">Preferred location</span>
+                        </div>
+                      ) : matchResult.locationMatch.noPreferences ? (
+                        <span className="text-sm text-muted-foreground">No preferences set</span>
+                      ) : (
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <X className="h-4 w-4 text-destructive" />
+                          <span className="text-sm text-destructive">
+                            Not in your preferred locations
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
