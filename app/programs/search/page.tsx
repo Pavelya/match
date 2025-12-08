@@ -13,9 +13,26 @@ import { getCachedFields, getCachedCountries } from '@/lib/reference-data'
 import { SearchClient } from './SearchClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+
 export const metadata = {
-  title: 'Search Programs | IB Match',
-  description: 'Search and discover university programs that match your IB profile.'
+  title: 'Search Programs',
+  description: 'Search and discover university programs that match your IB profile.',
+  openGraph: {
+    title: 'Search Programs | IB Match',
+    description: 'Search and discover university programs that match your IB profile.',
+    type: 'website',
+    url: `${baseUrl}/programs/search`,
+    siteName: 'IB Match'
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Search Programs | IB Match',
+    description: 'Search and discover university programs that match your IB profile.'
+  },
+  alternates: {
+    canonical: `${baseUrl}/programs/search`
+  }
 }
 
 export default async function SearchPage() {

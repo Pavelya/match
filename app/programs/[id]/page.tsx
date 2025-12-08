@@ -20,6 +20,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 
   const program = await prisma.academicProgram.findUnique({
     where: { id },
@@ -30,13 +31,41 @@ export async function generateMetadata({ params }: PageProps) {
 
   if (!program) {
     return {
-      title: 'Program Not Found | IB Match'
+      title: 'Program Not Found'
     }
   }
 
+  const title = `${program.name} at ${program.university.name}`
+  const description = program.description.slice(0, 160)
+
   return {
-    title: `${program.name} at ${program.university.name} | IB Match`,
-    description: program.description.slice(0, 160)
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: `${baseUrl}/programs/${id}`,
+      siteName: 'IB Match',
+      images: program.university.image
+        ? [
+            {
+              url: program.university.image,
+              width: 1200,
+              height: 630,
+              alt: program.university.name
+            }
+          ]
+        : undefined
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description
+    },
+    alternates: {
+      canonical: `${baseUrl}/programs/${id}`
+    }
   }
 }
 
@@ -147,8 +176,38 @@ export default async function ProgramDetailPage({ params }: PageProps) {
       }
     : null
 
+  // JSON-LD structured data for SEO and AI search
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOccupationalProgram',
+    name: program.name,
+    description: program.description,
+    provider: {
+      '@type': 'CollegeOrUniversity',
+      name: program.university.name,
+      url: program.university.websiteUrl,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: program.university.city,
+        addressCountry: program.university.country.code
+      }
+    },
+    educationalProgramMode: 'full-time',
+    programType: program.degreeType,
+    timeToComplete: program.duration,
+    occupationalCategory: program.fieldOfStudy.name,
+    offers: {
+      '@type': 'Offer',
+      category: 'Academic Program'
+    }
+  }
+
   return (
     <PageContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ProgramCard
         program={programForCard}
         matchResult={matchResult ?? undefined}
