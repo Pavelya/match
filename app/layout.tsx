@@ -57,7 +57,11 @@ export const metadata: Metadata = {
     }
   },
   icons: {
-    icon: '/favicon.ico'
+    icon: [
+      { url: '/logo-restored.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' }
+    ],
+    apple: '/logo-restored.svg'
   }
 }
 
@@ -67,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light" style={{ colorScheme: 'light' }}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
   )
