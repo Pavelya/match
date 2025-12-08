@@ -104,9 +104,12 @@ export async function GET() {
     // Return top 10 matches with full program data
     const topMatches = matches.slice(0, 10)
 
-    // Enrich matches with full program data (use allPrograms for enrichment)
+    // Create lookup map for O(1) access instead of O(n) .find() per match
+    const programMap = new Map(allPrograms.map((p) => [p.id, p]))
+
+    // Enrich matches with full program data using O(1) lookups
     const enrichedMatches = topMatches.map((match) => {
-      const program = allPrograms.find((p) => p.id === match.programId)
+      const program = programMap.get(match.programId)
       return {
         ...match,
         program: program

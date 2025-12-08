@@ -19,6 +19,21 @@ import { logger } from '@/lib/logger'
 const CACHE_TTL = 1800
 
 /**
+ * Scan for keys matching a pattern using SCAN (non-blocking)
+ * Unlike KEYS, SCAN doesn't block Redis while iterating
+ */
+async function scanKeys(pattern: string): Promise<string[]> {
+  const allKeys: string[] = []
+  let cursor = 0
+  do {
+    const result = await redis.scan(cursor, { match: pattern, count: 100 })
+    cursor = Number(result[0])
+    allKeys.push(...result[1])
+  } while (cursor !== 0)
+  return allKeys
+}
+
+/**
  * Generate a hash for weight configuration
  * This ensures different weight configurations get different cache entries
  */
@@ -138,13 +153,12 @@ export async function getCachedMatches(
  */
 export async function invalidateStudentCache(studentId: string): Promise<void> {
   try {
-    // Find all keys for this student
+    // Find all keys for this student using SCAN (non-blocking)
     const pattern = `match:${studentId}:*`
     const batchPattern = `matches:${studentId}:*`
 
-    // Note: In production with many keys, consider using SCAN instead of KEYS
-    const matchKeys = await redis.keys(pattern)
-    const batchKeys = await redis.keys(batchPattern)
+    const matchKeys = await scanKeys(pattern)
+    const batchKeys = await scanKeys(batchPattern)
 
     const allKeys = [...matchKeys, ...batchKeys]
 
@@ -165,11 +179,10 @@ export async function invalidateStudentCache(studentId: string): Promise<void> {
  */
 export async function invalidateProgramCache(programId: string): Promise<void> {
   try {
-    // Find all keys for this program
+    // Find all keys for this program using SCAN (non-blocking)
     const pattern = `match:*:${programId}:*`
 
-    // Note: In production with many keys, consider using SCAN instead of KEYS
-    const keys = await redis.keys(pattern)
+    const keys = await scanKeys(pattern)
 
     if (keys.length > 0) {
       await redis.del(...keys)
@@ -186,8 +199,8 @@ export async function invalidateProgramCache(programId: string): Promise<void> {
  */
 export async function clearAllMatchCache(): Promise<void> {
   try {
-    const matchKeys = await redis.keys('match:*')
-    const batchKeys = await redis.keys('matches:*')
+    const matchKeys = await scanKeys('match:*')
+    const batchKeys = await scanKeys('matches:*')
 
     const allKeys = [...matchKeys, ...batchKeys]
 
@@ -210,8 +223,8 @@ export async function getCacheStats(): Promise<{
   totalKeys: number
 }> {
   try {
-    const matchKeys = await redis.keys('match:*')
-    const batchKeys = await redis.keys('matches:*')
+    const matchKeys = await scanKeys('match:*')
+    const batchKeys = await scanKeys('matches:*')
 
     return {
       matchKeys: matchKeys.length,
