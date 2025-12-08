@@ -325,10 +325,10 @@ export function ProgramCard({
                       'rounded-xl border-2 p-4',
                       matchResult.academicMatch.meetsPointsRequirement
                         ? 'border-primary/20 bg-primary/5'
-                        : 'border-destructive/30 bg-transparent'
+                        : 'border-destructive/20 bg-transparent'
                     )}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div
                         className={cn(
                           'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
@@ -339,22 +339,17 @@ export function ProgramCard({
                       >
                         <GraduationCap className="h-6 w-6 text-current opacity-70" />
                       </div>
-                      <div className="flex-1">
-                        <p className="font-medium">Total IB points</p>
-                        <p className="text-sm text-muted-foreground">
-                          Required: {program.minIBPoints} points
-                        </p>
-                      </div>
-                      <div className="shrink-0">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium">{program.minIBPoints} IB points</p>
                         {matchResult.academicMatch.meetsPointsRequirement ? (
-                          <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5">
+                          <div className="flex items-center gap-1 mt-0.5">
                             <Check className="h-4 w-4 text-primary" />
-                            <span className="text-sm font-medium text-primary">Met</span>
+                            <span className="text-sm text-primary">Requirement met</span>
                           </div>
                         ) : (
-                          <div className="flex items-center gap-1.5 rounded-full border border-destructive/30 px-3 py-1.5">
+                          <div className="flex items-center gap-1 mt-0.5">
                             <X className="h-4 w-4 text-destructive" />
-                            <span className="text-sm font-medium text-destructive">
+                            <span className="text-sm text-destructive">
                               Need {matchResult.academicMatch.pointsShortfall} more
                             </span>
                           </div>
@@ -427,7 +422,7 @@ export function ProgramCard({
                     'rounded-xl border-2 p-4',
                     matchResult.fieldMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
-                      : 'border-destructive/30 bg-transparent'
+                      : 'border-destructive/20 bg-transparent'
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -470,7 +465,7 @@ export function ProgramCard({
                     'rounded-xl border-2 p-4',
                     matchResult.locationMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
-                      : 'border-destructive/30 bg-transparent'
+                      : 'border-destructive/20 bg-transparent'
                   )}
                 >
                   <div className="flex items-center gap-3">
@@ -625,10 +620,10 @@ export function ProgramCard({
                       'rounded-xl border-2 p-4',
                       matchResult.academicMatch.meetsPointsRequirement
                         ? 'border-primary/20 bg-primary/5'
-                        : 'border-destructive/30 bg-transparent'
+                        : 'border-destructive/20 bg-transparent'
                     )}
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div
                         className={cn(
                           'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
@@ -639,22 +634,17 @@ export function ProgramCard({
                       >
                         <GraduationCap className="h-6 w-6 text-current opacity-70" />
                       </div>
-                      <div className="flex-1">
-                        <p className="font-medium">Total IB points</p>
-                        <p className="text-sm text-muted-foreground">
-                          Required: {program.minIBPoints} points
-                        </p>
-                      </div>
-                      <div className="shrink-0">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium">{program.minIBPoints} IB points</p>
                         {matchResult.academicMatch.meetsPointsRequirement ? (
-                          <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1.5">
+                          <div className="flex items-center gap-1 mt-0.5">
                             <Check className="h-4 w-4 text-primary" />
-                            <span className="text-sm font-medium text-primary">Met</span>
+                            <span className="text-sm text-primary">Requirement met</span>
                           </div>
                         ) : (
-                          <div className="flex items-center gap-1.5 rounded-full border border-destructive/30 px-3 py-1.5">
+                          <div className="flex items-center gap-1 mt-0.5">
                             <X className="h-4 w-4 text-destructive" />
-                            <span className="text-sm font-medium text-destructive">
+                            <span className="text-sm text-destructive">
                               Need {matchResult.academicMatch.pointsShortfall} more
                             </span>
                           </div>
@@ -675,7 +665,7 @@ export function ProgramCard({
                       'rounded-xl border-2 p-4',
                       matchResult.fieldMatch.isMatch
                         ? 'border-primary/20 bg-primary/5'
-                        : 'border-destructive/30 bg-transparent'
+                        : 'border-destructive/20 bg-transparent'
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -718,7 +708,7 @@ export function ProgramCard({
                       'rounded-xl border-2 p-4',
                       matchResult.locationMatch.isMatch
                         ? 'border-primary/20 bg-primary/5'
-                        : 'border-destructive/30 bg-transparent'
+                        : 'border-destructive/20 bg-transparent'
                     )}
                   >
                     <div className="flex items-center gap-3">
