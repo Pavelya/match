@@ -213,7 +213,7 @@ export function FieldSelectorClient({
             maxSelection={5}
           />
 
-          <div className="flex justify-end">
+          <div className="flex justify-end mt-8">
             <Button onClick={handleContinueFromFields} disabled={!canContinueFromFields} size="lg">
               Continue to Countries →
             </Button>
