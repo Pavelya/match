@@ -48,50 +48,151 @@ export async function POST(request: NextRequest) {
 
     const studentId = session.user.id
 
-    // Upsert student profile (handles both new and existing users)
-    const profile = await prisma.studentProfile.upsert({
-      where: {
-        userId: studentId
-      },
-      create: {
-        userId: studentId,
-        totalIBPoints: data.totalIBPoints,
-        tokGrade: data.tokGrade,
-        eeGrade: data.eeGrade,
-        preferredFields: {
-          connect: data.interestedFields.map((id) => ({ id }))
-        },
-        preferredCountries: {
-          connect: data.preferredCountries.map((id) => ({ id }))
-        },
+    // Fetch existing profile to compute diff
+    const existingProfile = await prisma.studentProfile.findUnique({
+      where: { userId: studentId },
+      include: {
+        preferredFields: { select: { id: true } },
+        preferredCountries: { select: { id: true } },
         courses: {
-          create: data.courseSelections.map((selection) => ({
-            ibCourseId: selection.courseId,
-            level: selection.level,
-            grade: selection.grade
-          }))
-        }
-      },
-      update: {
-        totalIBPoints: data.totalIBPoints,
-        tokGrade: data.tokGrade,
-        eeGrade: data.eeGrade,
-        preferredFields: {
-          set: data.interestedFields.map((id) => ({ id }))
-        },
-        preferredCountries: {
-          set: data.preferredCountries.map((id) => ({ id }))
-        },
-        courses: {
-          deleteMany: {}, // Remove all existing courses
-          create: data.courseSelections.map((selection) => ({
-            ibCourseId: selection.courseId,
-            level: selection.level,
-            grade: selection.grade
-          }))
+          select: {
+            id: true,
+            ibCourseId: true,
+            level: true,
+            grade: true
+          }
         }
       }
     })
+
+    let profile
+
+    if (!existingProfile) {
+      // CREATE: New profile - use original create logic
+      profile = await prisma.studentProfile.create({
+        data: {
+          userId: studentId,
+          totalIBPoints: data.totalIBPoints,
+          tokGrade: data.tokGrade,
+          eeGrade: data.eeGrade,
+          preferredFields: {
+            connect: data.interestedFields.map((id) => ({ id }))
+          },
+          preferredCountries: {
+            connect: data.preferredCountries.map((id) => ({ id }))
+          },
+          courses: {
+            create: data.courseSelections.map((selection) => ({
+              ibCourseId: selection.courseId,
+              level: selection.level,
+              grade: selection.grade
+            }))
+          }
+        }
+      })
+      logger.info('Created new student profile', { studentId, profileId: profile.id })
+    } else {
+      // UPDATE: Compute diff and only update changed values
+      const existingFieldIds = new Set(existingProfile.preferredFields.map((f) => f.id))
+      const existingCountryIds = new Set(existingProfile.preferredCountries.map((c) => c.id))
+      const newFieldIds = new Set(data.interestedFields)
+      const newCountryIds = new Set(data.preferredCountries)
+
+      // Check what changed
+      const fieldsChanged =
+        existingFieldIds.size !== newFieldIds.size ||
+        ![...existingFieldIds].every((id) => newFieldIds.has(id))
+      const countriesChanged =
+        existingCountryIds.size !== newCountryIds.size ||
+        ![...existingCountryIds].every((id) => newCountryIds.has(id))
+      const scalarChanged =
+        existingProfile.totalIBPoints !== data.totalIBPoints ||
+        existingProfile.tokGrade !== data.tokGrade ||
+        existingProfile.eeGrade !== data.eeGrade
+
+      // Check if courses changed (compare by courseId + level + grade)
+      const existingCourseMap = new Map(
+        existingProfile.courses.map((c) => [`${c.ibCourseId}:${c.level}:${c.grade}`, c])
+      )
+      const newCourseKeys = new Set(
+        data.courseSelections.map((s) => `${s.courseId}:${s.level}:${s.grade}`)
+      )
+      const coursesChanged =
+        existingProfile.courses.length !== data.courseSelections.length ||
+        ![...existingCourseMap.keys()].every((key) => newCourseKeys.has(key))
+
+      // Only proceed with update if something actually changed
+      if (!fieldsChanged && !countriesChanged && !scalarChanged && !coursesChanged) {
+        logger.info('No changes detected, skipping profile update', { studentId })
+        return NextResponse.json({
+          success: true,
+          profileId: existingProfile.id,
+          noChanges: true
+        })
+      }
+
+      // Build update object with only changed fields
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const updateData: any = {}
+
+      if (scalarChanged) {
+        updateData.totalIBPoints = data.totalIBPoints
+        updateData.tokGrade = data.tokGrade
+        updateData.eeGrade = data.eeGrade
+      }
+
+      if (fieldsChanged) {
+        updateData.preferredFields = {
+          set: data.interestedFields.map((id) => ({ id }))
+        }
+      }
+
+      if (countriesChanged) {
+        updateData.preferredCountries = {
+          set: data.preferredCountries.map((id) => ({ id }))
+        }
+      }
+
+      if (coursesChanged) {
+        // Compute which courses to add vs remove
+        const coursesToDelete = existingProfile.courses.filter(
+          (c) => !newCourseKeys.has(`${c.ibCourseId}:${c.level}:${c.grade}`)
+        )
+        const coursesToAdd = data.courseSelections.filter(
+          (s) => !existingCourseMap.has(`${s.courseId}:${s.level}:${s.grade}`)
+        )
+
+        if (coursesToDelete.length > 0 || coursesToAdd.length > 0) {
+          updateData.courses = {}
+          if (coursesToDelete.length > 0) {
+            updateData.courses.deleteMany = {
+              id: { in: coursesToDelete.map((c) => c.id) }
+            }
+          }
+          if (coursesToAdd.length > 0) {
+            updateData.courses.create = coursesToAdd.map((selection) => ({
+              ibCourseId: selection.courseId,
+              level: selection.level,
+              grade: selection.grade
+            }))
+          }
+        }
+      }
+
+      profile = await prisma.studentProfile.update({
+        where: { id: existingProfile.id },
+        data: updateData
+      })
+
+      logger.info('Updated student profile with diff', {
+        studentId,
+        profileId: profile.id,
+        fieldsChanged,
+        countriesChanged,
+        scalarChanged,
+        coursesChanged
+      })
+    }
 
     // Fire-and-forget: Invalidate cache in background (don't block response)
     // Cache will be rebuilt on next access if needed
