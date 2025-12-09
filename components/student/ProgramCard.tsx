@@ -615,40 +615,42 @@ export function ProgramCard({
               {program.minIBPoints && (
                 <div className="space-y-3">
                   <h4 className="font-semibold text-sm">Academic Requirements</h4>
-                  <div
-                    className={cn(
-                      'rounded-xl border-2 p-4',
-                      matchResult.academicMatch.meetsPointsRequirement
-                        ? 'border-primary/20 bg-primary/5'
-                        : 'border-destructive/20 bg-transparent'
-                    )}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={cn(
-                          'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
-                          matchResult.academicMatch.meetsPointsRequirement
-                            ? 'bg-primary/10'
-                            : 'bg-muted'
-                        )}
-                      >
-                        <GraduationCap className="h-6 w-6 text-current opacity-70" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium">{program.minIBPoints} IB points</p>
-                        {matchResult.academicMatch.meetsPointsRequirement ? (
-                          <div className="flex items-center gap-1 mt-0.5">
-                            <Check className="h-4 w-4 text-primary" />
-                            <span className="text-sm text-primary">Requirement met</span>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-1 mt-0.5">
-                            <X className="h-4 w-4 text-destructive" />
-                            <span className="text-sm text-destructive">
-                              Need {matchResult.academicMatch.pointsShortfall} more
-                            </span>
-                          </div>
-                        )}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div
+                      className={cn(
+                        'rounded-xl border-2 p-4',
+                        matchResult.academicMatch.meetsPointsRequirement
+                          ? 'border-primary/20 bg-primary/5'
+                          : 'border-destructive/20 bg-transparent'
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={cn(
+                            'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                            matchResult.academicMatch.meetsPointsRequirement
+                              ? 'bg-primary/10'
+                              : 'bg-muted'
+                          )}
+                        >
+                          <GraduationCap className="h-6 w-6 text-current opacity-70" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium">{program.minIBPoints} IB points</p>
+                          {matchResult.academicMatch.meetsPointsRequirement ? (
+                            <div className="flex items-center gap-1 mt-0.5">
+                              <Check className="h-4 w-4 text-primary" />
+                              <span className="text-sm text-primary">Requirement met</span>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-1 mt-0.5">
+                              <X className="h-4 w-4 text-destructive" />
+                              <span className="text-sm text-destructive">
+                                Need {matchResult.academicMatch.pointsShortfall} more
+                              </span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
