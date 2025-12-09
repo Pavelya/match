@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth/config'
-import { StudentHeader, getAvatarColor, getAvatarInitial } from '@/components/layout/StudentHeader'
+import { StudentHeader } from '@/components/layout/StudentHeader'
+import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 
 export default async function ProgramsLayout({ children }: { children: React.ReactNode }) {
