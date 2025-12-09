@@ -16,6 +16,20 @@ import { logger } from '@/lib/logger'
 const MAX_CANDIDATES = 300
 
 /**
+ * Regex for validating CUID format (used by Prisma)
+ * CUIDs start with 'c' followed by 24 lowercase alphanumeric characters
+ */
+const CUID_REGEX = /^c[a-z0-9]{24}$/
+
+/**
+ * Validate that a string is a valid CUID
+ * Prevents injection attacks in Algolia filter strings
+ */
+function isValidCuid(id: string): boolean {
+  return typeof id === 'string' && CUID_REGEX.test(id)
+}
+
+/**
  * Pre-filter programs using Algolia based on student preferences
  *
  * Filters:
@@ -34,18 +48,36 @@ export async function searchCandidatePrograms(
   studentPoints: number
 ): Promise<string[]> {
   try {
+    // Validate and filter IDs to prevent injection
+    const validFields = studentFields.filter(isValidCuid)
+    const validCountries = studentCountries.filter(isValidCuid)
+
+    // Log if any invalid IDs were filtered out
+    if (validFields.length !== studentFields.length) {
+      logger.warn('Invalid field IDs filtered out', {
+        original: studentFields.length,
+        valid: validFields.length
+      })
+    }
+    if (validCountries.length !== studentCountries.length) {
+      logger.warn('Invalid country IDs filtered out', {
+        original: studentCountries.length,
+        valid: validCountries.length
+      })
+    }
+
     // Build filter string for Algolia
     const filters: string[] = []
 
     // Field filter (OR within, if any preferences)
-    if (studentFields.length > 0) {
-      const fieldFilter = studentFields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
+    if (validFields.length > 0) {
+      const fieldFilter = validFields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
       filters.push(`(${fieldFilter})`)
     }
 
     // Country filter (OR within, if any preferences)
-    if (studentCountries.length > 0) {
-      const countryFilter = studentCountries.map((c) => `countryId:${c}`).join(' OR ')
+    if (validCountries.length > 0) {
+      const countryFilter = validCountries.map((c) => `countryId:${c}`).join(' OR ')
       filters.push(`(${countryFilter})`)
     }
 
@@ -57,8 +89,8 @@ export async function searchCandidatePrograms(
     const filterString = filters.length > 0 ? filters.join(' AND ') : ''
 
     logger.debug('Algolia search filters', {
-      studentFields: studentFields.length,
-      studentCountries: studentCountries.length,
+      studentFields: validFields.length,
+      studentCountries: validCountries.length,
       studentPoints,
       filterString
     })
@@ -166,22 +198,30 @@ export async function searchPrograms(
     // Build filter string
     const filterParts: string[] = []
 
+    // Validate field IDs and country IDs to prevent injection
     if (filters?.fields && filters.fields.length > 0) {
-      const fieldFilter = filters.fields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
-      filterParts.push(`(${fieldFilter})`)
+      const validFields = filters.fields.filter(isValidCuid)
+      if (validFields.length > 0) {
+        const fieldFilter = validFields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
+        filterParts.push(`(${fieldFilter})`)
+      }
     }
 
     if (filters?.countries && filters.countries.length > 0) {
-      const countryFilter = filters.countries.map((c) => `countryId:${c}`).join(' OR ')
-      filterParts.push(`(${countryFilter})`)
+      const validCountries = filters.countries.filter(isValidCuid)
+      if (validCountries.length > 0) {
+        const countryFilter = validCountries.map((c) => `countryId:${c}`).join(' OR ')
+        filterParts.push(`(${countryFilter})`)
+      }
     }
 
-    if (filters?.minPoints !== undefined) {
-      filterParts.push(`minimumIBPoints >= ${filters.minPoints}`)
+    // Validate numeric filters (ensure they are actual numbers)
+    if (filters?.minPoints !== undefined && Number.isFinite(filters.minPoints)) {
+      filterParts.push(`minimumIBPoints >= ${Math.floor(filters.minPoints)}`)
     }
 
-    if (filters?.maxPoints !== undefined) {
-      filterParts.push(`minimumIBPoints <= ${filters.maxPoints}`)
+    if (filters?.maxPoints !== undefined && Number.isFinite(filters.maxPoints)) {
+      filterParts.push(`minimumIBPoints <= ${Math.floor(filters.maxPoints)}`)
     }
 
     const filterString = filterParts.join(' AND ')

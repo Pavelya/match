@@ -8,6 +8,9 @@
  * - User avatar (Google image or fallback with colored initial)
  * - Desktop: logo + nav + avatar
  * - Mobile: logo + avatar only
+ *
+ * Privacy: Email is NOT passed to this client component.
+ * Avatar color and initial are computed server-side.
  */
 
 'use client'
@@ -19,9 +22,11 @@ import { cn } from '@/lib/utils'
 
 interface StudentHeaderProps {
   user: {
-    email?: string | null
     image?: string | null
     name?: string | null
+    // Pre-computed values (computed server-side from email)
+    avatarColor: string
+    initial: string
   }
 }
 
@@ -34,54 +39,8 @@ const navLinks = [
   { href: '/student/settings', label: 'Settings' }
 ]
 
-// Avatar background colors - carefully selected to:
-// 1. Have good contrast with white text
-// 2. Work well with the app's primary blue (#3573E5)
-// 3. Be visually distinct from each other
-const avatarColors = [
-  '#3573E5', // Primary blue
-  '#10B981', // Emerald green
-  '#8B5CF6', // Violet
-  '#F59E0B', // Amber
-  '#EF4444', // Red
-  '#EC4899', // Pink
-  '#06B6D4', // Cyan
-  '#84CC16', // Lime
-  '#6366F1', // Indigo
-  '#F97316' // Orange
-]
-
-/**
- * Generate a consistent color for a user based on their email
- * Uses a simple hash to ensure the same email always gets the same color
- */
-function getAvatarColor(email: string): string {
-  let hash = 0
-  for (let i = 0; i < email.length; i++) {
-    hash = email.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  const index = Math.abs(hash) % avatarColors.length
-  return avatarColors[index]
-}
-
-/**
- * Get the initial letter for avatar fallback
- */
-function getInitial(email?: string | null, name?: string | null): string {
-  if (name && name.length > 0) {
-    return name.charAt(0).toUpperCase()
-  }
-  if (email && email.length > 0) {
-    return email.charAt(0).toUpperCase()
-  }
-  return '?'
-}
-
 export function StudentHeader({ user }: StudentHeaderProps) {
   const pathname = usePathname()
-
-  const initial = getInitial(user.email, user.name)
-  const avatarColor = user.email ? getAvatarColor(user.email) : avatarColors[0]
 
   return (
     <header className="w-full bg-background">
@@ -147,9 +106,9 @@ export function StudentHeader({ user }: StudentHeaderProps) {
             ) : (
               <div
                 className="flex items-center justify-center rounded-full text-white font-semibold text-base"
-                style={{ backgroundColor: avatarColor, width: 40, height: 40 }}
+                style={{ backgroundColor: user.avatarColor, width: 40, height: 40 }}
               >
-                {initial}
+                {user.initial}
               </div>
             )}
           </Link>
@@ -157,4 +116,54 @@ export function StudentHeader({ user }: StudentHeaderProps) {
       </div>
     </header>
   )
+}
+
+// ============================================
+// AVATAR UTILITIES (for server-side computation)
+// ============================================
+
+// Avatar background colors - carefully selected to:
+// 1. Have good contrast with white text
+// 2. Work well with the app's primary blue (#3573E5)
+// 3. Be visually distinct from each other
+const avatarColors = [
+  '#3573E5', // Primary blue
+  '#10B981', // Emerald green
+  '#8B5CF6', // Violet
+  '#F59E0B', // Amber
+  '#EF4444', // Red
+  '#EC4899', // Pink
+  '#06B6D4', // Cyan
+  '#84CC16', // Lime
+  '#6366F1', // Indigo
+  '#F97316' // Orange
+]
+
+/**
+ * Generate a consistent color for a user based on their email
+ * Uses a simple hash to ensure the same email always gets the same color
+ * Call this from server components, NOT client components
+ */
+export function getAvatarColor(email?: string | null): string {
+  if (!email) return avatarColors[0]
+  let hash = 0
+  for (let i = 0; i < email.length; i++) {
+    hash = email.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  const index = Math.abs(hash) % avatarColors.length
+  return avatarColors[index]
+}
+
+/**
+ * Get the initial letter for avatar fallback
+ * Call this from server components, NOT client components
+ */
+export function getAvatarInitial(email?: string | null, name?: string | null): string {
+  if (name && name.length > 0) {
+    return name.charAt(0).toUpperCase()
+  }
+  if (email && email.length > 0) {
+    return email.charAt(0).toUpperCase()
+  }
+  return '?'
 }

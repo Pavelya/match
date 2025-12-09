@@ -383,9 +383,9 @@ const validFields = studentFields.filter(validateId)
 ```
 
 **Acceptance Criteria:**
-- [ ] ID validation added
-- [ ] Invalid IDs rejected or filtered out
-- [ ] No Algolia errors from malformed filters
+- [x] ID validation added
+- [x] Invalid IDs rejected or filtered out
+- [x] No Algolia errors from malformed filters
 
 **Verification Tests:**
 1. **Unit Test:** Pass invalid IDs, verify rejection
@@ -407,9 +407,9 @@ const validFields = studentFields.filter(validateId)
 - Never log tokens or secrets
 
 **Acceptance Criteria:**
-- [ ] Log audit completed
-- [ ] Redaction utility created
-- [ ] No sensitive data in production logs
+- [x] Log audit completed
+- [x] Redaction utility created
+- [x] No sensitive data in production logs
 
 **Verification Tests:**
 1. **Log Review:** Check recent logs for sensitive data
@@ -430,8 +430,8 @@ const validFields = studentFields.filter(validateId)
 - Consider using initials instead of email display
 
 **Acceptance Criteria:**
-- [ ] Email not exposed in HTML when not needed
-- [ ] Minimal data passed to client components
+- [x] Email not exposed in HTML when not needed
+- [x] Minimal data passed to client components
 
 **Verification Tests:**
 1. **DOM Inspection:** View source, search for email addresses
@@ -502,9 +502,9 @@ npm outdated
 | 2.3 Consent Tracking | 🟠 High | ✅ Completed | | Dec 9, 2025 |
 | 2.4 Timing Attack Fix | 🟠 High | ✅ Completed | | Dec 9, 2025 |
 | 2.5 Cookie Consent | 🟠 High | ✅ Completed | | Dec 9, 2025 |
-| 3.1 Algolia Validation | 🟡 Medium | ⬜ Not Started | | +1 month |
-| 3.2 Log Sanitization | 🟡 Medium | ⬜ Not Started | | +1 month |
-| 3.3 Email Privacy | 🟡 Medium | ⬜ Not Started | | +1 month |
+| 3.1 Algolia Validation | 🟡 Medium | ✅ Completed | | Dec 9, 2025 |
+| 3.2 Log Sanitization | 🟡 Medium | ✅ Completed | | Dec 9, 2025 |
+| 3.3 Email Privacy | 🟡 Medium | ✅ Completed | | Dec 9, 2025 |
 | 4.1 Dependency Audits | 🟢 Ongoing | ⬜ Not Started | | Weekly |
 | 4.2 Security Monitoring | 🟢 Ongoing | ⬜ Not Started | | Continuous |
 | 4.3 Pen Testing | 🟢 Ongoing | ⬜ Not Started | | Pre-release |
