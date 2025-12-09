@@ -24,6 +24,12 @@ model User {
   avatar        String? // Deprecated, use image instead
   role          UserRole  @default(STUDENT)
 
+  // Consent tracking (GDPR compliance)
+  termsAcceptedAt      DateTime? // When user accepted terms of service
+  termsVersion         String?   // Version of terms accepted (e.g., "2025-12-09")
+  privacyAcceptedAt    DateTime? // When user accepted privacy policy
+  privacyPolicyVersion String?   // Version of privacy policy accepted
+
   // Role-specific relations
   studentProfile     StudentProfile?
   coordinatorProfile CoordinatorProfile?

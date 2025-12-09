@@ -18,6 +18,22 @@ import { transformStudent, transformPrograms } from '@/lib/matching/transformers
 import { logger } from '@/lib/logger'
 import { searchCandidatePrograms, isAlgoliaAvailable } from '@/lib/algolia/search'
 import { applyRateLimit } from '@/lib/rate-limit'
+import crypto from 'crypto'
+
+/**
+ * Timing-safe string comparison to prevent timing attacks.
+ * Always takes the same amount of time regardless of where strings differ.
+ */
+function safeCompare(a: string, b: string): boolean {
+  const bufA = Buffer.from(a)
+  const bufB = Buffer.from(b)
+  if (bufA.length !== bufB.length) {
+    // Compare against self to maintain constant time even when lengths differ
+    crypto.timingSafeEqual(bufA, bufA)
+    return false
+  }
+  return crypto.timingSafeEqual(bufA, bufB)
+}
 
 export async function POST(request: NextRequest) {
   const startTime = performance.now()
@@ -28,7 +44,8 @@ export async function POST(request: NextRequest) {
 
     // Check for internal API key (for fire-and-forget calls)
     const internalKey = request.headers.get('x-internal-key')
-    if (internalKey && internalKey === process.env.INTERNAL_API_KEY) {
+    const expectedKey = process.env.INTERNAL_API_KEY
+    if (internalKey && expectedKey && safeCompare(internalKey, expectedKey)) {
       const body = await request.json()
       studentId = body.studentId
     } else {

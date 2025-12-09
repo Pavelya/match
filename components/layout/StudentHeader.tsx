@@ -31,7 +31,7 @@ const navLinks = [
   { href: '/student/saved', label: 'Saved Programs' },
   { href: '/student/onboarding', label: 'Academic Profile' },
   { href: '/programs/search', label: 'Program Search' },
-  { href: '/student/dashboard', label: 'Dashboard' }
+  { href: '/student/settings', label: 'Settings' }
 ]
 
 // Avatar background colors - carefully selected to:
@@ -130,8 +130,11 @@ export function StudentHeader({ user }: StudentHeaderProps) {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Avatar */}
-          <div className="shrink-0">
+          {/* Avatar - Links to Settings */}
+          <Link
+            href="/student/settings"
+            className="shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+          >
             {user.image ? (
               <Image
                 src={user.image}
@@ -149,7 +152,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                 {initial}
               </div>
             )}
-          </div>
+          </Link>
         </div>
       </div>
     </header>

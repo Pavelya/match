@@ -4,8 +4,13 @@ import Resend from 'next-auth/providers/resend'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import { env } from '@/lib/env'
+import { logger } from '@/lib/logger'
 
 const prisma = new PrismaClient()
+
+// Current policy versions - update these when policies change
+const CURRENT_TERMS_VERSION = '2025-12-09'
+const CURRENT_PRIVACY_VERSION = '2025-12-09'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -43,16 +48,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (new URL(url).origin === baseUrl) return url
       return baseUrl
     },
-    async signIn({ user: _user, account }) {
+    async signIn({ user, account }) {
       // Only handle students (Google OAuth and email magic links)
       // Coordinators and agents use invitation-only flow (handled separately)
 
       if (account?.provider === 'google' || account?.provider === 'resend') {
-        // Auto-create user if new (NextAuth + Prisma adapter handles this)
-        // Auto-login if existing (NextAuth handles this)
-
-        // For students, check if they have completed their profile
-        // This will be used for redirect logic in the app
+        // Record consent on sign-in (user agreed by clicking sign-in button)
+        // The sign-in page displays "By continuing, you agree to our Terms and Privacy Policy"
+        if (user.id) {
+          try {
+            await prisma.user.update({
+              where: { id: user.id },
+              data: {
+                termsAcceptedAt: new Date(),
+                termsVersion: CURRENT_TERMS_VERSION,
+                privacyAcceptedAt: new Date(),
+                privacyPolicyVersion: CURRENT_PRIVACY_VERSION
+              }
+            })
+          } catch {
+            // Don't block sign-in if consent recording fails
+            logger.error('Failed to record consent on sign-in', { userId: user.id?.slice(0, 8) })
+          }
+        }
         return true
       }
 

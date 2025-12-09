@@ -218,11 +218,11 @@ These tasks are important for compliance and should be completed soon after laun
 - Send confirmation email
 
 **Acceptance Criteria:**
-- [ ] API endpoint created and protected
-- [ ] All related data deleted (verified in DB)
-- [ ] User logged out after deletion
+- [x] API endpoint created and protected
+- [x] All related data deleted (verified in DB)
+- [x] User logged out after deletion
 - [ ] Confirmation email sent
-- [ ] UI accessible from settings
+- [x] UI accessible from settings
 
 **Verification Tests:**
 1. **Integration Test:** Delete account, verify all tables cleaned
@@ -250,10 +250,10 @@ These tasks are important for compliance and should be completed soon after laun
 - Account creation date
 
 **Acceptance Criteria:**
-- [ ] API endpoint created and protected
-- [ ] JSON export contains all user data
-- [ ] Download triggers properly
-- [ ] UI accessible from settings
+- [x] API endpoint created and protected
+- [x] JSON export contains all user data
+- [x] Download triggers properly
+- [x] UI accessible from settings
 
 **Verification Tests:**
 1. **Integration Test:** Export data, verify all fields present
@@ -284,9 +284,9 @@ model User {
 ```
 
 **Acceptance Criteria:**
-- [ ] Database schema updated
-- [ ] Consent recorded at registration
-- [ ] Consent version tracked
+- [x] Database schema updated
+- [x] Consent recorded at registration
+- [x] Consent version tracked
 - [ ] Re-consent flow for policy updates
 
 **Verification Tests:**
@@ -320,8 +320,8 @@ function safeCompare(a: string, b: string): boolean {
 ```
 
 **Acceptance Criteria:**
-- [ ] `crypto.timingSafeEqual` used for key comparison
-- [ ] Constant-time comparison regardless of input
+- [x] `crypto.timingSafeEqual` used for key comparison
+- [x] Constant-time comparison regardless of input
 
 **Verification Tests:**
 1. **Code Review:** Verify implementation uses timing-safe comparison
@@ -345,10 +345,10 @@ function safeCompare(a: string, b: string): boolean {
 4. Store: Save preference in localStorage + cookie
 
 **Acceptance Criteria:**
-- [ ] Cookie audit completed
-- [ ] Banner implemented (if required)
-- [ ] Consent stored and respected
-- [ ] Non-essential cookies only set after consent
+- [x] Cookie audit completed
+- [x] Banner implemented (if required)
+- [x] Consent stored and respected
+- [x] Non-essential cookies only set after consent
 
 **Verification Tests:**
 1. **Audit Test:** Document all cookies and purposes
@@ -497,11 +497,11 @@ npm outdated
 | 1.3 Privacy Policy | 🔴 Critical | ✅ Completed | | Dec 9, 2025 |
 | 1.4 Terms of Service | 🔴 Critical | ✅ Completed | | Dec 9, 2025 |
 | 1.5 Middleware | 🔴 Critical | ✅ Completed | | Dec 9, 2025 |
-| 2.1 Account Deletion | 🟠 High | ⬜ Not Started | | +2 weeks |
-| 2.2 Data Export | 🟠 High | ⬜ Not Started | | +2 weeks |
-| 2.3 Consent Tracking | 🟠 High | ⬜ Not Started | | +2 weeks |
-| 2.4 Timing Attack Fix | 🟠 High | ⬜ Not Started | | +2 weeks |
-| 2.5 Cookie Consent | 🟠 High | ⬜ Not Started | | +2 weeks |
+| 2.1 Account Deletion | 🟠 High | ✅ Completed | | Dec 9, 2025 |
+| 2.2 Data Export | 🟠 High | ✅ Completed | | Dec 9, 2025 |
+| 2.3 Consent Tracking | 🟠 High | ✅ Completed | | Dec 9, 2025 |
+| 2.4 Timing Attack Fix | 🟠 High | ✅ Completed | | Dec 9, 2025 |
+| 2.5 Cookie Consent | 🟠 High | ✅ Completed | | Dec 9, 2025 |
 | 3.1 Algolia Validation | 🟡 Medium | ⬜ Not Started | | +1 month |
 | 3.2 Log Sanitization | 🟡 Medium | ⬜ Not Started | | +1 month |
 | 3.3 Email Privacy | 🟡 Medium | ⬜ Not Started | | +1 month |
