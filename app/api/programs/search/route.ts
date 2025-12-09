@@ -14,9 +14,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { searchPrograms, type SearchFilters } from '@/lib/algolia/search'
 import { logger } from '@/lib/logger'
+import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
 
 export async function GET(request: NextRequest) {
   try {
+    // Apply rate limiting (30 requests per minute per IP)
+    const clientIp = getClientIp(request.headers)
+    const rateLimitResponse = await applyRateLimit('search', clientIp)
+    if (rateLimitResponse) {
+      return rateLimitResponse
+    }
+
     const searchParams = request.nextUrl.searchParams
 
     // Parse query parameters

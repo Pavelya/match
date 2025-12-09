@@ -20,6 +20,7 @@ import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 // Note: Algolia is not used here - matching runs against all programs
 
 export async function GET() {
@@ -35,6 +36,12 @@ export async function GET() {
     if (!session?.user?.id) {
       logger.warn('Unauthorized matches request - no session')
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Apply rate limiting (20 requests per minute per user)
+    const rateLimitResponse = await applyRateLimit('matches', session.user.id)
+    if (rateLimitResponse) {
+      return rateLimitResponse
     }
 
     const studentId = session.user.id

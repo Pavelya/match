@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { invalidateStudentCache } from '@/lib/matching/cache'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 interface CourseSelection {
   courseId: string
@@ -25,6 +26,12 @@ export async function POST(request: NextRequest) {
     const session = await auth()
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Apply rate limiting (10 requests per minute per user)
+    const rateLimitResponse = await applyRateLimit('profile', session.user.id)
+    if (rateLimitResponse) {
+      return rateLimitResponse
     }
 
     // Parse request body

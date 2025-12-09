@@ -17,6 +17,7 @@ import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
 import { searchCandidatePrograms, isAlgoliaAvailable } from '@/lib/algolia/search'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: NextRequest) {
   const startTime = performance.now()
@@ -38,6 +39,12 @@ export async function POST(request: NextRequest) {
 
     if (!studentId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Apply rate limiting (20 requests per minute per user)
+    const rateLimitResponse = await applyRateLimit('matches', studentId)
+    if (rateLimitResponse) {
+      return rateLimitResponse
     }
 
     logger.info('Pre-computing matches', { studentId })
