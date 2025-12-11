@@ -81,6 +81,7 @@ export function FieldSelector({
                 >
                   <FieldIcon
                     fieldName={field.name}
+                    iconKey={field.icon}
                     className={cn('h-6 w-6', isSelected ? 'text-primary' : 'text-muted-foreground')}
                   />
                 </div>

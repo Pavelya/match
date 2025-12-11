@@ -5,6 +5,10 @@
  * to avoid DB queries on every onboarding page load.
  *
  * Uses Next.js unstable_cache for automatic revalidation.
+ *
+ * IMPORTANT: The `tags` option is required for `revalidateTag()` to work.
+ * The second argument to unstable_cache is the cache KEY (for deduplication),
+ * while `tags` in the options object is what revalidateTag uses.
  */
 
 import { unstable_cache } from 'next/cache'
@@ -23,7 +27,7 @@ export const getCachedFields = unstable_cache(
     })
   },
   ['fields-of-study'],
-  { revalidate: CACHE_TTL }
+  { revalidate: CACHE_TTL, tags: ['fields-of-study'] }
 )
 
 /**
@@ -42,7 +46,7 @@ export const getCachedCountries = unstable_cache(
     })
   },
   ['countries'],
-  { revalidate: CACHE_TTL }
+  { revalidate: CACHE_TTL, tags: ['countries'] }
 )
 
 /**
@@ -61,5 +65,5 @@ export const getCachedIBCourses = unstable_cache(
     })
   },
   ['ib-courses'],
-  { revalidate: CACHE_TTL }
+  { revalidate: CACHE_TTL, tags: ['ib-courses'] }
 )
