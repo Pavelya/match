@@ -179,7 +179,8 @@ model IBSchool {
   stripeSubscriptionId String? @unique
 
   studentCount Int?
-  logo         String?
+  logo         String? @db.Text // Base64 encoded image data (max ~500KB)
+  websiteUrl   String? // School website URL
   email        String?
   phone        String?
 
