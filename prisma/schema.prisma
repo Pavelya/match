@@ -250,8 +250,8 @@ model University {
   classification    UniversityType // PUBLIC, PRIVATE
   studentPopulation Int?
 
-  logo       String?
-  image      String?
+  logo       String? @db.Text // Base64 encoded image data (max ~500KB)
+  image      String? @db.Text // Base64 encoded image data (max ~500KB)
   websiteUrl String
   email      String?
   phone      String?

@@ -10,7 +10,8 @@ import type {
   StudentProfile,
   ProgramRequirements,
   StudentCourse,
-  SubjectRequirement
+  SubjectRequirement,
+  ORGroupRequirement
 } from './types'
 
 /**
@@ -89,6 +90,41 @@ export function transformProgram(prismaProgram: PrismaProgramWithRelations): Pro
     type = 'SUBJECTS_ONLY'
   }
 
+  // Separate standalone requirements from OR-grouped requirements
+  const standaloneRequirements: SubjectRequirement[] = []
+  const orGroupMap = new Map<string, SubjectRequirement[]>()
+
+  for (const req of prismaProgram.courseRequirements) {
+    const subjectReq: SubjectRequirement = {
+      courseId: req.ibCourse.id,
+      courseName: req.ibCourse.name,
+      level: req.requiredLevel as 'HL' | 'SL',
+      minimumGrade: req.minGrade as 1 | 2 | 3 | 4 | 5 | 6 | 7,
+      isCritical: req.isCritical
+    }
+
+    if (req.orGroupId) {
+      // This requirement is part of an OR-group
+      const existing = orGroupMap.get(req.orGroupId) || []
+      existing.push(subjectReq)
+      orGroupMap.set(req.orGroupId, existing)
+    } else {
+      // Standalone requirement
+      standaloneRequirements.push(subjectReq)
+    }
+  }
+
+  // Convert OR-group map to array of ORGroupRequirement
+  const orGroupRequirements: ORGroupRequirement[] = []
+  for (const [, options] of orGroupMap) {
+    // An OR-group is critical if any of its options is critical
+    const isCritical = options.some((opt) => opt.isCritical)
+    orGroupRequirements.push({
+      options,
+      isCritical
+    })
+  }
+
   return {
     // Program identification
     programId: prismaProgram.id,
@@ -108,19 +144,11 @@ export function transformProgram(prismaProgram: PrismaProgramWithRelations): Pro
     // Academic requirements
     minimumIBPoints: prismaProgram.minIBPoints ?? undefined,
 
-    // Required subjects (not OR-groups)
-    requiredSubjects: prismaProgram.courseRequirements.map(
-      (req): SubjectRequirement => ({
-        courseId: req.ibCourse.id,
-        courseName: req.ibCourse.name,
-        level: req.requiredLevel as 'HL' | 'SL',
-        minimumGrade: req.minGrade as 1 | 2 | 3 | 4 | 5 | 6 | 7,
-        isCritical: req.isCritical
-      })
-    ),
+    // Required subjects (standalone, not in OR-groups)
+    requiredSubjects: standaloneRequirements,
 
-    // OR-group requirements (empty for now - would need separate schema field)
-    orGroupRequirements: []
+    // OR-group requirements (grouped by orGroupId)
+    orGroupRequirements
   }
 }
 
