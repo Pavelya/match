@@ -20,7 +20,8 @@ import {
   CheckCircle2,
   XCircle,
   Globe,
-  ExternalLink
+  ExternalLink,
+  UserPlus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -89,13 +90,22 @@ export default async function SchoolDetailPage({ params }: PageProps) {
             {school.city}, {school.country.name}
           </div>
         </div>
-        <Link
-          href={`/admin/schools/${school.id}/edit`}
-          className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
-        >
-          <Pencil className="h-4 w-4" />
-          Edit School
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href={`/admin/schools/${school.id}/invite-coordinator`}
+            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium border rounded-lg hover:bg-muted/50 transition-colors"
+          >
+            <UserPlus className="h-4 w-4" />
+            Invite Coordinator
+          </Link>
+          <Link
+            href={`/admin/schools/${school.id}/edit`}
+            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            <Pencil className="h-4 w-4" />
+            Edit School
+          </Link>
+        </div>
       </div>
 
       {/* Details Grid */}

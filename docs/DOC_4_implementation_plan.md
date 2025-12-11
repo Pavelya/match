@@ -773,6 +773,69 @@
   - **Acceptance**: ✓ Coordinator account created
   - **Test**: Click invite link, create account, check DB
 
+- [ ] **Create coordinators list page**
+  - **File**: `app/admin/coordinators/page.tsx`
+  - **Features**: 
+    - Table with all coordinators (name, email, school, status)
+    - Filter by school, status (Active/Revoked/Pending)
+    - Show invite status badge (Pending/Accepted)
+    - Quick actions (edit, revoke, delete)
+  - **Components**:
+    - `components/admin/coordinators/CoordinatorTable.tsx`
+    - `components/admin/coordinators/CoordinatorStatusBadge.tsx`
+  - **API Route**: `app/api/admin/coordinators/route.ts` (GET)
+  - **Acceptance**: 
+    - ✓ All coordinators listed
+    - ✓ Pending invitations shown
+    - ✓ Status badges work
+  - **Test**: View list, verify all coordinators display
+
+- [ ] **Create coordinator edit/resend page**
+  - **File**: `app/admin/coordinators/[id]/page.tsx`
+  - **Features**: 
+    - View coordinator details (name, email, school, joined date)
+    - Edit coordinator name
+    - Resend invitation (if status = PENDING)
+    - Show invitation history
+  - **Components**:
+    - `components/admin/coordinators/CoordinatorEditForm.tsx`
+    - `components/admin/coordinators/ResendInviteButton.tsx`
+  - **API Routes**: 
+    - `app/api/admin/coordinators/[id]/route.ts` (GET, PATCH)
+    - `app/api/admin/invite/resend/route.ts` (POST)
+  - **Acceptance**: 
+    - ✓ Can edit coordinator name
+    - ✓ Resend button works for pending invites
+  - **Test**: Edit name, resend invite, verify email received
+
+- [ ] **Implement revoke/restore access**
+  - **Schema Change**: Add `isActive` Boolean to `CoordinatorProfile` (default: true)
+  - **File**: `app/api/admin/coordinators/[id]/access/route.ts` (PATCH)
+  - **Logic**: 
+    - Revoke: Set isActive = false
+    - Restore: Set isActive = true
+    - Reversible action
+  - **UI**: Toggle switch or button on coordinator detail page
+  - **Middleware**: Check isActive in coordinator dashboard access
+  - **Acceptance**: 
+    - ✓ Can revoke access (coordinator sees "access revoked" message)
+    - ✓ Can restore access
+  - **Test**: Revoke coordinator, try to access dashboard, see blocked message
+
+- [ ] **Implement coordinator deletion**
+  - **File**: `app/api/admin/coordinators/[id]/route.ts` (DELETE)
+  - **Logic**: 
+    - Cascade delete: CoordinatorProfile → User → Sessions
+    - Confirmation dialog required
+    - Log deletion for audit
+  - **UI**: Delete button with confirmation modal
+  - **Component**: `components/admin/coordinators/DeleteCoordinatorButton.tsx`
+  - **Acceptance**: 
+    - ✓ Confirmation required
+    - ✓ All user data removed
+    - ✓ Cannot login after deletion
+  - **Test**: Delete coordinator, verify login fails
+
 ### 3.4 University & Program Management
 
 - [ ] **Create university CRUD pages**

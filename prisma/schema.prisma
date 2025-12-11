@@ -39,6 +39,9 @@ model User {
   accounts Account[]
   sessions Session[]
 
+  // Invitations sent by this user
+  invitationsSent Invitation[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -188,6 +191,7 @@ model IBSchool {
 
   coordinators CoordinatorProfile[]
   students     StudentProfile[]
+  invitations  Invitation[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -214,6 +218,9 @@ model CoordinatorProfile {
 
   schoolId String
   school   IBSchool @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  // Access control - can be revoked/restored by admin
+  isActive Boolean @default(true)
 
   // Access level logic:
   // - VIP school: Full access to all coordinator features (FREE)
@@ -371,4 +378,39 @@ model SavedProgram {
   @@unique([studentProfileId, programId])
   @@index([studentProfileId])
   @@index([programId])
+}
+
+// ============================================
+// INVITATION SYSTEM
+// ============================================
+
+model Invitation {
+  id        String           @id @default(cuid())
+  email     String
+  token     String           @unique
+  role      UserRole         @default(COORDINATOR)
+  status    InvitationStatus @default(PENDING)
+  expiresAt DateTime
+
+  // Link to school for coordinators
+  schoolId String?
+  school   IBSchool? @relation(fields: [schoolId], references: [id])
+
+  // Track who invited
+  invitedById String
+  invitedBy   User @relation(fields: [invitedById], references: [id])
+
+  createdAt  DateTime  @default(now())
+  acceptedAt DateTime?
+
+  @@index([token])
+  @@index([email])
+  @@index([schoolId])
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  CANCELLED
 }
