@@ -15,11 +15,11 @@ export default function SignInPage() {
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    await signIn('resend', { email, callbackUrl: '/student/matches' })
+    await signIn('resend', { email, callbackUrl: '/student' })
   }
 
   const handleGoogleSignIn = () => {
-    signIn('google', { callbackUrl: '/student/matches' })
+    signIn('google', { callbackUrl: '/student' })
   }
 
   return (
