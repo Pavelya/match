@@ -28,6 +28,7 @@ import {
   UserCog,
   Handshake,
   Database,
+  BarChart3,
   LogOut,
   type LucideIcon
 } from 'lucide-react'
@@ -45,6 +46,7 @@ interface AdminSidebarProps {
 // Navigation links configuration for admin sidebar
 const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/universities', label: 'Universities', icon: Building2 },
   { href: '/admin/programs', label: 'Programs', icon: BookOpen },
   { href: '/admin/schools', label: 'IB Schools', icon: GraduationCap },

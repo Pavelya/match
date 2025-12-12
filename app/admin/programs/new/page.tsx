@@ -1,5 +1,12 @@
+/**
+ * Admin Program Create Page
+ *
+ * Form for creating a new academic program.
+ */
+
 import { prisma } from '@/lib/prisma'
 import { ProgramForm } from '@/components/admin/programs/ProgramForm'
+import { FormPageLayout } from '@/components/admin/shared'
 
 export default async function NewProgramPage() {
   // Fetch all reference data needed for the form
@@ -25,23 +32,17 @@ export default async function NewProgramPage() {
   ])
 
   return (
-    <div className="p-8 max-w-4xl">
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Create New Program</h1>
-        <p className="mt-2 text-muted-foreground">
-          Add a new academic program with IB course requirements.
-        </p>
-      </div>
-
-      {/* Form */}
-      <div className="rounded-xl border bg-card p-6">
-        <ProgramForm
-          universities={universities}
-          fieldsOfStudy={fieldsOfStudy}
-          ibCourses={ibCourses}
-        />
-      </div>
-    </div>
+    <FormPageLayout
+      title="Create New Program"
+      description="Add a new academic program with IB course requirements."
+      backHref="/admin/programs"
+      backLabel="Back to Programs"
+    >
+      <ProgramForm
+        universities={universities}
+        fieldsOfStudy={fieldsOfStudy}
+        ibCourses={ibCourses}
+      />
+    </FormPageLayout>
   )
 }

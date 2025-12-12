@@ -1,8 +1,13 @@
-import Link from 'next/link'
+/**
+ * Admin Program Edit Page
+ *
+ * Edit existing program details and IB requirements.
+ */
+
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import { ArrowLeft } from 'lucide-react'
 import { ProgramEditForm } from '@/components/admin/programs/ProgramEditForm'
+import { FormPageLayout } from '@/components/admin/shared'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -43,33 +48,21 @@ export default async function ProgramEditPage({ params }: PageProps) {
   }
 
   return (
-    <div className="p-8 max-w-4xl">
-      {/* Back link */}
-      <Link
-        href={`/admin/programs/${program.id}`}
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Program Details
-      </Link>
-
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Edit Program</h1>
-        <p className="mt-2 text-muted-foreground">
-          Update program information and IB requirements.
-        </p>
-      </div>
-
-      {/* Form */}
-      <div className="rounded-xl border bg-card p-6">
-        <ProgramEditForm
-          program={program}
-          universities={universities}
-          fieldsOfStudy={fieldsOfStudy}
-          ibCourses={ibCourses}
-        />
-      </div>
-    </div>
+    <FormPageLayout
+      title="Edit Program"
+      description="Update program information and IB requirements."
+      breadcrumbs={[
+        { label: 'Programs', href: '/admin/programs' },
+        { label: program.name, href: `/admin/programs/${program.id}` },
+        { label: 'Edit' }
+      ]}
+    >
+      <ProgramEditForm
+        program={program}
+        universities={universities}
+        fieldsOfStudy={fieldsOfStudy}
+        ibCourses={ibCourses}
+      />
+    </FormPageLayout>
   )
 }

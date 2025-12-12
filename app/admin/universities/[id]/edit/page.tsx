@@ -4,11 +4,10 @@
  * Edit existing university details.
  */
 
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import { ArrowLeft } from 'lucide-react'
 import { UniversityEditForm } from '@/components/admin/universities/UniversityEditForm'
+import { FormPageLayout } from '@/components/admin/shared'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -33,26 +32,19 @@ export default async function UniversityEditPage({ params }: PageProps) {
   }
 
   return (
-    <div className="p-8 max-w-3xl">
-      {/* Back link */}
-      <Link
-        href={`/admin/universities/${university.id}`}
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to University Details
-      </Link>
-
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Edit University</h1>
-        <p className="mt-2 text-muted-foreground">Update university information and settings.</p>
-      </div>
-
-      {/* Form */}
-      <div className="rounded-xl border bg-card p-6">
-        <UniversityEditForm university={university} countries={countries} />
-      </div>
-    </div>
+    <FormPageLayout
+      title="Edit University"
+      description="Update university information and settings."
+      breadcrumbs={[
+        { label: 'Universities', href: '/admin/universities' },
+        {
+          label: university.abbreviatedName || university.name,
+          href: `/admin/universities/${university.id}`
+        },
+        { label: 'Edit' }
+      ]}
+    >
+      <UniversityEditForm university={university} countries={countries} />
+    </FormPageLayout>
   )
 }

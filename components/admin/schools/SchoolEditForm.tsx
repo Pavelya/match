@@ -302,49 +302,91 @@ export function SchoolEditForm({ school, countries }: SchoolEditFormProps) {
       {/* Subscription Section */}
       <div className="space-y-6">
         <div>
-          <h3 className="text-lg font-medium text-foreground">Subscription Settings</h3>
+          <h3 className="text-lg font-medium text-foreground flex items-center gap-2">
+            <Crown className="h-5 w-5" />
+            Subscription Settings
+          </h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            Manage the school&apos;s subscription tier and status.
+          </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {/* Tier Selection */}
-          <div>
-            <label className="block text-sm font-medium text-foreground mb-3">
-              Tier <span className="text-destructive">*</span>
-            </label>
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, subscriptionTier: 'VIP' })}
+        {/* Tier Selection - Full width cards */}
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-3">
+            Subscription Tier <span className="text-destructive">*</span>
+          </label>
+          <div className="grid grid-cols-2 gap-4">
+            <button
+              type="button"
+              onClick={() => setFormData({ ...formData, subscriptionTier: 'VIP' })}
+              className={cn(
+                'relative flex flex-col items-center gap-2 p-6 rounded-xl border-2 transition-all',
+                formData.subscriptionTier === 'VIP'
+                  ? 'border-amber-500 bg-amber-50 ring-2 ring-amber-500/20'
+                  : 'border-border hover:border-amber-500/50 hover:bg-muted/50'
+              )}
+            >
+              <div
                 className={cn(
-                  'flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border-2 transition-all',
+                  'flex h-12 w-12 items-center justify-center rounded-full',
                   formData.subscriptionTier === 'VIP'
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border hover:border-primary/50'
+                    ? 'bg-amber-500 text-white'
+                    : 'bg-muted text-muted-foreground'
                 )}
               >
-                <Crown className="h-4 w-4" />
-                VIP
-              </button>
-              <button
-                type="button"
-                onClick={() => setFormData({ ...formData, subscriptionTier: 'REGULAR' })}
-                className={cn(
-                  'flex-1 flex items-center justify-center gap-2 py-3 rounded-lg border-2 transition-all',
-                  formData.subscriptionTier === 'REGULAR'
-                    ? 'border-primary bg-primary/5 text-primary'
-                    : 'border-border hover:border-primary/50'
-                )}
-              >
-                <Users className="h-4 w-4" />
-                Regular
-              </button>
-            </div>
-          </div>
+                <Crown className="h-6 w-6" />
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-foreground">VIP</div>
+                <div className="text-xs text-muted-foreground mt-1">Premium features</div>
+              </div>
+              {formData.subscriptionTier === 'VIP' && (
+                <div className="absolute top-3 right-3">
+                  <CheckCircle2 className="h-5 w-5 text-amber-500" />
+                </div>
+              )}
+            </button>
 
+            <button
+              type="button"
+              onClick={() => setFormData({ ...formData, subscriptionTier: 'REGULAR' })}
+              className={cn(
+                'relative flex flex-col items-center gap-2 p-6 rounded-xl border-2 transition-all',
+                formData.subscriptionTier === 'REGULAR'
+                  ? 'border-primary bg-primary/5 ring-2 ring-primary/20'
+                  : 'border-border hover:border-primary/50 hover:bg-muted/50'
+              )}
+            >
+              <div
+                className={cn(
+                  'flex h-12 w-12 items-center justify-center rounded-full',
+                  formData.subscriptionTier === 'REGULAR'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground'
+                )}
+              >
+                <Users className="h-6 w-6" />
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-foreground">Regular</div>
+                <div className="text-xs text-muted-foreground mt-1">Standard access</div>
+              </div>
+              {formData.subscriptionTier === 'REGULAR' && (
+                <div className="absolute top-3 right-3">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                </div>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Status and Verification Row */}
+        <div className="grid gap-4 sm:grid-cols-2">
           {/* Status Selection */}
           <div>
-            <label htmlFor="status" className="block text-sm font-medium text-foreground mb-1">
-              Status
+            <label htmlFor="status" className="block text-sm font-medium text-foreground mb-2">
+              Subscription Status
             </label>
             <select
               id="status"
@@ -357,23 +399,41 @@ export function SchoolEditForm({ school, countries }: SchoolEditFormProps) {
               }
               className="w-full px-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
             >
-              <option value="ACTIVE">Active</option>
-              <option value="INACTIVE">Inactive</option>
-              <option value="CANCELLED">Cancelled</option>
+              <option value="ACTIVE">✓ Active</option>
+              <option value="INACTIVE">○ Inactive</option>
+              <option value="CANCELLED">✕ Cancelled</option>
             </select>
           </div>
 
-          {/* Verified Toggle */}
-          <div className="sm:col-span-2">
-            <label className="flex items-center gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={formData.isVerified}
-                onChange={(e) => setFormData({ ...formData, isVerified: e.target.checked })}
-                className="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary"
-              />
-              <span className="text-sm font-medium text-foreground">Verified School</span>
+          {/* Verified Toggle - styled as a nice toggle card */}
+          <div>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Verification Status
             </label>
+            <button
+              type="button"
+              onClick={() => setFormData({ ...formData, isVerified: !formData.isVerified })}
+              className={cn(
+                'w-full flex items-center justify-between px-4 py-2.5 rounded-lg border transition-all',
+                formData.isVerified
+                  ? 'bg-green-50 border-green-200 text-green-700'
+                  : 'bg-background border-border text-muted-foreground hover:border-primary/50'
+              )}
+            >
+              <span className="flex items-center gap-2">
+                {formData.isVerified ? (
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                ) : (
+                  <div className="h-5 w-5 rounded-full border-2 border-current" />
+                )}
+                <span className="font-medium">
+                  {formData.isVerified ? 'Verified School' : 'Not Verified'}
+                </span>
+              </span>
+              <span className="text-xs uppercase tracking-wide">
+                {formData.isVerified ? 'On' : 'Off'}
+              </span>
+            </button>
           </div>
         </div>
       </div>

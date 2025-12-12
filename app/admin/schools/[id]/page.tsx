@@ -1,15 +1,16 @@
 /**
  * Admin School Detail Page
  *
- * Shows full school details with navigation to edit.
+ * Shows full school details with two-column layout:
+ * - Left (2/3): Contact info, Coordinators list
+ * - Right (1/3): Status, Members, Logo
  */
 
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import {
-  ArrowLeft,
   Pencil,
   Crown,
   MapPin,
@@ -24,6 +25,15 @@ import {
   UserPlus
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import {
+  PageContainer,
+  PageHeader,
+  DetailPageLayout,
+  InfoCard,
+  InfoRow,
+  QuickStat,
+  Breadcrumbs
+} from '@/components/admin/shared'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -57,179 +67,238 @@ export default async function SchoolDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="p-8 max-w-4xl">
-      {/* Back link */}
-      <Link
-        href="/admin/schools"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Schools
-      </Link>
+    <PageContainer>
+      <PageHeader
+        backHref="/admin/schools"
+        backLabel="Back to Schools"
+        title={school.name}
+        icon={GraduationCap}
+        actions={[
+          {
+            label: 'Invite Coordinator',
+            href: `/admin/schools/${school.id}/invite-coordinator`,
+            icon: UserPlus,
+            variant: 'secondary'
+          },
+          {
+            label: 'Edit School',
+            href: `/admin/schools/${school.id}/edit`,
+            icon: Pencil,
+            variant: 'primary'
+          }
+        ]}
+      />
 
-      {/* Header */}
-      <div className="flex items-start justify-between mb-8">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl font-bold text-foreground">{school.name}</h1>
-            <span
-              className={cn(
-                'inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full',
-                school.subscriptionTier === 'VIP'
-                  ? 'bg-amber-100 text-amber-700'
-                  : 'bg-muted text-muted-foreground'
-              )}
-            >
-              {school.subscriptionTier === 'VIP' && <Crown className="h-3 w-3" />}
-              {school.subscriptionTier}
-            </span>
-          </div>
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <MapPin className="h-4 w-4" />
-            <span className="mr-1">{school.country.flagEmoji}</span>
-            {school.city}, {school.country.name}
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Link
-            href={`/admin/schools/${school.id}/invite-coordinator`}
-            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium border rounded-lg hover:bg-muted/50 transition-colors"
-          >
-            <UserPlus className="h-4 w-4" />
-            Invite Coordinator
-          </Link>
-          <Link
-            href={`/admin/schools/${school.id}/edit`}
-            className="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit School
-          </Link>
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[{ label: 'Schools', href: '/admin/schools' }, { label: school.name }]}
+        className="mb-6 -mt-4"
+      />
+
+      {/* School Info Bar */}
+      <div className="flex flex-wrap items-center gap-4 mb-6 -mt-4">
+        <span
+          className={cn(
+            'inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-full',
+            school.subscriptionTier === 'VIP'
+              ? 'bg-amber-100 text-amber-700'
+              : 'bg-muted text-muted-foreground'
+          )}
+        >
+          {school.subscriptionTier === 'VIP' && <Crown className="h-3 w-3" />}
+          {school.subscriptionTier}
+        </span>
+        <div className="flex items-center gap-1 text-muted-foreground text-sm">
+          <MapPin className="h-4 w-4" />
+          <span className="mr-1">{school.country.flagEmoji}</span>
+          {school.city}, {school.country.name}
         </div>
       </div>
 
-      {/* Details Grid */}
-      <div className="grid gap-6 md:grid-cols-2 mb-8">
-        {/* Status Card */}
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="font-medium text-foreground mb-4">Subscription Status</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-sm text-muted-foreground">Tier</span>
-              <span className="text-sm font-medium">{school.subscriptionTier}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-muted-foreground">Status</span>
-              <span
-                className={cn(
-                  'inline-flex px-2 py-0.5 text-xs font-medium rounded-full',
-                  school.subscriptionStatus === 'ACTIVE'
-                    ? 'bg-green-100 text-green-700'
-                    : school.subscriptionStatus === 'INACTIVE'
-                      ? 'bg-gray-100 text-gray-600'
-                      : 'bg-red-100 text-red-700'
-                )}
-              >
-                {school.subscriptionStatus}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-sm text-muted-foreground">Verified</span>
-              <span className="text-sm">
-                {school.isVerified ? (
-                  <CheckCircle2 className="h-4 w-4 text-green-600" />
-                ) : (
-                  <XCircle className="h-4 w-4 text-muted-foreground" />
-                )}
-              </span>
-            </div>
-          </div>
-        </div>
+      <DetailPageLayout
+        sidebar={
+          <>
+            {/* Status Card */}
+            <InfoCard title="Status & Verification" padding="compact">
+              <div className="space-y-3">
+                <InfoRow label="Tier">
+                  <span
+                    className={cn(
+                      'inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full',
+                      school.subscriptionTier === 'VIP'
+                        ? 'bg-amber-100 text-amber-700'
+                        : 'bg-muted text-muted-foreground'
+                    )}
+                  >
+                    {school.subscriptionTier === 'VIP' && <Crown className="h-3 w-3" />}
+                    {school.subscriptionTier}
+                  </span>
+                </InfoRow>
+                <InfoRow label="Status">
+                  <span
+                    className={cn(
+                      'inline-flex px-2 py-0.5 text-xs font-medium rounded-full',
+                      school.subscriptionStatus === 'ACTIVE'
+                        ? 'bg-green-100 text-green-700'
+                        : school.subscriptionStatus === 'INACTIVE'
+                          ? 'bg-gray-100 text-gray-600'
+                          : 'bg-red-100 text-red-700'
+                    )}
+                  >
+                    {school.subscriptionStatus}
+                  </span>
+                </InfoRow>
+                <InfoRow label="Verified">
+                  {school.isVerified ? (
+                    <span className="flex items-center gap-1 text-green-600">
+                      <CheckCircle2 className="h-4 w-4" />
+                      <span className="text-xs font-medium">Verified</span>
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-1 text-muted-foreground">
+                      <XCircle className="h-4 w-4" />
+                      <span className="text-xs">Not verified</span>
+                    </span>
+                  )}
+                </InfoRow>
+              </div>
+            </InfoCard>
 
-        {/* Contact Card */}
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="font-medium text-foreground mb-4">Contact Information</h3>
-          <div className="space-y-3">
+            {/* Members Card */}
+            <InfoCard title="Members" padding="compact">
+              <div className="space-y-1">
+                <QuickStat
+                  label="Coordinators"
+                  value={school._count.coordinators}
+                  icon={<Users className="h-4 w-4" />}
+                />
+                <QuickStat
+                  label="Students"
+                  value={school._count.students}
+                  icon={<GraduationCap className="h-4 w-4" />}
+                />
+              </div>
+            </InfoCard>
+
+            {/* Logo Card */}
+            <InfoCard title="Logo" padding="compact">
+              <div className="flex justify-center py-2">
+                {school.logo ? (
+                  <Image
+                    src={school.logo}
+                    alt={`${school.name} logo`}
+                    width={80}
+                    height={80}
+                    className="h-20 w-auto object-contain rounded-lg"
+                    unoptimized
+                  />
+                ) : (
+                  <div className="h-20 w-20 rounded-lg bg-muted flex items-center justify-center">
+                    <GraduationCap className="h-8 w-8 text-muted-foreground" />
+                  </div>
+                )}
+              </div>
+            </InfoCard>
+          </>
+        }
+      >
+        {/* Contact Information Card */}
+        <InfoCard title="Contact Information" padding="compact">
+          <div className="space-y-4">
             {school.websiteUrl && (
-              <div className="flex items-center gap-2 text-sm">
-                <Globe className="h-4 w-4 text-muted-foreground" />
-                <a
-                  href={school.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline flex items-center gap-1"
-                >
-                  {school.websiteUrl.replace(/^https?:\/\//, '')}
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+              <div className="flex items-start gap-3">
+                <Globe className="h-5 w-5 text-muted-foreground mt-0.5" />
+                <div>
+                  <div className="text-xs text-muted-foreground mb-1">Website</div>
+                  <a
+                    href={school.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary hover:underline flex items-center gap-1"
+                  >
+                    {school.websiteUrl.replace(/^https?:\/\//, '')}
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
               </div>
             )}
-            <div className="flex items-center gap-2 text-sm">
-              <Mail className="h-4 w-4 text-muted-foreground" />
-              {school.email || <span className="text-muted-foreground">Not provided</span>}
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <Phone className="h-4 w-4 text-muted-foreground" />
-              {school.phone || <span className="text-muted-foreground">Not provided</span>}
-            </div>
-          </div>
-        </div>
-
-        {/* Members Card */}
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="font-medium text-foreground mb-4">Members</h3>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Users className="h-4 w-4" />
-                Coordinators
-              </div>
-              <span className="text-sm font-medium">{school._count.coordinators}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <GraduationCap className="h-4 w-4" />
-                Students
-              </div>
-              <span className="text-sm font-medium">{school._count.students}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Logo Card */}
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="font-medium text-foreground mb-4">Logo</h3>
-          {school.logo ? (
-            <Image
-              src={school.logo}
-              alt={`${school.name} logo`}
-              width={64}
-              height={64}
-              className="h-16 w-auto object-contain"
-              unoptimized
-            />
-          ) : (
-            <p className="text-sm text-muted-foreground">No logo uploaded</p>
-          )}
-        </div>
-      </div>
-
-      {/* Coordinators List */}
-      {school.coordinators.length > 0 && (
-        <div className="rounded-xl border bg-card p-5">
-          <h3 className="font-medium text-foreground mb-4">Coordinators</h3>
-          <div className="divide-y">
-            {school.coordinators.map((coordinator) => (
-              <div key={coordinator.id} className="py-3 first:pt-0 last:pb-0">
-                <div className="text-sm font-medium">
-                  {coordinator.user.name || coordinator.user.email}
+            <div className="flex items-start gap-3">
+              <Mail className="h-5 w-5 text-muted-foreground mt-0.5" />
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Email</div>
+                <div className="text-sm">
+                  {school.email || <span className="text-muted-foreground">Not provided</span>}
                 </div>
-                <div className="text-xs text-muted-foreground">{coordinator.user.email}</div>
               </div>
-            ))}
+            </div>
+            <div className="flex items-start gap-3">
+              <Phone className="h-5 w-5 text-muted-foreground mt-0.5" />
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Phone</div>
+                <div className="text-sm">
+                  {school.phone || <span className="text-muted-foreground">Not provided</span>}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+              <div>
+                <div className="text-xs text-muted-foreground mb-1">Location</div>
+                <div className="text-sm">
+                  {school.country.flagEmoji} {school.city}, {school.country.name}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        </InfoCard>
+
+        {/* Coordinators List Card */}
+        <InfoCard
+          title="Coordinators"
+          padding="compact"
+          action={
+            school.coordinators.length > 0
+              ? {
+                  label: 'Invite',
+                  href: `/admin/schools/${school.id}/invite-coordinator`,
+                  icon: UserPlus
+                }
+              : undefined
+          }
+        >
+          {school.coordinators.length > 0 ? (
+            <div className="divide-y">
+              {school.coordinators.map((coordinator) => (
+                <Link
+                  key={coordinator.id}
+                  href={`/admin/coordinators/${coordinator.id}`}
+                  className="flex items-center justify-between py-3 first:pt-0 last:pb-0 hover:bg-muted/50 -mx-2 px-2 rounded-lg transition-colors"
+                >
+                  <div>
+                    <div className="text-sm font-medium text-foreground">
+                      {coordinator.user.name || coordinator.user.email}
+                    </div>
+                    <div className="text-xs text-muted-foreground">{coordinator.user.email}</div>
+                  </div>
+                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-6">
+              <Users className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground mb-3">No coordinators yet</p>
+              <Link
+                href={`/admin/schools/${school.id}/invite-coordinator`}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              >
+                <UserPlus className="h-4 w-4" />
+                Invite a coordinator
+              </Link>
+            </div>
+          )}
+        </InfoCard>
+      </DetailPageLayout>
+    </PageContainer>
   )
 }
