@@ -256,8 +256,8 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
 
       {/* Expandable Filters Panel */}
       {showFilters && (
-        <Card className="border-0 bg-muted/30 shadow-none">
-          <CardContent className="p-5 space-y-6">
+        <Card className="border-0 bg-muted/30 shadow-none overflow-hidden">
+          <CardContent className="p-4 sm:p-5 space-y-6">
             {/* Fields of Study */}
             <div className="space-y-3">
               <h3 className="font-semibold text-sm text-foreground">Fields of Study</h3>
@@ -305,7 +305,7 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
             {/* IB Points Range */}
             <div className="space-y-3">
               <h3 className="font-semibold text-sm text-foreground">IB Points Range</h3>
-              <div className="flex items-center gap-3 max-w-xs">
+              <div className="flex items-center gap-2 sm:gap-3 max-w-full sm:max-w-xs">
                 <input
                   type="text"
                   inputMode="numeric"
@@ -313,9 +313,9 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
                   placeholder="Min"
                   value={minPoints}
                   onChange={(e) => setMinPoints(e.target.value.replace(/\D/g, ''))}
-                  className="flex-1 h-12 px-4 rounded-xl bg-background border border-border text-center text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="min-w-0 flex-1 h-12 px-3 sm:px-4 rounded-xl bg-background border border-border text-center text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
-                <span className="text-muted-foreground font-medium">to</span>
+                <span className="text-muted-foreground font-medium shrink-0">to</span>
                 <input
                   type="text"
                   inputMode="numeric"
@@ -323,7 +323,7 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
                   placeholder="Max"
                   value={maxPoints}
                   onChange={(e) => setMaxPoints(e.target.value.replace(/\D/g, ''))}
-                  className="flex-1 h-12 px-4 rounded-xl bg-background border border-border text-center text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  className="min-w-0 flex-1 h-12 px-3 sm:px-4 rounded-xl bg-background border border-border text-center text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/20"
                 />
               </div>
             </div>
