@@ -47,14 +47,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Allow callback URLs on the same origin
       if (new URL(url).origin === baseUrl) return url
       return baseUrl
-    },
+    }
+  },
+  events: {
     async signIn({ user, account }) {
-      // Only handle students (Google OAuth and email magic links)
-      // Coordinators and agents use invitation-only flow (handled separately)
-
+      // Record consent after sign-in completes (user agreed by clicking sign-in button)
+      // The sign-in page displays "By continuing, you agree to our Terms and Privacy Policy"
+      // Using events.signIn instead of callbacks.signIn because the event fires AFTER
+      // the user record is created in the database, ensuring user.id is valid
       if (account?.provider === 'google' || account?.provider === 'resend') {
-        // Record consent on sign-in (user agreed by clicking sign-in button)
-        // The sign-in page displays "By continuing, you agree to our Terms and Privacy Policy"
         if (user.id) {
           try {
             await prisma.user.update({
@@ -66,15 +67,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 privacyPolicyVersion: CURRENT_PRIVACY_VERSION
               }
             })
-          } catch {
-            // Don't block sign-in if consent recording fails
-            logger.error('Failed to record consent on sign-in', { userId: user.id?.slice(0, 8) })
+          } catch (error) {
+            // Log but don't fail - consent recording is non-blocking
+            logger.error('Failed to record consent on sign-in', {
+              userId: user.id?.slice(0, 8),
+              error: error instanceof Error ? error.message : 'Unknown error'
+            })
           }
         }
-        return true
       }
-
-      return true
     }
   }
 })
