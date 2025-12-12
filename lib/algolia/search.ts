@@ -155,6 +155,7 @@ export interface ProgramSearchResult {
   programName: string
   universityName: string
   universityAbbreviation?: string
+  universityImageUrl?: string
   fieldOfStudy: { id: string; name: string }
   country: { id: string; name: string; code: string }
   degreeType: string
@@ -241,6 +242,7 @@ export async function searchPrograms(
           'programName',
           'universityName',
           'universityAbbreviation',
+          'universityImageUrl',
           'fieldOfStudy',
           'country',
           'degreeType',

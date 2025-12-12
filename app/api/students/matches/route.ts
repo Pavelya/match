@@ -125,7 +125,8 @@ export async function GET() {
               name: program.name,
               university: {
                 name: program.university.name,
-                abbreviation: program.university.abbreviatedName
+                abbreviation: program.university.abbreviatedName,
+                image: program.university.image
               },
               country: {
                 name: program.university.country.name,

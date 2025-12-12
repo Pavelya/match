@@ -23,13 +23,21 @@ export const algoliaExtension = Prisma.defineExtension({
 
         // Background sync to Algolia
         if (result.id) {
-          syncProgramToAlgolia(result.id).catch((error) => {
-            logger.error('Background Algolia sync failed after create', {
-              error,
-              programId: result.id
+          logger.info('🔄 Triggering Algolia sync for new program', { programId: result.id })
+          syncProgramToAlgolia(result.id)
+            .then((success) => {
+              if (success) {
+                logger.info('✅ Algolia sync completed for program', { programId: result.id })
+              } else {
+                logger.warn('⚠️ Algolia sync returned false for program', { programId: result.id })
+              }
             })
-          })
-          logger.debug('Triggered Algolia sync for new program', { programId: result.id })
+            .catch((error) => {
+              logger.error('❌ Background Algolia sync failed after create', {
+                error: error instanceof Error ? error.message : String(error),
+                programId: result.id
+              })
+            })
         }
 
         return result
@@ -40,13 +48,21 @@ export const algoliaExtension = Prisma.defineExtension({
 
         // Background sync to Algolia
         if (result.id) {
-          syncProgramToAlgolia(result.id).catch((error) => {
-            logger.error('Background Algolia sync failed after update', {
-              error,
-              programId: result.id
+          logger.info('🔄 Triggering Algolia sync for updated program', { programId: result.id })
+          syncProgramToAlgolia(result.id)
+            .then((success) => {
+              if (success) {
+                logger.info('✅ Algolia sync completed for program', { programId: result.id })
+              } else {
+                logger.warn('⚠️ Algolia sync returned false for program', { programId: result.id })
+              }
             })
-          })
-          logger.debug('Triggered Algolia sync for updated program', { programId: result.id })
+            .catch((error) => {
+              logger.error('❌ Background Algolia sync failed after update', {
+                error: error instanceof Error ? error.message : String(error),
+                programId: result.id
+              })
+            })
         }
 
         return result

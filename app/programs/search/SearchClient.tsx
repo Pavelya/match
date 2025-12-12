@@ -32,6 +32,7 @@ interface SearchResult {
   programName: string
   universityName: string
   universityAbbreviation?: string
+  universityImageUrl?: string // URL from Supabase Storage
   fieldOfStudy: { id: string; name: string }
   country: { id: string; name: string; code: string }
   degreeType: string
@@ -48,7 +49,8 @@ function transformToProgram(result: SearchResult) {
     name: result.programName,
     university: {
       name: result.universityName,
-      abbreviation: result.universityAbbreviation ?? null
+      abbreviation: result.universityAbbreviation ?? null,
+      image: result.universityImageUrl ?? null
     },
     country: {
       name: result.country.name,

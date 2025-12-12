@@ -11,6 +11,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
 
 export async function GET() {
   try {
@@ -136,6 +137,25 @@ export async function POST(request: Request) {
       )
     }
 
+    // Handle image upload if provided as base64
+    let imageUrl: string | null = null
+    if (image && typeof image === 'string' && image.length > 0) {
+      if (isBase64Image(image)) {
+        // Generate a temporary ID for the filename (will update after create)
+        const tempId = `temp-${Date.now()}`
+        try {
+          imageUrl = await uploadUniversityImage(image, tempId)
+          logger.info('Uploaded university image to Supabase', { imageUrl })
+        } catch (uploadError) {
+          logger.error('Failed to upload university image', { error: uploadError })
+          // Continue without image rather than failing the whole request
+        }
+      } else {
+        // Assume it's already a URL
+        imageUrl = image.trim()
+      }
+    }
+
     // Create the university
     const university = await prisma.university.create({
       data: {
@@ -147,7 +167,7 @@ export async function POST(request: Request) {
         classification,
         studentPopulation: studentPopulation ? parseInt(studentPopulation, 10) : null,
         logo: logo?.trim() || null,
-        image: image?.trim() || null,
+        image: imageUrl,
         websiteUrl: websiteUrl.trim(),
         email: email?.trim() || null,
         phone: phone?.trim() || null

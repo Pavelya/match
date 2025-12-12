@@ -21,6 +21,7 @@ interface ProgramData {
   university: {
     name: string
     abbreviation?: string | null
+    image?: string | null
   }
   country: {
     name: string

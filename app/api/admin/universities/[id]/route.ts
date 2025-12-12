@@ -12,6 +12,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -178,7 +179,25 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     }
 
     if (image !== undefined) {
-      updateData.image = image?.trim() || null
+      if (image && typeof image === 'string' && image.length > 0) {
+        if (isBase64Image(image)) {
+          // Upload base64 image to Supabase
+          try {
+            const imageUrl = await uploadUniversityImage(image, id)
+            updateData.image = imageUrl
+            logger.info('Uploaded updated university image to Supabase', { universityId: id })
+          } catch (uploadError) {
+            logger.error('Failed to upload university image', { error: uploadError })
+            // Continue without updating image
+          }
+        } else {
+          // Assume it's already a URL
+          updateData.image = image.trim()
+        }
+      } else {
+        // Image was cleared
+        updateData.image = null
+      }
     }
 
     if (websiteUrl !== undefined) {

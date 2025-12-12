@@ -46,8 +46,8 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       // Fonts: self + Google Fonts
       "font-src 'self' https://fonts.gstatic.com",
-      // Images: self + Google (avatars) + data URIs + blob for image processing
-      "img-src 'self' https://*.googleusercontent.com data: blob:",
+      // Images: self + Google (avatars) + Supabase (university images) + data URIs + blob for image processing
+      "img-src 'self' https://*.googleusercontent.com https://*.supabase.co data: blob:",
       // Connect: self + API endpoints + Algolia + Upstash
       "connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.upstash.io",
       // Frame ancestors: none (equivalent to X-Frame-Options: DENY)
@@ -77,7 +77,7 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  // Allow external images from Google (for user avatars)
+  // Allow external images from Google (for user avatars) and Supabase (for university images)
   images: {
     remotePatterns: [
       {
@@ -89,6 +89,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: '*.googleusercontent.com',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+        pathname: '/storage/**'
       }
     ]
   }

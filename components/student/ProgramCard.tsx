@@ -28,14 +28,12 @@ import {
   Clock,
   Check,
   X,
-  Circle,
   ExternalLink,
-  FileText,
   AlertCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult } from '@/lib/matching/types'
-import { FieldIcon } from '@/lib/icons'
+import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 
 // Course requirement for detail view
 interface CourseRequirement {
@@ -44,6 +42,7 @@ interface CourseRequirement {
     id: string
     name: string
     code: string
+    group: number
   }
   requiredLevel: string
   minGrade: number
@@ -181,54 +180,15 @@ function getRequirementStatus(
 }
 
 /**
- * Check if student meets ANY requirement in an OR-group
+ * Process requirements: for OR groups, select the best matching option
+ * Returns a flat list of requirements with the best OR match selected
  */
-function getOrGroupStatus(
+function processRequirementsForDisplay(
   requirements: CourseRequirement[],
   studentCourses: StudentCourse[]
-): { met: boolean; bestOption: CourseRequirement | null; status: string; color: string } {
-  let bestOption: CourseRequirement | null = null
-  let bestStatus = { met: false, status: '', color: 'text-red-500' }
-
-  for (const req of requirements) {
-    const status = getRequirementStatus(req, studentCourses)
-    if (status.met) {
-      // Found a met requirement - OR-group is satisfied
-      return {
-        met: true,
-        bestOption: req,
-        status: 'Requirement met (via ' + req.ibCourse.name + ')',
-        color: 'text-primary'
-      }
-    }
-    // Track the best partial match
-    if (
-      !bestOption ||
-      (status.status !== 'Not taken in your diploma' &&
-        bestStatus.status === 'Not taken in your diploma')
-    ) {
-      bestOption = req
-      bestStatus = status
-    }
-  }
-
-  // No option was fully met
-  return {
-    met: false,
-    bestOption,
-    status: `None of ${requirements.length} options met`,
-    color: 'text-red-500'
-  }
-}
-
-/**
- * Group requirements by orGroupId for display
- */
-function groupRequirementsByOrGroup(requirements: CourseRequirement[]): {
-  orGroupId: string | null
-  items: CourseRequirement[]
-}[] {
-  const groups: { orGroupId: string | null; items: CourseRequirement[] }[] = []
+): { requirement: CourseRequirement; isFromOrGroup: boolean; orGroupSize: number }[] {
+  const result: { requirement: CourseRequirement; isFromOrGroup: boolean; orGroupSize: number }[] =
+    []
   const processedGroups = new Set<string>()
 
   for (const req of requirements) {
@@ -236,14 +196,29 @@ function groupRequirementsByOrGroup(requirements: CourseRequirement[]): {
       if (!processedGroups.has(req.orGroupId)) {
         processedGroups.add(req.orGroupId)
         const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
-        groups.push({ orGroupId: req.orGroupId, items: groupItems })
+
+        // Find best match from OR group
+        let bestReq = groupItems[0]
+        let bestScore = -1
+
+        for (const option of groupItems) {
+          const status = getRequirementStatus(option, studentCourses)
+          // Prioritize: met > partial > not taken
+          const score = status.met ? 2 : status.status === 'Not taken in your diploma' ? 0 : 1
+          if (score > bestScore) {
+            bestScore = score
+            bestReq = option
+          }
+        }
+
+        result.push({ requirement: bestReq, isFromOrGroup: true, orGroupSize: groupItems.length })
       }
     } else {
-      groups.push({ orGroupId: null, items: [req] })
+      result.push({ requirement: req, isFromOrGroup: false, orGroupSize: 1 })
     }
   }
 
-  return groups
+  return result
 }
 
 export function ProgramCard({
@@ -406,203 +381,146 @@ export function ProgramCard({
             </div>
           )}
 
-          {/* Academic Requirements - Same styling as card variant */}
+          {/* Academic Requirements - Unified Grid Layout */}
           {(program.minIBPoints || (program.courseRequirements?.length ?? 0) > 0) && (
             <div className="space-y-3">
               <h4 className="font-semibold text-sm">Academic Requirements</h4>
 
-              <div className="space-y-3">
-                {/* IB Points - Same layout as card variant */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {/* IB Points Tile */}
                 {program.minIBPoints && matchResult && (
                   <div
                     className={cn(
-                      'rounded-xl border-2 p-4',
+                      'rounded-xl border-2 p-3',
                       matchResult.academicMatch.meetsPointsRequirement
                         ? 'border-primary/20 bg-primary/5'
                         : 'border-destructive/20 bg-transparent'
                     )}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-start gap-2">
                       <div
                         className={cn(
-                          'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                          'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
                           matchResult.academicMatch.meetsPointsRequirement
                             ? 'bg-primary/10'
                             : 'bg-muted'
                         )}
                       >
-                        <GraduationCap className="h-6 w-6 text-current opacity-70" />
+                        <GraduationCap className="h-4 w-4 text-current opacity-70" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium">{program.minIBPoints} IB points</p>
+                        <p className="font-medium text-sm leading-tight">Total IB Points</p>
+                        <p className="text-xs text-muted-foreground">
+                          Required: {program.minIBPoints} points
+                        </p>
                         {matchResult.academicMatch.meetsPointsRequirement ? (
-                          <div className="flex items-center gap-1 mt-0.5">
-                            <Check className="h-4 w-4 text-primary" />
-                            <span className="text-sm text-primary">Requirement met</span>
-                          </div>
+                          <p className="text-xs mt-0.5 flex items-center gap-1 text-primary">
+                            <Check className="h-2.5 w-2.5" />
+                            Requirement met
+                          </p>
                         ) : (
-                          <div className="flex items-center gap-1 mt-0.5">
-                            <X className="h-4 w-4 text-destructive" />
-                            <span className="text-sm text-destructive">
-                              Need {matchResult.academicMatch.pointsShortfall} more
-                            </span>
-                          </div>
+                          <p className="text-xs mt-0.5 flex items-center gap-1 text-destructive">
+                            <AlertCircle className="h-2.5 w-2.5" />
+                            Need {matchResult.academicMatch.pointsShortfall} more points
+                          </p>
                         )}
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* Course Requirements - Grouped by orGroupId */}
-                {program.courseRequirements && program.courseRequirements.length > 0 && (
-                  <>
-                    {groupRequirementsByOrGroup(program.courseRequirements).map((group) => {
-                      if (group.orGroupId) {
-                        // OR-group: show as grouped with indication student needs ONE
-                        const orStatus = studentProfile
-                          ? getOrGroupStatus(group.items, studentProfile.courses)
-                          : null
+                {/* Course Requirement Tiles - With Student Profile */}
+                {program.courseRequirements &&
+                  program.courseRequirements.length > 0 &&
+                  studentProfile &&
+                  processRequirementsForDisplay(
+                    program.courseRequirements,
+                    studentProfile.courses
+                  ).map(
+                    ({
+                      requirement: req,
+                      isFromOrGroup: _isFromOrGroup,
+                      orGroupSize: _orGroupSize
+                    }) => {
+                      const status = getRequirementStatus(req, studentProfile.courses)
+                      const isPartialCredit = !status.met && status.color === 'text-orange-600'
+                      const borderStyle = status.met
+                        ? 'border-primary/20 bg-primary/5'
+                        : isPartialCredit
+                          ? 'border-orange-200 bg-transparent'
+                          : 'border-destructive/20 bg-transparent'
 
-                        return (
-                          <div
-                            key={group.orGroupId}
-                            className={cn(
-                              'rounded-xl border-2 p-4',
-                              orStatus?.met
-                                ? 'border-primary/20 bg-primary/5'
-                                : 'border-primary/20 bg-primary/5'
-                            )}
-                          >
-                            <div className="mb-3 flex items-center gap-2 text-sm font-medium text-primary">
-                              <span>One of the following (OR)</span>
-                              {orStatus?.met && (
-                                <span className="flex items-center gap-1">
-                                  <Check className="h-3 w-3" />
-                                  Met
-                                </span>
+                      return (
+                        <div key={req.id} className={cn('rounded-xl border-2 p-3', borderStyle)}>
+                          <div className="flex items-start gap-2">
+                            <div
+                              className={cn(
+                                'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
+                                status.met ? 'bg-primary/10' : 'bg-muted'
                               )}
-                            </div>
-                            <div className="space-y-2">
-                              {group.items.map((req) => {
-                                const status = studentProfile
-                                  ? getRequirementStatus(req, studentProfile.courses)
-                                  : null
-
-                                return (
-                                  <div
-                                    key={req.id}
-                                    className={cn(
-                                      'flex items-start gap-3 p-3 rounded-lg border',
-                                      status?.met
-                                        ? 'border-primary/30 bg-primary/10'
-                                        : 'border-muted bg-background'
-                                    )}
-                                  >
-                                    <div
-                                      className={cn(
-                                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                                        status?.met ? 'bg-primary/20' : 'bg-muted'
-                                      )}
-                                    >
-                                      <FileText
-                                        className={cn(
-                                          'h-5 w-5',
-                                          status?.met ? 'text-primary' : 'text-muted-foreground'
-                                        )}
-                                      />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                      <p className="font-medium">{req.ibCourse.name}</p>
-                                      <p className="text-sm text-muted-foreground">
-                                        {req.requiredLevel} • Required: {req.minGrade}
-                                      </p>
-                                      {status && (
-                                        <p
-                                          className={cn(
-                                            'text-sm mt-1 flex items-center gap-1',
-                                            status.color
-                                          )}
-                                        >
-                                          {status.met ? (
-                                            <Check className="h-3 w-3" />
-                                          ) : (
-                                            <AlertCircle className="h-3 w-3" />
-                                          )}
-                                          {status.status}
-                                        </p>
-                                      )}
-                                    </div>
-                                  </div>
-                                )
-                              })}
-                            </div>
-                          </div>
-                        )
-                      } else {
-                        // Standalone requirement
-                        const req = group.items[0]
-                        const status = studentProfile
-                          ? getRequirementStatus(req, studentProfile.courses)
-                          : null
-
-                        // Determine border style based on status
-                        const isPartialCredit =
-                          status && !status.met && status.color === 'text-orange-600'
-                        const borderStyle = status?.met
-                          ? 'border-primary/20 bg-primary/5'
-                          : isPartialCredit
-                            ? 'border-orange-200 bg-transparent'
-                            : 'border-destructive/20 bg-transparent'
-
-                        return (
-                          <div key={req.id} className={cn('rounded-xl border-2 p-4', borderStyle)}>
-                            <div className="flex items-start gap-3">
-                              <div
+                            >
+                              <SubjectGroupIcon
+                                groupId={req.ibCourse.group}
                                 className={cn(
-                                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                                  status?.met ? 'bg-primary/10' : 'bg-muted'
+                                  'h-4 w-4',
+                                  status.met ? 'text-primary' : 'text-muted-foreground'
+                                )}
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-sm leading-tight">
+                                {req.ibCourse.name}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {req.requiredLevel} • Required: {req.minGrade}
+                              </p>
+                              <p
+                                className={cn(
+                                  'text-xs mt-0.5 flex items-center gap-1',
+                                  status.color
                                 )}
                               >
-                                <FileText
-                                  className={cn(
-                                    'h-5 w-5',
-                                    status?.met ? 'text-primary' : 'text-muted-foreground'
-                                  )}
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="font-medium">{req.ibCourse.name}</p>
-                                <p className="text-sm text-muted-foreground">
-                                  {req.requiredLevel} • Required: {req.minGrade}
-                                </p>
-                                {status && (
-                                  <p
-                                    className={cn(
-                                      'text-sm mt-1 flex items-center gap-1',
-                                      status.color
-                                    )}
-                                  >
-                                    {status.met ? (
-                                      <Check className="h-3 w-3" />
-                                    ) : (
-                                      <AlertCircle className="h-3 w-3" />
-                                    )}
-                                    {status.status}
-                                  </p>
+                                {status.met ? (
+                                  <Check className="h-2.5 w-2.5" />
+                                ) : (
+                                  <AlertCircle className="h-2.5 w-2.5" />
                                 )}
-                              </div>
+                                {status.status}
+                              </p>
                             </div>
                           </div>
-                        )
-                      }
-                    })}
-                  </>
-                )}
+                        </div>
+                      )
+                    }
+                  )}
+
+                {/* Course Requirement Tiles - Without Student Profile */}
+                {program.courseRequirements &&
+                  program.courseRequirements.length > 0 &&
+                  !studentProfile &&
+                  program.courseRequirements.map((req) => (
+                    <div key={req.id} className="rounded-xl border-2 border-muted p-3">
+                      <div className="flex items-start gap-2">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+                          <SubjectGroupIcon
+                            groupId={req.ibCourse.group}
+                            className="h-4 w-4 text-muted-foreground"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm leading-tight">{req.ibCourse.name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {req.requiredLevel} • Required: {req.minGrade}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
             </div>
           )}
 
-          {/* Your Preferences - Same styling as card variant */}
+          {/* Your Preferences - Smaller cards matching Academic Requirements */}
           {matchResult && (
             <div className="space-y-3">
               <h4 className="font-semibold text-sm">Your Preferences</h4>
@@ -610,41 +528,46 @@ export function ProgramCard({
                 {/* Field Preference */}
                 <div
                   className={cn(
-                    'rounded-xl border-2 p-4',
+                    'rounded-xl border-2 p-3',
                     matchResult.fieldMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
                       : 'border-destructive/20 bg-transparent'
                   )}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-2">
                     <div
                       className={cn(
-                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                        'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
                         matchResult.fieldMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
                       <FieldIcon
                         fieldName={program.fieldOfStudy.name}
                         className={cn(
-                          'h-6 w-6',
+                          'h-4 w-4',
                           matchResult.fieldMatch.isMatch ? 'text-primary' : 'text-destructive'
                         )}
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{program.fieldOfStudy.name}</p>
+                      <p className="font-medium text-sm leading-tight truncate">
+                        {program.fieldOfStudy.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {program.fieldOfStudy.description || 'Field of Study'}
+                      </p>
                       {matchResult.fieldMatch.isMatch ? (
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-primary">Matches your interests</span>
-                        </div>
+                        <p className="text-xs mt-0.5 flex items-center gap-1 text-primary">
+                          <Check className="h-2.5 w-2.5" />
+                          Matches your interests
+                        </p>
                       ) : matchResult.fieldMatch.noPreferences ? (
-                        <span className="text-sm text-muted-foreground">No preferences set</span>
+                        <p className="text-xs mt-0.5 text-muted-foreground">No preferences set</p>
                       ) : (
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <X className="h-4 w-4 text-destructive" />
-                          <span className="text-sm text-destructive">Outside your interests</span>
-                        </div>
+                        <p className="text-xs mt-0.5 flex items-center gap-1 text-destructive">
+                          <AlertCircle className="h-2.5 w-2.5" />
+                          Outside your field preferences
+                        </p>
                       )}
                     </div>
                   </div>
@@ -653,37 +576,38 @@ export function ProgramCard({
                 {/* Location Preference */}
                 <div
                   className={cn(
-                    'rounded-xl border-2 p-4',
+                    'rounded-xl border-2 p-3',
                     matchResult.locationMatch.isMatch
                       ? 'border-primary/20 bg-primary/5'
                       : 'border-destructive/20 bg-transparent'
                   )}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-start gap-2">
                     <div
                       className={cn(
-                        'flex h-12 w-12 shrink-0 items-center justify-center rounded-xl',
+                        'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
                         matchResult.locationMatch.isMatch ? 'bg-primary/10' : 'bg-muted'
                       )}
                     >
-                      <span className="text-2xl">{program.country.flagEmoji || '🌍'}</span>
+                      <span className="text-base">{program.country.flagEmoji || '🌍'}</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium">{program.country.name}</p>
+                      <p className="font-medium text-sm leading-tight">{program.country.name}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {program.city || 'Location'}
+                      </p>
                       {matchResult.locationMatch.isMatch ? (
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <Check className="h-4 w-4 text-primary" />
-                          <span className="text-sm text-primary">Preferred location</span>
-                        </div>
+                        <p className="text-xs mt-0.5 flex items-center gap-1 text-primary">
+                          <Check className="h-2.5 w-2.5" />
+                          Preferred location
+                        </p>
                       ) : matchResult.locationMatch.noPreferences ? (
-                        <span className="text-sm text-muted-foreground">No preferences set</span>
+                        <p className="text-xs mt-0.5 text-muted-foreground">No preferences set</p>
                       ) : (
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <X className="h-4 w-4 text-destructive" />
-                          <span className="text-sm text-destructive">
-                            Not in your preferred locations
-                          </span>
-                        </div>
+                        <p className="text-xs mt-0.5 flex items-center gap-1 text-destructive">
+                          <AlertCircle className="h-2.5 w-2.5" />
+                          Outside your location preferences
+                        </p>
                       )}
                     </div>
                   </div>
@@ -721,9 +645,11 @@ export function ProgramCard({
                 {/* Title Row with Save */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
-                    <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
-                      {program.name}
-                    </h3>
+                    <Link href={`/programs/${program.id}`} className="hover:underline">
+                      <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
+                        {program.name}
+                      </h3>
+                    </Link>
                     <p className="text-sm text-muted-foreground">
                       {program.university.name}
                       {program.city && `, ${program.city}`}
@@ -761,8 +687,8 @@ export function ProgramCard({
                     {program.degreeType}
                   </span>
                   {!showMatchDetails && program.minIBPoints && (
-                    <span className="flex items-center gap-1.5 text-green-600 font-medium">
-                      <Circle className="h-4 w-4 fill-current" />
+                    <span className="flex items-center gap-1.5 text-primary font-medium">
+                      <GraduationCap className="h-4 w-4" />
                       {program.minIBPoints} IB Points
                     </span>
                   )}
