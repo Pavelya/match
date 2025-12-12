@@ -135,11 +135,26 @@ export async function GET() {
               },
               fieldOfStudy: {
                 name: program.fieldOfStudy.name,
-                iconName: program.fieldOfStudy.iconName
+                iconName: program.fieldOfStudy.iconName,
+                description: program.fieldOfStudy.description
               },
               degreeType: program.degreeType,
               duration: program.duration,
-              minIBPoints: program.minIBPoints
+              minIBPoints: program.minIBPoints,
+              city: program.university.city,
+              courseRequirements: program.courseRequirements.map((cr) => ({
+                id: cr.id,
+                ibCourse: {
+                  id: cr.ibCourse.id,
+                  name: cr.ibCourse.name,
+                  code: cr.ibCourse.code,
+                  group: cr.ibCourse.group
+                },
+                requiredLevel: cr.requiredLevel,
+                minGrade: cr.minGrade,
+                isCritical: cr.isCritical,
+                orGroupId: cr.orGroupId
+              }))
             }
           : null
       }

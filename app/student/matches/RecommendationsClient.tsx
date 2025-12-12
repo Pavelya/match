@@ -31,10 +31,25 @@ interface ProgramData {
   fieldOfStudy: {
     name: string
     iconName?: string | null
+    description?: string | null
   }
   degreeType: string
   duration: string
   minIBPoints?: number | null
+  city?: string | null
+  courseRequirements?: {
+    id: string
+    ibCourse: {
+      id: string
+      name: string
+      code: string
+      group: number
+    }
+    requiredLevel: string
+    minGrade: number
+    isCritical: boolean
+    orGroupId?: string | null
+  }[]
 }
 
 interface MatchWithProgram {

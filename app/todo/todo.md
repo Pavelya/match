@@ -4,3 +4,4 @@
 4. Remove / reduce server and client logs
 5. Remove cookie banner from login
 6. Add favicon
+7. Send new srudent to onboarding
