@@ -17,6 +17,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -94,8 +95,17 @@ export function getConsent(): CookieConsent {
 export function CookieConsentBanner() {
   const [showBanner, setShowBanner] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
+  const pathname = usePathname()
+
+  // Don't show the banner on auth pages (before user is logged in)
+  const isAuthPage = pathname?.startsWith('/auth')
 
   useEffect(() => {
+    // Skip if on auth pages
+    if (isAuthPage) {
+      return
+    }
+
     // Check if user has already made a choice
     const hasChoice = hasConsentChoice()
     if (!hasChoice) {
@@ -103,7 +113,7 @@ export function CookieConsentBanner() {
       const timer = setTimeout(() => setShowBanner(true), 500)
       return () => clearTimeout(timer)
     }
-  }, [])
+  }, [isAuthPage])
 
   const handleAcceptAll = () => {
     storeConsent({
@@ -127,7 +137,8 @@ export function CookieConsentBanner() {
     setShowBanner(false)
   }
 
-  if (!showBanner) return null
+  // Don't show on auth pages or if banner is hidden
+  if (isAuthPage || !showBanner) return null
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6">
