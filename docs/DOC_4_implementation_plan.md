@@ -923,19 +923,36 @@
 
 ## Phase 4: Coordinator Role (Weeks 8-9)
 
-**Goal**: Build coordinator dashboard with subscription-based feature gating
+**Goal**: Build coordinator dashboard with subscription-based feature gating, student invitation/linking, and student account management
 
-### 4.1 Coordinator Dashboard
+> **Component Reuse Reference**: See [coordinator-dashboard-component-guide.md](./coordinator-dashboard-component-guide.md) for detailed component mapping and usage examples. All shared components in `/components/admin/shared` are role-agnostic and should be reused for the coordinator dashboard.
 
-- [ ] **Create coordinator route structure**
+### 4.1 Coordinator Dashboard Foundation
+
+- [x] **Create coordinator route structure**
   - **Files**: 
     - `app/coordinator/dashboard/page.tsx`
     - `app/coordinator/layout.tsx`
   - **Middleware**: Role check + school access check
+  - **Reuse Components** (from `@/components/admin/shared`):
+    - `PageContainer` - Full-width wrapper for all coordinator pages
+    - `PageHeader` - With school context and coordinator actions
+    - `StatCard` - For school KPIs (students, avg IB score, etc.)
   - **Acceptance**: ✓ Only coordinators can access
   - **Test**: Login as coordinator, see dashboard
 
-- [ ] **Implement access control helper**
+- [x] **Create CoordinatorSidebar component**
+  - **File**: `components/coordinator/CoordinatorSidebar.tsx`
+  - **Pattern**: Follow AdminSidebar.tsx structure (see component guide)
+  - **Features**:
+    - School name + VIP badge (if applicable)
+    - Navigation: Dashboard, Students, Team, Analytics (VIP), Settings
+    - VIP-only links show crown icon for Regular tier
+    - User profile section with logout
+  - **Acceptance**: ✓ Matches admin sidebar quality
+  - **Test**: Navigate between pages, verify active states
+
+- [x] **Implement access control helper**
   - **File**: `lib/auth/access-control.ts`
   - **Function**: `getCoordinatorAccess(school)`
   - **Logic**: Per architecture RBAC section
@@ -947,26 +964,34 @@
 
 ### 4.2 Feature Gating Implementation
 
-- [ ] **Create UpgradePrompt component**
-  - **File**: `components/coordinator/UpgradePrompt.tsx`
-  - **Props**: feature, description
-  - **Features**: 
-    - Lock icon
-    - Feature description
-    - "Upgrade" button
-  - **Acceptance**: ✓ Renders correctly
-  - **Test**: Render with mock data
+- [x] **Leverage UpgradePromptBanner component**
+  - **Note**: Already exists at `@/components/admin/shared/UpgradePromptBanner`
+  - **Variants available**: `inline`, `card`, `subtle`
+  - **Usage patterns** (see component guide):
+    - `inline` - For small prompts within content
+    - `card` - For prominent feature blocks
+    - `subtle` - For inline text prompts (e.g., invites remaining)
+  - **Acceptance**: ✓ Works in coordinator context
+  - **Test**: Verify all 3 variants render correctly
 
-- [ ] **Build freemium student management**
+- [x] **Build freemium student management**
   - **File**: `app/coordinator/students/page.tsx`
+  - **Reuse Components**:
+    - `DataTable` - Student list with columns
+    - `SearchFilterBar` - Search students by name/email
+    - `TableEmptyState` - "No students yet" state
+    - `UpgradePromptBanner` (subtle) - "X invites remaining" for Regular tier
   - **Logic**: 
-    - VIP/paid: Show all students
-    - Freemium: Show max 10, lock "Add student" after 10
+    - VIP/paid: Show all students, unlimited invites
+    - Freemium: Show max 10, lock "Invite Student" after 10
   - **Acceptance**: ✓ Limit enforced
   - **Test**: Login as freemium coordinator, add 11th student → blocked
 
-- [ ] **Build freemium analytics**
+- [x] **Build freemium analytics**
   - **File**: `app/coordinator/analytics/page.tsx`
+  - **Reuse Components**:
+    - `StatCard` with `locked` prop for premium metrics
+    - `UpgradePromptBanner` (card) for locked sections
   - **Logic**: 
     - VIP/paid: Full analytics suite
     - Freemium: Basic overview, lock advanced features
@@ -975,7 +1000,7 @@
 
 ### 4.3 Stripe Subscription Integration
 
-- [ ] **Create Stripe account and products**
+- [x] **Create Stripe account and products**
   - **Action**: 
     - Create Stripe account
     - Create product: "IB Match School Subscription"
@@ -983,14 +1008,14 @@
   - **Acceptance**: ✓ Product created
   - **Test**: See in Stripe dashboard
 
-- [ ] **Install Stripe SDK**
+- [x] **Install Stripe SDK**
   - **Command**: `npm i stripe @stripe/stripe-js`
   - **File**: `lib/stripe/client.ts`
   - **Add**: Stripe client with API key
   - **Acceptance**: ✓ Client initialized
   - **Test**: Import works
 
-- [ ] **Create checkout session API**
+- [x] **Create checkout session API**
   - **File**: `app/api/subscriptions/create-checkout/route.ts` (POST)
   - **Logic**: 
     - Get school from coordinator
@@ -1003,8 +1028,9 @@
     - ✓ Session created for REGULAR
   - **Test**: POST request, get checkout URL
 
-- [ ] **Build upgrade page**
+- [x] **Build upgrade page**
   - **File**: `app/coordinator/upgrade/page.tsx`
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `InfoCard`
   - **Features**: 
     - Show current plan (Freemium)
     - Benefits of VIP-level access
@@ -1012,7 +1038,7 @@
   - **Acceptance**: ✓ Redirects to Stripe
   - **Test**: Click upgrade, redirect to Checkout
 
-- [ ] **Create Stripe webhook handler**
+- [x] **Create Stripe webhook handler**
   - **File**: `app/api/webhooks/stripe/route.ts` (POST)
   - **Events**: 
     - `checkout.session.completed` → Set subscriptionStatus = ACTIVE
@@ -1020,8 +1046,9 @@
   - **Acceptance**: ✓ DB updated on events
   - **Test**: Complete checkout in test mode, check DB
 
-- [ ] **Build subscription management page**
+- [x] **Build subscription management page**
   - **File**: `app/coordinator/subscription/page.tsx`
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `InfoCard`, `InfoRow`
   - **Features**: 
     - Show current status
     - Link to Stripe Customer Portal
@@ -1029,42 +1056,258 @@
   - **Acceptance**: ✓ Portal link works
   - **Test**: Click "Manage", redirect to Stripe Portal
 
-### 4.4 Student Management
+### 4.4 Student Invitation System
 
-- [ ] **Create student invitation API**
-  - **File**: `app/api/coordinators/invite-student/route.ts` (POST)
+> **GDPR/Consent Requirement**: Students invited by coordinators must explicitly consent to coordinator access to their account data. This consent is separate from general terms acceptance.
+
+- [ ] **4.4.1 Schema updates for student invitations**
+  - **File**: `prisma/schema.prisma`
+  - **Changes to Invitation model**:
+    - Confirm `role` enum includes `STUDENT` (already exists)
+    - Add `coordinatorAccessConsent` Boolean field (default: false) - tracks if student consented to coordinator access
+  - **Changes to StudentProfile model**:
+    - Add `linkedByInvitation` Boolean (default: false) - tracks if linked via coordinator invite
+    - Add `coordinatorAccessConsentAt` DateTime? - when consent was given
+    - Add `coordinatorAccessConsentVersion` String? - version of consent terms
+  - **Migration**: `npx prisma migrate dev --name add_student_coordinator_consent`
+  - **Acceptance**: ✓ Schema updated, migration applied
+  - **Test**: `npx prisma studio` - see new fields
+
+- [ ] **4.4.2 Create student invitation email template**
+  - **File**: `emails/student-invite.tsx` (React Email)
+  - **Content must clearly state**:
+    - Invitation from [Coordinator Name] at [School Name]
+    - "By accepting this invitation, you agree to allow coordinators at [School Name] to view and manage your academic profile and program matches"
+    - Clear CTA button: "Accept Invitation & Create Account"
+    - Secondary link: "Decline and create a regular account" → `/auth/signin?declineInvite=true`
+    - Expiry notice (e.g., "This invitation expires in 7 days")
+  - **Styling**: Match existing email templates (Airbnb-inspired, primary blue CTA)
+  - **Acceptance**: ✓ Template renders with all required elements
+  - **Test**: `npm run email:dev` - preview template
+
+- [ ] **4.4.3 Create student invitation API**
+  - **File**: `app/api/coordinator/students/invite/route.ts` (POST)
+  - **Access Control**: VIP or subscribed REGULAR coordinators only
   - **Logic**: 
-    - Generate invite link
-    - Send email
-    - Link student to school on acceptance
-  - **Acceptance**: ✓ Email sent
-  - **Test**: Invite student, receive email
+    - Validate coordinator has invite capacity (unlimited for VIP/paid, 10 max for freemium)
+    - Check if email already has account → different flow (link existing student)
+    - Generate unique token (48 chars, URL-safe)
+    - Create Invitation record with:
+      - `role: STUDENT`
+      - `schoolId: coordinator.schoolId`
+      - `expiresAt: now + 7 days`
+    - Send email via Resend
+  - **Acceptance**: 
+    - ✓ Capacity check works for freemium
+    - ✓ Invitation created in DB
+    - ✓ Email sent with correct content
+  - **Test**: 
+    - Invite student as VIP coordinator → success
+    - Invite 11th student as freemium → blocked (403)
 
-- [ ] **Build student list page**
+- [ ] **4.4.4 Create student invitation acceptance flow**
+  - **File**: `app/auth/accept-student-invite/[token]/page.tsx`
+  - **UI Flow**:
+    1. Validate token (not expired, status = PENDING)
+    2. Show consent screen with:
+       - School name and coordinator info
+       - Clear explanation of what coordinators can access:
+         - View your academic profile (courses, grades, TOK/EE)
+         - View your program matches and saved programs
+         - Edit your academic data (with your profile visible to them)
+       - Checkbox: "I understand and consent to [School Name] coordinators accessing my account data"
+       - Primary button: "Accept & Create Account" (disabled until checkbox checked)
+       - Secondary link: "Decline invitation" → redirects to regular signup
+    3. On accept:
+       - Create User with role STUDENT
+       - Create StudentProfile with:
+         - `schoolId: invitation.schoolId`
+         - `linkedByInvitation: true`
+         - `coordinatorAccessConsentAt: now`
+         - `coordinatorAccessConsentVersion: "2025-12-13"` (current consent version)
+       - Update Invitation: `status: ACCEPTED`, `acceptedAt: now`
+       - Log in user automatically
+       - Redirect to `/student/onboarding`
+  - **Acceptance**: 
+    - ✓ Consent screen displays correctly
+    - ✓ Cannot proceed without checkbox
+    - ✓ Account created with school link
+    - ✓ Consent timestamp recorded
+  - **Test**: 
+    - Accept invite → account linked to school
+    - Decline invite → redirected to regular signup
+
+- [ ] **4.4.5 Handle "decline invitation" flow**
+  - **File**: `app/auth/signin/page.tsx` (update)
+  - **Logic**: Check for `?declineInvite=true` query param
+  - **UI**: Show info banner: "You can still create an account to use IB Match. Your account will not be linked to any school."
+  - **Result**: Standard student signup flow without school linking
+  - **Acceptance**: ✓ Decline path works correctly
+  - **Test**: Click decline in email → see info banner → complete signup → no school link
+
+- [ ] **4.4.6 Resend student invitation**
+  - **File**: `app/api/coordinator/students/invite/resend/route.ts` (POST)
+  - **Logic**:
+    - Find existing PENDING invitation by email + schoolId
+    - Regenerate token
+    - Update expiresAt
+    - Resend email
+  - **Acceptance**: ✓ Token regenerated, email resent
+  - **Test**: Resend invitation, check new token in DB
+
+- [ ] **4.4.7 Cancel pending student invitation**
+  - **File**: `app/api/coordinator/students/invite/[id]/route.ts` (DELETE)
+  - **Logic**: Set invitation status to CANCELLED
+  - **Acceptance**: ✓ Invitation cancelled, token invalid
+  - **Test**: Cancel invite, try to use link → error page
+
+### 4.5 Student Account Linking & Unlinking
+
+- [ ] **4.5.1 Display linked school in student account**
+  - **File**: `app/student/account/page.tsx` (update or create)
+  - **UI Section**: "School Connection"
+  - **Content when linked**:
+    - School name with logo (if available)
+    - "Connected via invitation on [date]"
+    - Info text: "Your coordinator at [School Name] can view your academic profile and program matches."
+    - "Unlink from School" button (with confirmation dialog)
+  - **Content when not linked**:
+    - "Not connected to any school"
+    - Info text: "Connect with your school to get support from your IB coordinator"
+  - **Acceptance**: ✓ School info displays correctly
+  - **Test**: 
+    - Linked student sees school name and unlink option
+    - Unlinked student sees "not connected" message
+
+- [ ] **4.5.2 Implement student unlink functionality**
+  - **File**: `app/api/students/school/unlink/route.ts` (POST)
+  - **Logic**:
+    - Validate user is STUDENT with schoolId
+    - Update StudentProfile:
+      - `schoolId: null`
+      - `linkedByInvitation: false`
+      - `coordinatorAccessConsentAt: null`
+      - `coordinatorAccessConsentVersion: null`
+    - Log action for audit
+  - **UI**: Confirmation dialog with warning:
+    - "Are you sure you want to unlink from [School Name]?"
+    - "Your coordinator will no longer be able to view or manage your academic data."
+    - "You can reconnect later by accepting a new invitation from your school."
+  - **Acceptance**: 
+    - ✓ School link removed
+    - ✓ Consent fields cleared
+    - ✓ Student no longer appears in coordinator's student list
+  - **Test**: Unlink → check DB → coordinator list refreshed
+
+- [ ] **4.5.3 Handle existing student invitation (link existing account)**
+  - **File**: `app/api/coordinator/students/invite/route.ts` (update)
+  - **Logic when email exists**:
+    - If student already has schoolId → error: "Student already linked to a school"
+    - If student has no schoolId → Create special "link request" invitation
+  - **File**: `app/student/invitations/page.tsx` (new)
+  - **UI**: Show pending invitations for existing students
+    - "You've been invited to connect with [School Name]"
+    - Same consent flow as new student acceptance
+  - **Acceptance**: ✓ Existing students can be invited and linked
+  - **Test**: Invite existing student → they see invitation → accept → linked
+
+### 4.6 Coordinator Student Management
+
+> **Permission Requirement**: Only VIP or subscribed REGULAR coordinators can manage student data. Consent must be given.
+
+- [ ] **4.6.1 Build student list page**
   - **File**: `app/coordinator/students/page.tsx`
+  - **Reuse Components**:
+    - `PageContainer`, `PageHeader` with "Invite Student" action
+    - `DataTable` with custom columns (name, email, IB points, courses, consent status)
+    - `SearchFilterBar` for filtering students
+    - `TableEmptyState` for no students
+  - **Columns**:
+    - Student name + email
+    - IB Points (or "Not set")
+    - Courses count
+    - Consent badge (✓ Consented | ⚠️ Consent Pending)
+    - Actions: View, Edit (if consented), View Matches
   - **Features**: 
-    - Table of students
-    - View matches button
-    - Edit academic data button
+    - Sort by name, IB points, joined date
+    - Filter by consent status
+    - Bulk export (VIP only)
   - **Acceptance**: 
     - ✓ All school students listed
     - ✓ Freemium limited to 10
-  - **Test**: See all students
+    - ✓ Consent status visible
+  - **Test**: See all students with correct consent states
 
-- [ ] **Build student editor**
+- [ ] **4.6.2 Build student detail page**
+  - **File**: `app/coordinator/students/[id]/page.tsx`
+  - **Reuse Components**:
+    - `PageContainer`, `PageHeader` with back link and Edit action
+    - `DetailPageLayout` for two-column layout
+    - `InfoCard`, `InfoRow` for student details
+    - `Breadcrumbs`: Students > [Student Name]
+  - **Sections**:
+    - **Sidebar**: Quick stats (IB Points, TOK, EE, Courses count), Preferences summary
+    - **Main**: IB Courses table, Top Matches preview, Saved Programs
+  - **Access Control**: Only show if `coordinatorAccessConsentAt` is set
+  - **Acceptance**: ✓ Full student data visible for consented students
+  - **Test**: View student detail page with all data
+
+- [ ] **4.6.3 Build student profile editor**
   - **File**: `app/coordinator/students/[id]/edit/page.tsx`
-  - **Features**: 
-    - Edit courses, grades
-    - Update preferences
-  - **Acceptance**: ✓ Changes save
-  - **Test**: Update student, check DB
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `FormPageLayout`
+  - **Editable Fields**:
+    - IB Courses (add/edit/remove with level and grade)
+    - Total IB Points (auto-calculated or manual override)
+    - TOK Grade (A-E)
+    - EE Grade (A-E)
+    - Preferred Fields of Study
+    - Preferred Countries
+  - **Access Control**: 
+    - VIP or subscribed REGULAR coordinators only
+    - Student must have `coordinatorAccessConsentAt` set
+  - **Acceptance**: 
+    - ✓ Changes save to DB
+    - ✓ Match recalculation triggered
+    - ✓ Cannot edit without consent
+  - **Test**: 
+    - Edit student data → see in student view
+    - Try edit without consent → blocked (403)
 
-### 4.5 School Analytics
+- [ ] **4.6.4 Create student management API endpoints**
+  - **Files**:
+    - `app/api/coordinator/students/route.ts` (GET - list students for coordinator's school)
+    - `app/api/coordinator/students/[id]/route.ts` (GET, PATCH)
+  - **GET /api/coordinator/students**:
+    - Filter by coordinator's schoolId
+    - Include consent status
+    - Pagination support
+    - Search by name/email
+  - **GET /api/coordinator/students/[id]**:
+    - Validate coordinator's school matches student's school
+    - Validate consent is given
+    - Return full student profile with courses, preferences
+  - **PATCH /api/coordinator/students/[id]**:
+    - Access control: VIP/subscribed + consent required
+    - Update academic data
+    - Trigger match recalculation (invalidate Redis cache)
+    - Log changes for audit
+  - **Acceptance**: ✓ All endpoints work with proper access control
+  - **Test**: API tests for each endpoint
+
+- [ ] **4.6.5 View student matches**
+  - **File**: `app/coordinator/students/[id]/matches/page.tsx`
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `Breadcrumbs`
+  - **Content**: Display top 10 matches for student (same as student view)
+  - **Access Control**: Consent required
+  - **Acceptance**: ✓ Matches display correctly
+  - **Test**: View matches for consented student
+
+### 4.7 School Analytics
 
 - [ ] **Create analytics API**
-  - **File**: `app/api/coordinators/analytics/route.ts` (GET)
+  - **File**: `app/api/coordinator/analytics/route.ts` (GET)
   - **Data**: 
-    - Total students
+    - Total students (with consent)
     - Average IB score
     - Match distribution
     - Top fields/countries
@@ -1074,6 +1317,7 @@
 - [ ] **Build analytics dashboard**
   - **File**: `app/coordinator/analytics/page.tsx`
   - **Library**: `npm i recharts` (charts)
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `StatCard` (with `locked` prop)
   - **Charts**: 
     - Match distribution (bar chart)
     - Average IB score (number)
@@ -1083,13 +1327,48 @@
     - ✓ Freemium: Basic only
   - **Test**: View as VIP vs freemium
 
+### 4.8 Coordinator-to-Coordinator Invitation
+
+- [ ] **Implement coordinator invitation from coordinator**
+  - **File**: `app/api/coordinator/team/invite/route.ts` (POST)
+  - **Logic**: 
+    - Only VIP or subscribed REGULAR coordinators can invite
+    - Creates invitation with role COORDINATOR and schoolId
+    - Uses existing coordinator invitation flow
+  - **UI**: `app/coordinator/team/invite/page.tsx`
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `FormPageLayout`
+  - **Acceptance**: ✓ Coordinator can invite other coordinators to their school
+  - **Test**: Invite coordinator, they accept, linked to same school
+
+- [ ] **Build team list page**
+  - **File**: `app/coordinator/team/page.tsx`
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `DataTable`, `TableEmptyState`
+  - **Content**: List other coordinators at the school
+  - **Acceptance**: ✓ All school coordinators listed
+  - **Test**: See all coordinators at school
+
 ### ✅ Phase 4 Acceptance Criteria
 
-- [ ] Access control correctly gates features
+- [ ] Coordinator dashboard fully functional with component reuse
+- [ ] Access control correctly gates features (VIP vs subscribed vs freemium)
 - [ ] Freemium coordinators limited to 10 students
 - [ ] Stripe checkout works end-to-end
 - [ ] Subscription activates full access
 - [ ] Subscription cancellation reverts to freemium
+- [ ] **Student invitation flow complete**:
+  - [ ] Coordinator can send invite with clear consent disclosure
+  - [ ] Student sees consent screen before accepting
+  - [ ] Student can decline and create regular account
+  - [ ] Existing students can be invited and linked
+- [ ] **Student account linking complete**:
+  - [ ] Linked students see school in account settings
+  - [ ] Students can unlink from school at any time
+  - [ ] Consent timestamp recorded for audit
+- [ ] **Coordinator student management complete**:
+  - [ ] Can view all linked students with consent status
+  - [ ] Can view student academic data (with consent)
+  - [ ] Can edit student academic data (VIP/subscribed + consent)
+  - [ ] Can view student program matches
 - [ ] Analytics display correctly for all tiers
 
 ---

@@ -174,7 +174,7 @@ model IBSchool {
   city      String
 
   subscriptionTier   SubscriptionTier   @default(REGULAR)
-  subscriptionStatus SubscriptionStatus @default(ACTIVE)
+  subscriptionStatus SubscriptionStatus @default(INACTIVE)
 
   // Stripe fields - only used for REGULAR tier schools with subscriptions
   // VIP schools: these fields remain NULL (no payment needed)

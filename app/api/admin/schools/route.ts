@@ -113,13 +113,15 @@ export async function POST(request: Request) {
     }
 
     // Create the school
+    // VIP schools: ACTIVE status (full access free)
+    // REGULAR schools: INACTIVE status (freemium until they subscribe)
     const school = await prisma.iBSchool.create({
       data: {
         name: name.trim(),
         countryId,
         city: city.trim(),
         subscriptionTier,
-        subscriptionStatus: 'ACTIVE',
+        subscriptionStatus: subscriptionTier === 'VIP' ? 'ACTIVE' : 'INACTIVE',
         logo: logo || null,
         websiteUrl: websiteUrl?.trim() || null,
         email: email?.trim() || null,
