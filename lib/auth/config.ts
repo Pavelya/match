@@ -3,8 +3,11 @@ import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
+import { render } from '@react-email/components'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
+import MagicLinkEmail from '@/emails/magic-link'
+import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
 
 const prisma = new PrismaClient()
 
@@ -15,10 +18,66 @@ const CURRENT_PRIVACY_VERSION = '2025-12-09'
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    // Email provider (Magic Links via Resend)
+    // Email provider (Magic Links via Resend with custom template)
     Resend({
       apiKey: env.RESEND_API_KEY,
-      from: env.EMAIL_FROM
+      from: env.EMAIL_FROM,
+      async sendVerificationRequest({ identifier: email, url, provider }) {
+        try {
+          // Check if this email belongs to a coordinator (existing user or pending invitation)
+          const [existingUser, pendingInvitation] = await Promise.all([
+            prisma.user.findUnique({
+              where: { email: email.toLowerCase() },
+              select: { role: true }
+            }),
+            prisma.invitation.findFirst({
+              where: {
+                email: email.toLowerCase(),
+                status: 'PENDING',
+                role: 'COORDINATOR'
+              }
+            })
+          ])
+
+          const isCoordinator =
+            existingUser?.role === 'COORDINATOR' ||
+            existingUser?.role === 'PLATFORM_ADMIN' ||
+            pendingInvitation !== null
+
+          // Choose the appropriate email template
+          const EmailTemplate = isCoordinator ? CoordinatorMagicLinkEmail : MagicLinkEmail
+          const html = await render(EmailTemplate({ url }))
+
+          const text = isCoordinator
+            ? `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
+            : `Sign in to IB Match\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
+
+          const response = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${provider.apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: provider.from,
+              to: email,
+              subject: 'Sign in to IB Match',
+              html,
+              text
+            })
+          })
+
+          if (!response.ok) {
+            const errorData = await response.json()
+            throw new Error(`Resend error: ${JSON.stringify(errorData)}`)
+          }
+        } catch (error) {
+          logger.error('Failed to send magic link email', {
+            error: error instanceof Error ? error.message : 'Unknown error'
+          })
+          throw error
+        }
+      }
     }),
     // Google OAuth
     Google({

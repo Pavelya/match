@@ -1,8 +1,8 @@
 /**
- * Magic Link Sign-in Email Template
+ * Coordinator Magic Link Sign-in Email Template
  *
- * Professional email template for magic link authentication.
- * Styled consistently with IB Match branding using the primary blue color.
+ * Professional email template for IB Coordinator magic link authentication.
+ * Contains coordinator-relevant messaging about student management and analytics.
  */
 
 import {
@@ -19,20 +19,20 @@ import {
   Text
 } from '@react-email/components'
 
-interface MagicLinkEmailProps {
+interface CoordinatorMagicLinkEmailProps {
   url: string
 }
 
 // App's primary blue color (from globals.css)
 const PRIMARY_COLOR = '#3573E5'
 
-export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
+export default function CoordinatorMagicLinkEmail({ url }: CoordinatorMagicLinkEmailProps) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
 
   return (
     <Html>
       <Head />
-      <Preview>Sign in to IB Match - Your secure sign-in link</Preview>
+      <Preview>Sign in to IB Match Coordinator Dashboard</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={h1}>Sign in to IB Match</Heading>
@@ -40,8 +40,8 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
           <Text style={text}>Hello,</Text>
 
           <Text style={text}>
-            Click the button below to securely sign in to your IB Match account. This link will
-            expire in 10 minutes.
+            Click the button below to securely sign in to your IB Match Coordinator account. This
+            link will expire in 10 minutes.
           </Text>
 
           <Section style={buttonContainer}>
@@ -51,9 +51,9 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
           </Section>
 
           <Text style={text}>
-            IB Match helps you connect your predicted IB Diploma grades with university program
-            requirements worldwide, making your academic journey planning simpler and more
-            effective.
+            IB Match empowers you to guide your students through their university journey. Access
+            your dashboard to manage student profiles, view analytics, and help your IB students
+            find the best programs for their academic achievements.
           </Text>
 
           <Text style={disclaimerText}>

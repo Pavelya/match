@@ -1,8 +1,8 @@
 /**
  * Coordinator Invitation Email Template
  *
- * React Email template sent to coordinators when they are invited to a school.
- * Uses Airbnb-inspired styling consistent with magic-link.tsx.
+ * Professional email template sent to coordinators when they are invited to a school.
+ * Styled consistently with IB Match branding using the primary blue color.
  */
 
 import {
@@ -13,6 +13,7 @@ import {
   Heading,
   Hr,
   Html,
+  Link,
   Preview,
   Section,
   Text
@@ -25,12 +26,17 @@ interface CoordinatorInviteEmailProps {
   expiresInDays: number
 }
 
+// App's primary blue color (from globals.css)
+const PRIMARY_COLOR = '#3573E5'
+
 export default function CoordinatorInviteEmail({
   inviteUrl,
   schoolName,
   inviterName,
   expiresInDays = 7
 }: CoordinatorInviteEmailProps) {
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
+
   return (
     <Html>
       <Head />
@@ -57,15 +63,29 @@ export default function CoordinatorInviteEmail({
             </Button>
           </Section>
 
-          <Text style={smallText}>
+          <Text style={disclaimerText}>
             This invitation will expire in {expiresInDays} days. If you didn&apos;t expect this
             invitation, you can safely ignore this email.
           </Text>
 
           <Hr style={hr} />
 
-          <Text style={footer}>
+          <Text style={footerDescription}>
             IB Match helps connect IB students with university programs worldwide.
+          </Text>
+
+          <Text style={footerCopyright}>
+            © {new Date().getFullYear()} IB Match. All rights reserved.
+          </Text>
+
+          <Text style={footerLinks}>
+            <Link href={`${baseUrl}/terms`} style={linkStyle}>
+              Terms And Conditions
+            </Link>
+            {' · '}
+            <Link href={`${baseUrl}/privacy`} style={linkStyle}>
+              Privacy Policy
+            </Link>
           </Text>
         </Container>
       </Body>
@@ -73,69 +93,89 @@ export default function CoordinatorInviteEmail({
   )
 }
 
-// Airbnb-inspired styling (consistent with magic-link.tsx)
+// Clean, professional styling matching IB Match brand
 const main = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#f5f5f7',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
 }
 
 const container = {
   backgroundColor: '#ffffff',
-  margin: '0 auto',
-  padding: '20px 0 48px',
-  marginBottom: '64px',
-  maxWidth: '560px'
+  margin: '40px auto',
+  padding: '40px 48px',
+  maxWidth: '560px',
+  borderRadius: '8px'
 }
 
 const h1 = {
   color: '#222',
   fontSize: '28px',
   fontWeight: '700',
-  margin: '40px 0 20px',
+  margin: '0 0 32px 0',
   padding: '0',
-  lineHeight: '32px',
-  textAlign: 'center' as const
+  lineHeight: '32px'
 }
 
 const text = {
   color: '#484848',
   fontSize: '16px',
-  lineHeight: '24px',
+  lineHeight: '26px',
   margin: '16px 0'
 }
 
-const smallText = {
+const disclaimerText = {
   color: '#767676',
   fontSize: '14px',
-  lineHeight: '20px',
-  margin: '16px 0'
+  lineHeight: '22px',
+  margin: '24px 0 0 0'
 }
 
 const buttonContainer = {
-  padding: '27px 0 27px'
+  padding: '24px 0',
+  textAlign: 'center' as const
 }
 
 const button = {
-  backgroundColor: '#FF385C',
+  backgroundColor: PRIMARY_COLOR,
   borderRadius: '8px',
   color: '#fff',
   fontSize: '16px',
-  fontWeight: '700',
+  fontWeight: '600',
   textDecoration: 'none',
   textAlign: 'center' as const,
-  display: 'block',
-  width: '100%',
-  padding: '16px 20px'
+  display: 'inline-block',
+  padding: '14px 48px'
 }
 
 const hr = {
-  borderColor: '#ddd',
-  marginTop: '48px'
+  borderColor: '#e5e5e5',
+  borderTop: '1px solid #e5e5e5',
+  margin: '32px 0 24px 0'
 }
 
-const footer = {
+const footerDescription = {
   color: '#9ca299',
   fontSize: '14px',
-  lineHeight: '24px'
+  lineHeight: '22px',
+  margin: '0 0 16px 0'
+}
+
+const footerCopyright = {
+  color: '#9ca299',
+  fontSize: '13px',
+  lineHeight: '20px',
+  margin: '0 0 8px 0'
+}
+
+const footerLinks = {
+  color: '#9ca299',
+  fontSize: '13px',
+  lineHeight: '20px',
+  margin: '0'
+}
+
+const linkStyle = {
+  color: PRIMARY_COLOR,
+  textDecoration: 'underline'
 }
