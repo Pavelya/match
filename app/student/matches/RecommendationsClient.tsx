@@ -81,15 +81,26 @@ export function RecommendationsClient() {
     setError(null)
 
     try {
-      const response = await fetch('/api/students/matches')
+      // Fetch matches and saved programs in parallel
+      const [matchesResponse, savedResponse] = await Promise.all([
+        fetch('/api/students/matches'),
+        fetch('/api/students/saved-programs')
+      ])
 
-      if (!response.ok) {
-        const data = await response.json()
+      if (!matchesResponse.ok) {
+        const data = await matchesResponse.json()
         throw new Error(data.error || 'Failed to fetch recommendations')
       }
 
-      const data: MatchesResponse = await response.json()
-      setMatches(data)
+      const matchesData: MatchesResponse = await matchesResponse.json()
+      setMatches(matchesData)
+
+      // Load saved programs to show correct save state
+      if (savedResponse.ok) {
+        const savedData = await savedResponse.json()
+        const savedIds = new Set<string>(savedData.programs?.map((p: { id: string }) => p.id) || [])
+        setSavedPrograms(savedIds)
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {

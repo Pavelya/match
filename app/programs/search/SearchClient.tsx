@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import { Search, X, SlidersHorizontal, Loader2, Sparkles } from 'lucide-react'
+import { logger } from '@/lib/logger'
 import { cn } from '@/lib/utils'
 import { FieldIcon } from '@/lib/icons'
 
@@ -82,6 +83,62 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [minPoints, setMinPoints] = useState('')
   const [maxPoints, setMaxPoints] = useState('')
+
+  // Saved programs state
+  const [savedPrograms, setSavedPrograms] = useState<Set<string>>(new Set())
+
+  // Fetch saved programs on mount (for logged-in users)
+  useEffect(() => {
+    const fetchSavedPrograms = async () => {
+      try {
+        const response = await fetch('/api/students/saved-programs')
+        if (response.ok) {
+          const data = await response.json()
+          const savedIds = new Set<string>(data.programs?.map((p: { id: string }) => p.id) || [])
+          setSavedPrograms(savedIds)
+        }
+      } catch {
+        // User might not be logged in, which is fine
+      }
+    }
+    fetchSavedPrograms()
+  }, [])
+
+  // Save program handler
+  const handleSave = async (programId: string) => {
+    try {
+      const response = await fetch('/api/students/saved-programs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ programId })
+      })
+
+      if (response.ok) {
+        setSavedPrograms((prev) => new Set(prev).add(programId))
+      }
+    } catch (err) {
+      logger.error('Error saving program', { error: err, programId })
+    }
+  }
+
+  // Unsave program handler
+  const handleUnsave = async (programId: string) => {
+    try {
+      const response = await fetch(`/api/students/saved-programs/${programId}`, {
+        method: 'DELETE'
+      })
+
+      if (response.ok) {
+        setSavedPrograms((prev) => {
+          const next = new Set(prev)
+          next.delete(programId)
+          return next
+        })
+      }
+    } catch (err) {
+      logger.error('Error unsaving program', { error: err, programId })
+    }
+  }
 
   // Debounced search function
   const performSearch = useCallback(
@@ -355,6 +412,9 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
               key={result.objectID}
               program={transformToProgram(result)}
               showMatchDetails={false}
+              isSaved={savedPrograms.has(result.programId)}
+              onSave={handleSave}
+              onUnsave={handleUnsave}
             />
           ))}
         </div>

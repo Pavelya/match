@@ -4,3 +4,4 @@
 4. Remove / reduce server and client logs
 5. Add delete student functionality in the admin
 6. Add saved program functionality
+7. Add animations 

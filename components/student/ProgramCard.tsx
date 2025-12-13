@@ -16,7 +16,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
@@ -309,6 +309,11 @@ export function ProgramCard({
   className
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
+
+  // Sync internal state with isSaved prop when it changes
+  useEffect(() => {
+    setSaved(isSaved)
+  }, [isSaved])
 
   const handleSaveToggle = () => {
     if (saved) {

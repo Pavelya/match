@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { PageContainer } from '@/components/layout/PageContainer'
-import { ProgramCard } from '@/components/student/ProgramCard'
+import { ProgramDetailClient } from './ProgramDetailClient'
 import { calculateMatch } from '@/lib/matching'
 import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import type { MatchResult } from '@/lib/matching/types'
@@ -208,11 +208,11 @@ export default async function ProgramDetailPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProgramCard
+      <ProgramDetailClient
         program={programForCard}
         matchResult={matchResult ?? undefined}
-        variant="detail"
         studentProfile={studentProfileForCard}
+        isLoggedIn={!!session?.user?.id}
       />
     </PageContainer>
   )
