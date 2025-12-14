@@ -4,15 +4,18 @@
  * Interactive client component for account settings.
  * Handles:
  * - Profile editing (name)
+ * - School connection management
  * - Sign out
- * - Data export (placeholder for Task 2.2)
- * - Account deletion (placeholder for Task 2.1)
+ * - Data export
+ * - Account deletion
  */
 
 'use client'
 
 import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -33,6 +36,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
+import { School, Link2Off, Info, AlertTriangle } from 'lucide-react'
 
 interface AccountSettingsClientProps {
   user: {
@@ -42,9 +46,20 @@ interface AccountSettingsClientProps {
     image: string | null
     createdAt: string
   }
+  school: {
+    id: string
+    name: string
+    logo: string | null
+    city: string
+    countryName: string
+    countryFlag: string | null
+    linkedAt: string | null
+    linkedByInvitation: boolean
+  } | null
 }
 
-export function AccountSettingsClient({ user }: AccountSettingsClientProps) {
+export function AccountSettingsClient({ user, school }: AccountSettingsClientProps) {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
 
   // Profile form state
@@ -63,12 +78,25 @@ export function AccountSettingsClient({ user }: AccountSettingsClientProps) {
   const [deleteConfirmText, setDeleteConfirmText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
 
+  // School unlink state
+  const [isUnlinkDialogOpen, setIsUnlinkDialogOpen] = useState(false)
+  const [isUnlinking, setIsUnlinking] = useState(false)
+  const [unlinkError, setUnlinkError] = useState<string | null>(null)
+
   // Format date for display
   const memberSince = new Date(user.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   })
+
+  const linkedDate = school?.linkedAt
+    ? new Date(school.linkedAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    : null
 
   // Handle profile save
   const handleSaveProfile = async () => {
@@ -128,6 +156,30 @@ export function AccountSettingsClient({ user }: AccountSettingsClientProps) {
       alert('An error occurred. Please try again.')
     } finally {
       setIsExporting(false)
+    }
+  }
+
+  // Handle school unlink
+  const handleUnlinkSchool = async () => {
+    setIsUnlinking(true)
+    setUnlinkError(null)
+
+    try {
+      const response = await fetch('/api/students/school/unlink', {
+        method: 'POST'
+      })
+
+      if (response.ok) {
+        setIsUnlinkDialogOpen(false)
+        router.refresh()
+      } else {
+        const data = await response.json()
+        setUnlinkError(data.error || 'Failed to unlink from school')
+      }
+    } catch {
+      setUnlinkError('An error occurred. Please try again.')
+    } finally {
+      setIsUnlinking(false)
     }
   }
 
@@ -213,6 +265,124 @@ export function AccountSettingsClient({ user }: AccountSettingsClientProps) {
             {isSaving ? 'Saving...' : 'Save Changes'}
           </Button>
         </CardFooter>
+      </Card>
+
+      {/* School Connection Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <School className="h-5 w-5" />
+            School Connection
+          </CardTitle>
+          <CardDescription>
+            {school
+              ? 'Your account is connected to a school.'
+              : 'Connect with your school for coordinator support.'}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {school ? (
+            <div className="space-y-4">
+              {/* School Info */}
+              <div className="flex items-start gap-4 p-4 rounded-lg bg-muted/50 border">
+                {school.logo ? (
+                  <Image
+                    src={school.logo}
+                    alt={school.name}
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                ) : (
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <School className="h-6 w-6" />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <h4 className="font-medium text-foreground">{school.name}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {school.countryFlag} {school.city}, {school.countryName}
+                  </p>
+                  {linkedDate && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Connected {school.linkedByInvitation ? 'via invitation' : ''} on {linkedDate}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Info about coordinator access */}
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                <Info className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-blue-800">
+                  Coordinators at {school.name} can view your academic profile and program matches
+                  to provide guidance.
+                </p>
+              </div>
+
+              {/* Unlink Button */}
+              <Dialog open={isUnlinkDialogOpen} onOpenChange={setIsUnlinkDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="gap-2">
+                    <Link2Off className="h-4 w-4" />
+                    Unlink from School
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="flex items-center gap-2">
+                      <AlertTriangle className="h-5 w-5 text-amber-500" />
+                      Unlink from {school.name}?
+                    </DialogTitle>
+                    <DialogDescription asChild>
+                      <div className="space-y-3 pt-2">
+                        <p>If you unlink from this school:</p>
+                        <ul className="list-disc pl-5 space-y-1 text-sm">
+                          <li>
+                            Your coordinator will no longer be able to view or manage your academic
+                            data
+                          </li>
+                          <li>You will lose access to school-specific features</li>
+                          <li>
+                            You can reconnect later by accepting a new invitation from your school
+                          </li>
+                        </ul>
+                      </div>
+                    </DialogDescription>
+                  </DialogHeader>
+                  {unlinkError && (
+                    <p className="text-sm text-red-600 bg-red-50 p-3 rounded-lg">{unlinkError}</p>
+                  )}
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setIsUnlinkDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      onClick={handleUnlinkSchool}
+                      disabled={isUnlinking}
+                    >
+                      {isUnlinking ? 'Unlinking...' : 'Unlink from School'}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-muted/50 border">
+                <School className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-foreground">Not connected to any school</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Connect with your school to get support from your IB coordinator. Ask your
+                    coordinator to send you an invitation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </CardContent>
       </Card>
 
       {/* Session Card */}

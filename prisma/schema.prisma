@@ -121,6 +121,13 @@ model StudentProfile {
   // Saved programs
   savedPrograms SavedProgram[]
 
+  // Coordinator access consent (GDPR compliance)
+  // Tracks whether the student was linked via coordinator invitation
+  // and consented to coordinator access to their data
+  linkedByInvitation              Boolean   @default(false)
+  coordinatorAccessConsentAt      DateTime? // When consent was given
+  coordinatorAccessConsentVersion String?   // Version of consent terms accepted
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -392,13 +399,17 @@ model Invitation {
   status    InvitationStatus @default(PENDING)
   expiresAt DateTime
 
-  // Link to school for coordinators
+  // Link to school (for coordinators) or (for students via coordinator)
   schoolId String?
   school   IBSchool? @relation(fields: [schoolId], references: [id])
 
   // Track who invited
   invitedById String
   invitedBy   User @relation(fields: [invitedById], references: [id])
+
+  // For STUDENT invitations: tracks if they consented to coordinator access
+  // This is set when the student accepts the invitation
+  coordinatorAccessConsent Boolean @default(false)
 
   createdAt  DateTime  @default(now())
   acceptedAt DateTime?

@@ -1060,7 +1060,7 @@
 
 > **GDPR/Consent Requirement**: Students invited by coordinators must explicitly consent to coordinator access to their account data. This consent is separate from general terms acceptance.
 
-- [ ] **4.4.1 Schema updates for student invitations**
+- [x] **4.4.1 Schema updates for student invitations**
   - **File**: `prisma/schema.prisma`
   - **Changes to Invitation model**:
     - Confirm `role` enum includes `STUDENT` (already exists)
@@ -1073,7 +1073,7 @@
   - **Acceptance**: ✓ Schema updated, migration applied
   - **Test**: `npx prisma studio` - see new fields
 
-- [ ] **4.4.2 Create student invitation email template**
+- [x] **4.4.2 Create student invitation email template**
   - **File**: `emails/student-invite.tsx` (React Email)
   - **Content must clearly state**:
     - Invitation from [Coordinator Name] at [School Name]
@@ -1085,7 +1085,7 @@
   - **Acceptance**: ✓ Template renders with all required elements
   - **Test**: `npm run email:dev` - preview template
 
-- [ ] **4.4.3 Create student invitation API**
+- [x] **4.4.3 Create student invitation API**
   - **File**: `app/api/coordinator/students/invite/route.ts` (POST)
   - **Access Control**: VIP or subscribed REGULAR coordinators only
   - **Logic**: 
@@ -1105,7 +1105,7 @@
     - Invite student as VIP coordinator → success
     - Invite 11th student as freemium → blocked (403)
 
-- [ ] **4.4.4 Create student invitation acceptance flow**
+- [x] **4.4.4 Create student invitation acceptance flow**
   - **File**: `app/auth/accept-student-invite/[token]/page.tsx`
   - **UI Flow**:
     1. Validate token (not expired, status = PENDING)
@@ -1137,7 +1137,7 @@
     - Accept invite → account linked to school
     - Decline invite → redirected to regular signup
 
-- [ ] **4.4.5 Handle "decline invitation" flow**
+- [x] **4.4.5 Handle "decline invitation" flow**
   - **File**: `app/auth/signin/page.tsx` (update)
   - **Logic**: Check for `?declineInvite=true` query param
   - **UI**: Show info banner: "You can still create an account to use IB Match. Your account will not be linked to any school."
@@ -1145,7 +1145,7 @@
   - **Acceptance**: ✓ Decline path works correctly
   - **Test**: Click decline in email → see info banner → complete signup → no school link
 
-- [ ] **4.4.6 Resend student invitation**
+- [x] **4.4.6 Resend student invitation**
   - **File**: `app/api/coordinator/students/invite/resend/route.ts` (POST)
   - **Logic**:
     - Find existing PENDING invitation by email + schoolId
@@ -1155,7 +1155,7 @@
   - **Acceptance**: ✓ Token regenerated, email resent
   - **Test**: Resend invitation, check new token in DB
 
-- [ ] **4.4.7 Cancel pending student invitation**
+- [x] **4.4.7 Cancel pending student invitation**
   - **File**: `app/api/coordinator/students/invite/[id]/route.ts` (DELETE)
   - **Logic**: Set invitation status to CANCELLED
   - **Acceptance**: ✓ Invitation cancelled, token invalid
@@ -1163,7 +1163,7 @@
 
 ### 4.5 Student Account Linking & Unlinking
 
-- [ ] **4.5.1 Display linked school in student account**
+- [x] **4.5.1 Display linked school in student account**
   - **File**: `app/student/account/page.tsx` (update or create)
   - **UI Section**: "School Connection"
   - **Content when linked**:
@@ -1179,7 +1179,7 @@
     - Linked student sees school name and unlink option
     - Unlinked student sees "not connected" message
 
-- [ ] **4.5.2 Implement student unlink functionality**
+- [x] **4.5.2 Implement student unlink functionality**
   - **File**: `app/api/students/school/unlink/route.ts` (POST)
   - **Logic**:
     - Validate user is STUDENT with schoolId
@@ -1199,7 +1199,7 @@
     - ✓ Student no longer appears in coordinator's student list
   - **Test**: Unlink → check DB → coordinator list refreshed
 
-- [ ] **4.5.3 Handle existing student invitation (link existing account)**
+- [x] **4.5.3 Handle existing student invitation (link existing account)**
   - **File**: `app/api/coordinator/students/invite/route.ts` (update)
   - **Logic when email exists**:
     - If student already has schoolId → error: "Student already linked to a school"

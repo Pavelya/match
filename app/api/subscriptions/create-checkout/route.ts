@@ -60,6 +60,15 @@ export async function POST(req: Request) {
       )
     }
 
+    // Check if Stripe is configured
+    if (!process.env.STRIPE_PRODUCT_ID) {
+      logger.error('STRIPE_PRODUCT_ID is not configured')
+      return NextResponse.json(
+        { error: 'Stripe is not configured. Please contact support.' },
+        { status: 500 }
+      )
+    }
+
     // Get price ID from Stripe product
     // First, list prices for the product
     const prices = await stripe.prices.list({
@@ -73,7 +82,10 @@ export async function POST(req: Request) {
       logger.error('No active prices found for Stripe product', {
         productId: process.env.STRIPE_PRODUCT_ID
       })
-      return NextResponse.json({ error: 'Subscription product not configured' }, { status: 500 })
+      return NextResponse.json(
+        { error: 'No subscription price configured. Please contact support.' },
+        { status: 500 }
+      )
     }
 
     const priceId = prices.data[0].id

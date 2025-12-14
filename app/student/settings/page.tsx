@@ -4,6 +4,7 @@
  * Allows students to manage their account:
  * - View and update profile information (name)
  * - View email (read-only)
+ * - View/manage school connection
  * - Sign out
  * - Export personal data (GDPR compliance)
  * - Delete account (GDPR compliance)
@@ -31,7 +32,7 @@ export default async function AccountSettingsPage() {
     redirect('/auth/signin')
   }
 
-  // Fetch user data from database
+  // Fetch user data from database with student profile and school
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
     select: {
@@ -39,13 +40,49 @@ export default async function AccountSettingsPage() {
       email: true,
       name: true,
       image: true,
-      createdAt: true
+      createdAt: true,
+      studentProfile: {
+        select: {
+          id: true,
+          schoolId: true,
+          linkedByInvitation: true,
+          coordinatorAccessConsentAt: true,
+          school: {
+            select: {
+              id: true,
+              name: true,
+              logo: true,
+              city: true,
+              country: {
+                select: {
+                  name: true,
+                  flagEmoji: true
+                }
+              }
+            }
+          }
+        }
+      }
     }
   })
 
   if (!user) {
     redirect('/auth/signin')
   }
+
+  // Prepare school info if linked
+  const schoolInfo = user.studentProfile?.school
+    ? {
+        id: user.studentProfile.school.id,
+        name: user.studentProfile.school.name,
+        logo: user.studentProfile.school.logo,
+        city: user.studentProfile.school.city,
+        countryName: user.studentProfile.school.country.name,
+        countryFlag: user.studentProfile.school.country.flagEmoji,
+        linkedAt: user.studentProfile.coordinatorAccessConsentAt?.toISOString() || null,
+        linkedByInvitation: user.studentProfile.linkedByInvitation
+      }
+    : null
 
   return (
     <PageContainer narrow>
@@ -61,6 +98,7 @@ export default async function AccountSettingsPage() {
           image: user.image,
           createdAt: user.createdAt.toISOString()
         }}
+        school={schoolInfo}
       />
     </PageContainer>
   )
