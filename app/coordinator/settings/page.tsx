@@ -86,8 +86,10 @@ export default async function CoordinatorSettingsPage() {
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
               {isVIP
-                ? 'Your school has VIP access with all features included.'
-                : 'Upgrade to VIP for unlimited students, advanced analytics, and more.'}
+                ? 'Your school has VIP partnership access with all features included.'
+                : school.subscriptionStatus === 'ACTIVE'
+                  ? 'Your subscription is active. You have full access to all features.'
+                  : 'Subscribe to unlock unlimited students, advanced analytics, and more.'}
             </p>
             <Link
               href="/coordinator/settings/subscription"
@@ -97,7 +99,13 @@ export default async function CoordinatorSettingsPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
                   <CreditCard className="h-4 w-4 text-muted-foreground" />
                 </div>
-                <span className="text-sm font-medium">Manage Subscription</span>
+                <span className="text-sm font-medium">
+                  {isVIP
+                    ? 'View Subscription Details'
+                    : school.subscriptionStatus === 'ACTIVE'
+                      ? 'Manage Subscription'
+                      : 'Subscribe Now'}
+                </span>
               </div>
               <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
             </Link>
