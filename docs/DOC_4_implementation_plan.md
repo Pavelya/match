@@ -1304,7 +1304,7 @@
 
 ### 4.7 School Analytics
 
-- [ ] **Create analytics API**
+- [x] **Create analytics API** ✅
   - **File**: `app/api/coordinator/analytics/route.ts` (GET)
   - **Data**: 
     - Total students (with consent)
@@ -1314,17 +1314,18 @@
   - **Acceptance**: ✓ All metrics calculated
   - **Test**: GET request returns data
 
-- [ ] **Build analytics dashboard**
+- [x] **Build analytics dashboard** ✅
   - **File**: `app/coordinator/analytics/page.tsx`
-  - **Library**: `npm i recharts` (charts)
+  - **Implementation**: CSS-based horizontal bar charts (no external library - lightweight)
   - **Reuse Components**: `PageContainer`, `PageHeader`, `StatCard` (with `locked` prop)
   - **Charts**: 
-    - Match distribution (bar chart)
-    - Average IB score (number)
-    - Top fields (pie chart)
+    - Match distribution (horizontal bar chart)
+    - Average IB score (stat card)
+    - Top fields (horizontal bar chart)
+    - Top countries (horizontal bar chart)
   - **Acceptance**: 
-    - ✓ VIP/paid: All charts
-    - ✓ Freemium: Basic only
+    - ✓ VIP/paid: All charts with visual bars
+    - ✓ Freemium: Basic stats only, upgrade prompts
   - **Test**: View as VIP vs freemium
 
 ### 4.8 Coordinator-to-Coordinator Invitation
