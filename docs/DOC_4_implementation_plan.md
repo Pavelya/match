@@ -1330,21 +1330,27 @@
 
 ### 4.8 Coordinator-to-Coordinator Invitation
 
-- [ ] **Implement coordinator invitation from coordinator**
-  - **File**: `app/api/coordinator/team/invite/route.ts` (POST)
+- [x] **Implement coordinator invitation from coordinator** ✅
+  - **File**: `app/api/coordinator/team/invite/route.ts` (POST, GET)
   - **Logic**: 
     - Only VIP or subscribed REGULAR coordinators can invite
     - Creates invitation with role COORDINATOR and schoolId
-    - Uses existing coordinator invitation flow
+    - Uses existing coordinator invitation flow (accept-invite)
+    - Sends email with coordinator-invite template
   - **UI**: `app/coordinator/team/invite/page.tsx`
-  - **Reuse Components**: `PageContainer`, `PageHeader`, `FormPageLayout`
+  - **Form**: `InviteCoordinatorForm.tsx` client component
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `FormPageLayout`, `FormSection`
   - **Acceptance**: ✓ Coordinator can invite other coordinators to their school
   - **Test**: Invite coordinator, they accept, linked to same school
 
-- [ ] **Build team list page**
+- [x] **Build team list page** ✅
   - **File**: `app/coordinator/team/page.tsx`
-  - **Reuse Components**: `PageContainer`, `PageHeader`, `DataTable`, `TableEmptyState`
-  - **Content**: List other coordinators at the school
+  - **Reuse Components**: `PageContainer`, `PageHeader`, `InfoCard`, `TableEmptyState`
+  - **Content**: 
+    - List all coordinators at the school with join date
+    - Shows "You" badge for current user
+    - Shows "Primary" badge for first coordinator
+    - List pending invitations with expiry dates
   - **Acceptance**: ✓ All school coordinators listed
   - **Test**: See all coordinators at school
 

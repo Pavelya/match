@@ -1,14 +1,76 @@
 /**
- * Invite Coordinator Page - Placeholder
+ * Invite Coordinator Page
  *
- * Will be fully implemented in task 4.8.
- * This placeholder shows the form structure.
+ * Page for coordinators to invite other coordinators to their school.
+ * Only accessible to VIP or subscribed REGULAR coordinators.
+ *
+ * Part of Task 4.8: Coordinator-to-Coordinator Invitation
  */
 
-import { PageContainer, PageHeader, FormPageLayout, FormSection } from '@/components/admin/shared'
+import { auth } from '@/lib/auth/config'
+import { redirect } from 'next/navigation'
+import { prisma } from '@/lib/prisma'
+import {
+  PageContainer,
+  PageHeader,
+  FormPageLayout,
+  UpgradePromptBanner
+} from '@/components/admin/shared'
 import { UserCog } from 'lucide-react'
+import { getCoordinatorAccess } from '@/lib/auth/access-control'
+import { InviteCoordinatorForm } from './InviteCoordinatorForm'
 
-export default function InviteCoordinatorPage() {
+export default async function InviteCoordinatorPage() {
+  const session = await auth()
+
+  if (!session?.user?.id) {
+    redirect('/auth/coordinator/signin')
+  }
+
+  // Get coordinator profile and school
+  const coordinator = await prisma.coordinatorProfile.findFirst({
+    where: { userId: session.user.id },
+    include: {
+      school: {
+        select: {
+          id: true,
+          name: true,
+          subscriptionTier: true,
+          subscriptionStatus: true
+        }
+      }
+    }
+  })
+
+  if (!coordinator?.school) {
+    redirect('/')
+  }
+
+  const school = coordinator.school
+  const access = getCoordinatorAccess(school)
+
+  // If no access to invite coordinators, show upgrade prompt
+  if (!access.canInviteCoordinators) {
+    return (
+      <PageContainer maxWidth="3xl">
+        <PageHeader
+          title="Invite Coordinator"
+          icon={UserCog}
+          description="Invite another coordinator to help manage your school"
+          backHref="/coordinator/team"
+          backLabel="Back to Team"
+        />
+
+        <UpgradePromptBanner
+          feature="Invite Coordinators"
+          description="Upgrade to a paid subscription to invite additional coordinators to help manage your school's students and view analytics."
+          variant="card"
+          upgradeHref="/coordinator/settings/subscription"
+        />
+      </PageContainer>
+    )
+  }
+
   return (
     <PageContainer maxWidth="3xl">
       <PageHeader
@@ -21,34 +83,9 @@ export default function InviteCoordinatorPage() {
 
       <FormPageLayout
         title="Coordinator Invitation"
-        description="The coordinator will receive an email with an invitation link. Once they accept, they'll have access to manage students at your school."
+        description="The coordinator will receive an email with an invitation link. Once they accept, they'll have full access to manage students at your school."
       >
-        <FormSection title="Coordinator Email">
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                disabled
-                placeholder="coordinator@example.com"
-                className="w-full px-4 py-2 rounded-lg border bg-muted text-muted-foreground cursor-not-allowed"
-              />
-              <p className="text-sm text-muted-foreground mt-2">
-                Coordinator invitation functionality will be available in a future update.
-              </p>
-            </div>
-
-            <button
-              disabled
-              className="px-6 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium opacity-50 cursor-not-allowed"
-            >
-              Send Invitation
-            </button>
-          </div>
-        </FormSection>
+        <InviteCoordinatorForm schoolName={school.name} />
       </FormPageLayout>
     </PageContainer>
   )
