@@ -123,6 +123,7 @@ export default async function CoordinatorAnalyticsPage() {
     topCountries: { name: string; count: number; flagEmoji: string | null }[]
     completeProfiles: number
     profileCompletionRate: number
+    avgMatchScore: number | null
     matchDistribution: { bucket: string; count: number }[] | null
   } | null = null
 
@@ -174,8 +175,9 @@ export default async function CoordinatorAnalyticsPage() {
       (s) => s.totalIBPoints !== null && s.courses.length >= 6
     ).length
 
-    // Calculate match distribution for schools with < 50 students
+    // Calculate match scores for all students (limited to 50 for performance)
     let matchDistribution: { bucket: string; count: number }[] | null = null
+    let avgMatchScore: number | null = null
 
     if (studentCount <= 50) {
       const programs = await getCachedPrograms()
@@ -199,7 +201,13 @@ export default async function CoordinatorAnalyticsPage() {
         }
       }
 
+      // Calculate average match score
       if (matchScores.length > 0) {
+        avgMatchScore = Math.round(
+          matchScores.reduce((sum: number, score: number) => sum + score, 0) / matchScores.length
+        )
+
+        // Create distribution buckets
         const buckets = [
           { label: '90-100%', min: 90, max: 100, count: 0 },
           { label: '80-89%', min: 80, max: 89, count: 0 },
@@ -223,6 +231,7 @@ export default async function CoordinatorAnalyticsPage() {
       completeProfiles,
       profileCompletionRate:
         studentCount > 0 ? Math.round((completeProfiles / studentCount) * 100) : 0,
+      avgMatchScore,
       matchDistribution
     }
   }
@@ -305,9 +314,15 @@ export default async function CoordinatorAnalyticsPage() {
       />
 
       {/* Overview Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
         <StatCard title="Total Students" value={studentCount} icon={Users} iconColor="blue" />
         <StatCard title="Avg IB Score" value={avgIBPoints} icon={Target} iconColor="green" />
+        <StatCard
+          title="Avg Match Score"
+          value={detailedStats?.avgMatchScore ?? 0}
+          icon={TrendingUp}
+          iconColor="blue"
+        />
         <StatCard
           title="Complete Profiles"
           value={detailedStats?.completeProfiles || 0}

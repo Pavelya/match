@@ -21,7 +21,6 @@ import {
   UserCog,
   Target,
   TrendingUp,
-  Bookmark,
   UserPlus,
   ArrowRight,
   Plus
@@ -73,14 +72,30 @@ export default async function CoordinatorDashboardPage() {
     _count: true
   })
 
-  // Note: coordinatorAccessConsentAt field will be added in task 4.4.1
-  // For now, we'll show all students as having consent (placeholder)
-  const studentsWithConsent = school._count.students
+  // Count students with consent
+  const studentsWithConsent = await prisma.studentProfile.count({
+    where: {
+      schoolId: school.id,
+      coordinatorAccessConsentAt: { not: null }
+    }
+  })
+
+  // Count students with complete profiles (has IB points and at least 6 courses)
+  const completeProfiles = await prisma.studentProfile.count({
+    where: {
+      schoolId: school.id,
+      totalIBPoints: { not: null },
+      courses: { some: {} }
+    }
+  })
 
   const studentCount = school._count.students
   const coordinatorCount = school._count.coordinators
   const avgIBPoints = Math.round(stats._avg.totalIBPoints || 0)
   const remainingInvites = getRemainingStudentInvites(studentCount, access)
+  const consentRate = studentCount > 0 ? Math.round((studentsWithConsent / studentCount) * 100) : 0
+  const profileCompletionRate =
+    studentCount > 0 ? Math.round((completeProfiles / studentCount) * 100) : 0
 
   return (
     <PageContainer>
@@ -101,8 +116,8 @@ export default async function CoordinatorDashboardPage() {
         />
       )}
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      {/* Key Metrics - 4 actionable cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard
           title="Total Students"
           value={studentCount}
@@ -110,37 +125,20 @@ export default async function CoordinatorDashboardPage() {
           href="/coordinator/students"
           iconColor="blue"
         />
-        <StatCard title="Avg IB Score" value={avgIBPoints} icon={Target} iconColor="green" />
+        <StatCard
+          title="With Consent"
+          value={studentsWithConsent}
+          icon={Users}
+          href="/coordinator/students"
+          iconColor="green"
+        />
+        <StatCard title="Avg IB Score" value={avgIBPoints} icon={Target} iconColor="amber" />
         <StatCard
           title="Coordinators"
           value={coordinatorCount}
           icon={UserCog}
           href="/coordinator/team"
           iconColor="purple"
-        />
-        <StatCard
-          title="Match Insights"
-          value={0}
-          icon={TrendingUp}
-          locked={!access.hasFullAccess}
-          lockedMessage="VIP Feature"
-        />
-      </div>
-
-      {/* Secondary Stats Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-        <StatCard
-          title="Students with Consent"
-          value={studentsWithConsent}
-          icon={Users}
-          iconColor="amber"
-        />
-        <StatCard
-          title="Saved Programs"
-          value={0}
-          icon={Bookmark}
-          locked={!access.hasFullAccess}
-          lockedMessage="VIP Feature"
         />
       </div>
 
@@ -172,22 +170,20 @@ export default async function CoordinatorDashboardPage() {
 
         {/* Analytics Preview or Upgrade Prompt */}
         {access.hasFullAccess ? (
-          <InfoCard title="Analytics Preview" icon={TrendingUp}>
+          <InfoCard title="Student Readiness" icon={TrendingUp}>
             <div className="space-y-4">
               <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Students with profiles</span>
-                <span className="text-sm font-medium">{studentCount}</span>
+                <span className="text-sm text-muted-foreground">Consent Rate</span>
+                <span className="text-sm font-medium">{consentRate}%</span>
               </div>
               <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Average IB Score</span>
-                <span className="text-sm font-medium">{avgIBPoints || '—'}</span>
+                <span className="text-sm text-muted-foreground">Profile Completion</span>
+                <span className="text-sm font-medium">{profileCompletionRate}%</span>
               </div>
               <div className="flex items-center justify-between py-2">
-                <span className="text-sm text-muted-foreground">Consent Rate</span>
+                <span className="text-sm text-muted-foreground">Complete Profiles</span>
                 <span className="text-sm font-medium">
-                  {studentCount > 0
-                    ? `${Math.round((studentsWithConsent / studentCount) * 100)}%`
-                    : '—'}
+                  {completeProfiles} of {studentCount}
                 </span>
               </div>
               <Link
