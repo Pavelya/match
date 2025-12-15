@@ -407,6 +407,9 @@ model Invitation {
   invitedById String
   invitedBy   User @relation(fields: [invitedById], references: [id])
 
+  // For STUDENT invitations: stores the student name (optional, set by coordinator)
+  studentName String?
+
   // For STUDENT invitations: tracks if they consented to coordinator access
   // This is set when the student accepts the invitation
   coordinatorAccessConsent Boolean @default(false)

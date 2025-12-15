@@ -80,6 +80,7 @@ async function createLinkRequestInvitation({
       expiresAt,
       schoolId: school.id,
       invitedById,
+      studentName: studentName || null,
       coordinatorAccessConsent: false
     }
   })
@@ -310,6 +311,7 @@ export async function POST(request: NextRequest) {
         expiresAt,
         schoolId: school.id,
         invitedById: session.user.id,
+        studentName: studentName || null,
         coordinatorAccessConsent: false // Will be set to true when student accepts
       }
     })

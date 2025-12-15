@@ -80,10 +80,11 @@ export async function POST(request: Request) {
     const now = new Date()
 
     const result = await prisma.$transaction(async (tx) => {
-      // Create User
+      // Create User with name from invitation (if provided by coordinator)
       const user = await tx.user.create({
         data: {
           email: invitation.email,
+          name: invitation.studentName || null,
           role: 'STUDENT',
           // Consent to terms when accepting invite
           termsAcceptedAt: now,
