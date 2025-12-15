@@ -3,6 +3,10 @@
  *
  * Displays detailed information about a specific university program.
  * Uses ProgramCard with variant="detail" for unified component usage.
+ *
+ * NOTE: Coordinator access to student program matches is handled by a dedicated route:
+ * /coordinator/students/[studentId]/matches/[programId]
+ * This page is for students viewing their own matches or public program browsing.
  */
 
 import { notFound } from 'next/navigation'

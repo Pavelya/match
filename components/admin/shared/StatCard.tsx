@@ -31,6 +31,8 @@ export interface StatCardProps {
   icon: LucideIcon
   /** Optional link URL - makes the entire card clickable */
   href?: string
+  /** Optional click handler for client-side interactions */
+  onClick?: () => void
   /** Visual variant: 'compact' for dashboard, 'horizontal' for filters */
   variant?: 'compact' | 'horizontal'
   /** Whether this card is currently active/selected (for filter cards) */
@@ -70,6 +72,7 @@ export function StatCard({
   value,
   icon: Icon,
   href,
+  onClick,
   variant = 'compact',
   isActive = false,
   iconColor = 'default',
@@ -166,6 +169,18 @@ export function StatCard({
       <Link href={href} className={cardClasses}>
         {content}
       </Link>
+    )
+  }
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={cn(cardClasses, 'w-full text-left cursor-pointer')}
+      >
+        {content}
+      </button>
     )
   }
 

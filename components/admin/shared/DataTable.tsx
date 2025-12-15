@@ -21,8 +21,8 @@ import { cn } from '@/lib/utils'
 export interface Column<T> {
   /** Unique key for the column */
   key: string
-  /** Column header text */
-  header: string
+  /** Column header text or element (supports sortable headers) */
+  header: ReactNode
   /** Alignment: 'left' (default), 'center', 'right' */
   align?: 'left' | 'center' | 'right'
   /** Width constraint (e.g., 'w-32', 'w-48', 'min-w-[200px]') */

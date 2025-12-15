@@ -73,13 +73,16 @@ interface ProgramDetailClientProps {
   matchResult?: MatchResult
   studentProfile?: StudentProfileData | null
   isLoggedIn: boolean
+  /** Set to true when coordinator is viewing a student's program match */
+  isCoordinatorView?: boolean
 }
 
 export function ProgramDetailClient({
   program,
   matchResult,
   studentProfile,
-  isLoggedIn
+  isLoggedIn,
+  isCoordinatorView = false
 }: ProgramDetailClientProps) {
   const [isSaved, setIsSaved] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -138,6 +141,8 @@ export function ProgramDetailClient({
       logger.error('Error unsaving program', { error: err, programId })
     }
   }
+  // Coordinators shouldn't save programs on behalf of students
+  const canSave = isLoggedIn && !isCoordinatorView
 
   return (
     <ProgramCard
@@ -146,8 +151,9 @@ export function ProgramDetailClient({
       variant="detail"
       studentProfile={studentProfile}
       isSaved={isLoading ? false : isSaved}
-      onSave={isLoggedIn ? handleSave : undefined}
-      onUnsave={isLoggedIn ? handleUnsave : undefined}
+      onSave={canSave ? handleSave : undefined}
+      onUnsave={canSave ? handleUnsave : undefined}
+      isCoordinatorView={isCoordinatorView}
     />
   )
 }

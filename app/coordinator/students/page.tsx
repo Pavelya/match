@@ -86,8 +86,9 @@ export default async function CoordinatorStudentsPage() {
     totalIBPoints: student.totalIBPoints,
     coursesCount: student.courses.length,
     createdAt: student.createdAt.toISOString(),
-    // Note: hasConsent will be properly implemented in task 4.4.1
-    hasConsent: true
+    joinedDate: student.user.createdAt.toISOString(),
+    hasConsent: student.coordinatorAccessConsentAt !== null,
+    consentDate: student.coordinatorAccessConsentAt?.toISOString() || null
   }))
 
   // Empty state
@@ -169,11 +170,12 @@ export default async function CoordinatorStudentsPage() {
         />
       )}
 
-      {/* Students table with client-side search */}
+      {/* Students table with client-side search, filtering, and sorting */}
       <StudentsClient
         students={studentData}
         hasFullAccess={access.hasFullAccess}
         canEditStudents={access.canEditStudentData}
+        canBulkExport={access.canBulkExport}
       />
     </PageContainer>
   )

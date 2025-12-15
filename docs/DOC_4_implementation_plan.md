@@ -1231,7 +1231,7 @@
   - **Features**: 
     - Sort by name, IB points, joined date
     - Filter by consent status
-    - Bulk export (VIP only)
+    - Bulk export (VIP or Regular with active subscription)
   - **Acceptance**: 
     - ✓ All school students listed
     - ✓ Freemium limited to 10

@@ -110,6 +110,10 @@ interface ProgramCardProps {
   onSave?: (programId: string) => void
   onUnsave?: (programId: string) => void
   className?: string
+  /** Coordinator view: pass student profile ID to link to program with student context */
+  coordinatorStudentId?: string
+  /** Set to true when coordinator is viewing a student's program match (disables save, changes labels) */
+  isCoordinatorView?: boolean
 }
 
 /**
@@ -306,7 +310,9 @@ export function ProgramCard({
   isSaved = false,
   onSave,
   onUnsave,
-  className
+  className,
+  coordinatorStudentId,
+  isCoordinatorView = false
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
 
@@ -347,6 +353,11 @@ export function ProgramCard({
 
   const isDetailView = variant === 'detail'
 
+  // Build program detail URL - use coordinator route for coordinator view
+  const programDetailUrl = coordinatorStudentId
+    ? `/coordinator/students/${coordinatorStudentId}/matches/${program.id}`
+    : `/programs/${program.id}`
+
   // Wrapper component - Card for card variant, div for detail
   const Wrapper = isDetailView ? 'div' : Card
   const wrapperProps = isDetailView
@@ -358,13 +369,15 @@ export function ProgramCard({
       {isDetailView ? (
         // Detail View Layout
         <>
-          {/* Back to results */}
-          <Link
-            href="/programs/search"
-            className="text-primary hover:underline text-sm inline-flex items-center gap-1"
-          >
-            ← Back to results
-          </Link>
+          {/* Back to results - only show for student view, coordinator page has its own back link */}
+          {!isCoordinatorView && (
+            <Link
+              href="/programs/search"
+              className="text-primary hover:underline text-sm inline-flex items-center gap-1"
+            >
+              ← Back to results
+            </Link>
+          )}
 
           {/* Hero Section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
@@ -418,10 +431,13 @@ export function ProgramCard({
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3">
-                <Button variant="outline" size="sm" onClick={handleSaveToggle} className="gap-2">
-                  <Bookmark className={cn('h-4 w-4', saved && 'fill-current')} />
-                  {saved ? 'Saved' : 'Save Program'}
-                </Button>
+                {/* Save button - only for student view */}
+                {!isCoordinatorView && (
+                  <Button variant="outline" size="sm" onClick={handleSaveToggle} className="gap-2">
+                    <Bookmark className={cn('h-4 w-4', saved && 'fill-current')} />
+                    {saved ? 'Saved' : 'Save Program'}
+                  </Button>
+                )}
                 {program.programUrl && (
                   <Button size="sm" asChild className="gap-2">
                     <a href={program.programUrl} target="_blank" rel="noopener noreferrer">
@@ -601,10 +617,12 @@ export function ProgramCard({
             </div>
           )}
 
-          {/* Your Preferences - Smaller cards matching Academic Requirements */}
+          {/* Preferences - Smaller cards matching Academic Requirements */}
           {matchResult && (
             <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Your Preferences</h4>
+              <h4 className="font-semibold text-sm">
+                {isCoordinatorView ? "Student's Preferences" : 'Your Preferences'}
+              </h4>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* Field Preference */}
                 <div
@@ -726,7 +744,7 @@ export function ProgramCard({
                 {/* Title Row with Save */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1">
-                    <Link href={`/programs/${program.id}`} className="hover:underline">
+                    <Link href={programDetailUrl} className="hover:underline">
                       <h3 className="text-lg sm:text-xl font-bold text-foreground leading-tight">
                         {program.name}
                       </h3>
@@ -779,7 +797,7 @@ export function ProgramCard({
               {/* View Details CTA */}
               <div className="mt-3 sm:mt-0">
                 <Button asChild className="gap-2">
-                  <Link href={`/programs/${program.id}`}>
+                  <Link href={programDetailUrl}>
                     View Program Details
                     <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -920,9 +938,11 @@ export function ProgramCard({
                 </div>
               )}
 
-              {/* Your Preferences */}
+              {/* Preferences */}
               <div className="space-y-3">
-                <h4 className="font-semibold text-sm">Your Preferences</h4>
+                <h4 className="font-semibold text-sm">
+                  {isCoordinatorView ? "Student's Preferences" : 'Your Preferences'}
+                </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {/* Field Preference */}
                   <div
