@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner'
+import { ToastProvider } from '@/components/providers/toast-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -72,8 +73,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="light" style={{ colorScheme: 'light' }}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <CookieConsentBanner />
+        <ToastProvider>
+          {children}
+          <CookieConsentBanner />
+        </ToastProvider>
       </body>
     </html>
   )
