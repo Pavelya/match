@@ -32,6 +32,7 @@ import {
   InfoCard,
   UpgradePromptBanner
 } from '@/components/admin/shared'
+import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
 
 export default async function CoordinatorDashboardPage() {
@@ -99,111 +100,124 @@ export default async function CoordinatorDashboardPage() {
 
   return (
     <PageContainer>
-      <PageHeader
-        title="School Dashboard"
-        icon={LayoutDashboard}
-        description={`Welcome back! Here's an overview of ${school.name}`}
-      />
+      {/* Animated Header */}
+      <FadeIn direction="down" duration={300}>
+        <PageHeader
+          title="School Dashboard"
+          icon={LayoutDashboard}
+          description={`Welcome back! Here's an overview of ${school.name}`}
+        />
+      </FadeIn>
 
       {/* Freemium Usage Warning */}
       {!access.hasFullAccess && remainingInvites !== null && remainingInvites <= 3 && (
-        <UpgradePromptBanner
-          feature={`${remainingInvites} student invite${remainingInvites === 1 ? '' : 's'} remaining`}
-          description="Upgrade to VIP for unlimited student invitations and full access to all features."
-          variant="subtle"
-          upgradeHref="/coordinator/settings/subscription"
-          className="mb-6"
-        />
+        <FadeIn direction="up" delay={100}>
+          <UpgradePromptBanner
+            feature={`${remainingInvites} student invite${remainingInvites === 1 ? '' : 's'} remaining`}
+            description="Upgrade to VIP for unlimited student invitations and full access to all features."
+            variant="subtle"
+            upgradeHref="/coordinator/settings/subscription"
+            className="mb-6"
+          />
+        </FadeIn>
       )}
 
-      {/* Key Metrics - 4 actionable cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard
-          title="Total Students"
-          value={studentCount}
-          icon={Users}
-          href="/coordinator/students"
-          iconColor="blue"
-        />
-        <StatCard
-          title="With Consent"
-          value={studentsWithConsent}
-          icon={Users}
-          href="/coordinator/students"
-          iconColor="green"
-        />
-        <StatCard title="Avg IB Score" value={avgIBPoints} icon={Target} iconColor="amber" />
-        <StatCard
-          title="Coordinators"
-          value={coordinatorCount}
-          icon={UserCog}
-          href="/coordinator/team"
-          iconColor="purple"
-        />
-      </div>
+      {/* Key Metrics - 4 actionable cards with staggered animation */}
+      <FadeIn direction="up" delay={150} duration={400}>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <StatCard
+            title="Total Students"
+            value={studentCount}
+            icon={Users}
+            href="/coordinator/students"
+            iconColor="blue"
+          />
+          <StatCard
+            title="With Consent"
+            value={studentsWithConsent}
+            icon={Users}
+            href="/coordinator/students"
+            iconColor="green"
+          />
+          <StatCard title="Avg IB Score" value={avgIBPoints} icon={Target} iconColor="amber" />
+          <StatCard
+            title="Coordinators"
+            value={coordinatorCount}
+            icon={UserCog}
+            href="/coordinator/team"
+            iconColor="purple"
+          />
+        </div>
+      </FadeIn>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Quick Actions */}
-        <InfoCard title="Quick Actions" icon={Plus}>
-          <div className="space-y-3">
-            <QuickActionLink
-              href="/coordinator/students/invite"
-              label="Invite Student"
-              icon={UserPlus}
-              description={
-                remainingInvites !== null
-                  ? `${remainingInvites} invite${remainingInvites === 1 ? '' : 's'} remaining`
-                  : undefined
-              }
-              disabled={!access.canInviteStudents(studentCount)}
-            />
-            <QuickActionLink
-              href="/coordinator/team/invite"
-              label="Invite Coordinator"
-              icon={UserCog}
-              locked={!access.canInviteCoordinators}
-            />
-            <QuickActionLink href="/coordinator/students" label="View All Students" icon={Users} />
-          </div>
-        </InfoCard>
-
-        {/* Analytics Preview or Upgrade Prompt */}
-        {access.hasFullAccess ? (
-          <InfoCard title="Student Readiness" icon={TrendingUp}>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Consent Rate</span>
-                <span className="text-sm font-medium">{consentRate}%</span>
-              </div>
-              <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Profile Completion</span>
-                <span className="text-sm font-medium">{profileCompletionRate}%</span>
-              </div>
-              <div className="flex items-center justify-between py-2">
-                <span className="text-sm text-muted-foreground">Complete Profiles</span>
-                <span className="text-sm font-medium">
-                  {completeProfiles} of {studentCount}
-                </span>
-              </div>
-              <Link
-                href="/coordinator/analytics"
-                className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2"
-              >
-                View Full Analytics
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+      <FadeIn direction="up" delay={300} duration={400}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Quick Actions */}
+          <InfoCard title="Quick Actions" icon={Plus}>
+            <div className="space-y-3">
+              <QuickActionLink
+                href="/coordinator/students/invite"
+                label="Invite Student"
+                icon={UserPlus}
+                description={
+                  remainingInvites !== null
+                    ? `${remainingInvites} invite${remainingInvites === 1 ? '' : 's'} remaining`
+                    : undefined
+                }
+                disabled={!access.canInviteStudents(studentCount)}
+              />
+              <QuickActionLink
+                href="/coordinator/team/invite"
+                label="Invite Coordinator"
+                icon={UserCog}
+                locked={!access.canInviteCoordinators}
+              />
+              <QuickActionLink
+                href="/coordinator/students"
+                label="View All Students"
+                icon={Users}
+              />
             </div>
           </InfoCard>
-        ) : (
-          <UpgradePromptBanner
-            feature="Advanced Analytics"
-            description="Track student match performance, popular fields, and compare with global trends. Get detailed insights about your students' university matches."
-            variant="card"
-            upgradeHref="/coordinator/settings/subscription"
-          />
-        )}
-      </div>
+
+          {/* Analytics Preview or Upgrade Prompt */}
+          {access.hasFullAccess ? (
+            <InfoCard title="Student Readiness" icon={TrendingUp}>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between py-2 border-b border-border/50">
+                  <span className="text-sm text-muted-foreground">Consent Rate</span>
+                  <span className="text-sm font-medium">{consentRate}%</span>
+                </div>
+                <div className="flex items-center justify-between py-2 border-b border-border/50">
+                  <span className="text-sm text-muted-foreground">Profile Completion</span>
+                  <span className="text-sm font-medium">{profileCompletionRate}%</span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-sm text-muted-foreground">Complete Profiles</span>
+                  <span className="text-sm font-medium">
+                    {completeProfiles} of {studentCount}
+                  </span>
+                </div>
+                <Link
+                  href="/coordinator/analytics"
+                  className="inline-flex items-center gap-2 text-sm text-primary hover:underline mt-2"
+                >
+                  View Full Analytics
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </InfoCard>
+          ) : (
+            <UpgradePromptBanner
+              feature="Advanced Analytics"
+              description="Track student match performance, popular fields, and compare with global trends. Get detailed insights about your students' university matches."
+              variant="card"
+              upgradeHref="/coordinator/settings/subscription"
+            />
+          )}
+        </div>
+      </FadeIn>
     </PageContainer>
   )
 }

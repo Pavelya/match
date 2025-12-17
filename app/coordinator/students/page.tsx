@@ -19,6 +19,7 @@ import {
   UpgradePromptBanner
 } from '@/components/admin/shared'
 import { Users, UserPlus } from 'lucide-react'
+import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
 import { StudentsClient } from './StudentsClient'
 
@@ -134,49 +135,56 @@ export default async function CoordinatorStudentsPage() {
 
   return (
     <PageContainer>
-      <PageHeader
-        title="Students"
-        icon={Users}
-        description={`${studentCount} student${studentCount !== 1 ? 's' : ''} linked to your school`}
-        actions={
-          canInvite
-            ? [
-                {
-                  label: 'Invite Student',
-                  href: '/coordinator/students/invite',
-                  icon: UserPlus,
-                  variant: 'primary'
-                }
-              ]
-            : []
-        }
-      />
+      {/* Animated Header */}
+      <FadeIn direction="down" duration={300}>
+        <PageHeader
+          title="Students"
+          icon={Users}
+          description={`${studentCount} student${studentCount !== 1 ? 's' : ''} linked to your school`}
+          actions={
+            canInvite
+              ? [
+                  {
+                    label: 'Invite Student',
+                    href: '/coordinator/students/invite',
+                    icon: UserPlus,
+                    variant: 'primary'
+                  }
+                ]
+              : []
+          }
+        />
+      </FadeIn>
 
       {/* Freemium remaining invites banner */}
       {!access.hasFullAccess && remainingInvites !== null && (
-        <UpgradePromptBanner
-          feature={
-            remainingInvites > 0
-              ? `${remainingInvites} student invite${remainingInvites === 1 ? '' : 's'} remaining`
-              : 'Student limit reached'
-          }
-          description={
-            remainingInvites > 0
-              ? 'Upgrade to VIP for unlimited students, advanced analytics, and more.'
-              : 'You&apos;ve reached the free plan limit of 10 students. Upgrade to VIP to invite more.'
-          }
-          variant={remainingInvites > 3 ? 'subtle' : 'inline'}
-          className="mb-6"
-        />
+        <FadeIn direction="up" delay={100}>
+          <UpgradePromptBanner
+            feature={
+              remainingInvites > 0
+                ? `${remainingInvites} student invite${remainingInvites === 1 ? '' : 's'} remaining`
+                : 'Student limit reached'
+            }
+            description={
+              remainingInvites > 0
+                ? 'Upgrade to VIP for unlimited students, advanced analytics, and more.'
+                : 'You&apos;ve reached the free plan limit of 10 students. Upgrade to VIP to invite more.'
+            }
+            variant={remainingInvites > 3 ? 'subtle' : 'inline'}
+            className="mb-6"
+          />
+        </FadeIn>
       )}
 
       {/* Students table with client-side search, filtering, and sorting */}
-      <StudentsClient
-        students={studentData}
-        hasFullAccess={access.hasFullAccess}
-        canEditStudents={access.canEditStudentData}
-        canBulkExport={access.canBulkExport}
-      />
+      <FadeIn direction="up" delay={200} duration={400}>
+        <StudentsClient
+          students={studentData}
+          hasFullAccess={access.hasFullAccess}
+          canEditStudents={access.canEditStudentData}
+          canBulkExport={access.canBulkExport}
+        />
+      </FadeIn>
     </PageContainer>
   )
 }

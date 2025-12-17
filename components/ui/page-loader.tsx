@@ -53,7 +53,7 @@ export interface PageLoaderProps {
  * Creates a moving gradient effect.
  */
 function SkeletonBox({ className }: { className?: string }) {
-  return <div className={cn('rounded bg-muted animate-pulse', className)} />
+  return <div className={cn('rounded animate-shimmer', className)} />
 }
 
 /**
