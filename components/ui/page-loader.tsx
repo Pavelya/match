@@ -49,11 +49,11 @@ export interface PageLoaderProps {
 }
 
 /**
- * Shimmer animation for skeleton elements.
- * Creates a moving gradient effect.
+ * Skeleton animation for loading elements.
+ * Uses pulse animation with muted background.
  */
 function SkeletonBox({ className }: { className?: string }) {
-  return <div className={cn('rounded bg-muted animate-shimmer', className)} />
+  return <div className={cn('rounded bg-muted animate-pulse', className)} />
 }
 
 /**

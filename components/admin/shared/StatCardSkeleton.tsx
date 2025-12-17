@@ -19,12 +19,12 @@ export function StatCardSkeleton({ variant = 'default', className }: StatCardSke
     return (
       <div className={cn('flex items-center gap-3 rounded-xl border bg-card p-4', className)}>
         {/* Icon skeleton */}
-        <div className="h-10 w-10 rounded-lg bg-muted animate-shimmer" />
+        <div className="h-10 w-10 rounded-lg bg-muted animate-pulse" />
         <div className="flex-1 space-y-2">
           {/* Title skeleton */}
-          <div className="h-3 w-16 rounded bg-muted animate-shimmer" />
+          <div className="h-3 w-16 rounded bg-muted animate-pulse" />
           {/* Value skeleton */}
-          <div className="h-5 w-10 rounded bg-muted animate-shimmer" />
+          <div className="h-5 w-10 rounded bg-muted animate-pulse" />
         </div>
       </div>
     )
@@ -34,12 +34,12 @@ export function StatCardSkeleton({ variant = 'default', className }: StatCardSke
     <div className={cn('rounded-xl border bg-card p-5', className)}>
       <div className="flex items-start justify-between mb-3">
         {/* Title skeleton */}
-        <div className="h-4 w-24 rounded bg-muted animate-shimmer" />
+        <div className="h-4 w-24 rounded bg-muted animate-pulse" />
         {/* Icon skeleton */}
-        <div className="h-10 w-10 rounded-lg bg-muted animate-shimmer" />
+        <div className="h-10 w-10 rounded-lg bg-muted animate-pulse" />
       </div>
       {/* Value skeleton */}
-      <div className="h-8 w-16 rounded bg-muted animate-shimmer" />
+      <div className="h-8 w-16 rounded bg-muted animate-pulse" />
     </div>
   )
 }
