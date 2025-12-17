@@ -53,7 +53,12 @@ export interface PageLoaderProps {
  * Uses pulse animation with muted background.
  */
 function SkeletonBox({ className }: { className?: string }) {
-  return <div className={cn('rounded skeleton-bg animate-pulse', className)} />
+  return (
+    <div
+      className={cn('rounded animate-pulse', className)}
+      style={{ backgroundColor: '#e5e7eb' }}
+    />
+  )
 }
 
 /**
