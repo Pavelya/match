@@ -224,6 +224,15 @@
 }
 
 /* ==========================================
+ * Skeleton Loading
+ * Explicit background for skeleton elements
+ * ========================================== */
+
+.skeleton-bg {
+  background-color: oklch(0.92 0.01 250) !important;
+}
+
+/* ==========================================
  * Shimmer Animation
  * Modern skeleton loading effect
  * ========================================== */
