@@ -14,7 +14,10 @@ import { useEffect, useState, useCallback } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Loader2, Bookmark, BookmarkX, RefreshCw, AlertCircle } from 'lucide-react'
+import { PageLoader } from '@/components/ui/page-loader'
+import { FadeIn } from '@/components/ui/fade-in'
+import { StaggerChildren } from '@/components/ui/stagger-children'
+import { Bookmark, BookmarkX, RefreshCw, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import { logger } from '@/lib/logger'
 
@@ -126,16 +129,9 @@ export function SavedProgramsClient() {
     fetchSavedPrograms()
   }, [fetchSavedPrograms])
 
-  // Loading state
+  // Loading state - inline mode since we're inside PageContainer
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-16">
-        <div className="text-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-          <p className="text-muted-foreground">Loading your saved programs...</p>
-        </div>
-      </div>
-    )
+    return <PageLoader variant="skeleton-cards" count={3} inline={true} />
   }
 
   // Error state
@@ -183,20 +179,22 @@ export function SavedProgramsClient() {
 
   return (
     <div className="space-y-6">
-      {/* Results Count */}
-      <div className="flex items-center justify-between">
-        <p className="text-muted-foreground">
-          <span className="font-semibold text-foreground">{programs.length}</span> saved program
-          {programs.length !== 1 ? 's' : ''}
-        </p>
-        <Button variant="ghost" size="sm" onClick={fetchSavedPrograms}>
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Refresh
-        </Button>
-      </div>
+      {/* Results Count - animated */}
+      <FadeIn direction="down" duration={300}>
+        <div className="flex items-center justify-between">
+          <p className="text-muted-foreground">
+            <span className="font-semibold text-foreground">{programs.length}</span> saved program
+            {programs.length !== 1 ? 's' : ''}
+          </p>
+          <Button variant="ghost" size="sm" onClick={fetchSavedPrograms}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh
+          </Button>
+        </div>
+      </FadeIn>
 
-      {/* Programs Grid - Same layout as search */}
-      <div className="space-y-4">
+      {/* Programs Grid - staggered animation */}
+      <StaggerChildren staggerDelay={60} initialDelay={150} className="space-y-4">
         {programs.map((program) => {
           const isRemoving = removingIds.has(program.id)
 
@@ -214,15 +212,17 @@ export function SavedProgramsClient() {
             </div>
           )
         })}
-      </div>
+      </StaggerChildren>
 
-      {/* Action hint */}
-      <div className="text-center py-4">
-        <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
-          <BookmarkX className="h-4 w-4" />
-          Click the bookmark icon to remove a program from your saved list
-        </p>
-      </div>
+      {/* Action hint - fades in after cards */}
+      <FadeIn direction="up" delay={400}>
+        <div className="text-center py-4">
+          <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
+            <BookmarkX className="h-4 w-4" />
+            Click the bookmark icon to remove a program from your saved list
+          </p>
+        </div>
+      </FadeIn>
     </div>
   )
 }

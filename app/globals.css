@@ -97,6 +97,27 @@
   --sidebar-border: oklch(0.9 0.01 250);
   --sidebar-ring: oklch(0.576 0.185 254);
   /* Blue */
+
+  /* ==========================================
+   * Animation Design Tokens
+   * Used for consistent motion across the app
+   * ========================================== */
+
+  /* Animation Durations */
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* Animation Easings */
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Animation Distances (for translate transforms) */
+  --distance-sm: 4px;
+  --distance-md: 8px;
+  --distance-lg: 16px;
 }
 
 .dark {
@@ -140,5 +161,64 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ==========================================
+ * Reduced Motion Accessibility
+ * Respects user's OS "reduce motion" preference
+ * macOS: System Preferences → Accessibility → Display → Reduce motion
+ * Windows: Settings → Ease of Access → Display → Show animations
+ * ========================================== */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    /* Disable animations */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    /* Disable transitions */
+    transition-duration: 0.01ms !important;
+
+    /* Disable smooth scrolling */
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================
+ * Mobile-Friendly Hover
+ * Only apply hover effects on devices with a pointer (mouse/trackpad)
+ * Prevents "sticky hover" on touch devices
+ * ========================================== */
+
+/* Interactive card lift effect - only on hover-capable devices */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    /* Gentle lift - 2px instead of 4px */
+    transform: translateY(-2px);
+    /* Subtle shadow increase */
+    box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.01);
+  }
+
+  .hover-scale-sm:hover {
+    transform: scale(1.03);
+  }
+}
+
+/* On touch devices, use active state instead for lift feedback */
+@media (hover: none) or (pointer: coarse) {
+  .hover-lift:active {
+    transform: scale(0.98);
+  }
+
+  .hover-scale:active,
+  .hover-scale-sm:active {
+    transform: scale(0.98);
   }
 }

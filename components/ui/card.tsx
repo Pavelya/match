@@ -2,17 +2,42 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-function Card({ className, ...props }: React.ComponentProps<'div'>) {
+export interface CardProps extends React.ComponentProps<'div'> {
+  /**
+   * Whether the card is interactive (clickable).
+   * Adds hover lift effect on desktop, tap feedback on mobile.
+   */
+  interactive?: boolean
+}
+
+function Card({ className, interactive = false, ...props }: CardProps) {
   return (
     <div
       data-slot="card"
       className={cn(
         'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
+        // Interactive effects (mobile-friendly)
+        interactive && [
+          'cursor-pointer',
+          'transition-all duration-200 ease-out',
+          // hover-lift: lifts on desktop, scales down on mobile tap
+          'hover-lift',
+          // Active state for both desktop and mobile
+          'active:scale-[0.99]'
+        ],
         className
       )}
       {...props}
     />
   )
+}
+
+/**
+ * Convenience component for interactive cards.
+ * Equivalent to <Card interactive={true} />
+ */
+function CardInteractive({ className, ...props }: Omit<CardProps, 'interactive'>) {
+  return <Card interactive={true} className={className} {...props} />
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
@@ -72,4 +97,13 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent }
+export {
+  Card,
+  CardInteractive,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardAction,
+  CardDescription,
+  CardContent
+}

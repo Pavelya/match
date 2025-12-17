@@ -11,7 +11,10 @@ import { useEffect, useState } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { Button } from '@/components/ui/button'
-import { Loader2, RefreshCw, AlertCircle } from 'lucide-react'
+import { PageLoader } from '@/components/ui/page-loader'
+import { FadeIn } from '@/components/ui/fade-in'
+import { StaggerChildren } from '@/components/ui/stagger-children'
+import { RefreshCw, AlertCircle } from 'lucide-react'
 import { logger } from '@/lib/logger'
 import type { MatchResult } from '@/lib/matching/types'
 
@@ -148,14 +151,7 @@ export function RecommendationsClient() {
 
   // Loading state
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
-          <p className="text-muted-foreground">Finding your best matches...</p>
-        </div>
-      </div>
-    )
+    return <PageLoader variant="skeleton-cards" count={6} message="Finding your best matches..." />
   }
 
   // Error state
@@ -195,13 +191,16 @@ export function RecommendationsClient() {
 
   return (
     <PageContainer>
-      <PageHeader
-        title="Your Program Recommendations"
-        description={`We found ${matches.totalMatches} programs matching your profile. Showing top ${matches.returnedCount}.`}
-      />
+      {/* Animated Header */}
+      <FadeIn direction="down" duration={400}>
+        <PageHeader
+          title="Your Program Recommendations"
+          description={`We found ${matches.totalMatches} programs matching your profile. Showing top ${matches.returnedCount}.`}
+        />
+      </FadeIn>
 
-      {/* Recommendations Grid */}
-      <div className="space-y-4">
+      {/* Animated Recommendations Grid */}
+      <StaggerChildren staggerDelay={60} initialDelay={200} className="space-y-4">
         {matches.matches.map((match) => {
           if (!match.program) return null
 
@@ -216,15 +215,17 @@ export function RecommendationsClient() {
             />
           )
         })}
-      </div>
+      </StaggerChildren>
 
-      {/* Refresh Button */}
-      <div className="mt-8 text-center">
-        <Button variant="outline" onClick={fetchRecommendations}>
-          <RefreshCw className="h-4 w-4 mr-2" />
-          Refresh Recommendations
-        </Button>
-      </div>
+      {/* Refresh Button - fades in after cards */}
+      <FadeIn direction="up" delay={800}>
+        <div className="mt-8 text-center">
+          <Button variant="outline" onClick={fetchRecommendations}>
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Refresh Recommendations
+          </Button>
+        </div>
+      </FadeIn>
     </PageContainer>
   )
 }

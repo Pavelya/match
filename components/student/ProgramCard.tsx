@@ -315,11 +315,22 @@ export function ProgramCard({
   isCoordinatorView = false
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
+  // State for animated progress bar - start at 0, animate to actual value
+  const [showProgress, setShowProgress] = useState(false)
 
   // Sync internal state with isSaved prop when it changes
   useEffect(() => {
     setSaved(isSaved)
   }, [isSaved])
+
+  // Trigger progress bar animation after component mounts
+  useEffect(() => {
+    // Small delay to ensure the element is rendered before animation starts
+    const timer = setTimeout(() => {
+      setShowProgress(true)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleSaveToggle = () => {
     if (saved) {
@@ -333,6 +344,8 @@ export function ProgramCard({
 
   const matchScore = matchResult?.overallScore ?? 0
   const matchPercentage = Math.round(matchScore * 100)
+  // Animated percentage: 0 initially, then actual value after mount
+  const animatedPercentage = showProgress ? matchPercentage : 0
   const matchRating = matchResult ? getMatchRating(matchScore) : null
 
   // Determine match description
@@ -362,7 +375,16 @@ export function ProgramCard({
   const Wrapper = isDetailView ? 'div' : Card
   const wrapperProps = isDetailView
     ? { className: cn('space-y-8', className) }
-    : { className: cn('overflow-hidden transition-all hover:shadow-lg', className) }
+    : {
+        className: cn(
+          'overflow-hidden',
+          'transition-all duration-200 ease-out',
+          // Mobile-friendly: lifts on desktop hover, scales on mobile tap
+          'hover-lift',
+          'active:scale-[0.995]',
+          className
+        )
+      }
 
   return (
     <Wrapper {...wrapperProps}>
@@ -461,8 +483,8 @@ export function ProgramCard({
               {/* Progress Bar - Same color as card variant */}
               <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                 <div
-                  className="h-full bg-primary transition-all duration-500"
-                  style={{ width: `${matchPercentage}%` }}
+                  className="h-full bg-primary transition-all duration-700 ease-out"
+                  style={{ width: `${animatedPercentage}%` }}
                 />
               </div>
 
@@ -761,10 +783,15 @@ export function ProgramCard({
                     variant="ghost"
                     size="icon"
                     onClick={handleSaveToggle}
-                    className="shrink-0 -mt-1"
+                    className="shrink-0 -mt-1 hover:scale-110 transition-transform duration-150"
                     aria-label={saved ? 'Unsave program' : 'Save program'}
                   >
-                    <Bookmark className={cn('h-5 w-5', saved && 'fill-primary text-primary')} />
+                    <Bookmark
+                      className={cn(
+                        'h-5 w-5 transition-all duration-200',
+                        saved && 'fill-primary text-primary scale-110'
+                      )}
+                    />
                   </Button>
                 </div>
 
@@ -819,8 +846,8 @@ export function ProgramCard({
                 {/* Progress Bar */}
                 <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full bg-primary transition-all duration-500"
-                    style={{ width: `${matchPercentage}%` }}
+                    className="h-full bg-primary transition-all duration-700 ease-out"
+                    style={{ width: `${animatedPercentage}%` }}
                   />
                 </div>
 

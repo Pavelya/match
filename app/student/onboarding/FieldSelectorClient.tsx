@@ -8,6 +8,7 @@ import { LocationSelector } from '@/components/student/LocationSelector'
 import { QuickScoreInput } from '@/components/student/QuickScoreInput'
 import { DetailedGradesInput } from '@/components/student/DetailedGradesInput'
 import { StepIndicator } from '@/components/ui/step-indicator'
+import { FadeIn } from '@/components/ui/fade-in'
 
 interface Field {
   id: string
@@ -201,10 +202,13 @@ export function FieldSelectorClient({
 
   return (
     <>
-      <StepIndicator steps={steps} currentStep={step} className="mb-8" />
+      {/* Animated Step Indicator */}
+      <FadeIn direction="down" duration={300}>
+        <StepIndicator steps={steps} currentStep={step} className="mb-8" />
+      </FadeIn>
 
       {step === 1 && (
-        <>
+        <FadeIn key="step-1" direction="up" duration={400}>
           <FieldSelector
             fields={fields}
             selectedFields={selectedFields}
@@ -218,11 +222,11 @@ export function FieldSelectorClient({
               Continue to Countries →
             </Button>
           </div>
-        </>
+        </FadeIn>
       )}
 
       {step === 2 && (
-        <>
+        <FadeIn key="step-2" direction="up" duration={400}>
           <LocationSelector
             countries={countries}
             selectedCountries={selectedCountries}
@@ -237,11 +241,11 @@ export function FieldSelectorClient({
               Continue to Scores →
             </Button>
           </div>
-        </>
+        </FadeIn>
       )}
 
       {step === 3 && (
-        <>
+        <FadeIn key="step-3" direction="up" duration={400}>
           {/* Grade entry type toggle - HIDDEN but functionality preserved */}
           {/* 
           <div className="flex items-center justify-between rounded-lg border p-4">
@@ -315,7 +319,7 @@ export function FieldSelectorClient({
               </div>
             </>
           )}
-        </>
+        </FadeIn>
       )}
     </>
   )

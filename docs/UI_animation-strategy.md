@@ -480,6 +480,63 @@ Before deploying animations:
 
 ---
 
+## Mobile Considerations
+
+### The "Sticky Hover" Problem
+
+On touch devices, there's no true "hover" state. When a user taps an element with `:hover` styles:
+1. The hover state activates on tap
+2. It may stay active until the user taps elsewhere
+3. This creates a "stuck" appearance that feels buggy
+
+### Solution: Media Query Detection
+
+We use CSS media queries to detect device capabilities:
+
+```css
+/* Only apply hover effects on devices with a pointing device (mouse/trackpad) */
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: large-shadow;
+  }
+}
+
+/* On touch devices, use active state for feedback instead */
+@media (hover: none) or (pointer: coarse) {
+  .hover-lift:active {
+    transform: scale(0.98);
+  }
+}
+```
+
+### Mobile-Friendly Animation Classes
+
+The following utility classes are defined in `globals.css`:
+
+| Class | Desktop Behavior | Mobile Behavior |
+|-------|-----------------|-----------------|
+| `hover-lift` | Lifts 4px on hover | Scales down on tap |
+| `hover-scale` | Scales to 102% on hover | Scales down on tap |
+| `hover-scale-sm` | Scales to 105% on hover | Scales down on tap |
+
+### What Works on Both Desktop and Mobile
+
+| Animation | Works On |
+|-----------|----------|
+| `active:scale-[0.98]` | ✅ Both - `:active` triggers on tap |
+| `transition-all` | ✅ Both |
+| `animate-spin` | ✅ Both |
+| `animate-pulse` | ✅ Both |
+| Focus states | ✅ Both (when input focused) |
+
+### Testing on Mobile
+
+1. **Chrome DevTools Device Mode** - Toggle device toolbar (Cmd+Shift+M)
+2. **Real device testing** - Connect phone and test
+3. **Check for sticky hover** - Tap and release, element should return to normal
+4. **Verify active states** - Tap should provide visual feedback
+
 ## Accessibility Requirements
 
 ### Reduced Motion Support
