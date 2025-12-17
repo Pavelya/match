@@ -38,7 +38,7 @@ export function TableSkeleton({
                 {Array.from({ length: columns }).map((_, colIndex) => (
                   <th key={colIndex} className="px-4 py-3">
                     <div
-                      className="h-4 rounded animate-shimmer"
+                      className="h-4 rounded bg-muted animate-shimmer"
                       style={{ width: headerWidths[colIndex % headerWidths.length] }}
                     />
                   </th>
@@ -54,19 +54,19 @@ export function TableSkeleton({
                     {colIndex === 0 ? (
                       // First column often has avatar + text
                       <div className="flex items-center gap-3">
-                        <div className="h-9 w-9 rounded-full animate-shimmer" />
+                        <div className="h-9 w-9 rounded-full bg-muted animate-shimmer" />
                         <div className="space-y-2">
-                          <div className="h-4 w-24 rounded animate-shimmer" />
-                          <div className="h-3 w-32 rounded animate-shimmer" />
+                          <div className="h-4 w-24 rounded bg-muted animate-shimmer" />
+                          <div className="h-3 w-32 rounded bg-muted animate-shimmer" />
                         </div>
                       </div>
                     ) : colIndex === columns - 1 ? (
                       // Last column often has action
-                      <div className="h-4 w-12 rounded animate-shimmer ml-auto" />
+                      <div className="h-4 w-12 rounded bg-muted animate-shimmer ml-auto" />
                     ) : (
                       // Middle columns - use deterministic widths based on position
                       <div
-                        className="h-4 rounded animate-shimmer"
+                        className="h-4 rounded bg-muted animate-shimmer"
                         style={{ width: cellWidths[(rowIndex + colIndex) % cellWidths.length] }}
                       />
                     )}
@@ -92,9 +92,9 @@ export function SearchBarSkeleton({ className }: { className?: string }) {
       {/* Search row with filter button */}
       <div className="flex gap-3">
         {/* Search input skeleton - full width */}
-        <div className="flex-1 h-12 rounded-xl animate-shimmer" />
+        <div className="flex-1 h-12 rounded-xl bg-muted animate-shimmer" />
         {/* Filter toggle button skeleton */}
-        <div className="w-12 h-12 rounded-xl animate-shimmer" />
+        <div className="w-12 h-12 rounded-xl bg-muted animate-shimmer" />
       </div>
     </div>
   )
