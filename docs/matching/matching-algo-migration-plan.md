@@ -7,6 +7,59 @@
 - [DOC_2_matching-algo IX.md](./DOC_2_matching-algo%20IX.md) (Current)
 - [DOC_2_matching-algo X.md](./DOC_2_matching-algo%20X.md) (Target)
 - [ibmatch-algorithm-improvement-spec.md](./ibmatch-algorithm-improvement-spec.md) (Technical Spec)
+- **[matching-algo-rollback-plan.md](./matching-algo-rollback-plan.md) (⚠️ CRITICAL: Rollback Procedures)**
+
+---
+
+## ⚠️ SAFETY CRITICAL: Rollback Capability
+
+**The matching algorithm is the core of the IB Match platform. ALL changes MUST be reversible.**
+
+### Mandatory Requirements Before Implementation
+
+1. **Read the [Rollback Plan](./matching-algo-rollback-plan.md) first** - Understand all three rollback levels
+2. **All schema changes must be additive** - Never drop existing columns
+3. **Feature flags are mandatory** - Every V10 feature must be independently toggleable
+4. **Keep V9 code paths intact** - Do not delete V9 logic until V10 is stable for 30+ days
+5. **Database backups before migrations** - Always create backup before schema changes
+
+### Rollback Levels Summary
+
+| Level | Time | Action | Use When |
+|-------|------|--------|----------|
+| **Level 1** | ~1 min | Disable feature flags | Scoring issues detected |
+| **Level 2** | ~5 min | Code rollback + deploy | V10 code has bugs |
+| **Level 3** | ~30 min | Full DB schema revert | Need complete removal |
+
+### Schema Design for Reversibility
+
+All V10 schema additions follow these rules:
+
+```prisma
+// ✅ SAFE: Nullable with defaults (can DROP without data loss)
+selectivityTier       Int?      @default(null)
+openToAllFields       Boolean   @default(false)
+
+// ❌ UNSAFE: Required field would break V9 code
+// selectivityTier    Int       // DON'T DO THIS
+```
+
+### Code Design for Reversibility
+
+```typescript
+// ✅ SAFE: Feature flag wraps V10 logic
+export function calculateMatch(input: MatchInput): MatchResult {
+  if (isV10Enabled()) {
+    return calculateMatchV10(input)  // New logic
+  }
+  return calculateMatchV9(input)     // Original logic preserved
+}
+
+// ❌ UNSAFE: Overwrites V9 logic
+// export function calculateMatch(input: MatchInput): MatchResult {
+//   return calculateMatchV10(input)  // V9 lost!
+// }
+```
 
 ---
 
