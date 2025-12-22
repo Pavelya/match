@@ -2,7 +2,6 @@
  * Manual test verification for Overall Score Calculation
  * Run with: npx tsx lib/matching/scorer.verify.ts
  */
-/* eslint-disable no-console */
 
 import { calculateMatch, calculateMatches } from './scorer'
 import type { StudentProfile, ProgramRequirements, MatchInput } from './types'

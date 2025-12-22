@@ -118,11 +118,6 @@ model StudentProfile {
   preferredFields    FieldOfStudy[]
   preferredCountries Country[]
 
-  // Matching Algorithm V10: Explicit preference flags (anti-gaming)
-  // When true, student explicitly chose "open to all" rather than leaving empty
-  openToAllFields    Boolean @default(false)
-  openToAllLocations Boolean @default(false)
-
   // Saved programs
   savedPrograms SavedProgram[]
 
@@ -302,14 +297,6 @@ model AcademicProgram {
 
   // Subject requirements (AND/OR logic)
   courseRequirements ProgramCourseRequirement[]
-
-  // Matching Algorithm V10: Selectivity and verification tracking
-  // Tier 1-4 based on minIBPoints (calculated if null: 40+=1, 36+=2, 32+=3, else 4)
-  selectivityTier       Int?
-  // True if requirements have been manually verified by admin/agent
-  requirementsVerified  Boolean   @default(false)
-  // Last time requirements were updated/verified
-  requirementsUpdatedAt DateTime?
 
   programUrl String?
 

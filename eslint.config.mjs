@@ -37,6 +37,15 @@ const eslintConfig = defineConfig([
       'no-console': 'off'
     }
   },
+  {
+    // Allow console and unused vars in verification test files
+    files: ['**/*.verify.ts'],
+    rules: {
+      'no-console': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'react-hooks/rules-of-hooks': 'off'
+    }
+  },
   globalIgnores([
     // Default ignores of eslint-config-next:
     '.next/**',

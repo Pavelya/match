@@ -2,7 +2,6 @@
  * Manual test verification for Penalties and Caps
  * Run with: npx tsx lib/matching/penalties.verify.ts
  */
-/* eslint-disable no-console */
 
 import { applyPenaltiesAndCaps } from './penalties'
 import type { AcademicMatchScore, WeightConfig } from './types'

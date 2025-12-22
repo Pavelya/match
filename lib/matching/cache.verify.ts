@@ -6,7 +6,6 @@
  * - UPSTASH_REDIS_REST_URL
  * - UPSTASH_REDIS_REST_TOKEN
  */
-/* eslint-disable no-console */
 
 console.log('\n📋 Redis Matching Cache - Implementation Summary\n')
 

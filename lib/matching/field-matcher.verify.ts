@@ -2,7 +2,6 @@
  * Manual test verification for Field Match (F_M)
  * Run with: npx tsx lib/matching/field-matcher.verify.ts
  */
-/* eslint-disable no-console */
 
 import { calculateFieldMatch } from './field-matcher'
 

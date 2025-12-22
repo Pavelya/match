@@ -2,7 +2,6 @@
  * Manual test verification for Location Match (L_M)
  * Run with: npx tsx lib/matching/location-matcher.verify.ts
  */
-/* eslint-disable no-console */
 
 import { calculateLocationMatch } from './location-matcher'
 

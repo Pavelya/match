@@ -2,7 +2,6 @@
  * Manual test verification for Subject Requirement Matching
  * Run with: npx tsx lib/matching/subject-matcher.verify.ts
  */
-/* eslint-disable no-console */
 
 import { calculateSubjectMatch, calculateORGroupMatch } from './subject-matcher'
 import type { StudentCourse, SubjectRequirement, ORGroupRequirement } from './types'

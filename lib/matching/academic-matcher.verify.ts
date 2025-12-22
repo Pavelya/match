@@ -2,7 +2,6 @@
  * Manual test verification for Academic Match (G_M)
  * Run with: npx tsx lib/matching/academic-matcher.verify.ts
  */
-/* eslint-disable no-console */
 
 import { calculateAcademicMatch } from './academic-matcher'
 import type { StudentProfile, ProgramRequirements } from './types'

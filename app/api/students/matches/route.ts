@@ -8,15 +8,22 @@
  * - Preferences (fields, countries)
  * - Matching algorithm score
  *
+ * V10 Enhancements:
+ * - Match categorization (SAFETY/MATCH/REACH/UNLIKELY)
+ * - Confidence scoring
+ * - Fit quality breakdown
+ * - Performance optimizations
+ *
  * Performance optimizations:
  * - Redis cache for programs (1 hour TTL)
  * - Redis cache for matches (30 min TTL)
+ * - V10 candidate filtering (5-25x reduction)
  */
 
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
@@ -86,9 +93,9 @@ export async function GET() {
     const transformedPrograms = transformPrograms(allPrograms)
     timings.transform = Math.round(performance.now() - transformStart)
 
-    // Get matches (with caching)
+    // Get matches using V10 algorithm (with caching, optimization, and enhancement)
     const matchStart = performance.now()
-    const matches = await getCachedMatches(
+    const matches = await getCachedMatchesV10(
       studentId,
       transformedStudent,
       transformedPrograms,
@@ -105,7 +112,9 @@ export async function GET() {
       timings,
       programCount: allPrograms.length,
       matchCount: matches.length,
-      topScore: matches[0]?.overallScore
+      topScore: matches[0]?.overallScore,
+      topCategory: matches[0]?.category,
+      algorithmVersion: 'v10'
     })
 
     // Return top 10 matches with full program data
@@ -114,11 +123,28 @@ export async function GET() {
     // Create lookup map for O(1) access instead of O(n) .find() per match
     const programMap = new Map(allPrograms.map((p) => [p.id, p]))
 
-    // Enrich matches with full program data using O(1) lookups
+    // Enrich matches with full program data and V10 fields using O(1) lookups
     const enrichedMatches = topMatches.map((match) => {
       const program = programMap.get(match.programId)
       return {
-        ...match,
+        // Core match data
+        programId: match.programId,
+        overallScore: match.overallScore,
+        academicMatch: match.academicMatch,
+        fieldMatch: match.fieldMatch,
+        locationMatch: match.locationMatch,
+
+        // V10: Match categorization
+        category: match.category,
+        categoryInfo: match.categoryInfo,
+
+        // V10: Confidence scoring
+        confidence: match.confidence,
+
+        // V10: Fit quality breakdown
+        fitQuality: match.fitQuality,
+
+        // Full program data
         program: program
           ? {
               id: program.id,
@@ -164,7 +190,8 @@ export async function GET() {
       matches: enrichedMatches,
       studentId,
       totalMatches: matches.length,
-      returnedCount: topMatches.length
+      returnedCount: topMatches.length,
+      algorithmVersion: 'v10'
     })
   } catch (error) {
     logger.error('Failed to fetch student matches', { error })
