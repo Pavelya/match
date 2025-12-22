@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { StudentHeader } from '@/components/layout/StudentHeader'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
+import { StudentFooter } from '@/components/layout/StudentFooter'
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -25,7 +26,8 @@ export default async function StudentLayout({ children }: { children: React.Reac
           initial
         }}
       />
-      <main className="pb-20 md:pb-0">{children}</main>
+      <main className="pb-20 md:pb-8">{children}</main>
+      <StudentFooter />
       <MobileBottomNav />
     </div>
   )
