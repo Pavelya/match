@@ -3,4 +3,4 @@
 3. Add CMS to manage policy, cookie, and cookie baner
 4. Remove / reduce server and client logs
 5. Add delete student functionality in the admin
-7. Add animations 
+6. If user is logged in > auth/signin should redirect to matches page
