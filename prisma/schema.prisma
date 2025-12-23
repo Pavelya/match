@@ -42,6 +42,10 @@ model User {
   // Invitations sent by this user
   invitationsSent Invitation[]
 
+  // Support tickets
+  supportTickets  SupportTicket[]
+  resolvedTickets SupportTicket[] @relation("ResolvedTickets")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -201,9 +205,10 @@ model IBSchool {
 
   isVerified Boolean @default(false)
 
-  coordinators CoordinatorProfile[]
-  students     StudentProfile[]
-  invitations  Invitation[]
+  coordinators    CoordinatorProfile[]
+  students        StudentProfile[]
+  invitations     Invitation[]
+  supportTickets  SupportTicket[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -440,4 +445,72 @@ enum InvitationStatus {
   ACCEPTED
   EXPIRED
   CANCELLED
+}
+
+// ============================================
+// SUPPORT TICKET SYSTEM
+// ============================================
+
+model SupportTicket {
+  id           String         @id @default(cuid())
+  ticketNumber String         @unique // Human-readable: TKT-XXXXXX
+
+  // Requester info
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userRole UserRole // Snapshot of user role at ticket creation (STUDENT or COORDINATOR)
+
+  // School context (for coordinators)
+  schoolId String?
+  school   IBSchool? @relation(fields: [schoolId], references: [id])
+
+  // Ticket content
+  category TicketCategory
+  subject  String
+  message  String         @db.Text
+
+  // Status & resolution
+  status   TicketStatus   @default(OPEN)
+  priority TicketPriority @default(NORMAL)
+
+  // Admin response
+  adminResponse String?   @db.Text
+  resolvedById  String?
+  resolvedBy    User?     @relation("ResolvedTickets", fields: [resolvedById], references: [id])
+  resolvedAt    DateTime?
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
+  @@index([ticketNumber])
+  @@index([schoolId])
+}
+
+enum TicketCategory {
+  ACCOUNT_ISSUE        // Login, profile, account settings
+  TECHNICAL_PROBLEM    // Bugs, errors, app not working
+  MATCHING_QUESTION    // How matching works, results questions
+  SUBSCRIPTION_BILLING // Subscription, payment, billing (coordinators)
+  DATA_PRIVACY         // GDPR requests, data deletion
+  FEATURE_REQUEST      // Suggestions for new features
+  OTHER                // General inquiries
+}
+
+enum TicketStatus {
+  OPEN        // New, not yet reviewed
+  IN_PROGRESS // Admin is working on it
+  RESOLVED    // Closed with response
+  CLOSED      // Closed without response (spam, duplicate, etc.)
+}
+
+enum TicketPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
 }

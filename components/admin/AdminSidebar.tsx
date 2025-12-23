@@ -30,6 +30,7 @@ import {
   Database,
   BarChart3,
   LogOut,
+  Ticket,
   type LucideIcon
 } from 'lucide-react'
 
@@ -53,7 +54,8 @@ const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/coordinators', label: 'Coordinators', icon: UserCog },
   { href: '/admin/students', label: 'Students', icon: Users },
   { href: '/admin/agents', label: 'University Agents', icon: Handshake },
-  { href: '/admin/reference-data', label: 'Reference Data', icon: Database }
+  { href: '/admin/reference-data', label: 'Reference Data', icon: Database },
+  { href: '/admin/support', label: 'Support Tickets', icon: Ticket }
 ]
 
 export function AdminSidebar({ user }: AdminSidebarProps) {

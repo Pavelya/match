@@ -62,6 +62,15 @@ export const rateLimiters = {
     limiter: Ratelimit.slidingWindow(60, '1 m'),
     prefix: 'ratelimit:api',
     analytics: true
+  }),
+
+  // Support tickets: 5 requests per hour per user
+  // Prevents abuse while allowing legitimate support requests
+  support: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, '1 h'),
+    prefix: 'ratelimit:support',
+    analytics: true
   })
 }
 

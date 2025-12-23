@@ -35,6 +35,7 @@ import {
   LogOut,
   Crown,
   Lock,
+  HelpCircle,
   type LucideIcon
 } from 'lucide-react'
 
@@ -57,7 +58,8 @@ const navLinks: NavLink[] = [
     icon: BarChart3,
     requiresSubscription: true
   },
-  { href: '/coordinator/settings', label: 'Settings', icon: Settings }
+  { href: '/coordinator/settings', label: 'Settings', icon: Settings },
+  { href: '/coordinator/support', label: 'Support', icon: HelpCircle }
 ]
 
 export interface CoordinatorSidebarProps {
