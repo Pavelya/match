@@ -2,14 +2,16 @@
  * Students Table Component
  *
  * Displays students in a consistent table format using the shared DataTable.
+ * Includes delete action with confirmation dialog.
  */
 
 'use client'
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { User, School, Crown, CheckCircle2, XCircle, ExternalLink } from 'lucide-react'
+import { User, School, Crown, CheckCircle2, XCircle, ExternalLink, Trash2 } from 'lucide-react'
 import { DataTable, type Column } from '@/components/admin/shared'
+import { DeleteStudentDialog } from './DeleteStudentDialog'
 
 interface StudentSchool {
   id: string
@@ -134,13 +136,29 @@ const columns: Column<Student>[] = [
     key: 'actions',
     header: '',
     render: (student) => (
-      <Link
-        href={`/admin/students/${student.id}`}
-        className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-      >
-        View
-        <ExternalLink className="h-3.5 w-3.5" />
-      </Link>
+      <div className="flex items-center gap-2 justify-end">
+        <Link
+          href={`/admin/students/${student.id}`}
+          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
+        >
+          View
+          <ExternalLink className="h-3.5 w-3.5" />
+        </Link>
+        <DeleteStudentDialog
+          studentId={student.id}
+          studentName={student.name}
+          studentEmail={student.email}
+          onDeleted={() => window.location.reload()}
+          trigger={
+            <button
+              className="inline-flex items-center gap-1.5 text-sm text-destructive hover:underline"
+              title="Delete student"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+          }
+        />
+      </div>
     )
   }
 ]

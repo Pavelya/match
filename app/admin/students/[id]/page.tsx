@@ -31,6 +31,7 @@ import {
   QuickStat,
   Breadcrumbs
 } from '@/components/admin/shared'
+import { StudentDetailActions } from '@/components/admin/students/StudentDetailActions'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -193,6 +194,13 @@ export default async function StudentDetailPage({ params }: PageProps) {
                 </div>
               </InfoCard>
             )}
+
+            {/* Danger Zone - Delete Account */}
+            <StudentDetailActions
+              studentId={student.id}
+              studentName={student.name}
+              studentEmail={student.email}
+            />
           </>
         }
       >
