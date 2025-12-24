@@ -14,7 +14,9 @@ import { NextResponse } from 'next/server'
 
 /**
  * Auth middleware wrapper
- * Checks authentication and redirects unauthenticated users from protected routes
+ * - Adds request ID for tracing
+ * - Redirects logged-in users from auth pages to role-appropriate dashboards
+ * - Protects /student/* routes (requires authentication)
  */
 export default auth((req) => {
   const { pathname } = req.nextUrl
@@ -23,6 +25,35 @@ export default auth((req) => {
   const requestId = crypto.randomUUID()
   const response = NextResponse.next()
   response.headers.set('x-request-id', requestId)
+
+  // Auth sign-in pages that should redirect logged-in users
+  const isAuthSignInPage = pathname === '/auth/signin' || pathname === '/auth/coordinator'
+
+  // Skip redirect for special auth flows (invitations, verify, error)
+  const isSpecialAuthFlow =
+    pathname.includes('/accept-invite') ||
+    pathname.includes('/accept-student-invite') ||
+    pathname === '/auth/verify-request' ||
+    pathname === '/auth/error'
+
+  // Redirect logged-in users from auth sign-in pages to their dashboard
+  if (isAuthSignInPage && !isSpecialAuthFlow && req.auth?.user) {
+    const role = req.auth.user.role
+    let redirectTo = '/student/matches' // Default for students
+
+    if (role === 'COORDINATOR') {
+      redirectTo = '/coordinator/dashboard'
+    } else if (role === 'PLATFORM_ADMIN') {
+      redirectTo = '/admin/dashboard'
+    } else if (role === 'UNIVERSITY_AGENT') {
+      redirectTo = '/' // Placeholder until agent dashboard exists
+    }
+
+    const redirectUrl = new URL(redirectTo, req.url)
+    const redirectResponse = NextResponse.redirect(redirectUrl)
+    redirectResponse.headers.set('x-request-id', requestId)
+    return redirectResponse
+  }
 
   // Protected routes that require authentication
   const isProtectedRoute = pathname.startsWith('/student')
