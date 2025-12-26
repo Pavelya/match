@@ -16,6 +16,7 @@ import { prisma } from '@/lib/prisma'
 import { CoordinatorSidebar } from '@/components/coordinator/CoordinatorSidebar'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
+import { ReconsentChecker } from '@/components/shared/ReconsentChecker'
 
 export default async function CoordinatorLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -124,6 +125,7 @@ export default async function CoordinatorLayout({ children }: { children: React.
       />
       {/* Main content with left margin to account for sidebar */}
       <main className="ml-64 min-h-screen">{children}</main>
+      <ReconsentChecker />
     </div>
   )
 }

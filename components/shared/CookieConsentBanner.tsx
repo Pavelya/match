@@ -151,8 +151,8 @@ export function CookieConsentBanner() {
               <p className="mt-1 text-sm text-muted-foreground">
                 We use cookies to enhance your experience. Essential cookies are required for the
                 app to work. You can accept all cookies or only essential ones.{' '}
-                <Link href="/privacy" className="text-primary hover:underline">
-                  Learn more
+                <Link href="/cookies" className="text-primary hover:underline">
+                  Cookie Policy
                 </Link>
               </p>
             </div>

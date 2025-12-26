@@ -4,6 +4,7 @@ import { StudentHeader } from '@/components/layout/StudentHeader'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { ReconsentChecker } from '@/components/shared/ReconsentChecker'
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -30,6 +31,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
       <main className="pb-20 md:pb-8">{children}</main>
       <StudentFooter />
       <MobileBottomNav isLoggedIn={true} />
+      <ReconsentChecker />
     </div>
   )
 }

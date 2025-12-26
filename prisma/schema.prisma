@@ -46,6 +46,10 @@ model User {
   supportTickets  SupportTicket[]
   resolvedTickets SupportTicket[] @relation("ResolvedTickets")
 
+  // Legal document versioning (audit trail)
+  createdDocumentVersions   LegalDocumentVersion[] @relation("CreatedVersions")
+  publishedDocumentVersions LegalDocumentVersion[] @relation("PublishedVersions")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -513,4 +517,78 @@ enum TicketPriority {
   NORMAL
   HIGH
   URGENT
+}
+
+// ============================================
+// LEGAL DOCUMENT VERSIONING
+// ============================================
+
+model LegalDocument {
+  id   String            @id @default(cuid())
+  type LegalDocumentType @unique
+
+  // All versions of this document
+  versions LegalDocumentVersion[]
+
+  // Currently published version
+  publishedVersionId String?               @unique
+  publishedVersion   LegalDocumentVersion? @relation("PublishedVersion", fields: [publishedVersionId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LegalDocumentVersion {
+  id         String        @id @default(cuid())
+  documentId String
+  document   LegalDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  // Content
+  title   String
+  content String @db.Text // Markdown content
+
+  // Versioning
+  versionNumber Int    // Auto-incremented per document
+  versionLabel  String // Human-readable, e.g., "2025-12-26" or "v2.1"
+
+  // State management
+  status DocumentStatus @default(DRAFT)
+
+  // Scheduling
+  effectiveDate DateTime? // When this version becomes active
+
+  // Audit
+  createdById   String
+  createdBy     User      @relation("CreatedVersions", fields: [createdById], references: [id])
+  publishedById String?
+  publishedBy   User?     @relation("PublishedVersions", fields: [publishedById], references: [id])
+  publishedAt   DateTime?
+
+  // Metadata
+  changeNotes String? // Summary of what changed
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Published relation (one-to-one back-reference)
+  publishedFor LegalDocument? @relation("PublishedVersion")
+
+  @@unique([documentId, versionNumber])
+  @@index([documentId])
+  @@index([status])
+  @@index([createdById])
+}
+
+enum LegalDocumentType {
+  TERMS_OF_SERVICE
+  PRIVACY_POLICY
+  FAQ
+  COOKIE_POLICY
+}
+
+enum DocumentStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  ARCHIVED
 }

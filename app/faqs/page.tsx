@@ -4,6 +4,7 @@ import { HelpCircle, Mail } from 'lucide-react'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { FAQAccordion } from './_components/FAQAccordion'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { getPublishedDocument } from '@/lib/legal-documents'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 
@@ -31,8 +32,8 @@ export const metadata: Metadata = {
   }
 }
 
-// FAQ data with structured content for SEO
-const faqs = [
+// Fallback FAQ data (used when CMS content is not available)
+const FALLBACK_FAQS = [
   {
     question: 'How does IB Match work?',
     answer:
@@ -80,21 +81,52 @@ const faqs = [
   }
 ]
 
-// JSON-LD structured data for FAQ page (helps with Google rich snippets)
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer
+/**
+ * Parse FAQ content from markdown format.
+ * Expected format:
+ * ## Question here?
+ * Answer text here.
+ *
+ * ## Another question?
+ * Another answer.
+ */
+function parseFaqsFromMarkdown(content: string): { question: string; answer: string }[] {
+  const faqs: { question: string; answer: string }[] = []
+  const sections = content.split(/^## /m).filter(Boolean)
+
+  for (const section of sections) {
+    const lines = section.trim().split('\n')
+    const question = lines[0]?.trim()
+    const answer = lines.slice(1).join('\n').trim()
+    if (question && answer) {
+      faqs.push({ question, answer })
     }
-  }))
+  }
+
+  return faqs
 }
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  // Fetch content from CMS
+  const cmsContent = await getPublishedDocument('FAQ')
+
+  // Parse FAQs from CMS content or use fallback
+  const faqs = cmsContent?.content ? parseFaqsFromMarkdown(cmsContent.content) : FALLBACK_FAQS
+
+  // JSON-LD structured data for FAQ page (helps with Google rich snippets)
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  }
+
   return (
     <>
       <script
@@ -118,6 +150,19 @@ export default function FAQPage() {
 
           {/* FAQ Accordion */}
           <FAQAccordion faqs={faqs} />
+
+          {cmsContent && (
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              Last updated:{' '}
+              {cmsContent.effectiveDate
+                ? new Date(cmsContent.effectiveDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })
+                : 'Recently'}
+            </p>
+          )}
 
           {/* Still have questions section */}
           <div className="mt-16 rounded-2xl bg-gray-50 p-8 text-center">
