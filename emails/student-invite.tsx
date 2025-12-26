@@ -15,6 +15,7 @@ import {
   Heading,
   Hr,
   Html,
+  Img,
   Link,
   Preview,
   Section,
@@ -46,6 +47,15 @@ export default function StudentInviteEmail({
       <Preview>You&apos;ve been invited to join {schoolName} on IB Match</Preview>
       <Body style={main}>
         <Container style={container}>
+          <Section style={logoContainer}>
+            <Img
+              src={`${baseUrl}/logo-restored.svg`}
+              width="60"
+              height="60"
+              alt="IB Match"
+              style={logo}
+            />
+          </Section>
           <Heading style={h1}>Join {schoolName} on IB Match</Heading>
 
           <Text style={text}>Hello,</Text>
@@ -124,6 +134,15 @@ const container = {
   padding: '40px 48px',
   maxWidth: '560px',
   borderRadius: '8px'
+}
+
+const logoContainer = {
+  textAlign: 'center' as const,
+  marginBottom: '24px'
+}
+
+const logo = {
+  display: 'inline-block'
 }
 
 const h1 = {
