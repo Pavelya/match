@@ -49,7 +49,7 @@ export default function StudentInviteEmail({
         <Container style={container}>
           <Section style={logoContainer}>
             <Img
-              src={`${baseUrl}/logo-restored.svg`}
+              src={`${baseUrl}/logo-email.png`}
               width="60"
               height="60"
               alt="IB Match"
