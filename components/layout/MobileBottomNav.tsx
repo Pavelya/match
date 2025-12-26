@@ -7,6 +7,7 @@
  * - Animated transitions
  * - Active state with filled icons and primary color
  * - Real links that work properly
+ * - Redirect mapping for logged-out users
  */
 
 'use client'
@@ -17,35 +18,53 @@ import { usePathname } from 'next/navigation'
 import { Heart, Bookmark, GraduationCap, Search } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+interface MobileBottomNavProps {
+  /** Whether the user is logged in */
+  isLoggedIn?: boolean
+}
+
 // Navigation items with icons
+// For logged-out users, student/* routes redirect to signin
 const navItems = [
   {
     href: '/student/matches',
     label: 'Matches',
-    icon: Heart
+    icon: Heart,
+    requiresAuth: true
   },
   {
     href: '/student/saved',
     label: 'Saved',
-    icon: Bookmark
+    icon: Bookmark,
+    requiresAuth: true
   },
   {
     href: '/student/onboarding',
     label: 'Academic',
-    icon: GraduationCap
+    icon: GraduationCap,
+    requiresAuth: true
   },
   {
     href: '/programs/search',
     label: 'Search',
-    icon: Search
+    icon: Search,
+    requiresAuth: false
   }
 ]
 
-export function MobileBottomNav() {
+export function MobileBottomNav({ isLoggedIn = false }: MobileBottomNavProps) {
   const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(true)
   const lastScrollY = useRef(0)
   const ticking = useRef(false)
+
+  // Get the appropriate href for a nav item based on auth state
+  const getNavHref = (item: (typeof navItems)[0]) => {
+    if (!isLoggedIn && item.requiresAuth) {
+      return '/auth/signin'
+    }
+    return item.href
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,13 +105,14 @@ export function MobileBottomNav() {
     >
       <div className="flex items-center justify-around h-16 px-2 safe-area-inset-bottom">
         {navItems.map((item) => {
+          const href = getNavHref(item)
           const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
           const Icon = item.icon
 
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={href}
               className={cn(
                 'flex flex-col items-center justify-center flex-1 py-2 gap-1',
                 'transition-colors',

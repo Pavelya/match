@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 
 export default async function PrivacyPolicyPage() {
   const session = await auth()
+  const isLoggedIn = !!session
 
   // Compute avatar values server-side
   const avatarColor = session ? getAvatarColor(session.user?.email) : ''
@@ -22,16 +23,19 @@ export default async function PrivacyPolicyPage() {
 
   return (
     <>
-      {session && (
-        <StudentHeader
-          user={{
-            image: session.user?.image,
-            name: session.user?.name,
-            avatarColor,
-            initial
-          }}
-        />
-      )}
+      <StudentHeader
+        isLoggedIn={isLoggedIn}
+        user={
+          session
+            ? {
+                image: session.user?.image,
+                name: session.user?.name,
+                avatarColor,
+                initial
+              }
+            : null
+        }
+      />
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12">
           <h1 className="mb-2 text-3xl font-bold">Privacy Policy</h1>
@@ -344,7 +348,7 @@ export default async function PrivacyPolicyPage() {
         </div>
       </PageContainer>
       <StudentFooter />
-      {session && <MobileBottomNav />}
+      <MobileBottomNav isLoggedIn={isLoggedIn} />
     </>
   )
 }

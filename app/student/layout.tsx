@@ -19,6 +19,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
   return (
     <div className="min-h-screen bg-background">
       <StudentHeader
+        isLoggedIn={true}
         user={{
           image: session.user?.image,
           name: session.user?.name,
@@ -28,7 +29,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
       />
       <main className="pb-20 md:pb-8">{children}</main>
       <StudentFooter />
-      <MobileBottomNav />
+      <MobileBottomNav isLoggedIn={true} />
     </div>
   )
 }
