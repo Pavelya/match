@@ -1,0 +1,6 @@
+name,description,field_of_study,degree_type,duration,min_ib_points,program_url,course_requirements
+Economics,A rigorous program exploring microeconomics macroeconomics and econometrics for future business leaders.,Business & Economics,Bachelor,3 years,34,,
+Psychology,Study of human behavior cognition and mental processes with research methodology training.,Social Sciences,Bachelor,3 years,32,,
+Computer Science,Comprehensive program covering algorithms data structures software engineering and artificial intelligence.,Computer Science,Bachelor,4 years,36,,"MATH-AA:HL:5;CS:HL:5"
+Mechanical Engineering,Engineering program focused on mechanics thermodynamics and material science with practical lab work.,Natural Sciences,Bachelor,4 years,38,,"PHYS:HL:5;MATH-AA:HL:5"
+Biomedical Sciences,Interdisciplinary program combining biology and chemistry for medical research careers.,Natural Sciences,Bachelor,3 years,35,,"(BIO:HL:5|CHEM:HL:5);MATH-AA:SL:4"

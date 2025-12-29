@@ -234,3 +234,98 @@ export async function syncAllProgramsToAlgolia(): Promise<{
     return { success: 0, failed: 0 }
   }
 }
+
+/**
+ * Sync multiple programs to Algolia in batch (optimized for bulk uploads)
+ *
+ * Uses Algolia's saveObjects for efficient batch indexing.
+ * Processes in batches of 100 records to respect API limits.
+ *
+ * @param programIds - Array of program IDs to sync
+ * @returns Object with success/failed counts and details
+ */
+export async function syncProgramsBatch(programIds: string[]): Promise<{
+  success: number
+  failed: number
+  errors: Array<{ programId: string; error: string }>
+}> {
+  if (programIds.length === 0) {
+    return { success: 0, failed: 0, errors: [] }
+  }
+
+  logger.info('Starting batch sync to Algolia', { count: programIds.length })
+
+  const errors: Array<{ programId: string; error: string }> = []
+  const records: AlgoliaProgramRecord[] = []
+
+  // Transform all programs to Algolia records
+  for (const programId of programIds) {
+    try {
+      const record = await transformProgramToAlgolia(programId)
+      if (record) {
+        records.push(record)
+      } else {
+        errors.push({ programId, error: 'Failed to transform program' })
+      }
+    } catch (error) {
+      errors.push({
+        programId,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      })
+    }
+  }
+
+  if (records.length === 0) {
+    logger.warn('No valid records to sync', { failed: programIds.length })
+    return { success: 0, failed: programIds.length, errors }
+  }
+
+  // Batch save to Algolia (max 1000 per request, we use 100 for safety)
+  const BATCH_SIZE = 100
+  let totalSuccess = 0
+
+  try {
+    for (let i = 0; i < records.length; i += BATCH_SIZE) {
+      const batch = records.slice(i, i + BATCH_SIZE)
+
+      await algolia.saveObjects({
+        indexName: INDEX_NAMES.PROGRAMS,
+        objects: batch as unknown as Record<string, unknown>[]
+      })
+
+      totalSuccess += batch.length
+      logger.info('Batch saved to Algolia', {
+        batch: Math.floor(i / BATCH_SIZE) + 1,
+        count: batch.length,
+        total: records.length
+      })
+    }
+  } catch (error) {
+    logger.error('Failed to save batch to Algolia', { error })
+    // Calculate how many failed in the Algolia save step
+    const failedInSave = records.length - totalSuccess
+    return {
+      success: totalSuccess,
+      failed: errors.length + failedInSave,
+      errors: [
+        ...errors,
+        {
+          programId: 'batch',
+          error: error instanceof Error ? error.message : 'Algolia batch save failed'
+        }
+      ]
+    }
+  }
+
+  logger.info('Batch sync completed', {
+    success: totalSuccess,
+    failed: errors.length,
+    total: programIds.length
+  })
+
+  return {
+    success: totalSuccess,
+    failed: errors.length,
+    errors
+  }
+}

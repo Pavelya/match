@@ -32,6 +32,7 @@ import {
   LogOut,
   Ticket,
   FileText,
+  Upload,
   type LucideIcon
 } from 'lucide-react'
 
@@ -51,6 +52,7 @@ const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/admin/universities', label: 'Universities', icon: Building2 },
   { href: '/admin/programs', label: 'Programs', icon: BookOpen },
+  { href: '/admin/programs/bulk-upload', label: 'Bulk Upload', icon: Upload },
   { href: '/admin/schools', label: 'IB Schools', icon: GraduationCap },
   { href: '/admin/coordinators', label: 'Coordinators', icon: UserCog },
   { href: '/admin/students', label: 'Students', icon: Users },
