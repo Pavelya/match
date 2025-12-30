@@ -11,10 +11,6 @@ import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
 
 const prisma = new PrismaClient()
 
-// Current policy versions - update these when policies change
-const CURRENT_TERMS_VERSION = '2025-12-09'
-const CURRENT_PRIVACY_VERSION = '2025-12-09'
-
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -121,26 +117,48 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
   },
   events: {
-    async signIn({ user, account }) {
-      // Record consent after sign-in completes (user agreed by clicking sign-in button)
+    async signIn({ user, account, isNewUser }) {
+      // Record initial consent ONLY for NEW users who sign up
       // The sign-in page displays "By continuing, you agree to our Terms and Privacy Policy"
-      // Using events.signIn instead of callbacks.signIn because the event fires AFTER
-      // the user record is created in the database, ensuring user.id is valid
-      if (account?.provider === 'google' || account?.provider === 'resend') {
+      // We only set versions for brand new users - existing users keep their accepted versions
+      // When terms are updated, the ReconsentChecker will prompt users to re-accept
+      if (isNewUser && (account?.provider === 'google' || account?.provider === 'resend')) {
         if (user.id) {
           try {
-            await prisma.user.update({
-              where: { id: user.id },
-              data: {
-                termsAcceptedAt: new Date(),
-                termsVersion: CURRENT_TERMS_VERSION,
-                privacyAcceptedAt: new Date(),
-                privacyPolicyVersion: CURRENT_PRIVACY_VERSION
-              }
-            })
+            // Check current published versions from the CMS
+            const [termsDoc, privacyDoc] = await Promise.all([
+              prisma.legalDocument.findUnique({
+                where: { type: 'TERMS_OF_SERVICE' },
+                include: { publishedVersion: { select: { versionLabel: true } } }
+              }),
+              prisma.legalDocument.findUnique({
+                where: { type: 'PRIVACY_POLICY' },
+                include: { publishedVersion: { select: { versionLabel: true } } }
+              })
+            ])
+
+            const termsVersion = termsDoc?.publishedVersion?.versionLabel || null
+            const privacyVersion = privacyDoc?.publishedVersion?.versionLabel || null
+
+            // Only update if we have published versions
+            if (termsVersion || privacyVersion) {
+              await prisma.user.update({
+                where: { id: user.id },
+                data: {
+                  ...(termsVersion && {
+                    termsAcceptedAt: new Date(),
+                    termsVersion
+                  }),
+                  ...(privacyVersion && {
+                    privacyAcceptedAt: new Date(),
+                    privacyPolicyVersion: privacyVersion
+                  })
+                }
+              })
+            }
           } catch (error) {
             // Log but don't fail - consent recording is non-blocking
-            logger.error('Failed to record consent on sign-in', {
+            logger.error('Failed to record initial consent for new user', {
               userId: user.id?.slice(0, 8),
               error: error instanceof Error ? error.message : 'Unknown error'
             })
