@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Info } from 'lucide-react'
+import { Info, AlertCircle } from 'lucide-react'
 
 function SignInForm() {
   const searchParams = useSearchParams()
@@ -16,15 +16,45 @@ function SignInForm() {
 
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    await signIn('resend', { email, callbackUrl: '/student' })
+    setError(null)
+
+    try {
+      const result = await signIn('resend', {
+        email,
+        callbackUrl: '/student',
+        redirect: false
+      })
+
+      if (result?.error) {
+        // Handle NextAuth errors
+        setError('Unable to send magic link. Please try again.')
+        setIsLoading(false)
+      } else if (result?.url) {
+        // Success - redirect to verify-request page
+        window.location.href = result.url
+      } else {
+        // Fallback - redirect to verify-request
+        window.location.href = '/auth/verify-request'
+      }
+    } catch {
+      // Handle network/rate limit errors
+      setError('Too many sign-in attempts. Please wait a moment and try again.')
+      setIsLoading(false)
+    }
   }
 
-  const handleGoogleSignIn = () => {
-    signIn('google', { callbackUrl: '/student' })
+  const handleGoogleSignIn = async () => {
+    setError(null)
+    try {
+      await signIn('google', { callbackUrl: '/student' })
+    } catch {
+      setError('Too many sign-in attempts. Please wait a moment and try again.')
+    }
   }
 
   return (
@@ -60,6 +90,14 @@ function SignInForm() {
                 universities and track your program matches independently.
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Error Display */}
+        {error && (
+          <div className="flex items-start gap-2 p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-sm text-destructive">
+            <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+            <span>{error}</span>
           </div>
         )}
 

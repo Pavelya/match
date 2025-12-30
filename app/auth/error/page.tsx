@@ -12,7 +12,9 @@ export default async function AuthErrorPage({
     Configuration: 'There is a problem with the server configuration.',
     AccessDenied: 'You do not have permission to sign in.',
     Verification: 'The sign-in link is no longer valid. It may have expired.',
-    Default: 'An error occurred during sign-in. Please try again.'
+    RateLimit: 'Too many sign-in attempts. Please wait a moment and try again.',
+    TooManyRequests: 'Too many sign-in attempts. Please wait a moment and try again.',
+    Default: 'Something went wrong. Please try again.'
   }
 
   const error = params.error || 'Default'

@@ -55,10 +55,19 @@ export function AcceptStudentInviteForm({
         body: JSON.stringify({ token })
       })
 
+      // Handle rate limit error specifically
+      if (response.status === 429) {
+        setError('Too many attempts. Please wait a moment and try again.')
+        setIsLoading(false)
+        return
+      }
+
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to accept invitation')
+        setError(data.error || 'Failed to accept invitation. Please try again.')
+        setIsLoading(false)
+        return
       }
 
       // Sign in with the email (magic link style - the API will handle this)
@@ -70,13 +79,16 @@ export function AcceptStudentInviteForm({
       })
 
       if (result?.error) {
-        throw new Error('Failed to sign in. Please check your email for the verification link.')
+        setError('Failed to sign in. Please check your email for the verification link.')
+        setIsLoading(false)
+        return
       }
 
       // Redirect to the verify-request page (magic link sent)
       router.push('/auth/verify-request')
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred')
+    } catch {
+      // Handle network/rate limit errors
+      setError('Too many attempts. Please wait a moment and try again.')
       setIsLoading(false)
     }
   }

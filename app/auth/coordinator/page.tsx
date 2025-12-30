@@ -56,6 +56,11 @@ export default function CoordinatorSignInPage() {
           return
         }
         // COORDINATOR or PLATFORM_ADMIN - proceed with sign-in
+      } else if (checkRes.status === 429) {
+        // Rate limit exceeded
+        setError('Too many sign-in attempts. Please wait a moment and try again.')
+        setIsLoading(false)
+        return
       } else if (checkRes.status === 404) {
         // Email not found - could be a new coordinator who hasn't accepted invite yet
         // Show error asking them to use the invitation link
@@ -67,12 +72,23 @@ export default function CoordinatorSignInPage() {
       }
 
       // Proceed with magic link sign-in
-      await signIn('resend', {
+      const result = await signIn('resend', {
         email: email.trim().toLowerCase(),
-        callbackUrl: '/coordinator/dashboard'
+        callbackUrl: '/coordinator/dashboard',
+        redirect: false
       })
+
+      if (result?.error) {
+        setError('Unable to send magic link. Please try again.')
+        setIsLoading(false)
+      } else if (result?.url) {
+        window.location.href = result.url
+      } else {
+        window.location.href = '/auth/verify-request'
+      }
     } catch {
-      setError('An error occurred. Please try again.')
+      // Handle network/rate limit errors
+      setError('Too many sign-in attempts. Please wait a moment and try again.')
       setIsLoading(false)
     }
   }
