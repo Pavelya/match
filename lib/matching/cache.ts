@@ -162,11 +162,13 @@ export async function invalidateStudentCache(studentId: string): Promise<void> {
     // Find all keys for this student using SCAN (non-blocking)
     const pattern = `match:${studentId}:*`
     const batchPattern = `matches:${studentId}:*`
+    const v10Pattern = `matchesV10:${studentId}:*`
 
     const matchKeys = await scanKeys(pattern)
     const batchKeys = await scanKeys(batchPattern)
+    const v10Keys = await scanKeys(v10Pattern)
 
-    const allKeys = [...matchKeys, ...batchKeys]
+    const allKeys = [...matchKeys, ...batchKeys, ...v10Keys]
 
     if (allKeys.length > 0) {
       await redis.del(...allKeys)
@@ -207,8 +209,9 @@ export async function clearAllMatchCache(): Promise<void> {
   try {
     const matchKeys = await scanKeys('match:*')
     const batchKeys = await scanKeys('matches:*')
+    const v10Keys = await scanKeys('matchesV10:*')
 
-    const allKeys = [...matchKeys, ...batchKeys]
+    const allKeys = [...matchKeys, ...batchKeys, ...v10Keys]
 
     if (allKeys.length > 0) {
       await redis.del(...allKeys)

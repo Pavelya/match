@@ -7,6 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { applyRateLimit } from '@/lib/rate-limit'
@@ -47,6 +48,9 @@ export async function PATCH(request: NextRequest) {
         name: name?.trim() || null
       }
     })
+
+    // Invalidate the settings cache so the user sees updated data immediately
+    revalidateTag(`user-settings-${session.user.id}`, { expire: 0 })
 
     return NextResponse.json({ success: true })
   } catch (error) {

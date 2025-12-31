@@ -8,6 +8,9 @@ import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { MarkdownContent } from '@/components/shared/MarkdownContent'
 
+// ISR - page fetches CMS content and is cached for 1 hour
+export const revalidate = 3600
+
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'Learn how IB Match collects, uses, and protects your personal data.'

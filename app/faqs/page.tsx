@@ -6,6 +6,9 @@ import { FAQAccordion } from './_components/FAQAccordion'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { getPublishedDocument } from '@/lib/legal-documents'
 
+// ISR - page fetches CMS content but is cached for 1 hour
+export const revalidate = 3600
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 
 export const metadata: Metadata = {

@@ -16,6 +16,7 @@
  */
 
 import { NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
@@ -63,6 +64,9 @@ export async function POST() {
         coordinatorAccessConsentVersion: null
       }
     })
+
+    // Invalidate the settings cache so the user sees updated data immediately
+    revalidateTag(`user-settings-${session.user.id}`, { expire: 0 })
 
     // 5. Log the action for audit trail
     const redactedEmail = session.user.email?.replace(/(.{2}).*(@.*)/, '$1***$2') || 'unknown'

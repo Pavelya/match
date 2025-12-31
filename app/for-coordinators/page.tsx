@@ -6,6 +6,11 @@ import { CoordinatorDashboard } from './_components/CoordinatorDashboard'
 import { CoordinatorCTA } from './_components/CoordinatorCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 
+// Static generation - page is pre-rendered at build time
+// Revalidate every hour to pick up any changes
+export const dynamic = 'force-static'
+export const revalidate = 3600
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 
 export const metadata: Metadata = {

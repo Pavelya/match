@@ -13,6 +13,7 @@
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
+import { unstable_cache } from 'next/cache'
 import { AccountSettingsClient } from './AccountSettingsClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 
@@ -25,6 +26,54 @@ export const metadata = {
   }
 }
 
+/**
+ * Cached user settings fetch
+ * TTL: 5 minutes (300 seconds)
+ * Tag: user-settings-{userId} for targeted invalidation
+ */
+const getCachedUserSettings = (userId: string) =>
+  unstable_cache(
+    async () => {
+      return prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          image: true,
+          createdAt: true,
+          studentProfile: {
+            select: {
+              id: true,
+              schoolId: true,
+              linkedByInvitation: true,
+              coordinatorAccessConsentAt: true,
+              school: {
+                select: {
+                  id: true,
+                  name: true,
+                  logo: true,
+                  city: true,
+                  country: {
+                    select: {
+                      name: true,
+                      flagEmoji: true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      })
+    },
+    [`user-settings-${userId}`],
+    {
+      revalidate: 300, // 5 minutes
+      tags: [`user-settings-${userId}`]
+    }
+  )()
+
 export default async function AccountSettingsPage() {
   // Check authentication
   const session = await auth()
@@ -32,45 +81,15 @@ export default async function AccountSettingsPage() {
     redirect('/auth/signin')
   }
 
-  // Fetch user data from database with student profile and school
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      id: true,
-      email: true,
-      name: true,
-      image: true,
-      createdAt: true,
-      studentProfile: {
-        select: {
-          id: true,
-          schoolId: true,
-          linkedByInvitation: true,
-          coordinatorAccessConsentAt: true,
-          school: {
-            select: {
-              id: true,
-              name: true,
-              logo: true,
-              city: true,
-              country: {
-                select: {
-                  name: true,
-                  flagEmoji: true
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  })
+  // Fetch user data with caching (5-minute TTL)
+  const user = await getCachedUserSettings(session.user.id)
 
   if (!user) {
     redirect('/auth/signin')
   }
 
   // Prepare school info if linked
+  const consentAt = user.studentProfile?.coordinatorAccessConsentAt
   const schoolInfo = user.studentProfile?.school
     ? {
         id: user.studentProfile.school.id,
@@ -79,7 +98,12 @@ export default async function AccountSettingsPage() {
         city: user.studentProfile.school.city,
         countryName: user.studentProfile.school.country.name,
         countryFlag: user.studentProfile.school.country.flagEmoji,
-        linkedAt: user.studentProfile.coordinatorAccessConsentAt?.toISOString() || null,
+        // Handle cached data where Date is serialized to string
+        linkedAt: consentAt
+          ? typeof consentAt === 'string'
+            ? consentAt
+            : consentAt.toISOString()
+          : null,
         linkedByInvitation: user.studentProfile.linkedByInvitation
       }
     : null
@@ -96,7 +120,9 @@ export default async function AccountSettingsPage() {
           email: user.email,
           name: user.name,
           image: user.image,
-          createdAt: user.createdAt.toISOString()
+          // Handle cached data where Date is serialized to string
+          createdAt:
+            typeof user.createdAt === 'string' ? user.createdAt : user.createdAt.toISOString()
         }}
         school={schoolInfo}
       />

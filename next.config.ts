@@ -66,13 +66,74 @@ const nextConfig: NextConfig = {
   // Turbopack is default in Next.js 16
   // React Compiler will be enabled when available
 
-  // Security headers for all routes
+  // Experimental features for Vercel Pro optimization
+  experimental: {
+    // Stale times for client-side router cache
+    // Reduces redundant data fetching on navigation
+    staleTimes: {
+      dynamic: 30, // Cache dynamic routes for 30 seconds
+      static: 180 // Cache static routes for 3 minutes
+    }
+  },
+
+  // Security headers and caching headers for all routes
   async headers() {
     return [
       {
-        // Apply to all routes
+        // Apply security headers to all routes
         source: '/:path*',
         headers: securityHeaders
+      },
+      {
+        // Cache program search API responses at the edge
+        // Vercel Pro feature: stale-while-revalidate for instant responses
+        source: '/api/programs/search',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=60, stale-while-revalidate=300'
+          }
+        ]
+      },
+      {
+        // Cache reference data API (fields, countries, courses)
+        source: '/api/reference-data/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=3600, stale-while-revalidate=86400'
+          }
+        ]
+      },
+      {
+        // Cache static images in public folder (1 year, immutable)
+        source: '/:path*.(svg|png|jpg|jpeg|gif|ico|webp)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      {
+        // Cache fonts (1 year, immutable)
+        source: '/:path*.(woff|woff2|ttf|otf|eot)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
+      {
+        // Cache Next.js static assets (already have fingerprinting)
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
       }
     ]
   },
