@@ -31,6 +31,7 @@ interface SearchResult {
   objectID: string
   programId: string
   programName: string
+  universityId: string
   universityName: string
   universityAbbreviation?: string
   universityImageUrl?: string // URL from Supabase Storage
@@ -49,6 +50,7 @@ function transformToProgram(result: SearchResult) {
     id: result.programId,
     name: result.programName,
     university: {
+      id: result.universityId,
       name: result.universityName,
       abbreviation: result.universityAbbreviation ?? null,
       image: result.universityImageUrl ?? null

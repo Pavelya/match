@@ -297,60 +297,6 @@ export function UniversityEditForm({ university, countries }: UniversityEditForm
             </div>
           </div>
 
-          {/* Logo Upload */}
-          <div className="sm:col-span-2">
-            <label className="block text-sm font-medium text-foreground mb-1">
-              University Logo
-            </label>
-            <div className="flex items-start gap-4">
-              {/* Logo Preview */}
-              <div className="shrink-0 h-20 w-20 rounded-lg border bg-muted/30 flex items-center justify-center overflow-hidden">
-                {formData.logo ? (
-                  <Image
-                    src={formData.logo}
-                    alt="University logo"
-                    width={80}
-                    height={80}
-                    className="h-full w-full object-contain"
-                    unoptimized
-                  />
-                ) : (
-                  <ImageIcon className="h-8 w-8 text-muted-foreground" />
-                )}
-              </div>
-
-              {/* Upload Controls */}
-              <div className="flex-1 space-y-2">
-                <div className="flex gap-2">
-                  <label className="flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
-                    <Upload className="h-4 w-4" />
-                    {formData.logo ? 'Change Logo' : 'Upload Logo'}
-                    <input
-                      ref={logoInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) => handleImageChange(e, 'logo')}
-                      className="sr-only"
-                    />
-                  </label>
-                  {formData.logo && (
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveImage('logo')}
-                      className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-destructive border border-destructive/30 rounded-lg hover:bg-destructive/10 transition-colors"
-                    >
-                      <X className="h-4 w-4" />
-                      Remove
-                    </button>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  Max file size: 500KB. Supported formats: JPG, PNG, GIF, WebP
-                </p>
-              </div>
-            </div>
-          </div>
-
           {/* Campus Image Upload */}
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium text-foreground mb-1">Campus Image</label>

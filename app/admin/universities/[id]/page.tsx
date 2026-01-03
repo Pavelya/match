@@ -184,19 +184,19 @@ export default async function UniversityDetailPage({ params }: PageProps) {
               </div>
             </InfoCard>
 
-            {/* Logo Card */}
-            <InfoCard title="Logo" padding="compact">
+            {/* Campus Image Card */}
+            <InfoCard title="Campus Image" padding="compact">
               <div className="flex justify-center py-2">
-                {university.logo ? (
+                {university.image ? (
                   <Image
-                    src={university.logo}
+                    src={university.image}
                     alt={university.name}
-                    width={80}
-                    height={80}
-                    className="h-20 w-auto object-contain rounded-lg"
+                    width={160}
+                    height={100}
+                    className="h-24 w-auto object-cover rounded-lg"
                   />
                 ) : (
-                  <div className="h-20 w-20 rounded-lg bg-muted flex items-center justify-center">
+                  <div className="h-24 w-40 rounded-lg bg-muted flex items-center justify-center">
                     <Building2 className="h-8 w-8 text-muted-foreground" />
                   </div>
                 )}

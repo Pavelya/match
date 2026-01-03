@@ -139,6 +139,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
     programUrl: program.programUrl,
     city: program.university.city,
     university: {
+      id: program.university.id,
       name: program.university.name,
       abbreviation: program.university.abbreviatedName,
       image: program.university.image,

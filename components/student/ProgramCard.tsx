@@ -71,7 +71,9 @@ interface ProgramCardProps {
   program: {
     id: string
     name: string
+    universityId?: string
     university: {
+      id?: string
       name: string
       abbreviation?: string | null
       image?: string | null
@@ -426,7 +428,16 @@ export function ProgramCard({
             <div className="flex-1 space-y-3">
               <div>
                 <h1 className="text-2xl font-bold">{program.name}</h1>
-                <p className="text-muted-foreground">{program.university.name}</p>
+                {program.universityId || program.university.id ? (
+                  <Link
+                    href={`/universities/${program.universityId || program.university.id}`}
+                    className="text-muted-foreground hover:text-primary hover:underline transition-colors"
+                  >
+                    {program.university.name}
+                  </Link>
+                ) : (
+                  <p className="text-muted-foreground">{program.university.name}</p>
+                )}
                 <p className="text-muted-foreground text-sm">
                   {program.city}, {program.country.name}
                 </p>
@@ -772,7 +783,17 @@ export function ProgramCard({
                       </h3>
                     </Link>
                     <p className="text-sm text-muted-foreground">
-                      {program.university.name}
+                      {program.universityId || program.university.id ? (
+                        <Link
+                          href={`/universities/${program.universityId || program.university.id}`}
+                          className="hover:text-primary hover:underline transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {program.university.name}
+                        </Link>
+                      ) : (
+                        <span>{program.university.name}</span>
+                      )}
                       {program.city && `, ${program.city}`}
                       {`, ${program.country.name}`}
                     </p>
