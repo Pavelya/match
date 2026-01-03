@@ -329,3 +329,38 @@ export async function syncProgramsBatch(programIds: string[]): Promise<{
     errors
   }
 }
+
+/**
+ * Sync all programs belonging to a university to Algolia
+ * Called when university data changes (country, image, name, etc.)
+ * This ensures search results stay in sync with the latest university information.
+ */
+export async function syncUniversityProgramsToAlgolia(universityId: string): Promise<boolean> {
+  try {
+    logger.info('Syncing all programs for university to Algolia', { universityId })
+
+    const programs = await prisma.academicProgram.findMany({
+      where: { universityId },
+      select: { id: true }
+    })
+
+    if (programs.length === 0) {
+      logger.info('No programs to sync for university', { universityId })
+      return true
+    }
+
+    const { success, failed } = await syncProgramsBatch(programs.map((p) => p.id))
+
+    logger.info('University programs synced to Algolia', {
+      universityId,
+      success,
+      failed,
+      total: programs.length
+    })
+
+    return failed === 0
+  } catch (error) {
+    logger.error('Failed to sync university programs to Algolia', { error, universityId })
+    return false
+  }
+}

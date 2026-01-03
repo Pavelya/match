@@ -4,11 +4,17 @@
  * Prisma client extension that automatically syncs programs to Algolia
  * when they are created, updated, or deleted.
  *
+ * Also syncs programs when their parent university is updated (country, image, etc.)
+ *
  * Uses Prisma Client Extensions (modern approach replacing deprecated middleware)
  */
 
 import { Prisma } from '@prisma/client'
-import { syncProgramToAlgolia, deleteProgramFromAlgolia } from '@/lib/algolia/sync'
+import {
+  syncProgramToAlgolia,
+  deleteProgramFromAlgolia,
+  syncUniversityProgramsToAlgolia
+} from '@/lib/algolia/sync'
 import { logger } from '@/lib/logger'
 
 /**
@@ -115,6 +121,41 @@ export const algoliaExtension = Prisma.defineExtension({
         logger.warn('Bulk delete on programs - Algolia sync not triggered automatically', {
           count: result.count
         })
+        return result
+      }
+    },
+
+    // University hooks - sync all programs when university data changes
+    university: {
+      async update({ args, query }) {
+        const result = await query(args)
+
+        // Background sync of all programs for this university
+        if (result.id) {
+          logger.info('🔄 University updated, triggering Algolia sync for all programs', {
+            universityId: result.id,
+            universityName: result.name
+          })
+          syncUniversityProgramsToAlgolia(result.id)
+            .then((success) => {
+              if (success) {
+                logger.info('✅ Algolia sync completed for university programs', {
+                  universityId: result.id
+                })
+              } else {
+                logger.warn('⚠️ Algolia sync had failures for university programs', {
+                  universityId: result.id
+                })
+              }
+            })
+            .catch((error) => {
+              logger.error('❌ Background Algolia sync failed for university programs', {
+                error: error instanceof Error ? error.message : String(error),
+                universityId: result.id
+              })
+            })
+        }
+
         return result
       }
     }

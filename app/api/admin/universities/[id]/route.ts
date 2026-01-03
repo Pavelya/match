@@ -181,14 +181,18 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (image !== undefined) {
       if (image && typeof image === 'string' && image.length > 0) {
         if (isBase64Image(image)) {
-          // Upload base64 image to Supabase
+          // Try to upload to Supabase for optimization, but fall back to base64 if it fails
           try {
             const imageUrl = await uploadUniversityImage(image, id)
             updateData.image = imageUrl
             logger.info('Uploaded updated university image to Supabase', { universityId: id })
           } catch (uploadError) {
-            logger.error('Failed to upload university image', { error: uploadError })
-            // Continue without updating image
+            logger.warn('Supabase upload failed, saving image as base64', {
+              error: uploadError,
+              universityId: id
+            })
+            // Fall back to saving base64 directly (same as logo)
+            updateData.image = image
           }
         } else {
           // Assume it's already a URL

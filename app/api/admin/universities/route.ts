@@ -137,24 +137,29 @@ export async function POST(request: Request) {
       )
     }
 
-    // Handle image upload if provided as base64
-    let imageUrl: string | null = null
+    // Handle image - save directly (like logo), optionally upload to Supabase for optimization
+    let imageToSave: string | null = null
     if (image && typeof image === 'string' && image.length > 0) {
       if (isBase64Image(image)) {
-        // Generate a temporary ID for the filename (will update after create)
+        // Try to upload to Supabase for optimization, but fall back to base64 if it fails
         const tempId = `temp-${Date.now()}`
         try {
-          imageUrl = await uploadUniversityImage(image, tempId)
+          const imageUrl = await uploadUniversityImage(image, tempId)
+          imageToSave = imageUrl
           logger.info('Uploaded university image to Supabase', { imageUrl })
         } catch (uploadError) {
-          logger.error('Failed to upload university image', { error: uploadError })
-          // Continue without image rather than failing the whole request
+          logger.warn('Supabase upload failed, saving image as base64', { error: uploadError })
+          // Fall back to saving base64 directly (same as logo)
+          imageToSave = image
         }
       } else {
         // Assume it's already a URL
-        imageUrl = image.trim()
+        imageToSave = image.trim()
       }
     }
+
+    // Handle logo - save directly as base64
+    const logoToSave = logo && typeof logo === 'string' && logo.length > 0 ? logo : null
 
     // Create the university
     const university = await prisma.university.create({
@@ -166,8 +171,8 @@ export async function POST(request: Request) {
         city: city.trim(),
         classification,
         studentPopulation: studentPopulation ? parseInt(studentPopulation, 10) : null,
-        logo: logo?.trim() || null,
-        image: imageUrl,
+        logo: logoToSave,
+        image: imageToSave,
         websiteUrl: websiteUrl.trim(),
         email: email?.trim() || null,
         phone: phone?.trim() || null
