@@ -13,7 +13,7 @@ import Link from 'next/link'
 
 // Footer navigation links
 const footerLinks = [
-  { href: '/about', label: 'About' },
+  { href: '/support-us', label: 'Support Us' },
   { href: '/contact', label: 'Contact' },
   { href: '/faqs', label: 'FAQs' },
   { href: '/how-it-works', label: 'How It Works' },
