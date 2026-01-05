@@ -12,6 +12,9 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { invalidateProgramsCache } from '@/lib/matching/program-cache'
+import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
+import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -214,6 +217,13 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updatedFields: Object.keys(updateData)
     })
 
+    // Invalidate caches to reflect changes immediately
+    await Promise.all([
+      invalidateProgramsCache(),
+      invalidateProgramCache(id),
+      syncProgramToAlgolia(id)
+    ])
+
     return NextResponse.json(program)
   } catch (error) {
     logger.error('Error updating program', { error })
@@ -257,6 +267,13 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       programId: id,
       programName: program.name
     })
+
+    // Invalidate all caches - deleted programs must disappear from matches immediately
+    await Promise.all([
+      invalidateProgramsCache(),
+      clearAllMatchCache(),
+      deleteProgramFromAlgolia(id)
+    ])
 
     return NextResponse.json({ success: true })
   } catch (error) {

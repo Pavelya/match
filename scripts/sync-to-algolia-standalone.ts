@@ -5,6 +5,7 @@
  * Run with: npx tsx scripts/sync-to-algolia-standalone.ts
  */
 
+import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import { algoliasearch } from 'algoliasearch'
 
