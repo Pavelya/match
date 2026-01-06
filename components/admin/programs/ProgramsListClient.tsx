@@ -51,17 +51,26 @@ export function ProgramsListClient({ programs }: ProgramsListClientProps) {
   }, [programs])
 
   // Calculate stats
+  // Note: degreeType is a free-text field (e.g., "Bachelor of Science", "Master of Arts")
+  // so we check if it starts with "Bachelor" or "Master" rather than exact matching
   const stats = useMemo(() => {
-    const byDegree: Record<string, number> = {}
+    let bachelorCount = 0
+    let masterCount = 0
+
     programs.forEach((p) => {
-      byDegree[p.degreeType] = (byDegree[p.degreeType] || 0) + 1
+      const degreeTypeLower = p.degreeType.toLowerCase()
+      if (degreeTypeLower.startsWith('bachelor')) {
+        bachelorCount++
+      } else if (degreeTypeLower.startsWith('master')) {
+        masterCount++
+      }
     })
 
     return {
       total: programs.length,
-      bachelor: byDegree['BACHELORS'] || 0,
-      master: byDegree['MASTERS'] || 0,
-      other: programs.length - (byDegree['BACHELORS'] || 0) - (byDegree['MASTERS'] || 0)
+      bachelor: bachelorCount,
+      master: masterCount,
+      other: programs.length - bachelorCount - masterCount
     }
   }, [programs])
 
