@@ -17,7 +17,15 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { ProgramCard } from '@/components/student/ProgramCard'
-import { Search, X, SlidersHorizontal, Loader2, Sparkles } from 'lucide-react'
+import {
+  Search,
+  X,
+  SlidersHorizontal,
+  Loader2,
+  Sparkles,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react'
 import { logger } from '@/lib/logger'
 import { cn } from '@/lib/utils'
 import { FieldIcon } from '@/lib/icons'
@@ -78,6 +86,10 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
   const [results, setResults] = useState<SearchResult[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [totalHits, setTotalHits] = useState(0)
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
 
   // Filter state
   const [showFilters, setShowFilters] = useState(false)
@@ -144,7 +156,7 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
 
   // Debounced search function
   const performSearch = useCallback(
-    async (searchQuery: string, fieldIds: string[], countryIds: string[]) => {
+    async (searchQuery: string, fieldIds: string[], countryIds: string[], page: number) => {
       setIsLoading(true)
 
       try {
@@ -154,6 +166,7 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
         if (countryIds.length > 0) params.set('countries', countryIds.join(','))
         if (minPoints) params.set('minPoints', minPoints)
         if (maxPoints) params.set('maxPoints', maxPoints)
+        params.set('page', page.toString())
 
         const response = await fetch(`/api/programs/search?${params.toString()}`)
         const data = await response.json()
@@ -161,6 +174,7 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
         if (data.hits) {
           setResults(data.hits)
           setTotalHits(data.nbHits || data.hits.length)
+          setTotalPages(data.nbPages || 1)
         }
       } catch {
         setResults([])
@@ -174,10 +188,15 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
   // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
-      performSearch(query, selectedFields, selectedCountries)
+      performSearch(query, selectedFields, selectedCountries, currentPage)
     }, 300)
     return () => clearTimeout(timer)
-  }, [query, selectedFields, selectedCountries, performSearch])
+  }, [query, selectedFields, selectedCountries, currentPage, performSearch])
+
+  // Reset to page 0 when filters or query change
+  useEffect(() => {
+    setCurrentPage(0)
+  }, [query, selectedFields, selectedCountries, minPoints, maxPoints])
 
   // Update URL
   useEffect(() => {
@@ -419,6 +438,37 @@ export function SearchClient({ fields, countries }: SearchClientProps) {
               onUnsave={handleUnsave}
             />
           ))}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t">
+              <p className="text-sm text-muted-foreground">
+                Showing {currentPage * 50 + 1} - {Math.min((currentPage + 1) * 50, totalHits)} of{' '}
+                {totalHits}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+                  disabled={currentPage === 0}
+                  className="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-input bg-background text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted transition-colors"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </button>
+                <span className="text-sm text-muted-foreground px-3">
+                  Page {currentPage + 1} of {totalPages}
+                </span>
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages - 1, p + 1))}
+                  disabled={currentPage >= totalPages - 1}
+                  className="inline-flex items-center gap-1 px-4 py-2 rounded-xl border border-input bg-background text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted transition-colors"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       ) : !isLoading ? (
         <Card className="border-0 bg-muted/30 shadow-none">

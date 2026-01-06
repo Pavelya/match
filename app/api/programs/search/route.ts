@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     const countries = searchParams.get('countries')?.split(',').filter(Boolean)
     const minPoints = searchParams.get('minPoints')
     const maxPoints = searchParams.get('maxPoints')
+    const page = searchParams.get('page')
 
     // Build filters object
     const filters: SearchFilters = {}
@@ -42,7 +43,9 @@ export async function GET(request: NextRequest) {
     if (maxPoints) filters.maxPoints = parseInt(maxPoints)
 
     // Execute search using the new searchPrograms function
-    const result = await searchPrograms(query, filters)
+    const result = await searchPrograms(query, filters, {
+      page: page ? parseInt(page, 10) : 0
+    })
 
     return NextResponse.json({
       hits: result.hits,
