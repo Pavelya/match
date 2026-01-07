@@ -11,6 +11,12 @@ import { algoliasearch } from 'algoliasearch'
 
 const prisma = new PrismaClient()
 
+// Truncate description to stay under Algolia's 10KB record limit
+function truncateDescription(text: string, maxLength = 500): string {
+  if (text.length <= maxLength) return text
+  return text.substring(0, maxLength - 3) + '...'
+}
+
 interface AlgoliaProgramRecord {
   [key: string]: unknown
   objectID: string
@@ -92,7 +98,7 @@ async function syncToAlgolia() {
       objectID: program.id,
       programId: program.id,
       programName: program.name,
-      description: program.description,
+      description: truncateDescription(program.description),
 
       universityId: program.university.id,
       universityName: program.university.name,
