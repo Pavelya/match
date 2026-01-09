@@ -83,6 +83,7 @@ export function FieldSelectorClient({
   )
   const [isSaving, setIsSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  const [isDiplomaValid, setIsDiplomaValid] = useState(true)
 
   const router = useRouter()
 
@@ -278,6 +279,7 @@ export function FieldSelectorClient({
                 tokGrade={tokGrade}
                 eeGrade={eeGrade}
                 onSelectionsChange={handleDetailedGradesChange}
+                onValidationChange={setIsDiplomaValid}
               />
 
               {saveError && (
@@ -292,7 +294,7 @@ export function FieldSelectorClient({
                 </Button>
                 <Button
                   onClick={handleContinueFromDetailedGrades}
-                  disabled={!canContinueFromDetailedGrades || isSaving}
+                  disabled={!canContinueFromDetailedGrades || !isDiplomaValid || isSaving}
                   size="lg"
                 >
                   {isSaving ? 'Saving...' : 'Complete Profile'}
