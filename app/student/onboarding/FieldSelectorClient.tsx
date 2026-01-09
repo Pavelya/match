@@ -57,6 +57,8 @@ interface FieldSelectorClientProps {
   courses: IBCourse[]
   steps: Step[]
   initialData?: InitialData
+  /** When true, allows direct navigation between steps (for completed profiles) */
+  isProfileComplete?: boolean
 }
 
 export function FieldSelectorClient({
@@ -64,7 +66,8 @@ export function FieldSelectorClient({
   countries,
   courses,
   steps,
-  initialData
+  initialData,
+  isProfileComplete = false
 }: FieldSelectorClientProps) {
   const [step, setStep] = useState(1)
   const [selectedFields, setSelectedFields] = useState<string[]>(initialData?.selectedFields || [])
@@ -204,7 +207,13 @@ export function FieldSelectorClient({
     <>
       {/* Animated Step Indicator */}
       <FadeIn direction="down" duration={300}>
-        <StepIndicator steps={steps} currentStep={step} className="mb-8" />
+        <StepIndicator
+          steps={steps}
+          currentStep={step}
+          className="mb-8"
+          isNavigable={isProfileComplete}
+          onStepClick={isProfileComplete ? setStep : undefined}
+        />
       </FadeIn>
 
       {step === 1 && (

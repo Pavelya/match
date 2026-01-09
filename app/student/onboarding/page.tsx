@@ -65,6 +65,14 @@ export default async function OnboardingPage() {
       }
     : undefined
 
+  // Profile is complete when student has IB points, 6 courses, and TOK/EE grades
+  const isProfileComplete = Boolean(
+    existingProfile?.totalIBPoints !== null &&
+    existingProfile?.courses.length === 6 &&
+    existingProfile?.tokGrade &&
+    existingProfile?.eeGrade
+  )
+
   // Transform to format expected by FieldSelector
   const fieldsForSelector = fields.map((field) => ({
     id: field.id,
@@ -81,6 +89,7 @@ export default async function OnboardingPage() {
         courses={ibCourses}
         steps={ONBOARDING_STEPS}
         initialData={initialData}
+        isProfileComplete={isProfileComplete}
       />
     </PageContainer>
   )
