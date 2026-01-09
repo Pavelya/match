@@ -46,6 +46,36 @@ export type PrismaProgramWithRelations = Prisma.AcademicProgramGetPayload<{
 }>
 
 /**
+ * Minimal program interface for matching algorithm transformation
+ * This allows both full Prisma types and optimized CachedProgram types to work
+ */
+export interface TransformableProgram {
+  id: string
+  name: string
+  minIBPoints: number | null
+  university: {
+    id: string
+    name: string
+    country: {
+      id: string
+    }
+  }
+  fieldOfStudy: {
+    id: string
+  }
+  courseRequirements: Array<{
+    ibCourse: {
+      id: string
+      name: string
+    }
+    requiredLevel: string
+    minGrade: number
+    isCritical: boolean
+    orGroupId: string | null
+  }>
+}
+
+/**
  * Transform Prisma student profile to matching algorithm format
  */
 export function transformStudent(prismaStudent: PrismaStudentWithRelations): StudentProfile {
@@ -74,12 +104,13 @@ export function transformStudent(prismaStudent: PrismaStudentWithRelations): Stu
 }
 
 /**
- * Transform Prisma program to matching algorithm format
+ * Transform program to matching algorithm format
+ * Accepts both full Prisma types and optimized CachedProgram types
  */
-export function transformProgram(prismaProgram: PrismaProgramWithRelations): ProgramRequirements {
+export function transformProgram(program: TransformableProgram): ProgramRequirements {
   // Determine program type based on requirements
-  const hasSubjects = prismaProgram.courseRequirements.length > 0
-  const hasPoints = prismaProgram.minIBPoints !== null
+  const hasSubjects = program.courseRequirements.length > 0
+  const hasPoints = program.minIBPoints !== null
 
   let type: 'FULL_REQUIREMENTS' | 'POINTS_ONLY' | 'SUBJECTS_ONLY'
   if (hasSubjects && hasPoints) {
@@ -94,7 +125,7 @@ export function transformProgram(prismaProgram: PrismaProgramWithRelations): Pro
   const standaloneRequirements: SubjectRequirement[] = []
   const orGroupMap = new Map<string, SubjectRequirement[]>()
 
-  for (const req of prismaProgram.courseRequirements) {
+  for (const req of program.courseRequirements) {
     const subjectReq: SubjectRequirement = {
       courseId: req.ibCourse.id,
       courseName: req.ibCourse.name,
@@ -127,22 +158,22 @@ export function transformProgram(prismaProgram: PrismaProgramWithRelations): Pro
 
   return {
     // Program identification
-    programId: prismaProgram.id,
-    programName: prismaProgram.name,
-    universityId: prismaProgram.university.id,
-    universityName: prismaProgram.university.name,
+    programId: program.id,
+    programName: program.name,
+    universityId: program.university.id,
+    universityName: program.university.name,
 
     // Program type
     type,
 
     // Field of study
-    fieldId: prismaProgram.fieldOfStudy.id,
+    fieldId: program.fieldOfStudy.id,
 
     // Country
-    countryId: prismaProgram.university.country.id,
+    countryId: program.university.country.id,
 
     // Academic requirements
-    minimumIBPoints: prismaProgram.minIBPoints ?? undefined,
+    minimumIBPoints: program.minIBPoints ?? undefined,
 
     // Required subjects (standalone, not in OR-groups)
     requiredSubjects: standaloneRequirements,
@@ -153,10 +184,9 @@ export function transformProgram(prismaProgram: PrismaProgramWithRelations): Pro
 }
 
 /**
- * Transform array of Prisma programs
+ * Transform array of programs
+ * Accepts both full Prisma types and optimized CachedProgram types
  */
-export function transformPrograms(
-  prismaPrograms: PrismaProgramWithRelations[]
-): ProgramRequirements[] {
-  return prismaPrograms.map(transformProgram)
+export function transformPrograms(programs: TransformableProgram[]): ProgramRequirements[] {
+  return programs.map(transformProgram)
 }

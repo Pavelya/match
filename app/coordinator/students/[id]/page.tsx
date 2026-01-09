@@ -172,7 +172,7 @@ export default async function StudentDetailPage({ params }: PageProps) {
     program: {
       id: string
       name: string
-      university: { name: string; logo: string | null }
+      university: { name: string; image: string | null }
       fieldOfStudy: { name: string }
     } | null
   }> = []
@@ -202,7 +202,7 @@ export default async function StudentDetailPage({ params }: PageProps) {
                 name: program.name,
                 university: {
                   name: program.university.name,
-                  logo: program.university.logo
+                  image: program.university.image
                 },
                 fieldOfStudy: {
                   name: program.fieldOfStudy.name
@@ -476,9 +476,9 @@ export default async function StudentDetailPage({ params }: PageProps) {
                         href={`/programs/${match.programId}`}
                         className="flex items-center gap-3 py-3 first:pt-0 last:pb-0 hover:bg-muted/50 -mx-2 px-2 rounded-lg transition-colors"
                       >
-                        {match.program.university.logo ? (
+                        {match.program.university.image ? (
                           <Image
-                            src={match.program.university.logo}
+                            src={match.program.university.image}
                             alt={match.program.university.name}
                             width={40}
                             height={40}
