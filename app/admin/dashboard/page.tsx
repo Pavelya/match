@@ -123,7 +123,7 @@ export default async function AdminDashboardPage() {
           <InfoCard title="Platform Overview">
             <div className="space-y-4">
               <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Universities with Programs</span>
+                <span className="text-sm text-muted-foreground">Programs per University</span>
                 <span className="text-sm font-medium">
                   {universityCount > 0
                     ? `${Math.round((programCount / universityCount) * 100) / 100} avg`
@@ -131,9 +131,9 @@ export default async function AdminDashboardPage() {
                 </span>
               </div>
               <div className="flex items-center justify-between py-2 border-b border-border/50">
-                <span className="text-sm text-muted-foreground">Schools with Coordinators</span>
+                <span className="text-sm text-muted-foreground">Students per School</span>
                 <span className="text-sm font-medium">
-                  {schoolCount > 0 ? `${Math.round((coordinatorCount / schoolCount) * 100)}%` : '—'}
+                  {schoolCount > 0 ? `${Math.round(studentCount / schoolCount)} avg` : '—'}
                 </span>
               </div>
               <div className="flex items-center justify-between py-2">
