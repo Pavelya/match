@@ -18,6 +18,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import {
   PageContainer,
@@ -34,14 +35,15 @@ import {
   GraduationCap,
   Globe,
   Award,
-  Percent
+  Percent,
+  AlertTriangle
 } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import type { PrismaStudentWithRelations } from '@/lib/matching/transformers'
-import { FieldIcon } from '@/lib/icons'
+import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 
 // Simple horizontal bar component for visualization
@@ -121,20 +123,28 @@ export default async function CoordinatorAnalyticsPage() {
   let detailedStats: {
     topFields: { name: string; count: number; iconName: string | null }[]
     topCountries: { name: string; count: number; flagEmoji: string | null }[]
+    topCourses: { name: string; count: number; group: number }[]
     completeProfiles: number
     profileCompletionRate: number
     avgMatchScore: number | null
     matchDistribution: { bucket: string; count: number }[] | null
+    // At-risk students (incomplete academic profiles)
+    studentsWithoutScore: { id: string; userId: string; name: string | null; email: string }[]
+    studentsWithoutCourses: { id: string; userId: string; name: string | null; email: string }[]
+    // IB score distribution
+    scoreDistribution: { bucket: string; count: number }[]
   } | null = null
 
   if (access.hasFullAccess && studentCount > 0) {
-    // Get students with their preferences
+    // Get students with their preferences and user info
     const studentsWithData = await prisma.studentProfile.findMany({
       where: { schoolId: school.id },
       include: {
+        user: { select: { id: true, name: true, email: true } },
         courses: { include: { ibCourse: true } },
         preferredFields: { select: { id: true, name: true, iconName: true } },
-        preferredCountries: { select: { id: true, name: true, flagEmoji: true } }
+        preferredCountries: { select: { id: true, name: true, flagEmoji: true } },
+        savedPrograms: { select: { id: true } }
       }
     })
 
@@ -175,6 +185,23 @@ export default async function CoordinatorAnalyticsPage() {
       (s) => s.totalIBPoints !== null && s.courses.length >= 6
     ).length
 
+    // Calculate IB course popularity
+    const courseData: Record<string, { count: number; group: number }> = {}
+    studentsWithData.forEach((s) => {
+      s.courses.forEach((c) => {
+        const courseName = c.ibCourse.name
+        if (!courseData[courseName]) {
+          courseData[courseName] = { count: 0, group: c.ibCourse.group }
+        }
+        courseData[courseName].count++
+      })
+    })
+
+    const topCourses = Object.entries(courseData)
+      .sort((a, b) => b[1].count - a[1].count)
+      .slice(0, 10)
+      .map(([name, data]) => ({ name, count: data.count, group: data.group }))
+
     // Calculate match scores for all students (limited to 50 for performance)
     let matchDistribution: { bucket: string; count: number }[] | null = null
     let avgMatchScore: number | null = null
@@ -187,7 +214,9 @@ export default async function CoordinatorAnalyticsPage() {
 
       for (const student of studentsWithData) {
         if (student.totalIBPoints !== null && student.courses.length > 0) {
-          const transformedStudent = transformStudent(student as PrismaStudentWithRelations)
+          const transformedStudent = transformStudent(
+            student as unknown as PrismaStudentWithRelations
+          )
           const matches = await getCachedMatches(
             student.userId,
             transformedStudent,
@@ -225,14 +254,59 @@ export default async function CoordinatorAnalyticsPage() {
       }
     }
 
+    // Calculate at-risk students (incomplete academic profiles)
+    const studentsWithoutScore = studentsWithData
+      .filter((s) => s.totalIBPoints === null)
+      .map((s) => ({
+        id: s.id,
+        userId: s.userId,
+        name: s.user.name,
+        email: s.user.email || ''
+      }))
+
+    const studentsWithoutCourses = studentsWithData
+      .filter((s) => s.courses.length < 6) // IB requires 6 courses
+      .map((s) => ({
+        id: s.id,
+        userId: s.userId,
+        name: s.user.name,
+        email: s.user.email || ''
+      }))
+
+    // Calculate IB score distribution
+    const scoreBuckets = [
+      { label: '40+ (Excellent)', min: 40, max: 45, count: 0 },
+      { label: '35-39 (Very Good)', min: 35, max: 39, count: 0 },
+      { label: '30-34 (Good)', min: 30, max: 34, count: 0 },
+      { label: '24-29 (Satisfactory)', min: 24, max: 29, count: 0 },
+      { label: 'No Score', min: -1, max: -1, count: 0 }
+    ]
+
+    studentsWithData.forEach((s) => {
+      if (s.totalIBPoints === null) {
+        scoreBuckets[4].count++
+      } else {
+        const bucket = scoreBuckets.find(
+          (b) => b.min >= 0 && s.totalIBPoints! >= b.min && s.totalIBPoints! <= b.max
+        )
+        if (bucket) bucket.count++
+      }
+    })
+
+    const scoreDistribution = scoreBuckets.map((b) => ({ bucket: b.label, count: b.count }))
+
     detailedStats = {
       topFields,
       topCountries,
+      topCourses,
       completeProfiles,
       profileCompletionRate:
         studentCount > 0 ? Math.round((completeProfiles / studentCount) * 100) : 0,
       avgMatchScore,
-      matchDistribution
+      matchDistribution,
+      studentsWithoutScore,
+      studentsWithoutCourses,
+      scoreDistribution
     }
   }
 
@@ -337,6 +411,105 @@ export default async function CoordinatorAnalyticsPage() {
         />
       </div>
 
+      {/* Students with Incomplete Profiles */}
+      {detailedStats &&
+        (detailedStats.studentsWithoutScore.length > 0 ||
+          detailedStats.studentsWithoutCourses.length > 0) && (
+          <InfoCard
+            title="Students with Incomplete Profiles"
+            icon={AlertTriangle}
+            className="mb-6 border-amber-200 dark:border-amber-800"
+          >
+            <div className="space-y-4">
+              {/* Students without IB score */}
+              {detailedStats.studentsWithoutScore.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="h-2 w-2 rounded-full bg-red-500" />
+                    <span className="text-sm font-medium">
+                      No IB score entered ({detailedStats.studentsWithoutScore.length})
+                    </span>
+                  </div>
+                  <div className="ml-4 space-y-1">
+                    {detailedStats.studentsWithoutScore.slice(0, 5).map((student) => (
+                      <Link
+                        key={student.id}
+                        href={`/coordinator/students/${student.id}`}
+                        className="block text-sm text-primary hover:underline"
+                      >
+                        {student.name || student.email}
+                      </Link>
+                    ))}
+                    {detailedStats.studentsWithoutScore.length > 5 && (
+                      <span className="text-xs text-muted-foreground">
+                        +{detailedStats.studentsWithoutScore.length - 5} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Students without full courses */}
+              {detailedStats.studentsWithoutCourses.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="h-2 w-2 rounded-full bg-amber-500" />
+                    <span className="text-sm font-medium">
+                      Missing IB courses ({detailedStats.studentsWithoutCourses.length})
+                    </span>
+                  </div>
+                  <div className="ml-4 space-y-1">
+                    {detailedStats.studentsWithoutCourses.slice(0, 5).map((student) => (
+                      <Link
+                        key={student.id}
+                        href={`/coordinator/students/${student.id}`}
+                        className="block text-sm text-primary hover:underline"
+                      >
+                        {student.name || student.email}
+                      </Link>
+                    ))}
+                    {detailedStats.studentsWithoutCourses.length > 5 && (
+                      <span className="text-xs text-muted-foreground">
+                        +{detailedStats.studentsWithoutCourses.length - 5} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground mt-4">
+              Click a student name to view their profile and help them complete it.
+            </p>
+          </InfoCard>
+        )}
+
+      {/* IB Score Distribution */}
+      {detailedStats?.scoreDistribution && (
+        <InfoCard title="IB Score Distribution" icon={Target} className="mb-6">
+          <p className="text-sm text-muted-foreground mb-4">
+            Distribution of predicted IB scores across your students
+          </p>
+          <div className="space-y-3">
+            {detailedStats.scoreDistribution.map((bucket) => {
+              const maxScoreCount = Math.max(
+                ...detailedStats!.scoreDistribution.map((b) => b.count)
+              )
+              return (
+                <div key={bucket.bucket} className="flex items-center gap-3">
+                  <span className="text-sm font-medium w-36 shrink-0">{bucket.bucket}</span>
+                  <div className="flex-1">
+                    <HorizontalBar value={bucket.count} maxValue={maxScoreCount} color="green" />
+                  </div>
+                  <span className="text-sm text-muted-foreground w-12 text-right">
+                    {bucket.count}
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        </InfoCard>
+      )}
+
       {/* Match Distribution Chart */}
       {studentCount <= 50 && (
         <InfoCard title="Match Quality Distribution" icon={TrendingUp} className="mb-6">
@@ -431,6 +604,35 @@ export default async function CoordinatorAnalyticsPage() {
           )}
         </InfoCard>
       </div>
+
+      {/* IB Course Distribution */}
+      <InfoCard title="Top IB Courses Selected by Students" icon={GraduationCap} className="mt-6">
+        {detailedStats?.topCourses && detailedStats.topCourses.length > 0 ? (
+          <div className="space-y-3">
+            {detailedStats.topCourses.map((course, index) => {
+              const maxCount = detailedStats?.topCourses[0]?.count || 1
+              return (
+                <div key={course.name} className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground w-6">{index + 1}.</span>
+                  <SubjectGroupIcon
+                    groupId={course.group}
+                    className="h-4 w-4 text-muted-foreground"
+                  />
+                  <span className="flex-1 text-sm font-medium truncate">{course.name}</span>
+                  <span className="text-sm text-muted-foreground">
+                    {course.count} student{course.count !== 1 ? 's' : ''}
+                  </span>
+                  <div className="w-16 h-2 bg-muted rounded-full overflow-hidden">
+                    <HorizontalBar value={course.count} maxValue={maxCount} color="green" />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <p className="text-sm text-muted-foreground">No student course data available yet.</p>
+        )}
+      </InfoCard>
 
       {/* Note for large schools */}
       {studentCount > 50 && !detailedStats?.matchDistribution && (
