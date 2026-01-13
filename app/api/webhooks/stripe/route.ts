@@ -26,19 +26,36 @@ export async function POST(req: Request) {
   const headersList = await headers()
   const signature = headersList.get('stripe-signature')
 
-  // In development without webhook secret, skip signature verification
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
+  const isProduction = process.env.NODE_ENV === 'production'
+
+  // SECURITY: In production, webhook signature verification is REQUIRED
+  // This prevents spoofed webhook events from manipulating subscription data
+  if (isProduction && !webhookSecret) {
+    logger.error('STRIPE_WEBHOOK_SECRET is required in production')
+    return NextResponse.json({ error: 'Webhook configuration error' }, { status: 500 })
+  }
+
+  if (isProduction && !signature) {
+    logger.error('Missing stripe-signature header in production')
+    return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
+  }
 
   let event: Stripe.Event
 
   try {
     if (webhookSecret && signature) {
+      // Verify webhook signature (always in production, optionally in development)
       event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
-    } else {
-      // Development mode - parse the event directly
-      // WARNING: This is insecure and should only be used in development
+    } else if (!isProduction) {
+      // Development mode only - allow bypassing signature verification
+      // This is acceptable for local testing with Stripe CLI
       event = JSON.parse(body) as Stripe.Event
       logger.warn('Stripe webhook signature not verified - development mode only')
+    } else {
+      // This should never be reached due to checks above, but fail safely
+      logger.error('Webhook verification failed - unexpected state')
+      return NextResponse.json({ error: 'Verification failed' }, { status: 400 })
     }
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'Unknown error'
