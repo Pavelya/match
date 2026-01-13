@@ -51,18 +51,42 @@ export function ProgramsListClient({ programs }: ProgramsListClientProps) {
   }, [programs])
 
   // Calculate stats
-  // Note: degreeType is a free-text field (e.g., "Bachelor of Science", "Master of Arts")
-  // so we check if it starts with "Bachelor" or "Master" rather than exact matching
+  // Note: degreeType is a free-text field with various formats:
+  // - Full names: "Bachelor of Science", "Master of Arts"
+  // - UK abbreviations: "BSc (Hons)", "MA (Hons)", "BEng (Hons)"
+  // - Professional: "MBChB", "BVM&S", "BN"
   const stats = useMemo(() => {
     let bachelorCount = 0
     let masterCount = 0
 
     programs.forEach((p) => {
-      const degreeTypeLower = p.degreeType.toLowerCase()
-      if (degreeTypeLower.startsWith('bachelor')) {
+      const dt = p.degreeType.toLowerCase()
+
+      // Bachelor patterns: Bachelor..., BSc, BA, BEng, BN, BVM&S, etc.
+      if (
+        dt.startsWith('bachelor') ||
+        dt.startsWith('bsc') ||
+        dt.startsWith('ba ') ||
+        dt.startsWith('beng') ||
+        dt.startsWith('bn') ||
+        dt.startsWith('bvm') ||
+        dt.startsWith('mbchb') // Medicine is undergraduate
+      ) {
         bachelorCount++
-      } else if (degreeTypeLower.startsWith('master')) {
+      }
+      // Master patterns: Master..., MA (Hons), MSc, MInf, etc.
+      // Note: MA (Hons) in Scottish universities is actually undergraduate!
+      else if (
+        dt.startsWith('master') ||
+        dt.startsWith('msc') ||
+        dt.startsWith('minf') ||
+        (dt.startsWith('ma ') && !dt.includes('(hons)')) // MA without (Hons) is postgrad
+      ) {
         masterCount++
+      }
+      // Scottish MA (Hons) is undergraduate
+      else if (dt.startsWith('ma (hons)') || dt.startsWith('ma(hons)')) {
+        bachelorCount++
       }
     })
 
