@@ -162,6 +162,12 @@
 
   body {
     @apply bg-background text-foreground;
+    /* 
+     * Twemoji Country Flags font is loaded by country-flag-emoji-polyfill
+     * on Windows browsers that don't natively support flag emojis.
+     * It only affects flag characters (unicode-range restricted).
+     */
+    font-family: "Twemoji Country Flags", var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   }
 }
 
