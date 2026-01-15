@@ -18,6 +18,10 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 export const metadata = {
   title: 'Saved Programs',
   description: 'View and manage your saved university programs.',
+  robots: {
+    index: false,
+    follow: false
+  },
   openGraph: {
     title: 'Saved Programs | IB Match',
     description: 'View and manage your saved university programs.',

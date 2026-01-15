@@ -5,6 +5,15 @@ import { FieldSelectorClient } from './FieldSelectorClient'
 import { getCachedFields, getCachedCountries, getCachedIBCourses } from '@/lib/reference-data'
 import { PageContainer } from '@/components/layout/PageContainer'
 
+export const metadata = {
+  title: 'Complete Your Profile',
+  description: 'Set up your IB profile to get personalized university matches.',
+  robots: {
+    index: false,
+    follow: false
+  }
+}
+
 const ONBOARDING_STEPS = [
   { number: 1, label: 'Study Interests' },
   { number: 2, label: 'Location Preferences' },
