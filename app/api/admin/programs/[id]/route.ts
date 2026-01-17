@@ -9,6 +9,7 @@
  */
 
 import { NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
@@ -274,6 +275,9 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       clearAllMatchCache(),
       deleteProgramFromAlgolia(id)
     ])
+
+    // Invalidate countries-with-programs cache so locations without programs are hidden
+    revalidateTag('countries-with-programs', { expire: 0 })
 
     return NextResponse.json({ success: true })
   } catch (error) {

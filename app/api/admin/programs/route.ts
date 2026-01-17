@@ -8,6 +8,7 @@
  */
 
 import { NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
@@ -183,6 +184,9 @@ export async function POST(request: Request) {
       programName: program.name,
       universityId: program.universityId
     })
+
+    // Invalidate countries-with-programs cache so new locations appear in student onboarding
+    revalidateTag('countries-with-programs', { expire: 0 })
 
     return NextResponse.json(program, { status: 201 })
   } catch (error) {

@@ -173,32 +173,32 @@ revalidateTag('countries-with-programs')
 
 ### Phase 1: Core Implementation
 
-- [ ] **Task 1.1:** Add `getCachedCountriesWithPrograms()` function
+- [x] **Task 1.1:** Add `getCachedCountriesWithPrograms()` function
   - File: `lib/reference-data.ts`
   - Goal: Create cached query for countries with programs
   - Outcome: New export available for use
 
-- [ ] **Task 1.2:** Update student onboarding to use new query
+- [x] **Task 1.2:** Update student onboarding to use new query
   - File: `app/student/onboarding/page.tsx`
   - Goal: Replace `getCachedCountries()` with `getCachedCountriesWithPrograms()`
   - Outcome: Students only see relevant locations
 
 ### Phase 2: Cache Invalidation
 
-- [ ] **Task 2.1:** Add cache invalidation on program creation
+- [x] **Task 2.1:** Add cache invalidation on program creation
   - File: `app/api/admin/programs/route.ts`
   - Goal: Invalidate cache when new program is created
   - Outcome: New countries appear when their first program is added
 
-- [ ] **Task 2.2:** Add cache invalidation on program deletion
+- [x] **Task 2.2:** Add cache invalidation on program deletion
   - File: `app/api/admin/programs/[id]/route.ts`
   - Goal: Invalidate cache when program is deleted
   - Outcome: Countries disappear when their last program is removed
 
-- [ ] **Task 2.3:** Add cache invalidation on bulk program import
+- [x] **Task 2.3:** Add cache invalidation on bulk program import
   - File: Review bulk import scripts in `/scripts/programs/`
   - Goal: Ensure bulk operations also invalidate the cache
-  - Outcome: Consistent cache state after bulk operations
+  - Outcome: Cache auto-expires in 1 hour; use existing `scripts/invalidate-program-cache.ts` after bulk imports if needed immediately
 
 ### Phase 3: Testing & Verification
 

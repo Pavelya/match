@@ -2,7 +2,11 @@ import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { FieldSelectorClient } from './FieldSelectorClient'
-import { getCachedFields, getCachedCountries, getCachedIBCourses } from '@/lib/reference-data'
+import {
+  getCachedFields,
+  getCachedCountriesWithPrograms,
+  getCachedIBCourses
+} from '@/lib/reference-data'
 import { PageContainer } from '@/components/layout/PageContainer'
 
 export const metadata = {
@@ -31,7 +35,7 @@ export default async function OnboardingPage() {
   // These rarely change, so 1 hour TTL is safe
   const [fields, countries, ibCourses] = await Promise.all([
     getCachedFields(),
-    getCachedCountries(),
+    getCachedCountriesWithPrograms(),
     getCachedIBCourses()
   ])
 

@@ -50,6 +50,40 @@ export const getCachedCountries = unstable_cache(
 )
 
 /**
+ * Get countries that have at least one university with programs (cached)
+ *
+ * Used for student onboarding to only show locations where programs exist.
+ * Admin pages should continue using getCachedCountries() for full list.
+ *
+ * Cache is invalidated via 'countries-with-programs' tag when programs are
+ * created or deleted.
+ */
+export const getCachedCountriesWithPrograms = unstable_cache(
+  async () => {
+    return prisma.country.findMany({
+      where: {
+        universities: {
+          some: {
+            programs: {
+              some: {} // At least one program exists
+            }
+          }
+        }
+      },
+      orderBy: { name: 'asc' },
+      select: {
+        id: true,
+        name: true,
+        code: true,
+        flagEmoji: true
+      }
+    })
+  },
+  ['countries-with-programs'],
+  { revalidate: CACHE_TTL, tags: ['countries-with-programs'] }
+)
+
+/**
  * Get all IB courses (cached)
  */
 export const getCachedIBCourses = unstable_cache(
