@@ -9,7 +9,7 @@
  */
 
 import { Suspense } from 'react'
-import { getCachedFields, getCachedCountries } from '@/lib/reference-data'
+import { getCachedFields, getCachedCountriesWithPrograms } from '@/lib/reference-data'
 import { SearchClient } from './SearchClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { StudentFooter } from '@/components/layout/StudentFooter'
@@ -38,7 +38,10 @@ export const metadata = {
 
 export default async function SearchPage() {
   // Fetch reference data for filter options
-  const [fields, countries] = await Promise.all([getCachedFields(), getCachedCountries()])
+  const [fields, countries] = await Promise.all([
+    getCachedFields(),
+    getCachedCountriesWithPrograms()
+  ])
 
   return (
     <>
