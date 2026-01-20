@@ -60,7 +60,29 @@ export interface OptimizedMatchStats {
   filterTimeMs: number
   matchTimeMs: number
   cacheStats?: CacheStats
+  /** Which fallback tier was used to get enough candidates (1 = no fallback needed) */
+  fallbackTierUsed?: FallbackTier
 }
+
+// ============================================
+// Constants
+// ============================================
+
+/** Minimum number of candidates to return (ensures students always see top 10) */
+const MINIMUM_CANDIDATES = 10
+
+/** Fallback tiers for progressive filter relaxation */
+export type FallbackTier = 1 | 2 | 3 | 4 | 5 | 6
+
+/**
+ * Fallback tier descriptions (for reference):
+ * 1: All filters applied (field + country + points)
+ * 2: Relaxed points margin (±20 instead of ±10)
+ * 3: Removed country filter, kept field + points
+ * 4: Removed field filter, kept country + points
+ * 5: Only points filter with wide margin (±30)
+ * 6: No filtering (all programs considered)
+ */
 
 // ============================================
 // Optimized Matcher
@@ -111,31 +133,27 @@ export function calculateOptimizedMatches(
   // The vector could be used to optimize subject requirement checks
   createStudentCapabilityVector(student.courses, student.totalIBPoints)
 
-  // Step 2: Filter candidates using program index (if enabled)
+  // Step 2: Filter candidates using program index (if enabled) with tiered fallback
   let candidatePrograms = programs
+  let fallbackTierUsed: FallbackTier = 1
 
   if (useIndex && programs.length > 50) {
     const filterStart = performance.now()
 
     const index = createProgramIndex(programs)
 
-    const criteria: FilterCriteria = {
-      studentPoints: student.totalIBPoints,
+    // Tiered fallback strategy: progressively relax filters to ensure minimum candidates
+    const filterResult = filterWithFallback(
+      index,
+      programs,
+      student,
       pointsMargin,
-      includeOpenFields: config.includeOpenFields ?? true,
-      includeOpenLocations: config.includeOpenLocations ?? true
-    }
+      config.includeOpenFields ?? true,
+      config.includeOpenLocations ?? true
+    )
 
-    // Only filter by preferences if student has them
-    if (student.interestedFields.length > 0) {
-      criteria.fieldIds = student.interestedFields
-    }
-    if (student.preferredCountries.length > 0) {
-      criteria.countryIds = student.preferredCountries
-    }
-
-    const candidateIds = new Set(index.filterCandidates(criteria))
-    candidatePrograms = programs.filter((p) => candidateIds.has(p.programId))
+    candidatePrograms = filterResult.candidates
+    fallbackTierUsed = filterResult.tierUsed
     candidatesAfterFilter = candidatePrograms.length
 
     filterTimeMs = performance.now() - filterStart
@@ -190,9 +208,130 @@ export function calculateOptimizedMatches(
       totalTimeMs,
       filterTimeMs,
       matchTimeMs,
-      cacheStats
+      cacheStats,
+      fallbackTierUsed
     }
   }
+}
+
+// ============================================
+// Tiered Fallback Filtering
+// ============================================
+
+interface FallbackFilterResult {
+  candidates: ProgramRequirements[]
+  tierUsed: FallbackTier
+}
+
+/**
+ * Filter programs with tiered fallback to ensure minimum candidates
+ *
+ * Progressively relaxes filters when fewer than MINIMUM_CANDIDATES are found:
+ * - Tier 1: All filters (field + country + points with default margin)
+ * - Tier 2: Relax points margin (±20 instead of ±10)
+ * - Tier 3: Remove country filter, keep field + points
+ * - Tier 4: Remove field filter, keep country + points
+ * - Tier 5: Only points filter with wide margin (±30)
+ * - Tier 6: No filtering (all programs)
+ *
+ * @param index - Pre-built program index
+ * @param programs - All programs array (for fallback access)
+ * @param student - Student profile with preferences
+ * @param pointsMargin - Base points margin
+ * @param includeOpenFields - Whether to include when student is open to all fields
+ * @param includeOpenLocations - Whether to include when student is open to all locations
+ * @returns Candidates array and the tier that was used
+ */
+function filterWithFallback(
+  index: ProgramIndex,
+  programs: ProgramRequirements[],
+  student: StudentProfile,
+  pointsMargin: number,
+  includeOpenFields: boolean,
+  includeOpenLocations: boolean
+): FallbackFilterResult {
+  const hasFieldPrefs = student.interestedFields.length > 0
+  const hasCountryPrefs = student.preferredCountries.length > 0
+
+  // Helper to convert candidate IDs to programs
+  const idsToPrograms = (ids: string[]): ProgramRequirements[] => {
+    const idSet = new Set(ids)
+    return programs.filter((p) => idSet.has(p.programId))
+  }
+
+  // Tier 1: All filters applied (default behavior)
+  const tier1Criteria: FilterCriteria = {
+    studentPoints: student.totalIBPoints,
+    pointsMargin,
+    includeOpenFields,
+    includeOpenLocations
+  }
+  if (hasFieldPrefs) tier1Criteria.fieldIds = student.interestedFields
+  if (hasCountryPrefs) tier1Criteria.countryIds = student.preferredCountries
+
+  const tier1Candidates = idsToPrograms(index.filterCandidates(tier1Criteria))
+  if (tier1Candidates.length >= MINIMUM_CANDIDATES) {
+    return { candidates: tier1Candidates, tierUsed: 1 }
+  }
+
+  // Tier 2: Relax points margin (±20 instead of ±10)
+  const tier2Criteria: FilterCriteria = {
+    ...tier1Criteria,
+    pointsMargin: 20
+  }
+  const tier2Candidates = idsToPrograms(index.filterCandidates(tier2Criteria))
+  if (tier2Candidates.length >= MINIMUM_CANDIDATES) {
+    return { candidates: tier2Candidates, tierUsed: 2 }
+  }
+
+  // Tier 3: Remove country filter, keep field + points
+  if (hasCountryPrefs) {
+    const tier3Criteria: FilterCriteria = {
+      studentPoints: student.totalIBPoints,
+      pointsMargin: 20,
+      includeOpenFields,
+      includeOpenLocations: true
+    }
+    if (hasFieldPrefs) tier3Criteria.fieldIds = student.interestedFields
+    // No countryIds = no country filtering
+
+    const tier3Candidates = idsToPrograms(index.filterCandidates(tier3Criteria))
+    if (tier3Candidates.length >= MINIMUM_CANDIDATES) {
+      return { candidates: tier3Candidates, tierUsed: 3 }
+    }
+  }
+
+  // Tier 4: Remove field filter, keep country + points
+  if (hasFieldPrefs) {
+    const tier4Criteria: FilterCriteria = {
+      studentPoints: student.totalIBPoints,
+      pointsMargin: 20,
+      includeOpenFields: true,
+      includeOpenLocations
+    }
+    if (hasCountryPrefs) tier4Criteria.countryIds = student.preferredCountries
+    // No fieldIds = no field filtering
+
+    const tier4Candidates = idsToPrograms(index.filterCandidates(tier4Criteria))
+    if (tier4Candidates.length >= MINIMUM_CANDIDATES) {
+      return { candidates: tier4Candidates, tierUsed: 4 }
+    }
+  }
+
+  // Tier 5: Only points filter with wide margin (±30)
+  const tier5Criteria: FilterCriteria = {
+    studentPoints: student.totalIBPoints,
+    pointsMargin: 30,
+    includeOpenFields: true,
+    includeOpenLocations: true
+  }
+  const tier5Candidates = idsToPrograms(index.filterCandidates(tier5Criteria))
+  if (tier5Candidates.length >= MINIMUM_CANDIDATES) {
+    return { candidates: tier5Candidates, tierUsed: 5 }
+  }
+
+  // Tier 6: No filtering - return all programs
+  return { candidates: programs, tierUsed: 6 }
 }
 
 // ============================================

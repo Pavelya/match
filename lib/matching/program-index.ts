@@ -34,6 +34,9 @@ export interface ProgramIndex {
   // Combined filtering (intersection)
   filterCandidates: (criteria: FilterCriteria) => string[]
 
+  // Get all program IDs (no filtering - for fallback scenarios)
+  getAllProgramIds: () => string[]
+
   // Index management
   invalidate: () => void
   rebuild: (programs: ProgramRequirements[]) => void
@@ -113,6 +116,10 @@ export function createProgramIndex(programs: ProgramRequirements[]): ProgramInde
 
     filterCandidates(criteria: FilterCriteria): string[] {
       return filterCombined(internal, criteria)
+    },
+
+    getAllProgramIds(): string[] {
+      return Array.from(internal.programs.keys())
     },
 
     invalidate(): void {

@@ -141,7 +141,8 @@ export {
   invalidateGlobalProgramIndex,
   type OptimizedMatcherConfig,
   type OptimizedMatchResult,
-  type OptimizedMatchStats
+  type OptimizedMatchStats,
+  type FallbackTier
 } from './optimized-matcher'
 
 // V10: Enhanced Match Result (extends base with V10 fields)

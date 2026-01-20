@@ -48,6 +48,9 @@ export interface MatchingMetrics {
   // Version
   algorithmVersion: 'v9' | 'v10'
   v10FeaturesEnabled: string[]
+
+  // Fallback tier used (1 = no fallback, 2-6 = progressively relaxed filters)
+  fallbackTierUsed?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
 export interface MetricsCollector {
@@ -113,7 +116,8 @@ function logMetrics(metrics: MatchingMetrics): void {
     algorithm_version: metrics.algorithmVersion,
     v10_features:
       metrics.v10FeaturesEnabled.length > 0 ? metrics.v10FeaturesEnabled.join(',') : 'none',
-    categories: JSON.stringify(metrics.categoryDistribution)
+    categories: JSON.stringify(metrics.categoryDistribution),
+    fallback_tier: metrics.fallbackTierUsed ?? 1
   }
 
   // Only log in development or if explicitly enabled
@@ -230,6 +234,7 @@ export function createMatchingMetrics(params: {
   cacheMisses?: number
   algorithmVersion: 'v9' | 'v10'
   v10FeaturesEnabled?: string[]
+  fallbackTierUsed?: 1 | 2 | 3 | 4 | 5 | 6
 }): MatchingMetrics {
   const cacheTotal = (params.cacheHits ?? 0) + (params.cacheMisses ?? 0)
   const cacheHitRate = cacheTotal > 0 ? (params.cacheHits ?? 0) / cacheTotal : undefined
@@ -249,7 +254,8 @@ export function createMatchingMetrics(params: {
     studentPoints: params.studentPoints,
     isHighAchiever: params.studentPoints >= 38,
     algorithmVersion: params.algorithmVersion,
-    v10FeaturesEnabled: params.v10FeaturesEnabled ?? []
+    v10FeaturesEnabled: params.v10FeaturesEnabled ?? [],
+    fallbackTierUsed: params.fallbackTierUsed
   }
 }
 

@@ -9,6 +9,11 @@
  * - Key Format: match:{studentId}:{programId}:{weightsHash}
  * - Batch Key: matches:{studentId}:{weightsHash}
  * - V10 Key: matchesV10:{studentId}:{weightsHash}:{programCount}
+ *
+ * Note: V10 cache works correctly with tiered fallback filtering (see optimized-matcher.ts).
+ * The fallback tier is NOT included in the cache key - we cache final results regardless
+ * of which relaxation tier was used to gather candidates. This is the correct design since
+ * the same student+programs should always get the same cached results.
  */
 
 import { redis } from '@/lib/redis/client'
@@ -399,16 +404,23 @@ export async function getCachedMatchesV10(
         cacheHits: optimizedResult.stats.cacheStats?.hits,
         cacheMisses: optimizedResult.stats.cacheStats?.misses,
         algorithmVersion: 'v10',
-        v10FeaturesEnabled: enabledFeatures
+        v10FeaturesEnabled: enabledFeatures,
+        fallbackTierUsed: optimizedResult.stats.fallbackTierUsed
       })
       recordMatchingMetrics(metrics)
 
-      logger.info('V10 matching completed', {
+      // Log with fallback tier info (warn if tier > 1 to monitor filter relaxation usage)
+      const logLevel =
+        optimizedResult.stats.fallbackTierUsed && optimizedResult.stats.fallbackTierUsed > 1
+          ? 'warn'
+          : 'info'
+      logger[logLevel]('V10 matching completed', {
         studentId,
         latencyMs: metrics.latencyMs,
         candidatesEvaluated: metrics.candidatesEvaluated,
         reductionRatio: metrics.reductionRatio.toFixed(2),
-        cacheHitRate: metrics.cacheHitRate?.toFixed(2)
+        cacheHitRate: metrics.cacheHitRate?.toFixed(2),
+        fallbackTierUsed: optimizedResult.stats.fallbackTierUsed ?? 1
       })
     } else {
       // Fall back to V9 matching but still add V10 enhancements

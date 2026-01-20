@@ -260,6 +260,218 @@ const noCacheResult = calculateOptimizedMatches(testStudent, smallPrograms, {
 test('No cache: no cache stats', undefined, noCacheResult.stats.cacheStats)
 
 // ============================================
+// Test 9: Tiered Fallback - Sparse Field Preference
+// ============================================
+
+console.log('\n📋 Tiered Fallback Tests:\n')
+
+// Create programs where only 3 match the student's field preference
+const sparseFieldPrograms: ProgramRequirements[] = []
+// Add 3 programs matching engineering/science fields
+for (let i = 0; i < 3; i++) {
+  sparseFieldPrograms.push({
+    programId: `sparse-field-${i}`,
+    programName: `Engineering Program ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'engineering',
+    countryId: 'uk',
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+// Add 50 programs in other fields
+for (let i = 3; i < 53; i++) {
+  sparseFieldPrograms.push({
+    programId: `sparse-field-${i}`,
+    programName: `Arts Program ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'arts', // Not in student's preferences
+    countryId: 'uk',
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+
+const sparseFieldStudent: StudentProfile = {
+  ...testStudent,
+  interestedFields: ['engineering'],
+  preferredCountries: ['uk']
+}
+
+const sparseFieldResult = calculateOptimizedMatches(sparseFieldStudent, sparseFieldPrograms, {
+  useIndex: true
+})
+
+test(
+  'Sparse field: returns at least 10 results',
+  true,
+  sparseFieldResult.results.length >= 10,
+  'P0'
+)
+test(
+  'Sparse field: used fallback tier > 1',
+  true,
+  (sparseFieldResult.stats.fallbackTierUsed ?? 1) > 1,
+  'P0'
+)
+console.log(`   Results: ${sparseFieldResult.results.length}`)
+console.log(`   Fallback tier: ${sparseFieldResult.stats.fallbackTierUsed}`)
+
+// ============================================
+// Test 10: Tiered Fallback - Sparse Country Preference
+// ============================================
+
+// Create programs where only 5 match the student's country preference
+const sparseCountryPrograms: ProgramRequirements[] = []
+// Add 5 programs in UK
+for (let i = 0; i < 5; i++) {
+  sparseCountryPrograms.push({
+    programId: `sparse-country-${i}`,
+    programName: `UK Program ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'engineering',
+    countryId: 'uk',
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+// Add 50 programs in other countries
+for (let i = 5; i < 55; i++) {
+  sparseCountryPrograms.push({
+    programId: `sparse-country-${i}`,
+    programName: `USA Program ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'engineering',
+    countryId: 'usa', // Not in student's UK-only preference
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+
+const sparseCountryStudent: StudentProfile = {
+  ...testStudent,
+  interestedFields: ['engineering'],
+  preferredCountries: ['uk']
+}
+
+const sparseCountryResult = calculateOptimizedMatches(sparseCountryStudent, sparseCountryPrograms, {
+  useIndex: true
+})
+
+test(
+  'Sparse country: returns at least 10 results',
+  true,
+  sparseCountryResult.results.length >= 10,
+  'P0'
+)
+test(
+  'Sparse country: used fallback tier > 1',
+  true,
+  (sparseCountryResult.stats.fallbackTierUsed ?? 1) > 1,
+  'P0'
+)
+console.log(`   Results: ${sparseCountryResult.results.length}`)
+console.log(`   Fallback tier: ${sparseCountryResult.stats.fallbackTierUsed}`)
+
+// ============================================
+// Test 11: Tiered Fallback - Empty Intersection
+// ============================================
+
+// Create programs where ZERO match both field AND country
+const emptyIntersectionPrograms: ProgramRequirements[] = []
+// Add 30 programs in engineering but NOT in UK
+for (let i = 0; i < 30; i++) {
+  emptyIntersectionPrograms.push({
+    programId: `empty-int-${i}`,
+    programName: `Engineering USA ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'engineering',
+    countryId: 'usa',
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+// Add 30 programs in UK but NOT engineering
+for (let i = 30; i < 60; i++) {
+  emptyIntersectionPrograms.push({
+    programId: `empty-int-${i}`,
+    programName: `UK Arts ${i}`,
+    universityId: `uni-${i}`,
+    universityName: `University ${i}`,
+    type: 'POINTS_ONLY',
+    fieldId: 'arts',
+    countryId: 'uk',
+    minimumIBPoints: 35,
+    requiredSubjects: [],
+    orGroupRequirements: []
+  })
+}
+
+const emptyIntStudent: StudentProfile = {
+  ...testStudent,
+  interestedFields: ['engineering'],
+  preferredCountries: ['uk']
+}
+
+const emptyIntResult = calculateOptimizedMatches(emptyIntStudent, emptyIntersectionPrograms, {
+  useIndex: true
+})
+
+test(
+  'Empty intersection: returns at least 10 results',
+  true,
+  emptyIntResult.results.length >= 10,
+  'P0'
+)
+test(
+  'Empty intersection: used fallback tier >= 3',
+  true,
+  (emptyIntResult.stats.fallbackTierUsed ?? 1) >= 3,
+  'P0'
+)
+console.log(`   Results: ${emptyIntResult.results.length}`)
+console.log(`   Fallback tier: ${emptyIntResult.stats.fallbackTierUsed}`)
+
+// ============================================
+// Test 12: Tiered Fallback - Normal Case (No Fallback)
+// ============================================
+
+// Use the normal test student with large programs (should have enough matches)
+const normalFallbackResult = calculateOptimizedMatches(testStudent, largePrograms, {
+  useIndex: true
+})
+
+test(
+  'Normal case: returns at least 10 results',
+  true,
+  normalFallbackResult.results.length >= 10,
+  'P0'
+)
+test(
+  'Normal case: no fallback needed (tier 1)',
+  true,
+  (normalFallbackResult.stats.fallbackTierUsed ?? 1) === 1,
+  'P1'
+)
+console.log(`   Results: ${normalFallbackResult.results.length}`)
+console.log(`   Fallback tier: ${normalFallbackResult.stats.fallbackTierUsed}`)
+
+// ============================================
 // Print Results
 // ============================================
 

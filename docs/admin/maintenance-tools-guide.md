@@ -9,6 +9,7 @@ This guide documents all available admin scripts and API endpoints for maintaini
 | Task | Command/URL | When to Use |
 |------|-------------|-------------|
 | **Invalidate all caches** | `/api/admin/cache/invalidate` | After bulk imports or direct DB changes |
+| **Clear matching cache** | See [After Matching Algorithm Changes](#after-matching-algorithm-code-changes) | After deploying matching code changes |
 | **Sync programs to Algolia** | `npx tsx scripts/sync-to-algolia-standalone.ts` | After bulk imports |
 | **Check Algolia status** | `npx tsx scripts/check-algolia.ts` | Verify search index health |
 | **Invalidate Redis cache** | `npx tsx scripts/invalidate-program-cache.ts` | After university updates |
@@ -301,6 +302,27 @@ npx tsx scripts/invalidate-program-cache.ts
 # 2. Invalidate Next.js caches (in browser)
 # Visit: http://localhost:3000/api/admin/cache/invalidate
 ```
+
+### After Matching Algorithm Code Changes
+
+When deploying changes to the matching algorithm code (in `lib/matching/`), cached match results become stale because the cache key doesn't include an algorithm version.
+
+**When to use:**
+- After modifying `lib/matching/*.ts` files (scorer, optimized-matcher, penalties, etc.)
+- After deploying fixes that change how matches are calculated
+- When students see unexpected match counts (e.g., fewer than 10 programs)
+
+**Clear ALL matching cache globally:**
+```bash
+npx tsx -e "require('dotenv').config(); require('./lib/matching/cache').clearAllMatchCache().then(() => console.log('✅ All matching cache cleared'))"
+```
+
+**Clear cache for a specific student:**
+```bash
+npx tsx -e "require('dotenv').config(); require('./lib/matching/cache').invalidateStudentCache('USER_ID_HERE').then(() => console.log('✅ Student cache cleared'))"
+```
+
+> **Note:** Student-level cache is automatically invalidated when they update their profile. This manual step is only needed after algorithm code changes.
 
 ### Images Not Appearing in Search
 
