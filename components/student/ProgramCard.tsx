@@ -202,17 +202,38 @@ function processRequirementsForDisplay(
         processedGroups.add(req.orGroupId)
         const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
 
-        // Find best match from OR group
+        // Find which option the student actually took
         let bestReq = groupItems[0]
         let bestScore = -1
 
         for (const option of groupItems) {
-          const status = getRequirementStatus(option, studentCourses)
-          // Prioritize: met > partial > not taken
-          const score = status.met ? 2 : status.status === 'Not taken in your diploma' ? 0 : 1
-          if (score > bestScore) {
-            bestScore = score
-            bestReq = option
+          // Check if student took this specific course
+          const studentHasCourse = studentCourses.some(
+            (sc) => sc.ibCourse.id === option.ibCourse.id
+          )
+
+          if (studentHasCourse) {
+            const status = getRequirementStatus(option, studentCourses)
+            // Prioritize: met > partial > not taken
+            const score = status.met ? 2 : 1
+            if (score > bestScore) {
+              bestScore = score
+              bestReq = option
+            }
+            // If we found a met requirement, stop searching
+            if (status.met) break
+          }
+        }
+
+        // If no student course matched, fall back to original logic
+        if (bestScore === -1) {
+          for (const option of groupItems) {
+            const status = getRequirementStatus(option, studentCourses)
+            const score = status.met ? 2 : status.status === 'Not taken in your diploma' ? 0 : 1
+            if (score > bestScore) {
+              bestScore = score
+              bestReq = option
+            }
           }
         }
 
@@ -261,30 +282,32 @@ function processRequirementsForCardDisplay(
         // For OR groups, find the match entry (it's the same for all options in the group)
         const orGroupMatch = findMatchForCourse(groupItems[0].ibCourse.id)
 
-        // Find the best matching option from the group
-        // We use the overall status from the match, but need to pick the right option to display
-        let bestReq = groupItems[0]
-        let bestScore = -1
+        // Use matchedCourseId to find the correct option to display
+        let displayReq = groupItems[0] // Fallback to first
 
-        for (const option of groupItems) {
-          // Check if this specific option has a match entry (for regular requirements)
-          // or is part of the OR group that matched
-          const optionMatch = findMatchForCourse(option.ibCourse.id)
-
-          // Give higher score to options that have matching entries
-          // The actual match status comes from the orGroupMatch
-          const hasMatch = optionMatch !== undefined
-          const score = hasMatch ? 1 : 0
-
-          if (score > bestScore) {
-            bestScore = score
-            bestReq = option
+        if (orGroupMatch?.matchedCourseId) {
+          // Find the requirement that matches the courseId from the match result
+          const matchedReq = groupItems.find(
+            (item) => item.ibCourse.id === orGroupMatch.matchedCourseId
+          )
+          if (matchedReq) {
+            displayReq = matchedReq
+          }
+        } else {
+          // FALLBACK: No matched course ID, try to find best based on status
+          // (This handles backward compatibility or edge cases)
+          for (const option of groupItems) {
+            const optionMatch = findMatchForCourse(option.ibCourse.id)
+            if (optionMatch?.status === 'FULL_MATCH') {
+              displayReq = option
+              break
+            }
           }
         }
 
         // Use the status from the OR group match
         result.push({
-          requirement: bestReq,
+          requirement: displayReq,
           status: orGroupMatch?.status || 'NO_MATCH',
           reason: orGroupMatch?.reason
         })

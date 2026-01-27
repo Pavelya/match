@@ -33,39 +33,6 @@
 
 ---
 
-
-## 🇮🇹 Italy
-
-### 1. University of Bologna
-
-| Field | Value |
-|-------|-------|
-| **Full Name** | Alma Mater Studiorum – Università di Bologna |
-| **Short Name** | UniBo |
-| **Description** | The oldest university in the Western world, founded in 1088. A major research institution offering programs across all academic disciplines. Known for strong international orientation and multi-campus structure. |
-| **Website** | https://www.unibo.it |
-| **Phone** | +39 051 209 9111 |
-| **Email** | internationaldesk@unibo.it |
-| **Student Population** | ~97,000 |
-| **IB Requirements** | Full IB Diploma required with minimum 24 points (12 at HL). TOK and EE must be completed. 12 years of schooling required. Minimum IB score 27 recommended. |
-
----
-
-### 2. Sapienza University of Rome
-
-| Field | Value |
-|-------|-------|
-| **Full Name** | Sapienza Università di Roma |
-| **Short Name** | Sapienza |
-| **Description** | One of Europe's largest universities, founded in 1303. Offers over 300 degree programs across 11 faculties. Located throughout Rome with a main campus near the historic center. |
-| **Website** | https://www.uniroma1.it |
-| **Phone** | +39 06 49911 |
-| **Email** | studentistranieri@uniroma1.it |
-| **Student Population** | ~115,000 |
-| **IB Requirements** | Full IB Diploma required. Minimum 24 points (12 at HL). 12 years of schooling mandatory. TOK and EE must be passed. Italian or English proficiency depending on program language. |
-
----
-
 ## 🇯🇵 Japan
 
 ### 1. Kyoto University
@@ -95,40 +62,6 @@
 | **Email** | adm@gs.mail.u-tokyo.ac.jp |
 | **Student Population** | ~28,500 |
 | **IB Requirements** | IB Diploma recognized. English-based programs available (PEAK for undergraduates). Holistic admission including interviews. Competitive IB scores required (typically 38+). English proficiency required. |
-
----
-
-## 🇵🇹 Portugal
-
-### 1. University of Lisbon
-
-| Field | Value |
-|-------|-------|
-| **Full Name** | Universidade de Lisboa |
-| **Short Name** | ULisboa |
-| **Description** | Portugal's largest and most prestigious university, formed in 2013 from the merger of the University of Lisbon and the Technical University of Lisbon. Offers comprehensive programs across 18 schools. |
-| **Website** | https://www.ulisboa.pt |
-| **Phone** | +351 210 113 400 |
-| **Email** | estudanteinternacional@ulisboa.pt |
-| **Student Population** | ~50,000 |
-| **IB Requirements** | IB Diploma recognized (Portaria 433/2005). Minimum 24 IB points. Transcripts must be sent to DGE for conversion. Portuguese proficiency required for Portuguese-taught programs. |
-
----
-
-### 2. University of Porto
-
-| Field | Value |
-|-------|-------|
-| **Full Name** | Universidade do Porto |
-| **Short Name** | U.Porto |
-| **Description** | One of Portugal's top research universities, founded in 1911. Known for excellence in engineering, medicine, and economics. Located in Porto, Portugal's second-largest city. |
-| **Website** | https://www.up.pt |
-| **Phone** | +351 220 408 000 |
-| **Email** | up@up.pt |
-| **Student Population** | ~32,000 |
-| **IB Requirements** | IB Diploma recognized for admission. Transcripts sent to DGE for Portuguese equivalency. Competitive programs may require IB 30+. Portuguese proficiency required for most programs. |
-
----
 
 ### 2. Nanyang Technological University
 

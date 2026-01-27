@@ -135,6 +135,10 @@ export interface SubjectMatchDetail {
   score: number // 0 to 1
   status: 'FULL_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH'
   reason?: string // e.g., "Grade 1 point below", "Level mismatch (SL vs HL)"
+  /** The actual courseId that produced the best match (for OR-groups) */
+  matchedCourseId?: string
+  /** Human-readable name of the matched course (for display) */
+  matchedCourseName?: string
 }
 
 /** Academic match score (G_M) */

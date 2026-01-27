@@ -123,7 +123,10 @@ export function calculateORGroupMatch(
         requirement: orGroup,
         score: match.score,
         status: match.status,
-        reason: `Best match via ${option.courseName}: ${match.reason || 'Fully met'}`
+        reason: `Best match via ${option.courseName}: ${match.reason || 'Fully met'}`,
+        // Track which specific course matched for display purposes
+        matchedCourseId: option.courseId,
+        matchedCourseName: option.courseName
       }
     }
 

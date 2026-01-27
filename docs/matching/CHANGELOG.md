@@ -4,6 +4,30 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-01-27] - OR-Group Subject Display Fix
+
+### Fixed
+
+- **OR-Group Subject Display Bug**: Program cards and detail pages now correctly display the actual subject a student took when matching via OR-groups, instead of showing the first subject in the admin list.
+  
+  **Technical Changes:**
+  - Enhanced `SubjectMatchDetail` type with `matchedCourseId` and `matchedCourseName` fields
+  - Updated `calculateORGroupMatch()` to track which specific option matched
+  - Fixed `processRequirementsForCardDisplay()` to use matched course data
+  - Fixed `processRequirementsForDisplay()` to prioritize student's actual courses
+  - Maintains backward compatibility with existing match results through fallback logic
+
+  **Example:**
+  - **Before:** Student took Computer Science → showed "Biology" (first in OR-group)
+  - **After:** Student took Computer Science → correctly shows "Computer Science"
+
+  **Files Modified:**
+  - `lib/matching/types.ts` - Added optional fields to SubjectMatchDetail
+  - `lib/matching/subject-matcher.ts` - Populate matched course tracking
+  - `components/student/ProgramCard.tsx` - Display correct matched courses
+
+---
+
 ## [V10] - 2024-12-20
 
 ### Added

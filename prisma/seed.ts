@@ -5,33 +5,62 @@ const prisma = new PrismaClient()
 async function main() {
   console.log('Seeding IB courses...')
   const ibCourses = [
-    // Group 1: Studies in language and literature
+    // Group 1: Studies in language and literature (Language A)
     { name: 'English A: Literature', code: 'ENG-LIT', group: 1 },
     { name: 'English A: Language & Literature', code: 'ENG-LL', group: 1 },
+    { name: 'German A: Literature', code: 'GER-LIT', group: 1 },
+    { name: 'German A: Language & Literature', code: 'GER-LL', group: 1 },
+    { name: 'French A: Literature', code: 'FRA-LIT', group: 1 },
+    { name: 'French A: Language & Literature', code: 'FRA-LL', group: 1 },
+    { name: 'Spanish A: Literature', code: 'SPA-LIT', group: 1 },
+    { name: 'Spanish A: Language & Literature', code: 'SPA-LL', group: 1 },
 
-    // Group 2: Language acquisition
+    // Group 2: Language acquisition (Language B and ab initio)
+    { name: 'German B', code: 'GER-B', group: 2 },
     { name: 'Spanish B', code: 'SPA-B', group: 2 },
     { name: 'French B', code: 'FRA-B', group: 2 },
+    { name: 'Italian B', code: 'ITA-B', group: 2 },
+    { name: 'Portuguese B', code: 'POR-B', group: 2 },
+    { name: 'Mandarin B', code: 'MAN-B', group: 2 },
+    { name: 'Japanese B', code: 'JPN-B', group: 2 },
+    { name: 'Arabic B', code: 'ARA-B', group: 2 },
+    { name: 'Dutch B', code: 'DUT-B', group: 2 },
+    { name: 'Russian B', code: 'RUS-B', group: 2 },
+    { name: 'Korean B', code: 'KOR-B', group: 2 },
+    { name: 'Hindi B', code: 'HIN-B', group: 2 },
+    { name: 'Latin', code: 'LAT', group: 2 },
+    { name: 'Classical Greek', code: 'GRK', group: 2 },
 
     // Group 3: Individuals and societies
     { name: 'Economics', code: 'ECON', group: 3 },
     { name: 'Business Management', code: 'BUS-MGMT', group: 3 },
     { name: 'Psychology', code: 'PSYCH', group: 3 },
     { name: 'History', code: 'HIST', group: 3 },
+    { name: 'Geography', code: 'GEOG', group: 3 },
+    { name: 'Philosophy', code: 'PHIL', group: 3 },
+    { name: 'Global Politics', code: 'GLOB-POL', group: 3 },
+    { name: 'Social and Cultural Anthropology', code: 'ANTHRO', group: 3 },
+    { name: 'World Religions', code: 'WORLD-REL', group: 3 },
 
     // Group 4: Sciences
     { name: 'Biology', code: 'BIO', group: 4 },
     { name: 'Chemistry', code: 'CHEM', group: 4 },
     { name: 'Physics', code: 'PHYS', group: 4 },
     { name: 'Computer Science', code: 'CS', group: 4 },
+    { name: 'Environmental Systems and Societies', code: 'ESS', group: 4 },
+    { name: 'Design Technology', code: 'DES-TECH', group: 4 },
+    { name: 'Sports, Exercise and Health Science', code: 'SEHS', group: 4 },
 
     // Group 5: Mathematics
     { name: 'Mathematics: Analysis and Approaches', code: 'MATH-AA', group: 5 },
     { name: 'Mathematics: Applications and Interpretation', code: 'MATH-AI', group: 5 },
 
-    // Group 6: The arts
+    // Group 6: The Arts
     { name: 'Visual Arts', code: 'VISUAL-ARTS', group: 6 },
-    { name: 'Music', code: 'MUSIC', group: 6 }
+    { name: 'Music', code: 'MUSIC', group: 6 },
+    { name: 'Theatre', code: 'THEATRE', group: 6 },
+    { name: 'Film', code: 'FILM', group: 6 },
+    { name: 'Dance', code: 'DANCE', group: 6 }
   ]
 
   for (const course of ibCourses) {
@@ -115,6 +144,16 @@ async function main() {
       name: 'Environmental Studies',
       iconName: '🌱',
       description: 'Sustainability, Climate Science, Conservation, Renewable Energy'
+    },
+    {
+      name: 'Education',
+      iconName: '📚',
+      description: 'Teaching, Educational Psychology'
+    },
+    {
+      name: 'Media',
+      iconName: '📺',
+      description: 'Journalism, Digital Media, Film Production'
     }
   ]
 
