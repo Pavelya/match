@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 }
 
 // JSON-LD structured data for SEO and AI search
-const jsonLd = {
+const webPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   name: 'How IB Match Works',
@@ -75,12 +75,70 @@ const jsonLd = {
   }
 }
 
+// TechArticle schema for E-E-A-T signals (Task 5.3)
+// Signals expertise and authority to AI search engines
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'How IB Match Works: Technology Behind University Matching for IB Students',
+  description:
+    'Technical deep dive into IB Match: Algolia-powered search, three-factor compatibility scoring, and transparent matching algorithms for International Baccalaureate students.',
+  url: `${baseUrl}/how-it-works`,
+  datePublished: '2025-01-01',
+  dateModified: new Date().toISOString().split('T')[0],
+  author: {
+    '@type': 'Organization',
+    name: 'IB Match',
+    url: baseUrl,
+    description: 'University matching platform for International Baccalaureate students'
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'IB Match',
+    url: baseUrl
+  },
+  about: [
+    {
+      '@type': 'Thing',
+      name: 'University Matching',
+      description: 'Algorithm and technology for matching students with university programs'
+    },
+    {
+      '@type': 'Thing',
+      name: 'International Baccalaureate',
+      description: 'IB Diploma program requirements and university admission'
+    },
+    {
+      '@type': 'Thing',
+      name: 'Search Technology',
+      description: 'Algolia-powered search and filtering for educational programs'
+    }
+  ],
+  abstract:
+    'IB Match uses fast search technology and transparent scoring to match International Baccalaureate students with university programs. Our platform evaluates compatibility based on IB points, subject requirements, and student preferences without AI black boxes.',
+  articleBody:
+    'IB Match leverages Algolia search to enable instant filtering across university programs. Our three-factor scoring system evaluates: (1) IB Points Compatibility - comparing student scores against program requirements, (2) Subject Match - analyzing HL/SL course alignment, and (3) Preference Alignment - considering student location and field preferences. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.',
+  proficiencyLevel: 'Expert',
+  dependencies: 'Algolia Search, Next.js, PostgreSQL',
+  teaches: [
+    'How university matching algorithms work',
+    'IB requirements evaluation methodology',
+    'Search technology for educational platforms'
+  ]
+}
+
 export default function HowItWorksPage() {
   return (
     <>
+      {/* WebPage schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      {/* TechArticle schema for E-E-A-T */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
       />
       <main className="flex min-h-screen flex-col">
         <HowItWorksHero />
