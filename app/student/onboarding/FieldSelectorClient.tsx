@@ -88,7 +88,7 @@ export function FieldSelectorClient({
   const router = useRouter()
 
   const handleContinueFromFields = () => {
-    if (selectedFields.length >= 3 && selectedFields.length <= 5) {
+    if (selectedFields.length >= 1 && selectedFields.length <= 5) {
       setStep(2)
     }
   }
@@ -196,7 +196,7 @@ export function FieldSelectorClient({
     setEeGrade(ee)
   }
 
-  const canContinueFromFields = selectedFields.length >= 3 && selectedFields.length <= 5
+  const canContinueFromFields = selectedFields.length >= 1 && selectedFields.length <= 5
   const canContinueFromDetailedGrades = courseSelections.length === 6 && tokGrade && eeGrade
 
   // Scroll to top when step changes
@@ -223,7 +223,7 @@ export function FieldSelectorClient({
             fields={fields}
             selectedFields={selectedFields}
             onSelectionChange={setSelectedFields}
-            minSelection={3}
+            minSelection={1}
             maxSelection={5}
           />
 

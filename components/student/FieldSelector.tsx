@@ -23,7 +23,7 @@ export function FieldSelector({
   fields,
   selectedFields,
   onSelectionChange,
-  minSelection = 3,
+  minSelection = 1,
   maxSelection = 5
 }: FieldSelectorProps) {
   const toggleField = (fieldId: string) => {

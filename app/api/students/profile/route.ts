@@ -37,13 +37,13 @@ export async function POST(request: NextRequest) {
     // Parse request body
     const data: SaveProfileRequest = await request.json()
 
-    // Validate required fields
-    if (!data.interestedFields || data.interestedFields.length < 3) {
-      return NextResponse.json(
-        { error: 'Please select at least 3 fields of study' },
-        { status: 400 }
-      )
-    }
+    // // Validate required fields
+    // if (!data.interestedFields || data.interestedFields.length < 3) {
+    //   return NextResponse.json(
+    //     { error: 'Please select at least 3 fields of study' },
+    //     { status: 400 }
+    //   )
+    // }
 
     if (!data.courseSelections || data.courseSelections.length !== 6) {
       return NextResponse.json({ error: 'Please select exactly 6 IB courses' }, { status: 400 })
