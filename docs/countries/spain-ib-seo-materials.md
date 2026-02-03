@@ -145,11 +145,7 @@ Sources must appear **inside the relevant section**, not only in a footer.
 | Anchor text                                  | URL                    |
 | -------------------------------------------- | ---------------------- |
 | how IB Match calculates your admission score | /how-it-works          |
-| IB subject strategy for Spain                | /ib-subject-selection  |
-| Spain university admission system            | /university-admissions |
-| public vs private universities in Spain      | /universities          |
-| IB university deadlines in Spain             | /admission-timeline    |
-| IB Match algorithm explained                 | /matching-algorithm    |
+
 
 ---
 
@@ -291,7 +287,7 @@ Typical high-weight IB subjects:
 **Official sources:**
 
 * [https://universitats.gencat.cat](https://universitats.gencat.cat)
-* [https://www.comunidad.madrid/servicios/educacion/distrito-unico](https://www.comunidad.madrid/servicios/educacion/distrito-unico)
+* [https://www.comunidad.madrid/servicios/educacion](https://www.comunidad.madrid/servicios/educacion)
 
 ---
 

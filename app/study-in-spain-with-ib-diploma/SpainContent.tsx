@@ -397,12 +397,12 @@ export function SpainContent() {
                 </li>
                 <li>
                   <a
-                    href="https://www.comunidad.madrid/servicios/educacion/distrito-unico"
+                    href="https://www.comunidad.madrid/servicios/educacion/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.comunidad.madrid/servicios/educacion/distrito-unico
+                    https://www.comunidad.madrid/servicios/educacion/
                   </a>
                 </li>
               </ul>
