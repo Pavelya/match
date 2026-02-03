@@ -140,12 +140,6 @@ Sources must appear **inside the relevant section**, not only in a footer.
 | Anchor text                               | URL                    |
 | ----------------------------------------- | ---------------------- |
 | how IB Match evaluates German admission   | /how-it-works          |
-| IB subject strategy for Germany           | /ib-subject-selection  |
-| Germany university admission system       | /university-admissions |
-| public vs private universities in Germany | /universities          |
-| IB university deadlines in Germany        | /admission-timeline    |
-| IB Match algorithm explained              | /matching-algorithm    |
-
 ---
 
 ## 7. Schema Markup (MANDATORY)

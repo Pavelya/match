@@ -144,11 +144,7 @@ Sources must appear **inside the relevant section**, not only in a footer.
 | Anchor text                              | URL                    |
 | ---------------------------------------- | ---------------------- |
 | how IB Match evaluates Italian admission | /how-it-works          |
-| IB subject strategy for Italy            | /ib-subject-selection  |
-| Italy university admission system        | /university-admissions |
-| public vs private universities in Italy  | /universities          |
-| IB university deadlines in Italy         | /admission-timeline    |
-| IB Match algorithm explained             | /matching-algorithm    |
+
 
 ---
 
