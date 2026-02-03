@@ -326,6 +326,35 @@ function processRequirementsForCardDisplay(
   return result
 }
 
+/**
+ * Group requirements for public display (logged-out users)
+ * Returns grouped requirements: standalone requirements and OR-groups
+ */
+type GroupedRequirement =
+  | { type: 'single'; requirement: CourseRequirement }
+  | { type: 'or-group'; requirements: CourseRequirement[] }
+
+function groupRequirementsForPublicDisplay(
+  requirements: CourseRequirement[]
+): GroupedRequirement[] {
+  const result: GroupedRequirement[] = []
+  const processedGroups = new Set<string>()
+
+  for (const req of requirements) {
+    if (req.orGroupId) {
+      if (!processedGroups.has(req.orGroupId)) {
+        processedGroups.add(req.orGroupId)
+        const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
+        result.push({ type: 'or-group', requirements: groupItems })
+      }
+    } else {
+      result.push({ type: 'single', requirement: req })
+    }
+  }
+
+  return result
+}
+
 export function ProgramCard({
   program,
   matchResult,
@@ -483,6 +512,12 @@ export function ProgramCard({
                   <GraduationCap className="h-4 w-4 text-muted-foreground" />
                   {program.degreeType}
                 </span>
+                {program.minIBPoints && (
+                  <span className="flex items-center gap-1.5 text-primary font-medium">
+                    <GraduationCap className="h-4 w-4" />
+                    {program.minIBPoints} IB Points
+                  </span>
+                )}
               </div>
 
               {/* Action Buttons */}
@@ -647,28 +682,68 @@ export function ProgramCard({
                     }
                   )}
 
-                {/* Course Requirement Tiles - Without Student Profile */}
+                {/* Course Requirement Tiles - Without Student Profile (Public View) */}
                 {program.courseRequirements &&
                   program.courseRequirements.length > 0 &&
                   !studentProfile &&
-                  program.courseRequirements.map((req) => (
-                    <div key={req.id} className="rounded-xl border-2 border-muted p-3">
-                      <div className="flex items-start gap-2">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
-                          <SubjectGroupIcon
-                            groupId={req.ibCourse.group}
-                            className="h-4 w-4 text-muted-foreground"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-sm leading-tight">{req.ibCourse.name}</p>
-                          <p className="text-xs text-muted-foreground">
-                            {req.requiredLevel} • Required: {req.minGrade}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  groupRequirementsForPublicDisplay(program.courseRequirements).map(
+                    (group, index) => {
+                      if (group.type === 'single') {
+                        const req = group.requirement
+                        return (
+                          <div key={req.id} className="rounded-xl border-2 border-muted p-3">
+                            <div className="flex items-start gap-2">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+                                <SubjectGroupIcon
+                                  groupId={req.ibCourse.group}
+                                  className="h-4 w-4 text-muted-foreground"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-sm leading-tight">
+                                  {req.ibCourse.name}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {req.requiredLevel} • Required: {req.minGrade}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      } else {
+                        // OR-group: display as a single card with all options listed
+                        const reqs = group.requirements
+                        const firstReq = reqs[0]
+                        return (
+                          <div
+                            key={`or-group-${index}`}
+                            className="rounded-xl border-2 border-muted p-3 relative"
+                          >
+                            {/* OR Badge */}
+                            <div className="absolute -top-2 right-3 px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-semibold uppercase tracking-wide rounded-full">
+                              One of
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+                                <SubjectGroupIcon
+                                  groupId={firstReq.ibCourse.group}
+                                  className="h-4 w-4 text-muted-foreground"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-sm leading-tight">
+                                  {reqs.map((r) => r.ibCourse.name).join(' or ')}
+                                </p>
+                                <p className="text-xs text-muted-foreground">
+                                  {firstReq.requiredLevel} • Required: {firstReq.minGrade}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      }
+                    }
+                  )}
               </div>
             </div>
           )}
@@ -856,7 +931,7 @@ export function ProgramCard({
                     <GraduationCap className="h-4 w-4 text-muted-foreground" />
                     {program.degreeType}
                   </span>
-                  {!showMatchDetails && program.minIBPoints && (
+                  {program.minIBPoints && (
                     <span className="flex items-center gap-1.5 text-primary font-medium">
                       <GraduationCap className="h-4 w-4" />
                       {program.minIBPoints} IB Points
