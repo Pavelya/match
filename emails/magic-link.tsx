@@ -33,7 +33,7 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Sign in to IB Match - Your secure sign-in link</Preview>
+      <Preview>Access IB Match - Your secure link</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={logoContainer}>
@@ -45,18 +45,18 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
               style={logo}
             />
           </Section>
-          <Heading style={h1}>Sign in to IB Match</Heading>
+          <Heading style={h1}>Access IB Match</Heading>
 
           <Text style={text}>Hello,</Text>
 
           <Text style={text}>
-            Click the button below to securely sign in to your IB Match account. This link will
-            expire in 10 minutes.
+            Click the button below to securely access IB Match. If this is your first time, your
+            account will be created automatically. This link expires in 10 minutes.
           </Text>
 
           <Section style={buttonContainer}>
             <Button style={button} href={url}>
-              Sign in to IB Match
+              Access IB Match
             </Button>
           </Section>
 

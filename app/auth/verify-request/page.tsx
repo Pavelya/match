@@ -22,14 +22,15 @@ export default function VerifyRequestPage() {
             </svg>
           </div>
           <CardTitle>Check your email</CardTitle>
-          <CardDescription>
-            We&apos;ve sent you a magic link to sign in to your account
-          </CardDescription>
+          <CardDescription>We&apos;ve sent you a secure link to access IB Match</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Click the link in the email we sent you to complete your sign-in. The link will expire
-            in 15 minutes.
+            Click the link in the email to continue. If you&apos;re new, your account will be
+            created automatically. The link expires in 15 minutes.
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Don&apos;t see it? Check your spam folder.
           </p>
           <div className="pt-4">
             <Link href="/auth/signin" className="text-sm text-primary hover:underline">

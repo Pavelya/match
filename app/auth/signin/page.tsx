@@ -70,12 +70,12 @@ function SignInForm() {
           />
         </Link>
         <CardTitle className="text-2xl">
-          {declineInvite ? 'Create Your Account' : 'Welcome back'}
+          {declineInvite ? 'Create Your Account' : 'Welcome to IB Match'}
         </CardTitle>
         <CardDescription>
           {declineInvite
             ? 'Create a regular account to use IB Match'
-            : 'Sign in to find your perfect university match'}
+            : "Whether you're new or returning, we'll get you started"}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -148,6 +148,9 @@ function SignInForm() {
               required
               disabled={isLoading}
             />
+            <p className="text-xs text-muted-foreground">
+              No password needed—we&apos;ll email you a secure link that expires in 10 minutes.
+            </p>
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? 'Sending...' : 'Send magic link'}
