@@ -11,7 +11,7 @@
 
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -194,8 +194,17 @@ export function SearchClient({
     [minPoints, maxPoints]
   )
 
-  // Debounce search
+  // Track if we've already used initial results (skip first API call for SEO)
+  const hasInitializedRef = useRef(initialResults.length > 0)
+
+  // Debounce search - skip initial call if we have server-rendered results
   useEffect(() => {
+    // Skip the first search if we have initial results from SSR
+    if (hasInitializedRef.current) {
+      hasInitializedRef.current = false
+      return
+    }
+
     const timer = setTimeout(() => {
       performSearch(query, selectedFields, selectedCountries, currentPage)
     }, 300)
