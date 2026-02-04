@@ -79,10 +79,15 @@ export const metadata = {
 }
 
 export default async function SearchPage() {
-  // Fetch reference data for filter options
-  const [fields, countries] = await Promise.all([
+  // Fetch reference data for filter options AND initial programs for SEO
+  // Initial programs prevent "Soft 404" by showing real content on first render
+  const [fields, countries, initialSearchResult] = await Promise.all([
     getCachedFields(),
-    getCachedCountriesWithPrograms()
+    getCachedCountriesWithPrograms(),
+    // Dynamically import to avoid SSR issues with Algolia client
+    import('@/lib/algolia/search')
+      .then((mod) => mod.searchPrograms('', undefined, { hitsPerPage: 20, page: 0 }))
+      .catch(() => ({ hits: [], nbHits: 0, page: 0, nbPages: 0, processingTimeMS: 0 }))
   ])
 
   // FAQ Schema for SEO rich snippets (Task 3.2)
@@ -197,6 +202,8 @@ export default async function SearchPage() {
               code: c.code,
               flagEmoji: c.flagEmoji
             }))}
+            initialResults={initialSearchResult.hits}
+            initialTotalHits={initialSearchResult.nbHits}
           />
         </Suspense>
       </PageContainer>

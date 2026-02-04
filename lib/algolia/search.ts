@@ -153,6 +153,7 @@ export interface ProgramSearchResult {
   objectID: string
   programId: string
   programName: string
+  universityId: string
   universityName: string
   universityAbbreviation?: string
   universityImageUrl?: string
@@ -240,6 +241,7 @@ export async function searchPrograms(
           'objectID',
           'programId',
           'programName',
+          'universityId',
           'universityName',
           'universityAbbreviation',
           'universityImageUrl',

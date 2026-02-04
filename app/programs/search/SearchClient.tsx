@@ -33,6 +33,10 @@ import { FieldIcon } from '@/lib/icons'
 interface SearchClientProps {
   fields: Array<{ id: string; name: string }>
   countries: Array<{ id: string; name: string; code: string; flagEmoji: string | null }>
+  /** Server-rendered initial results to prevent Soft 404 for SEO */
+  initialResults?: SearchResult[]
+  /** Total count of initial results */
+  initialTotalHits?: number
 }
 
 interface SearchResult {
@@ -77,19 +81,24 @@ function transformToProgram(result: SearchResult) {
   }
 }
 
-export function SearchClient({ fields, countries }: SearchClientProps) {
+export function SearchClient({
+  fields,
+  countries,
+  initialResults = [],
+  initialTotalHits = 0
+}: SearchClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // Search state
+  // Search state - initialize with server-rendered results for SEO
   const [query, setQuery] = useState(searchParams.get('q') || '')
-  const [results, setResults] = useState<SearchResult[]>([])
+  const [results, setResults] = useState<SearchResult[]>(initialResults)
   const [isLoading, setIsLoading] = useState(false)
-  const [totalHits, setTotalHits] = useState(0)
+  const [totalHits, setTotalHits] = useState(initialTotalHits)
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0)
-  const [totalPages, setTotalPages] = useState(0)
+  const [totalPages, setTotalPages] = useState(Math.ceil(initialTotalHits / 50) || 1)
 
   // Filter state
   const [showFilters, setShowFilters] = useState(false)

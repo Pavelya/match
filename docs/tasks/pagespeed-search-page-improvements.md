@@ -31,7 +31,7 @@
 
 ## Tasks
 
-### Task 1: ✅ COMPLETE - Enable Search Page Indexing
+### Task 1: ✅ COMPLETE - Enable Search Page Indexing + Fix Soft 404
 
 **Goal:** Allow search engines to index the search page to improve discoverability and SEO score.
 
@@ -40,20 +40,27 @@
 - ✅ SEO Plan (Task 3) explicitly targets the search page for SEO optimization
 - ✅ All other landing pages (Spain, Germany, etc.) use `robots: { index: true, follow: true }`
 - ✅ The page already has full SEO: keywords, FAQ schema, Open Graph, canonical URL
-- ❌ Original comment "prevent indexing to avoid Soft 404 errors" was incorrect - the page loads real content
+- ❌ Original comment "prevent indexing to avoid Soft 404 errors" was incorrect - fixed with server-side results
 
-**Change Made:**
+**Changes Made:**
+
+1. **Enabled indexing** (`app/programs/search/page.tsx`):
 ```diff
-// app/programs/search/page.tsx - Line 25-27
 robots: {
 -  index: false,
 +  index: true,
    follow: true,
--  nocache: false
 }
 ```
 
-**Expected Impact:** SEO score should increase from 69 to 90+
+2. **Fixed Soft 404** by adding server-side initial results:
+   - `page.tsx`: Fetches 20 initial programs server-side using `searchPrograms()`
+   - `SearchClient.tsx`: Accepts `initialResults` and `initialTotalHits` props
+   - `lib/algolia/search.ts`: Added `universityId` to search results
+
+**Expected Impact:** 
+- SEO score: 69 → 90+ 
+- Google now sees 20 real programs on initial crawl instead of empty skeleton
 
 ---
 
