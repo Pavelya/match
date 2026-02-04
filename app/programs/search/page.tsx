@@ -17,15 +17,14 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
 
 // Enhanced metadata for search page with IB-specific optimization (Task 3.1)
-// Note: This is a utility page, so we prevent indexing to avoid Soft 404 errors
+// SEO-optimized page for discovery keywords: "IB program search", "university finder"
 export const metadata = {
   title: 'Search IB Programs - Find Universities by IB Points | IB Match',
   description:
     'Search 1000+ university programs by IB points, country, and field of study. Filter programs from 24-45 IB points across Computer Science, Engineering, Medicine, Business, and more. Find your perfect university match.',
   robots: {
-    index: false,
-    follow: true,
-    nocache: false
+    index: true,
+    follow: true
   },
   keywords: [
     // Core search functionality
