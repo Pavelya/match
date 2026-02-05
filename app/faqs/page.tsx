@@ -120,6 +120,8 @@ export default async function FAQPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    datePublished: '2025-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
@@ -127,7 +129,11 @@ export default async function FAQPage() {
         '@type': 'Answer',
         text: faq.answer
       }
-    }))
+    })),
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', '.faq-question', '.faq-answer', 'dt', 'dd']
+    }
   }
 
   return (

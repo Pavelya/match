@@ -69,6 +69,7 @@ const jsonLd = {
       '@type': 'EducationalOrganization',
       name: 'IB Match',
       url: baseUrl,
+      logo: `${baseUrl}/og-image.png`,
       description:
         'Platform connecting IB students with suitable university programs based on their predicted grades, subjects, and preferences',
       knowsAbout: [
@@ -78,6 +79,19 @@ const jsonLd = {
         'Higher Level subjects',
         'Standard Level subjects'
       ]
+    },
+    {
+      '@type': 'WebPage',
+      '@id': baseUrl,
+      name: 'IB Match - Find Your Perfect University Program',
+      description:
+        'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
+      datePublished: '2025-01-01',
+      dateModified: new Date().toISOString().split('T')[0],
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.hero-description', '.feature-title', '.feature-description']
+      }
     }
   ]
 }

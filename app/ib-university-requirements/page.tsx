@@ -167,10 +167,16 @@ export default async function IBUniversityRequirementsPage() {
     description:
       'Comprehensive guide to IB Diploma admission requirements for universities worldwide',
     url: `${baseUrl}/ib-university-requirements`,
+    datePublished: '2025-01-01',
+    dateModified: new Date().toISOString().split('T')[0],
     about: {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'International Baccalaureate Diploma',
       description: 'University admission requirements for IB Diploma holders'
+    },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', '.stat-value', '.stat-description', 'article p']
     }
   }
 

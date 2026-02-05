@@ -74,6 +74,10 @@ const webPageSchema = {
   audience: {
     '@type': 'EducationalAudience',
     educationalRole: ['IB Student', 'IB Coordinator', 'Parent']
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2', '.content-section p', 'article p', '.faq-answer']
   }
 }
 

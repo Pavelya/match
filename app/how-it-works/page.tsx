@@ -90,12 +90,14 @@ const techArticleSchema = {
     '@type': 'Organization',
     name: 'IB Match',
     url: baseUrl,
+    logo: `${baseUrl}/og-image.png`,
     description: 'University matching platform for International Baccalaureate students'
   },
   publisher: {
     '@type': 'Organization',
     name: 'IB Match',
-    url: baseUrl
+    url: baseUrl,
+    logo: `${baseUrl}/og-image.png`
   },
   about: [
     {
@@ -124,7 +126,11 @@ const techArticleSchema = {
     'How university matching algorithms work',
     'IB requirements evaluation methodology',
     'Search technology for educational platforms'
-  ]
+  ],
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2', '.section-description', 'article p']
+  }
 }
 
 export default function HowItWorksPage() {

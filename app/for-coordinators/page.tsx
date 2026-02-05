@@ -50,6 +50,8 @@ const jsonLd = {
   name: 'IB Match for Coordinators',
   description: 'Partner page for IB Coordinators to help their students with university matching.',
   url: `${baseUrl}/for-coordinators`,
+  datePublished: '2025-01-01',
+  dateModified: new Date().toISOString().split('T')[0],
   isPartOf: {
     '@type': 'WebSite',
     name: 'IB Match',
@@ -63,12 +65,17 @@ const jsonLd = {
     provider: {
       '@type': 'Organization',
       name: 'IB Match',
-      url: baseUrl
+      url: baseUrl,
+      logo: `${baseUrl}/og-image.png`
     },
     audience: {
       '@type': 'EducationalAudience',
       educationalRole: 'IB Coordinator'
     }
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', 'h2', '.feature-description', 'article p']
   }
 }
 
