@@ -33,6 +33,7 @@ import {
 import { cn } from '@/lib/utils'
 import type { MatchResult, SubjectMatchDetail } from '@/lib/matching/types'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
+import { SignUpCTA } from '@/components/student/SignUpCTA'
 
 // Course requirement for detail view
 interface CourseRequirement {
@@ -116,6 +117,8 @@ interface ProgramCardProps {
   coordinatorStudentId?: string
   /** Set to true when coordinator is viewing a student's program match (disables save, changes labels) */
   isCoordinatorView?: boolean
+  /** Whether the user is logged in (enables sign-up CTA for logged-out users in detail view) */
+  isLoggedIn?: boolean
 }
 
 /**
@@ -366,7 +369,8 @@ export function ProgramCard({
   onUnsave,
   className,
   coordinatorStudentId,
-  isCoordinatorView = false
+  isCoordinatorView = false,
+  isLoggedIn = true
 }: ProgramCardProps) {
   const [saved, setSaved] = useState(isSaved)
   // State for animated progress bar - start at 0, animate to actual value
@@ -541,7 +545,7 @@ export function ProgramCard({
             </div>
           </div>
 
-          {/* Match Score Section - Same styling as card variant */}
+          {/* Match Score Section - Only shown for logged-in users with matchResult */}
           {matchResult && (
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -567,6 +571,15 @@ export function ProgramCard({
               <h2 className="text-lg font-semibold">Program Overview</h2>
               <p className="text-muted-foreground whitespace-pre-line">{program.description}</p>
             </div>
+          )}
+
+          {/* Sign-Up CTA for Logged-Out Users */}
+          {!isLoggedIn && !isCoordinatorView && (
+            <SignUpCTA
+              programId={program.id}
+              programName={program.name}
+              universityName={program.university.name}
+            />
           )}
 
           {/* Academic Requirements - Unified Grid Layout */}

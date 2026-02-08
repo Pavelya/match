@@ -154,6 +154,7 @@ export function ProgramDetailClient({
       onSave={canSave ? handleSave : undefined}
       onUnsave={canSave ? handleUnsave : undefined}
       isCoordinatorView={isCoordinatorView}
+      isLoggedIn={isLoggedIn}
     />
   )
 }
