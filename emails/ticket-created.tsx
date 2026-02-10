@@ -49,7 +49,7 @@ export default function TicketCreatedEmail({
   subject,
   userName
 }: TicketCreatedEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
 
   return (
     <Html>

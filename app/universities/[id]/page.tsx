@@ -16,7 +16,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
   const university = await prisma.university.findUnique({
     where: { id },

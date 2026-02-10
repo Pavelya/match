@@ -51,7 +51,7 @@ export default function TicketResolvedEmail({
   adminResponse,
   userName
 }: TicketResolvedEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
 
   return (
     <Html>

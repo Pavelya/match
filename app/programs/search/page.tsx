@@ -14,7 +14,7 @@ import { SearchClient } from './SearchClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 // Enhanced metadata for search page with IB-specific optimization (Task 3.1)
 // SEO-optimized page for discovery keywords: "IB program search", "university finder"

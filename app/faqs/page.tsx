@@ -9,7 +9,7 @@ import { getPublishedDocument } from '@/lib/legal-documents'
 // ISR - page fetches CMS content but is cached for 1 hour
 export const revalidate = 3600
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions',

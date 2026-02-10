@@ -7,7 +7,7 @@ import { ContactForm } from './_components/ContactForm'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
   title: 'Contact Us',

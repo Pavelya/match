@@ -15,7 +15,7 @@ import { AustraliaContent } from './AustraliaContent'
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days in seconds
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
   title: 'Study in Australia with IB Diploma | Official IBAS–ATAR Guide (2026)',

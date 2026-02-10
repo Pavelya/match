@@ -13,7 +13,7 @@ import { SavedProgramsClient } from './SavedProgramsClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { Loader2 } from 'lucide-react'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata = {
   title: 'Saved Programs',

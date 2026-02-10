@@ -28,7 +28,7 @@ interface CoordinatorMagicLinkEmailProps {
 const PRIMARY_COLOR = '#3573E5'
 
 export default function CoordinatorMagicLinkEmail({ url }: CoordinatorMagicLinkEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
 
   return (
     <Html>

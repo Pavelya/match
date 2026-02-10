@@ -10,7 +10,7 @@ import { getCachedFields, getCachedCountriesWithPrograms } from '@/lib/reference
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { RequirementsContent } from './RequirementsContent'
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 // Revalidate once per week (program/country data doesn't change daily)
 export const revalidate = 604800 // 7 days in seconds

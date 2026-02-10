@@ -11,7 +11,7 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 export const dynamic = 'force-static'
 export const revalidate = 3600
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
   title: 'For IB Coordinators',

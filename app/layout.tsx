@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     'higher education'
   ],
   authors: [{ name: 'IB Match Team' }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'),
   openGraph: {
     title: 'IB Match - Find Your Perfect University Program',
     description:
@@ -80,7 +80,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
   // Centralized Organization schema for consistent E-E-A-T signals across the site
   const organizationSchema = {

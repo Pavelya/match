@@ -38,7 +38,7 @@ export default function StudentInviteEmail({
   coordinatorName,
   expiresInDays = 7
 }: StudentInviteEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://ibmatch.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
   const declineUrl = `${baseUrl}/auth/signin?declineInvite=true`
 
   return (
