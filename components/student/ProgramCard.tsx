@@ -28,7 +28,8 @@ import {
   Clock,
   Check,
   ExternalLink,
-  AlertCircle
+  AlertCircle,
+  MapPin
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult, SubjectMatchDetail } from '@/lib/matching/types'
@@ -494,13 +495,22 @@ export function ProgramCard({
                 ) : (
                   <p className="text-muted-foreground">{program.university.name}</p>
                 )}
-                <p className="text-muted-foreground text-sm">
-                  {program.city}, {program.country.name}
-                </p>
+                {program.city && (
+                  <p className="flex items-center gap-1 text-muted-foreground text-sm">
+                    <MapPin className="h-3.5 w-3.5" />
+                    {program.city}
+                  </p>
+                )}
               </div>
 
               {/* Quick Info Bar - Same styling as card variant */}
               <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-muted/50 px-4 py-3 text-sm">
+                <span className="flex items-center gap-1.5 text-foreground">
+                  <span style={{ fontSize: '26px' }} className="leading-none">
+                    {program.country.flagEmoji || '🌍'}
+                  </span>
+                  {program.country.name}
+                </span>
                 <span className="flex items-center gap-1.5 text-foreground">
                   <FieldIcon
                     fieldName={program.fieldOfStudy.name}
@@ -866,7 +876,7 @@ export function ProgramCard({
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-5 sm:p-6">
             {/* University Image */}
             <div className="shrink-0 w-full sm:w-auto">
-              <div className="relative aspect-[16/9] sm:aspect-square w-full sm:h-44 sm:w-44 overflow-hidden rounded-xl bg-muted">
+              <div className="relative aspect-[16/9] sm:aspect-square w-full sm:h-48 sm:w-48 overflow-hidden rounded-xl bg-muted">
                 {program.university.image ? (
                   <Image
                     src={program.university.image}
@@ -905,9 +915,13 @@ export function ProgramCard({
                       ) : (
                         <span>{program.university.name}</span>
                       )}
-                      {program.city && `, ${program.city}`}
-                      {`, ${program.country.name}`}
                     </p>
+                    {program.city && (
+                      <p className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {program.city}
+                      </p>
+                    )}
                   </div>
 
                   {/* Save Button */}
@@ -929,6 +943,12 @@ export function ProgramCard({
 
                 {/* Quick Info */}
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-muted/50 px-4 py-3 text-sm">
+                  <span className="flex items-center gap-1.5 text-foreground">
+                    <span style={{ fontSize: '26px' }} className="leading-none">
+                      {program.country.flagEmoji || '🌍'}
+                    </span>
+                    {program.country.name}
+                  </span>
                   <span className="flex items-center gap-1.5 text-foreground">
                     <FieldIcon
                       fieldName={program.fieldOfStudy.name}

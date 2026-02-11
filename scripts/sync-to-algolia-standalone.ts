@@ -27,6 +27,7 @@ interface AlgoliaProgramRecord {
   universityName: string
   universityAbbreviation?: string
   universityImageUrl?: string // URL only (not base64)
+  city?: string
   fieldOfStudyId: string
   fieldOfStudy: {
     id: string
@@ -107,6 +108,7 @@ async function syncToAlgolia() {
       universityImageUrl: program.university.image?.startsWith('http')
         ? program.university.image
         : undefined,
+      city: program.university.city ?? undefined,
 
       fieldOfStudyId: program.fieldOfStudy.id,
       fieldOfStudy: {

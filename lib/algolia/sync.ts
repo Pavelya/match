@@ -24,6 +24,7 @@ export interface AlgoliaProgramRecord {
   universityName: string
   universityAbbreviation?: string
   universityImageUrl?: string // URL only (not base64) - small enough for Algolia 10KB limit
+  city?: string
 
   // Field of study (nested for faceting)
   fieldOfStudyId: string
@@ -108,6 +109,7 @@ export async function transformProgramToAlgolia(
       universityImageUrl: program.university.image?.startsWith('http')
         ? program.university.image
         : undefined,
+      city: program.university.city ?? undefined,
 
       // Field of Study (nested)
       fieldOfStudyId: program.fieldOfStudy.id,

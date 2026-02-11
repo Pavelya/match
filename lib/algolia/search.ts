@@ -162,6 +162,7 @@ export interface ProgramSearchResult {
   degreeType: string
   duration: string
   minimumIBPoints?: number
+  city?: string
   // Highlighted fields (if query provided)
   _highlightResult?: Record<string, { value: string; matchLevel: string }>
 }
@@ -249,7 +250,8 @@ export async function searchPrograms(
           'country',
           'degreeType',
           'duration',
-          'minimumIBPoints'
+          'minimumIBPoints',
+          'city'
         ],
         // Enable highlighting for UI feedback
         attributesToHighlight: ['programName', 'universityName'],

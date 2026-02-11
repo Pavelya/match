@@ -29,6 +29,7 @@ import {
 import { logger } from '@/lib/logger'
 import { cn } from '@/lib/utils'
 import { FieldIcon } from '@/lib/icons'
+import { countryCodeToFlag } from '@/lib/country-utils'
 
 interface SearchClientProps {
   fields: Array<{ id: string; name: string }>
@@ -52,6 +53,7 @@ interface SearchResult {
   degreeType: string
   duration: string
   minimumIBPoints?: number
+  city?: string
 }
 
 /**
@@ -60,6 +62,7 @@ interface SearchResult {
 function transformToProgram(result: SearchResult) {
   return {
     id: result.programId,
+    city: result.city ?? null,
     name: result.programName,
     university: {
       id: result.universityId,
@@ -70,7 +73,7 @@ function transformToProgram(result: SearchResult) {
     country: {
       name: result.country.name,
       code: result.country.code,
-      flagEmoji: null
+      flagEmoji: countryCodeToFlag(result.country.code)
     },
     fieldOfStudy: {
       name: result.fieldOfStudy.name
