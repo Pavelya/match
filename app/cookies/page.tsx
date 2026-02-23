@@ -20,6 +20,8 @@ const FALLBACK_CONTENT = `# Cookie Policy
 
 Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences and provide a better experience.
 
+This Cookie Policy applies to all users of IB Match, including IB Students, IB Coordinators, University Agents, and Platform Administrators. The same cookies are used regardless of your role on the platform.
+
 ## How We Use Cookies
 
 ### Essential Cookies (Always Active)
