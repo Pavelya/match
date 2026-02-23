@@ -103,12 +103,16 @@ export function SearchClient({
   const [currentPage, setCurrentPage] = useState(0)
   const [totalPages, setTotalPages] = useState(Math.ceil(initialTotalHits / 50) || 1)
 
-  // Filter state
+  // Filter state — restore from URL params so back-navigation preserves filters
   const [showFilters, setShowFilters] = useState(false)
-  const [selectedFields, setSelectedFields] = useState<string[]>([])
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [minPoints, setMinPoints] = useState('')
-  const [maxPoints, setMaxPoints] = useState('')
+  const [selectedFields, setSelectedFields] = useState<string[]>(
+    () => searchParams.get('fields')?.split(',').filter(Boolean) ?? []
+  )
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(
+    () => searchParams.get('countries')?.split(',').filter(Boolean) ?? []
+  )
+  const [minPoints, setMinPoints] = useState(searchParams.get('minPoints') || '')
+  const [maxPoints, setMaxPoints] = useState(searchParams.get('maxPoints') || '')
 
   // Saved programs state
   const [savedPrograms, setSavedPrograms] = useState<Set<string>>(new Set())
@@ -198,11 +202,19 @@ export function SearchClient({
   )
 
   // Track if we've already used initial results (skip first API call for SEO)
-  const hasInitializedRef = useRef(initialResults.length > 0)
+  // Only skip when there are NO URL params — i.e., a clean landing on /programs/search.
+  // When returning with ?q=...&fields=... we must execute a search to match the URL state.
+  const hasUrlParams = !!(
+    searchParams.get('q') ||
+    searchParams.get('fields') ||
+    searchParams.get('countries') ||
+    searchParams.get('minPoints') ||
+    searchParams.get('maxPoints')
+  )
+  const hasInitializedRef = useRef(initialResults.length > 0 && !hasUrlParams)
 
-  // Debounce search - skip initial call if we have server-rendered results
+  // Debounce search - skip initial call if we have server-rendered results AND no URL params
   useEffect(() => {
-    // Skip the first search if we have initial results from SSR
     if (hasInitializedRef.current) {
       hasInitializedRef.current = false
       return

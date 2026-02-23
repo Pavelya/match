@@ -452,12 +452,12 @@ export function ProgramCard({
         <>
           {/* Back to results - only show for student view, coordinator page has its own back link */}
           {!isCoordinatorView && (
-            <Link
-              href="/programs/search"
+            <button
+              onClick={() => window.history.back()}
               className="text-primary hover:underline text-sm inline-flex items-center gap-1"
             >
               ← Back to results
-            </Link>
+            </button>
           )}
 
           {/* Hero Section */}
