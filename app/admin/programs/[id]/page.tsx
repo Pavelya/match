@@ -21,6 +21,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ProgramDeleteButton } from '@/components/admin/programs/ProgramDeleteButton'
+import { ProgramCopyButton } from '@/components/admin/programs/ProgramCopyButton'
 import {
   PageContainer,
   PageHeader,
@@ -166,6 +167,11 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                 </a>
               </InfoCard>
             )}
+
+            {/* Actions */}
+            <InfoCard title="Actions" padding="compact">
+              <ProgramCopyButton programId={program.id} programName={program.name} />
+            </InfoCard>
 
             {/* Danger Zone */}
             <InfoCard title="Danger Zone" padding="compact">
