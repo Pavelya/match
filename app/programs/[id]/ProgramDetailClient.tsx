@@ -3,12 +3,16 @@
  *
  * Client component that handles save/unsave functionality
  * for the program detail page.
+ *
+ * When a logged-in student hasn't completed onboarding, shows an inline
+ * CTA banner encouraging them to complete their profile to see their match score.
  */
 
 'use client'
 
 import { useEffect, useState } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
+import { CompleteProfileCTA } from '@/components/student/CompleteProfileCTA'
 import type { MatchResult } from '@/lib/matching/types'
 import { logger } from '@/lib/logger'
 
@@ -87,6 +91,9 @@ export function ProgramDetailClient({
   const [isSaved, setIsSaved] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  // Show inline CTA when logged in but no profile (and not coordinator)
+  const showCompleteProfileCTA = isLoggedIn && !studentProfile && !matchResult && !isCoordinatorView
+
   // Fetch saved state on mount
   useEffect(() => {
     if (!isLoggedIn) {
@@ -145,16 +152,28 @@ export function ProgramDetailClient({
   const canSave = isLoggedIn && !isCoordinatorView
 
   return (
-    <ProgramCard
-      program={program}
-      matchResult={matchResult}
-      variant="detail"
-      studentProfile={studentProfile}
-      isSaved={isLoading ? false : isSaved}
-      onSave={canSave ? handleSave : undefined}
-      onUnsave={canSave ? handleUnsave : undefined}
-      isCoordinatorView={isCoordinatorView}
-      isLoggedIn={isLoggedIn}
-    />
+    <>
+      <ProgramCard
+        program={program}
+        matchResult={matchResult}
+        variant="detail"
+        studentProfile={studentProfile}
+        isSaved={isLoading ? false : isSaved}
+        onSave={canSave ? handleSave : undefined}
+        onUnsave={canSave ? handleUnsave : undefined}
+        isCoordinatorView={isCoordinatorView}
+        isLoggedIn={isLoggedIn}
+      />
+
+      {/* Inline CTA for logged-in students without a profile */}
+      {showCompleteProfileCTA && (
+        <CompleteProfileCTA
+          variant="inline"
+          heading="See how you match with this program"
+          description="Complete your academic profile to get your personalized match score and recommendations."
+          className="mt-8"
+        />
+      )}
+    </>
   )
 }

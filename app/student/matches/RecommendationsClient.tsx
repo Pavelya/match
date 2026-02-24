@@ -3,12 +3,17 @@
  *
  * Fetches and displays personalized program recommendations
  * with loading states, error handling, and save functionality.
+ *
+ * When the student profile is not found (onboarding incomplete),
+ * shows a value-driven CTA guiding them to complete their profile
+ * instead of a generic error message.
  */
 
 'use client'
 
 import { useEffect, useState } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
+import { CompleteProfileCTA } from '@/components/student/CompleteProfileCTA'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { Button } from '@/components/ui/button'
 import { PageLoader } from '@/components/ui/page-loader'
@@ -76,12 +81,14 @@ interface MatchesResponse {
 export function RecommendationsClient() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [errorCode, setErrorCode] = useState<string | null>(null)
   const [matches, setMatches] = useState<MatchesResponse | null>(null)
   const [savedPrograms, setSavedPrograms] = useState<Set<string>>(new Set())
 
   const fetchRecommendations = async () => {
     setLoading(true)
     setError(null)
+    setErrorCode(null)
 
     try {
       // Fetch matches and saved programs in parallel
@@ -92,6 +99,7 @@ export function RecommendationsClient() {
 
       if (!matchesResponse.ok) {
         const data = await matchesResponse.json()
+        setErrorCode(data.code || null)
         throw new Error(data.error || 'Failed to fetch recommendations')
       }
 
@@ -154,7 +162,23 @@ export function RecommendationsClient() {
     return <PageLoader variant="skeleton-cards" count={6} message="Finding your best matches..." />
   }
 
-  // Error state
+  // Profile not found: show value-driven CTA to complete onboarding
+  if (error && errorCode === 'PROFILE_NOT_FOUND') {
+    return (
+      <PageContainer>
+        <FadeIn direction="up" duration={400}>
+          <CompleteProfileCTA
+            variant="full-page"
+            heading="Complete Your Academic Profile"
+            description="Set up your IB subjects and grades to get personalized program recommendations. We'll match you with the best programs based on your academic profile."
+            showBrowsePrograms={true}
+          />
+        </FadeIn>
+      </PageContainer>
+    )
+  }
+
+  // Generic error state (server errors, network failures)
   if (error) {
     return (
       <div className="flex min-h-screen items-center justify-center p-6">

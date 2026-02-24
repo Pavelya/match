@@ -21,6 +21,8 @@ import { cn } from '@/lib/utils'
 interface MobileBottomNavProps {
   /** Whether the user is logged in */
   isLoggedIn?: boolean
+  /** Whether the student has completed all 3 onboarding steps */
+  isOnboardingComplete?: boolean
 }
 
 // Navigation items with icons
@@ -52,8 +54,14 @@ const navItems = [
   }
 ]
 
-export function MobileBottomNav({ isLoggedIn = false }: MobileBottomNavProps) {
+export function MobileBottomNav({
+  isLoggedIn = false,
+  isOnboardingComplete = true
+}: MobileBottomNavProps) {
   const pathname = usePathname()
+
+  // Show amber indicator on Academic when onboarding is incomplete
+  const showOnboardingIndicator = isLoggedIn && !isOnboardingComplete
   const [isVisible, setIsVisible] = useState(true)
   const lastScrollY = useRef(0)
   const ticking = useRef(false)
@@ -119,13 +127,22 @@ export function MobileBottomNav({ isLoggedIn = false }: MobileBottomNavProps) {
                 isActive ? 'text-primary' : 'text-muted-foreground'
               )}
             >
-              <Icon
-                className={cn(
-                  'w-6 h-6',
-                  // Fill the icon when active (for icons that support it)
-                  isActive && (item.icon === Heart || item.icon === Bookmark) && 'fill-current'
+              <div className="relative">
+                <Icon
+                  className={cn(
+                    'w-6 h-6',
+                    // Fill the icon when active (for icons that support it)
+                    isActive && (item.icon === Heart || item.icon === Bookmark) && 'fill-current'
+                  )}
+                />
+                {/* Amber dot indicator for incomplete onboarding */}
+                {showOnboardingIndicator && item.href === '/student/onboarding' && (
+                  <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                  </span>
                 )}
-              />
+              </div>
               <span className="text-xs font-medium">{item.label}</span>
             </Link>
           )

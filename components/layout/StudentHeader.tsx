@@ -33,6 +33,8 @@ interface StudentHeaderProps {
   } | null
   /** Whether the user is logged in */
   isLoggedIn?: boolean
+  /** Whether the student has completed all 3 onboarding steps */
+  isOnboardingComplete?: boolean
 }
 
 // Navigation links configuration
@@ -45,8 +47,15 @@ const navLinks = [
   { href: '/student/settings', label: 'Settings', requiresAuth: true }
 ]
 
-export function StudentHeader({ user, isLoggedIn = false }: StudentHeaderProps) {
+export function StudentHeader({
+  user,
+  isLoggedIn = false,
+  isOnboardingComplete = true
+}: StudentHeaderProps) {
   const pathname = usePathname()
+
+  // Show amber indicator on Academic Profile when onboarding is incomplete
+  const showOnboardingIndicator = isLoggedIn && !isOnboardingComplete
 
   // Get the appropriate href for a nav link based on auth state
   const getNavHref = (link: (typeof navLinks)[0]) => {
@@ -88,6 +97,13 @@ export function StudentHeader({ user, isLoggedIn = false }: StudentHeaderProps) 
                   )}
                 >
                   {link.label}
+                  {/* Amber dot indicator for incomplete onboarding */}
+                  {showOnboardingIndicator && link.href === '/student/onboarding' && (
+                    <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                    </span>
+                  )}
                   {/* Active indicator - underline */}
                   {isActive && (
                     <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-primary rounded-full" />

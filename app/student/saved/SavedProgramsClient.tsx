@@ -6,12 +6,16 @@
  * - Same ProgramCard layout as programs/search
  * - Option to remove programs from saved list
  * - Loading and empty states
+ *
+ * When the student profile is not found (onboarding incomplete),
+ * shows a value-driven CTA guiding them to complete their profile.
  */
 
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
+import { CompleteProfileCTA } from '@/components/student/CompleteProfileCTA'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PageLoader } from '@/components/ui/page-loader'
@@ -70,17 +74,20 @@ export function SavedProgramsClient() {
   const [programs, setPrograms] = useState<SavedProgram[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [errorCode, setErrorCode] = useState<string | null>(null)
   const [removingIds, setRemovingIds] = useState<Set<string>>(new Set())
 
   const fetchSavedPrograms = useCallback(async () => {
     setLoading(true)
     setError(null)
+    setErrorCode(null)
 
     try {
       const response = await fetch('/api/students/saved-programs')
 
       if (!response.ok) {
         const data = await response.json()
+        setErrorCode(data.code || null)
         throw new Error(data.error || 'Failed to fetch saved programs')
       }
 
@@ -134,7 +141,21 @@ export function SavedProgramsClient() {
     return <PageLoader variant="skeleton-cards" count={3} inline={true} />
   }
 
-  // Error state
+  // Profile not found: show value-driven CTA to complete onboarding
+  if (error && errorCode === 'PROFILE_NOT_FOUND') {
+    return (
+      <FadeIn direction="up" duration={400}>
+        <CompleteProfileCTA
+          variant="full-page"
+          heading="Complete Your Academic Profile"
+          description="Set up your IB profile to save and compare programs. Once your profile is complete, you can bookmark programs and track them here."
+          showBrowsePrograms={true}
+        />
+      </FadeIn>
+    )
+  }
+
+  // Generic error state (server errors, network failures)
   if (error) {
     return (
       <div className="flex items-center justify-center py-16">

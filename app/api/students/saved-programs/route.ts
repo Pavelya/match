@@ -28,7 +28,10 @@ export async function GET() {
     })
 
     if (!studentProfile) {
-      return NextResponse.json({ error: 'Student profile not found' }, { status: 404 })
+      return NextResponse.json(
+        { error: 'Student profile not found', code: 'PROFILE_NOT_FOUND' },
+        { status: 404 }
+      )
     }
 
     // Fetch saved programs with all necessary relations for ProgramCard display
@@ -131,7 +134,10 @@ export async function POST(request: NextRequest) {
     })
 
     if (!studentProfile) {
-      return NextResponse.json({ error: 'Student profile not found' }, { status: 404 })
+      return NextResponse.json(
+        { error: 'Student profile not found', code: 'PROFILE_NOT_FOUND' },
+        { status: 404 }
+      )
     }
 
     // Check if program exists

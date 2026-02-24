@@ -72,7 +72,10 @@ export async function GET() {
     if (!studentProfile) {
       logger.warn('Student profile not found', { studentId })
       return NextResponse.json(
-        { error: 'Student profile not found. Please complete onboarding first.' },
+        {
+          error: 'Student profile not found. Please complete onboarding first.',
+          code: 'PROFILE_NOT_FOUND'
+        },
         { status: 404 }
       )
     }
