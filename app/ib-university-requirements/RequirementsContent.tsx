@@ -27,8 +27,7 @@ import {
   Sprout,
   BookOpen,
   Tv,
-  CheckCircle2,
-  ExternalLink
+  CheckCircle2
 } from 'lucide-react'
 
 interface Stats {
@@ -117,7 +116,6 @@ const faqs = [
 
 export function RequirementsContent({ stats, countries, fields }: Props) {
   const countriesWithGuides = countries.filter((c) => c.guideSlug)
-  const countriesWithoutGuides = countries.filter((c) => !c.guideSlug)
 
   return (
     <>
@@ -231,39 +229,6 @@ export function RequirementsContent({ stats, countries, fields }: Props) {
               </Link>
             ))}
           </div>
-
-          {/* Countries without guides yet */}
-          {countriesWithoutGuides.length > 0 && (
-            <>
-              <div className="mx-auto max-w-3xl text-center mt-16 mb-8">
-                <h3 className="text-xl font-semibold text-gray-900">More Countries</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Detailed guides coming soon. Browse programs by country in the meantime.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {countriesWithoutGuides.map((country) => (
-                  <Link
-                    key={country.id}
-                    href={`/programs/search?countries=${country.id}`}
-                    className="group flex items-center gap-4 rounded-xl bg-white p-4 border border-gray-200 hover:border-gray-300 transition-all duration-200"
-                  >
-                    <span className="text-2xl flex-shrink-0">{country.flagEmoji}</span>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors truncate">
-                        {country.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {country.programCount} programs · Avg {country.avgPoints} IB pts
-                      </p>
-                    </div>
-                    <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-blue-600 flex-shrink-0 transition-colors" />
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </section>
 
