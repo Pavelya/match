@@ -142,7 +142,37 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8
     },
     {
+      url: `${baseUrl}/study-in-israel-with-ib-diploma`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    },
+    {
+      url: `${baseUrl}/study-in-japan-with-ib-diploma`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    },
+    {
+      url: `${baseUrl}/study-in-netherlands-with-ib-diploma`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    },
+    {
       url: `${baseUrl}/study-in-ireland-with-ib-diploma`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    },
+    {
+      url: `${baseUrl}/study-in-poland-with-ib-diploma`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8
+    },
+    {
+      url: `${baseUrl}/study-in-portugal-with-ib-diploma`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8

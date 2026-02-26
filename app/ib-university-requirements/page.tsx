@@ -92,9 +92,31 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
     slug: 'hong-kong',
     summary: 'JUPAS/Non-JUPAS pathways · IB widely accepted'
   },
+  IL: {
+    slug: 'israel',
+    summary: 'Bagrut equivalent · Psychometric Entrance Test (PET) · Direct application'
+  },
+  JP: {
+    slug: 'japan',
+    summary:
+      'MEXT recognition since 1979 · Decentralized admission · EJU for Japanese-taught programs'
+  },
+  NL: {
+    slug: 'netherlands',
+    summary: 'VWO equivalence via Nuffic · Studielink application · Numerus Fixus selection'
+  },
   IE: {
     slug: 'ireland',
     summary: 'IB → CAO points conversion · Centralized CAO application'
+  },
+  PL: {
+    slug: 'poland',
+    summary:
+      'Automatic recognition by law · Decentralized admission · University-specific conversion'
+  },
+  PT: {
+    slug: 'portugal',
+    summary: 'DGE equivalency · Concurso Especial · Binary system (universities + polytechnics)'
   },
   IT: {
     slug: 'italy',
