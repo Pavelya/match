@@ -141,6 +141,10 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   US: {
     slug: 'usa',
     summary: 'Holistic admission · College credit for HL scores'
+  },
+  SG: {
+    slug: 'singapore',
+    summary: 'Decentralized admission · Highly competitive · IB results required'
   }
 }
 
