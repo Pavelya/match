@@ -748,7 +748,7 @@ export function SwitzerlandContent() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
-                href="/programs/search?country=CH"
+                href="/programs/search?countries=cmip2am54000n7m18y3pq0qy5"
                 className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 transition-all duration-200"
               >
                 <Search className="mr-2 h-4 w-4" />

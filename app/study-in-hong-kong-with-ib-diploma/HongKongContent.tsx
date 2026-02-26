@@ -961,7 +961,7 @@ export function HongKongContent() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/programs/search?country=HK"
+                href="/programs/search?countries=cmj19u8pc00007mk4doh03so8"
                 className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 transition-all duration-200"
               >
                 <Search className="h-4 w-4" />

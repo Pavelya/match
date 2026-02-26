@@ -930,7 +930,7 @@ export function IrelandContent() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
-                href="/programs/search?country=IE"
+                href="/programs/search?countries=cmj0hp5uj00047mfwwoclp0i5"
                 className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 transition-all duration-200"
               >
                 <Search className="mr-2 h-4 w-4" />
