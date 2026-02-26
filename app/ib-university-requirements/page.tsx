@@ -1,8 +1,9 @@
 /**
- * IB University Requirements Landing Page
+ * IB University Requirements — Country Catalog Hub
  *
- * High-authority content page targeting "IB university requirements" queries.
- * Provides comprehensive overview of IB admission requirements by country and field.
+ * Entry point for students to find country-specific IB Diploma admission guides.
+ * Links to 16 dedicated country pages and provides program search for countries
+ * without dedicated guides yet.
  */
 
 import { prisma } from '@/lib/prisma'
@@ -12,48 +13,117 @@ import { RequirementsContent } from './RequirementsContent'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
-// Revalidate once per week (program/country data doesn't change daily)
-export const revalidate = 604800 // 7 days in seconds
+export const revalidate = 604800 // 7 days
 
 export const metadata = {
-  title: 'IB University Requirements 2026/27: Complete Guide by Country & Program | IB Match',
+  title: 'IB Diploma Admission Rules by Country (2026) | IB Match',
   description:
-    'Comprehensive guide to IB Diploma university requirements worldwide. Compare IB points, subject requirements (HL/SL), and admission criteria for 1000+ programs across 30+ countries.',
+    'Find how universities in 30+ countries evaluate the IB Diploma. Country-by-country guides to recognition, grade conversion, application systems, and entry requirements.',
   keywords: [
     'IB university requirements',
+    'IB diploma admission by country',
+    'IB recognition by country',
     'IB diploma university admission',
     'international baccalaureate requirements',
     'IB points university',
     'IB admission requirements by country',
     'HL SL requirements university',
-    'IB 2026/27 requirements',
-    'university IB points needed',
-    'IB subject requirements',
-    'minimum IB points university'
+    'IB 2026 requirements',
+    'IB grade conversion by country'
   ],
   openGraph: {
-    title: 'IB University Requirements 2026/27: Complete Guide',
+    title: 'IB Diploma Admission Rules by Country (2026)',
     description:
-      'Compare IB Diploma admission requirements for 1000+ programs worldwide. Find IB points and subject requirements by country and field of study.',
+      'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules. 30+ countries, 1000+ programs.',
     type: 'website',
     url: `${baseUrl}/ib-university-requirements`,
     siteName: 'IB Match'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'IB University Requirements 2026/27',
+    title: 'IB Diploma Admission Rules by Country (2026)',
     description:
-      'Complete guide to IB Diploma admission requirements worldwide - 1000+ programs across 30+ countries.'
+      'Find how universities worldwide evaluate the IB Diploma — country-by-country guides.'
   },
   alternates: {
     canonical: `${baseUrl}/ib-university-requirements`
   }
 }
 
+/**
+ * Map of country codes (ISO 3166-1 alpha-2) to their dedicated guide page slugs.
+ * Countries in this map get a primary card linking to the guide.
+ * Countries NOT in this map get a secondary card linking to program search.
+ */
+const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
+  AU: {
+    slug: 'australia',
+    summary: 'ATAR conversion · UAC/VTAC/QTAC application systems'
+  },
+  AT: {
+    slug: 'austria',
+    summary: 'Full recognition · Direct university application'
+  },
+  BE: {
+    slug: 'belgium',
+    summary: 'Community-based system · Flemish & French recognition'
+  },
+  CA: {
+    slug: 'canada',
+    summary: 'Province-specific rules · Transfer credit for HL courses'
+  },
+  CZ: {
+    slug: 'czech-republic',
+    summary: 'Nostrification exemption · Direct application to universities'
+  },
+  DK: {
+    slug: 'denmark',
+    summary: 'Quota system · Apply via optagelse.dk'
+  },
+  EE: {
+    slug: 'estonia',
+    summary: 'Full recognition · Apply via DreamApply or direct'
+  },
+  DE: {
+    slug: 'germany',
+    summary: 'Allgemeine Hochschulreife equivalent · uni-assist or direct'
+  },
+  HK: {
+    slug: 'hong-kong',
+    summary: 'JUPAS/Non-JUPAS pathways · IB widely accepted'
+  },
+  IE: {
+    slug: 'ireland',
+    summary: 'IB → CAO points conversion · Centralized CAO application'
+  },
+  IT: {
+    slug: 'italy',
+    summary: 'Dichiarazione di valore · Universitaly portal'
+  },
+  ES: {
+    slug: 'spain',
+    summary: 'Full recognition · UNED accreditation for grade conversion'
+  },
+  SE: {
+    slug: 'sweden',
+    summary: 'IB → Swedish grade conversion · Apply via universityadmissions.se'
+  },
+  CH: {
+    slug: 'switzerland',
+    summary: 'Full recognition · Swissuniversities guidelines'
+  },
+  GB: {
+    slug: 'uk',
+    summary: 'UCAS Tariff points · Conditional offers based on IB total'
+  },
+  US: {
+    slug: 'usa',
+    summary: 'Holistic admission · College credit for HL scores'
+  }
+}
+
 export default async function IBUniversityRequirementsPage() {
-  // Fetch comprehensive stats from database
   const [stats, _countries, fields] = await Promise.all([
-    // IB points statistics
     prisma.academicProgram.aggregate({
       where: { minIBPoints: { not: null } },
       _count: true,
@@ -61,9 +131,7 @@ export default async function IBUniversityRequirementsPage() {
       _max: { minIBPoints: true },
       _avg: { minIBPoints: true }
     }),
-    // Countries with programs
     getCachedCountriesWithPrograms(),
-    // Fields of study
     getCachedFields()
   ])
 
@@ -77,7 +145,6 @@ export default async function IBUniversityRequirementsPage() {
     _avg: { minIBPoints: true }
   })
 
-  // Get university-country mapping
   const universities = await prisma.university.findMany({
     select: {
       id: true,
@@ -95,7 +162,18 @@ export default async function IBUniversityRequirementsPage() {
   })
 
   // Aggregate by country
-  const countryStats = new Map()
+  const countryStats = new Map<
+    string,
+    {
+      country: { id: string; name: string; code: string; flagEmoji: string }
+      programCount: number
+      minPoints: number
+      maxPoints: number
+      totalPoints: number
+      countForAvg: number
+    }
+  >()
+
   programsByCountry.forEach((program) => {
     const university = universities.find((u) => u.id === program.universityId)
     if (!university) return
@@ -112,7 +190,7 @@ export default async function IBUniversityRequirementsPage() {
       })
     }
 
-    const stat = countryStats.get(countryId)
+    const stat = countryStats.get(countryId)!
     stat.programCount += program._count
     stat.minPoints = Math.min(stat.minPoints, program._min.minIBPoints || 45)
     stat.maxPoints = Math.max(stat.maxPoints, program._max.minIBPoints || 24)
@@ -122,7 +200,6 @@ export default async function IBUniversityRequirementsPage() {
     }
   })
 
-  // Convert to array and calculate averages
   const countryData = Array.from(countryStats.values())
     .map((stat) => ({
       id: stat.country.id,
@@ -132,11 +209,19 @@ export default async function IBUniversityRequirementsPage() {
       programCount: stat.programCount,
       minPoints: stat.minPoints,
       maxPoints: stat.maxPoints,
-      avgPoints: stat.countForAvg > 0 ? Math.round(stat.totalPoints / stat.countForAvg) : 0
+      avgPoints: stat.countForAvg > 0 ? Math.round(stat.totalPoints / stat.countForAvg) : 0,
+      // Attach guide info if available
+      guideSlug: COUNTRY_GUIDE_SLUGS[stat.country.code]?.slug || null,
+      guideSummary: COUNTRY_GUIDE_SLUGS[stat.country.code]?.summary || null
     }))
-    .sort((a, b) => b.programCount - a.programCount)
+    .sort((a, b) => {
+      // Countries with guides first, then by program count
+      if (a.guideSlug && !b.guideSlug) return -1
+      if (!a.guideSlug && b.guideSlug) return 1
+      return b.programCount - a.programCount
+    })
 
-  // Get program counts by field
+  // Field data
   const programsByField = await prisma.academicProgram.groupBy({
     by: ['fieldOfStudyId'],
     where: { minIBPoints: { not: null } },
@@ -162,22 +247,38 @@ export default async function IBUniversityRequirementsPage() {
   // JSON-LD schemas
   const webPageSchema = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'IB University Requirements Guide',
+    '@type': 'CollectionPage',
+    name: 'IB Diploma Admission Rules by Country',
     description:
-      'Comprehensive guide to IB Diploma admission requirements for universities worldwide',
+      'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules worldwide.',
     url: `${baseUrl}/ib-university-requirements`,
     datePublished: '2025-01-01',
     dateModified: new Date().toISOString().split('T')[0],
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'IB Match',
+      url: baseUrl
+    },
     about: {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'International Baccalaureate Diploma',
-      description: 'University admission requirements for IB Diploma holders'
+      description: 'University admission requirements for IB Diploma holders worldwide'
+    },
+    audience: {
+      '@type': 'EducationalAudience',
+      educationalRole: ['IB Student', 'IB Coordinator', 'Parent']
     },
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['h1', 'h2', '.stat-value', '.stat-description', 'article p']
-    }
+      cssSelector: ['h1', 'h2', '.country-card', 'article p', '.faq-answer']
+    },
+    hasPart: countryData
+      .filter((c) => c.guideSlug)
+      .map((c) => ({
+        '@type': 'WebPage',
+        name: `Study in ${c.name} with the IB Diploma`,
+        url: `${baseUrl}/study-in-${c.guideSlug}-with-ib-diploma`
+      }))
   }
 
   const faqSchema = {
@@ -186,50 +287,42 @@ export default async function IBUniversityRequirementsPage() {
     mainEntity: [
       {
         '@type': 'Question',
+        name: 'Which countries accept the IB Diploma for university admission?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `The IB Diploma is recognized by universities in over ${countryData.length} countries worldwide, including the United Kingdom, United States, Canada, Australia, Germany, Switzerland, and many more. Each country has its own process for evaluating IB scores — some convert them to local equivalents, while others accept IB points directly.`
+        }
+      },
+      {
+        '@type': 'Question',
+        name: 'How do universities convert IB scores to local grading systems?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Conversion methods vary by country. For example, the UK uses UCAS Tariff points, Ireland converts IB scores to CAO points, Sweden maps them to the Swedish grade scale, and Australia converts to an ATAR. Our country guides explain each conversion system in detail with official sources.'
+        }
+      },
+      {
+        '@type': 'Question',
         name: 'What IB points do I need for university?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'University IB requirements range from 24 to 45 points depending on the program and institution. Competitive programs at top universities typically require 38-45 points, while less selective programs may accept 24-30 points. Use our database to find specific requirements for each program.'
+          text: `University IB requirements range from ${stats._min.minIBPoints || 24} to ${stats._max.minIBPoints || 45} points depending on the program, institution, and country. Competitive programs at top universities typically require 38–45 points, while less selective programs may accept 24–30 points.`
         }
       },
       {
         '@type': 'Question',
-        name: 'Which countries accept the IB Diploma?',
+        name: 'Do I need specific HL subjects for university admission?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Universities in over ${countryData.length} countries accept the IB Diploma, including the UK, USA, Canada, Australia, Netherlands, Singapore, and many more. The IB Diploma is recognized worldwide as a university entrance qualification.`
+          text: 'Many universities require specific subjects at Higher Level (HL) with minimum grades. For example, Engineering programs often require Math HL, Medicine typically requires Chemistry HL and Biology HL, and Economics programs prefer Math HL. Requirements vary by country and institution.'
         }
       },
       {
         '@type': 'Question',
-        name: 'What are HL and SL requirements?',
+        name: 'Do I need to take entrance exams as an IB student?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'HL (Higher Level) and SL (Standard Level) refer to the depth of study in IB courses. Universities often require specific subjects at HL (e.g., Math HL for Engineering) with minimum grades (typically 5-7). Check individual program pages for specific HL/SL requirements.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How do universities evaluate IB scores?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Universities evaluate IB applications based on: (1) Total IB points (out of 45), (2) Specific subject grades and levels (HL/SL), (3) Subject relevance to the program. Some universities also consider Theory of Knowledge and Extended Essay scores.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What is the average IB requirement?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: `Based on our database of ${stats._count} programs, the average IB requirement is approximately ${stats._avg.minIBPoints ? Math.round(stats._avg.minIBPoints) : 35} points. However, this varies significantly by country, field of study, and university ranking.`
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I search programs by my IB points?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, use our program search tool to filter universities by your predicted or achieved IB points. You can also filter by country, field of study, and specific IB subject requirements to find programs that match your profile.'
+          text: 'This depends on the country and program. In many European countries (UK, Germany, Sweden), no entrance exams are required. However, some countries have specific tests — for example, Ireland requires HPAT for Medicine, Spain requires the PCE exam through UNED for grade conversion, and Australia may require additional tests for competitive programs.'
         }
       }
     ]
@@ -237,7 +330,6 @@ export default async function IBUniversityRequirementsPage() {
 
   return (
     <>
-      {/* JSON-LD Schemas */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}

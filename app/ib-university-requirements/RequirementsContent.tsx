@@ -1,25 +1,16 @@
 'use client'
 
 /**
- * Requirements Content Component
+ * IB University Requirements — Country Catalog Content
  *
- * Professional client component for IB Requirements landing page.
- * Matches design language of /how-it-works and /for-coordinators
+ * Catalog hub for students to find country-specific IB Diploma admission guides.
+ * Design language matches the country landing pages (blue-600 accent, rounded-2xl cards,
+ * gray-50/white alternating sections).
  */
 
-import { useState } from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table'
-import {
-  ArrowUpDown,
+  ArrowRight,
   Search,
   Globe,
   GraduationCap,
@@ -36,7 +27,8 @@ import {
   Sprout,
   BookOpen,
   Tv,
-  CheckCircle2
+  CheckCircle2,
+  ExternalLink
 } from 'lucide-react'
 
 interface Stats {
@@ -56,6 +48,8 @@ interface Country {
   minPoints: number
   maxPoints: number
   avgPoints: number
+  guideSlug: string | null
+  guideSummary: string | null
 }
 
 interface Field {
@@ -73,9 +67,6 @@ interface Props {
   fields: Field[]
 }
 
-type SortKey = 'name' | 'programCount' | 'minPoints' | 'maxPoints' | 'avgPoints'
-type SortDirection = 'asc' | 'desc'
-
 // Map field names to lucide icons
 const getFieldIcon = (fieldName: string) => {
   const iconMap: Record<string, typeof GraduationCap> = {
@@ -90,378 +81,374 @@ const getFieldIcon = (fieldName: string) => {
     Architecture: Building,
     'Environmental Studies': Sprout,
     Education: BookOpen,
-    Educaton: BookOpen, // Handle typo in DB
+    Educaton: BookOpen,
     Media: Tv
   }
   return iconMap[fieldName] || GraduationCap
 }
 
-export function RequirementsContent({ stats, countries, fields }: Props) {
-  const [sortKey, setSortKey] = useState<SortKey>('programCount')
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
-
-  const handleSort = (key: SortKey) => {
-    if (sortKey === key) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortKey(key)
-      setSortDirection('desc')
-    }
+const faqs = [
+  {
+    question: 'Which countries accept the IB Diploma for university admission?',
+    answer:
+      'The IB Diploma is recognized by universities in over 100 countries worldwide. Each country has its own process for evaluating IB scores — some convert them to local equivalents (e.g., UCAS Tariff in the UK, ATAR in Australia, CAO points in Ireland), while others accept IB points directly. Use the country guides above to find the specific rules for your target country.'
+  },
+  {
+    question: 'How do universities convert IB scores to local grading systems?',
+    answer:
+      'Conversion methods vary significantly. The UK uses UCAS Tariff points, Ireland converts to CAO points, Sweden maps to the Swedish grade scale, Australia converts to an ATAR, and Germany evaluates against Allgemeine Hochschulreife requirements. Our country guides explain each system with official conversion tables and sources.'
+  },
+  {
+    question: 'What IB points do I need for university?',
+    answer:
+      'Requirements range from 24 to 45 points depending on the program, institution, and country. Competitive programs at top universities typically require 38–45 points, while less selective programs may accept 24–30 points. Many programs also require specific subjects at Higher Level (HL) with minimum grades.'
+  },
+  {
+    question: 'Do I need specific Higher Level (HL) subjects?',
+    answer:
+      'Many universities require specific subjects at HL with minimum grades. For example, Engineering programs often require Math HL (grade 5–6+), Medicine typically requires Chemistry HL and Biology HL, and Economics programs prefer Math HL. Requirements vary by country and institution — check our country guides for details.'
+  },
+  {
+    question: 'Do I need to take entrance exams as an IB student?',
+    answer:
+      'This depends on the country and program. In many European countries (UK, Germany, Sweden), no entrance exams are required for IB students. However, some countries have specific tests — for example, Ireland requires HPAT for Medicine, Spain requires the PCE exam for grade conversion, and some competitive programs in Hong Kong may have interviews.'
   }
+]
 
-  const sortedCountries = [...countries].sort((a, b) => {
-    const aVal = a[sortKey]
-    const bVal = b[sortKey]
-
-    if (typeof aVal === 'string' && typeof bVal === 'string') {
-      return sortDirection === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal)
-    }
-
-    return sortDirection === 'asc'
-      ? (aVal as number) - (bVal as number)
-      : (bVal as number) - (aVal as number)
-  })
+export function RequirementsContent({ stats, countries, fields }: Props) {
+  const countriesWithGuides = countries.filter((c) => c.guideSlug)
+  const countriesWithoutGuides = countries.filter((c) => !c.guideSlug)
 
   return (
     <>
-      {/* Hero Stats Section */}
-      <section className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-blue-600">Global Database</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              IB Admission Requirements Worldwide
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-white pt-16 pb-20 lg:pt-24 lg:pb-28">
+        <div className="absolute top-0 left-1/2 -z-10 h-[600px] w-full -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-50/50 via-white to-white opacity-70" />
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
+              <Globe className="h-4 w-4 mr-2" />
+              Updated for 2026 Intake
+            </div>
+
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              IB Diploma Admission Rules <span className="text-blue-600">by Country</span>
+            </h1>
+
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
+              Every country evaluates the IB Diploma differently. Find{' '}
+              <strong>official recognition rules</strong>, <strong>grade conversion systems</strong>
+              , and <strong>application processes</strong> for your target country — all sourced
+              from government and institutional portals.
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Comprehensive guide to IB Diploma university requirements across{' '}
-              {stats.countriesCount} countries and {stats.totalPrograms} programs. Compare admission
-              criteria, IB points, and subject requirements.
-            </p>
-          </div>
 
-          <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-              <div className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <Globe className="h-5 w-5 flex-none text-blue-600" aria-hidden="true" />
-                  Countries
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="text-3xl font-bold text-gray-900">{stats.countriesCount}</p>
-                  <p className="mt-2">Universities worldwide accepting IB Diploma</p>
-                </dd>
+            {/* Compact Stats Badges */}
+            <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
+              <div className="flex items-center gap-x-2 text-sm text-gray-600">
+                <Globe className="h-4 w-4 text-blue-600" />
+                <span>
+                  <strong>{stats.countriesCount}</strong> countries
+                </span>
               </div>
-
-              <div className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <GraduationCap className="h-5 w-5 flex-none text-blue-600" aria-hidden="true" />
-                  Programs
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="text-3xl font-bold text-gray-900" suppressHydrationWarning>
-                    {stats.totalPrograms.toLocaleString()}
-                  </p>
-                  <p className="mt-2">IB-accepting programs in our database</p>
-                </dd>
+              <div className="flex items-center gap-x-2 text-sm text-gray-600">
+                <GraduationCap className="h-4 w-4 text-blue-600" />
+                <span>
+                  <strong suppressHydrationWarning>{stats.totalPrograms.toLocaleString()}</strong>{' '}
+                  programs
+                </span>
               </div>
-
-              <div className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                  <TrendingUp className="h-5 w-5 flex-none text-blue-600" aria-hidden="true" />
-                  IB Points Range
-                </dt>
-                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="text-3xl font-bold text-gray-900">
+              <div className="flex items-center gap-x-2 text-sm text-gray-600">
+                <TrendingUp className="h-4 w-4 text-blue-600" />
+                <span>
+                  <strong>
                     {stats.minPoints}–{stats.maxPoints}
-                  </p>
-                  <p className="mt-2">Average: {stats.avgPoints} IB points</p>
-                </dd>
+                  </strong>{' '}
+                  IB points range
+                </span>
               </div>
-            </dl>
-          </div>
+            </div>
 
-          {/* CTA */}
-          <div className="mt-16 flex items-center justify-center gap-x-6">
-            <Link href="/programs/search">
-              <Button size="lg" className="gap-2">
-                <Search className="h-5 w-5" />
-                Search Programs by IB Points
-              </Button>
-            </Link>
+            {/* Quick Jump */}
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="#country-guides"
+                className="inline-flex items-center justify-center rounded-full bg-blue-600 px-8 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200 hover:-translate-y-0.5"
+              >
+                Browse Country Guides
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/programs/search"
+                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 transition-all duration-200"
+              >
+                <Search className="mr-2 h-4 w-4" />
+                Search All Programs
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Country Breakdown Section */}
-      <section className="bg-gray-50 py-24 sm:py-32">
+      {/* Country Guides Grid */}
+      <section id="country-guides" className="bg-gray-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <h2 className="text-base font-semibold leading-7 text-blue-600">By Country</h2>
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-base font-semibold leading-7 text-blue-600">Country Guides</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              IB Requirements by Country
+              Detailed IB Admission Guides
             </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Compare IB admission requirements across universities in different countries. Click
-              column headers to sort, or click a country to search programs.
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              In-depth guides with official recognition rules, grade conversion tables, application
+              deadlines, and document requirements.
             </p>
           </div>
 
-          <div className="overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-            <Table>
-              <TableHeader>
-                <TableRow className="border-b border-gray-200 bg-gray-50">
-                  <TableHead className="py-4">
-                    <button
-                      className="flex items-center gap-2 font-semibold text-gray-900 hover:text-blue-600 transition-colors"
-                      onClick={() => handleSort('name')}
-                    >
-                      Country
-                      <ArrowUpDown className="h-4 w-4" />
-                    </button>
-                  </TableHead>
-                  <TableHead className="text-right py-4">
-                    <button
-                      className="flex items-center gap-2 ml-auto font-semibold text-gray-900 hover:text-blue-600 transition-colors"
-                      onClick={() => handleSort('programCount')}
-                    >
-                      Programs
-                      <ArrowUpDown className="h-4 w-4" />
-                    </button>
-                  </TableHead>
-                  <TableHead className="text-right py-4">
-                    <button
-                      className="flex items-center gap-2 ml-auto font-semibold text-gray-900 hover:text-blue-600 transition-colors"
-                      onClick={() => handleSort('minPoints')}
-                    >
-                      Min IB
-                      <ArrowUpDown className="h-4 w-4" />
-                    </button>
-                  </TableHead>
-                  <TableHead className="text-right py-4">
-                    <button
-                      className="flex items-center gap-2 ml-auto font-semibold text-gray-900 hover:text-blue-600 transition-colors"
-                      onClick={() => handleSort('maxPoints')}
-                    >
-                      Max IB
-                      <ArrowUpDown className="h-4 w-4" />
-                    </button>
-                  </TableHead>
-                  <TableHead className="text-right py-4">
-                    <button
-                      className="flex items-center gap-2 ml-auto font-semibold text-gray-900 hover:text-blue-600 transition-colors"
-                      onClick={() => handleSort('avgPoints')}
-                    >
-                      Avg IB
-                      <ArrowUpDown className="h-4 w-4" />
-                    </button>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sortedCountries.map((country) => (
-                  <TableRow key={country.id} className="border-b border-gray-200 last:border-0">
-                    <TableCell className="font-medium text-gray-900 py-4">
-                      <Link
-                        href={`/programs/search?country=${country.code}`}
-                        className="flex items-center gap-3 hover:text-blue-600 transition-colors"
-                      >
-                        <span className="text-2xl">{country.flagEmoji}</span>
+          {/* Countries with dedicated guides */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {countriesWithGuides.map((country) => (
+              <Link
+                key={country.id}
+                href={`/study-in-${country.guideSlug}-with-ib-diploma`}
+                className="group relative rounded-2xl bg-white p-6 border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-200"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-3xl">{country.flagEmoji}</span>
+                  <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-blue-600 transition-colors mt-1" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                  {country.name}
+                </h3>
+                <p className="mt-1 text-sm text-gray-500 leading-snug">{country.guideSummary}</p>
+                <div className="mt-4 flex items-center gap-3 text-xs text-gray-500">
+                  <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-blue-700 font-medium">
+                    {country.programCount} programs
+                  </span>
+                  <span>
+                    {country.minPoints}–{country.maxPoints} IB pts
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Countries without guides yet */}
+          {countriesWithoutGuides.length > 0 && (
+            <>
+              <div className="mx-auto max-w-3xl text-center mt-16 mb-8">
+                <h3 className="text-xl font-semibold text-gray-900">More Countries</h3>
+                <p className="mt-2 text-sm text-gray-600">
+                  Detailed guides coming soon. Browse programs by country in the meantime.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {countriesWithoutGuides.map((country) => (
+                  <Link
+                    key={country.id}
+                    href={`/programs/search?countries=${country.id}`}
+                    className="group flex items-center gap-4 rounded-xl bg-white p-4 border border-gray-200 hover:border-gray-300 transition-all duration-200"
+                  >
+                    <span className="text-2xl flex-shrink-0">{country.flagEmoji}</span>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors truncate">
                         {country.name}
-                      </Link>
-                    </TableCell>
-                    <TableCell className="text-right text-gray-600 py-4">
-                      {country.programCount}
-                    </TableCell>
-                    <TableCell className="text-right text-gray-600 py-4">
-                      {country.minPoints}
-                    </TableCell>
-                    <TableCell className="text-right text-gray-600 py-4">
-                      {country.maxPoints}
-                    </TableCell>
-                    <TableCell className="text-right font-semibold text-gray-900 py-4">
-                      {country.avgPoints}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
-      </section>
-
-      {/* Field Breakdown Section */}
-      <section className="bg-white py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center mb-16">
-            <h2 className="text-base font-semibold leading-7 text-blue-600">By Field of Study</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              IB Requirements by Academic Field
-            </p>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Average IB requirements for different academic fields. Click a field to search
-              programs.
-            </p>
-          </div>
-
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-12 lg:max-w-none lg:grid-cols-3">
-            {fields.slice(0, 12).map((field) => {
-              const IconComponent = getFieldIcon(field.name)
-              return (
-                <Link key={field.id} href={`/programs/search?field=${field.id}`}>
-                  <div className="flex flex-col hover:bg-gray-50 p-6 rounded-lg transition-colors cursor-pointer border border-transparent hover:border-blue-100">
-                    <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
-                      <IconComponent
-                        className="h-5 w-5 flex-none text-blue-600"
-                        aria-hidden="true"
-                      />
-                      {field.name}
-                    </dt>
-                    <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                      <p className="flex items-center gap-2">
-                        <span className="text-2xl font-semibold text-gray-900">
-                          {field.avgPoints}
-                        </span>
-                        <span className="text-sm">IB points avg</span>
                       </p>
-                      <p className="mt-2 text-sm">{field.programCount} programs</p>
-                    </dd>
-                  </div>
-                </Link>
-              )
-            })}
-          </dl>
+                      <p className="text-xs text-gray-500">
+                        {country.programCount} programs · Avg {country.avgPoints} IB pts
+                      </p>
+                    </div>
+                    <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-blue-600 flex-shrink-0 transition-colors" />
+                  </Link>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
-      {/* Educational Content Section */}
-      <section className="bg-gray-50 py-24 sm:py-32">
+      {/* How IB Scoring Works — condensed */}
+      <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">
-              Understanding Requirements
+              Understanding the IB Diploma
             </h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              How to Use Your IB Points for University Admission
+              How IB Scoring Works for University Admission
             </p>
 
-            <div className="mt-10 space-y-8 text-base leading-7 text-gray-600">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  Understanding IB Scoring
-                </h3>
-                <p>
-                  The International Baccalaureate Diploma Programme awards points based on your
-                  performance across six subject areas plus Theory of Knowledge (TOK) and Extended
-                  Essay (EE). The maximum score is 45 points:
-                </p>
-                <ul className="mt-4 space-y-2 list-none">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      <strong>Subject Grades:</strong> 6 subjects × 7 points = 42 points maximum
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      <strong>TOK + EE:</strong> Up to 3 bonus points
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      <strong>Total:</strong> 45 points maximum
-                    </span>
-                  </li>
-                </ul>
+            <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
+              <p>
+                The IB Diploma Programme awards up to <strong>45 points</strong>: 42 from six
+                subject grades (7 points max each) plus up to 3 bonus points from Theory of
+                Knowledge (TOK) and the Extended Essay (EE). Universities evaluate IB applications
+                based on several factors:
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl bg-gray-50 p-6 border border-gray-200">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 mb-3">
+                    <TrendingUp className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 text-sm">Total IB Points</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Your overall score out of 45. Most universities set minimum thresholds
+                    (typically 24–38+).
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-gray-50 p-6 border border-gray-200">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 mb-3">
+                    <GraduationCap className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 text-sm">HL Subject Requirements</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Specific Higher Level subjects with minimum grades (e.g., Math HL 6+ for
+                    Engineering).
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-gray-50 p-6 border border-gray-200">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 mb-3">
+                    <Globe className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 text-sm">Country-Specific Rules</h3>
+                  <p className="mt-2 text-sm text-gray-600">
+                    Each country has its own conversion system, application portal, and deadlines
+                    for IB students.
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                  How Universities Evaluate IB Diplomas
+              <div className="rounded-2xl bg-blue-50 p-6 border border-blue-100">
+                <h3 className="font-semibold text-gray-900 mb-3">
+                  Common HL Subject Requirements by Field
                 </h3>
-                <p>Universities assess IB applications based on multiple factors:</p>
-                <ol className="mt-4 space-y-3 list-decimal list-inside">
-                  <li>
-                    <strong>Total IB Points:</strong> Your overall score out of 45. Most
-                    universities set minimum point requirements (e.g., &quot;minimum 38
-                    points&quot;).
-                  </li>
-                  <li>
-                    <strong>Subject Requirements:</strong> Specific subjects at Higher Level (HL) or
-                    Standard Level (SL) with minimum grades. For example, Engineering programs often
-                    require Math HL with a grade of 6 or higher.
-                  </li>
-                  <li>
-                    <strong>Subject Relevance:</strong> Having HL subjects related to your intended
-                    field of study strengthens your application.
-                  </li>
-                </ol>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">HL vs SL Requirements</h3>
-                <p>
-                  <strong>Higher Level (HL)</strong> courses involve more depth and are typically
-                  240 teaching hours, while <strong>Standard Level (SL)</strong> courses are 150
-                  hours. Competitive programs often require specific subjects at HL:
-                </p>
-                <ul className="mt-4 space-y-2 list-none">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>STEM Programs:</strong> Math HL and/or Physics/Chemistry HL
+                      <strong>Engineering:</strong> Math HL, Physics/Chemistry HL
                     </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  </div>
+                  <div className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
                       <strong>Medicine:</strong> Chemistry HL, Biology HL
                     </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  </div>
+                  <div className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
                       <strong>Economics/Business:</strong> Math HL preferred
                     </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  </div>
+                  <div className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>Humanities:</strong> Relevant humanities subjects at HL
+                      <strong>Humanities/Law:</strong> Relevant humanities at HL
                     </span>
-                  </li>
-                </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="bg-white py-24 sm:py-32">
+      {/* Field of Study Section */}
+      <section className="bg-gray-50 py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="text-base font-semibold leading-7 text-blue-600">By Field of Study</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Average IB Requirements by Academic Field
+            </p>
+            <p className="mt-4 text-lg leading-8 text-gray-600">
+              Explore programs by field of study to see typical IB point requirements.
+            </p>
+          </div>
+
+          <div className="grid max-w-xl grid-cols-1 gap-4 lg:max-w-none lg:grid-cols-3">
+            {fields.slice(0, 12).map((field) => {
+              const IconComponent = getFieldIcon(field.name)
+              return (
+                <Link
+                  key={field.id}
+                  href={`/programs/search?fields=${field.id}`}
+                  className="group flex items-center gap-4 rounded-xl bg-white p-5 border border-gray-200 hover:border-blue-200 hover:shadow-sm transition-all duration-200"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 flex-shrink-0">
+                    <IconComponent className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors truncate">
+                      {field.name}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {field.programCount} programs · Avg {field.avgPoints} IB pts
+                    </p>
+                  </div>
+                  <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-blue-600 flex-shrink-0 transition-colors" />
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-white py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-base font-semibold leading-7 text-blue-600">FAQ</h2>
+            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Frequently Asked Questions
+            </p>
+
+            <div className="mt-8 space-y-6">
+              {faqs.map((faq) => (
+                <div key={faq.question} className="rounded-xl bg-white p-6 border border-gray-200">
+                  <h3 className="font-semibold text-gray-900">{faq.question}</h3>
+                  <p className="mt-2 text-gray-600 faq-answer">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 sm:py-32 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Ready to Find Your Match?
             </h2>
-            <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">
-              Use our intelligent search to discover programs that align with your IB profile,
-              location preferences, and academic interests.
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Discover university programs that match your IB profile. Search by IB points, subject
+              requirements, country, and field of study.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Link href="/programs/search">
-                <Button size="lg" className="gap-2">
-                  <Search className="h-5 w-5" />
-                  Search Programs
-                </Button>
+
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link
+                href="/auth/signin"
+                className="inline-flex items-center justify-center rounded-full bg-blue-600 px-8 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200 hover:-translate-y-0.5"
+              >
+                Get Started — It&apos;s Free
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link href="/student/onboarding">
-                <Button size="lg" variant="outline">
-                  Create Profile
-                </Button>
+              <Link
+                href="/programs/search"
+                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-8 py-3.5 text-base font-semibold text-gray-900 shadow-sm hover:bg-gray-50 transition-all duration-200"
+              >
+                <Search className="mr-2 h-4 w-4" />
+                Search All Programs
               </Link>
             </div>
+
+            <p className="mt-8 text-sm text-gray-500">
+              100% free for students. No credit card required.
+            </p>
           </div>
         </div>
       </section>

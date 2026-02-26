@@ -70,7 +70,7 @@ site:ibo.org {Country} recognition
 ### 2.3 Country code
 
 Use the **ISO 3166-1 alpha-2** country code (e.g., `BE`, `CA`, `AU`, `DE`). This is used in:
-- The CTA link: `/programs/search?country={CODE}`
+- The CTA link: `/programs/search?countries={COUNTRY_DB_ID}` (the country's Prisma database ID — see §9.2 below)
 - Schema markup
 
 ---
@@ -228,7 +228,7 @@ Two buttons:
 | Button | Style | href |
 |--------|-------|------|
 | **Primary** | `bg-blue-600` rounded-full | `/auth/signin` |
-| **Secondary** | White border rounded-full | `/programs/search?country={ISO_CODE}` |
+| **Secondary** | White border rounded-full | `/programs/search?countries={COUNTRY_DB_ID}` |
 
 Text:
 - Primary: `Get Started — It's Free` with `ArrowRight` icon
@@ -291,8 +291,9 @@ Before considering the page complete, verify:
 - [ ] All external URLs validated (HTTP 200)
 - [ ] Country flag emoji present in hero badge and CTA section
 - [ ] Internal link to `/how-it-works` present
-- [ ] CTAs to `/auth/signin` and `/programs/search?country={CODE}` present
+- [ ] CTAs to `/auth/signin` and `/programs/search?countries={COUNTRY_DB_ID}` present
 - [ ] Page added to `app/sitemap.ts`
+- [ ] Country added to `COUNTRY_GUIDE_SLUGS` in `app/ib-university-requirements/page.tsx` (see §9.1)
 - [ ] `export const dynamic = 'force-static'` set
 - [ ] `export const revalidate = 604800` set
 - [ ] `npx next build` passes with exit code 0
@@ -330,3 +331,40 @@ The page must:
 1. Compile without errors (exit code 0)
 2. Appear in the route table as `○ (Static)`
 3. Be listed in `sitemap.xml`
+
+### 9.1 Register on the Catalog Page
+
+Every new country page **must** be added to the `COUNTRY_GUIDE_SLUGS` map in `app/ib-university-requirements/page.tsx`. This is what makes the country appear as a **primary card** (with a direct link to the guide) on the `/ib-university-requirements` catalog page.
+
+Add an entry like this:
+
+```typescript
+// In COUNTRY_GUIDE_SLUGS (app/ib-university-requirements/page.tsx)
+'{ISO_CODE}': {
+  slug: '{country-slug}',          // must match the folder name: study-in-{slug}-with-ib-diploma
+  summary: '{System summary}'      // e.g. "UCAS Tariff points · Conditional offers based on IB total"
+},
+```
+
+**Fields:**
+- `{ISO_CODE}` — ISO 3166-1 alpha-2 country code (e.g., `NL`, `FR`, `JP`)
+- `slug` — the slug used in the page folder name (`study-in-{slug}-with-ib-diploma`)
+- `summary` — a short one-liner describing the admission system (shown on the card)
+
+Without this entry, the country will appear under "More Countries" as a secondary card linking to program search instead of the guide page.
+
+### 9.2 Country Database ID for CTA Links
+
+The program search page uses the **Prisma database ID** (CUID) for filtering, not the ISO country code. The CTA "Search Programs in {Country}" must link to:
+
+```
+/programs/search?countries={COUNTRY_DB_ID}
+```
+
+**How to find the country DB ID:**
+
+1. Check the catalog page's server component — after aggregation, each country object includes its `id` field
+2. Or query the database directly: `npx prisma studio` → Country table → find the row → copy the `id`
+3. Or run: `npx ts-node -e "import {prisma} from './lib/prisma'; prisma.country.findFirst({where:{code:'{ISO_CODE}'}}).then(c=>console.log(c?.id))"`
+
+Example: Spain's DB ID is `cmkxwd9ui0000lg04p0t1gmln`, so the link is `/programs/search?countries=cmkxwd9ui0000lg04p0t1gmln`.
