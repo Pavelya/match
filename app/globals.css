@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -167,7 +167,8 @@
      * on Windows browsers that don't natively support flag emojis.
      * It only affects flag characters (unicode-range restricted).
      */
-    font-family: "Twemoji Country Flags", var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+    font-family:
+      'Twemoji Country Flags', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   }
 }
 
@@ -178,7 +179,6 @@
  * Windows: Settings → Ease of Access → Display → Show animations
  * ========================================== */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
@@ -206,7 +206,9 @@
     /* Gentle lift - 2px instead of 4px */
     transform: translateY(-2px);
     /* Subtle shadow increase */
-    box-shadow: 0 8px 16px -4px rgb(0 0 0 / 0.08), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+    box-shadow:
+      0 8px 16px -4px rgb(0 0 0 / 0.08),
+      0 4px 6px -2px rgb(0 0 0 / 0.05);
   }
 
   .hover-scale:hover {
@@ -255,10 +257,12 @@
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg,
-      oklch(0.96 0.01 250) 25%,
-      oklch(0.92 0.01 250) 50%,
-      oklch(0.96 0.01 250) 75%);
+  background: linear-gradient(
+    90deg,
+    oklch(0.96 0.01 250) 25%,
+    oklch(0.92 0.01 250) 50%,
+    oklch(0.96 0.01 250) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }

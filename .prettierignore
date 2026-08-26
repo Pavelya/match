@@ -1,0 +1,9 @@
+# Prose is written by hand; reflowing it produces noisy diffs.
+**/*.md
+
+# Generated / vendored
+.next/
+node_modules/
+package-lock.json
+public/
+prisma/migrations/
