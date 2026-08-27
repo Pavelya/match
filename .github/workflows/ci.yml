@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# A newer push to the same branch cancels the previous run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Type check, lint, format
+    runs-on: ubuntu-latest
+
+    env:
+      # `npm ci` triggers `prisma generate` via postinstall, which reads the
+      # datasource block and needs these to be defined. It never connects,
+      # so placeholder values are enough.
+      DATABASE_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
+      DIRECT_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+
+      # ESLint warnings do not fail the build today, because 7 pre-existing
+      # `window.location.href` warnings would turn CI red immediately. Once
+      # those are fixed, add `--max-warnings 0` here so new ones cannot
+      # accumulate the way the last batch did.
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npx prettier --check .
+
+# NOTE: `next build` is deliberately not run here yet.
+#
+# The build prerenders app/ib-university-requirements/page.tsx, which queries
+# Prisma at build time, so it needs a reachable database. Standing up a
+# throwaway Postgres service is the obvious fix, but the migration history in
+# prisma/migrations is currently missing four models, so `prisma migrate deploy`
+# cannot produce a schema the build would work against.
+#
+# Add a build job once that migration baseline exists.
