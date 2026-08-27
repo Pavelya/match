@@ -18,6 +18,9 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
+export const dynamic = 'force-static'
+export const revalidate = 604800 // 7 days
+
 export const metadata: Metadata = {
   title: 'Study in the USA with IB Diploma | Official Guide (2027)',
   description:
