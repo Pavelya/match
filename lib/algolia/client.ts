@@ -26,9 +26,6 @@ export function getAlgoliaClient() {
   return algoliaClient
 }
 
-// Export singleton instance
-export const algolia = getAlgoliaClient()
-
 // Export index names as constants
 export const INDEX_NAMES = {
   PROGRAMS: 'programs_production',

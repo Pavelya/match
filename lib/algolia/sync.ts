@@ -5,7 +5,7 @@
  * Includes nested reference data (fields, countries, courses) for better search.
  */
 
-import { algolia, INDEX_NAMES } from './client'
+import { getAlgoliaClient, INDEX_NAMES } from './client'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 
@@ -172,7 +172,7 @@ export async function syncProgramToAlgolia(programId: string): Promise<boolean> 
     }
 
     // Save to Algolia
-    await algolia.saveObject({
+    await getAlgoliaClient().saveObject({
       indexName: INDEX_NAMES.PROGRAMS,
       body: record
     })
@@ -192,7 +192,7 @@ export async function deleteProgramFromAlgolia(programId: string): Promise<boole
   try {
     logger.info('Deleting program from Algolia', { programId })
 
-    await algolia.deleteObject({
+    await getAlgoliaClient().deleteObject({
       indexName: INDEX_NAMES.PROGRAMS,
       objectID: programId
     })
@@ -290,7 +290,7 @@ export async function syncProgramsBatch(programIds: string[]): Promise<{
     for (let i = 0; i < records.length; i += BATCH_SIZE) {
       const batch = records.slice(i, i + BATCH_SIZE)
 
-      await algolia.saveObjects({
+      await getAlgoliaClient().saveObjects({
         indexName: INDEX_NAMES.PROGRAMS,
         objects: batch as unknown as Record<string, unknown>[]
       })

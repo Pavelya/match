@@ -11,7 +11,7 @@
 
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { stripe } from '@/lib/stripe/server'
+import { getStripe } from '@/lib/stripe/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import type Stripe from 'stripe'
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
   try {
     if (webhookSecret && signature) {
       // Verify webhook signature (always in production, optionally in development)
-      event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+      event = getStripe().webhooks.constructEvent(body, signature, webhookSecret)
     } else if (!isProduction) {
       // Development mode only - allow bypassing signature verification
       // This is acceptable for local testing with Stripe CLI
