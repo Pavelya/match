@@ -66,13 +66,29 @@ currently untested.
 
 Prisma schema lives in `prisma/schema.prisma`; migrations in `prisma/migrations`.
 
-> **The migration history is incomplete.** Several models were applied to production
-> with `prisma db push` and were never recorded as migrations, so `prisma migrate deploy`
-> against a fresh database produces an incomplete schema. This is being repaired — until
-> it is, treat `prisma/migrations` as unreliable.
+A fresh database can be built from migrations alone:
 
-Never run `prisma migrate dev` against a production connection string. It offers to
-reset the database when it detects drift, and there is currently drift.
+```bash
+createdb ibmatch_local
+DATABASE_URL=... DIRECT_URL=... npx prisma migrate deploy
+```
+
+Between December 2025 and February 2026 the schema was changed with `prisma db push`
+without recording migrations. `20260828000000_baseline_invitations_support_legal_cms`
+closes that gap. It is purely additive, and on any database that already has those
+changes it must be marked as applied rather than executed:
+
+```bash
+npx prisma migrate resolve --applied 20260828000000_baseline_invitations_support_legal_cms
+```
+
+Two things to know before running any Prisma CLI command:
+
+- **The CLI reads `.env` only.** `.env.local` is a Next.js convention, so a `DIRECT_URL`
+  that works for the app can still fail every migrate command with `P1001`.
+- **Never run `prisma migrate dev` against production.** It offers to reset the database
+  when it detects drift. Use `migrate deploy` for applying and `migrate diff` for
+  inspecting; both are safe.
 
 ## Layout
 
