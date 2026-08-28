@@ -19,6 +19,7 @@ import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { randomUUID } from 'crypto'
 
 interface RouteParams {
@@ -140,6 +141,11 @@ export async function POST(request: Request, { params }: RouteParams) {
       copyId: copy.id,
       copyName: copy.name
     })
+
+    // The matching cache holds every program, so a new one is invisible to
+    // matching until this is cleared. Harmless while that cache was failing to
+    // write at all; now that it works, it must be invalidated here too.
+    await invalidateProgramsCache()
 
     // Invalidate countries-with-programs cache so new locations appear in student onboarding
     revalidateTag('countries-with-programs', { expire: 0 })

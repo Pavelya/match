@@ -18,15 +18,29 @@ import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { ProgramsListClient } from '@/components/admin/programs/ProgramsListClient'
 
 export default async function ProgramsPage() {
+  // Selected rather than included. `include` pulled every column of every
+  // joined row, which meant the full University record - including its image,
+  // stored inline as base64 - for all 1,282 programs on every page load. One
+  // 537KB image on a university with 68 programs made that a 37MB transfer of
+  // data this page never renders. Keep this list aligned with the Program
+  // interface in ProgramsListClient.
   const programs = await prisma.academicProgram.findMany({
     orderBy: [{ university: { name: 'asc' } }, { name: 'asc' }],
-    include: {
+    select: {
+      id: true,
+      name: true,
+      duration: true,
+      degreeType: true,
+      minIBPoints: true,
       university: {
-        include: {
-          country: true
+        select: {
+          id: true,
+          name: true,
+          city: true,
+          country: { select: { flagEmoji: true } }
         }
       },
-      fieldOfStudy: true,
+      fieldOfStudy: { select: { id: true, name: true } },
       _count: {
         select: {
           courseRequirements: true,
