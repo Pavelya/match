@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { UniversityDetailClient } from './UniversityDetailClient'
+import { serializeJsonLd } from '@/lib/utils'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -193,7 +194,7 @@ export default async function UniversityDetailPage({ params }: PageProps) {
     <PageContainer>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <UniversityDetailClient university={universityData} />
     </PageContainer>

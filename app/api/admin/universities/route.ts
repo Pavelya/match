@@ -148,9 +148,17 @@ export async function POST(request: Request) {
           imageToSave = imageUrl
           logger.info('Uploaded university image to Supabase', { imageUrl })
         } catch (uploadError) {
-          logger.warn('Supabase upload failed, saving image as base64', { error: uploadError })
-          // Fall back to saving base64 directly (same as logo)
-          imageToSave = image
+          // Do NOT fall back to storing base64. The university object is
+          // embedded in every one of its programs in the matching cache, so a
+          // single inline image can push that payload past Upstash's 10MB
+          // limit and disable the cache platform-wide. Fail loudly instead.
+          logger.error('Supabase image upload failed; refusing to store inline base64', {
+            error: uploadError instanceof Error ? uploadError.message : String(uploadError)
+          })
+          return NextResponse.json(
+            { error: 'Image upload failed. The university was not created. Please try again.' },
+            { status: 502 }
+          )
         }
       } else {
         // Assume it's already a URL

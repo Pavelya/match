@@ -47,12 +47,55 @@ jobs:
       - name: Check formatting
         run: npx prettier --check .
 
-# NOTE: `next build` is deliberately not run here yet.
-#
-# The build prerenders app/ib-university-requirements/page.tsx, which queries
-# Prisma at build time, so it needs a reachable database. Standing up a
-# throwaway Postgres service is the obvious fix, but the migration history in
-# prisma/migrations is currently missing four models, so `prisma migrate deploy`
-# cannot produce a schema the build would work against.
-#
-# Add a build job once that migration baseline exists.
+  build:
+    name: Production build
+    runs-on: ubuntu-latest
+
+    # Builds against a throwaway database created from prisma/migrations alone,
+    # so this also proves the migration history can still reproduce the schema.
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ibmatch_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ibmatch_ci
+      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/ibmatch_ci
+      # Placeholders. The build validates these through lib/env.ts but never
+      # connects to any of these services - Algolia and Stripe clients are
+      # constructed on first use, not at import.
+      NEXTAUTH_SECRET: ci-placeholder-secret-at-least-32-characters
+      NEXTAUTH_URL: http://localhost:3000
+      RESEND_API_KEY: re_ci_placeholder
+      EMAIL_FROM: ci@example.com
+      GOOGLE_CLIENT_ID: ci-placeholder
+      GOOGLE_CLIENT_SECRET: ci-placeholder
+      UPSTASH_REDIS_REST_URL: https://ci-placeholder.upstash.io
+      UPSTASH_REDIS_REST_TOKEN: ci-placeholder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the database from migrations
+        run: npx prisma migrate deploy
+
+      - name: Build
+        run: npm run build

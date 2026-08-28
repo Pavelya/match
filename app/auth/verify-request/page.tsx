@@ -30,7 +30,8 @@ export default function VerifyRequestPage() {
             created automatically. The link expires in 15 minutes.
           </p>
           <p className="text-xs text-muted-foreground">
-            Don&apos;t see it? Check your spam folder.
+            Don&apos;t see it? Check your spam folder. If you were invited as a coordinator and
+            haven&apos;t set up your account yet, use the link in your invitation email instead.
           </p>
           <div className="pt-4">
             <Link href="/auth/signin" className="text-sm text-primary hover:underline">

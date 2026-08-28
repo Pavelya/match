@@ -20,6 +20,7 @@ import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import CoordinatorInviteEmail from '@/emails/coordinator-invite'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 // Token expiry: 7 days
 const INVITATION_EXPIRY_DAYS = 7
@@ -31,6 +32,10 @@ export async function POST(request: NextRequest) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    // Every path through here sends mail through Resend.
+    const rateLimited = await applyRateLimit('invite', session.user.id)
+    if (rateLimited) return rateLimited
 
     // 2. Get coordinator profile and school
     const coordinator = await prisma.coordinatorProfile.findFirst({

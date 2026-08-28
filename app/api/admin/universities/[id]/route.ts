@@ -187,12 +187,17 @@ export async function PATCH(request: Request, { params }: RouteParams) {
             updateData.image = imageUrl
             logger.info('Uploaded updated university image to Supabase', { universityId: id })
           } catch (uploadError) {
-            logger.warn('Supabase upload failed, saving image as base64', {
-              error: uploadError,
+            // Do NOT fall back to storing base64 - see the note in the create
+            // route. An inline image is duplicated across every program of this
+            // university in the matching cache and can disable it entirely.
+            logger.error('Supabase image upload failed; refusing to store inline base64', {
+              error: uploadError instanceof Error ? uploadError.message : String(uploadError),
               universityId: id
             })
-            // Fall back to saving base64 directly (same as logo)
-            updateData.image = image
+            return NextResponse.json(
+              { error: 'Image upload failed. No changes were saved. Please try again.' },
+              { status: 502 }
+            )
           }
         } else {
           // Assume it's already a URL
