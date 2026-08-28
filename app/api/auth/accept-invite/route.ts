@@ -15,6 +15,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
 
 // Current policy versions (same as auth/config.ts)
 const CURRENT_TERMS_VERSION = '2025-12-09'
@@ -22,6 +23,10 @@ const CURRENT_PRIVACY_VERSION = '2025-12-09'
 
 export async function POST(request: NextRequest) {
   try {
+    // Unauthenticated and token-guessable, so throttle hard by IP.
+    const rateLimited = await applyRateLimit('auth', getClientIp(request.headers))
+    if (rateLimited) return rateLimited
+
     // 1. Parse request body
     const body = await request.json()
     const { token, name } = body

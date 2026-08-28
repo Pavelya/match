@@ -9,6 +9,9 @@ import MagicLinkEmail from '@/emails/magic-link'
 import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
 import { prisma } from '@/lib/prisma'
 
+/** How long a role claim in the JWT is trusted before being re-read. */
+const ROLE_REFRESH_MS = 5 * 60 * 1000
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -85,7 +88,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: '/auth/error'
   },
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
+    // Explicit rather than inherited. This was previously unset, which meant
+    // the 30-day default applied by accident. Role changes no longer wait for
+    // expiry - see the jwt callback below - so this is a session-length
+    // preference, not a security control.
+    maxAge: 30 * 24 * 60 * 60
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -96,7 +104,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           select: { role: true }
         })
         token.role = dbUser?.role || 'STUDENT'
+        token.roleCheckedAt = Date.now()
+        return token
       }
+
+      // Re-read the role periodically. Previously it was read only at sign-in,
+      // so demoting an admin or deactivating a coordinator had no effect until
+      // their token expired - up to 30 days. Falling back to STUDENT means a
+      // deleted account loses its privileges rather than keeping them.
+      const lastChecked = token.roleCheckedAt ?? 0
+      if (token.sub && Date.now() - lastChecked > ROLE_REFRESH_MS) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+          select: { role: true }
+        })
+        token.role = dbUser?.role || 'STUDENT'
+        token.roleCheckedAt = Date.now()
+      }
+
       return token
     },
     async session({ session, token }) {

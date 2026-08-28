@@ -42,34 +42,22 @@ export default function CoordinatorSignInPage() {
 
       const checkData = await checkRes.json()
 
-      if (checkRes.ok) {
-        // Email found in system
-        if (checkData.role === 'STUDENT') {
-          // This is a student email - show friendly redirect
-          setIsStudentEmail(true)
-          setIsLoading(false)
-          return
-        } else if (checkData.role !== 'COORDINATOR' && checkData.role !== 'PLATFORM_ADMIN') {
-          // Some other role that shouldn't use this page
-          setError('This sign-in page is for IB Coordinators only.')
-          setIsLoading(false)
-          return
-        }
-        // COORDINATOR or PLATFORM_ADMIN - proceed with sign-in
-      } else if (checkRes.status === 429) {
-        // Rate limit exceeded
+      if (checkRes.status === 429) {
         setError('Too many sign-in attempts. Please wait a moment and try again.')
         setIsLoading(false)
         return
-      } else if (checkRes.status === 404) {
-        // Email not found - could be a new coordinator who hasn't accepted invite yet
-        // Show error asking them to use the invitation link
-        setError(
-          'No coordinator account found with this email. Please use the invitation link sent to your email to create your account.'
-        )
+      }
+
+      if (checkRes.ok && checkData.isStudent) {
+        // Student address - point them at the student sign-in instead
+        setIsStudentEmail(true)
         setIsLoading(false)
         return
       }
+
+      // Everyone else continues to the magic link. The check deliberately does
+      // not reveal whether an account exists, so an address with no account
+      // gets the same "check your email" outcome as a coordinator.
 
       // Proceed with magic link sign-in
       const result = await signIn('resend', {

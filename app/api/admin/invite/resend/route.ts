@@ -16,6 +16,7 @@ import { resend } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
 import CoordinatorInviteEmail from '@/emails/coordinator-invite'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 const INVITATION_EXPIRY_DAYS = 7
 
@@ -25,6 +26,10 @@ export async function POST(request: NextRequest) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    // Every path through here sends mail through Resend.
+    const rateLimited = await applyRateLimit('invite', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

@@ -14,12 +14,17 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
 
 // Current consent version - update when consent language changes
 const CONSENT_VERSION = '2025-12-14'
 
 export async function POST(request: Request) {
   try {
+    // Unauthenticated and token-guessable, so throttle hard by IP.
+    const rateLimited = await applyRateLimit('auth', getClientIp(request.headers))
+    if (rateLimited) return rateLimited
+
     const body = await request.json()
     const { token } = body
 

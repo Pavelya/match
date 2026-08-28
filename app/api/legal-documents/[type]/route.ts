@@ -23,6 +23,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { SLUG_TO_DOCUMENT_TYPE, DOCUMENT_TYPE_LABELS } from '@/lib/legal-documents'
+import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
 
 interface RouteParams {
   params: Promise<{ type: string }>
@@ -30,6 +31,10 @@ interface RouteParams {
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
+    // Public, unauthenticated database read.
+    const rateLimited = await applyRateLimit('api', getClientIp(request.headers))
+    if (rateLimited) return rateLimited
+
     const { type: typeSlug } = await params
 
     // Validate document type

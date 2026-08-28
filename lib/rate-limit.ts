@@ -64,6 +64,17 @@ export const rateLimiters = {
     analytics: true
   }),
 
+  // Invitations: 60 per hour per user
+  // Every one of these sends mail through Resend. Generous enough for a school
+  // onboarding a cohort in one sitting, tight enough that a compromised
+  // coordinator account cannot be used as an email cannon.
+  invite: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(60, '1 h'),
+    prefix: 'ratelimit:invite',
+    analytics: true
+  }),
+
   // Support tickets: 5 requests per hour per user
   // Prevents abuse while allowing legitimate support requests
   support: new Ratelimit({
