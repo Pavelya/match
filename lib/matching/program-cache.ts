@@ -6,8 +6,13 @@
  *
  * OPTIMIZED in v2:
  * - Strips unnecessary fields (descriptions, timestamps, logos) to reduce payload
- * - Reduces cache size from ~15MB to ~0.3MB for 267 programs
- * - Supports ~8,000 programs within Upstash's 10MB request limit
+ * - Supports several thousand programs within Upstash's 10MB request limit
+ *
+ * The university object is embedded in every program, so any large value on it
+ * is multiplied by that university's program count. One 537KB inline base64
+ * image on a university with 68 programs produced a 39.7MB payload and silently
+ * broke this cache entirely. Inline images are therefore dropped here, and the
+ * payload size is checked before every write.
  *
  * Performance Impact:
  * - Before: ~300-500ms DB query for 2,500 programs
@@ -21,6 +26,10 @@ import { logger } from '@/lib/logger'
 // Cache configuration - v2 uses optimized data structure
 const PROGRAMS_CACHE_KEY = 'programs:all:v2'
 const PROGRAMS_CACHE_TTL = 3600 // 1 hour in seconds
+
+// Upstash rejects any request larger than 10MB. Checked before writing so an
+// oversized payload is reported as a named cause rather than an opaque error.
+const UPSTASH_MAX_REQUEST_BYTES = 10 * 1024 * 1024
 
 /**
  * Optimized program data for caching
@@ -91,13 +100,57 @@ async function fetchProgramsFromDB() {
 }
 
 /**
+ * Inline base64 images must never enter the cache.
+ *
+ * The value is duplicated once per program, so a single large one can exceed
+ * Upstash's request limit on its own. Program cards already fall back to a
+ * placeholder when the image is null, so dropping it degrades gracefully.
+ * Universities should store a storage URL instead - see
+ * scripts/fix-university-images.ts.
+ */
+function cacheableImage(
+  university: { name: string; image: string | null },
+  offenders: Map<string, number>
+): string | null {
+  const { image } = university
+  if (!image) return null
+  if (image.startsWith('data:')) {
+    offenders.set(university.name, image.length)
+    return null
+  }
+  return image
+}
+
+/**
+ * Write the cache, refusing payloads Upstash would reject.
+ */
+async function writeProgramsCache(programs: CachedProgram[]): Promise<boolean> {
+  const bytes = JSON.stringify(programs).length
+
+  if (bytes > UPSTASH_MAX_REQUEST_BYTES) {
+    logger.error('Programs cache payload too large to store; serving from DB instead', {
+      bytes,
+      limit: UPSTASH_MAX_REQUEST_BYTES,
+      count: programs.length
+    })
+    return false
+  }
+
+  await redis.set(PROGRAMS_CACHE_KEY, programs, { ex: PROGRAMS_CACHE_TTL })
+  logger.info('Programs cached', { count: programs.length, sizeKB: (bytes / 1024).toFixed(2) })
+  return true
+}
+
+/**
  * Transform full program data to optimized cache format
  * Strips: descriptions, logos, timestamps, contact info
  */
 function optimizeForCache(
   programs: Awaited<ReturnType<typeof fetchProgramsFromDB>>
 ): CachedProgram[] {
-  return programs.map((p) => ({
+  const offenders = new Map<string, number>()
+
+  const optimized = programs.map((p) => ({
     id: p.id,
     name: p.name,
     universityId: p.universityId,
@@ -105,7 +158,7 @@ function optimizeForCache(
       id: p.university.id,
       name: p.university.name,
       abbreviatedName: p.university.abbreviatedName,
-      image: p.university.image,
+      image: cacheableImage(p.university, offenders),
       city: p.university.city,
       country: {
         id: p.university.country.id,
@@ -139,6 +192,15 @@ function optimizeForCache(
       orGroupId: cr.orGroupId
     }))
   }))
+
+  if (offenders.size > 0) {
+    logger.warn('Dropped inline base64 university images from the programs cache', {
+      universities: Array.from(offenders, ([name, bytes]) => `${name} (${bytes} bytes)`),
+      hint: 'Run scripts/fix-university-images.ts to move these to Supabase Storage'
+    })
+  }
+
+  return optimized
 }
 
 /**
@@ -167,18 +229,7 @@ export async function getCachedPrograms(): Promise<CachedProgram[]> {
     // Optimize for cache (strip unnecessary fields)
     const optimized = optimizeForCache(programs)
 
-    // Log size for monitoring
-    const sizeKB = (JSON.stringify(optimized).length / 1024).toFixed(2)
-    logger.info('Caching optimized programs', {
-      count: optimized.length,
-      sizeKB,
-      ttl: PROGRAMS_CACHE_TTL
-    })
-
-    // Cache the optimized results
-    await redis.set(PROGRAMS_CACHE_KEY, optimized, { ex: PROGRAMS_CACHE_TTL })
-
-    logger.info('Programs cached successfully', { count: optimized.length })
+    await writeProgramsCache(optimized)
 
     return optimized
   } catch (error) {
@@ -215,8 +266,7 @@ export async function warmProgramsCache(): Promise<void> {
   try {
     const programs = await fetchProgramsFromDB()
     const optimized = optimizeForCache(programs)
-    await redis.set(PROGRAMS_CACHE_KEY, optimized, { ex: PROGRAMS_CACHE_TTL })
-    logger.info('Programs cache warmed', { count: optimized.length })
+    await writeProgramsCache(optimized)
   } catch (error) {
     logger.error('Failed to warm programs cache', { error })
   }
