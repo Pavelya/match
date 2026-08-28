@@ -9,14 +9,29 @@
 
 import Stripe from 'stripe'
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error('STRIPE_SECRET_KEY is not set in environment variables')
-}
+let stripeClient: Stripe | null = null
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-11-17.clover',
-  typescript: true
-})
+/**
+ * Get the Stripe client (singleton).
+ *
+ * Constructed on first use rather than at module load, so that importing
+ * this file does not require STRIPE_SECRET_KEY. Stripe is optional in
+ * lib/env.ts, and a module-load throw made it required for any build that
+ * collects configuration for these routes.
+ */
+export function getStripe(): Stripe {
+  if (!stripeClient) {
+    const secretKey = process.env.STRIPE_SECRET_KEY
+    if (!secretKey) {
+      throw new Error('STRIPE_SECRET_KEY is not set in environment variables')
+    }
+    stripeClient = new Stripe(secretKey, {
+      apiVersion: '2025-11-17.clover',
+      typescript: true
+    })
+  }
+  return stripeClient
+}
 
 /**
  * Stripe product ID for the school subscription
@@ -38,7 +53,7 @@ export async function getOrCreateStripeCustomer(school: {
   }
 
   // Create a new Stripe customer
-  const customer = await stripe.customers.create({
+  const customer = await getStripe().customers.create({
     name: school.name,
     email: school.email || undefined,
     metadata: {
@@ -65,7 +80,7 @@ export async function createCheckoutSession({
   successUrl: string
   cancelUrl: string
 }): Promise<string> {
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     customer: customerId,
     mode: 'subscription',
     line_items: [
@@ -103,7 +118,7 @@ export async function createPortalSession({
   customerId: string
   returnUrl: string
 }): Promise<string> {
-  const session = await stripe.billingPortal.sessions.create({
+  const session = await getStripe().billingPortal.sessions.create({
     customer: customerId,
     return_url: returnUrl
   })
@@ -119,7 +134,7 @@ export async function getCustomerSubscriptionStatus(customerId: string): Promise
   subscriptionId?: string
   status?: string
 }> {
-  const subscriptions = await stripe.subscriptions.list({
+  const subscriptions = await getStripe().subscriptions.list({
     customer: customerId,
     status: 'active',
     limit: 1

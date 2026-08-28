@@ -2,14 +2,12 @@ import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
 import { render } from '@react-email/components'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
 import MagicLinkEmail from '@/emails/magic-link'
 import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),

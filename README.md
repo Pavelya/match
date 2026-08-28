@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# IB Match
 
-## Getting Started
+A platform that matches International Baccalaureate students to university programmes,
+and gives IB school coordinators tools to track and support their students.
 
-First, run the development server:
+Students use it free. Schools are either VIP (free, full access) or Regular, which can
+buy a subscription for full coordinator access or run on a limited freemium tier.
+
+## Stack
+
+| Concern | Choice |
+| --- | --- |
+| Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 5 |
+| Database | PostgreSQL on Supabase, via Prisma 6 |
+| Auth | NextAuth v5 (Auth.js) — Google OAuth and Resend magic links |
+| Search | Algolia, synced from Postgres by Prisma client extensions |
+| Cache / rate limiting | Upstash Redis |
+| Email | Resend, with React Email templates in `emails/` |
+| Payments | Stripe (Regular school subscriptions only) |
+| Hosting | Vercel |
+
+## Getting started
+
+Requires **Node 22+** (see `.nvmrc`).
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env      # then fill in the values
+npm install               # runs `prisma generate` via postinstall
+npm run dev               # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`.env.example` marks which variables the app refuses to start without. They are
+validated by Zod in `lib/env.ts`, so a missing or malformed value fails loudly at
+boot rather than at first use.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Note that `npm start` — a production build served locally — additionally needs
+`AUTH_TRUST_HOST=true`. Auth.js trusts the request host automatically in dev and on
+Vercel, but nowhere else, and without it every `/api/auth/*` route returns 500.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build. Requires a reachable database — some pages query Prisma at build time |
+| `npm run type-check` | `tsc --noEmit` |
+| `npm run lint` | ESLint — code quality only; formatting belongs to Prettier |
+| `npm run format` | `prettier --write .` |
+| `npm run email:dev` | Preview the React Email templates |
 
-To learn more about Next.js, take a look at the following resources:
+CI runs type-check, lint and `prettier --check` on every pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Testing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The matching algorithm — the most intricate part of the product — is covered by
+verification scripts in `lib/matching/*.verify.ts`:
 
-## Deploy on Vercel
+```bash
+npx tsx scripts/run-all-tests.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+There is no unit-test framework installed. Everything outside `lib/matching` is
+currently untested.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Database
+
+Prisma schema lives in `prisma/schema.prisma`; migrations in `prisma/migrations`.
+
+> **The migration history is incomplete.** Several models were applied to production
+> with `prisma db push` and were never recorded as migrations, so `prisma migrate deploy`
+> against a fresh database produces an incomplete schema. This is being repaired — until
+> it is, treat `prisma/migrations` as unreliable.
+
+Never run `prisma migrate dev` against a production connection string. It offers to
+reset the database when it detects drift, and there is currently drift.
+
+## Layout
+
+```
+app/            Routes. Grouped by audience: student, coordinator, admin, plus
+                public marketing and per-country SEO landing pages
+components/     React components, mirroring the same grouping
+lib/            Domain logic — matching, auth, algolia, stripe, email, redis
+emails/         React Email templates
+prisma/         Schema, migrations, seed
+scripts/        Operational and data-loading scripts
+docs/           Architecture, product specs, matching algorithm, task records
+```
+
+## Documentation
+
+- `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning behind each choice
+- `docs/product/DOC_1_ibmatch-requirements-doc.md` — product requirements
+- `docs/matching/` — matching algorithm design and changelog
+- `docs/security/` — security audit history

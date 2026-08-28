@@ -10,7 +10,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { stripe, getOrCreateStripeCustomer, createCheckoutSession } from '@/lib/stripe/server'
+import { getStripe, getOrCreateStripeCustomer, createCheckoutSession } from '@/lib/stripe/server'
 import { logger } from '@/lib/logger'
 
 export async function POST(req: Request) {
@@ -71,7 +71,7 @@ export async function POST(req: Request) {
 
     // Get price ID from Stripe product
     // First, list prices for the product
-    const prices = await stripe.prices.list({
+    const prices = await getStripe().prices.list({
       product: process.env.STRIPE_PRODUCT_ID,
       active: true,
       type: 'recurring',

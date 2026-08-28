@@ -8,7 +8,7 @@
  * - IB points requirement
  */
 
-import { algolia, INDEX_NAMES } from './client'
+import { getAlgoliaClient, INDEX_NAMES } from './client'
 import type { AlgoliaProgramRecord } from './sync'
 import { logger } from '@/lib/logger'
 
@@ -96,7 +96,7 @@ export async function searchCandidatePrograms(
     })
 
     // Search Algolia with filters
-    const result = await algolia.searchSingleIndex<AlgoliaProgramRecord>({
+    const result = await getAlgoliaClient().searchSingleIndex<AlgoliaProgramRecord>({
       indexName: INDEX_NAMES.PROGRAMS,
       searchParams: {
         query: '', // Empty query = return all matching filters
@@ -230,7 +230,7 @@ export async function searchPrograms(
     const filterString = filterParts.join(' AND ')
 
     // Execute search
-    const result = await algolia.searchSingleIndex<ProgramSearchResult>({
+    const result = await getAlgoliaClient().searchSingleIndex<ProgramSearchResult>({
       indexName: INDEX_NAMES.PROGRAMS,
       searchParams: {
         query,
@@ -302,7 +302,7 @@ export async function searchUniversities(
   nbHits: number
 }> {
   try {
-    const result = await algolia.searchSingleIndex({
+    const result = await getAlgoliaClient().searchSingleIndex({
       indexName: INDEX_NAMES.UNIVERSITIES,
       searchParams: {
         query,
