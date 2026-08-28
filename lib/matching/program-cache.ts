@@ -2,7 +2,7 @@
  * Program Data Cache
  *
  * Caches all program data in Redis to avoid fetching from DB on every request.
- * Programs rarely change, so 1 hour TTL is safe.
+ * Every write path invalidates it explicitly, so the TTL is only a backstop.
  *
  * OPTIMIZED in v2:
  * - Strips unnecessary fields (descriptions, timestamps, logos) to reduce payload
@@ -25,7 +25,12 @@ import { logger } from '@/lib/logger'
 
 // Cache configuration - v2 uses optimized data structure
 const PROGRAMS_CACHE_KEY = 'programs:all:v2'
-const PROGRAMS_CACHE_TTL = 3600 // 1 hour in seconds
+// Six hours, not one. Each refresh re-reads every program from Postgres, which
+// is billed egress on Supabase; at hourly that is 24 full reads a day for data
+// that changes a few times a week. All four write paths - create, update,
+// delete, bulk and copy - invalidate explicitly, so this only bounds how long a
+// missed invalidation could go unnoticed.
+const PROGRAMS_CACHE_TTL = 6 * 60 * 60
 
 // Upstash rejects any request larger than 10MB. Checked before writing so an
 // oversized payload is reported as a named cause rather than an opaque error.

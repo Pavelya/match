@@ -12,6 +12,7 @@ import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 
 export async function GET() {
   try {
@@ -184,6 +185,11 @@ export async function POST(request: Request) {
       programName: program.name,
       universityId: program.universityId
     })
+
+    // The matching cache holds every program, so a new one is invisible to
+    // matching until this is cleared. Harmless while that cache was failing to
+    // write at all; now that it works, it must be invalidated here too.
+    await invalidateProgramsCache()
 
     // Invalidate countries-with-programs cache so new locations appear in student onboarding
     revalidateTag('countries-with-programs', { expire: 0 })

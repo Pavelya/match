@@ -16,6 +16,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { syncProgramsBatch } from '@/lib/algolia/sync'
 import type { ParsedRequirement } from '@/lib/bulk-upload'
 
@@ -249,6 +250,11 @@ export async function POST(request: Request) {
         logger.error('Algolia batch sync failed', { error })
         algoliaResult = { success: 0, failed: createdProgramIds.length }
       }
+
+      // The matching cache holds every program, so a new one is invisible to
+      // matching until this is cleared. Harmless while that cache was failing to
+      // write at all; now that it works, it must be invalidated here too.
+      await invalidateProgramsCache()
     }
 
     // =========================================================================
