@@ -87,17 +87,46 @@ export interface CachedProgram {
  * Fetch programs from database with all required relations
  */
 async function fetchProgramsFromDB() {
+  // Selected, not included. `include` returns every column of every joined row,
+  // so this pulled program descriptions and every university and field column -
+  // then optimizeForCache discarded most of it. The read is billed egress on
+  // Supabase and runs on every cache refresh, so it should fetch exactly what
+  // CachedProgram declares and nothing more. Keep the two in step.
   return prisma.academicProgram.findMany({
-    include: {
+    select: {
+      id: true,
+      name: true,
+      universityId: true,
+      degreeType: true,
+      duration: true,
+      minIBPoints: true,
+      programUrl: true,
+      fieldOfStudyId: true,
       university: {
-        include: {
-          country: true
+        select: {
+          id: true,
+          name: true,
+          abbreviatedName: true,
+          image: true,
+          city: true,
+          country: {
+            select: { id: true, name: true, code: true, flagEmoji: true }
+          }
         }
       },
-      fieldOfStudy: true,
+      fieldOfStudy: {
+        select: { id: true, name: true, iconName: true, description: true }
+      },
       courseRequirements: {
-        include: {
-          ibCourse: true
+        select: {
+          id: true,
+          requiredLevel: true,
+          minGrade: true,
+          isCritical: true,
+          orGroupId: true,
+          ibCourse: {
+            select: { id: true, name: true, code: true, group: true }
+          }
         }
       }
     }
