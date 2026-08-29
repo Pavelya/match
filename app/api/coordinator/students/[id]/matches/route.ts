@@ -18,6 +18,7 @@ import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 interface RouteContext {
   params: Promise<{ id: string }>
@@ -34,6 +35,9 @@ export async function GET(request: NextRequest, context: RouteContext) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Get coordinator's school
     const coordinator = await prisma.coordinatorProfile.findFirst({

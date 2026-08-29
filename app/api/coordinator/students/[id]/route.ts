@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { invalidateStudentCache } from '@/lib/matching/cache'
 
@@ -47,6 +48,9 @@ export async function GET(request: NextRequest, context: RouteContext) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Get coordinator's school
     const coordinator = await prisma.coordinatorProfile.findFirst({
@@ -130,6 +134,9 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Get coordinator's school
     const coordinator = await prisma.coordinatorProfile.findFirst({

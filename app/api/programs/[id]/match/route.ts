@@ -13,6 +13,7 @@ import { prisma } from '@/lib/prisma'
 import { calculateMatch } from '@/lib/matching'
 import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 interface RouteContext {
   params: Promise<{ id: string }>
@@ -25,6 +26,9 @@ export async function GET(request: Request, context: RouteContext) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const { id: programId } = await context.params
 

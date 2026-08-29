@@ -13,6 +13,7 @@ import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
 import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
@@ -27,6 +28,9 @@ export async function GET(request: Request, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -71,6 +75,9 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -238,6 +245,9 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

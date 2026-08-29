@@ -14,6 +14,7 @@ import { revalidateTag } from 'next/cache'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function POST() {
   return invalidateCache()
@@ -30,6 +31,9 @@ async function invalidateCache() {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

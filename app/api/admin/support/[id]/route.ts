@@ -17,6 +17,7 @@ import { z } from 'zod'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { TicketStatus, TicketPriority } from '@prisma/client'
 import { sendTicketResolvedEmail } from '@/lib/email/support-tickets'
 
@@ -56,6 +57,9 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Verify admin role
     const user = await prisma.user.findUnique({
@@ -124,6 +128,9 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Verify admin role
     const admin = await prisma.user.findUnique({
