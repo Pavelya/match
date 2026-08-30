@@ -17,6 +17,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { createDraftFromVersion, SLUG_TO_DOCUMENT_TYPE } from '@/lib/legal-documents'
 
 interface RouteParams {
@@ -32,6 +33,9 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Verify admin role
     const user = await prisma.user.findUnique({

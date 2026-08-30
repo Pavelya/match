@@ -12,6 +12,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -23,6 +24,9 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

@@ -16,6 +16,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import {
   getVersion,
   updateVersion,
@@ -28,7 +29,16 @@ interface RouteParams {
   params: Promise<{ type: string; id: string }>
 }
 
-async function verifyAdminAccess() {
+/**
+ * Discriminated on `error` so callers that guard on it narrow `userId` to a
+ * string. Without the explicit type TypeScript collapses the three returns into
+ * one shape and `userId` stays `string | null`.
+ */
+type AdminAccess =
+  | { error: string; status: number; userId: null }
+  | { error: null; status: 200; userId: string }
+
+async function verifyAdminAccess(): Promise<AdminAccess> {
   const session = await auth()
   if (!session?.user?.id) {
     return { error: 'Unauthorized', status: 401, userId: null }
@@ -50,10 +60,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { type: typeSlug, id } = await params
 
-    const { error, status } = await verifyAdminAccess()
-    if (error) {
+    const { error, status, userId } = await verifyAdminAccess()
+    if (error !== null) {
       return NextResponse.json({ error }, { status })
     }
+
+    const rateLimited = await applyRateLimit('api', userId)
+    if (rateLimited) return rateLimited
 
     // Validate document type
     if (!SLUG_TO_DOCUMENT_TYPE[typeSlug]) {

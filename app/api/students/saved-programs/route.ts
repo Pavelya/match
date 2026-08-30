@@ -13,6 +13,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function GET() {
   try {
@@ -21,6 +22,9 @@ export async function GET() {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Get student profile
     const studentProfile = await prisma.studentProfile.findUnique({
@@ -120,6 +124,9 @@ export async function POST(request: NextRequest) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const body = await request.json()
     const { programId } = body

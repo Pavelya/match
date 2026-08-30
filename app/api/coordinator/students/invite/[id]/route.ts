@@ -14,6 +14,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -28,6 +29,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // 2. Get coordinator profile and school
     const coordinator = await prisma.coordinatorProfile.findFirst({
@@ -129,6 +133,9 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const coordinator = await prisma.coordinatorProfile.findFirst({
       where: { userId: session.user.id },

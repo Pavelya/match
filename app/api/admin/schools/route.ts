@@ -11,6 +11,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function GET() {
   try {
@@ -18,6 +19,9 @@ export async function GET() {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
@@ -54,6 +58,9 @@ export async function POST(request: Request) {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

@@ -20,6 +20,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { getCachedMatches } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
@@ -32,6 +33,9 @@ export async function GET() {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Get coordinator's school
     const coordinator = await prisma.coordinatorProfile.findFirst({

@@ -10,6 +10,7 @@ import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { recordAllConsents } from '@/lib/legal-documents'
 import { logger } from '@/lib/logger'
+import { applyRateLimit } from '@/lib/rate-limit'
 
 export async function POST() {
   try {
@@ -18,6 +19,9 @@ export async function POST() {
     if (!session?.user?.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
+
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
 
     // Record consent to all required documents
     await recordAllConsents(session.user.id)
