@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 /**
  * Security headers to protect against common web vulnerabilities
  */
@@ -40,16 +42,36 @@ const securityHeaders = [
     value: [
       // Default: only allow same-origin
       "default-src 'self'",
-      // Scripts: self + inline for Next.js hydration + eval for development
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // Scripts: self + inline, because Next.js emits inline bootstrap and
+      // hydration scripts.
+      //
+      // Removing 'unsafe-inline' requires per-request nonces, and per the
+      // Next 16 CSP guide that forces every page into dynamic rendering:
+      // static optimisation and ISR are disabled and pages stop being
+      // CDN-cacheable. That would undo the ISR on all 22 country landing
+      // pages for a site that loads no third-party scripts at all. The
+      // static-friendly alternative is experimental SRI
+      // (experimental.sri in this file), which is worth revisiting once it
+      // is no longer experimental.
+      //
+      // 'unsafe-eval' is a different matter: React only needs it in
+      // development, to rebuild server-side stack traces in the browser.
+      // Neither React nor Next.js use eval in production, so it is dropped
+      // from production builds.
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
       // Styles: self + inline for styled-jsx and CSS-in-JS
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       // Fonts: self + Google Fonts
       "font-src 'self' https://fonts.gstatic.com",
       // Images: self + Google (avatars) + Supabase (university images) + data URIs + blob for image processing
       "img-src 'self' https://*.googleusercontent.com https://*.supabase.co data: blob:",
-      // Connect: self + API endpoints + Algolia + Upstash
-      "connect-src 'self' https://*.algolia.net https://*.algolianet.com https://*.upstash.io",
+      // Connect: own origin only. Algolia and Upstash are called from the
+      // server, never the browser, so allowing them here only widened where a
+      // successful injection could send data.
+      "connect-src 'self'",
+      // No plugins, and no framed content: the app embeds neither.
+      "object-src 'none'",
+      "frame-src 'none'",
       // Frame ancestors: none (equivalent to X-Frame-Options: DENY)
       "frame-ancestors 'none'",
       // Form actions: self only
