@@ -2,12 +2,85 @@
 
 **Written:** 30 August 2026 · **Covers:** work remaining after maintenance phases 1–4
 
-Each task below is written to be picked up by a **fresh AI session with no memory of
-the earlier work**. Read [Standing context](#standing-context) first — it contains the
-rules that stop a session breaking production or burning the free-tier quota.
+**How to use this.** [Start here](#start-here) says which tasks to run in which
+session, and in what order. The checklist after it is the flat list. Everything below
+that is one detailed section per task — the part a session actually works from.
 
-Phases are ordered by value. Tasks inside a phase are independent unless a
-**Depends on** line says otherwise.
+Each task is written to be picked up by a **fresh AI session with no memory of the
+earlier work**. Every session should read [Standing context](#standing-context) first:
+it holds the rules that stop a session breaking production or burning the free-tier
+quota.
+
+---
+
+## Start here
+
+**Eleven sessions, in this order.** Each one is a fresh AI session, one branch, one
+pull request, merged before the next starts.
+
+| # | Session | Tasks | Size | Why these are together |
+|---|---|---|---|---|
+| 1 | Small cleanups | 5.2, 5.3, 5.4 | short | Three tiny changes, none touch the database, and one verification pass covers all three |
+| 2 | Client-side navigation | 5.1 | short | Needs a judgement call at each call site, and sign-in has to be clicked through by hand |
+| 3 | Prisma 7 | 6.1 | medium | Closes the last 4 advisories. Alone, because it owns the migration history |
+| 4 | Stripe 22 | 6.2 | medium | Money path. Alone, so a failure points at one thing |
+| 5 | Minor and patch batch | 6.4 | short | Alone, so a regression is attributable to this batch |
+| 6 | lucide-react 1.x | 6.3 | medium | 171 files, and only a human eye can confirm the icons |
+| 7 | TypeScript 7 | 6.5 | unknown | Last, because it is the most likely to produce unrelated noise |
+| 8 | Pick a test framework, test access control | 7.1, part 1 | medium | The decision, then the highest-value tests |
+| 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
+| 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
+| any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
+
+Sessions 1 and 2 are the cheapest and safest — good places to start.
+Session 3 is the most valuable.
+
+### Rules for grouping
+
+1. **Never two dependency upgrades in one session.** If something breaks you will not
+   know which upgrade did it, and you will spend more time unpicking it than you saved.
+2. **Never mix a risky change with cleanups.** Anything that might need reverting
+   deserves a pull request with nothing else in it.
+3. **Group only changes that are individually trivial** and share one verification
+   pass. That is why session 1 works and nothing else is batched.
+4. **Stop when the pull request gets hard to review**, not when the task list is empty.
+
+### What this costs
+
+More sessions costs more in AI time; a bad batch costs more in debugging. Batching
+only trivia is the balance. Every session ends with a merged pull request, so the next
+one starts from a clean `main` and does not have to rediscover anything.
+
+---
+
+## The full list
+
+Phase 5 — quick wins
+
+- [ ] 5.1 Use the router for internal navigation
+- [ ] 5.2 Delete the unused admin programs API route
+- [ ] 5.3 Remove the redundant Cache-Control on Next's own static assets
+- [ ] 5.4 Set `trustHost` explicitly in the auth config
+- [ ] 5.5 Restore the University of Manchester image
+
+Phase 6 — dependency majors
+
+- [ ] 6.1 Prisma 6 → 7
+- [ ] 6.2 Stripe 20 → 22
+- [ ] 6.3 lucide-react 0.x → 1.x
+- [ ] 6.4 The minor and patch batch
+- [ ] 6.5 TypeScript 5.9 → 7
+
+Phase 7 — structural
+
+- [ ] 7.1 Test coverage beyond the matching algorithm
+- [ ] 7.2 Collapse the 22 country landing pages
+
+Owner tasks — not AI work
+
+- [ ] Enable branch protection on `main`
+- [ ] Watch Supabase egress for a week after the quota reset
+- [ ] Decide the test framework before session 8
 
 ---
 
