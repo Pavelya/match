@@ -7,12 +7,10 @@
  * Run with: npx tsx scripts/fix-university-images.ts
  */
 
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 import { uploadUniversityImage, isBase64Image } from '../lib/supabase/storage'
 import { syncUniversityProgramsToAlgolia } from '../lib/algolia/sync'
 import { invalidateProgramsCache } from '../lib/matching/program-cache'
-
-const prisma = new PrismaClient()
 
 async function fixUniversityImages() {
   console.log('\n🔧 Fixing University Images\n')

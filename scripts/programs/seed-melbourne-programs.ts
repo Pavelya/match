@@ -14,9 +14,8 @@
  * Run with: npx tsx scripts/programs/seed-melbourne-programs.ts
  */
 
-import { PrismaClient, CourseLevel } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { CourseLevel } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 
 // Program definitions with IB requirements
 // Requirements format: array of { courses: string[], level: 'HL'|'SL', grade: number, critical?: boolean }
