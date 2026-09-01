@@ -58,9 +58,9 @@ one starts from a clean `main` and does not have to rediscover anything.
 Phase 5 — quick wins
 
 - [ ] 5.1 Use the router for internal navigation
-- [ ] 5.2 Delete the unused admin programs API route
-- [ ] 5.3 Remove the redundant Cache-Control on Next's own static assets
-- [ ] 5.4 Set `trustHost` explicitly in the auth config
+- [x] 5.2 Delete the unused admin programs API route
+- [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
+- [x] 5.4 Set `trustHost` explicitly in the auth config
 - [ ] 5.5 Restore the University of Manchester image
 
 Phase 6 — dependency majors
@@ -159,9 +159,10 @@ npm audit                        # compare against the baseline in the task
 npx tsx scripts/run-all-tests.ts # matching algorithm suite (20 files)
 ```
 
-`npm run dev` works normally. `npm start` — a production build served locally —
-additionally needs `AUTH_TRUST_HOST=true`, or every `/api/auth/*` route returns 500
-with `UntrustedHost`. Auth.js v5 auto-trusts the host only in dev and on Vercel.
+`npm run dev` and `npm start` both work with no extra variables. Auth.js v5 auto-trusts
+the host only in dev and on Vercel, so `lib/auth/config.ts` sets `trustHost: true`
+explicitly (task 5.4). Without that, every `/api/auth/*` route returns 500 with
+`UntrustedHost` outside those two environments.
 
 ### Working agreement
 

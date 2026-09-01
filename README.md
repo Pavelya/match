@@ -33,9 +33,10 @@ npm run dev               # http://localhost:3000
 validated by Zod in `lib/env.ts`, so a missing or malformed value fails loudly at
 boot rather than at first use.
 
-Note that `npm start` — a production build served locally — additionally needs
-`AUTH_TRUST_HOST=true`. Auth.js trusts the request host automatically in dev and on
-Vercel, but nowhere else, and without it every `/api/auth/*` route returns 500.
+`npm start` — a production build served locally — needs no extra variables. Auth.js
+v5 trusts the request host automatically only in development and on Vercel; the config
+in `lib/auth/config.ts` sets `trustHost: true` explicitly so a production build runs
+correctly anywhere without `AUTH_TRUST_HOST`.
 
 ## Scripts
 

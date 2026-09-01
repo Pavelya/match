@@ -146,17 +146,11 @@ const nextConfig: NextConfig = {
             value: 'public, max-age=31536000, immutable'
           }
         ]
-      },
-      {
-        // Cache Next.js static assets (already have fingerprinting)
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
       }
+      // Next serves /_next/static itself with a long-lived immutable
+      // Cache-Control. Setting our own on top of it added nothing and made
+      // the build warn that a custom Cache-Control there can break
+      // development behaviour.
     ]
   },
 

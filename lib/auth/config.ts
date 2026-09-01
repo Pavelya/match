@@ -14,6 +14,13 @@ const ROLE_REFRESH_MS = 5 * 60 * 1000
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  // Auth.js v5 does not read host trust from NEXTAUTH_URL (that is the v4
+  // name); it auto-trusts only in development and on Vercel, so a production
+  // build served anywhere else returned 500 on every /api/auth/* route unless
+  // AUTH_TRUST_HOST was set. Trusting the host is safe here because the app is
+  // only ever served from its own known hosts behind Vercel, never from a
+  // proxy that forwards an attacker-controlled Host header.
+  trustHost: true,
   providers: [
     // Email provider (Magic Links via Resend with custom template)
     Resend({

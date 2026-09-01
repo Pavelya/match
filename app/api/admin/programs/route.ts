@@ -1,7 +1,6 @@
 /**
  * Admin API: Programs
  *
- * GET - List all programs with relations
  * POST - Create a new program
  *
  * Security: Requires PLATFORM_ADMIN role
@@ -14,50 +13,6 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
-
-export async function GET() {
-  try {
-    const session = await auth()
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const rateLimited = await applyRateLimit('api', session.user.id)
-    if (rateLimited) return rateLimited
-
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { role: true }
-    })
-
-    if (user?.role !== 'PLATFORM_ADMIN') {
-      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
-    const programs = await prisma.academicProgram.findMany({
-      orderBy: [{ university: { name: 'asc' } }, { name: 'asc' }],
-      include: {
-        university: {
-          include: { country: true }
-        },
-        fieldOfStudy: true,
-        courseRequirements: {
-          include: { ibCourse: true }
-        },
-        _count: {
-          select: {
-            savedBy: true
-          }
-        }
-      }
-    })
-
-    return NextResponse.json(programs)
-  } catch (error) {
-    logger.error('Error fetching programs', { error })
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
-  }
-}
 
 export async function POST(request: Request) {
   try {
