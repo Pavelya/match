@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { Info, AlertCircle } from 'lucide-react'
 
 function SignInForm() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const declineInvite = searchParams.get('declineInvite') === 'true'
 
@@ -35,11 +36,13 @@ function SignInForm() {
         setError('Unable to send magic link. Please try again.')
         setIsLoading(false)
       } else if (result?.url) {
-        // Success - redirect to verify-request page
+        // NextAuth returns an absolute URL that it decides itself, and for
+        // other providers it can point off-origin, so it must go through the
+        // browser rather than the router.
         window.location.href = result.url
       } else {
         // Fallback - redirect to verify-request
-        window.location.href = '/auth/verify-request'
+        router.push('/auth/verify-request')
       }
     } catch {
       // Handle network/rate limit errors

@@ -13,6 +13,7 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -21,6 +22,7 @@ import Image from 'next/image'
 import { AlertCircle, GraduationCap } from 'lucide-react'
 
 export default function CoordinatorSignInPage() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -70,9 +72,12 @@ export default function CoordinatorSignInPage() {
         setError('Unable to send magic link. Please try again.')
         setIsLoading(false)
       } else if (result?.url) {
+        // NextAuth returns an absolute URL that it decides itself, and for
+        // other providers it can point off-origin, so it must go through the
+        // browser rather than the router.
         window.location.href = result.url
       } else {
-        window.location.href = '/auth/verify-request'
+        router.push('/auth/verify-request')
       }
     } catch {
       // Handle network/rate limit errors
