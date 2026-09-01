@@ -12,6 +12,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import { CompleteProfileCTA } from '@/components/student/CompleteProfileCTA'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
@@ -205,8 +206,8 @@ export function RecommendationsClient() {
             We couldn&apos;t find any programs matching your profile. Please complete your
             onboarding or adjust your preferences.
           </p>
-          <Button onClick={() => (window.location.href = '/student/onboarding')} className="mt-4">
-            Update Profile
+          <Button asChild className="mt-4">
+            <Link href="/student/onboarding">Update Profile</Link>
           </Button>
         </div>
       </div>

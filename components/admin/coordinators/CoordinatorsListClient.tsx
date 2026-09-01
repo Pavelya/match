@@ -8,6 +8,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 import { Users, UserCog, Clock, GraduationCap } from 'lucide-react'
 import { StatCard, SearchFilterBar, FilterChip, TableEmptyState } from '@/components/admin/shared'
 import { CoordinatorTable } from './CoordinatorTable'
@@ -41,6 +42,7 @@ export function CoordinatorsListClient({
   coordinators,
   statusFilter
 }: CoordinatorsListClientProps) {
+  const router = useRouter()
   const [search, setSearch] = useState('')
 
   // Calculate stats from ALL coordinators (not filtered by status)
@@ -127,8 +129,8 @@ export function CoordinatorsListClient({
           label="All"
           isActive={!statusFilter}
           onClick={() => {
-            // Navigate to remove status param - using Link would be cleaner
-            window.location.href = '/admin/coordinators'
+            // The status filter lives in the URL, so clearing it is a navigation
+            router.push('/admin/coordinators')
           }}
         />
         <FilterChip
@@ -136,7 +138,7 @@ export function CoordinatorsListClient({
           icon={UserCog}
           isActive={statusFilter === 'active'}
           onClick={() => {
-            window.location.href = '/admin/coordinators?status=active'
+            router.push('/admin/coordinators?status=active')
           }}
           variant="success"
         />
@@ -145,7 +147,7 @@ export function CoordinatorsListClient({
           icon={Clock}
           isActive={statusFilter === 'pending'}
           onClick={() => {
-            window.location.href = '/admin/coordinators?status=pending'
+            router.push('/admin/coordinators?status=pending')
           }}
           variant="warning"
         />
