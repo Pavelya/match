@@ -17,9 +17,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # `npm ci` triggers `prisma generate` via postinstall, which reads the
-      # datasource block and needs these to be defined. It never connects,
-      # so placeholder values are enough.
+      # `npm ci` triggers `prisma generate` via postinstall, which loads
+      # prisma.config.ts. That file resolves `env('DIRECT_URL')` eagerly and
+      # throws if it is unset, so both must be defined. Neither is connected
+      # to here, so placeholder values are enough.
       DATABASE_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
       DIRECT_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
 

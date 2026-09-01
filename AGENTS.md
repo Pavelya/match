@@ -25,6 +25,12 @@ development database, so every Prisma command run here hits production.
 - `prisma migrate deploy` (apply) and `prisma migrate diff` (inspect) are safe.
 - The Prisma CLI reads `.env` **only**. `.env.local` is a Next.js convention, so a
   `DIRECT_URL` that works for the app can still fail every migrate command with `P1001`.
+- Connection URLs live in `prisma.config.ts`, not `schema.prisma` — Prisma 7 rejects
+  `url`/`directUrl` in the schema. That file loads `dotenv` itself and points Migrate at
+  `DIRECT_URL`; the app connects through the adapter in `lib/prisma.ts` on `DATABASE_URL`.
+- **Never `new PrismaClient()`** — Prisma 7 requires a driver adapter and it throws
+  without one. App code imports `prisma` from `@/lib/prisma`; scripts and the seeder
+  import it from `@/lib/prisma-standalone`.
 - Destructive SQL needs the user's explicit approval, and a backup taken first.
 
 ## Cost — Supabase is on a 5 GB free tier

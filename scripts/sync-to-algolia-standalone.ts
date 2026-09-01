@@ -6,10 +6,8 @@
  */
 
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 import { algoliasearch } from 'algoliasearch'
-
-const prisma = new PrismaClient()
 
 // Truncate description to stay under Algolia's 10KB record limit
 function truncateDescription(text: string, maxLength = 500): string {

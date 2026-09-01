@@ -8,9 +8,7 @@
  * Run with: npx tsx scripts/seed-mcgill.ts
  */
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma-standalone'
 
 async function seedMcGill() {
   console.log('\n🏛️  Seeding McGill University\n')

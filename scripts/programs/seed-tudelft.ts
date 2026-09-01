@@ -8,9 +8,7 @@
  * Run with: npx tsx scripts/seed-tudelft.ts
  */
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma-standalone'
 
 async function seedTUDelft() {
   console.log('\n🏛️  Seeding Delft University of Technology (TU Delft)\n')

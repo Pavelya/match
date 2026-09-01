@@ -22,7 +22,7 @@ pull request, merged before the next starts.
 |---|---|---|---|---|
 | 1 | Small cleanups | 5.2, 5.3, 5.4 | short | Three tiny changes, none touch the database, and one verification pass covers all three |
 | 2 | Client-side navigation | 5.1 | short | Needs a judgement call at each call site, and sign-in has to be clicked through by hand |
-| 3 | Prisma 7 | 6.1 | medium | Closes the last 4 advisories. Alone, because it owns the migration history |
+| 3 | Prisma 7 | 6.1 | medium | **Done.** Closed all advisories, but needed an `overrides` block as well as the upgrade |
 | 4 | Stripe 22 | 6.2 | medium | Money path. Alone, so a failure points at one thing |
 | 5 | Minor and patch batch | 6.4 | short | Alone, so a regression is attributable to this batch |
 | 6 | lucide-react 1.x | 6.3 | medium | 171 files, and only a human eye can confirm the icons |
@@ -65,11 +65,12 @@ Phase 5 — quick wins
 
 Phase 6 — dependency majors
 
-- [ ] 6.1 Prisma 6 → 7
+- [x] 6.1 Prisma 6 → 7
 - [ ] 6.2 Stripe 20 → 22
 - [ ] 6.3 lucide-react 0.x → 1.x
 - [ ] 6.4 The minor and patch batch
 - [ ] 6.5 TypeScript 5.9 → 7
+- [ ] 6.6 Move to the `prisma-client` generator
 
 Phase 7 — structural
 
@@ -91,7 +92,7 @@ Owner tasks — not AI work
 ### What this project is
 
 IB Match — Next.js 16 (App Router, Turbopack), React 19, TypeScript 5, PostgreSQL on
-Supabase via Prisma 6, NextAuth v5, Algolia, Upstash Redis, Resend, Stripe, hosted on
+Supabase via Prisma 7, NextAuth v5, Algolia, Upstash Redis, Resend, Stripe, hosted on
 Vercel. `AGENTS.md` at the repo root is authoritative: **this is Next.js 16 and it
 differs from training data. Read `node_modules/next/dist/docs/` before writing code
 that touches framework behaviour.** That directory is the installed version's own
@@ -101,7 +102,7 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | 4 high, all under the `prisma` devDependency (build-time only) |
+| Vulnerabilities | 0 — closed in session 3 by the Prisma 7 upgrade plus a small `overrides` block |
 | Type check / lint / format | clean — 0 errors, 7 warnings |
 | CI | type-check, lint, `prettier --check`, and a production build against a throwaway Postgres |
 | Migrations | 5, and a fresh database can be rebuilt from them |
@@ -324,55 +325,90 @@ rather than storing it, and that is intentional.
 One major per session. Sequential — do not batch them, because when something breaks
 you want to know which upgrade did it.
 
-### 6.1 — Prisma 6 → 7
+### 6.1 — Prisma 6 → 7 — **done**
 
-**Outcome:** `npm audit` reports **0 vulnerabilities**, and the deprecation warning
-printed by every Prisma command is gone.
+**Outcome:** `npm audit` reports **0 vulnerabilities**, Prisma is on 7.10.0, and the
+`package.json` seed block has moved to `prisma.config.ts`.
 
-**Why:** The last 4 advisories all sit under `@prisma/config` → `deepmerge-ts`. They
-are build-time only, never in the running app, which is why they were deferred — but
-this is the one remaining task that closes a real finding rather than modernising for
-its own sake.
+**What the plan got wrong.** Three things, all worth knowing before the next upgrade:
 
-**Read first:**
-- The Prisma 7 upgrade guide (web — this needs `WebFetch`/`WebSearch`)
-- `prisma/schema.prisma` and the `prisma` block in `package.json`
+1. **The upgrade alone does not close the advisories — it adds one.** `@prisma/config@7.10.0`
+   still pins the vulnerable `deepmerge-ts@7.1.5`, and the Prisma 7 CLI bundles a
+   vulnerable `mysql2` that Prisma 6 did not. Prisma 7 on its own takes the count from
+   4 high to 5. What actually reaches 0 is the upgrade **plus** an `overrides` block:
 
-**Steps:**
-1. Upgrade `prisma` and `@prisma/client` together — they must stay in lockstep.
-2. Migrate the `"prisma": { "seed": ... }` block out of `package.json` and into
-   `prisma.config.ts`. This is the deprecation the CLI has been warning about.
-3. **`prisma.config.ts` does not load `.env` automatically.** It must import dotenv
-   explicitly, or every command loses `DATABASE_URL` and `DIRECT_URL`. Given the
-   history with `DIRECT_URL` on this project, verify this early rather than late.
-4. Check whether client generation output or the extension API changed —
-   `lib/prisma.ts` uses two client extensions (`algoliaExtension`,
-   `referenceDataSyncExtension`).
+   ```json
+   "overrides": {
+     "deepmerge-ts": "^8.0.2",
+     "brace-expansion@1": "^1.1.18",
+     "mysql2": "^3.22.0"
+   }
+   ```
 
-**Verify:**
-```bash
-npm audit                                    # expect 0 vulnerabilities
-npx prisma migrate status                    # expect "Database schema is up to date!"
-npx tsc --noEmit && npx eslint . && npm run build
-```
-Then prove the migration history still rebuilds a database, since this is the
-component that owns it:
-```bash
-createdb ibmatch_verify
-DATABASE_URL=postgresql://$(whoami)@localhost:5432/ibmatch_verify \
-DIRECT_URL=postgresql://$(whoami)@localhost:5432/ibmatch_verify \
-  npx prisma migrate deploy
-# then diff that database against the schema — expect "empty migration"
-dropdb ibmatch_verify
-```
-Also exercise both Prisma extensions: edit a program in the admin UI and confirm it
-still syncs to Algolia and still invalidates the programs cache.
+   The upgrade is still required: `effect@<3.20.0`, reachable only through
+   `@prisma/config`, cannot be fixed on Prisma 6. Neither half is sufficient alone.
 
-**Guardrails:** `migrate status` and `migrate diff` are read-only and safe. `migrate
-dev` is not — see the standing rules. PostgreSQL is installed locally for throwaway
-databases; use it rather than production.
+   Note the `brace-expansion@1` key. An unscoped `brace-expansion` override forces
+   every copy in the tree to 1.x, and this tree also carries 2.x and 5.x. Scope it.
 
-**Session size:** Medium. The highest-value remaining task.
+2. **`npm install prisma@latest` installs a release candidate.** The `latest` dist-tag
+   currently points at `8.0.0-rc`; stable v7 sits under `prev`. Pin the version.
+
+3. **The upgrade is much larger than "swap the seed block".** Prisma 7 removed the Rust
+   query engine, so a driver adapter (`@prisma/adapter-pg`) is mandatory —
+   `new PrismaClient()` throws without one. That is a runtime failure, not a type error,
+   so `tsc` stays green while every script is broken. All 41 construction sites had to
+   move to a shared client.
+
+**The TLS trap.** node-postgres reads `sslmode=require` as "encrypt **and** verify the
+chain"; Prisma 6's engine read it as "encrypt, don't verify". Supabase's pooler presents
+a chain Node does not trust, so after the upgrade every query failed with
+`self-signed certificate in certificate chain` — including `npm run build`, which
+prerenders `app/ib-university-requirements`. `lib/prisma-adapter.ts` rewrites the value
+to `no-verify`, which is exactly the posture Prisma 6 already had. Doing it in code
+rather than in `.env` means the Vercel variables did not have to change in lockstep.
+
+**Follow-up worth doing:** verify the chain properly (`verify-full` plus Supabase's CA
+certificate). That is a change to the trust model, so it was deliberately kept out of a
+major-version upgrade rather than folded into it.
+
+**Connection pool.** A driver adapter inherits node-postgres's pool defaults, where
+`max` is 10 — double the Prisma 6 default it replaces (`num_cpus * 2 + 1`). On the free
+tier with pgbouncer already pooling server-side, `lib/prisma.ts` sets `max: 5`
+explicitly rather than silently doubling connections per instance.
+
+**What changed:** `prisma.config.ts` (new), `lib/prisma-adapter.ts` (new),
+`lib/prisma-standalone.ts` (new), `lib/prisma.ts`, `prisma/schema.prisma` (the
+datasource no longer carries `url`/`directUrl` — Prisma 7 rejects them), `package.json`,
+and 40 scripts repointed off `new PrismaClient()`.
+
+**Verified:** 0 vulnerabilities · `migrate status` up to date · type-check, lint,
+prettier and build all clean · 20/20 matching tests · the 5 migrations rebuild a fresh
+database with `migrate diff` reporting no difference · both Prisma extensions confirmed
+firing at runtime under the new query pipeline, against a throwaway local database.
+
+**Still to check by hand:** edit a program in the admin UI and confirm it syncs to
+Algolia and invalidates the programs cache. The reference-data extension was proven to
+fire; the program-level Algolia path needs a real edit, which means a production write.
+
+**Note:** the generator is still the deprecated `prisma-client-js`, which keeps
+generating into `node_modules` so all 60 `@prisma/client` import sites are unchanged.
+Moving to the `prisma-client` generator means a required `output` path and rewriting
+every one of those imports. It is a mechanical but wide change and deserves its own
+session — see 6.6.
+
+---
+
+### 6.6 — Move to the `prisma-client` generator
+
+**Outcome:** the schema uses `provider = "prisma-client"` with an explicit `output`, and
+no code imports from `@prisma/client`.
+
+**Why:** `prisma-client-js` is deprecated and Prisma has said it will be removed. It
+also generates into `node_modules`, which is the thing Prisma 7 moved away from.
+
+**Size:** ~60 files, mechanical. Check the generated directory is gitignored, and watch
+for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack.
 
 ---
 
