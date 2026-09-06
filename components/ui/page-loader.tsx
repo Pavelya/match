@@ -24,11 +24,7 @@ import { cn } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 
 export type PageLoaderVariant =
-  | 'spinner'
-  | 'skeleton-cards'
-  | 'skeleton-table'
-  | 'skeleton-form'
-  | 'skeleton-dashboard'
+  'spinner' | 'skeleton-cards' | 'skeleton-table' | 'skeleton-form' | 'skeleton-dashboard'
 
 export interface PageLoaderProps {
   /** Loading variant */

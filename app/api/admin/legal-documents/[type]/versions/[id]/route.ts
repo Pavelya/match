@@ -35,8 +35,7 @@ interface RouteParams {
  * one shape and `userId` stays `string | null`.
  */
 type AdminAccess =
-  | { error: string; status: number; userId: null }
-  | { error: null; status: 200; userId: string }
+  { error: string; status: number; userId: null } | { error: null; status: 200; userId: string }
 
 async function verifyAdminAccess(): Promise<AdminAccess> {
   const session = await auth()

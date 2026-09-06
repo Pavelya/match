@@ -24,7 +24,7 @@ pull request, merged before the next starts.
 | 2 | Client-side navigation | 5.1 | short | Needs a judgement call at each call site, and sign-in has to be clicked through by hand |
 | 3 | Prisma 7 | 6.1 | medium | **Done.** Closed all advisories, but needed an `overrides` block as well as the upgrade |
 | 4 | Stripe 22 | 6.2 | medium | **Done.** Money path. Alone, so a failure points at one thing |
-| 5 | Minor and patch batch | 6.4 | short | Alone, so a regression is attributable to this batch |
+| 5 | Minor and patch batch | 6.4 | short | **Done.** Alone, so a regression is attributable to this batch |
 | 6 | lucide-react 1.x | 6.3 | medium | 171 files, and only a human eye can confirm the icons |
 | 7 | TypeScript 7 | 6.5 | unknown | Last, because it is the most likely to produce unrelated noise |
 | 8 | Pick a test framework, test access control | 7.1, part 1 | medium | The decision, then the highest-value tests |
@@ -68,7 +68,7 @@ Phase 6 — dependency majors
 - [x] 6.1 Prisma 6 → 7
 - [x] 6.2 Stripe 20 → 22
 - [ ] 6.3 lucide-react 0.x → 1.x
-- [ ] 6.4 The minor and patch batch
+- [x] 6.4 The minor and patch batch
 - [ ] 6.5 TypeScript 5.9 → 7
 - [ ] 6.6 Move to the `prisma-client` generator
 
@@ -102,7 +102,7 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | 0 high — session 3 closed all 4. 1 moderate remains: `@humanfs/node` via eslint (task 6.4). Session 4 closed `qs` by upgrading Stripe |
+| Vulnerabilities | **0** — session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, and a production build against a throwaway Postgres |
 | Migrations | 5, and a fresh database can be rebuilt from them |
@@ -504,25 +504,58 @@ widest blast radius of anything remaining.
 
 ---
 
-### 6.4 — The minor and patch batch
+### 6.4 — The minor and patch batch — **done**
 
-**Outcome:** Everything except deliberate holdouts is current.
+**Outcome:** every dependency that is not a deliberate holdout is on its latest version,
+and `npm audit` reports **0 vulnerabilities** for the first time.
 
-**Why:** ~20 packages are behind by minors and patches with no breaking changes:
-`@supabase/supabase-js`, `algoliasearch`, the Radix set, `zod`, `tailwindcss` and
-`@tailwindcss/postcss`, `@upstash/*`, `@typescript-eslint/*`, `dotenv`,
-`country-flag-emoji-polyfill`, `@types/react`, `@types/react-dom`, `@react-email/components`.
+**What moved** — 26 packages, none across a major boundary:
 
-**Steps:** `npm update` for the non-major set, then review the `package.json` diff to
-confirm nothing crossed a major boundary. Hold back anything covered by its own task
-(`prisma`, `@prisma/client`, `stripe`, `lucide-react`, `typescript`, `@types/node`,
-`react-email`).
+| | |
+|---|---|
+| Runtime | `next` 16.3.3→16.3.4, `react`/`react-dom` 19.2.1→19.2.8, `zod` 4.1.13→4.5.4, `algoliasearch` 5.46→5.57, `@supabase/supabase-js` 2.87.1→2.115.0, `resend` 6.24→6.26, `@upstash/redis` 1.35.7→1.38.4, `@upstash/ratelimit` 2.0.7→2.0.8 |
+| UI | the four `@radix-ui/*` packages, `tailwindcss` and `@tailwindcss/postcss` 4.1.17→4.3.3, `@tailwindcss/typography` 0.5.19→0.5.20, `tailwind-merge` 3.4→3.6, `country-flag-emoji-polyfill` 0.1.8→0.1.10, `@react-email/components` 1.0.1→1.0.12 |
+| Tooling | `eslint` 9.39.1→9.39.5, `eslint-config-next` 16.3.3→16.3.4, `@typescript-eslint/*` 8.48.1→8.69.0, `prettier` 3.7.3→3.9.6, `lint-staged` 16.2.7→16.4.0, `tsx` 4.21→4.23.13, `@types/react` 19.2.7→19.2.18, `@types/react-dom` 19.2.3→19.2.7 |
 
-**Verify:** full gate set plus `npx tsx scripts/run-all-tests.ts`. Because this touches
-many packages at once, run the matching suite specifically — `zod` and `algoliasearch`
-sit under it.
+**Held back deliberately:** `lucide-react` (6.3), `typescript` and `@types/node` (6.5),
+`prisma`/`@prisma/client`/`@prisma/adapter-pg` (done in 6.1, already current),
+`react-email` (5.0.5; its own task), `stripe` (current after 6.2). `next-auth` shows as
+"outdated" only because npm compares the v5 beta against the v4 `latest` tag — ignore it.
 
-**Session size:** Small.
+**Three things this did not do by plain `npm update`:**
+
+1. **`@humanfs/node` needed its own `npm update @humanfs/node`.** eslint 9.39.5 asks for
+   `^0.16.6` and 0.16.8 carries the fix, but the lockfile was pinned at 0.16.7 and
+   updating eslint alone did not move a transitive dependency that already satisfied its
+   range. That one command is what took audit to zero.
+2. **`@typescript-eslint/*` could not be bumped directly** — `npm install
+   @typescript-eslint/eslint-plugin@latest` fails with `ERESOLVE`, because
+   `eslint-config-next` pulls the `typescript-eslint` meta package, which pins the plugin
+   and parser to an exact version. `npm update typescript-eslint` moves all three
+   together and dedupes cleanly; the `package.json` ranges then have to be raised by hand
+   to match, since the root never depends on the meta package.
+3. **`npm update --save` narrows loose ranges.** `"^4"` and `"^19"` became `"^4.3.3"` and
+   `"^19.2.18"`. Left as-is — the floor is now the version that was actually verified.
+
+**Prettier 3.9 reformats 5 files.** 3.8 changed how short union types and single-argument
+callbacks are printed, so unions that were one-per-line collapse onto one line where they
+fit in 100 columns. Formatting only, no behaviour: `route.ts` (legal-document versions),
+`PageContainer.tsx`, `page-loader.tsx`, `transformers.ts`, `unified-penalties.ts`. Any
+branch open across this upgrade will conflict there.
+
+**What changed:** `package.json`, `package-lock.json`, and those 5 files reformatted.
+
+**Verified:** `npm audit` **0 vulnerabilities** (from 1 moderate) · type-check, lint at
+`--max-warnings 0`, `prettier --check` and `npm run build` all clean · 20/20 matching
+tests, which is the `zod` and `algoliasearch` check · all 7 `emails/*.tsx` templates
+rendered through `render()` from the upgraded `@react-email/components` against the
+held-back `react-email` 5.0.5, each producing 5–6 KB of HTML · `npm ls --all` reports no
+invalid or unmet non-optional peers.
+
+**Still to check by hand:** the Radix and Tailwind bumps are visual. Nothing in the diff
+suggests a rendering change and the build is clean, but dialogs, selects and labels are
+worth a glance in the browser — most cheaply folded into session 6, which has to walk the
+main surfaces for icons anyway.
 
 ---
 
