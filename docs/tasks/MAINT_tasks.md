@@ -23,7 +23,7 @@ pull request, merged before the next starts.
 | 1 | Small cleanups | 5.2, 5.3, 5.4 | short | Three tiny changes, none touch the database, and one verification pass covers all three |
 | 2 | Client-side navigation | 5.1 | short | Needs a judgement call at each call site, and sign-in has to be clicked through by hand |
 | 3 | Prisma 7 | 6.1 | medium | **Done.** Closed all advisories, but needed an `overrides` block as well as the upgrade |
-| 4 | Stripe 22 | 6.2 | medium | Money path. Alone, so a failure points at one thing |
+| 4 | Stripe 22 | 6.2 | medium | **Done.** Money path. Alone, so a failure points at one thing |
 | 5 | Minor and patch batch | 6.4 | short | Alone, so a regression is attributable to this batch |
 | 6 | lucide-react 1.x | 6.3 | medium | 171 files, and only a human eye can confirm the icons |
 | 7 | TypeScript 7 | 6.5 | unknown | Last, because it is the most likely to produce unrelated noise |
@@ -66,7 +66,7 @@ Phase 5 — quick wins
 Phase 6 — dependency majors
 
 - [x] 6.1 Prisma 6 → 7
-- [ ] 6.2 Stripe 20 → 22
+- [x] 6.2 Stripe 20 → 22
 - [ ] 6.3 lucide-react 0.x → 1.x
 - [ ] 6.4 The minor and patch batch
 - [ ] 6.5 TypeScript 5.9 → 7
@@ -102,7 +102,7 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | 0 high — session 3 closed all 4. 2 moderate remain, both published since and neither Prisma's: `qs` via stripe@20 (closes with task 6.2) and `@humanfs/node` via eslint (task 6.4) |
+| Vulnerabilities | 0 high — session 3 closed all 4. 1 moderate remains: `@humanfs/node` via eslint (task 6.4). Session 4 closed `qs` by upgrading Stripe |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, and a production build against a throwaway Postgres |
 | Migrations | 5, and a fresh database can be rebuilt from them |
@@ -417,37 +417,65 @@ for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack.
 
 ---
 
-### 6.2 — Stripe 20 → 22
+### 6.2 — Stripe 20 → 22 — **done**
 
-**Outcome:** Stripe SDK current, webhook and checkout both verified working.
+**Outcome:** `stripe` is on 22.6.1, the pinned API version moved from
+`2025-11-17.clover` to `2026-08-26.dahlia`, and the `qs` advisory is closed. One
+moderate advisory remains, `@humanfs/node` via eslint, which belongs to task 6.4.
 
-**Why:** Two majors behind. Money path, so it deserves care rather than urgency.
+**The upgrade is two lines.** `package.json` and the `apiVersion` in
+`lib/stripe/server.ts`. Nothing else in the repo changed. That is a genuinely
+surprising result for two majors across a money path, so it is worth recording *why*
+none of the breaking changes reached this code:
 
-**Read first:** Stripe's Node SDK changelog for v21 and v22, and the API version
-changelog (web). The pinned API version in `lib/stripe/server.ts` is
-`'2025-11-17.clover'` and will need to move with the SDK.
+- **v22 removed callbacks, per-request API keys, per-request `host`, and mixing
+  `params` with `options`.** Every call site here passes a single params object and
+  awaits it, which is the one pattern that survived untouched.
+- **v22 made `Stripe` a real ES6 class**, so calling it without `new` throws.
+  `getStripe()` already used `new Stripe(...)`.
+- **v21 changed every `decimal_string` field from `string` to `Stripe.Decimal`.** This
+  code reads no decimal fields — the checkout flow passes a `priceId` and never touches
+  `unit_amount_decimal`.
+- **v21 made the webhook helpers throw when handed the wrong kind of event.**
+  `Webhooks.buildEvent` throws only for `object: 'v2.core.event'` thin notifications.
+  All four subscribed events are v1 snapshot events, so `constructEvent` stays correct.
 
-**Files:** `lib/stripe/server.ts`, `app/api/webhooks/stripe/route.ts`,
-`app/api/subscriptions/create-checkout/route.ts`,
-`app/api/subscriptions/create-portal/route.ts`.
+**`apiVersion` is a literal type, not a string.** `StripeConfig.apiVersion` is typed
+`LatestApiVersion = typeof ApiVersion`, so the SDK accepts exactly one value and
+`tsc` catches a stale pin. The current value lives in
+`node_modules/stripe/cjs/apiVersion.d.ts` — read it there rather than guessing from the
+changelog, because the pin moves in *minor* releases too (22.0 shipped
+`2026-03-25.dahlia`; 22.6 is on `2026-08-26.dahlia`).
 
-**Steps:**
-1. Upgrade, bump `apiVersion`, fix type errors.
-2. The client is constructed lazily via `getStripe()` — keep it that way. Constructing
-   at module load makes `STRIPE_SECRET_KEY` required for any build, which was fixed in
-   phase 3a.
+**The types moved.** v22 replaced the hand-maintained `types/` folder with declarations
+emitted next to the implementation, and dropped the top-level ambient `"stripe"` module.
+`node_modules/stripe/types/` no longer exists. `import Stripe from 'stripe'` and the
+`Stripe.Checkout.Session` namespace types still resolve, so no import changed here, but
+anything reaching into `stripe/types/...` by path would break.
 
-**Verify:**
-- Type-check, lint, build clean
-- A test-mode checkout end to end
-- A test-mode webhook: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`
-  and trigger `checkout.session.completed`; confirm signature verification passes and
-  the subscription record updates
-- Confirm the customer portal still opens
+**What changed:** `package.json`, `package-lock.json`, `lib/stripe/server.ts`.
 
-**Guardrails:** Do not touch live Stripe keys. Test mode only.
+**Verified:** type-check, lint, prettier and build all clean · 20/20 matching tests ·
+`npm audit` down to 1 moderate from 2. Against **test mode** keys, every function in
+`lib/stripe/server.ts` was exercised for real: `prices.list` on the configured product,
+`getOrCreateStripeCustomer` (both the create and the short-circuit branch),
+`createCheckoutSession`, `createPortalSession`, and `getCustomerSubscriptionStatus`.
+The webhook was driven end to end with `stripe listen --forward-to` plus
+`stripe trigger checkout.session.completed` against `npm run dev`: signature
+verification passed on all six forwarded events, the router reached
+`handleCheckoutCompleted`, and a deliberately tampered body was rejected with 400.
+`customer.subscription.updated` and `.deleted` were driven with hand-signed payloads.
 
-**Session size:** Medium.
+**Still to check by hand:** the one assertion not covered is a subscription row actually
+flipping to `ACTIVE`. Every automated check used identifiers that match no row, because
+the local `.env` points at the production database and proving the write would have
+meant writing to it. The two routes that wrap these functions
+(`create-checkout`, `create-portal`) also need a signed-in coordinator, so they were
+verified through their `lib/stripe/server.ts` internals rather than through the HTTP
+route. Completing a test-mode checkout as a real coordinator covers both gaps at once.
+
+**Note:** the Stripe CLI reported `A newer version of the Stripe CLI is available`
+(v1.50.10). It is a local tool, not a dependency, and was left alone.
 
 ---
 
