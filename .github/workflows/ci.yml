@@ -37,12 +37,11 @@ jobs:
       - name: Type check
         run: npm run type-check
 
-      # ESLint warnings do not fail the build today, because 7 pre-existing
-      # `window.location.href` warnings would turn CI red immediately. Once
-      # those are fixed, add `--max-warnings 0` here so new ones cannot
-      # accumulate the way the last batch did.
+      # Warnings fail here as well as errors. The repo is at zero of both,
+      # and `--max-warnings 0` is what stops warnings accumulating again the
+      # way the `window.location.href` batch did.
       - name: Lint
-        run: npm run lint
+        run: npm run lint -- --max-warnings 0
 
       - name: Check formatting
         run: npx prettier --check .

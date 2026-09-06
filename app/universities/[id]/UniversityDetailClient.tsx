@@ -9,6 +9,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
@@ -67,13 +68,15 @@ interface UniversityDetailClientProps {
 }
 
 export function UniversityDetailClient({ university }: UniversityDetailClientProps) {
+  const router = useRouter()
+
   const handleBack = () => {
     // Use browser history to go back to the previous page (program detail)
     if (typeof window !== 'undefined' && window.history.length > 1) {
       window.history.back()
     } else {
       // Fallback to search if no history
-      window.location.href = '/programs/search'
+      router.push('/programs/search')
     }
   }
 

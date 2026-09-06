@@ -57,7 +57,7 @@ one starts from a clean `main` and does not have to rediscover anything.
 
 Phase 5 — quick wins
 
-- [ ] 5.1 Use the router for internal navigation
+- [x] 5.1 Use the router for internal navigation
 - [x] 5.2 Delete the unused admin programs API route
 - [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
 - [x] 5.4 Set `trustHost` explicitly in the auth config
@@ -102,8 +102,8 @@ documentation and has been correct every time it was consulted.
 | | |
 |---|---|
 | Vulnerabilities | 4 high, all under the `prisma` devDependency (build-time only) |
-| Type check / lint / format | clean — 0 errors, 7 warnings |
-| CI | type-check, lint, `prettier --check`, and a production build against a throwaway Postgres |
+| Type check / lint / format | clean — 0 errors, 0 warnings |
+| CI | type-check, lint (`--max-warnings 0`), `prettier --check`, and a production build against a throwaway Postgres |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
