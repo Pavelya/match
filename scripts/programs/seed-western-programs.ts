@@ -12,10 +12,9 @@
  * Run with: npx tsx scripts/programs/seed-western-programs.ts
  */
 
-import { PrismaClient, CourseLevel } from '@prisma/client'
+import { CourseLevel } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 import crypto from 'crypto'
-
-const prisma = new PrismaClient()
 
 interface RequirementDef {
   courses: string[]

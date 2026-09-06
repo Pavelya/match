@@ -8,9 +8,7 @@
  * Run with: npx tsx scripts/seed-waterloo.ts
  */
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma-standalone'
 
 async function seedWaterloo() {
   console.log('\n🏛️  Seeding University of Waterloo\n')

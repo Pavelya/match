@@ -12,9 +12,8 @@
  * Run with: npx tsx scripts/programs/seed-oxford-programs.ts
  */
 
-import { PrismaClient, CourseLevel } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { CourseLevel } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 
 // Program definitions with IB requirements
 interface RequirementDef {

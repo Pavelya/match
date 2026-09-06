@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma-standalone'
 
 async function analyze() {
   console.log('=== PROGRAM DATABASE ANALYSIS ===\n')

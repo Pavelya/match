@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma-standalone'
 
 async function investigate() {
   console.log('=== INVESTIGATING "OTHER" DEGREE CLASSIFICATION ===\n')

@@ -2,10 +2,8 @@
  * Check Algolia index status and compare with database
  */
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 import { algoliasearch } from 'algoliasearch'
-
-const prisma = new PrismaClient()
 
 async function checkAlgoliaStatus() {
   console.log('\n🔍 Checking Algolia Status\n')

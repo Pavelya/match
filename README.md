@@ -11,7 +11,7 @@ buy a subscription for full coordinator access or run on a limited freemium tier
 | Concern | Choice |
 | --- | --- |
 | Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 5 |
-| Database | PostgreSQL on Supabase, via Prisma 6 |
+| Database | PostgreSQL on Supabase, via Prisma 7 |
 | Auth | NextAuth v5 (Auth.js) — Google OAuth and Resend magic links |
 | Search | Algolia, synced from Postgres by Prisma client extensions |
 | Cache / rate limiting | Upstash Redis |
@@ -85,6 +85,9 @@ npx prisma migrate resolve --applied 20260828000000_baseline_invitations_support
 
 Two things to know before running any Prisma CLI command:
 
+- **Connection URLs live in `prisma.config.ts`, not the schema.** Prisma 7 rejects
+  `url` and `directUrl` in `schema.prisma`. The CLI reads `DIRECT_URL`; the app
+  connects through the driver adapter in `lib/prisma.ts` using `DATABASE_URL`.
 - **The CLI reads `.env` only.** `.env.local` is a Next.js convention, so a `DIRECT_URL`
   that works for the app can still fail every migrate command with `P1001`.
 - **Never run `prisma migrate dev` against production.** It offers to reset the database

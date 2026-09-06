@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { createPrismaAdapter } from '@/lib/prisma-adapter'
 import { algoliaExtension } from '@/lib/algolia/middleware'
 import { referenceDataSyncExtension } from '@/lib/algolia/reference-sync-extension'
 
@@ -7,7 +8,14 @@ import { referenceDataSyncExtension } from '@/lib/algolia/reference-sync-extensi
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient }
 
+// Prisma 7 requires a driver adapter. This connects through node-postgres
+// against the pooled `DATABASE_URL` (pgbouncer, 6543); migrations use
+// `DIRECT_URL` instead and are configured in prisma.config.ts. See
+// `lib/prisma-adapter.ts` for the TLS and pool-size reasoning.
+const adapter = createPrismaAdapter({ max: 5 })
+
 const basePrisma = new PrismaClient({
+  adapter,
   log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
 })
 

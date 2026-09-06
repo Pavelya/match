@@ -14,9 +14,8 @@
  * Run with: npx tsx scripts/programs/seed-tudelft-programs.ts
  */
 
-import { PrismaClient, CourseLevel } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { CourseLevel } from '@prisma/client'
+import { prisma } from '@/lib/prisma-standalone'
 
 // Program definitions with IB requirements
 // All requirements use AND logic (all must be met)
