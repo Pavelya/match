@@ -57,7 +57,7 @@ one starts from a clean `main` and does not have to rediscover anything.
 
 Phase 5 — quick wins
 
-- [ ] 5.1 Use the router for internal navigation
+- [x] 5.1 Use the router for internal navigation
 - [x] 5.2 Delete the unused admin programs API route
 - [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
 - [x] 5.4 Set `trustHost` explicitly in the auth config
@@ -102,9 +102,9 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | 0 — closed in session 3 by the Prisma 7 upgrade plus a small `overrides` block |
-| Type check / lint / format | clean — 0 errors, 7 warnings |
-| CI | type-check, lint, `prettier --check`, and a production build against a throwaway Postgres |
+| Vulnerabilities | 0 high — session 3 closed all 4. 2 moderate remain, both published since and neither Prisma's: `qs` via stripe@20 (closes with task 6.2) and `@humanfs/node` via eslint (task 6.4) |
+| Type check / lint / format | clean — 0 errors, 0 warnings |
+| CI | type-check, lint (`--max-warnings 0`), `prettier --check`, and a production build against a throwaway Postgres |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
@@ -327,8 +327,13 @@ you want to know which upgrade did it.
 
 ### 6.1 — Prisma 6 → 7 — **done**
 
-**Outcome:** `npm audit` reports **0 vulnerabilities**, Prisma is on 7.10.0, and the
-`package.json` seed block has moved to `prisma.config.ts`.
+**Outcome:** `npm audit` reports **0 high** — all 4 advisories closed — Prisma is on
+7.10.0, and the `package.json` seed block has moved to `prisma.config.ts`.
+
+Two *moderate* advisories were published while this session was in flight and are still
+open. Neither comes from Prisma: `qs` arrives through `stripe@20` and closes with task
+6.2, and `@humanfs/node` through eslint, which belongs in the 6.4 patch batch. They were
+left alone rather than folded in here, so a regression stays attributable.
 
 **What the plan got wrong.** Three things, all worth knowing before the next upgrade:
 
@@ -382,7 +387,7 @@ explicitly rather than silently doubling connections per instance.
 datasource no longer carries `url`/`directUrl` — Prisma 7 rejects them), `package.json`,
 and 40 scripts repointed off `new PrismaClient()`.
 
-**Verified:** 0 vulnerabilities · `migrate status` up to date · type-check, lint,
+**Verified:** 0 high advisories · `migrate status` up to date · type-check, lint,
 prettier and build all clean · 20/20 matching tests · the 5 migrations rebuild a fresh
 database with `migrate diff` reporting no difference · both Prisma extensions confirmed
 firing at runtime under the new query pipeline, against a throwaway local database.
