@@ -4,6 +4,14 @@
 
 This project uses **Lucide React icons** exclusively. **Do NOT use emojis** for icons in components or UI elements.
 
+On **lucide-react 1.x**. Two things follow from the v1 release:
+
+- **There are no brand icons.** GitHub, Facebook, Figma, Slack and the rest were removed
+  in v1 over trademark concerns. Use an official SVG from the brand, or Simple Icons.
+- **The old v0 names still work.** `AlertCircle`, `CheckCircle2`, `XCircle` and the
+  `*Icon` suffixed forms are re-exported as aliases of their canonical names
+  (`CircleAlert`, `CircleCheck`, `CircleX`). Prefer the canonical name in new code.
+
 ## Icon Sources
 
 ### 1. General UI Icons
