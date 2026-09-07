@@ -41,10 +41,7 @@ export interface CapItem {
 }
 
 export type PenaltyType =
-  | 'POINTS_SHORTFALL'
-  | 'MISSING_REQUIREMENTS'
-  | 'LOW_REQUIREMENTS'
-  | 'MULTIPLE_ISSUES'
+  'POINTS_SHORTFALL' | 'MISSING_REQUIREMENTS' | 'LOW_REQUIREMENTS' | 'MULTIPLE_ISSUES'
 
 export type CapType =
   | 'CRITICAL_MISSING'

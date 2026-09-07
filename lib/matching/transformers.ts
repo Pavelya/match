@@ -86,14 +86,12 @@ export function transformStudent(prismaStudent: PrismaStudentWithRelations): Stu
     eeGrade: (prismaStudent.eeGrade as 'A' | 'B' | 'C' | 'D' | 'E') ?? undefined,
 
     // Courses with proper type mapping
-    courses: prismaStudent.courses.map(
-      (course): StudentCourse => ({
-        courseId: course.ibCourse.id,
-        courseName: course.ibCourse.name,
-        level: course.level as 'HL' | 'SL',
-        grade: course.grade as 1 | 2 | 3 | 4 | 5 | 6 | 7
-      })
-    ),
+    courses: prismaStudent.courses.map((course): StudentCourse => ({
+      courseId: course.ibCourse.id,
+      courseName: course.ibCourse.name,
+      level: course.level as 'HL' | 'SL',
+      grade: course.grade as 1 | 2 | 3 | 4 | 5 | 6 | 7
+    })),
 
     // Preferences - field IDs
     interestedFields: prismaStudent.preferredFields.map((field) => field.id),
