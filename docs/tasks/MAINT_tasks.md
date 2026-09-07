@@ -25,7 +25,7 @@ pull request, merged before the next starts.
 | 3 | Prisma 7 | 6.1 | medium | **Done.** Closed all advisories, but needed an `overrides` block as well as the upgrade |
 | 4 | Stripe 22 | 6.2 | medium | **Done.** Money path. Alone, so a failure points at one thing |
 | 5 | Minor and patch batch | 6.4 | short | **Done.** Alone, so a regression is attributable to this batch |
-| 6 | lucide-react 1.x | 6.3 | medium | 171 files, and only a human eye can confirm the icons |
+| 6 | lucide-react 1.x | 6.3 | medium | **Done.** 171 files, but no source change was needed — the risk was 13 redesigned glyphs |
 | 7 | TypeScript 7 | 6.5 | unknown | Last, because it is the most likely to produce unrelated noise |
 | 8 | Pick a test framework, test access control | 7.1, part 1 | medium | The decision, then the highest-value tests |
 | 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
@@ -67,7 +67,7 @@ Phase 6 — dependency majors
 
 - [x] 6.1 Prisma 6 → 7
 - [x] 6.2 Stripe 20 → 22
-- [ ] 6.3 lucide-react 0.x → 1.x
+- [x] 6.3 lucide-react 0.x → 1.x
 - [x] 6.4 The minor and patch batch
 - [ ] 6.5 TypeScript 5.9 → 7
 - [ ] 6.6 Move to the `prisma-client` generator
@@ -108,6 +108,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 all landed; `typescript` 7 (6.5) is the last one |
 | Branch protection | **off** — CI reports but does not block a red merge |
 
 ### Hard rules — production safety
@@ -479,28 +480,55 @@ route. Completing a test-mode checkout as a real coordinator covers both gaps at
 
 ---
 
-### 6.3 — lucide-react 0.x → 1.x
+### 6.3 — lucide-react 0.x → 1.x — **done**
 
-**Outcome:** Icons upgraded across the app with no visual regressions.
+**Outcome:** on `lucide-react` 1.41.0, with **no source file changed**. 171 files import
+it and not one of them needed editing.
 
-**Why:** 0.555 → 1.34, the 0.x-to-stable transition. **171 files import it** — the
-widest blast radius of anything remaining.
+**Why the blast radius did not materialise.** v1's breaking change is the removal of the
+13 brand icons (Github, Facebook, Figma, Slack, Instagram, LinkedIn, Gitlab, Codepen,
+Codesandbox, Dribbble, Framer, Chromium, Pocket, RailSymbol). This app uses none of them.
+Every v0 name is still exported in v1 as an alias of its canonical name — `AlertCircle` →
+`CircleAlert`, `CheckCircle2` → `CircleCheck`, `CheckCircle` → `CircleCheckBig`,
+`XCircle` → `CircleX`, and every `*Icon` suffixed form. All 113 icons and the
+`LucideIcon` type used here resolve unchanged, so `tsc` had nothing to find.
 
-**Read first:** lucide-react v1 release notes and any icon rename list (web).
+**What changed:** `package.json`, `package-lock.json`, and a note in
+`docs/UX/icons-reference.md`. No icon name changed, so nothing in that doc's mapping
+tables needed editing.
 
-**Steps:**
-1. Upgrade and let `tsc` find removed or renamed icons — most breakage surfaces as
-   missing exports.
-2. `docs/UX/icons-reference.md` documents the icon set; update it if names change.
+**The real risk was glyph redesign, not missing exports.** A type checker cannot see it,
+and the roadmap's answer was to walk the app by eye. Instead every icon the app imports
+was rendered through `renderToStaticMarkup` under both 0.555.0 and 1.41.0 and the SVG
+geometry diffed. **100 of 113 are byte-identical.** The other 13:
 
-**Verify:**
-- Type-check clean (this is the main safety net — missing icons are type errors)
-- `npm run build` clean
-- Walk the main surfaces with a browser: student matches, coordinator dashboard, admin
-  programs and universities, and one country landing page. Icons are visual; the type
-  checker cannot tell you one now renders as the wrong glyph.
+| Icon | Change | Where |
+|---|---|---|
+| `Zap` | **Redrawn.** Different bolt proportions | landing feature grid, how-it-works (3 files) |
+| `BookOpen` | **Redrawn.** Squarer spread, spine now `M12 5v16` | 23 files, incl. field-of-study fallback |
+| `Bookmark`, `BookmarkX` | **Redrawn.** Rounded notch instead of a sharp `V` | saved programs, program cards (6 files) |
+| `Leaf` | **Redrawn.** Rounder leaf, shorter stem | `lib/icons.tsx` (Environment field) |
+| `Calendar` | Subtle. Top ticks `2v4`→`2v3`, body `y=4`→`y=3`, divider `10`→`9` | 7 files |
+| `CheckCircle2` | Subtle. Tick redrawn `m9 12 2 2 4-4` → `m16 9-5.5 5.5L8 12` | 48 files — the most-used icon here |
+| `Landmark`, `School`, `Rocket` | Sub-pixel coordinate rewrites. Not perceptible | 15 files |
+| `Clock`, `Compass`, `ThumbsUp` | Path order only, same geometry. All stroke, no fill, so no visual effect | 14 files |
 
-**Session size:** Medium — mechanical, but needs real visual checking.
+None is a *wrong* glyph — each still depicts what it depicted, which is what the
+"no visual regressions" outcome asked for. They are upstream redesigns and they ship
+whether or not this app likes them; the only alternative is staying on 0.x. Flagged
+rather than fixed.
+
+**Verified:** type-check, `eslint .`, `prettier --check .` and `npm run build` all clean ·
+20/20 matching tests · `npm audit` still **0 vulnerabilities** · the 113-icon geometry
+diff above · no `lucide-react/dynamic` or other subpath import anywhere, so the dropped
+UMD build and the renamed Vue package are both irrelevant here.
+
+**Still to check by hand:** the seven visible redesigns above in the browser, most
+usefully `CheckCircle2` (48 files) and `BookOpen` (23). Folded into this session from
+6.4: the Radix and Tailwind bumps are also visual, so dialogs, selects and labels deserve
+the same glance while the app is open.
+
+**Session size:** Was medium; turned out to be one line of `package.json`.
 
 ---
 
@@ -517,7 +545,7 @@ and `npm audit` reports **0 vulnerabilities** for the first time.
 | UI | the four `@radix-ui/*` packages, `tailwindcss` and `@tailwindcss/postcss` 4.1.17→4.3.3, `@tailwindcss/typography` 0.5.19→0.5.20, `tailwind-merge` 3.4→3.6, `country-flag-emoji-polyfill` 0.1.8→0.1.10, `@react-email/components` 1.0.1→1.0.12 |
 | Tooling | `eslint` 9.39.1→9.39.5, `eslint-config-next` 16.3.3→16.3.4, `@typescript-eslint/*` 8.48.1→8.69.0, `prettier` 3.7.3→3.9.6, `lint-staged` 16.2.7→16.4.0, `tsx` 4.21→4.23.13, `@types/react` 19.2.7→19.2.18, `@types/react-dom` 19.2.3→19.2.7 |
 
-**Held back deliberately:** `lucide-react` (6.3), `typescript` and `@types/node` (6.5),
+**Held back deliberately:** `lucide-react` (done in 6.3), `typescript` and `@types/node` (6.5),
 `prisma`/`@prisma/client`/`@prisma/adapter-pg` (done in 6.1, already current),
 `react-email` (5.0.5; its own task), `stripe` (current after 6.2). `next-auth` shows as
 "outdated" only because npm compares the v5 beta against the v4 `latest` tag — ignore it.
@@ -555,7 +583,9 @@ invalid or unmet non-optional peers.
 **Still to check by hand:** the Radix and Tailwind bumps are visual. Nothing in the diff
 suggests a rendering change and the build is clean, but dialogs, selects and labels are
 worth a glance in the browser — most cheaply folded into session 6, which has to walk the
-main surfaces for icons anyway.
+main surfaces for icons anyway. Session 6 carried this forward rather than closing it:
+it replaced its own browser walk with an SVG geometry diff, which says nothing about
+Radix or Tailwind. Still open.
 
 ---
 
