@@ -10,7 +10,7 @@ buy a subscription for full coordinator access or run on a limited freemium tier
 
 | Concern | Choice |
 | --- | --- |
-| Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 5 |
+| Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript 7 |
 | Database | PostgreSQL on Supabase, via Prisma 7 |
 | Auth | NextAuth v5 (Auth.js) — Google OAuth and Resend magic links |
 | Search | Algolia, synced from Postgres by Prisma client extensions |
@@ -50,6 +50,13 @@ correctly anywhere without `AUTH_TRUST_HOST`.
 | `npm run email:dev` | Preview the React Email templates |
 
 CI runs type-check, lint and `prettier --check` on every pull request.
+
+`npm run type-check` runs the native TypeScript 7 compiler, installed as
+`@typescript/native` — it owns the `tsc` binary. The `typescript` package is an alias
+for `@typescript/typescript6`, which provides the 6.0 JavaScript API that
+typescript-eslint still requires; TypeScript 7 does not ship that API. Both are
+needed. Installing plain `typescript@7` over the alias makes `npm run lint` fail with
+"typescript-eslint does not support TS 7.0".
 
 ## Testing
 

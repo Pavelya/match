@@ -57,6 +57,11 @@ restricted and every university image broke for days.
 - **Import `prisma` from `@/lib/prisma`.** Never `new PrismaClient()` — the shared
   client is pooled and carries the Algolia sync extensions.
 - **Use `logger` from `@/lib/logger`.** `no-console` is an error outside scripts.
+- **Two TypeScript packages, on purpose.** `typescript` is an alias for
+  `@typescript/typescript6` (the 6.0 JavaScript API, which typescript-eslint needs) and
+  `@typescript/native` is an alias for `typescript@7` (which owns the `tsc` binary).
+  Running `npm install -D typescript@latest` collapses that and breaks `npx eslint .`
+  with "typescript-eslint does not support TS 7.0".
 - **The 22 `study-in-*` pages are static with a one-week revalidate deliberately.**
   Keep them static; dynamic rendering costs both latency and money.
 - `npm start` needs `AUTH_TRUST_HOST=true` outside Vercel, or every `/api/auth/*` route
