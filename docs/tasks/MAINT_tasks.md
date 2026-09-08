@@ -26,7 +26,7 @@ pull request, merged before the next starts.
 | 4 | Stripe 22 | 6.2 | medium | **Done.** Money path. Alone, so a failure points at one thing |
 | 5 | Minor and patch batch | 6.4 | short | **Done.** Alone, so a regression is attributable to this batch |
 | 6 | lucide-react 1.x | 6.3 | medium | **Done.** 171 files, but no source change was needed — the risk was 13 redesigned glyphs |
-| 7 | TypeScript 7 | 6.5 | unknown | Last, because it is the most likely to produce unrelated noise |
+| 7 | TypeScript 7 | 6.5 | small | **Done.** No source change: 0 errors. The work was the packaging — TS 7 ships no JavaScript API |
 | 8 | Pick a test framework, test access control | 7.1, part 1 | medium | The decision, then the highest-value tests |
 | 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
@@ -69,7 +69,7 @@ Phase 6 — dependency majors
 - [x] 6.2 Stripe 20 → 22
 - [x] 6.3 lucide-react 0.x → 1.x
 - [x] 6.4 The minor and patch batch
-- [ ] 6.5 TypeScript 5.9 → 7
+- [x] 6.5 TypeScript 5.9 → 7
 - [ ] 6.6 Move to the `prisma-client` generator
 
 Phase 7 — structural
@@ -91,7 +91,7 @@ Owner tasks — not AI work
 
 ### What this project is
 
-IB Match — Next.js 16 (App Router, Turbopack), React 19, TypeScript 5, PostgreSQL on
+IB Match — Next.js 16 (App Router, Turbopack), React 19, TypeScript 7, PostgreSQL on
 Supabase via Prisma 7, NextAuth v5, Algolia, Upstash Redis, Resend, Stripe, hosted on
 Vercel. `AGENTS.md` at the repo root is authoritative: **this is Next.js 16 and it
 differs from training data. Read `node_modules/next/dist/docs/` before writing code
@@ -108,7 +108,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 all landed; `typescript` 7 (6.5) is the last one |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Only 6.6 (the `prisma-client` generator) is left in phase 6 |
 | Branch protection | **off** — CI reports but does not block a red merge |
 
 ### Hard rules — production safety
@@ -589,21 +589,65 @@ Radix or Tailwind. Still open.
 
 ---
 
-### 6.5 — TypeScript 5.9 → 7
+### 6.5 — TypeScript 5.9 → 7 — **done**
 
-**Outcome:** On the native TypeScript compiler.
+**Outcome:** `tsc` is the native TypeScript 7.0.2 compiler. It found **0 errors**, so no
+source file changed. The whole task was packaging.
 
-**Why:** A rewritten compiler. Expect new errors from stricter inference rather than
-intentional breaking changes.
+**TypeScript 7 ships no JavaScript API.** The published package is a launcher for a
+platform-native binary — `bin/tsc`, plus `typescript/unstable/*` entry points — with no
+`lib/typescript.js`. Everything that consumed the compiler as a library therefore breaks,
+and typescript-eslint breaks loudly: it reads `ts.versionMajorMinor` at require time and
+throws `typescript-eslint does not support TS 7.0` (see
+`node_modules/typescript-eslint/dist/index.js`). Its peer range is `>=4.8.4 <6.1.0`, so a
+plain `npm i -D typescript@7` also needs `--legacy-peer-deps`, and then every
+`npx eslint .` fails. Support for TS ≥7.1 is tracked in typescript-eslint#10940.
 
-**Do this last.** It is the most likely to produce unrelated noise, and it is easier to
-judge when every other upgrade has already landed. `@types/node` 22 → 26 belongs with
-this task; keep it aligned with the Node version in `engines` and `.nvmrc` (currently 22).
+**The fix is the two-package layout Microsoft documents,** in `package.json`:
 
-**Verify:** full gate set. If the error count is large, land it as its own PR with no
-other changes so the diff stays reviewable.
+```json
+"@typescript/native": "npm:typescript@^7.0.2",
+"typescript": "npm:@typescript/typescript6@^6.0.2"
+```
 
-**Session size:** Medium to large, unpredictable.
+- `@typescript/native` is TypeScript 7 under another name. It owns `node_modules/.bin/tsc`,
+  so `npx tsc`, `npm run type-check` and Next's build checker all get 7.0.2.
+- `typescript` resolves to the 6.0 JavaScript API (currently 6.0.3), which is what
+  typescript-eslint, and anything else that imports the compiler, loads. Its version
+  satisfies the `<6.1.0` peer range, so the install needs no `--legacy-peer-deps` and no
+  `overrides` entry. That package's own binary is named `tsc6`, so there is no conflict
+  over `tsc`.
+
+Both are needed, and the arrangement is fragile in one specific way: `npm install -D
+typescript@latest` collapses it and breaks lint. That warning now lives in `AGENTS.md`
+and `README.md`.
+
+**`next build` type checks with 7 as well.** Next 16 defaults
+`experimental.useTypeScriptCli` to true, which runs the project-local `tsc` binary
+instead of loading the compiler API — the docs
+(`node_modules/next/dist/docs/01-app/03-api-reference/05-config/01-next-config-js/useTypeScriptCli.md`)
+say this exists precisely to enable TypeScript 7. Setting it to `false` under TS 7 makes
+the build exit. Nothing was configured; the default is correct here.
+
+**`@types/node` stayed on the 22 line** (22.20.1, the latest 22.x). This task's original
+note said 22 → 26, but Node 26 is the current release and this project runs Node 22
+everywhere — `.nvmrc`, `engines`, the CI workflow and Vercel. Types a major ahead of the
+runtime would let code type check against APIs that do not exist in production. Bump them
+together with the runtime, as a separate decision, or not at all.
+
+**It is roughly 7× faster.** A cold `tsc --noEmit` over this project: 10.9s on the
+JavaScript compiler, 1.6s native.
+
+**Verified:** `npx tsc --noEmit` 0 errors on 7.0.2 (and, as a cross-check, also 0 on the
+6.0 API via `npx tsc6 --noEmit`) · `npx eslint .` clean, which is the real test of the
+layout · `prettier --check` clean · `npm run build` exit 0 with all 22 `study-in-*` pages
+still prerendered · 20/20 matching tests · `npm audit` still 0 vulnerabilities ·
+`npm ci` reinstalls from the lockfile without peer errors · `npm run dev` boots and
+serves `/` with 200.
+
+**Not closed by this session:** the Radix and Tailwind visual check carried forward from
+6.4. This task changed no runtime output at all, so it was no cheaper to fold in here
+than anywhere else.
 
 ---
 
