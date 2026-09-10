@@ -47,9 +47,11 @@ correctly anywhere without `AUTH_TRUST_HOST`.
 | `npm run type-check` | `tsc --noEmit` |
 | `npm run lint` | ESLint — code quality only; formatting belongs to Prettier |
 | `npm run format` | `prettier --write .` |
+| `npm test` | Vitest, once. `npm run test:watch` re-runs on save |
 | `npm run email:dev` | Preview the React Email templates |
 
-CI runs type-check, lint and `prettier --check` on every pull request.
+CI runs type-check, lint, `prettier --check`, both test suites and a production build on
+every pull request.
 
 `npm run type-check` runs the native TypeScript 7 compiler, installed as
 `@typescript/native` — it owns the `tsc` binary. The `typescript` package is an alias
@@ -60,15 +62,24 @@ needed. Installing plain `typescript@7` over the alias makes `npm run lint` fail
 
 ## Testing
 
-The matching algorithm — the most intricate part of the product — is covered by
-verification scripts in `lib/matching/*.verify.ts`:
+Two suites, both run in CI:
 
 ```bash
-npx tsx scripts/run-all-tests.ts
+npm test                          # Vitest: every *.test.ts file
+npx tsx scripts/run-all-tests.ts  # matching algorithm: lib/matching/*.verify.ts
 ```
 
-There is no unit-test framework installed. Everything outside `lib/matching` is
-currently untested.
+**New tests use Vitest.** Put them next to the code they cover as `*.test.ts` —
+`lib/auth/access-control.test.ts` is the first. Import `describe`/`it`/`expect` from
+`vitest`; globals are off. The `@/` alias resolves as it does in the app.
+
+Tests must never reach the production database that `.env` points at. Mock the client
+with `vi.mock('@/lib/prisma')`, or run against a local Postgres built with
+`prisma migrate deploy`, the way the CI build job does.
+
+The matching algorithm predates Vitest. Its 20 `*.verify.ts` files are standalone
+scripts — each exits non-zero on failure — and `scripts/run-all-tests.ts` runs them.
+They are not Vitest files, so `npm test` does not pick them up.
 
 ## Database
 
