@@ -52,8 +52,10 @@ restricted and every university image broke for days.
 - **Prettier owns formatting; ESLint owns code quality.** Do not add stylistic rules to
   `eslint.config.mjs` — that conflict once produced 670 errors that could not be fixed,
   because the two tools kept reverting each other.
-- **Tests are `lib/matching/*.verify.ts`, run by `npx tsx scripts/run-all-tests.ts`.**
-  No Jest or Vitest is installed. Do not add `.test.ts` files expecting a runner.
+- **New tests are Vitest: `*.test.ts` next to the code, run by `npm test`.** Mock
+  `@/lib/prisma` rather than reaching the database. The older matching suite,
+  `lib/matching/*.verify.ts`, is standalone scripts run by
+  `npx tsx scripts/run-all-tests.ts` — not Vitest files, so don't rename them `.test.ts`.
 - **Import `prisma` from `@/lib/prisma`.** Never `new PrismaClient()` — the shared
   client is pooled and carries the Algolia sync extensions.
 - **Use `logger` from `@/lib/logger`.** `no-console` is an error outside scripts.
@@ -76,7 +78,7 @@ Verification — all free, and nothing reaches a third party except the build:
 
 ```bash
 npx tsc --noEmit && npx eslint . && npx prettier --check . && npm run build
-npx tsx scripts/run-all-tests.ts
+npm test && npx tsx scripts/run-all-tests.ts
 ```
 
 ## Where to look
