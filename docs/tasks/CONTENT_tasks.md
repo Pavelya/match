@@ -21,7 +21,7 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | UCAS deadline for both is **15 October 2026** |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Research done.** 61 of 76 programs change; the owner applies them in the admin UI before the UCAS deadline, **15 October 2026** |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [ ] 1.2 Oxford and Cambridge fast lane
+- [ ] 1.2 Oxford and Cambridge fast lane — research done; the owner applies the changes
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
@@ -310,6 +310,24 @@ rename of the same course, then update the name and URL.
 on its public page.
 
 **Session size:** Medium. Research only, plus a short handoff.
+
+#### Status, 24 September 2026 — research done; the owner applies the changes (session 2)
+
+- **Done.** `docs/tasks/content-2027/oxford-cambridge.md` has all 76 programs, one row each,
+  with the program ID, the 2027-entry requirement, the change and the source. The first half of
+  Verify passes.
+- **Cambridge, 30 of 30 change.** Every course page says 2027 entry and "41–42 points, 776 at
+  HL"; stored values were 42–45. Eighteen stored subjects Cambridge does not require. Land
+  Economy is renamed Environment, Law, and Economics (same course, UCAS code KL41).
+- **Oxford, 31 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
+  rows come from department, faculty and college pages. Most of them name no entry year. The
+  file asks the owner to compare the Oxford rows with Oxford's one-page summary table in a
+  browser, and flags five rows that need more than that.
+- **Judgement call to review:** where a source names no grade for a required subject, the file
+  uses 6, the lowest the HL profile allows (776, 766, 666), instead of the stored 7. The rule is
+  stated at the top of the file.
+- **Left to tick 1.2:** the owner applies the changed rows in `/admin/programs`, then the second
+  half of Verify (new values on the public pages) can be checked.
 
 ---
 
