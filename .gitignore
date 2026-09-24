@@ -44,3 +44,6 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+
+# content refresh: backups taken by scripts/programs/apply-2027-requirements.ts --apply
+/scripts/programs/2027/backups/

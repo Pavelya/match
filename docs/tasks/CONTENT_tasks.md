@@ -326,8 +326,13 @@ on its public page.
 - **Judgement call to review:** where a source names no grade for a required subject, the file
   uses 6, the lowest the HL profile allows (776, 766, 666), instead of the stored 7. The rule is
   stated at the top of the file.
-- **Left to tick 1.2:** the owner applies the changed rows in `/admin/programs`, then the second
-  half of Verify (new values on the public pages) can be checked.
+- **Script, as an alternative to the admin UI.** `scripts/programs/2027/` holds the same targets
+  as data; `scripts/programs/apply-2027-requirements.ts` dry-runs by default (59 changes,
+  12 stamp-only, 5 held, matching the file) and writes on `--apply` after the owner approves,
+  with a backup and `--restore`. Its diff helpers (`scripts/programs/lib/requirements-diff.ts`,
+  Vitest-covered) and data shape are a starting point for the refresh tool in 3.3.
+- **Left to tick 1.2:** the changed rows are applied (admin UI or script), then the second half
+  of Verify (new values on the public pages) can be checked.
 
 ---
 

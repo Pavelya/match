@@ -37,8 +37,23 @@ stored none.
 1. For each row marked **changed**, open `/admin/programs/<ID>/edit` and make the program match the
    **2027 entry** column. Saving syncs Algolia and the programs cache.
 2. The form does not set `requirementsVerified` or `requirementsUpdatedAt`. Leave them: task 3.1
-   stamps them from this file.
+   stamps them from this file (the script below sets both).
 3. Rows marked **owner check** need a look in a browser first; see the next section.
+
+**Or by script.** `scripts/programs/2027/university-of-oxford.ts` and `university-of-cambridge.ts`
+hold the same targets as data, and `scripts/programs/apply-2027-requirements.ts` applies them:
+
+```bash
+npx tsx scripts/programs/apply-2027-requirements.ts            # dry run: prints every change
+npx tsx scripts/programs/apply-2027-requirements.ts --apply    # production write, after approval
+```
+
+The dry run lists the same 59 changes as this file; rows marked owner check are held, not
+written. `--apply` saves a backup first (`scripts/programs/2027/backups/`, git-ignored; undo with
+`--restore <file> --apply`), stamps `requirementsVerified` and `requirementsUpdatedAt`, and syncs
+Algolia and the cache for the programs it wrote. When an owner check is settled, update both this
+file and the data file (clear its `hold`), then run it again: programs already up to date are
+skipped.
 
 **Notation.** `39 · MATH-AA HL7` means 39 points and Mathematics AA at HL grade 7 or better.
 `(BIO or PHYS) HL6` is one OR group. `;` separates requirements that are all needed. Every
