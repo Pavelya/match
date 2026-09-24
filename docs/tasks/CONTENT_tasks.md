@@ -20,7 +20,7 @@ here, and this refresh does more production writes than any work before it.
 
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
-| 1 | Stop loading the base64 logo | 1.1 | small | Live egress cost on a public page. Code only |
+| 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | UCAS deadline for both is **15 October 2026** |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
@@ -55,7 +55,8 @@ short before 13 January 2027, prioritise sessions 12–13 (UK) over session 6.
 
 Phase 1 — Fix now
 
-- [ ] 1.1 Stop loading the University of Toronto's base64 logo
+- [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
+  blocked on Storage
 - [ ] 1.2 Oxford and Cambridge fast lane
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
@@ -260,6 +261,27 @@ sync script, `scripts/sync-to-algolia-standalone.ts:76`, moves it 40 times per r
 a backup and the owner's approval.
 
 **Session size:** Small.
+
+#### Status, 24 September 2026 — steps 1, 2 and 4 done; step 3 blocked (session 1)
+
+- **Done.** Every query the step 4 grep found now uses `select`, plus the public
+  university page (`app/universities/[id]/page.tsx`, the same double lookup as the program
+  page). Both detail pages read once per render through React `cache`; `pg_stat_statements`
+  shows one query per program page render, not two. A Toronto program page query went from
+  368 KB to 2.5 KB.
+- **Root cause, fixed.** The admin university routes stored logos as raw base64 (only
+  `image` went to Storage). Logos now follow the image rule: uploaded, or a 502. An
+  unchanged logo is not re-uploaded, so Toronto stays editable while Storage is down.
+  Covered by `app/api/admin/universities/**/route.test.ts`.
+- **Blocked.** Storage returned **402 `exceed_egress_quota`** on 24 September, three weeks
+  after the reset `MAINT_tasks.md` 5.5 was waiting for. `fix-university-images.ts` now
+  migrates `logo` as well as `image` but has **not been run**. When Storage answers 200,
+  run it, then check `SELECT count(*) FROM "University" WHERE logo LIKE 'data:%'` is 0 and
+  tick 1.1.
+- **Not changed, harmless once step 3 runs:** admin-only reads that still `include` the
+  university (`app/admin/programs/[id]`, its edit page, `GET /api/admin/programs/[id]`, the
+  program create and bulk routes, `app/admin/universities` list and detail and their API
+  `GET`s), and the seed scripts, which look up their own university by name.
 
 ---
 
