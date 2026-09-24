@@ -59,11 +59,16 @@ export default async function StudentDetailPage({ params }: PageProps) {
           },
           preferredFields: true,
           preferredCountries: true,
+          // Selected, not included: University.logo can hold an inline base64
+          // image, and this list shows only names.
           savedPrograms: {
-            include: {
+            select: {
+              id: true,
               program: {
-                include: {
-                  university: true
+                select: {
+                  id: true,
+                  name: true,
+                  university: { select: { name: true } }
                 }
               }
             },

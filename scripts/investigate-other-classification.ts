@@ -4,12 +4,15 @@ async function investigate() {
   console.log('=== INVESTIGATING "OTHER" DEGREE CLASSIFICATION ===\n')
   console.log('This investigates the admin UI classification of Bachelor/Master/Other\n')
 
+  // Selected, not included: University.logo can hold an inline base64 image.
   const programs = await prisma.academicProgram.findMany({
-    include: {
+    select: {
+      name: true,
+      degreeType: true,
       university: {
-        include: { country: true }
+        select: { name: true, country: { select: { name: true } } }
       },
-      fieldOfStudy: true
+      fieldOfStudy: { select: { name: true } }
     },
     orderBy: {
       degreeType: 'asc'

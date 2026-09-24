@@ -92,9 +92,11 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const { id } = await params
 
-    // Check university exists
+    // Check university exists. The stored logo is read so an unchanged one is
+    // not uploaded again (see below).
     const existingUniversity = await prisma.university.findUnique({
-      where: { id }
+      where: { id },
+      select: { id: true, logo: true }
     })
 
     if (!existingUniversity) {
@@ -129,7 +131,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         where: {
           name: { equals: name.trim(), mode: 'insensitive' },
           id: { not: id }
-        }
+        },
+        select: { id: true }
       })
       if (duplicateName) {
         return NextResponse.json(
@@ -181,14 +184,41 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.studentPopulation = studentPopulation ? parseInt(studentPopulation, 10) : null
     }
 
-    if (logo !== undefined) {
-      updateData.logo = logo?.trim() || null
+    // Logos follow the same rule as images: base64 goes to Storage and the
+    // column holds its URL. The edit form sends the stored logo back on every
+    // save, so an unchanged value is left alone - otherwise each save would
+    // upload a fresh copy, and while Storage is unavailable no university with
+    // an inline logo could be edited at all.
+    if (logo !== undefined && logo !== existingUniversity.logo) {
+      if (logo && typeof logo === 'string' && logo.length > 0) {
+        if (isBase64Image(logo)) {
+          try {
+            updateData.logo = await uploadUniversityImage(logo, `${id}-logo`)
+            logger.info('Uploaded updated university logo to Supabase', { universityId: id })
+          } catch (uploadError) {
+            logger.error('Supabase logo upload failed; refusing to store inline base64', {
+              error: uploadError instanceof Error ? uploadError.message : String(uploadError),
+              universityId: id
+            })
+            return NextResponse.json(
+              { error: 'Logo upload failed. No changes were saved. Please try again.' },
+              { status: 502 }
+            )
+          }
+        } else {
+          // Assume it's already a URL
+          updateData.logo = logo.trim()
+        }
+      } else {
+        // Logo was cleared
+        updateData.logo = null
+      }
     }
 
     if (image !== undefined) {
       if (image && typeof image === 'string' && image.length > 0) {
         if (isBase64Image(image)) {
-          // Try to upload to Supabase for optimization, but fall back to base64 if it fails
+          // Upload to Supabase Storage; never fall back to storing base64
           try {
             const imageUrl = await uploadUniversityImage(image, id)
             updateData.image = imageUrl
@@ -231,11 +261,20 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.phone = phone?.trim() || null
     }
 
+    // Selected, not included: the edit form reads nothing from a successful
+    // response, and the full row can carry an inline base64 logo. Keep id and
+    // name - the Algolia extension's university.update hook reads both.
     const university = await prisma.university.update({
       where: { id },
       data: updateData,
-      include: {
-        country: true
+      select: {
+        id: true,
+        name: true,
+        abbreviatedName: true,
+        city: true,
+        image: true,
+        updatedAt: true,
+        country: { select: { id: true, name: true } }
       }
     })
 

@@ -43,11 +43,18 @@ async function syncUniversities() {
   const indexName = 'universities_production'
 
   try {
-    // Fetch all universities with related data
+    // Fetch all universities with the fields the records use. Selected, not
+    // included: `include` returned logo and image, which can hold inline base64.
     console.log('\n1️⃣  Fetching universities from database...')
     const universities = await prisma.university.findMany({
-      include: {
-        country: true,
+      select: {
+        id: true,
+        name: true,
+        abbreviatedName: true,
+        description: true,
+        createdAt: true,
+        updatedAt: true,
+        country: { select: { id: true, name: true, code: true } },
         _count: {
           select: { programs: true }
         }

@@ -11,11 +11,16 @@ async function investigate() {
         mode: 'insensitive'
       }
     },
-    include: {
+    // Selected, not included: University.logo can hold an inline base64 image.
+    select: {
+      id: true,
+      name: true,
+      degreeType: true,
+      minIBPoints: true,
       university: {
-        include: { country: true }
+        select: { name: true, country: { select: { name: true } } }
       },
-      fieldOfStudy: true
+      fieldOfStudy: { select: { name: true } }
     },
     orderBy: {
       university: {

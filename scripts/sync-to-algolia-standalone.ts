@@ -71,19 +71,39 @@ async function syncToAlgolia() {
   const indexName = 'programs_production'
 
   try {
-    // Fetch all programs with related data
+    // Fetch all programs with the fields the records use. Selected, not
+    // included: `include` returned University.logo on every program, and one
+    // inline base64 logo (365KB for Toronto) made each run move about 15MB.
     console.log('1️⃣  Fetching programs from database...')
     const programs = await prisma.academicProgram.findMany({
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        degreeType: true,
+        duration: true,
+        minIBPoints: true,
+        createdAt: true,
+        updatedAt: true,
         university: {
-          include: {
-            country: true
+          select: {
+            id: true,
+            name: true,
+            abbreviatedName: true,
+            image: true,
+            city: true,
+            country: { select: { id: true, name: true, code: true } }
           }
         },
-        fieldOfStudy: true,
+        fieldOfStudy: {
+          select: { id: true, name: true, iconName: true, description: true }
+        },
         courseRequirements: {
-          include: {
-            ibCourse: true
+          select: {
+            requiredLevel: true,
+            minGrade: true,
+            isCritical: true,
+            ibCourse: { select: { id: true, name: true } }
           }
         }
       }

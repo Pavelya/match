@@ -72,18 +72,41 @@ export async function transformProgramToAlgolia(
   programId: string
 ): Promise<AlgoliaProgramRecord | null> {
   try {
+    // Selected, not included. This runs once per program on every admin edit
+    // and once per affected program on every university, country, field or
+    // course change, and `include` returned University.logo, which can hold an
+    // inline base64 image that the record never uses. Keep it to the fields
+    // below.
     const program = await prisma.academicProgram.findUnique({
       where: { id: programId },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        degreeType: true,
+        duration: true,
+        minIBPoints: true,
+        createdAt: true,
+        updatedAt: true,
         university: {
-          include: {
-            country: true
+          select: {
+            id: true,
+            name: true,
+            abbreviatedName: true,
+            image: true,
+            city: true,
+            country: { select: { id: true, name: true, code: true } }
           }
         },
-        fieldOfStudy: true,
+        fieldOfStudy: {
+          select: { id: true, name: true, iconName: true, description: true }
+        },
         courseRequirements: {
-          include: {
-            ibCourse: true
+          select: {
+            requiredLevel: true,
+            minGrade: true,
+            isCritical: true,
+            ibCourse: { select: { id: true, name: true } }
           }
         }
       }
