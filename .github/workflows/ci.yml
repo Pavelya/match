@@ -47,6 +47,35 @@ jobs:
       - name: Check formatting
         run: npx prettier --check .
 
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    # Neither suite connects to a database or any external service. These are
+    # the same placeholders the checks job needs for `prisma generate`.
+    env:
+      DATABASE_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
+      DIRECT_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit tests
+        run: npm test
+
+      # Runs even when the unit tests fail, so one red run reports both suites.
+      - name: Matching algorithm tests
+        if: ${{ !cancelled() }}
+        run: npx tsx scripts/run-all-tests.ts
+
   build:
     name: Production build
     runs-on: ubuntu-latest

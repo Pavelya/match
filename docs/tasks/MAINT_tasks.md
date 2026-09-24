@@ -27,7 +27,7 @@ pull request, merged before the next starts.
 | 5 | Minor and patch batch | 6.4 | short | **Done.** Alone, so a regression is attributable to this batch |
 | 6 | lucide-react 1.x | 6.3 | medium | **Done.** 171 files, but no source change was needed — the risk was 13 redesigned glyphs |
 | 7 | TypeScript 7 | 6.5 | small | **Done.** No source change: 0 errors. The work was the packaging — TS 7 ships no JavaScript API |
-| 8 | Pick a test framework, test access control | 7.1, part 1 | medium | The decision, then the highest-value tests |
+| 8 | Pick a test framework, test access control | 7.1, part 1 | medium | **Done.** Vitest 5. 33 tests over the subscription gate, and both suites now run in CI |
 | 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
@@ -81,7 +81,7 @@ Owner tasks — not AI work
 
 - [ ] Enable branch protection on `main`
 - [ ] Watch Supabase egress for a week after the quota reset
-- [ ] Decide the test framework before session 8
+- [x] Decide the test framework before session 8 — Vitest
 
 ---
 
@@ -104,7 +104,8 @@ documentation and has been correct every time it was consulted.
 |---|---|
 | Vulnerabilities | **0** — session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
-| CI | type-check, lint (`--max-warnings 0`), `prettier --check`, and a production build against a throwaway Postgres |
+| CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
+| Tests | Vitest 5 (`npm test`), covering `lib/auth/access-control.ts` so far, plus the 20-file matching suite. Session 8 added both to CI; before that CI ran neither |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
@@ -158,6 +159,7 @@ npx eslint .                     # must be 0 errors
 npx prettier --check .           # must be clean
 npm run build                    # must exit 0
 npm audit                        # compare against the baseline in the task
+npm test                         # Vitest: every *.test.ts file
 npx tsx scripts/run-all-tests.ts # matching algorithm suite (20 files)
 ```
 
@@ -686,6 +688,94 @@ broken assertion is introduced.
 **Session size:** Large. Split across sessions — framework decision first, then one
 area per session.
 
+#### Part 1 — framework and access control — **done** (session 8)
+
+**Outcome:** Vitest 5.0.0 is the test framework, chosen by the owner.
+`lib/auth/access-control.test.ts` holds 33 tests, and CI has a new **Tests** job that
+runs them and the 20-file matching suite. Until this session CI ran neither suite.
+
+**Why Vitest.** It compiles TypeScript through Vite's own transform and never loads the
+compiler API, so the TS 7 / TS 6 two-package layout from 6.5 does not affect it. Sessions
+9 and 10 need module mocking for Prisma and `auth()`: `vi.mock` does that out of the box,
+`node:test` needs an experimental flag on Node 22, and Jest needs a TypeScript transform
+plus ESM workarounds for next-auth v5. Next documents it in
+`node_modules/next/dist/docs/01-app/02-guides/testing/vitest.md`.
+
+**Where the setup departs from Next's guide:**
+
+- **`vite` must be installed alongside `vitest`.** It is a required, non-optional peer of
+  vitest 5, and the guide does not list it.
+- **No `vite-tsconfig-paths`.** Vite 8 has `resolve.tsconfigPaths: true` built in, so `@/`
+  resolves from `tsconfig.json` with no plugin.
+- **No `@vitejs/plugin-react`, jsdom or Testing Library.** Nothing here renders a component
+  yet. Add them when a test needs to render one. Async Server Components cannot be
+  unit-tested by Vitest at all — use E2E for those.
+- **Vitest 5 needs Node `^22.12.0`.** The owner's machine is on exactly 22.12.0; CI's
+  `node-version: 22` resolves to the latest 22.x.
+- **`include` is `**/*.test.{ts,tsx}` only.** The `.verify.ts` scripts are not Vitest
+  files — they run top-level code and exit non-zero on failure. Renaming one to `.test.ts`
+  would make Vitest fail it with "no test suite found".
+
+**What the tests pin down:**
+
+- Every tier × status combination and the access level it grants. The expectation table
+  is typed `Record<SubscriptionTier, Record<SubscriptionStatus, AccessLevel>>`, so adding
+  an enum value fails `tsc` until someone decides what access it grants. The
+  `isFeatureLocked` feature list uses the same trick.
+- **REGULAR + CANCELLED is freemium.** This is the case where a bug would cost money.
+- VIP keeps full access whatever its status, since VIP schools have no Stripe subscription.
+- The invite boundary (9 students may invite, 10 may not). Remaining invites never go
+  negative for a school that downgraded while over the limit.
+- `FREEMIUM_MAX_STUDENTS` is 10. The number is also written out in UI copy —
+  `app/coordinator/students/page.tsx` (twice) and `InviteStudentForm.tsx` — so a change to
+  the constant alone would make the UI wrong.
+
+**Proved to fail.** Four deliberate breaks, each reverted:
+
+| Break | Result |
+|---|---|
+| A CANCELLED subscription keeps full access | 2 tests fail |
+| `<` becomes `<=` on the invite limit | 1 test fails |
+| A wrong expected value in an assertion | 1 test fails; `npm test` exits 1 |
+| A status dropped from the expectation table | `tsc` fails with TS2741 |
+
+**Read before sessions 9 and 10: role-based access control has no shared helper.**
+`lib/auth/access-control.ts` handles subscription gating only; it knows nothing about
+roles. Role checks are written inline: `app/` has 49 `role !== 'PLATFORM_ADMIN'`
+comparisons, each after an `auth()` call and a database re-read of the role. The layouts
+work the same way — `app/admin/layout.tsx` requires `PLATFORM_ADMIN`,
+`app/coordinator/layout.tsx` requires `COORDINATOR`, and `app/student/layout.tsx` requires
+only a session. `proxy.ts` enforces nothing beyond "signed in" for `/student/*`. Role
+checks can therefore be tested only through the routes, with `@/lib/auth/config` and
+`@/lib/prisma` mocked, which is what session 10 should do. A shared `requireRole` helper
+would make that cheaper, but it rewrites dozens of security checks and deserves its own PR.
+
+**Deliberately not tested:** `isFeatureLocked` returns `false` (unlocked) for a feature
+name it does not recognise. The union type makes that branch unreachable. A test would
+have recorded failing open as intended behaviour, so it is noted here instead.
+
+**Remaining for 7.1:**
+- the Stripe webhook (session 9)
+- API routes and rate limiting (session 10)
+- converting the 20 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
+- branch protection, so the Tests job actually blocks a merge (owner task 1)
+
+**What changed:**
+- `package.json` and `package-lock.json`: `vitest`, `vite` and their dependencies, plus
+  two transitive bumps — `tinyglobby` 0.2.15→0.2.17 and `@jridgewell/sourcemap-codec`
+  1.5.5→1.6.0
+- `vitest.config.mts` and `lib/auth/access-control.test.ts`, both new
+- `.github/workflows/ci.yml`, `AGENTS.md`, `README.md`, and this file
+
+**Verified:**
+- `npm test` passes 33/33 in about 160 ms.
+- The matching suite passes 20/20, including with an empty environment, which is what the
+  CI job runs with.
+- Type-check, `eslint . --max-warnings 0`, `prettier --check .` and `npm run build` are all
+  clean.
+- `npm audit` still reports 0 vulnerabilities.
+- The four deliberate breaks above all fail.
+
 ---
 
 ### 7.2 — Collapse the 22 country landing pages
@@ -739,8 +829,9 @@ Not AI work, but they gate real value.
 
 1. **Enable branch protection on `main`.** CI currently reports but does not block; a
    red PR can still be merged. Settings → Branches → require status checks → tick
-   "Type check, lint, format", "Production build" and the Vercel check. Two minutes,
-   and worth more than most remaining code changes.
+   "Type check, lint, format", "Tests", "Production build" and the Vercel check. Two
+   minutes, and worth more than most remaining code changes.
 2. **Watch Supabase egress** for a week after the quota reset. Expected steady state is
    well under 1 GB/month. If it climbs, look for a new `include` in a hot path first.
-3. **Decide the test framework** for 7.1 before that session starts.
+3. ~~**Decide the test framework** for 7.1 before that session starts.~~ Decided in
+   session 8: Vitest.
