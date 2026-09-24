@@ -4,12 +4,15 @@ async function analyze() {
   console.log('=== PROGRAM DATABASE ANALYSIS ===\n')
 
   // Get all programs with their university and field
+  // Selected, not included: University.logo can hold an inline base64 image.
   const programs = await prisma.academicProgram.findMany({
-    include: {
+    select: {
+      degreeType: true,
+      minIBPoints: true,
       university: {
-        include: { country: true }
+        select: { name: true, country: { select: { name: true } } }
       },
-      fieldOfStudy: true
+      fieldOfStudy: { select: { name: true } }
     }
   })
 

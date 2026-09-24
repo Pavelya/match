@@ -53,19 +53,29 @@ export async function GET(request: Request, context: RouteContext) {
       )
     }
 
-    // Fetch the specific program
+    // Fetch the fields matching and the response need. Selected, not included:
+    // University.logo can hold an inline base64 image.
     const program = await prisma.academicProgram.findUnique({
       where: { id: programId },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        minIBPoints: true,
         university: {
-          include: {
-            country: true
+          select: {
+            id: true,
+            name: true,
+            country: { select: { id: true, name: true, flagEmoji: true } }
           }
         },
-        fieldOfStudy: true,
+        fieldOfStudy: { select: { id: true, name: true } },
         courseRequirements: {
-          include: {
-            ibCourse: true
+          select: {
+            requiredLevel: true,
+            minGrade: true,
+            isCritical: true,
+            orGroupId: true,
+            ibCourse: { select: { id: true, name: true } }
           }
         }
       }

@@ -305,7 +305,8 @@ discarded the only copy. It currently renders the placeholder icon.
 curl -s -o /dev/null -w "%{http_code}\n" \
   "https://<project>.supabase.co/storage/v1/object/public/university-images/<any-known-file>"
 ```
-`402` means still restricted — stop and report.
+`402` means still restricted — stop and report. **Still 402 on 24 September 2026**, with
+`exceed_egress_quota` in the body.
 
 **Steps:** Either restore the base64 from the Supabase backup taken before the `UPDATE`
 and then run `npx tsx scripts/fix-university-images.ts` to move it to Storage, or

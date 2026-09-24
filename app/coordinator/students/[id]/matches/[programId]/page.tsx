@@ -90,19 +90,44 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
     redirect(`/coordinator/students/${studentId}?error=consent-required`)
   }
 
-  // Fetch program with all related data
+  // Selected, not included: University.logo can hold an inline base64 image,
+  // and this page never shows it. Same fields as the public program page.
   const program = await prisma.academicProgram.findUnique({
     where: { id: programId },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      degreeType: true,
+      duration: true,
+      minIBPoints: true,
+      programUrl: true,
       university: {
-        include: {
-          country: true
+        select: {
+          id: true,
+          name: true,
+          abbreviatedName: true,
+          image: true,
+          city: true,
+          websiteUrl: true,
+          country: {
+            select: { id: true, name: true, code: true, flagEmoji: true }
+          }
         }
       },
-      fieldOfStudy: true,
+      fieldOfStudy: {
+        select: { id: true, name: true, iconName: true, description: true }
+      },
       courseRequirements: {
-        include: {
-          ibCourse: true
+        select: {
+          id: true,
+          requiredLevel: true,
+          minGrade: true,
+          isCritical: true,
+          orGroupId: true,
+          ibCourse: {
+            select: { id: true, name: true, code: true, group: true }
+          }
         }
       }
     }
@@ -135,7 +160,6 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
       name: program.university.name,
       abbreviation: program.university.abbreviatedName,
       image: program.university.image,
-      description: program.university.description,
       websiteUrl: program.university.websiteUrl
     },
     country: {

@@ -134,7 +134,8 @@ export async function POST(request: Request) {
           equals: name.trim(),
           mode: 'insensitive'
         }
-      }
+      },
+      select: { id: true }
     })
 
     if (existingUniversity) {
@@ -144,11 +145,11 @@ export async function POST(request: Request) {
       )
     }
 
-    // Handle image - save directly (like logo), optionally upload to Supabase for optimization
+    // Handle image - base64 is uploaded to Supabase Storage and stored as its URL
     let imageToSave: string | null = null
     if (image && typeof image === 'string' && image.length > 0) {
       if (isBase64Image(image)) {
-        // Try to upload to Supabase for optimization, but fall back to base64 if it fails
+        // Upload to Supabase Storage; never fall back to storing base64
         const tempId = `temp-${Date.now()}`
         try {
           const imageUrl = await uploadUniversityImage(image, tempId)
@@ -173,8 +174,29 @@ export async function POST(request: Request) {
       }
     }
 
-    // Handle logo - save directly as base64
-    const logoToSave = logo && typeof logo === 'string' && logo.length > 0 ? logo : null
+    // Handle logo - the same rule as the image. It used to be saved directly as
+    // base64, which is how a 365KB inline logo ended up on the University row
+    // and in every query that read the whole row.
+    let logoToSave: string | null = null
+    if (logo && typeof logo === 'string' && logo.length > 0) {
+      if (isBase64Image(logo)) {
+        try {
+          logoToSave = await uploadUniversityImage(logo, `temp-${Date.now()}-logo`)
+          logger.info('Uploaded university logo to Supabase', { logoUrl: logoToSave })
+        } catch (uploadError) {
+          logger.error('Supabase logo upload failed; refusing to store inline base64', {
+            error: uploadError instanceof Error ? uploadError.message : String(uploadError)
+          })
+          return NextResponse.json(
+            { error: 'Logo upload failed. The university was not created. Please try again.' },
+            { status: 502 }
+          )
+        }
+      } else {
+        // Assume it's already a URL
+        logoToSave = logo.trim()
+      }
+    }
 
     // Create the university
     const university = await prisma.university.create({

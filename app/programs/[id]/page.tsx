@@ -9,6 +9,7 @@
  * This page is for students viewing their own matches or public program browsing.
  */
 
+import { cache } from 'react'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
@@ -22,26 +23,59 @@ interface PageProps {
   params: Promise<{ id: string }>
 }
 
+// One read per render, shared by generateMetadata and the page: React's cache
+// memoises it for the rest of the request. Selected, not included - `include`
+// returned every University column, and University.logo can hold an inline
+// base64 image (365KB for Toronto), so every render of one of its programs moved
+// that logo twice without ever showing it. Keep this to the fields read below.
+const getProgram = cache((id: string) =>
+  prisma.academicProgram.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      degreeType: true,
+      duration: true,
+      minIBPoints: true,
+      programUrl: true,
+      university: {
+        select: {
+          id: true,
+          name: true,
+          abbreviatedName: true,
+          image: true,
+          city: true,
+          websiteUrl: true,
+          country: {
+            select: { id: true, name: true, code: true, flagEmoji: true }
+          }
+        }
+      },
+      fieldOfStudy: {
+        select: { id: true, name: true, iconName: true, description: true }
+      },
+      courseRequirements: {
+        select: {
+          id: true,
+          requiredLevel: true,
+          minGrade: true,
+          isCritical: true,
+          orGroupId: true,
+          ibCourse: {
+            select: { id: true, name: true, code: true, group: true }
+          }
+        }
+      }
+    }
+  })
+)
+
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
-  const program = await prisma.academicProgram.findUnique({
-    where: { id },
-    include: {
-      university: {
-        include: {
-          country: true
-        }
-      },
-      courseRequirements: {
-        include: {
-          ibCourse: true
-        }
-      },
-      fieldOfStudy: true
-    }
-  })
+  const program = await getProgram(id)
 
   if (!program) {
     return {
@@ -299,23 +333,7 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function ProgramDetailPage({ params }: PageProps) {
   const { id } = await params
 
-  // Fetch program with all related data
-  const program = await prisma.academicProgram.findUnique({
-    where: { id },
-    include: {
-      university: {
-        include: {
-          country: true
-        }
-      },
-      fieldOfStudy: true,
-      courseRequirements: {
-        include: {
-          ibCourse: true
-        }
-      }
-    }
-  })
+  const program = await getProgram(id)
 
   if (!program) {
     notFound()
@@ -366,7 +384,6 @@ export default async function ProgramDetailPage({ params }: PageProps) {
       name: program.university.name,
       abbreviation: program.university.abbreviatedName,
       image: program.university.image,
-      description: program.university.description,
       websiteUrl: program.university.websiteUrl
     },
     country: {

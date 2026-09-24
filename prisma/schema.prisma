@@ -269,8 +269,8 @@ model University {
   classification    UniversityType // PUBLIC, PRIVATE
   studentPopulation Int?
 
-  logo       String? @db.Text // Base64 encoded image data (max ~500KB)
-  image      String? @db.Text // Base64 encoded image data (max ~500KB)
+  logo       String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
+  image      String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
   websiteUrl String
   email      String?
   phone      String?

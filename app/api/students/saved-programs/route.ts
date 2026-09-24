@@ -38,22 +38,45 @@ export async function GET() {
       )
     }
 
-    // Fetch saved programs with all necessary relations for ProgramCard display
+    // Fetch saved programs with the fields ProgramCard displays. Selected, not
+    // included: the program detail page calls this on every view, and
+    // University.logo can hold an inline base64 image that nothing here shows.
     const savedPrograms = await prisma.savedProgram.findMany({
       where: { studentProfileId: studentProfile.id },
       orderBy: { createdAt: 'desc' },
-      include: {
+      select: {
+        createdAt: true,
         program: {
-          include: {
+          select: {
+            id: true,
+            name: true,
+            degreeType: true,
+            duration: true,
+            minIBPoints: true,
             university: {
-              include: {
-                country: true
+              select: {
+                name: true,
+                abbreviatedName: true,
+                image: true,
+                city: true,
+                country: {
+                  select: { id: true, name: true, code: true, flagEmoji: true }
+                }
               }
             },
-            fieldOfStudy: true,
+            fieldOfStudy: {
+              select: { id: true, name: true, iconName: true, description: true }
+            },
             courseRequirements: {
-              include: {
-                ibCourse: true
+              select: {
+                id: true,
+                requiredLevel: true,
+                minGrade: true,
+                isCritical: true,
+                orGroupId: true,
+                ibCourse: {
+                  select: { id: true, name: true, code: true, group: true }
+                }
               }
             }
           }

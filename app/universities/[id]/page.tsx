@@ -5,6 +5,7 @@
  * Accessible from program pages when clicking on university name.
  */
 
+import { cache } from 'react'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PageContainer } from '@/components/layout/PageContainer'
@@ -15,16 +16,56 @@ interface PageProps {
   params: Promise<{ id: string }>
 }
 
+// One read per render, shared by generateMetadata and the page: React's cache
+// memoises it for the rest of the request. Selected, not included - `include`
+// returned University.logo, which can hold an inline base64 image (365KB for
+// Toronto) that this page never shows, and every column of every program.
+// Keep this to the fields read below.
+const getUniversity = cache((id: string) =>
+  prisma.university.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      abbreviatedName: true,
+      description: true,
+      city: true,
+      classification: true,
+      studentPopulation: true,
+      image: true,
+      websiteUrl: true,
+      email: true,
+      phone: true,
+      country: {
+        select: { id: true, name: true, code: true, flagEmoji: true }
+      },
+      programs: {
+        select: {
+          id: true,
+          name: true,
+          degreeType: true,
+          duration: true,
+          minIBPoints: true,
+          fieldOfStudy: { select: { id: true, name: true } }
+        },
+        orderBy: {
+          name: 'asc'
+        }
+      },
+      _count: {
+        select: {
+          programs: true
+        }
+      }
+    }
+  })
+)
+
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
-  const university = await prisma.university.findUnique({
-    where: { id },
-    include: {
-      country: true
-    }
-  })
+  const university = await getUniversity(id)
 
   if (!university) {
     return {
@@ -69,26 +110,7 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function UniversityDetailPage({ params }: PageProps) {
   const { id } = await params
 
-  // Fetch university with all related data
-  const university = await prisma.university.findUnique({
-    where: { id },
-    include: {
-      country: true,
-      programs: {
-        include: {
-          fieldOfStudy: true
-        },
-        orderBy: {
-          name: 'asc'
-        }
-      },
-      _count: {
-        select: {
-          programs: true
-        }
-      }
-    }
-  })
+  const university = await getUniversity(id)
 
   if (!university) {
     notFound()

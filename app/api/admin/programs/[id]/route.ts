@@ -144,7 +144,10 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     }
 
     if (universityId !== undefined) {
-      const university = await prisma.university.findUnique({ where: { id: universityId } })
+      const university = await prisma.university.findUnique({
+        where: { id: universityId },
+        select: { id: true }
+      })
       if (!university) {
         return NextResponse.json({ error: 'Invalid university selected' }, { status: 400 })
       }
@@ -210,13 +213,23 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       }
     }
 
+    // Returns the program's own fields only. The edit form reads nothing from a
+    // successful response, and the old `include` sent back the whole university
+    // row, logo and all.
     const program = await prisma.academicProgram.update({
       where: { id },
       data: updateData,
-      include: {
-        university: { include: { country: true } },
-        fieldOfStudy: true,
-        courseRequirements: { include: { ibCourse: true } }
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        universityId: true,
+        fieldOfStudyId: true,
+        degreeType: true,
+        duration: true,
+        minIBPoints: true,
+        programUrl: true,
+        updatedAt: true
       }
     })
 
