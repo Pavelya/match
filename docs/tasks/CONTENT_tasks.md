@@ -23,7 +23,7 @@ here, and this refresh does more production writes than any work before it.
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
-| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
+| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **2.1 done** 25 September 2026. The other 15 pages still say "2026 intake" |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
@@ -63,7 +63,7 @@ Phase 1 — Fix now
 
 Phase 2 — Country pages for the 2027 intake
 
-- [ ] 2.1 English-speaking and Asia-Pacific pages (7)
+- [x] 2.1 English-speaking and Asia-Pacific pages (7) — owner to open four bot-walled links
 - [ ] 2.2 Western and Northern Europe pages (7)
 - [ ] 2.3 Southern and Central Europe, Israel, Japan pages (8)
 - [ ] 2.4 `/ib-university-requirements`
@@ -215,7 +215,12 @@ not precision.
 - **Bot-blocked domains** return 403 to scripted requests on every URL: `ox.ac.uk`,
   `ucl.ac.uk`, `web.ub.edu`, `study.unimelb.edu.au` (and `mur.gov.it` on the country
   pages). Try WebFetch; if that fails too, list the programs for the owner to check in a
-  browser. Do not record them as broken.
+  browser. Do not record them as broken. Found in 2.1: `univcan.ca` and `ouac.on.ca` 403 (univcan
+  answers WebFetch), `join.hkust.edu.hk` resets the connection (answers WebFetch), and
+  `mcgill.ca/undergraduate-admissions` 403s (its `/importantdates/` pages answer).
+- **A 200 can be a bot wall.** `nus.edu.sg` web pages, `admissions.smu.edu.sg` and `cityu.edu.hk`
+  return 200 with an Incapsula challenge page to curl and WebFetch alike. Check the body, not just
+  the status. NUS PDFs under `/oam/docs/` still download.
 - **A 200 can be stale.** Year-pinned URLs keep serving last year's page: Manchester
   `/2026/`, Jönköping `autumn-2026`, Gdańsk `20242025`, HKUST `2020-21`.
 
@@ -519,6 +524,66 @@ Known issues:
   respond to a scripted request. Check by hand.
 
 **Session size:** Medium.
+
+#### Status, 25 September 2026 — done (session 4)
+
+- **All seven say 2027**, and their `modified` date in `lib/page-dates.ts` is 2026-09-25. Every dated
+  fact was checked against its source. Where no 2027 figure exists yet, the page gives the latest one
+  and names the year it describes.
+- **UK.** UCAS's published 2027 dates replace the "estimated" timeline: applications opened 12 May
+  2026; the deadlines are 15 October 2026 (Oxford, Cambridge, medicine) and 13 January 2027, and the
+  final one is 23 September 2027. The Tariff link has a new URL. The personal statement is described as
+  it is now (three questions, 4,000 characters), and the UCAS document upload new for 2027 entry is noted.
+- **Ireland.** CAO has published its 2027 handbook and important-dates PDF but not yet linked them from
+  cao.ie; the page uses both. Dates and fees were wrong beyond the year: the deadline is 5:00 PM, not
+  5:15 PM, and the fees are €35 early, €50 normal, €65 late, and €95 late on paper (the page said €40,
+  €60 and €80). There is **no 2027 edition of the EU/EFTA/UK entry-requirements guide** yet. The eight
+  links now use CAO's short link `cao.ie/euefta`, which the 2027 handbook cites and which serves the
+  latest edition, and the conversion table says it comes from the 2026-entry edition. **Every value in
+  that table was wrong**: it did not match CAO's (45 points is 600, not 625; 24 is 350, not 360). The
+  English thresholds were wrong too. The fees answer now says €2,500 is the 2026/27 rate; the
+  unsourced €9,900–€34,000 range is gone. **Recheck the 2027/28 student contribution after the
+  October 2026 Budget**, and swap in the 2027 guide when CAO publishes it.
+- **Canada.** The page gave only month ranges and cited "university admission calendars" without a
+  link. It now gives the September 2027 entry dates of UBC, U of T and McGill (15 January 2027 at all
+  three), linked.
+- **USA.** The 2026–27 Common App opened on 1 August 2026 with over 1,200 members. The Coalition
+  Application is now submitted through Scoir. Unsourced tuition ranges were replaced with the College
+  Board's 2025–26 averages, the latest published.
+- **Australia.** The conversion is the 2027-entry one ("offers made from August 2026"; UAC and IB
+  Schools Australasia agree). **The page misdescribed who gets an IBAS**: it applies only to students
+  who sat the IB in Australia. Everyone else is ranked on the whole-number score, so that table was
+  added. The timeline has UAC and VTAC dates.
+- **Singapore.** NTU's AY2027-28 window (15 October 2026 – 19 March 2027) and its May 2027 rules are in.
+  NUS has not published AY2027-28 dates; the page shows its AY2026-27 dates, labelled as such. Two
+  claims were unsupported and are gone: that NTU expects "5s, 6s and 7s" (NTU publishes no grade profile
+  for IB) and that EE and TOK grades are "explicitly required". The timeline promised predicted-grade
+  applicants "early outcomes" from mid-May, but NUS and NTU both decide May-session applicants only
+  after results arrive in July.
+- **Hong Kong.** HKU and HKUST 2027 dates are in. HKU was shown as "30+", with 40–41 for medicine and
+  dentistry. HKU's own 2027 data (the JSON behind its requirements page) gives 34–43 by programme,
+  43 for medicine and 41 for dental surgery. The English grades matched neither HKU's (5 in English A,
+  6 in English B) nor CUHK's (4 in any IB English).
+  The HKUST "28+" and CityU "30+" rows could not be confirmed and are labelled as February 2026 figures.
+- **FAQ structured data.** On Canada and the USA the FAQPage JSON-LD did not match the visible FAQ.
+  The USA's even had a different question. Both are regenerated from the visible text. Australia's visible
+  sources were bare URLs and now show the same names as the JSON-LD. For all seven, the built HTML was
+  checked: every JSON-LD question, answer and source appears verbatim on the page. **Run the same
+  check on the 2.2 and 2.3 pages.**
+- **For the owner:**
+  - Open four links in a browser; scripts only get a bot wall: the NUS IB requirements page (it is
+    also the only source for the "institute code 000690" line), `admissions.smu.edu.sg`,
+    `univcan.ca`, and HKUST's international qualifications page (WebFetch reads the last two).
+  - Left for phase 6, not checked here: "over 770 US universities" recognise the IB (the IB's own
+    text, read through the search index, says about 800 have policies in its database, and that more
+    than half grant credit for SL as well as HL, against the page's "SL usually no credit"); the
+    Common App's 650-word essay and 20-college limits (its help pages are script-rendered); and the
+    unlinked credit policies for Michigan, Stanford and Georgetown.
+  - The NUS AY2027-28 window, when NUS publishes it (last year's opened in mid-December).
+- **Verified.** All 47 external links return 200 except the four bot walls above.
+  `grep -rn "2026 intake"` over the seven directories finds nothing. The build lists all seven
+  routes as static with a one-week revalidate. The rendered titles all end in "(2027)", and the
+  JSON-LD dates read modified 2026-09-25.
 
 ### 2.2 — Western and Northern Europe
 
