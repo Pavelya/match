@@ -15,6 +15,7 @@
 import { Metadata } from 'next'
 import { EstoniaContent } from './EstoniaContent'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -94,8 +95,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Estonia, the decentralized application process via DreamApply, and university-specific requirements.',
   url: `${baseUrl}/study-in-estonia-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-estonia-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

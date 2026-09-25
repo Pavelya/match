@@ -6,10 +6,15 @@
  * - Dynamic program detail pages from database
  *
  * This helps search engines discover all indexable content.
+ *
+ * `lastModified` is only ever a real date: the content date from `lib/page-dates.ts`,
+ * or the newest program for search. Pages with no known date leave it out. Never use
+ * `new Date()` here; it would tell crawlers every page changed at the last build.
  */
 
 import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
+import { COUNTRY_PAGES, PAGE_DATES, type DatedPage } from '@/lib/page-dates'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
@@ -26,214 +31,68 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8
   }))
 
+  const datedPage = (
+    path: DatedPage,
+    changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'],
+    priority: number
+  ): MetadataRoute.Sitemap[number] => ({
+    url: path === '/' ? baseUrl : `${baseUrl}${path}`,
+    lastModified: PAGE_DATES[path].modified,
+    changeFrequency,
+    priority
+  })
+
+  // Search results change whenever a program does
+  const latestProgramUpdate = programs.reduce<Date | undefined>(
+    (latest, program) => (!latest || program.updatedAt > latest ? program.updatedAt : latest),
+    undefined
+  )
+
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1.0
-    },
+    datedPage('/', 'monthly', 1.0),
     {
       url: `${baseUrl}/programs/search`,
-      lastModified: new Date(),
+      lastModified: latestProgramUpdate,
       changeFrequency: 'daily',
       priority: 0.9
     },
-    {
-      url: `${baseUrl}/how-it-works`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.7
-    },
-    {
-      url: `${baseUrl}/ib-university-requirements`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.9
-    },
-    {
-      url: `${baseUrl}/study-in-spain-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-germany-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-italy-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-canada-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-australia-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-uk-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-switzerland-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-austria-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-sweden-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-usa-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-belgium-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-czech-republic-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-denmark-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-estonia-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-hong-kong-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-israel-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-japan-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-netherlands-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-ireland-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-poland-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-portugal-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/study-in-singapore-with-ib-diploma`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5
-    },
+    datedPage('/how-it-works', 'monthly', 0.7),
+    datedPage('/ib-university-requirements', 'monthly', 0.9),
+    ...COUNTRY_PAGES.map((path) => datedPage(path, 'monthly', 0.8)),
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3
     },
+    datedPage('/for-coordinators', 'monthly', 0.8),
     {
-      url: `${baseUrl}/for-coordinators`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8
-    },
-    {
+      // No date: the text can come from the CMS, which this file does not read
       url: `${baseUrl}/faqs`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6
     },
     {
       url: `${baseUrl}/support-us`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7
     },
     {
       url: `${baseUrl}/cookies`,
-      lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5
     },
     {
       url: `${baseUrl}/auth/signin`,
-      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.3
     },

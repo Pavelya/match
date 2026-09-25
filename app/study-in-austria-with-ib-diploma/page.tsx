@@ -13,6 +13,7 @@
 import { Metadata } from 'next'
 import { AustriaContent } from './AustriaContent'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -92,8 +93,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Austria, university admission requirements, language rules, and application processes.',
   url: `${baseUrl}/study-in-austria-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-austria-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

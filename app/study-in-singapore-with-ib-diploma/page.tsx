@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { SingaporeContent } from './SingaporeContent'
+import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
@@ -70,8 +71,7 @@ export default function StudyInSingaporePage() {
     headline: 'Study in Singapore with the IB Diploma',
     description:
       'Learn how public and private universities in Singapore map and recognize IB Diploma grades for undergraduate programs.',
-    datePublished: '2026-02-26',
-    dateModified: new Date().toISOString().split('T')[0],
+    ...pageDates('/study-in-singapore-with-ib-diploma'),
     author: { '@type': 'Organization', name: 'IB Match', url: baseUrl },
     publisher: {
       '@type': 'Organization',

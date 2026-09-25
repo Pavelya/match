@@ -11,6 +11,7 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { UKContent } from './UKContent'
+import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days in seconds
@@ -90,8 +91,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in the UK, UCAS application process, entry requirements, and application deadlines.',
   url: `${baseUrl}/study-in-uk-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-uk-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

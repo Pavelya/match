@@ -16,7 +16,7 @@ app/study-in-{country-slug}-with-ib-diploma/
 ```
 
 Additionally:
-- **`app/sitemap.ts`** must be updated with the new route
+- **`lib/page-dates.ts`** needs a line for the new route (§3.2); the sitemap reads it from there
 - No changes to `robots.ts`, `layout.tsx`, or `next.config.ts` are needed
 
 ---
@@ -132,8 +132,14 @@ export const revalidate = 604800 // 7 days
 ```
 
 **Schema 2: Article (E-E-A-T)**
-- `datePublished`: `'2025-01-01'`
-- `dateModified`: `new Date().toISOString().split('T')[0]`
+- Dates: `...pageDates('/study-in-{country-slug}-with-ib-diploma')` from `@/lib/page-dates`,
+  which sets `datePublished` and `dateModified`. Add the page's line to `PAGE_DATES` in
+  `lib/page-dates.ts`: `published` is the day it goes live, `modified` the day its content
+  last changed.
+- **Never `new Date()` for either date.** The page is static and revalidates weekly, so it
+  would report every rebuild as an update while the text stays the same. Search engines
+  learn to ignore dates that always move. When you change a page's content, change its
+  `modified` date in the same commit.
 - `author` and `publisher`: `{ "@type": "Organization", "name": "IB Match", "url": baseUrl }`
 - `about` array: Include country-specific entities (recognition body, IB credential, country)
 
@@ -239,16 +245,9 @@ Text:
 
 ## 5. Sitemap Update
 
-Add to `app/sitemap.ts` inside the return array, grouped with other country pages:
-
-```typescript
-{
-  url: `${baseUrl}/study-in-{country-slug}-with-ib-diploma`,
-  lastModified: new Date(),
-  changeFrequency: 'monthly',
-  priority: 0.8
-},
-```
+Nothing to add. `app/sitemap.ts` lists every country page in `PAGE_DATES`
+(`lib/page-dates.ts`) and uses its `modified` date as `lastModified`, so the line added in
+§3.2 is enough. `lib/page-dates.test.ts` fails if a `study-in-*` directory has no line there.
 
 ---
 
@@ -292,7 +291,7 @@ Before considering the page complete, verify:
 - [ ] Country flag emoji present in hero badge and CTA section
 - [ ] Internal link to `/how-it-works` present
 - [ ] CTAs to `/auth/signin` and `/programs/search?countries={COUNTRY_DB_ID}` present
-- [ ] Page added to `app/sitemap.ts`
+- [ ] Page added to `PAGE_DATES` in `lib/page-dates.ts` (the sitemap reads it from there)
 - [ ] Country added to `COUNTRY_GUIDE_SLUGS` in `app/ib-university-requirements/page.tsx` (see §9.1)
 - [ ] `export const dynamic = 'force-static'` set
 - [ ] `export const revalidate = 604800` set

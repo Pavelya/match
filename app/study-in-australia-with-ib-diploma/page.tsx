@@ -11,6 +11,7 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { AustraliaContent } from './AustraliaContent'
+import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days in seconds
@@ -88,8 +89,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Australia, IBAS–ATAR conversion, and admission requirements.',
   url: `${baseUrl}/study-in-australia-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-australia-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',
