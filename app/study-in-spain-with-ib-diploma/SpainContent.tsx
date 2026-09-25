@@ -20,61 +20,92 @@ import {
   ExternalLink
 } from 'lucide-react'
 
-// Grade conversion table data
+// Access grade from the average IB subject grade (Orden EFD/550/2025, annex III.a):
+// 5 + 5 × (average − 2) / (7 − 2), which for the IB is the average plus 3
 const gradeConversionData = [
-  { ibPoints: '42–45', baseScore: '10.0' },
-  { ibPoints: '40', baseScore: '~9.5' },
-  { ibPoints: '36', baseScore: '~8.4' },
-  { ibPoints: '30', baseScore: '~6.8' },
-  { ibPoints: '24', baseScore: '5.0' }
+  { ibAverage: '7.0', accessGrade: '10.0' },
+  { ibAverage: '6.5', accessGrade: '9.5' },
+  { ibAverage: '6.0', accessGrade: '9.0' },
+  { ibAverage: '5.0', accessGrade: '8.0' },
+  { ibAverage: '4.0', accessGrade: '7.0' }
 ]
 
-// Subject weighting examples
+// Subjects Madrid's public universities can weight (2026–27 admission agreement, annex)
 const subjectWeightings = [
-  { field: 'Engineering', subjects: 'Mathematics AA, Physics' },
-  { field: 'Health Sciences', subjects: 'Biology, Chemistry' },
-  { field: 'Business & Economics', subjects: 'Mathematics, Economics' },
-  { field: 'Humanities', subjects: 'History, Geography, Art' }
+  {
+    field: 'Sciences and engineering',
+    subjects: 'Matemáticas II, Física, Química, Biología, Tecnología e Ingeniería II'
+  },
+  {
+    field: 'Social sciences',
+    subjects:
+      'Matemáticas Aplicadas a las Ciencias Sociales II, Empresa y Diseño de Modelos de Negocio, Geografía'
+  },
+  { field: 'Humanities', subjects: 'Historia del Arte, Latín II, Griego II' },
+  { field: 'Arts and design', subjects: 'Dibujo Artístico II, Dibujo Técnico II, Diseño' }
 ]
 
-// UNEDassis required documents
+// UNEDasiss required documents (EU, agreement and IB systems)
 const requiredDocuments = [
-  'IB Diploma or predicted grades',
-  'Academic transcripts',
-  'Passport or ID',
-  'Proof of payment',
-  'Official IB results sent by the IBO'
+  'Certified copy of your school transcripts for the last two years before university',
+  'Certified copy of the document that gives you access to university: your IB Diploma and results',
+  'Passport or national ID',
+  'Payment of the UNEDasiss fee (applications are processed only once paid)'
 ]
 
-// Application timeline
+// Application timeline (UNEDasiss 2026 dates; the 2027 dates are not yet published)
 const timelineSteps = [
-  { period: 'February–March', description: 'Applications open' },
-  { period: 'May', description: 'PCE registration deadline' },
-  { period: 'June–July', description: 'Exams and cut-off scores' },
-  { period: 'July–September', description: 'Admissions' }
+  {
+    period: 'From 4 February',
+    description:
+      'The UNEDasiss online application opens, and stays open until 1 December. Apply at least six weeks before your university deadline.'
+  },
+  {
+    period: 'Mid-March to late April',
+    description:
+      'Register for the May PCE exams. In 2026 registration ran from 16 March to 28 April.'
+  },
+  {
+    period: 'Late May',
+    description:
+      'PCE exams: 25–29 May 2026 in Spain. A September session followed on 2–8 September 2026.'
+  },
+  {
+    period: 'Early July',
+    description:
+      'Apply to public universities. The 2026 deadline for international students was 7 July. Apply even if your accreditation is not ready: missing documents were accepted until 31 July.'
+  }
 ]
 
 // FAQ data
 const faqs = [
   {
     question: 'Do predicted IB grades work for Spain?',
-    answer: 'Yes. Final enrollment requires official results.',
-    source: 'https://unedasiss.uned.es'
+    answer:
+      'Not for the access grade, which UNEDasiss calculates from your final IB subject grades. If you have not finished the IB by the admission deadline, send your latest school transcripts with your application and the missing documents when you have them.',
+    source: 'UNEDasiss — Key dates (in Spanish)',
+    sourceUrl: 'https://unedasiss.uned.es/fechas_clave'
   },
   {
     question: 'Can IB students study Medicine in Spain?',
-    answer: 'Yes. Cut-off scores are often above 12.5 / 14.',
-    source: 'https://www.universidades.gob.es'
+    answer:
+      "Yes, but places are highly competitive. For 2026–27, the cut-off for Medicine at Madrid's public universities was between 12.8 and 13.1 out of 14.",
+    source: 'Comunidad de Madrid — Cut-off grades 2026–27 (PDF, in Spanish)',
+    sourceUrl: 'https://www.comunidad.madrid/docs/2026-07/notas-de-corte-dum-2026-27.pdf'
   },
   {
     question: 'Is Spanish language required?',
-    answer: 'Usually B2 for public universities.',
-    source: 'https://www.universidades.gob.es'
+    answer:
+      'It depends on the university. Each university sets its own language requirements, and UNEDasiss can add a language certificate to your accreditation when a university asks for one.',
+    source: 'UNEDasiss — Types of international students (in Spanish)',
+    sourceUrl: 'https://unedasiss.uned.es/publico_destino'
   },
   {
-    question: 'Is UNEDassis required for private universities?',
-    answer: 'In most cases, yes.',
-    source: 'https://unedasiss.uned.es'
+    question: 'Is UNEDasiss required for private universities?',
+    answer:
+      'Usually. UNEDasiss says IB students need its accreditation to enter a Spanish university. Private universities run their own admissions, so confirm what each one asks for.',
+    source: 'UNEDasiss — Types of international students (in Spanish)',
+    sourceUrl: 'https://unedasiss.uned.es/publico_destino'
   }
 ]
 
@@ -89,7 +120,7 @@ export function SpainContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇪🇸</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -106,7 +137,7 @@ export function SpainContent() {
               <strong>IB Diploma students and IB Coordinators</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -119,7 +150,7 @@ export function SpainContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -137,22 +168,23 @@ export function SpainContent() {
 
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
-                Spain officially recognizes the{' '}
-                <strong>International Baccalaureate (IB) Diploma</strong> as equivalent to the
-                Spanish <em>Título de Bachiller</em>. This equivalence allows IB students to access
-                Spanish higher education without completing the national Spanish Bachillerato.
+                Spanish law lets holders of the{' '}
+                <strong>International Baccalaureate (IB) Diploma</strong> enter university without
+                taking the Spanish university access exam and without having their diploma
+                homologated to the Spanish <em>Bachillerato</em>.
               </p>
 
               <p>
-                This recognition is established in Spanish education regulations published in the{' '}
-                <strong>Spanish Official State Gazette</strong>, Spain&apos;s official legal
-                bulletin.
+                The exemption is set by the Education Act (Ley Orgánica 2/2006, additional provision
+                33). <strong>Orden EFD/550/2025</strong>, published in the{' '}
+                <strong>Spanish Official State Gazette</strong>, sets how IB grades convert to the
+                Spanish scale for admissions from 2025–26 onwards.
               </p>
 
               <p>
-                The accreditation process is administered by <strong>UNEDassis</strong>, the only
-                public body authorized to validate international secondary school diplomas for
-                university access in Spain.
+                <strong>UNEDasiss</strong>, a service of the Spanish public distance-learning
+                university UNED, calculates your access grade and issues the accreditation that
+                universities use in their admissions.
               </p>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -163,22 +195,22 @@ export function SpainContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.boe.es"
+                      href="https://www.boe.es/buscar/act.php?id=BOE-A-2025-10777"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.boe.es
+                      BOE — Orden EFD/550/2025 (in Spanish)
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://unedasiss.uned.es/home/acreditacion"
+                      href="https://unedasiss.uned.es/publico_destino"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://unedasiss.uned.es/home/acreditacion
+                      UNEDasiss — Types of international students (in Spanish)
                     </a>
                   </li>
                 </ul>
@@ -201,13 +233,13 @@ export function SpainContent() {
               <div className="rounded-2xl bg-green-50 p-8 border border-green-100">
                 <p className="text-2xl font-bold text-green-800 mb-4">No.</p>
                 <p className="text-gray-700">
-                  IB students are <strong>exempt from the general phase</strong> of the Spanish
-                  university entrance examination (EvAU / Selectividad) due to the official
-                  equivalence of the IB Diploma.
+                  IB Diploma holders are <strong>exempt from the university access exam</strong>{' '}
+                  (the PAU, formerly EvAU or EBAU, known as <em>Selectividad</em>). The exemption
+                  comes from the law and applies nationwide.
                 </p>
                 <p className="mt-4 text-gray-700">
-                  This exemption is confirmed through UNEDassis accreditation and applies
-                  nationwide.
+                  To raise your admission grade above 10, you can still take optional subject exams.
+                  See the extra points section below.
                 </p>
               </div>
 
@@ -219,22 +251,22 @@ export function SpainContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://unedasiss.uned.es"
+                      href="https://www.boe.es/buscar/act.php?id=BOE-A-2024-11858"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://unedasiss.uned.es
+                      BOE — Real Decreto 534/2024 on university access (in Spanish)
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://www.universidades.gob.es/acceso-y-admision-a-la-universidad/"
+                      href="https://www.comunidad.madrid/educacion/acceso-universidad-estudios-extranjeros"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.universidades.gob.es/acceso-y-admision-a-la-universidad/
+                      Comunidad de Madrid — University access with foreign studies (in Spanish)
                     </a>
                   </li>
                 </ul>
@@ -244,29 +276,32 @@ export function SpainContent() {
         </div>
       </section>
 
-      {/* How IB Scores Are Converted in Spain (0–14 System) */}
+      {/* How IB Scores Are Converted in Spain (5–14 Scale) */}
       <section className="bg-gray-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Grade Conversion</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              How IB Scores Are Converted in Spain (0–14 System)
+              How IB Scores Are Converted in Spain (5–14 Scale)
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Spain uses a <strong>two-step scoring system</strong> regulated by the Ministry of
-              Universities, with score conversion performed by UNEDassis.
+              Spain uses a <strong>two-step score</strong>. UNEDasiss converts your IB grades into
+              an access grade out of 10, and universities can add up to 4 points for weighted
+              subjects.
             </p>
 
             {/* Base Score Section */}
             <div className="mt-12">
               <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <Scale className="h-5 w-5 text-blue-600" />
-                Base University Access Score (0–10)
+                Access Grade (5–10)
               </h3>
               <p className="text-gray-600 mb-6">
-                Your total IB Diploma score (24–45 points) is converted into a{' '}
-                <strong>Base University Access Score</strong> on a 0–10 scale.
+                UNEDasiss averages the grades of the subjects on your IB results and converts the
+                average with the formula in Orden EFD/550/2025:{' '}
+                <strong>access grade = 5 + 5 × (average − 2) ÷ 5</strong>. For the IB, that is your
+                average plus 3. Your total out of 45 is not used.
               </p>
 
               <div className="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 overflow-hidden max-w-sm">
@@ -274,20 +309,20 @@ export function SpainContent() {
                   <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
                       <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">
-                        IB Points
+                        Average IB Subject Grade
                       </th>
                       <th className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
-                        Base Score
+                        Access Grade
                       </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {gradeConversionData.map((row) => (
-                      <tr key={row.ibPoints} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-4 py-3 text-sm text-gray-700">{row.ibPoints}</td>
+                      <tr key={row.ibAverage} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-3 text-sm text-gray-700">{row.ibAverage}</td>
                         <td className="px-4 py-3 text-right">
                           <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-sm font-semibold text-blue-700">
-                            {row.baseScore}
+                            {row.accessGrade}
                           </span>
                         </td>
                       </tr>
@@ -304,13 +339,14 @@ export function SpainContent() {
                 Subject Weighting Bonus (+0 to +4)
               </h3>
               <p className="text-gray-600 mb-6">
-                Universities may award up to <strong>4 additional points</strong> based on subject
-                relevance (<em>ponderaciones</em>).
+                Universities add the grades of up to two subjects, each multiplied by{' '}
+                <strong>0.1 or 0.2</strong> (<em>ponderaciones</em>) depending on how relevant the
+                subject is to the degree.
               </p>
 
               <div className="rounded-2xl bg-blue-50 p-6 mb-6">
                 <p className="text-center text-lg font-semibold text-gray-900">
-                  Base Score (0–10) + Weighted Subjects (up to +4) ={' '}
+                  Access Grade (5–10) + Weighted Subjects (up to +4) ={' '}
                   <span className="text-blue-600">Maximum 14</span>
                 </p>
               </div>
@@ -323,22 +359,22 @@ export function SpainContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.universidades.gob.es"
+                      href="https://www.boe.es/buscar/act.php?id=BOE-A-2025-10777"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.universidades.gob.es
+                      BOE — Orden EFD/550/2025 (in Spanish)
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://www.comunidad.madrid/servicios/educacion/distrito-unico"
+                      href="https://universitats.gencat.cat/ca/preinscripcions/ponderacions/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.comunidad.madrid/servicios/educacion/distrito-unico
+                      Universities of Catalonia — Weightings (in Catalan)
                     </a>
                   </li>
                 </ul>
@@ -354,17 +390,18 @@ export function SpainContent() {
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Subject Weightings</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              How IB Subjects Increase Your Admission Score
+              How Subjects Increase Your Admission Score
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Universities assign subject weightings of <strong>0.1 or 0.2</strong> depending on
-              degree relevance.
+              The weighted subjects are <strong>Spanish Bachillerato subjects</strong>. Each public
+              university publishes a table of which subjects count for each degree and whether they
+              weigh 0.1 or 0.2. Catalonia has already published its tables for 2027.
             </p>
 
             <div className="mt-8">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Typical high-weight IB subjects:
+                Subjects Madrid&apos;s public universities can weight (2026–27), grouped by area:
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
                 {subjectWeightings.map((item) => (
@@ -387,22 +424,22 @@ export function SpainContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://universitats.gencat.cat"
+                    href="https://universitats.gencat.cat/ca/preinscripcions/ponderacions/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://universitats.gencat.cat
+                    Universities of Catalonia — Weightings (in Catalan)
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.comunidad.madrid/servicios/educacion/"
+                    href="https://www.comunidad.madrid/docs/2026-06/acuerdo-universidades-2026-2027.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.comunidad.madrid/servicios/educacion/
+                    Madrid public universities — Admission agreement 2026–27 (PDF, in Spanish)
                   </a>
                 </li>
               </ul>
@@ -428,21 +465,23 @@ export function SpainContent() {
                     <GraduationCap className="h-5 w-5 text-blue-600" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">
-                    Option 1: IB Higher Level Recognition
+                    Option 1: Recognition of IB Subjects
                   </h3>
                 </div>
                 <p className="text-gray-600">
-                  UNEDassis may directly recognize IB HL subjects (usually grades 5–7).
+                  UNEDasiss can recognise IB subjects as equivalent to Spanish ones, so you do not
+                  sit PCE exams in them. Not every university accepts recognised subjects, and only
+                  subjects finished in the current or the two previous school years count.
                 </p>
                 <p className="mt-4 text-sm">
                   <strong>Source:</strong>{' '}
                   <a
-                    href="https://unedasiss.uned.es"
+                    href="https://unedasiss.uned.es/faqs"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://unedasiss.uned.es
+                    UNEDasiss — FAQ (in Spanish)
                   </a>
                 </p>
               </div>
@@ -456,7 +495,9 @@ export function SpainContent() {
                   <h3 className="text-lg font-semibold text-gray-900">Option 2: PCE Exams</h3>
                 </div>
                 <p className="text-gray-600">
-                  Students may take <strong>PCE exams</strong> administered by UNED.
+                  Students may take UNED&apos;s <strong>PCE exams</strong> (specific competence
+                  tests) in the subjects a university weights. There is a May–June session and a
+                  September session.
                 </p>
                 <div className="mt-4 text-sm space-y-1">
                   <p>
@@ -465,22 +506,22 @@ export function SpainContent() {
                   <ul className="space-y-1">
                     <li>
                       <a
-                        href="https://unedasiss.uned.es/home/pce"
+                        href="https://unedasiss.uned.es/examenes"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"
                       >
-                        https://unedasiss.uned.es/home/pce
+                        UNEDasiss — Exams (in Spanish)
                       </a>
                     </li>
                     <li>
                       <a
-                        href="https://unedasiss.uned.es/home/calendarios"
+                        href="https://unedasiss.uned.es/fechas_clave"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:underline"
                       >
-                        https://unedasiss.uned.es/home/calendarios
+                        UNEDasiss — Key dates (in Spanish)
                       </a>
                     </li>
                   </ul>
@@ -522,18 +563,18 @@ export function SpainContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>UNEDassis required</span>
+                    <span>UNEDasiss accreditation required</span>
                   </li>
                 </ul>
                 <p className="mt-4 text-sm">
                   <strong>Source:</strong>{' '}
                   <a
-                    href="https://www.universidades.gob.es"
+                    href="https://www.comunidad.madrid/educacion/acceso-universidad-estudios-extranjeros"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.universidades.gob.es
+                    Comunidad de Madrid — University access with foreign studies (in Spanish)
                   </a>
                 </p>
               </div>
@@ -549,11 +590,11 @@ export function SpainContent() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>Holistic admissions</span>
+                    <span>Their own admission procedures</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>UNEDassis often required for enrollment</span>
+                    <span>Ask each one whether it needs the UNEDasiss accreditation</span>
                   </li>
                 </ul>
               </div>
@@ -562,13 +603,13 @@ export function SpainContent() {
         </div>
       </section>
 
-      {/* UNEDassis Documents Required */}
+      {/* UNEDasiss Documents Required */}
       <section className="bg-gray-50 py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Documentation</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              UNEDassis Documents Required for IB Students
+              UNEDasiss Documents Required for IB Students
             </p>
 
             <div className="mt-8 rounded-2xl bg-white p-8 shadow-sm border border-gray-200">
@@ -585,29 +626,30 @@ export function SpainContent() {
             <p className="mt-6 text-sm text-gray-600">
               <strong>Source:</strong>{' '}
               <a
-                href="https://unedasiss.uned.es"
+                href="https://unedasiss.uned.es/paso_3"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://unedasiss.uned.es
+                UNEDasiss — Prepare your documents (in Spanish)
               </a>
             </p>
           </div>
         </div>
       </section>
 
-      {/* UNEDassis Application Timeline */}
+      {/* UNEDasiss Application Timeline */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Timeline</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              UNEDassis Application Timeline
+              UNEDasiss Application Timeline
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Typical timeline according to UNEDassis:
+              UNEDasiss has not yet published its 2027 dates. The steps below follow its 2026
+              calendar:
             </p>
 
             <div className="mt-8 space-y-4">
@@ -630,12 +672,12 @@ export function SpainContent() {
             <p className="mt-6 text-sm text-gray-600">
               <strong>Source:</strong>{' '}
               <a
-                href="https://unedasiss.uned.es/home/calendarios"
+                href="https://unedasiss.uned.es/fechas_clave"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://unedasiss.uned.es/home/calendarios
+                UNEDasiss — Key dates (in Spanish)
               </a>
             </p>
           </div>
@@ -662,7 +704,7 @@ export function SpainContent() {
                   <p className="mt-3 text-sm">
                     <span className="text-gray-500">Source:</span>{' '}
                     <a
-                      href={faq.source}
+                      href={faq.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"

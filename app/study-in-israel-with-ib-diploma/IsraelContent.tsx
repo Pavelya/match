@@ -31,7 +31,7 @@ const requiredDocuments = [
   'Psychometric Entrance Test (PET) scores — or SAT/ACT scores where accepted',
   'Proof of identity (passport)',
   'Proof of Hebrew proficiency (YAEL test or equivalent — for Hebrew-taught programmes)',
-  'Proof of English proficiency (IELTS, TOEFL, or IB English course results)',
+  'Proof of English level (for example TOEFL or IELTS results; PET takers from December 2026 take the separate AMIRNET test)',
   'Any programme-specific supplementary documents (e.g., portfolio, interview)'
 ]
 
@@ -43,14 +43,14 @@ const timelineSteps = [
       "Most Israeli universities open their application portals in the autumn or early winter for the following academic year. Check each university's website for exact dates, as they vary by institution."
   },
   {
-    period: 'January–March: Main Application Deadlines',
+    period: 'December 2026 and April 2027: Psychometric Test Dates',
     description:
-      'Application deadlines for most undergraduate programmes fall between January and March. Some programmes (especially competitive ones like Medicine) may have earlier deadlines.'
+      'From the December 2026 sitting, the PET tests verbal and quantitative reasoning only; English is tested separately by the AMIRNET test, which you can take throughout the year. Test dates: 4–6 December 2026 and 18–19 April 2027. Register at nite.org.il.'
   },
   {
-    period: 'Spring: Psychometric Test Dates',
+    period: 'Spring: Application Deadlines',
     description:
-      'The PET is offered multiple times throughout the year. Register at nite.org.il. Plan to take the test well before your application deadline — results are valid for seven years.'
+      'Deadlines vary by university and programme, and Medicine closes earlier. At Tel Aviv University, for 2025–26 entry to Hebrew-taught programmes, applications were due by 31 May 2025, by 10 May for Medicine and by 19 April for Dental Medicine.'
   },
   {
     period: 'April–June: Admission Decisions',
@@ -58,9 +58,9 @@ const timelineSteps = [
       'Universities send admission decisions on a rolling basis. Accepted students receive instructions for enrollment, visa applications, and housing arrangements.'
   },
   {
-    period: 'October: Academic Year Begins',
+    period: 'October 2027: Academic Year Begins',
     description:
-      'The Israeli academic year typically starts in October. International students should arrive early for orientation, visa processing, and optional Hebrew language preparation (Ulpan).'
+      'The 2027–28 academic year opens in October 2027. International students should arrive early for orientation, visa processing, and optional Hebrew language preparation (Ulpan).'
   }
 ]
 
@@ -69,23 +69,23 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Israel?',
     answer:
-      "Yes. Israeli universities accept the IB Diploma as equivalent to the Israeli Bagrut (matriculation certificate) for admission purposes. All major research universities — including Tel Aviv University, Hebrew University of Jerusalem, Technion, Ben-Gurion University, and Bar-Ilan University — accept IB Diploma holders. The Israeli Ministry of Education's evaluation unit can also issue a formal equivalence statement.",
-    source: 'Study Israel — CHE Portal',
-    sourceUrl: 'https://studyisrael.org.il/'
+      'Yes. Israeli universities accept the IB Diploma for admission. Tel Aviv University, for example, lists the IB among the diplomas from abroad that are equivalent to the Israeli matriculation certificate (Bagrut) for registration.',
+    source: 'Tel Aviv University — General Entrance Requirements',
+    sourceUrl: 'https://en-go.tau.ac.il/General-Requirements'
   },
   {
     question: 'Do IB students need to take the Psychometric Entrance Test (PET)?',
     answer:
-      'In most cases, yes. The Psychometric Entrance Test (PET), administered by the National Institute for Testing and Evaluation (NITE), is required by most Israeli universities alongside secondary school results. The PET assesses verbal reasoning, quantitative reasoning, and English proficiency. Scores range from 200 to 800. Some universities accept SAT or ACT scores as alternatives to the PET, except for medical school programs.',
-    source: 'NITE — The Psychometric Test',
-    sourceUrl: 'https://www.nite.org.il/psychometric-entrance-test/?lang=en'
+      'In most cases, yes. Most Israeli institutions admit candidates on a combination of their matriculation average and their score in the Psychometric Entrance Test (PET), administered by NITE. From the December 2026 sitting, the PET tests verbal and quantitative reasoning only, and English is tested separately by the AMIRNET test. Scores stay on the 200–800 scale, and the change applies to admissions for the 2027–28 academic year.',
+    source: 'NITE — English domain to be separated from the PET',
+    sourceUrl: 'https://www.nite.org.il/news/notice-15022026/?lang=en'
   },
   {
     question: 'Do I need to speak Hebrew to study in Israel?',
     answer:
-      'It depends on the programme. Most undergraduate programmes at Israeli universities are taught in Hebrew, requiring advanced Hebrew proficiency demonstrated through the YAEL test or equivalent. However, Israel offers a growing number of English-taught programmes at both undergraduate and graduate levels. IB English A or English B courses may satisfy English proficiency requirements at some institutions. Preparatory Hebrew language programmes (Ulpan) are widely available.',
-    source: 'Study Israel — CHE Portal',
-    sourceUrl: 'https://studyisrael.org.il/'
+      "It depends on the programme. Programmes taught in Hebrew require Hebrew proficiency. Israeli institutions also offer Bachelor's and Master's programmes in English for international students, which ask for proof of English, for example TOEFL or IELTS results.",
+    source: 'Study Israel — Planning',
+    sourceUrl: 'https://studyisrael.org.il/planning/'
   },
   {
     question: 'How do IB students apply to Israeli universities?',
@@ -97,8 +97,8 @@ const faqs = [
   {
     question: 'What documents do IB students need for Israeli university admission?',
     answer:
-      'Required documents typically include: IB Diploma and transcript of results, Psychometric Entrance Test (PET) scores (or SAT/ACT), proof of identity (passport), proof of language proficiency (Hebrew and/or English depending on programme), and any programme-specific supplementary documents. International students also need an A/2 Student Visa and proof of financial means.',
-    source: 'Study Israel — CHE Portal',
+      'Required documents typically include: IB Diploma and transcript of results, Psychometric Entrance Test (PET) scores (or SAT/ACT where accepted), proof of identity (passport), proof of language proficiency (Hebrew and/or English depending on programme), and any programme-specific supplementary documents. International students also need an A/2 Student Visa and proof of financial means.',
+    source: 'Study Israel — Planning',
     sourceUrl: 'https://studyisrael.org.il/planning/'
   }
 ]
@@ -114,7 +114,7 @@ export function IsraelContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇮🇱</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -133,7 +133,7 @@ export function IsraelContent() {
               to each university.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -146,7 +146,7 @@ export function IsraelContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -164,27 +164,18 @@ export function IsraelContent() {
 
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
-                The <strong>International Baccalaureate (IB) Diploma</strong> is accepted by all
-                major Israeli universities as{' '}
+                The <strong>International Baccalaureate (IB) Diploma</strong> is accepted by Israeli
+                universities for admission. Tel Aviv University, for example, lists it among the
+                diplomas from abroad that are{' '}
                 <strong>equivalent to the Israeli Bagrut (matriculation certificate)</strong> for
-                admission purposes. This includes Tel Aviv University, Hebrew University of
-                Jerusalem, Technion — Israel Institute of Technology, Ben-Gurion University, and
-                Bar-Ilan University.
+                registration, and the Technion publishes its own conversion of IB grades.
               </p>
 
               <p>
-                The Israeli <strong>Ministry of Education</strong> has a dedicated unit for
-                evaluating foreign secondary education certificates. This unit can issue a formal
-                equivalence statement confirming that the IB Diploma is on a level with the Bagrut.
-                However, most universities accept the IB Diploma directly without requiring this
-                formal evaluation.
-              </p>
-
-              <p>
-                In addition to the IB Diploma, most universities require applicants to take the{' '}
+                In addition to the IB Diploma, most institutions require applicants to take the{' '}
                 <strong>Psychometric Entrance Test (PET)</strong>, administered by the National
-                Institute for Testing and Evaluation (NITE). The combined assessment of the IB score
-                and PET result produces the admission score used for selection.
+                Institute for Testing and Evaluation (NITE). Most institutions admit candidates on a
+                combination of their matriculation average and their PET score.
               </p>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -211,6 +202,26 @@ export function IsraelContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Council for Higher Education of Israel
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en-go.tau.ac.il/General-Requirements"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Tel Aviv University — General Entrance Requirements
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.nite.org.il/two-domain-psychometric-entrance-test/higher-education-admissions/?lang=en"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      NITE — Higher Education Admissions
                     </a>
                   </li>
                 </ul>
@@ -240,9 +251,8 @@ export function IsraelContent() {
                     <p className="mt-2 text-gray-600">
                       Israeli universities recognize the IB Diploma as an alternative to the
                       national Bagrut certificate. You do not need to sit for Bagrut exams or obtain
-                      a separate Israeli secondary diploma. The Ministry of Education can provide a
-                      formal equivalence evaluation if requested by the institution, but this is
-                      typically handled by the university admissions office directly.
+                      a separate Israeli secondary diploma. The university admissions office
+                      assesses your IB results directly.
                     </p>
                   </div>
                 </div>
@@ -378,25 +388,26 @@ export function IsraelContent() {
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
                 There is no single, nationally mandated IB-to-Bagrut grade conversion table in
-                Israel. Each university evaluates IB grades according to its own criteria. However,
-                universities generally consider IB scores alongside the Psychometric Entrance Test
-                (PET) to calculate a combined admission score.
+                Israel. Each university evaluates IB grades according to its own criteria, then
+                combines them with the Psychometric Entrance Test (PET) into an admission score. The
+                Technion&apos;s published rules show how this works:
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    Universities convert IB total points and individual subject grades to an
-                    equivalent Bagrut average for use in the Sekhem calculation
+                    Each IB grade converts to the Israeli 0–100 scale: 7 = 100, 6 = 85, 5 = 70, 4 =
+                    55
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Higher Level (HL) subjects</strong> are typically given more weight than
-                    Standard Level (SL) subjects, similar to how Bagrut 5-unit exams carry more
-                    weight than 3-unit exams
+                    <strong>Higher Level (HL) subjects</strong> count as 5 Bagrut units and Standard
+                    Level subjects as 3 (4 for SL Mathematics); HL Mathematics, Physics and
+                    Chemistry earn a 30-point bonus, and HL Biology, English and Computer Science 20
+                    points
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -409,9 +420,8 @@ export function IsraelContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    The <strong>IB total score (out of 45)</strong> is the primary academic measure
-                    used, with individual subject grades reviewed for programme-specific
-                    requirements
+                    The resulting average is combined with your PET score, or the SAT or ACT where
+                    accepted, into the admission score (Sekhem)
                   </span>
                 </div>
               </div>
@@ -424,12 +434,12 @@ export function IsraelContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://studyisrael.org.il/study-in-israel/"
+                      href="https://admissions.technion.ac.il/en/english/ib-ossd-bacs-gcse-ap-tests/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Study Israel — Institutions and Programs
+                      Technion — Admission of candidates with foreign matriculation diplomas
                     </a>
                   </li>
                 </ul>
@@ -461,36 +471,38 @@ export function IsraelContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Test content:</strong> Verbal reasoning, quantitative reasoning, and
-                    English language proficiency
+                    <strong>Test content:</strong> From the December 2026 sitting, a writing task
+                    plus verbal and quantitative reasoning. English is tested separately by the
+                    AMIRNET test, which you can take throughout the year
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Score range:</strong> 200–800. Higher scores improve admission chances
+                    <strong>Score range:</strong> 200–800, unchanged by the new format. Higher
+                    scores improve admission chances
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Languages available:</strong> Hebrew, Arabic, Russian, French, or a
-                    combined Hebrew/English format
+                    <strong>Languages available:</strong> Hebrew, Arabic, Combined/English, Russian
+                    and French, though not every language on every date
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Validity:</strong> PET results are valid for university admissions for
-                    seven years
+                    <strong>Validity:</strong> Scores remain valid for at least seven years,
+                    depending on the institution
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Alternatives:</strong> Many universities accept{' '}
-                    <strong>SAT or ACT</strong> scores in place of the PET, with the exception of
-                    medical school programmes
+                    <strong>Alternatives:</strong> Some universities accept{' '}
+                    <strong>SAT or ACT</strong> scores in place of the PET. Tel Aviv University
+                    does, except for Medicine and Dental Medicine
                   </span>
                 </div>
               </div>
@@ -498,17 +510,37 @@ export function IsraelContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.nite.org.il/psychometric-entrance-test/?lang=en"
+                      href="https://www.nite.org.il/news/notice-15022026/?lang=en"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      NITE — The Psychometric Entrance Test
+                      NITE — English domain to be separated from the PET
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.nite.org.il/two-domain-psychometric-entrance-test/?lang=en"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      NITE — The Two-domain Psychometric Test
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://en-go.tau.ac.il/General-Requirements"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Tel Aviv University — General Entrance Requirements
                     </a>
                   </li>
                 </ul>
@@ -578,22 +610,15 @@ export function IsraelContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      Required for English-taught programmes; also tested as part of the PET
+                      Required for English-taught programmes. From December 2026, English is tested
+                      by the AMIRNET test rather than inside the PET
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English A (HL)</strong> grade 6+ or{' '}
-                      <strong>IB English B (HL)</strong> grade 7 may exempt you from English
-                      proficiency requirements at some universities
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Otherwise, <strong>IELTS</strong> or <strong>TOEFL</strong> scores are
-                      accepted
+                      For programmes in English, <strong>IELTS</strong> or <strong>TOEFL</strong>{' '}
+                      results are commonly accepted
                     </span>
                   </li>
                 </ul>
@@ -603,17 +628,27 @@ export function IsraelContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://studyisrael.org.il/"
+                    href="https://studyisrael.org.il/planning/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    Study Israel — CHE Portal
+                    Study Israel — Planning
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.nite.org.il/news/notice-15022026/?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NITE — English domain to be separated from the PET
                   </a>
                 </li>
               </ul>
@@ -649,7 +684,7 @@ export function IsraelContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>8 research universities</strong>, all publicly funded
+                      <strong>9 universities</strong>, all publicly funded
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
@@ -679,8 +714,8 @@ export function IsraelContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>41 publicly funded colleges</strong> and{' '}
-                      <strong>12 privately funded colleges</strong>
+                      <strong>31 colleges</strong> and <strong>21 teacher training colleges</strong>
+                      ; 41 colleges are publicly funded and 12 privately funded
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
@@ -817,7 +852,7 @@ export function IsraelContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -828,6 +863,36 @@ export function IsraelContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study Israel — Planning Your Studies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.nite.org.il/news/notice-15022026/?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NITE — English domain to be separated from the PET
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.nite.org.il/two-domain-psychometric-entrance-test/?lang=en"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NITE — The Two-domain Psychometric Test
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://en-go.tau.ac.il/General-Requirements"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Tel Aviv University — General Entrance Requirements
                   </a>
                 </li>
               </ul>

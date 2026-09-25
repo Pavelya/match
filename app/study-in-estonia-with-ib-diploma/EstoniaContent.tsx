@@ -33,32 +33,32 @@ const requiredDocuments = [
   'Full IB Diploma (must state "Diploma awarded")',
   'IB transcript of results (sent electronically via IB verification system if required)',
   'Copy of passport or national ID',
-  'Proof of English proficiency (IELTS, TOEFL, or Cambridge — if not met through IB English courses)',
-  'Motivation letter (required by most programmes)',
+  'Proof of English proficiency (IELTS, TOEFL or similar; some universities accept IB graduation documents instead)',
+  'Motivation letter (required by some programmes)',
   'Application fee payment confirmation (€0–120, depending on the university)'
 ]
 
 // Application timeline steps
 const timelineSteps = [
   {
-    period: 'December–January: Research Programmes',
+    period: 'Autumn–Winter: Research Programmes',
     description:
       'Browse programmes on studyinestonia.ee or estonia.dreamapply.com. Check programme-specific requirements, deadlines, and application fees for each university.'
   },
   {
-    period: 'February–March: Submit Applications',
+    period: 'November–April: Submit Applications',
     description:
-      'Most university application periods open in February. Common deadlines for international students fall between March 1 and April 15, depending on the university and programme. Submit applications via estonia.dreamapply.com.'
+      "Application periods differ by university. For autumn 2027, Tallinn University accepts Bachelor's applications from 1 November 2026 to 1 March 2027. In 2026, the University of Tartu took Bachelor's applications from 2 January to 15 April, and TalTech's deadline was 1 April for non-EU citizens and 1 June for EU/EEA and Swiss citizens."
   },
   {
     period: 'April–June: Admission Decisions',
     description:
-      'Universities review applications individually and send decisions. Some programmes may require interviews or additional entrance tests. Confirm your acceptance and begin the visa/residence permit process if needed.'
+      "Universities review applications and send decisions; the University of Tartu published its 2026 Bachelor's results on 1 June. Some programmes require interviews or tests. Confirm your place and begin the visa or residence permit process if needed."
   },
   {
-    period: 'September: Academic Year Begins',
+    period: 'Late August–September: Academic Year Begins',
     description:
-      'The Estonian academic year typically starts in early September. Arrange accommodation, travel, and registration with your university before arrival.'
+      'In 2026, studies at the University of Tartu began on 31 August. Arrange accommodation, travel, and registration with your university before arrival.'
   }
 ]
 
@@ -67,9 +67,9 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Estonia?',
     answer:
-      "Yes. Estonian universities accept the IB Diploma as a secondary education qualification that satisfies the general entry requirements for higher education. Major universities — including the University of Tartu, Tallinn University, and TalTech — all accept IB Diploma holders directly. The full IB Diploma (stating 'Diploma awarded') is required — IB Course Results alone are not sufficient.",
-    source: 'Study in Estonia — General Requirements',
-    sourceUrl: 'https://studyinestonia.ee/general-requirements'
+      "Yes. The University of Tartu accepts the IB Diploma for Bachelor's studies, as do Tallinn University and TalTech. Only a diploma stating 'IB Diploma Awarded' qualifies; 'IB DP Course awarded' or 'IB DP Course Results' will not suffice.",
+    source: 'University of Tartu — Country-specific requirements',
+    sourceUrl: 'https://ut.ee/en/content/country-specific-requirements'
   },
   {
     question: 'How do IB students apply to Estonian universities?',
@@ -81,21 +81,21 @@ const faqs = [
   {
     question: 'What IB score do I need for Estonian universities?',
     answer:
-      'Minimum IB score requirements vary by university. Tallinn University and Tallinn University of Technology generally expect a minimum of 27 out of 45 IB points. The University of Tartu requires the full IB Diploma with results sent through the official IB verification system. Always check the specific programme requirements.',
-    source: 'Tallinn University — Admissions',
-    sourceUrl: 'https://www.tlu.ee/en/admissions'
+      'It varies by university. Tallinn University, for example, requires at least 27 out of 45 points, six subjects (three at HL and three at SL), and at least a D in the Extended Essay and Theory of Knowledge. Always check the specific programme requirements.',
+    source: 'Tallinn University — International Baccalaureate',
+    sourceUrl: 'https://www.tlu.ee/en/ib'
   },
   {
     question: 'Do I need to speak Estonian to study in Estonia?',
     answer:
-      'Not necessarily. Estonian universities offer numerous English-taught programmes at all levels. For English-taught programmes, you need to demonstrate English proficiency (typically IELTS 6.0–6.5 or TOEFL iBT 72–90). IB English A or B courses may satisfy this requirement. Estonian-taught programmes require Estonian language proficiency at B2 level or higher.',
+      "Not necessarily. Estonian universities offer English-taught programmes, for which you present a certificate of English skills. The usual minimum for Bachelor's and Master's studies is 6 in IELTS or 72 in TOEFL iBT, and some institutions run their own tests. Estonian-taught programmes require Estonian.",
     source: 'Study in Estonia — General Requirements',
     sourceUrl: 'https://studyinestonia.ee/general-requirements'
   },
   {
     question: 'Are there tuition fees for IB students in Estonia?',
     answer:
-      'Tuition fees vary by university and programme, ranging from €1,500 to €15,000 per year for Bachelor and Master programmes. Some programmes are tuition-free. Doctoral studies are tuition-free for all students. Some universities differentiate fees for EU and non-EU students.',
+      'Tuition fees vary by university and programme, generally from €1,500 to €15,000 per year for Bachelor and Master programmes, with a few more expensive exceptions. Doctoral studies are tuition-free for all students. Some universities differentiate fees for EU and non-EU students.',
     source: 'Study in Estonia — Tuition Fees',
     sourceUrl: 'https://studyinestonia.ee/tuition-fees'
   }
@@ -112,7 +112,7 @@ export function EstoniaContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇪🇪</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -131,7 +131,7 @@ export function EstoniaContent() {
               its own admissions via the shared DreamApply platform.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -144,7 +144,7 @@ export function EstoniaContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -217,13 +217,22 @@ export function EstoniaContent() {
                   </li>
                   <li>
                     <a
-                      href="https://www.riigiteataja.ee/en/eli/501022018002/consolide"
+                      href="https://ut.ee/en/content/country-specific-requirements"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Basic Schools and Upper Secondary Schools Act, § 16 — IB Curriculum in
-                      Estonian Schools
+                      University of Tartu — Country-specific requirements
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.tlu.ee/en/ib"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Tallinn University — International Baccalaureate
                     </a>
                   </li>
                 </ul>
@@ -412,19 +421,21 @@ export function EstoniaContent() {
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">University of Tartu</td>
                         <td className="px-6 py-3 text-gray-700">
-                          Full IB Diploma required (programme-specific)
+                          Full IB Diploma (&ldquo;IB Diploma Awarded&rdquo;); programme-specific
                         </td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">Tallinn University</td>
-                        <td className="px-6 py-3 text-gray-700">27 out of 45 points</td>
+                        <td className="px-6 py-3 text-gray-700">
+                          27 out of 45 points; EE and TOK at least D
+                        </td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">
                           TalTech (Tallinn University of Technology)
                         </td>
                         <td className="px-6 py-3 text-gray-700">
-                          27 points; at least 60% of max CGPA
+                          At least 60% of the highest possible grade average
                         </td>
                       </tr>
                     </tbody>
@@ -464,22 +475,32 @@ export function EstoniaContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.tlu.ee/en/admissions"
+                      href="https://www.tlu.ee/en/ib"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Tallinn University — Admissions
+                      Tallinn University — International Baccalaureate
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://taltech.ee/en/admissions"
+                      href="https://taltech.ee/en/apply"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      TalTech — Admissions
+                      TalTech — How to Apply
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://ut.ee/en/content/country-specific-requirements"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Tartu — Country-specific requirements
                     </a>
                   </li>
                 </ul>
@@ -582,22 +603,22 @@ export function EstoniaContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IELTS 6.0–6.5</strong> or <strong>TOEFL iBT 72–90</strong> typically
-                      required (varies by university)
+                      Usually at least <strong>6 in IELTS</strong> or{' '}
+                      <strong>72 in TOEFL iBT</strong> (varies by university)
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English A or B</strong> courses may satisfy English requirements —
-                      check with the institution
+                      <strong>IB graduation documents</strong> count as proof of English at Tallinn
+                      University, and at TalTech for Bachelor&apos;s studies
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Tallinn University accepts IB English B HL (grade 6+) or English A HL (grade
-                      5+) as B2-level proof
+                      At the University of Tartu, an IB Diploma completed in English meets the
+                      English requirement
                     </span>
                   </li>
                 </ul>
@@ -617,17 +638,11 @@ export function EstoniaContent() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Minimum <strong>B2 level</strong> on the Common European Framework of
-                      Reference (CEFR) typically required
-                    </span>
+                    <span>The required level is set by each university</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Most international programmes are taught in English — Estonian is generally
-                      not needed for daily life as English is widely spoken
-                    </span>
+                    <span>International degree programmes are mostly taught in English</span>
                   </li>
                 </ul>
               </div>
@@ -636,7 +651,7 @@ export function EstoniaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -647,6 +662,36 @@ export function EstoniaContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Estonia — General Requirements
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tlu.ee/en/proof-english-proficiency"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Tallinn University — Proof of English Proficiency
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://taltech.ee/en/apply"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    TalTech — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://ut.ee/en/english-language-requirements"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Tartu — English language requirements
                   </a>
                 </li>
               </ul>
@@ -693,7 +738,7 @@ export function EstoniaContent() {
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
                       Examples: University of Tartu, Tallinn University, TalTech, Estonian Academy
-                      of Arts
+                      of Arts, Estonian University of Life Sciences
                     </span>
                   </li>
                 </ul>
@@ -712,8 +757,8 @@ export function EstoniaContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      Offer <strong>Professional Higher Education Diplomas</strong> (3–4 years) with
-                      emphasis on practical training
+                      Offer <strong>professional higher education</strong> (3–4.5 years), awarded as
+                      a Bachelor&apos;s degree since the 2019/2020 intake
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
@@ -722,9 +767,7 @@ export function EstoniaContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Examples: Estonian University of Life Sciences, Estonian Aviation Academy
-                    </span>
+                    <span>Example: Estonian Aviation Academy</span>
                   </li>
                 </ul>
               </div>
@@ -839,7 +882,7 @@ export function EstoniaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -850,6 +893,36 @@ export function EstoniaContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Estonia — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tlu.ee/en/application-deadlines"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Tallinn University — Application Deadlines
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://ut.ee/en/content/bachelors-and-masters-studies-university-tartu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Tartu — Bachelor&apos;s and master&apos;s studies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://taltech.ee/en/admissions"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    TalTech — Admissions
                   </a>
                 </li>
               </ul>
@@ -888,7 +961,8 @@ export function EstoniaContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Some programmes offer <strong>tuition fee waivers</strong> or are tuition-free
+                      A few specialities cost more; <strong>medicine, law, business</strong> and
+                      social sciences are among the more expensive
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">

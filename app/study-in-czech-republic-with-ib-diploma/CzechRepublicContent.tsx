@@ -4,7 +4,7 @@
  * Czech Republic IB Diploma Content Component
  *
  * Official sources used:
- * - studyin.cz — official government portal by DZS (Czech National Agency
+ * - studyin.gov.cz — official government portal by DZS (Czech National Agency
  *   for International Education and Research), Ministry of Education
  * - cuni.cz — Charles University Diploma Recognition page (UKEN-593)
  *
@@ -33,32 +33,32 @@ const requiredDocuments = [
   'Completed online application form (submitted to each faculty individually)',
   'Official IB Diploma and transcript of results',
   'Proof of identity (passport or national ID)',
-  'Proof of English proficiency (for English-taught programmes) — IB English A/B or IELTS/TOEFL',
-  'Application fee payment receipt (typically CZK 500–900 per application)',
+  'Proof of English proficiency for English-taught programmes (the level and accepted documents are set by each university)',
+  'Application fee (usually several hundred CZK, up to around CZK 1,000; some programmes charge more)',
   'Programme-specific documents (e.g., portfolio, motivation letter, CV)'
 ]
 
 // Application timeline steps
 const timelineSteps = [
   {
-    period: 'November – April: Application Period',
+    period: 'February – April: Application Deadlines',
     description:
-      'Most faculties accept applications between November and the end of April, though exact deadlines vary by faculty. Submit applications directly through each university\u2019s online system.'
+      "Many applications for programmes starting in September close between February and April, but some deadlines are earlier or later. Apply through each university's online system."
   },
   {
-    period: 'May – June: Entrance Exams',
+    period: 'Spring – Early Summer: Entrance Exams',
     description:
-      'If required, entrance exams are typically held between May and June. Results are communicated by the faculty within days or weeks after the exam.'
+      'If required, entrance exams, interviews or portfolio assessments take place in spring or early summer.'
   },
   {
     period: 'June – July: Admission Decisions',
     description:
-      'Universities issue admission decisions, usually by the end of June or early July. Applicants receive a written notification with instructions for enrolment.'
+      'Results are usually shared through the online application system, by e-mail or by letter, by the end of June. The letter tells you how to enrol.'
   },
   {
     period: 'July – September: Enrolment & Visa',
     description:
-      'Accepted students enrol and, if applicable, apply for a student visa at the Czech embassy. Non-EU students should start the visa process immediately upon acceptance, as it may take up to 60 days.'
+      'Accepted students enrol and, if applicable, apply for a student visa at the Czech embassy. Non-EU students should start the visa process immediately upon acceptance.'
   }
 ]
 
@@ -74,30 +74,30 @@ const faqs = [
   {
     question: 'Do IB students need to take entrance exams for Czech universities?',
     answer:
-      'It depends on the programme and faculty. Many Czech public universities require entrance exams, especially for Medicine (Biology, Chemistry, Physics), Engineering, and Law. Some faculties offer exam waivers for IB students who meet specific score thresholds. Each faculty sets its own requirements.',
+      'It depends on the programme and faculty. Some programmes require an entrance exam, interview, portfolio assessment or talent exam; others assess your application on your documents alone. Each faculty sets its own requirements.',
     source: 'Study in Czechia — How to Apply',
-    sourceUrl: 'https://www.studyin.cz/plan-your-studies/how-to-apply/'
+    sourceUrl: 'https://studyin.gov.cz/plan-your-studies/how-to-apply/'
   },
   {
     question: 'Are Czech university programmes free for international students?',
     answer:
-      'Czech-taught programmes at public universities are tuition-free for all students regardless of nationality. English-taught programmes charge tuition fees, typically ranging from CZK 50,000 to CZK 350,000 per year (approximately €2,000–€14,000).',
-    source: 'Study in Czechia',
-    sourceUrl: 'https://www.studyin.cz/'
+      'Czech-taught degree programmes at public and state universities are tuition-free, regardless of nationality. Programmes taught in English or another foreign language charge tuition fees, which each university sets.',
+    source: 'Study in Czechia — Learn Czech and study tuition-free',
+    sourceUrl: 'https://studyin.gov.cz/plan-your-studies/learn-czech-study-tuition-free/'
   },
   {
     question: 'How do IB students apply to Czech universities?',
     answer:
-      'The Czech Republic uses a decentralized system — each university manages its own admissions. You apply directly to each faculty through their online application system. Application deadlines are typically between February and April. You may apply to multiple universities and faculties simultaneously.',
+      'The Czech Republic uses a decentralized system — each university manages its own admissions. You apply directly to each faculty through their online application system. Application deadlines are typically between February and April. You may apply to multiple universities and faculties simultaneously; each application is usually submitted and paid for separately.',
     source: 'Study in Czechia — How to Apply',
-    sourceUrl: 'https://www.studyin.cz/plan-your-studies/how-to-apply/'
+    sourceUrl: 'https://studyin.gov.cz/plan-your-studies/how-to-apply/'
   },
   {
     question: 'What language do I need to study in the Czech Republic?',
     answer:
-      'Czech-taught programmes require Czech language proficiency (typically B2 level, certified via the Czech Language Certificate Exam). Many universities also offer English-taught programmes. IB English A or B courses are generally accepted as proof of English proficiency. One-year Czech language preparatory courses are available at many universities.',
+      'For Czech-taught programmes, you may need to prove your Czech; for English-taught programmes, universities usually require proof of English. The exact level and accepted documents are set by each university and programme.',
     source: 'Study in Czechia — How to Apply',
-    sourceUrl: 'https://www.studyin.cz/plan-your-studies/how-to-apply/'
+    sourceUrl: 'https://studyin.gov.cz/plan-your-studies/how-to-apply/'
   }
 ]
 
@@ -112,7 +112,7 @@ export function CzechRepublicContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇨🇿</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -130,7 +130,7 @@ export function CzechRepublicContent() {
               university manages its own applications.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -143,7 +143,7 @@ export function CzechRepublicContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -203,12 +203,12 @@ export function CzechRepublicContent() {
                   </li>
                   <li>
                     <a
-                      href="https://www.studyin.cz/plan-your-studies/recognition/"
+                      href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Study in Czechia — Recognition of Previous Education
+                      Study in Czechia — How to Apply (recognition of previous education)
                     </a>
                   </li>
                 </ul>
@@ -247,16 +247,33 @@ export function CzechRepublicContent() {
                 2025 amendment, this step is no longer necessary for IB Diploma holders.
               </p>
 
-              <div className="mt-4 rounded-2xl bg-amber-50 p-6 border border-amber-100">
-                <p className="text-amber-800 text-sm flex items-start gap-2">
-                  <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                  <span>
-                    <strong>Note for Czech IB students:</strong> Students from IB schools listed in
-                    the Czech Ministry of Education register may still need to complete the Czech
-                    Language and Literature (CzLL) exam as part of the maturita equivalence in
-                    certain cases. Check with your school and the relevant faculty.
-                  </span>
-                </p>
+              <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                  <ExternalLink className="h-4 w-4 text-blue-600" />
+                  Official Sources
+                </h4>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a
+                      href="https://cuni.cz/UKEN-593.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Charles University — Diploma Recognition
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Study in Czechia — How to Apply (recognition of previous education)
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -318,7 +335,7 @@ export function CzechRepublicContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.studyin.cz/plan-your-studies/how-to-apply/"
+                      href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
@@ -353,30 +370,26 @@ export function CzechRepublicContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Total IB score</strong> is commonly used as a benchmark — competitive
-                    programmes may require 32+ points (e.g., Charles University Economics)
+                    <strong>Total IB score</strong> is commonly used as a benchmark, and competitive
+                    programmes may set a minimum
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Subject-level grades</strong> may be required — e.g., HL Biology and HL
-                    Chemistry for Medicine
-                  </span>
-                </div>
-                <div className="flex items-start gap-3 text-gray-700">
-                  <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <span>
-                    <strong>Entrance exam results</strong> often carry more weight than IB scores in
-                    the final admission decision
+                    Chemistry for Medicine at Charles University&apos;s Second Faculty of Medicine
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     Some faculties offer <strong>entrance exam waivers</strong> for IB students
-                    meeting specific score thresholds (e.g., Charles University 2nd Faculty of
-                    Medicine: 35+ IB points with specific HL subjects)
+                    meeting specific score thresholds. For its English-taught General Medicine
+                    programme, Charles University&apos;s Second Faculty of Medicine asked for at
+                    least 35 points (achieved or predicted), with 19 from HL Biology, HL Chemistry
+                    and Maths or Physics, and waived the exam for at most 25 IB, EB and BS
+                    applicants in 2026
                   </span>
                 </div>
               </div>
@@ -391,6 +404,26 @@ export function CzechRepublicContent() {
                   the faculty&apos;s study department or international office for details on how IB
                   scores are evaluated.
                 </p>
+              </div>
+
+              <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                  <ExternalLink className="h-4 w-4 text-blue-600" />
+                  Official Source
+                </h4>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a
+                      href="https://www.lf2.cuni.cz/en/applicants/how-to-apply/exemption-from-entrance-examination"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Charles University, Second Faculty of Medicine — Exemption from Entrance
+                      Examination
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -432,8 +465,8 @@ export function CzechRepublicContent() {
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="h-4 w-4 text-red-500 mt-0.5 flex-shrink-0" />
                       <span>
-                        IB exam waivers may be available (e.g., Charles University 2nd Faculty — 35+
-                        IB points with specific HL subjects)
+                        IB exam waivers exist at some faculties (e.g., Charles University&apos;s
+                        Second Faculty of Medicine — 35 points with strong HL sciences)
                       </span>
                     </li>
                   </ul>
@@ -479,17 +512,28 @@ export function CzechRepublicContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.studyin.cz/plan-your-studies/how-to-apply/"
+                      href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
                       Study in Czechia — How to Apply (Entrance Exams)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.lf2.cuni.cz/en/applicants/how-to-apply/exemption-from-entrance-examination"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Charles University, Second Faculty of Medicine — Exemption from Entrance
+                      Examination
                     </a>
                   </li>
                 </ul>
@@ -528,14 +572,12 @@ export function CzechRepublicContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>B2 level required</strong> (some programmes require C1)
+                      The university checks whether your <strong>Czech</strong> is good enough
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Certified via the <strong>Czech Language Certificate Exam (CCE)</strong>
-                    </span>
+                    <span>The level and accepted documents are set by each university</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -547,7 +589,8 @@ export function CzechRepublicContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      One-year Czech language <strong>preparatory courses</strong> are available
+                      Many universities offer <strong>Czech courses</strong> for international
+                      students, including year-long courses
                     </span>
                   </li>
                 </ul>
@@ -564,12 +607,13 @@ export function CzechRepublicContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English A or B</strong> generally accepted as proof of proficiency
+                      <strong>Proof of English</strong> usually required for English-taught
+                      programmes
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>IELTS (typically 6.0–6.5), TOEFL, or equivalent also accepted</span>
+                    <span>The level and accepted documents are set by each university</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
@@ -593,7 +637,7 @@ export function CzechRepublicContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.studyin.cz/plan-your-studies/how-to-apply/"
+                    href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
@@ -628,7 +672,8 @@ export function CzechRepublicContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>26 public universities</strong> across the Czech Republic
+                      Public and state institutions among the <strong>more than 50</strong>{' '}
+                      universities and higher education institutions in Czechia
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
@@ -668,10 +713,6 @@ export function CzechRepublicContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>Admission may be less competitive (fewer entrance exams)</span>
-                  </li>
-                  <li className="flex items-start gap-2 text-gray-600">
-                    <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>Must be accredited by the Czech National Accreditation Bureau</span>
                   </li>
                 </ul>
@@ -681,17 +722,27 @@ export function CzechRepublicContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.studyin.cz/"
+                    href="https://studyin.gov.cz/plan-your-studies/universities/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    Study in Czechia — Official Portal
+                    Study in Czechia — Universities in Czechia
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studyin.gov.cz/plan-your-studies/learn-czech-study-tuition-free/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Study in Czechia — Learn Czech and study tuition-free
                   </a>
                 </li>
               </ul>
@@ -727,9 +778,9 @@ export function CzechRepublicContent() {
 
             <div className="mt-6 rounded-2xl bg-blue-50 p-6 border border-blue-100">
               <p className="text-gray-700 text-sm">
-                <strong>Since March 2025:</strong> IB Diploma holders no longer need to submit
-                nostrification documents. Your IB Diploma is directly accepted as equivalent to the
-                Czech maturita.
+                <strong>Since March 2025:</strong> IB Diploma holders no longer need nostrification
+                or an assessment in the admission procedure. Faculties accept the IB Diploma without
+                charging an assessment fee.
               </p>
             </div>
 
@@ -741,7 +792,7 @@ export function CzechRepublicContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.studyin.cz/plan-your-studies/how-to-apply/"
+                    href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
@@ -801,7 +852,7 @@ export function CzechRepublicContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.studyin.cz/plan-your-studies/how-to-apply/"
+                    href="https://studyin.gov.cz/plan-your-studies/how-to-apply/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"

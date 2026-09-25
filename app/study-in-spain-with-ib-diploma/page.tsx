@@ -2,7 +2,7 @@
  * Study in Spain with IB Diploma - SEO Landing Page
  *
  * High-authority content page targeting IB students interested in studying in Spain.
- * Provides comprehensive information about UNEDassis, grade conversion, and admission requirements.
+ * Provides comprehensive information about UNEDasiss, grade conversion, and admission requirements.
  */
 
 import type { Metadata } from 'next'
@@ -18,33 +18,33 @@ export const revalidate = 604800 // 7 days in seconds
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Spain with IB Diploma | Official UNEDassis Guide (2026)',
+  title: 'Study in Spain with IB Diploma | Official UNEDasiss Guide (2027)',
   description:
-    'Official guide for IB students studying in Spain. IB grade conversion (0–14), UNEDassis accreditation, subject weightings, and rules.',
+    'Official guide for IB students studying in Spain. IB grade conversion (5–14), UNEDasiss accreditation, subject weightings, and rules.',
   keywords: [
     'study in spain with ib diploma',
     'ib diploma spain university admission',
-    'unedassis ib requirements',
+    'unedasiss ib requirements',
     'ib to spain grade conversion',
     'ib students spain selectividad',
     'ib admission score spain 14 points',
-    'ib diploma spain 2026',
-    'unedassis application ib',
+    'ib diploma spain 2027',
+    'unedasiss application ib',
     'pce exams ib students'
   ],
   openGraph: {
-    title: 'Study in Spain with IB Diploma | Official UNEDassis Guide (2026)',
+    title: 'Study in Spain with IB Diploma | Official UNEDasiss Guide (2027)',
     description:
-      'Complete guide for IB Diploma students on university admission in Spain. Grade conversion, UNEDassis process, and subject weightings explained.',
+      'Complete guide for IB Diploma students on university admission in Spain. Grade conversion, UNEDasiss process, and subject weightings explained.',
     type: 'website',
     url: `${baseUrl}/study-in-spain-with-ib-diploma`,
     siteName: 'IB Match'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Spain with IB Diploma | UNEDassis Guide 2026',
+    title: 'Study in Spain with IB Diploma | UNEDasiss Guide 2027',
     description:
-      'Official guide for IB students: Spanish grade conversion (0-14), UNEDassis accreditation, and admission requirements.'
+      'Official guide for IB students: Spanish grade conversion (5-14), UNEDasiss accreditation, and admission requirements.'
   },
   alternates: {
     canonical: `${baseUrl}/study-in-spain-with-ib-diploma`
@@ -61,7 +61,7 @@ const webPageSchema = {
   '@type': 'WebPage',
   name: 'Study in Spain with the IB Diploma',
   description:
-    'Authoritative guide for IB Diploma students on university admission in Spain, including UNEDassis accreditation and grade conversion.',
+    'Authoritative guide for IB Diploma students on university admission in Spain, including UNEDasiss accreditation and grade conversion.',
   url: `${baseUrl}/study-in-spain-with-ib-diploma`,
   isPartOf: {
     '@type': 'WebSite',
@@ -87,9 +87,9 @@ const webPageSchema = {
 const educationalArticleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
-  headline: 'Study in Spain with the IB Diploma: Official UNEDassis Guide',
+  headline: 'Study in Spain with the IB Diploma: Official UNEDasiss Guide',
   description:
-    'Comprehensive guide explaining how the IB Diploma is recognized in Spain, grade conversion to the 0-14 system, and the UNEDassis accreditation process.',
+    'Comprehensive guide explaining how the IB Diploma is recognized in Spain, grade conversion to the 5-14 scale, and the UNEDasiss accreditation process.',
   url: `${baseUrl}/study-in-spain-with-ib-diploma`,
   ...pageDates('/study-in-spain-with-ib-diploma'),
   author: {
@@ -107,7 +107,7 @@ const educationalArticleSchema = {
   about: [
     {
       '@type': 'Thing',
-      name: 'UNEDassis',
+      name: 'UNEDasiss',
       description: 'Spanish accreditation body for international students'
     },
     {
@@ -132,7 +132,7 @@ const faqSchema = {
       name: 'Do predicted IB grades work for Spain?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Predicted IB grades can be used for initial applications through UNEDassis. However, final enrollment requires official IB results. Source: https://unedasiss.uned.es'
+        text: 'Not for the access grade, which UNEDasiss calculates from your final IB subject grades. If you have not finished the IB by the admission deadline, send your latest school transcripts with your application and the missing documents when you have them. Source: UNEDasiss — Key dates (in Spanish).'
       }
     },
     {
@@ -140,23 +140,23 @@ const faqSchema = {
       name: 'Can IB students study Medicine in Spain?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. IB students can study Medicine in Spain, but cut-off scores (Nota de Corte) are often above 12.5 out of 14 points. Competition is high, and subject weightings for Biology and Chemistry are important. Source: https://www.universidades.gob.es'
+        text: "Yes, but places are highly competitive. For 2026–27, the cut-off for Medicine at Madrid's public universities was between 12.8 and 13.1 out of 14. Source: Comunidad de Madrid — Cut-off grades 2026–27 (PDF, in Spanish)."
       }
     },
     {
       '@type': 'Question',
-      name: 'Is Spanish language required for university in Spain?',
+      name: 'Is Spanish language required?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Usually B2 level Spanish is required for public universities in Spain. Some programs, particularly at private universities, may be offered in English. Source: https://www.universidades.gob.es'
+        text: 'It depends on the university. Each university sets its own language requirements, and UNEDasiss can add a language certificate to your accreditation when a university asks for one. Source: UNEDasiss — Types of international students (in Spanish).'
       }
     },
     {
       '@type': 'Question',
-      name: 'Is UNEDassis required for private universities in Spain?',
+      name: 'Is UNEDasiss required for private universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'In most cases, yes. While private universities may have their own admission processes, UNEDassis accreditation is often required for enrollment to verify the equivalence of international qualifications. Source: https://unedasiss.uned.es'
+        text: 'Usually. UNEDasiss says IB students need its accreditation to enter a Spanish university. Private universities run their own admissions, so confirm what each one asks for. Source: UNEDasiss — Types of international students (in Spanish).'
       }
     }
   ]

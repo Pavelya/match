@@ -22,9 +22,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Japan with IB Diploma | Guide (2026)',
+  title: 'Study in Japan with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Japanese universities. MEXT recognition, EJU exam, English-taught programs, and application process (2026).',
+    'Official guide for IB students applying to Japanese universities. MEXT recognition, EJU exam, English-taught programs, and application process (2027).',
   keywords: [
     'study in japan with ib diploma',
     'ib diploma japan university admission',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'english taught programs japan ib'
   ],
   openGraph: {
-    title: 'Study in Japan with IB Diploma | Guide (2026)',
+    title: 'Study in Japan with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Japan. MEXT recognition, EJU exam, English-taught programs, and decentralized application process.',
     type: 'website',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Japan with IB Diploma | Guide 2026',
+    title: 'Study in Japan with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Japanese university admission, EJU exam, English-taught programs, and MEXT recognition.'
   },
@@ -136,7 +136,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Japan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. The Japanese Ministry of Education (MEXT) has recognized the IB Diploma as a valid university admission qualification since 1979. IB Diploma holders are explicitly listed as eligible applicants alongside holders of the Abitur, Baccalauréat, and GCE A-Levels. Source: Study in Japan — Universities (Undergraduate).'
+        text: 'Yes. IB Diploma holders are explicitly listed as eligible to apply to Japanese universities, alongside holders of the Abitur, Baccalauréat, and GCE A-Levels. Source: Study in Japan — Universities (Undergraduate).'
       }
     },
     {
@@ -160,7 +160,7 @@ const faqSchema = {
       name: 'How do Japanese universities evaluate IB scores?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'There is no national IB-to-Japanese grade conversion. Each university determines independently how to assess IB Diploma results. Universities may consider total IB points, individual subject scores, the Extended Essay, and Theory of Knowledge as part of their holistic review. Source: Study in Japan — Universities (Undergraduate).'
+        text: 'There is no national IB-to-Japanese grade conversion. Each university decides how to assess IB Diploma results. Many universities list the IB as a qualification for their comprehensive (AO) or returnee admissions, and select candidates on their IB scores together with essays and interviews. Source: MEXT IB Consortium — Admissions using the IB (in Japanese).'
       }
     },
     {

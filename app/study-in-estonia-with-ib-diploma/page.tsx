@@ -23,9 +23,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Estonia with IB Diploma | Guide (2026)',
+  title: 'Study in Estonia with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Estonian universities. Recognition, admission via DreamApply, language requirements, and tuition fees (2026).',
+    'Official guide for IB students applying to Estonian universities. Recognition, admission via DreamApply, language requirements, and tuition fees (2027).',
   keywords: [
     'study in estonia with ib diploma',
     'ib diploma estonia university admission',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     'estonia ib grade requirements'
   ],
   openGraph: {
-    title: 'Study in Estonia with IB Diploma | Guide (2026)',
+    title: 'Study in Estonia with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Estonia. Recognition, decentralized admission via DreamApply, and language requirements.',
     type: 'website',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Estonia with IB Diploma | Guide 2026',
+    title: 'Study in Estonia with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Estonian university admission, recognition, DreamApply application, and requirements.'
   },
@@ -136,7 +136,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Estonia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Yes. Estonian universities accept the IB Diploma as a secondary education qualification that satisfies the general entry requirements for higher education. Major universities including the University of Tartu, Tallinn University, and TalTech all accept IB Diploma holders directly. The full IB Diploma (stating 'Diploma awarded') is required — IB Course Results alone are not sufficient. Source: Study in Estonia — General Requirements; Tallinn University — Admissions; TalTech — Admissions."
+        text: "Yes. The University of Tartu accepts the IB Diploma for Bachelor's studies, as do Tallinn University and TalTech. Only a diploma stating 'IB Diploma Awarded' qualifies; 'IB DP Course awarded' or 'IB DP Course Results' will not suffice. Source: University of Tartu — Country-specific requirements."
       }
     },
     {
@@ -152,7 +152,7 @@ const faqSchema = {
       name: 'What IB score do I need for Estonian universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Minimum IB score requirements vary by university. Tallinn University and Tallinn University of Technology generally expect a minimum of 27 out of 45 IB points. The University of Tartu requires the full IB Diploma with results sent through the official IB verification system. Always check the specific programme requirements. Source: Tallinn University — Admissions; TalTech — Admissions.'
+        text: 'It varies by university. Tallinn University, for example, requires at least 27 out of 45 points, six subjects (three at HL and three at SL), and at least a D in the Extended Essay and Theory of Knowledge. Always check the specific programme requirements. Source: Tallinn University — International Baccalaureate.'
       }
     },
     {
@@ -160,7 +160,7 @@ const faqSchema = {
       name: 'Do I need to speak Estonian to study in Estonia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Not necessarily. Estonian universities offer numerous English-taught programmes at all levels. For English-taught programmes, you need to demonstrate English proficiency (typically IELTS 6.0–6.5 or TOEFL iBT 72–90). IB English A or B courses may satisfy this requirement. Estonian-taught programmes require Estonian language proficiency at B2 level or higher. Source: Study in Estonia — General Requirements.'
+        text: "Not necessarily. Estonian universities offer English-taught programmes, for which you present a certificate of English skills. The usual minimum for Bachelor's and Master's studies is 6 in IELTS or 72 in TOEFL iBT, and some institutions run their own tests. Estonian-taught programmes require Estonian. Source: Study in Estonia — General Requirements."
       }
     },
     {
@@ -168,7 +168,7 @@ const faqSchema = {
       name: 'Are there tuition fees for IB students in Estonia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Tuition fees vary by university and programme, ranging from €1,500 to €15,000 per year for Bachelor and Master programmes. Some programmes are tuition-free. Doctoral studies are tuition-free for all students. Some universities differentiate fees for EU and non-EU students. Source: Study in Estonia — Tuition Fees.'
+        text: 'Tuition fees vary by university and programme, generally from €1,500 to €15,000 per year for Bachelor and Master programmes, with a few more expensive exceptions. Doctoral studies are tuition-free for all students. Some universities differentiate fees for EU and non-EU students. Source: Study in Estonia — Tuition Fees.'
       }
     }
   ]
