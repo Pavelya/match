@@ -316,7 +316,9 @@ export default async function IBUniversityRequirementsPage() {
         name: 'Which countries accept the IB Diploma for university admission?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `The IB Diploma is recognized by universities in over ${countryData.length} countries worldwide, including the United Kingdom, United States, Canada, Australia, Germany, Switzerland, and many more. Each country has its own process for evaluating IB scores — some convert them to local equivalents, while others accept IB points directly.`
+          // IB figure, checked 25 September 2026:
+          // https://ibo.org/university-admission/find-countries-and-universities-that-recognize-the-ib/
+          text: 'Universities in more than 110 countries and territories admit IB Diploma students — each year, over 4,500 of them receive IB transcripts, according to the IB. They include the United Kingdom, United States, Canada, Australia, Germany, Switzerland, and many more. Each country has its own process for evaluating IB scores — some convert them to local equivalents, while others accept IB points directly.'
         }
       },
       {

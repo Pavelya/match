@@ -407,10 +407,14 @@ icon; Algolia facet values contain no `Educaton`.
   `node_modules/next/dist/docs/01-app/03-api-reference/04-functions/after.md`), but that is a
   separate task: the program-level path in `lib/algolia/middleware.ts` has the same shape, and
   phase 4 relies on it.
-- **Left for the owner, not changed:** the support page's "Many of our programs were added thanks
-  to student suggestions" (nothing in the data records where a program came from), and the
-  requirements page's FAQ structured data says the IB is recognised in "over 22 countries", taking
-  the site's own country count, while the visible FAQ says "over 100".
+- **Two more, on the owner's call.** The support page's "Many of our programs were added thanks to
+  student suggestions" is removed: nothing in the data records where a program came from. On the
+  requirements page, the visible FAQ said the IB is recognised in "over 100 countries" and its
+  structured data said "over 22", which was the site's own country count. Both now give the IB's
+  figure: over 4,500 universities in more than 110 countries and territories receive IB transcripts
+  each year. `ibo.org` returns 403 to scripted requests, so the sentence was read from the search
+  index, not the page; check it in a browser at
+  `ibo.org/university-admission/find-countries-and-universities-that-recognize-the-ib/`.
 
 ---
 
