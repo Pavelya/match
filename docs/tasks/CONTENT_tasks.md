@@ -24,7 +24,7 @@ here, and this refresh does more production writes than any work before it.
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
-| 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
+| 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
@@ -66,7 +66,7 @@ Phase 2 — Country pages for the 2027 intake
 - [x] 2.1 English-speaking and Asia-Pacific pages (7) — owner to open four bot-walled links
 - [x] 2.2 Western and Northern Europe pages (7) — owner to open three bot-walled links
 - [x] 2.3 Southern and Central Europe, Israel, Japan pages (8) — owner to open two bot-walled links
-- [ ] 2.4 `/ib-university-requirements`
+- [x] 2.4 `/ib-university-requirements` — four country-page follow-ups listed in its status
 
 Phase 3 — Refresh groundwork
 
@@ -763,6 +763,51 @@ Known issues:
 once to verify; do not loop builds.
 
 **Session size:** Small.
+
+#### Status, 25 September 2026 — done (session 7)
+
+- **The page says 2027.** Title, Open Graph and Twitter titles end in "(2027)", and the keyword is
+  "IB 2027 requirements". The badge says "Country guides updated for the 2027 intake", not the whole
+  page: the program counts and point ranges on it come from program data that is still mostly 2026
+  entry (phase 4), and a line under the country grid says so. `modified` in `lib/page-dates.ts` was
+  already 2026-09-25 from 1.3. The rendered title read "… | IB Match | IB Match", because the page
+  repeated the root layout's title template; the page's own suffix is gone.
+- **Twelve of the 22 country cards contradicted their guide** and now follow it. Hong Kong offered
+  "JUPAS/Non-JUPAS pathways", but JUPAS is for HKDSE holders only. Italy led with the Dichiarazione di
+  valore, which the MUR procedures replace with CIMEA's attestation. Portugal led with DGE equivalency,
+  which only the national competition needs. Spain, Switzerland, Austria and Estonia claimed "full
+  recognition"; Germany said "Allgemeine Hochschulreife equivalent", not the KMK's conditions. The UK
+  led with Tariff points, though the UK page says there is no national conversion. Australia named
+  QTAC, which its page never mentions. Belgium and Singapore were vague where the pages are specific.
+- **The FAQ.** The FAQPage JSON-LD had different answers from the visible FAQ on all five questions and
+  a different fourth question. Both now come from one `faqs` array in `page.tsx`, passed to
+  `RequirementsContent`, so they cannot drift. The points answer uses the database's live minimum and
+  maximum (24–45 at this build). Three answers contradicted the country pages: the UK "uses UCAS
+  Tariff points" (it has no national conversion), Spain "requires the PCE exam for grade conversion"
+  (IB holders are exempt from the access exam; PCE is optional, for extra points), and the UK needs "no
+  entrance exams" (its page lists admissions tests for competitive courses). The exams answer now names
+  what the pages name: UK admissions tests, HPAT-Ireland, MedAT, the Belgian medicine and dentistry
+  exams, IMAT, the PET and HKU interviews. HPAT-Ireland was checked for 2027 entry; the Irish
+  Universities Association confirms it stays.
+- **For the owner — country pages, not changed here:**
+  - **Czech Republic:** the meta, Open Graph, Twitter and JSON-LD descriptions still say the IB "equals
+    maturita since 2025", and a section heading still reads "IB Diploma and Czech Maturita
+    Equivalence". 2.3 removed that claim from the body.
+  - **Portugal:** the meta, Open Graph, Twitter and JSON-LD descriptions still lead with "DGE
+    equivalency", which the body now says only the national competition needs.
+  - **Ireland:** the page does not mention the change to Medicine entry from 2027. The IUA's press
+    release "Changes to CAO entry to undergraduate medicine programmes in 2027" caps HPAT at 150
+    points (was 300) and the combined maximum at 775.
+  - **`/programs/search`** also repeats "| IB Match" in its title.
+- **The page rebuilds hourly, not weekly.** `export const revalidate = 604800` is overridden by the
+  one-hour `unstable_cache` TTL (`CACHE_TTL = 3600`) in `lib/reference-data.ts`, which the page calls.
+  The build lists it as static with a 1h revalidate, before and after this change. Each rebuild runs
+  a few aggregates on production. Not changed here: the TTL is shared with other pages.
+- **Verified.** One build. In the built HTML every JSON-LD question and answer appears verbatim on
+  the page, the CollectionPage dates read published 2026-01-29 and modified 2026-09-25, and
+  `hasPart` lists all 22 guides. The title fix came after that build, so its rendered form was not
+  rebuilt. `grep 2026` over the page finds only the IB figure's check date. Type check, lint,
+  Prettier and both test suites pass.
 
 ---
 
