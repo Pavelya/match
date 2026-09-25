@@ -17,30 +17,30 @@ export const revalidate = 604800 // 7 days in seconds
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Belgium with IB Diploma | Official University Guide (2026)',
+  title: 'Study in Belgium with IB Diploma | Official University Guide (2027)',
   description:
-    'Official guide for IB students studying in Belgium. IB recognition in Flemish and French Communities, equivalence rules, entrance exams, and admission requirements.',
+    'Official guide for IB students studying in Belgium. IB recognition in the Flemish and French Communities, entrance exams, and admission timelines (2027).',
   keywords: [
     'study in belgium with ib diploma',
     'ib diploma belgium university admission',
     'ib students belgium requirements',
     'ib diploma belgian universities',
-    'ib admission belgium 2026',
+    'ib admission belgium 2027',
     'belgium ib equivalence naric',
     'ib diploma flanders wallonia',
     'belgian universities ib students'
   ],
   openGraph: {
-    title: 'Study in Belgium with IB Diploma | Official University Guide (2026)',
+    title: 'Study in Belgium with IB Diploma | Official University Guide (2027)',
     description:
-      'Complete guide for IB Diploma students on university admission in Belgium. Flemish and French Community rules, equivalence process, and entrance exams explained.',
+      'Complete guide for IB Diploma students on university admission in Belgium. Flemish and French Community recognition rules, 2027 entrance exam dates, and application timelines.',
     type: 'website',
     url: `${baseUrl}/study-in-belgium-with-ib-diploma`,
     siteName: 'IB Match'
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Belgium with IB Diploma | University Guide 2026',
+    title: 'Study in Belgium with IB Diploma | University Guide 2027',
     description:
       'Official guide for IB students: Belgian university admission, community-specific rules, and requirements.'
   },
@@ -87,7 +87,7 @@ const educationalArticleSchema = {
   '@type': 'Article',
   headline: 'Study in Belgium with the IB Diploma: Official University Guide',
   description:
-    'Comprehensive guide explaining how the IB Diploma is recognized in Belgium, community-specific equivalence rules, entrance exams, and admission requirements.',
+    'Comprehensive guide explaining how the IB Diploma is recognized in Belgium, community-specific recognition rules, entrance exams, and admission requirements.',
   url: `${baseUrl}/study-in-belgium-with-ib-diploma`,
   ...pageDates('/study-in-belgium-with-ib-diploma'),
   author: {
@@ -111,7 +111,8 @@ const educationalArticleSchema = {
     {
       '@type': 'Thing',
       name: 'Fédération Wallonie-Bruxelles',
-      description: 'French Community authority for diploma equivalence in Belgium'
+      description:
+        'French Community of Belgium, whose equivalence service lists the IB among certificates that need no equivalence'
     },
     {
       '@type': 'Thing',
@@ -135,7 +136,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized in Belgium?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. In the Flemish Community it is automatically recognized as equivalent to the Flemish secondary certificate. In the French Community, an equivalence application is required. Source: NARIC-Vlaanderen / Fédération Wallonie-Bruxelles'
+        text: 'Yes. Flanders automatically recognises the IB Diploma as equivalent to the Flemish certificate of secondary education. The French Community lists school-leaving certificates issued by the International Baccalaureate among those that need no equivalence for access to higher education, provided your school is authorised by the IB. Source: Flanders.be — Foreign diplomas automatically recognised in Flanders.'
       }
     },
     {
@@ -143,7 +144,7 @@ const faqSchema = {
       name: 'Do IB students need a Belgian secondary diploma?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. The IB Diploma is accepted as a standalone qualification. In the Flemish Community, recognition is automatic. In the French Community, an equivalence to the CESS must be obtained. Source: NARIC-Vlaanderen'
+        text: 'No. The IB Diploma is accepted as a standalone qualification. Recognition is automatic in the Flemish Community, and the French Community does not require an equivalence to the CESS for IB school-leaving certificates. Source: Wallonie-Bruxelles Campus — Equivalence of qualification.'
       }
     },
     {
@@ -151,7 +152,7 @@ const faqSchema = {
       name: 'Are entrance exams required in Belgium for IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'For most programs, no. However, Medicine and Dentistry require a mandatory entrance exam in both communities. Civil Engineering requires a math exam in the French Community. Source: Flemish and French Community regulations'
+        text: 'For most programs, no. Medicine and Dentistry require an entrance exam or competitive test in both communities, and so does Veterinary Medicine. In the Flemish Community the 2027 exams are on 2 July (Medicine), 3 July (Dentistry) and 4 July (Veterinary Medicine), with registration from 1 March to 17 May 2027. Civil Engineering requires a mathematics admission exam in the French Community. Source: Flanders.be — Entrance exams for medicine, dentistry and veterinary medicine.'
       }
     },
     {
@@ -159,7 +160,7 @@ const faqSchema = {
       name: 'What languages can IB students study in at Belgian universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Programs are offered in Dutch (Flemish Community), French (French Community), and some in English. Language proficiency is required in the language of instruction. Source: Study in Flanders'
+        text: 'Programs are offered in Dutch (Flemish Community), French (French Community), and some in English. Language proficiency is required in the language of instruction. Source: Study in Flanders.'
       }
     },
     {
@@ -167,7 +168,7 @@ const faqSchema = {
       name: 'Is there a national IB cut-off score for Belgium?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. There is no national minimum IB score. Each university sets its own admission criteria, though most require the full IB Diploma (minimum 24 points). Source: University admission policies'
+        text: 'No. There is no national minimum IB score. Each university sets its own admission criteria, though most require the full IB Diploma (minimum 24 points). Source: KU Leuven — Admission and application.'
       }
     }
   ]

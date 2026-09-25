@@ -6,7 +6,8 @@
  * Official sources used:
  * - studyindenmark.dk — official government portal for international students
  * - optagelse.dk — centralized Danish application portal (KOT system)
- * - ufsn.dk — Danish Agency for Higher Education and Science
+ * - ufsn.dk — Danish Agency for Higher Education and Science (IB admission and conversion)
+ * - ufm.dk — Ministry of Higher Education and Science (1.08 bonus abolished in 2020)
  *
  * All information in this component is sourced from official Danish government
  * and educational institution portals listed above.
@@ -38,22 +39,22 @@ const requiredDocuments = [
 // Application timeline steps
 const timelineSteps = [
   {
-    period: 'February 1: Application Portal Opens',
+    period: '1 February 2027: Application Portal Opens',
     description:
       'The centralized application portal optagelse.dk opens for the coming academic year. Create your account and begin your application.'
   },
   {
-    period: 'March 15, 12:00 noon CET: Application Deadline for IB Students',
+    period: '15 March 2027, 12:00 noon CET: Application Deadline for IB Students',
     description:
-      'All applicants with an IB Diploma — whether from a school in Denmark or abroad — must apply by March 15. This deadline also applies to Quota 2 applicants and programmes with admission tests.'
+      'All applicants with an IB Diploma — whether from a school in Denmark or abroad — must apply by 15 March. This deadline also applies to Quota 2 applicants and programmes with admission tests.'
   },
   {
-    period: 'July 5, 12:00 noon CET: Final Edits',
+    period: '5 July 2027, 12:00 noon CET: Final Edits',
     description:
       'You can edit and change your priority order, delete applications, and upload additional documents on optagelse.dk until this date.'
   },
   {
-    period: 'July 28: Admission Results',
+    period: '28 July 2027: Admission Results',
     description:
       'You will receive an answer to your application. If not admitted, you can apply for vacant study places by contacting institutions directly.'
   }
@@ -65,27 +66,29 @@ const faqs = [
     question: 'Is the IB Diploma recognized for university admission in Denmark?',
     answer:
       "Yes. The IB Diploma satisfies the general entry requirements for Danish undergraduate programmes (Bachelor's, Professional Bachelor's, and Academy Profession degrees). A minimum of 24 IB points is required.",
-    source: 'Study in Denmark — How to Apply',
-    sourceUrl: 'https://studyindenmark.dk/study-options/how-to-apply'
+    source: 'Danish Agency for Higher Education and Science — Admission of IB students (in Danish)',
+    sourceUrl:
+      'https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/regler-og-raad/internationale-eksaminer/vejledning-om-ib/optagelse-af-ib-elever/'
   },
   {
     question: 'How are IB grades converted for Danish university admission?',
     answer:
-      'IB grades are converted to the Danish 7-point grading scale. The conversion table is published annually by the Danish Ministry of Higher Education and Science around March 1. A GPA bonus multiplier of 1.08 is applied in Quota 1 if you apply within two years of completing your IB Diploma.',
-    source: 'Study in Denmark — How to Apply',
-    sourceUrl: 'https://studyindenmark.dk/study-options/how-to-apply'
+      'Your IB total is converted to a grade point average on the Danish 7-point scale, using a table from the Danish Agency for Higher Education and Science. The Agency normally updates its tables every three years; since 2024 there are two IB tables, one for 2020–2022 graduates and one for all other years. The former 1.08 bonus for starting quickly was abolished in 2020.',
+    source: 'Danish Agency for Higher Education and Science — IB conversion tables (in Danish)',
+    sourceUrl:
+      'https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/regler-og-raad/internationale-eksaminer/vejledning-om-ib/baggrunden-for-ib-omregningsskalaer-for-karaktergennemsnit/'
   },
   {
     question: 'How do IB students apply to Danish universities?',
     answer:
-      'All applications are submitted through the centralized portal optagelse.dk. IB applicants must apply by March 15, 12:00 noon CET. You can apply for up to 8 programmes and rank them by preference. The Coordinated Admission system (KOT) ensures you receive at most one offer.',
+      'All applications are submitted through the centralized portal optagelse.dk. IB applicants must apply by 15 March 2027, 12:00 noon CET. You can apply for up to 8 programmes and rank them by preference. The Coordinated Admission system (KOT) ensures you receive at most one offer.',
     source: 'Study in Denmark — How to Apply',
     sourceUrl: 'https://studyindenmark.dk/study-options/how-to-apply'
   },
   {
     question: 'Do I need to speak Danish to study in Denmark?',
     answer:
-      "Not necessarily. Denmark offers over 500 English-taught programmes. For English-taught programmes, you need English proficiency comparable to Danish 'English B' (approximately IELTS 6.5). For Danish-taught programmes, you must pass 'Studieprøven' (Danish as a Foreign Language test). International students can take Danish lessons for free.",
+      "Not necessarily. Denmark offers many English-taught programmes. For English-taught programmes, you need English proficiency comparable to Danish 'English B' (approximately IELTS 6.5). For Danish-taught programmes, you must pass 'Studieprøven' (Danish as a Foreign Language test). International students can take Danish lessons for free.",
     source: 'Study in Denmark — Language Requirements',
     sourceUrl: 'https://studyindenmark.dk/study-options/how-to-apply/language-requirements'
   },
@@ -109,7 +112,7 @@ export function DenmarkContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇩🇰</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -128,7 +131,7 @@ export function DenmarkContent() {
               university applications.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -141,7 +144,7 @@ export function DenmarkContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -213,6 +216,17 @@ export function DenmarkContent() {
                       UFSN — International Qualifications for Entry
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/regler-og-raad/internationale-eksaminer/vejledning-om-ib/optagelse-af-ib-elever/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Danish Agency for Higher Education and Science — Admission of IB students (in
+                      Danish)
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -250,11 +264,11 @@ export function DenmarkContent() {
                 <p className="text-amber-800 text-sm flex items-start gap-2">
                   <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>IB Certificate holders:</strong> If you received an IB Certificate
-                    (Diploma Programme Course Results) rather than the full IB Diploma, you may
-                    still be considered if you achieved at least 18 points, a minimum grade of 3 in
-                    all six subjects, and have completed supplementary courses. Contact the
-                    institution directly.
+                    <strong>IB Certificate holders:</strong> With Diploma Programme Course Results
+                    (formerly the IB Certificate) of at least 18 points and at least grade 3 in all
+                    six subjects, you can apply to Academy Profession and Professional
+                    Bachelor&apos;s programmes. University Bachelor&apos;s programmes also require
+                    supplementary courses or an IB retake.
                   </span>
                 </p>
               </div>
@@ -262,7 +276,7 @@ export function DenmarkContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -273,6 +287,17 @@ export function DenmarkContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Denmark — How to Apply
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/regler-og-raad/internationale-eksaminer/vejledning-om-ib/optagelse-af-ib-elever/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Danish Agency for Higher Education and Science — Admission of IB students (in
+                      Danish)
                     </a>
                   </li>
                 </ul>
@@ -316,8 +341,6 @@ export function DenmarkContent() {
                   <span>
                     <strong>Quota 1</strong> — Applicants are assessed primarily on their converted
                     grade point average (GPA). IB grades are converted to the Danish 7-point scale.
-                    A <strong>1.08 multiplier bonus</strong> is applied if you apply within two
-                    years of completing your IB Diploma.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -384,30 +407,32 @@ export function DenmarkContent() {
               <p>
                 IB grades are converted to the{' '}
                 <strong>Danish 7-point grading scale (7-trinsskalaen)</strong> for use in Quota 1
-                admission. The official conversion table is published annually by the Danish
-                Ministry of Higher Education and Science around <strong>March 1</strong>.
+                admission. The Danish Agency for Higher Education and Science publishes the
+                conversion tables, and institutions apply them to your application.
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    Each IB subject grade (1–7) is converted to the Danish scale on a per-subject
-                    basis, and an overall GPA is calculated
+                    Your <strong>IB total points</strong> are converted to a Danish grade point
+                    average. Single subject grades are converted separately where a programme sets a
+                    minimum grade in a subject; an IB 3 becomes 02, the Danish pass grade
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    A <strong>bonus multiplier of 1.08</strong> is applied to your GPA in Quota 1 if
-                    you apply within <strong>two years</strong> of completing your IB Diploma
+                    The <strong>1.08 bonus</strong> for applying within two years of graduating was
+                    abolished from the 2020 admissions
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    The conversion table may change slightly from year to year — always check the
-                    latest version before applying
+                    The tables are normally updated <strong>every three years</strong>. Since 2024
+                    there are two IB tables: one for 2020–2022 graduates, whose Covid-era grades
+                    were unusually high, and one for all other years
                   </span>
                 </div>
               </div>
@@ -473,7 +498,7 @@ export function DenmarkContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -484,6 +509,28 @@ export function DenmarkContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Denmark — How to Apply
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/regler-og-raad/internationale-eksaminer/vejledning-om-ib/baggrunden-for-ib-omregningsskalaer-for-karaktergennemsnit/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Danish Agency for Higher Education and Science — IB conversion tables (in
+                      Danish)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://ufm.dk/aktuelt/pressemeddelelser/2020/juli/karakterkravene-til-de-videregaaende-uddannelser-falder/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Ministry of Higher Education and Science — 1.08 bonus abolished, July 2020 (in
+                      Danish)
                     </a>
                   </li>
                 </ul>
@@ -568,7 +615,7 @@ export function DenmarkContent() {
             </p>
 
             <p className="mt-6 text-gray-600">
-              Denmark offers over <strong>500 English-taught programmes</strong>. Language
+              Denmark offers more than <strong>600 English-taught programmes</strong>. Language
               requirements depend on the language of instruction.
             </p>
 
@@ -640,7 +687,7 @@ export function DenmarkContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -651,6 +698,16 @@ export function DenmarkContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Denmark — Language Requirements
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studyindenmark.dk/study-options/how-to-apply"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Study in Denmark — How to Apply
                   </a>
                 </li>
               </ul>
@@ -845,7 +902,7 @@ export function DenmarkContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -856,6 +913,16 @@ export function DenmarkContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Denmark — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.optagelse.dk/higher-education.shtml"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Optagelse.dk — Apply for Higher Education
                   </a>
                 </li>
               </ul>

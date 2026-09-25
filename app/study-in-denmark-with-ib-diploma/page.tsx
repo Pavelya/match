@@ -21,9 +21,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Denmark with IB Diploma | Guide (2026)',
+  title: 'Study in Denmark with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Danish universities. Recognition, grade conversion, Quota system, and application via optagelse.dk (2026).',
+    'Official guide for IB students applying to Danish universities. Recognition, grade conversion, Quota system, and application via optagelse.dk (2027).',
   keywords: [
     'study in denmark with ib diploma',
     'ib diploma denmark university admission',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'denmark ib grade conversion'
   ],
   openGraph: {
-    title: 'Study in Denmark with IB Diploma | Guide (2026)',
+    title: 'Study in Denmark with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Denmark. Grade conversion, Quota system, and centralized application via optagelse.dk.',
     type: 'website',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Denmark with IB Diploma | Guide 2026',
+    title: 'Study in Denmark with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Danish university admission, grade conversion, Quota system, and application process.'
   },
@@ -134,7 +134,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Denmark?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Yes. The IB Diploma satisfies the general entry requirements for Danish undergraduate programmes (Bachelor's, Professional Bachelor's, and Academy Profession degrees). A minimum of 24 IB points is required. Source: Study in Denmark — How to Apply."
+        text: "Yes. The IB Diploma satisfies the general entry requirements for Danish undergraduate programmes (Bachelor's, Professional Bachelor's, and Academy Profession degrees). A minimum of 24 IB points is required. Source: Danish Agency for Higher Education and Science — Admission of IB students (in Danish)."
       }
     },
     {
@@ -142,7 +142,7 @@ const faqSchema = {
       name: 'How are IB grades converted for Danish university admission?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'IB grades are converted to the Danish 7-point grading scale. The conversion table is published annually by the Danish Ministry of Higher Education and Science around March 1. A GPA bonus multiplier of 1.08 is applied in Quota 1 if you apply within two years of completing your IB Diploma. Source: Study in Denmark — How to Apply.'
+        text: 'Your IB total is converted to a grade point average on the Danish 7-point scale, using a table from the Danish Agency for Higher Education and Science. The Agency normally updates its tables every three years; since 2024 there are two IB tables, one for 2020–2022 graduates and one for all other years. The former 1.08 bonus for starting quickly was abolished in 2020. Source: Danish Agency for Higher Education and Science — IB conversion tables (in Danish).'
       }
     },
     {
@@ -150,7 +150,7 @@ const faqSchema = {
       name: 'How do IB students apply to Danish universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'All applications are submitted through the centralized portal optagelse.dk. IB applicants must apply by March 15, 12:00 noon CET. You can apply for up to 8 programmes and rank them by preference. The Coordinated Admission system (KOT) ensures you receive at most one offer. Source: Study in Denmark — How to Apply.'
+        text: 'All applications are submitted through the centralized portal optagelse.dk. IB applicants must apply by 15 March 2027, 12:00 noon CET. You can apply for up to 8 programmes and rank them by preference. The Coordinated Admission system (KOT) ensures you receive at most one offer. Source: Study in Denmark — How to Apply.'
       }
     },
     {
@@ -158,7 +158,7 @@ const faqSchema = {
       name: 'Do I need to speak Danish to study in Denmark?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Not necessarily. Denmark offers over 500 English-taught programmes. For English-taught programmes, you need English proficiency comparable to Danish 'English B' (approximately IELTS 6.5). For Danish-taught programmes, you must pass 'Studieprøven' (Danish as a Foreign Language test). International students can take Danish lessons for free. Source: Study in Denmark — Language Requirements."
+        text: "Not necessarily. Denmark offers many English-taught programmes. For English-taught programmes, you need English proficiency comparable to Danish 'English B' (approximately IELTS 6.5). For Danish-taught programmes, you must pass 'Studieprøven' (Danish as a Foreign Language test). International students can take Danish lessons for free. Source: Study in Denmark — Language Requirements."
       }
     },
     {

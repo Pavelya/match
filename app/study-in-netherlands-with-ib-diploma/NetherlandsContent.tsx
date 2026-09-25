@@ -7,6 +7,7 @@
  * - studyinnl.org — Nuffic's official portal for international students (Study in NL)
  * - nuffic.nl — Dutch organisation for internationalisation in education (NARIC)
  * - studielink.nl — national online application and enrolment portal
+ * - uva.nl — University of Amsterdam admissions (predicted grades, IB admissions, 2027-2028 dates)
  *
  * All information in this component is sourced from official Dutch government
  * and educational institution portals listed above.
@@ -27,7 +28,7 @@ import {
 
 // Required documents for Dutch university admission
 const requiredDocuments = [
-  'IB Diploma and transcript of results (final — predicted grades are generally not accepted)',
+  'Predicted IB grades and your latest school transcript if you have not graduated yet, then the IB Diploma and final results',
   'Proof of identity (valid passport or national ID)',
   'Proof of English proficiency (IELTS, TOEFL, Cambridge — if not met through IB English courses)',
   'Nuffic credential evaluation or diploma comparison (institution may arrange this on your behalf)',
@@ -38,27 +39,27 @@ const requiredDocuments = [
 // Application timeline steps
 const timelineSteps = [
   {
-    period: 'October–December: Research Programmes',
+    period: 'From 1 October 2026: Research Programmes and Register',
     description:
-      "Identify programmes via the Studyfinder at studyinnl.org. Check each institution's website for specific entry requirements, deadlines, and whether Studielink registration applies to international students."
+      "Identify programmes via the Studyfinder at studyinnl.org. Check each institution's website for specific entry requirements, deadlines, and whether Studielink registration applies to international students. Studielink registration for 2027-2028 opens on 1 October 2026."
   },
   {
-    period: 'January 15: Numerus Fixus Deadline',
+    period: '15 January 2027: Numerus Fixus Deadline',
     description:
-      'Application deadline for Numerus Fixus programmes (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes. Selection takes place between January 15 and April 15.'
+      'Application deadline for Numerus Fixus programmes (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes. Selection takes place between 15 January and 15 April 2027.'
   },
   {
-    period: 'April 15: Numerus Fixus Results',
+    period: '15 April 2027: Numerus Fixus Results',
     description:
       'You receive your ranking number via Studielink. If offered a place, you must accept within two weeks. Unaccepted places are assigned to the next applicant in line.'
   },
   {
-    period: 'May 1: Regular Programme Deadline',
+    period: '1 May 2027: Regular Programme Deadline',
     description:
       'General application deadline for non-Numerus Fixus programmes. Some institutions have earlier deadlines — always verify with your chosen institution.'
   },
   {
-    period: 'September: Academic Year Begins',
+    period: 'September 2027: Academic Year Begins',
     description:
       'The Dutch academic year typically starts in September. Some programmes also offer a February start.'
   }
@@ -69,9 +70,10 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in the Netherlands?',
     answer:
-      'Yes. Nuffic (the Dutch NARIC) has determined that the IB Diploma is equivalent to the Dutch VWO diploma (Voorbereidend Wetenschappelijk Onderwijs), which is the qualification required for admission to Dutch research universities (WO). The IB Career-related Programme (CP) is comparable to the HAVO diploma with vocational subjects.',
-    source: 'Nuffic — International Baccalaureate',
-    sourceUrl: 'https://www.nuffic.nl/en/education-systems/international-baccalaureate'
+      'Yes. Nuffic (the Dutch NARIC) has determined that the IB Diploma is equivalent to the Dutch VWO diploma (Voorbereidend Wetenschappelijk Onderwijs), which is the qualification required for admission to Dutch research universities (WO). Nuffic compares the IB Career-related Programme (CP) certificate to at least a HAVO diploma.',
+    source: 'Nuffic — Level of the IB Diplomas',
+    sourceUrl:
+      'https://www.nuffic.nl/en/education-systems/international-baccalaureate/level-of-the-ib-diplomas'
   },
   {
     question: 'How do IB students apply to Dutch universities?',
@@ -83,7 +85,7 @@ const faqs = [
   {
     question: 'What is a Numerus Fixus programme and how does it affect IB students?',
     answer:
-      'Numerus Fixus programmes have a limited number of places. If more students apply than there are places, a selection procedure takes place. The application deadline for Numerus Fixus programmes is 15 January (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes per academic year. Medicine, Dentistry, Dental Hygiene, and Physiotherapy are further restricted to one application per programme.',
+      'Numerus Fixus programmes have a limited number of places. If more students apply than there are places, a selection procedure takes place. For the 2027-2028 academic year, the application deadline for Numerus Fixus programmes is 15 January 2027 (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes per academic year. Medicine, Dentistry, Dental Hygiene, and Physiotherapy are further restricted to one application per programme.',
     source: 'Study in NL — How to Apply',
     sourceUrl: 'https://www.studyinnl.org/plan-your-stay/how-to-apply'
   },
@@ -97,9 +99,9 @@ const faqs = [
   {
     question: 'What are tuition fees for IB students in the Netherlands?',
     answer:
-      'EU/EEA students pay the statutory tuition fee (wettelijk collegegeld), which is set annually by the Dutch government. Non-EU/EEA students pay the institutional tuition fee, which is set by each institution individually and is typically higher. Various scholarships are available, including the Holland Scholarship for non-EU/EEA students.',
-    source: 'Study in NL — Finances',
-    sourceUrl: 'https://www.studyinnl.org/finances'
+      'EU/EEA students pay the statutory tuition fee (wettelijk collegegeld), which the Dutch government sets each year: €2,694 for 2026-2027. The 2027-2028 amount had not been published when this page was updated. Non-EU/EEA students pay the institutional tuition fee, which each institution sets and which is typically higher. Scholarships include the NL Scholarship (formerly the Holland Scholarship) of €5,000 for non-EEA students.',
+    source: 'Study in NL — Tuition fees',
+    sourceUrl: 'https://www.studyinnl.org/finances/tuition-fees'
   }
 ]
 
@@ -114,7 +116,7 @@ export function NetherlandsContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇳🇱</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -133,7 +135,7 @@ export function NetherlandsContent() {
               submitted through Studielink.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -146,7 +148,7 @@ export function NetherlandsContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -173,8 +175,8 @@ export function NetherlandsContent() {
               </p>
 
               <p>
-                The IB Career-related Programme (CP) is comparable to the Dutch{' '}
-                <strong>HAVO diploma</strong> with vocational subjects, which provides access to{' '}
+                Nuffic compares the IB Career-related Programme (CP) certificate to at least a Dutch{' '}
+                <strong>HAVO diploma</strong>, the level that gives access to{' '}
                 <strong>universities of applied sciences (HBO)</strong>.
               </p>
 
@@ -315,16 +317,16 @@ export function NetherlandsContent() {
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Regular programmes</strong> — Application deadline is generally{' '}
-                    <strong>1 May</strong> for a September start. Some institutions have earlier
-                    deadlines, particularly for non-EU/EEA students.
+                    <strong>1 May</strong> for a September start (1 May 2027 for September 2027).
+                    Some institutions have earlier deadlines, particularly for non-EU/EEA students.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Numerus Fixus programmes</strong> — Programmes with a limited number of
-                    places (e.g., Medicine, Psychology). The deadline is{' '}
-                    <strong>15 January (23:59 CET)</strong>. A selection procedure determines
+                    places (e.g., Medicine, Psychology). For 2027-2028 the deadline is{' '}
+                    <strong>15 January 2027 (23:59 CET)</strong>. A selection procedure determines
                     admission based on criteria set by the institution.
                   </span>
                 </div>
@@ -364,6 +366,16 @@ export function NetherlandsContent() {
                       Studielink — National Enrolment Portal
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="https://www.uva.nl/programmas/bachelors/psychologie/toelating-en-inschrijven/toelating-selectie-en-inschrijven.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Amsterdam — Psychology admission, 2027-2028 (in Dutch)
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -399,8 +411,10 @@ export function NetherlandsContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Predicted grades are generally not accepted</strong> — most institutions
-                    require final IB results for admission decisions
+                    <strong>You can apply with predicted grades</strong> — the University of
+                    Amsterdam, for example, asks for your latest transcript and a school statement
+                    of predicted grades, and admits you conditionally until your final results
+                    arrive by 31 August
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -415,7 +429,7 @@ export function NetherlandsContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -426,6 +440,16 @@ export function NetherlandsContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Nuffic — International Baccalaureate
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.uva.nl/en/education/admissions/bachelors/applying-for-a-degree-programme.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Amsterdam — Applying for a Bachelor&apos;s programme
                     </a>
                   </li>
                 </ul>
@@ -737,10 +761,10 @@ export function NetherlandsContent() {
               <p className="text-amber-800 text-sm flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  Some Dutch universities (e.g., University of Amsterdam) may exempt IB students
-                  from submitting a prior education file if your results are sent directly from the
-                  IBO. Check with your chosen institution whether they accept direct digital results
-                  from the IBO.
+                  The University of Amsterdam does not ask EEA nationals applying to some of its
+                  Bachelor&apos;s programmes for a prior-education file: the IBO sends your results
+                  directly, by 31 August. Check with your chosen institution whether it accepts
+                  direct digital results from the IBO.
                 </span>
               </p>
             </div>
@@ -748,7 +772,7 @@ export function NetherlandsContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -759,6 +783,16 @@ export function NetherlandsContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in NL — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Amsterdam — International Baccalaureate Admissions
                   </a>
                 </li>
               </ul>
@@ -796,7 +830,7 @@ export function NetherlandsContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -807,6 +841,16 @@ export function NetherlandsContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in NL — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.uva.nl/programmas/bachelors/psychologie/toelating-en-inschrijven/toelating-selectie-en-inschrijven.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Amsterdam — Psychology admission, 2027-2028 (in Dutch)
                   </a>
                 </li>
               </ul>

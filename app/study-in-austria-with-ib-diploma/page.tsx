@@ -9,6 +9,8 @@
  * - studyinaustria.at (OeAD portal for international students)
  * - studieren.univie.ac.at (University of Vienna admissions)
  * - oead.at (Austrian Agency for Education and Internationalisation)
+ * - tugraz.at (TU Graz admission with the IB)
+ * - medizinstudieren.at (MedAT, run by the medical universities)
  */
 import { Metadata } from 'next'
 import { AustriaContent } from './AustriaContent'
@@ -135,7 +137,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Austria?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. The IB Diploma is recognized as a general university entrance qualification (allgemeine Universitätsreife) by Austrian universities when specific criteria are met. No Nostrifizierung is required. Source: Study in Austria — Application and admission.'
+        text: 'Yes. The IB Diploma is recognized as a general university entrance qualification (allgemeine Universitätsreife) by Austrian universities when specific criteria are met. No Nostrifizierung (formal degree recognition) is required for university admission. Source: TU Graz — Admission with the International Baccalaureate.'
       }
     },
     {
@@ -143,7 +145,7 @@ const faqSchema = {
       name: 'What is the minimum IB score for Austrian universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'A minimum of 24 IB points from six subjects is required, with at least 12 points combined from the three Higher Level subjects and no individual subject grade below 3. Source: Austrian university admission policies.'
+        text: 'At the University of Vienna and TU Graz, you need a full IB Diploma with at least 24 points (an IB Certificate is not enough), at least six subjects including a foreign language and mathematics, and at least three subjects at Higher Level. Source: University of Vienna — School-leaving certificate from a school abroad.'
       }
     },
     {
@@ -151,7 +153,7 @@ const faqSchema = {
       name: 'Is German required for studying in Austria?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Most public university programs in Austria are taught in German, and proof of German language proficiency is required. If German is taken as Language A in the IB, this may satisfy the requirement. Source: Study in Austria — Application and admission.'
+        text: "Yes, for German-taught programmes, which are the majority at public universities. Each university sets the level. The University of Vienna needs C1 before you start a German-taught Bachelor's programme and counts German taken as an IB subject only as A2 proof; TU Graz accepts German Language A as proof of C1. Source: University of Vienna — German language proficiency."
       }
     },
     {
@@ -159,7 +161,7 @@ const faqSchema = {
       name: 'Do IB students need to pass entrance exams in Austria?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Some competitive programs (e.g., Medicine, Psychology, Business) require entrance exams such as the MedAT. These apply to all applicants regardless of qualification type. Source: Study in Austria — Application and admission.'
+        text: 'Some competitive programmes (e.g., Medicine, Dentistry, Psychology, Business, Computer Science) require entrance exams such as the MedAT. These apply to all applicants regardless of qualification type. Source: Study in Austria — Application and admission.'
       }
     },
     {
@@ -167,7 +169,7 @@ const faqSchema = {
       name: 'When should IB students apply to Austrian universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The application deadline for the winter semester is September 5, and for summer semester February 5. International applicants should apply well in advance as processing foreign documents may take longer. Source: Study in Austria — Application and admission.'
+        text: 'The general application deadline is 5 September for the winter semester and 5 February for the summer semester, but programmes with entrance exams can close up to six months before the semester starts. International applicants should apply well in advance as processing foreign documents may take longer. Source: Study in Austria — Application and admission.'
       }
     }
   ]

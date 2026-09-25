@@ -36,38 +36,38 @@ const faqs = [
   {
     question: 'How is the IB diploma recognized in Switzerland?',
     answer:
-      'Swiss universities accept the IB Diploma as a foreign upper secondary qualification, evaluated institution-by-institution.',
-    source: 'Swissuniversities admission info',
-    sourceUrl: 'https://www.anerkennung.swiss/en/info/studying'
+      'Swiss universities accept the IB Diploma as a foreign upper secondary qualification, evaluated institution-by-institution. swissuniversities publishes the IB rules of each university.',
+    source: 'swissuniversities — International Baccalaureate',
+    sourceUrl:
+      'https://www.swissuniversities.ch/en/themen/zulassung/zulassung-universitaere-hochschulen/international-baccalaureate'
   },
   {
     question: 'Do IB students need a Swiss Maturity?',
     answer: 'No; the IB Diploma can serve as an equivalent admission qualification.',
-    source: 'Swiss recognition guidance',
+    source: 'anerkennung.swiss (SERI) — Studying in Switzerland',
     sourceUrl: 'https://www.anerkennung.swiss/en/info/studying'
   },
   {
     question: 'Is there a national IB score conversion in Switzerland?',
     answer:
-      'No; universities determine criteria such as 32/42 IB points, subject prereqs, or exams themselves.',
-    source: 'University policies and Swissuniversities info',
+      'No. Each university sets its own IB criteria. For 2026/27, most require at least 32 of 42 points (without bonus points) and three subjects at Higher Level, one of them mathematics or a natural science; ETH Zurich and EPFL require 38. The 2027/28 rules had not been published when this page was updated.',
+    source: 'swissuniversities — International Baccalaureate',
     sourceUrl:
-      'https://www.unibas.ch/en/Studies/Before-My-Studies/Application-Admission/Admission/Admission-to-the-bachelor-s-degree-program/Admission-to-bachelor-s-studies-with-foreign-educational-qualifications/Admission-with-the-International-Baccalaureate-Diploma-IB.html'
+      'https://www.swissuniversities.ch/en/themen/zulassung/zulassung-universitaere-hochschulen/international-baccalaureate'
   },
   {
     question: 'Can IB students study medicine in Switzerland?',
     answer:
-      'Yes, but medicine programs may have extra admissions requirements such as tests or higher entry standards set by the university.',
-    source: 'Swiss university admissions policies',
-    sourceUrl:
-      'https://www.swissuniversities.ch/en/topics/studying/admission-to-universities/countries-1'
+      'Only if you hold Swiss citizenship or a Swiss residence permit: swissuniversities states that other applicants cannot be admitted to medical studies because places are limited. Eligible applicants pre-register with swissuniversities by 15 February. Basel, Bern, Fribourg, Zurich, USI and ETH Zurich then allocate places by an aptitude test (EMS), held on the Friday of calendar week 27, in early July.',
+    source: 'swissuniversities — Applying to medical school',
+    sourceUrl: 'https://www.swissuniversities.ch/en/service/applying-to-medical-school'
   },
   {
     question: 'Is German or French required?',
     answer:
-      'Yes; Swiss universities generally require proficiency in the language of instruction; English-taught programs require English proficiency.',
-    source: 'University language policy expectations',
-    sourceUrl: 'https://www.orientation.ch/dyn/show/245488'
+      'Yes, for programs taught in those languages. Swiss universities require proficiency in the language of instruction; the University of Zurich, for example, asks for German at C1 level. English-taught programs require English proficiency.',
+    source: "University of Zurich — Admission to a Bachelor's program",
+    sourceUrl: 'https://www.uzh.ch/en/studies/application/bachelor.html'
   }
 ]
 
@@ -297,23 +297,27 @@ export function SwitzerlandContent() {
                   <div className="flex items-start gap-3 text-gray-700">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Universities often require a total of at least{' '}
-                      <strong>32 out of 42 IB points</strong> (excluding core points) for generic
-                      eligibility
+                      For 2026/27, most universities require at least{' '}
+                      <strong>32 out of 42 IB points</strong> (without bonus points), six subjects
+                      from set categories, and three at Higher Level, one of them mathematics or a
+                      natural science
                     </span>
                   </div>
                   <div className="flex items-start gap-3 text-gray-700">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Competitive programs (e.g., science/engineering) may stipulate{' '}
-                      <strong>subject prerequisites</strong> such as HL Mathematics or Natural
-                      Sciences
+                      <strong>ETH Zurich and EPFL require 38 points</strong>, with mathematics and a
+                      natural science at Higher Level. EPFL also asks for at least 6 in mathematics
+                      and physics, and since 2025 caps first-year places at 3,000, selecting
+                      applicants with foreign qualifications by their grades
                     </span>
                   </div>
                   <div className="flex items-start gap-3 text-gray-700">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Specific score expectations vary by institution and by degree program
+                      Specific requirements vary by institution and by degree program.
+                      swissuniversities revises its list every year; the 2027/28 rules had not been
+                      published when this page was updated
                     </span>
                   </div>
                 </div>
@@ -337,12 +341,12 @@ export function SwitzerlandContent() {
                   </li>
                   <li>
                     <a
-                      href="https://www.swissuniversities.ch/en/topics/studying/admission-to-universities/countries-1"
+                      href="https://www.swissuniversities.ch/en/themen/zulassung/zulassung-universitaere-hochschulen/international-baccalaureate"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      Swissuniversities — International Baccalaureate
+                      swissuniversities — International Baccalaureate (2026/27)
                     </a>
                   </li>
                 </ul>
@@ -384,7 +388,7 @@ export function SwitzerlandContent() {
                 </div>
                 <p className="text-gray-600 text-sm">
                   German-taught programs require <strong>German proficiency</strong> (often B2 or C1
-                  CEFR)
+                  CEFR; the University of Zurich asks for C1)
                 </p>
               </div>
 
@@ -427,12 +431,12 @@ export function SwitzerlandContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.orientation.ch/dyn/show/245488"
+                    href="https://www.uzh.ch/en/studies/application/bachelor.html"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    orientation.ch — University admission with foreign qualifications
+                    University of Zurich — Admission to a Bachelor&apos;s program
                   </a>
                 </li>
               </ul>
@@ -470,6 +474,15 @@ export function SwitzerlandContent() {
                     Others may require <strong>portfolio submissions</strong> for arts programs
                   </span>
                 </div>
+                <div className="flex items-start gap-3 text-gray-700">
+                  <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <span>
+                    <strong>Medicine</strong> is open only to Swiss citizens and holders of a Swiss
+                    residence permit. Applicants pre-register with swissuniversities by 15 February,
+                    and Basel, Bern, Fribourg, Zurich, USI and ETH Zurich allocate places by an
+                    aptitude test (EMS) on the Friday of calendar week 27, in early July
+                  </span>
+                </div>
               </div>
 
               <p>These are set by individual universities.</p>
@@ -477,7 +490,7 @@ export function SwitzerlandContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -488,6 +501,26 @@ export function SwitzerlandContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Swissuniversities — Admission requirements by country
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.swissuniversities.ch/en/service/applying-to-medical-school"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      swissuniversities — Applying to medical school
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.swissuniversities.ch/service/anmeldung-zum-medizinstudium/zulassungsverfahren-mit-numerus-clausus"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      swissuniversities — Admission with numerus clausus (in German)
                     </a>
                   </li>
                 </ul>
@@ -639,7 +672,10 @@ export function SwitzerlandContent() {
                 <div>
                   <p className="font-semibold text-gray-900">University-specific deadlines</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Deadlines and processes are published directly by each university
+                    Each university publishes its own deadlines. At the University of Zurich, for
+                    example, applications for the fall semester run from 1 January to 30 April
+                    (earlier for applicants who need a visa), and for Medicine from 1 January to 28
+                    February, after registering with swissuniversities by 15 February.
                   </p>
                 </div>
               </div>
@@ -661,7 +697,7 @@ export function SwitzerlandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -672,6 +708,16 @@ export function SwitzerlandContent() {
                     className="text-blue-600 hover:underline"
                   >
                     anerkennung.swiss — Studying in Switzerland
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.uzh.ch/en/studies/application/deadlines.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Zurich — Application deadlines
                   </a>
                 </li>
               </ul>
