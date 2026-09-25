@@ -22,7 +22,7 @@ here, and this refresh does more production writes than any work before it.
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
-| 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
+| 3 | Honest labels | 1.3, 1.4 | small | **1.3 done** 25 September 2026. 1.4 left |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
@@ -58,7 +58,7 @@ Phase 1 — Fix now
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
 - [x] 1.2 Oxford and Cambridge fast lane — two Oxford rows held for the owner's check
-- [ ] 1.3 Correct the false counts and the "Educaton" typo
+- [x] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
 Phase 2 — Country pages for the 2027 intake
@@ -137,7 +137,10 @@ Owner tasks — not AI work
   npx tsx scripts/sync-to-algolia-standalone.ts
   npx tsx scripts/invalidate-program-cache.ts
   ```
-  Edits made in `/admin/programs` sync both on their own.
+  Edits made in `/admin/programs` are meant to sync both on their own, but the sync runs
+  after the response and is not guaranteed to finish on Vercel: a field rename in 1.3
+  never reached Algolia. After an admin edit, check the record and run the sync script
+  if it did not change.
 
 ### Calendar
 
@@ -380,6 +383,38 @@ spelled correctly everywhere.
 icon; Algolia facet values contain no `Educaton`.
 
 **Session size:** Small. Pairs with 1.4.
+
+#### Status, 25 September 2026 — done (session 3)
+
+- **Counts.** The grep in step 2 and a `count()` for each claim found five false ones, all fixed:
+  "30+ Countries" and "30+ Fields of Study" on `/how-it-works` (22 and 12) now read "Countries"
+  and "Fields of Study"; "Thousands of Programs" (1,282) reads "1,000+ Programs"; "Every program
+  is manually reviewed" (838 of 1,282 are flagged `requirementsVerified`) and "Always fresh data"
+  are gone; the requirements page metadata no longer says "30+ countries"; the support page no
+  longer promises to help "hundreds" of students (134 profiles). The "1000+" claims on
+  `/programs/search` are true and were kept: a floor that only grows stays true.
+- **Education.** Step 3 was already live: the `Education` icon key has been on `main` since
+  `7a0a2af`. The owner renamed the field in `/admin/reference-data`. Live `/programs/search` and
+  `/ib-university-requirements` show "Education" and not "Educaton", the requirements page renders
+  its book icon, and the Algolia facet reads `Education: 15` with no `Educaton`. The `Educaton` key
+  is removed in its own commit.
+- **The reference-data extension did not reach Algolia.** The rename wrote the row, but the facet
+  still read `Educaton: 15` six times over 80 seconds. `npx tsx scripts/sync-to-algolia-standalone.ts`
+  fixed it, then `invalidate-program-cache.ts` rebuilt the cache. Both extensions in `lib/prisma.ts`
+  start the sync without awaiting it and return, and Vercel can freeze the function once the
+  response is sent. `MAINT_tasks.md` session 3 proved they fire against a local database, where the
+  process stays alive. The likely fix is Next's `after()` (see
+  `node_modules/next/dist/docs/01-app/03-api-reference/04-functions/after.md`), but that is a
+  separate task: the program-level path in `lib/algolia/middleware.ts` has the same shape, and
+  phase 4 relies on it.
+- **Two more, on the owner's call.** The support page's "Many of our programs were added thanks to
+  student suggestions" is removed: nothing in the data records where a program came from. On the
+  requirements page, the visible FAQ said the IB is recognised in "over 100 countries" and its
+  structured data said "over 22", which was the site's own country count. Both now give the IB's
+  figure: over 4,500 universities in more than 110 countries and territories receive IB transcripts
+  each year. `ibo.org` returns 403 to scripted requests, so the sentence was read from the search
+  index, not the page; check it in a browser at
+  `ibo.org/university-admission/find-countries-and-universities-that-recognize-the-ib/`.
 
 ---
 

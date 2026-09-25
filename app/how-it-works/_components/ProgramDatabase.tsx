@@ -4,7 +4,7 @@ const features = [
   {
     name: 'Curated Program Data',
     description:
-      'Every program is manually reviewed for accurate IB requirements — minimum points, required subjects, and grade thresholds.',
+      'Each program lists its IB requirements in the same format — minimum points, required subjects, and grade thresholds — so programs are easy to compare.',
     icon: Database
   },
   {
@@ -22,7 +22,7 @@ const features = [
   {
     name: 'Real-Time Sync',
     description:
-      'When we add new programs or update requirements, your search results update instantly. Always fresh data.',
+      'When we add new programs or update requirements, your search results update instantly.',
     icon: RefreshCw
   }
 ]
@@ -34,7 +34,7 @@ export function ProgramDatabase() {
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-blue-600">Program Database</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Thousands of Programs, Instant Results
+            1,000+ Programs, Instant Results
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             We maintain a growing database of university programs from around the world, each with

@@ -80,7 +80,6 @@ const getFieldIcon = (fieldName: string) => {
     Architecture: Building,
     'Environmental Studies': Sprout,
     Education: BookOpen,
-    Educaton: BookOpen,
     Media: Tv
   }
   return iconMap[fieldName] || GraduationCap
@@ -90,7 +89,7 @@ const faqs = [
   {
     question: 'Which countries accept the IB Diploma for university admission?',
     answer:
-      'The IB Diploma is recognized by universities in over 100 countries worldwide. Each country has its own process for evaluating IB scores — some convert them to local equivalents (e.g., UCAS Tariff in the UK, ATAR in Australia, CAO points in Ireland), while others accept IB points directly. Use the country guides above to find the specific rules for your target country.'
+      'Universities in more than 110 countries and territories admit IB Diploma students — each year, over 4,500 of them receive IB transcripts, according to the IB. Each country has its own process for evaluating IB scores — some convert them to local equivalents (e.g., UCAS Tariff in the UK, ATAR in Australia, CAO points in Ireland), while others accept IB points directly. Use the country guides above to find the specific rules for your target country.'
   },
   {
     question: 'How do universities convert IB scores to local grading systems?',
