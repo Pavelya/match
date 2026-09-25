@@ -21,7 +21,7 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Five Oxford rows wait on the owner's check of Oxford's summary table |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [x] 1.2 Oxford and Cambridge fast lane — five Oxford rows held for the owner's check
+- [x] 1.2 Oxford and Cambridge fast lane — two Oxford rows held for the owner's check
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
@@ -107,7 +107,9 @@ Owner tasks — not AI work
 - [ ] Decide what happens to discontinued programs
 - [ ] Check bot-blocked sites by hand when the session cannot read them
 - [x] Apply the Oxford and Cambridge changes (1.2) — by script, 25 September 2026
-- [ ] Compare the Oxford rows with Oxford's summary table and settle the five held rows (1.2)
+- [x] Compare the Oxford rows with Oxford's summary table (1.2) — 25 September 2026
+- [ ] Read the IB line on four Oxford course pages: the two held rows, plus Computer Science and
+  Classics as a spot check (1.2; details in the handoff file)
 - [ ] Approve the canonical degree list (3.2)
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
@@ -313,7 +315,7 @@ on its public page.
 
 **Session size:** Medium. Research only, plus a short handoff.
 
-#### Status, 25 September 2026 — done; five Oxford rows held for the owner (session 2)
+#### Status, 25 September 2026 — done; two Oxford rows held for the owner (session 2)
 
 - **Done.** `docs/tasks/content-2027/oxford-cambridge.md` has all 76 programs, one row each,
   with the program ID, the 2027-entry requirement, the change and the source. The first half of
@@ -321,10 +323,8 @@ on its public page.
 - **Cambridge, 30 of 30 change.** Every course page says 2027 entry and "41–42 points, 776 at
   HL"; stored values were 42–45. Eighteen stored subjects Cambridge does not require. Land
   Economy is renamed Environment, Law, and Economics (same course, UCAS code KL41).
-- **Oxford, 31 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
-  rows come from department, faculty and college pages. Most of them name no entry year. The
-  file asks the owner to compare the Oxford rows with Oxford's one-page summary table in a
-  browser, and flags five rows that need more than that.
+- **Oxford, 33 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
+  rows come from department, faculty and college pages, most of which name no entry year.
 - **Judgement call to review:** where a source names no grade for a required subject, the file
   uses 6, the lowest the HL profile allows (776, 766, 666), instead of the stored 7. The rule is
   stated at the top of the file.
@@ -340,9 +340,15 @@ on its public page.
   Oxford Computer Science 39 with Maths AA or AI at HL 7, Oxford History with no subjects,
   Cambridge Economics 41, Environment, Law, and Economics under its new name, Cambridge Medicine
   with Maths AI. Both halves of Verify pass.
-- **Still open, owner:** the five held Oxford rows and the one-page comparison with Oxford's
-  summary table, both described in the handoff file. Settled rows are applied by clearing their
-  `hold` and re-running the script.
+- **Summary table, 25 September 2026.** The owner saved Oxford's summary table from a browser.
+  It gives A-level offers and subject rules for the current cycle, not IB points. Its required
+  subjects agree with 45 of 46 Oxford rows; Fine Art's Visual Arts requirement goes (Art is
+  recommended only). Earth Sciences and History of Art take the table's URLs. Three held rows are
+  settled (Classical Archaeology and Ancient History, Fine Art, Geography). That leaves four
+  programs to write with the script: three changes and one stamp.
+- **Still open, owner:** Asian and Middle Eastern Studies and History of Art need the IB line from
+  their course pages. A spot check of two more course pages would let 3.1 stamp every Oxford row
+  as 2027; both are described in the handoff file.
 
 ---
 

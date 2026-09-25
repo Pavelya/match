@@ -249,6 +249,11 @@ async function main() {
     const now = current.get(t.id)!
     const changes = diffProgram(now.state, t.state)
     const stampsChange = !sameStamps(now.stamps, t.stamps)
+    if (changes.length === 0 && !stampsChange) {
+      unchanged++
+      continue
+    }
+    // Print each university's name once, above its first program that has something to write.
     if (t.university !== university) {
       university = t.university
       console.log(`\n${university}`)
@@ -256,11 +261,8 @@ async function main() {
     if (changes.length > 0) {
       console.log(`  CHANGE  ${t.state.name}  (${t.id})`)
       for (const c of changes) console.log(`            ${c}`)
-    } else if (stampsChange) {
-      console.log(`  STAMP   ${t.state.name}`)
     } else {
-      unchanged++
-      continue
+      console.log(`  STAMP   ${t.state.name}`)
     }
     toWrite.push({
       target: t,
@@ -268,6 +270,7 @@ async function main() {
       requirementsChanged: !sameRequirements(now.state.requirements, t.state.requirements)
     })
   }
+  if (held.length > 0) console.log('\nHeld, not written')
   for (const h of held) console.log(`  HOLD    ${h.university} — ${h.name}: ${h.reason}`)
 
   const changed = toWrite.filter((w) => w.changes.length > 0).length
