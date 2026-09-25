@@ -60,10 +60,16 @@ interface Field {
   avgPoints: number
 }
 
+interface Faq {
+  question: string
+  answer: string
+}
+
 interface Props {
   stats: Stats
   countries: Country[]
   fields: Field[]
+  faqs: Faq[]
 }
 
 // Map field names to lucide icons
@@ -85,35 +91,7 @@ const getFieldIcon = (fieldName: string) => {
   return iconMap[fieldName] || GraduationCap
 }
 
-const faqs = [
-  {
-    question: 'Which countries accept the IB Diploma for university admission?',
-    answer:
-      'Universities in more than 110 countries and territories admit IB Diploma students — each year, over 4,500 of them receive IB transcripts, according to the IB. Each country has its own process for evaluating IB scores — some convert them to local equivalents (e.g., UCAS Tariff in the UK, ATAR in Australia, CAO points in Ireland), while others accept IB points directly. Use the country guides above to find the specific rules for your target country.'
-  },
-  {
-    question: 'How do universities convert IB scores to local grading systems?',
-    answer:
-      'Conversion methods vary significantly. The UK uses UCAS Tariff points, Ireland converts to CAO points, Sweden maps to the Swedish grade scale, Australia converts to an ATAR, and Germany evaluates against Allgemeine Hochschulreife requirements. Our country guides explain each system with official conversion tables and sources.'
-  },
-  {
-    question: 'What IB points do I need for university?',
-    answer:
-      'Requirements range from 24 to 45 points depending on the program, institution, and country. Competitive programs at top universities typically require 38–45 points, while less selective programs may accept 24–30 points. Many programs also require specific subjects at Higher Level (HL) with minimum grades.'
-  },
-  {
-    question: 'Do I need specific Higher Level (HL) subjects?',
-    answer:
-      'Many universities require specific subjects at HL with minimum grades. For example, Engineering programs often require Math HL (grade 5–6+), Medicine typically requires Chemistry HL and Biology HL, and Economics programs prefer Math HL. Requirements vary by country and institution — check our country guides for details.'
-  },
-  {
-    question: 'Do I need to take entrance exams as an IB student?',
-    answer:
-      'This depends on the country and program. In many European countries (UK, Germany, Sweden), no entrance exams are required for IB students. However, some countries have specific tests — for example, Ireland requires HPAT for Medicine, Spain requires the PCE exam for grade conversion, and some competitive programs in Hong Kong may have interviews.'
-  }
-]
-
-export function RequirementsContent({ stats, countries, fields }: Props) {
+export function RequirementsContent({ stats, countries, fields, faqs }: Props) {
   const countriesWithGuides = countries.filter((c) => c.guideSlug)
 
   return (
@@ -126,7 +104,7 @@ export function RequirementsContent({ stats, countries, fields }: Props) {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <Globe className="h-4 w-4 mr-2" />
-              Updated for 2026 Intake
+              Country guides updated for the 2027 intake
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -228,6 +206,11 @@ export function RequirementsContent({ stats, countries, fields }: Props) {
               </Link>
             ))}
           </div>
+
+          <p className="mt-8 text-center text-sm text-gray-500">
+            Program counts and IB point ranges come from our program database, which is still being
+            updated for 2027 entry.
+          </p>
         </div>
       </section>
 
