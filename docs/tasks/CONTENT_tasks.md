@@ -21,7 +21,7 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Research done.** 61 of 76 programs change; the owner applies them in the admin UI before the UCAS deadline, **15 October 2026** |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Five Oxford rows wait on the owner's check of Oxford's summary table |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [ ] 1.2 Oxford and Cambridge fast lane — research done; the owner applies the changes
+- [x] 1.2 Oxford and Cambridge fast lane — five Oxford rows held for the owner's check
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
@@ -106,7 +106,8 @@ Owner tasks — not AI work
 - [ ] Review every refresh diff before `--apply`
 - [ ] Decide what happens to discontinued programs
 - [ ] Check bot-blocked sites by hand when the session cannot read them
-- [ ] Apply the Oxford and Cambridge changes in the admin UI (1.2)
+- [x] Apply the Oxford and Cambridge changes (1.2) — by script, 25 September 2026
+- [ ] Compare the Oxford rows with Oxford's summary table and settle the five held rows (1.2)
 - [ ] Approve the canonical degree list (3.2)
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
@@ -312,7 +313,7 @@ on its public page.
 
 **Session size:** Medium. Research only, plus a short handoff.
 
-#### Status, 24 September 2026 — research done; the owner applies the changes (session 2)
+#### Status, 25 September 2026 — done; five Oxford rows held for the owner (session 2)
 
 - **Done.** `docs/tasks/content-2027/oxford-cambridge.md` has all 76 programs, one row each,
   with the program ID, the 2027-entry requirement, the change and the source. The first half of
@@ -332,8 +333,16 @@ on its public page.
   12 stamp-only, 5 held, matching the file) and writes on `--apply` after the owner approves,
   with a backup and `--restore`. Its diff helpers (`scripts/programs/lib/requirements-diff.ts`,
   Vitest-covered) and data shape are a starting point for the refresh tool in 3.3.
-- **Left to tick 1.2:** the changed rows are applied (admin UI or script), then the second half
-  of Verify (new values on the public pages) can be checked.
+- **Applied, 25 September 2026.** The owner ran `apply-2027-requirements.ts --apply`: 71
+  programs written (59 changed, 12 stamped only), backup
+  `scripts/programs/2027/backups/2026-09-25T05-47-57-750Z.json` (git-ignored, on the owner's
+  machine). A second dry run reports 71 already up to date. Live pages show the new values:
+  Oxford Computer Science 39 with Maths AA or AI at HL 7, Oxford History with no subjects,
+  Cambridge Economics 41, Environment, Law, and Economics under its new name, Cambridge Medicine
+  with Maths AI. Both halves of Verify pass.
+- **Still open, owner:** the five held Oxford rows and the one-page comparison with Oxford's
+  summary table, both described in the handoff file. Settled rows are applied by clearing their
+  `hold` and re-running the script.
 
 ---
 
