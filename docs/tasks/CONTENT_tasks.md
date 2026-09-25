@@ -23,7 +23,7 @@ here, and this refresh does more production writes than any work before it.
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
-| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **2.1 done** 25 September 2026. The other 15 pages still say "2026 intake" |
+| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **2.1 and 2.2 done** 25 September 2026. The eight 2.3 pages still say "2026 intake" |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
@@ -64,7 +64,7 @@ Phase 1 — Fix now
 Phase 2 — Country pages for the 2027 intake
 
 - [x] 2.1 English-speaking and Asia-Pacific pages (7) — owner to open four bot-walled links
-- [ ] 2.2 Western and Northern Europe pages (7)
+- [x] 2.2 Western and Northern Europe pages (7) — owner to open three bot-walled links
 - [ ] 2.3 Southern and Central Europe, Israel, Japan pages (8)
 - [ ] 2.4 `/ib-university-requirements`
 
@@ -220,7 +220,10 @@ not precision.
   `mcgill.ca/undergraduate-admissions` 403s (its `/importantdates/` pages answer).
 - **A 200 can be a bot wall.** `nus.edu.sg` web pages, `admissions.smu.edu.sg` and `cityu.edu.hk`
   return 200 with an Incapsula challenge page to curl and WebFetch alike. Check the body, not just
-  the status. NUS PDFs under `/oam/docs/` still download.
+  the status. NUS PDFs under `/oam/docs/` still download. Found in 2.2: `equivalences.cfwb.be`,
+  `ares-ac.be` and `mesetudes.be` return 200 with a 244-byte "Request Rejected" page (WebFetch reads
+  them); `viden.stil.dk` downloads redirect to a security check that neither passes; `orientation.ch`
+  sends scripts to a cookie check.
 - **A 200 can be stale.** Year-pinned URLs keep serving last year's page: Manchester
   `/2026/`, Jönköping `autumn-2026`, Gdańsk `20242025`, HKUST `2020-21`.
 
@@ -591,6 +594,71 @@ Netherlands, Belgium, Germany, Switzerland\*, Austria\*, Denmark, Sweden\*.
 
 **Session size:** Medium.
 
+#### Status, 25 September 2026 — done (session 5)
+
+- **All seven say 2027**, and their `modified` date in `lib/page-dates.ts` is 2026-09-25. Where a source
+  has not published 2027 figures, the page gives the latest one and names its year. Every page had
+  something wrong beyond the year, and those claims now follow the official source.
+- **Netherlands.** The 2027-28 numerus fixus window (1 October 2026 – 15 January 2027) is from UvA and
+  Twente. The page said predicted grades are "generally not accepted", but Dutch universities admit IB
+  students conditionally on them (UvA: final results by 31 August). The statutory fee is €2,694 for
+  2026-27. The 2027-28 fee is unpublished; a search result claims €2,771, with no official source. The
+  Holland Scholarship is now the NL Scholarship, and Nuffic compares the IB CP to "at least a HAVO
+  diploma". **Not on the page:** the Internationalisation in Balance bill (numerus fixus on English-taught
+  tracks, caps on non-EEA students) is before the Senate with no commencement date.
+- **Belgium.** **The French Community requires no equivalence for the IB.** The FWB equivalence service
+  and Wallonie-Bruxelles Campus both list IB certificates among those that need none, provided the school
+  is IB-authorised. The page said the opposite in six places, two FAQ answers among them. The Flemish
+  entrance exam also covers Veterinary Medicine: 2027 exams 2–4 July, registration 1 March – 17 May 2027.
+  The French Community's 2027 concours date is unpublished (2026: 27 August). The month-range timeline,
+  sourced to "University admission calendars", now gives VUB's dates and the exam dates.
+- **Germany.** Two statements contradicted the KMK's IB agreement (1986, as amended 15 June 2023). The
+  page said Germany has no national IB grade conversion, but the KMK sets one: N = 1 + 3 × (42 − P) / 18.
+  It also said the KMK sets field-specific HL subjects for medicine and engineering; the KMK sets general
+  rules instead (one HL must be a language, mathematics or a science; grade 4 in all six, one 3
+  compensable). The maths rule was missing: since 2021, either maths course at SL gives access only to
+  subjects outside maths, science and engineering, unless the school is on the KMK's annex.
+  hochschulstart has not published winter 2027/28 dates, so the timeline gives 2026's. Phase 7 still owns
+  how the page models German admission.
+- **Switzerland.** swissuniversities says applicants without Swiss citizenship or a residence permit
+  cannot be admitted to medicine; the FAQ answered "Yes". The IB rules now cite swissuniversities' IB
+  page, which covers 2026/27 (32/42; ETH and EPFL 38); its 2027/28 list is not out. The orientation.ch
+  language source was dead and is replaced by UZH (German C1). The JSON-LD had a different fifth question.
+- **Austria.** EU/EEA students pay **no** tuition within the minimum duration plus two semesters; the
+  page said "~€363/semester", the fee after that. The "12 HL points" and "no grade below 3" rules are in
+  neither Vienna's nor TU Graz's IB rules (24 points, six subjects with a foreign language and maths,
+  three HL) and are gone. Vienna counts German taken as an IB subject only as A2 and needs C1; TU Graz
+  accepts German A as C1. MedAT 2027 is unpublished (2026: registration 2–31 March, test 3 July), and the
+  MedAT quotas are added. Vienna's summer 2027 window is in; its winter 2027/28 dates are not published.
+- **Denmark.** The 1.08 bonus for a quick start was abolished from the 2020 intake (ministry press
+  release, July 2020), yet the page applied it in three places. IB conversion tables change about every
+  three years, not "annually around 1 March", and since 2024 there are two (2020–2022 graduates, and the
+  rest). **Not checked:** optagelse.dk links an "Entry requirements: upcoming changes (2027-2028)" PDF on
+  `viden.stil.dk` that neither curl nor WebFetch can read.
+- **Sweden.** The admissions-round advice was reversed. University Admissions tells final-year IB students
+  **not** to apply in the first round and recommends the second round only to EU/EEA and Swiss citizens;
+  the page told unfinished non-EU applicants to use the first round only. The merit table was the one
+  replaced for autumn 2025 (24 points: 12.40, now 13.18). Autumn 2027 dates are in: first round
+  16 October 2026 – 15 January 2027; second round 15 March – 15 April 2027; IB results to "UHR" by 5 July
+  2027. Applicants rank up to 8 courses and programmes, not 4. UHR's IB page still describes May 2026
+  diplomas; recheck it when it moves to 2027.
+- **FAQ structured data.** On all seven pages the FAQPage JSON-LD is now generated from the visible `faqs`
+  array: the answer, then " Source: <name>.". Austria, Sweden and Switzerland had drifted, and Germany's
+  sources were bare URLs. In the built HTML every JSON-LD question, answer and source name appears
+  verbatim. The same check on the 2.3 pages fails Spain (6 mismatches), Czech Republic (3) and Estonia (3).
+- **For the owner:**
+  - Open three links in a browser: the FWB equivalence page and the ARES concours dates (both return a
+    244-byte "Request Rejected" page to scripts; WebFetch read them), and the Danish 2027-2028
+    entry-requirements PDF on `viden.stil.dk`, which nothing scripted could read.
+  - Swap in when published: the Dutch 2027-28 statutory fee, hochschulstart's winter 2027/28 dates, the
+    ARES 2027 concours, MedAT 2027, swissuniversities' 2027/28 IB list, Vienna's winter 2027/28 window,
+    and UHR's IB instructions for May 2027 diplomas. Add the Dutch internationalisation law if it passes.
+- **Verified.** All 68 external links return 200; two are the bot walls above, and every page title
+  matches its topic (no soft 404s). `grep -rn "2026 intake"` over the seven directories finds nothing.
+  The build lists all seven routes as static with a one-week revalidate. The rendered titles all end in
+  "(2027)", and the JSON-LD dates read modified 2026-09-25. Type check, lint, Prettier and both test
+  suites pass.
+
 ### 2.3 — Southern and Central Europe, Israel, Japan
 
 Spain, Portugal, Italy, Poland, Czech Republic, Estonia, Israel, Japan.
@@ -600,6 +668,9 @@ Known issues:
 - **Czech Republic:** `studyin.cz/plan-your-studies/recognition/` returns 404. The
   page's "March 1, 2025" references are the date a law took effect, not staleness.
 - **Italy:** `mur.gov.it` returns 403, probably bot-blocking. Check by hand.
+- **FAQ structured data:** the JSON-LD does not match the visible FAQ on Spain (6 questions, answers or
+  sources), the Czech Republic (3) and Estonia (3). Generate it from the visible `faqs` array, as 2.2
+  did, and check the built HTML (`.next/server/app/study-in-<country>-with-ib-diploma.html`).
 
 **Session size:** Medium to large; eight pages.
 
