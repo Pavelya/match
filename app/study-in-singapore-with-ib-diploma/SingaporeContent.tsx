@@ -21,6 +21,35 @@ const requiredDocuments = [
   'Mother Tongue Language (MTL) verification (for SG Citizens/PRs)'
 ]
 
+// Application timeline for AY2027-28 (August 2027 start), from NTU and NUS
+const timelineSteps = [
+  {
+    period: '15 October 2026: NTU Applications Open',
+    description:
+      'NTU accepts applications from IB Diploma students for AY2027-28 from 15 October 2026 to 19 March 2027.'
+  },
+  {
+    period: 'December 2026 – February 2027: NUS Applications (dates to be confirmed)',
+    description:
+      'NUS had not published its AY2027-28 dates when this page was updated. For AY2026-27, its IB window ran from 17 December 2025 to 23 February 2026.'
+  },
+  {
+    period: '19 March 2027: NTU Closing Date',
+    description:
+      'Applications close. Students who sat the IB in November 2026 must also enter their actual results by this date.'
+  },
+  {
+    period: 'Early July 2027: May-Session IB Results',
+    description:
+      'Enter your actual results within three days of release (NTU), and make sure the IB has released your official transcript to each university.'
+  },
+  {
+    period: 'July 2027: Outcomes for May-Session Students',
+    description:
+      'NTU releases outcomes two to three weeks after you submit actual results and makes no conditional offers before then. For AY2026-27, NUS released these outcomes from the second week of July.'
+  }
+]
+
 const faqs = [
   {
     question: 'Do autonomous universities in Singapore accept the IB Diploma?',
@@ -33,7 +62,7 @@ const faqs = [
   {
     question: 'What IB score is required for admission to NUS or NTU?',
     answer:
-      'There is no universal minimum score, but admission is highly competitive. Universities conduct holistic reviews and expect a strong combination of grades, typically 5s, 6s, and 7s in Higher Level and Standard Level subjects, including good grades in EE and TOK.',
+      'There is no published minimum score, and admission is highly competitive. NTU does not publish a grade profile for IB Diploma holders because too few apply to derive one; each programme sets minimum subject requirements instead.',
     source: 'Nanyang Technological University (NTU)',
     sourceUrl:
       'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma'
@@ -41,10 +70,10 @@ const faqs = [
   {
     question: 'Can I apply with predicted IB scores if I take the May exams?',
     answer:
-      'Yes, if you are taking the May examinations, you can often apply with predicted scores for the initial application window (around December to February/March). However, actual IB results must be submitted promptly upon release in July.',
-    source: 'National University of Singapore (NUS)',
+      'Yes. May 2027 candidates can apply with predicted grades during the application window (NTU: 15 October 2026 to 19 March 2027). Outcomes come only after your actual results in July: NTU requires them within three days of release and makes no conditional offers before then. Some NTU programmes, including Medicine, do not accept May-session candidates.',
+    source: 'Nanyang Technological University (NTU)',
     sourceUrl:
-      'https://nus.edu.sg/oam/apply-to-nus/international-baccalaureate-(ib)-diploma/admissions-requirements'
+      'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma'
   },
   {
     question: 'Is the IB Diploma alone sufficient for university entry in Singapore?',
@@ -74,7 +103,7 @@ export function SingaporeContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇸🇬</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -94,7 +123,7 @@ export function SingaporeContent() {
               Diploma.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -107,7 +136,7 @@ export function SingaporeContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -282,31 +311,31 @@ export function SingaporeContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Strong Combination</strong> — Universities like NTU generally expect a
-                    consistent combination of 5s, 6s, and 7s across all Higher Level and Standard
-                    Level subjects.
+                    <strong>Full Diploma</strong> — NUS considers only applicants who have been
+                    awarded the IB Diploma.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Core Elements</strong> — Good grades in the Extended Essay (EE) and
-                    Theory of Knowledge (TOK) are explicitly required.
+                    <strong>No Published Grade Profile</strong> — NTU does not publish an indicative
+                    grade profile for IB Diploma holders because too few apply to derive one.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Subject Prerequisites</strong> — Many programs have precise requirements
-                    (e.g., Mathematics MAA or MAI at Higher Level).
+                    <strong>Subject Prerequisites</strong> — Many programs have minimum subject
+                    requirements. Where Mathematics is required, NTU accepts both Analysis and
+                    Approaches (MAA) and Applications and Interpretation (MAI).
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Predicted Grades</strong> — If you are taking the May IB examinations,
-                    you are allowed to apply using predicted results. However, actual results must
-                    be submitted promptly after their July release.
+                    you can apply using predicted results, but NUS and NTU release your outcome only
+                    after your actual results arrive in July.
                   </span>
                 </div>
               </div>
@@ -337,8 +366,9 @@ export function SingaporeContent() {
                   <li className="flex items-start gap-3 text-gray-700">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>Medicine & Dentistry</strong> — Often require the UCAT (University
-                      Clinical Aptitude Test) or specialized selection tests.
+                      <strong>Medicine</strong> — NUS and NTU require the UCAT (University Clinical
+                      Aptitude Test). NTU&apos;s Medicine programme does not accept students sitting
+                      the IB in May 2027.
                     </span>
                   </li>
                   <li className="flex items-start gap-3 text-gray-700">
@@ -527,72 +557,63 @@ export function SingaporeContent() {
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Timeline</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Application Timeline (2026 Intake)
+              Application Timeline (2027 Intake)
             </p>
 
             <div className="mt-8 space-y-4">
-              <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
-                  1
+              {timelineSteps.map((step, index) => (
+                <div
+                  key={step.period}
+                  className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">{step.period}</p>
+                    <p className="text-sm text-gray-600 mt-1">{step.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-gray-900">
-                    December – February: Application Opens
-                  </p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Application period opens for most Singaporean universities.
-                  </p>
-                </div>
-              </div>
+              ))}
+            </div>
 
-              <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
-                  2
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Late February / March: Deadlines</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Main application deadline approaches (varies by program and university).
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
-                  3
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Mid-May – July: Early Outcomes</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Estimated application outcomes for early/predicted applicants.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
-                  4
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Early July: Final IB Results</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Actual IB results released; transcripts must be accessible directly by
-                    university via IBO.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
-                  5
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">July – August: Final Outcomes</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Final application outcomes are officially released to candidates.
-                  </p>
-                </div>
-              </div>
+            <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <ExternalLink className="h-4 w-4 text-blue-600" />
+                Official Sources
+              </h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.ntu.edu.sg/admissions/undergraduate/admission-guide"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NTU — Admissions to AY2027-28 undergraduate programmes
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NTU — IB Diploma admission guide
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.nus.edu.sg/oam/docs/default-source/international-baccalaureate/faqs-for-international-baccalaureate.pdf?sfvrsn=37e7aa40_37"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    NUS — FAQ for IB Diploma students (AY2026-27)
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>

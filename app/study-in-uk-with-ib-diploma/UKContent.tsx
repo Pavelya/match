@@ -25,38 +25,44 @@ import {
 const requiredDocuments = [
   'Predicted IB grades',
   'Academic reference',
-  'Personal statement (2026 changes may alter structure)',
-  'Final IB results (after May exams)'
+  'Personal statement: three questions, 4,000 characters in total',
+  'Final IB results (after May exams); UCAS can send IB results to universities for you'
 ]
 
-// UCAS Application Timeline (2027 entry — dates are approximate, based on typical UCAS cycle)
+// UCAS Application Timeline (2027 entry, from UCAS's published dates)
 const timelineSteps = [
   {
-    date: 'September 2026',
-    description: 'Applications open — UCAS begins accepting applications for 2027 entry'
+    date: '12 May 2026',
+    description: 'UCAS applications open for 2027 entry: register and start your application'
   },
   {
-    date: 'Mid-October 2026 (18:00 UK time)',
-    description: 'Deadline for Oxford, Cambridge, medicine, dentistry, and veterinary science'
+    date: '1 September 2026',
+    description: 'Completed applications can be sent to UCAS, once your reference is attached'
   },
   {
-    date: 'Late January 2027 (18:00 UK time)',
+    date: '15 October 2026 (18:00 UK time)',
+    description:
+      'Equal consideration deadline for Oxford, Cambridge, and most medicine, dentistry, and veterinary courses'
+  },
+  {
+    date: '13 January 2027 (18:00 UK time)',
     description: 'Equal consideration deadline for most undergraduate courses'
   },
   {
-    date: 'Late February 2027',
-    description: 'UCAS Extra opens for applicants not holding offers'
+    date: '25 February 2027',
+    description: 'UCAS Extra opens for applicants who have used all five choices and hold no offers'
   },
   {
-    date: 'Late June 2027 (18:00 UK time)',
-    description: 'Final on-time submission date'
+    date: '30 June 2027 (18:00 UK time)',
+    description:
+      'Last date for applications to be sent to universities; later applications go into Clearing'
   },
   {
-    date: 'Early July 2027',
+    date: '2 July 2027',
     description: 'UCAS Clearing opens for applicants without offers or wanting new choices'
   },
   {
-    date: 'Late September 2027 (18:00 UK time)',
+    date: '23 September 2027 (18:00 UK time)',
     description: 'Final UCAS deadline for 2027 entry'
   }
 ]
@@ -84,12 +90,13 @@ const faqs = [
     answer: 'No; universities set their own entry criteria and may use Tariff points.',
     source: 'UCAS Tariff context',
     sourceUrl:
-      'https://www.ucas.com/undergraduate/applying-to-university/entry-requirements/ucas-tariff'
+      'https://www.ucas.com/applying/before-you-apply/what-and-where-to-study/entry-requirements/ucas-tariff-points'
   },
   {
     question: 'Can IB students study Medicine in the UK?',
-    answer: 'Yes, but applications for medicine courses have an earlier deadline (15 October).',
-    source: 'UCAS 2026 deadlines',
+    answer:
+      'Yes, but applications for medicine courses have an earlier deadline: 15 October 2026 for 2027 entry.',
+    source: 'UCAS 2027 entry deadlines',
     sourceUrl:
       'https://www.ucas.com/applying/applying-to-university/dates-and-deadlines-for-uni-applications'
   },
@@ -329,7 +336,7 @@ export function UKContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.ucas.com/undergraduate/applying-to-university/entry-requirements/ucas-tariff"
+                      href="https://www.ucas.com/applying/before-you-apply/what-and-where-to-study/entry-requirements/ucas-tariff-points"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
@@ -546,9 +553,12 @@ export function UKContent() {
 
             <div className="mt-6 rounded-2xl bg-blue-50 p-6 border border-blue-100">
               <p className="text-gray-700 text-sm">
-                <strong>Note:</strong> In 2026, UCAS transitions away from the traditional single
-                personal-statement essay to structured questions focused on motivation and
-                preparation.
+                <strong>Note:</strong> Since 2026 entry, the UCAS personal statement is three
+                questions instead of one essay: why you want to study the course, how your studies
+                have prepared you, and what else you have done to prepare. The 4,000-character limit
+                is unchanged, and each answer needs at least 350 characters. New for 2027 entry,
+                UCAS lets every applicant upload documents such as English test certificates and
+                passport details.
               </p>
             </div>
           </div>
@@ -565,8 +575,7 @@ export function UKContent() {
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              <strong>2027 entry estimated UCAS deadlines</strong> (based on the typical UCAS cycle
-              — confirm on ucas.com):
+              <strong>2027 entry UCAS dates</strong>, as published by UCAS:
             </p>
 
             <div className="mt-8 space-y-4">

@@ -18,13 +18,33 @@ import {
   BookOpen
 } from 'lucide-react'
 
-// IBAS to ATAR conversion table data (valid to May 2026)
-const ibasAtarConversionData = [
-  { ibas: '45.75', atar: '99.95' },
-  { ibas: '45.00', atar: '99.85' },
-  { ibas: '43.00', atar: '98.90' },
-  { ibas: '40.00', atar: '96.30' },
-  { ibas: '38.00', atar: '94.25' }
+// IB to ATAR-equivalent conversions for offers made from August 2026 (2027 entry), from
+// UAC and IB Schools Australasia. Which table applies depends on where the IB was sat.
+const conversionTables = [
+  {
+    title: 'IB sat in Australia',
+    scoreLabel: 'IB Admissions Score (IBAS)',
+    rows: [
+      { score: '45.75', atar: '99.95' },
+      { score: '45.00', atar: '99.85' },
+      { score: '43.00', atar: '99.00' },
+      { score: '40.00', atar: '96.35' },
+      { score: '38.00', atar: '94.15' }
+    ]
+  },
+  {
+    title: 'IB sat outside Australia',
+    scoreLabel: 'IB Diploma score',
+    rows: [
+      { score: '45', atar: '99.95' },
+      { score: '42', atar: '98.65' },
+      { score: '40', atar: '96.85' },
+      { score: '38', atar: '94.65' },
+      { score: '35', atar: '90.75' },
+      { score: '30', atar: '79.30' },
+      { score: '24', atar: '64.60' }
+    ]
+  }
 ]
 
 // Required documents
@@ -36,11 +56,25 @@ const requiredDocuments = [
   'Evidence of English proficiency (if required)'
 ]
 
-// Application timeline
+// Application timeline (study starting in early 2027, from UAC, VTAC and IB Schools Australasia)
 const timelineSteps = [
-  { period: 'Mid-year to early spring', description: 'Applications open' },
-  { period: 'Late year', description: 'Main offer rounds' },
-  { period: 'After IB results release', description: 'Conditions confirmed' }
+  {
+    period: '28 September 2026',
+    description: 'VTAC (Victoria) closing date for timely applications'
+  },
+  {
+    period: '17–18 December 2026',
+    description:
+      'November-session IB results released on 17 December; admissions centres send IBAS and ATAR equivalents the next day'
+  },
+  {
+    period: '23 December 2026',
+    description: 'Main December offer rounds at UAC (NSW and ACT) and VTAC'
+  },
+  {
+    period: 'January 2027',
+    description: 'Further offer rounds (UAC: 8 and 21 January 2027)'
+  }
 ]
 
 // FAQ data
@@ -49,29 +83,34 @@ const faqs = [
     question: 'How is the IB diploma recognized in Australia?',
     answer:
       'It is accepted as a senior secondary qualification and assessed via IBAS–ATAR or IB-based selection rules set by universities and admissions centres.',
-    source: 'https://ibaustralasia.org/university-entrance/'
+    source: 'IB Schools Australasia',
+    sourceUrl: 'https://ibaustralasia.org/university-entrance/'
   },
   {
     question: 'Do IB students get an ATAR in Australia?',
-    answer: 'No. They receive an IBAS that converts to an ATAR-equivalent rank.',
-    source: 'https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants'
+    answer:
+      'No. Their IB result is converted to an ATAR-equivalent rank. Students who sat the IB in Australia are ranked on their IB Admissions Score (IBAS); students who sat it elsewhere are ranked on their whole-number diploma score.',
+    source: 'UAC',
+    sourceUrl: 'https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants'
   },
   {
-    question: 'How does IBAS convert to ATAR for 2026?',
+    question: 'How is the IB converted to an ATAR equivalent for 2027 entry?',
     answer:
-      'Using the official conversion schedule valid for IB exams from November 2022 to May 2026.',
-    source:
-      'https://ibaustralasia.org/2026-ib-diploma-conversion-to-atar-equivalent-ibas-available/'
+      'Using the national conversion agreed by the tertiary admissions centres for offers made from August 2026. A diploma score of 38 earned outside Australia converts to 94.65; an IBAS of 38.00 earned in Australia converts to 94.15.',
+    source: 'UAC',
+    sourceUrl: 'https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants'
   },
   {
     question: 'Are entrance exams required in Australia for IB students?',
     answer: 'Usually no, but some programs require additional selection steps.',
-    source: 'https://www.curtin.edu.au/study/applying/ib-diploma/'
+    source: 'Curtin University',
+    sourceUrl: 'https://www.curtin.edu.au/study/applying/ib-diploma/'
   },
   {
     question: 'Is English required for university in Australia for IB students?',
     answer: "Yes. English requirements depend on the university's policy.",
-    source:
+    source: 'University of Sydney',
+    sourceUrl:
       'https://www.sydney.edu.au/study/applying/how-to-apply/international-students/english-language-requirements.html'
   }
 ]
@@ -87,7 +126,7 @@ export function AustraliaContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇦🇺</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -104,7 +143,7 @@ export function AustraliaContent() {
               written exclusively for <strong>IB Diploma students and IB Coordinators</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -117,7 +156,7 @@ export function AustraliaContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -236,12 +275,17 @@ export function AustraliaContent() {
               </h3>
               <p className="text-gray-600 mb-6">
                 <strong>IBAS (IB Admissions Score)</strong> is a fine-grained score derived from the
-                IB Diploma result to allow fair comparison with ATAR-based applicants.
+                IB Diploma result to allow fair comparison with ATAR-based applicants. It adds
+                decimal places to your diploma score based on where your marks fall within each
+                grade, so a diploma score of 41 might become an IBAS of 41.75.
               </p>
 
               <p className="text-gray-600 mb-6">
-                For the <strong>2026 intake</strong>, the official conversion applies to IB
-                examinations <strong>from November 2022 to May 2026</strong>.
+                The IBAS applies to students who <strong>sat the IB in Australia</strong> from
+                November 2022. If you <strong>sat the IB outside Australia</strong>, your
+                ATAR-equivalent rank is based on your <strong>whole-number diploma score</strong>{' '}
+                instead. The current conversion tables apply to offers made from{' '}
+                <strong>August 2026</strong>, which covers entry in 2027.
               </p>
 
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -262,12 +306,12 @@ export function AustraliaContent() {
                   </li>
                   <li>
                     <a
-                      href="https://ibaustralasia.org/2026-ib-diploma-conversion-to-atar-equivalent-ibas-available/"
+                      href="https://ibaustralasia.org/university-entrance/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://ibaustralasia.org/2026-ib-diploma-conversion-to-atar-equivalent-ibas-available/
+                      https://ibaustralasia.org/university-entrance/
                     </a>
                   </li>
                 </ul>
@@ -277,46 +321,63 @@ export function AustraliaContent() {
             {/* IBAS–ATAR Conversion Table */}
             <div className="mt-12">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Example IBAS–ATAR Conversions (valid to May 2026)
+                Example Conversions to an ATAR Equivalent (2027 Entry)
               </h3>
               <p className="text-gray-600 mb-6">
                 The following are <strong>examples only</strong>. Admissions centres use the full
                 official conversion tables.
               </p>
 
-              <div className="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 overflow-hidden max-w-sm">
-                <table className="w-full">
-                  <thead className="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">
-                        IB Admissions Score (IBAS)
-                      </th>
-                      <th className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
-                        Notional ATAR
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {ibasAtarConversionData.map((row) => (
-                      <tr key={row.ibas} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-4 py-3 text-sm text-gray-700">{row.ibas}</td>
-                        <td className="px-4 py-3 text-right">
-                          <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-sm font-semibold text-blue-700">
-                            {row.atar}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {conversionTables.map((table) => (
+                  <div key={table.title}>
+                    <h4 className="font-semibold text-gray-900 mb-3">{table.title}</h4>
+                    <div className="rounded-xl bg-white shadow-sm ring-1 ring-gray-900/5 overflow-hidden">
+                      <table className="w-full">
+                        <thead className="bg-gray-50 border-b border-gray-200">
+                          <tr>
+                            <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">
+                              {table.scoreLabel}
+                            </th>
+                            <th className="px-4 py-3 text-right text-sm font-semibold text-gray-900">
+                              ATAR equivalent
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {table.rows.map((row) => (
+                            <tr key={row.score} className="hover:bg-gray-50 transition-colors">
+                              <td className="px-4 py-3 text-sm text-gray-700">{row.score}</td>
+                              <td className="px-4 py-3 text-right">
+                                <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-sm font-semibold text-blue-700">
+                                  {row.atar}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
+                  <li>
+                    <a
+                      href="https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="https://vtac.edu.au/guides/quickstart/ib-students"
@@ -605,7 +666,8 @@ export function AustraliaContent() {
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Timelines vary by university and state, but typically:
+              Key dates for study starting in early 2027. Dates vary by admissions centre and
+              university; these are from UAC (NSW and ACT) and VTAC (Victoria):
             </p>
 
             <div className="mt-8 space-y-4">
@@ -614,7 +676,7 @@ export function AustraliaContent() {
                   key={step.period}
                   className="flex items-center gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
                     {index + 1}
                   </div>
                   <div>
@@ -634,17 +696,37 @@ export function AustraliaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants"
+                    href="https://www.uac.edu.au/key-dates"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants
+                    https://www.uac.edu.au/key-dates
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://vtac.edu.au/guides/quickstart/ib-students"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    https://vtac.edu.au/guides/quickstart/ib-students
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://ibaustralasia.org/university-entrance/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    https://ibaustralasia.org/university-entrance/
                   </a>
                 </li>
               </ul>
@@ -673,7 +755,7 @@ export function AustraliaContent() {
                   <p className="mt-3 text-sm">
                     <span className="text-gray-500">Source:</span>{' '}
                     <a
-                      href={faq.source}
+                      href={faq.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"

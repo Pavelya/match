@@ -138,7 +138,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized by US universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Over 770 US universities officially recognize the IB Diploma. US admissions are holistic — there is no single minimum IB score, but the IB curriculum is viewed as rigorous, college-level preparation. Source: IBO Recognition Database.'
+        text: 'Yes. Over 770 US universities officially recognize the IB Diploma. US admissions are holistic — there is no single minimum IB score published, but the IB curriculum is viewed as rigorous, college-level preparation that strengthens applications. Source: IBO — Recognition Database.'
       }
     },
     {
@@ -146,7 +146,7 @@ const faqSchema = {
       name: 'Can I get college credit for IB courses in the USA?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Most US universities award college credit for Higher Level (HL) IB exams, typically requiring scores of 5, 6, or 7. The University of California system, for example, awards 8 quarter units per HL exam with 5+ and 6 additional units for a full diploma with 30+ total. Credit policies vary by institution. Source: University of California Admissions.'
+        text: 'Yes. Most US universities award college credit for Higher Level (HL) IB exams, typically requiring scores of 5, 6, or 7. The University of California system awards 8 quarter units per HL exam with 5+ and 6 additional units for a full diploma with 30+ total points. Standard Level (SL) exams usually do not receive credit. Policies vary by institution — always check each university directly. Source: University of California — IB Credits.'
       }
     },
     {
@@ -154,15 +154,7 @@ const faqSchema = {
       name: 'How do IB students apply to US universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Most US universities accept applications through the Common Application (commonapp.org), which supports over 1,000 colleges. IB students submit predicted grades, transcripts, essays, recommendation letters, and extracurricular information. Some universities also accept the Coalition Application. Source: Common App.'
-      }
-    },
-    {
-      '@type': 'Question',
-      name: 'What are the application deadlines for US universities?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Early Decision/Action deadlines are typically November 1–15. Regular Decision deadlines are usually January 1–15. The Common App opens on August 1 each year. Decisions are released in mid-December for early rounds and March–April for regular decision. Source: Common App.'
+        text: 'Most US universities accept applications through the Common Application (commonapp.org), which supports over 1,000 colleges. IB students submit predicted grades, transcripts, essays, recommendation letters, and extracurricular information. Predicted IB scores are typically included in the school counselor report since application deadlines fall before final IB results are released. Source: Common Application.'
       }
     },
     {
@@ -170,7 +162,15 @@ const faqSchema = {
       name: 'Do US universities require SAT/ACT for IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Many US universities have adopted test-optional policies, meaning SAT/ACT scores are not required. In test-optional contexts, strong IB coursework and predicted grades can effectively take the place of standardized test scores. Check each university's specific policy. Source: Common App, individual university admissions websites."
+        text: "Many US universities have adopted test-optional or test-free policies, meaning SAT/ACT scores are not required. In test-optional contexts, strong IB coursework and predicted grades can effectively strengthen your application. Some highly selective universities have reinstated the requirement — always check each university's current policy. Source: Common Application."
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What IB scores do I need for top US universities?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'US universities do not publish minimum IB score requirements. However, successful applicants to highly selective universities (Ivy League, Stanford, MIT) typically present scores of 38–45 with strong HL grades (6s and 7s). Because admissions are holistic, essays, extracurriculars, and recommendation letters also play a significant role. Source: EducationUSA — US Department of State.'
       }
     }
   ]

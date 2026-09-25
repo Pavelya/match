@@ -8,7 +8,7 @@
  * Official sources used:
  * - cao.ie (Central Applications Office — centralized application system)
  * - educationinireland.com (official government portal for international students)
- * - hea.ie (Higher Education Authority)
+ * - hea.ie (Higher Education Authority — Free Fees Initiative)
  */
 import { Metadata } from 'next'
 import { IrelandContent } from './IrelandContent'
@@ -21,9 +21,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Ireland with IB Diploma | Guide (2026)',
+  title: 'Study in Ireland with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Irish universities. CAO points conversion, bonus points, HPAT, and application process (2026).',
+    'Official guide for IB students applying to Irish universities. CAO points conversion, bonus points, HPAT, and application process (2027).',
   keywords: [
     'study in ireland with ib diploma',
     'ib diploma ireland university admission',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'ireland ib grade conversion'
   ],
   openGraph: {
-    title: 'Study in Ireland with IB Diploma | Guide (2026)',
+    title: 'Study in Ireland with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Ireland. CAO points conversion, bonus points for HL Maths, and centralized application process.',
     type: 'website',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Ireland with IB Diploma | Guide 2026',
+    title: 'Study in Ireland with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Irish university admission, CAO points conversion, HPAT, and application process.'
   },
@@ -150,7 +150,7 @@ const faqSchema = {
       name: 'How do IB students apply to Irish universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'EU, EFTA, and UK applicants apply through the Central Applications Office (CAO) at cao.ie. The normal application deadline is February 1 at 5:15 PM GMT, with late applications accepted until May 1. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses. Non-EU/EEA applicants should generally apply directly to the institution. Source: CAO — Important Dates.'
+        text: 'EU, EFTA, and UK applicants apply through the Central Applications Office (CAO) at cao.ie. For 2027 entry, the normal application deadline is 1 February 2027 at 5:00 PM, with late applications accepted until 1 May 2027. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses. Non-EU/EEA applicants should generally apply directly to the institution. Source: CAO — Important Dates 2027.'
       }
     },
     {
@@ -166,7 +166,7 @@ const faqSchema = {
       name: 'Is higher education in Ireland free for IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on your nationality. EU/EEA/Swiss/UK students who meet residency requirements are eligible for the Free Fees Initiative — they pay only the student contribution charge of €2,500 per year. Non-EU/EEA students pay full tuition fees, which typically range from €9,900 to €34,000 per year depending on the institution and programme. Source: HEA — Student Finance.'
+        text: 'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,500 a year. That is the rate for 2026/27; the 2027/28 rate had not been announced when this page was updated. Non-EU/EEA students pay full tuition fees set by each institution. Source: HEA — Free Fees Initiative.'
       }
     }
   ]

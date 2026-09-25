@@ -5,9 +5,10 @@
  *
  * Official sources used:
  * - cao.ie — Central Applications Office (centralized application system)
- * - cao.ie/downloads — Entry Requirements for EU/EFTA/UK Applicants (2026)
+ * - cao.ie/euefta — Entry Requirements for EU/EFTA/UK Applicants (latest edition: 2026 entry)
+ * - cao.ie handbook and important dates — 2027 entry
  * - educationinireland.com — official government portal for international students
- * - hea.ie — Higher Education Authority (tuition fees and student finance)
+ * - hea.ie — Higher Education Authority (Free Fees Initiative)
  *
  * All information in this component is sourced from official Irish government
  * and educational institution portals listed above.
@@ -36,35 +37,38 @@ const requiredDocuments = [
   'Any programme-specific supplementary documents (e.g., portfolio, HPAT registration)'
 ]
 
-// Application timeline steps
+// Application timeline steps (2027 entry, from CAO's 2027 handbook and important dates)
 const timelineSteps = [
   {
-    period: 'November 5: CAO Application Portal Opens',
+    period: '5 November 2026 (12:00): CAO Applications Open',
     description:
-      'The online application portal at cao.ie opens for the coming academic year. Create your account and begin your application early.'
+      'The online application facility at cao.ie opens for 2027 entry. Create your account and begin your application early.'
   },
   {
-    period: 'February 1, 5:15 PM GMT: Normal Application Deadline',
-    description:
-      'The standard closing date for online applications. The application fee is €40. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses.'
+    period: '20 January 2027 (5:00 PM): Discounted Application Deadline',
+    description: 'Apply online by this date to pay the discounted application fee of €35.'
   },
   {
-    period: 'May 1: Late Application Deadline',
+    period: '1 February 2027 (5:00 PM): Normal Application Deadline',
     description:
-      'Late applications are accepted online until May 1 with a fee of €60. Paper late applications cost €80. Not all courses accept late applications.'
+      'The standard closing date for applications. The online application fee is €50. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses.'
   },
   {
-    period: 'July 1: Change of Mind Deadline',
+    period: '1 May 2027 (5:00 PM): Late Application Deadline',
     description:
-      'You can change your course choices online free of charge until this date. This is particularly useful once you know your predicted or final IB results.'
+      'Late online applications open on 5 March 2027 and cost €65; late paper applications cost €95. Some courses do not accept late applications.'
   },
   {
-    period: 'Mid-August: Round 1 Offers',
+    period: '1 July 2027 (5:00 PM): Change of Mind Deadline',
     description:
-      'First round of CAO offers are issued. You must accept or decline your offer by the stated deadline. Subsequent rounds follow for available places.'
+      'From 5 May you can change your course choices online free of charge until this date. This is particularly useful once you know your predicted IB results.'
+  },
+  {
+    period: 'Late August 2027: Round One Offers',
+    description:
+      'Round One offers are issued in the week after the Leaving Certificate results; CAO confirms the exact date later. Accept your offer by the reply date on the offer notice. Further rounds follow for available places.'
   }
 ]
-
 // FAQ data
 const faqs = [
   {
@@ -72,21 +76,21 @@ const faqs = [
     answer:
       'Yes. The IB Diploma is accepted as equivalent to the Irish Leaving Certificate for admission to Level 6, 7, and 8 courses (Higher Certificates, Ordinary Degrees, and Honours Degrees). IB scores are converted to CAO points using an official conversion table.',
     source: 'CAO — Entry Requirements for EU/EFTA/UK Applicants',
-    sourceUrl: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
+    sourceUrl: 'https://www.cao.ie/euefta'
   },
   {
     question: 'How are IB scores converted to CAO points?',
     answer:
       'IB scores are converted to the Irish Points Scale (IPS) using an official conversion table published in the CAO Entry Requirements document. The conversion is based on statistical alignment of IB and Leaving Certificate results. Additionally, 25 bonus points are awarded for IB Higher Level Mathematics at grade 4 or above.',
     source: 'CAO — Entry Requirements for EU/EFTA/UK Applicants',
-    sourceUrl: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
+    sourceUrl: 'https://www.cao.ie/euefta'
   },
   {
     question: 'How do IB students apply to Irish universities?',
     answer:
-      'EU, EFTA, and UK applicants apply through the Central Applications Office (CAO) at cao.ie. The normal application deadline is February 1 at 5:15 PM GMT, with late applications accepted until May 1. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses. Non-EU/EEA applicants should generally apply directly to the institution.',
-    source: 'CAO — Important Dates',
-    sourceUrl: 'https://www.cao.ie/index.php?page=importantdates'
+      'EU, EFTA, and UK applicants apply through the Central Applications Office (CAO) at cao.ie. For 2027 entry, the normal application deadline is 1 February 2027 at 5:00 PM, with late applications accepted until 1 May 2027. You can list up to 10 Level 8 (Honours Degree) and 10 Level 7/6 courses. Non-EU/EEA applicants should generally apply directly to the institution.',
+    source: 'CAO — Important Dates 2027',
+    sourceUrl: 'https://www2.cao.ie/downloads/documents/2027/CAO_Important_Dates_2027.pdf'
   },
   {
     question: 'Do IB students need to take entrance exams in Ireland?',
@@ -98,9 +102,9 @@ const faqs = [
   {
     question: 'Is higher education in Ireland free for IB students?',
     answer:
-      'It depends on your nationality. EU/EEA/Swiss/UK students who meet residency requirements are eligible for the Free Fees Initiative — they pay only the student contribution charge of €2,500 per year. Non-EU/EEA students pay full tuition fees, which typically range from €9,900 to €34,000 per year depending on the institution and programme.',
-    source: 'HEA — Student Finance',
-    sourceUrl: 'https://hea.ie/funding-governance-performance/funding/student-finance/'
+      'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,500 a year. That is the rate for 2026/27; the 2027/28 rate had not been announced when this page was updated. Non-EU/EEA students pay full tuition fees set by each institution.',
+    source: 'HEA — Free Fees Initiative',
+    sourceUrl: 'https://hea.ie/funding-governance-performance/funding/student-finance/course-fees/'
   }
 ]
 
@@ -115,7 +119,7 @@ export function IrelandContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇮🇪</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -134,7 +138,7 @@ export function IrelandContent() {
               Applications Office (CAO) for undergraduate admissions.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -147,7 +151,7 @@ export function IrelandContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -196,12 +200,12 @@ export function IrelandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                      href="https://www.cao.ie/euefta"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                      CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
                     </a>
                   </li>
                   <li>
@@ -211,7 +215,7 @@ export function IrelandContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — IB Applicant Scoring
+                      CAO — Applicant Scoring
                     </a>
                   </li>
                 </ul>
@@ -269,12 +273,12 @@ export function IrelandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                      href="https://www.cao.ie/euefta"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                      CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
                     </a>
                   </li>
                 </ul>
@@ -347,12 +351,12 @@ export function IrelandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                      href="https://www.cao.ie/euefta"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                      CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
                     </a>
                   </li>
                   <li>
@@ -362,7 +366,7 @@ export function IrelandContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — IB Applicant Scoring
+                      CAO — Applicant Scoring
                     </a>
                   </li>
                 </ul>
@@ -433,34 +437,37 @@ export function IrelandContent() {
                     <tbody className="divide-y divide-gray-200 bg-white">
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">45</td>
-                        <td className="px-6 py-3 text-gray-700">625</td>
+                        <td className="px-6 py-3 text-gray-700">600</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">42</td>
-                        <td className="px-6 py-3 text-gray-700">566</td>
+                        <td className="px-6 py-3 text-gray-700">577</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">38</td>
-                        <td className="px-6 py-3 text-gray-700">506</td>
+                        <td className="px-6 py-3 text-gray-700">520</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">34</td>
-                        <td className="px-6 py-3 text-gray-700">465</td>
+                        <td className="px-6 py-3 text-gray-700">466</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">30</td>
-                        <td className="px-6 py-3 text-gray-700">415</td>
+                        <td className="px-6 py-3 text-gray-700">412</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">24</td>
-                        <td className="px-6 py-3 text-gray-700">360</td>
+                        <td className="px-6 py-3 text-gray-700">350</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="mt-3 text-xs text-gray-500">
-                  Source: CAO Entry Requirements for EU/EFTA/UK Applicants (2026). These figures are
-                  indicative — always consult the official document for the complete table.
+                  Source: CAO Entry Requirements for EU/EFTA/UK Applicants, 2026-entry edition
+                  (Table 2). CAO had not published the 2027-entry edition by 25 September 2026, and
+                  its 2027 handbook still links to this one. The HL Mathematics bonus is added on
+                  top, to a maximum of 625. These figures are indicative — always consult the
+                  official document for the complete table.
                 </p>
               </div>
 
@@ -472,12 +479,12 @@ export function IrelandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                      href="https://www.cao.ie/euefta"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                      CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
                     </a>
                   </li>
                 </ul>
@@ -582,16 +589,16 @@ export function IrelandContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      IB students taking <strong>English A (HL or SL)</strong> at grade 4+ or{' '}
-                      <strong>English B (HL)</strong> at grade 4+ typically satisfy English
-                      requirements
+                      The CAO minimum is <strong>English A</strong> at grade 3 (HL) or 4 (SL), or{' '}
+                      <strong>English B</strong> at grade 4 (HL) or 6 (SL)
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Otherwise: <strong>IELTS 6.0–6.5</strong> (Academic),{' '}
-                      <strong>TOEFL 80–90</strong> (iBT), or equivalent
+                      Otherwise: <strong>IELTS Academic 6.5</strong> overall (6.0 in each band),{' '}
+                      <strong>TOEFL iBT 90</strong> (4.5 on the scale used from 21 January 2026), or
+                      another approved test
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -619,9 +626,9 @@ export function IrelandContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      IB students are generally{' '}
-                      <strong>exempt from the Irish language requirement</strong> that applies to
-                      domestic applicants for NUI member universities
+                      Applicants born and fully educated outside the Republic of Ireland are{' '}
+                      <strong>automatically exempt from the Irish language requirement</strong> set
+                      by some universities
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -638,17 +645,27 @@ export function IrelandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                    href="https://www.cao.ie/euefta"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                    CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www2.cao.ie/handbook/handbook2027/hb.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    CAO Handbook 2027
                   </a>
                 </li>
               </ul>
@@ -787,10 +804,11 @@ export function IrelandContent() {
               <p className="text-amber-800 text-sm flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  If you are completing your IB Diploma in the year of application, the CAO can
-                  access your results directly if your IB coordinator has listed the &ldquo;Central
-                  Applications Office&rdquo; as an institution with permission in the IB system.
-                  Confirm this with your coordinator before the results deadline.
+                  If you are sitting the IB in May 2027, ask your IB coordinator to add
+                  &ldquo;Central Applications Office (CAO)&rdquo; to the institutions allowed to
+                  access your results, and give CAO your IB candidate number (3 letters and 3
+                  numbers). CAO does not accept predicted grades or a personal statement: offers are
+                  based on final results.
                 </span>
               </p>
             </div>
@@ -798,17 +816,27 @@ export function IrelandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf"
+                    href="https://www.cao.ie/euefta"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    CAO — Entry Requirements for EU/EFTA/UK Applicants (2026)
+                    CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www2.cao.ie/handbook/handbook2027/hb.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    CAO Handbook 2027
                   </a>
                 </li>
               </ul>
@@ -846,17 +874,27 @@ export function IrelandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.cao.ie/index.php?page=importantdates"
+                    href="https://www2.cao.ie/downloads/documents/2027/CAO_Important_Dates_2027.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    CAO — Important Dates
+                    CAO — Important Dates 2027
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www2.cao.ie/handbook/handbook2027/hb.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    CAO Handbook 2027
                   </a>
                 </li>
               </ul>

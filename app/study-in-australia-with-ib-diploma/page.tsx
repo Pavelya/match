@@ -19,19 +19,19 @@ export const revalidate = 604800 // 7 days in seconds
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Australia with IB Diploma | Official IBAS–ATAR Guide (2026)',
+  title: 'Study in Australia with IB Diploma | Official IBAS–ATAR Guide (2027)',
   description:
-    'Official guide for IB students studying in Australia. IB recognition, IBAS–ATAR conversion (valid to May 2026), and admission rules.',
+    'Official guide for IB students studying in Australia. IB recognition, IBAS–ATAR conversion for 2027 entry, and admission rules.',
   keywords: [
     'study in australia with ib diploma',
     'ib diploma australia university admission',
-    'ibas to atar conversion 2026',
+    'ibas to atar conversion 2027',
     'ib to atar conversion australia',
     'ib students australia admission',
     'australian university entry ib diploma'
   ],
   openGraph: {
-    title: 'Study in Australia with IB Diploma | Official IBAS–ATAR Guide (2026)',
+    title: 'Study in Australia with IB Diploma | Official IBAS–ATAR Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Australia. IBAS–ATAR conversion, admission criteria, and requirements explained.',
     type: 'website',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Australia with IB Diploma | IBAS–ATAR Guide 2026',
+    title: 'Study in Australia with IB Diploma | IBAS–ATAR Guide 2027',
     description:
       'Official guide for IB students: Australian university admission, IBAS–ATAR conversion, and requirements.'
   },
@@ -135,7 +135,7 @@ const faqSchema = {
       name: 'How is the IB diploma recognized in Australia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It is accepted as a senior secondary qualification and assessed via IBAS–ATAR or IB-based selection rules set by universities and admissions centres. Source: IB Australasia'
+        text: 'It is accepted as a senior secondary qualification and assessed via IBAS–ATAR or IB-based selection rules set by universities and admissions centres. Source: IB Schools Australasia'
       }
     },
     {
@@ -143,15 +143,15 @@ const faqSchema = {
       name: 'Do IB students get an ATAR in Australia?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. They receive an IBAS that converts to an ATAR-equivalent rank. Source: UAC'
+        text: 'No. Their IB result is converted to an ATAR-equivalent rank. Students who sat the IB in Australia are ranked on their IB Admissions Score (IBAS); students who sat it elsewhere are ranked on their whole-number diploma score. Source: UAC'
       }
     },
     {
       '@type': 'Question',
-      name: 'How does IBAS convert to ATAR for 2026?',
+      name: 'How is the IB converted to an ATAR equivalent for 2027 entry?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Using the official conversion schedule valid for IB exams from November 2022 to May 2026. Source: IB Australasia'
+        text: 'Using the national conversion agreed by the tertiary admissions centres for offers made from August 2026. A diploma score of 38 earned outside Australia converts to 94.65; an IBAS of 38.00 earned in Australia converts to 94.15. Source: UAC'
       }
     },
     {
