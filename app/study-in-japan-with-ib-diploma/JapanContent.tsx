@@ -41,7 +41,7 @@ const timelineSteps = [
   {
     period: 'June & November (year before entry)',
     description:
-      'EJU examination sessions held twice a year. Register through JASSO if applying to Japanese-taught programs.'
+      'The EJU is held twice a year. In 2026 the sessions were on 21 June and 8 November; applications for the November session closed on 30 July, and its results are due on 15 December 2026. Register through JASSO if your program asks for the EJU.'
   },
   {
     period: 'September – January',
@@ -65,7 +65,7 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Japan?',
     answer:
-      'Yes. The Japanese Ministry of Education (MEXT) has recognized the IB Diploma as a valid university admission qualification since 1979. IB Diploma holders are explicitly listed as eligible applicants alongside holders of the Abitur, Baccalauréat, and GCE A-Levels.',
+      'Yes. IB Diploma holders are explicitly listed as eligible to apply to Japanese universities, alongside holders of the Abitur, Baccalauréat, and GCE A-Levels.',
     source: 'Study in Japan — Universities (Undergraduate)',
     sourceUrl: 'https://www.studyinjapan.go.jp/en/planning/learn-about-schools/universities/'
   },
@@ -86,9 +86,9 @@ const faqs = [
   {
     question: 'How do Japanese universities evaluate IB scores?',
     answer:
-      'There is no national IB-to-Japanese grade conversion. Each university determines independently how to assess IB Diploma results. Universities may consider total IB points, individual subject scores, the Extended Essay, and Theory of Knowledge as part of their holistic review.',
-    source: 'Study in Japan — Universities (Undergraduate)',
-    sourceUrl: 'https://www.studyinjapan.go.jp/en/planning/learn-about-schools/universities/'
+      'There is no national IB-to-Japanese grade conversion. Each university decides how to assess IB Diploma results. Many universities list the IB as a qualification for their comprehensive (AO) or returnee admissions, and select candidates on their IB scores together with essays and interviews.',
+    source: 'MEXT IB Consortium — Admissions using the IB (in Japanese)',
+    sourceUrl: 'https://ibconsortium.mext.go.jp/about-ib/entrance-exam/'
   },
   {
     question: 'What documents do IB students need to apply to Japanese universities?',
@@ -110,7 +110,7 @@ export function JapanContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇯🇵</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -128,7 +128,7 @@ export function JapanContent() {
               sets its own screening process.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -141,7 +141,7 @@ export function JapanContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -202,12 +202,22 @@ export function JapanContent() {
                   </li>
                   <li>
                     <a
-                      href="https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdetail02/1373897.htm"
+                      href="https://www.mext.go.jp/a_menu/koutou/shikaku/07111314.htm"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      MEXT — Higher Education Support for Foreign Students
+                      MEXT — University entrance qualifications (in Japanese)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.mext.go.jp/b_menu/shingi/chukyo/chukyo12/shiryo/__icsFiles/afieldfile/2013/01/09/1329266_4.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      MEXT — About the International Baccalaureate, 2013 (PDF, in Japanese)
                     </a>
                   </li>
                 </ul>
@@ -399,7 +409,7 @@ export function JapanContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -410,6 +420,16 @@ export function JapanContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Japan — Universities (Undergraduate)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://ibconsortium.mext.go.jp/about-ib/entrance-exam/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      MEXT IB Consortium — Admissions using the IB (in Japanese)
                     </a>
                   </li>
                 </ul>
@@ -445,7 +465,8 @@ export function JapanContent() {
                   <span>
                     <strong>Japanese-taught programs:</strong> Many require EJU scores in Japanese
                     as a Foreign Language plus subject tests (Science, Japan and the World, or
-                    Mathematics). The EJU is held twice yearly (June and November)
+                    Mathematics). The EJU is held twice yearly, in June and November (21 June and 8
+                    November in 2026)
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -480,6 +501,16 @@ export function JapanContent() {
                       className="text-blue-600 hover:underline"
                     >
                       JASSO — Examination for Japanese University Admission (EJU)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.jasso.go.jp/en/ryugaku/eju/schedule.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      JASSO — EJU schedule 2026
                     </a>
                   </li>
                   <li>
@@ -539,10 +570,7 @@ export function JapanContent() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Most programs require JLPT N2 or higher, though requirements vary by
-                      university
-                    </span>
+                    <span>The level required varies by university</span>
                   </li>
                 </ul>
               </div>
@@ -659,7 +687,8 @@ export function JapanContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      Many offer dedicated IB admission pathways or English-taught programs
+                      Many list the IB as a qualification for their comprehensive (AO) or returnee
+                      admissions
                     </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
@@ -673,7 +702,7 @@ export function JapanContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -684,6 +713,16 @@ export function JapanContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Japan — Universities (Undergraduate) and Junior Colleges
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://ibconsortium.mext.go.jp/about-ib/entrance-exam/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    MEXT IB Consortium — Admissions using the IB (in Japanese)
                   </a>
                 </li>
               </ul>
@@ -780,7 +819,7 @@ export function JapanContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -791,6 +830,16 @@ export function JapanContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Japan — Timeline
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.jasso.go.jp/en/ryugaku/eju/schedule.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    JASSO — EJU schedule 2026
                   </a>
                 </li>
               </ul>

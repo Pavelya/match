@@ -20,50 +20,93 @@ import {
   AlertTriangle
 } from 'lucide-react'
 
+// MUR procedures for international students, valid for 2026–27 and 2027–28
+const PROCEDURES_URL = 'https://www.universitaly.it/it/studenti-stranieri'
+const CIRCULAR_URL =
+  'https://universitaly-private.cineca.it/uploads/universitaly-pubblico/Circolare_2026-2027_studenti_internazionali.pdf'
+const ANNEX_1_URL =
+  'https://universitaly-private.cineca.it/uploads/universitaly-pubblico/Allegato_1-Circolare_2026_2027.pdf'
+
 // Restricted programs requiring entrance exams
 const restrictedPrograms = [
-  { name: 'Medicine and Surgery', exam: 'National entrance exam (TOLC-MED)' },
-  { name: 'Dentistry', exam: 'National entrance exam' },
-  { name: 'Architecture', exam: 'National entrance exam (TOLC-ARC)' },
-  { name: 'Veterinary Medicine', exam: 'National entrance exam' }
+  {
+    name: 'Medicine and Surgery, Dentistry, Veterinary Medicine (taught in Italian)',
+    exam: 'Open first semester (semestre aperto): you enrol, then pass national exams in Biology, Chemistry and biochemistry, and Physics to continue'
+  },
+  {
+    name: 'Medicine and Surgery, Dentistry, Veterinary Medicine (taught in English)',
+    exam: 'National admission test (IMAT)'
+  },
+  { name: 'Architecture', exam: "Admission test set in each university's call for applications" },
+  {
+    name: 'Primary Education Sciences',
+    exam: "Admission test set in each university's call for applications"
+  }
 ]
 
 // Required documents
 const requiredDocuments = [
-  'IB Diploma or predicted grades',
-  'Academic transcripts',
+  'IB Diploma (IB Diploma Programme Course Results do not give access)',
+  "Attestato di Corrispondenza for your IB Diploma, free from CIMEA's ARDI platform",
+  'CIMEA verification of your IB Diploma (attestato di verifica)',
   'Passport or ID',
-  'CIMEA Statement of Comparability / Verification'
+  'Proof of language level: Italian at B2 or higher for courses taught in Italian, or a certificate in the language of the course'
 ]
 
 // Application timeline
 const timelineSteps = [
-  { period: 'January–March', description: 'Verification requests' },
-  { period: 'April–June', description: 'University applications' },
-  { period: 'July–September', description: 'Enrollment and final verification' }
+  {
+    period: 'Before you apply',
+    description:
+      'Check that your IB Diploma meets the Italian conditions: at least 24 points in six subjects, 12 of them at Higher Level, with TOK, the Extended Essay and CAS passed.'
+  },
+  {
+    period: 'Dates set by each university',
+    description:
+      'Non-EU applicants who need a visa pre-enrol through Universitaly. Each university sets its own pre-enrolment dates and publishes them on its website.'
+  },
+  {
+    period: 'July–September',
+    description:
+      'Restricted programs. In 2026, registration for the Italian-taught semestre aperto ran from 13 July to 3 August, and the English-taught admission test (IMAT) was held at the end of September. The 2027 dates are not yet published.'
+  },
+  {
+    period: 'By 31 October 2027',
+    description:
+      'Last day to apply for a study visa for 2027–28 courses. Universities may set earlier dates.'
+  }
 ]
 
 // FAQ data
 const faqs = [
   {
     question: 'Are predicted IB grades accepted in Italy?',
-    answer: 'Yes, for application. Final enrollment requires official IB results.',
-    source: 'https://www.cimea.it'
+    answer:
+      'Universities assess applications themselves, so ask each one whether it accepts predicted grades. Access itself depends on the final IB Diploma: CIMEA verifies the Diploma only once it has been awarded and meets the Italian conditions.',
+    source: 'MUR — Procedures for international students, Annex 1 (PDF, in Italian)',
+    sourceUrl: ANNEX_1_URL
   },
   {
     question: 'Can IB students study Medicine in Italy?',
-    answer: 'Yes, but they must pass the national entrance exam.',
-    source: 'https://www.mur.gov.it'
+    answer:
+      'Yes. Italian-taught Medicine, Dentistry and Veterinary Medicine now start with an open first semester (semestre aperto): you enrol, then pass national exams in Biology, Chemistry and biochemistry, and Physics to continue. English-taught programs use a national admission test (IMAT).',
+    source: 'MUR — Registration opens for the semestre aperto 2026–27 (in Italian)',
+    sourceUrl:
+      'https://www.mur.gov.it/it/news/lunedi-13072026/medicina-al-le-iscrizioni-al-semestre-aperto'
   },
   {
     question: 'Is Italian mandatory for all programs?',
-    answer: 'No. English-taught programs exist, but language proof is required.',
-    source: 'https://www.universitaly.it'
+    answer:
+      'No. For courses taught in Italian, each university tests your Italian at level B2 or higher, unless you are exempt, for example with a recognised B2 certificate. For courses taught in another language, you show a certificate in that language instead.',
+    source: 'MUR — Procedures for international students (PDF, in Italian)',
+    sourceUrl: CIRCULAR_URL
   },
   {
     question: 'Is CIMEA mandatory for IB students?',
-    answer: 'In most cases, yes. Many universities explicitly require it.',
-    source: 'https://www.cimea.it'
+    answer:
+      "Yes, in practice. For the IB Diploma, the MUR procedures tell universities to ask for the Attestato di Corrispondenza, which is free on CIMEA's ARDI platform, and CIMEA's verification, instead of a Dichiarazione di valore.",
+    source: 'MUR — Procedures for international students, Annex 1 (PDF, in Italian)',
+    sourceUrl: ANNEX_1_URL
   }
 ]
 
@@ -78,7 +121,7 @@ export function ItalyContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇮🇹</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -95,7 +138,7 @@ export function ItalyContent() {
               <strong>IB Diploma students and IB Coordinators</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -108,7 +151,7 @@ export function ItalyContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -126,20 +169,36 @@ export function ItalyContent() {
 
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
-                Italy officially recognizes the{' '}
-                <strong>International Baccalaureate (IB) Diploma</strong> as a valid foreign
-                secondary school qualification for access to Italian higher education.
+                Italy accepts the <strong>International Baccalaureate (IB) Diploma</strong> for
+                access to higher education if it meets the conditions set by the{' '}
+                <strong>Ministry of Universities and Research (MUR)</strong> in its procedures for
+                international students, which cover 2026–27 and 2027–28:
               </p>
 
-              <p>
-                The legal recognition framework is defined by the{' '}
-                <strong>Italian Ministry of Universities and Research</strong> and implemented
-                through national credential evaluation procedures.
-              </p>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3 text-gray-700">
+                  <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <span>
+                    At least <strong>24 points in six subjects</strong>, 12 of them at Higher Level
+                  </span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <span>Theory of Knowledge, the Extended Essay and CAS passed</span>
+                </li>
+                <li className="flex items-start gap-3 text-gray-700">
+                  <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                  <span>
+                    The IB started after the second-to-last year of secondary school (the 11th year
+                    in a 12-year school system)
+                  </span>
+                </li>
+              </ul>
 
               <p>
-                Universities rely on <strong>CIMEA</strong> (the official Italian information center
-                for academic recognition) to verify foreign diplomas, including the IB.
+                IB Diploma Programme Course Results do not give access. Each university decides on
+                admission itself and relies on <strong>CIMEA</strong>, the Italian ENIC-NARIC
+                centre, to verify foreign diplomas, including the IB.
               </p>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -150,12 +209,12 @@ export function ItalyContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.mur.gov.it"
+                      href={ANNEX_1_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.mur.gov.it
+                      MUR — Procedures for international students, Annex 1 (PDF, in Italian)
                     </a>
                   </li>
                   <li>
@@ -165,7 +224,7 @@ export function ItalyContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.cimea.it
+                      CIMEA — Italian ENIC-NARIC centre
                     </a>
                   </li>
                 </ul>
@@ -189,40 +248,30 @@ export function ItalyContent() {
                 <p className="text-2xl font-bold text-green-800 mb-4">No.</p>
                 <p className="text-gray-700">
                   IB students{' '}
-                  <strong>do not need to obtain the Italian Maturità (Esame di Stato)</strong>{' '}
-                  because the IB Diploma is recognized as an equivalent foreign secondary
-                  qualification.
+                  <strong>do not need to obtain the Italian Maturità (Esame di Stato)</strong>. An
+                  IB Diploma that meets the MUR conditions gives access to Italian higher education
+                  on its own.
                 </p>
                 <p className="mt-4 text-gray-700">
-                  Admission is granted through recognition and verification, not through completion
-                  of the Italian school-leaving exam.
+                  Diplomas from IB schools in Italy on the Ministry of Education&apos;s list under
+                  Law 738/1986 are equivalent to the Italian school-leaving diploma.
                 </p>
               </div>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Sources
+                  Official Source
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.mur.gov.it"
+                      href={ANNEX_1_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.mur.gov.it
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.cimea.it"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline"
-                    >
-                      https://www.cimea.it
+                      MUR — Procedures for international students, Annex 1 (PDF, in Italian)
                     </a>
                   </li>
                 </ul>
@@ -247,7 +296,7 @@ export function ItalyContent() {
               </p>
               <p className="mt-4 text-gray-700">
                 There is <strong>no national IB score conversion table</strong> equivalent to
-                Spain&apos;s 0–14 system.
+                Spain&apos;s 14-point scale.
               </p>
             </div>
 
@@ -271,18 +320,23 @@ export function ItalyContent() {
               </div>
             </div>
 
+            <p className="mt-6 text-gray-600">
+              Non-EU students who need a visa <strong>pre-enrol through Universitaly</strong>. Each
+              university sets how many places it reserves for them and its own pre-enrolment dates.
+            </p>
+
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
                 Official Source
               </h4>
               <a
-                href="https://www.universitaly.it"
+                href={PROCEDURES_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline text-sm"
               >
-                https://www.universitaly.it
+                Universitaly — Procedures for international students (in Italian)
               </a>
             </div>
           </div>
@@ -302,13 +356,13 @@ export function ItalyContent() {
               <div className="flex items-start gap-3">
                 <AlertTriangle className="h-6 w-6 text-amber-600 mt-0.5 flex-shrink-0" />
                 <p className="text-gray-800 font-medium">
-                  Yes, many programs require entrance exams, even for IB students.
+                  Yes, some programs require entrance exams, even for IB students.
                 </p>
               </div>
             </div>
 
             <p className="mt-6 text-gray-600">
-              Nationally restricted programs (<em>corsi a numero programmato</em>) include:
+              Nationally restricted programs (<em>corsi ad accesso programmato</em>) include:
             </p>
 
             <div className="mt-6 space-y-4">
@@ -329,7 +383,8 @@ export function ItalyContent() {
             </div>
 
             <p className="mt-6 text-gray-600">
-              These programs require passing national or university-level entrance exams,{' '}
+              The Medicine reform (Law 26/2025) replaced the old national entrance test for
+              Italian-taught courses from 2025–26. These requirements apply{' '}
               <strong>regardless of holding an IB Diploma</strong>.
             </p>
 
@@ -341,22 +396,32 @@ export function ItalyContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.mur.gov.it"
+                    href={CIRCULAR_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.mur.gov.it
+                    MUR — Procedures for international students (PDF, in Italian)
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.universitaly.it"
+                    href="https://www.mur.gov.it/it/news/lunedi-13072026/medicina-al-le-iscrizioni-al-semestre-aperto"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.universitaly.it
+                    MUR — Registration opens for the semestre aperto 2026–27 (in Italian)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.mur.gov.it/it/news/martedi-07072026/universita-fissate-le-date-delle-prove-dammissione-le-facolta-ad-accesso"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    MUR — Admission test dates for 2026–27 (in Italian)
                   </a>
                 </li>
               </ul>
@@ -378,7 +443,7 @@ export function ItalyContent() {
 
             <div className="mt-8 rounded-2xl bg-amber-50 p-8 border border-amber-100">
               <p className="text-2xl font-bold text-amber-800 mb-4">
-                Yes, language proficiency is usually required.
+                Yes, your language level is checked for every course.
               </p>
             </div>
 
@@ -391,7 +456,8 @@ export function ItalyContent() {
                   <h3 className="text-lg font-semibold text-gray-900">Italian-taught programs</h3>
                 </div>
                 <p className="text-gray-600">
-                  Typically require <strong>B2 Italian</strong>
+                  Each university tests your Italian at <strong>B2 or higher</strong>. A recognised
+                  Italian certificate at B2 or above exempts you from the test.
                 </p>
               </div>
 
@@ -403,13 +469,14 @@ export function ItalyContent() {
                   <h3 className="text-lg font-semibold text-gray-900">English-taught programs</h3>
                 </div>
                 <p className="text-gray-600">
-                  May require <strong>IELTS / TOEFL</strong>, even for IB students
+                  No Italian test, but you need a{' '}
+                  <strong>certificate in the language of the course</strong>
                 </p>
               </div>
             </div>
 
             <p className="mt-6 text-gray-600">
-              Language requirements are defined by each university.
+              The required level and the accepted certificates are set by each university.
             </p>
 
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -420,12 +487,12 @@ export function ItalyContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.universitaly.it"
+                    href={CIRCULAR_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.universitaly.it
+                    MUR — Procedures for international students (PDF, in Italian)
                   </a>
                 </li>
                 <li className="text-gray-500">Individual university admission pages</li>
@@ -464,18 +531,18 @@ export function ItalyContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>Language certification often mandatory</span>
+                    <span>Language level checked for every course</span>
                   </li>
                 </ul>
                 <p className="mt-4 text-sm">
                   <strong>Source:</strong>{' '}
                   <a
-                    href="https://www.mur.gov.it"
+                    href={PROCEDURES_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.mur.gov.it
+                    Universitaly — Procedures for international students (in Italian)
                   </a>
                 </p>
               </div>
@@ -495,7 +562,7 @@ export function ItalyContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>CIMEA verification usually required</span>
+                    <span>The same MUR rules on foreign diplomas</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
@@ -518,8 +585,8 @@ export function ItalyContent() {
             </p>
 
             <p className="mt-6 text-gray-600">
-              Most universities require <strong>CIMEA verification</strong> instead of a traditional{' '}
-              <em>Dichiarazione di Valore</em>.
+              For the IB Diploma, the MUR procedures tell universities to ask for{' '}
+              <strong>CIMEA documents</strong> instead of a <em>Dichiarazione di valore</em>.
             </p>
 
             <p className="mt-4 text-gray-600">Typical documents:</p>
@@ -538,32 +605,46 @@ export function ItalyContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
-              <a
-                href="https://www.cimea.it"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline text-sm"
-              >
-                https://www.cimea.it
-              </a>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href={ANNEX_1_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    MUR — Procedures for international students, Annex 1 (PDF, in Italian)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://ardi.cimea.it"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    CIMEA — ARDI platform
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CIMEA Application Timeline */}
+      {/* Application Timeline */}
       <section className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-base font-semibold leading-7 text-blue-600">Timeline</h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              CIMEA Application Timeline
+              Application Timeline
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Typical timeline according to CIMEA and Italian universities:
+              The main steps for 2027–28 entry, from the MUR procedures and the 2026 calendar:
             </p>
 
             <div className="mt-8 space-y-4">
@@ -586,12 +667,12 @@ export function ItalyContent() {
             <p className="mt-6 text-sm text-gray-600">
               <strong>Source:</strong>{' '}
               <a
-                href="https://www.cimea.it"
+                href={PROCEDURES_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
               >
-                https://www.cimea.it
+                Universitaly — Procedures for international students (in Italian)
               </a>
             </p>
           </div>
@@ -618,7 +699,7 @@ export function ItalyContent() {
                   <p className="mt-3 text-sm">
                     <span className="text-gray-500">Source:</span>{' '}
                     <a
-                      href={faq.source}
+                      href={faq.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"

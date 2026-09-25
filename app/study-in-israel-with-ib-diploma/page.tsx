@@ -21,9 +21,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Israel with IB Diploma | Guide (2026)',
+  title: 'Study in Israel with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Israeli universities. Recognition, Psychometric Test (PET), Hebrew requirements, and application process (2026).',
+    'Official guide for IB students applying to Israeli universities. Recognition, Psychometric Test (PET), Hebrew requirements, and application process (2027).',
   keywords: [
     'study in israel with ib diploma',
     'ib diploma israel university admission',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'israel ib grade requirements'
   ],
   openGraph: {
-    title: 'Study in Israel with IB Diploma | Guide (2026)',
+    title: 'Study in Israel with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Israel. Bagrut equivalence, Psychometric Test, Hebrew proficiency, and direct application.',
     type: 'website',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Israel with IB Diploma | Guide 2026',
+    title: 'Study in Israel with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Israeli university admission, Psychometric Test, Bagrut equivalence, and application process.'
   },
@@ -133,7 +133,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Israel?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Yes. Israeli universities accept the IB Diploma as equivalent to the Israeli Bagrut (matriculation certificate) for admission purposes. All major research universities — including Tel Aviv University, Hebrew University of Jerusalem, Technion, Ben-Gurion University, and Bar-Ilan University — accept IB Diploma holders. The Israeli Ministry of Education's evaluation unit can also issue a formal equivalence statement. Source: Study Israel — CHE Portal."
+        text: 'Yes. Israeli universities accept the IB Diploma for admission. Tel Aviv University, for example, lists the IB among the diplomas from abroad that are equivalent to the Israeli matriculation certificate (Bagrut) for registration. Source: Tel Aviv University — General Entrance Requirements.'
       }
     },
     {
@@ -141,7 +141,7 @@ const faqSchema = {
       name: 'Do IB students need to take the Psychometric Entrance Test (PET)?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'In most cases, yes. The Psychometric Entrance Test (PET), administered by the National Institute for Testing and Evaluation (NITE), is required by most Israeli universities alongside secondary school results. The PET assesses verbal reasoning, quantitative reasoning, and English proficiency. Scores range from 200 to 800. Some universities accept SAT or ACT scores as alternatives to the PET, except for medical school programs. Source: NITE — The Psychometric Test.'
+        text: 'In most cases, yes. Most Israeli institutions admit candidates on a combination of their matriculation average and their score in the Psychometric Entrance Test (PET), administered by NITE. From the December 2026 sitting, the PET tests verbal and quantitative reasoning only, and English is tested separately by the AMIRNET test. Scores stay on the 200–800 scale, and the change applies to admissions for the 2027–28 academic year. Source: NITE — English domain to be separated from the PET.'
       }
     },
     {
@@ -149,7 +149,7 @@ const faqSchema = {
       name: 'Do I need to speak Hebrew to study in Israel?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on the programme. Most undergraduate programmes at Israeli universities are taught in Hebrew, requiring advanced Hebrew proficiency demonstrated through the YAEL test or equivalent. However, Israel offers a growing number of English-taught programmes at both undergraduate and graduate levels. IB English A or English B courses may satisfy English proficiency requirements at some institutions. Preparatory Hebrew language programmes (Ulpan) are widely available. Source: Study Israel — CHE Portal.'
+        text: "It depends on the programme. Programmes taught in Hebrew require Hebrew proficiency. Israeli institutions also offer Bachelor's and Master's programmes in English for international students, which ask for proof of English, for example TOEFL or IELTS results. Source: Study Israel — Planning."
       }
     },
     {
@@ -165,7 +165,7 @@ const faqSchema = {
       name: 'What documents do IB students need for Israeli university admission?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Required documents typically include: IB Diploma and transcript of results, Psychometric Entrance Test (PET) scores (or SAT/ACT), proof of identity (passport), proof of language proficiency (Hebrew and/or English depending on programme), and any programme-specific supplementary documents. International students also need an A/2 Student Visa and proof of financial means. Source: Study Israel — CHE Portal.'
+        text: 'Required documents typically include: IB Diploma and transcript of results, Psychometric Entrance Test (PET) scores (or SAT/ACT where accepted), proof of identity (passport), proof of language proficiency (Hebrew and/or English depending on programme), and any programme-specific supplementary documents. International students also need an A/2 Student Visa and proof of financial means. Source: Study Israel — Planning.'
       }
     }
   ]

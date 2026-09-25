@@ -28,8 +28,8 @@ import {
 const requiredDocuments = [
   'IB Diploma and transcript of results',
   'Proof of identity (passport or national ID)',
-  'Certified translation of the IB Diploma into Polish (if required by the institution)',
-  'Certificate of language proficiency (Polish B2 for Polish-taught, or English B2 for English-taught programmes)',
+  'Translations of documents that are not in Polish or English',
+  'Proof of language level in the language of study (at least B2 for candidates who are not EU, EFTA, Swiss or UK citizens; the IB Diploma counts for its main language)',
   'Medical certificate confirming fitness to study (required by some programmes)',
   "Application form (submitted via the university's online recruitment portal)"
 ]
@@ -37,24 +37,24 @@ const requiredDocuments = [
 // Application timeline steps
 const timelineSteps = [
   {
-    period: 'January – March: Research and Preparation',
+    period: 'A year ahead: Admission Rules Published',
     description:
-      "Identify your preferred universities and programmes. Check each university's recruitment website for specific IB conversion rules, deadlines, and documentation requirements."
+      'Universities publish their admission rules well before the recruitment year. The University of Warsaw adopted its rules for 2027/28 on 20 May 2026, including how it converts IB grades.'
   },
   {
-    period: 'April – June: Application Period',
+    period: 'April – July: Application Period',
     description:
-      'Most Polish universities open their online recruitment portals between April and June. Submit your application, upload documents, and pay any registration fees. Deadlines vary by institution — some close as early as May, others in July.'
+      'Admission campaigns usually start in April or May and can last up to six months. Register on each university’s online recruitment portal; deadlines vary by institution and programme.'
   },
   {
-    period: 'July – August: Admission Results',
+    period: 'July: IB Results',
     description:
-      'Universities announce admission decisions. Admitted students receive a conditional or final acceptance letter. If you have not yet received your IB Diploma, you may submit a letter of predicted results and provide the final diploma later.'
+      'Add your final IB results by the university’s deadline. At the University of Warsaw, IB and EB candidates had until 14 July 2026 (14 September 2026 in the September round); its 2027 dates follow the same rules.'
   },
   {
-    period: 'September – October: Enrolment',
+    period: 'October: Academic Year Begins',
     description:
-      'Complete enrolment formalities including document submission, student ID issuance, and orientation. Non-EU/EEA students should account for visa processing time (apply at least 2–3 months before the start of the academic year).'
+      'The academic year starts at the beginning of October. Non-EU/EEA students should start the visa process as soon as they receive their acceptance letter.'
   }
 ]
 
@@ -63,16 +63,17 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Poland?',
     answer:
-      'Yes. The IB Diploma issued by the International Baccalaureate Organisation in Geneva is recognized by operation of law in Poland. It is treated as equivalent to the Polish Matura, and holders can apply directly to Polish universities without nostrification or any additional recognition procedure.',
-    source: 'NAWA — Recognition for Academic Purposes',
-    sourceUrl: 'https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes'
+      'Yes. IB certificates are recognised automatically for applying to first-cycle and long-cycle studies in Poland, so you do not need an individual recognition statement from NAWA. Each university still sets its own admission requirements.',
+    source: 'NAWA — Applying for admission to first/long-cycle studies',
+    sourceUrl:
+      'https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes/applying-for-admission-to-first-long-cycle-studies'
   },
   {
     question: 'How are IB grades converted for Polish university admission?',
     answer:
-      'There is no single national conversion formula. Each Polish university sets its own rules for converting IB grades (1–7 scale) to percentages or points equivalent to the Polish Matura. Higher Level (HL) subjects are typically treated as extended-level Matura and given higher weighting, while Standard Level (SL) subjects correspond to basic-level Matura. Always check the specific faculty admission requirements.',
-    source: 'study.gov.pl — How to Apply',
-    sourceUrl: 'https://study.gov.pl/how-to-apply'
+      'There is no single national formula; each university sets its own. The University of Warsaw, for example, converts each IB grade to a percentage: 7 = 100%, 6 = 90%, 5 = 75%, 4 = 60%, 3 = 45%, 2 = 30%. Always check the admission rules for your programme.',
+    source: 'University of Warsaw — Candidates with IB and EB diplomas',
+    sourceUrl: 'https://rekrutacja.uw.edu.pl/en/candidates-with-ib-and-eb-diplomas/'
   },
   {
     question: 'How do IB students apply to Polish universities?',
@@ -84,14 +85,16 @@ const faqs = [
   {
     question: 'Do I need to speak Polish to study in Poland?',
     answer:
-      "Not necessarily. Polish universities offer over 900 programmes taught in English. For English-taught programmes, you typically need to demonstrate at least B2 English proficiency (e.g., IELTS 5.5–6.5, depending on the university). For Polish-taught programmes, you must prove Polish language proficiency at minimum B2 level, usually through a certificate or the university's own language exam.",
-    source: 'study.gov.pl — How to Apply',
-    sourceUrl: 'https://study.gov.pl/how-to-apply'
+      'Not necessarily; many programmes are taught in English. Since July 2025, candidates who are not citizens of the EU, EFTA, Switzerland or the UK must prove at least B2 in the language their programme is taught in, whether Polish or English.',
+    source:
+      'Ministry of Science and Higher Education — Notice on the act of 4 April 2025 (in Polish)',
+    sourceUrl:
+      'https://www.gov.pl/web/nauka/komunikat-dla-uczelni-na-temat-wybranych-rozwiazan-przyjetych-w-ustawie-z-dnia-4-kwietnia-2025-r-o-zmianie-niektorych-ustaw-w-celu-wyeliminowania-nieprawidlowosci-w-systemie-wizowym-rzeczypospolitej-polskiej'
   },
   {
     question: 'Is higher education in Poland free for IB students?',
     answer:
-      'Full-time studies in Polish at public universities are free for Polish citizens, EU/EEA citizens, and holders of the Karta Polaka (Polish Charter). All other international students pay tuition fees, which average EUR 2,000–3,000 per year for undergraduate programmes. Scholarships are available through NAWA and individual universities.',
+      'Full-time studies in Polish at public universities are free for Polish citizens and for foreigners who study on the same terms, including EU/EEA citizens and holders of the Karta Polaka (Polish Charter). Other international students pay fees, on average EUR 2,000 a year for first-cycle and long-cycle studies; fees range from EUR 2,000 to 6,000 a year depending on the institution and programme.',
     source: 'study.gov.pl — Tuition Fees',
     sourceUrl: 'https://study.gov.pl/tuition-fees'
   }
@@ -108,7 +111,7 @@ export function PolandContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇵🇱</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -126,7 +129,7 @@ export function PolandContent() {
               to each university.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -139,7 +142,7 @@ export function PolandContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -157,18 +160,16 @@ export function PolandContent() {
 
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
-                The <strong>International Baccalaureate (IB) Diploma</strong> issued by the IBO in
-                Geneva is <strong>recognized by operation of law</strong> in Poland. This means it
-                is <strong>automatically accepted</strong> as equivalent to the Polish Matura
-                (school-leaving certificate) for university admission — no nostrification or
-                additional administrative recognition is required.
+                <strong>International Baccalaureate (IB)</strong> certificates are{' '}
+                <strong>recognised automatically</strong> in Poland for applying to first-cycle and
+                long-cycle studies, under Article 326a of the Law on Higher Education and Science.
+                No nostrification or individual recognition statement is required.
               </p>
 
               <p>
-                This automatic recognition has been in effect since <strong>March 31, 2015</strong>,
-                under the Polish Act on the Education System (Article 93). NAWA (the National Agency
-                for Academic Exchange), which serves as Poland&apos;s{' '}
-                <strong>ENIC-NARIC centre</strong>, confirms the recognition status of IB diplomas.
+                NAWA (the National Agency for Academic Exchange), which serves as Poland&apos;s{' '}
+                <strong>ENIC-NARIC centre</strong>, lists IB and EB certificates among those that do
+                not need its individual recognition statement.
               </p>
 
               <p>
@@ -186,12 +187,12 @@ export function PolandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes"
+                      href="https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes/applying-for-admission-to-first-long-cycle-studies"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      NAWA — Recognition for Academic Purposes
+                      NAWA — Applying for admission to first/long-cycle studies
                     </a>
                   </li>
                   <li>
@@ -229,10 +230,10 @@ export function PolandContent() {
                       No — the IB Diploma is accepted as a standalone qualification
                     </h3>
                     <p className="mt-2 text-gray-600">
-                      The IB Diploma is recognized by operation of law as equivalent to the Polish
-                      Matura. You do not need to undergo nostrification (the standard credential
-                      evaluation process for foreign diplomas in Poland). This exemption applies to
-                      all IB diplomas issued by the IBO in Geneva.
+                      IB certificates are recognised automatically for applying to studies in
+                      Poland. You do not need to undergo nostrification (the standard credential
+                      evaluation process for foreign diplomas in Poland) or obtain an individual
+                      recognition statement from NAWA.
                     </p>
                   </div>
                 </div>
@@ -242,9 +243,9 @@ export function PolandContent() {
                 <p className="text-amber-800 text-sm flex items-start gap-2">
                   <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>IB Certificate holders:</strong> If you received IB Diploma Programme
-                    Course Results (certificates) rather than the full IB Diploma, you may need to
-                    undergo nostrification. Contact the university directly to confirm eligibility.
+                    <strong>IB Course Results holders:</strong> If you received IB Diploma Programme
+                    Course Results rather than the full IB Diploma, contact the university directly
+                    to confirm that they give you the right to apply.
                   </span>
                 </p>
               </div>
@@ -257,12 +258,12 @@ export function PolandContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes"
+                      href="https://nawa.gov.pl/en/recognition/recognition-for-academic-purposes/applying-for-admission-to-first-long-cycle-studies"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      NAWA — Recognition for Academic Purposes
+                      NAWA — Applying for admission to first/long-cycle studies
                     </a>
                   </li>
                 </ul>
@@ -357,21 +358,22 @@ export function PolandContent() {
               <p>
                 Poland does not have a <strong>single national conversion formula</strong> for IB
                 grades. Each university defines its own rules for converting IB scores (1–7) to its
-                internal point or percentage system.
+                internal point or percentage system. The University of Warsaw&apos;s rules for
+                2027/28 are an example:
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Higher Level (HL) subjects</strong> are typically treated as equivalent
-                    to the extended-level (rozszerzony) Polish Matura and receive higher weighting
+                    <strong>Higher Level (HL) results</strong> count in full (× 1), like the
+                    extended-level (rozszerzony) Polish Matura
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Standard Level (SL) subjects</strong> generally correspond to
+                    <strong>Standard Level (SL) results</strong> are multiplied by 0.6, like the
                     basic-level (podstawowy) Polish Matura
                   </span>
                 </div>
@@ -386,7 +388,7 @@ export function PolandContent() {
 
               <div className="rounded-2xl bg-blue-50 p-6 border border-blue-100">
                 <h4 className="font-semibold text-gray-900 mb-3">
-                  Common Conversion Approaches (examples)
+                  IB Grade to Percentage (University of Warsaw)
                 </h4>
                 <div className="overflow-hidden rounded-xl border border-gray-200">
                   <table className="w-full text-sm">
@@ -396,10 +398,7 @@ export function PolandContent() {
                           IB Grade
                         </th>
                         <th className="px-6 py-3 text-left font-semibold text-gray-900">
-                          Typical % (HL)
-                        </th>
-                        <th className="px-6 py-3 text-left font-semibold text-gray-900">
-                          Typical % (SL)
+                          Percentage
                         </th>
                       </tr>
                     </thead>
@@ -407,57 +406,60 @@ export function PolandContent() {
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">7</td>
                         <td className="px-6 py-3 text-gray-700">100%</td>
-                        <td className="px-6 py-3 text-gray-700">100%</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">6</td>
                         <td className="px-6 py-3 text-gray-700">90%</td>
-                        <td className="px-6 py-3 text-gray-700">85–90%</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">5</td>
                         <td className="px-6 py-3 text-gray-700">75%</td>
-                        <td className="px-6 py-3 text-gray-700">70%</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">4</td>
                         <td className="px-6 py-3 text-gray-700">60%</td>
-                        <td className="px-6 py-3 text-gray-700">50%</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">3</td>
                         <td className="px-6 py-3 text-gray-700">45%</td>
-                        <td className="px-6 py-3 text-gray-700">30%</td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">2</td>
                         <td className="px-6 py-3 text-gray-700">30%</td>
-                        <td className="px-6 py-3 text-gray-700">10%</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="mt-3 text-xs text-gray-500">
-                  Values shown are illustrative and based on University of Warsaw Faculty of
-                  Economic Sciences conversion. Each faculty and university may use different
-                  values.
+                  These are the University of Warsaw&apos;s values; the SL multiplier is then
+                  applied. Other universities may use different values.
                 </p>
               </div>
 
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://study.gov.pl/how-to-apply"
+                      href="https://rekrutacja.uw.edu.pl/en/candidates-with-ib-and-eb-diplomas/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      study.gov.pl — How to Apply
+                      University of Warsaw — Candidates with IB and EB diplomas
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://rekrutacja.uw.edu.pl/akty-prawne/akty-prawne-2027-2028/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Warsaw — Admission rules 2027/2028 (in Polish)
                     </a>
                   </li>
                 </ul>
@@ -483,14 +485,19 @@ export function PolandContent() {
                 university&apos;s own formula.
               </p>
 
+              <p>
+                Since July 2025, some foreign candidates must pass a university entrance exam as
+                part of a two-stage admission. This does <strong>not</strong> apply to holders of
+                the IB Diploma, whose certificates already give the right to apply.
+              </p>
+
               <div className="space-y-3">
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Medicine (English-taught)</strong> — Many medical universities require
-                    entrance exams or accept international tests such as UCAT, BMAT, or MCAT.
-                    Specific IB HL subjects (Biology, Chemistry) are typically required at minimum
-                    scores.
+                    <strong>Medicine (English-taught)</strong> — Medical universities set their own
+                    admission rules, which may include entrance exams or required HL subjects. Check
+                    each university&apos;s rules.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -512,9 +519,20 @@ export function PolandContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
+                  <li>
+                    <a
+                      href="https://www.gov.pl/web/nauka/komunikat-dla-uczelni-na-temat-wybranych-rozwiazan-przyjetych-w-ustawie-z-dnia-4-kwietnia-2025-r-o-zmianie-niektorych-ustaw-w-celu-wyeliminowania-nieprawidlowosci-w-systemie-wizowym-rzeczypospolitej-polskiej"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Ministry of Science and Higher Education — Notice on the act of 4 April 2025
+                      (in Polish)
+                    </a>
+                  </li>
                   <li>
                     <a
                       href="https://study.gov.pl/how-to-apply"
@@ -545,8 +563,9 @@ export function PolandContent() {
 
             <p className="mt-6 text-gray-600">
               Polish universities offer programmes in both <strong>Polish</strong> and{' '}
-              <strong>English</strong>. There are over{' '}
-              <strong>900 English-taught programmes</strong> available across the country.
+              <strong>English</strong>. Since July 2025, candidates who are not citizens of the EU,
+              EFTA, Switzerland or the UK must prove at least <strong>B2</strong> in the language
+              their programme is taught in. The IB Diploma counts as proof for its main language.
             </p>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -561,22 +580,15 @@ export function PolandContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>Minimum B2 level</strong> required (IELTS 5.5–6.5, TOEFL iBT 72–94, or
-                      Cambridge FCE/CAE depending on the university)
+                      <strong>Minimum B2 level</strong>; the accepted certificates are listed in a
+                      2025 ministerial regulation
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      IB English A or English B courses may satisfy English requirements — verify
-                      with the institution
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Medical programmes may require higher English scores (e.g., IELTS 6.5 or
-                      above)
+                      The IB Diploma counts as proof for its main language; universities may set a
+                      higher level
                     </span>
                   </li>
                 </ul>
@@ -615,7 +627,7 @@ export function PolandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -626,6 +638,27 @@ export function PolandContent() {
                     className="text-blue-600 hover:underline"
                   >
                     study.gov.pl — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.gov.pl/web/nauka/komunikat-dla-uczelni-na-temat-wybranych-rozwiazan-przyjetych-w-ustawie-z-dnia-4-kwietnia-2025-r-o-zmianie-niektorych-ustaw-w-celu-wyeliminowania-nieprawidlowosci-w-systemie-wizowym-rzeczypospolitej-polskiej"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Ministry of Science and Higher Education — Notice on the act of 4 April 2025 (in
+                    Polish)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://dziennikustaw.gov.pl/D2025000104501.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Regulation of 30 July 2025 on language certificates (PDF, in Polish)
                   </a>
                 </li>
               </ul>
@@ -706,9 +739,7 @@ export function PolandContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Often more flexible admission timelines and may offer rolling admissions
-                    </span>
+                    <span>Their own admission timelines, set by each institution</span>
                   </li>
                 </ul>
               </div>
@@ -717,7 +748,7 @@ export function PolandContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -728,6 +759,16 @@ export function PolandContent() {
                     className="text-blue-600 hover:underline"
                   >
                     study.gov.pl — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://study.gov.pl/tuition-fees"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    study.gov.pl — Tuition Fees
                   </a>
                 </li>
               </ul>
@@ -831,7 +872,7 @@ export function PolandContent() {
             <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -842,6 +883,26 @@ export function PolandContent() {
                     className="text-blue-600 hover:underline"
                   >
                     study.gov.pl — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://rekrutacja.uw.edu.pl/en/candidates-with-ib-and-eb-diplomas/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Warsaw — Candidates with IB and EB diplomas
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://rekrutacja.uw.edu.pl/akty-prawne/akty-prawne-2027-2028/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Warsaw — Admission rules 2027/2028 (in Polish)
                   </a>
                 </li>
               </ul>

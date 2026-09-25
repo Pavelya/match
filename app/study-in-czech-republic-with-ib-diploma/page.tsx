@@ -22,7 +22,7 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Czech Republic with IB Diploma | Guide (2026)',
+  title: 'Study in Czech Republic with IB Diploma | Guide (2027)',
   description:
     'Official guide for IB students applying to Czech universities. IB Diploma equals maturita since 2025, entrance exams, and admission process.',
   keywords: [
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'charles university ib diploma'
   ],
   openGraph: {
-    title: 'Study in Czech Republic with IB Diploma | Guide (2026)',
+    title: 'Study in Czech Republic with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma holders on Czech university admission. IB equals maturita since 2025, entrance exams, documents, and how to apply.',
     type: 'website',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Czech Republic with IB Diploma | Guide 2026',
+    title: 'Study in Czech Republic with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Czech university admission, maturita equivalence, entrance exams, and application process.'
   },
@@ -135,7 +135,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in the Czech Republic?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Since March 1, 2025, IB diplomas are excluded from the category of foreign secondary school documents that require assessment during the admission procedure. If submitted after March 1, 2025, the IB diploma will be automatically accepted by the faculty without an assessment fee. Source: Charles University — Diploma Recognition.'
+        text: 'Yes. Since March 1, 2025, IB diplomas are excluded from the category of foreign secondary school documents that require assessment during the admission procedure, under the amendment to the Higher Education Act (Section 48(4)(c)). If submitted after March 1, 2025, the IB diploma is automatically accepted by the faculty without an assessment fee being charged. Source: Charles University — Diploma Recognition.'
       }
     },
     {
@@ -143,7 +143,7 @@ const faqSchema = {
       name: 'Do IB students need to take entrance exams for Czech universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on the programme and faculty. Many Czech public universities require entrance exams, especially for Medicine (Biology, Chemistry, Physics), Engineering, and Law. Some faculties offer exam waivers for IB students who meet specific score thresholds. Each faculty sets its own requirements. Source: Study in Czechia (DZS).'
+        text: 'It depends on the programme and faculty. Some programmes require an entrance exam, interview, portfolio assessment or talent exam; others assess your application on your documents alone. Each faculty sets its own requirements. Source: Study in Czechia — How to Apply.'
       }
     },
     {
@@ -151,7 +151,7 @@ const faqSchema = {
       name: 'Are Czech university programmes free for international students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Czech-taught programmes at public universities are tuition-free for all students regardless of nationality. English-taught programmes charge tuition fees, typically ranging from CZK 50,000 to CZK 350,000 per year (approximately €2,000–€14,000). Source: Study in Czechia (DZS).'
+        text: 'Czech-taught degree programmes at public and state universities are tuition-free, regardless of nationality. Programmes taught in English or another foreign language charge tuition fees, which each university sets. Source: Study in Czechia — Learn Czech and study tuition-free.'
       }
     },
     {
@@ -159,7 +159,7 @@ const faqSchema = {
       name: 'How do IB students apply to Czech universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The Czech Republic uses a decentralized system — each university manages its own admissions. You apply directly to each faculty through their online application system. Application deadlines are typically between February and April. You may apply to multiple universities and faculties simultaneously. Source: Study in Czechia — How to Apply.'
+        text: 'The Czech Republic uses a decentralized system — each university manages its own admissions. You apply directly to each faculty through their online application system. Application deadlines are typically between February and April. You may apply to multiple universities and faculties simultaneously; each application is usually submitted and paid for separately. Source: Study in Czechia — How to Apply.'
       }
     },
     {
@@ -167,7 +167,7 @@ const faqSchema = {
       name: 'What language do I need to study in the Czech Republic?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Czech-taught programmes require Czech language proficiency (typically B2 level, certified via the Czech Language Certificate Exam). Many universities also offer English-taught programmes. IB English A or B courses are generally accepted as proof of English proficiency. One-year Czech language preparatory courses are available at many universities. Source: Study in Czechia — How to Apply.'
+        text: 'For Czech-taught programmes, you may need to prove your Czech; for English-taught programmes, universities usually require proof of English. The exact level and accepted documents are set by each university and programme. Source: Study in Czechia — How to Apply.'
       }
     }
   ]

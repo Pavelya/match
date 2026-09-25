@@ -5,7 +5,7 @@
  *
  * Official sources used:
  * - dge.mec.pt — Direção-Geral da Educação (equivalency of foreign qualifications)
- * - dges.gov.pt — Direção-Geral do Ensino Superior (higher education access, NARIC centre)
+ * - dges.gov.pt — Instituto para o Ensino Superior, formerly DGES (higher education access, NARIC centre)
  * - dge.mec.pt/faq-equivalence-foreign-qualifications — DGE FAQ on equivalency process
  *
  * All information in this component is sourced from official Portuguese government
@@ -29,33 +29,32 @@ import {
 const requiredDocuments = [
   'IB Diploma and transcript of results',
   'Proof of identity (passport or national ID)',
-  'DGE equivalency certificate (equivalência de habilitações)',
-  'Certified translations of documents into Portuguese (if not already in Portuguese, English, French, or Spanish)',
-  'Hague Apostille on academic documents (for Hague Convention member countries)',
-  'Proof of language proficiency (Portuguese or English, depending on programme)'
+  'For the national competition: a certificate of equivalence to Portuguese secondary education, giving your final grade on the 0–200 scale',
+  'For the equivalence: documents legalised with the Hague Apostille or by a consulate, with an official translation into Portuguese',
+  'Proof of language proficiency, if the institution asks for it'
 ]
 
-// Application timeline steps
+// Application timeline steps (2026 dates; the 2027 calendar is not yet published)
 const timelineSteps = [
   {
-    period: 'Anytime: DGE Equivalency',
+    period: 'Any time: Equivalence (national competition only)',
     description:
-      'Apply for equivalency of your IB Diploma through the DGE. There is no deadline — the process can be initiated at any time. Submit your application to a public school or directly to the DGE (if living outside Portugal). The process is free and typically takes 30 days after all documents are submitted.'
+      'If you will apply through the national competition, request equivalence of your IB Diploma. There is no deadline, it is free, and the reference processing time is 30 days after all documents are in. The special competition for international students does not need it.'
   },
   {
-    period: 'January – March: Research and Preparation',
+    period: 'Set by each institution: Special Competition for International Students',
     description:
-      'Identify your preferred universities and programmes. Check whether you need to apply via the Concurso Especial (international student competition) or another admission route. Gather required documents and arrange translations and apostilles.'
+      'Each university or polytechnic sets its own application period every year and announces it on its website at least three months in advance. Apply through the institution directly.'
   },
   {
-    period: 'March – July: Application Period',
+    period: 'Late July – early August: National Competition, 1st Phase',
     description:
-      "Most universities open their international student application windows between March and July, with multiple phases. Submit your application through the university's own portal. Deadlines vary by institution and phase — some close as early as March, others remain open until July or later."
+      'In 2026, applications ran from 20 July to 6 August. Applicants replacing entrance exams with foreign exams, such as IB exams, had to apply by 29 July. Results were published on 23 August.'
   },
   {
-    period: 'July – September: Admission Results and Enrolment',
+    period: 'Late August – September: 2nd Phase and Enrolment',
     description:
-      'Universities announce admission decisions in waves. Admitted students complete enrolment, including document verification and fee payment. Non-EU/EEA students must apply for a student visa at least 2–3 months before the academic year starts (typically September).'
+      'In 2026, the second phase ran from 24 August to 20 September, with results on 30 September. Non-EU/EEA students also need a student visa, so start that as soon as you are admitted.'
   }
 ]
 
@@ -64,36 +63,38 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Portugal?',
     answer:
-      'Yes. The IB Diploma is recognized in Portugal through a formal equivalency process managed by the Direção-Geral da Educação (DGE). Under Decreto-Lei 227/2005, IB Diploma holders can obtain equivalency to Portuguese secondary education (ensino secundário), which then qualifies them to apply for higher education. The process is free of charge and can be requested at any time.',
-    source: 'DGE — Equivalências Estrangeiras',
-    sourceUrl: 'https://www.dge.mec.pt/equivalencias-estrangeiras'
+      'Yes. Under Decree-Law 227/2005, the IB Diploma can be made equivalent to Portuguese secondary education, which you need for the national competition. The equivalence is free, can be requested at any time, and the Directorate-General for Education (DGE) is responsible for IB qualifications.',
+    source: 'DGE — FAQ: Equivalence of Foreign Qualifications',
+    sourceUrl: 'https://www.dge.mec.pt/faq-equivalence-foreign-qualifications'
   },
   {
     question: 'How do international IB students apply to Portuguese universities?',
     answer:
-      'International students (non-EU/non-Portuguese nationals) apply through the Concurso Especial para Estudantes Internacionais, a special competition established by Decreto-Lei 36/2014. Each university manages its own admission under this framework, setting specific deadlines and requirements. EU/EEA students may apply through the national general competition (concurso nacional de acesso) or other special competitions.',
-    source: 'DGES — Acesso ao Ensino Superior',
-    sourceUrl: 'https://www.dges.gov.pt/pt/pagina/acesso-ao-ensino-superior'
+      'Students without Portuguese or EU/EEA nationality usually apply through the special competition for international students (Decree-Law 36/2014). You apply to each institution directly, and each sets its own places, deadlines and selection criteria. A qualification that gives access to higher education in the country where it was issued is enough to apply.',
+    source: 'DGES/IES — Special competition for international students (in Portuguese)',
+    sourceUrl:
+      'https://www.dges.gov.pt/pt/pagina/concurso-especial-para-estudantes-internacionais?plid=593'
   },
   {
     question: 'Do IB students need to take Portuguese entrance exams (Provas de Ingresso)?',
     answer:
-      'It depends on the admission route. Students applying through the national general competition (concurso nacional de acesso) typically need to take Provas de Ingresso. International students applying through the Concurso Especial may not need national exams — universities may use IB scores directly or administer their own admission tests. Requirements vary by institution and programme.',
-    source: 'DGES — Acesso ao Ensino Superior',
-    sourceUrl: 'https://www.dges.gov.pt/pt/pagina/acesso-ao-ensino-superior'
+      'In the national competition, yes, but you can replace them with IB exams that the National Access Commission (CNAES) lists as equivalent, such as IB Biology SL or HL for Biology and Geology. You also need a certificate of equivalence of your IB Diploma. In the special competition for international students, each institution sets its own selection criteria.',
+    source: 'DGES/IES — Students with foreign secondary education (in Portuguese)',
+    sourceUrl:
+      'https://www.dges.gov.pt/pt/pagina/substituicao-de-provas-de-ingresso-por-exames-estrangeiros?plid=593'
   },
   {
     question: 'What language proficiency is required to study in Portugal?',
     answer:
-      "For Portuguese-taught programmes, proficiency in Portuguese is required, typically at B1–B2 level. For the growing number of English-taught programmes (especially at Master's level), English proficiency at B2 level is generally required (e.g., IELTS 6.0–6.5, Cambridge B2 First). IB English A or B courses may satisfy English requirements at some institutions — verify directly.",
-    source: 'DGES — Portuguese Higher Education System',
+      'Each institution sets its own language requirements, as part of its autonomy over the conditions of entry to its programmes. Check the level and the certificates your programme accepts, for Portuguese-taught and English-taught programmes alike.',
+    source: 'DGES/IES — Portuguese Higher Education System',
     sourceUrl: 'https://www.dges.gov.pt/en/pagina/portuguese-higher-education-system'
   },
   {
     question: 'What is the difference between universities and polytechnics in Portugal?',
     answer:
       "Portugal operates a binary higher education system. Universities focus on research and academic knowledge, offering Licenciatura (Bachelor's, 3–4 years), Mestrado (Master's, 1.5–2 years), and Doutoramento (PhD). Polytechnics emphasize applied research and practical professional training, offering Licenciatura and Mestrado degrees. Both types accept IB Diploma holders.",
-    source: 'DGES — Portuguese Higher Education System',
+    source: 'DGES/IES — Portuguese Higher Education System',
     sourceUrl: 'https://www.dges.gov.pt/en/pagina/portuguese-higher-education-system'
   }
 ]
@@ -109,7 +110,7 @@ export function PortugalContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇵🇹</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -128,7 +129,7 @@ export function PortugalContent() {
               <strong>Concurso Especial para Estudantes Internacionais</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -141,7 +142,7 @@ export function PortugalContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -175,10 +176,16 @@ export function PortugalContent() {
               </p>
 
               <p>
-                Once equivalency is granted, IB Diploma holders have the right to apply for higher
-                education in Portugal, either through the national general competition or the
-                special competition for international students, depending on their nationality and
-                residency status.
+                Portugal is reorganising its education agencies in 2026, and the DGE says its work
+                is passing to a new institute, <strong>EduQA, I.P.</strong> Check the DGE&apos;s
+                page for the current contact before you apply.
+              </p>
+
+              <p>
+                You need the equivalence for the <strong>national competition</strong>. The{' '}
+                <strong>special competition for international students</strong> accepts any
+                qualification that gives access to higher education in the country where it was
+                issued, without a Portuguese equivalence.
               </p>
 
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -207,6 +214,26 @@ export function PortugalContent() {
                       DGE — FAQ: Equivalence of Foreign Qualifications (English)
                     </a>
                   </li>
+                  <li>
+                    <a
+                      href="https://www.dge.mec.pt/noticias/transicao-para-o-eduqa-ip"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      DGE — Transition to EduQA, I.P. (in Portuguese)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.dges.gov.pt/pt/pagina/concurso-especial-para-estudantes-internacionais?plid=593"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      DGES/IES — Special competition for international students (in Portuguese)
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -229,13 +256,13 @@ export function PortugalContent() {
                   <AlertTriangle className="h-6 w-6 text-amber-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <h3 className="font-semibold text-gray-900 text-lg">
-                      Equivalency required — but the process is straightforward and free
+                      Equivalency needed for the national competition — and it is free
                     </h3>
                     <p className="mt-2 text-gray-600">
-                      Unlike some countries where the IB Diploma is automatically accepted, Portugal
-                      requires a <strong>formal equivalency process</strong> through the DGE.
-                      However, this process is <strong>free of charge</strong>, has{' '}
-                      <strong>no deadline</strong>, and typically takes around{' '}
+                      To apply through the national competition, you need a{' '}
+                      <strong>formal equivalency</strong> of your IB Diploma to Portuguese secondary
+                      education. The process is <strong>free of charge</strong>, has{' '}
+                      <strong>no deadline</strong>, and has a reference processing time of{' '}
                       <strong>30 days</strong> after all documents are submitted. You do not need a
                       Portuguese diploma — the IB Diploma is the basis for obtaining equivalency.
                     </p>
@@ -255,16 +282,16 @@ export function PortugalContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Documents needed:</strong> IB Diploma and transcript, with Hague
-                    Apostille and official Portuguese translation (if not in Portuguese, English,
-                    French, or Spanish)
+                    <strong>Documents needed:</strong> IB Diploma and transcript, legalised with the
+                    Hague Apostille or by a consulate, with an official translation into Portuguese
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Grade conversion:</strong> Final grades are converted using tables
-                    established by Portarias 224/2006 and 699/2006
+                    established by Portarias 224/2006 and 699/2006. For the national competition,
+                    the certificate states your final grade on the 0–200 scale
                   </span>
                 </div>
               </div>
@@ -305,11 +332,14 @@ export function PortugalContent() {
               <div className="rounded-2xl bg-blue-50 p-8 border border-blue-100">
                 <p className="text-gray-700">
                   Portugal uses a <strong>mixed admission system</strong>. There is a{' '}
-                  <strong>national general competition</strong> (concurso nacional de acesso)
-                  coordinated by DGES for Portuguese and EU applicants, plus a{' '}
+                  <strong>national general competition</strong> (concurso nacional de acesso) for
+                  Portuguese and EU applicants, plus a{' '}
                   <strong>special competition for international students</strong> (Concurso
                   Especial) where each university manages its own admission process under the
-                  framework of Decreto-Lei 36/2014.
+                  framework of Decreto-Lei 36/2014. The national competition is run by the{' '}
+                  <strong>Instituto para o Ensino Superior (IES, I.P.)</strong>, which replaced the
+                  Directorate-General for Higher Education (DGES) in October 2025; its pages are
+                  still at dges.gov.pt.
                 </p>
               </div>
 
@@ -317,18 +347,18 @@ export function PortugalContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Concurso Especial (International Students)</strong> — Non-EU/EEA
-                    students apply directly to each university through its own international
-                    admission process. Requirements, deadlines, and available places are set by each
-                    institution.
+                    <strong>Concurso Especial (International Students)</strong> — Students without
+                    Portuguese or EU/EEA nationality apply directly to each university or
+                    polytechnic. Requirements, deadlines, places and selection criteria are set by
+                    each institution.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Concurso Nacional (General Competition)</strong> — EU/EEA students with
-                    DGE equivalency may apply through the national system coordinated by DGES. This
-                    route typically requires Provas de Ingresso (national entrance exams).
+                    an equivalence certificate apply through the national system. It requires
+                    entrance exams (Provas de Ingresso), which suitable IB exams can replace.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -344,7 +374,7 @@ export function PortugalContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -354,7 +384,17 @@ export function PortugalContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      DGES — Acesso ao Ensino Superior
+                      DGES/IES — Acesso ao Ensino Superior (in Portuguese)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.dges.gov.pt/en/noticia/direcao-geral-do-ensino-superior-conclui-ciclo-institucional"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      DGES/IES — The DGES concludes its institutional cycle (in Portuguese)
                     </a>
                   </li>
                 </ul>
@@ -392,9 +432,9 @@ export function PortugalContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>University-specific weighting</strong> — For admission, universities may
-                    apply their own weighting to different IB subjects, particularly for competitive
-                    programmes
+                    <strong>National competition</strong> — Candidates are ranked by an application
+                    grade for each institution/programme pair, and must reach the minimum set for
+                    each entrance exam and for the application grade
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -442,7 +482,9 @@ export function PortugalContent() {
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">0–9</td>
-                        <td className="px-6 py-3 text-gray-700">Fail (Insuficiente)</td>
+                        <td className="px-6 py-3 text-gray-700">
+                          Fail (below the pass mark of 10)
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -457,7 +499,7 @@ export function PortugalContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -468,6 +510,26 @@ export function PortugalContent() {
                       className="text-blue-600 hover:underline"
                     >
                       DGE — Equivalências Estrangeiras (includes links to Portarias)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.dges.gov.pt/pt/pagina/escala-de-classificacao-portuguesa-0?plid=374"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      ENIC-NARIC Portugal — Portuguese grading scale (in Portuguese)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.dges.gov.pt/pt/pagina/informacao-geral-publico?plid=593"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      DGES/IES — National competition (in Portuguese)
                     </a>
                   </li>
                 </ul>
@@ -491,40 +553,41 @@ export function PortugalContent() {
                 Whether entrance exams are required depends on your{' '}
                 <strong>admission route and programme</strong>. Portugal&apos;s public universities
                 use <strong>Provas de Ingresso</strong> (national entrance exams) as a key component
-                of the national general competition.
+                of the national general competition. Each programme lists the exams it requires.
               </p>
 
               <div className="space-y-3">
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Concurso Especial (International Students)</strong> — Universities may
-                    accept IB scores directly, use their own admission tests, or waive entrance
-                    exams entirely. Requirements vary by institution and programme.
+                    <strong>Concurso Especial (International Students)</strong> — Each institution
+                    sets its own selection criteria, which may include its own tests. Requirements
+                    vary by institution and programme.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>National General Competition</strong> — IB students applying through
-                    this route typically need Provas de Ingresso. Some IB subjects may be recognized
-                    as equivalent to the required entrance exams (<em>provas homólogas</em>).
+                    <strong>National General Competition</strong> — IB students can replace the
+                    Provas de Ingresso with IB exams that the National Access Commission (CNAES)
+                    lists as equivalent (<em>exames homólogos</em>). For 2026–27 its list includes,
+                    for example, IB Biology SL or HL for Biology and Geology. The list is updated
+                    every year by 31 May, and exams taken since 2022 count for five years.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Medicine and competitive programmes</strong> — Entrance exams or
-                    additional tests are commonly required regardless of admission route. Some
-                    medical schools require specific IB HL subjects (Biology, Chemistry) at minimum
-                    scores.
+                    <strong>Medicine and competitive programmes</strong> — Check the entrance exams
+                    and minimum grades each programme sets. In the national competition you must
+                    reach the minimum for each exam as well as for the application grade.
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Private universities</strong> — Generally more flexible and may rely
-                    more directly on IB scores without requiring national entrance exams.
+                    <strong>Private universities</strong> — Run their own institutional
+                    competitions, which also list entrance exams that foreign exams can replace.
                   </span>
                 </div>
               </div>
@@ -532,17 +595,27 @@ export function PortugalContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.dges.gov.pt/pt/pagina/acesso-ao-ensino-superior"
+                      href="https://www.dges.gov.pt/pt/pagina/substituicao-de-provas-de-ingresso-por-exames-estrangeiros?plid=593"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      DGES — Acesso ao Ensino Superior
+                      DGES/IES — Students with foreign secondary education (in Portuguese)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://files.diariodarepublica.pt/2s/2026/05/103000000/0015000170.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      CNAES — Deliberation 619/2026 on foreign exams (PDF, in Portuguese)
                     </a>
                   </li>
                 </ul>
@@ -564,9 +637,9 @@ export function PortugalContent() {
             </p>
 
             <p className="mt-6 text-gray-600">
-              Most programmes are taught in <strong>Portuguese</strong>, but there is a growing
-              number of <strong>English-taught programmes</strong>, especially at the Master&apos;s
-              level and in fields like Business, Engineering, Computer Science, and Medicine.
+              Programmes are taught in <strong>Portuguese</strong> or in <strong>English</strong>.
+              Each institution sets its own language requirements as part of its autonomy over the
+              conditions of entry, so check the level and the certificates your programme accepts.
             </p>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -580,13 +653,11 @@ export function PortugalContent() {
                 <ul className="space-y-2 text-sm text-gray-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>Required for most undergraduate programmes at public universities</span>
+                    <span>Required for Portuguese-taught programmes</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Typically <strong>B1–B2 level</strong> required (university-dependent)
-                    </span>
+                    <span>The level and accepted certificates are set by each institution</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -612,10 +683,7 @@ export function PortugalContent() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Typically <strong>B2 level</strong> — IELTS 6.0–6.5, TOEFL iBT 80+, or
-                      Cambridge B2 First/C1 Advanced
-                    </span>
+                    <span>The accepted tests and scores are set by each institution</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
@@ -641,7 +709,7 @@ export function PortugalContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    DGES — Portuguese Higher Education System
+                    DGES/IES — Portuguese Higher Education System
                   </a>
                 </li>
               </ul>
@@ -747,7 +815,7 @@ export function PortugalContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    DGES — Portuguese Higher Education System
+                    DGES/IES — Portuguese Higher Education System
                   </a>
                 </li>
               </ul>
@@ -785,11 +853,10 @@ export function PortugalContent() {
               <p className="text-amber-800 text-sm flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  Non-EU/EEA students must also arrange a <strong>student visa</strong>. Apply at
-                  least 2–3 months before the academic year starts. Documents may need to be
-                  authenticated with the <strong>Hague Apostille</strong> and translated into
-                  Portuguese. Contact the Portuguese embassy or consulate in your country for visa
-                  details.
+                  Non-EU/EEA students must also arrange a <strong>student visa</strong>; start as
+                  soon as you are admitted. Documents may need to be authenticated with the{' '}
+                  <strong>Hague Apostille</strong> and translated into Portuguese. Contact the
+                  Portuguese embassy or consulate in your country for visa details.
                 </span>
               </p>
             </div>
@@ -825,6 +892,11 @@ export function PortugalContent() {
               Application Timeline for IB Students
             </p>
 
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              The 2027 national competition calendar is not yet published. The dates below are
+              2026&apos;s.
+            </p>
+
             <div className="mt-10 space-y-8">
               {timelineSteps.map((step, index) => (
                 <div key={step.period} className="flex gap-4">
@@ -852,22 +924,32 @@ export function PortugalContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.dges.gov.pt/pt/pagina/acesso-ao-ensino-superior"
+                    href="https://www.dges.gov.pt/pt/pagina/calendario-concurso-nacional-de-acesso-0?plid=593"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    DGES — Acesso ao Ensino Superior
+                    DGES/IES — National competition calendar 2026 (in Portuguese)
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://www.dge.mec.pt/equivalencias-estrangeiras"
+                    href="https://www.dges.gov.pt/pt/pagina/concurso-especial-para-estudantes-internacionais?plid=593"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    DGE — Equivalências Estrangeiras
+                    DGES/IES — Special competition for international students (in Portuguese)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.dge.mec.pt/faq-equivalence-foreign-qualifications"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    DGE — FAQ: Equivalence of Foreign Qualifications (English)
                   </a>
                 </li>
               </ul>

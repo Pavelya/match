@@ -20,9 +20,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Poland with IB Diploma | Guide (2026)',
+  title: 'Study in Poland with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Polish universities. Automatic recognition, grade conversion, admission process, and language requirements (2026).',
+    'Official guide for IB students applying to Polish universities. Automatic recognition, grade conversion, admission process, and language requirements (2027).',
   keywords: [
     'study in poland with ib diploma',
     'ib diploma poland university admission',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'poland ib grade conversion'
   ],
   openGraph: {
-    title: 'Study in Poland with IB Diploma | Guide (2026)',
+    title: 'Study in Poland with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Poland. Automatic recognition by law, university-specific grade conversion, and decentralized application process.',
     type: 'website',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Poland with IB Diploma | Guide 2026',
+    title: 'Study in Poland with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Polish university admission, recognition by law, grade conversion, and direct application.'
   },
@@ -138,7 +138,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Poland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. The IB Diploma issued by the International Baccalaureate Organisation in Geneva is recognized by operation of law in Poland. It is treated as equivalent to the Polish Matura, and holders can apply directly to Polish universities without nostrification or any additional recognition procedure. Source: NAWA — Recognition for Academic Purposes.'
+        text: 'Yes. IB certificates are recognised automatically for applying to first-cycle and long-cycle studies in Poland, so you do not need an individual recognition statement from NAWA. Each university still sets its own admission requirements. Source: NAWA — Applying for admission to first/long-cycle studies.'
       }
     },
     {
@@ -146,7 +146,7 @@ const faqSchema = {
       name: 'How are IB grades converted for Polish university admission?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'There is no single national conversion formula. Each Polish university sets its own rules for converting IB grades (1–7 scale) to percentages or points equivalent to the Polish Matura. Higher Level (HL) subjects are typically treated as extended-level Matura and given higher weighting, while Standard Level (SL) subjects correspond to basic-level Matura. Always check the specific faculty admission requirements. Source: study.gov.pl — How to Apply.'
+        text: 'There is no single national formula; each university sets its own. The University of Warsaw, for example, converts each IB grade to a percentage: 7 = 100%, 6 = 90%, 5 = 75%, 4 = 60%, 3 = 45%, 2 = 30%. Always check the admission rules for your programme. Source: University of Warsaw — Candidates with IB and EB diplomas.'
       }
     },
     {
@@ -162,7 +162,7 @@ const faqSchema = {
       name: 'Do I need to speak Polish to study in Poland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Not necessarily. Polish universities offer over 900 programmes taught in English. For English-taught programmes, you typically need to demonstrate at least B2 English proficiency (e.g., IELTS 5.5–6.5, depending on the university). For Polish-taught programmes, you must prove Polish language proficiency at minimum B2 level, usually through a certificate or the university's own language exam. Source: study.gov.pl — How to Apply."
+        text: 'Not necessarily; many programmes are taught in English. Since July 2025, candidates who are not citizens of the EU, EFTA, Switzerland or the UK must prove at least B2 in the language their programme is taught in, whether Polish or English. Source: Ministry of Science and Higher Education — Notice on the act of 4 April 2025 (in Polish).'
       }
     },
     {
@@ -170,7 +170,7 @@ const faqSchema = {
       name: 'Is higher education in Poland free for IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Full-time studies in Polish at public universities are free for Polish citizens, EU/EEA citizens, and holders of the Karta Polaka (Polish Charter). All other international students pay tuition fees, which average EUR 2,000–3,000 per year for undergraduate programmes. Scholarships are available through NAWA and individual universities. Source: study.gov.pl — Tuition Fees.'
+        text: 'Full-time studies in Polish at public universities are free for Polish citizens and for foreigners who study on the same terms, including EU/EEA citizens and holders of the Karta Polaka (Polish Charter). Other international students pay fees, on average EUR 2,000 a year for first-cycle and long-cycle studies; fees range from EUR 2,000 to 6,000 a year depending on the institution and programme. Source: study.gov.pl — Tuition Fees.'
       }
     }
   ]
