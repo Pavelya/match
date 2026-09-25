@@ -109,8 +109,8 @@ Thank you for considering this request!`
             <div className="mt-8 rounded-lg bg-blue-50 p-4">
               <p className="text-sm text-blue-800">
                 <span className="font-semibold">🌟 Community-powered:</span> Many of our programs
-                were added thanks to student suggestions. Your recommendation could help hundreds of
-                other IB students find their perfect match!
+                were added thanks to student suggestions. Your recommendation could help other IB
+                students find their perfect match!
               </p>
             </div>
           </div>

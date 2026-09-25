@@ -2,13 +2,13 @@ import { Globe, BookOpen, GraduationCap, Filter } from 'lucide-react'
 
 const filters = [
   {
-    name: '30+ Countries',
+    name: 'Countries',
     description:
       'From the UK to Canada, Netherlands to Australia — find programs in your dream destinations.',
     icon: Globe
   },
   {
-    name: '30+ Fields of Study',
+    name: 'Fields of Study',
     description:
       'Engineering, Medicine, Business, Arts, Sciences — we cover all major academic disciplines.',
     icon: BookOpen

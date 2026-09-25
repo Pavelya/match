@@ -2,7 +2,7 @@
  * IB University Requirements — Country Catalog Hub
  *
  * Entry point for students to find country-specific IB Diploma admission guides.
- * Links to 16 dedicated country pages and provides program search for countries
+ * Links to the dedicated country pages and provides program search for countries
  * without dedicated guides yet.
  */
 
@@ -18,7 +18,7 @@ export const revalidate = 604800 // 7 days
 export const metadata = {
   title: 'IB Diploma Admission Rules by Country (2026) | IB Match',
   description:
-    'Find how universities in 30+ countries evaluate the IB Diploma. Country-by-country guides to recognition, grade conversion, application systems, and entry requirements.',
+    'Find how universities around the world evaluate the IB Diploma. Country-by-country guides to recognition, grade conversion, application systems, and entry requirements.',
   keywords: [
     'IB university requirements',
     'IB diploma admission by country',
@@ -34,7 +34,7 @@ export const metadata = {
   openGraph: {
     title: 'IB Diploma Admission Rules by Country (2026)',
     description:
-      'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules. 30+ countries, 1000+ programs.',
+      'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules, with IB requirements for 1,000+ programs.',
     type: 'website',
     url: `${baseUrl}/ib-university-requirements`,
     siteName: 'IB Match'
