@@ -320,12 +320,13 @@ All checked 24 September 2026. Cambridge rows link their own course pages.
 
 ## Found along the way
 
-Not changed here; each is a candidate for its own task.
+Not changed here. The first is now task 3.5; the others are candidates for their own tasks.
 
 - **Duplicate IB course codes split students.** `GEO`/`GEOG` (6 and 8 students), `DES-TECH`/
   `DESIGN-TECH` (3 and 3), `LAT`/`LATIN`, `GREEK`/`GRK` and the `*-LIT`/`*-LIT-A` pairs are the
   same subjects under two codes. A requirement on one code does not match students who picked
-  the other: 55 requirements use `GEOG`, so the 6 students on `GEO` miss them.
+  the other: 55 requirements use `GEOG`, so the 6 students on `GEO` miss them. Now task 3.5 in
+  `CONTENT_tasks.md`, which also removes the retired codes from the groups above.
 - **The Cambridge entry pattern may recur.** Cambridge was entered on 10–11 February 2026 with the
   top of the points range and recommended subjects stored as requirements. Other programs entered
   in February may share both habits; phase 4 should look for them.
