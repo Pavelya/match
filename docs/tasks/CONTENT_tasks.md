@@ -21,12 +21,12 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | UCAS deadline for both is **15 October 2026** |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Research done.** 61 of 76 programs change; the owner applies them in the admin UI before the UCAS deadline, **15 October 2026** |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
-| 9 | Canonical degree types | 3.2 | small | The refresh tool validates against it |
+| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [ ] 1.2 Oxford and Cambridge fast lane
+- [ ] 1.2 Oxford and Cambridge fast lane — research done; the owner applies the changes
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
@@ -74,6 +74,7 @@ Phase 3 — Refresh groundwork
 - [ ] 3.2 Canonical degree types
 - [ ] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
+- [ ] 3.5 Merge duplicate IB course codes (do before 3.3)
 
 Phase 4 — Program refresh for 2027 entry
 
@@ -311,6 +312,29 @@ on its public page.
 
 **Session size:** Medium. Research only, plus a short handoff.
 
+#### Status, 24 September 2026 — research done; the owner applies the changes (session 2)
+
+- **Done.** `docs/tasks/content-2027/oxford-cambridge.md` has all 76 programs, one row each,
+  with the program ID, the 2027-entry requirement, the change and the source. The first half of
+  Verify passes.
+- **Cambridge, 30 of 30 change.** Every course page says 2027 entry and "41–42 points, 776 at
+  HL"; stored values were 42–45. Eighteen stored subjects Cambridge does not require. Land
+  Economy is renamed Environment, Law, and Economics (same course, UCAS code KL41).
+- **Oxford, 31 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
+  rows come from department, faculty and college pages. Most of them name no entry year. The
+  file asks the owner to compare the Oxford rows with Oxford's one-page summary table in a
+  browser, and flags five rows that need more than that.
+- **Judgement call to review:** where a source names no grade for a required subject, the file
+  uses 6, the lowest the HL profile allows (776, 766, 666), instead of the stored 7. The rule is
+  stated at the top of the file.
+- **Script, as an alternative to the admin UI.** `scripts/programs/2027/` holds the same targets
+  as data; `scripts/programs/apply-2027-requirements.ts` dry-runs by default (59 changes,
+  12 stamp-only, 5 held, matching the file) and writes on `--apply` after the owner approves,
+  with a backup and `--restore`. Its diff helpers (`scripts/programs/lib/requirements-diff.ts`,
+  Vitest-covered) and data shape are a starting point for the refresh tool in 3.3.
+- **Left to tick 1.2:** the changed rows are applied (admin UI or script), then the second half
+  of Verify (new values on the public pages) can be checked.
+
 ---
 
 ### 1.3 — Correct the false counts and the "Educaton" typo
@@ -545,7 +569,7 @@ the data shape but only create programs; the bulk upload skips existing names.
   function pure and cover it with Vitest.
 - **`--apply`:** one transaction per program. Replace its course requirements, set
   `requirementsVerified`, `requirementsUpdatedAt` and `requirementsEntryYear`, and validate
-  course codes against `IBCourse` and degree types against 3.2. **Never delete**:
+  course codes against `IBCourse` (after 3.5) and degree types against 3.2. **Never delete**:
   `discontinued` is reported only. Finish by syncing Algolia and invalidating the program
   cache.
 - **Link checker:** read URLs with `GROUP BY "programUrl"`, at most 10 requests at once,
@@ -626,6 +650,89 @@ in phase 4 with the rest of each university.
 count equals the database count.
 
 **Session size:** Medium.
+
+---
+
+### 3.5 — Merge duplicate IB course codes
+
+**Do before 3.3**, which validates course codes against `IBCourse`, and before phase 4 writes
+more requirements against both codes.
+
+**Outcome:** Each IB subject has one `IBCourse` row, every student course and program
+requirement points at it, and the admin UI cannot create a second one.
+
+**Why:** Seven subjects exist twice under different codes. The matcher compares course IDs,
+so a requirement on one code never matches a student who picked the other. Geography is the
+costly one: 6 students chose `GEO`, and 55 requirement rows use `GEOG`, so those students
+miss all of them. The duplicates came through the admin reference-courses page:
+`app/api/admin/reference/courses/route.ts` rejects a duplicate *code* but not a duplicate
+*name*. No code references the extra codes.
+
+Counts on 25 September 2026. "Keep" is the code in `prisma/seed.ts`, so production matches a
+freshly seeded database:
+
+| Subject | Keep | Retire | Students (keep / retire) | Requirement rows (keep / retire) |
+|---|---|---|---|---|
+| Geography | `GEOG` | `GEO` | 8 / 6 | 55 / 10 |
+| Design Technology | `DES-TECH` | `DESIGN-TECH` | 3 / 3 | 7 / 1 |
+| Classical Greek | `GRK` | `GREEK` | 0 / 1 | 0 / 6 |
+| Latin | `LAT` | `LATIN` | 0 / 0 | 5 / 2 |
+| French A: Literature | `FRA-LIT` | `FRA-LIT-A` | 1 / 1 | 0 / 0 |
+| German A: Literature | `GER-LIT` | `GER-LIT-A` | 1 / 1 | 0 / 0 |
+| Spanish A: Literature | `SPA-LIT` | `SPA-LIT-A` | 1 / 1 | 0 / 0 |
+
+**Collisions a plain repoint would hit:**
+- **One student has Geography under both codes, with different levels or grades.**
+  `StudentCourse` is unique on (`studentProfileId`, `ibCourseId`), and which row is right is
+  the student's data, not ours to guess. The owner chooses.
+- **Programs with both codes in one OR group.** None today. But the Oxford and Cambridge data
+  from 1.2 puts both codes of Latin, Greek and the three Language A pairs in the same OR group
+  (`{Modern language}` and `{Modern or classical language}`), so once that data is applied,
+  merging must delete the retired option rather than repoint it into a duplicate.
+
+**Files:**
+- New `scripts/merge-ib-courses.ts`
+- `app/api/admin/reference/courses/route.ts` (POST) and `[id]/route.ts` (PATCH)
+- `prisma/schema.prisma` and a new migration under `prisma/migrations/`
+- `scripts/programs/2027/*.ts` and `docs/tasks/content-2027/oxford-cambridge.md`, whose
+  language groups list both codes
+
+**Steps:**
+1. Re-run the counts with aggregates only:
+   `SELECT name, array_agg(code) FROM "IBCourse" GROUP BY name HAVING count(*) > 1`, then
+   `count(*)` per code on `StudentCourse` and `ProgramCourseRequirement`.
+2. Write the merge script, dry run by default, modelled on
+   `scripts/programs/apply-2027-requirements.ts`: a backup of every row it changes, then one
+   transaction per pair. Repoint `StudentCourse` rows unless the student already has the kept
+   course; list those collisions without writing them. Repoint `ProgramCourseRequirement` rows,
+   except delete a retired row whose program already has the kept course in the same OR
+   group. **The owner approves the dry run**, and chooses the row to keep for each student
+   collision.
+3. After `--apply`: sync the affected programs to Algolia (`syncProgramsBatch` in
+   `lib/algolia/sync.ts`), then `invalidateProgramsCache()` and `clearAllMatchCache()` from
+   `lib/matching/cache.ts`. Student courses changed, so cached matches are stale.
+4. Delete the seven retired courses on the admin reference-courses page. Its DELETE refuses
+   while a course is still referenced, which double-checks the merge, and it revalidates the
+   `ib-courses` tag behind the students' course picker.
+5. Prevent a repeat: POST and PATCH return 409 when another course already has the name
+   (trimmed, case-insensitive). Add Vitest tests next to the routes, mocking `@/lib/prisma`, as
+   in `app/api/admin/universities/**/route.test.ts`. Then make `IBCourse.name` `@unique`
+   through a migration file (`prisma migrate diff`, then `prisma migrate deploy`). It has to
+   come after the merge, or the migration fails.
+6. Remove the retired codes from the 1.2 data files and the handoff file's named groups, and
+   check `npx tsx scripts/programs/apply-2027-requirements.ts` still dry-runs with no unknown
+   codes.
+
+**Verify:** the duplicate-name query returns no rows and `IBCourse` has 55 rows (62 − 7); no
+`StudentCourse` or `ProgramCourseRequirement` row points at a retired code; creating
+"Geography" in the admin page returns 409; `prisma migrate status` is up to date; the
+verification commands in `MAINT_tasks.md` pass.
+
+**Guardrails:** Never delete a student's course row without the owner's choice. Deleting a
+retired option that duplicates a kept one in the same OR group is safe: it means the same
+thing.
+
+**Session size:** Small.
 
 ---
 
