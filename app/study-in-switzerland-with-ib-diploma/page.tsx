@@ -11,6 +11,7 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { SwitzerlandContent } from './SwitzerlandContent'
+import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days in seconds
@@ -90,8 +91,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Switzerland, university admission requirements, language rules, and application processes.',
   url: `${baseUrl}/study-in-switzerland-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-switzerland-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

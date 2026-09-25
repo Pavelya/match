@@ -5,6 +5,7 @@ import { CoordinatorFeatures } from './_components/CoordinatorFeatures'
 import { CoordinatorDashboard } from './_components/CoordinatorDashboard'
 import { CoordinatorCTA } from './_components/CoordinatorCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -50,8 +51,7 @@ const jsonLd = {
   name: 'IB Match for Coordinators',
   description: 'Partner page for IB Coordinators to help their students with university matching.',
   url: `${baseUrl}/for-coordinators`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/for-coordinators'),
   isPartOf: {
     '@type': 'WebSite',
     name: 'IB Match',

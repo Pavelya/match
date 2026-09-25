@@ -8,6 +8,7 @@
 import type { Metadata } from 'next'
 import { SpainContent } from './SpainContent'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every week since content doesn't change frequently
@@ -90,8 +91,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Spain, grade conversion to the 0-14 system, and the UNEDassis accreditation process.',
   url: `${baseUrl}/study-in-spain-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-spain-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

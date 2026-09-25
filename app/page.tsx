@@ -5,6 +5,7 @@ import { HowItWorks } from './landing/students/_components/HowItWorks'
 import { TrustSection } from './landing/students/_components/TrustSection'
 import { CallToAction } from './landing/students/_components/CallToAction'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -86,8 +87,7 @@ const jsonLd = {
       name: 'IB Match - Find Your Perfect University Program',
       description:
         'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
-      datePublished: '2025-01-01',
-      dateModified: new Date().toISOString().split('T')[0],
+      ...pageDates('/'),
       speakable: {
         '@type': 'SpeakableSpecification',
         cssSelector: ['h1', '.hero-description', '.feature-title', '.feature-description']

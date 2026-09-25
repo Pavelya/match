@@ -7,6 +7,7 @@ import { TechStack } from './_components/TechStack'
 import { NoAISection } from './_components/NoAISection'
 import { HowItWorksCTA } from './_components/HowItWorksCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -84,8 +85,7 @@ const techArticleSchema = {
   description:
     'Technical deep dive into IB Match: Algolia-powered search, three-factor compatibility scoring, and transparent matching algorithms for International Baccalaureate students.',
   url: `${baseUrl}/how-it-works`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/how-it-works'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

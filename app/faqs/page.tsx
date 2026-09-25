@@ -5,6 +5,7 @@ import { PageContainer } from '@/components/layout/PageContainer'
 import { FAQAccordion } from './_components/FAQAccordion'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { getPublishedDocument } from '@/lib/legal-documents'
+import { pageDates } from '@/lib/page-dates'
 
 // ISR - page fetches CMS content but is cached for 1 hour
 export const revalidate = 3600
@@ -116,12 +117,15 @@ export default async function FAQPage() {
   // Parse FAQs from CMS content or use fallback
   const faqs = cmsContent?.content ? parseFaqsFromMarkdown(cmsContent.content) : FALLBACK_FAQS
 
+  // CMS content carries its own date, the one shown as "Last updated" below
+  const cmsDate = cmsContent?.effectiveDate ?? cmsContent?.publishedAt
+
   // JSON-LD structured data for FAQ page (helps with Google rich snippets)
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    datePublished: '2025-01-01',
-    dateModified: new Date().toISOString().split('T')[0],
+    ...pageDates('/faqs'),
+    ...(cmsDate && { dateModified: new Date(cmsDate).toISOString().split('T')[0] }),
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,

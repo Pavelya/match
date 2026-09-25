@@ -8,6 +8,7 @@
 import type { Metadata } from 'next'
 import { ItalyContent } from './ItalyContent'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every week since content doesn't change frequently
@@ -89,8 +90,7 @@ const educationalArticleSchema = {
   description:
     'Comprehensive guide explaining how the IB Diploma is recognized in Italy, CIMEA verification process, entrance exams, and admission requirements.',
   url: `${baseUrl}/study-in-italy-with-ib-diploma`,
-  datePublished: '2025-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  ...pageDates('/study-in-italy-with-ib-diploma'),
   author: {
     '@type': 'Organization',
     name: 'IB Match',

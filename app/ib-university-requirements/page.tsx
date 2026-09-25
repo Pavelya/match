@@ -10,6 +10,7 @@ import { prisma } from '@/lib/prisma'
 import { getCachedFields, getCachedCountriesWithPrograms } from '@/lib/reference-data'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { RequirementsContent } from './RequirementsContent'
+import { pageDates } from '@/lib/page-dates'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -278,8 +279,7 @@ export default async function IBUniversityRequirementsPage() {
     description:
       'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules worldwide.',
     url: `${baseUrl}/ib-university-requirements`,
-    datePublished: '2025-01-01',
-    dateModified: new Date().toISOString().split('T')[0],
+    ...pageDates('/ib-university-requirements'),
     isPartOf: {
       '@type': 'WebSite',
       name: 'IB Match',
