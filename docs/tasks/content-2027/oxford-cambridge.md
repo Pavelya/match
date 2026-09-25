@@ -12,7 +12,7 @@ program ID. Task 3.1 reads this file to stamp these programs as checked for 2027
 | | Programs | Change | Unchanged | Owner check |
 |---|---|---|---|---|
 | Cambridge | 30 | 30 | 0 | 0 |
-| Oxford | 46 | 31 | 15 | 5 (plus one browser pass, below) |
+| Oxford | 46 | 33 | 13 | 2 |
 
 **Cambridge — every row changes.** All 30 course pages say "for entry in 2027" and give the same
 minimum offer: **41–42 points, 776 at HL**. Stored values were the top of that range or above it
@@ -48,8 +48,8 @@ npx tsx scripts/programs/apply-2027-requirements.ts            # dry run: prints
 npx tsx scripts/programs/apply-2027-requirements.ts --apply    # production write, after approval
 ```
 
-The dry run lists the same 59 changes as this file; rows marked owner check are held, not
-written. `--apply` saves a backup first (`scripts/programs/2027/backups/`, git-ignored; undo with
+The dry run lists every change in this file not yet in the database; rows marked owner check
+are held, not written. `--apply` saves a backup first (`scripts/programs/2027/backups/`, git-ignored; undo with
 `--restore <file> --apply`), stamps `requirementsVerified` and `requirementsUpdatedAt`, and syncs
 Algolia and the cache for the programs it wrote. When an owner check is settled, update both this
 file and the data file (clear its `hold`), then run it again: programs already up to date are
@@ -67,33 +67,38 @@ Two named groups stand for long OR groups, entered as one OR group each:
 The duplicate codes (`LAT` and `LATIN`, `FRA-LIT` and `FRA-LIT-A`) are both listed because
 students are split between them; see [Found along the way](#found-along-the-way).
 
-## Oxford: what could not be read
+## Oxford: sources and what is still open
 
-`ox.ac.uk` returned 403 to both curl and WebFetch on every page, including the course pages and
-Oxford's own [summary table of admissions requirements][ox-summary]. The Oxford rows therefore come
-from department, faculty and college pages on other `ox.ac.uk` subdomains. Those are official, but
-only three say which entry year they describe (Materials, Fine Art, Theology). Two still describe
-2026 entry in places (the AMES faculty FAQ and St Hugh's Modern Languages page).
+`www.ox.ac.uk` returned 403 to both curl and WebFetch on every page. The Oxford rows therefore
+come from department, faculty and college pages on other `ox.ac.uk` subdomains. Those are
+official, but only three say which entry year they describe (Materials, Fine Art, Theology), and
+two still describe 2026 entry in places (the AMES faculty FAQ and St Hugh's Modern Languages page).
 
-**One browser pass settles this.** Open the [summary table][ox-summary], compare it with the
-Oxford rows, and tick:
+**Summary table, compared 25 September 2026.** The owner saved Oxford's
+[summary table of admissions requirements][ox-summary] from a browser. It is the current cycle's
+table: it sends students holding 2026-entry offers to a separate 2026 table. It gives A-level
+offers and subject requirements (● required, ■ recommended, ▲ relevant), **not IB points**, which
+are only on the course pages.
 
-- [ ] Oxford rows compared with the ox.ac.uk summary table — date: ______
+- [x] **Subject rules.** All 46 Oxford rows compared with the table's ● required subjects. 45
+  agree. Fine Art does not: Art is recommended only, so its Visual Arts requirement goes.
+- [x] **URLs.** Earth Sciences and History of Art take the table's links (`earth-sciences-geology`,
+  `history-of-art`). Mathematics and Statistics shares the Mathematics row, so its URL is kept.
+- [ ] **IB points.** Not on the table. Its A-level tiers agree with the IB figures here (AAA with
+  38 or 39, A*AA with 39 or 40, A*A*A with 40, or 39 for the Mathematics courses), but only the
+  course pages state IB points. A spot check settles it: open the course pages for Computer
+  Science and Classics and compare their IB line with this file (39 and 39). If both agree, the
+  department figures are current.
 
-Until that box is ticked, task 3.1 should stamp only the Oxford rows whose source says 2027
-(Materials Science, Philosophy and Theology, Religion and Asian and Middle Eastern Studies,
-Theology and Religion), and stamp the rest as 2026-checked.
+Until that box is ticked, task 3.1 should stamp as 2027 only the Oxford rows whose source says
+2027 (Fine Art, Materials Science, Philosophy and Theology, Religion and Asian and Middle Eastern
+Studies, Theology and Religion), and stamp the rest as 2026-checked.
 
-Rows marked **owner check** need more than the summary table:
+Rows still marked **owner check**, both needing only the IB line from their course page:
 
-- **History of Art** — no reachable page states the requirement. Also check the URL: the stored
-  slug is `history-art`, and search results use `history-of-art`.
-- **Fine Art** — 38 is confirmed for 2027; whether Visual Arts at HL is still required is not.
-- **Classical Archaeology and Ancient History** — the subject rule is not stated on any reachable
-  page.
-- **Asian and Middle Eastern Studies** — 39 comes from a faculty page that still gives 2026-entry
-  dates.
-- **Geography** — the only direct source dates from the 2025 cycle.
+- **Asian and Middle Eastern Studies** — confirm 39. It comes from a faculty FAQ that still gives
+  2026-entry dates.
+- **History of Art** — confirm 38. No reachable page states it.
 
 ## Rules used
 
@@ -119,31 +124,31 @@ admissions tests and STEP.
 | Program | Result | 2027 entry | Change from stored | Source | Checked | ID |
 |---|---|---|---|---|---|---|
 | Archaeology and Anthropology | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-archanth] · no year | 2026-09-24 | `cmkr3le5w00037mc2fc7uza3n` |
-| Asian and Middle Eastern Studies | changed · owner check | 39 · `none` | Points 38 → 39 | [AMES faculty][ames] · no year | 2026-09-24 | `cmkr3leho00057mc22nhlra58` |
+| Asian and Middle Eastern Studies | changed · owner check | 39 · `none` | Points 38 → 39 | [AMES faculty][ames] · no year; [summary table][ox-summary] | 2026-09-25 | `cmkr3leho00057mc22nhlra58` |
 | Biochemistry (Molecular and Cellular) | changed | 39 · `CHEM HL7; (BIO or PHYS or MATH-AA or MATH-AI) SL6` | Points 40 → 39; Subjects `CHEM HL7; (MATH-AA or MATH-AI or BIO or PHYS) HL6 (nc)` → `CHEM HL7; (BIO or PHYS or MATH-AA or MATH-AI) SL6` | [Biochemistry][bioch], [St Hugh's][sth-bioch] · no year | 2026-09-24 | `cmkr3lmdl002f7mc2i4lnr19o` |
 | Biology | changed | 39 · `BIO HL6; (CHEM or PHYS or MATH-AA or MATH-AI) HL6` | Points 40 → 39; Subjects `BIO HL7; (CHEM or MATH-AA or MATH-AI or PHYS) HL6 (nc)` → `BIO HL6; (CHEM or PHYS or MATH-AA or MATH-AI) HL6` | [St Hugh's][sth-biology] · no year | 2026-09-24 | `cmkr3ln0f002r7mc2xpkikcba` |
 | Chemistry | unchanged | 40 · `CHEM HL7; (MATH-AA or MATH-AI) HL6` | unchanged | [Chemistry][chem] · no year | 2026-09-24 | `cmkr3lnl300337mc2h7tayqs6` |
-| Classical Archaeology and Ancient History | changed · owner check | 39 · `none` | Points 38 → 39 | [Classics faculty][classics] · no year; [ox.ac.uk][ox-caah] via search index only | 2026-09-24 | `cmkr3leqp00077mc2fzkq30co` |
+| Classical Archaeology and Ancient History | changed | 39 · `none` | Points 38 → 39 | [Classics faculty][classics] · no year; [summary table][ox-summary]; [ox.ac.uk][ox-caah] via search index only | 2026-09-25 | `cmkr3leqp00077mc2fzkq30co` |
 | Classics | changed | 39 · `none` | Points 38 → 39 | [Classics faculty][classics], [St Hugh's][sth-classics] · no year | 2026-09-24 | `cmkr3lf1j00097mc2v9vijjwd` |
 | Classics and English | changed | 39 · `(ENG-LIT or ENG-LL) HL6` | Points 38 → 39 | [Classics faculty][classics], [English faculty][english] · no year | 2026-09-24 | `cmkr3lfcm000b7mc2a2zxhy7c` |
 | Classics and Modern Languages | changed | 39 · `{Modern or classical language} HL6` | Points 38 → 39; Subjects `none` → `{Modern or classical language} HL6` | [Modern Languages faculty][ml-cml] · no year | 2026-09-24 | `cmkr3lfs6000h7mc2xh1uelk3` |
 | Computer Science | changed | 39 · `(MATH-AA or MATH-AI) HL7` | Points 40 → 39; Subjects `MATH-AA HL7` → `(MATH-AA or MATH-AI) HL7` | [Computer Science][cs] · no year | 2026-09-24 | `cmkr3lo1p003b7mc2b6ewty4w` |
 | Computer Science and Philosophy | changed | 39 · `(MATH-AA or MATH-AI) HL7` | Points 40 → 39; Subjects `MATH-AA HL7` → `(MATH-AA or MATH-AI) HL7` | [Computer Science][cs] · no year | 2026-09-24 | `cmkr3loec003f7mc2kn5usmc5` |
-| Earth Sciences (Geology) | changed | 39 · `(MATH-AA or MATH-AI) HL6; (CHEM or PHYS) HL6` | Points 40 → 39; Subjects `(MATH-AA or MATH-AI or PHYS or CHEM) HL7` → `(MATH-AA or MATH-AI) HL6; (CHEM or PHYS) HL6` | [Earth Sciences][earth], [St Hugh's][sth-earth] · no year | 2026-09-24 | `cmkr3lorz003j7mc2u71naqm7` |
+| Earth Sciences (Geology) | changed | 39 · `(MATH-AA or MATH-AI) HL6; (CHEM or PHYS) HL6` | URL → `https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/earth-sciences-geology`; Points 40 → 39; Subjects `(MATH-AA or MATH-AI or PHYS or CHEM) HL7` → `(MATH-AA or MATH-AI) HL6; (CHEM or PHYS) HL6` | [Earth Sciences][earth], [St Hugh's][sth-earth] · no year; [summary table][ox-summary] | 2026-09-25 | `cmkr3lorz003j7mc2u71naqm7` |
 | Economics and Management | unchanged | 39 · `(MATH-AA or MATH-AI) HL6` | unchanged | [Economics][econ] · no year | 2026-09-24 | `cmkr3lu60005z7mc2b073xe4q` |
 | Engineering Science | unchanged | 40 · `(MATH-AA or MATH-AI) HL7; PHYS HL7` | unchanged | [St Hugh's][sth-engineering] · no year | 2026-09-24 | `cmkr3lpat003t7mc21bfqmwks` |
 | English and Modern Languages | unchanged | 38 · `(ENG-LIT or ENG-LL) HL6` | unchanged | [Modern Languages faculty][ml-eml] · no year | 2026-09-24 | `cmkr3lgij000p7mc2hrwiupjd` |
 | English Language and Literature | unchanged | 38 · `(ENG-LIT or ENG-LL) HL6` | unchanged | [English faculty][english], [St Hugh's][sth-english] · no year | 2026-09-24 | `cmkr3lg3x000j7mc2ao1gsi9c` |
 | European and Middle Eastern Languages | changed | 38 · `{Modern language} HL6` | Subjects `none` → `{Modern language} HL6` | [Modern Languages faculty][ml-emel] · no year | 2026-09-24 | `cmkr3lgxx000v7mc2dprmd158` |
-| Fine Art | unchanged · owner check | 38 · `VISUAL-ARTS HL6` | unchanged | [Ruskin School of Art][ruskin] · 2027 | 2026-09-24 | `cmkr3lh78000x7mc2v1uw9t67` |
-| Geography | unchanged · owner check | 39 · `none` | unchanged | [Geography][geog] · refers to 2025 | 2026-09-24 | `cmkr3luk900657mc2ycoa2x1f` |
+| Fine Art | changed | 38 · `none` | Subjects `VISUAL-ARTS HL6` → `none` | [Ruskin School of Art][ruskin] · 2027; [summary table][ox-summary] | 2026-09-25 | `cmkr3lh78000x7mc2v1uw9t67` |
+| Geography | unchanged | 39 · `none` | unchanged | [summary table][ox-summary]; [Geography][geog] · refers to 2025 | 2026-09-25 | `cmkr3luk900657mc2ycoa2x1f` |
 | History | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history] · no year | 2026-09-24 | `cmkr3lhjk00117mc279pvvaa5` |
 | History (Ancient and Modern) | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history] · no year | 2026-09-24 | `cmkr3lhwx00157mc244nfy5y4` |
 | History and Economics | changed | 38 · `none` | Subjects `HIST HL6; (MATH-AA or MATH-AI) HL6` → `none` | [History faculty][history], [Economics][econ] · no year | 2026-09-24 | `cmkr3ljja001p7mc25o5wujyl` |
 | History and English | changed | 38 · `(ENG-LIT or ENG-LL) HL6` | Subjects `HIST HL6; (ENG-LIT or ENG-LL) HL6` → `(ENG-LIT or ENG-LL) HL6` | [History faculty][history] · no year | 2026-09-24 | `cmkr3li9y00197mc2j08ug4ja` |
 | History and Modern Languages | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history], [Modern Languages faculty][ml-hml] · no year | 2026-09-24 | `cmkr3lirn001h7mc28i03ye2h` |
 | History and Politics | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history] · no year | 2026-09-24 | `cmkr3lj62001l7mc29de2sc2b` |
-| History of Art | unchanged · owner check | 38 · `none` | unchanged | none reachable | 2026-09-24 | `cmkr3lk04001x7mc2fbrml90n` |
+| History of Art | changed · owner check | 38 · `none` | URL → `https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/history-of-art` | [summary table][ox-summary] | 2026-09-25 | `cmkr3lk04001x7mc2fbrml90n` |
 | Human Sciences | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-humsci] · no year | 2026-09-24 | `cmkr3luvc00677mc2ntipetz0` |
 | Law (Jurisprudence) | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-law] · no year | 2026-09-24 | `cmkr3lv6900697mc2sfdierl7` |
 | Materials Science | changed | 40 · `(MATH-AA or MATH-AI) HL6; PHYS HL6` | Subjects `(MATH-AA or MATH-AI) HL7; PHYS HL7; CHEM HL6 (nc)` → `(MATH-AA or MATH-AI) HL6; PHYS HL6` | [Materials][materials] · 2027 | 2026-09-24 | `cmkr3lpte00417mc2bkushx85` |
@@ -168,30 +173,30 @@ admissions tests and STEP.
 ### Oxford notes
 
 - **Archaeology and Anthropology.** No specific subjects required; a mix of arts and sciences is called helpful.
-- **Asian and Middle Eastern Studies.** Faculty FAQ: "IB: 39 (including core points) with 666 at HL"; no language needed. The same page still gives 2026-entry decision dates, so confirm 39 on the summary table.
+- **Asian and Middle Eastern Studies.** The summary table confirms AAA and no required subjects (a language is only relevant). IB points are not on the table. 39 comes from the faculty FAQ, which still gives 2026-entry dates: confirm it on the course page.
 - **Biochemistry (Molecular and Cellular).** "7 in HL Chemistry and 6 in two other relevant subjects at HL or SL". The model can express one of the two; SL is used because an HL course also satisfies an SL requirement.
 - **Biology.** Biology and one of Chemistry, Physics or Maths at HL, "with 7 in HL Mathematics or a science". Which subject carries the 7 is not fixed, so each requirement is 6.
 - **Chemistry.** Alternative route not modelled: with SL Maths, 776 at HL with 7 in Chemistry and a second HL science, and 7 in SL Maths AA.
-- **Classical Archaeology and Ancient History.** 39 is the Classics faculty standard offer and matches the ox.ac.uk course page as indexed by search. No reachable page states the subject rule; none are stored.
+- **Classical Archaeology and Ancient History.** The summary table marks a classical language, Classical Civilisation and Ancient History as relevant only, so no subject is required. 39 is the Classics faculty standard offer and matches the ox.ac.uk course page as indexed by search.
 - **Classics.** No subjects required. "6s at HL in Latin and Greek if taken" is a conditional the model cannot express.
 - **Classics and English.** English Literature or English Language and Literature at HL is required. Latin or Greek is required only for the 3-year version; the 4-year version teaches them from scratch.
 - **Classics and Modern Languages.** Every combination expects at least one of its two languages (classical or modern) to A-level/HL; either side may be a beginners' option, not both. Czech and Modern Greek count too but have no IB course code here.
 - **Computer Science.** 766 at HL with the 7 in Maths. AA and AI accepted "without preference".
 - **Computer Science and Philosophy.** The department gives one IB requirement for all its courses.
-- **Earth Sciences (Geology).** Maths plus Chemistry or Physics at HL, 766 overall. The stored single OR group of all four subjects let a student meet it with Chemistry alone.
+- **Earth Sciences (Geology).** Maths plus Chemistry or Physics at HL, 766 overall. The stored single OR group of all four subjects let a student meet it with Chemistry alone. The summary table links the course at `earth-sciences-geology`.
 - **Economics and Management.** Maths at HL, "score 6 or 7".
 - **Engineering Science.** 776 with 7s in HL Maths and Physics. Whether AI is accepted is not stated; AA and AI are both kept as stored.
 - **English and Modern Languages.** The language can be a beginners' option, so only English is required.
 - **European and Middle Eastern Languages.** Every combination expects the European language to A-level/HL; the Middle Eastern language starts from scratch. Czech and Modern Greek count too but have no IB course code here.
-- **Fine Art.** The Ruskin's 2027-entry page confirms the standard AAA/38 but names no required subject. The stored Visual Arts requirement is kept until the ox.ac.uk course page confirms or drops it.
-- **Geography.** The department FAQ says A*AA (the 39 / 766 tier) and "no required subjects", but its test notes date from 2025.
+- **Fine Art.** The summary table marks Art as recommended, not required, so the stored Visual Arts requirement goes. The Ruskin's 2027-entry page confirms the standard AAA/38.
+- **Geography.** The summary table gives A*AA and marks Geography as recommended only. IB points are not on the table; 39 is Oxford's usual A*AA equivalent and what the department FAQ and the indexed course page give.
 - **History.** History is "strongly advised … but it is not an absolute requirement".
 - **History (Ancient and Modern).** As History; no classical language needed.
 - **History and Economics.** History and Maths are both "highly recommended", neither required.
 - **History and English.** "You must take English (Language or Literature)"; History is advised, not required.
 - **History and Modern Languages.** The language is required unless a beginners' option is chosen, so nothing is required overall.
 - **History and Politics.** "There are no specific requirements."
-- **History of Art.** No reachable page states the requirement; the department defers to ox.ac.uk. The stored URL slug `history-art` may now be `history-of-art` (search results use the latter).
+- **History of Art.** The summary table requires "a subject involving essay writing", which the model cannot express (almost every IB student meets it through Language A), and links the course at `history-of-art`. IB points are not on the table: confirm 38 on the course page.
 - **Human Sciences.** Biology or Maths "can be helpful … not required".
 - **Law (Jurisprudence).** Law with Law Studies in Europe expects French, German or Spanish at HL for those countries; not modelled.
 - **Materials Science.** "766 … with the 7 at HL in any one of Maths, Physics or Chemistry". Maths and Physics at HL are essential; Chemistry is only recommended, at SL if not HL.
@@ -330,6 +335,9 @@ Not changed here. The first is now task 3.5; the others are candidates for their
 - **The Cambridge entry pattern may recur.** Cambridge was entered on 10–11 February 2026 with the
   top of the points range and recommended subjects stored as requirements. Other programs entered
   in February may share both habits; phase 4 should look for them.
+- **Oxford courses not stored.** The summary table lists Biomedical Sciences, Classics and Asian
+  and Middle Eastern Studies, and Law with Law Studies in Europe, which the database lacks. A
+  candidate for phase 5 (coverage).
 - **Some Oxford differences may predate 2027.** Several look like entry errors rather than changes
   for 2027 (the Classics faculty's standard offer of 39, for instance). 2026 pages were not
   checked, so this file does not say which.

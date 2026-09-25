@@ -21,7 +21,7 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Research done.** 61 of 76 programs change; the owner applies them in the admin UI before the UCAS deadline, **15 October 2026** |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | Trivial, one verification pass |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [ ] 1.2 Oxford and Cambridge fast lane — research done; the owner applies the changes
+- [x] 1.2 Oxford and Cambridge fast lane — two Oxford rows held for the owner's check
 - [ ] 1.3 Correct the false counts and the "Educaton" typo
 - [ ] 1.4 Make page dates truthful
 
@@ -106,7 +106,10 @@ Owner tasks — not AI work
 - [ ] Review every refresh diff before `--apply`
 - [ ] Decide what happens to discontinued programs
 - [ ] Check bot-blocked sites by hand when the session cannot read them
-- [ ] Apply the Oxford and Cambridge changes in the admin UI (1.2)
+- [x] Apply the Oxford and Cambridge changes (1.2) — by script, 25 September 2026
+- [x] Compare the Oxford rows with Oxford's summary table (1.2) — 25 September 2026
+- [ ] Read the IB line on four Oxford course pages: the two held rows, plus Computer Science and
+  Classics as a spot check (1.2; details in the handoff file)
 - [ ] Approve the canonical degree list (3.2)
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
@@ -312,7 +315,7 @@ on its public page.
 
 **Session size:** Medium. Research only, plus a short handoff.
 
-#### Status, 24 September 2026 — research done; the owner applies the changes (session 2)
+#### Status, 25 September 2026 — done; two Oxford rows held for the owner (session 2)
 
 - **Done.** `docs/tasks/content-2027/oxford-cambridge.md` has all 76 programs, one row each,
   with the program ID, the 2027-entry requirement, the change and the source. The first half of
@@ -320,10 +323,8 @@ on its public page.
 - **Cambridge, 30 of 30 change.** Every course page says 2027 entry and "41–42 points, 776 at
   HL"; stored values were 42–45. Eighteen stored subjects Cambridge does not require. Land
   Economy is renamed Environment, Law, and Economics (same course, UCAS code KL41).
-- **Oxford, 31 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
-  rows come from department, faculty and college pages. Most of them name no entry year. The
-  file asks the owner to compare the Oxford rows with Oxford's one-page summary table in a
-  browser, and flags five rows that need more than that.
+- **Oxford, 33 of 46 change.** `ox.ac.uk` returned 403 to curl and WebFetch on every page, so the
+  rows come from department, faculty and college pages, most of which name no entry year.
 - **Judgement call to review:** where a source names no grade for a required subject, the file
   uses 6, the lowest the HL profile allows (776, 766, 666), instead of the stored 7. The rule is
   stated at the top of the file.
@@ -332,8 +333,22 @@ on its public page.
   12 stamp-only, 5 held, matching the file) and writes on `--apply` after the owner approves,
   with a backup and `--restore`. Its diff helpers (`scripts/programs/lib/requirements-diff.ts`,
   Vitest-covered) and data shape are a starting point for the refresh tool in 3.3.
-- **Left to tick 1.2:** the changed rows are applied (admin UI or script), then the second half
-  of Verify (new values on the public pages) can be checked.
+- **Applied, 25 September 2026.** The owner ran `apply-2027-requirements.ts --apply`: 71
+  programs written (59 changed, 12 stamped only), backup
+  `scripts/programs/2027/backups/2026-09-25T05-47-57-750Z.json` (git-ignored, on the owner's
+  machine). A second dry run reports 71 already up to date. Live pages show the new values:
+  Oxford Computer Science 39 with Maths AA or AI at HL 7, Oxford History with no subjects,
+  Cambridge Economics 41, Environment, Law, and Economics under its new name, Cambridge Medicine
+  with Maths AI. Both halves of Verify pass.
+- **Summary table, 25 September 2026.** The owner saved Oxford's summary table from a browser.
+  It gives A-level offers and subject rules for the current cycle, not IB points. Its required
+  subjects agree with 45 of 46 Oxford rows; Fine Art's Visual Arts requirement goes (Art is
+  recommended only). Earth Sciences and History of Art take the table's URLs. Three held rows are
+  settled (Classical Archaeology and Ancient History, Fine Art, Geography). That leaves four
+  programs to write with the script: three changes and one stamp.
+- **Still open, owner:** Asian and Middle Eastern Studies and History of Art need the IB line from
+  their course pages. A spot check of two more course pages would let 3.1 stamp every Oxford row
+  as 2027; both are described in the handoff file.
 
 ---
 
