@@ -80,7 +80,6 @@ const getFieldIcon = (fieldName: string) => {
     Architecture: Building,
     'Environmental Studies': Sprout,
     Education: BookOpen,
-    Educaton: BookOpen,
     Media: Tv
   }
   return iconMap[fieldName] || GraduationCap
