@@ -399,6 +399,8 @@ firing at runtime under the new query pipeline, against a throwaway local databa
 **Still to check by hand:** edit a program in the admin UI and confirm it syncs to
 Algolia and invalidates the programs cache. The reference-data extension was proven to
 fire; the program-level Algolia path needs a real edit, which means a production write.
+In production the reference-data sync did not finish: a field rename on 25 September 2026
+never reached Algolia (`CONTENT_tasks.md` 1.3), so run this check and expect the same.
 
 **Note:** the generator is still the deprecated `prisma-client-js`, which keeps
 generating into `node_modules` so all 60 `@prisma/client` import sites are unchanged.
