@@ -27,12 +27,37 @@ const requiredDocuments = [
   'Letters of recommendation (some programs)'
 ]
 
-// Application timeline
+// Application timeline (September 2027 entry, from UBC, U of T and McGill)
 const timelineSteps = [
-  { period: 'October–January', description: 'Applications open' },
-  { period: 'January–February', description: 'Deadlines for competitive programs' },
-  { period: 'March–May', description: 'Admission decisions' },
-  { period: 'July', description: 'Final IB results submission' }
+  {
+    period: 'Late September – early October 2026',
+    description:
+      'Applications open for September 2027 entry (U of T: late September; UBC: early October)'
+  },
+  {
+    period: '7–15 November 2026',
+    description:
+      "Early dates: U of T's recommended early application date is 7 November; UBC's deadline to be considered for its International Scholars awards is 15 November"
+  },
+  {
+    period: '15 January 2027',
+    description:
+      'Application deadline at UBC, U of T, and McGill (for applicants at schools outside Canada). Some programs set other dates'
+  },
+  {
+    period: 'January – June 2027',
+    description:
+      'Admission decisions: U of T releases them from January to late May; UBC decides on high school applicants on a rolling basis until June'
+  },
+  {
+    period: 'May – June 2027',
+    description: "Accept your offer by the date in your offer letter (UBC's are 1 May or 1 June)"
+  },
+  {
+    period: 'July 2027',
+    description:
+      "Final IB results released. Send them as your offer requires: UBC's deadline for final results from schools outside Canada is 25 July 2027, unless your letter says otherwise"
+  }
 ]
 
 // FAQ data
@@ -70,7 +95,7 @@ export function CanadaContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇨🇦</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -87,7 +112,7 @@ export function CanadaContent() {
               <strong>IB Diploma students and IB Coordinators</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -100,7 +125,7 @@ export function CanadaContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -498,7 +523,7 @@ export function CanadaContent() {
             </p>
 
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Typical timeline across most Canadian universities:
+              Dates for September 2027 entry at three large universities:
             </p>
 
             <div className="mt-8 space-y-4">
@@ -507,7 +532,7 @@ export function CanadaContent() {
                   key={step.period}
                   className="flex items-center gap-4 rounded-xl bg-gray-50 p-6 border border-gray-200"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-white font-semibold">
                     {index + 1}
                   </div>
                   <div>
@@ -524,9 +549,44 @@ export function CanadaContent() {
               </p>
             </div>
 
-            <p className="mt-6 text-sm text-gray-600">
-              <strong>Source:</strong> University admission calendars
-            </p>
+            <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <ExternalLink className="h-4 w-4 text-blue-600" />
+                Official Sources
+              </h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://you.ubc.ca/applying-ubc/dates-deadlines/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    UBC — Dates and deadlines
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://future.utoronto.ca/deadlines"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Toronto — Dates and deadlines
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.mcgill.ca/importantdates/channels/event/application-deadline-fall-2027-admission-undergraduate-programs-applicants-studying-or-who-last-370820"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    McGill — Fall 2027 application deadline
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>

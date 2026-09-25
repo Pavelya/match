@@ -157,7 +157,7 @@ const faqSchema = {
       name: 'Can IB students study Medicine in the UK?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, but applications for medicine courses have an earlier deadline (15 October). Source: UCAS 2026 deadlines.'
+        text: 'Yes, but applications for medicine courses have an earlier deadline: 15 October 2026 for 2027 entry. Source: UCAS 2027 entry deadlines.'
       }
     },
     {

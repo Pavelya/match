@@ -19,7 +19,7 @@ export const revalidate = 604800 // 7 days in seconds
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Canada with IB Diploma | Official University Guide (2026)',
+  title: 'Study in Canada with IB Diploma | Official University Guide (2027)',
   description:
     'Official guide for IB students studying in Canada. IB recognition, provincial rules, admission criteria, and language requirements.',
   keywords: [
@@ -29,11 +29,11 @@ export const metadata: Metadata = {
     'ib canada grade conversion',
     'ib diploma canadian universities',
     'ib admission canada',
-    'ib diploma canada 2026',
+    'ib diploma canada 2027',
     'canadian universities ib students'
   ],
   openGraph: {
-    title: 'Study in Canada with IB Diploma | Official University Guide (2026)',
+    title: 'Study in Canada with IB Diploma | Official University Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Canada. Provincial rules, admission criteria, and language requirements explained.',
     type: 'website',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Canada with IB Diploma | University Guide 2026',
+    title: 'Study in Canada with IB Diploma | University Guide 2027',
     description:
       'Official guide for IB students: Canadian university admission, provincial rules, and requirements.'
   },
@@ -153,7 +153,7 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Is English or French mandatory for Canadian universities?',
+      name: 'Is English or French mandatory?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: 'Yes. Language requirements depend on the institution and province. Source: University language policies'

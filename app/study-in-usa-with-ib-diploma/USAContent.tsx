@@ -28,7 +28,7 @@ import {
 
 // Typical application components for US universities
 const applicationComponents = [
-  'Common Application or Coalition Application (online form)',
+  "Common App, the Coalition Application on Scoir, or the university's own form",
   'Official high school transcript with predicted or final IB grades',
   'School counselor report and recommendation letter(s)',
   'Teacher recommendation letters (typically 1–2)',
@@ -535,7 +535,15 @@ export function USAContent() {
                     Common Application
                   </a>{' '}
                   (1,000+ colleges). Some universities also use the{' '}
-                  <strong>Coalition Application</strong> or their own portals.
+                  <a
+                    href="https://www.coalitionforcollegeaccess.org/apply-coalition-on-scoir"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    Coalition Application
+                  </a>
+                  , which is now submitted through Scoir, or their own portals.
                 </p>
               </div>
 
@@ -609,11 +617,16 @@ export function USAContent() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>In-state tuition: ~$10,000–$15,000/year (for US residents)</span>
+                    <span>
+                      In-state tuition and fees: $11,950/year on average (for state residents)
+                    </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>Out-of-state / international tuition: ~$25,000–$45,000/year</span>
+                    <span>
+                      Out-of-state tuition and fees, which international students usually pay:
+                      $31,880/year on average
+                    </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -632,7 +645,10 @@ export function USAContent() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>Tuition: ~$50,000–$65,000/year (before financial aid)</span>
+                    <span>
+                      Tuition and fees: $45,000/year on average at private nonprofit colleges
+                      (before financial aid)
+                    </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
@@ -645,6 +661,11 @@ export function USAContent() {
                 </ul>
               </div>
             </div>
+
+            <p className="mt-6 text-sm text-gray-600">
+              Figures are the College Board&apos;s published averages for 2025–26, the latest
+              available. Individual universities charge more or less, and living costs are extra.
+            </p>
 
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
@@ -660,6 +681,16 @@ export function USAContent() {
                     className="text-blue-600 hover:underline"
                   >
                     EducationUSA — Funding Your US Study
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://research.collegeboard.org/trends/college-pricing/highlights"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    College Board — Trends in College Pricing
                   </a>
                 </li>
                 <li>
@@ -693,10 +724,11 @@ export function USAContent() {
                   1
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">August 1: Common App Opens</p>
+                  <p className="font-semibold text-gray-900">1 August 2026: Common App Opens</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Create your account, select colleges (up to 20 on the Common App), and begin
-                    working on essays and application materials.
+                    The 2026–27 Common App opened with more than 1,200 member colleges. Create your
+                    account, select colleges (up to 20 on the Common App), and begin working on
+                    essays and application materials.
                   </p>
                 </div>
               </div>
@@ -707,7 +739,7 @@ export function USAContent() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    November 1–15: Early Decision / Early Action
+                    November 2026 (usually 1 or 15 November): Early Decision / Early Action
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
                     Early Decision is <strong>binding</strong> — if accepted, you must enroll. Early
@@ -722,7 +754,7 @@ export function USAContent() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    January 1–15: Regular Decision Deadline
+                    January 2027 (usually 1–15 January): Regular Decision Deadline
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
                     Most universities have Regular Decision deadlines in early January. Some ED II
@@ -736,7 +768,7 @@ export function USAContent() {
                   4
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">May 1: Decision Day</p>
+                  <p className="font-semibold text-gray-900">1 May 2027: Decision Day</p>
                   <p className="text-sm text-gray-600 mt-1">
                     Commit to your chosen university by <strong>May 1</strong> (National College
                     Decision Day). After enrollment, send your official IB transcript for credit
@@ -750,7 +782,7 @@ export function USAContent() {
                   5
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">July: Final IB Results</p>
+                  <p className="font-semibold text-gray-900">July 2027: Final IB Results</p>
                   <p className="text-sm text-gray-600 mt-1">
                     Final IB results are released. Send your official IB transcript from the IBO to
                     your university for <strong>credit evaluation and placement</strong>.
@@ -762,9 +794,19 @@ export function USAContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.commonapp.org/blog/common-app-opens-application-launch-2026-27-season"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Common App — 2026–27 season launch
+                  </a>
+                </li>
                 <li>
                   <a
                     href="https://www.commonapp.org/"
@@ -772,7 +814,7 @@ export function USAContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    Common Application — Deadlines and Key Dates
+                    Common Application
                   </a>
                 </li>
               </ul>

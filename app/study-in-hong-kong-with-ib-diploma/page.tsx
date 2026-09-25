@@ -22,9 +22,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Hong Kong with IB Diploma | Guide (2026)',
+  title: 'Study in Hong Kong with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Hong Kong universities. Non-JUPAS admission, IB recognition, English requirements, and application process (2026).',
+    'Official guide for IB students applying to Hong Kong universities. Non-JUPAS admission, IB recognition, English requirements, and application process (2027).',
   keywords: [
     'study in hong kong with ib diploma',
     'ib diploma hong kong university admission',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     'hku hkust cuhk ib admission'
   ],
   openGraph: {
-    title: 'Study in Hong Kong with IB Diploma | Guide (2026)',
+    title: 'Study in Hong Kong with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Hong Kong. Non-JUPAS route, IB score requirements, and direct application process.',
     type: 'website',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Hong Kong with IB Diploma | Guide 2026',
+    title: 'Study in Hong Kong with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Hong Kong university admission, Non-JUPAS route, score requirements, and application process.'
   },
@@ -135,7 +135,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Hong Kong?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. The IB Diploma is widely recognized by all eight UGC-funded universities and most self-financing institutions in Hong Kong SAR. IB students apply through the Non-JUPAS (direct admission) route. Each university sets its own minimum IB score requirements, which typically range from 24 to 30+ depending on the institution and programme. Source: Study in Hong Kong — Admission Requirement.'
+        text: 'Yes. The IB Diploma is widely recognized by all eight UGC-funded universities and most self-financing institutions in Hong Kong SAR. IB students apply through the Non-JUPAS (direct admission) route. Each university sets its own IB requirements, which vary by institution and programme. Source: Study in Hong Kong — Admission Requirement.'
       }
     },
     {
@@ -151,7 +151,7 @@ const faqSchema = {
       name: 'What IB score do I need for Hong Kong universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'There is no single score requirement — it varies by university and programme. As a general guide: HKU and CUHK typically expect 30+ points for most programmes, with competitive programmes (Medicine, Dentistry) requiring 40+. HKUST generally requires 28+ points. Programme-specific subject requirements at Higher Level may also apply. Source: HKU Admissions — International Qualifications.'
+        text: "There is no single score requirement — it varies by university and programme. For 2027 entry, HKU's expected lower boundaries range from 34 to 43 points (Medicine 43, Dental Surgery 41). CUHK's general minimum is 30 points, and PolyU says its successful applicants typically scored 32 or more in recent years. Programme-specific subject requirements at Higher Level may also apply. Source: HKU Admissions — International Qualifications."
       }
     },
     {
@@ -159,7 +159,7 @@ const faqSchema = {
       name: 'Do I need to speak Chinese to study in Hong Kong?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Not for most programmes. English is the primary medium of instruction at Hong Kong's UGC-funded universities, and many programmes are taught entirely in English. Some programmes — particularly in Chinese studies, education, or social work — may require Chinese language proficiency. English proficiency is typically demonstrated through IB English courses (Grade 4+ in English A or English B HL; Grade 5+ in English B SL). Source: HKU Admissions — International Qualifications."
+        text: "Not for most programmes. English is the primary medium of instruction at Hong Kong's UGC-funded universities, and many programmes are taught entirely in English. Some programmes — particularly in Chinese studies, education, or social work — may require Chinese language proficiency. Each university sets its own English requirement for IB students: HKU asks for grade 5 in English A or grade 6 in English B (HL or SL), and CUHK for grade 4 or above in an IB English subject. Source: HKU Admissions — International Qualifications."
       }
     },
     {

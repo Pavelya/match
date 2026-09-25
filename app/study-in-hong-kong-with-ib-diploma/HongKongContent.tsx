@@ -39,27 +39,32 @@ const requiredDocuments = [
   'Any programme-specific supplementary documents (e.g., portfolio, audition for creative programmes)'
 ]
 
-// Application timeline steps
+// Application timeline steps (2027 entry, from HKU and HKUST)
 const timelineSteps = [
   {
-    period: 'September – October: Applications Open',
+    period: '23 September – 2 October 2026: Applications Open',
     description:
-      'Most Hong Kong universities open their Non-JUPAS application portals for the following academic year. Create accounts on the online systems of universities you wish to apply to.'
+      'HKU opened non-JUPAS applications for 2027 entry on 23 September 2026, and HKUST opens on 2 October 2026. Create accounts on the online systems of the universities you wish to apply to.'
   },
   {
-    period: 'November – January: Application Deadlines',
+    period: '25 November 2026: First-Round Deadlines',
     description:
-      'Application deadlines vary by university. HKU typically has a main round deadline in late November, with a second round in January. HKUST and other universities may have deadlines between November and January. Check each university individually.'
+      "HKU's first-round deadline (noon, Hong Kong time) and HKUST's priority round both fall on 25 November. Later applications are reviewed on a rolling basis. HKU asks counsellors to enter predicted grades by 1 December 2026."
   },
   {
-    period: 'January – April: Interviews & Assessment',
+    period: 'November 2026 – January 2027: Interviews',
     description:
-      'Shortlisted applicants may be invited for interviews. Some programmes conduct online interviews for overseas candidates. Submit any additional documents or updated predicted grades as requested.'
+      'HKU invites shortlisted applicants to interviews between November and January. Some programmes conduct online interviews for overseas candidates.'
   },
   {
-    period: 'May – July: Offers & Enrollment',
+    period: 'From December 2026: Offers',
     description:
-      'Conditional or unconditional offers are issued. If your offer is conditional on final IB results, your IB coordinator should arrange for results to be sent directly to the university. Confirm your acceptance and apply for a student visa.'
+      'HKU releases first-round results from December and HKUST announces offers from late December. HKU gives three to four weeks to accept and asks for a non-refundable deposit. Conditional offers are confirmed when final IB results arrive in July 2027. Apply for a student visa as soon as you hold an offer.'
+  },
+  {
+    period: '30 June and 25 August 2027: Applications Close',
+    description:
+      'HKUST closes on 30 June 2027 and HKU at noon on 25 August 2027. Other universities set their own dates.'
   }
 ]
 
@@ -68,7 +73,7 @@ const faqs = [
   {
     question: 'Is the IB Diploma recognized for university admission in Hong Kong?',
     answer:
-      'Yes. The IB Diploma is widely recognized by all eight UGC-funded universities and most self-financing institutions in Hong Kong SAR. IB students apply through the Non-JUPAS (direct admission) route. Each university sets its own minimum IB score requirements, which typically range from 24 to 30+ depending on the institution and programme.',
+      'Yes. The IB Diploma is widely recognized by all eight UGC-funded universities and most self-financing institutions in Hong Kong SAR. IB students apply through the Non-JUPAS (direct admission) route. Each university sets its own IB requirements, which vary by institution and programme.',
     source: 'Study in Hong Kong — Admission Requirement',
     sourceUrl: 'https://www.studyinhongkong.edu.hk/en/apply-to-study/admission-requirement.php'
   },
@@ -82,14 +87,14 @@ const faqs = [
   {
     question: 'What IB score do I need for Hong Kong universities?',
     answer:
-      'There is no single score requirement — it varies by university and programme. As a general guide: HKU and CUHK typically expect 30+ points for most programmes, with competitive programmes (Medicine, Dentistry) requiring 40+. HKUST generally requires 28+ points. Programme-specific subject requirements at Higher Level may also apply.',
+      "There is no single score requirement — it varies by university and programme. For 2027 entry, HKU's expected lower boundaries range from 34 to 43 points (Medicine 43, Dental Surgery 41). CUHK's general minimum is 30 points, and PolyU says its successful applicants typically scored 32 or more in recent years. Programme-specific subject requirements at Higher Level may also apply.",
     source: 'HKU Admissions — International Qualifications',
     sourceUrl: 'https://admissions.hku.hk/apply/international-qualifications'
   },
   {
     question: 'Do I need to speak Chinese to study in Hong Kong?',
     answer:
-      "Not for most programmes. English is the primary medium of instruction at Hong Kong's UGC-funded universities, and many programmes are taught entirely in English. Some programmes — particularly in Chinese studies, education, or social work — may require Chinese language proficiency. English proficiency is typically demonstrated through IB English courses (Grade 4+ in English A or English B HL; Grade 5+ in English B SL).",
+      "Not for most programmes. English is the primary medium of instruction at Hong Kong's UGC-funded universities, and many programmes are taught entirely in English. Some programmes — particularly in Chinese studies, education, or social work — may require Chinese language proficiency. Each university sets its own English requirement for IB students: HKU asks for grade 5 in English A or grade 6 in English B (HL or SL), and CUHK for grade 4 or above in an IB English subject.",
     source: 'HKU Admissions — International Qualifications',
     sourceUrl: 'https://admissions.hku.hk/apply/international-qualifications'
   },
@@ -114,7 +119,7 @@ export function HongKongContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇭🇰</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -132,7 +137,7 @@ export function HongKongContent() {
               directly to each university through the Non-JUPAS route.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -145,7 +150,7 @@ export function HongKongContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -422,7 +427,7 @@ export function HongKongContent() {
                           University
                         </th>
                         <th className="px-6 py-3 text-left font-semibold text-gray-900">
-                          General Minimum
+                          Published Figure
                         </th>
                         <th className="px-6 py-3 text-left font-semibold text-gray-900">
                           Competitive Programmes
@@ -432,12 +437,14 @@ export function HongKongContent() {
                     <tbody className="divide-y divide-gray-200 bg-white">
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">HKU</td>
-                        <td className="px-6 py-3 text-gray-700">30+</td>
-                        <td className="px-6 py-3 text-gray-700">40–41+ (Medicine, Dentistry)</td>
+                        <td className="px-6 py-3 text-gray-700">34–43 (by programme)</td>
+                        <td className="px-6 py-3 text-gray-700">
+                          43 (Medicine), 41 (Dental Surgery)
+                        </td>
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">CUHK</td>
-                        <td className="px-6 py-3 text-gray-700">30+</td>
+                        <td className="px-6 py-3 text-gray-700">30 (general minimum)</td>
                         <td className="px-6 py-3 text-gray-700">Varies by programme</td>
                       </tr>
                       <tr>
@@ -452,15 +459,20 @@ export function HongKongContent() {
                       </tr>
                       <tr>
                         <td className="px-6 py-3 text-gray-700 font-medium">PolyU</td>
-                        <td className="px-6 py-3 text-gray-700">30+ (typical admits)</td>
-                        <td className="px-6 py-3 text-gray-700">32+ in recent years</td>
+                        <td className="px-6 py-3 text-gray-700">32+ (typical admits)</td>
+                        <td className="px-6 py-3 text-gray-700">
+                          Interview possible from 30 predicted
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
                 <p className="mt-3 text-xs text-gray-500">
-                  These are indicative ranges based on recent admissions data published by the
-                  universities. Actual requirements vary by year and programme.
+                  HKU&apos;s figures are its expected lower boundaries for 2027 entry, CUHK&apos;s
+                  is its general minimum, and PolyU&apos;s describes recent admits; all three were
+                  checked on the universities&apos; sites on 25 September 2026. The HKUST and CityU
+                  figures date from February 2026 and could not be confirmed on their current pages.
+                  Actual requirements vary by year and programme.
                 </p>
               </div>
 
@@ -488,6 +500,26 @@ export function HongKongContent() {
                       className="text-blue-600 hover:underline"
                     >
                       HKUST Admissions — International Qualifications
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://admission.cuhk.edu.hk/application/overseas-other-qualifications-non-local-international-team/requirements/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      CUHK Admissions — Requirements
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.polyu.edu.hk/study/ug/admissions/international-other-qualifications/international-other-qualifications-general"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      PolyU Admissions — International / Other Qualifications
                     </a>
                   </li>
                 </ul>
@@ -590,26 +622,20 @@ export function HongKongContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English A (HL or SL):</strong> Grade 4 or above typically satisfies
-                      English requirements
+                      <strong>HKU:</strong> grade 5 in English A, or grade 6 in English B (HL or SL)
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English B (HL):</strong> Grade 4 or above
+                      <strong>CUHK:</strong> grade 4 or above in an IB English subject
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>IB English B (SL):</strong> Grade 5 or above
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>
-                      Alternatively: IELTS 6.0–6.5 or TOEFL iBT 80+ (varies by institution)
+                      Other universities set their own grades; IELTS or TOEFL scores are also
+                      accepted, with minimums that vary by institution
                     </span>
                   </li>
                 </ul>
@@ -637,8 +663,8 @@ export function HongKongContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      CUHK may require a minimum grade of 4 in IB Chinese for certain programmes,
-                      though exemptions may be granted
+                      CUHK&apos;s general requirement includes grade 4 in an IB Chinese subject, but
+                      IB Diploma holders may be exempted at the Faculty Dean&apos;s discretion
                     </span>
                   </li>
                 </ul>
@@ -648,7 +674,7 @@ export function HongKongContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -659,6 +685,16 @@ export function HongKongContent() {
                     className="text-blue-600 hover:underline"
                   >
                     HKU Admissions — International Qualifications
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://admission.cuhk.edu.hk/application/overseas-other-qualifications-non-local-international-team/requirements/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    CUHK Admissions — Requirements
                   </a>
                 </li>
               </ul>
@@ -876,7 +912,7 @@ export function HongKongContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -887,6 +923,16 @@ export function HongKongContent() {
                     className="text-blue-600 hover:underline"
                   >
                     HKU Admissions — Important Dates
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://join.hkust.edu.hk/admissions/international-qualifications"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    HKUST Admissions — Important Dates
                   </a>
                 </li>
               </ul>

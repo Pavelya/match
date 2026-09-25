@@ -9,9 +9,9 @@ export const revalidate = 604800 // 7 days
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Singapore with IB Diploma | Official University Guide (2026)',
+  title: 'Study in Singapore with IB Diploma | Official University Guide (2027)',
   description:
-    'Learn how Singapore universities (NUS, NTU, SMU) recognize the IB Diploma. Admission rules, grade expectations, and MTL requirements for the 2026 intake.',
+    'Learn how Singapore universities (NUS, NTU, SMU) recognize the IB Diploma. Admission rules, grade expectations, and MTL requirements for the 2027 intake.',
   keywords: [
     'study in singapore with ib diploma',
     'ib diploma singapore university admission',
@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     'ib diploma recognition singapore'
   ],
   openGraph: {
-    title: 'Study in Singapore with IB Diploma | Official University Guide (2026)',
+    title: 'Study in Singapore with IB Diploma | Official University Guide (2027)',
     description:
-      'Learn how Singapore universities (NUS, NTU, SMU) recognize the IB Diploma. Admission rules, grade expectations, and MTL requirements for the 2026 intake.',
+      'Learn how Singapore universities (NUS, NTU, SMU) recognize the IB Diploma. Admission rules, grade expectations, and MTL requirements for the 2027 intake.',
     type: 'website',
     url: `${baseUrl}/study-in-singapore-with-ib-diploma`,
     siteName: 'IB Match'
@@ -106,7 +106,7 @@ export default function StudyInSingaporePage() {
         name: 'What IB score is required for admission to NUS or NTU?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'There is no universal minimum score, but admission is highly competitive. Universities conduct holistic reviews and expect a strong combination of grades, typically 5s, 6s, and 7s in Higher Level and Standard Level subjects, including good grades in EE and TOK. Source: Nanyang Technological University (NTU).'
+          text: 'There is no published minimum score, and admission is highly competitive. NTU does not publish a grade profile for IB Diploma holders because too few apply to derive one; each programme sets minimum subject requirements instead. Source: Nanyang Technological University (NTU).'
         }
       },
       {
@@ -114,7 +114,7 @@ export default function StudyInSingaporePage() {
         name: 'Can I apply with predicted IB scores if I take the May exams?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, if you are taking the May examinations, you can often apply with predicted scores for the initial application window (around December to February/March). However, actual IB results must be submitted promptly upon release in July. Source: National University of Singapore (NUS).'
+          text: 'Yes. May 2027 candidates can apply with predicted grades during the application window (NTU: 15 October 2026 to 19 March 2027). Outcomes come only after your actual results in July: NTU requires them within three days of release and makes no conditional offers before then. Some NTU programmes, including Medicine, do not accept May-session candidates. Source: Nanyang Technological University (NTU).'
         }
       },
       {
