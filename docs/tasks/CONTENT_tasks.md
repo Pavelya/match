@@ -22,7 +22,7 @@ here, and this refresh does more production writes than any work before it.
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
-| 3 | Honest labels | 1.3, 1.4 | small | **1.3 done** 25 September 2026. 1.4 left |
+| 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | Public pages say "2026 intake" today |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
@@ -59,7 +59,7 @@ Phase 1 — Fix now
   blocked on Storage
 - [x] 1.2 Oxford and Cambridge fast lane — two Oxford rows held for the owner's check
 - [x] 1.3 Correct the false counts and the "Educaton" typo
-- [ ] 1.4 Make page dates truthful
+- [x] 1.4 Make page dates truthful
 
 Phase 2 — Country pages for the 2027 intake
 
@@ -446,6 +446,34 @@ the same dates; the build still reports all 22 routes as static.
 
 **Session size:** Small.
 
+#### Status, 25 September 2026 — done (session 3)
+
+- **One place.** `lib/page-dates.ts` holds `published` and `modified` for each page, keyed by
+  path. The page's JSON-LD spreads `pageDates(path)`, and `app/sitemap.ts` reads the same
+  entry, so the two cannot disagree. The sitemap builds the country entries from the map, so
+  a new country page needs one line there and no sitemap edit. When phase 2 refreshes a
+  page, bump its `modified` in the same commit.
+- **Dates, from git.** The country pages are 2026-02-26, as the task said: the August commit
+  only added caching to three pages. `/ib-university-requirements` is **2026-09-25**, not
+  2026-02-26, because 1.3 changed its FAQ text.
+- **Beyond the listed files:**
+  - `datePublished` was `'2025-01-01'` on 22 of the 23 pages, a placeholder older than the
+    repository (first commit 2 December 2025). Each page now gives the day git added it.
+  - The home, `/how-it-works`, `/for-coordinators` and `/faqs` pages had the same
+    `new Date()` bug and now read the map. `/faqs` prefers the CMS document's date when one
+    is published; production has none today.
+  - In the sitemap, pages with no known date (privacy, terms, cookies, contact, support,
+    sign-in, FAQs) now leave `lastModified` out rather than claim today. `/programs/search`
+    uses the newest program's `updatedAt`. `/about` is removed: there is no such route, and
+    it returns 404.
+- **Guarded.** `lib/page-dates.test.ts` checks that every `study-in-*` directory has an entry,
+  that every entry's page calls `pageDates` with its own path, and that no page or sitemap
+  sets `dateModified` or `lastModified` from `new Date()`. `COUNTRY-PAGE-BASELINE.md` §3.2,
+  §5 and §7 now describe the map instead of `new Date()`.
+- **Verified.** In the built HTML, the UK page reads published 2026-02-15, modified 2026-02-26;
+  Japan reads 2026-02-26 for both. `/sitemap.xml` gives the same dates. The build lists all
+  22 country routes as static with a one-week revalidate.
+
 ---
 
 ## Phase 2 — Country pages for the 2027 intake
@@ -460,7 +488,7 @@ the same dates; the build still reports all 22 routes as static.
 4. Update the labels: title and Open Graph "(2027)", H1, "Last updated for the 2027
    intake", and the "2027 intake" badge.
 5. The FAQPage JSON-LD must match the visible FAQ text exactly.
-6. Set the page's review date from 1.4 to the day of the session.
+6. Set the page's `modified` date in `lib/page-dates.ts` (from 1.4) to the day of the session.
 7. **If a fact cannot be confirmed for 2027, do not label it 2027.** Keep it, flag it in
    the PR, and leave the page on "2026" if the core facts are unconfirmed.
 
