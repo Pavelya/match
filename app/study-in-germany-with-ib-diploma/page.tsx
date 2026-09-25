@@ -18,7 +18,7 @@ export const revalidate = 604800 // 7 days in seconds
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
 export const metadata: Metadata = {
-  title: 'Study in Germany with IB Diploma | Official Anabin & uni-assist Guide (2026)',
+  title: 'Study in Germany with IB Diploma | Official Anabin & uni-assist Guide (2027)',
   description:
     'Official guide for IB students studying in Germany. IB recognition via Anabin, uni-assist applications, subject rules, and language requirements.',
   keywords: [
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
     'uni-assist ib application',
     'ib germany subject requirements',
     'ib diploma hochschulzugang',
-    'ib diploma germany 2026',
+    'ib diploma germany 2027',
     'studienkolleg ib students'
   ],
   openGraph: {
-    title: 'Study in Germany with IB Diploma | Official Anabin & uni-assist Guide (2026)',
+    title: 'Study in Germany with IB Diploma | Official Anabin & uni-assist Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in Germany. Anabin recognition, uni-assist process, and subject requirements explained.',
     type: 'website',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Germany with IB Diploma | Anabin & uni-assist Guide 2026',
+    title: 'Study in Germany with IB Diploma | Anabin & uni-assist Guide 2027',
     description:
       'Official guide for IB students: Anabin recognition, uni-assist applications, and German university admission requirements.'
   },
@@ -138,7 +138,7 @@ const howToSchema = {
       '@type': 'HowToStep',
       position: 1,
       name: 'Research programs',
-      text: 'Research programs and check Anabin for IB recognition requirements during December-January.'
+      text: 'From autumn 2026, research programs and check that your IB subjects meet the KMK conditions for recognising the IB Diploma.'
     },
     {
       '@type': 'HowToStep',
@@ -150,7 +150,7 @@ const howToSchema = {
       '@type': 'HowToStep',
       position: 3,
       name: 'Apply through uni-assist',
-      text: 'Submit applications through uni-assist during February-March if required by the university.'
+      text: 'Apply through hochschulstart, uni-assist or the university, as the program requires. Many universities close winter-semester applications on 15 July; some set 15 January as the only date for international applicants.'
     },
     {
       '@type': 'HowToStep',
@@ -162,7 +162,7 @@ const howToSchema = {
       '@type': 'HowToStep',
       position: 5,
       name: 'Enrollment',
-      text: 'Complete enrollment after receiving admission offers in August-October.'
+      text: 'Complete enrollment after receiving an offer. In 2026 hochschulstart sent offers from 16 July to 20 August and filled remaining places until 30 September.'
     }
   ]
 }
@@ -177,7 +177,7 @@ const faqSchema = {
       name: 'Is uni-assist mandatory for IB students in Germany?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. Only universities that use uni-assist require it. Source: https://www.uni-assist.de'
+        text: 'No. Only universities that use uni-assist require it. Source: uni-assist.'
       }
     },
     {
@@ -185,7 +185,7 @@ const faqSchema = {
       name: 'Do IB students need Studienkolleg?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No, if IB subject requirements are fulfilled. Source: https://anabin.kmk.org'
+        text: "No, if your IB Diploma meets the KMK's subject and grade conditions. If it does not, you must pass an additional examination (the Feststellungsprüfung, for which a Studienkolleg prepares you). Source: KMK — Access to higher education."
       }
     },
     {
@@ -193,7 +193,7 @@ const faqSchema = {
       name: 'Can IB students study Medicine in Germany?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, but subject requirements and NC (Numerus Clausus) thresholds are very high. Source: https://www.hochschulstart.de'
+        text: 'Yes, but places are highly competitive. EU and EEA citizens apply for Medicine, Dentistry, Veterinary Medicine and Pharmacy through hochschulstart, like German applicants. Other international applicants apply to the university directly or through uni-assist. Source: hochschulstart — International applicants (in German).'
       }
     },
     {
@@ -201,7 +201,7 @@ const faqSchema = {
       name: 'Is German mandatory for all programs?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. English-taught programs exist, but language proof is required. Source: https://www.hochschulstart.de'
+        text: 'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs. Source: hochschulstart — International applicants (in German).'
       }
     }
   ]

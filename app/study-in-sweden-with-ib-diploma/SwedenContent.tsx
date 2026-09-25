@@ -7,6 +7,7 @@
  * - universityadmissions.se — IB studies, entry requirements, merit rating
  * - studyinsweden.se — general study guide for international students
  * - uhr.se — Swedish Council for Higher Education (credential evaluation)
+ * - antagning.se — IB merit rating table and merit points (in Swedish)
  *
  * All information in this component is sourced from official Swedish government
  * and educational institution portals listed above.
@@ -27,23 +28,23 @@ import {
 
 // Required documents for Swedish university admission
 const requiredDocuments = [
-  'IB Diploma results sent via the IB Result Service (code "UHR") for May 2026 diplomas',
-  'For diplomas awarded 2025 or earlier: scans/copies of the original diploma and transcript',
+  'If your IB Diploma is awarded in the spring you apply: results made available to recipient code "UHR" through the IB Results Service',
+  'If you already have your IB Diploma: scans or copies of the original diploma including results',
   'Proof of identity (passport or national ID)',
   'Proof of English proficiency (if not met through IB English courses)',
   'Pre-IB transcripts if applicable (e.g., to demonstrate Swedish language study)',
   'Any programme-specific supplementary documents (e.g., portfolio, work samples)'
 ]
 
-// Merit rating conversion table
+// Merit rating conversion table, in use since the autumn 2025 admissions (antagning.se)
 const meritTable = [
-  { ib: '24', swedish: '12.40' },
-  { ib: '25', swedish: '13.23' },
-  { ib: '30', swedish: '15.89' },
-  { ib: '35', swedish: '17.92' },
-  { ib: '38', swedish: '18.93' },
-  { ib: '40', swedish: '19.48' },
-  { ib: '42', swedish: '19.81' },
+  { ib: '24', swedish: '13.18' },
+  { ib: '25', swedish: '13.94' },
+  { ib: '30', swedish: '16.70' },
+  { ib: '35', swedish: '18.57' },
+  { ib: '38', swedish: '19.38' },
+  { ib: '40', swedish: '19.70' },
+  { ib: '42', swedish: '19.90' },
   { ib: '43–45', swedish: '20.00' }
 ]
 
@@ -60,14 +61,15 @@ const faqs = [
   {
     question: 'How are IB points converted for Swedish university admission?',
     answer:
-      'IB points are converted to a Swedish merit rating on a scale of 10.00–20.00, plus up to 2.5 bonus merit points for languages and mathematics. For example, 24 IB points = 12.40, 35 points = 17.92, and 43–45 points = 20.00. The maximum achievable score including bonuses is 22.50.',
-    source: 'University Admissions in Sweden',
-    sourceUrl: 'https://www.universityadmissions.se/en/'
+      'Your IB total points are converted to a Swedish merit rating on a scale of 10.00–20.00, plus up to 2.5 merit points for modern languages, English and mathematics. In the table used since the autumn 2025 admissions, 24 IB points = 13.18, 35 points = 18.57, and 43–45 points = 20.00. The maximum achievable score including merit points is 22.50.',
+    source: 'Antagning.se — Calculate your merit rating (in Swedish)',
+    sourceUrl:
+      'https://www.antagning.se/sv/betyg-och-behorighet/international-baccalaureate/ib-examen-2021-och-framat/rakna-ut-ditt-meritvarde/'
   },
   {
     question: 'What IB grades are needed for specific subject requirements?',
     answer:
-      'A minimum grade of 4 is generally required to meet specific entry requirements. For Mathematics, Physics, Chemistry, and Biology at Higher Level (HL), a grade of 3 may be accepted. Mathematics Analysis and Approaches (AA) is the standard requirement for maths-related prerequisites.',
+      'A minimum grade of 4 is required for a course to meet a specific entry requirement. A grade 3 is accepted in Biology, Chemistry and Physics at Higher Level (HL). In mathematics, a grade 3 counts one Swedish level lower: AA HL and AI HL then meet Matematik 4, AA SL meets Matematik 3c, and AI SL meets Matematik 2a.',
     source: 'University Admissions in Sweden — IB Studies',
     sourceUrl:
       'https://www.universityadmissions.se/en/apply-to-bachelors/provide-application-documents-bachelors/ib-studies/for-ib-diplomas-2021-and-later/'
@@ -82,10 +84,10 @@ const faqs = [
   {
     question: 'How do IB students submit their results to Swedish universities?',
     answer:
-      'For IB diplomas awarded in May 2026 (autumn semester applicants), your IB coordinator must send results via the IB Result Service using recipient code "UHR" by July 5. For diplomas awarded in 2025 or earlier, you upload scans/copies of your diploma directly to universityadmissions.se.',
-    source: 'University Admissions in Sweden — IB Studies',
+      'If you finish the IB in the spring you apply, apply in the second admissions round (University Admissions recommends this only for EU/EEA and Swiss citizens) and ask your IB coordinator to make your results available to recipient code "UHR" through the IB Results Service. For autumn 2027 the deadline is 5 July 2027. If you already have your IB Diploma, upload scans or copies of it to universityadmissions.se by the document deadline.',
+    source: 'University Admissions in Sweden — Autumn semester dates',
     sourceUrl:
-      'https://www.universityadmissions.se/en/apply-to-bachelors/provide-application-documents-bachelors/ib-studies/for-ib-diplomas-2021-and-later/'
+      'https://www.universityadmissions.se/en/key-dates-and-deadlines/autumn-semester-dates/'
   }
 ]
 
@@ -222,8 +224,9 @@ export function SwedenContent() {
               <p>
                 IB points are converted to a{' '}
                 <strong>Swedish merit rating on a scale of 10.00–20.00</strong>. Applicants can earn
-                up to <strong>2.5 additional merit points</strong> for languages and mathematics,
-                bringing the maximum possible score to <strong>22.50</strong>.
+                up to <strong>2.5 additional merit points</strong> for modern languages, English and
+                mathematics, bringing the maximum possible score to <strong>22.50</strong>. The
+                table below has been used since the autumn 2025 admissions.
               </p>
 
               <div className="mt-6 overflow-hidden rounded-xl border border-gray-200">
@@ -253,9 +256,9 @@ export function SwedenContent() {
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>Modern Foreign Languages</strong> (max 1.5 pts) — Language A HL or
-                      Language B HL (not English) = 1.5 pts; Language B SL (not English) = 1.5 pts;
-                      Language Ab Initio = 0.5 pts
+                      <strong>Modern Foreign Languages</strong> (max 1.5 pts) — Language A, Language
+                      B HL or Language B SL (not Swedish or English) = 1.5 pts; Language Ab Initio =
+                      0.5 pts
                     </span>
                   </div>
                   <div className="flex items-start gap-2">
@@ -268,8 +271,9 @@ export function SwedenContent() {
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      <strong>Mathematics</strong> (max 1.5 pts) — awarded based on the level of
-                      mathematics studied
+                      <strong>Mathematics</strong> (max 1.5 pts) — depends on your IB course and the
+                      maths level the programme requires: AA HL always gives 1.5 pts, AI SL at most
+                      1.0 pt. Courses you need to be eligible do not give merit points
                     </span>
                   </div>
                 </div>
@@ -278,7 +282,7 @@ export function SwedenContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -289,6 +293,26 @@ export function SwedenContent() {
                       className="text-blue-600 hover:underline"
                     >
                       University Admissions in Sweden — IB Studies
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.antagning.se/sv/betyg-och-behorighet/international-baccalaureate/ib-examen-2021-och-framat/rakna-ut-ditt-meritvarde/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Antagning.se — Calculate your merit rating (in Swedish)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.antagning.se/sv/betyg-och-behorighet/international-baccalaureate/ib-examen-2021-och-framat/meritpoang/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      Antagning.se — Merit points for IB (in Swedish)
                     </a>
                   </li>
                 </ul>
@@ -328,22 +352,23 @@ export function SwedenContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Grade 3 accepted</strong> for Mathematics, Physics, Chemistry, and
-                    Biology at <strong>Higher Level (HL)</strong>
+                    <strong>Grade 3 accepted</strong> for Biology, Chemistry and Physics at{' '}
+                    <strong>Higher Level (HL)</strong>
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Mathematics Analysis and Approaches (AA)</strong> is the standard
-                    requirement for maths-related prerequisites — Applications and Interpretations
-                    (AI) may not satisfy all requirements
+                    <strong>Mathematics:</strong> AA HL meets Matematik specialisering, AI HL meets
+                    Matematik 5, AA SL meets Matematik 4, and AI SL meets Matematik 3c, so AI meets
+                    one level less than AA at the same level
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Grade 3 required</strong> for Mathematics SL
+                    <strong>A grade 3 in mathematics</strong> counts one level lower: AA HL or AI HL
+                    meet Matematik 4, AA SL Matematik 3c, and AI SL Matematik 2a
                   </span>
                 </div>
               </div>
@@ -512,8 +537,8 @@ export function SwedenContent() {
                   >
                     universityadmissions.se
                   </a>
-                  . You can apply to up to <strong>4 programmes</strong> per admissions round and
-                  rank them in order of preference.
+                  . You can apply to up to <strong>8 courses and programmes</strong> per admissions
+                  round and rank them in order of preference.
                 </p>
               </div>
 
@@ -521,16 +546,16 @@ export function SwedenContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Create an account</strong> on universityadmissions.se and select up to 4
-                    programmes ranked by preference
+                    <strong>Create an account</strong> on universityadmissions.se and select up to 8
+                    courses and programmes ranked by preference
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Submit documents</strong> — for May 2026 diplomas, results are sent via
-                    the IB Result Service (code &ldquo;UHR&rdquo;); for earlier diplomas, upload
-                    scans directly
+                    <strong>Submit documents</strong> — if you graduate in the spring you apply,
+                    your results go to &ldquo;UHR&rdquo; through the IB Results Service; if you
+                    already have your diploma, upload scans directly
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -546,11 +571,53 @@ export function SwedenContent() {
                 <p className="text-amber-800 text-sm flex items-start gap-2">
                   <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Non-EU/EEA applicants:</strong> If you have not yet completed your IB
-                    Diploma at the time of application, it is recommended that you apply only to the
-                    first admissions round, as second-round decisions are made later.
+                    <strong>Still in your final IB year?</strong> University Admissions advises you
+                    not to apply to the first admissions round, because its selection is in April,
+                    before you have final grades. EU/EEA and Swiss citizens can apply to the second
+                    round instead. Non-EU/EEA citizens are advised not to, as there is not enough
+                    time to get a residence permit; they can apply to the first round the following
+                    year, or for a spring-semester start.
                   </span>
                 </p>
+              </div>
+
+              <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                  <ExternalLink className="h-4 w-4 text-blue-600" />
+                  Official Sources
+                </h4>
+                <ul className="space-y-2 text-sm">
+                  <li>
+                    <a
+                      href="https://www.universityadmissions.se/en/apply-to-bachelors/provide-application-documents-bachelors/ib-studies/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University Admissions in Sweden — International Baccalaureate studies
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.universityadmissions.se/en/key-dates-and-deadlines/admission-rounds-and-spring-semester-availability/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University Admissions in Sweden — Admissions rounds
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.universityadmissions.se/en/apply-to-bachelors/rank-your-selections-bachelors/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University Admissions in Sweden — Rank your selections
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -665,7 +732,7 @@ export function SwedenContent() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>Tuition fees apply (typically SEK 80,000–295,000/year)</span>
+                    <span>Tuition fees apply (about SEK 80,000–320,000 a year)</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
@@ -674,8 +741,8 @@ export function SwedenContent() {
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>
-                      Scholarships available through the Swedish Institute and individual
-                      universities
+                      Swedish Institute and university scholarships are aimed mainly at
+                      master&apos;s applicants
                     </span>
                   </li>
                 </ul>
@@ -685,7 +752,7 @@ export function SwedenContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -696,6 +763,26 @@ export function SwedenContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Sweden — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studyinsweden.se/plan-your-studies/fees-costs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Study in Sweden — Fees and costs
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.universityadmissions.se/en/key-dates-and-deadlines/admission-rounds-and-spring-semester-availability/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University Admissions in Sweden — Admissions rounds
                   </a>
                 </li>
               </ul>
@@ -732,10 +819,11 @@ export function SwedenContent() {
               <p className="text-amber-800 text-sm flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>
-                  For IB diplomas awarded in May 2026, your IB coordinator must make results
-                  available via the IB Result Service using recipient code{' '}
-                  <strong>&ldquo;UHR&rdquo;</strong> by July 5. Do <strong>not</strong> use the
-                  Result Service for diplomas awarded in 2025 or earlier.
+                  If your IB Diploma is awarded in the spring you apply, your IB coordinator must
+                  make your results available to recipient code <strong>&ldquo;UHR&rdquo;</strong>{' '}
+                  through the IB Results Service; for autumn 2027 the deadline is 5 July 2027. If
+                  you already have your diploma, do <strong>not</strong> use the Results Service:
+                  upload scans instead.
                 </span>
               </p>
             </div>
@@ -743,7 +831,7 @@ export function SwedenContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -754,6 +842,16 @@ export function SwedenContent() {
                     className="text-blue-600 hover:underline"
                   >
                     University Admissions in Sweden — IB Studies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.universityadmissions.se/en/apply-to-bachelors/provide-application-documents-bachelors/ib-studies/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University Admissions in Sweden — International Baccalaureate studies
                   </a>
                 </li>
               </ul>
@@ -778,62 +876,61 @@ export function SwedenContent() {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    October – January: Application Period (Autumn Semester)
+                    16 October 2026 – 15 January 2027: First Admissions Round
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Applications for the <strong>autumn semester</strong> (starting late August)
-                    open in mid-October and close in <strong>mid-January</strong>. Apply via
-                    universityadmissions.se.
+                    The round for international students, with all English-taught programmes. Fees
+                    and documents are due by 1 February 2027, and bachelor&apos;s results are
+                    published on 8 April 2027. It is for applicants who already have their IB
+                    Diploma: if you are in your final year, University Admissions advises you not to
+                    apply in this round.
                   </p>
                 </div>
               </div>
-
               <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
                   2
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">February 1: Document Deadline</p>
+                  <p className="font-semibold text-gray-900">
+                    15 March – 15 April 2027: Second Admissions Round
+                  </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Upload all supporting documents (previous diplomas, transcripts) by{' '}
-                    <strong>February 1</strong>. For May 2026 IB diplomas, the document deadline is
-                    later since results are not yet available.
+                    The regular Swedish round, with fewer English-taught programmes. EU/EEA and
+                    Swiss citizens finishing the IB in 2027 apply here; the application fee is due
+                    by 23 April. Non-EU/EEA citizens are advised not to apply, as there is not
+                    enough time to get a residence permit.
                   </p>
                 </div>
               </div>
-
               <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
                   3
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">
-                    July 5: IB Results via Result Service
+                    5 July 2027: IB Results via Results Service
                   </p>
                   <p className="text-sm text-gray-600 mt-1">
-                    For May 2026 diploma holders, your IB coordinator sends results to UHR via the
-                    IB Result Service (code &ldquo;UHR&rdquo;) by <strong>July 5</strong>.
+                    Your IB coordinator makes your results available to recipient code
+                    &ldquo;UHR&rdquo; through the IB Results Service.
                   </p>
                 </div>
               </div>
-
               <div className="flex items-start gap-4 rounded-xl bg-white p-6 border border-gray-200 shadow-sm">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white font-semibold flex-shrink-0">
                   4
                 </div>
                 <div>
-                  <p className="font-semibold text-gray-900">
-                    Late July / Early August: Notification of Results
-                  </p>
+                  <p className="font-semibold text-gray-900">9 July 2027: Admission Results</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Admission results for the autumn semester are typically published in{' '}
-                    <strong>late July or early August</strong>. A second round of results follows
-                    shortly after.
+                    Second-round results are published on 9 July, and you reply by 16 July. Second
+                    admissions results follow on 22 July, and the semester starts in August or
+                    September.
                   </p>
                 </div>
               </div>
             </div>
-
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
@@ -858,6 +955,26 @@ export function SwedenContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Sweden — How to Apply
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.universityadmissions.se/en/key-dates-and-deadlines/autumn-semester-dates/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University Admissions in Sweden — Autumn semester dates
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.universityadmissions.se/en/key-dates-and-deadlines/admission-rounds-and-spring-semester-availability/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University Admissions in Sweden — Admissions rounds
                   </a>
                 </li>
               </ul>

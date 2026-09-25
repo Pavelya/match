@@ -132,7 +132,7 @@ const faqSchema = {
       name: 'How is the IB diploma recognized in Switzerland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Swiss universities accept the IB Diploma as a foreign upper secondary qualification, evaluated institution-by-institution. Source: Swissuniversities admission info.'
+        text: 'Swiss universities accept the IB Diploma as a foreign upper secondary qualification, evaluated institution-by-institution. swissuniversities publishes the IB rules of each university. Source: swissuniversities — International Baccalaureate.'
       }
     },
     {
@@ -140,7 +140,7 @@ const faqSchema = {
       name: 'Do IB students need a Swiss Maturity?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No; the IB Diploma can serve as an equivalent admission qualification. Source: Swiss recognition guidance.'
+        text: 'No; the IB Diploma can serve as an equivalent admission qualification. Source: anerkennung.swiss (SERI) — Studying in Switzerland.'
       }
     },
     {
@@ -148,7 +148,7 @@ const faqSchema = {
       name: 'Is there a national IB score conversion in Switzerland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No; universities determine criteria such as 32/42 IB points, subject prereqs, or exams themselves. Source: University policies and Swissuniversities info.'
+        text: 'No. Each university sets its own IB criteria. For 2026/27, most require at least 32 of 42 points (without bonus points) and three subjects at Higher Level, one of them mathematics or a natural science; ETH Zurich and EPFL require 38. The 2027/28 rules had not been published when this page was updated. Source: swissuniversities — International Baccalaureate.'
       }
     },
     {
@@ -156,15 +156,15 @@ const faqSchema = {
       name: 'Can IB students study medicine in Switzerland?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes, but medicine programs may have extra admissions requirements such as tests or higher entry standards set by the university. Source: Swiss university admissions policies.'
+        text: 'Only if you hold Swiss citizenship or a Swiss residence permit: swissuniversities states that other applicants cannot be admitted to medical studies because places are limited. Eligible applicants pre-register with swissuniversities by 15 February. Basel, Bern, Fribourg, Zurich, USI and ETH Zurich then allocate places by an aptitude test (EMS), held on the Friday of calendar week 27, in early July. Source: swissuniversities — Applying to medical school.'
       }
     },
     {
       '@type': 'Question',
-      name: 'Is German or French required for Swiss universities?',
+      name: 'Is German or French required?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes; Swiss universities generally require proficiency in the language of instruction; English-taught programs require English proficiency. Source: University language policy expectations.'
+        text: "Yes, for programs taught in those languages. Swiss universities require proficiency in the language of instruction; the University of Zurich, for example, asks for German at C1 level. English-taught programs require English proficiency. Source: University of Zurich — Admission to a Bachelor's program."
       }
     }
   ]

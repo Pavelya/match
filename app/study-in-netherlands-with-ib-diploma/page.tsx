@@ -9,6 +9,7 @@
  * - studyinnl.org (Nuffic's official portal for international students)
  * - nuffic.nl (Dutch organisation for internationalisation in education / NARIC)
  * - studielink.nl (national application and enrolment portal)
+ * - uva.nl (University of Amsterdam admissions)
  */
 import { Metadata } from 'next'
 import { NetherlandsContent } from './NetherlandsContent'
@@ -21,9 +22,9 @@ export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
 
 export const metadata: Metadata = {
-  title: 'Study in Netherlands with IB Diploma | Guide (2026)',
+  title: 'Study in Netherlands with IB Diploma | Guide (2027)',
   description:
-    'Official guide for IB students applying to Dutch universities. VWO equivalence, Studielink application, Numerus Fixus, and Nuffic recognition (2026).',
+    'Official guide for IB students applying to Dutch universities. VWO equivalence, Studielink application, Numerus Fixus, and Nuffic recognition (2027).',
   keywords: [
     'study in netherlands with ib diploma',
     'ib diploma netherlands university admission',
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     'numerus fixus ib students'
   ],
   openGraph: {
-    title: 'Study in Netherlands with IB Diploma | Guide (2026)',
+    title: 'Study in Netherlands with IB Diploma | Guide (2027)',
     description:
       'Complete guide for IB Diploma students on university admission in the Netherlands. VWO equivalence via Nuffic, Studielink application, and Numerus Fixus selection.',
     type: 'website',
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Study in Netherlands with IB Diploma | Guide 2026',
+    title: 'Study in Netherlands with IB Diploma | Guide 2027',
     description:
       'Official guide for IB students: Dutch university admission, Nuffic VWO equivalence, Studielink application, and Numerus Fixus process.'
   },
@@ -140,7 +141,7 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in the Netherlands?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Nuffic (the Dutch NARIC) has determined that the IB Diploma is equivalent to the Dutch VWO diploma (Voorbereidend Wetenschappelijk Onderwijs), which is the qualification required for admission to Dutch research universities (WO). The IB Career-related Programme (CP) is comparable to the HAVO diploma with vocational subjects. Source: Nuffic — International Baccalaureate.'
+        text: 'Yes. Nuffic (the Dutch NARIC) has determined that the IB Diploma is equivalent to the Dutch VWO diploma (Voorbereidend Wetenschappelijk Onderwijs), which is the qualification required for admission to Dutch research universities (WO). Nuffic compares the IB Career-related Programme (CP) certificate to at least a HAVO diploma. Source: Nuffic — Level of the IB Diplomas.'
       }
     },
     {
@@ -156,7 +157,7 @@ const faqSchema = {
       name: 'What is a Numerus Fixus programme and how does it affect IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Numerus Fixus programmes have a limited number of places. If more students apply than there are places, a selection procedure takes place. The application deadline for Numerus Fixus programmes is 15 January (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes per academic year. Medicine, Dentistry, Dental Hygiene, and Physiotherapy are further restricted to one application per programme. Source: Study in NL — How to Apply.'
+        text: 'Numerus Fixus programmes have a limited number of places. If more students apply than there are places, a selection procedure takes place. For the 2027-2028 academic year, the application deadline for Numerus Fixus programmes is 15 January 2027 (23:59 CET). You can apply to a maximum of two Numerus Fixus programmes per academic year. Medicine, Dentistry, Dental Hygiene, and Physiotherapy are further restricted to one application per programme. Source: Study in NL — How to Apply.'
       }
     },
     {
@@ -172,7 +173,7 @@ const faqSchema = {
       name: 'What are tuition fees for IB students in the Netherlands?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'EU/EEA students pay the statutory tuition fee (wettelijk collegegeld), which is set annually by the Dutch government. Non-EU/EEA students pay the institutional tuition fee, which is set by each institution individually and is typically higher. Various scholarships are available, including the Holland Scholarship for non-EU/EEA students. Source: Study in NL — Finances.'
+        text: 'EU/EEA students pay the statutory tuition fee (wettelijk collegegeld), which the Dutch government sets each year: €2,694 for 2026-2027. The 2027-2028 amount had not been published when this page was updated. Non-EU/EEA students pay the institutional tuition fee, which each institution sets and which is typically higher. Scholarships include the NL Scholarship (formerly the Holland Scholarship) of €5,000 for non-EEA students. Source: Study in NL — Tuition fees.'
       }
     }
   ]

@@ -21,12 +21,21 @@ import {
 
 // IB Subject requirements
 const subjectRequirements = [
-  { requirement: 'Two languages', description: 'At least two language subjects required' },
-  { requirement: 'Mathematics', description: 'AA or AI, depending on field of study' },
+  {
+    requirement: 'Two languages',
+    description:
+      'At level A or B, and at least one of them an advanced foreign language: Language A, or Language B at HL'
+  },
+  {
+    requirement: 'Mathematics',
+    description:
+      'Analysis and Approaches or Applications and Interpretation. Since the 2021 exams, either course at SL gives access only to subjects outside mathematics, science and engineering, unless your school is on the KMK list of exceptions'
+  },
   { requirement: 'One natural science', description: 'Biology, Chemistry, or Physics' },
   {
-    requirement: 'One social/humanities subject',
-    description: 'History, Geography, Economics, etc.'
+    requirement: 'One social science',
+    description:
+      'History, Geography, Economics, Psychology, Philosophy, Social and Cultural Anthropology, Business Management, or Global Politics'
   }
 ]
 
@@ -41,10 +50,26 @@ const requiredDocuments = [
 
 // Application timeline
 const timelineSteps = [
-  { period: 'December–January', description: 'Program research' },
-  { period: 'February–March', description: 'Applications open' },
-  { period: 'July', description: 'NC results and offers' },
-  { period: 'August–October', description: 'Enrollment' }
+  {
+    period: 'Autumn 2026 – January 2027',
+    description:
+      'Research programs and check that your IB subjects meet the KMK conditions. Check deadlines early: universities may admit international applicants who are not treated as German applicants (in general, non-EU citizens) once a year, with 15 January as the only application date.'
+  },
+  {
+    period: 'Spring 2027',
+    description:
+      'Winter-semester applications open. hochschulstart had not published its 2027/28 dates when this page was updated; in 2026 its application phase opened on 27 April.'
+  },
+  {
+    period: 'Mid-July 2027',
+    description:
+      'Many universities close winter-semester applications on 15 July. At hochschulstart the 2026 deadline was 15 July for school-leaving certificates issued after 15 January 2026, and 31 May for older ones.'
+  },
+  {
+    period: 'Late July – September 2027',
+    description:
+      'Offers and enrollment. In 2026 hochschulstart sent offers from 16 July to 20 August, then filled remaining places until 30 September.'
+  }
 ]
 
 // FAQ data
@@ -52,22 +77,30 @@ const faqs = [
   {
     question: 'Is uni-assist mandatory for IB students in Germany?',
     answer: 'No. Only universities that use uni-assist require it.',
-    source: 'https://www.uni-assist.de'
+    source: 'uni-assist',
+    sourceUrl: 'https://www.uni-assist.de'
   },
   {
     question: 'Do IB students need Studienkolleg?',
-    answer: 'No, if IB subject requirements are fulfilled.',
-    source: 'https://anabin.kmk.org'
+    answer:
+      "No, if your IB Diploma meets the KMK's subject and grade conditions. If it does not, you must pass an additional examination (the Feststellungsprüfung, for which a Studienkolleg prepares you).",
+    source: 'KMK — Access to higher education',
+    sourceUrl:
+      'https://www.kmk.org/zab/central-office-for-foreign-education/general-information-about-recognition/publications-and-decisions/access-to-higher-education/'
   },
   {
     question: 'Can IB students study Medicine in Germany?',
-    answer: 'Yes, but subject requirements and NC thresholds are very high.',
-    source: 'https://www.hochschulstart.de'
+    answer:
+      'Yes, but places are highly competitive. EU and EEA citizens apply for Medicine, Dentistry, Veterinary Medicine and Pharmacy through hochschulstart, like German applicants. Other international applicants apply to the university directly or through uni-assist.',
+    source: 'hochschulstart — International applicants (in German)',
+    sourceUrl: 'https://www.hochschulstart.de/informieren-planen/internationale-bewerbende'
   },
   {
     question: 'Is German mandatory for all programs?',
-    answer: 'No. English-taught programs exist, but language proof is required.',
-    source: 'https://www.hochschulstart.de'
+    answer:
+      'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs.',
+    source: 'hochschulstart — International applicants (in German)',
+    sourceUrl: 'https://www.hochschulstart.de/informieren-planen/internationale-bewerbende'
   }
 ]
 
@@ -82,7 +115,7 @@ export function GermanyContent() {
           <div className="mx-auto max-w-3xl text-center">
             <div className="inline-flex items-center rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5 text-sm font-medium text-blue-600 mb-6">
               <span className="text-xl mr-2">🇩🇪</span>
-              Official University Admission Guide for IB Students (2026)
+              Official University Admission Guide for IB Students (2027)
             </div>
 
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
@@ -99,7 +132,7 @@ export function GermanyContent() {
               <strong>IB Diploma students and IB Coordinators</strong>.
             </p>
 
-            <p className="mt-4 text-sm text-gray-500">Last updated for the 2026 intake</p>
+            <p className="mt-4 text-sm text-gray-500">Last updated for the 2027 intake</p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
@@ -112,7 +145,7 @@ export function GermanyContent() {
               </div>
               <div className="flex items-center gap-x-2 text-sm text-gray-600">
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
-                <span>2026 intake</span>
+                <span>2027 intake</span>
               </div>
             </div>
           </div>
@@ -155,12 +188,12 @@ export function GermanyContent() {
                 <ul className="space-y-2 text-sm">
                   <li>
                     <a
-                      href="https://www.kmk.org"
+                      href="https://www.kmk.org/zab/central-office-for-foreign-education/general-information-about-recognition/publications-and-decisions/access-to-higher-education/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.kmk.org
+                      KMK — Access to higher education (includes the IB agreement)
                     </a>
                   </li>
                   <li>
@@ -170,7 +203,7 @@ export function GermanyContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://anabin.kmk.org
+                      anabin — KMK recognition database
                     </a>
                   </li>
                 </ul>
@@ -216,17 +249,17 @@ export function GermanyContent() {
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://anabin.kmk.org
+                      anabin — KMK recognition database
                     </a>
                   </li>
                   <li>
                     <a
-                      href="https://www.kmk.org"
+                      href="https://www.kmk.org/zab/central-office-for-foreign-education/general-information-about-recognition/publications-and-decisions/access-to-higher-education/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      https://www.kmk.org
+                      KMK — Access to higher education (includes the IB agreement)
                     </a>
                   </li>
                 </ul>
@@ -270,24 +303,42 @@ export function GermanyContent() {
             </div>
 
             <p className="mt-6 text-gray-600">
-              Certain fields (Medicine, Engineering, Natural Sciences) require{' '}
-              <strong>specific Higher Level (HL) subjects</strong>. These rules are defined by the
-              KMK and apply to all public universities.
+              The KMK also requires that at least one of your three{' '}
+              <strong>Higher Level (HL) subjects</strong> is a language, mathematics or a natural
+              science (from the 2025 exams); that all six subjects were studied for the full two
+              years; and that you have at least <strong>grade 4 in all six</strong>. One grade 3 can
+              be offset by a 5 in another subject at the same or a higher level, with at least 24
+              points in total. These rules come from the KMK agreement on the IB Diploma (1986, as
+              amended on 15 June 2023) and apply nationwide.
             </p>
 
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
-              <a
-                href="https://anabin.kmk.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline text-sm"
-              >
-                https://anabin.kmk.org
-              </a>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.kmk.org/zab/fileadmin/Dateien/pdf/ZAB/Hochschulzugang_Beschluesse_der_KMK/aktuell/283_Vereinb_Anerkenn_Int_Baccalaureate_Diploma-2023-06-15_Liste1-2026-03-26_Liste2-2026-05-22_ENGL.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    KMK — Agreement on the recognition of the IB Diploma (English translation, PDF)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://anabin.kmk.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    anabin — KMK recognition database
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -304,7 +355,8 @@ export function GermanyContent() {
 
             <div className="mt-8 rounded-2xl bg-amber-50 p-8 border border-amber-100">
               <p className="text-gray-700">
-                Germany does <strong>not</strong> use a centralized IB points conversion system.
+                Germany converts your IB total into a German grade with a{' '}
+                <strong>single national formula</strong>, set by the KMK.
               </p>
             </div>
 
@@ -329,6 +381,13 @@ export function GermanyContent() {
               </div>
             </div>
 
+            <p className="mt-6 text-gray-600">
+              The KMK formula is <strong>N = 1 + 3 × (42 − P) / (42 − 24)</strong>, where P is your
+              IB total including bonus points. 24 points give a German grade of 4.0, and 42 to 45
+              points give 1.0. This is the grade that counts where a program selects by grade
+              (Numerus Clausus).
+            </p>
+
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
@@ -337,12 +396,12 @@ export function GermanyContent() {
               <ul className="space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.kmk.org"
+                    href="https://www.kmk.org/zab/central-office-for-foreign-education/general-information-about-recognition/publications-and-decisions/access-to-higher-education/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.kmk.org
+                    KMK — Access to higher education (includes the IB agreement)
                   </a>
                 </li>
                 <li>
@@ -352,7 +411,17 @@ export function GermanyContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.hochschulstart.de
+                    hochschulstart
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.kmk.org/zab/fileadmin/Dateien/pdf/ZAB/Hochschulzugang_Beschluesse_der_KMK/aktuell/283_Vereinb_Anerkenn_Int_Baccalaureate_Diploma-2023-06-15_Liste1-2026-03-26_Liste2-2026-05-22_ENGL.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    KMK — Agreement on the recognition of the IB Diploma (English translation, PDF)
                   </a>
                 </li>
               </ul>
@@ -419,7 +488,7 @@ export function GermanyContent() {
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline text-sm"
               >
-                https://www.uni-assist.de
+                uni-assist
               </a>
             </div>
           </div>
@@ -484,7 +553,7 @@ export function GermanyContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.hochschulstart.de
+                    hochschulstart
                   </a>
                 </li>
                 <li className="text-gray-500">University admission pages</li>
@@ -529,12 +598,12 @@ export function GermanyContent() {
                 <p className="mt-4 text-sm">
                   <strong>Source:</strong>{' '}
                   <a
-                    href="https://www.kmk.org"
+                    href="https://www.kmk.org/zab/central-office-for-foreign-education/general-information-about-recognition/publications-and-decisions/access-to-higher-education/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.kmk.org
+                    KMK — Access to higher education (includes the IB agreement)
                   </a>
                 </p>
               </div>
@@ -602,7 +671,7 @@ export function GermanyContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://anabin.kmk.org
+                    anabin — KMK recognition database
                   </a>
                 </li>
                 <li>
@@ -612,7 +681,7 @@ export function GermanyContent() {
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline"
                   >
-                    https://www.uni-assist.de
+                    uni-assist
                   </a>
                 </li>
               </ul>
@@ -649,17 +718,44 @@ export function GermanyContent() {
               ))}
             </div>
 
-            <p className="mt-6 text-sm text-gray-600">
-              <strong>Source:</strong>{' '}
-              <a
-                href="https://www.hochschulstart.de"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                https://www.hochschulstart.de
-              </a>
-            </p>
+            <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <ExternalLink className="h-4 w-4 text-blue-600" />
+                Official Sources
+              </h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.hochschulstart.de/bewerben-beobachten/termine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    hochschulstart — Dates and deadlines (in German)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.hochschulstart.de/informieren-planen/internationale-bewerbende"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    hochschulstart — International applicants (in German)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.uni-assist.de/en/how-to-apply/plan-your-application/deadlines-processing-time/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    uni-assist — Deadlines and processing time
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -684,7 +780,7 @@ export function GermanyContent() {
                   <p className="mt-3 text-sm">
                     <span className="text-gray-500">Source:</span>{' '}
                     <a
-                      href={faq.source}
+                      href={faq.sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"

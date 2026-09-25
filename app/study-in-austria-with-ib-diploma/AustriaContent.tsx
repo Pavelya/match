@@ -10,6 +10,8 @@
  * - studyinaustria.at (OeAD portal for international students)
  * - studieren.univie.ac.at (University of Vienna admissions)
  * - oead.at (Austrian Agency for Education and Internationalisation)
+ * - tugraz.at (TU Graz admission with the IB)
+ * - medizinstudieren.at (MedAT, run by the medical universities)
  */
 
 import Link from 'next/link'
@@ -41,22 +43,24 @@ const faqs = [
     question: 'Is the IB Diploma recognized for university admission in Austria?',
     answer:
       'Yes. The IB Diploma is recognized as a general university entrance qualification (allgemeine Universitätsreife) by Austrian universities when specific criteria are met. No Nostrifizierung (formal degree recognition) is required for university admission.',
-    source: 'Study in Austria — Application and admission',
-    sourceUrl: 'https://studyinaustria.at/en/plan-your-studies/application-and-admission'
+    source: 'TU Graz — Admission with the International Baccalaureate',
+    sourceUrl:
+      'https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib'
   },
   {
     question: 'What is the minimum IB score for Austrian universities?',
     answer:
-      'A minimum of 24 IB points from six subjects is required, with at least 12 points combined from the three Higher Level subjects and no individual subject grade below 3.',
-    source: 'Austrian university admission policies',
-    sourceUrl: 'https://studieren.univie.ac.at/en/admission/'
+      'At the University of Vienna and TU Graz, you need a full IB Diploma with at least 24 points (an IB Certificate is not enough), at least six subjects including a foreign language and mathematics, and at least three subjects at Higher Level.',
+    source: 'University of Vienna — School-leaving certificate from a school abroad',
+    sourceUrl:
+      'https://studieren.univie.ac.at/en/admission/bachelordiploma-programmes/schools-abroad/'
   },
   {
     question: 'Is German required for studying in Austria?',
     answer:
-      'Yes. Most public university programmes in Austria are taught in German, and proof of German language proficiency is required. If German is taken as Language A in the IB Diploma, this may satisfy the requirement. Otherwise, a separate language certificate is needed.',
-    source: 'Study in Austria — Application and admission',
-    sourceUrl: 'https://studyinaustria.at/en/plan-your-studies/application-and-admission'
+      "Yes, for German-taught programmes, which are the majority at public universities. Each university sets the level. The University of Vienna needs C1 before you start a German-taught Bachelor's programme and counts German taken as an IB subject only as A2 proof; TU Graz accepts German Language A as proof of C1.",
+    source: 'University of Vienna — German language proficiency',
+    sourceUrl: 'https://studieren.univie.ac.at/en/admission/german-language-proficiency/'
   },
   {
     question: 'Do IB students need to pass entrance exams in Austria?',
@@ -68,7 +72,7 @@ const faqs = [
   {
     question: 'When should IB students apply to Austrian universities?',
     answer:
-      'The general application deadline for the winter semester is September 5, and for the summer semester February 5. International applicants should apply well in advance as processing foreign documents may take longer.',
+      'The general application deadline is 5 September for the winter semester and 5 February for the summer semester, but programmes with entrance exams can close up to six months before the semester starts. International applicants should apply well in advance as processing foreign documents may take longer.',
     source: 'Study in Austria — Application and admission',
     sourceUrl: 'https://studyinaustria.at/en/plan-your-studies/application-and-admission'
   }
@@ -155,7 +159,7 @@ export function AustriaContent() {
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -166,6 +170,16 @@ export function AustriaContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Austria — Application and admission
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      TU Graz — Admission with the International Baccalaureate
                     </a>
                   </li>
                 </ul>
@@ -199,7 +213,7 @@ export function AustriaContent() {
               <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -210,6 +224,16 @@ export function AustriaContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Austria — Application and admission
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      TU Graz — Admission with the International Baccalaureate
                     </a>
                   </li>
                 </ul>
@@ -253,15 +277,14 @@ export function AustriaContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>At least 3 Higher Level (HL) subjects</strong> with a combined minimum
-                    of 12 points and no single HL grade below 3
+                    <strong>At least 3 Higher Level (HL) subjects</strong>
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>No individual subject grade below 3</strong> (in exceptional cases, a
-                    grade 2 in an SL subject may be acceptable if compensated by higher SL grades)
+                    <strong>A foreign language and mathematics</strong> among your subjects (the
+                    foreign language can be German)
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -291,12 +314,22 @@ export function AustriaContent() {
                   </li>
                   <li>
                     <a
-                      href="https://studieren.univie.ac.at/en/admission/"
+                      href="https://studieren.univie.ac.at/en/admission/bachelordiploma-programmes/schools-abroad/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:underline"
                     >
-                      University of Vienna — Admission procedure
+                      University of Vienna — School-leaving certificate from a school abroad
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      TU Graz — Admission with the International Baccalaureate
                     </a>
                   </li>
                 </ul>
@@ -317,8 +350,8 @@ export function AustriaContent() {
 
             <div className="mt-8 space-y-6 text-base leading-7 text-gray-600">
               <p>
-                Austrian universities require the six IB subjects to cover specific academic areas.
-                Your subject selection must include:
+                An IB Diploma covers the six subject groups below. Of these, the University of
+                Vienna and TU Graz specifically check for mathematics and a foreign language:
               </p>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -362,9 +395,9 @@ export function AustriaContent() {
                 <p className="text-amber-800 text-sm flex items-start gap-2">
                   <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Subject-specific requirements:</strong> Competitive programmes such as
-                    Medicine, Engineering, or Computer Science may require specific HL subjects
-                    (e.g., Biology HL, Chemistry HL, Mathematics HL, Physics HL).
+                    <strong>Programme-specific requirements:</strong> Some programmes add their own
+                    conditions, such as an entrance exam (see below). Check the programme page at
+                    your university.
                   </span>
                 </p>
               </div>
@@ -372,7 +405,7 @@ export function AustriaContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -383,6 +416,26 @@ export function AustriaContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Austria — Application and admission
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://studieren.univie.ac.at/en/admission/bachelordiploma-programmes/schools-abroad/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Vienna — School-leaving certificate from a school abroad
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      TU Graz — Admission with the International Baccalaureate
                     </a>
                   </li>
                 </ul>
@@ -430,15 +483,15 @@ export function AustriaContent() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      If German is taken as <strong>Language A</strong> in the IB, this may suffice
-                      as proof
+                      TU Graz accepts German <strong>Language A</strong> in the IB as proof of C1
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                     <span>
-                      Otherwise, a language certificate (B2–C1 CEFR) or 4+ years of German study is
-                      needed
+                      The University of Vienna needs A2 when you apply and C1 before you start a
+                      German-taught Bachelor&apos;s programme, and counts German taken as an IB
+                      subject only as A2. First-language speakers can declare C1 themselves
                     </span>
                   </li>
                 </ul>
@@ -474,7 +527,7 @@ export function AustriaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -485,6 +538,26 @@ export function AustriaContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Austria — Application and admission
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studieren.univie.ac.at/en/admission/german-language-proficiency/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Vienna — German language proficiency
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tugraz.at/en/studying-and-teaching/studying-at-tu-graz/prospective-students/registration-and-admission/admission-of-international-degree-programme-applicants/international-baccalaureate-ib"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    TU Graz — Admission with the International Baccalaureate
                   </a>
                 </li>
               </ul>
@@ -515,7 +588,12 @@ export function AustriaContent() {
                   <GraduationCap className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
                     <strong>Medicine and Dentistry</strong> — require the{' '}
-                    <strong>MedAT entrance exam</strong>, a national standardised test
+                    <strong>MedAT entrance exam</strong>, held on the same day in Vienna, Innsbruck,
+                    Graz and Linz. The 2027 dates had not been published when this page was updated;
+                    in 2026 registration ran from 2 to 31 March and the test was on 3 July. In Human
+                    Medicine, at least 75% of places go to holders of an Austrian (or equivalent)
+                    school-leaving certificate, at least 95% to EU citizens and those with the same
+                    status, and at most 5% to non-EU applicants
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -548,7 +626,7 @@ export function AustriaContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -559,6 +637,26 @@ export function AustriaContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Austria — Application and admission
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.medizinstudieren.at/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      MedAT — Admission to Medicine and Dentistry (in German)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.medizinstudieren.at/studienplaetze-und-kontingentregelung/studienplaetze/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      MedAT — Study places and quotas (in German)
                     </a>
                   </li>
                 </ul>
@@ -597,7 +695,11 @@ export function AustriaContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span>Low tuition fees (often ~€363/semester for EU/EEA students)</span>
+                    <span>
+                      No tuition fees for EU/EEA students within the minimum study duration plus two
+                      semesters (€363.36 a semester after that); €751.92 a semester for most other
+                      students. Everyone pays the €25.20 student union and insurance fee
+                    </span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
@@ -640,7 +742,7 @@ export function AustriaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -651,6 +753,16 @@ export function AustriaContent() {
                     className="text-blue-600 hover:underline"
                   >
                     Study in Austria — Application and admission
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studyinaustria.at/en/tuition"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Study in Austria — Tuition fees
                   </a>
                 </li>
               </ul>
@@ -739,8 +851,11 @@ export function AustriaContent() {
                 <div>
                   <p className="font-semibold text-gray-900">Winter Semester (October start)</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Application deadline: <strong>September 5</strong>. The winter semester runs
-                    from October to the end of January.
+                    General application deadline: <strong>5 September</strong>. The winter semester
+                    runs from October to the end of January. Universities can set earlier dates: for
+                    winter 2026/27, the University of Vienna closed on 5 September 2026 for EU/EEA
+                    citizens and on 3 August 2026 for non-EU/EEA citizens. Its dates for winter
+                    2027/28 had not been published when this page was updated.
                   </p>
                 </div>
               </div>
@@ -752,8 +867,10 @@ export function AustriaContent() {
                 <div>
                   <p className="font-semibold text-gray-900">Summer Semester (March start)</p>
                   <p className="text-sm text-gray-600 mt-1">
-                    Application deadline: <strong>February 5</strong>. The summer semester runs from
-                    March to the end of June.
+                    General application deadline: <strong>5 February</strong>. The summer semester
+                    runs from March to the end of June. For summer 2027, the University of Vienna
+                    accepts applications from 16 November 2026 to 5 February 2027 (EU/EEA citizens)
+                    or to 7 January 2027 (non-EU/EEA citizens).
                   </p>
                 </div>
               </div>
@@ -775,7 +892,7 @@ export function AustriaContent() {
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                 <ExternalLink className="h-4 w-4 text-blue-600" />
-                Official Source
+                Official Sources
               </h4>
               <ul className="space-y-2 text-sm">
                 <li>
@@ -796,6 +913,16 @@ export function AustriaContent() {
                     className="text-blue-600 hover:underline"
                   >
                     OeAD — Entry and residence
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://studieren.univie.ac.at/en/admission/application-and-admission-periods/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Vienna — Application and admission periods
                   </a>
                 </li>
               </ul>

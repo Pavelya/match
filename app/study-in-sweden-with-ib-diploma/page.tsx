@@ -9,6 +9,7 @@
  * - universityadmissions.se (centralized Swedish application portal)
  * - studyinsweden.se (official government portal for international students)
  * - uhr.se (Swedish Council for Higher Education)
+ * - antagning.se (IB merit rating table, in Swedish)
  */
 import { Metadata } from 'next'
 import { SwedenContent } from './SwedenContent'
@@ -135,15 +136,15 @@ const faqSchema = {
       name: 'Is the IB Diploma recognized for university admission in Sweden?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Yes. The IB Diploma fulfils the general entry requirements for bachelor's studies in Sweden. Applications are submitted through the centralized portal universityadmissions.se. Source: University Admissions in Sweden."
+        text: "Yes. The IB Diploma fulfils the general entry requirements for bachelor's studies in Sweden. Applications are submitted through the centralized portal universityadmissions.se. Both the regular and non-regular IB Diploma are accepted. Source: University Admissions in Sweden — IB Studies."
       }
     },
     {
       '@type': 'Question',
-      name: 'How are IB points converted for Swedish universities?',
+      name: 'How are IB points converted for Swedish university admission?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'IB points are converted to a Swedish merit rating on a scale of 10.00–20.00, plus up to 2.5 bonus merit points for languages and mathematics. For example, 24 IB points = 12.40, 35 points = 17.92, and 45 points = 20.00. Source: University Admissions in Sweden.'
+        text: 'Your IB total points are converted to a Swedish merit rating on a scale of 10.00–20.00, plus up to 2.5 merit points for modern languages, English and mathematics. In the table used since the autumn 2025 admissions, 24 IB points = 13.18, 35 points = 18.57, and 43–45 points = 20.00. The maximum achievable score including merit points is 22.50. Source: Antagning.se — Calculate your merit rating (in Swedish).'
       }
     },
     {
@@ -151,23 +152,23 @@ const faqSchema = {
       name: 'What IB grades are needed for specific subject requirements?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'A minimum grade of 4 is generally required. For Mathematics, Physics, Chemistry, and Biology at Higher Level, a grade of 3 may be accepted. Mathematics Analysis and Approaches (AA) is the standard requirement for maths-related prerequisites. Source: University Admissions in Sweden.'
+        text: 'A minimum grade of 4 is required for a course to meet a specific entry requirement. A grade 3 is accepted in Biology, Chemistry and Physics at Higher Level (HL). In mathematics, a grade 3 counts one Swedish level lower: AA HL and AI HL then meet Matematik 4, AA SL meets Matematik 3c, and AI SL meets Matematik 2a. Source: University Admissions in Sweden — IB Studies.'
       }
     },
     {
       '@type': 'Question',
-      name: 'How do IB students apply to Swedish universities?',
+      name: 'Do I need to speak Swedish to study in Sweden?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'All applications are submitted through universityadmissions.se — Sweden\'s centralized application portal. IB results should be sent via the IB Result Service using code "UHR". Source: University Admissions in Sweden.'
+        text: "Not necessarily. Sweden offers a large number of English-taught programmes at both bachelor's and master's level. For Swedish-taught programmes, proof of Swedish language proficiency is required. English proficiency can be demonstrated through IB English courses (English A or English B HL/SL). Source: Study in Sweden — How to Apply."
       }
     },
     {
       '@type': 'Question',
-      name: 'Is Swedish language required for studying in Sweden?',
+      name: 'How do IB students submit their results to Swedish universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Not always. Sweden offers a large number of English-taught bachelor's and master's programmes. For Swedish-taught programmes, Swedish language proficiency is required. English proficiency can be demonstrated through IB English courses. Source: Study in Sweden."
+        text: 'If you finish the IB in the spring you apply, apply in the second admissions round (University Admissions recommends this only for EU/EEA and Swiss citizens) and ask your IB coordinator to make your results available to recipient code "UHR" through the IB Results Service. For autumn 2027 the deadline is 5 July 2027. If you already have your IB Diploma, upload scans or copies of it to universityadmissions.se by the document deadline. Source: University Admissions in Sweden — Autumn semester dates.'
       }
     }
   ]
