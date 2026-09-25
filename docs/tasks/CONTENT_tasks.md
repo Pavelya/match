@@ -23,7 +23,7 @@ here, and this refresh does more production writes than any work before it.
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
-| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **2.1 and 2.2 done** 25 September 2026. The eight 2.3 pages still say "2026 intake" |
+| 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | Summarises the country pages, so goes after them |
 | 8 | Entry year on every program | 3.1 | medium | Schema migration; everything after stamps it |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
@@ -65,7 +65,7 @@ Phase 2 — Country pages for the 2027 intake
 
 - [x] 2.1 English-speaking and Asia-Pacific pages (7) — owner to open four bot-walled links
 - [x] 2.2 Western and Northern Europe pages (7) — owner to open three bot-walled links
-- [ ] 2.3 Southern and Central Europe, Israel, Japan pages (8)
+- [x] 2.3 Southern and Central Europe, Israel, Japan pages (8) — owner to open two bot-walled links
 - [ ] 2.4 `/ib-university-requirements`
 
 Phase 3 — Refresh groundwork
@@ -223,7 +223,11 @@ not precision.
   the status. NUS PDFs under `/oam/docs/` still download. Found in 2.2: `equivalences.cfwb.be`,
   `ares-ac.be` and `mesetudes.be` return 200 with a 244-byte "Request Rejected" page (WebFetch reads
   them); `viden.stil.dk` downloads redirect to a security check that neither passes; `orientation.ch`
-  sends scripts to a cookie check.
+  sends scripts to a cookie check. Found in 2.3: `mur.gov.it` 403s WebFetch too (Cloudflare), so its
+  news pages were read through the search index; `comunidad.madrid` returns 404 to curl without a
+  browser User-Agent; `unedasiss.uned.es` serves its home page for unknown paths (`/home/pce`), and
+  `universidades.gob.es` redirects every path to the science ministry's home page — both are soft
+  404s behind a 200.
 - **A 200 can be stale.** Year-pinned URLs keep serving last year's page: Manchester
   `/2026/`, Jönköping `autumn-2026`, Gdańsk `20242025`, HKUST `2020-21`.
 
@@ -673,6 +677,80 @@ Known issues:
   did, and check the built HTML (`.next/server/app/study-in-<country>-with-ib-diploma.html`).
 
 **Session size:** Medium to large; eight pages.
+
+#### Status, 25 September 2026 — done (session 6)
+
+- **All eight say 2027**, and their `modified` date in `lib/page-dates.ts` is 2026-09-25, as is every
+  other country page's. Where a source has not published 2027 dates, the page gives the latest and names
+  its year. Every page had claims the official sources contradict or do not support; those now follow the
+  source, and unsourced specifics (test-score ranges, fee ranges, counts) are gone.
+- **Spain.** **The grade table was wrong in kind.** Under Orden EFD/550/2025 the access grade is the
+  average of the IB subject grades (2–7 scale) plus 3 (6.0 → 9, 7.0 → 10); the IB total out of 45 is not
+  used. The page said predicted grades "work" (UNEDasiss grades predictions only for UK and Irish
+  qualifications), that Spain treats the IB as equivalent to the Bachillerato (the law exempts IB holders
+  from the access exam and from homologation, which is different), and that subject recognition covers
+  HL grades 5–7 (it is not limited to HL, and not every university accepts it). Weightings of 0.1/0.2 and
+  the 14-point maximum are confirmed for 2027 by Catalonia's tables; Medicine now cites Madrid's 2026–27
+  cut-offs (12.8–13.1). UNEDasiss has not published 2027 dates, so the timeline gives 2026's (PCE 25–29
+  May, international deadline 7 July). Replaced: the dead Madrid link, both `universidades.gob.es` links
+  and three UNEDasiss `/home/...` soft 404s. "UNEDassis" is now spelled UNEDasiss.
+- **Portugal.** Both agencies the page named are being replaced. DGES became the Instituto para o Ensino
+  Superior (IES, I.P.) on 1 October 2025 (Decree-Law 109/2025); the DGE says its work is passing to
+  EduQA, I.P. The page says so. Equivalence is needed only for the national competition, not for the
+  special competition for international students, as the page implied. IB exams can replace Portuguese
+  entrance exams under the yearly CNAES list (Deliberation 619/2026 for 2026–27), and applicants using
+  them had a shorter window (20–29 July 2026). DGE's FAQ has no translation exemption for English, French
+  or Spanish documents, so that claim is gone. 2026 competition dates are shown; 2027's are unpublished.
+- **Italy.** The restricted-programme list was out of date. Law 26/2025 replaced the national test for
+  Italian-taught Medicine, Dentistry and Veterinary Medicine with the open "semestre aperto", the
+  English-taught courses use IMAT, and Architecture tests are set by each university. The MUR procedures
+  for international students **cover 2027–28** and set IB conditions the page lacked: 24 points in six
+  subjects with 12 at HL, TOK, EE and CAS passed, a schooling-years rule, and CIMEA's free Attestato di
+  Corrispondenza plus verification instead of a Dichiarazione di valore. The Italian B2 test and the
+  31 October 2027 visa deadline are in. The HowTo JSON-LD, which repeated the old calendar, is rewritten.
+- **Poland.** NAWA gives the legal basis as Article 326a of the Law on Higher Education and Science and
+  lists IB certificates as recognised automatically for applying; "equivalent to the Matura since
+  31 March 2015 (Art. 93)" is gone. The table's SL column was not the University of Warsaw's: its 2027/28
+  rules use one scale (7 = 100% … 2 = 30%) and multiply SL results by 0.6. **New since July 2025:**
+  candidates who are not EU, EFTA, Swiss or UK citizens must prove B2 in the language of study (the IB
+  Diploma counts for its main language), and the new entrance-exam route for foreign documents excludes
+  IB holders. BMAT (discontinued) and the "900 English programmes" count are gone.
+- **Czech Republic.** The Section 48(4)(c) exemption is right. Removed: "equivalent to the maturita", an
+  unsourced Czech-language exam note, the Charles University Economics "32+" example (the faculty's own
+  pages disagree on it), and the fee, tuition and IELTS ranges. The Second Faculty of Medicine waiver is
+  stated as published (35 points, 19 of them from HL Biology, HL Chemistry and Maths or Physics, at most 25
+  waivers). The dead `studyin.cz/.../recognition/` link is replaced and links use `studyin.gov.cz`.
+- **Estonia.** Tallinn University's autumn-2027 Bachelor window (1 November 2026 – 1 March 2027) is in;
+  Tartu and TalTech show their 2026 dates, labelled. TLU's 27-point rule is confirmed (EE and TOK at
+  least D). TLU no longer states HL English grade thresholds; it, TalTech (Bachelor's) and Tartu accept
+  the IB as proof of English. The Estonian University of Life Sciences was listed as a professional
+  institution; it is a university. The Riigi Teataja link pointed at a 2018 translation and is replaced.
+- **Israel.** **The PET changes for 2027–28 entry:** from the December 2026 sitting it tests verbal and
+  quantitative reasoning only, English moves to the separate AMIRNET test, the 200–800 scale stays, and
+  scores last "at least seven years, depending on the institution". Test dates 4–6 December 2026 and
+  18–19 April 2027. Study in Israel counts 9 universities, not 8. The "Ministry of Education evaluation
+  unit" and the IB English exemption grades were unsourced and are gone; the IB conversion now cites the
+  Technion's table (HL = 5 Bagrut units, SL = 3). Tel Aviv University accepts SAT/ACT except for Medicine
+  and Dental Medicine; its English pages still give 2025–26 deadlines, shown as such.
+- **Japan.** 1979 is confirmed by MEXT's own IB paper. The 2026 EJU sessions (21 June, 8 November) are
+  in. "Most programmes require JLPT N2" was unsourced and is gone; IB-based admissions cite MEXT's IB
+  Consortium.
+- **FAQ structured data.** On all eight pages the FAQPage JSON-LD is generated from the visible `faqs`
+  array, as in 2.2, and Spain's and Italy's visible sources are names instead of bare URLs. In the built
+  HTML every JSON-LD question, answer and source appears verbatim, on all 22 country pages.
+- **For the owner:**
+  - Open two `mur.gov.it` links in a browser (Cloudflare blocks curl and WebFetch): the semestre aperto
+    registration notice and the 2026–27 admission-test dates. Both were read through the search index.
+    The test calendar has an errata notice, so the page says only "end of September" for IMAT.
+  - Portugal: gov.pt names the Agência para a Gestão do Sistema Educativo for equivalences, while the DGE
+    says EduQA. Recheck who handles IB equivalence once the reorganisation settles.
+  - Swap in when published: UNEDasiss's 2027 dates; Portugal's 2027 competition calendar and the CNAES
+    list (by 31 May 2027); the 2027 semestre aperto and IMAT dates; Tartu's and TalTech's 2027 deadlines;
+    the 2027 EJU sessions; Tel Aviv University's 2027–28 deadlines.
+- **Verified.** 74 of 76 external links return 200 with a title that matches the topic; the other two are
+  the `mur.gov.it` bot wall. `grep -rn "2026 intake"` over the eight directories finds nothing. The build
+  lists all eight routes as static with a one-week revalidate. The rendered titles end in "(2027)", and
+  the JSON-LD dates read modified 2026-09-25. Type check, lint, Prettier and both test suites pass.
 
 ### 2.4 — `/ib-university-requirements`
 
