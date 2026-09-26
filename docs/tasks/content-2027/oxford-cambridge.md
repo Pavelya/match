@@ -36,8 +36,9 @@ stored none.
 
 1. For each row marked **changed**, open `/admin/programs/<ID>/edit` and make the program match the
    **2027 entry** column. Saving syncs Algolia and the programs cache.
-2. The form does not set `requirementsVerified` or `requirementsUpdatedAt`. Leave them: task 3.1
-   stamps them from this file (the script below sets both).
+2. Set **Entry year checked** to the year the row's source names (2027, or 2026 where it names
+   none). Since task 3.1 the form stamps `requirementsUpdatedAt`, `requirementsEntryYear` and
+   `requirementsVerified` from it; the script below sets the same three.
 3. Rows marked **owner check** need a look in a browser first; see the next section.
 
 **Or by script.** `scripts/programs/2027/university-of-oxford.ts` and `university-of-cambridge.ts`
@@ -93,6 +94,11 @@ are only on the course pages.
 Until that box is ticked, task 3.1 should stamp as 2027 only the Oxford rows whose source says
 2027 (Fine Art, Materials Science, Philosophy and Theology, Religion and Asian and Middle Eastern
 Studies, Theology and Religion), and stamp the rest as 2026-checked.
+
+**Done that way in 3.1.** The Oxford data file sets `undatedEntryYear: 2026`, the year stamped on
+a row whose source names none. When the box is ticked, change it to 2027 and run
+`apply-2027-requirements.ts`: the dry run lists the undated rows as stamp-only, and `--apply`
+moves them to 2027.
 
 Rows still marked **owner check**, both needing only the IB line from their course page:
 

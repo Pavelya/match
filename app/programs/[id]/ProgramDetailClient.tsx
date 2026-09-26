@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import { CompleteProfileCTA } from '@/components/student/CompleteProfileCTA'
 import type { MatchResult } from '@/lib/matching/types'
+import type { RequirementsCheck } from '@/lib/programs/entry-year'
 import { logger } from '@/lib/logger'
 
 interface CourseRequirement {
@@ -38,6 +39,7 @@ interface ProgramData {
   duration: string
   minIBPoints?: number | null
   programUrl?: string | null
+  requirementsCheck?: RequirementsCheck
   city?: string | null
   university: {
     name: string

@@ -19,6 +19,7 @@ import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import { PageContainer, Breadcrumbs } from '@/components/admin/shared'
 import { ProgramCard } from '@/components/student/ProgramCard'
 import type { MatchResult } from '@/lib/matching/types'
+import { requirementsCheck } from '@/lib/programs/entry-year'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 
@@ -102,6 +103,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
       duration: true,
       minIBPoints: true,
       programUrl: true,
+      requirementsEntryYear: true,
       university: {
         select: {
           id: true,
@@ -155,6 +157,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
     duration: program.duration,
     minIBPoints: program.minIBPoints,
     programUrl: program.programUrl,
+    requirementsCheck: requirementsCheck(program.requirementsEntryYear),
     city: program.university.city,
     university: {
       name: program.university.name,

@@ -18,6 +18,7 @@ import { ProgramDetailClient } from './ProgramDetailClient'
 import { calculateMatch } from '@/lib/matching'
 import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import type { MatchResult } from '@/lib/matching/types'
+import { requirementsCheck } from '@/lib/programs/entry-year'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -39,6 +40,7 @@ const getProgram = cache((id: string) =>
       duration: true,
       minIBPoints: true,
       programUrl: true,
+      requirementsEntryYear: true,
       university: {
         select: {
           id: true,
@@ -378,6 +380,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
     duration: program.duration,
     minIBPoints: program.minIBPoints,
     programUrl: program.programUrl,
+    requirementsCheck: requirementsCheck(program.requirementsEntryYear),
     city: program.university.city,
     university: {
       id: program.university.id,

@@ -9,6 +9,8 @@ import type { UniversityUpdate } from './types'
 const update: UniversityUpdate = {
   university: 'University of Cambridge',
   entryYear: 2027,
+  // Unused: every course page names 2027 entry.
+  undatedEntryYear: 2026,
   checkedOn: '2026-09-24',
   programs: [
     {

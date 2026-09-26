@@ -317,6 +317,9 @@ model AcademicProgram {
   requirementsVerified  Boolean   @default(false)
   // Last time requirements were updated/verified
   requirementsUpdatedAt DateTime?
+  // The intake the requirements were checked for (2027 = September 2027 entry).
+  // Null: never checked. Program pages show it; admin edits and scripts stamp it.
+  requirementsEntryYear Int?
 
   programUrl String?
 
