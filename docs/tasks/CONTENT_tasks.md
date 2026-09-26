@@ -1117,6 +1117,37 @@ thing.
 
 **Session size:** Small.
 
+#### Status, 26 September 2026 — built; the merge waits on the owner (session 9)
+
+- **Counts, re-run.** 62 courses, the same seven pairs. They moved since the table above was
+  written, because the 1.2 data went in after it. Geography: `GEOG` 8 students and 54
+  requirement rows, `GEO` 6 and 9. The three Language A pairs and Latin and Greek now sit together
+  in the Oxford and Cambridge language groups (16 identical pairs). One student has Geography
+  under both codes (`GEO HL4`, `GEOG SL6`).
+- **`scripts/merge-ib-courses.ts`**, planning in `scripts/lib/course-merge.ts` (Vitest-covered).
+  Dry run: 12 student rows repointed; 11 requirement rows repointed (Trinity, Católica, Lund);
+  16 requirement rows deleted as exact duplicates of a kept row in the same OR group. The one
+  student collision is left alone until the owner records a choice in `STUDENT_CHOICES`. A
+  retired row that differs from the kept one in any way is repointed, never deleted. `--apply`
+  backs up every touched row to `scripts/backups/` (git-ignored: student grades), writes one
+  transaction per pair, and rolls a pair back if a count differs from the plan. It then syncs
+  the changed programs to Algolia and clears the programs and match caches. `--restore` puts
+  the rows back while the retired courses still exist.
+- **Duplicates refused.** The admin course POST and PATCH return 409 for a name another course
+  has, ignoring case and spaces. PATCH checks only a changed name, so the kept courses stay
+  editable while their duplicates exist. Both routes now check the code as it is stored,
+  trimmed and upper-cased: the POST compared the raw code, so `geog` passed the check and then
+  failed on the unique index with a 500. Tests sit next to both routes.
+- **`IBCourse.name` is `@unique`.** Migration `20260926120000_unique_ib_course_name` is **not
+  applied**. It fails while a duplicate name exists, so it goes after the merge and the deletions.
+- **1.2 files.** The retired codes are gone from both data files and from the handoff file's named
+  groups. The apply script finds no unknown codes. Until the merge runs, it lists the four
+  language programs as changed, because production still has both codes. It must not be applied
+  in that state; after the merge it reports them up to date.
+- **Remaining, in order:** the owner approves the dry run and chooses the student's row; `--apply`;
+  the owner deletes `GEO`, `DESIGN-TECH`, `GREEK`, `LATIN`, `FRA-LIT-A`, `GER-LIT-A` and `SPA-LIT-A`
+  on `/admin/reference-data`; `prisma migrate deploy`; then Verify.
+
 ---
 
 ## Phase 4 — Program refresh for 2027 entry

@@ -47,3 +47,5 @@ next-env.d.ts
 
 # content refresh: backups taken by scripts/programs/apply-2027-requirements.ts --apply
 /scripts/programs/2027/backups/
+# content 3.5: backups taken by scripts/merge-ib-courses.ts --apply (student grades)
+/scripts/backups/

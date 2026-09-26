@@ -11,6 +11,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { findCourseByName } from '@/lib/ib-courses'
 
 export async function GET() {
   try {
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { name, code, group } = body
 
-    if (!name || typeof name !== 'string') {
+    if (!name || typeof name !== 'string' || !name.trim()) {
       return NextResponse.json({ error: 'Name is required' }, { status: 400 })
     }
 
@@ -84,19 +85,32 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Group must be a number between 1 and 6' }, { status: 400 })
     }
 
-    // Check for duplicate code
+    const courseName = name.trim()
+    const courseCode = code.trim().toUpperCase()
+
+    // Check for duplicate code, as it will be stored
     const existing = await prisma.iBCourse.findUnique({
-      where: { code }
+      where: { code: courseCode },
+      select: { id: true }
     })
 
     if (existing) {
       return NextResponse.json({ error: 'Course with this code already exists' }, { status: 409 })
     }
 
+    // And for a duplicate name
+    const sameName = await findCourseByName(courseName)
+    if (sameName) {
+      return NextResponse.json(
+        { error: `A course with this name already exists (${sameName.code})` },
+        { status: 409 }
+      )
+    }
+
     const course = await prisma.iBCourse.create({
       data: {
-        name: name.trim(),
-        code: code.trim().toUpperCase(),
+        name: courseName,
+        code: courseCode,
         group
       }
     })
