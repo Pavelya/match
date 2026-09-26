@@ -26,7 +26,7 @@ here, and this refresh does more production writes than any work before it.
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
-| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
+| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | 3.5 **done** 26 September 2026. The refresh tool validates against both |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
@@ -74,7 +74,7 @@ Phase 3 — Refresh groundwork
 - [ ] 3.2 Canonical degree types
 - [ ] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
-- [ ] 3.5 Merge duplicate IB course codes (do before 3.3)
+- [x] 3.5 Merge duplicate IB course codes (do before 3.3)
 
 Phase 4 — Program refresh for 2027 entry
 
@@ -1117,7 +1117,7 @@ thing.
 
 **Session size:** Small.
 
-#### Status, 26 September 2026 — merged; deletions and the migration to go (session 9)
+#### Status, 26 September 2026 — done (session 9)
 
 - **Counts, re-run.** 62 courses, the same seven pairs. They moved since the table above was
   written, because the 1.2 data went in after it. Geography: `GEOG` 8 students and 54
@@ -1138,8 +1138,8 @@ thing.
   editable while their duplicates exist. Both routes now check the code as it is stored,
   trimmed and upper-cased: the POST compared the raw code, so `geog` passed the check and then
   failed on the unique index with a 500. Tests sit next to both routes.
-- **`IBCourse.name` is `@unique`.** Migration `20260926120000_unique_ib_course_name` is **not
-  applied**. It fails while a duplicate name exists, so it goes after the merge and the deletions.
+- **`IBCourse.name` is `@unique`.** Migration `20260926120000_unique_ib_course_name`. It fails while
+  a duplicate name exists, so it went in after the merge and the deletions.
 - **1.2 files.** The retired codes are gone from both data files and from the handoff file's named
   groups. The apply script finds no unknown codes. Until the merge runs, it lists the four
   language programs as changed, because production still has both codes. It must not be applied
@@ -1153,8 +1153,14 @@ thing.
   student added it between the count and the run); `GRK` 1 and 3; `LAT` 0 and 3; each `*-LIT` 2
   and 4. A second dry run finds nothing to do. The 1.2 apply script reports 74 up to date and 2
   held.
-- **Remaining, in order:** the owner deletes `GEO`, `DESIGN-TECH`, `GREEK`, `LATIN`, `FRA-LIT-A`,
-  `GER-LIT-A` and `SPA-LIT-A` on `/admin/reference-data`; `prisma migrate deploy`; then Verify.
+- **Retired courses deleted** by the owner on `/admin/reference-data`. The page refused the first
+  Latin row tried, because it was `LAT`, the kept code: both rows were named "Latin". Then
+  `prisma migrate deploy` applied the unique index.
+- **Verified.** The duplicate-name query returns no rows, and `IBCourse` has 55 rows. No retired
+  code is left, so nothing can point at one. `migrate status` is up to date, and
+  `migrate diff` against production is empty. The 409 for a second "Geography" is covered by the
+  route tests and goes live when this deploys; until then the unique index refuses an exact
+  duplicate at the database.
 
 ---
 
