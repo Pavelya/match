@@ -28,6 +28,7 @@ import { PATCH } from './route'
 
 const STORED = {
   universityId: 'uni-1',
+  degreeType: 'BSc (Hons)',
   minIBPoints: 38,
   requirementsEntryYear: 2026,
   courseRequirements: [
@@ -43,7 +44,7 @@ const FORM = {
   description: 'A course.',
   universityId: 'uni-1',
   fieldOfStudyId: 'field-1',
-  degreeType: 'Bachelor',
+  degreeType: 'BSc (Hons)',
   duration: '3 years',
   minIBPoints: '38',
   programUrl: 'https://example.ac.uk/biology',
@@ -142,6 +143,30 @@ describe('PATCH /api/admin/programs/[id] — requirement stamps', () => {
 
   it('refuses an impossible entry year before touching the requirements', async () => {
     const res = await patch({ ...FORM, minIBPoints: '37', requirementsEntryYear: '20227' })
+
+    expect(res.status).toBe(400)
+    expect(prismaMock.programCourseRequirement.deleteMany).not.toHaveBeenCalled()
+    expect(prismaMock.academicProgram.update).not.toHaveBeenCalled()
+  })
+})
+
+describe('PATCH /api/admin/programs/[id] — degree type', () => {
+  it('saves a spelling from before the fixed list back unchanged', async () => {
+    const res = await patch(FORM)
+
+    expect(res.status).toBe(200)
+    expect(written()).not.toHaveProperty('degreeType')
+  })
+
+  it('stores a changed degree type as the list spells it', async () => {
+    const res = await patch({ ...FORM, degreeType: 'bsc' })
+
+    expect(res.status).toBe(200)
+    expect(written().degreeType).toBe('Bachelor of Science')
+  })
+
+  it('refuses a degree type that is not in the list', async () => {
+    const res = await patch({ ...FORM, degreeType: 'Doctor of Philosophy' })
 
     expect(res.status).toBe(400)
     expect(prismaMock.programCourseRequirement.deleteMany).not.toHaveBeenCalled()

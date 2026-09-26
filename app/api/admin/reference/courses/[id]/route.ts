@@ -11,6 +11,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { findCourseByName } from '@/lib/ib-courses'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -52,13 +53,31 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       return NextResponse.json({ error: 'Group must be a number between 1 and 6' }, { status: 400 })
     }
 
-    // Check for duplicate code if changing
-    if (code && code.toUpperCase() !== existing.code) {
+    const courseCode = typeof code === 'string' ? code.trim().toUpperCase() : ''
+
+    // Check for duplicate code if changing, as it will be stored
+    if (courseCode && courseCode !== existing.code) {
       const duplicate = await prisma.iBCourse.findUnique({
-        where: { code: code.toUpperCase() }
+        where: { code: courseCode },
+        select: { id: true }
       })
       if (duplicate) {
         return NextResponse.json({ error: 'Course with this code already exists' }, { status: 409 })
+      }
+    }
+
+    // And for another course with the name, if it changes
+    if (
+      typeof name === 'string' &&
+      name.trim() &&
+      name.trim().toLowerCase() !== existing.name.trim().toLowerCase()
+    ) {
+      const sameName = await findCourseByName(name, id)
+      if (sameName) {
+        return NextResponse.json(
+          { error: `A course with this name already exists (${sameName.code})` },
+          { status: 409 }
+        )
       }
     }
 
@@ -66,7 +85,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       where: { id },
       data: {
         ...(name && { name: name.trim() }),
-        ...(code && { code: code.trim().toUpperCase() }),
+        ...(courseCode && { code: courseCode }),
         ...(group !== undefined && { group })
       }
     })

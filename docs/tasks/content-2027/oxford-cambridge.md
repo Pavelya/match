@@ -62,11 +62,12 @@ requirement is critical unless marked `(nc)`. `none` means checked, no subject r
 Two named groups stand for long OR groups, entered as one OR group each:
 
 - `{Modern language}` — `FRA-B`, `GER-B`, `ITA-B`, `POR-B`, `RUS-B`, `SPA-B`, `FRA-LIT`,
-  `FRA-LIT-A`, `FRA-LL`, `GER-LIT`, `GER-LIT-A`, `GER-LL`, `SPA-LIT`, `SPA-LIT-A`, `SPA-LL`
-- `{Modern or classical language}` — all of the above plus `LAT`, `LATIN`, `GREEK`, `GRK`
+  `FRA-LL`, `GER-LIT`, `GER-LL`, `SPA-LIT`, `SPA-LL`
+- `{Modern or classical language}` — all of the above plus `LAT` and `GRK`
 
-The duplicate codes (`LAT` and `LATIN`, `FRA-LIT` and `FRA-LIT-A`) are both listed because
-students are split between them; see [Found along the way](#found-along-the-way).
+Until task 3.5 these groups also listed the duplicate codes `FRA-LIT-A`, `GER-LIT-A`, `SPA-LIT-A`,
+`LATIN` and `GREEK`, because students were split between them. 3.5 merged each into the code
+above; see [Found along the way](#found-along-the-way).
 
 ## Oxford: sources and what is still open
 
@@ -331,13 +332,13 @@ All checked 24 September 2026. Cambridge rows link their own course pages.
 
 ## Found along the way
 
-Not changed here. The first is now task 3.5; the others are candidates for their own tasks.
+Not changed here. The first was fixed in task 3.5; the others are candidates for their own tasks.
 
 - **Duplicate IB course codes split students.** `GEO`/`GEOG` (6 and 8 students), `DES-TECH`/
   `DESIGN-TECH` (3 and 3), `LAT`/`LATIN`, `GREEK`/`GRK` and the `*-LIT`/`*-LIT-A` pairs are the
   same subjects under two codes. A requirement on one code does not match students who picked
-  the other: 55 requirements use `GEOG`, so the 6 students on `GEO` miss them. Now task 3.5 in
-  `CONTENT_tasks.md`, which also removes the retired codes from the groups above.
+  the other: 55 requirements use `GEOG`, so the 6 students on `GEO` miss them. Merged in task 3.5
+  (`scripts/merge-ib-courses.ts`), which also removed the retired codes from the groups above.
 - **The Cambridge entry pattern may recur.** Cambridge was entered on 10–11 February 2026 with the
   top of the points range and recommended subjects stored as requirements. Other programs entered
   in February may share both habits; phase 4 should look for them.

@@ -18,6 +18,7 @@ import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
 import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
 import { parseEntryYear, requirementsStamp } from '@/lib/programs/entry-year'
+import { canonicalDegreeType } from '@/lib/programs/degree-types'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -96,6 +97,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       where: { id },
       select: {
         universityId: true,
+        degreeType: true,
         minIBPoints: true,
         requirementsEntryYear: true,
         courseRequirements: {
@@ -191,7 +193,18 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       if (typeof degreeType !== 'string' || degreeType.trim().length === 0) {
         return NextResponse.json({ error: 'Invalid degree type' }, { status: 400 })
       }
-      updateData.degreeType = degreeType.trim()
+      // A spelling from before the fixed list may be saved back unchanged; phase 4
+      // normalises those. Anything new must be in the list, and is stored as it spells it.
+      if (degreeType.trim() !== existingProgram.degreeType) {
+        const canonicalDegree = canonicalDegreeType(degreeType)
+        if (!canonicalDegree) {
+          return NextResponse.json(
+            { error: `"${degreeType.trim()}" is not in the degree type list` },
+            { status: 400 }
+          )
+        }
+        updateData.degreeType = canonicalDegree
+      }
     }
 
     if (duration !== undefined) {

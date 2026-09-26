@@ -85,9 +85,12 @@ describe('diffProgram', () => {
   })
 
   it('shows empty points and no subjects in words', () => {
-    const current = program({ minIBPoints: null, requirements: [row('GEO', 7)] })
+    const current = program({ minIBPoints: null, requirements: [row('GEOG', 7)] })
     const target = program({ minIBPoints: 41, requirements: [] })
-    expect(diffProgram(current, target)).toEqual(['Points: empty → 41', 'Subjects: GEO HL7 → none'])
+    expect(diffProgram(current, target)).toEqual([
+      'Points: empty → 41',
+      'Subjects: GEOG HL7 → none'
+    ])
   })
 })
 

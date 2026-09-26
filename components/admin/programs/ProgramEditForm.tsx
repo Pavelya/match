@@ -31,6 +31,7 @@ import {
   CalendarCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { DEGREE_TYPE_GROUPS, canonicalDegreeType, isDegreeType } from '@/lib/programs/degree-types'
 
 interface University {
   id: string
@@ -87,8 +88,6 @@ interface ProgramEditFormProps {
   ibCourses: IBCourse[]
 }
 
-const DEGREE_TYPES = ['Bachelor', 'Master', 'PhD', 'Diploma', 'Certificate']
-
 const GROUP_NAMES: Record<number, string> = {
   1: 'Group 1: Studies in Language and Literature',
   2: 'Group 2: Language Acquisition',
@@ -142,6 +141,11 @@ export function ProgramEditForm({
   )
 
   const orGroups = [...new Set(requirements.map((r) => r.orGroupId).filter(Boolean))] as string[]
+
+  // A spelling from before the fixed list stays selectable until phase 4 normalises it, so
+  // saving another field does not change it behind the admin's back.
+  const storedDegreeType = isDegreeType(program.degreeType) ? null : program.degreeType
+  const suggestedDegreeType = storedDegreeType ? canonicalDegreeType(storedDegreeType) : null
 
   const coursesByGroup = ibCourses.reduce(
     (acc, course) => {
@@ -383,12 +387,38 @@ export function ProgramEditForm({
               className="w-full px-4 py-2.5 border rounded-lg bg-background"
               required
             >
-              {DEGREE_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
+              {storedDegreeType && (
+                <option value={storedDegreeType}>{storedDegreeType} (as stored)</option>
+              )}
+              {DEGREE_TYPE_GROUPS.map((group) => (
+                <optgroup key={group.level} label={group.label}>
+                  {group.types.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
+            {storedDegreeType && formData.degreeType === storedDegreeType && (
+              <p className="text-xs text-muted-foreground mt-1">
+                Stored before the fixed list.
+                {suggestedDegreeType && (
+                  <>
+                    {' '}
+                    The list spells it{' '}
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, degreeType: suggestedDegreeType })}
+                      className="underline hover:text-primary"
+                    >
+                      {suggestedDegreeType}
+                    </button>
+                    .
+                  </>
+                )}
+              </p>
+            )}
           </div>
 
           <div>

@@ -14,6 +14,7 @@ import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { parseEntryYear } from '@/lib/programs/entry-year'
+import { canonicalDegreeType } from '@/lib/programs/degree-types'
 
 export async function POST(request: Request) {
   try {
@@ -69,6 +70,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Degree type is required' }, { status: 400 })
     }
 
+    // Stored in its canonical spelling; see lib/programs/degree-types.ts
+    const canonicalDegree = canonicalDegreeType(degreeType)
+    if (!canonicalDegree) {
+      return NextResponse.json(
+        { error: `"${degreeType.trim()}" is not in the degree type list` },
+        { status: 400 }
+      )
+    }
+
     if (!duration || typeof duration !== 'string' || duration.trim().length === 0) {
       return NextResponse.json({ error: 'Duration is required' }, { status: 400 })
     }
@@ -118,7 +128,7 @@ export async function POST(request: Request) {
         description: description.trim(),
         universityId,
         fieldOfStudyId,
-        degreeType: degreeType.trim(),
+        degreeType: canonicalDegree,
         duration: duration.trim(),
         minIBPoints: minIBPoints ? parseInt(minIBPoints, 10) : null,
         programUrl: programUrl?.trim() || null,

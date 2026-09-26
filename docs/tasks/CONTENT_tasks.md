@@ -26,7 +26,7 @@ here, and this refresh does more production writes than any work before it.
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
-| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
+| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
@@ -71,10 +71,10 @@ Phase 2 — Country pages for the 2027 intake
 Phase 3 — Refresh groundwork
 
 - [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
-- [ ] 3.2 Canonical degree types
+- [x] 3.2 Canonical degree types
 - [ ] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
-- [ ] 3.5 Merge duplicate IB course codes (do before 3.3)
+- [x] 3.5 Merge duplicate IB course codes (do before 3.3)
 
 Phase 4 — Program refresh for 2027 entry
 
@@ -112,7 +112,7 @@ Owner tasks — not AI work
   Classics as a spot check (1.2; details in the handoff file). A passing spot check moves 41 Oxford
   programs from 2026 to 2027 (3.1)
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
-- [ ] Approve the canonical degree list (3.2)
+- [x] Approve the canonical degree list (3.2) — 26 September 2026
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
 
@@ -926,6 +926,45 @@ values (a Vitest test can assert that from a fixture of the list).
 
 **Session size:** Small.
 
+#### Status, 26 September 2026 — done (session 9)
+
+- **The list.** `lib/programs/degree-types.ts`, approved by the owner. The 156 spellings stored
+  today map onto 86 degree names in three groups: 66 bachelor's, 15 master's entered from school
+  (UK integrated masters and single-cycle degrees), and 5 double or combined degrees. The rules:
+  - One spelling per award: "BSc", "BSc (Hons)" and "Bachelor of Science (B.Sc.)" all become
+    "Bachelor of Science".
+  - Honours and the subject are not part of the degree name; the program name carries them.
+  - All UK medicine awards become "Bachelor of Medicine and Bachelor of Surgery".
+  - Edinburgh's "MA (Hons)" is "Master of Arts (Scottish undergraduate)", counted as a bachelor's.
+  - UK integrated masters keep their own names.
+  - "Bachelor" and "Master" alone mean the award is not recorded.
+  - PhD, Diploma and Certificate are gone: nothing used them.
+
+  A new award goes into the module with the owner's approval.
+- **Two stored values are probably wrong**, and the mapping names what they should be. Phase 4
+  must check both against the source:
+  - UCD's "Master of Veterinary Medicine" becomes "Bachelor of Veterinary Medicine" (the MVB is a
+    bachelor's).
+  - Bologna's "Combined Bachelor and Master" becomes "Single-Cycle Master's Degree".
+
+  A mapping by value cannot fix a wrong value on one program either. KU Leuven's "Bachelor of
+  European Studies" is stored as "Master", and LSE and Cambridge BAs as plain "Bachelor". Phase 4
+  sets each program's real award.
+- **Enforced.** Both admin forms offer only the list, grouped by level. The edit form keeps a
+  program's old spelling as an "(as stored)" option and offers the list's spelling with one click,
+  so editing another field never changes it silently. The create, edit and bulk APIs store the
+  canonical spelling and refuse anything outside the list. The edit API accepts an old spelling
+  only when it is sent back unchanged. The CSV parser accepts known spellings and normalises them.
+  The admin programs page counts by level: 1,173 bachelor's, 75 master's and 34 double or combined,
+  instead of "Other Degrees".
+- **Not rewritten.** 930 programs already use a canonical name. The other 352 keep their spelling
+  until phase 4 normalises each university, as the task says. The refresh tool (3.3) should call
+  `canonicalDegreeType` for every program it writes.
+- **Verified.** `degree-types.test.ts` holds all 156 stored values as a fixture and asserts each
+  maps; the PATCH route test covers an unchanged old spelling, a normalised new one and a refused
+  value. Type check, lint, Prettier, both test suites and the build pass. The admin forms were not
+  opened in a browser: they need a platform-admin login.
+
 ---
 
 ### 3.3 — Refresh tool and link checker
@@ -1116,6 +1155,51 @@ retired option that duplicates a kept one in the same OR group is safe: it means
 thing.
 
 **Session size:** Small.
+
+#### Status, 26 September 2026 — done (session 9)
+
+- **Counts, re-run.** 62 courses, the same seven pairs. They moved since the table above was
+  written, because the 1.2 data went in after it. Geography: `GEOG` 8 students and 54
+  requirement rows, `GEO` 6 and 9. The three Language A pairs and Latin and Greek now sit together
+  in the Oxford and Cambridge language groups (16 identical pairs). One student has Geography
+  under both codes (`GEO HL4`, `GEOG SL6`).
+- **`scripts/merge-ib-courses.ts`**, planning in `scripts/lib/course-merge.ts` (Vitest-covered).
+  Dry run: 12 student rows repointed; 11 requirement rows repointed (Trinity, Católica, Lund);
+  16 requirement rows deleted as exact duplicates of a kept row in the same OR group. The one
+  student collision is left alone until the owner records a choice in `STUDENT_CHOICES`. A
+  retired row that differs from the kept one in any way is repointed, never deleted. `--apply`
+  backs up every touched row to `scripts/backups/` (git-ignored: student grades), writes one
+  transaction per pair, and rolls a pair back if a count differs from the plan. It then syncs
+  the changed programs to Algolia and clears the programs and match caches. `--restore` puts
+  the rows back while the retired courses still exist.
+- **Duplicates refused.** The admin course POST and PATCH return 409 for a name another course
+  has, ignoring case and spaces. PATCH checks only a changed name, so the kept courses stay
+  editable while their duplicates exist. Both routes now check the code as it is stored,
+  trimmed and upper-cased: the POST compared the raw code, so `geog` passed the check and then
+  failed on the unique index with a 500. Tests sit next to both routes.
+- **`IBCourse.name` is `@unique`.** Migration `20260926120000_unique_ib_course_name`. It fails while
+  a duplicate name exists, so it went in after the merge and the deletions.
+- **1.2 files.** The retired codes are gone from both data files and from the handoff file's named
+  groups. The apply script finds no unknown codes. Until the merge runs, it lists the four
+  language programs as changed, because production still has both codes. It must not be applied
+  in that state; after the merge it reports them up to date.
+- **Applied, 26 September 2026**, after the owner approved the dry run. For the collision, the
+  owner kept `GEOG SL6`, recorded in `STUDENT_CHOICES`; the `GEO HL4` row is deleted. All seven
+  pairs were written, and no student or requirement row points at a retired code. The backup is
+  `scripts/backups/merge-ib-courses/2026-09-26T12-06-38-008Z.json` (14 student rows, 27
+  requirement rows). 14 programs were synced to Algolia, and the programs and match caches were
+  cleared. Kept codes now: `GEOG` 13 students and 63 requirement rows; `DES-TECH` 7 and 7 (one
+  student added it between the count and the run); `GRK` 1 and 3; `LAT` 0 and 3; each `*-LIT` 2
+  and 4. A second dry run finds nothing to do. The 1.2 apply script reports 74 up to date and 2
+  held.
+- **Retired courses deleted** by the owner on `/admin/reference-data`. The page refused the first
+  Latin row tried, because it was `LAT`, the kept code: both rows were named "Latin". Then
+  `prisma migrate deploy` applied the unique index.
+- **Verified.** The duplicate-name query returns no rows, and `IBCourse` has 55 rows. No retired
+  code is left, so nothing can point at one. `migrate status` is up to date, and
+  `migrate diff` against production is empty. The 409 for a second "Geography" is covered by the
+  route tests and goes live when this deploys; until then the unique index refuses an exact
+  duplicate at the database.
 
 ---
 
