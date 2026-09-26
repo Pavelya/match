@@ -25,7 +25,7 @@ here, and this refresh does more production writes than any work before it.
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
-| 8 | Entry year on every program | 3.1 | medium | **Built and migrated** 26 September 2026; the backfill waits on the owner's approval |
+| 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | The refresh tool validates against both |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
@@ -70,8 +70,7 @@ Phase 2 — Country pages for the 2027 intake
 
 Phase 3 — Refresh groundwork
 
-- [ ] 3.1 Record the entry year a program was checked for — built and migrated; backfill waits on
-  the owner
+- [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
 - [ ] 3.2 Canonical degree types
 - [ ] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
@@ -112,7 +111,7 @@ Owner tasks — not AI work
 - [ ] Read the IB line on four Oxford course pages: the two held rows, plus Computer Science and
   Classics as a spot check (1.2; details in the handoff file). A passing spot check moves 41 Oxford
   programs from 2026 to 2027 (3.1)
-- [ ] Approve the entry-year backfill (3.1)
+- [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [ ] Approve the canonical degree list (3.2)
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
@@ -855,7 +854,7 @@ matches the backfill; an admin edit stamps the fields; the program page shows th
 
 **Session size:** Medium.
 
-#### Status, 26 September 2026 — built and migrated; the backfill waits on the owner (session 8)
+#### Status, 26 September 2026 — done (session 8)
 
 - **Column.** `AcademicProgram.requirementsEntryYear Int?`, migration
   `20260926000000_add_requirements_entry_year`, applied to production with `migrate deploy` on
@@ -878,7 +877,8 @@ matches the backfill; an admin edit stamps the fields; the program page shows th
   `programUrl`. "Current" is the intake applicants are applying for: next year's from 1 September,
   when this year's has enrolled. So 2027 data turns "older" on 1 September 2027 with no constant to
   bump. All three states were checked on a local dev server.
-- **Backfill: dry run done, not applied.** `scripts/programs/backfill-entry-year.ts`:
+- **Backfill, applied 26 September 2026** with the owner's approval.
+  `scripts/programs/backfill-entry-year.ts --apply` wrote 838 programs:
   - **2027:** 35 programs. All 30 at Cambridge, and the 5 Oxford rows whose source names 2027.
   - **2026:** 803 programs. The 762 other programs verified January–February 2026, the 39 Oxford
     rows whose source names no year (as the handoff file asks), and the two held Oxford rows, which
@@ -886,13 +886,14 @@ matches the backfill; an admin edit stamps the fields; the program page shows th
   - **Left empty:** 444 programs never verified.
 
   Every verified program fits a rule. The script writes only empty values, and uses raw SQL, so
-  `updatedAt`, which the sitemap reports, does not move. Run
-  `npx tsx scripts/programs/backfill-entry-year.ts --apply` once the owner approves, then tick 3.1.
+  `updatedAt`, which the sitemap reports, does not move. After the run, `count(*) GROUP BY` gives
+  2027: 35, 2026: 803, empty: 444. Every program with a year is verified and every empty one is not.
+  No program's `updatedAt` changed. A second dry run finds nothing to write.
 - **The 1.2 script stamps the year too.** `apply-2027-requirements.ts` writes and backs up
   `requirementsEntryYear`: the row's `sourceYear`, else the data file's new `undatedEntryYear`
   (2026 for Oxford). When the owner's Oxford spot check passes, set that to 2027 and re-run it; the
-  handoff file says so. Its dry run shows the 74 written rows as stamp-only until the backfill runs,
-  then as up to date.
+  handoff file says so. After the backfill its dry run reports the 74 written rows as already up to
+  date and the 2 held rows as held.
 - **Not done, needs a decision (step 5):** `calculateConfidence` still receives no database values
   (`lib/matching/cache.ts:383` and `:434`; `program-cache.ts` does not select them). Wiring it in
   changes matching output. The entry year is now a better input than a boolean and a one-year age.
