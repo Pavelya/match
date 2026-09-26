@@ -56,7 +56,10 @@ const PAIRS = [
  * The owner's choice for each student who has both courses of a pair: the code of the row
  * whose level and grade survive. Keyed by kept code, then studentProfileId.
  */
-const STUDENT_CHOICES: Record<string, Record<string, string>> = {}
+const STUDENT_CHOICES: Record<string, Record<string, string>> = {
+  // Owner, 26 September 2026: the student takes Geography at SL, grade 6; GEO HL4 goes.
+  GEOG: { cmslxsmnm0004l204ivh0zqg4: 'GEOG' }
+}
 
 const BACKUP_DIR = path.join(__dirname, 'backups', 'merge-ib-courses')
 

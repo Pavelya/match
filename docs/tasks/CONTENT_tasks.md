@@ -1117,7 +1117,7 @@ thing.
 
 **Session size:** Small.
 
-#### Status, 26 September 2026 — built; the merge waits on the owner (session 9)
+#### Status, 26 September 2026 — merged; deletions and the migration to go (session 9)
 
 - **Counts, re-run.** 62 courses, the same seven pairs. They moved since the table above was
   written, because the 1.2 data went in after it. Geography: `GEOG` 8 students and 54
@@ -1144,9 +1144,17 @@ thing.
   groups. The apply script finds no unknown codes. Until the merge runs, it lists the four
   language programs as changed, because production still has both codes. It must not be applied
   in that state; after the merge it reports them up to date.
-- **Remaining, in order:** the owner approves the dry run and chooses the student's row; `--apply`;
-  the owner deletes `GEO`, `DESIGN-TECH`, `GREEK`, `LATIN`, `FRA-LIT-A`, `GER-LIT-A` and `SPA-LIT-A`
-  on `/admin/reference-data`; `prisma migrate deploy`; then Verify.
+- **Applied, 26 September 2026**, after the owner approved the dry run. For the collision, the
+  owner kept `GEOG SL6`, recorded in `STUDENT_CHOICES`; the `GEO HL4` row is deleted. All seven
+  pairs were written, and no student or requirement row points at a retired code. The backup is
+  `scripts/backups/merge-ib-courses/2026-09-26T12-06-38-008Z.json` (14 student rows, 27
+  requirement rows). 14 programs were synced to Algolia, and the programs and match caches were
+  cleared. Kept codes now: `GEOG` 13 students and 63 requirement rows; `DES-TECH` 7 and 7 (one
+  student added it between the count and the run); `GRK` 1 and 3; `LAT` 0 and 3; each `*-LIT` 2
+  and 4. A second dry run finds nothing to do. The 1.2 apply script reports 74 up to date and 2
+  held.
+- **Remaining, in order:** the owner deletes `GEO`, `DESIGN-TECH`, `GREEK`, `LATIN`, `FRA-LIT-A`,
+  `GER-LIT-A` and `SPA-LIT-A` on `/admin/reference-data`; `prisma migrate deploy`; then Verify.
 
 ---
 
