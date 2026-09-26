@@ -17,7 +17,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 export const revalidate = 604800 // 7 days
 
 export const metadata = {
-  title: 'IB Diploma Admission Rules by Country (2026) | IB Match',
+  title: 'IB Diploma Admission Rules by Country (2027)',
   description:
     'Find how universities around the world evaluate the IB Diploma. Country-by-country guides to recognition, grade conversion, application systems, and entry requirements.',
   keywords: [
@@ -29,11 +29,11 @@ export const metadata = {
     'IB points university',
     'IB admission requirements by country',
     'HL SL requirements university',
-    'IB 2026 requirements',
+    'IB 2027 requirements',
     'IB grade conversion by country'
   ],
   openGraph: {
-    title: 'IB Diploma Admission Rules by Country (2026)',
+    title: 'IB Diploma Admission Rules by Country (2027)',
     description:
       'Country-by-country catalog of IB Diploma recognition, grade conversion, and university admission rules, with IB requirements for 1,000+ programs.',
     type: 'website',
@@ -42,7 +42,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'IB Diploma Admission Rules by Country (2026)',
+    title: 'IB Diploma Admission Rules by Country (2027)',
     description:
       'Find how universities worldwide evaluate the IB Diploma — country-by-country guides.'
   },
@@ -59,15 +59,15 @@ export const metadata = {
 const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   AU: {
     slug: 'australia',
-    summary: 'ATAR conversion · UAC/VTAC/QTAC application systems'
+    summary: 'ATAR-equivalent conversion · UAC and VTAC application systems'
   },
   AT: {
     slug: 'austria',
-    summary: 'Full recognition · Direct university application'
+    summary: 'University entrance qualification if criteria are met · Direct university application'
   },
   BE: {
     slug: 'belgium',
-    summary: 'Community-based system · Flemish & French recognition'
+    summary: 'No equivalence needed in either Community · Entrance exams for Medicine and Dentistry'
   },
   CA: {
     slug: 'canada',
@@ -83,15 +83,15 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   },
   EE: {
     slug: 'estonia',
-    summary: 'Full recognition · Apply via DreamApply or direct'
+    summary: 'Accepted without Estonian state exams · Apply via DreamApply'
   },
   DE: {
     slug: 'germany',
-    summary: 'Allgemeine Hochschulreife equivalent · uni-assist or direct'
+    summary: 'KMK subject rules for direct access · KMK grade conversion · uni-assist or direct'
   },
   HK: {
     slug: 'hong-kong',
-    summary: 'JUPAS/Non-JUPAS pathways · IB widely accepted'
+    summary: 'Non-JUPAS direct application · IB widely accepted'
   },
   IL: {
     slug: 'israel',
@@ -117,15 +117,16 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   },
   PT: {
     slug: 'portugal',
-    summary: 'DGE equivalency · Concurso Especial · Binary system (universities + polytechnics)'
+    summary:
+      'Concurso Especial for international students · Equivalence only for the national competition'
   },
   IT: {
     slug: 'italy',
-    summary: 'Dichiarazione di valore · Universitaly portal'
+    summary: 'CIMEA attestation and verification · Universitaly pre-enrolment for visa applicants'
   },
   ES: {
     slug: 'spain',
-    summary: 'Full recognition · UNED accreditation for grade conversion'
+    summary: 'No access exam for IB holders · UNEDasiss accreditation · 5–14 admission grade'
   },
   SE: {
     slug: 'sweden',
@@ -133,11 +134,11 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   },
   CH: {
     slug: 'switzerland',
-    summary: 'Full recognition · Swissuniversities guidelines'
+    summary: 'University-specific IB rules · Published by swissuniversities'
   },
   GB: {
     slug: 'uk',
-    summary: 'UCAS Tariff points · Conditional offers based on IB total'
+    summary: 'UCAS application · No national conversion; each university sets its IB offer'
   },
   US: {
     slug: 'usa',
@@ -145,7 +146,7 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
   },
   SG: {
     slug: 'singapore',
-    summary: 'Decentralized admission · Highly competitive · IB results required'
+    summary: 'Decentralized admission · Highly competitive · Offers after final IB results'
   }
 }
 
@@ -307,53 +308,51 @@ export default async function IBUniversityRequirementsPage() {
       }))
   }
 
+  const minPoints = stats._min.minIBPoints || 24
+  const maxPoints = stats._max.minIBPoints || 45
+
+  // One list feeds both the visible FAQ and the FAQPage JSON-LD, so they cannot drift.
+  // Country facts follow the country pages as refreshed for the 2027 intake.
+  const faqs = [
+    {
+      question: 'Which countries accept the IB Diploma for university admission?',
+      // IB figure, checked 25 September 2026:
+      // https://ibo.org/university-admission/find-countries-and-universities-that-recognize-the-ib/
+      answer:
+        'Universities in more than 110 countries and territories admit IB Diploma students — each year, over 4,500 of them receive IB transcripts, according to the IB. Each country has its own process for evaluating IB results: some convert them to a local scale (CAO points in Ireland, an ATAR equivalent in Australia), while others, like universities in the UK, set their own IB requirements for each course. Use the country guides above to find the rules for your target country.'
+    },
+    {
+      question: 'How do universities convert IB scores to local grading systems?',
+      answer:
+        'Conversion methods vary by country. Ireland converts IB scores to CAO points, Australia to an ATAR equivalent, Sweden to a merit rating, Germany to a German grade with the KMK formula, and Spain to an admission grade on a 5–14 scale. The UK has no national conversion: each university sets its own IB requirements. Our country guides explain each system with official sources.'
+    },
+    {
+      question: 'What IB points do I need for university?',
+      answer: `Minimum requirements in our database range from ${minPoints} to ${maxPoints} points, depending on the program, institution, and country. Competitive programs at top universities often ask for 38 or more, while less selective programs may accept 24–30. Many programs also require specific subjects at Higher Level (HL) with minimum grades.`
+    },
+    {
+      question: 'Do I need specific Higher Level (HL) subjects?',
+      answer:
+        'Many universities require specific subjects at HL with minimum grades. For example, Engineering programs often require Math HL (grade 5–6+), Medicine typically requires Chemistry HL and Biology HL, and Economics programs prefer Math HL. Some countries also set rules for every IB applicant: in Germany, one of your HL subjects must be a language, mathematics or a natural science. Requirements vary by country and institution — check our country guides for details.'
+    },
+    {
+      question: 'Do I need to take entrance exams as an IB student?',
+      answer:
+        'It depends on the country and the program. In most countries the IB Diploma is enough to apply, and Spain exempts IB holders from its university access exam. Competitive programs often add a test: admissions tests for some UK courses, HPAT-Ireland for Medicine in Ireland, the MedAT for Medicine and Dentistry in Austria, entrance exams for Medicine and Dentistry in Belgium, and the IMAT for English-taught Medicine in Italy. Most Israeli universities also use the Psychometric Entrance Test (PET), and HKU interviews shortlisted applicants.'
+    }
+  ]
+
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'Which countries accept the IB Diploma for university admission?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          // IB figure, checked 25 September 2026:
-          // https://ibo.org/university-admission/find-countries-and-universities-that-recognize-the-ib/
-          text: 'Universities in more than 110 countries and territories admit IB Diploma students — each year, over 4,500 of them receive IB transcripts, according to the IB. They include the United Kingdom, United States, Canada, Australia, Germany, Switzerland, and many more. Each country has its own process for evaluating IB scores — some convert them to local equivalents, while others accept IB points directly.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How do universities convert IB scores to local grading systems?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Conversion methods vary by country. For example, the UK uses UCAS Tariff points, Ireland converts IB scores to CAO points, Sweden maps them to the Swedish grade scale, and Australia converts to an ATAR. Our country guides explain each conversion system in detail with official sources.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What IB points do I need for university?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: `University IB requirements range from ${stats._min.minIBPoints || 24} to ${stats._max.minIBPoints || 45} points depending on the program, institution, and country. Competitive programs at top universities typically require 38–45 points, while less selective programs may accept 24–30 points.`
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Do I need specific HL subjects for university admission?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Many universities require specific subjects at Higher Level (HL) with minimum grades. For example, Engineering programs often require Math HL, Medicine typically requires Chemistry HL and Biology HL, and Economics programs prefer Math HL. Requirements vary by country and institution.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Do I need to take entrance exams as an IB student?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'This depends on the country and program. In many European countries (UK, Germany, Sweden), no entrance exams are required. However, some countries have specific tests — for example, Ireland requires HPAT for Medicine, Spain requires the PCE exam through UNED for grade conversion, and Australia may require additional tests for competitive programs.'
-        }
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
       }
-    ]
+    }))
   }
 
   return (
@@ -371,13 +370,14 @@ export default async function IBUniversityRequirementsPage() {
         <RequirementsContent
           stats={{
             totalPrograms: stats._count,
-            minPoints: stats._min.minIBPoints || 24,
-            maxPoints: stats._max.minIBPoints || 45,
+            minPoints,
+            maxPoints,
             avgPoints: stats._avg.minIBPoints ? Math.round(stats._avg.minIBPoints) : 35,
             countriesCount: countryData.length
           }}
           countries={countryData}
           fields={fieldData}
+          faqs={faqs}
         />
       </main>
       <StudentFooter />
