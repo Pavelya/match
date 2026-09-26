@@ -27,7 +27,7 @@ here, and this refresh does more production writes than any work before it.
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
-| 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
+| 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026. Tel Aviv waits on the owner's call on unpublished minimums |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
@@ -72,7 +72,7 @@ Phase 3 — Refresh groundwork
 
 - [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
 - [x] 3.2 Canonical degree types
-- [ ] 3.3 Refresh tool and link checker
+- [x] 3.3 Refresh tool and link checker — Tel Aviv publishes no IB minimum; owner to decide
 - [ ] 3.4 Broken and renamed programs
 - [x] 3.5 Merge duplicate IB course codes (do before 3.3)
 
@@ -114,6 +114,8 @@ Owner tasks — not AI work
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [x] Approve the canonical degree list (3.2) — 26 September 2026
 - [ ] Choose the US model (6) and the German model (7)
+- [ ] Decide what `minIBPoints` holds where a university publishes no IB minimum: Tel Aviv's four
+  programs (3.3), the same question as Georgia Tech (6)
 - [ ] Decide about France (5)
 
 ---
@@ -232,6 +234,10 @@ not precision.
   404s behind a 200.
 - **A 200 can be stale.** Year-pinned URLs keep serving last year's page: Manchester
   `/2026/`, Jönköping `autumn-2026`, Gdańsk `20242025`, HKUST `2020-21`.
+- **Found in 3.3:** `lnu.se` (Linnaeus) and `ut.ee` (Tartu) now answer scripted requests with 403.
+  Tel Aviv's international program pages load each tab from
+  `international.tau.ac.il/ajax/registration/sp_get_main_content/<page id>/<tab>`; the page id is
+  the `page-node-<id>` class in the page's HTML. The Admissions tab is not in the page itself.
 
 ---
 
@@ -1006,6 +1012,86 @@ roughly reproduces the baseline numbers.
 
 **Session size:** Medium.
 
+#### Status, 26 September 2026 — done; Tel Aviv waits on the owner (session 10)
+
+- **Refresh tool.** `scripts/programs/refresh.ts`, with its pure half in
+  `scripts/programs/lib/refresh.ts` (checking and planning) and `refresh-export.ts` (the starter
+  file). How to run it is in the script's header and the [phase 4 loop](#phase-4--program-refresh-for-2027-entry).
+  It follows the design, with these choices:
+  - **`checkedFor` on each program**, not one year per file. It is the intake the sources state
+    and goes into `requirementsEntryYear`. Null, as export writes it, means "not checked in this
+    refresh": the program is not written. Rule 2 needs this, because one university can have
+    some programs published for 2027 and others still on 2026. An edit to an unchecked program
+    is refused rather than written unverified. Programs checked for an earlier intake than the
+    file's are listed for the PR.
+  - **`sources` is a list**, as in the 1.2 files: the university-wide page plus the program page.
+    A checked program needs at least one.
+  - **Mixed OR groups.** 73 stored groups mix levels or grades ("Maths AA SL5 or Maths AI HL5"),
+    which the seed scripts' `{ courses, level, grade }` cannot hold. A requirement can also be
+    `{ anyOf: [{ course, level, grade }, ...] }`. Every one of the 1,282 stored programs'
+    requirements exports and reads back unchanged.
+  - **Degrees.** `degree` is typed as the 3.2 list, so a data file with another spelling fails
+    the type check, and the tool refuses it too. Export writes the canonical spelling of a stored
+    variant and notes the old one above the program. Writing that program normalises the column,
+    as 3.2 asked; an unchecked program is not written, so its old spelling stays.
+  - **Safety.** Export refuses to overwrite a data file without `--force`. The dry run checks every
+    file before printing: course codes against `IBCourse`, fields, degrees, points (24–45), URLs,
+    ids that are missing, repeated or at another university, a new program whose name is taken, a
+    rename onto another program's name, stored programs missing from the file. `--apply` backs up
+    every program it will change (`scripts/backups/refresh/`, git-ignored) and `--restore` puts
+    them back; it never deletes, and lists the programs a run created. After writing it syncs
+    Algolia and clears the programs cache and cached matches: requirements changed, so cached
+    matches are stale, as in 3.5.
+  - Several files can be dry-run or applied at once. The 1.2 Oxford and Cambridge files have
+    another shape and stay with `apply-2027-requirements.ts`; the tool says so if given one.
+    `RequirementDef` moved into `scripts/programs/lib/requirements-diff.ts`, which both use.
+- **Link checker.** `scripts/check-program-links.ts`, classification in `scripts/lib/link-check.ts`.
+  Beyond the design, it reads the first 64 KB of each 200 for a bot wall (Incapsula, F5 "Request
+  Rejected", Cloudflare), and retries a URL that does not answer once. `--university` and
+  `--country` can repeat. A full run takes about three minutes. On 26 September:
+
+  | | Baseline, 24 September | 26 September |
+  |---|---|---|
+  | Broken | 17 × 404, 1 × 500 | 17 × 404, the same 17 |
+  | No response | 3 | 0 |
+  | Soft 404 | 25 (UCD) | 25 (UCD) |
+  | Redirected | 123 | 87 |
+  | Unverifiable | 130 | 155 |
+  | Year-pinned | not counted | 78: Manchester 68, Jönköping 6, Gdańsk 3, HKUST 1 |
+
+  The differences are real. LSE's two programs and HKUST's BBA answer again, and Gdańsk's page
+  returns 200: the last two are reported as year-pinned (2020, 2024), so **3.4 still has to
+  replace them**. Unverifiable adds NUS's 13 URLs, which return 200 with an Incapsula page that
+  the baseline counted as working, and Linnaeus (10) and Tartu (2), which now return 403.
+  Linnaeus's 10 were among the baseline's redirects; the rest of that gap is redirects that
+  change only the scheme, `www` or a trailing slash, which the checker does not report.
+- **Verify.**
+  - **Export and dry run of Tel Aviv University: zero diffs.** Four programs, all "not checked".
+  - **The no-op apply was not run in production**, because it would have written an untrue stamp.
+    Tel Aviv publishes no IB points minimum for any of its four programs. Management and Liberal Arts
+    asks for a 3.0 GPA and maths at AP Calculus AB level; Liberal Arts asks for an 80 average and
+    takes the IB only for credit; the BMus is by audition. The stored 28, 24, 32 and 24 points have
+    no official source. The pages also describe fall 2026/27, not 2027. Stamping the programs as
+    checked would claim a source that does not exist. The findings and sources are in
+    `scripts/programs/2027/tel-aviv-university.ts`, with every program left unchecked. What
+    `minIBPoints` should hold where no minimum is published is the question phase 6 asks about
+    Georgia Tech, so it is an owner decision, listed under owner tasks.
+  - **Instead, `--apply` and `--restore` ran end to end on a local Postgres** built with
+    `prisma migrate deploy` and `prisma/seed.ts`, with Algolia and Redis pointed at dead addresses
+    so nothing reached production. A test university went through every path: a stamp-only write
+    with a degree normalised; a change to points, URL and subjects, including a mixed OR group; a
+    discontinued program (reported, not written); a new program (created with its requirements); an
+    unchecked program (untouched; editing it was refused). A second dry run found everything up to
+    date and refused to create the new program twice. `--restore` put both programs back exactly,
+    stamps and the old "BSc" spelling included, and left the created program in place. The failed
+    Algolia sync was reported with the command to fix it.
+  - `npx tsx scripts/programs/apply-2027-requirements.ts` still dry-runs to 74 up to date and 2 held.
+  - Vitest covers planning, export (rendered, compiled and evaluated back to the same file) and link
+    classification. Type check, lint, Prettier, both test suites and the build pass.
+- **First production use is 3.4.** Its Verify ("0 broken for every program above") already
+  passes for LSE, HKUST and Gdańsk, but only because those pages answer again. HKUST's and
+  Gdańsk's are year-pinned (2020–21 and 2024/25) and still need replacing.
+
 ---
 
 ### 3.4 — Broken and renamed programs
@@ -1207,14 +1293,22 @@ thing.
 
 **Every session follows the same loop:**
 
-1. `--export` each university in the batch.
+1. `npx tsx scripts/programs/refresh.ts --export "<university>"` for each university in the
+   batch. It writes `scripts/programs/2027/<university-slug>.ts` with every program unchecked.
 2. Research 2027 requirements per the [research rules](#research-rules): the
    university-wide IB page first, then program pages.
-3. Edit the data files: requirements, `source`, `notes`; normalise degree types (3.2);
-   update URLs, including harmless redirects and year-pinned paths.
-4. Programs with no subject requirements: confirm "none" explicitly in `notes`.
-5. Dry-run. **The owner reviews the diff.** Then `--apply`.
-6. Run the link checker for the batch.
+3. Edit the data files: requirements, `sources`, `notes`, and `checkedFor`, the intake the
+   sources state (2026 when they name none, rule 2). Export already wrote each degree type's
+   canonical spelling (3.2); correct it where the award is wrong. Update URLs, including
+   harmless redirects and year-pinned paths. Mark gone programs `discontinued`; add new ones
+   with status `new` and no id.
+4. Programs with no subject requirements: confirm "none" explicitly in `notes`. The tool
+   refuses a checked program with no requirements and no note.
+5. Dry-run: `npx tsx scripts/programs/refresh.ts <slug> [<slug> ...]`. **The owner reviews
+   the diff.** Then add `--apply`. It prints the ids of created programs: set each in the
+   file with status `current`, or the next dry run refuses the duplicate.
+6. Run the link checker for the batch:
+   `npx tsx scripts/check-program-links.ts --university "<university>"`.
 7. PR: the data files, plus a summary of what changed (points up or down, subjects
    changed, renamed, discontinued) and what could not be confirmed for 2027.
 
