@@ -13,6 +13,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
+import { parseEntryYear } from '@/lib/programs/entry-year'
 
 export async function POST(request: Request) {
   try {
@@ -43,7 +44,8 @@ export async function POST(request: Request) {
       duration,
       minIBPoints,
       programUrl,
-      courseRequirements
+      courseRequirements,
+      requirementsEntryYear
     } = body
 
     // Validate required fields
@@ -69,6 +71,11 @@ export async function POST(request: Request) {
 
     if (!duration || typeof duration !== 'string' || duration.trim().length === 0) {
       return NextResponse.json({ error: 'Duration is required' }, { status: 400 })
+    }
+
+    const entryYear = parseEntryYear(requirementsEntryYear ?? null)
+    if ('error' in entryYear) {
+      return NextResponse.json({ error: entryYear.error }, { status: 400 })
     }
 
     // Verify university exists
@@ -115,6 +122,10 @@ export async function POST(request: Request) {
         duration: duration.trim(),
         minIBPoints: minIBPoints ? parseInt(minIBPoints, 10) : null,
         programUrl: programUrl?.trim() || null,
+        // Entered now; checked for an intake only if the form says which
+        requirementsUpdatedAt: new Date(),
+        requirementsEntryYear: entryYear.year,
+        requirementsVerified: entryYear.year !== null,
         courseRequirements: courseRequirements?.length
           ? {
               create: courseRequirements.map(

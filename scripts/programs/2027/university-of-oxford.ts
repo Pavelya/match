@@ -9,6 +9,9 @@ import type { UniversityUpdate } from './types'
 const update: UniversityUpdate = {
   university: 'University of Oxford',
   entryYear: 2027,
+  // Most rows come from department pages that name no year. They count as 2026 until the
+  // owner's spot check of two course pages (see the handoff file) confirms them; then 2027.
+  undatedEntryYear: 2026,
   checkedOn: '2026-09-24',
   programs: [
     {

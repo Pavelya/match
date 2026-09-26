@@ -6,8 +6,9 @@
  *
  * With --apply it first saves a backup of every program it will write, then writes one
  * transaction per program: points, name and URL, the subject requirements (replaced as a
- * set, as the admin form does), and the stamps `requirementsVerified = true` and
- * `requirementsUpdatedAt = checkedOn`. It finishes by syncing the written programs to
+ * set, as the admin form does), and the stamps `requirementsVerified = true`,
+ * `requirementsUpdatedAt = checkedOn` and `requirementsEntryYear` (the year the source
+ * names, else the file's `undatedEntryYear`). It finishes by syncing the written programs to
  * Algolia and invalidating the programs cache, which the standalone Prisma client does not
  * do on its own.
  *
@@ -38,7 +39,7 @@ import {
   type ProgramState,
   type RequirementRow
 } from './lib/requirements-diff'
-import type { UniversityUpdate } from './2027/types'
+import { checkedEntryYear, type UniversityUpdate } from './2027/types'
 import oxford from './2027/university-of-oxford'
 import cambridge from './2027/university-of-cambridge'
 
@@ -52,6 +53,7 @@ const BACKUP_DIR = path.join(__dirname, '2027', 'backups')
 interface Stamps {
   requirementsVerified: boolean
   requirementsUpdatedAt: Date | null
+  requirementsEntryYear: number | null
 }
 
 /** One program's intended state, from a data file or a backup. */
@@ -119,7 +121,11 @@ function targetsFromDataFiles(only: string | null): { targets: Target[]; held: H
           minIBPoints: p.minIBPoints,
           requirements: rowsFromDefs(p.requirements)
         },
-        stamps: { requirementsVerified: true, requirementsUpdatedAt: checkedOn }
+        stamps: {
+          requirementsVerified: true,
+          requirementsUpdatedAt: checkedOn,
+          requirementsEntryYear: checkedEntryYear(file, p)
+        }
       })
     }
   }
@@ -140,7 +146,9 @@ function targetsFromBackup(file: string): Target[] {
     },
     stamps: {
       requirementsVerified: p.requirementsVerified,
-      requirementsUpdatedAt: p.requirementsUpdatedAt ? new Date(p.requirementsUpdatedAt) : null
+      requirementsUpdatedAt: p.requirementsUpdatedAt ? new Date(p.requirementsUpdatedAt) : null,
+      // Backups taken before the column existed have no entry year.
+      requirementsEntryYear: p.requirementsEntryYear ?? null
     }
   }))
 }
@@ -155,6 +163,7 @@ async function loadCurrent(ids: string[]) {
       minIBPoints: true,
       requirementsVerified: true,
       requirementsUpdatedAt: true,
+      requirementsEntryYear: true,
       university: { select: { name: true } },
       courseRequirements: {
         select: {
@@ -188,7 +197,8 @@ async function loadCurrent(ids: string[]) {
           } satisfies ProgramState,
           stamps: {
             requirementsVerified: p.requirementsVerified,
-            requirementsUpdatedAt: p.requirementsUpdatedAt
+            requirementsUpdatedAt: p.requirementsUpdatedAt,
+            requirementsEntryYear: p.requirementsEntryYear
           } satisfies Stamps
         }
       ]
@@ -199,7 +209,8 @@ async function loadCurrent(ids: string[]) {
 function sameStamps(a: Stamps, b: Stamps): boolean {
   return (
     a.requirementsVerified === b.requirementsVerified &&
-    a.requirementsUpdatedAt?.getTime() === b.requirementsUpdatedAt?.getTime()
+    a.requirementsUpdatedAt?.getTime() === b.requirementsUpdatedAt?.getTime() &&
+    a.requirementsEntryYear === b.requirementsEntryYear
   )
 }
 
@@ -280,8 +291,9 @@ async function main() {
   )
   if (!args.restore) {
     console.log(
-      'Every program written also gets requirementsVerified = true and ' +
-        'requirementsUpdatedAt = the date it was checked.'
+      'Every program written also gets requirementsVerified = true, ' +
+        'requirementsUpdatedAt = the date it was checked and ' +
+        "requirementsEntryYear = the year its source names, else the file's undatedEntryYear."
     )
   }
 
@@ -304,7 +316,8 @@ async function main() {
         university: now.university,
         ...now.state,
         requirementsVerified: now.stamps.requirementsVerified,
-        requirementsUpdatedAt: now.stamps.requirementsUpdatedAt?.toISOString() ?? null
+        requirementsUpdatedAt: now.stamps.requirementsUpdatedAt?.toISOString() ?? null,
+        requirementsEntryYear: now.stamps.requirementsEntryYear
       }
     })
   }

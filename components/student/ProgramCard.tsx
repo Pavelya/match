@@ -33,6 +33,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { MatchResult, SubjectMatchDetail } from '@/lib/matching/types'
+import type { RequirementsCheck } from '@/lib/programs/entry-year'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 import { SignUpCTA } from '@/components/student/SignUpCTA'
 
@@ -102,6 +103,8 @@ interface ProgramCardProps {
     description?: string
     programUrl?: string | null
     courseRequirements?: CourseRequirement[]
+    /** Which intake the requirements were checked for; the page computes it. */
+    requirementsCheck?: RequirementsCheck
   }
   matchResult?: MatchResult
   /** Display variant: 'card' for lists, 'detail' for full page */
@@ -120,6 +123,50 @@ interface ProgramCardProps {
   isCoordinatorView?: boolean
   /** Whether the user is logged in (enables sign-up CTA for logged-out users in detail view) */
   isLoggedIn?: boolean
+}
+
+/**
+ * How far to trust the requirements: the intake they were checked for, and a pointer to
+ * the university's own page when that is not the current one.
+ */
+function RequirementsCheckNote({
+  check,
+  programUrl
+}: {
+  check: RequirementsCheck
+  programUrl?: string | null
+}) {
+  if (check.status === 'current') {
+    return (
+      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <Check className="h-3.5 w-3.5 shrink-0 text-primary" />
+        Requirements checked for {check.entryYear} entry
+      </p>
+    )
+  }
+  const site = programUrl ? (
+    <a
+      href={programUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline underline-offset-2 hover:text-primary"
+    >
+      the university&apos;s site
+    </a>
+  ) : (
+    "the university's site"
+  )
+  return (
+    <p className="flex items-start gap-1.5 text-xs text-muted-foreground">
+      <AlertCircle className="mt-px h-3.5 w-3.5 shrink-0 text-amber-600" />
+      <span>
+        {check.status === 'older'
+          ? `Checked for ${check.entryYear} entry`
+          : 'Requirements not yet checked'}{' '}
+        — confirm on {site}
+      </span>
+    </p>
+  )
 }
 
 /**
@@ -595,7 +642,15 @@ export function ProgramCard({
           {/* Academic Requirements - Unified Grid Layout */}
           {(program.minIBPoints || (program.courseRequirements?.length ?? 0) > 0) && (
             <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Academic Requirements</h4>
+              <div className="space-y-1">
+                <h4 className="font-semibold text-sm">Academic Requirements</h4>
+                {program.requirementsCheck && (
+                  <RequirementsCheckNote
+                    check={program.requirementsCheck}
+                    programUrl={program.programUrl}
+                  />
+                )}
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* IB Points Tile */}

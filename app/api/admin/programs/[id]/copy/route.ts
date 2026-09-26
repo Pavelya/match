@@ -7,7 +7,7 @@
  * - Name: "COPY_<original>" (with counter suffix if duplicate exists)
  * - All course requirements duplicated (OR-groups get new UUIDs)
  * - requirementsVerified reset to false
- * - selectivityTier and requirementsUpdatedAt reset to null
+ * - selectivityTier, requirementsUpdatedAt and requirementsEntryYear reset to null
  *
  * Algolia sync happens automatically via the Prisma extension.
  *
@@ -125,6 +125,7 @@ export async function POST(request: Request, { params }: RouteParams) {
         selectivityTier: null,
         requirementsVerified: false,
         requirementsUpdatedAt: null,
+        requirementsEntryYear: null,
         courseRequirements: original.courseRequirements.length
           ? {
               create: original.courseRequirements.map((req) => ({

@@ -33,7 +33,8 @@ import {
   Trash2,
   ChevronDown,
   Link2,
-  Unlink
+  Unlink,
+  CalendarCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -109,7 +110,8 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
     degreeType: '',
     duration: '',
     minIBPoints: '',
-    programUrl: ''
+    programUrl: '',
+    requirementsEntryYear: ''
   })
 
   // Course requirements state
@@ -454,6 +456,35 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
                 placeholder="https://university.edu/program"
               />
             </div>
+          </div>
+
+          {/* Entry year checked */}
+          <div>
+            <label
+              htmlFor="requirementsEntryYear"
+              className="block text-sm font-medium text-foreground mb-1"
+            >
+              Entry year checked
+            </label>
+            <div className="relative">
+              <CalendarCheck className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                id="requirementsEntryYear"
+                type="number"
+                value={formData.requirementsEntryYear}
+                onChange={(e) =>
+                  setFormData({ ...formData, requirementsEntryYear: e.target.value })
+                }
+                className="w-full pl-10 pr-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                placeholder="Not checked"
+                min="2020"
+                step="1"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              The intake the points and subjects were checked for on the university&apos;s site
+              (2027 for September 2027 entry). Students see it on the program page.
+            </p>
           </div>
         </div>
       </div>

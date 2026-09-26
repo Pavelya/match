@@ -17,12 +17,31 @@ export default async function ProgramEditPage({ params }: PageProps) {
   const { id } = await params
 
   const [program, universities, fieldsOfStudy, ibCourses] = await Promise.all([
+    // Selected, not included: the whole program goes to a client component, and the old
+    // `include` sent the university's row, logo and all, along with it.
     prisma.academicProgram.findUnique({
       where: { id },
-      include: {
-        university: { include: { country: true } },
-        fieldOfStudy: true,
-        courseRequirements: { include: { ibCourse: true } }
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        universityId: true,
+        fieldOfStudyId: true,
+        degreeType: true,
+        duration: true,
+        minIBPoints: true,
+        programUrl: true,
+        requirementsEntryYear: true,
+        courseRequirements: {
+          select: {
+            id: true,
+            ibCourseId: true,
+            requiredLevel: true,
+            minGrade: true,
+            isCritical: true,
+            orGroupId: true
+          }
+        }
       }
     }),
     prisma.university.findMany({

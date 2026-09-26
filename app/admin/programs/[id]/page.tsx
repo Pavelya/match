@@ -146,6 +146,18 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                   <span className="text-sm font-medium">{program.courseRequirements.length}</span>
                 </div>
                 <div className="flex items-center justify-between py-1">
+                  <span className="text-sm text-muted-foreground">Checked for entry</span>
+                  <span className="text-sm font-medium">
+                    {program.requirementsEntryYear ?? 'Not checked'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-sm text-muted-foreground">Requirements updated</span>
+                  <span className="text-sm font-medium">
+                    {program.requirementsUpdatedAt?.toISOString().slice(0, 10) ?? '—'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-1">
                   <span className="text-sm text-muted-foreground">Saved by students</span>
                   <span className="text-sm font-medium">{program._count.savedBy}</span>
                 </div>

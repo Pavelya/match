@@ -17,6 +17,7 @@ import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
 import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
+import { parseEntryYear, requirementsStamp } from '@/lib/programs/entry-year'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -90,9 +91,23 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const { id } = await params
 
-    // Check program exists
+    // Check program exists; its requirements decide whether this edit re-stamps them
     const existingProgram = await prisma.academicProgram.findUnique({
-      where: { id }
+      where: { id },
+      select: {
+        universityId: true,
+        minIBPoints: true,
+        requirementsEntryYear: true,
+        courseRequirements: {
+          select: {
+            ibCourseId: true,
+            requiredLevel: true,
+            minGrade: true,
+            isCritical: true,
+            orGroupId: true
+          }
+        }
+      }
     })
 
     if (!existingProgram) {
@@ -109,11 +124,21 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       duration,
       minIBPoints,
       programUrl,
-      courseRequirements
+      courseRequirements,
+      requirementsEntryYear
     } = body
 
     // Build update object
     const updateData: Record<string, unknown> = {}
+
+    let entryYear: number | null | undefined
+    if (requirementsEntryYear !== undefined) {
+      const parsed = parseEntryYear(requirementsEntryYear)
+      if ('error' in parsed) {
+        return NextResponse.json({ error: parsed.error }, { status: 400 })
+      }
+      entryYear = parsed.year
+    }
 
     if (name !== undefined) {
       if (typeof name !== 'string' || name.trim().length === 0) {
@@ -184,6 +209,17 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.programUrl = programUrl?.trim() || null
     }
 
+    // Date the requirements when they or the entry year change. The form sends every
+    // field on each save, so a presence check would re-date them on any edit.
+    const stamp = requirementsStamp(existingProgram, {
+      minIBPoints:
+        minIBPoints === undefined ? undefined : (updateData.minIBPoints as number | null),
+      // null clears the requirements, as below
+      courseRequirements: courseRequirements === undefined ? undefined : (courseRequirements ?? []),
+      requirementsEntryYear: entryYear
+    })
+    if (stamp) Object.assign(updateData, stamp)
+
     // Handle course requirements update
     if (courseRequirements !== undefined) {
       // Delete existing requirements and create new ones
@@ -229,6 +265,9 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         duration: true,
         minIBPoints: true,
         programUrl: true,
+        requirementsVerified: true,
+        requirementsUpdatedAt: true,
+        requirementsEntryYear: true,
         updatedAt: true
       }
     })
