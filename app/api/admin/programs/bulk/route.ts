@@ -20,6 +20,7 @@ import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { syncProgramsBatch } from '@/lib/algolia/sync'
 import type { ParsedRequirement } from '@/lib/bulk-upload'
+import { canonicalDegreeType } from '@/lib/programs/degree-types'
 
 // =============================================================================
 // TYPES
@@ -171,6 +172,17 @@ export async function POST(request: Request) {
           continue
         }
 
+        // The CSV parser checks this in the browser; the list is enforced here too
+        const degreeType = canonicalDegreeType(program.degreeType ?? '')
+        if (!degreeType) {
+          results.push({
+            name: programName,
+            status: 'error',
+            error: `"${program.degreeType}" is not in the degree type list`
+          })
+          continue
+        }
+
         try {
           // Create program with course requirements in a transaction
           const created = await prisma.$transaction(async (tx) => {
@@ -181,7 +193,7 @@ export async function POST(request: Request) {
                 description: program.description.trim(),
                 universityId,
                 fieldOfStudyId: program.fieldOfStudyId,
-                degreeType: program.degreeType,
+                degreeType,
                 duration: program.duration.trim(),
                 minIBPoints: program.minIBPoints ?? null,
                 programUrl: program.programUrl?.trim() || null,

@@ -37,6 +37,7 @@ import {
   CalendarCheck
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { DEGREE_TYPE_GROUPS } from '@/lib/programs/degree-types'
 
 interface University {
   id: string
@@ -73,8 +74,6 @@ interface ProgramFormProps {
   fieldsOfStudy: FieldOfStudy[]
   ibCourses: IBCourse[]
 }
-
-const DEGREE_TYPES = ['Bachelor', 'Master', 'PhD', 'Diploma', 'Certificate']
 
 // IB course group names
 const GROUP_NAMES: Record<number, string> = {
@@ -393,10 +392,14 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
               required
             >
               <option value="">Select degree type</option>
-              {DEGREE_TYPES.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
+              {DEGREE_TYPE_GROUPS.map((group) => (
+                <optgroup key={group.level} label={group.label}>
+                  {group.types.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </select>
           </div>

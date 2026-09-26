@@ -11,6 +11,8 @@
  * @module lib/bulk-upload/csv-parser
  */
 
+import { DEGREE_TYPES, canonicalDegreeType } from '@/lib/programs/degree-types'
+
 // =============================================================================
 // TYPE DEFINITIONS
 // =============================================================================
@@ -108,8 +110,6 @@ const REQUIRED_HEADERS = ['name', 'description', 'field_of_study', 'degree_type'
 const OPTIONAL_HEADERS = ['min_ib_points', 'program_url', 'course_requirements']
 
 const ALL_HEADERS = [...REQUIRED_HEADERS, ...OPTIONAL_HEADERS]
-
-const DEFAULT_DEGREE_TYPES = ['Bachelor', 'Master', 'PhD', 'Diploma', 'Certificate']
 
 const MIN_IB_POINTS = 24
 const MAX_IB_POINTS = 45
@@ -386,13 +386,13 @@ function validateDegreeType(
     return { normalized: null, error: 'Degree type is required' }
   }
 
-  const normalized = value.trim()
-  const matched = validTypes.find((t) => t.toLowerCase() === normalized.toLowerCase())
+  // Known spellings ("BSc", "BSc (Hons)") are accepted and stored as the list spells them
+  const matched = canonicalDegreeType(value)
 
-  if (!matched) {
+  if (!matched || !validTypes.includes(matched)) {
     return {
       normalized: null,
-      error: `Invalid degree type "${value}". Valid values: ${validTypes.join(', ')}`
+      error: `Invalid degree type "${value}". Use one from the admin program form, e.g. "Bachelor of Science"`
     }
   }
 
@@ -637,7 +637,7 @@ export function buildValidationContext(
   return {
     fieldMap,
     courseMap,
-    validDegreeTypes: degreeTypes || DEFAULT_DEGREE_TYPES
+    validDegreeTypes: degreeTypes || [...DEGREE_TYPES]
   }
 }
 

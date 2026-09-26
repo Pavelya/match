@@ -11,6 +11,7 @@ import { useState, useMemo } from 'react'
 import { BookOpen, GraduationCap, Award, Briefcase } from 'lucide-react'
 import { StatCard, SearchFilterBar, FilterChip, TableEmptyState } from '@/components/admin/shared'
 import { ProgramsTable } from './ProgramsTable'
+import { degreeLevel } from '@/lib/programs/degree-types'
 
 interface Program {
   id: string
@@ -50,52 +51,15 @@ export function ProgramsListClient({ programs }: ProgramsListClientProps) {
     return Array.from(types).sort()
   }, [programs])
 
-  // Calculate stats
-  // Note: degreeType is a free-text field with various formats:
-  // - Full names: "Bachelor of Science", "Master of Arts"
-  // - UK abbreviations: "BSc (Hons)", "MA (Hons)", "BEng (Hons)"
-  // - Professional: "MBChB", "BVM&S", "BN"
+  // Calculate stats from each value's canonical type (lib/programs/degree-types.ts), which
+  // knows that "MA (Hons)" is a Scottish bachelor's and "MEng" an integrated master's.
   const stats = useMemo(() => {
-    let bachelorCount = 0
-    let masterCount = 0
-
-    programs.forEach((p) => {
-      const dt = p.degreeType.toLowerCase()
-
-      // Bachelor patterns: Bachelor..., BSc, BA, BEng, BN, BVM&S, etc.
-      if (
-        dt.startsWith('bachelor') ||
-        dt.startsWith('bsc') ||
-        dt.startsWith('ba ') ||
-        dt.startsWith('beng') ||
-        dt.startsWith('bn') ||
-        dt.startsWith('bvm') ||
-        dt.startsWith('mbchb') // Medicine is undergraduate
-      ) {
-        bachelorCount++
-      }
-      // Master patterns: Master..., MA (Hons), MSc, MInf, etc.
-      // Note: MA (Hons) in Scottish universities is actually undergraduate!
-      else if (
-        dt.startsWith('master') ||
-        dt.startsWith('msc') ||
-        dt.startsWith('minf') ||
-        (dt.startsWith('ma ') && !dt.includes('(hons)')) // MA without (Hons) is postgrad
-      ) {
-        masterCount++
-      }
-      // Scottish MA (Hons) is undergraduate
-      else if (dt.startsWith('ma (hons)') || dt.startsWith('ma(hons)')) {
-        bachelorCount++
-      }
-    })
-
-    return {
-      total: programs.length,
-      bachelor: bachelorCount,
-      master: masterCount,
-      other: programs.length - bachelorCount - masterCount
+    const counts = { bachelor: 0, master: 0, combined: 0 }
+    for (const p of programs) {
+      const level = degreeLevel(p.degreeType)
+      if (level) counts[level]++
     }
+    return { total: programs.length, ...counts }
   }, [programs])
 
   // Filter programs
@@ -146,8 +110,8 @@ export function ProgramsListClient({ programs }: ProgramsListClientProps) {
           iconColor="purple"
         />
         <StatCard
-          title="Other Degrees"
-          value={stats.other}
+          title="Double & Combined"
+          value={stats.combined}
           icon={Briefcase}
           variant="horizontal"
           iconColor="amber"
