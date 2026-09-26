@@ -1,10 +1,38 @@
 import type { CourseLevel } from '@prisma/client'
-import type { RequirementDef } from '../2027/types'
 
 /**
  * Pure helpers for comparing a program's stored subject requirements with a target, and
  * for turning a target into rows to write. No database access, so they are unit-tested.
  */
+
+/**
+ * One subject requirement, as the data files write it. Several `courses` form an OR group.
+ * Same shape as the seed scripts in `scripts/programs/`.
+ */
+export interface RequirementDef {
+  courses: string[]
+  level: CourseLevel
+  grade: number
+  critical?: boolean
+}
+
+/** One option of a mixed OR group: a course at its own level and grade. */
+export interface RequirementOption {
+  course: string
+  level: CourseLevel
+  grade: number
+}
+
+/**
+ * An OR group whose options differ in level or grade: "Maths AA SL5 or Maths AI HL5".
+ * 73 stored groups had this shape on 26 September 2026.
+ */
+export interface MixedRequirementDef {
+  anyOf: RequirementOption[]
+  critical?: boolean
+}
+
+export type AnyRequirementDef = RequirementDef | MixedRequirementDef
 
 /** One `ProgramCourseRequirement` row, keyed by course code. `group` is the OR-group key. */
 export interface RequirementRow {
@@ -87,20 +115,62 @@ export function formatRequirements(rows: RequirementRow[]): string {
     .join('; ')
 }
 
+/** A definition's options, one per course. */
+export function defOptions(def: AnyRequirementDef): RequirementOption[] {
+  return 'anyOf' in def
+    ? def.anyOf
+    : def.courses.map((course) => ({ course, level: def.level, grade: def.grade }))
+}
+
 /**
- * Expand requirement definitions into rows. Each multi-course definition gets its own
- * group key; single-course definitions stand alone. `critical` defaults to true.
+ * Expand requirement definitions into rows. Each definition with several options gets its
+ * own group key; single-option definitions stand alone. `critical` defaults to true.
  */
-export function rowsFromDefs(defs: RequirementDef[]): RequirementRow[] {
-  return defs.flatMap((def, index) =>
-    def.courses.map((code) => ({
-      code,
-      level: def.level,
-      grade: def.grade,
+export function rowsFromDefs(defs: AnyRequirementDef[]): RequirementRow[] {
+  return defs.flatMap((def, index) => {
+    const options = defOptions(def)
+    return options.map((o) => ({
+      code: o.course,
+      level: o.level,
+      grade: o.grade,
       critical: def.critical ?? true,
-      group: def.courses.length > 1 ? `def-${index}` : null
+      group: options.length > 1 ? `def-${index}` : null
     }))
-  )
+  })
+}
+
+/**
+ * The inverse of `rowsFromDefs`, for exporting stored requirements to a data file: one
+ * definition per requirement, in a stable order. An OR group whose options share a level
+ * and grade becomes `courses`; one whose options differ becomes `anyOf`. A group is critical
+ * if any option is, as the matcher reads it, so `rowsFromDefs` gives back the same
+ * requirements (`sameRequirements`).
+ */
+export function defsFromRows(rows: RequirementRow[]): AnyRequirementDef[] {
+  const byOption = (a: RequirementRow, b: RequirementRow) =>
+    a.code.localeCompare(b.code) || a.level.localeCompare(b.level) || a.grade - b.grade
+  const defs = toGroups(rows).map((g): AnyRequirementDef => {
+    const options = [...g.options].sort(byOption)
+    const [first] = options
+    if (options.every((o) => o.level === first.level && o.grade === first.grade)) {
+      return {
+        courses: options.map((o) => o.code),
+        level: first.level,
+        grade: first.grade,
+        critical: g.critical
+      }
+    }
+    return {
+      anyOf: options.map((o) => ({ course: o.code, level: o.level, grade: o.grade })),
+      critical: g.critical
+    }
+  })
+  // Critical first, then by first option: the order a reader expects, and the same every export.
+  const key = (def: AnyRequirementDef) => {
+    const [o] = defOptions(def)
+    return `${def.critical === false ? 1 : 0} ${o.level} ${o.course} ${o.grade}`
+  }
+  return defs.sort((a, b) => key(a).localeCompare(key(b)))
 }
 
 export function sameRequirements(a: RequirementRow[], b: RequirementRow[]): boolean {

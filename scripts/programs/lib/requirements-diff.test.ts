@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   assignGroupIds,
+  defsFromRows,
   diffProgram,
   formatRequirements,
   rowsFromDefs,
@@ -35,6 +36,73 @@ describe('rowsFromDefs', () => {
       { code: 'BIO', level: 'HL', grade: 6, critical: false, group: 'def-1' },
       { code: 'PHYS', level: 'HL', grade: 6, critical: false, group: 'def-1' }
     ])
+  })
+})
+
+describe('rowsFromDefs with mixed OR groups', () => {
+  it('gives each anyOf option its own level and grade, in one group', () => {
+    const rows = rowsFromDefs([
+      {
+        anyOf: [
+          { course: 'MATH-AA', level: 'SL', grade: 5 },
+          { course: 'MATH-AI', level: 'HL', grade: 5 }
+        ]
+      }
+    ])
+    expect(rows).toEqual([
+      { code: 'MATH-AA', level: 'SL', grade: 5, critical: true, group: 'def-0' },
+      { code: 'MATH-AI', level: 'HL', grade: 5, critical: true, group: 'def-0' }
+    ])
+  })
+})
+
+describe('defsFromRows', () => {
+  it('writes a group whose options share a level and grade as courses', () => {
+    expect(defsFromRows([row('MATH-AI', 6, 'g'), row('MATH-AA', 6, 'g')])).toEqual([
+      { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+    ])
+  })
+
+  it('writes a group whose options differ as anyOf', () => {
+    const rows = [row('MATH-AI', 5, 'g'), { ...row('MATH-AA', 5, 'g'), level: 'SL' as const }]
+    expect(defsFromRows(rows)).toEqual([
+      {
+        anyOf: [
+          { course: 'MATH-AA', level: 'SL', grade: 5 },
+          { course: 'MATH-AI', level: 'HL', grade: 5 }
+        ],
+        critical: true
+      }
+    ])
+  })
+
+  it('lists critical requirements first, and marks a group critical if any option is', () => {
+    const rows = [
+      row('CS', 5, null, false),
+      row('BIO', 6, 'g', false),
+      row('PHYS', 6, 'g', true),
+      row('CHEM', 7)
+    ]
+    expect(defsFromRows(rows)).toEqual([
+      { courses: ['BIO', 'PHYS'], level: 'HL', grade: 6, critical: true },
+      { courses: ['CHEM'], level: 'HL', grade: 7, critical: true },
+      { courses: ['CS'], level: 'HL', grade: 5, critical: false }
+    ])
+  })
+
+  it('round-trips: rowsFromDefs gives back the same requirements', () => {
+    const rows = [
+      row('CHEM', 7),
+      row('BIO', 6, 'a'),
+      { ...row('BIO', 7, 'a'), level: 'SL' as const },
+      row('PHYS', 5, 'b', false),
+      row('ENG-LL', 4, 'solo')
+    ]
+    expect(sameRequirements(rows, rowsFromDefs(defsFromRows(rows)))).toBe(true)
+  })
+
+  it('returns nothing for no requirements', () => {
+    expect(defsFromRows([])).toEqual([])
   })
 })
 
