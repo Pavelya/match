@@ -7,7 +7,7 @@
  * every spelling stored that day. The column is not rewritten in bulk: phase 4 normalises
  * each university's programs as it refreshes them.
  *
- * The rules:
+ * The rules, approved by the owner on 26 September 2026 with the list:
  *   - One spelling per award, written out: "BSc" and "Bachelor of Science (B.Sc.)" are
  *     "Bachelor of Science". Real awards keep their names (Master of Engineering, Bachelor of
  *     Laws, Bachelor of Kinesiology).

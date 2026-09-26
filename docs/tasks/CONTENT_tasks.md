@@ -26,7 +26,7 @@ here, and this refresh does more production writes than any work before it.
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
-| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | 3.5 **done** 26 September 2026. The refresh tool validates against both |
+| 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | 1,200 programs cannot be edited by hand |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
@@ -71,7 +71,7 @@ Phase 2 — Country pages for the 2027 intake
 Phase 3 — Refresh groundwork
 
 - [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
-- [ ] 3.2 Canonical degree types
+- [x] 3.2 Canonical degree types
 - [ ] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
 - [x] 3.5 Merge duplicate IB course codes (do before 3.3)
@@ -112,7 +112,7 @@ Owner tasks — not AI work
   Classics as a spot check (1.2; details in the handoff file). A passing spot check moves 41 Oxford
   programs from 2026 to 2027 (3.1)
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
-- [ ] Approve the canonical degree list (3.2)
+- [x] Approve the canonical degree list (3.2) — 26 September 2026
 - [ ] Choose the US model (6) and the German model (7)
 - [ ] Decide about France (5)
 
@@ -925,6 +925,45 @@ symptom.
 values (a Vitest test can assert that from a fixture of the list).
 
 **Session size:** Small.
+
+#### Status, 26 September 2026 — done (session 9)
+
+- **The list.** `lib/programs/degree-types.ts`, approved by the owner. The 156 spellings stored
+  today map onto 86 degree names in three groups: 66 bachelor's, 15 master's entered from school
+  (UK integrated masters and single-cycle degrees), and 5 double or combined degrees. The rules:
+  - One spelling per award: "BSc", "BSc (Hons)" and "Bachelor of Science (B.Sc.)" all become
+    "Bachelor of Science".
+  - Honours and the subject are not part of the degree name; the program name carries them.
+  - All UK medicine awards become "Bachelor of Medicine and Bachelor of Surgery".
+  - Edinburgh's "MA (Hons)" is "Master of Arts (Scottish undergraduate)", counted as a bachelor's.
+  - UK integrated masters keep their own names.
+  - "Bachelor" and "Master" alone mean the award is not recorded.
+  - PhD, Diploma and Certificate are gone: nothing used them.
+
+  A new award goes into the module with the owner's approval.
+- **Two stored values are probably wrong**, and the mapping names what they should be. Phase 4
+  must check both against the source:
+  - UCD's "Master of Veterinary Medicine" becomes "Bachelor of Veterinary Medicine" (the MVB is a
+    bachelor's).
+  - Bologna's "Combined Bachelor and Master" becomes "Single-Cycle Master's Degree".
+
+  A mapping by value cannot fix a wrong value on one program either. KU Leuven's "Bachelor of
+  European Studies" is stored as "Master", and LSE and Cambridge BAs as plain "Bachelor". Phase 4
+  sets each program's real award.
+- **Enforced.** Both admin forms offer only the list, grouped by level. The edit form keeps a
+  program's old spelling as an "(as stored)" option and offers the list's spelling with one click,
+  so editing another field never changes it silently. The create, edit and bulk APIs store the
+  canonical spelling and refuse anything outside the list. The edit API accepts an old spelling
+  only when it is sent back unchanged. The CSV parser accepts known spellings and normalises them.
+  The admin programs page counts by level: 1,173 bachelor's, 75 master's and 34 double or combined,
+  instead of "Other Degrees".
+- **Not rewritten.** 930 programs already use a canonical name. The other 352 keep their spelling
+  until phase 4 normalises each university, as the task says. The refresh tool (3.3) should call
+  `canonicalDegreeType` for every program it writes.
+- **Verified.** `degree-types.test.ts` holds all 156 stored values as a fixture and asserts each
+  maps; the PATCH route test covers an unchanged old spelling, a normalised new one and a refused
+  value. Type check, lint, Prettier, both test suites and the build pass. The admin forms were not
+  opened in a browser: they need a platform-admin login.
 
 ---
 
