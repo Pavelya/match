@@ -1,16 +1,6 @@
-import type { CourseLevel } from '@prisma/client'
+import type { RequirementDef } from '../lib/requirements-diff'
 
-/**
- * One subject requirement. Several `courses` form an OR group. Same shape as the
- * seed scripts in `scripts/programs/`, so the refresh tool in content task 3.3 can
- * reuse these files.
- */
-export interface RequirementDef {
-  courses: string[]
-  level: CourseLevel
-  grade: number
-  critical?: boolean
-}
+export type { RequirementDef }
 
 /** The checked requirements for one existing program. */
 export interface ProgramUpdate {
