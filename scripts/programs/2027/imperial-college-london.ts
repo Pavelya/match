@@ -36,8 +36,13 @@ const refresh: RefreshFile = {
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
         { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/aeronautical-engineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -56,8 +61,13 @@ const refresh: RefreshFile = {
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
         { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/aeronautics-spacecraft-engineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Aeronautical Engineering (H401) and can transfer to the spacecraft stream. Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -73,10 +83,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-bsc/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-bsc/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -92,16 +107,21 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-msci/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. No typical offer published (the course began with 2026 entry). ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
       id: 'cmkpz2dit00157mwxfyyov1q3',
       status: 'current',
-      name: 'Biochemistry with Language for Science',
+      name: 'Biochemistry with a Language for Science',
       description:
         "Advance your understanding of biochemistry on this four-year course, which includes a year spent with an approved university in France, Germany or Spain. You'll build familiarity with key aspects of the industry, including commercialising technology, entrepreneurship, and intellectual property and patents. The language element of this course will see you explore the theory and practice of translation. This includes opportunities to analyse the history, politics, science and technology of your chosen country.",
       field: 'Natural Sciences',
@@ -111,11 +131,38 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-language/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['FRA-B', 'SPA-B'], level: 'HL', grade: 5, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'FRA-B', level: 'HL', grade: 5 },
+            { course: 'FRA-B', level: 'SL', grade: 6 },
+            { course: 'FRA-LIT', level: 'HL', grade: 5 },
+            { course: 'FRA-LIT', level: 'SL', grade: 6 },
+            { course: 'FRA-LL', level: 'HL', grade: 5 },
+            { course: 'FRA-LL', level: 'SL', grade: 6 },
+            { course: 'GER-B', level: 'HL', grade: 5 },
+            { course: 'GER-B', level: 'SL', grade: 6 },
+            { course: 'GER-LIT', level: 'HL', grade: 5 },
+            { course: 'GER-LIT', level: 'SL', grade: 6 },
+            { course: 'GER-LL', level: 'HL', grade: 5 },
+            { course: 'GER-LL', level: 'SL', grade: 6 },
+            { course: 'SPA-B', level: 'HL', grade: 5 },
+            { course: 'SPA-B', level: 'SL', grade: 6 },
+            { course: 'SPA-LIT', level: 'HL', grade: 5 },
+            { course: 'SPA-LIT', level: 'SL', grade: 6 },
+            { course: 'SPA-LL', level: 'HL', grade: 5 },
+            { course: 'SPA-LL', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-language/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Renamed to the course page\'s title (was "with Language for Science"). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required. Language requirement: grade 5 at HL or 6 at SL in the chosen language (French, German or Spanish), stored as B or A courses in those languages. Previously stored as French or Spanish B HL5 only, not critical.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -131,10 +178,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-management/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biochemistry-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Biochemistry (C700); a 4-year option exists. Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -150,16 +202,21 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
       id: 'cmkpz2hxc003z7mwxd3usgzrs',
       status: 'current',
-      name: 'Biological Sciences with Language for Science',
+      name: 'Biological Sciences with a Language for Science',
       description:
         "Develop your appreciation of biology on this four-year course, which includes a year spent with an approved university in France, Germany or Spain. You'll examine the behaviour of living systems from the level of cells up to whole organisms and ecosystems. Through this work, you'll gain a detailed knowledge of the relationships, evolution, and key features of various organisms as you explore the diversity of life on earth.",
       field: 'Natural Sciences',
@@ -170,11 +227,38 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences-language/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['FRA-B', 'SPA-B'], level: 'HL', grade: 5, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'FRA-B', level: 'HL', grade: 5 },
+            { course: 'FRA-B', level: 'SL', grade: 6 },
+            { course: 'FRA-LIT', level: 'HL', grade: 5 },
+            { course: 'FRA-LIT', level: 'SL', grade: 6 },
+            { course: 'FRA-LL', level: 'HL', grade: 5 },
+            { course: 'FRA-LL', level: 'SL', grade: 6 },
+            { course: 'GER-B', level: 'HL', grade: 5 },
+            { course: 'GER-B', level: 'SL', grade: 6 },
+            { course: 'GER-LIT', level: 'HL', grade: 5 },
+            { course: 'GER-LIT', level: 'SL', grade: 6 },
+            { course: 'GER-LL', level: 'HL', grade: 5 },
+            { course: 'GER-LL', level: 'SL', grade: 6 },
+            { course: 'SPA-B', level: 'HL', grade: 5 },
+            { course: 'SPA-B', level: 'SL', grade: 6 },
+            { course: 'SPA-LIT', level: 'HL', grade: 5 },
+            { course: 'SPA-LIT', level: 'SL', grade: 6 },
+            { course: 'SPA-LL', level: 'HL', grade: 5 },
+            { course: 'SPA-LL', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences-language/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Renamed to the course page\'s title (was "with Language for Science"). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required. Language requirement: grade 5 at HL or 6 at SL in the chosen language (French, German or Spanish), stored as B or A courses in those languages. Previously stored as French or Spanish B HL5 only, not critical.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -191,10 +275,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences-management/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biological-sciences-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Biological Sciences (C100); a 4-year option exists. Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -211,10 +300,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/biomaterials-tissue-engineering-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biomaterials-tissue-engineering-meng/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Mathematics and 6 in Physics or Chemistry at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -231,10 +325,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/biomedical-technology-ventures/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biomedical-technology-ventures/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 6 in Mathematics, 6 in Biology, Chemistry or Physics (required, so now critical) and 6 in another subject at HL (any; another science, Further Mathematics or Economics are useful). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -250,16 +349,21 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-msci/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. No typical offer published (the course began with 2026 entry). ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
       id: 'cmkpz2gp300377mwxp8zd94kg',
       status: 'current',
-      name: 'Biotechnology with Language for Science',
+      name: 'Biotechnology with a Language for Science',
       description:
         'Embrace the opportunity to learn a foreign language while studying biotechnology. By studying a language in conjunction with biochemistry, you can combine your training in both fields as you learn how to present scientific and technical materials in French, German or Spanish. As a bridge between biology and technology, biotechnology explores the commercialisation of technology, entrepreneurship, intellectual property, and patents.',
       field: 'Natural Sciences',
@@ -269,11 +373,38 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-language/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['FRA-B', 'SPA-B'], level: 'HL', grade: 5, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'FRA-B', level: 'HL', grade: 5 },
+            { course: 'FRA-B', level: 'SL', grade: 6 },
+            { course: 'FRA-LIT', level: 'HL', grade: 5 },
+            { course: 'FRA-LIT', level: 'SL', grade: 6 },
+            { course: 'FRA-LL', level: 'HL', grade: 5 },
+            { course: 'FRA-LL', level: 'SL', grade: 6 },
+            { course: 'GER-B', level: 'HL', grade: 5 },
+            { course: 'GER-B', level: 'SL', grade: 6 },
+            { course: 'GER-LIT', level: 'HL', grade: 5 },
+            { course: 'GER-LIT', level: 'SL', grade: 6 },
+            { course: 'GER-LL', level: 'HL', grade: 5 },
+            { course: 'GER-LL', level: 'SL', grade: 6 },
+            { course: 'SPA-B', level: 'HL', grade: 5 },
+            { course: 'SPA-B', level: 'SL', grade: 6 },
+            { course: 'SPA-LIT', level: 'HL', grade: 5 },
+            { course: 'SPA-LIT', level: 'SL', grade: 6 },
+            { course: 'SPA-LL', level: 'HL', grade: 5 },
+            { course: 'SPA-LL', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-language/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Renamed to the course page\'s title (was "with Language for Science"). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required. Language requirement: grade 5 at HL or 6 at SL in the chosen language (French, German or Spanish), stored as B or A courses in those languages. Previously stored as French or Spanish B HL5 only, not critical.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -290,10 +421,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-management/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/biotechnology-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Biotechnology (J700). Minimum 38 points with 6 in Chemistry and 6 in Biology, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -309,11 +445,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-msci/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'ECON', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Mathematics at HL (Mathematics is required, so now critical), and 6 in a third subject at HL, which can be any subject: Biology, Economics or Physics are preferred, not required, so the stored Biology/Economics/Physics group is removed. Mathematics AA or AI accepted at HL, no preference. Typical offer 39–40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -329,11 +469,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-management/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'ECON', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Mathematics at HL (Mathematics is required, so now critical), and 6 in a third subject at HL, which can be any subject: Biology, Economics or Physics are preferred, not required, so the stored Biology/Economics/Physics group is removed. Mathematics AA or AI accepted at HL, no preference. Typical offer 39–40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -349,11 +493,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-medicinal/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'ECON', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-medicinal/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry and 6 in Mathematics at HL (Mathematics is required, so now critical), and 6 in a third subject at HL, which can be any subject: Biology, Economics or Physics are preferred, not required, so the stored Biology/Economics/Physics group is removed. Mathematics AA or AI accepted at HL, no preference. Typical offer 39–40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -370,11 +518,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-molecular-physics/',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: false },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
+        { courses: ['PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/chemistry-molecular-physics/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Chemistry, 6 in Mathematics and 6 in Physics at HL (all required, so all now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39–40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -390,10 +543,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/civil-engineering/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/civil-engineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 6 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 40. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BEng".
     {
@@ -409,10 +567,16 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/computing-beng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-beng/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -429,10 +593,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/computing-artificial-intelligence-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-artificial-intelligence-meng/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -449,10 +619,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/computing-international-programme-of-study/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-international-programme-of-study/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required. The page adds that a language qualification may be required; it names none, so none is stored.'
     },
     // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Computing (Management and Finance) MEng (G501): not offered for 2027 entry (not in Imperial's 2027 course list; page 404).
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
@@ -470,10 +646,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/computing-security-reliability-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-security-reliability-meng/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -490,10 +672,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/computing-software-engineering-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-software-engineering-meng/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -510,10 +698,16 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/computing-visual-computing-robotics-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-visual-computing-robotics-meng/',
+        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL (AA or AI) and 7 in another relevant subject at HL; typical offer 42. The course page does not define a relevant subject: the department suggests Physics, Computer Science, Chemistry, Economics or Biology at HL, so that group is not critical (previously Chemistry, Computer Science or Physics). TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -528,8 +722,13 @@ const refresh: RefreshFile = {
       minIBPoints: 39,
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/design-engineering/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/design-engineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in another subject at HL (any subject). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -546,10 +745,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/earth-planetary-science-msci/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['BIO', 'CHEM', 'GEOG', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/earth-planetary-science-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Mathematics and 6 in Biology, Chemistry, Geography, Geology or Physics at HL (Geography added; the group is required, so now critical; Geology is not an IB subject). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -566,10 +770,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/ecology-environmental-biology/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/ecology-environmental-biology/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -585,8 +794,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.imperial.ac.uk/study/courses/undergraduate/economics-finance-data-science/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/economics-finance-data-science/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in each of two more subjects at HL (any subjects). Mathematics AA or AI accepted at HL (the page\'s syllabus line still says "for entry in 2025"). Typical offer 39. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -603,10 +817,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-meng/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 41. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -623,10 +842,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-management/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/electrical-electronic-engineering-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 41. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -643,10 +867,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/electronic-information-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/electronic-information-meng/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 41. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -662,14 +891,19 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/geology-msci/',
       requirements: [
         {
-          courses: ['BIO', 'CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'],
+          courses: ['BIO', 'CHEM', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS'],
           level: 'HL',
           grade: 6,
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/geology-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in two of Biology, Chemistry, Geography, Geology, Mathematics and Physics at HL. The model holds one of them, not two; Geography added. Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -685,10 +919,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/geophysics-msci/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/geophysics-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Mathematics, 6 in Physics (required, so now critical) and 6 in a third subject at HL (any subject). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -705,10 +944,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/materials-science-engineering-meng/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/materials-science-engineering-meng/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Mathematics and 6 in Physics or Chemistry at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BEng".
     {
@@ -724,8 +968,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-computer-science-beng/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-computer-science-beng/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 41 points with 7 in Mathematics at HL and 7 in another relevant subject at HL (for A-levels the page recommends Computer Science or Physics and accepts a long list of useful subjects, so no group is stored). Mathematics AA or AI accepted at HL; AA preferred. The page calls this a new course for 2027 entry (BEng, UCAS GG14) and publishes no typical offer. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -741,8 +990,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-applied-physics/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-applied-physics/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in another subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -757,8 +1011,13 @@ const refresh: RefreshFile = {
       minIBPoints: 39,
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-computation/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-computation/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in another subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -773,8 +1032,13 @@ const refresh: RefreshFile = {
       minIBPoints: 39,
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-statistics/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-statistics/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in another subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -790,8 +1054,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-statistics-finance/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mathematics-statistics-finance/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 7 in Mathematics at HL and 6 in another subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. TMUA required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -807,10 +1076,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 6 in Mathematics and 6 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40 with 7 in Mathematics and 7 in Physics at HL. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -827,10 +1101,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering-nuclear/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/mechanical-engineering-nuclear/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Mechanical Engineering (H301). Minimum 40 points with 6 in Mathematics and 6 in Physics at HL (Physics is required, so now critical). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40 with 7 in Mathematics and 7 in Physics at HL. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -846,10 +1125,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/medical-biosciences/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/medical-biosciences/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 38. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -866,10 +1150,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/medical-biosciences-management/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/medical-biosciences-management/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 38. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MBBS/BSc".
     {
@@ -885,10 +1174,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/medicine/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/medicine/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). MBBS/BSc, 6 years. Minimum 38 points with 6 in Biology and 6 in Chemistry at HL (Chemistry is required, so now critical). Mathematics AA or AI accepted. Typical offer 39 with 6 and 7 in Biology and Chemistry at HL. UCAT and multiple mini interviews; UCAS deadline 15 October 2026.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -904,10 +1198,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/microbiology/',
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/microbiology/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in Biology and 6 in Chemistry, Mathematics or Physics at HL (the second subject is required, so now critical). Mathematics AA or AI accepted at HL, no preference. Typical offer 39. ESAT required.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -924,10 +1223,15 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/molecular-bioengineering/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false }
+        { courses: ['CHEM'], level: 'HL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/molecular-bioengineering/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 39 points with 6 in Mathematics, 6 in Chemistry (required, so now critical) and 6 in a third subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 40. No admissions test.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
@@ -943,10 +1247,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/physics-msci/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/physics-msci/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics, 7 in Physics (required, so now critical) and 6 in a third subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 42. ESAT and interview.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {
@@ -962,10 +1271,15 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.imperial.ac.uk/study/courses/undergraduate/physics-theoretical-bsc/',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 7, critical: false }
+        { courses: ['PHYS'], level: 'HL', grade: 7, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/accepted-qualifications/',
+        'https://www.imperial.ac.uk/study/courses/undergraduate/physics-theoretical-bsc/'
+      ],
+      notes:
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics, 7 in Physics (required, so now critical) and 6 in a third subject at HL (any subject). Mathematics AA or AI accepted at HL; AA preferred. Typical offer 42. ESAT and interview.'
     },
     {
       id: 'cmujv4sst00a37q7mholth3s5',
