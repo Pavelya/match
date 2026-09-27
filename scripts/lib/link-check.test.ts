@@ -131,4 +131,43 @@ describe('markSoft404s', () => {
       'redirected'
     ])
   })
+
+  it('keeps targets apart that differ only in their query', () => {
+    const hub = 'https://hub.ucd.ie/usis/!W_HU_MENU.P_PUBLISH'
+    const results: Array<{ url: string; finalUrl: string; outcome: LinkOutcome }> = [
+      'bcomm-commerce',
+      'bsc-economics',
+      'science'
+    ].map((slug) => ({
+      url: `https://www.ucd.ie/courses/${slug}`,
+      finalUrl: `${hub}?p_tag=MAJOR&URL=${slug}`,
+      outcome: 'redirected'
+    }))
+    expect(markSoft404s(results).map((r) => r.outcome)).toEqual([
+      'redirected',
+      'redirected',
+      'redirected'
+    ])
+  })
+
+  it('treats the same query in another order as the same target', () => {
+    const results: Array<{ url: string; finalUrl: string; outcome: LinkOutcome }> = [
+      {
+        url: 'https://a.example/1',
+        finalUrl: 'https://b.example/menu?x=1&y=2',
+        outcome: 'redirected'
+      },
+      {
+        url: 'https://a.example/2',
+        finalUrl: 'https://b.example/menu?y=2&x=1',
+        outcome: 'redirected'
+      },
+      {
+        url: 'https://a.example/3',
+        finalUrl: 'https://b.example/menu/?x=1&y=2',
+        outcome: 'redirected'
+      }
+    ]
+    expect(markSoft404s(results).every((r) => r.outcome === 'soft-404')).toBe(true)
+  })
 })
