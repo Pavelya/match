@@ -992,7 +992,8 @@ const refresh: RefreshFile = {
       sources: []
     },
     {
-      status: 'new',
+      id: 'cmujv4sst00a37q7mholth3s5',
+      status: 'current',
       name: 'Computing (MEng)',
       description:
         "Computing is a creative and wide-ranging subject that focuses on using sound underlying principles and logical thinking to design and build systems that really work. This general programme offers a wide range of module choices as you progress, with a strong grounding in discrete mathematics, computer architecture and software engineering. At the end of the third year you complete a paid industrial placement, and your study reaches Master's level in the final year, with a wide choice of optional modules and a substantial individual project.",
