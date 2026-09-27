@@ -27,7 +27,7 @@ here, and this refresh does more production writes than any work before it.
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
-| 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026. Tel Aviv waits on the owner's call on unpublished minimums |
+| 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | First real use of the tool, small scope |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
@@ -72,7 +72,7 @@ Phase 3 — Refresh groundwork
 
 - [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
 - [x] 3.2 Canonical degree types
-- [x] 3.3 Refresh tool and link checker — Tel Aviv publishes no IB minimum; owner to decide
+- [x] 3.3 Refresh tool and link checker
 - [ ] 3.4 Broken and renamed programs
 - [x] 3.5 Merge duplicate IB course codes (do before 3.3)
 
@@ -114,8 +114,8 @@ Owner tasks — not AI work
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [x] Approve the canonical degree list (3.2) — 26 September 2026
 - [ ] Choose the US model (6) and the German model (7)
-- [ ] Decide what `minIBPoints` holds where a university publishes no IB minimum: Tel Aviv's four
-  programs (3.3), the same question as Georgia Tech (6)
+- [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
+  27 September 2026. Georgia Tech's version of the question stays with phase 6
 - [ ] Decide about France (5)
 
 ---
@@ -1012,7 +1012,7 @@ roughly reproduces the baseline numbers.
 
 **Session size:** Medium.
 
-#### Status, 26 September 2026 — done; Tel Aviv waits on the owner (session 10)
+#### Status, 26 September 2026 — done (session 10)
 
 - **Refresh tool.** `scripts/programs/refresh.ts`, with its pure half in
   `scripts/programs/lib/refresh.ts` (checking and planning) and `refresh-export.ts` (the starter
@@ -1075,7 +1075,8 @@ roughly reproduces the baseline numbers.
     checked would claim a source that does not exist. The findings and sources are in
     `scripts/programs/2027/tel-aviv-university.ts`, with every program left unchecked. What
     `minIBPoints` should hold where no minimum is published is the question phase 6 asks about
-    Georgia Tech, so it is an owner decision, listed under owner tasks.
+    Georgia Tech. **Owner, 27 September 2026: leave Tel Aviv's programs as they are.** Session
+    4.8 should not re-raise it; the data file stays unchecked.
   - **Instead, `--apply` and `--restore` ran end to end on a local Postgres** built with
     `prisma migrate deploy` and `prisma/seed.ts`, with Algolia and Redis pointed at dead addresses
     so nothing reached production. A test university went through every path: a stamp-only write
