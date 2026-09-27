@@ -86,6 +86,19 @@ export function pathChanged(from: string, to: string): boolean {
 }
 
 /**
+ * A redirect target for spotting shared ones: `location` plus the query. One script can serve
+ * every page by query string (UCD's `hub.ucd.ie/usis/!W_HU_MENU.P_PUBLISH?p_tag=MAJOR&URL=...`),
+ * and without the query each of its pages looks like the same generic one.
+ */
+function target(url: string): string {
+  const parsed = parse(url)
+  if (!parsed) return url
+  const params = [...parsed.searchParams].sort(([a], [b]) => a.localeCompare(b))
+  const query = new URLSearchParams(params).toString()
+  return query ? `${location(url)}?${query}` : location(url)
+}
+
+/**
  * Intakes before `currentYear` that a URL names: `/courses/2026/`, `autumn-2026`, a
  * `2020-21` catalogue, a `20242025` offer. The first year of an academic year is its intake.
  */
@@ -122,7 +135,8 @@ export function classify(f: Fetched, list: readonly string[] = BOT_BLOCKED): Lin
 
 /**
  * Redirect targets shared by at least `min` different URLs: a generic page standing in for
- * many missing ones (UCD's 25 course URLs all land on one menu). Keyed by target.
+ * many missing ones. Keyed by target, query included: keyed by path alone, UCD's 25 course
+ * URLs looked like one menu in content 3.3, though each reaches its own course page.
  */
 export function sharedTargets(
   results: Array<{ url: string; finalUrl?: string; outcome: LinkOutcome }>,
@@ -131,7 +145,7 @@ export function sharedTargets(
   const byTarget = new Map<string, string[]>()
   for (const r of results) {
     if (r.outcome !== 'redirected' || !r.finalUrl) continue
-    const key = location(r.finalUrl)
+    const key = target(r.finalUrl)
     byTarget.set(key, [...(byTarget.get(key) ?? []), r.url])
   }
   return new Map([...byTarget].filter(([, urls]) => urls.length >= min))
