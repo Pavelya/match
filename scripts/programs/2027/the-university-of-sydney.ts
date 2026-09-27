@@ -649,29 +649,7 @@ const refresh: RefreshFile = {
       checkedFor: null,
       sources: []
     },
-    // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor + Doctor of Dental Medicine".
-    {
-      id: 'cmkgwq22d002d7mdd1n2c13xa',
-      status: 'discontinued',
-      name: 'Bachelor of Science and Doctor of Dental Medicine',
-      description:
-        "Australia's first dental school. Combined degree leading to Doctor of Dental Medicine qualification.",
-      field: 'Medicine & Health',
-      degree: "Bachelor's and Doctor of Dental Medicine",
-      duration: '7 years',
-      minIBPoints: 44,
-      programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-and-doctor-of-dental-medicine.html',
-      requirements: [],
-      checkedFor: null,
-      sources: [
-        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
-        'https://www.sydney.edu.au/content/dam/corporate/documents/study/guides/usyd-admission-guide.pdf',
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-and-doctor-of-dental-medicine.html'
-      ],
-      notes:
-        "Content 3.4: not offered for 2027 entry. The course page now redirects to the plain Bachelor of Science, and neither Sydney's 2027 International Admission Guide nor its 2027 domestic guide lists the double degree (the guide still lists the Bachelor of Science and Doctor of Medicine). The 2026 handbook keeps it for enrolled students. The graduate-entry Doctor of Dental Medicine is not entered from school, so there is no successor to add. Owner to decide what happens to this program."
-    },
+    // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Bachelor of Science and Doctor of Dental Medicine: in neither 2027 admission guide; page redirects to the plain BSc.
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor + Doctor of Medicine".
     {
       id: 'cmkgwq1t3002b7mddshkkvyuf',
