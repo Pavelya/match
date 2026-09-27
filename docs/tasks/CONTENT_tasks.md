@@ -28,7 +28,7 @@ here, and this refresh does more production writes than any work before it.
 | 8 | Entry year on every program | 3.1 | medium | **Done.** 26 September 2026 |
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
-| 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs wait on the owner |
+| 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
@@ -73,7 +73,7 @@ Phase 3 — Refresh groundwork
 - [x] 3.1 Record the entry year a program was checked for — confidence scoring left for a decision
 - [x] 3.2 Canonical degree types
 - [x] 3.3 Refresh tool and link checker
-- [x] 3.4 Broken and renamed programs — four discontinued programs and one HKUST row for the owner
+- [x] 3.4 Broken and renamed programs — one HKUST row for the owner
 - [x] 3.5 Merge duplicate IB course codes (do before 3.3)
 
 Phase 4 — Program refresh for 2027 entry
@@ -104,9 +104,9 @@ Phase 7 — Germany
 Owner tasks — not AI work
 
 - [ ] Review every refresh diff before `--apply`
-- [ ] Decide what happens to discontinued programs. From 3.4: Imperial Computing (Management and
+- [ ] Decide what happens to discontinued programs. 3.4's four (Imperial Computing (Management and
   Finance), HKU BASc Applied AI, Sydney BSc and Doctor of Dental Medicine, Gdańsk Finance and
-  Accounting. The first two still show as 404s in the link checker
+  Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own
 - [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
   whether it is still a direct-entry choice
 - [ ] Approve two degree types, or not (3.4): Bachelor of Journalism, Media and Artificial
@@ -1176,13 +1176,13 @@ count equals the database count.
 
 **Session size:** Medium.
 
-#### Status, 27 September 2026 — done (session 11); four discontinued programs and one HKUST row for the owner
+#### Status, 27 September 2026 — done (session 11); one HKUST row for the owner
 
 The refresh tool's first production run. Fifteen data files, one per university, are in
 `scripts/programs/2027/`. In each, only the 3.4 programs are checked; the rest stay unchecked for
 phase 4, which continues from these files rather than exporting again. Every change is explained
 in the program's `notes`. **Owner-approved and applied on 27 September 2026:** 57 programs
-written, 1 created, 4 marked discontinued (not written).
+written, 1 created, 4 marked discontinued. **The owner then had the four deleted** (below).
 
 - **Renamed or moved, same program (updated).** Names: HKU Journalism, Media and *Artificial
   Intelligence* and Bachelor of *Psychology* (not a BSc); McGill *Software Engineering (Co-op)*
@@ -1203,14 +1203,17 @@ written, 1 created, 4 marked discontinued (not written).
   (with a test). UCD Global's IB page has per-program **2027 Entry Requirements**: all 25 stored
   totals were already right. What changed is the subject rows (several stored OR groups mixed Maths
   and English, and maths was never critical), three degree types and one duration.
-- **Discontinued (reported, not deleted; owner to decide):** Imperial Computing (Management and
+- **Discontinued, then deleted at the owner's request:** Imperial Computing (Management and
   Finance) MEng (not in Imperial's 2027 course list, 404), HKU BASc Applied Artificial Intelligence
   (not in HKU's 58 programmes for the 2027 intake; its page is unpublished), Sydney Bachelor of
   Science and Doctor of Dental Medicine (in neither 2027 admission guide; the page redirects to the
   plain BSc), Gdańsk Finance and Accounting, spec. Financial Analyst (UG now teaches it in English
   only as a master's). **Successor added:** Imperial's general Computing MEng (G401), stored as
   "Computing (MEng)", id `cmujv4sst00a37q7mholth3s5`. The others' nearest programs are already
-  stored or are graduate-entry. Until the owner decides, the two 404s stay in the link checker.
+  stored or are graduate-entry. Nobody had saved any of the four, so the delete removed only them and
+  their 18 requirement rows (one transaction), then their Algolia records and the caches. Backup:
+  `scripts/backups/refresh/deleted-2026-09-27T17-05-44-883Z.json`. The data files keep a one-line
+  comment where each stood.
 - **Not checked: HKUST Business with Extended Major** (AI / *Creative Arts and Digital Humanities*
   / Sustainability, formerly Digital Media and Creative Arts, per the search index).
   `join.hkust.edu.hk` returned 403 to curl, urllib and WebFetch for the whole session, so its
@@ -1235,14 +1238,14 @@ written, 1 created, 4 marked discontinued (not written).
   (award not recorded) instead of the wrong BA/BSc until the owner approves adding them.
 - **Verify.**
   - Link checker, 15 universities, after the apply: **0 soft 404** (was 25) and **2 broken**, both
-    discontinued programs above (was 17). One "no response": `bmundergrad.hkust.edu.hk` (HKUST GBM's
+    discontinued programs above (was 17); after the delete, **0 broken**. One "no response": `bmundergrad.hkust.edu.hk` (HKUST GBM's
     new page) serves no intermediate certificate, so Node's fetch fails with
     `UNABLE_TO_VERIFY_LEAF_SIGNATURE`; browsers fill the gap and open it. The remaining 51
     redirects are phase 4's harmless ones (47 UBC), two Sydney `...0.html` moves, the discontinued
     dental degree and the unchecked HKUST row.
   - A second dry run found all 58 written programs up to date.
   - `count(*)`: 1,282 → 1,283; per university, only Imperial changed (50 → 51, the reported
-    addition). Algolia: 1,283 records, equal to the database.
+    addition). Algolia: 1,283 records, equal to the database. After the delete: 1,279 in both.
   - Public pages show the new values: HKU Bachelor of Psychology at 38, Bocconi Management and
     Computer Science at 24, UCD Commerce linking its hub page.
   - Backup of every written program: `scripts/backups/refresh/2026-09-27T13-36-59-828Z.json`.

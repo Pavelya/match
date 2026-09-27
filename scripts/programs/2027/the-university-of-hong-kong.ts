@@ -90,32 +90,7 @@ const refresh: RefreshFile = {
       checkedFor: null,
       sources: []
     },
-    // Stored: checked for 2026 entry on 2026-01-19.
-    {
-      id: 'cmkkuys8s004j7m2r7erlbk9l',
-      status: 'discontinued',
-      name: 'Bachelor of Arts and Sciences in Applied Artificial Intelligence',
-      description:
-        'HKU offers a Bachelor of Arts and Sciences in Applied Artificial Intelligence (BASc[AppliedAI]). It is an interdisciplinary degree programme focusing on the application of AI technologies in various sectors, comprising 5 focus areas: AI Technology, AI in Business and Finance, AI in Medicine, AI for Smart Cities, and AI in Neurocognitive Science. Students will learn to develop AI solutions with both technical expertise and ethical considerations.',
-      field: 'Computer Science',
-      degree: 'Bachelor of Arts and Sciences',
-      duration: '4 years',
-      minIBPoints: 38,
-      programUrl:
-        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-applied-artificial',
-      requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
-      ],
-      checkedFor: null,
-      sources: [
-        'https://admissions.hku.hk/apply/international-qualifications',
-        'https://admissions.hku.hk/api/international_qualification/qualification?name=IB%20Diploma',
-        'https://www.basc.hku.hk/basc-applied-ai/'
-      ],
-      notes:
-        'Content 3.4: not offered for 2027 entry. HKU\'s IB admissions data for the 2027 intake lists 58 programmes and this BASc (6224) is not among them; its admissions page now returns 403 (unpublished), and the BASc site\'s programme menu marks a programme "not open for admission in 2026/27". Its nearest relatives are already stored: Bachelor of Arts and Bachelor of Engineering in Artificial Intelligence and Data Science, and Bachelor of Engineering and Master of Science in Engineering in Artificial Intelligence in Engineering. No successor added. Owner to decide what happens to this program.'
-    },
+    // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Bachelor of Arts and Sciences in Applied Artificial Intelligence (6224): not among HKU's 2027-intake programmes; page unpublished.
     // Stored: checked for 2026 entry on 2026-01-19.
     {
       id: 'cmkkuymyt000p7m2r40wqgfq9',

@@ -454,31 +454,7 @@ const refresh: RefreshFile = {
       checkedFor: null,
       sources: []
     },
-    // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
-    {
-      id: 'cmkpz2kwm005r7mwxgq0191pv',
-      status: 'discontinued',
-      name: 'Computing (Management and Finance)',
-      description:
-        'Computing is a creative and wide-ranging subject that focuses on using sound underlying principles and logical thinking to design and build systems that really work. This course allows you to focus on the theory and tools of business management that require computerised solutions, including decision support and constraint solving techniques. In this course, you will learn how modern computer and communications systems function, and how they can be used and adapted to build the next generation of computing applications.',
-      field: 'Computer Science',
-      degree: 'Master of Engineering',
-      duration: '4 years',
-      minIBPoints: 41,
-      programUrl:
-        'https://www.imperial.ac.uk/study/courses/undergraduate/computing-computational-management/',
-      requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 7, critical: true },
-        { courses: ['CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 7, critical: false }
-      ],
-      checkedFor: null,
-      sources: [
-        'https://www.imperial.ac.uk/study/courses/?keywords=computing',
-        'https://www.imperial.ac.uk/computing/prospective-students/courses/ug/'
-      ],
-      notes:
-        "Content 3.4: not offered for 2027 entry. Imperial's course search lists seven Computing degrees for 2027 (Computing BEng and MEng, and the MEng streams AI and Machine Learning, International Programme of Study, Security and Reliability, Software Engineering, Visual Computing and Robotics); Management and Finance (G501) is not among them, and its course page 404s under both the /2026/ and /2027/ paths. The nearest successor is the general Computing MEng (G401), added as new: its optional modules include Computational Finance and Operations Research. Owner to decide what happens to this program."
-    },
+    // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Computing (Management and Finance) MEng (G501): not offered for 2027 entry (not in Imperial's 2027 course list; page 404).
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
       id: 'cmkpz2kf2005f7mwxdb6g7gqu',

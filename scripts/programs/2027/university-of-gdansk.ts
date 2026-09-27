@@ -40,32 +40,7 @@ const refresh: RefreshFile = {
       notes:
         "Content 3.4: the stored page was the 2024/25 offer on old-en.ug.edu.pl (500); the programme now lives on UG's recruitment site. Same programme: first-cycle, full-time, English, Faculty of Languages, 3 years, 25 places. Checked, no subject strictly required: the ranking weights English 0.5, the candidate's native language 0.3 (another foreign language if English is native) and one of History, History of Art, Biology, Civics, Geography, Mathematics, Physics, Chemistry, a foreign language or Latin 0.2. The stored English SL4, science HL5 and language HL5 rows had no source and are removed. IB holders are exempt from the entrance exam for non-EU diplomas. 2025/26 threshold: 91.75 UG points. UG publishes no IB points minimum: candidates are ranked on weighted exam results, and the page gives only last year's threshold on UG's own scale. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The page is for 2026/27 recruitment (registration June-July 2026, now closed), so checked for 2026."
     },
-    // Stored: not checked for any intake.
-    {
-      id: 'cmkpj4ulz000sii04zxenuv9t',
-      status: 'discontinued',
-      name: 'Finance and Accounting, spec. Financial Analyst',
-      description:
-        'The curriculum of the Financial Analyst specialisation integrates general university subjects with specialised financial topics, focusing on the investment process. Students will acquire essential knowledge, skills, and competencies in modules such as Economics, Quantitative Methods, Corporate Finance and Reporting, Financial Markets and Instruments, Law and Ethics, and Social Sciences. Additionally, the programme offers elective modules customized to individual interests.',
-      field: 'Business & Economics',
-      degree: 'Bachelor',
-      duration: '3 years',
-      minIBPoints: 34,
-      programUrl:
-        'https://old-en.ug.edu.pl/study/educational_offer/20252026/finance_and_accounting_spec_financial_analyst-stacjonarne-i_stopnia',
-      requirements: [
-        { courses: ['CS', 'ECON', 'GEOG', 'HIST'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: false }
-      ],
-      checkedFor: null,
-      sources: [
-        'https://en.ug.edu.pl/study/educational-offer',
-        'https://rekrutacja.ug.edu.pl/en/kierunek/finance-and-accounting-2/'
-      ],
-      notes:
-        "Content 3.4: not in UG's English offer for 2026/27. UG's educational offer lists four English programmes: Cultural Communication and International Business (first cycle), and Finance and Accounting and International Business (second cycle). Finance and Accounting is now offered in English only as a two-year master's, which is not entered from school, so there is no successor to add. The stored page is the 2025/26 offer, still served on old-en.ug.edu.pl. Owner to decide what happens to this program."
-    },
+    // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Finance and Accounting, spec. Financial Analyst: not in UG's 2026/27 English offer (master's only).
     // Stored: not checked for any intake.
     {
       id: 'cmkpihc2z0004ii046lhdtfuw',
