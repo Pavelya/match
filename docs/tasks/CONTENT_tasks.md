@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1 done 29 September 2026, eight UCL programs left for the owner |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1 and 4.2 done 29 September 2026: eight UCL programs and two discontinued Manchester programs left for the owner |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -79,7 +79,7 @@ Phase 3 — Refresh groundwork
 Phase 4 — Program refresh for 2027 entry
 
 - [x] 4.1 UK I — Imperial, UCL, LSE — eight UCL programs for the owner to open in a browser
-- [ ] 4.2 UK II — Manchester, Edinburgh
+- [x] 4.2 UK II — Manchester, Edinburgh — Immunology and Molecular Biology discontinued, for the owner
 - [ ] 4.3 Canada I — Alberta, UBC, Toronto
 - [ ] 4.4 Canada II — McGill, Waterloo, Western
 - [ ] 4.5 Hong Kong and Singapore
@@ -106,7 +106,8 @@ Owner tasks — not AI work
 - [ ] Review every refresh diff before `--apply`
 - [ ] Decide what happens to discontinued programs. 3.4's four (Imperial Computing (Management and
   Finance), HKU BASc Applied AI, Sydney BSc and Doctor of Dental Medicine, Gdańsk Finance and
-  Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own
+  Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own.
+  4.2: Manchester Immunology BSc and Molecular Biology BSc, both gone from the 2027 course list
 - [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
   whether it is still a direct-entry choice
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -265,6 +266,11 @@ not precision.
   in the notes. `mgmt.ucl.ac.uk` answers curl but gives no IB figure. LSE programme pages answer curl,
   and their served HTML is the default academic year (2027/28); LSE's Maths AA/AI rule per programme
   is on `.../How-to-Apply/Entry-Requirements`. Imperial course pages answer curl.
+- **Found in 4.2:** Manchester course pages answer curl. `/courses/<year>/xml/` is the full course
+  list for an intake (the page's own course search loads it), so diffing two years finds renamed and
+  dropped courses. Tabbed course pages keep the full entry requirements at `.../all-content/`. The
+  previous year's pages keep serving after the next year is published. Edinburgh's degree finder
+  answers curl; its university-wide IB page is `.../international-qualifications/international-baccalaureate`.
 
 ---
 
@@ -1512,6 +1518,74 @@ Backup: `scripts/backups/refresh/2026-09-29T07-35-29-635Z.json`.
   - Public pages: LSE Accounting and Finance shows 39 points and "Requirements checked for 2027
     entry"; UCL Medicine shows 39 with Biology and Chemistry at 6; UCL's program is now "BSc
     Architecture", a Bachelor of Science.
+
+### 4.2 — UK II: Manchester, Edinburgh
+
+#### Status, 29 September 2026 — done (session 13); two discontinued Manchester programs for the owner
+
+Data files: `scripts/programs/2027/the-university-of-manchester.ts` (new) and
+`university-of-edinburgh.ts` (continued from 3.4). Every change is explained in the program's
+`notes`. **Owner-approved and applied on 29 September 2026:** 116 programs written (Manchester 66,
+Edinburgh 50, two of them stamp only), none created, two reported as discontinued. Backup:
+`scripts/backups/refresh/2026-09-29T08-52-26-966Z.json`.
+
+- **Sources.** Manchester: every course page at `/courses/2027/<id>/<slug>/` says "Year of entry:
+  2027"; its `all-content/` view holds every tab, and the undergraduate entry-requirements page gives
+  the IB scale (30–39 points, three HL) and which courses take Maths AI. Manchester publishes typical
+  offers only, and they are stored, as before. All 68 URLs moved off `/2026/`. The 2026 pages still
+  serve, and for most programs say the same as 2027, so most differences below were already wrong for
+  2026. Edinburgh: every degree-finder page says "Year of entry: 2027", start September 2027;
+  requirements from `<programme>/entry-requirements?country=267`, the bottom of the published range
+  stored, as in 3.4. Everything written is stamped 2027.
+- **Manchester restructured.** The 2027 course list has 306 courses against 406 for 2026.
+  - **Modern languages merged.** Every degree named after a particular language is gone; one Modern
+    Languages BA (R901) lets students take one or two of nine languages, and the degree title names
+    them, and joint degrees become "History and Modern Languages" and the like. The
+    course page lists the old degrees as its routes, so Chinese Studies, French and Chinese, German
+    Studies and Japanese Studies were **renamed** to "BA Modern Languages (Chinese)" and so on, all
+    linking R901, rather than marked discontinued. Two languages need one of them at HL.
+  - **Discontinued (reported, not written):** Immunology BSc and Molecular Biology BSc. Neither is in
+    the 2027 list, both 2027 URLs are 404, and their MSci and variant courses went too. No successor is
+    named. **Owner decides.**
+  - **Renamed:** Educational Psychology is Psychology of Education (UCAS C812 → C813, same
+    description); "BEng Civil and Structural Engineering" was stored against the MEng's URL, and
+    Manchester has no such BEng, so it is now the 4-year MEng; "BSoc" is BSocSc and "BA Philosophy
+    and Criminology" is BASS. Geography BA moved to a new page id.
+- **Points changed (26).** Manchester up: History and Liberal Arts 35 → 36, Electrical and Electronic
+  and Mechatronic Engineering 36 → 37, Mechanical Engineering 36 → 38, Children's Nursing 30 → 32,
+  Dental Hygiene and Therapy 32 → 34. Manchester down: Computer Science and Computer Science and
+  Mathematics 38 → 37 (the drift the 24 September audit found); Criminology, Drama and Film Studies,
+  Linguistics, Middle Eastern Studies, Philosophy and Criminology, Sociology, Environmental Science and
+  the four Modern Languages routes 35 → 34; Cognitive Neuroscience and Psychology and the three MSci
+  36 → 35. Edinburgh: Psychology BSc and Psychology and Business 37 → 34 (the stored figure was the
+  top of the range). Middle Eastern Studies is 3 years, not 4.
+- **Subjects**, by 4.1's rule (named in the standard offer: critical; only preferred: not stored).
+  - Manchester: the second named HL subject is now critical in Chemistry ×2, Physics ×2, Medicine,
+    Computer Science and seven engineering programs; BA History, MusB Music and BSc Computer Science
+    and Mathematics gain their named subject. Life sciences ask for "two science subjects, normally Biology and
+    Chemistry" from Biology, Chemistry, Mathematics and Physics, stored as one critical group at 5, so
+    Biology alone is no longer required for Biology, Genetics, Zoology and the like. Where a profile
+    such as 766 does not say which subject takes the 7, 6 is stored, as in 4.1. Data Science and
+    Economics lost a Maths HL 6 row no page supports. Pharmacy is Chemistry HL, Biology or Maths HL,
+    and Biology taken at any level.
+  - Edinburgh: SL Maths is now critical wherever it is listed (Maths is compulsory in the Diploma, so
+    the GCSE alternative only helps with English); Economics ×3, Business and Economics and the four
+    psychology programs take "Maths at HL 5, or SL 6 if not at HL" as a mixed group; engineering's
+    second HL science and SL Physics are critical. English stays non-critical, as in 3.4, with English
+    B added; Law's English at HL 5 is critical. Landscape Architecture's award is an MA (Hons).
+- **Model limits**, recorded in the notes: HL profiles, "one at 5 and one at 6", "two of" a list,
+  Manchester's higher alternative offer for a second science, and Geography "at 6 if it is the only
+  science". On the student card, a mixed group shows only its first option's level and grade: a
+  display bug that predates this session, recorded as `MAINT_tasks.md` 5.7.
+- **Verify.**
+  - Every program in the batch has `requirementsEntryYear`: Manchester 66 × 2027 and 2 × 2026 (the
+    two discontinued, untouched), Edinburgh 50 × 2027. All 118 are flagged verified.
+  - `count(*)`: 1,279 before and after. Algolia: 1,279 records.
+  - A second dry run finds all 116 written programs up to date.
+  - Link checker, both universities: 115 URLs OK, 0 broken, 0 redirected; 2 year-pinned, the two
+    discontinued programs' 2026 pages.
+  - Public pages: Manchester BSc Computer Science shows 37 points and "Requirements checked for 2027
+    entry"; Edinburgh Psychology BSc shows 34; "BA Modern Languages (Chinese)" shows 34.
 
 ---
 
