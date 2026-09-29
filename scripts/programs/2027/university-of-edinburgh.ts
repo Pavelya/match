@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of Edinburgh',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -32,11 +32,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS NN14, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -51,11 +57,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS NN43, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -72,11 +84,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/656-anatomy-and-development/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/656-anatomy-and-development'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C183, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -142,11 +160,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/383-biomedical-sciences/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/383-biomedical-sciences'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C190, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -161,11 +185,25 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS NL11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -180,11 +218,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS NM11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical; the page names no English course, so English B is added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -199,11 +243,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS N1N5, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -218,13 +268,19 @@ const refresh: RefreshFile = {
       minIBPoints: 32,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
         { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H800, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -239,13 +295,19 @@ const refresh: RefreshFile = {
       minIBPoints: 32,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
         { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H804, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -265,13 +327,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/76-civil-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/76-civil-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H200, BEng (Hons). IB standard requirements: offers in recent years ranged from 34 points with 655 at HL to 32 points with 555 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 555 at HL. Second-year entry: 37 points with 666 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -288,15 +356,41 @@ const refresh: RefreshFile = {
         'https://study.ed.ac.uk/programmes/undergraduate/479-cognitive-science-humanities',
       requirements: [
         {
-          courses: ['BIO', 'CHEM', 'CS', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
+          courses: [
+            'BIO',
+            'CHEM',
+            'CS',
+            'ESS',
+            'GEOG',
+            'MATH-AA',
+            'MATH-AI',
+            'PHYS',
+            'PSYCH',
+            'SEHS'
+          ],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/479-cognitive-science-humanities/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/479-cognitive-science-humanities'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C851, MA (Hons). IB standard requirements: 34 points with 655 at HL. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Before, the science group was not critical and Mathematics was not stored. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -313,10 +407,16 @@ const refresh: RefreshFile = {
         'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics',
       requirements: [
         { courses: ['MATH-AA'], level: 'HL', grade: 7, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS GG14, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 755 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 7, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 755 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -332,10 +432,16 @@ const refresh: RefreshFile = {
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science',
       requirements: [
         { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS G400, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -351,10 +457,16 @@ const refresh: RefreshFile = {
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics',
       requirements: [
         { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS LG11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -368,11 +480,25 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS LL12, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -387,11 +513,25 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/122-economics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/122-economics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/122-economics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS L100, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -406,11 +546,25 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS L1N3, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -431,13 +585,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/109-electrical-and-mechanical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/109-electrical-and-mechanical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS HHH6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -458,13 +618,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/70-electronics-and-computer-science/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/70-electronics-and-computer-science'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS GHK6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -485,13 +651,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/88-electronics-and-electrical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/88-electronics-and-electrical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H600, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons) / MEng (Hons)".
     {
@@ -511,13 +683,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/75-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/75-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H100, BEng/MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -532,11 +710,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS NN13, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -550,9 +734,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/671-global-law',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/671-global-law/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/671-global-law'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS M116, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -566,9 +758,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/500-graphic-design',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/500-graphic-design/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/500-graphic-design'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS W210, BA (Hons). IB standard requirements: 34 points with 655 at HL. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. A portfolio is required; submissions close 27 January 2027. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -585,11 +785,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/437-infectious-diseases/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/437-infectious-diseases'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C590, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "MInf".
     {
@@ -606,10 +812,16 @@ const refresh: RefreshFile = {
         'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme',
       requirements: [
         { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS G500, MInf. IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -623,9 +835,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/502-interior-design',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/502-interior-design/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/502-interior-design'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS W250, BA (Hons). IB standard requirements: 34 points with 655 at HL. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. A portfolio is required; submissions close 27 January 2027. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -640,11 +860,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/183-international-business',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/183-international-business/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/183-international-business'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS N120, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake.
     {
@@ -654,7 +880,7 @@ const refresh: RefreshFile = {
       description:
         'Throughout MA Landscape Architecture you will develop an understanding of materials and technology, alongside cultural and ecological processes, enabling you to design sustainable environments fit for the locations they inhabit.',
       field: 'Arts & Humanities',
-      degree: 'Bachelor',
+      degree: 'Master of Arts (Scottish undergraduate)',
       duration: '5 years',
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/674-landscape-architecture',
@@ -663,12 +889,18 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS'],
           level: 'SL',
           grade: 4,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/674-landscape-architecture/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/674-landscape-architecture'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS K310, MA (Hons). IB standard requirements: 34 points with 655 at HL. The award is an MA (Hons), so the degree is the Scottish undergraduate MA (was "Bachelor"). No HL subject required. One of Biology, Chemistry, Computer Science, Geography, Mathematics or Physics at SL 4 is required, so now critical. Evidence of artistic ability, for example Visual Arts or Design Technology at HL or SL, is normally required; not stored, as the page gives examples rather than a list. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -682,9 +914,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS M114, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -699,11 +939,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS MN11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -717,9 +963,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS MV11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -734,9 +988,17 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl:
         'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS ML1F, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -750,9 +1012,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 37,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS ML12, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MBChB".
     {
@@ -769,13 +1039,19 @@ const refresh: RefreshFile = {
         'https://study.ed.ac.uk/programmes/undergraduate/354-mbchb-medicine-6-year-programme',
       requirements: [
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
+        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: true },
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: true },
-        { courses: ['BIO', 'MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['BIO'], level: 'SL', grade: 6, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 6, critical: false }
+        { courses: ['BIO'], level: 'SL', grade: 6, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 6, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/354-mbchb-medicine-6-year-programme/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/354-mbchb-medicine-6-year-programme'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS A100, MBChB. IB standard requirements: 38 points with 666 at HL. Chemistry and one of Biology, Mathematics or Physics at HL (666); Mathematics (AA or AI) at SL 6; Biology at SL 6 if not at HL. All are required, so the second HL subject and Biology are now critical. English at SL 6 (ab initio not accepted), not critical as elsewhere; English B added. All grades at the first attempt. A minimum UCAT score is required. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -795,13 +1071,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/82-mechanical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/82-mechanical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H300, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -821,13 +1103,19 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/83-mechanical-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/83-mechanical-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS H303, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -844,11 +1132,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/2-neuroscience/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/2-neuroscience'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS B140, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "BN".
     {
@@ -863,11 +1157,17 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/113-nursing-studies',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/113-nursing-studies/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/113-nursing-studies'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS B700, BN (Hons). IB standard requirements: 34 points with 655 at HL. No HL subject required. Mathematics (AA or AI) at SL 4 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. Admission includes an interview. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -884,11 +1184,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/3-pharmacology/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/3-pharmacology'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS B210, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -904,15 +1210,41 @@ const refresh: RefreshFile = {
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/319-philosophy-and-psychology',
       requirements: [
         {
-          courses: ['BIO', 'CHEM', 'CS', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
+          courses: [
+            'BIO',
+            'CHEM',
+            'CS',
+            'ESS',
+            'GEOG',
+            'MATH-AA',
+            'MATH-AI',
+            'PHYS',
+            'PSYCH',
+            'SEHS'
+          ],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/319-philosophy-and-psychology/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/319-philosophy-and-psychology'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS VC58, MA (Hons). IB standard requirements: offers in recent years ranged from 36 points with 665 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Before, the science group was not critical and Mathematics was not stored. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -926,9 +1258,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/124-politics',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/124-politics/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/124-politics'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS L200, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -942,9 +1282,17 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/505-product-design',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/505-product-design/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/505-product-design'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS W240, BA (Hons). IB standard requirements: 34 points with 655 at HL. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. A portfolio is required; submissions close 27 January 2027. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -956,20 +1304,45 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business',
       requirements: [
         {
-          courses: ['BIO', 'CHEM', 'CS', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
+          courses: [
+            'BIO',
+            'CHEM',
+            'CS',
+            'ESS',
+            'GEOG',
+            'MATH-AA',
+            'MATH-AI',
+            'PHYS',
+            'PSYCH',
+            'SEHS'
+          ],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS CN81, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -981,20 +1354,45 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 34,
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/370-psychology',
       requirements: [
         {
-          courses: ['BIO', 'CHEM', 'CS', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
+          courses: [
+            'BIO',
+            'CHEM',
+            'CS',
+            'ESS',
+            'GEOG',
+            'MATH-AA',
+            'MATH-AI',
+            'PHYS',
+            'PSYCH',
+            'SEHS'
+          ],
           level: 'HL',
           grade: 5,
-          critical: false
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/370-psychology/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/370-psychology'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C802, BSc (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -1011,11 +1409,17 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/384-reproductive-biology/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/384-reproductive-biology'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS C142, BSc (Hons). IB standard requirements: 34 points with 655 at HL. Biology and Chemistry at HL, one at 5 and one at 6; stored at 5 each, as the model cannot say "one of them at 6". Mathematics or Physics recommended, not stored. Mathematics (AA or AI) at SL 5 is required, so now critical: Mathematics is part of every Diploma, so the GCSE alternative the page offers applies only to English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 36 points with 666 at HL to include Biology and Chemistry.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -1031,10 +1435,16 @@ const refresh: RefreshFile = {
       programUrl: 'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering',
       requirements: [
         { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS G600, BEng (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
     },
     // Stored: not checked for any intake. Degree stored as "BVM&S".
     {
@@ -1052,10 +1462,16 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['BIO'], level: 'HL', grade: 6, critical: true },
         { courses: ['CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
+        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
+        'https://study.ed.ac.uk/programmes/undergraduate/356-veterinary-medicine-5-year-programme/entry-requirements?country=267',
+        'https://study.ed.ac.uk/programmes/undergraduate/356-veterinary-medicine-5-year-programme'
+      ],
+      notes:
+        'Year of entry 2027 (start September 2027); UCAS D100, BVM&S. IB standard requirements: 38 points with 666 at HL. Chemistry and Biology at HL 6. English at SL 5 or GCSE English at B/6, not critical as elsewhere; English B added. All grades at the first attempt. Offers follow an interview. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 36 points with 665 at HL.'
     }
   ]
 }
