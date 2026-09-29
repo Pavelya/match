@@ -32,6 +32,7 @@ pull request, merged before the next starts.
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
+| any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade for one option of 148 subject groups |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -64,6 +65,7 @@ Phase 5 — quick wins
 - [x] 5.4 Set `trustHost` explicitly in the auth config
 - [ ] 5.5 Restore the University of Manchester image
 - [ ] 5.6 Make the Algolia status script read every record
+- [ ] 5.7 Show each option's level and grade in mixed subject groups
 
 Phase 6 — dependency majors
 
@@ -357,6 +359,40 @@ only, and writes nothing. Selecting `id` and names for every program is a few hu
 keep the `select`, never `include`.
 
 **Session size:** Tiny. Fold into any session.
+
+---
+
+### 5.7 — Show each option's level and grade in mixed subject groups
+
+**Outcome:** A subject group whose options differ in level or grade ("Mathematics at HL 5,
+or at SL 6") shows each option with its own level and grade on the student's program card.
+
+**Why:** Found in content session 13 (29 September 2026). The OR-group branch of
+`components/student/ProgramCard.tsx` lists every option's course name, then prints the
+*first* option's level and grade under all of them. Edinburgh Psychology BSc now shows
+"Mathematics: Analysis and Approaches or Mathematics: Applications and Interpretation or
+Mathematics: Analysis and Approaches or Mathematics: Applications and Interpretation — HL •
+Required: 5", which hides the SL 6 route and repeats the names. On 29 September 2026, 148
+groups in 112 programs mix levels or grades (the refresh tool writes them as `anyOf`;
+3.3 found 73 before phase 4). The data and matching are right, and the admin page
+(`app/admin/programs/[id]/page.tsx`) already lists each option with its own level and grade.
+
+**Files:** `components/student/ProgramCard.tsx`, the `else` branch that renders
+`group.requirements`. Check whether any other student-facing view renders requirement
+groups the same way.
+
+**Steps:**
+1. When a group's options share one level and grade, keep today's compact line.
+2. Otherwise, list each option with its level and grade, or collapse options that share
+   one ("Mathematics AA or AI — HL 5 · or SL 6").
+3. Cover the grouping with a Vitest test on a pure helper, not the component.
+
+**Verify:** Edinburgh Psychology BSc (`/programs/cmkcynsdg00197moeu7aoktel`) shows the HL 5
+and SL 6 routes for Mathematics; a single-level group, such as the science group on
+Manchester BSc Psychology (`/programs/cmkf6zfvq007d7msfu768e1dk`), is unchanged.
+No database access.
+
+**Session size:** Small.
 
 ---
 
