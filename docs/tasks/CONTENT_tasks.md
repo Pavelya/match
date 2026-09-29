@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December** |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1 done 29 September 2026, eight UCL programs left for the owner |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -78,7 +78,7 @@ Phase 3 — Refresh groundwork
 
 Phase 4 — Program refresh for 2027 entry
 
-- [ ] 4.1 UK I — Imperial, UCL, LSE
+- [x] 4.1 UK I — Imperial, UCL, LSE — eight UCL programs for the owner to open in a browser
 - [ ] 4.2 UK II — Manchester, Edinburgh
 - [ ] 4.3 Canada I — Alberta, UBC, Toronto
 - [ ] 4.4 Canada II — McGill, Waterloo, Western
@@ -109,6 +109,10 @@ Owner tasks — not AI work
   Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own
 - [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
   whether it is still a direct-entry choice
+- [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
+  Engineering BEng, Information Management for Business, Neuroscience, Politics and International
+  Relations, Urban Studies, Law. Say whether Civil Engineering BEng and Scandinavian Studies are still
+  offered. While there, spot-check one or two of the 29 UCL programs read from archive copies
 - [ ] Approve two degree types, or not (3.4): Bachelor of Journalism, Media and Artificial
   Intelligence (HKU) and Bachelor of Actuarial and Financial Studies (UCD), stored as "Bachelor" for now
 - [ ] Check bot-blocked sites by hand when the session cannot read them
@@ -254,6 +258,13 @@ not precision.
   IB page, `.../admission-requirements/<program>/high-school/international-system/ib`. McGill's IB
   page answered curl this time. NTU, UBC and Gdańsk publish no IB points figure, and Bocconi does
   not score the IB at all.
+- **Found in 4.1:** all of `www.ucl.ac.uk` 403s curl, urllib and WebFetch (Cloudflare), prospectus
+  PDFs included. Its course pages are now `/study/prospective-students/undergraduate/courses/<slug>`.
+  `https://web.archive.org/web/20260927000000id_/<url>` redirects to the latest snapshot (the body is
+  gzip); the archive's CDX API was down at the time while `/web/` still worked. Record the snapshot date
+  in the notes. `mgmt.ucl.ac.uk` answers curl but gives no IB figure. LSE programme pages answer curl,
+  and their served HTML is the default academic year (2027/28); LSE's Maths AA/AI rule per programme
+  is on `.../How-to-Apply/Entry-Requirements`. Imperial course pages answer curl.
 
 ---
 
@@ -1424,6 +1435,83 @@ their public pages.
 
 Germany (TUM, 38 programs) and the USA (Georgia Tech, 45) are not in this phase. Their
 refresh belongs to phases 7 and 6, because how to model them is the open question.
+
+### 4.1 — UK I: Imperial, UCL, LSE
+
+#### Status, 29 September 2026 — done (session 12); eight UCL programs for the owner
+
+Data files: `scripts/programs/2027/imperial-college-london.ts`, `university-college-london.ts` and
+`london-school-of-economics-and-political-science.ts`. Every change is explained in the program's
+`notes`. **Owner-approved and applied on 29 September 2026:** 118 programs written (Imperial 49, LSE
+40, UCL 29), none created, none discontinued; the three programs 3.4 checked were already up to date.
+Backup: `scripts/backups/refresh/2026-09-29T07-35-29-635Z.json`.
+
+- **Sources.** Imperial: every course page says "Start date: October 2027". The unpinned URLs stored
+  are canonical: `/undergraduate/2027/<slug>/` and `/2026/<slug>/` redirect to them. Imperial's
+  accepted-qualifications page gives only a range (38–42). LSE: the served HTML is academic year
+  2027/28, start 27 September 2027; LSE's Entry Requirements page lists which programmes require Maths
+  AA and which take AI. Everything written is stamped 2027; nothing was checked for an earlier intake.
+- **UCL was read through the Internet Archive.** `www.ucl.ac.uk` is behind Cloudflare: curl, urllib
+  and WebFetch all get 403, and so does the 2027 prospectus PDF. Course pages moved to
+  `/study/prospective-students/undergraduate/courses/<slug>`; the old `/degrees/<slug>` pages hold
+  2026-entry copies. `web.archive.org/web/20260927000000id_/<new URL>` returns the latest snapshot
+  (gzip body). 29 of the 37 had one, captured 30 March – 12 August 2026, each saying "Course starts:
+  September 2027". Each program's notes give the snapshot date, and its sources list the snapshot. URLs
+  moved to the new path.
+- **UCL, not checked (8):** History, Scandinavian Studies, Civil Engineering BEng, Information
+  Management for Business, Neuroscience, Politics and International Relations, Urban Studies, Law. No
+  readable copy exists at the new path. UCL's archived course list shows only the MEng of Civil
+  Engineering and only joint Scandinavian degrees, so those two may be gone, but nothing proves it and
+  neither is marked discontinued. The stored Neuroscience BSc (B140, Life Sciences) is not Human
+  Neuroscience BSc (B142, Brain Sciences). Each file entry says why it was not checked.
+- **Points changed (14).** UCL down 38 → 36: Geography BA, Geography BSc, Social Sciences, Sociology.
+  LSE up: Accounting and Finance 38 → 39, Economics and Data Science 37 → 39, and 37 → 38 for
+  Environment and Sustainable Development, History and Politics, International Social and Public
+  Policy with Economics, Philosophy and Economics, and Politics and International Relations. LSE down:
+  International Social and Public Policy with Politics 38 → 37, Language, Culture and Society 39 → 37
+  (and 3 → 4 years), Politics and Philosophy 39 → 38. Imperial: none, as the 24 September spot check
+  suggested.
+- **Subjects.** One rule throughout, as in 3.4: a subject the minimum standard names is critical; a
+  group the university only suggests is stored but not critical; a subject only "preferred" is not
+  stored.
+  - Now critical at Imperial: the second subject in 14 life-science programs, Physics in 10, and the
+    named subject in 10 more (Maths in Chemistry ×4; Materials, Biomaterials, Biomedical Technology
+    Ventures, Molecular Bioengineering, Medicine, Earth and Planetary Science). At UCL: Biological
+    Sciences ×2, Chemistry ×2, Mathematics and Physics ×2, Mechanical Engineering MEng, Psychology.
+  - Removed as "preferred": Imperial Chemistry ×3 (Biology, Economics or Physics), UCL Mathematics ×2
+    (eight third subjects), UCL Chemistry BSc (Computer Science or Psychology), UCL Mechanical
+    Engineering ×2 (Economics).
+  - Corrected: UCL Medicine required Maths or Physics at 7, which the page does not ask for; UCL
+    Economics no longer names Economics; LSE Economics and Economic History asked for Economics *and*
+    History at 7, where the page asks for either one plus Maths; LSE's "766 including Maths" needs Maths
+    at 6, not 7 (six programs), and Economic History likewise 7 → 6; Economic History and Geography and
+    International Social and Public Policy with Economics gained their named subject; PPE accepts Maths
+    AI. Imperial Language for Science ×3: French, German or Spanish, 5 at HL or 6 at SL, B or A course,
+    critical (German and the SL option were missing). Imperial Earth and Planetary Science and Geology
+    gain Geography; Imperial Computing ×5 take the department's relevant-subject list, as 3.4's
+    Computing MEng.
+  - UCL Civil Engineering MEng: "Physics at HL or SL", no grade, stored as Physics SL 1, as HKU's file
+    does for "must be taken".
+- **Names and degrees.** UCL's "BA Architecture" is Architecture BSc; "BSc  Economics (Econ)" lost a
+  double space; Imperial's three "with Language for Science" are "with a Language for Science". LSE's
+  40 "Bachelor" became BA or BSc, UCL's five MSci "Master" became "Master in Science", and Imperial's
+  short forms took their canonical names. Two LSE URLs lost an `#entry-requirements` anchor.
+- **Model limits**, recorded in the notes rather than stretched: HL profiles (LSE "766", UCL "18 points
+  across three HL, none below 5"), "7 and 6 in either order" (stored as 6 and 6: UCL Physics ×2,
+  Mechanical Engineering ×2, Medicine), "two of" a list (Imperial Geology, UCL Psychology), and "6 in
+  any third subject at HL".
+- **Verify.**
+  - Every program in the batch has `requirementsEntryYear`: Imperial 50 × 2027, LSE 42 × 2027, UCL 29
+    × 2027 and 8 × 2026.
+  - `count(*)`: 1,279 before and after, and 50, 42 and 37 per university. Algolia: 1,279 records.
+    `scripts/check-algolia-status.ts` lists 279 programs as missing only because it reads the first
+    1,000 records and never pages; its counts agree. Fixing it is `MAINT_tasks.md` 5.6.
+  - A second dry run finds all 121 checked programs up to date.
+  - Link checker, three universities: 92 OK (every Imperial and LSE URL), 37 unverifiable (UCL, 403),
+    0 broken, 0 redirected.
+  - Public pages: LSE Accounting and Finance shows 39 points and "Requirements checked for 2027
+    entry"; UCL Medicine shows 39 with Biology and Chemistry at 6; UCL's program is now "BSc
+    Architecture", a Bachelor of Science.
 
 ---
 

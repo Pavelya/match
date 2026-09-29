@@ -31,6 +31,7 @@ pull request, merged before the next starts.
 | 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
+| any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -62,6 +63,7 @@ Phase 5 — quick wins
 - [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
 - [x] 5.4 Set `trustHost` explicitly in the auth config
 - [ ] 5.5 Restore the University of Manchester image
+- [ ] 5.6 Make the Algolia status script read every record
 
 Phase 6 — dependency majors
 
@@ -321,6 +323,40 @@ returns **0**.
 rather than storing it, and that is intentional.
 
 **Session size:** Small, but partly a human task.
+
+---
+
+### 5.6 — Make the Algolia status script read every record
+
+**Outcome:** `npx tsx scripts/check-algolia-status.ts` reports a program as missing from
+Algolia only when it really is.
+
+**Why:** Found in content session 12 (29 September 2026). The script reads the index with
+a single `client.browse` call and `hitsPerPage: 1000`, and never follows the cursor. With
+1,279 programs it saw 1,000 records and listed the other 279 as "Missing from Algolia",
+although the database and the index both held 1,279 and every spot-checked record was
+current. Its count lines are right; only the missing list is wrong. Every content session
+uses the Algolia check to verify a refresh, so a list of false alarms will either be
+ignored or chased.
+
+**Files:** `scripts/check-algolia-status.ts`. `scripts/find-algolia-orphans.ts`, which
+checks the other direction (in Algolia, not in the database), already pages correctly
+with `browseObjects` and an `aggregator`. Copy that.
+
+**Steps:**
+1. Replace the single `browse` call with `browseObjects`, collecting every `objectID`.
+2. Print how many records were read, and say so if it differs from the index's
+   `entries` count, so a paging bug cannot hide again.
+3. Optional: also list records in Algolia but not in the database, so one script answers
+   both questions. If you do, say in the header that `find-algolia-orphans.ts` covers the
+   same ground, or remove that script if nothing else uses it.
+
+**Verify:** the script reports as many Algolia IDs as the index has records (1,279 on
+29 September 2026) and "All programs are in Algolia". It reads production and Algolia
+only, and writes nothing. Selecting `id` and names for every program is a few hundred KB;
+keep the `select`, never `include`.
+
+**Session size:** Tiny. Fold into any session.
 
 ---
 
