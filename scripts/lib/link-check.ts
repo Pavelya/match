@@ -36,7 +36,9 @@ const BOT_WALL = [
   /<title>\s*Just a moment\.\.\.\s*<\/title>/i,
   /<title>\s*Attention Required! \| Cloudflare\s*<\/title>/i,
   /\/cdn-cgi\/challenge-platform\//i,
-  /errors\.edgesuite\.net/i
+  /errors\.edgesuite\.net/i,
+  // F5's JavaScript challenge (universiteitleiden.nl): the same page for every URL, 404s included.
+  /window\["bobcmn"\]|<title>[^<]*Access Blocked\s*<\/title>/i
 ]
 
 function parse(url: string): URL | null {

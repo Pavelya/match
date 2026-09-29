@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of Groningen',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -32,8 +32,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/american-studies/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/american-studies/'
+      ],
+      notes:
+        'Content 4.6: BA American Studies (Croho 50623, Faculty of Arts). The IB page lists it under the Faculty of Arts programmes with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -47,9 +52,14 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/applied-mathematics/',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/applied-mathematics/'
+      ],
+      notes:
+        'Content 4.6: BSc Applied Mathematics (Croho 56965). The IB page asks for "Mathematics: Analysis and Approaches HL"; the programme page says "Sufficient background knowledge in Mathematics is required". Stored as Maths AA HL 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -64,11 +74,16 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/applied-physics/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/applied-physics/'
+      ],
+      notes:
+        'Content 4.6: BSc Applied Physics (Croho 56962). The IB page asks for "Mathematics: Analysis and Approaches HL" and "Physics HL"; both stored at 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical); Physics HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -83,8 +98,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/art-history/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/art-history/'
+      ],
+      notes:
+        'Content 4.6: BA Art History (Croho 56824, Faculty of Arts). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -98,9 +118,22 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/artificial-intelligence/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/artificial-intelligence/'
+      ],
+      notes:
+        'Content 4.6: BSc Artificial Intelligence (Croho 56981). The IB page asks for "Mathematics: Analysis and Approaches SL/HL or Mathematics: Application and Interpretation HL": stored as Maths AA SL 4 or Maths AI HL 4, one critical group (AA HL also meets the SL rule). Maths AI SL is not accepted, and HL was not required for AA. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA or Maths AI HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -115,8 +148,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/arts-culture-and-media/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/arts-culture-and-media/'
+      ],
+      notes:
+        'Content 4.6: BA Arts, Culture and Media (Croho 50629, Faculty of Arts). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -131,11 +169,16 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/astronomy/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/astronomy/'
+      ],
+      notes:
+        'Content 4.6: BSc Astronomy (Croho 50205). The IB page asks for "Mathematics: Analysis and Approaches HL" and "Physics HL"; both stored at 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical); Physics HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -150,13 +193,24 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/biology/',
       requirements: [
-        { courses: ['BIO'], level: 'HL', grade: 5, critical: true },
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
+        { courses: ['BIO'], level: 'HL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/biology/'
+      ],
+      notes:
+        'Content 4.6: BSc Biology (Croho 56860). The IB page asks for Biology HL, and Physics, Chemistry and Mathematics ("Analysis and approaches SL/HL or Applications and interpretation HL"), "At least 1 of the required courses at HL, the other(s) at SL"; all four "have to be met". Stored: Biology HL 4, Chemistry SL 4, Physics SL 4 and Maths AA SL 4 or AI HL 4, all critical. The model cannot hold "one of Physics, Chemistry and Maths at HL". Chemistry is no longer required at HL. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Biology HL 5 (critical); Chemistry HL 5 (critical); Maths AA or Maths AI SL 4 (critical); Physics SL 4 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -171,12 +225,17 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/biomedical-engineering/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/biomedical-engineering/'
+      ],
+      notes:
+        'Content 4.6: BSc Biomedical Engineering (Croho 56226). The IB page asks for "Mathematics: Analysis and Approaches HL", Physics and Chemistry, "At least one of these two courses at HL, the other at SL"; Biology is "not mandatory but highly recommended" and is not stored. Stored: Maths AA HL 4, Physics SL 4 and Chemistry SL 4, all critical; the model cannot hold "one of Physics and Chemistry at HL". Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA or Maths AI HL 5 (critical); Chemistry SL 4 (critical); Physics SL 4 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -191,12 +250,17 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/chemical-engineering/',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/chemical-engineering/'
+      ],
+      notes:
+        'Content 4.6: BSc Chemical Engineering (Croho 56960). The IB page asks for "Mathematics: Analysis and Approaches HL", Physics and Chemistry, "At least one of these two courses at HL, the other at SL". Stored: Maths AA HL 4, Physics SL 4 and Chemistry SL 4, all critical; the model cannot hold "one of Physics and Chemistry at HL", so Chemistry is no longer stored at HL. Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Chemistry HL 5 (critical); Maths AA or Maths AI HL 5 (critical); Physics SL 4.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -211,12 +275,17 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/chemistry/',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/chemistry/'
+      ],
+      notes:
+        'Content 4.6: BSc Chemistry (Croho 56857). The IB page asks for "Mathematics: Analysis and Approaches HL", Physics and Chemistry, "At least one of these two courses at HL, the other at SL". Stored: Maths AA HL 4, Physics SL 4 and Chemistry SL 4, all critical; the model cannot hold "one of Physics and Chemistry at HL", so Chemistry is no longer stored at HL. Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Chemistry HL 5 (critical); Maths AA or Maths AI HL 5 (critical); Physics SL 4.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -231,8 +300,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/communication-and-information-studies/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/communication-and-information-studies/'
+      ],
+      notes:
+        'Content 4.6: BA Communication and Information Studies (Croho 56826, Faculty of Arts). The IB page lists it with "none" (only the Dutch-taught Information Science asks for Mathematics). Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -246,9 +320,14 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/computing-science/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/computing-science/'
+      ],
+      notes:
+        'Content 4.6: BSc Computing Science (Croho 56978). The IB page asks for "Mathematics: Analysis and Approaches HL": stored as Maths AA HL 4, critical. Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA or Maths AI HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -263,8 +342,14 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/data-science-society/',
       requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/data-science-society/',
+        'https://www.rug.nl/cf/studeren-bij-cf/programmas/bsc-data-science-society-admissions-requirements'
+      ],
+      notes:
+        'Content 4.6: BSc Data Science and Society (Croho 50982, Campus Fryslân, Leeuwarden; February and September starts). Its admissions page: a mathematics requirement at VWO Wiskunde A or B, for the IB "Mathematics: Applications & Interpretation SL or HL or Mathematics: Analysis & Approaches SL or HL with a passing grade". The stored Maths AA or AI SL 4 (critical) already matched; 4 is stored for "a passing grade". The university IB page does not list this programme. Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. The programme page gives deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -278,9 +363,14 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/econometrics-and-operations-research/',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/econometrics-and-operations-research/'
+      ],
+      notes:
+        'Content 4.6: BSc Econometrics and Operations Research (Croho 56833). The IB page asks for "Mathematics: Analysis and approaches HL"; the programme page, mathematics "passed as a higher level (advanced) subject". Stored as Maths AA HL 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -305,8 +395,13 @@ const refresh: RefreshFile = {
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/economics-and-business-economics-business-economics/'
+      ],
+      notes:
+        'Content 4.6: BSc Economics and Business Economics, Business Economics track (Croho 50950). The IB page asks for "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation HL"; the stored group (Maths AA SL or HL 4 or Maths AI HL 4, critical) already matched. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -330,8 +425,13 @@ const refresh: RefreshFile = {
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/economics-and-business-economics-economics/'
+      ],
+      notes:
+        'Content 4.6: BSc Economics and Business Economics, Economics track (Croho 50950). The IB page asks for "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation HL"; the stored group (Maths AA SL or HL 4 or Maths AI HL 4, critical) already matched. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -356,8 +456,13 @@ const refresh: RefreshFile = {
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/economics-and-business-economics-international-economics-and-sustainable-development/'
+      ],
+      notes:
+        'Content 4.6: BSc Economics and Business Economics, International Economics and Sustainable Development track (Croho 50950). The IB page asks for "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation HL"; the stored group (Maths AA SL or HL 4 or Maths AI HL 4, critical) already matched. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -372,8 +477,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/english-language-and-culture/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/english-language-and-culture/'
+      ],
+      notes:
+        'Content 4.6: BA English Language and Culture (Croho 50290, Faculty of Arts). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -389,9 +499,12 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.rug.nl/bachelors/european-languages-cultures-and-politics/',
       requirements: [],
       checkedFor: 2027,
-      sources: ['https://www.rug.nl/bachelors/european-languages-cultures-and-politics/'],
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/european-languages-cultures-and-politics/'
+      ],
       notes:
-        "Content 3.4: renamed, same programme. The old european-languages-and-cultures URL redirects here; BA in European Languages, Cultures and Politics (Croho 56124, 180 EC, Faculty of Arts, Dutch and English), with a politics profile added to language and culture. The page gives deadlines for the September 2027 start (1 May 2027). Checked, no specific IB subjects required: an international equivalent of the VWO diploma (the IB Diploma; 24 is its minimum) and English at C1 (VWO English 6 or a listed test). The major language sets its own prerequisite, which the model cannot hold: French, German and Spanish Plus need about A2 (for example French or Spanish as an exam subject, or an A2 statement on the diploma); Dutch, Italian, Russian, Swedish and beginners' Spanish need none."
+        'Content 3.4: renamed, same programme. The old european-languages-and-cultures URL redirects here; BA in European Languages, Cultures and Politics (Croho 56124, 180 EC, Faculty of Arts, Dutch and English), with a politics profile added to language and culture. The page gives deadlines for the September 2027 start (1 May 2027). Checked, no specific IB subjects required: an international equivalent of the VWO diploma (the IB Diploma; 24 is its minimum) and English at C1 (VWO English 6 or a listed test). The major language sets its own prerequisite, which the model cannot hold: French, German and Spanish Plus need about A2 (for example French or Spanish as an exam subject, or an A2 statement on the diploma); Dutch, Italian, Russian, Swedish and beginners\' Spanish need none. Content 4.6: re-checked against Groningen\'s IB page (last modified 25 September 2026), which lists "European Language and Cultures" under the Faculty of Arts with "none"; nothing changed.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -407,9 +520,13 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.rug.nl/bachelors/global-politics-sustainability/',
       requirements: [],
       checkedFor: 2027,
-      sources: ['https://www.rug.nl/bachelors/global-politics-sustainability/'],
+      sources: [
+        'https://www.rug.nl/bachelors/global-politics-sustainability/',
+        'https://www.rug.nl/cf/education/application/applying-for-gps',
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma'
+      ],
       notes:
-        'Content 3.4: renamed, same programme: the page says "Global Politics & Sustainability was previously called Global Responsibility & Leadership". BSc (Croho 59327, 180 EC, English, Campus Fryslân in Leeuwarden), starting February and September. The page gives deadlines for 2027 starts (1 November 2026 for international students, September 2027 intake). Checked, no specific IB subjects required: an international equivalent of the VWO diploma (the IB Diploma; 24 is its minimum) and sufficient English. It is selective: a CV and a motivation letter or video in English.'
+        'Content 3.4: renamed, same programme: the page says "Global Politics & Sustainability was previously called Global Responsibility & Leadership". BSc (Croho 59327, 180 EC, English, Campus Fryslân in Leeuwarden), starting February and September. The page gives deadlines for 2027 starts (1 November 2026 for international students, September 2027 intake). Checked, no specific IB subjects required: an international equivalent of the VWO diploma (the IB Diploma; 24 is its minimum) and sufficient English. It is selective: a CV and a motivation letter or video in English. Content 4.6: re-checked. The GPS application page (Early Bird 15 January 2027, final deadline 1 May 2027) names "two main requirements", the diploma and English. Groningen\'s IB page (last modified 25 September 2026) lists GPS as the only Campus Fryslân programme, with "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation SL/HL with a passing grade in all cases", word for word the maths rule of Data Science and Society, which that page leaves out. Kept as none required, the programme\'s own page; the owner may want Campus Fryslân to confirm.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -424,8 +541,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/history/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/history/'
+      ],
+      notes:
+        'Content 4.6: BA History, English track (Croho 56034, Faculty of Arts). The IB page lists "History (Dutch track and English track)" with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -440,8 +562,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/human-geography-and-planning/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/human-geography-and-planning/'
+      ],
+      notes:
+        'Content 4.6: BSc Human Geography and Planning (Croho 50974, Faculty of Spatial Sciences). The IB page lists it with "none"; the programme page: "There is no maths requirement for Human Geography and Planning", though a level like VWO Maths A, B or C is expected. Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -455,9 +582,14 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/industrial-engineering-and-management/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/industrial-engineering-and-management/'
+      ],
+      notes:
+        'Content 4.6: BSc Industrial Engineering & Management (Croho 56994). The IB page asks for "Mathematics: Analysis and Approaches HL"; the programme page: "only Mathematics is a formal entry requirement", Physics is highly recommended and Chemistry advised (not stored). Stored as Maths AA HL 4, critical. Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA or Maths AI HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -472,8 +604,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/international-and-european-law/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/international-and-european-law/'
+      ],
+      notes:
+        'Content 4.6: LLB International and European Law (Croho 56829, Faculty of Law). The IB page lists it with "none". A compulsory (non-binding) matching activity is part of applying. Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -497,8 +634,13 @@ const refresh: RefreshFile = {
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/international-business/'
+      ],
+      notes:
+        'Content 4.6: BSc International Business (Croho 50019), a numerus fixus programme with selection; the deadline is 15 January 2027 for the 1 September 2027 start. The IB page asks for "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation HL"; the stored group (Maths AA SL or HL 4 or Maths AI HL 4, critical) already matched. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (15 January 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -514,8 +656,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.rug.nl/bachelors/international-relations-and-international-organization/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/international-relations-and-international-organization/'
+      ],
+      notes:
+        'Content 4.6: BA International Relations and International Organization (Croho 50627, Faculty of Arts). The IB page lists it with "none"; the programme page: "an International Baccalaureate diploma (minimum score: 24)". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -530,8 +677,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/liberal-arts-and-sciences/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/liberal-arts-and-sciences/'
+      ],
+      notes:
+        'Content 4.6: BA/BSc Liberal Arts and Sciences, University College Groningen (Croho 50393); the degree depends on the major, and the stored Bachelor of Science is kept. The IB page lists it with "none". Selective: eligibility first, then a motivation video (not a numerus fixus). An IB Diploma taught in English exempts from the English test. Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -546,12 +698,17 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/life-science-and-technology/',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/life-science-and-technology/'
+      ],
+      notes:
+        'Content 4.6: BSc Life Science and Technology (Croho 56286). The IB page asks for "Mathematics: Analysis and Approaches HL", Physics and Chemistry, "At least one of these two courses at HL, the other at SL". Stored: Maths AA HL 4, Physics SL 4 and Chemistry SL 4, all critical; the model cannot hold "one of Physics and Chemistry at HL", so Chemistry is no longer stored at HL. Maths AI HL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Chemistry HL 5 (critical); Maths AA or Maths AI HL 5 (critical); Physics SL 4.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -565,9 +722,14 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/mathematics/',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/mathematics/'
+      ],
+      notes:
+        'Content 4.6: BSc Mathematics (Croho 56980). The IB page asks for "Mathematics: Analysis and Approaches HL": stored as Maths AA HL 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -582,8 +744,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/media-studies/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/media-studies/'
+      ],
+      notes:
+        'Content 4.6: BA Media Studies (Croho 50906, Faculty of Arts). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -599,7 +766,9 @@ const refresh: RefreshFile = {
       programUrl: 'https://www.rug.nl/bachelors/philosophy-of-a-specific-discipline/',
       requirements: [],
       checkedFor: null,
-      sources: []
+      sources: [],
+      notes:
+        'Content 4.6, not checked, for the owner: BA Philosophy of a Specific Discipline (Croho 57084) admits no school leavers. Its page: "At least 60 ECTS of the first year of your bachelor program or a propaedeutic exam: in order to be admitted, you need to have a completed a propaedeutic degree/first year of a non-philosophical research university bachelor program"; students register as not starting in the first year. No IB requirement exists to record. Keep, or remove it from an IB-entry database? Source: https://www.rug.nl/bachelors/philosophy-of-a-specific-discipline/'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -614,11 +783,16 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/physics/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/physics/'
+      ],
+      notes:
+        'Content 4.6: BSc Physics (Croho 50206). The IB page asks for "Mathematics: Analysis and Approaches HL" and "Physics HL"; both stored at 4, critical (the stored grade 5 had no source). Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA HL 5 (critical); Physics HL 5 (critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -633,8 +807,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/psychology-en/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/psychology-en/'
+      ],
+      notes:
+        'Content 4.6: BSc Psychology, English track (Croho 56604), a numerus fixus of 250 places with a selection procedure; the deadline is 15 January 2027 for the 1 September 2027 start. The IB page lists Psychology under the Faculty of Behavioural and Social Sciences with "none"; the programme page only recommends mathematics throughout secondary school. Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (15 January 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -649,8 +828,13 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/religious-studies/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/religious-studies/'
+      ],
+      notes:
+        'Content 4.6: BA Religious Studies (Croho 50902, Faculty of Religion, Culture and Society). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-10.
     {
@@ -664,9 +848,22 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.rug.nl/bachelors/spatial-planning-and-design/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.rug.nl/education/application-enrolment-tuition-fees/admission/procedures/application-informatie/with-non-dutch-diploma/bachelor/bachelor-entry-requirements/bachelorlinksinternational/international-baccalaureate-diploma',
+        'https://www.rug.nl/bachelors/spatial-planning-and-design/'
+      ],
+      notes:
+        'Content 4.6: BSc Spatial Planning and Design (Croho 56194, Faculty of Spatial Sciences). The IB page asks for "Mathematics: Analysis and approaches SL/HL or Mathematics: Applications and interpretation HL": stored as Maths AA SL 4 or Maths AI HL 4, one critical group. Maths AI SL is no longer accepted. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027. Stored before: Maths AA or Maths AI SL 4 (critical).'
     }
   ]
 }
