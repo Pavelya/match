@@ -19,34 +19,7 @@ const refresh: RefreshFile = {
   entryYear: 2027,
   checkedOn: '2026-09-29',
   programs: [
-    // Stored: checked for 2026 entry on 2026-01-10.
-    {
-      id: 'cmk8kqv7500017m8iymtytkmq',
-      status: 'current',
-      name: 'Bachelor in Philosophy of a Specific Discipline',
-      description:
-        "Erasmus School of Philosophy offers the unique programme 'Bachelor in Philosophy of a Specific Discipline' for students who wish to obtain a second degree in philosophy. This programme is highly flexible and can be easily combined with all bachelor programmes offered at Erasmus University Rotterdam.",
-      field: 'Arts & Humanities',
-      degree: 'Bachelor of Arts',
-      duration: '3 years',
-      minIBPoints: 24,
-      programUrl: 'https://www.eur.nl/en/bachelor/bachelor-philosophy-specific-discipline',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'ENG-LIT', level: 'HL', grade: 4 },
-            { course: 'ENG-LIT', level: 'SL', grade: 5 },
-            { course: 'ENG-LL', level: 'HL', grade: 4 },
-            { course: 'ENG-LL', level: 'SL', grade: 5 }
-          ],
-          critical: false
-        }
-      ],
-      checkedFor: null,
-      sources: [],
-      notes:
-        'Content 4.6, not checked, for the owner: the Bachelor in Philosophy of a Specific Discipline admits no school leavers. Its admission page: "All students who have (at least) successfully completed the first year (60 ec) of his or her main bachelor degree from Erasmus University Rotterdam can start"; students from other Dutch research universities are assessed case by case, and those from non-Dutch universities "need to finish their entire bachelor first". No IB requirement exists to record. Keep, or remove it from an IB-entry database? Source: https://www.eur.nl/en/bachelor/bachelor-philosophy-specific-discipline/admission'
-    },
+    // Deleted 2026-09-29 at the owner's request (content 4.6), backup in scripts/backups/refresh/: Bachelor in Philosophy of a Specific Discipline: admits only after the first year of another bachelor's, so no IB entry.
     // Stored: checked for 2026 entry on 2026-01-10.
     {
       id: 'cmk8kqvoc000b7m8ildy1zygl',

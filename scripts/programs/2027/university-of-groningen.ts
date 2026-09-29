@@ -752,24 +752,7 @@ const refresh: RefreshFile = {
       notes:
         'Content 4.6: BA Media Studies (Croho 50906, Faculty of Arts). The IB page lists it with "none". Checked, none required. Groningen\'s IB page (bachelor entry requirements, "International Baccalaureate diploma", last modified 25 September 2026): the IB Diploma meets the general requirement, equivalence to the Dutch VWO, and each programme\'s subject-specific requirements are listed without grades. Where a subject is required and no grade is named, 4 is stored: the lowest IB grade Groningen counts on its certificate route ("externally examined by the IBO (grade 4-7)"). Groningen publishes no IB points figure: 24, the Diploma\'s own minimum, is kept (the IRIO page asks for "an International Baccalaureate diploma (minimum score: 24)"). The programme page gives application deadlines for the 1 September 2027 start (1 May 2027), so checked for 2027.'
     },
-    // Stored: checked for 2026 entry on 2026-01-10.
-    {
-      id: 'cmk8qlotr004v7mfl9pyq843f',
-      status: 'current',
-      name: 'Philosophy of a Specific Discipline',
-      description:
-        "What makes natural science 'scientific'? What is a just law? What can science tell us about free will and ethical responsibilities? Explore the philosophical aspects of science in this degree. Philosophy of a Specific Discipline is an English-taught combination Bachelor's. After the first year of your Bachelor's, you enroll in this programme while continuing your original Bachelor's. At the end of the programme you will be awarded two Bachelor's degrees.",
-      field: 'Arts & Humanities',
-      degree: 'Bachelor of Arts',
-      duration: '3 years',
-      minIBPoints: 24,
-      programUrl: 'https://www.rug.nl/bachelors/philosophy-of-a-specific-discipline/',
-      requirements: [],
-      checkedFor: null,
-      sources: [],
-      notes:
-        'Content 4.6, not checked, for the owner: BA Philosophy of a Specific Discipline (Croho 57084) admits no school leavers. Its page: "At least 60 ECTS of the first year of your bachelor program or a propaedeutic exam: in order to be admitted, you need to have a completed a propaedeutic degree/first year of a non-philosophical research university bachelor program"; students register as not starting in the first year. No IB requirement exists to record. Keep, or remove it from an IB-entry database? Source: https://www.rug.nl/bachelors/philosophy-of-a-specific-discipline/'
-    },
+    // Deleted 2026-09-29 at the owner's request (content 4.6), backup in scripts/backups/refresh/: Philosophy of a Specific Discipline BA (Croho 57084): admits only after a first year (60 EC) of another bachelor's, so no IB entry.
     // Stored: checked for 2026 entry on 2026-01-10.
     {
       id: 'cmk8qlmhr00437mflf8xcaogr',
