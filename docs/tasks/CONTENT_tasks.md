@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1 and 4.2 done 29 September 2026: eight UCL programs and two discontinued Manchester programs left for the owner |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1, 4.2 and 4.3 done 29 September 2026: eight UCL programs, two discontinued Manchester programs and five Alberta programs closed to school leavers left for the owner |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -80,7 +80,7 @@ Phase 4 — Program refresh for 2027 entry
 
 - [x] 4.1 UK I — Imperial, UCL, LSE — eight UCL programs for the owner to open in a browser
 - [x] 4.2 UK II — Manchester, Edinburgh — Immunology and Molecular Biology discontinued, for the owner
-- [ ] 4.3 Canada I — Alberta, UBC, Toronto
+- [x] 4.3 Canada I — Alberta, UBC, Toronto — five Alberta programs that admit no school leavers, for the owner
 - [ ] 4.4 Canada II — McGill, Waterloo, Western
 - [ ] 4.5 Hong Kong and Singapore
 - [ ] 4.6 Netherlands and Ireland
@@ -108,6 +108,12 @@ Owner tasks — not AI work
   Finance), HKU BASc Applied AI, Sydney BSc and Doctor of Dental Medicine, Gdańsk Finance and
   Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own.
   4.2: Manchester Immunology BSc and Molecular Biology BSc, both gone from the 2027 course list
+- [ ] Decide about five Alberta programs that admit nobody from high school (4.3): Medical Laboratory
+  Science (a year of university first) and Secondary Education – CTS Communication Arts, Design, Media
+  and Natural Resources (a trade certificate or diploma first). Left unwritten; keep or delete
+- [ ] Approve two more degree types, or not (4.3): Bachelor of Media Studies (UBC) and Bachelor of Health
+  and Exercise Sciences (UBC Okanagan), stored as "Bachelor" for now. And UBC's "Design in Architecture"
+  and "Landscape Architecture" are one degree stored twice: merge or keep
 - [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
   whether it is still a direct-entry choice
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -271,6 +277,15 @@ not precision.
   dropped courses. Tabbed course pages keep the full entry requirements at `.../all-content/`. The
   previous year's pages keep serving after the next year is published. Edinburgh's degree finder
   answers curl; its university-wide IB page is `.../international-qualifications/international-baccalaureate`.
+- **Found in 4.3:** UBC program pages carry the IB requirements in the served HTML (the "International
+  baccalaureate" tab, "Degree-specific requirements: <faculty>"); the IB page's faculty list comes from
+  `you.ubc.ca/wp-admin/admin-ajax.php` (`action=requirements_load_program`). Toronto's program pages show
+  the IB view at `future.utoronto.ca/program/<slug>?requirement=76`; `artsci.utoronto.ca` answers every
+  client with a bot check (the Internet Archive's newest copy is 31 January 2026). Alberta's program pages
+  load their subject lists from `reqapp.registrar.ualberta.ca/programs/<faculty>/<program>/<plan>/HS/AB`
+  (the codes are in each page's `apiUrl`); read them through U of A's IB equivalents chart. **`ualberta.ca`
+  blocks after about 60 quick requests** (202 with an empty body, CloudFront WAF), WebFetch and the
+  calendar included, for about half an hour: space requests a few seconds apart.
 
 ---
 
@@ -1586,6 +1601,75 @@ Edinburgh 50, two of them stamp only), none created, two reported as discontinue
     discontinued programs' 2026 pages.
   - Public pages: Manchester BSc Computer Science shows 37 points and "Requirements checked for 2027
     entry"; Edinburgh Psychology BSc shows 34; "BA Modern Languages (Chinese)" shows 34.
+
+### 4.3 — Canada I: Alberta, UBC, Toronto
+
+#### Status, 29 September 2026 — done (session 14); five Alberta programs for the owner
+
+Data files: `scripts/programs/2027/university-of-alberta.ts` and `university-of-toronto.ts` (new), and
+`university-of-british-columbia.ts` (continued from 3.4). Every change is explained in the program's
+`notes`. **Owner-approved and applied on 29 September 2026:** 142 programs written (Alberta 52, UBC 50,
+two of them stamp only, Toronto 40), none created, none discontinued, five Alberta programs left
+unwritten. Backup: `scripts/backups/refresh/2026-09-29T09-41-45-638Z.json`.
+
+- **Sources, and why almost everything is stamped 2026.**
+  - UBC: each program page's IB tab and the university IB page (completed Diploma with three HL; per
+    faculty, the subjects). No IB points figure and no entry year on any requirements page (only the dates
+    page covers September 2027), so 2026, as in 3.4.
+  - Toronto: `future.utoronto.ca` program pages, IB view, for prerequisites; no year and no points.
+    **Engineering** publishes a minimum, "at least 30 (excluding ToK and EE points) with a minimum score of
+    4 in prerequisite subjects", and frames its rules for "any applicant whose intended start date is
+    September 2027": its nine programs are stamped 2027. Arts & Science's IB page is behind a bot check;
+    its newest archive copy (31 January 2026, 2026 entry) gives verbal "recommended ranges" per admission
+    category ("Mid to high 30s") and subject ranges it calls minimums; the bottom of each subject range is
+    stored.
+  - Alberta: each program's Alberta-course list (the page's requirements service), read through U of A's
+    IB equivalents chart, and the IB page ("no grade less than 4. Previous competitive scores range from
+    30-37 points depending on your program"). Pages say "Admissions Requirements for 2026 - 2027", so 2026.
+- **Points changed (29).** Toronto Engineering → 30, the published minimum (out of 42), from Chemical,
+  Civil, Industrial and Mechanical 36, Computer and Electrical 37, Engineering Science 38, Materials and
+  Mineral 35; "most programs require higher scores" is in the notes. Alberta: 20 programs stored at 24–28
+  → 30, the bottom of the only range it publishes. Elsewhere no figure exists: UBC's, Toronto Arts &
+  Science's, Daniels', Music's, Kinesiology's and Alberta's other stored points are kept and marked
+  unverified, as 3.4 did for UBC. Four Toronto Social Sciences programs stored at 32 sit below "Mid to high
+  30s"; left for a decision on turning verbal ranges into numbers.
+- **Subjects.** Most stored rows asked for Maths HL 5–6 or a science at HL that no page asks for.
+  - UBC: Science, Land and Food Systems and Forestry take Maths (AA SL/HL or AI HL) and one of Biology,
+    Chemistry or Physics; Engineering takes Maths, Chemistry and Physics, all critical; Arts, Design, Media
+    and Music name none (Cognitive Systems BA loses its Maths). No grades are named; 4 is stored.
+  - Toronto: English (stored as English A: the pages say only "English", and the proficiency rule excludes
+    HL English B) plus each program's prerequisites; recommended subjects are not stored.
+  - Alberta: English (A or B), Maths 30-1 as AA or AI HL, and the named sciences, at 4; Science's "two of
+    Biology, Chemistry, Physics, Math 31 or Computing Science" is one critical group. Economics BA, BA
+    Honors Mathematics and Secondary Education Chemistry and Physics name no maths or science and lose them.
+- **Not direct entry**, stored with the published first-year route: Alberta's five BA Honors programs
+  (the BA Honors Foundation Year, 85% minimum average), two Chemical Engineering programs (the Engineering
+  Qualifying Year: English, Maths AA, Chemistry, Physics), Mathematics and Finance (Year 2 entry) and the
+  bilingual Commerce (a pre-professional year); UBC Global Resource Systems (entered after a first year in
+  Arts, Science or Land and Food Systems) is stored as none required, the Arts route.
+- **Not written, for the owner:** Alberta Medical Laboratory Science (a year of university, a letter and
+  an interview first) and the four Secondary Education – CTS majors (a trade certificate or diploma
+  first). No IB requirement exists to record.
+- **Names, degrees, links.** UBC "Computer Science" linked UBC Okanagan's BA; it now links and describes
+  Vancouver's BSc, which its name, degree, points and subjects already described (owner-approved). UBC
+  Data Science and Geography gain "(Okanagan)"; UBC Music is the BA, not the BMus; Engineering Physics is
+  5 years. UBC Media Studies and UBC Okanagan's Health and Exercise Sciences are stored as "Bachelor"
+  until their awards join the degree list. Toronto Computer Science now awards the Bachelor of Computer
+  Science; "Materials Science and Engineering" is Materials Engineering. Alberta's "Music Education -
+  Elementary" (BMus/BEd) and "General Sciences/Secondary Education" (BSc/BEd, renamed) are five-year
+  double degrees. 48 UBC URLs moved off `ubc_programs/`; Toronto's calendar links moved to admissions pages.
+- **Model limits**, recorded in the notes: "two of" a list, UBC's Grade 11 Chemistry and Physics for
+  students without them in the IB, Alberta's Maths AA standing for both Math 30-1 and Math 31, verbal
+  points ranges, and auditions, portfolios and supplemental applications.
+- **Verify.**
+  - `requirementsEntryYear`: Alberta 52 × 2026 and 5 unset (the unwritten five); UBC 50 × 2026; Toronto
+    31 × 2026 and 9 × 2027. All 142 written are flagged verified.
+  - `count(*)`: 1,279 before and after. Algolia: 1,279 records.
+  - A second dry run finds all 142 up to date.
+  - Link checker, three universities: 146 URLs OK; 0 broken, redirected, unverifiable or year-pinned.
+  - Public pages: Toronto Engineering Science shows 30 points and "Requirements checked for 2027 entry";
+    UBC Computer Science shows Maths and one science and links Vancouver's BSc; Alberta's General
+    Sciences/Secondary Education shows 5 years, Double Bachelor's Degree.
 
 ---
 
