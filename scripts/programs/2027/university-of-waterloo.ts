@@ -3,7 +3,7 @@ import type { RefreshFile } from '../lib/refresh'
 /**
  * University of Waterloo: requirements for 2027 entry.
  *
- * Exported from the database on 2026-09-27 by scripts/programs/refresh.ts. For each program,
+ * Exported from the database on 2026-09-29 by scripts/programs/refresh.ts. For each program,
  * read the university's official pages for 2027 entry (a university-wide IB page first),
  * correct what changed, list the pages in `sources` and set `checkedFor` to the intake they
  * state: the previous one if they name none. Put a typical offer above the minimum, or "checked,
@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of Waterloo',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: not checked for any intake.
     {
@@ -29,12 +29,27 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Accounting and Financial Management',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 28,
       programUrl:
         'https://uwaterloo.ca/future-students/programs/accounting-and-financial-management',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/accounting-finance/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/accounting-and-financial-management'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5, and Maths AA, \"HL (recommended) or SL\", at 4; total 28. Maths AA is now critical, at SL (HL is only recommended) and grade 4, not 5; Maths AI is not named and is no longer accepted. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 28, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 35, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA or Maths AI SL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -46,11 +61,26 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 37,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/actuarial-science',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/actuarial-science'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Actuarial Science as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 37, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -62,11 +92,26 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/applied-mathematics',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/applied-mathematics'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Applied Mathematics as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 36, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -78,16 +123,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/architectural-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/architectural-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/architectural-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 35, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -99,14 +156,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/biochemistry',
       requirements: [
-        { courses: ['BIO'], level: 'SL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 5, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/life-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/biochemistry'
+      ],
+      notes:
+        'Content 4.4: Waterloo admits to Life Sciences, and students choose Biochemistry as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. The program page says "Apply to Life Sciences". Neither Biology nor Chemistry is named on its own. Total 27, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 33, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology SL 4; Chemistry SL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -118,11 +188,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/biology',
-      requirements: [{ courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/life-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/biology'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Life Sciences, and students choose Biology as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 32, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology or Chemistry SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -134,16 +220,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/biomedical-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/biomedical-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/biomedical-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -155,14 +253,27 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/biomedical-sciences',
       requirements: [
-        { courses: ['BIO'], level: 'SL', grade: 5, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/biomedical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/biomedical-sciences'
+      ],
+      notes:
+        "Content 4.4: Biomedical Sciences has its own IB page: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored. Biology is not named on its own. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 34, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology SL 5; Chemistry SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Computer Science / Bachelor of Business Administration".
     {
@@ -174,12 +285,27 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
-      minIBPoints: 39,
+      minIBPoints: 32,
       programUrl:
         'https://uwaterloo.ca/future-students/programs/business-administration-computer-science-double-degree',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/business-admin-cs/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/business-administration-computer-science-double-degree'
+      ],
+      notes:
+        "Content 4.4: Waterloo's page for the Laurier BBA and Waterloo BCS double degree: HL Maths AA at 6 and HL or SL English A; total 32; the Admission Information Form is required. Maths AA HL 6 (not 5) is critical. No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 32, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 39, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Mathematics / Bachelor of Business Administration".
     {
@@ -191,12 +317,27 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
-      minIBPoints: 38,
+      minIBPoints: 32,
       programUrl:
         'https://uwaterloo.ca/future-students/programs/business-administration-mathematics-double-degree',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/business-admin-math/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/business-administration-mathematics-double-degree'
+      ],
+      notes:
+        "Content 4.4: Waterloo's page for the Laurier BBA and Waterloo BMath double degree: HL Maths AA at 6 and HL or SL English A; total 32; the Admission Information Form is required. Maths AA HL 6 (not 5) is critical. No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 32, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 38, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -208,16 +349,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/chemical-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/chemical-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/chemical-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 35, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -229,11 +382,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/chemistry',
-      requirements: [{ courses: ['CHEM'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/chemistry'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Physical Sciences, and students choose Chemistry as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Chemistry is not named on its own. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 32, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Chemistry SL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -245,16 +414,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/civil-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/civil-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/civil-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 35, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -266,11 +447,33 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/climate-environmental-change',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/climate-change/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/climate-environmental-change'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5; Maths AA (HL or SL) or Maths AI HL at 4; one of Chemistry or Physics, HL or SL (no grade named: 4 is stored); total 27. All three are critical; nothing was stored before. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 30, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -282,11 +485,26 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/computational-mathematics',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/computational-mathematics'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Computational Mathematics as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 36, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -298,16 +516,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/computer-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/computer-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/computer-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -319,11 +549,26 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Computer Science',
       duration: '5 years',
-      minIBPoints: 38,
+      minIBPoints: 32,
       programUrl: 'https://uwaterloo.ca/future-students/programs/computer-science',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/computer-science/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/computer-science'
+      ],
+      notes:
+        "Content 4.4: IB requirements: HL Maths AA at 6, and HL or SL English A; total 32; the Admission Information Form is required. Maths AA HL 6 (not 5) is critical. No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 32, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 38, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -335,12 +580,27 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Computing and Financial Management',
       duration: '5 years',
-      minIBPoints: 38,
+      minIBPoints: 32,
       programUrl:
         'https://uwaterloo.ca/future-students/programs/computing-and-financial-management',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/computing-finance/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/computing-and-financial-management'
+      ],
+      notes:
+        "Content 4.4: IB requirements: HL Maths AA at 6; English A (HL or SL) at 4 or HL English B at 5; total 32; the Admission Information Form is required. Maths AA HL 6 (not 5) is critical. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 32, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 38, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -352,11 +612,26 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Computer Science',
       duration: '5 years',
-      minIBPoints: 38,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/data-science',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/data-science/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/data-science'
+      ],
+      notes:
+        "Content 4.4: Data Science has its own IB page: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. The degree is a BCS or a BMath in Data Science (program page); Bachelor of Computer Science is kept. Maths AA HL 6 (not 5) is critical. No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 38, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -368,11 +643,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 31,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/earth-sciences',
-      requirements: [{ courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/earth-sciences'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Physical Sciences, and students choose Earth Sciences as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 31, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology or Chemistry or Physics SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -384,16 +675,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/electrical-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/electrical-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/electrical-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -405,11 +708,25 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
-      minIBPoints: 31,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/environment-and-business',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/environment-business/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/environment-and-business'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5; total 27. No other subject is named. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 31, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -421,12 +738,26 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 27,
       programUrl:
         'https://uwaterloo.ca/future-students/programs/environment-resources-and-sustainability',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/environment-resources-sustainability/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/environment-resources-and-sustainability'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5; total 27. No other subject is named. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 30, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -438,16 +769,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/environmental-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/environmental-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/environmental-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 35, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -457,13 +800,29 @@ const refresh: RefreshFile = {
       description:
         "Environmental Sciences applies scientific principles to understand and address environmental challenges. You'll study ecology, climate science, pollution, and conservation. The program combines classroom learning with lab work and field research.",
       field: 'Environmental Studies',
-      degree: 'Bachelor of Environmental Studies',
+      degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 31,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/environmental-sciences',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/environmental-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/environmental-sciences'
+      ],
+      notes:
+        'Content 4.4: Environmental Sciences is a Faculty of Science program awarding a Bachelor of Science (program page: "Degree: Bachelor of Science in Environmental Sciences"), not a Bachelor of Environmental Studies. IB requirements: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold "two of": one critical group of the three is stored. Nothing was stored before. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 31, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -475,11 +834,32 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/geography-and-aviation',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/geography-aviation/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/geography-and-aviation'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5; Maths AA (HL or SL) or Maths AI HL at 4; \"strongly recommended: one SL course in Physical or Environmental Science\" (not stored); total 27. International students also need the Aviation Language Proficiency Demonstration. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 32, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -495,8 +875,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://uwaterloo.ca/future-students/programs/geography-and-environmental-management',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/geography-environmental/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/geography-and-environmental-management'
+      ],
+      notes:
+        "Content 4.4: checked, none required. Waterloo's IB page for this program lists only the general rules (a Diploma with six courses, three at HL; HL English B at 5 accepted where English A is required) and no program requirements or total; the program page asks Ontario students for Grade 12 English only. No subject is stored. The IB page publishes no total, so the stored 30 is kept and not re-verified; Waterloo's other Faculty of Environment programs ask for 27. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -508,16 +893,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 34,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/geological-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/geological-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/geological-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 34, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -555,7 +952,7 @@ const refresh: RefreshFile = {
         'https://uwaterloo.ca/environment/news/evolution-environments-geomatics-program'
       ],
       notes:
-        'Content 3.4: renamed, same programme. Waterloo renamed Geomatics to Geospatial Data Science from September 2026 (Faculty of Environment news; admission pages say "Geospatial Data Science (formerly Geomatics)"); the old URL redirects. Bachelor of Environmental Studies in Geospatial Data Science, co-op or regular. IB requirements: English A (HL or SL) at 4 or English B HL at 5; Maths AA (HL or SL) or Maths AI HL at 4; total 27, excluding the core points (stored as published, as McGill\'s and Lausanne\'s out-of-42 figures are). Diploma with at least three HL. The IB page names no entry year, so checked for 2026 (rule 2). The stored 30 had no source.'
+        'Content 4.4: re-read on 29 September 2026, unchanged: English A (HL or SL) at 4 or HL English B at 5; HL or SL Maths AA or HL Maths AI at 4; total 27, excluding the core points. Neither page names an entry year, so checked for 2026 again (rule 2). Content 3.4: renamed, same programme. Waterloo renamed Geomatics to Geospatial Data Science from September 2026 (Faculty of Environment news; admission pages say "Geospatial Data Science (formerly Geomatics)"); the old URL redirects. Bachelor of Environmental Studies in Geospatial Data Science, co-op or regular. IB requirements: English A (HL or SL) at 4 or English B HL at 5; Maths AA (HL or SL) or Maths AI HL at 4; total 27, excluding the core points (stored as published, as McGill\'s and Lausanne\'s out-of-42 figures are). Diploma with at least three HL. The IB page names no entry year, so checked for 2026 (rule 2). The stored 30 had no source.'
     },
     // Stored: not checked for any intake.
     {
@@ -567,11 +964,25 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Global Business and Digital Arts',
       duration: '4 years',
-      minIBPoints: 31,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/global-business-and-digital-arts',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/global-business-digital-arts/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/global-business-and-digital-arts'
+      ],
+      notes:
+        "Content 4.4: IB requirements: English A (HL or SL) at 4 or HL English B at 5; total 27. No other subject is named. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 31, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -583,11 +994,34 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 28,
       programUrl: 'https://uwaterloo.ca/future-students/programs/health-sciences',
-      requirements: [{ courses: ['BIO'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['BIO'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/health-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/health-sciences'
+      ],
+      notes:
+        "Content 4.4: IB requirements: Maths AA (HL or SL) or Maths AI HL at 4; Chemistry and Biology (HL or SL) at 4; English A at 4 or HL English B at 5; total 28. All four are critical. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 28, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 34, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -599,11 +1033,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/honours-science',
-      requirements: [],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/honours-science/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/honours-science'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Honours Science: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 32, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: no subjects. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science in Kinesiology".
     {
@@ -615,14 +1065,33 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/kinesiology',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/kinesiology/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/kinesiology'
+      ],
+      notes:
+        "Content 4.4: IB requirements: Maths AA (HL or SL) or Maths AI HL at 4; two of Biology, Physics or Chemistry (HL or SL), at 4 in each; English A at 4 or HL English B at 5; total 27. All are critical. The model cannot hold \"two of\": one group of the three is stored, which one subject satisfies. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 32, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Biology or Chemistry or Physics SL 4; Maths AA or Maths AI SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -634,16 +1103,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 35,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/management-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/management-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/management-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 35, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -655,14 +1136,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/materials-and-nanosciences',
       requirements: [
-        { courses: ['CHEM'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/materials-and-nanosciences'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Physical Sciences, and students choose Materials and Nanosciences as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Chemistry and Physics are not named on their own. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 33, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Chemistry SL 5; Physics SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -674,11 +1168,26 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/mathematical-economics',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/mathematical-economics'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Mathematical Economics as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 36, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -690,11 +1199,26 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 37,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/mathematical-finance',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/mathematical-finance'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Mathematical Finance as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 37, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -706,14 +1230,26 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 37,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/mathematical-physics',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/mathematical-physics'
+      ],
+      notes:
+        "Content 4.4: Mathematical Physics is a major of two entry programs (program page): Mathematics, for the Bachelor of Mathematics stored here, or Physical Sciences, for a BSc. Mathematics asks for HL Maths AA at 6 and HL or SL English A; total 30; the Admission Information Form is required. Physics is not named, so the stored Physics HL 5 is removed; the Physical Sciences route asks for 27, Maths AA at 4 and two of Biology, Chemistry or Physics. No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 37, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical); Physics HL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -725,16 +1261,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/mechanical-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mechanical-eng/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/mechanical-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -746,16 +1294,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/mechatronics-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mechatronics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/mechatronics-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -767,14 +1327,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/medicinal-chemistry',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: false },
-        { courses: ['BIO'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/medicinal-chemistry'
+      ],
+      notes:
+        'Content 4.4: Waterloo admits to Physical Sciences, and students choose Medicinal Chemistry as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. The program page says "Apply to Physical Sciences and select Medicinal Chemistry as your major." Chemistry is not named on its own. Total 27, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 33, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Chemistry HL 5; Biology SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -786,16 +1359,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 31,
       programUrl: 'https://uwaterloo.ca/future-students/programs/nanotechnology-engineering',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/nanotechnology/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/nanotechnology-engineering'
+      ],
+      notes:
+        'Content 4.4: Waterloo Engineering, one application per program. IB requirements: Maths AA and Physics ("HL recommended"), minimum 4 in each; Chemistry and English A, minimum 4 in each; one other HL or SL course at 4; total 31; "6s and 7s recommended. For admission, students are selected on an individual basis"; the Admission Information Form and an online interview are required. The four named subjects are stored critical at 4, Maths and Physics at SL because HL is only recommended; "one other course" names no subject and is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 31, excluding the core points, stored as published (out of 42, as McGill\'s and Toronto Engineering\'s minimums are); it replaces the stored 36, which had no source. Waterloo\'s general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 4 (critical); Physics HL 4; Chemistry SL 4; English A Literature or English A Language and Literature SL 4. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science.'
     },
     // Stored: not checked for any intake.
     {
@@ -807,14 +1392,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/physics',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/physics'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Physical Sciences, and students choose Physics as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 33, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5; Physics HL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -826,14 +1424,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 27,
       programUrl: 'https://uwaterloo.ca/future-students/programs/physics-and-astronomy',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/physical-sciences/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/physics-and-astronomy'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Physical Sciences, and students choose Physics and Astronomy as their major: Maths AA (HL or SL) at 4, English A at 4 or HL English B at 5, and two of Biology, Chemistry or Physics (no grade named: 4 is stored); total 27. The model cannot hold \"two of\": one critical group of the three is stored, which one subject satisfies. Maths AI is not named, so it is not stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 27, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 33, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5; Physics HL 5. Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     },
     // Stored: not checked for any intake.
     {
@@ -845,11 +1456,26 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
-      minIBPoints: 36,
+      minIBPoints: 30,
       programUrl: 'https://uwaterloo.ca/future-students/programs/statistics',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://uwaterloo.ca/future-students/admissions/admission-requirements/mathematics/high-school/international-system/ib',
+        'https://uwaterloo.ca/future-students/programs/statistics'
+      ],
+      notes:
+        "Content 4.4: Waterloo admits to Mathematics, which \"includes 16 majors\", and students choose Statistics as their major: HL Maths AA at 6, and HL or SL English A; total 30; the Admission Information Form is required. Maths AA HL is stored critical at 6 (not 5). No English grade is named, so 4 is stored. English is stored as English A (Literature, or Language and Literature) at 4, or HL English B at 5, one critical group. Total 30, excluding the core points, stored as published (out of 42, as McGill's and Toronto Engineering's minimums are); it replaces the stored 36, which had no source. Waterloo's general IB rules: a Diploma with six courses, at least three at HL; totals exclude the core (diploma) points; HL English B at 5 is accepted wherever English A is required. Stored before: Maths AA HL 5 (critical). Neither the IB page nor the program page names an entry year, so checked for 2026 (rule 2), as 3.4 did for Geospatial Data Science."
     }
   ]
 }

@@ -3,7 +3,7 @@ import type { RefreshFile } from '../lib/refresh'
 /**
  * McGill University: requirements for 2027 entry.
  *
- * Exported from the database on 2026-09-27 by scripts/programs/refresh.ts. For each program,
+ * Exported from the database on 2026-09-29 by scripts/programs/refresh.ts. For each program,
  * read the university's official pages for 2027 entry (a university-wide IB page first),
  * correct what changed, list the pages in `sources` and set `checkedFor` to the intake they
  * state: the previous one if they name none. Put a typical offer above the minimum, or "checked,
@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'McGill University',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: not checked for any intake.
     {
@@ -29,11 +29,17 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl: 'https://www.mcgill.ca/anthropology/undergraduate',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://www.mcgill.ca/anthropology/undergraduate',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Anthropology is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science in Architecture".
     {
@@ -45,15 +51,27 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 41,
+      minIBPoints: 39,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/architecture/architecture-bsc/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 7, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 7, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['PHYS'], level: 'SL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/architecture/architecture-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Architecture (B.Sc.(Arch.)). Prerequisites: Mathematics and Physics at HL or SL, with at least one math/science at HL; "Each math & science: 6 to 7", stored at 6, both critical. The stored Maths AA HL 7 and HL 7 in Biology, Chemistry, Computer Science or Physics had no source. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 39 to 42 subject points out of 42 (core excluded); the bottom, 39, is stored, as 3.4 did; it replaces the stored 41. Stored before: Maths AA HL 7 (critical); Biology or Chemistry or Computer Science or Physics HL 7. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Arts and Science".
     {
@@ -65,15 +83,37 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Arts and Sciences',
       duration: '4 years',
-      minIBPoints: 36,
+      minIBPoints: 35,
       programUrl: 'https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts-science/programs/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Bachelor of Arts and Science (B.A. & Sc.), jointly offered by Arts and Science. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 37 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Biology or Chemistry or Physics HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -85,15 +125,37 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
-      minIBPoints: 37,
+      minIBPoints: 36,
       programUrl: 'https://www.mcgill.ca/biochemistry/undergrad-studies/programs',
       requirements: [
-        { courses: ['BIO'], level: 'HL', grade: 6, critical: false },
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://www.mcgill.ca/biochemistry/undergrad-studies/programs',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Biochemistry is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology HL 6; Chemistry HL 6; Maths AA HL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -105,17 +167,28 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 40,
+      minIBPoints: 39,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/bioengineering/bioengineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO'], level: 'HL', grade: 6, critical: false },
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 6, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/bioengineering/bioengineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Bioengineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 6", all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 39 to 41 subject points out of 42 (core excluded); the bottom, 39, is stored, as 3.4 did; it replaces the stored 40. Stored before: Maths AA HL 6 (critical); Biology HL 6; Chemistry HL 6; Physics HL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -127,16 +200,38 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
-      minIBPoints: 37,
+      minIBPoints: 36,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/biology/biology-major-bsc/',
       requirements: [
-        { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/biology/biology-major-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Biology is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology or Chemistry HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -148,16 +243,27 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 28,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/bioresource-engineering/bioresource-engineering-major-beng/',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/bioresource-engineering/bioresource-engineering-major-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Bioresource Engineering (B.Eng.(Bioresource)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -169,16 +275,41 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/chemical-engineering/chemical-engineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/chemical-engineering/chemical-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Chemical Engineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 5 to 6 (6 in each SL math & science)", stored as 5 at HL or 6 at SL, all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Maths AA HL 6 (critical); Chemistry HL 6; Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -190,16 +321,28 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/chemistry/chemistry-major-bsc/',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 6, critical: false },
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: false },
-        { courses: ['BIO', 'PHYS'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/chemistry/chemistry-major-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Chemistry is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Chemistry HL 6; Maths AA HL 6; Biology or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -211,16 +354,41 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/civil-engineering/civil-engineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/civil-engineering/civil-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Civil Engineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 5 to 6 (6 in each SL math & science)", stored as 5 at HL or 6 at SL, all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Maths AA HL 6 (critical); Physics HL 5; Chemistry SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -232,11 +400,26 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Commerce',
       duration: '3 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl: 'https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/management/programs/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Desautels Faculty of Management (B.Com.). Prerequisite: "Higher Level Mathematics (AA or AI), or Standard Level Mathematics AA with a predicted/final result of 6 or 7"; "Math: 5 (HL Math AA/AI); 6 (SL Math AA)". SL Maths AI is not accepted. Stored as one critical group. Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Maths AA or Maths AI HL 5 (critical). McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -248,15 +431,41 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/computer-engineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'SL', grade: 6, critical: true },
-        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/computer-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Computer Engineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 5 to 6 (6 in each SL math & science)", stored as 5 at HL or 6 at SL, all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Maths AA SL 6 (critical); Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -268,15 +477,28 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 36,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/computer-science/computer-science-major-bsc/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/computer-science/computer-science-major-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Computer Science is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -288,15 +510,26 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 28,
       programUrl: 'https://www.mcgill.ca/nutrition/programs/undergraduate',
       requirements: [
-        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 5, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://www.mcgill.ca/nutrition/programs/undergraduate',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: School of Human Nutrition (Macdonald campus). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -308,12 +541,18 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/economics/#programstext',
-      requirements: [{ courses: ['MATH-AA'], level: 'SL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/economics/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Economics (B.A.) is a Faculty of Arts program: "No specific prerequisites". The stored Maths AA SL 5 had no source. Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: Maths AA SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -329,8 +568,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/education/overview/programs/#text',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/education/overview/programs/#text',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required for most programs: the Faculty of Education asks for "No specific prerequisites except" Mathematics for B.Ed. Secondary Mathematics and Mathematics and two of Biology, Chemistry or Physics for B.Ed. Secondary Science & Technology (each 5 when required). TESL, TESL Greek and French immersion applicants also pass a language test. Kindergarten/Elementary, Physical Education, TESL, Global Contexts and Secondary Education are each listed at "30 subject points". Typical minimum: 30 subject points out of 42 (core excluded), stored as 3.4 stored McGill\'s figures; the stored 30 is confirmed. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -342,16 +587,41 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 37,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/electrical-engineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/electrical-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Electrical Engineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 5 to 6 (6 in each SL math & science)", stored as 5 at HL or 6 at SL, all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Maths AA HL 6 (critical); Physics HL 6; Chemistry SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -363,12 +633,18 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/english/english-literature-honours-ba/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/english/english-literature-honours-ba/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. English Literature is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -380,16 +656,27 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 28,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/program-overview/#undergraduateprogramstext',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/program-overview/#undergraduateprogramstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: The Faculty of Agricultural and Environmental Sciences\' B.Sc.(Ag.Env.Sc.) programs ("All B.Sc.(Ag.Env.Sc.) programs": 28-30). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -401,16 +688,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 30,
+      minIBPoints: 28,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/food-science-agricultural-chemistry/#programstext',
       requirements: [
-        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 5, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/agri-env-sci/programs/food-science-agricultural-chemistry/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Food Science (B.Sc.(F.Sc.)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -422,12 +720,18 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/history-classical-studies/#programstext',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/history-classical-studies/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. History and Classical Studies is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -439,18 +743,24 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/international-development/#programstext',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/international-development/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. International Development Studies is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
       id: 'cmjzmxt2j002h7metfzgvid3p',
       status: 'current',
-      name: 'Kinesiology and Physical Education',
+      name: 'Kinesiology',
       description:
         'About the Department of Kinesiology and Physical Education\nThe Department of Kinesiology and Physical Education offers one program leading to a B.Ed. degree in Physical and Health Education, one program leading to a B.Sc. degree in Kinesiology (Major or Honours), and a Minor in Kinesiology for Science students. For more information, please visit the undergraduate program information section.\n\nKinesiology (B.Sc.) (90 credits)\nKinesiology - Honours (B.Sc.) (90 credits)\nPhysical and Health Education (B.Ed.) (120 credits)',
       field: 'Education',
@@ -458,13 +768,25 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 30,
       programUrl:
-        'https://coursecatalogue.mcgill.ca/en/undergraduate/education/kinesiology-physical-education/#programstext',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/education/kinesiology-physical-education/kinesiology-bsc/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/education/kinesiology-physical-education/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: renamed Kinesiology: the stored degree is the B.Sc., and "Kinesiology and Physical Education" is the department, which also offers the B.Ed. stored separately as Physical Education. The URL moves from the department to the Kinesiology (B.Sc.) catalogue page. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. SL Maths AI, accepted before, is not. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 30 to 31 subject points out of 42 (core excluded); the bottom, 30, is stored, as 3.4 did; the stored 30 is confirmed. Stored before: Maths AA or Maths AI SL 5 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -490,13 +812,14 @@ const refresh: RefreshFile = {
         },
         { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: 2026,
+      checkedFor: 2027,
       sources: [
         'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
-        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/mathematics-statistics/mathematics-major-bsc/'
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/mathematics-statistics/mathematics-major-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 3.4: the catalogue moved the page from math-stats/ to mathematics-statistics/; same program, Mathematics Major (B.Sc.). McGill\'s IB page names no entry year, so checked for 2026 (rule 2). Science, Physical, Earth, Math and Computer Sciences group: typical minimum range 35 to 38 subject points out of 42 (core points excluded, as Lausanne\'s 32/42 is stored); 35 is stored. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; each math and science 5 to 6 with at least one 6, and 6 if SL Math AA. SL Math AI is not accepted. The model cannot hold "two of", "at least one at HL" or "at least one 6": the science group needs only one.'
+        'Content 4.4: Mathematics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science): Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". Requirements unchanged. Typical minimum range 35 to 38 subject points out of 42 (core excluded); 35 is stored, unchanged. Re-read after 3.4, which stamped it 2026: the page now names Fall 2027. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. 3.4\'s note: Content 3.4: the catalogue moved the page from math-stats/ to mathematics-statistics/; same program, Mathematics Major (B.Sc.). McGill\'s IB page names no entry year, so checked for 2026 (rule 2). Science, Physical, Earth, Math and Computer Sciences group: typical minimum range 35 to 38 subject points out of 42 (core points excluded, as Lausanne\'s 32/42 is stored); 35 is stored. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; each math and science 5 to 6 with at least one 6, and 6 if SL Math AA. SL Math AI is not accepted. The model cannot hold "two of", "at least one at HL" or "at least one 6": the science group needs only one.'
     },
     // Stored: not checked for any intake.
     {
@@ -512,12 +835,24 @@ const refresh: RefreshFile = {
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/mechanical-engineering/mechanical-engineering-beng/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 6, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 6, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 6, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/mechanical-engineering/mechanical-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Mechanical Engineering: Faculty of Engineering. Prerequisites: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 6", all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 38 to 42 subject points out of 42 (core excluded); the bottom, 38, is stored, as 3.4 did; the stored 38 is confirmed. Stored before: Maths AA HL 6 (critical); Physics HL 6; Chemistry SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -529,16 +864,29 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 35,
+      minIBPoints: 32,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/mining-materials-engineering/#programstext',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['CHEM'], level: 'SL', grade: 5, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 5, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/mining-materials-engineering/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: one stored program for the department\'s two B.Eng. degrees, Materials Engineering (33 to 36) and Mining Engineering (32 to 35); the lower bottom, 32, is stored. Both: Mathematics, Chemistry and Physics at HL or SL (at least one math/science at HL); "Each math & science: 5 to 6 (6 if SL math)", stored as Maths 5 at HL or 6 at SL, Chemistry and Physics 5, all critical. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "at least one math/science at HL". Typical minimum range 32 to 36 subject points out of 42 (core excluded); the bottom, 32, is stored, as 3.4 did; it replaces the stored 35. Stored before: Maths AA HL 6 (critical); Chemistry SL 5; Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -553,8 +901,14 @@ const refresh: RefreshFile = {
       minIBPoints: 30,
       programUrl: 'https://coursecatalogue.mcgill.ca/en/undergraduate/music/programs/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.mcgill.ca/music/admissions/undergraduate/prepare',
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://www.mcgill.ca/music/admissions/undergraduate/audition-dates'
+      ],
+      notes:
+        'Content 4.4: checked, none required. McGill\'s IB page sends Music applicants to the Schulich School of Music, whose requirements for IB students outside Canada are predicted results of "5 or better on each Higher and Standard Level subject", plus an audition (or recorded screening) that decides admission. No total is published: six subjects at 5 make 30 subject points, the stored figure, which is kept on that reading. The requirements page names no year, and the Music admissions page still says "Fall 2026" while its audition schedule is for Fall 2027, so checked for 2026 (rule 2).'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science in Nursing".
     {
@@ -570,12 +924,23 @@ const refresh: RefreshFile = {
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/nursing/nursing/nursing-bscn/',
       requirements: [
-        { courses: ['BIO', 'CHEM'], level: 'HL', grade: 5, critical: false },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/nursing/nursing/nursing-bscn/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Ingram School of Nursing, B.Sc.(N.). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5; "Proof of French proficiency" is also required. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The stored Biology or Chemistry HL 5 had no source. Typical minimum: 30 subject points out of 42 (core excluded), stored as 3.4 stored McGill\'s figures; the stored 30 is confirmed. Stored before: Biology or Chemistry HL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -587,12 +952,18 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/philosophy/#programstext',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/philosophy/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Philosophy is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -608,8 +979,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/education/kinesiology-physical-education/physical-health-education-bed/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/education/kinesiology-physical-education/physical-health-education-bed/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. B.Ed. Physical and Health Education, Faculty of Education: "No specific prerequisites"; listed at "30 subject points". Typical minimum: 30 subject points out of 42 (core excluded), stored as 3.4 stored McGill\'s figures; the stored 30 is confirmed. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -621,16 +998,28 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
-      minIBPoints: 36,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/physics/physics-major-bsc/',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/science/programs/physics/physics-major-bsc/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: Physics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Physics HL 6; Biology or Chemistry SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -642,12 +1031,18 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/political-science/political-science-major-concentration-ba/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/political-science/political-science-major-concentration-ba/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Political Science is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -659,12 +1054,18 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/psychology/psychology-major-concentration-ba/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/psychology/psychology-major-concentration-ba/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Psychology (B.A.) is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -676,12 +1077,18 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Social Work',
       duration: '3 years',
-      minIBPoints: 36,
+      minIBPoints: 35,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/social-work/#programstext',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/social-work/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Bachelor of Social Work: "No specific prerequisites"; "A resumé, a personal statement, and letters of recommendation must also be submitted". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -693,12 +1100,18 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
-      minIBPoints: 34,
+      minIBPoints: 33,
       programUrl:
         'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/sociology/#programstext',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/arts/programs/sociology/#programstext',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
+      ],
+      notes:
+        'Content 4.4: checked, none required. Sociology is a Faculty of Arts program: "No specific prerequisites". Typical minimum range 33 to 36 subject points out of 42 (core excluded); the bottom, 33, is stored, as 3.4 did; it replaces the stored 34. Stored before: no subjects. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
     },
     // Stored: not checked for any intake.
     {
@@ -737,13 +1150,14 @@ const refresh: RefreshFile = {
           critical: true
         }
       ],
-      checkedFor: 2026,
+      checkedFor: 2027,
       sources: [
         'https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib',
-        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/co-op-software-engineering-beng/'
+        'https://coursecatalogue.mcgill.ca/en/undergraduate/engineering/programs/electrical-computer-engineering/co-op-software-engineering-beng/',
+        'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        "Content 3.4: renamed, same program. The old software-engineering-beng page 404s; the catalogue now lists the B.Eng. as Co-op in Software Engineering (141-144 credits including Year 0, with mandatory co-op terms). McGill's IB page names no entry year, so checked for 2026 (rule 2). Software Engineering: typical minimum range 35 to 38 subject points out of 42 (core excluded); 35 is stored. Prerequisites: Mathematics, Chemistry and Physics at HL or SL, at least one math/science at HL; each 5 to 6, and 6 in each SL math and science. SL Math AI is not accepted. The stored Computer Science SL6 has no source and is removed."
+        'Content 4.4: Software Engineering is listed at 35 to 38 subject points out of 42 (core excluded), "Each math & science: 5 to 6 (6 in each SL math & science)"; 35 and the three rows are unchanged. Re-read after 3.4, which stamped it 2026: the page now names Fall 2027. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. 3.4\'s note: Content 3.4: renamed, same program. The old software-engineering-beng page 404s; the catalogue now lists the B.Eng. as Co-op in Software Engineering (141-144 credits including Year 0, with mandatory co-op terms). McGill\'s IB page names no entry year, so checked for 2026 (rule 2). Software Engineering: typical minimum range 35 to 38 subject points out of 42 (core excluded); 35 is stored. Prerequisites: Mathematics, Chemistry and Physics at HL or SL, at least one math/science at HL; each 5 to 6, and 6 in each SL math and science. SL Math AI is not accepted. The stored Computer Science SL6 has no source and is removed.'
     }
   ]
 }

@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1, 4.2 and 4.3 done 29 September 2026: eight UCL programs, two discontinued Manchester programs and five Alberta programs closed to school leavers left for the owner |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers and four discontinued Western programs left for the owner |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -81,7 +81,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.1 UK I — Imperial, UCL, LSE — eight UCL programs for the owner to open in a browser
 - [x] 4.2 UK II — Manchester, Edinburgh — Immunology and Molecular Biology discontinued, for the owner
 - [x] 4.3 Canada I — Alberta, UBC, Toronto — five Alberta programs that admit no school leavers, for the owner
-- [ ] 4.4 Canada II — McGill, Waterloo, Western
+- [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
 - [ ] 4.5 Hong Kong and Singapore
 - [ ] 4.6 Netherlands and Ireland
 - [ ] 4.7 Australia, Switzerland, Spain
@@ -108,12 +108,18 @@ Owner tasks — not AI work
   Finance), HKU BASc Applied AI, Sydney BSc and Doctor of Dental Medicine, Gdańsk Finance and
   Accounting) were deleted at the owner's request, 27 September 2026; later phases report their own.
   4.2: Manchester Immunology BSc and Molecular Biology BSc, both gone from the 2027 course list
+  4.4: Western Bioinformatics and Information Systems (admission closed from September 2027), Family
+  Studies (BSc) (admission discontinued) and Digital Humanities (only a minor exists)
 - [ ] Decide about five Alberta programs that admit nobody from high school (4.3): Medical Laboratory
   Science (a year of university first) and Secondary Education – CTS Communication Arts, Design, Media
   and Natural Resources (a trade certificate or diploma first). Left unwritten; keep or delete
 - [ ] Approve two more degree types, or not (4.3): Bachelor of Media Studies (UBC) and Bachelor of Health
   and Exercise Sciences (UBC Okanagan), stored as "Bachelor" for now. And UBC's "Design in Architecture"
   and "Landscape Architecture" are one degree stored twice: merge or keep
+- [ ] McGill's "Mining and Materials Engineering" is one stored program for two B.Eng. degrees (4.4), stored
+  at 32, the lower of their two ranges: split into Materials (33) and Mining (32), or keep
+- [ ] Waterloo's IB pages name no intake, so its 45 programs are stamped 2026 (4.4). Re-check when Waterloo
+  dates them, or confirm that its undated requirement pages count as 2027
 - [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
   whether it is still a direct-entry choice
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -286,6 +292,16 @@ not precision.
   (the codes are in each page's `apiUrl`); read them through U of A's IB equivalents chart. **`ualberta.ca`
   blocks after about 60 quick requests** (202 with an empty body, CloudFront WAF), WebFetch and the
   calendar included, for about half an hour: space requests a few seconds apart.
+- **Found in 4.4:** Waterloo has one IB page per admission program at `uwaterloo.ca/future-students/admissions/
+  admission-requirements/<code>/high-school/international-system/ib`; the codes are the `<option value>`s of the
+  program list on `.../admission-requirements` (`civil-eng`, `mathematics`, `life-sciences`…), and a program page's
+  "Apply to" names its entry program. Each gives the subjects and a "Total" excluding the core; none names a year.
+  McGill's IB page now shows "typical minimum admission grades ranges" and a new Fall 2027 Science stream; the
+  Internet Archive's 3 February 2026 copy ("last year's cut-offs") shows what it replaced. Western's IB page is
+  `welcome.uwo.ca/next-steps/requirements/international-baccalaureate.html`: minimum 27 with the core, required
+  courses per faculty, typical admitted ranges. Western's academic calendar marks closed modules in the title
+  ("admission discontinued effective 2027"); list a department's modules at
+  `westerncalendar.uwo.ca/Departments.cfm?DepartmentID=<id>&SelectedCalendar=Live&ArchiveID=`. All three answer curl.
 
 ---
 
@@ -1670,6 +1686,79 @@ unwritten. Backup: `scripts/backups/refresh/2026-09-29T09-41-45-638Z.json`.
   - Public pages: Toronto Engineering Science shows 30 points and "Requirements checked for 2027 entry";
     UBC Computer Science shows Maths and one science and links Vancouver's BSc; Alberta's General
     Sciences/Secondary Education shows 5 years, Double Bachelor's Degree.
+
+### 4.4 — Canada II: McGill, Waterloo, Western
+
+#### Status, 29 September 2026 — done (session 15); four discontinued Western programs for the owner
+
+Data files: `scripts/programs/2027/mcgill-university.ts` and `university-of-waterloo.ts` (continued from 3.4),
+and `western-university.ts` (new). Every change is explained in the program's `notes`. **Owner-approved and
+applied on 29 September 2026:** 121 programs written (McGill 36, Waterloo 45, Western 40; seven of them stamp
+only), none created, four Western programs reported as discontinued. Backup:
+`scripts/backups/refresh/2026-09-29T13-29-26-312Z.json`.
+
+- **Sources and entry years.**
+  - McGill: the university IB page (prerequisites and "typical minimum admission grades ranges", out of 42,
+    core excluded) and each program's catalogue page. The page lists an "Earth, Geographic, and Climate
+    Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds
+    from 3 February 2026 ("last year's cut-offs"). **The owner approved reading it as the 2027 page**: 35
+    programs stamped 2027, including 3.4's Mathematics and Software Engineering (2026 → 2027). Music comes
+    from the Schulich School of Music's pages, whose requirements name no year and whose admissions page still
+    says "Fall 2026": 2026.
+  - Waterloo: one IB page per entry program (Engineering programs, Mathematics with 16 majors, Life Sciences,
+    Physical Sciences, and so on), each with the subjects and a "Total" excluding the core. No page names an
+    entry year: all 45 stamped 2026 (rule 2).
+  - Western: the university IB page ("a minimum total grade of 27 (including the Extended Essay and TOK)", no
+    mark below 4, required courses per faculty, typical admitted ranges) and the faculty admissions pages, which
+    say "Start Date: September 2027"; the IB page's supplemental deadlines run February–April 2027. 40 stamped
+    2027.
+- **Points changed (111), all down.**
+  - Waterloo (43), to its published totals: 12 engineering programs 34–36 → 31; seven Mathematics majors 36–37
+    → 30, and Data Science 38 → 30; Computer Science, Computing and Financial Management and both Laurier double
+    degrees 38–39 → 32; Accounting and Financial Management 35 → 28, Health Sciences 34 → 28; the other 17
+    programs 30–34 → 27. Geography and Environmental Management's IB page lists no requirement or total: 30
+    kept, marked unverified.
+  - McGill (28), to the bottom of each typical range: nine Arts programs 34 → 33; Science 36–37 → 35
+    (Chemistry, Computer Science, Physics) or 36 (Biology, Biochemistry); Chemical, Civil, Computer and
+    Electrical Engineering 37 → 35, Bioengineering 40 → 39, Architecture 41 → 39, Mining and Materials 35 → 32;
+    Commerce 37 → 35, Social Work 36 → 35, Arts and Science 36 → 35; four Macdonald campus programs 30 → 28.
+  - Western (40), all to 27, **the only minimum Western publishes (owner-approved over the typical ranges)**.
+    They were 28–36. The typical ranges are in each note: Nursing 35–40, Health Sciences 35–38, Medical Sciences
+    35–37, Engineering 33–35, Computer Science 30–32, Arts 28–30.
+- **Subjects.**
+  - Waterloo: English A at 4 or HL English B at 5 is now a critical group everywhere it is named. Engineering
+    ×12: Maths AA, Physics, Chemistry and English, all critical at 4 (Maths and Physics were HL, only Maths
+    critical). The seven Mathematics majors and five computing and double-degree programs: HL Maths AA at 6,
+    not 5. Science entry programs: Maths AA and "two of" Biology, Chemistry or Physics, one critical group;
+    the named single sciences they had (Chemistry HL for Medicinal Chemistry, Physics HL for Physics) are
+    gone. Climate and Environmental Change, Environmental Sciences, Honours Science and three English-only
+    programs had nothing stored.
+  - McGill: every prerequisite is critical, graded as the page gives it ("6 (5 to 6 if HL)" is stored as HL 5 or
+    SL 6). SL Maths AI is refused wherever maths is required. The nine Arts programs name no prerequisites
+    (Economics loses Maths AA SL 5); the stored HL 6–7 rows in Architecture, Biochemistry and Biology had no
+    source.
+  - Western: English was stored everywhere and is named only for Nursing; IB Music is not required for either
+    music program. Required courses are critical at 4; a subject the IB page says one program needs, though its
+    faculty does not require it, is stored not critical (Economics' maths, Health Sciences with Biology's
+    chemistry, Psychology's maths and the BSc's sciences, WISc's chemistry); recommended subjects are dropped.
+    "IB Science (Any)" is any Group 4 subject.
+- **Discontinued (reported, not written), Western:** Bioinformatics and Information Systems (the calendar:
+  "admission discontinued effective September 1, 2027"), Family Studies (BSc) (both BSc modules "ADMISSION
+  DISCONTINUED"; only the BA is offered) and Digital Humanities (only a minor exists). **Owner decides.**
+- **Names, degrees, links.** McGill "Kinesiology and Physical Education" is the department: renamed Kinesiology,
+  linking the B.Sc. Waterloo Environmental Sciences is a BSc, not a BES. Western Kinesiology (BA or BSc) and
+  Music (BMus or BA) were stored as double degrees: now Bachelor of Arts and Bachelor of Music, the choice in the
+  notes. Western Nursing is 3.5 years. Western Computer Science and Medical Sciences link their admissions pages.
+- **Model limits**, recorded in the notes: "two of" a list, "at least one math/science at HL", "at least one
+  6", Western's typical ranges, and supplementary forms, interviews, auditions and the Casper test.
+- **Verify.**
+  - `requirementsEntryYear`: McGill 35 × 2027 and 1 × 2026; Waterloo 45 × 2026; Western 40 × 2027 and 4 × 2026
+    (the four discontinued, untouched). All 121 written are flagged verified.
+  - `count(*)`: 1,279 before and after. Algolia: 1,279 records.
+  - A second dry run finds all 121 up to date.
+  - Link checker, three universities: 100 URLs OK; 0 broken, redirected, unverifiable or year-pinned.
+  - Public pages: Waterloo Computer Science shows 32 points and "Checked for 2026 entry"; Western Nursing
+    shows 27 and 3.5 years, "checked for 2027 entry"; McGill Kinesiology shows its new name and 30.
 
 ---
 
