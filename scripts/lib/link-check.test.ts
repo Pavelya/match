@@ -29,6 +29,8 @@ describe('isBotWall', () => {
     expect(isBotWall('<html><script src="/_Incapsula_Resource?SWJIYLWA=1"></script>')).toBe(true)
     expect(isBotWall('<html><head><title>Request Rejected</title></head>')).toBe(true)
     expect(isBotWall('<title>Just a moment...</title>')).toBe(true)
+    expect(isBotWall('<script>window["bobcmn"] = "10111/TSPD/3000";</script>')).toBe(true)
+    expect(isBotWall('<title>Toegang geblokkeerd / Access Blocked</title>')).toBe(true)
     expect(isBotWall('<html><title>Physics | Example University</title>')).toBe(false)
   })
 })

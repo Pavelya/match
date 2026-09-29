@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers and four discontinued Western programs left for the owner |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs and one discontinued Leiden major (4.6, saved by a student) left for the owner |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -83,7 +83,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.3 Canada I — Alberta, UBC, Toronto — five Alberta programs that admit no school leavers, for the owner
 - [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
 - [ ] 4.5 Hong Kong and Singapore
-- [ ] 4.6 Netherlands and Ireland
+- [x] 4.6 Netherlands and Ireland — a discontinued Leiden major, saved by one student, for the owner
 - [ ] 4.7 Australia, Switzerland, Spain
 - [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
   Israel, Estonia, Japan
@@ -110,6 +110,15 @@ Owner tasks — not AI work
   4.2: Manchester Immunology BSc and Molecular Biology BSc, both gone from the 2027 course list
   4.4: Western Bioinformatics and Information Systems (admission closed from September 2027), Family
   Studies (BSc) (admission discontinued) and Digital Humanities (only a minor exists)
+  4.6: Leiden University College's Global Health, Innovation and Society major (gone from LUC's majors; its page 404s).
+  The owner chose to delete it; held because one student has saved it, and deleting the program removes the save
+- [x] Decide about four programs no school leaver can enter with the IB (4.6): Philosophy of a Specific Discipline at
+  Groningen and at Erasmus (entry after a first year of another bachelor's) and Trinity Dental Hygiene and Dental Nursing
+  (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
+- [x] Approve two more awards (4.6): Bachelor of Deaf Studies (Trinity's B.St.Su.) and Bachelor of Dental Technology
+  (B.Dent.Tech.) — approved and applied, 29 September 2026
+- [ ] Re-check Erasmus IBA after 1 October 2026 (4.6): RSM says its September 2027 requirements are finalised then, so IBA is
+  stamped 2026. Groningen's IB table gives Global Politics & Sustainability a maths rule its own pages do not; kept as none
 - [ ] Decide about five Alberta programs that admit nobody from high school (4.3): Medical Laboratory
   Science (a year of university first) and Secondary Education – CTS Communication Arts, Design, Media
   and Natural Resources (a trade certificate or diploma first). Left unwritten; keep or delete
@@ -302,6 +311,18 @@ not precision.
   courses per faculty, typical admitted ranges. Western's academic calendar marks closed modules in the title
   ("admission discontinued effective 2027"); list a department's modules at
   `westerncalendar.uwo.ca/Departments.cfm?DepartmentID=<id>&SelectedCalendar=Live&ArchiveID=`. All three answer curl.
+- **Found in 4.6:** `universiteitleiden.nl` answers every script, PDFs included, with a 200 F5 challenge ("Toegang
+  geblokkeerd / Access Blocked", `window["bobcmn"]`), which the link checker now spots; WebFetch reads the pages and saves
+  PDFs, which pypdf reads (the WebFetch model cannot). Leiden's requirements are PDFs: "General admission: diploma requirements
+  2027/2028", "Specific diploma requirements for science and medical programmes 2027-2028", and LUC's
+  `luc-admission-requirements-2026-2027.pdf`, which says 2027-2028 inside. UvA's diploma finder loads its data from
+  `/webfiles/<n>/includes/diploma-finder/country_data.js`; the IB entry lists every programme with an extra requirement.
+  Groningen has one IB table (`.../bachelorlinksinternational/international-baccalaureate-diploma`); programme pages are Dutch
+  unless `?lang=en`. Erasmus admission pages (`eur.nl/en/bachelor/<slug>/admission`) name the academic year; IBA's rules are on
+  `rsm.nl` (the IB under `faq-category/141-international/`). TU Delft's IB page is `.../bsc-international-diploma/
+  admission-requirements/specific-diploma-requirements`, undated. Trinity's course pages describe 2026 entry; the
+  `Trinity_Undergraduate_Prospectus_2027.pdf` (41 MB) has "Course Requirements 2027" with an IB column. The Internet
+  Archive's `id_` bodies can be gzip.
 
 ---
 
@@ -1759,6 +1780,82 @@ only), none created, four Western programs reported as discontinued. Backup:
   - Link checker, three universities: 100 URLs OK; 0 broken, redirected, unverifiable or year-pinned.
   - Public pages: Waterloo Computer Science shows 32 points and "Checked for 2026 entry"; Western Nursing
     shows 27 and 3.5 years, "checked for 2027 entry"; McGill Kinesiology shows its new name and 30.
+
+### 4.6 — Netherlands and Ireland
+
+#### Status, 29 September 2026 — done (session 17); a discontinued Leiden major for the owner
+
+Data files: `scripts/programs/2027/leiden-university.ts`, `erasmus-university-rotterdam.ts`,
+`delft-university-of-technology.ts` and `trinity-college-dublin.ts` (new), and `university-of-groningen.ts` and
+`university-of-amsterdam.ts` (continued from 3.4); `university-college-dublin.ts` was already up to date from 3.4. Every change
+is explained in the program's `notes`. **Owner-approved and applied on 29 September 2026:** 154 programs written (Groningen 35,
+Amsterdam 24, Leiden 22, Erasmus 13, Delft 4, Trinity 56; 50 of them stamp only), none created, one Leiden major reported as
+discontinued, four programs left unwritten. Backup: `scripts/backups/refresh/2026-09-29T18-53-18-086Z.json`. **The owner
+then had the four unwritten programs deleted and approved two awards** (below).
+
+- **Sources and entry years.**
+  - Groningen: one IB table for every programme (subjects, no grades; last modified 25 September 2026); each programme page
+    gives deadlines for the 1 September 2027 start. 35 stamped 2027.
+  - Amsterdam: the diploma finder's IB entry, which "applies only to applications for the 2027–2028 academic year" and lists
+    every programme with an extra requirement, and AUC's and PPLE's own pages. 24 stamped 2027, 3.4's Archaeology included.
+  - Leiden: "General admission: diploma requirements 2027/2028", "Specific diploma requirements for science and medical
+    programmes 2027-2028" and LUC's list "For admission to the academic year 2027-2028". 22 stamped 2027.
+  - Erasmus: each admission page names its academic year. 9 stamped 2027 and 4 stamped 2026: Econometrics and Operations
+    Research and its Philosophy double (the page still says 2026-2027), the Dual Degree in Arts and Sciences (2026-2027
+    deadlines) and IBA, whose RSM page says the September 2027 requirements "will be finalised by 1 October 2026".
+  - Delft: the IB requirements page names no intake. 4 stamped 2026.
+  - Trinity: the course pages describe 2026 entry; the **Undergraduate Prospectus 2027** (23 September 2026) has "Course
+    Requirements 2027" with an IB column, and an alert list of what changes for 2027. 56 stamped 2027.
+- **Points changed (6), and why no others did.** Leiden's LUC programme and its five majors 24 → 35: LUC requires "an average
+  of 35 points including bonus" to enter selection. Elsewhere in the Netherlands the IB Diploma itself is the requirement and
+  24, its minimum, stays; the totals that are published already matched (PPLE 34, Erasmus Econometrics, BSc² and EUC 30, all
+  out of 42; IBA's 33 for selection points). Trinity publishes no IB total (EU applicants are ranked on CAO points, non-EU
+  applicants assessed individually): its stored 30–38 are kept, marked unverified, with 2025 CAO points in each note.
+- **Subjects.**
+  - Groningen: no grade is named, so 4 (the stored 5s had no source). Computing Science, Industrial Engineering, Biomedical and
+    Chemical Engineering, Chemistry and Life Science and Technology no longer accept Maths AI HL; Artificial Intelligence and
+    Spatial Planning take AA SL or AI HL, not AI SL. "One of Physics and Chemistry at HL" is in the notes, each stored at SL,
+    so Chemistry is no longer required at HL. Biology takes Biology HL plus Chemistry, Physics and maths.
+  - Amsterdam: Business Administration, Computational Social Science, Economics and Business Economics and PPLE take Maths AA
+    SL 4 or AI HL 4. Psychology, Political Science, Sociology, Cultural Anthropology and Communication Science only recommend
+    maths: removed. AUC's maths depends on the major; the Humanities route (AA SL 4, AI HL 4 or AI SL 7) is stored.
+  - Leiden: humanities and social sciences name nothing beyond the Diploma. Science for Sustainable Societies takes Maths AA
+    SL or AI HL and a science from six at HL (the second, at SL, is in the notes).
+  - Erasmus: English B added wherever English A was listed; English is not critical, because a test can replace it, as 3.4
+    stored UCD's and 4.2 Edinburgh's.
+  - Delft: every required subject is critical (the sciences were not).
+  - Trinity: the prospectus requirements, critical where they were not. Where a course names no maths, the IB minimum's
+    maths (SL 4) is stored; English A or B SL 4, not critical, everywhere. 2027 changes: Physical Sciences and Physics Maths
+    HL 6, Joint Honours Business Maths HL 5 or SL 7. Medicine and Dental Science store "some qualification in physics" as
+    Physics SL 1, as 4.1 stored UCL's.
+- **Not written, then deleted at the owner's request:** Philosophy of a Specific Discipline at Groningen and at Erasmus (entry
+  after a first year of another bachelor's); Trinity Dental Hygiene and Dental Nursing (two-year diplomas, not degrees; no IB
+  equivalent published). None was saved by a student. They were backed up
+  (`scripts/backups/refresh/deleted-2026-09-29T19-27-31-277Z.json`), deleted with their 8 requirement rows in one transaction
+  and removed from Algolia, and the caches were cleared. Their data-file entries are a one-line comment.
+- **Discontinued (reported, not written), Leiden:** LUC's Global Health, Innovation and Society major. The majors page listed
+  it on 8 March 2026 (Internet Archive); it lists five majors now, and the major's page returns 404. The owner chose to delete
+  it, but **one student has saved it**, and the delete would remove that save: held for the owner to confirm.
+- **Names and degrees.** Trinity: Global Business is Global and Sustainable Business. Computer Science (4 years, not 5),
+  Computer Science Joint Honours, Computer Science Linguistics and a Language, MSISS and Engineering with Management (4
+  years) are B.Sc. for 2027. BESS (one degree, not a double) and Joint Honours Business are Bachelor of Arts. Deaf Studies
+  (B.St.Su.) and Dental Technology (an ordinary degree, 3 years) are Bachelor of Deaf Studies and Bachelor of Dental
+  Technology, awards the owner added to `lib/programs/degree-types.ts` (backup of that write:
+  `scripts/backups/refresh/2026-09-29T19-28-30-926Z.json`).
+  Environmental Science and Engineering is 4 years. Erasmus's four double programmes are Double Bachelor's Degree.
+- **Model limits**, recorded in the notes: "one of two at HL", "two of" a list, AUC's maths by major, European Studies' "two
+  languages at HL 5 or one at HL 6", auditions and questionnaires.
+- **Link checker.** Leiden answers every script with a 200 F5 challenge page, which the checker counted as OK. It now spots
+  that page (`scripts/lib/link-check.ts`, with a test), so Leiden's 23 URLs report unverifiable. WebFetch read each of them.
+- **Verify.**
+  - `requirementsEntryYear`, after the deletes: Groningen 35 × 2027; Amsterdam 24 × 2027; Leiden 22 × 2027 and 1 × 2026
+    (discontinued); Erasmus 9 × 2027 and 4 × 2026; Delft 4 × 2026; Trinity 56 × 2027; UCD 25 × 2027. All 180 are flagged
+    verified.
+  - `count(*)`: 1,279 before and after the refresh; 1,275 after the four deletes. Algolia: 1,275 records.
+  - A second dry run finds all 154 written programs, and UCD's 25, up to date.
+  - Link checker, seven universities: 161 URLs OK and 23 unverifiable (Leiden); 0 broken, redirected or year-pinned.
+  - Public pages: LUC World Politics shows 35 points and "Requirements checked for 2027 entry"; Trinity's page is titled
+    "Global and Sustainable Business at TCD"; Groningen Biology shows Biology HL 4.
 
 ---
 

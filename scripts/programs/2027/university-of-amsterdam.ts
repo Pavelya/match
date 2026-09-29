@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of Amsterdam',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: not checked for any intake.
     {
@@ -33,8 +33,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/actuarial-science/actuarial-science.html',
       requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/actuarial-science/actuarial-science.html'
+      ],
+      notes:
+        'Content 4.6: BSc Actuarial Science. The diploma finder asks for "Analysis and Approaches HL with a grade 4 or higher"; the stored Maths AA HL 4 (critical) already matched. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -49,8 +54,14 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.uva.nl/en/programmes/bachelors/ancient-studies/ancient-studies.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/ancient-studies/ancient-studies.html'
+      ],
+      notes:
+        'Content 4.6: BA Ancient Studies, English track. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -65,14 +76,15 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.uva.nl/en/programmes/bachelors/archaeology/archaeology.html',
       requirements: [],
-      checkedFor: 2026,
+      checkedFor: 2027,
       sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
         'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
         'https://www.uva.nl/en/programmes/bachelors/archaeology/archaeology.html',
         'https://www.uva.nl/en/programmes/bachelors/archaeology/application-and-admission/international-prior-education/international-prior-education.html'
       ],
       notes:
-        "Content 3.4: the page moved from archaeology/index.html to archaeology/archaeology.html; same programme (BA Archaeology, 180 EC, joint degree with VU Amsterdam, English track). Checked, no specific subjects required: the IB Diploma itself is the entry requirement, and the English track is on the UvA's IB Admissions list (EEA nationals are admitted on the diploma without an application file). 24 is the Diploma minimum. English proficiency: English as an IB exam subject, or a C1 test. The admission pages give 2026 deadlines and the 2026-2027 academic year, so checked for 2026."
+        'Content 3.4: the page moved from archaeology/index.html to archaeology/archaeology.html; same programme (BA Archaeology, 180 EC, joint degree with VU Amsterdam, English track). Checked, no specific subjects required: the IB Diploma itself is the entry requirement, and the English track is on the UvA\'s IB Admissions list (EEA nationals are admitted on the diploma without an application file). 24 is the Diploma minimum. English proficiency: English as an IB exam subject, or a C1 test. The admission pages give 2026 deadlines and the 2026-2027 academic year, so checked for 2026. Content 4.6: 2026 → 2027. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Archaeology is not listed, so no extra requirement applies. The programme\'s own admission page still mixes years (UvA Matching "before 15 June 2027", a fee waiver for "the academic year 2026-2027").'
     },
     // Stored: not checked for any intake.
     {
@@ -87,9 +99,23 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/business-administration/business-administration.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/business-administration/application-and-admission/international-prior-education/international-prior-education.html',
+        'https://www.uva.nl/en/programmes/bachelors/business-administration/business-administration.html'
+      ],
+      notes:
+        'Content 4.6: BSc Business Administration, English track: a numerus fixus of 650 places, deadline 15 January 2027 for the September 2027 intake, with an online selection test. The diploma finder lists "One of the following IB mathematics courses: Applications and Interpretation HL with a grade 4 or higher; Analysis and Approaches SL or HL with a grade 4 or higher"; with Maths AI SL, or below these grades, an additional mathematics certificate is needed. Stored as Maths AA SL 4 or Maths AI HL 4, one critical group (AA HL meets the SL rule). Maths AI SL is no longer accepted, and HL was never required for AA. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4 (critical).'
     },
     // Stored: not checked for any intake.
     {
@@ -105,8 +131,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/business-analytics/business-analytics.html',
       requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/business-analytics/business-analytics.html'
+      ],
+      notes:
+        'Content 4.6: BSc Business Analytics. The diploma finder asks for "Analysis and Approaches HL with a grade 4 or higher"; the stored Maths AA HL 4 (critical) already matched. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -121,9 +152,22 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/computational-social-science/computational-social-science.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/computational-social-science/computational-social-science.html'
+      ],
+      notes:
+        'Content 4.6: BSc Computational Social Science (deadline 1 May 2027). The diploma finder lists "One of the following IB mathematics courses: Applications and Interpretation HL with a grade 4 or higher; Analysis and Approaches SL or HL with a grade 4 or higher"; with Maths AI SL, or below these grades, an additional mathematics certificate is needed. Stored as Maths AA SL 4 or Maths AI HL 4, one critical group (AA HL meets the SL rule). Maths AI SL is no longer accepted, and HL was not required for AA. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4 (critical).'
     },
     // Stored: not checked for any intake.
     {
@@ -138,9 +182,15 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/cultural-anthropology-and-development-sociology/cultural-anthropology-and-development-sociology.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/cultural-anthropology-and-development-sociology/cultural-anthropology-and-development-sociology.html'
+      ],
+      notes:
+        'Content 4.6: BA Cultural Anthropology and Development Sociology, English track. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists maths for this programme only as "highly recommended" (Applications and Interpretation HL, or Analysis and Approaches SL or HL, at 4), so it is not stored; the programme page asks for mathematics to VWO Wiskunde A level, which the Diploma\'s compulsory maths course meets. Checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4.'
     },
     // Stored: not checked for any intake.
     {
@@ -156,8 +206,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/econometrics-and-data-science/econometrics-and-data-science.html',
       requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/econometrics-and-data-science/econometrics-and-data-science.html'
+      ],
+      notes:
+        'Content 4.6: BSc Econometrics and Data Science. The diploma finder asks for "Analysis and Approaches HL with a grade 4 or higher"; the stored Maths AA HL 4 (critical) already matched. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -172,9 +227,22 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/economics--business-economics/economics--business-economics.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/economics--business-economics/economics--business-economics.html'
+      ],
+      notes:
+        'Content 4.6: BSc Economics and Business Economics, English track (deadline 15 January 2027; "Application process for the September 2027 intake"). The diploma finder lists "One of the following IB mathematics courses: Applications and Interpretation HL with a grade 4 or higher; Analysis and Approaches SL or HL with a grade 4 or higher"; with Maths AI SL, or below these grades, an additional mathematics certificate is needed. Stored as Maths AA SL 4 or Maths AI HL 4, one critical group (AA HL meets the SL rule). Maths AI SL is no longer accepted, and HL was not required for AA. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4 (critical).'
     },
     // Stored: not checked for any intake.
     {
@@ -190,8 +258,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/english-language-and-culture/english-language-and-culture.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/english-language-and-culture/english-language-and-culture.html'
+      ],
+      notes:
+        'Content 4.6: BA English Language and Culture. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -207,8 +281,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/european-studies/european-studies.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/european-studies/european-studies.html'
+      ],
+      notes:
+        'Content 4.6: BA European Studies, English track. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -224,8 +304,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/global-arts-culture-and-politics/global-arts-culture-and-politics.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/global-arts-culture-and-politics/global-arts-culture-and-politics.html'
+      ],
+      notes:
+        'Content 4.6: BA Global Arts, Culture and Politics, English track. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -240,9 +326,15 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/communication-science/communication-science.html'
+      ],
+      notes:
+        'Content 4.6: BSc Global Communication Science. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists maths for this programme only as "highly recommended" (Applications and Interpretation HL, or Analysis and Approaches SL or HL, at 4), so it is not stored; the programme page asks for mathematics to VWO Wiskunde A level, which the Diploma\'s compulsory maths course meets. Checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4.'
     },
     // Stored: not checked for any intake.
     {
@@ -258,8 +350,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/human-geography-and-planning/human-geography-and-planning.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/human-geography-and-planning/human-geography-and-planning.html'
+      ],
+      notes:
+        'Content 4.6: BSc Human Geography and Planning, English track (deadline 1 May 2027). It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -274,9 +372,27 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/amsterdam-university-college/amsterdam-university-college.html',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'SL', grade: 7 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 5, critical: false }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.auc.nl/admissions-aid/admission-requirements/admission-requirements.html',
+        'https://www.auc.nl/admissions-aid/admission-requirements/mathematics-requirement/mathematics-requirement.html',
+        'https://www.auc.nl/admissions-aid/admission-requirements/english-proficiency/english-proficiency.html',
+        'https://www.uva.nl/en/programmes/bachelors/amsterdam-university-college/amsterdam-university-college.html'
+      ],
+      notes:
+        'Content 4.6: BA/BSc Liberal Arts and Sciences, Amsterdam University College (the degree follows the major; the stored Bachelor of Arts is kept). The diploma finder sends AUC applicants to AUC\'s own requirements; applications for September 2027 close 1 December 2026, 1 February 2027 or 1 May 2027. AUC\'s maths requirement "varies per major". Humanities majors: Analysis & Approaches SL 4, Applications & Interpretation SL 7 or HL 4. Social Sciences: AI HL 6, AA SL 5 or AA HL 4. Sciences: AA HL 5, AI HL 6 or AA SL 6 (with a STEM subject: AI HL 6, AA SL 5 or AA HL 4). The lowest route, the Humanities one, is stored as one critical group; the model cannot tie the level to the major. English: an IELTS or TOEFL score, or an alternative proof such as "International Baccalaureate Standard level English at grade 5", stored not critical (English A or B SL 5); AUC may still ask for a test. No IB points figure is published; AUC students average a GPA of 7.0 or above in Dutch terms. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: English A Literature or English A Language and Literature SL 5 (critical).'
     },
     // Stored: not checked for any intake.
     {
@@ -291,8 +407,14 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: 'https://www.uva.nl/en/programmes/bachelors/linguistics/linguistics.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/linguistics/linguistics.html'
+      ],
+      notes:
+        'Content 4.6: BA Linguistics. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -308,8 +430,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/literary-and-cultural-analysis-literary-studies/literary-studies-literary-and-cultural-analysis.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/literary-and-cultural-analysis-literary-studies/literary-studies-literary-and-cultural-analysis.html'
+      ],
+      notes:
+        'Content 4.6: BA Literary and Cultural Analysis. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -325,8 +453,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/media-and-culture/media-and-culture.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/media-and-culture/media-and-culture.html'
+      ],
+      notes:
+        'Content 4.6: BA Media and Culture, English track. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -342,8 +476,14 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/media-and-information/media-and-information.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/media-and-information/media-and-information.html'
+      ],
+      notes:
+        'Content 4.6: BA Media and Information. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -358,9 +498,15 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/political-science/political-science.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/political-science/political-science.html'
+      ],
+      notes:
+        'Content 4.6: BSc Political Science, English track: a numerus fixus of 345 places filled by an unweighted lottery, deadline 15 January. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists maths for this programme only as "highly recommended" (Applications and Interpretation HL, or Analysis and Approaches SL or HL, at 4), so it is not stored; the programme page asks for mathematics to VWO Wiskunde A level, which the Diploma\'s compulsory maths course meets. Checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4.'
     },
     // Stored: not checked for any intake.
     {
@@ -376,11 +522,23 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/politics-psychology-law-and-economics/politics-psychology-law-and-economics.html',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 5, critical: false }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://pple.uva.nl/how-to-apply/entry-requirements/requirements-per-diploma-type/your-entry-requirements.html',
+        'https://www.uva.nl/en/programmes/bachelors/politics-psychology-law-and-economics/politics-psychology-law-and-economics.html'
+      ],
+      notes:
+        'Content 4.6: BA Politics, Psychology, Law and Economics (PPLE College), selective. PPLE\'s requirements per diploma ("applies to the September 2027 intake") and the diploma finder: "34 points total based on 6 subjects (excl. extra points for TOK and EE)", so 34 is out of 42 and is stored as published, as McGill\'s and Waterloo\'s are; Mathematics "Analysis & Approaches SL/HL: minimum grade 4. Applications & Interpretations HL: minimum grade 4 (Applications & Interpretations SL is not sufficient)", stored as one critical group; English "Group 1 English A or Group 2 English B: minimum grade 5", stored not critical (English A or B SL 5), because supplementary English test results can replace it. Maths AI SL is no longer accepted, and English B was missing. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: English A Literature or English A Language and Literature SL 5 (critical); Maths AA or Maths AI SL 4 (critical).'
     },
     // Stored: not checked for any intake.
     {
@@ -394,9 +552,16 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.uva.nl/en/programmes/bachelors/psychology/psychology.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/psychology/application-and-admission/international-prior-education/application-and-admission.html',
+        'https://www.uva.nl/en/programmes/bachelors/psychology/psychology.html'
+      ],
+      notes:
+        'Content 4.6: BSc Psychology, English track: a numerus fixus of 300 places for 2027-2028, applications 1 October 2026 to 15 January 2027, ranking numbers on 15 April 2027. It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists maths for this programme only as "highly recommended" (Applications and Interpretation HL, or Analysis and Approaches SL or HL, at 4), so it is not stored; the programme page asks for mathematics to VWO Wiskunde A level, which the Diploma\'s compulsory maths course meets. Checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4.'
     },
     // Stored: not checked for any intake.
     {
@@ -412,8 +577,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.uva.nl/en/programmes/bachelors/sign-language-linguistics-linguistics/sign-language-linguistics.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/programmes/bachelors/sign-language-linguistics-linguistics/sign-language-linguistics.html'
+      ],
+      notes:
+        'Content 4.6: BA Linguistics, Sign Language Linguistics track (taught in English). The diploma finder lists no extra requirement: checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027.'
     },
     // Stored: not checked for any intake.
     {
@@ -427,9 +597,15 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 24,
       programUrl: 'https://www.uva.nl/en/programmes/bachelors/sociology/sociology.html',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [],
+      checkedFor: 2027,
+      sources: [
+        'https://www.uva.nl/en/education/admissions/bachelors/entry-requirements-for-international-qualifications.html',
+        'https://www.uva.nl/en/education/admissions/bachelors/pilot-international-baccalaureate.html',
+        'https://www.uva.nl/en/programmes/bachelors/sociology/sociology.html'
+      ],
+      notes:
+        'Content 4.6: BSc Sociology, English track (deadline 1 May 2027). It is on UvA\'s IB Admissions list: EEA nationals with the IB Diploma are admitted on the diploma alone, without an application file. The diploma finder lists maths for this programme only as "highly recommended" (Applications and Interpretation HL, or Analysis and Approaches SL or HL, at 4), so it is not stored; the programme page asks for mathematics to VWO Wiskunde A level, which the Diploma\'s compulsory maths course meets. Checked, none required. UvA\'s diploma finder, International Baccalaureate entry ("It applies only to applications for the 2027–2028 academic year"): the IB Diploma or Bilingual Diploma is required, and "If your programme is not listed below, no extra/alternative requirements apply". English as an IB exam subject exempts from the English test; otherwise a test is needed, so English is not stored. UvA publishes no IB points figure: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AA or Maths AI HL 4.'
     }
   ]
 }
