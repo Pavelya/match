@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs and one discontinued Leiden major (4.6, saved by a student) left for the owner |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, and four discontinued Western programs left for the owner; 4.6's owner decisions are applied |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -83,7 +83,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.3 Canada I — Alberta, UBC, Toronto — five Alberta programs that admit no school leavers, for the owner
 - [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
 - [ ] 4.5 Hong Kong and Singapore
-- [x] 4.6 Netherlands and Ireland — a discontinued Leiden major, saved by one student, for the owner
+- [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
 - [ ] 4.7 Australia, Switzerland, Spain
 - [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
   Israel, Estonia, Japan
@@ -110,8 +110,8 @@ Owner tasks — not AI work
   4.2: Manchester Immunology BSc and Molecular Biology BSc, both gone from the 2027 course list
   4.4: Western Bioinformatics and Information Systems (admission closed from September 2027), Family
   Studies (BSc) (admission discontinued) and Digital Humanities (only a minor exists)
-  4.6: Leiden University College's Global Health, Innovation and Society major (gone from LUC's majors; its page 404s).
-  The owner chose to delete it; held because one student has saved it, and deleting the program removes the save
+  4.6: Leiden University College's Global Health, Innovation and Society major (gone from LUC's majors; its page 404s),
+  deleted at the owner's request on 29 September 2026 with the one student save it had
 - [x] Decide about four programs no school leaver can enter with the IB (4.6): Philosophy of a Specific Discipline at
   Groningen and at Erasmus (entry after a first year of another bachelor's) and Trinity Dental Hygiene and Dental Nursing
   (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
@@ -1783,7 +1783,7 @@ only), none created, four Western programs reported as discontinued. Backup:
 
 ### 4.6 — Netherlands and Ireland
 
-#### Status, 29 September 2026 — done (session 17); a discontinued Leiden major for the owner
+#### Status, 29 September 2026 — done (session 17); five programs deleted and two awards added at the owner's request
 
 Data files: `scripts/programs/2027/leiden-university.ts`, `erasmus-university-rotterdam.ts`,
 `delft-university-of-technology.ts` and `trinity-college-dublin.ts` (new), and `university-of-groningen.ts` and
@@ -1791,7 +1791,7 @@ Data files: `scripts/programs/2027/leiden-university.ts`, `erasmus-university-ro
 is explained in the program's `notes`. **Owner-approved and applied on 29 September 2026:** 154 programs written (Groningen 35,
 Amsterdam 24, Leiden 22, Erasmus 13, Delft 4, Trinity 56; 50 of them stamp only), none created, one Leiden major reported as
 discontinued, four programs left unwritten. Backup: `scripts/backups/refresh/2026-09-29T18-53-18-086Z.json`. **The owner
-then had the four unwritten programs deleted and approved two awards** (below).
+then had the four unwritten programs and the discontinued major deleted, and approved two awards** (below).
 
 - **Sources and entry years.**
   - Groningen: one IB table for every programme (subjects, no grades; last modified 25 September 2026); each programme page
@@ -1833,9 +1833,10 @@ then had the four unwritten programs deleted and approved two awards** (below).
   equivalent published). None was saved by a student. They were backed up
   (`scripts/backups/refresh/deleted-2026-09-29T19-27-31-277Z.json`), deleted with their 8 requirement rows in one transaction
   and removed from Algolia, and the caches were cleared. Their data-file entries are a one-line comment.
-- **Discontinued (reported, not written), Leiden:** LUC's Global Health, Innovation and Society major. The majors page listed
-  it on 8 March 2026 (Internet Archive); it lists five majors now, and the major's page returns 404. The owner chose to delete
-  it, but **one student has saved it**, and the delete would remove that save: held for the owner to confirm.
+- **Discontinued, then deleted at the owner's request, Leiden:** LUC's Global Health, Innovation and Society major. The majors
+  page listed it on 8 March 2026 (Internet Archive); it lists five majors now, and the major's page returns 404. One student
+  had saved it; the owner confirmed the delete knowing that. The program and that save are backed up in
+  `scripts/backups/refresh/deleted-2026-09-29T19-41-10-621Z.json`; it had no requirement rows.
 - **Names and degrees.** Trinity: Global Business is Global and Sustainable Business. Computer Science (4 years, not 5),
   Computer Science Joint Honours, Computer Science Linguistics and a Language, MSISS and Engineering with Management (4
   years) are B.Sc. for 2027. BESS (one degree, not a double) and Joint Honours Business are Bachelor of Arts. Deaf Studies
@@ -1848,10 +1849,9 @@ then had the four unwritten programs deleted and approved two awards** (below).
 - **Link checker.** Leiden answers every script with a 200 F5 challenge page, which the checker counted as OK. It now spots
   that page (`scripts/lib/link-check.ts`, with a test), so Leiden's 23 URLs report unverifiable. WebFetch read each of them.
 - **Verify.**
-  - `requirementsEntryYear`, after the deletes: Groningen 35 × 2027; Amsterdam 24 × 2027; Leiden 22 × 2027 and 1 × 2026
-    (discontinued); Erasmus 9 × 2027 and 4 × 2026; Delft 4 × 2026; Trinity 56 × 2027; UCD 25 × 2027. All 180 are flagged
-    verified.
-  - `count(*)`: 1,279 before and after the refresh; 1,275 after the four deletes. Algolia: 1,275 records.
+  - `requirementsEntryYear`, after the deletes: Groningen 35 × 2027; Amsterdam 24 × 2027; Leiden 22 × 2027; Erasmus 9 ×
+    2027 and 4 × 2026; Delft 4 × 2026; Trinity 56 × 2027; UCD 25 × 2027. All 179 are flagged verified.
+  - `count(*)`: 1,279 before and after the refresh; 1,274 after the five deletes. Algolia: 1,274 records.
   - A second dry run finds all 154 written programs, and UCD's 25, up to date.
   - Link checker, seven universities: 161 URLs OK and 23 unverifiable (Leiden); 0 broken, redirected or year-pinned.
   - Public pages: LUC World Politics shows 35 points and "Requirements checked for 2027 entry"; Trinity's page is titled

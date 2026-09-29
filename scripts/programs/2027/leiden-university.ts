@@ -312,25 +312,7 @@ const refresh: RefreshFile = {
       notes:
         'Content 4.6: Earth, Energy and Sustainability, a BSc major of Liberal Arts and Sciences: Global Challenges at Leiden University College The Hague. LUC\'s diploma list, "For admission to the academic year 2027-2028" (the file name still says 2026-2027): Leiden\'s general requirement, the IB Diploma, plus LUC\'s own selection requirement, "An average of 35 points including bonus is required to partake in the selection process for admission to LUC The Hague". 35 (out of 45, core included) is stored as that published minimum; it was stored as 24. "Mathematics advice: all math courses are sufficient for admission with a grade 4" is advice, not a requirement: checked, none required. Selective (early bird 1 December 2026, regular deadline 15 March 2027 for the September 2027 intake). Students choose their major at the end of the first year. An English-taught IB or English A HL exempts from the English test. Checked for 2027.'
     },
-    // Stored: checked for 2026 entry on 2026-01-08.
-    {
-      id: 'cmk5wep4w00197mmiebseqnwm',
-      status: 'discontinued',
-      name: 'LUC: Global Health, Innovation and Society',
-      description:
-        'The interdisciplinary Global Health, Innovation and Society Major at Leiden University College The Hague covers biomedicine and policy within a critical global health lens. The main goal is to make a difference in the health communities by examining individual, sociocultural and environmental factors that impact well-being. It combines both a biomedical as well as social perspective on global health. The major includes a biomedical sciences track which collaborates with the LUMC and a health data science track which combines innovative approaches such as AI and data science for health.',
-      field: 'Medicine & Health',
-      degree: 'Bachelor of Science',
-      duration: '3 years',
-      minIBPoints: 24,
-      programUrl:
-        'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/liberal-arts-and-sciences-global-challenges-leiden-university-college/global-health-innov-soc-bsc',
-      requirements: [],
-      checkedFor: null,
-      sources: [],
-      notes:
-        "Content 4.6: Global Health, Innovation and Society (the former Global Public Health major) is gone from LUC's majors. LUC's programme page and its majors page (29 September 2026) list five majors: Culture, History and Society; Earth, Energy and Sustainability; Governance, Economics and Development; International Justice; World Politics. The Internet Archive's 8 March 2026 copy of the majors page still listed Global Health, Innovation and Society, and its page answered until at least 20 April 2026; the stored URL now returns 404. No notice of the change was found. Not written; the owner decides."
-    },
+    // Deleted 2026-09-29 at the owner's request (content 4.6), backup in scripts/backups/refresh/: LUC: Global Health, Innovation and Society, a Leiden University College major no longer offered (gone from LUC's majors; its page 404s). One student's save went with it.
     // Stored: checked for 2026 entry on 2026-01-08.
     {
       id: 'cmk5wepcn001b7mmizovxuo2d',
