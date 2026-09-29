@@ -1505,7 +1505,7 @@ Backup: `scripts/backups/refresh/2026-09-29T07-35-29-635Z.json`.
     × 2027 and 8 × 2026.
   - `count(*)`: 1,279 before and after, and 50, 42 and 37 per university. Algolia: 1,279 records.
     `scripts/check-algolia-status.ts` lists 279 programs as missing only because it reads the first
-    1,000 records and never pages; its counts agree.
+    1,000 records and never pages; its counts agree. Fixing it is `MAINT_tasks.md` 5.6.
   - A second dry run finds all 121 checked programs up to date.
   - Link checker, three universities: 92 OK (every Imperial and LSE URL), 37 unverifiable (UCL, 403),
     0 broken, 0 redirected.
