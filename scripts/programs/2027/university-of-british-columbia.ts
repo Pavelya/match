@@ -3,7 +3,7 @@ import type { RefreshFile } from '../lib/refresh'
 /**
  * University of British Columbia: requirements for 2027 entry.
  *
- * Exported from the database on 2026-09-27 by scripts/programs/refresh.ts. For each program,
+ * Exported from the database on 2026-09-29 by scripts/programs/refresh.ts. For each program,
  * read the university's official pages for 2027 entry (a university-wide IB page first),
  * correct what changed, list the pages in `sources` and set `checkedFor` to the intake they
  * state: the previous one if they name none. Put a typical offer above the minimum, or "checked,
@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of British Columbia',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-29',
   programs: [
     // Stored: not checked for any intake.
     {
@@ -30,10 +30,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/anthropology-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/anthropology-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/anthropology-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -46,19 +51,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/astronomy',
+      programUrl: 'https://you.ubc.ca/programs/astronomy/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/astronomy/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -71,19 +81,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
-      programUrl: 'https://you.ubc.ca/ubc_programs/atmospheric-science',
+      programUrl: 'https://you.ubc.ca/programs/atmospheric-science/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/atmospheric-science/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -96,19 +111,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/biochemistry-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/biochemistry/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/biochemistry/'
+      ],
+      notes:
+        "Content 4.3: The stored biochemistry-vancouver URL redirects to programs/biochemistry/, the same Vancouver BSc. Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -121,19 +141,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 35,
-      programUrl: 'https://you.ubc.ca/ubc_programs/biology-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/biology-vancouver/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/biology-vancouver/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -146,20 +171,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 38,
-      programUrl: 'https://you.ubc.ca/ubc_programs/biomedical-engineering/',
+      programUrl: 'https://you.ubc.ca/programs/biomedical-engineering/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/biomedical-engineering/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 38 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -172,14 +202,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/chemical-engineering/',
+      programUrl: 'https://you.ubc.ca/programs/chemical-engineering/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/chemical-engineering/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. The stored Physics at HL is corrected to SL: UBC names no level. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -192,19 +233,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 35,
-      programUrl: 'https://you.ubc.ca/ubc_programs/chemistry-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/chemistry-vancouver/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/chemistry-vancouver/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -217,20 +263,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/civil-engineering-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/civil-engineering-vancouver/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/civil-engineering-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -243,10 +294,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/cognitive-systems-ba/',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      programUrl: 'https://you.ubc.ca/programs/cognitive-systems-ba/',
+      requirements: [],
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/cognitive-systems-ba/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. The stored Maths requirement (SL 4, critical) is removed: the BA page lists none. The BSc stream is a separate Science degree. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -259,18 +315,23 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Commerce',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/commerce/',
+      programUrl: 'https://you.ubc.ca/programs/commerce/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/commerce/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Commerce (UBC Sauder School of Business): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted). UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -283,20 +344,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/computer-engineering/',
+      programUrl: 'https://you.ubc.ca/programs/computer-engineering/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/computer-engineering/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -304,49 +370,59 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Computer Science',
       description:
-        'This program provides students with an opportunity to complement their Arts degree with a core of Computer Science courses specific to their interests. This program would appeal to students interested both in computer science and visual arts (game or website design), psychology (programming for cognitive science, psychology, and human and computer interactions), English (technical writing), languages (automation of text translation), philosophy (computer ethics), or law (information security and privacy, and forensics).\n\nExperiential learning and research\nThe Capstone Software Engineering Project allows you to develop software for an actual client as part of a student team. In addition, the computer science program offers directed studies, where you can take part in the maintenance of a large software system, conduct supervised readings, and complete independent research projects. The Irving K. Barber Faculty of Science holds an annual undergraduate research conference on UBC’s Okanagan campus to showcase student research projects',
+        'The Computer Science BSc program includes the general Science requirements, with further choices in mathematics courses, a thorough grounding in computer software design, and a broad choice of other studies in computing. It gives you the freedom to pursue interests both within and outside Computer Science. You may select your electives from many departments, from Psychology to Commerce, and Music to Electrical Engineering. Options include Software Engineering, or combined honours with sciences, mathematics, or statistics, and Computer Science majors can take the Artificial Intelligence (AI) Option.\n\nStudy in one of Canada’s top Computer Science departments with internationally renowned professors. Build your career through experiences in Science Co-op and Tri-Mentoring, and network with Vancouver’s tech community.',
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/computer-science-okanagan-ba/',
+      programUrl: 'https://you.ubc.ca/programs/computer-science-vancouver-bsc/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/computer-science-vancouver-bsc/'
+      ],
+      notes:
+        "Content 4.3: The stored URL and description were UBC Okanagan's Computer Science BA (a Faculty of Arts degree with no subject requirements), while the name, the BSc, the stored points and the Maths and science requirements describe Vancouver's Computer Science BSc (Faculty of Science). The row now links and describes the Vancouver BSc, the reading that changes the least of what students see; the owner may prefer the Okanagan BA. Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
       id: 'cmjzoj9xc007v7m7frrcpk5uv',
       status: 'current',
-      name: 'Data Science',
+      name: 'Data Science (Okanagan)',
       description:
         'In Data Science undergraduate studies at UBC’s Okanagan campus, you can complete a Bachelor of Science (BSc) with a Major in Data Science, a BSc Data Science Honours, or a Minor in Data Science.\n\nThis program provides you with thorough training in Data Science, which focuses on making decisions supported by data.\n\nExperiential learning and research\nThe Irving K. Barber Faculty of Science holds an annual Undergraduate Research Conference on UBC’s Okanagan campus to showcase student research projects. Students can also join the Quantitative Sciences Course Union on UBC’s Okanagan campus to connect with peers and access resources.\n\nCampus features\nConnect with peers through the Quantitative Sciences Course Union and the Women in Science and Engineering (WiSE) mentoring program.',
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/data-science/',
+      programUrl: 'https://you.ubc.ca/programs/data-science/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/data-science/'
+      ],
+      notes:
+        'Content 4.3: The stored page and description are the Data Science BSc at UBC Okanagan (Irving K. Barber Faculty of Science); "(Okanagan)" is added to the name, because Vancouver now has its own Data Science BSc (data-science-vancouver). Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Okanagan\'s Science also asks for Grade 11 Chemistry or equivalent from students without IB Chemistry, which the model cannot hold; Grade 11 Physics is strongly recommended. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Design in Architecture".
     {
@@ -359,11 +435,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Design',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl:
-        'https://you.ubc.ca/ubc_programs/architecture-landscape-architecture-and-urbanism/',
+      programUrl: 'https://you.ubc.ca/programs/architecture-landscape-architecture-and-urbanism/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/architecture-landscape-architecture-and-urbanism/'
+      ],
+      notes:
+        'Content 4.3: Bachelor of Design in Architecture, Landscape Architecture, and Urbanism, School of Architecture and Landscape Architecture. It is one degree: this program and "Landscape Architecture" both describe it and link the same page (reported for the owner, not merged). Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. Degree-specific requirements: none beyond general admission, plus a video interview, a creative test and a resume. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -376,19 +456,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
-      programUrl: 'https://you.ubc.ca/ubc_programs/earth-ocean-sciences/',
+      programUrl: 'https://you.ubc.ca/programs/earth-ocean-sciences/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/earth-ocean-sciences/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -401,10 +486,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 33,
-      programUrl: 'https://you.ubc.ca/ubc_programs/economics-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/economics-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/economics-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. This is the BA in the Faculty of Arts; the Vancouver School of Economics\' BIE is a separate degree that asks for Maths. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 33 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -417,20 +507,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/electrical-engineering-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/electrical-engineering-vancouver/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/electrical-engineering-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -441,22 +536,27 @@ const refresh: RefreshFile = {
         'Engineering Physics is one of the most competitive and academically challenging undergraduate programs at UBC. With a strong foundation of academic courses, project courses, and co-op work experience, the five-year Engineering Physics program provides you with the skills and experience needed to develop new technology and interdisciplinary engineering projects. You will take high-level Math and Physics courses, as well as courses in Computer Science, Electrical Engineering, and Mechanical Engineering. In second year, you will take courses in each of these areas and choose Electrical, Mechanical, or Mechatronics as your specialty. The academic program is normally supplemented with technical experience, and protected time for technical work terms is built into the curriculum.\n\nCampus features\nThe UBC Sustainability Solutions Applied Physics Laboratory has unique research projects, such as the UBC Solar Canopy group, aiming to explore the potential of electromagnetics, for practical environmentally aware solutions.',
       field: 'Engineering',
       degree: 'Bachelor of Applied Science',
-      duration: '4 years',
+      duration: '5 years',
       minIBPoints: 38,
-      programUrl: 'https://you.ubc.ca/ubc_programs/engineering-physics/',
+      programUrl: 'https://you.ubc.ca/programs/engineering-physics/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/engineering-physics/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. The page gives a program length of 5 years, not 4. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 38 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -469,10 +569,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/english-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/english-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/english-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -485,20 +590,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4.5 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/environmental-engineering-joint-unbc-ubc/',
+      programUrl: 'https://you.ubc.ca/programs/environmental-engineering-joint-unbc-ubc/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/environmental-engineering-joint-unbc-ubc/'
+      ],
+      notes:
+        'Content 4.3: Joint UNBC/UBC degree; program length 4.5 years, as stored. Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -511,19 +621,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
-      programUrl: 'https://you.ubc.ca/ubc_programs/environmental-sciences/',
+      programUrl: 'https://you.ubc.ca/programs/environmental-sciences/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/environmental-sciences/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -536,19 +651,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/food-science/',
+      programUrl: 'https://you.ubc.ca/programs/food-science/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/food-science/'
+      ],
+      notes:
+        "Content 4.3: A major of the Bachelor of Science in Food, Nutrition, and Health (Faculty of Land and Food Systems). Degree-specific requirements, Food, Nutrition, and Health: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Physics or equivalent for students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -561,35 +681,45 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/forest-sciences/',
+      programUrl: 'https://you.ubc.ca/programs/forest-sciences/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/forest-sciences/'
+      ],
+      notes:
+        "Content 4.3: The award is now the Bachelor of Science in Natural Resources, with Forest Sciences as a major. Degree-specific requirements, Natural Resources: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Grade 11 Biology or equivalent for students without them in the IB, which the model cannot hold. Biology is strongly recommended and Physics recommended for Wood Products; neither is stored. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
       id: 'cmjzoj44u00557m7fyl9flsn3',
       status: 'current',
-      name: 'Geography',
+      name: 'Geography (Okanagan)',
       description:
         'Geography is the study of human and physical landscapes on the surface of the earth, integrating ideas and methods from many different disciplines. Part of the Community, Culture, and Global Studies (CCGS) academic unit, the program emphasizes the development of theory and methodology, as well as the practical application of geographical concepts to environmental, economic, social, and cultural issues at global and local scales, and issues pertinent to southern British Columbia and Canada.\n\nIn the degree program, you’ll complete course requirements in both physical geography, and the broad range of human geography study.\n\nExperiential learning and research\nYour coursework offers opportunities to visit Kelowna-area field locations, including studying mountain hazards at a facility in the Canadian Cordillera. In third or fourth year you can undertake a supervised investigation as part of a directed studies course, which will result in a written report of your findings. The Irving K. Barber Faculty of Science holds an annual undergraduate research conference on UBC’s Okanagan campus to showcase student research projects.',
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/geography/',
+      programUrl: 'https://you.ubc.ca/programs/geography/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/geography/'
+      ],
+      notes:
+        'Content 4.3: The stored page and description are the Geography BA at UBC Okanagan; "(Okanagan)" is added to the name, because Vancouver\'s geography degrees are separate programmes (Human Geography BA, Geographical Sciences BSc) with other requirements. Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -602,20 +732,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/geological-engineering',
+      programUrl: 'https://you.ubc.ca/programs/geological-engineering',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/geological-engineering'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -628,19 +763,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/global-resource-systems/',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
-          ],
-          critical: true
-        },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+      programUrl: 'https://you.ubc.ca/programs/global-resource-systems/',
+      requirements: [],
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/global-resource-systems/'
       ],
-      checkedFor: null,
-      sources: []
+      notes:
+        "Content 4.3: not a direct-entry degree. The page says: \"You'll enter the program after completing your first year in Land and Food Systems, Arts, or Sciences\", and it has no admission requirements of its own. Of those three routes, Arts asks for no subjects; Land and Food Systems and Science ask for IB Maths (AA SL or HL, or AI HL) and one of Biology, Chemistry or Physics. Stored as checked, none required, which is what the Arts route asks; the stored Maths and science rows are removed. The owner may prefer to hold it, as 3.4 held HKUST's extended majors. The stored URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -650,22 +781,29 @@ const refresh: RefreshFile = {
       description:
         'Help people lead healthier, more active lives. Health and Exercise Sciences will provide you with a comprehensive understanding of human movement and its impacts on health.\n\nYou’ll examine the interdisciplinary nature of human health, including the psychological, physiological, neuromechanical, and socio-cultural aspects of movement. Together, these will equip you with practical skills to work with individuals across their lifespans.\n\nAt the end of your second year, you have the option to complete one of three concentrations: Kinesiology and Allied Health, Health Behaviour Change, or Clinical Exercise Physiology. Each concentration offers a strategic career focus to best prepare you to be a leader in your field.\n\nUpon graduation, you may start a career as a kinesiologist or clinical exercise physiologist, with a focus on the role of exercise in improving health, fitness, and performance. You could also go on to pursue graduate studies in research or in a variety of health professions, such as physiotherapy, occupational therapy, athletic therapy, public health, or medicine.',
       field: 'Medicine & Health',
-      degree: 'Bachelor of Kinesiology',
+      degree: 'Bachelor',
       duration: '4 years',
       minIBPoints: 35,
-      programUrl: 'https://you.ubc.ca/ubc_programs/health-and-exercise-sciences/',
+      programUrl: 'https://you.ubc.ca/programs/health-and-exercise-sciences-kinesiology/',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false },
         {
           anyOf: [
             { course: 'MATH-AA', level: 'SL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
+            { course: 'MATH-AI', level: 'HL', grade: 4 },
+            { course: 'BIO', level: 'SL', grade: 4 },
+            { course: 'CHEM', level: 'SL', grade: 4 },
+            { course: 'PHYS', level: 'SL', grade: 4 }
           ],
-          critical: false
+          critical: true
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/health-and-exercise-sciences-kinesiology/'
+      ],
+      notes:
+        'Content 4.3: UBC Okanagan, School of Health and Exercise Sciences. The stored page redirects to programs/health-and-exercise-sciences-kinesiology/. Degree-specific requirements: "One of" IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Biology, IB Chemistry or IB Physics, now one critical group; the stored rows held the sciences and Maths as two separate, non-critical groups. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The award is the Bachelor of Health and Exercise Sciences (Kinesiology), which is not in the degree list; stored as "Bachelor" (award not recorded) instead of "Bachelor of Kinesiology", Vancouver\'s award, until the owner approves adding it. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -678,10 +816,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/history-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/history-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/history-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -694,19 +837,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
-      programUrl: 'https://you.ubc.ca/ubc_programs/integrated-sciences/',
+      programUrl: 'https://you.ubc.ca/programs/integrated-sciences/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/integrated-sciences/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -719,10 +867,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 33,
-      programUrl: 'https://you.ubc.ca/ubc_programs/international-relations-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/international-relations-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/international-relations-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 33 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Design in Architecture".
     {
@@ -735,11 +888,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Design',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl:
-        'https://you.ubc.ca/ubc_programs/architecture-landscape-architecture-and-urbanism/',
+      programUrl: 'https://you.ubc.ca/programs/architecture-landscape-architecture-and-urbanism/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/architecture-landscape-architecture-and-urbanism/'
+      ],
+      notes:
+        'Content 4.3: Bachelor of Design in Architecture, Landscape Architecture, and Urbanism. It is one degree: this program and "Design in Architecture" both describe it and link the same page (reported for the owner, not merged). Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. Degree-specific requirements: none beyond general admission, plus a video interview, a creative test and a resume. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -752,10 +909,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/linguistics/',
+      programUrl: 'https://you.ubc.ca/programs/linguistics/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/linguistics/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -768,20 +930,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/materials-engineering/',
+      programUrl: 'https://you.ubc.ca/programs/materials-engineering/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/materials-engineering/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -811,7 +978,7 @@ const refresh: RefreshFile = {
         'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/'
       ],
       notes:
-        'Content 3.4: UBC split the old mathematics-vancouver page into BSc and BA pages; this is the BSc (Faculty of Science, 4 years). Degree-specific requirements, Science: IB Math AA SL or HL, or Math AI HL (AI SL is not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Physics or equivalent for students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade; 4 is stored, replacing an unsourced Maths 5, and the science group is now critical. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The pages name no entry year, so checked for 2026.'
+        'Content 3.4: UBC split the old mathematics-vancouver page into BSc and BA pages; this is the BSc (Faculty of Science, 4 years). Degree-specific requirements, Science: IB Math AA SL or HL, or Math AI HL (AI SL is not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Physics or equivalent for students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade; 4 is stored, replacing an unsourced Maths 5, and the science group is now critical. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The pages name no entry year, so checked for 2026. Content 4.3: re-checked on 2026-09-29, unchanged.'
     },
     // Stored: not checked for any intake.
     {
@@ -824,14 +991,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/mechanical-engineering-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/mechanical-engineering-vancouver/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/mechanical-engineering-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -841,13 +1019,18 @@ const refresh: RefreshFile = {
       description:
         'With competencies in theory, research, and application, the Media Studies program prepares you for a rewarding and dynamic career in media, whether your aspirations are academically- or professionally-oriented. Dissecting how meaning is represented and mediated, the program’s courses and expanded learning opportunities promote critical thinking, reflection, and analysis, equipping students to become socially engaged scholars and makers that use media to contribute to the greater good as creative agents of transformation.\n\nRequired courses include a purposeful disciplinary core covering a diverse range of media perspectives and methodologies, including:\n\nArt History and Visual Art\nCreative Writing\nJournalism\nCinema Studies and Film Production\nComputer Science\nInformation Studies\nEnglish and German Studies\nThe BMS bridges disciplinary boundaries in the classroom through its MDIA courses, most of which are exclusive to the program. With multiple expert instructors and professionals from the field teaching together, you and your cohort will engage in media production, critically investigating and applying your learning in an environment that models the collaborative environment of workplaces across the field.\n\nIn addition to required courses, you’ll expand the depth of your knowledge and skills in one media studies area of focus, chosen between visual, narrative, and data. Starting in second year, these additional courses allow you to dive deeper into the theory and production of media—and how each informs the other—of your area of focus. In fourth year, you’ll have the opportunity to enroll in a hands-on Digital Media project class at the Centre for Digital Media, and other course options available to Media Studies students.\n\nSubject to an evaluation of your supplemental portfolio submission by an admissions committee, and competitive academic average, you can apply for entry to the four-year program direct from high school, or, with one year of postsecondary studies and prerequisite coursework completed, you may apply to transfer into the program for entry into the second-year cohort.',
       field: 'Media',
-      degree: 'Bachelor of Arts',
+      degree: 'Bachelor',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/media-studies/',
+      programUrl: 'https://you.ubc.ca/programs/media-studies/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/media-studies/'
+      ],
+      notes:
+        'Content 4.3: The award is the Bachelor of Media Studies (Faculty of Arts), which is not in the degree list; stored as "Bachelor" (award not recorded) instead of the wrong "Bachelor of Arts" until the owner approves adding it, as 3.4 did for HKU and UCD. Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. Degree-specific requirements: none beyond general admission, plus a portfolio. IB Maths (AA SL or HL, or AI HL) is strongly recommended, not stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -860,19 +1043,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 35,
-      programUrl: 'https://you.ubc.ca/ubc_programs/microbiology-immunology/',
+      programUrl: 'https://you.ubc.ca/programs/microbiology-immunology/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/microbiology-immunology/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -885,20 +1073,25 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Applied Science',
       duration: '4 years',
       minIBPoints: 37,
-      programUrl: 'https://you.ubc.ca/ubc_programs/mining-engineering/',
+      programUrl: 'https://you.ubc.ca/programs/mining-engineering/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['CHEM'], level: 'SL', grade: 4, critical: false },
-        { courses: ['PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['CHEM'], level: 'SL', grade: 4, critical: true },
+        { courses: ['PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/mining-engineering/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Applied Science (Engineering): IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), IB Chemistry and IB Physics, at SL or HL. "Academically strong candidates missing either IB Chemistry or IB Physics may be evaluated on a case-by-case basis"; both are stored as critical, as the minimum names them. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 37 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -908,13 +1101,18 @@ const refresh: RefreshFile = {
       description:
         'Students wishing to study Music as one of the liberal arts, or who don’t meet the special admissions requirements of the School of Music may pursue a Bachelor of Arts degree with a Major, Minor, or Honours in Music. Core music courses are similar to the Bachelor of Music degree, but without individual instrumental or vocal instruction.',
       field: 'Arts & Humanities',
-      degree: 'Bachelor of Music',
+      degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 30,
-      programUrl: 'https://you.ubc.ca/ubc_programs/music/',
+      programUrl: 'https://you.ubc.ca/programs/music/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/music/'
+      ],
+      notes:
+        'Content 4.3: The page and the stored description are the Bachelor of Arts with a Major in Music (Faculty of Arts, no individual instruction), not the Bachelor of Music, so the degree is corrected from "Bachelor of Music". The BMus streams (music-general-studies and others) need an audition and are not stored. Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 30 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -927,19 +1125,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/conservation/',
+      programUrl: 'https://you.ubc.ca/programs/conservation/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/conservation/'
+      ],
+      notes:
+        "Content 4.3: The award is now the Bachelor of Science in Natural Resources, with Natural Resources Conservation as a major. Degree-specific requirements, Natural Resources: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Grade 11 Biology or equivalent for students without them in the IB, which the model cannot hold. Biology is strongly recommended and Physics recommended for Wood Products; neither is stored. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -952,19 +1155,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 33,
-      programUrl: 'https://you.ubc.ca/ubc_programs/food-nutrition-and-health/',
+      programUrl: 'https://you.ubc.ca/programs/food-nutrition-and-health/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/food-nutrition-and-health/'
+      ],
+      notes:
+        "Content 4.3: The page is the Bachelor of Science in Food, Nutrition, and Health (Faculty of Land and Food Systems), under which Nutritional Sciences is a major. Degree-specific requirements, Food, Nutrition, and Health: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Physics or equivalent for students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 33 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -977,19 +1185,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/pharmacology/',
+      programUrl: 'https://you.ubc.ca/programs/pharmacology/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/pharmacology/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -1002,10 +1215,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/philosophy-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/philosophy-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/philosophy-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -1018,13 +1236,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/physics-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/physics-vancouver/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/physics-vancouver/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -1037,10 +1266,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/political-science-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/political-science-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/political-science-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -1061,7 +1295,7 @@ const refresh: RefreshFile = {
         'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/'
       ],
       notes:
-        'Content 3.4: the page moved from ubc_programs/psychology-vancouver/ to programs/psychology-vancouver-ba/; same programme (BA, Faculty of Arts, Vancouver). Checked, none required: "No specific courses required beyond those needed for general admission"; Language Arts is listed as relevant. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The pages name no entry year, so checked for 2026.'
+        'Content 3.4: the page moved from ubc_programs/psychology-vancouver/ to programs/psychology-vancouver-ba/; same programme (BA, Faculty of Arts, Vancouver). Checked, none required: "No specific courses required beyond those needed for general admission"; Language Arts is listed as relevant. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The pages name no entry year, so checked for 2026. Content 4.3: re-checked on 2026-09-29, unchanged.'
     },
     // Stored: not checked for any intake.
     {
@@ -1074,10 +1308,15 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/sociology-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/sociology-vancouver/',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/sociology-vancouver/'
+      ],
+      notes:
+        'Content 4.3: Degree-specific requirements, Arts: "No specific courses required beyond those needed for general admission". Checked, none required. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC\'s dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4.'
     },
     // Stored: not checked for any intake.
     {
@@ -1090,19 +1329,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
-      programUrl: 'https://you.ubc.ca/ubc_programs/statistics-vancouver/',
+      programUrl: 'https://you.ubc.ca/programs/statistics-vancouver/',
       requirements: [
         {
           anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AI', level: 'HL', grade: 5 }
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/statistics-vancouver/'
+      ],
+      notes:
+        "Content 4.3: Degree-specific requirements, Science: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics. Science also asks for Grade 11 Chemistry and Physics or equivalent from students without them in the IB (Physics may be waived with 5 in IB Chemistry and IB Maths), which the model cannot hold. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     },
     // Stored: not checked for any intake.
     {
@@ -1115,13 +1359,24 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
-      programUrl: 'https://you.ubc.ca/ubc_programs/wood-products/',
+      programUrl: 'https://you.ubc.ca/programs/wood-products/',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://you.ubc.ca/applying-ubc/requirements/international-baccalaureate/',
+        'https://you.ubc.ca/programs/wood-products/'
+      ],
+      notes:
+        "Content 4.3: The award is now the Bachelor of Science in Natural Resources, with Wood Products as a major. Degree-specific requirements, Natural Resources: IB Math Analysis and Approaches SL or HL, or Math Applications and Interpretations HL (AI SL and Math Studies are not accepted), and one of IB Biology, Chemistry or Physics; plus Grade 11 Chemistry and Grade 11 Biology or equivalent for students without them in the IB, which the model cannot hold. Biology is strongly recommended and Physics recommended for Wood Products; neither is stored. UBC names no minimum grade for any subject; 4 is stored for each, as for Mathematics and Psychology in 3.4. The stored ubc_programs/ URL redirects to programs/; the new one is stored. UBC publishes no IB points figure: the general requirement is a completed IB Diploma with at least three HL courses, and admission weighs grades with a personal profile. The stored 32 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The requirements pages name no entry year (UBC's dates page covers applications for September 2027, but the requirements do not say which intake they describe), so checked for 2026, as in 3.4."
     }
   ]
 }
