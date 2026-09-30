@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs and HKUST's Business extended majors left for the owner; 4.6's owner decisions are applied |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, HKUST's Business extended majors, Melbourne's 14 and a discontinued Sydney double left for the owner; 4.6's owner decisions are applied |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -84,7 +84,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
 - [x] 4.5 Hong Kong and Singapore — HKUST's Business extended majors for the owner
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
-- [ ] 4.7 Australia, Switzerland, Spain
+- [x] 4.7 Australia, Switzerland, Spain — Melbourne's 14 (every client blocked) and Sydney's discontinued Commerce and Advanced Studies for the owner
 - [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
   Israel, Estonia, Japan
 
@@ -112,6 +112,8 @@ Owner tasks — not AI work
   Studies (BSc) (admission discontinued) and Digital Humanities (only a minor exists)
   4.6: Leiden University College's Global Health, Innovation and Society major (gone from LUC's majors; its page 404s),
   deleted at the owner's request on 29 September 2026 with the one student save it had
+  4.7: Sydney Bachelor of Commerce and Bachelor of Advanced Studies (Sydney discontinues every combined Bachelor of Advanced
+  Studies from 1 January 2027; the last intake was Semester 2, 2026)
 - [x] Decide about four programs no school leaver can enter with the IB (4.6): Philosophy of a Specific Discipline at
   Groningen and at Erasmus (entry after a first year of another bachelor's) and Trinity Dental Hygiene and Dental Nursing
   (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
@@ -133,6 +135,16 @@ Owner tasks — not AI work
   Digital Humanities / Sustainability), but students choose it in Year 2, not at admission. Left unwritten
 - [ ] Re-check NTU and NUS once their 2027 lists appear (4.5): NTU's IB subject PDF is still the 2026 window's (the 2027
   window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026
+- [ ] Open Melbourne's 14 course pages in a browser (4.7): `study.unimelb.edu.au` refuses curl, urllib and WebFetch, PDFs
+  included. On each entry requirements page choose International student and the IB diploma, and read the 2027 guaranteed score and
+  prerequisites. Left unwritten; each program's `notes` says what the 2026 handbook and the search index show
+- [ ] Sydney's maths prerequisite applies to the IB only when taken in Australia (4.7): stored as a required subject for 11 courses,
+  as 3.4 stored Mechatronic. Keep required, or make it non-critical
+- [ ] Switzerland is stamped 2026 (4.7): every source says 2026/27 or "the ongoing year". ETH says its planned autumn-2028 change does
+  not affect autumn 2027. Re-check when swissuniversities publishes its 2027/28 IB list, or confirm the 2026/27 rules count for 2027
+- [ ] ETH Human Medicine and Lausanne Medicine admit only Swiss citizens and residents (4.7): written, with a note. Keep or delete
+- [ ] Open two or three UB pages in a browser (4.7): `web.ub.edu` refuses every client, and 13 stored links were not the degree's own
+  page. The 33 new page codes come from the search index
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
   Engineering BEng, Information Management for Business, Neuroscience, Politics and International
   Relations, Urban Studies, Law. Say whether Civil Engineering BEng and Scandinavian Studies are still
@@ -336,6 +348,19 @@ not precision.
   all Incapsula, which the link checker spots; `www.comp.nus.edu.sg` and `law1a.nus.edu.sg` serve content. NUS's IB PDFs are
   `/oam/docs/.../ibdp-sp.pdf` (single degrees), `.../a_ib_nushs-mdp.pdf` (double degrees and majors) and
   `.../faqs-for-international-baccalaureate.pdf`. `askadmissions.nus.edu.sg` did not resolve.
+- **Found in 4.7:** Sydney's `international-admission-guide.pdf` is "a guide for admission ... in 2027" with an IB column. Each course
+  has `<course>.coredata.json` (the IB score by intake) and `<course>.model.json` (prerequisites, assumed and recommended knowledge by
+  year as tags, and the admission-criteria text). A course page superseded for 2027 is titled "(2026 entry)" and its 2027 page is the
+  same slug ending `0.html`. `study.unimelb.edu.au` refuses curl, urllib and WebFetch (Cloudflare), `/__data/assets/` PDFs included;
+  the Internet Archive's newest copies are November-December 2025. `handbook.unimelb.edu.au` answers curl for 2026 (2027 404s) but
+  turns to an Imperva "Pardon Our Interruption" page after about 30 requests. swissuniversities' IB page, ETH's country list
+  (`.../andere-qual/ETH-ZulassungsbedingungenHS2026_EN.pdf`), EPFL's Bachelor admission criteria, UNIL's `tableau-des-pays-en.pdf`
+  and Basel's IB page all answer curl; ETH's programme pages give no degree title. Catalonia's `universitats.gencat.cat` answers curl:
+  `Ponderacions-2027_v2.pdf` (its columns survive only with PyMuPDF word positions, not pypdf), the cut-off PDFs by assignment, and
+  the foreign-system access page ("no subject ... recognised in the UNEDasiss accreditation is taken into account"). `web.ub.edu`
+  refuses every client; WebSearch with `allowed_domains: ["web.ub.edu"]` gives each degree's page code in its titles. UAB pages
+  answer curl and show the latest cut-off as "Admission mark". Complutense's BAES admits through KU Leuven
+  (`ghum.kuleuven.be/EN/baes/apply`). The Internet Archive's CDX API was down again (503).
 
 ---
 
@@ -1938,6 +1963,85 @@ then had the four unwritten programs and the discontinued major deleted, and app
   - Link checker, seven universities: 161 URLs OK and 23 unverifiable (Leiden); 0 broken, redirected or year-pinned.
   - Public pages: LUC World Politics shows 35 points and "Requirements checked for 2027 entry"; Trinity's page is titled
     "Global and Sustainable Business at TCD"; Groningen Biology shows Biology HL 4.
+
+### 4.7 — Australia, Switzerland, Spain
+
+#### Status, 30 September 2026 — done (session 18); Melbourne's 14 and a discontinued Sydney double for the owner
+
+Data files: `scripts/programs/2027/the-university-of-melbourne.ts`, `eth-zurich.ts`, `epfl.ts`, `university-of-lausanne.ts`,
+`university-of-basel.ts`, `universitat-de-barcelona.ts`, `universitat-autonoma-de-barcelona.ts` and
+`universidad-complutense-de-madrid.ts` (new), and `the-university-of-sydney.ts` (continued from 3.4). Every change is explained in
+the program's `notes`. **Owner-approved and applied on 30 September 2026:** 136 programs written (Sydney 39, ETH 22, EPFL 13,
+Lausanne 15, Basel 1, Barcelona 33, UAB 12, Complutense 1; 23 of them stamp only), none created, one Sydney double reported as
+discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/2026-09-30T08-49-31-593Z.json`.
+
+- **Sources and entry years.**
+  - Sydney: the 2027 International Admission Guide and each course's data for 2027 (IB score, prerequisites, assumed knowledge).
+    39 stamped 2027.
+  - Melbourne: not checked. Its course site, PDFs included, refuses every client; the archive has 2026 entry only; the 2027
+    handbook is not out. Each program's `notes` says what to read in a browser.
+  - ETH: the country list is for 2026/27. ETH says its planned autumn-2028 change does not affect autumn 2027, but names no 2027
+    rules. 22 stamped 2026.
+  - EPFL: the criteria "are valid for the ongoing year". 13 stamped 2026.
+  - Lausanne: the list "is only valid for the academic year 2026-2027". 15 stamped 2026.
+  - Basel: its IB page names no year. 1 stamped 2026, the program's first check.
+  - Barcelona and UAB: Catalonia's 2027 weighting table lists each degree for 2027. 44 stamped 2027. UAB's English-taught
+    Primary Education has no code of its own there, so it is stamped 2026.
+  - Complutense's BAES: its pages and KU Leuven's describe 2026-27. 1 stamped 2026.
+- **Points changed (11, all up, Sydney):** Oral Health 31 → 34; Advanced Computing, Biomedicine and Health, Design in Architecture,
+  Mathematical Sciences and Media and Communications 33 → 34; Animal and Veterinary Bioscience, Nursing (Advanced Studies), Project
+  Management and Science (Health) 28 → 29; PPE 31 → 32. Switzerland's minimums match (38/42 at ETH and EPFL, 32/42 at Lausanne and
+  Basel, stored as published).
+- **No IB minimum published (as for Trinity in 4.6):** Spanish public universities admit on a grade out of 14. The access grade
+  (5–10) is the average IB subject grade plus 3, and the IB total is not used. The stored points (Barcelona 24–40, UAB 24–38)
+  are kept, marked unverified. Each note gives the June 2026 cut-off and the 2027 weighted subjects. BAES admits on an essay, a
+  video pitch and an English test; its 30 is kept, unverified.
+- **Subjects.**
+  - Sydney: the 2027 maths prerequisite (Mathematics Advanced) is stored as Maths AA SL5 or HL4, or AI HL4, as 3.4 stored
+    Mechatronic. It covers Advanced Computing, Engineering, Mathematical Sciences and Pharmacy; the stored AA HL5 is replaced.
+    Sydney applies it to the IB only when taken in Australia (owner task). The other 28 have none; assumed knowledge is in the notes.
+  - ETH: at HL, Maths AA or AI, one of Physics, Chemistry or Biology, and one Language A, all required at 4 (no grade named). The
+    science and the Language A are new requirements.
+  - EPFL: Maths and Physics HL 6, as stored. One of Chemistry, Biology or Computer Science is now required at HL 4 (stored 5).
+    One of History, Geography, Economics or Philosophy is added, at SL.
+  - Lausanne and Basel: swissuniversities' six-category rule. Maths, a science (Biology, Chemistry or Physics) and a humanities
+    subject (Geography, History, Economics or Business Management) are required. One maths or science subject must be at HL
+    (Basel: any group 4 or 5 subject).
+  - Lausanne's program-specific rows had no source; two used subjects UNIL does not recognise (Psychology, SEHS). Replaced with
+    the university-wide rule.
+  - Barcelona and UAB: **all subject rows removed (24 programs: Barcelona 18, UAB 6).** In Catalonia any IB Diploma gives access. Weighted subjects add
+    points only through PAU or UNEDasiss exams, and "no subject ... recognised in the UNEDasiss accreditation is taken into
+    account". The stored rows were weighted subjects, not requirements.
+- **Discontinued, for the owner: Sydney Bachelor of Commerce and Bachelor of Advanced Studies.** Sydney discontinues every combined
+  Bachelor of Advanced Studies from 1 January 2027; the final intake was Semester 2, 2026. Not written.
+- **Links, names, degrees.**
+  - Barcelona: **13 stored links were not the degree's own page**, 11 of them another degree's: Physics linked Medicine, Social Work
+    Bioinformatics, Tourism Audiovisual Communication, and so on. A 14th linked an older plan. All 33 now use the page codes the
+    search index gives.
+  - Barcelona renames: Geography is now Geography and Global Change (UB's only geography degree), and Computer Engineering is
+    Informatics Engineering (the 2026 plan, …g1148).
+  - Sydney: 7 programs moved to 2027 pages (the Commerce degrees and their doubles, Exercise and Sport Science, Veterinary
+    Biology); Pharmacy and Management is 6 years, not 5.
+  - ETH: Architecture and Human Medicine are Bachelor of Science ETH degrees.
+  - Basel: "Englisch" is English, a Bachelor of Arts under Arts & Humanities.
+- **Coverage (for phase 5):** ETH's Public Policy is not stored. Sydney's 2027 guide lists dozens more courses (Architecture and
+  Environments, Languages, Liberal Arts and Science, Physiotherapy and others).
+- **Model limits**, recorded in the notes:
+  - Switzerland: ETH's "three more at SL" from a list, EPFL's two modern languages, "three subjects at HL", no subject grades
+    named, German C1 at ETH, French B2 at EPFL, UNIL's French exam.
+  - Spain: the grade out of 14 and weighted exam subjects.
+  - Other admission steps: Sydney's Assessment Day for Double Degree Medicine, Casper for Veterinary Biology, UNIL's physical skills
+    exam for Sport Sciences, and the Swiss medicine restrictions.
+- **Verify.**
+  - `requirementsEntryYear`: Sydney 39 × 2027, 1 × 2026 (the unwritten double); Melbourne 14 × 2026 (unchanged); ETH 22, EPFL 13,
+    Lausanne 15, Basel 1 × 2026; Barcelona 33 × 2027; UAB 11 × 2027, 1 × 2026; Complutense 1 × 2026. All 151 are flagged verified.
+  - `count(*)`: 1,274 before and after. Algolia: 1,274 records.
+  - A second dry run finds all 136 up to date.
+  - Link checker, three countries: 104 URLs OK and 47 unverifiable (Barcelona 33, Melbourne 14, both 403); 0 broken,
+    redirected or year-pinned.
+  - Public pages: Sydney Oral Health shows 34 points and "Requirements checked for 2027 entry"; Barcelona's page is titled
+    "Geography and Global Change at UB" and links …g1124; Basel's English shows a Bachelor of Arts, "Checked for 2026 entry" and
+    its four subject rows.
 
 ---
 
