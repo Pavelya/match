@@ -36,10 +36,10 @@ const refresh: RefreshFile = {
         { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-agriculture/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -54,10 +54,10 @@ const refresh: RefreshFile = {
       minIBPoints: 30,
       programUrl: 'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-arts/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-arts/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites. The 2026 handbook gives the IB prerequisite as "at least Grade 4 in English or English B (Standard Level or Higher Level)": the stored row lacks English B.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -77,10 +77,10 @@ const refresh: RefreshFile = {
         { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: false }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-biomedicine/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -98,10 +98,10 @@ const refresh: RefreshFile = {
         { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
         { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-commerce/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites. The search index quotes the page (intake not shown): 4 at HL or SL in English A Literature, A Language and Literature or Literature and Performance, and 4 at HL or SL in Maths AA or 4 at HL in Maths AI. The stored rows lack Literature and Performance and Maths AI HL.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -116,10 +116,10 @@ const refresh: RefreshFile = {
       minIBPoints: 30,
       programUrl: 'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-design/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-design/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -135,10 +135,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-acting/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-acting/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -154,10 +156,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-film-and-television/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-film-and-television/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -173,10 +177,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-music-theatre/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-music-theatre/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -192,10 +198,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-production/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-production/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -211,10 +219,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-screenwriting/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-fine-arts-screenwriting/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -230,10 +240,12 @@ const refresh: RefreshFile = {
       programUrl:
         'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-music-jazz-and-improvisation/',
       requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-music-jazz-and-improvisation/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -252,10 +264,10 @@ const refresh: RefreshFile = {
         { courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: true },
         { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-oral-health/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -274,10 +286,10 @@ const refresh: RefreshFile = {
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
         { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-science/'],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Science (Honours)".
     {
@@ -297,10 +309,12 @@ const refresh: RefreshFile = {
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
         { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false }
       ],
-      checkedFor: null,
-      sources: [],
+      checkedFor: 2027,
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/honours/bachelor-of-science-advanced-honours/'
+      ],
       notes:
-        'Content 4.7: not checked, for the owner. study.unimelb.edu.au answers curl, urllib and WebFetch with 403 (Cloudflare), its PDFs under /__data/assets/ included. The Internet Archive\'s newest copies of the course pages are from November-December 2025 and describe 2026 entry. handbook.unimelb.edu.au has no 2027 handbook yet (404) and turned to a bot wall ("Pardon Our Interruption") after about 30 requests. Open the course\'s entry requirements page in a browser, choose International student and the IB diploma, and read the 2027 guaranteed entry score and prerequisites.'
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
     }
   ]
 }

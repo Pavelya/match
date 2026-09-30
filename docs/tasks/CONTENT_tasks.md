@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, HKUST's Business extended majors, Melbourne's 14 and a discontinued Sydney double left for the owner; 4.6's owner decisions are applied |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -84,7 +84,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
 - [x] 4.5 Hong Kong and Singapore — HKUST's Business extended majors for the owner
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
-- [x] 4.7 Australia, Switzerland, Spain — Melbourne's 14 (every client blocked) and Sydney's discontinued Commerce and Advanced Studies for the owner
+- [x] 4.7 Australia, Switzerland, Spain — owner decisions applied: Melbourne checked by hand, a discontinued Sydney double deleted
 - [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
   Israel, Estonia, Japan
 
@@ -113,7 +113,8 @@ Owner tasks — not AI work
   4.6: Leiden University College's Global Health, Innovation and Society major (gone from LUC's majors; its page 404s),
   deleted at the owner's request on 29 September 2026 with the one student save it had
   4.7: Sydney Bachelor of Commerce and Bachelor of Advanced Studies (Sydney discontinues every combined Bachelor of Advanced
-  Studies from 1 January 2027; the last intake was Semester 2, 2026)
+  Studies from 1 January 2027; the last intake was Semester 2, 2026), deleted at the owner's request on 30 September 2026;
+  nobody had saved it
 - [x] Decide about four programs no school leaver can enter with the IB (4.6): Philosophy of a Specific Discipline at
   Groningen and at Erasmus (entry after a first year of another bachelor's) and Trinity Dental Hygiene and Dental Nursing
   (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
@@ -135,14 +136,14 @@ Owner tasks — not AI work
   Digital Humanities / Sustainability), but students choose it in Year 2, not at admission. Left unwritten
 - [ ] Re-check NTU and NUS once their 2027 lists appear (4.5): NTU's IB subject PDF is still the 2026 window's (the 2027
   window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026
-- [ ] Open Melbourne's 14 course pages in a browser (4.7): `study.unimelb.edu.au` refuses curl, urllib and WebFetch, PDFs
-  included. On each entry requirements page choose International student and the IB diploma, and read the 2027 guaranteed score and
-  prerequisites. Left unwritten; each program's `notes` says what the 2026 handbook and the search index show
-- [ ] Sydney's maths prerequisite applies to the IB only when taken in Australia (4.7): stored as a required subject for 11 courses,
-  as 3.4 stored Mechatronic. Keep required, or make it non-critical
+- [x] Open Melbourne's 14 course pages in a browser (4.7): `study.unimelb.edu.au` refuses curl, urllib and WebFetch, PDFs
+  included. The owner checked all 14 by hand on 30 September 2026: the stored values hold for 2027. Stamped 2027 the same day
+- [x] Sydney's maths prerequisite applies to the IB only when taken in Australia (4.7): removed from all 11 courses at the owner's
+  request, 30 September 2026
 - [ ] Switzerland is stamped 2026 (4.7): every source says 2026/27 or "the ongoing year". ETH says its planned autumn-2028 change does
   not affect autumn 2027. Re-check when swissuniversities publishes its 2027/28 IB list, or confirm the 2026/27 rules count for 2027
-- [ ] ETH Human Medicine and Lausanne Medicine admit only Swiss citizens and residents (4.7): written, with a note. Keep or delete
+- [x] ETH Human Medicine and Lausanne Medicine admit only Swiss citizens and residents (4.7): kept at the owner's request, and each
+  description now says so, 30 September 2026
 - [ ] Open two or three UB pages in a browser (4.7): `web.ub.edu` refuses every client, and 13 stored links were not the degree's own
   page. The 33 new page codes come from the search index
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -1966,20 +1967,23 @@ then had the four unwritten programs and the discontinued major deleted, and app
 
 ### 4.7 — Australia, Switzerland, Spain
 
-#### Status, 30 September 2026 — done (session 18); Melbourne's 14 and a discontinued Sydney double for the owner
+#### Status, 30 September 2026 — done (session 18); the owner's decisions applied the same day
 
 Data files: `scripts/programs/2027/the-university-of-melbourne.ts`, `eth-zurich.ts`, `epfl.ts`, `university-of-lausanne.ts`,
 `university-of-basel.ts`, `universitat-de-barcelona.ts`, `universitat-autonoma-de-barcelona.ts` and
 `universidad-complutense-de-madrid.ts` (new), and `the-university-of-sydney.ts` (continued from 3.4). Every change is explained in
 the program's `notes`. **Owner-approved and applied on 30 September 2026:** 136 programs written (Sydney 39, ETH 22, EPFL 13,
 Lausanne 15, Basel 1, Barcelona 33, UAB 12, Complutense 1; 23 of them stamp only), none created, one Sydney double reported as
-discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/2026-09-30T08-49-31-593Z.json`.
+discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/2026-09-30T08-49-31-593Z.json`. **The owner then
+checked Melbourne's 14 by hand, had Sydney's maths prerequisite removed, kept the two Swiss medicine programs with the restriction
+in their descriptions, and had the discontinued Sydney double deleted** (below). That second write: 27 programs (Melbourne 14,
+Sydney 11, ETH 1, Lausanne 1), backup `scripts/backups/refresh/2026-09-30T11-15-23-701Z.json`.
 
 - **Sources and entry years.**
   - Sydney: the 2027 International Admission Guide and each course's data for 2027 (IB score, prerequisites, assumed knowledge).
     39 stamped 2027.
-  - Melbourne: not checked. Its course site, PDFs included, refuses every client; the archive has 2026 entry only; the 2027
-    handbook is not out. Each program's `notes` says what to read in a browser.
+  - Melbourne: its course site, PDFs included, refuses every client; the archive has 2026 entry only; the 2027 handbook is not
+    out. The owner read all 14 entry requirement pages in a browser and confirmed the stored values for 2027: 14 stamped 2027.
   - ETH: the country list is for 2026/27. ETH says its planned autumn-2028 change does not affect autumn 2027, but names no 2027
     rules. 22 stamped 2026.
   - EPFL: the criteria "are valid for the ongoing year". 13 stamped 2026.
@@ -1997,9 +2001,10 @@ discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/20
   are kept, marked unverified. Each note gives the June 2026 cut-off and the 2027 weighted subjects. BAES admits on an essay, a
   video pitch and an English test; its 30 is kept, unverified.
 - **Subjects.**
-  - Sydney: the 2027 maths prerequisite (Mathematics Advanced) is stored as Maths AA SL5 or HL4, or AI HL4, as 3.4 stored
-    Mechatronic. It covers Advanced Computing, Engineering, Mathematical Sciences and Pharmacy; the stored AA HL5 is replaced.
-    Sydney applies it to the IB only when taken in Australia (owner task). The other 28 have none; assumed knowledge is in the notes.
+  - Sydney: the 2027 maths prerequisite (Mathematics Advanced; Maths AA SL5 or HL4, or AI HL4) covers Advanced Computing,
+    Engineering, Mathematical Sciences and Pharmacy, but Sydney applies it to the IB only when taken in Australia. It was first
+    stored as 3.4 stored Mechatronic, then **removed from all 11 at the owner's request**; the notes keep it. No Sydney program
+    now stores a subject requirement; assumed knowledge is in the notes.
   - ETH: at HL, Maths AA or AI, one of Physics, Chemistry or Biology, and one Language A, all required at 4 (no grade named). The
     science and the Language A are new requirements.
   - EPFL: Maths and Physics HL 6, as stored. One of Chemistry, Biology or Computer Science is now required at HL 4 (stored 5).
@@ -2009,11 +2014,16 @@ discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/20
     (Basel: any group 4 or 5 subject).
   - Lausanne's program-specific rows had no source; two used subjects UNIL does not recognise (Psychology, SEHS). Replaced with
     the university-wide rule.
-  - Barcelona and UAB: **all subject rows removed (24 programs: Barcelona 18, UAB 6).** In Catalonia any IB Diploma gives access. Weighted subjects add
-    points only through PAU or UNEDasiss exams, and "no subject ... recognised in the UNEDasiss accreditation is taken into
-    account". The stored rows were weighted subjects, not requirements.
-- **Discontinued, for the owner: Sydney Bachelor of Commerce and Bachelor of Advanced Studies.** Sydney discontinues every combined
-  Bachelor of Advanced Studies from 1 January 2027; the final intake was Semester 2, 2026. Not written.
+  - Barcelona and UAB: **all subject rows removed (24 programs: Barcelona 18, UAB 6).** In Catalonia any IB Diploma gives
+    access. Weighted subjects add points only through PAU or UNEDasiss exams, and "no subject ... recognised in the UNEDasiss
+    accreditation is taken into account". The stored rows were weighted subjects, not requirements.
+- **Discontinued, then deleted at the owner's request: Sydney Bachelor of Commerce and Bachelor of Advanced Studies.** Sydney
+  discontinues every combined Bachelor of Advanced Studies from 1 January 2027; the final intake was Semester 2, 2026. Nobody had
+  saved it and it had no requirement rows. Backed up (`scripts/backups/refresh/deleted-2026-09-30T11-15-46-835Z.json`), deleted,
+  removed from Algolia, caches cleared. Its data-file entry is a one-line comment.
+- **Swiss medicine:** ETH Human Medicine (Swiss passport or settlement permit only) and Lausanne Medicine (no admission without
+  Swiss citizenship or a residence permit) are kept; at the owner's request each description now says it admits only Swiss
+  citizens and residents.
 - **Links, names, degrees.**
   - Barcelona: **13 stored links were not the degree's own page**, 11 of them another degree's: Physics linked Medicine, Social Work
     Bioinformatics, Tourism Audiovisual Communication, and so on. A 14th linked an older plan. All 33 now use the page codes the
@@ -2033,15 +2043,17 @@ discontinued, Melbourne's 14 left unwritten. Backup: `scripts/backups/refresh/20
   - Other admission steps: Sydney's Assessment Day for Double Degree Medicine, Casper for Veterinary Biology, UNIL's physical skills
     exam for Sport Sciences, and the Swiss medicine restrictions.
 - **Verify.**
-  - `requirementsEntryYear`: Sydney 39 × 2027, 1 × 2026 (the unwritten double); Melbourne 14 × 2026 (unchanged); ETH 22, EPFL 13,
-    Lausanne 15, Basel 1 × 2026; Barcelona 33 × 2027; UAB 11 × 2027, 1 × 2026; Complutense 1 × 2026. All 151 are flagged verified.
-  - `count(*)`: 1,274 before and after. Algolia: 1,274 records.
-  - A second dry run finds all 136 up to date.
+  - `requirementsEntryYear`, after the owner's decisions: Sydney 39 × 2027; Melbourne 14 × 2027; ETH 22, EPFL 13, Lausanne 15,
+    Basel 1 × 2026; Barcelona 33 × 2027; UAB 11 × 2027, 1 × 2026; Complutense 1 × 2026. All 150 are flagged verified.
+  - `count(*)`: 1,274 before and after the refresh; 1,273 after the delete. Algolia: 1,273 records.
+  - A second dry run finds all 150 up to date.
   - Link checker, three countries: 104 URLs OK and 47 unverifiable (Barcelona 33, Melbourne 14, both 403); 0 broken,
     redirected or year-pinned.
   - Public pages: Sydney Oral Health shows 34 points and "Requirements checked for 2027 entry"; Barcelona's page is titled
     "Geography and Global Change at UB" and links …g1124; Basel's English shows a Bachelor of Arts, "Checked for 2026 entry" and
-    its four subject rows.
+    its four subject rows. After the owner's decisions: Sydney Advanced Computing shows no subject rows, both Swiss medicine pages
+    carry the restriction, Melbourne's Bachelor of Science (Advanced-Honours) shows "checked for 2027 entry", and the deleted
+    double's page returns 404.
 
 ---
 

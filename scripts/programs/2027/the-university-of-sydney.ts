@@ -32,16 +32,7 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -49,7 +40,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -63,16 +54,7 @@ const refresh: RefreshFile = {
       minIBPoints: 38,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-commerce0.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -80,7 +62,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-advanced-computing-and-bachelor-of-commerce0.html. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-advanced-computing-and-bachelor-of-commerce0.html. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -95,16 +77,7 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-science.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -112,7 +85,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -266,29 +239,7 @@ const refresh: RefreshFile = {
       notes:
         'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-commerce0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard.'
     },
-    // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
-    {
-      id: 'cmkgwpv5a000f7mdddhvfxu00',
-      status: 'discontinued',
-      name: 'Bachelor of Commerce and Bachelor of Advanced Studies',
-      description:
-        'Study at the top 1% of business schools in the world. Explore business alongside other disciplines.',
-      field: 'Business & Economics',
-      degree: "Double Bachelor's Degree",
-      duration: '4 years',
-      minIBPoints: 38,
-      programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-advanced-studies.html',
-      requirements: [],
-      checkedFor: null,
-      sources: [
-        'https://www.sydney.edu.au/students/information-for-bachelor-of-advanced-studies-current-students.html',
-        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-advanced-studies.html'
-      ],
-      notes:
-        'Content 4.7: Sydney "has made the decision to discontinue the combined Bachelor of Advanced Studies degrees, effective 1 January 2027 ... The final new commencing intake is Semester 2, 2026", endorsed by the Senate on 7 August 2026. It is in neither 2027 admission guide (international or domestic). Current students finish as planned. Not written; the owner decides. Nearest stored programs: Bachelor of Commerce (38) and its doubles with Arts and Science.'
-    },
+    // Deleted 2026-09-30 at the owner's request (content 4.7), backup in scripts/backups/refresh/: Bachelor of Commerce and Bachelor of Advanced Studies: Sydney discontinues every combined Bachelor of Advanced Studies from 1 January 2027; the last intake was Semester 2, 2026.
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
       id: 'cmkgwpumg000b7mddqug948h1',
@@ -474,16 +425,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering2.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -491,7 +433,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Biology and Physics.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Biology and Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor (Honours)".
     {
@@ -506,16 +448,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering-and-bachelor-of-science-health.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -523,7 +456,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Physics.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -537,16 +470,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-electrical-engineering2.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -554,7 +478,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1 and Physics.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1 and Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -569,16 +493,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-mechanical-engineering2.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -586,7 +501,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -601,16 +516,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-mechatronic-engineering2.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -618,7 +524,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        "Content 3.4: the page moved from ...mechatronic-engineering0.html to ...mechatronic-engineering2.html; same course (CRICOS 083109M, 4 years). Sydney's 2027 International Admission Guide and the course data for 2027 give an IB Diploma score of 31 for international students. 2027 prerequisite: Mathematics Advanced (band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. Sydney states that the IB equivalent applies to the IB taken in Australia. Assumed knowledge Mathematics Extension 1; Physics recommended."
+        "Content 3.4: the page moved from ...mechatronic-engineering0.html to ...mechatronic-engineering2.html; same course (CRICOS 083109M, 4 years). Sydney's 2027 International Admission Guide and the course data for 2027 give an IB Diploma score of 31 for international students. 2027 prerequisite: Mathematics Advanced (band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. Sydney states that the IB equivalent applies to the IB taken in Australia. At the owner's request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. Assumed knowledge Mathematics Extension 1; Physics recommended."
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -632,16 +538,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-software-engineering1.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -649,7 +546,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -686,16 +583,7 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-mathematical-sciences.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -703,7 +591,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -783,16 +671,7 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-pharmacy-and-management-honours-and-master-of-pharmacy-practice.html',
-      requirements: [
-        {
-          anyOf: [
-            { course: 'MATH-AA', level: 'SL', grade: 5 },
-            { course: 'MATH-AA', level: 'HL', grade: 4 },
-            { course: 'MATH-AI', level: 'HL', grade: 4 }
-          ],
-          critical: true
-        }
-      ],
+      requirements: [],
       checkedFor: 2027,
       sources: [
         'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
@@ -800,7 +679,7 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
       ],
       notes:
-        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Advanced, Biology and Chemistry. Recommended: Physics. The guide and the course page give 6 years full-time, not 5.'
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4. The guide and the prerequisite page say it applies to the IB taken in Australia. At the owner\'s request (content 4.7) it is not stored: checked, none required for the IB taken elsewhere. HSC assumed knowledge (not a requirement): Mathematics Advanced, Biology and Chemistry. Recommended: Physics. The guide and the course page give 6 years full-time, not 5.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
