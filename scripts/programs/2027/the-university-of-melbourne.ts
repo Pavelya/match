@@ -53,11 +53,16 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 30,
       programUrl: 'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-arts/',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      requirements: [
+        { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 4, critical: true }
+      ],
       checkedFor: 2027,
-      sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-arts/'],
+      sources: [
+        'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-arts/',
+        'https://handbook.unimelb.edu.au/2026/courses/b-arts/entry-participation-requirements'
+      ],
       notes:
-        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
+        'Content 4.7: the owner checked the course\'s entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading. At the owner\'s request, English B is added: the 2026 handbook gives the IB prerequisite as "at least Grade 4 in English or English B (Standard Level or Higher Level)".'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -95,13 +100,19 @@ const refresh: RefreshFile = {
       minIBPoints: 35,
       programUrl: 'https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-commerce/',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA'], level: 'SL', grade: 4, critical: true }
+        { courses: ['ENG-LIT', 'ENG-LL', 'LIT-PERF'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
       ],
       checkedFor: 2027,
       sources: ['https://study.unimelb.edu.au/find/courses/undergraduate/bachelor-of-commerce/'],
       notes:
-        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading."
+        "Content 4.7: the owner checked the course's entry requirements page in a browser on 30 September 2026 and confirmed the stored IB score and prerequisites for 2027 entry. study.unimelb.edu.au refuses curl, urllib and WebFetch (Cloudflare), so the check rests on that browser reading. At the owner's request, Literature and Performance and Maths AI HL are added: the course page, as the search index quotes it, asks for grade 4 at HL or SL in English A Literature, A Language and Literature or Literature and Performance, and grade 4 at HL or SL in Maths AA or at HL in Maths AI."
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {

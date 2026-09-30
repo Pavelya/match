@@ -1984,6 +1984,8 @@ Sydney 11, ETH 1, Lausanne 1), backup `scripts/backups/refresh/2026-09-30T11-15-
     39 stamped 2027.
   - Melbourne: its course site, PDFs included, refuses every client; the archive has 2026 entry only; the 2027 handbook is not
     out. The owner read all 14 entry requirement pages in a browser and confirmed the stored values for 2027: 14 stamped 2027.
+    At the owner's request, Arts also accepts English B (the 2026 handbook) and Commerce also accepts Literature and Performance
+    and Maths AI HL 4 (the course page as the search index quotes it). Backup: `scripts/backups/refresh/2026-09-30T11-20-42-914Z.json`.
   - ETH: the country list is for 2026/27. ETH says its planned autumn-2028 change does not affect autumn 2027, but names no 2027
     rules. 22 stamped 2026.
   - EPFL: the criteria "are valid for the ongoing year". 13 stamped 2026.
