@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'Hong Kong University of Science and Technology',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-30',
   programs: [
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -33,11 +33,33 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/economics',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/economics'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: Mathematics, which the Business School gives for the IB as "SL Mathematics: Analysis and Approaches or HL Mathematics": Maths AA SL or Maths AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -53,11 +75,33 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/finance',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/finance'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: Mathematics, which the Business School gives for the IB as "SL Mathematics: Analysis and Approaches or HL Mathematics": Maths AA SL or Maths AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -74,9 +118,11 @@ const refresh: RefreshFile = {
       requirements: [
         {
           anyOf: [
-            { course: 'ENG-LIT', level: 'SL', grade: 4 },
             { course: 'ENG-LL', level: 'SL', grade: 4 },
-            { course: 'ENG-B', level: 'HL', grade: 4 }
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
           ],
           critical: false
         }
@@ -86,10 +132,10 @@ const refresh: RefreshFile = {
         'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
         'https://bmundergrad.hkust.edu.hk/admissions/program-overview/prog-overview',
         'https://prog-crs.hkust.edu.hk/ugprog/2026-27/GBM',
-        'https://join.hkust.edu.hk/oas/elar.pdf'
+        'https://join.hkust.edu.hk/admissions/international-qualifications'
       ],
       notes:
-        "Content 3.4: the stored page was the 2020-21 programme catalogue. The programme continues (BBA in General Business Management, 4 years, in the 2026-27 catalogue; the 2027-28 catalogue page is still empty), so the URL now points at the Business School's programme overview, which lists GBM as a major taken through school-based admission. For the 2027 intake (applications from early October 2026, term from 1 September 2027) the school-based boundary score (Business and Management) is IBDP 34 or more, for reference; programme-based entry starts at 36 to 42. No mathematics subject required (only the quantitative programmes ask for it). English: HKUST's English language admissions requirement asks for English A at 4 or English B HL at 4; join.hkust.edu.hk refused every request this session, so this was read through the search index, and TOEFL or IELTS also count, so the group is not critical (the stored SL4 was critical)."
+        "Content 3.4: the stored page was the 2020-21 programme catalogue. The programme continues (BBA in General Business Management, 4 years, in the 2026-27 catalogue; the 2027-28 catalogue page is still empty), so the URL now points at the Business School's programme overview, which lists GBM as a major taken through school-based admission. For the 2027 intake (applications from early October 2026, term from 1 September 2027) the school-based boundary score (Business and Management) is IBDP 34 or more, for reference; programme-based entry starts at 36 to 42. No mathematics subject required (only the quantitative programmes ask for it). English: HKUST's English language admissions requirement asks for English A at 4 or English B HL at 4; join.hkust.edu.hk refused every request this session, so this was read through the search index, and TOEFL or IELTS also count, so the group is not critical (the stored SL4 was critical). Content 4.5: join.hkust.edu.hk answers again. Its IB English requirement, for the 2027 intake, also accepts English Literature and Performance SL at 4 and English B SL at 5, so both are added to the English group; still not critical. Boundary unchanged (school-based, IBDP 34)."
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -104,9 +150,27 @@ const refresh: RefreshFile = {
       minIBPoints: 39,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/global-business',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/global-business'
+      ],
+      notes:
+        'Content 4.5: Program-based choice; interview compulsory. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 39 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -118,12 +182,30 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 36,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/information-systems',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/information-systems'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum per programme, but every program-based choice starts from IBDP 36; the stored 34 is the school-based boundary, the route through Business and Management and the Major Selection Exercise (about half of each major\'s seats), so the program\'s own floor, 36, is stored. University-wide reference: 35-40 (mid-50%, bonus included) for the 2025 intake, 35-41 (25th-75th percentile) for 2026. English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -135,12 +217,30 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 36,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/management',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/management'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum per programme, but every program-based choice starts from IBDP 36; the stored 34 is the school-based boundary, the route through Business and Management and the Major Selection Exercise (about half of each major\'s seats), so the program\'s own floor, 36, is stored. University-wide reference: 35-40 (mid-50%, bonus included) for the 2025 intake, 35-41 (25th-75th percentile) for 2026. English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -152,12 +252,30 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 36,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/marketing',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/marketing'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum per programme, but every program-based choice starts from IBDP 36; the stored 34 is the school-based boundary, the route through Business and Management and the Major Selection Exercise (about half of each major\'s seats), so the program\'s own floor, 36, is stored. University-wide reference: 35-40 (mid-50%, bonus included) for the 2025 intake, 35-41 (25th-75th percentile) for 2026. English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -169,12 +287,30 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 36,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/operations-management',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/operations-management'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum per programme, but every program-based choice starts from IBDP 36; the stored 34 is the school-based boundary, the route through Business and Management and the Major Selection Exercise (about half of each major\'s seats), so the program\'s own floor, 36, is stored. University-wide reference: 35-40 (mid-50%, bonus included) for the 2025 intake, 35-41 (25th-75th percentile) for 2026. English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -189,9 +325,27 @@ const refresh: RefreshFile = {
       minIBPoints: 36,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/professional-accounting',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/professional-accounting'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: "No specific subject requirements" beyond English: checked, none required. The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -207,12 +361,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/aerospace-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/aerospace-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Mechanical and Aerospace Engineering (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -228,12 +404,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/artificial-intelligence',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/artificial-intelligence'
+      ],
+      notes:
+        'Content 4.5: Applied to through Computer Science and Engineering (department-based) or Engineering with Extended Major in AI; Physics or Computer Science preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 39 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -248,12 +446,34 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-engineering/bioengineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/bioengineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Chemical and Biological Engineering (department-based) or Engineering with Extended Major in AI; Physics or Chemistry preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -269,12 +489,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/chemical-engineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/chemical-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Chemical and Biological Engineering (department-based) or Engineering with Extended Major in AI; Physics or Chemistry preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -289,12 +531,34 @@ const refresh: RefreshFile = {
       minIBPoints: 36,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-engineering/civil-engineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/civil-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Civil and Environmental Engineering (department-based) or Engineering with Extended Major in AI; Physics or Chemistry preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -310,12 +574,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/computer-engineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/computer-engineering'
+      ],
+      notes:
+        'Content 4.5: Its own department-based choice, or through Engineering with Extended Major in AI; Physics or Computer Science preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -330,12 +616,34 @@ const refresh: RefreshFile = {
       minIBPoints: 36,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-engineering/decision-analytics',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/decision-analytics'
+      ],
+      notes:
+        'Content 4.5: Applied to through Industrial Engineering and Decision Analytics (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -351,12 +659,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/electronic-engineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/electronic-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Electronic and Computer Engineering (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -372,12 +702,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/energy-and-environmental-engineering',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/energy-and-environmental-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Chemical and Biological Engineering (department-based) or Engineering with Extended Major in AI; Physics or Chemistry preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -393,12 +745,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/industrial-engineering-and-engineering-management',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/industrial-engineering-and-engineering-management'
+      ],
+      notes:
+        'Content 4.5: Applied to through Industrial Engineering and Decision Analytics (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -414,12 +788,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/mechanical-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/mechanical-engineering'
+      ],
+      notes:
+        'Content 4.5: Applied to through Mechanical and Aerospace Engineering (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -435,12 +831,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/microelectronics-and-integrated-circuits',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/microelectronics-and-integrated-circuits'
+      ],
+      notes:
+        'Content 4.5: Applied to through Electronic and Computer Engineering (department-based) or Engineering with Extended Major in AI; Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -455,12 +873,34 @@ const refresh: RefreshFile = {
       minIBPoints: 39,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-engineering/computer-science',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/computer-science'
+      ],
+      notes:
+        'Content 4.5: Applied to through Computer Science and Engineering (department-based) or Engineering with Extended Major in AI; Physics or Computer Science preferred. The BSc is one half of a double major. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 39 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -477,15 +917,34 @@ const refresh: RefreshFile = {
         'https://join.hkust.edu.hk/our-programs/school-of-science/biochemistry-and-cell-biology',
       requirements: [
         {
-          courses: ['BIO', 'BIO', 'CHEM', 'CHEM', 'MATH-AA', 'MATH-AA', 'MATH-AI', 'PHYS', 'PHYS'],
-          level: 'SL',
-          grade: 4,
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
           critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/biochemistry-and-cell-biology'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group B): "Mathematics, and one senior level subject from Chemistry, Biology". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -502,15 +961,34 @@ const refresh: RefreshFile = {
         'https://join.hkust.edu.hk/our-programs/school-of-science/biomedical-and-health-sciences',
       requirements: [
         {
-          courses: ['BIO', 'BIO', 'CHEM', 'CHEM', 'MATH-AA', 'MATH-AA', 'MATH-AI', 'PHYS', 'PHYS'],
-          level: 'SL',
-          grade: 4,
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
           critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/biomedical-and-health-sciences'
+      ],
+      notes:
+        'Content 4.5: Its own choice, or through Science (Group B): "Mathematics, and one senior level subject from Chemistry, Biology". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. Interview compulsory. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -526,15 +1004,34 @@ const refresh: RefreshFile = {
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-science/biotechnology',
       requirements: [
         {
-          courses: ['BIO', 'BIO', 'CHEM', 'CHEM', 'MATH-AA', 'MATH-AA', 'MATH-AI', 'PHYS', 'PHYS'],
-          level: 'SL',
-          grade: 4,
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
           critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/biotechnology'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group B): "Mathematics, and one senior level subject from Chemistry, Biology". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -550,12 +1047,35 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/joint-school-program/biotechnology-and-business',
       requirements: [
-        { courses: ['BIO', 'BIO', 'CHEM', 'CHEM'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/joint-school-program/biotechnology-and-business'
+      ],
+      notes:
+        'Content 4.5: Joint program, its own choice: "Mathematics, and one senior level subject from Chemistry, Biology". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -571,15 +1091,34 @@ const refresh: RefreshFile = {
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-science/chemistry',
       requirements: [
         {
-          courses: ['BIO', 'BIO', 'CHEM', 'CHEM', 'MATH-AA', 'MATH-AA', 'MATH-AI', 'PHYS', 'PHYS'],
-          level: 'SL',
-          grade: 4,
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
           critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/chemistry'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". or Science (Group B): "Mathematics, and one senior level subject from Chemistry, Biology". Either route qualifies, so one group of the three sciences. Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -595,16 +1134,35 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-science/data-analytics-and-artificial-intelligence-in-science',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
         {
-          courses: ['MATH-AA', 'MATH-AA', 'MATH-AI', 'PHYS', 'PHYS'],
-          level: 'SL',
-          grade: 4,
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
           critical: true
+        },
+        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
         }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/data-analytics-and-artificial-intelligence-in-science'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 35 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -620,12 +1178,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/joint-school-program/data-science-and-technology',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/joint-school-program/data-science-and-technology'
+      ],
+      notes:
+        'Content 4.5: Joint program, applied to through Engineering ("Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science") or Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". The Engineering route is the wider and is stored. Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -641,11 +1221,27 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/economics-and-finance',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA'], level: 'SL', grade: 4, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/economics-and-finance'
+      ],
+      notes:
+        'Content 4.5: Program-based choice. Subjects: senior level Mathematics, which the Business School gives for the IB as "HL Mathematics": Maths AA or AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -660,9 +1256,26 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/environmental-management-and-technology',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/environmental-management-and-technology'
+      ],
+      notes:
+        'Content 4.5: Academy of Interdisciplinary Studies, its own choice. Subjects: "No specific subject requirements" beyond English: checked, none required. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 34 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -677,9 +1290,26 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-humanities-and-social-science/global-china-studies',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-humanities-and-social-science/global-china-studies'
+      ],
+      notes:
+        'Content 4.5: School of Humanities and Social Science, its own choice. Subjects: "No specific subject requirements" beyond English: checked, none required. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 34 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -694,9 +1324,26 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/individualized-interdisciplinary-major',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/individualized-interdisciplinary-major'
+      ],
+      notes:
+        "Content 4.5: Students are admitted to the School of Science, Engineering, Business and Management or Humanities and Social Science first; interview compulsory. Subjects: \"No specific subject requirements\" beyond English: checked, none required (the entry school's own requirements apply, which the model cannot hold). HKUST's international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice's subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 34 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical)."
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -712,12 +1359,39 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/innovation-design-and-technology',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'CS', 'DES-TECH', 'PHYS'],
+          level: 'SL',
+          grade: 4,
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/innovation-design-and-technology'
+      ],
+      notes:
+        'Content 4.5: Academy of Interdisciplinary Studies, its own choice; interview compulsory. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science, or Design Technology" (the stored rule asked for both at HL, the science not critical). Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -732,11 +1406,35 @@ const refresh: RefreshFile = {
       minIBPoints: 35,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-science/mathematics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/mathematics'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". (The stored rule was Maths or Physics at HL.) Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 35 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -752,11 +1450,35 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/joint-school-program/mathematics-and-economics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'ECON', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/joint-school-program/mathematics-and-economics'
+      ],
+      notes:
+        'Content 4.5: Joint program, its own choice (or through Science (Group A) or Business and Management): "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Economics". The program\'s own page (maec.hkust.edu.hk, undated) asks only for one senior level subject from Mathematics, Economics, Biology, Chemistry or Physics. The Business School reads "senior level Mathematics" as HL for its own programmes; for this joint programme the School of Engineering\'s wider reading is used. Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -771,9 +1493,36 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-science/ocean-science-and-technology',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/ocean-science-and-technology'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". or Science (Group B): "Mathematics, and one senior level subject from Chemistry, Biology". Either route qualifies, so one group of the three sciences. Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 34 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -788,11 +1537,35 @@ const refresh: RefreshFile = {
       minIBPoints: 35,
       programUrl: 'https://join.hkust.edu.hk/our-programs/school-of-science/physics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/physics'
+      ],
+      notes:
+        'Content 4.5: Applied to through Science (Group A): "Mathematics, and one senior level subject from Physics, Chemistry". (The stored rule was Maths or Physics at HL.) Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 35 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -809,10 +1582,26 @@ const refresh: RefreshFile = {
         'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/quantitative-finance',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-business-and-management/quantitative-finance'
+      ],
+      notes:
+        'Content 4.5: Program-based choice; interview compulsory. Subjects: senior level Mathematics, which the Business School gives for the IB as "HL Mathematics": Maths AA or AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -827,9 +1616,26 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-humanities-and-social-science/quantitative-social-analysis',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-humanities-and-social-science/quantitative-social-analysis'
+      ],
+      notes:
+        'Content 4.5: School of Humanities and Social Science, its own choice. Subjects: "No specific subject requirements" beyond English: checked, none required. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 34 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -846,10 +1652,26 @@ const refresh: RefreshFile = {
         'https://join.hkust.edu.hk/our-programs/joint-school-program/risk-management-and-business-intelligence',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/joint-school-program/risk-management-and-business-intelligence'
+      ],
+      notes:
+        'Content 4.5: Joint program, its own choice; interview compulsory. Subjects: senior level Mathematics, which the Business School gives for the IB as "HL Mathematics": Maths AA or AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -865,11 +1687,33 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/joint-school-program/sustainable-and-green-finance',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://bmundergrad.hkust.edu.hk/admissions/admission-information/international-qualifications',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/joint-school-program/sustainable-and-green-finance'
+      ],
+      notes:
+        'Content 4.5: Joint program, its own choice; interview compulsory. Subjects: Mathematics, which the Business School gives for the IB as "SL Mathematics: Analysis and Approaches or HL Mathematics": Maths AA SL or Maths AI HL, critical at 4 (no grade named). The Business School\'s page for the 2027 intake gives boundary scores "for general reference only": school-based admission (Business and Management) from IBDP 34, and program-based admission "starting from the following boundary scores: IBDP ≥36 to 42", per programme unpublished. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 38 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -891,7 +1735,7 @@ const refresh: RefreshFile = {
       checkedFor: null,
       sources: [],
       notes:
-        'Content 3.4, not checked: the page moved to .../business-with-an-extended-major-in-ai-cadh and HKUST now titles it Business with Extended Major in Artificial Intelligence / Creative Arts and Digital Humanities / Sustainability (Digital Media and Creative Arts became CADH), per the search index. join.hkust.edu.hk returned 403 to curl, urllib and WebFetch all session, so the requirements were not re-read and the rename is left for the owner to confirm in a browser. The Business School says extended majors are chosen after admission (AI in the fall of Year 2, quota 30), so whether this is still a direct-entry choice needs checking. The old URL redirects to the new one, so the link is not broken.'
+        'Content 4.5: not written; the owner decides. join.hkust.edu.hk answers again (3.4 could not read it). The stored URL redirects to .../business-with-an-extended-major-in-ai-cadh, "Business with Extended Major in Artificial Intelligence (AI), Creative Arts and Digital Humanities (CADH) or Sustainability (SUST)": the rename (Digital Media and Creative Arts is now Creative Arts and Digital Humanities) is confirmed. It is not a direct-entry choice: "Students are not required to decide whether they want to pursue an Extended Major at the time of admission. Instead, they ... apply for an Extended Major at the end of the third semester (i.e., in the fall term of Year 2)", from eight BBA majors (not GBM). The 2027 application choices list no such programme. Keep (renamed), or delete as not something a school leaver applies to.'
     },
     // Stored: checked for 2026 entry on 2026-01-26. Degree stored as "Dual Degree".
     {
@@ -907,12 +1751,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/dual-degree-program-in-technology-and-management',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/academy-of-interdisciplinary-studies/dual-degree-program-in-technology-and-management'
+      ],
+      notes:
+        'Content 4.5: BEng/BSc & BBA, 5 years; its own choice (interview compulsory), or entered in Year 2 from Science, Engineering or Business. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, or Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -928,12 +1794,34 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-engineering/engineering-with-an-extended-major-in-artificial-intelligence',
       requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
         { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-engineering/engineering-with-an-extended-major-in-artificial-intelligence'
+      ],
+      notes:
+        'Content 4.5: School-based choice; a BEng in one of the engineering disciplines, chosen by the end of Year 1, with the Extended Major in AI. Physics preferred. Subjects: "Senior level Mathematics, and one senior level subject from Physics, Chemistry, Biology, Computer Science". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: the School of Engineering\'s FAQ says "we accept both higher level and standard level for all science subjects"; no grade is named, so SL 4. Preferred subjects are not stored. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 36 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -949,12 +1837,35 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-science/international-research-enrichment',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/international-research-enrichment'
+      ],
+      notes:
+        'Content 4.5: Its own choice (a BSc in one of six science majors): "Mathematics, and one senior level subject from Physics, Chemistry, Biology". Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. Interview compulsory. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 37 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     },
     // Stored: checked for 2026 entry on 2026-01-26.
     {
@@ -970,11 +1881,35 @@ const refresh: RefreshFile = {
       programUrl:
         'https://join.hkust.edu.hk/our-programs/school-of-science/science-group-a-with-an-extended-major-in-artificial-intelligence',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        },
+        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LL', level: 'SL', grade: 4 },
+            { course: 'ENG-LIT', level: 'SL', grade: 4 },
+            { course: 'LIT-PERF', level: 'SL', grade: 4 },
+            { course: 'ENG-B', level: 'HL', grade: 4 },
+            { course: 'ENG-B', level: 'SL', grade: 5 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://join.hkust.edu.hk/admissions/international-qualifications',
+        'https://seng.hkust.edu.hk/academics/undergraduate/faq-info-for-non-jupas-and-non-local-students',
+        'https://science.hkust.edu.hk/academic_programs/undergrad_prog/about_ug/admissions/requirements',
+        'https://join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf',
+        'https://join.hkust.edu.hk/our-programs/school-of-science/science-group-a-with-an-extended-major-in-artificial-intelligence'
+      ],
+      notes:
+        'Content 4.5: Its own choice (a BSc in Mathematics, Physics, Ocean Science and Technology or Chemistry with the Extended Major in AI): "Mathematics, and one senior level subject from Physics, Chemistry". (The stored rule was Maths or Physics at HL.) Mathematics: no IB course is named on the page; the School of Engineering\'s FAQ accepts "Mathematics: Analysis and Approaches (HL), Mathematics: Analysis and Approaches (SL), Mathematics: Applications and Interpretation (HL)" and the Business School maps "Mathematics" to "SL Mathematics: Analysis and Approaches or HL Mathematics", so stored as Maths AA SL or Maths AI HL. No grade is named, so 4. Sciences: no level or grade is named; stored at SL 4, as the School of Engineering reads "senior level" for IB sciences. The School of Science\'s own requirements database, still labelled for the 2026 intake, is looser (one senior level subject from a list that includes Mathematics); the university page is the 2027 source and is followed. HKUST\'s international qualifications page runs the 2027 intake (applications from 2 October 2026, priority round to 25 November 2026, offers from late December 2026, applications close 30 June 2027) and gives each application choice\'s subject requirements, so checked for 2027. Points: HKUST publishes no minimum IB score per programme. The general requirement is the IB Diploma, and its only IB figures are university-wide reference ranges: 35-40 (mid-50%, bonus points included) for the 2025 intake and 35-41 (25th-75th percentile) for 2026. The stored 35 predates this check and has no official source; it is kept, not re-verified (as for NTU in 3.4 and Trinity in 4.6). English: HKUST accepts IB English A (Language and Literature or Literature, HL or SL) at 4, English Literature and Performance SL at 4, and English B at HL 4 or SL 5, or another listed qualification (IELTS, TOEFL and others), so the group is not critical (it was English A SL 4, critical).'
     }
   ]
 }

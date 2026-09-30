@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'Nanyang Technological University',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-30',
   programs: [
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -33,11 +33,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/accountancy-for-future-leaders-bachelor-of-accountancy-in-sustainability-management-and-analytics',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/accountancy-for-future-leaders-bachelor-of-accountancy-in-sustainability-management-and-analytics'
+      ],
+      notes:
+        'Content 4.5: The PDF lists it as "Accountancy (Sustainability Management with Analytics)" under Accountancy: "Mathematics at Standard Level, and A good grade in English at Standard Level"; some candidates may be invited for interviews. Stored before: English A and Maths at HL 6, which no source gives. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 38 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -53,11 +59,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-aerospace-engineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-aerospace-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. The programme page says the same. Computer Science is added to the science group (task 4.5). The stored grade 6 in both groups has no source: neither the PDF nor the programme page names a grade, as 3.4 found; 4 is stored. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 38 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -73,11 +85,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy'
+      ],
+      notes:
+        'Content 4.5: Accountancy: "Mathematics at Standard Level, and A good grade in English at Standard Level"; some candidates may be invited for interviews. Stored before: both at SL 5. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -93,11 +111,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy-with-minor-in-digitalisation-and-data-analytics-(dda)',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy-with-minor-in-digitalisation-and-data-analytics-(dda)'
+      ],
+      notes:
+        'Content 4.5: The PDF: "Accountancy" is "also offered as a single degree programme with a Minor in Digitalisation and Data Analytics", with the same requirements. Accountancy: "Mathematics at Standard Level, and A good grade in English at Standard Level"; some candidates may be invited for interviews. Stored before: both at SL 5. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -108,16 +132,22 @@ const refresh: RefreshFile = {
         'You can now choose to pursue a Second Major in Entrepreneurship (SMiE), offered by NTU Entrepreneurship Academy in collaboration with NBS.',
       field: 'Business & Economics',
       degree: 'Bachelor of Accountancy',
-      duration: '4 years',
+      duration: '3.5 years',
       minIBPoints: 37,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy-with-second-major-in-entrepreneurship',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-accountancy-with-second-major-in-entrepreneurship'
+      ],
+      notes:
+        'Content 4.5: Accountancy: "Mathematics at Standard Level, and A good grade in English at Standard Level"; some candidates may be invited for interviews. Stored before: both at SL 5. Duration: the programme page gives "3.5 years, with direct honours" (it was stored as 4 years). NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -133,12 +163,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-applied-computing-in-finance',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 6, critical: true },
-        { courses: ['MAN-B', 'MAN-LIT-A', 'MAN-LL'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-applied-computing-in-finance'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Higher Level, and A good grade in English at Standard Level". The stored Mandarin HL 5 (not critical) has no source and is removed; Maths was HL 6 and English SL 6. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 38 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -154,11 +189,16 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-chinese',
       requirements: [
-        { courses: ['MAN-B', 'MAN-LL'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MAN-LIT-A', 'MAN-LL', 'MAN-B'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-chinese'
+      ],
+      notes:
+        'Content 4.5: "A good grade in Chinese at Standard Level"; selection test or interview. Chinese is stored as Mandarin A Literature, Mandarin A Language and Literature or Mandarin B. Stored before: Mandarin B or A Language and Literature at HL 5 and English A HL 5 (not critical); English is not required and is removed. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 34 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -174,11 +214,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---chinese-and-english',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MAN-B', 'MAN-LIT-A', 'MAN-LL'], level: 'HL', grade: 6, critical: true }
+        { courses: ['MAN-LIT-A', 'MAN-LL', 'MAN-B'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---chinese-and-english'
+      ],
+      notes:
+        'Content 4.5: "A good grade in Chinese at Standard Level, and A good grade in English at Standard Level"; selection test or interview. Chinese is stored as Mandarin A Literature, Mandarin A Language and Literature or Mandarin B. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: both at HL 6. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -194,11 +240,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---chinese-and-linguistics-and-multilingual-studies',
       requirements: [
-        { courses: ['MAN-B', 'MAN-LL'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MAN-LIT-A', 'MAN-LL', 'MAN-B'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---chinese-and-linguistics-and-multilingual-studies'
+      ],
+      notes:
+        'Content 4.5: The PDF groups it with Chinese and English: "A good grade in Chinese at Standard Level, and A good grade in English at Standard Level"; selection test or interview. Chinese is stored as Mandarin A Literature, Mandarin A Language and Literature or Mandarin B. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: Chinese HL 6 and Maths SL 5; Maths is not required and is removed, English is added. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -213,9 +265,15 @@ const refresh: RefreshFile = {
       minIBPoints: 36,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---english-and-history',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 6, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---english-and-history'
+      ],
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level"; selection test or interview. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 6. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -230,9 +288,15 @@ const refresh: RefreshFile = {
       minIBPoints: 36,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---english-and-philosophy',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 6, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---english-and-philosophy'
+      ],
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level"; selection test or interview. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 6. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -248,11 +312,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---psychology-and-linguistics-multilingual-studies',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MAN-B', 'MAN-LIT-A', 'MAN-LL'], level: 'HL', grade: 5, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-double-major---psychology-and-linguistics-multilingual-studies'
+      ],
+      notes:
+        'Content 4.5: "A good grade in Mathematics at Standard Level, and A good grade in English at Standard Level"; selection test or interview. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: Maths SL 5 and Mandarin HL 5 (not critical); Mandarin is not required and is removed, English is added. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -267,9 +337,15 @@ const refresh: RefreshFile = {
       minIBPoints: 35,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-english',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-english'
+      ],
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level"; selection test or interview. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 35 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -284,9 +360,15 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-history',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-history'
+      ],
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level", now critical. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 5, not critical. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 34 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -301,12 +383,15 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-linguistics-and-multilingual-studies',
-      requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-linguistics-and-multilingual-studies'
       ],
-      checkedFor: null,
-      sources: []
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level". NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 5 and Maths SL 5; Maths is not required and is removed. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 34 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Hons)".
     {
@@ -321,9 +406,15 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-philosophy',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-(hons)-in-philosophy'
+      ],
+      notes:
+        'Content 4.5: "A good grade in English at Standard Level", now critical. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: English A HL 5, not critical. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 34 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Arts (Education)".
     {
@@ -338,13 +429,15 @@ const refresh: RefreshFile = {
       minIBPoints: 33,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-art-and-education',
-      requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MAN-B', 'MAN-LIT-A', 'MAN-LL'], level: 'HL', grade: 5, critical: false }
+      requirements: [{ courses: ['VISUAL-ARTS'], level: 'HL', grade: 4, critical: false }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-arts-in-art-and-education'
       ],
-      checkedFor: null,
-      sources: []
+      notes:
+        'Content 4.5: National Institute of Education, a Ministry of Education-sponsored programme; the award is the Bachelor of Arts (Hons) in Art and Education, 4 years. The PDF lists "Arts (Academic Discipline & Education)" with "A good overall International Baccalaureate Diploma score" and a selection test or interview; the programme page asks for "A pass at Higher level in Art (IB Diploma)", or "Higher level (IB Diploma) from any discipline with strong art portfolios", and a compulsory art-focused interview. Visual Arts HL is stored but not critical, because a portfolio can replace it. Applicants must also meet MOE requirements, and those taking the May 2027 IB examinations cannot apply to this programme. Stored before: English A HL 5 and Maths SL 5 (critical) and Mandarin HL 5, none of which a source gives. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 33 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -355,15 +448,21 @@ const refresh: RefreshFile = {
         'Nanyang Business School’s Bachelor of Business (BBus) with Honours (Single Major) and Bachelor of Business (BBus) with Honours (Double Major) are two enhanced, four-year, full-time business programmes designed to equip future leaders with the skills to thrive in today’s dynamic, hyperconnected world.',
       field: 'Business & Economics',
       degree: 'Bachelor of Business',
-      duration: '3 years',
+      duration: '4 years',
       minIBPoints: 36,
       programUrl: 'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-business',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-business'
+      ],
+      notes:
+        'Content 4.5: Business (single or double major): "Mathematics at Standard Level, and A good grade in English at Standard Level". Duration: the programme page describes "two enhanced four-year business degrees" (it was stored as 3 years). NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: both at SL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -374,17 +473,23 @@ const refresh: RefreshFile = {
         'This four-year degree programme focuses on Chinese medicine as well as basic western medicine knowledge. This is a bilingual course with English and Mandarin as the media of instruction.',
       field: 'Medicine & Health',
       degree: 'Bachelor of Chinese Medicine',
-      duration: '5 years',
+      duration: '4 years',
       minIBPoints: 36,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-chinese-medicine',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MAN-B', 'MAN-LL'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 4, critical: true },
+        { courses: ['MAN-LIT-A', 'MAN-LL', 'MAN-B'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-chinese-medicine'
+      ],
+      notes:
+        'Content 4.5: Now a single degree, "a full-time four-year Bachelor of Chinese Medicine (Honours) programme", marked NEW in the PDF (stored as 5 years). "Mathematics at Standard Level, and Physics/Chemistry/Biology at Higher Level, and Chinese at Standard Level"; selection test or interview. The programme page asks for "a good ... HL" science pass. Chinese is stored as Mandarin A Literature, Mandarin A Language and Literature or Mandarin B. Stored before: all three at HL 6. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -400,11 +505,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies',
       requirements: [
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Standard Level, and A good grade in English at Standard Level", as on the programme page. NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: both at SL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -419,15 +530,24 @@ const refresh: RefreshFile = {
       minIBPoints: 38,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies-with-second-major-in-business',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies-with-second-major-in-business'
+      ],
+      notes:
+        'Content 4.5: The PDF groups it with Communication Studies: "Mathematics at Standard Level, and A good grade in English at Standard Level". NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: Maths SL 6 only. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 38 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
       id: 'cmktsi26n004b7m854kp7juxz',
       status: 'current',
-      name: 'Bachelor of Communication Studies with Second Major in Governance',
+      name: 'Bachelor of Communication Studies with Second Major in Governance and International Relations',
       description: 'Combine communication skills with governance and global affairs knowledge.',
       field: 'Media',
       degree: 'Bachelor of Communication Studies',
@@ -435,9 +555,18 @@ const refresh: RefreshFile = {
       minIBPoints: 38,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies-with-second-major-in-governance-and-international-relations',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: true }
+      ],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-communication-studies-with-second-major-in-governance-and-international-relations'
+      ],
+      notes:
+        'Content 4.5: Renamed to the programme\'s full title, "... Second Major in Governance and International Relations". The PDF groups it with Communication Studies: "Mathematics at Standard Level, and A good grade in English at Standard Level". NTU does not say which IB English courses count; English A (Literature, or Language and Literature) is stored, as before. Stored before: Maths SL 6 only. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 38 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -447,17 +576,30 @@ const refresh: RefreshFile = {
       description:
         'Focuses on the theory, design, and application of computer software and systems.',
       field: 'Computer Science',
-      degree: 'Bachelor of Engineering',
+      degree: 'Bachelor of Computing',
       duration: '4 years',
       minIBPoints: 39,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-computing-(hons)-in-computer-science-with-a-second-major-in-entrepreneurship',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 },
+            { course: 'PHYS', level: 'HL', grade: 4 },
+            { course: 'CS', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-computing-(hons)-in-computer-science-with-a-second-major-in-entrepreneurship'
+      ],
+      notes:
+        'Content 4.5: Computer Science: "Mathematics at Higher Level, or Physics/Computer Science at Higher Level", one critical group. Degree: the PDF marks it as leading to a Bachelor of Computing (stored as Bachelor of Engineering). Stored before: Maths HL 6 and one of Biology, Chemistry, Computer Science or Physics HL 6. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 39 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -467,17 +609,20 @@ const refresh: RefreshFile = {
       description:
         'The Bachelor of Computing (Hons) in Data Science and Artificial Intelligence (DSAI) with a Second Major in Sustainability is an interdisciplinary programme at Nanyang Technological University (NTU). The DSAI component is jointly offered by the College of Computing and Data Science (CCDS) and the School of Physical and Mathematical Sciences (SPMS), while the Second Major in Sustainability is offered through the Asian School of the Environment (ASE). This powerful combination equips students with advanced skills in data analysis and AI development alongside a comprehensive understanding of global sustainability challenges.',
       field: 'Computer Science',
-      degree: 'Bachelor of Science',
+      degree: 'Bachelor of Computing',
       duration: '4 years',
       minIBPoints: 40,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-computing-(hons)-in-data-science-and-artificial-intelligence-with-a-second-major-in-sustainability',
-      requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true }
+      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-computing-(hons)-in-data-science-and-artificial-intelligence-with-a-second-major-in-sustainability'
       ],
-      checkedFor: null,
-      sources: []
+      notes:
+        'Content 4.5: "Mathematics at Higher Level". Degree: the PDF marks it as leading to a Bachelor of Computing (stored as Bachelor of Science). Stored before: Maths HL 6 and one of Biology, Chemistry or Physics HL 6, which is not required and is removed. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 40 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -493,11 +638,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-bioengineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-bioengineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Computer Science is added. Stored before: both at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -512,11 +663,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-biological-sciences',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-biological-sciences'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Standard Level, and Physics/Chemistry/Biology at Higher Level"; interviews on a selective basis. Stored before: the science at HL 5 and Maths at SL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -532,11 +689,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-chemical-and-biomolecular-engineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-chemical-and-biomolecular-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Computer Science is added. Stored before: both at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -551,12 +714,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-chemistry-and-biological-chemistry',
       requirements: [
-        { courses: ['CHEM'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'PHYS'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+        { courses: ['CHEM'], level: 'HL', grade: 4, critical: true },
+        { courses: ['MATH-AA', 'MATH-AI', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-chemistry-and-biological-chemistry'
+      ],
+      notes:
+        'Content 4.5: "Chemistry at Higher Level, and Mathematics/Physics at Higher Level"; the programme page: "Pass in Chemistry and Mathematics/Physics at Higher Level". Stored before: Chemistry HL 5, Biology or Physics SL 5 and Maths SL 5; Biology is not required, and Maths or Physics is one group at HL. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -572,11 +740,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-civil-engineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-civil-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Computer Science is added. Stored before: both at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 35 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -592,11 +766,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-computer-engineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-computer-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Stored before: both at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -623,7 +803,7 @@ const refresh: RefreshFile = {
         'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf'
       ],
       notes:
-        'Content 3.4: the page moved to a new slug; same programme. Pass in HL Mathematics (AA or AI), a pass in HL Biology, Chemistry, Computer Science or Physics, and a pass in SL Physics for applicants without HL Physics. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026.'
+        "Content 3.4: the page moved to a new slug; same programme. Pass in HL Mathematics (AA or AI), a pass in HL Biology, Chemistry, Computer Science or Physics, and a pass in SL Physics for applicants without HL Physics. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026. Content 4.5: re-read on 30 September 2026; the programme page and NTU's IB PDF (still the 2026 window) are unchanged, so still checked for 2026."
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -638,11 +818,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-environmental-earth-systems-science',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'ECON', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-environmental-earth-systems-science'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Standard Level, and Physics/Chemistry/Biology/Computer Science/Economics at Higher Level"; interviews on a selective basis. Computer Science is added. Stored before: both at HL 5, Maths too. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -658,11 +844,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-environmental-engineering',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-environmental-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Computer Science is added. Stored before: both at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 35 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -689,7 +881,7 @@ const refresh: RefreshFile = {
         'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf'
       ],
       notes:
-        'Content 3.4: the page moved to a new slug; same programme. Pass in HL Mathematics (AA or AI), a pass in HL Biology, Chemistry, Computer Science or Physics, and a pass in SL Physics for applicants without HL Physics. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026.'
+        "Content 3.4: the page moved to a new slug; same programme. Pass in HL Mathematics (AA or AI), a pass in HL Biology, Chemistry, Computer Science or Physics, and a pass in SL Physics for applicants without HL Physics. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026. Content 4.5: re-read on 30 September 2026; the programme page and NTU's IB PDF (still the 2026 window) are unchanged, so still checked for 2026."
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Science (Maritime Studies)".
     {
@@ -703,12 +895,15 @@ const refresh: RefreshFile = {
       minIBPoints: 35,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-maritime-studies',
-      requirements: [
-        { courses: ['CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 5, critical: true }
+      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-maritime-studies'
       ],
-      checkedFor: null,
-      sources: []
+      notes:
+        'Content 4.5: "Mathematics at Standard Level", as on the programme page. Stored before: Maths SL 5 and Chemistry or Physics SL 5, which is not required and is removed. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 35 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -724,11 +919,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-materials-engineering',
       requirements: [
-        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-materials-engineering'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Higher Level, and Physics/Chemistry/Biology at Higher Level" (no Computer Science here). Biology is added. Stored before: Maths and Chemistry or Physics at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 35 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -742,9 +943,15 @@ const refresh: RefreshFile = {
       minIBPoints: 37,
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-mathematical-sciences',
-      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [{ courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true }],
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-science-in-mathematical-sciences'
+      ],
+      notes:
+        'Content 4.5: "Mathematics at Higher Level"; the programme page: "Pass in Mathematics at Higher Level". Stored before: HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 37 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -760,11 +967,17 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-mechanical-engineering',
       requirements: [
-        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 5, critical: true },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2026,
+      sources: [
+        'https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-baccalaureate-diploma',
+        'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf',
+        'https://www.ntu.edu.sg/education/undergraduate-programme/bachelor-of-engineering-in-mechanical-engineering'
+      ],
+      notes:
+        'Content 4.5: Minimum subject requirements: "Mathematics at Higher Level, and Physics/Chemistry/Biology/Computer Science at Higher Level", both critical. Biology and Computer Science are added. Stored before: Maths and Chemistry or Physics at HL 5. NTU names no grade for a subject "at Higher Level" or "at Standard Level", nor for "a good grade"; 4, the IB pass, is stored, as 3.4 stored NTU\'s passes. "Mathematics" is Maths AA or AI ("both ... are acceptable"). NTU\'s IB admission page is for the 2027-28 intake (applications 15 October 2026 to 19 March 2027) and sends applicants to the programme\'s "minimum subject requirements for International Baccalaureate Diploma holders" in its linked PDF, which is still the one for the window 15 October 2025 to 19 March 2026 ("Information is correct as at February 2026"). The programme page names no year. Checked for 2026. Points: NTU publishes no IB points figure ("The sample size of students with IB Diploma holders is relatively small to derive a reflective grade profile and hence not provided"). The stored 36 predates this check and has no official source; it is kept, not re-verified (the 3.4 owner question).'
     },
     // Stored: checked for 2026 entry on 2026-01-25.
     {
@@ -790,7 +1003,7 @@ const refresh: RefreshFile = {
         'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf'
       ],
       notes:
-        'Content 3.4: the page moved to a new slug and NTU names the programme Bachelor of Science in Physics / Applied Physics; same programme. Passes in Physics and Mathematics at HL. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026.'
+        "Content 3.4: the page moved to a new slug and NTU names the programme Bachelor of Science in Physics / Applied Physics; same programme. Passes in Physics and Mathematics at HL. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 36 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU asks for a pass in each prerequisite and names no grade; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026. Content 4.5: re-read on 30 September 2026; the programme page and NTU's IB PDF (still the 2026 window) are unchanged, so still checked for 2026."
     },
     // Stored: checked for 2026 entry on 2026-01-25. Degree stored as "Bachelor of Science (Stock Science and Management)".
     {
@@ -813,7 +1026,7 @@ const refresh: RefreshFile = {
         'https://www.ntu.edu.sg/media/docs/default-source/undergraduate-admissions/msr/emsr_ib.pdf'
       ],
       notes:
-        'Content 3.4: the page moved to a new slug; same programme, Bachelor of Science (Honours) in Sport Science & Management, four years. Mathematics at SL; interviews on a selective basis. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU names no grade for the Mathematics prerequisite; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026.'
+        "Content 3.4: the page moved to a new slug; same programme, Bachelor of Science (Honours) in Sport Science & Management, four years. Mathematics at SL; interviews on a selective basis. NTU publishes no IB points figure: its IB admission page says the IB sample is too small for an indicative grade profile. The stored 35 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). NTU names no grade for the Mathematics prerequisite; 4 is stored, replacing an unsourced 5. The programme page and the IB page name no entry year (the minimum subject requirements PDF is for the window closing 19 March 2026), so checked for 2026. Content 4.5: re-read on 30 September 2026; the programme page and NTU's IB PDF (still the 2026 window) are unchanged, so still checked for 2026."
     }
   ]
 }

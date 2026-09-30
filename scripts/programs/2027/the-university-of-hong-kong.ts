@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'The University of Hong Kong',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-30',
   programs: [
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -29,11 +29,25 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl: 'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts'
+      ],
+      notes:
+        "Content 4.5: programme 6054. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BA & BEd (Double Degree)".
     {
@@ -45,12 +59,26 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-education-language-education',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-education-language-education'
+      ],
+      notes:
+        "Content 4.5: programme 6066. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. A personal statement in English is strongly advised; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BA & BEng (Double Degree)".
     {
@@ -66,12 +94,46 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-engineering-artificial',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'ECON', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'ECON', level: 'HL', grade: 5 },
+            { course: 'CS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 },
+            { course: 'ECON', level: 'SL', grade: 6 },
+            { course: 'CS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-engineering-artificial'
+      ],
+      notes:
+        "Content 4.5: programme 6298. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 37, unchanged. Subjects: 5 in Maths AA or AI at HL, or 6 at SL; and 5 in one of Biology, Chemistry, Physics, Economics or Computer Science at HL, or 6 at SL. Both groups are critical (the science group was not, and took no SL). Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BA & LLB (Double Degree)".
     {
@@ -86,9 +148,23 @@ const refresh: RefreshFile = {
       minIBPoints: 41,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-laws',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-bachelor-of-laws'
+      ],
+      notes:
+        'Content 4.5: programme 6078. HKU\'s international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page\'s /api/international_qualification/qualification feed) gives each programme\'s lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 41, unchanged. Subjects: "At least 6 or above in each of the examined subjects" and "a score of 19 points in 3 Higher Level subjects", which the model cannot hold; no named subject. Priority to first-choice candidates; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it).'
     },
     // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Bachelor of Arts and Sciences in Applied Artificial Intelligence (6224): not among HKU's 2027-intake programmes; page unpublished.
     // Stored: checked for 2026 entry on 2026-01-19.
@@ -101,12 +177,26 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Arts and Sciences',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-design',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-design'
+      ],
+      notes:
+        "Content 4.5: programme 6236. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. At least one example of creative work, sent to the Faculty office; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -123,10 +213,22 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-financial-technology',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-financial-technology'
+      ],
+      notes:
+        "Content 4.5: programme 6248. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38, unchanged. Subjects: 6 in Maths AA or AI at HL. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -138,12 +240,26 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Arts and Sciences',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-global-health-and-development',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-and-sciences-global-health-and-development'
+      ],
+      notes:
+        "Content 4.5: programme 6250. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Priority to first-choice candidates; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -155,12 +271,26 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-architectural-studies',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-architectural-studies'
+      ],
+      notes:
+        "Content 4.5: programme 6004. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. A portfolio of creative work by early December 2026; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -172,12 +302,26 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-humanities-and-digital-technologies',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-humanities-and-digital-technologies'
+      ],
+      notes:
+        "Content 4.5: programme 6286. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -189,12 +333,26 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-landscape-studies',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-landscape-studies'
+      ],
+      notes:
+        "Content 4.5: programme 6028. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. A Creative Design Response, optional creative work by early December 2026, and an interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -206,12 +364,26 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-urban-studies',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-arts-urban-studies'
+      ],
+      notes:
+        "Content 4.5: programme 6042. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -228,10 +400,22 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-biomedical-sciences',
       requirements: [
         { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-biomedical-sciences'
+      ],
+      notes:
+        "Content 4.5: programme 6949. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38, unchanged. Subjects: 6 in Biology or Chemistry at HL, unchanged. Priority to first-choice candidates; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -243,15 +427,35 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 36,
+      minIBPoints: 38,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration'
+      ],
+      notes:
+        "Content 4.5: programme 6755. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38 (was 36). Subjects: 5 in Maths AA at HL or 6 at SL, or 5 in Maths AI at HL or 6 at SL (the stored rule took no SL). Priority to first-choice candidates. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -267,12 +471,32 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-business-analytics',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'SL', grade: 1, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['PHYS', 'CHEM', 'BIO', 'CS'], level: 'SL', grade: 4, critical: true }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-business-analytics'
+      ],
+      notes:
+        "Content 4.5: programme 6793. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 36, unchanged. Subjects: 5 in Maths AA at HL or 6 at SL, or 5 in Maths AI at HL or 6 at SL; and \"one of the following subjects: Physics (HL/SL), Chemistry (HL/SL), Biology (HL/SL), Computer Science (HL/SL)\", no grade named, so 4 and critical (stored at 1, not critical). Priority to first-choice candidates. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BBA(Law) & LLB (Double Degree)".
     {
@@ -289,10 +513,23 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-law-and-bachelor-of-laws',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 6 },
+            { course: 'ENG-LL', level: 'SL', grade: 6 },
+            { course: 'ENG-B', level: 'HL', grade: 6 },
+            { course: 'ENG-B', level: 'SL', grade: 7 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-law-and-bachelor-of-laws'
+      ],
+      notes:
+        "Content 4.5: programme 6808. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 41, unchanged. Subjects: 6 in Maths AA or AI (HL/SL), unchanged; and 6 in English A (HL/SL), 6 in English B at HL or 7 in English B at SL, which replaces the general English rule and is critical. Priority to first-choice candidates."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -304,15 +541,35 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Business Administration',
       duration: '4 years',
-      minIBPoints: 36,
+      minIBPoints: 38,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-accounting-and-finance',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-business-administration-accounting-and-finance'
+      ],
+      notes:
+        "Content 4.5: programme 6781. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38 (was 36). Subjects: 5 in Maths AA at HL or 6 at SL, or 5 in Maths AI at HL or 6 at SL (the stored rule took no SL). Priority to first-choice candidates. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -324,15 +581,35 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Economics',
       duration: '4 years',
-      minIBPoints: 36,
+      minIBPoints: 38,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-economics-bachelor-of-economics-and-finance',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 7 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-economics-bachelor-of-economics-and-finance'
+      ],
+      notes:
+        "Content 4.5: programme 6767. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38 (was 36). Subjects: 5 in Maths AA at HL or 6 at SL, or 6 in Maths AI at HL or 7 at SL (the stored rule took Maths AA HL only). Priority to first-choice candidates. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BEd & BSc (Double Degree)".
     {
@@ -344,16 +621,28 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-education-and-bachelor-of-science',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false },
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: false }
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 4, critical: true },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-education-and-bachelor-of-science'
+      ],
+      notes:
+        "Content 4.5: programme 6119. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 33). Subjects: 4 in Maths AA or AI (HL/SL) and 4 in Biology, Chemistry or Physics (HL/SL), now critical. Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -365,12 +654,26 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Education',
       duration: '5 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-education-early-childhood-education-and-special',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-education-early-childhood-education-and-special'
+      ],
+      notes:
+        "Content 4.5: programme 6092. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Fluent spoken and written English; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BEng + MScEng (Integrated Bachelor+Master)".
     {
@@ -386,12 +689,31 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-and-master-of-science-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-and-master-of-science-engineering'
+      ],
+      notes:
+        "Content 4.5: programme 6377. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 39, unchanged. Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 6 in Biology, Chemistry or Physics at HL, now critical. Interview for sub-degree applicants only. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -407,12 +729,31 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-elite-programme',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-elite-programme'
+      ],
+      notes:
+        "Content 4.5: programme 6303. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 40, unchanged. Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 6 in Biology, Chemistry or Physics at HL, now critical. Interview for sub-degree applicants only. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -424,16 +765,45 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
-      minIBPoints: 34,
+      minIBPoints: 36,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-biomedical-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-biomedical-engineering'
+      ],
+      notes:
+        "Content 4.5: programme 6925. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 36 (was 34). Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 5 in Biology, Chemistry or Physics at HL, or 6 at SL. Both critical (the science group was not, and took no SL). Interview for non-local applicants; priority to first-choice candidates. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -449,18 +819,47 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-civil-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-civil-engineering'
+      ],
+      notes:
+        "Content 4.5: programme 6353. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34, unchanged. Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 5 in Biology, Chemistry or Physics at HL, or 6 at SL. Both critical (the science group was not, and took no SL). Interview for sub-degree applicants only. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
       id: 'cmkkuyttr005v7m2rlg6kb76l',
       status: 'current',
-      name: 'Bachelor of Engineering in Computer Engineering / Electrical Engineering',
+      name: 'Bachelor of Engineering in Computer Engineering / Electrical Engineering / Electronic Engineering',
       description:
         'Computer Engineering and Electrical Engineering at HKU prepare students for careers in software and hardware development, electronics, telecommunications, and more. The programme offers a strong foundation in engineering principles and hands-on experience through projects and internships. Graduates are well-prepared for careers in technology companies, research institutions, and startups.',
       field: 'Engineering',
@@ -470,12 +869,41 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-computer-engineering-electrical',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-computer-engineering-electrical'
+      ],
+      notes:
+        "Content 4.5: programme 6987. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34, unchanged. Renamed: HKU lists the programme as \"Computer Engineering / Electrical Engineering / Electronic Engineering\" (BEng(CE/EE/ElecE)); same code and page. Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 5 in Biology, Chemistry or Physics at HL, or 6 at SL. Both critical (the science group was not, and took no SL). Interview for sub-degree applicants only. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -491,12 +919,41 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-data-and-systems-engineering',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-engineering-data-and-systems-engineering'
+      ],
+      notes:
+        "Content 4.5: programme 6315. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34, unchanged. Subjects: 5 in Maths AA or AI at HL, or 6 in Maths AA at SL; and 5 in Biology, Chemistry or Physics at HL, or 6 at SL. Both critical (the science group was not, and took no SL). Interview for sub-degree applicants only. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -508,15 +965,35 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Finance',
       duration: '4 years',
-      minIBPoints: 39,
+      minIBPoints: 40,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-finance-asset-management-and-private-banking',
       requirements: [
-        { courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 },
+            { course: 'MATH-AI', level: 'SL', grade: 7 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 6 },
+            { course: 'ENG-LL', level: 'SL', grade: 6 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-finance-asset-management-and-private-banking'
+      ],
+      notes:
+        "Content 4.5: programme 6860. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 40 (was 39). Subjects: 5 in Maths AA at HL or 6 at SL, or 6 in Maths AI at HL or 7 at SL (the stored rule took Maths AA HL only); and 6 in English A or English B (HL/SL), which replaces the general English rule and is critical. Priority to first-choice candidates."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -547,7 +1024,7 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-journalism-media-and-artificial-intelligence'
       ],
       notes:
-        'Content 3.4: renamed, same programme (6822, BJMAI, 4 years): "AI" is now spelt out and the page moved. HKU\\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 34 (was 32); no specific subject requirements; interview, personal statement and predicted scores. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date). Degree: HKU awards the Bachelor of Journalism, Media and Artificial Intelligence, which is not in the degree list; stored as "Bachelor" (award not recorded) rather than the wrong "Bachelor of Arts" until the owner approves adding it.'
+        'Content 3.4: renamed, same programme (6822, BJMAI, 4 years): "AI" is now spelt out and the page moved. HKU\\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 34 (was 32); no specific subject requirements; interview, personal statement and predicted scores. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date). Degree: HKU awards the Bachelor of Journalism, Media and Artificial Intelligence, which is not in the degree list; stored as "Bachelor" (award not recorded) rather than the wrong "Bachelor of Arts" until the owner approves adding it. Content 4.5: re-read on 30 September 2026 in HKU\'s 2027-intake IB data: lower boundary, subjects and English unchanged.'
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -561,9 +1038,23 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 40,
       programUrl: 'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-laws',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-laws'
+      ],
+      notes:
+        'Content 4.5: programme 6406. HKU\'s international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page\'s /api/international_qualification/qualification feed) gives each programme\'s lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 40, unchanged. Subjects: "At least 6 or above in each of the examined subjects" and "a score of 19 points in 3 Higher Level subjects", which the model cannot hold; no named subject. Priority to first-choice candidates; interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it).'
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -575,12 +1066,26 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Nursing',
       duration: '5 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-nursing',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-nursing'
+      ],
+      notes:
+        "Content 4.5: programme 6468. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. A good working knowledge of Cantonese; interview; candidates must meet the English and Chinese language requirements. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -597,10 +1102,22 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-actuarial-science',
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-actuarial-science'
+      ],
+      notes:
+        "Content 4.5: programme 6729. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 39, unchanged. Subjects: 6 in Maths AA or AI at HL, unchanged. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -616,12 +1133,45 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-innovation-and-technology',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 4, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 4, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 },
+            { course: 'MATH-AA', level: 'SL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 4 },
+            { course: 'CHEM', level: 'HL', grade: 4 },
+            { course: 'CS', level: 'HL', grade: 4 },
+            { course: 'DES-TECH', level: 'HL', grade: 4 },
+            { course: 'PHYS', level: 'HL', grade: 4 },
+            { course: 'BIO', level: 'SL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 5 },
+            { course: 'CS', level: 'SL', grade: 5 },
+            { course: 'DES-TECH', level: 'SL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 5 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-innovation-and-technology'
+      ],
+      notes:
+        "Content 4.5: programme 6602. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34, unchanged. Subjects: 4 in Maths AA or AI at HL, or 5 in Maths AA at SL; and 4 in Biology, Chemistry, Computer Science, Design Technology or Physics at HL, or 5 at SL. Both critical (the science group was not, and had no Design Technology or SL). Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -637,17 +1187,37 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-marketing-analytics-and-technology',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 5, critical: true },
         {
-          courses: ['BIO', 'BUS-MGMT', 'CHEM', 'CS', 'ECON', 'PHYS'],
-          level: 'SL',
-          grade: 1,
-          critical: false
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 5 },
+            { course: 'MATH-AA', level: 'SL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 5 },
+            { course: 'MATH-AI', level: 'SL', grade: 6 }
+          ],
+          critical: true
         },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          courses: ['PHYS', 'CHEM', 'BIO', 'CS', 'BUS-MGMT', 'ECON'],
+          level: 'SL',
+          grade: 4,
+          critical: true
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-marketing-analytics-and-technology'
+      ],
+      notes:
+        "Content 4.5: programme 6846. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 36, unchanged. Subjects: 5 in Maths AA at HL or 6 at SL, or 5 in Maths AI at HL or 6 at SL; and \"one of the following subjects: Physics, Chemistry, Biology, Computer Science, Business Management, Economics (HL/SL)\", no grade named, so 4 and critical (stored at 1, not critical). Priority to first-choice candidates. English: the IB subject requirements themselves ask for 5 in English A (HL/SL) or 6 in English B (HL/SL), so the group is critical."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -678,7 +1248,7 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-psychology'
       ],
       notes:
-        "Content 3.4: HKU lists it as the Bachelor of Psychology (6705, BPsych, 4 years), not a BSc; the stored bachelor-of-psychology-0 page is gone. HKU\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 38 (was 35); no specific subject requirements. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date)."
+        "Content 3.4: HKU lists it as the Bachelor of Psychology (6705, BPsych, 4 years), not a BSc; the stored bachelor-of-psychology-0 page is gone. HKU\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 38 (was 35); no specific subject requirements. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date). Content 4.5: re-read on 30 September 2026 in HKU's 2027-intake IB data: lower boundary, subjects and English unchanged."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -690,12 +1260,26 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Science',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 34,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-surveying',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-science-surveying'
+      ],
+      notes:
+        "Content 4.5: programme 6016. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 34 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. Interview. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -707,12 +1291,26 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Social Sciences',
       duration: '4 years',
-      minIBPoints: 32,
+      minIBPoints: 35,
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-social-sciences',
-      requirements: [{ courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-social-sciences'
+      ],
+      notes:
+        "Content 4.5: programme 6717. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 35 (was 32). Subject requirements: \"No specific subject requirements\": checked, none required beyond English. English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "BSocSc & LLB (Double Degree)".
     {
@@ -743,7 +1341,7 @@ const refresh: RefreshFile = {
         'https://admissions.hku.hk/programmes/undergraduate-programmes/bachelor-of-social-sciences-government-and-laws-and-bachelor-of'
       ],
       notes:
-        "Content 3.4: the page moved to a new slug; same programme (6810, BSocSc(Govt&Laws)&LLB, 5 years). HKU\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 41 (was 40), with at least 6 in each examined subject, which the model cannot hold. English assessment for non-local candidates, a personal statement of up to 1,000 words and an interview. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date)."
+        "Content 3.4: the page moved to a new slug; same programme (6810, BSocSc(Govt&Laws)&LLB, 5 years). HKU\\'s international qualifications page is for the 2027 intake (applications open 23 September 2026, interviews from December 2026); its data gives the expected lower boundary for admissions. Lower boundary 41 (was 40), with at least 6 in each examined subject, which the model cannot hold. English assessment for non-local candidates, a personal statement of up to 1,000 words and an interview. English: 5 in English A (HL/SL) or 6 in English B, or another listed English qualification, so the group is not critical (the stored English SL4 was out of date). Content 4.5: re-read on 30 September 2026 in HKU's 2027-intake IB data: lower boundary, subjects and English unchanged."
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -759,12 +1357,46 @@ const refresh: RefreshFile = {
       programUrl:
         'https://admissions.hku.hk/programmes/undergraduate-programmes/computing-and-data-science',
       requirements: [
-        { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'CHEM', 'CS', 'PHYS'], level: 'HL', grade: 5, critical: false },
-        { courses: ['ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'HL', grade: 6 },
+            { course: 'MATH-AI', level: 'HL', grade: 6 },
+            { course: 'MATH-AA', level: 'SL', grade: 7 },
+            { course: 'MATH-AI', level: 'SL', grade: 7 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'ECON', level: 'HL', grade: 5 },
+            { course: 'CS', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'SL', grade: 6 },
+            { course: 'ECON', level: 'SL', grade: 6 },
+            { course: 'CS', level: 'SL', grade: 6 }
+          ],
+          critical: true
+        },
+        {
+          anyOf: [
+            { course: 'ENG-LIT', level: 'SL', grade: 5 },
+            { course: 'ENG-LL', level: 'SL', grade: 5 },
+            { course: 'ENG-B', level: 'SL', grade: 6 }
+          ],
+          critical: false
+        }
       ],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://admissions.hku.hk/apply/international-qualifications',
+        'https://admissions.hku.hk/programmes/undergraduate-programmes/computing-and-data-science'
+      ],
+      notes:
+        "Content 4.5: programme 6999. HKU's international qualifications page runs the 2027 intake (applications from 23 September 2026, first-round deadline 25 November 2026, interviews from mid-December 2026 to February 2027, applications close 25 August 2027); its IB data (the page's /api/international_qualification/qualification feed) gives each programme's lower boundary for admissions, subject requirements and English requirement, so checked for 2027. Lower boundary 38, unchanged. Subjects: 6 in Maths AA or AI at HL, or 7 at SL; and 5 in Biology, Chemistry, Physics, Economics or Computer Science at HL, or 6 at SL. Both critical (the science group was not, had no Economics and took no SL). English: 5 in English A (HL/SL) or 6 in English B (HL/SL), or another listed English qualification, so the group is not critical (as 3.4 stored it)."
     }
   ]
 }
