@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'The University of Sydney',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-09-30',
   programs: [
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -29,12 +29,27 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Advanced Computing',
       duration: '4 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -47,10 +62,25 @@ const refresh: RefreshFile = {
       duration: '5 years',
       minIBPoints: 38,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-commerce.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-commerce0.html',
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-commerce0.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-advanced-computing-and-bachelor-of-commerce0.html. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -65,9 +95,24 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-science.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-advanced-computing-and-bachelor-of-science.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, plus what the second degree assumes.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -83,8 +128,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-agricultural-science.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-agricultural-science.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 26 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard and English Standard.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -96,12 +146,17 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Animal and Veterinary Bioscience',
       duration: '3 years',
-      minIBPoints: 28,
+      minIBPoints: 29,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-animal-and-veterinary-bioscience.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-animal-and-veterinary-bioscience.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students (stored 28). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard, Chemistry and Biology.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -115,10 +170,15 @@ const refresh: RefreshFile = {
       duration: '3 years',
       minIBPoints: 29,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-applied-science-exercise-and-sport-science.html',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-applied-science-exercise-and-sport-science0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-applied-science-exercise-and-sport-science0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-applied-science-exercise-and-sport-science0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced and Chemistry.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -133,8 +193,13 @@ const refresh: RefreshFile = {
       minIBPoints: 26,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-arts.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-arts.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 26 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): depends on the subjects chosen.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor + Doctor of Medicine".
     {
@@ -150,8 +215,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-arts-and-doctor-of-medicine.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-arts-and-doctor-of-medicine.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 45 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced, plus what the chosen subjects assume. Admission also needs "satisfactory performance in Assessment Day" (an online group interview and written assessment, January 2027 for the 2027 intake), to which applicants who meet the score are invited; the Double Degree Medicine Program is for school leavers only.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -163,12 +233,17 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Biomedicine and Health',
       duration: '3 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-biomedicine-and-health.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-biomedicine-and-health.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). Checked, none required: the course lists no prerequisites for 2027. Recommended: Mathematics Advanced, Biology and Chemistry.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -181,15 +256,20 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Commerce',
       duration: '3 years',
       minIBPoints: 38,
-      programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce.html',
+      programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-commerce0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
       id: 'cmkgwpv5a000f7mdddhvfxu00',
-      status: 'current',
+      status: 'discontinued',
       name: 'Bachelor of Commerce and Bachelor of Advanced Studies',
       description:
         'Study at the top 1% of business schools in the world. Explore business alongside other disciplines.',
@@ -201,7 +281,13 @@ const refresh: RefreshFile = {
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-advanced-studies.html',
       requirements: [],
       checkedFor: null,
-      sources: []
+      sources: [
+        'https://www.sydney.edu.au/students/information-for-bachelor-of-advanced-studies-current-students.html',
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-advanced-studies.html'
+      ],
+      notes:
+        'Content 4.7: Sydney "has made the decision to discontinue the combined Bachelor of Advanced Studies degrees, effective 1 January 2027 ... The final new commencing intake is Semester 2, 2026", endorsed by the Senate on 7 August 2026. It is in neither 2027 admission guide (international or domestic). Current students finish as planned. Not written; the owner decides. Nearest stored programs: Bachelor of Commerce (38) and its doubles with Arts and Science.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -215,10 +301,15 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 38,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-arts.html',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-arts0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-arts0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-commerce-and-bachelor-of-arts0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard for Commerce, plus what the Arts subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -232,10 +323,15 @@ const refresh: RefreshFile = {
       duration: '5 years',
       minIBPoints: 38,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-laws.html',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-laws0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-laws0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-commerce-and-bachelor-of-laws0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -249,10 +345,15 @@ const refresh: RefreshFile = {
       duration: '4 years',
       minIBPoints: 38,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-science.html',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-science0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-commerce-and-bachelor-of-science0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-commerce-and-bachelor-of-science0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Standard for Commerce, plus what the Science subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -267,8 +368,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-design-interaction-design.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-design-interaction-design.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 26 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Design in Architecture".
     {
@@ -279,12 +385,17 @@ const refresh: RefreshFile = {
       field: 'Architecture',
       degree: 'Bachelor of Design',
       duration: '3 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-design-in-architecture.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-design-in-architecture.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced and English Advanced.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -298,8 +409,13 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -315,8 +431,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics-and-bachelor-of-arts.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics-and-bachelor-of-arts.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced for Economics, plus what the Arts subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor".
     {
@@ -332,8 +453,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics-and-bachelor-of-laws.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-economics-and-bachelor-of-laws.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 38 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced and English Advanced.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -348,9 +474,24 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering2.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering2.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Biology and Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Combined Bachelor (Honours)".
     {
@@ -365,9 +506,24 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering-and-bachelor-of-science-health.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-biomedical-engineering-and-bachelor-of-science-health.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1, and Biology, Chemistry or Physics depending on the stream. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -381,9 +537,24 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-electrical-engineering2.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-electrical-engineering2.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1 and Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -398,9 +569,24 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-mechanical-engineering2.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-mechanical-engineering2.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor of Engineering Honours".
     {
@@ -446,9 +632,24 @@ const refresh: RefreshFile = {
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-software-engineering1.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-engineering-honours-software-engineering1.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1. Recommended: Physics.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -464,8 +665,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-international-studies.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-international-studies.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): depends on the subjects chosen.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -477,12 +683,27 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Mathematical Sciences',
       duration: '3 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-mathematical-sciences.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-mathematical-sciences.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Extension 1.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -494,12 +715,17 @@ const refresh: RefreshFile = {
       field: 'Arts & Humanities',
       degree: 'Bachelor of Media and Communications',
       duration: '3 years',
-      minIBPoints: 33,
+      minIBPoints: 34,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-media-and-communications.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-media-and-communications.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 33). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): depends on the subjects chosen.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -511,12 +737,17 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Nursing',
       duration: '3 years',
-      minIBPoints: 28,
+      minIBPoints: 29,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-nursing-advanced-studies0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-nursing-advanced-studies0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students (stored 28). Checked, none required: the course lists no prerequisites for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -528,11 +759,16 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Oral Health',
       duration: '3 years',
-      minIBPoints: 31,
+      minIBPoints: 34,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-oral-health.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-oral-health.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 34 for international students (stored 31). Checked, none required: the course lists no prerequisites for 2027. Recommended: Biology and Chemistry. The course data gives 32 for 2026 entry and 34 for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor (Honours) + Master".
     {
@@ -543,13 +779,28 @@ const refresh: RefreshFile = {
         '=19th globally for Pharmacy and Pharmacology. Combined degree with management focus.',
       field: 'Medicine & Health',
       degree: "Integrated Bachelor's and Master's",
-      duration: '5 years',
+      duration: '6 years',
       minIBPoints: 31,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-pharmacy-and-management-honours-and-master-of-pharmacy-practice.html',
-      requirements: [{ courses: ['MATH-AA'], level: 'HL', grade: 5, critical: true }],
-      checkedFor: null,
-      sources: []
+      requirements: [
+        {
+          anyOf: [
+            { course: 'MATH-AA', level: 'SL', grade: 5 },
+            { course: 'MATH-AA', level: 'HL', grade: 4 },
+            { course: 'MATH-AI', level: 'HL', grade: 4 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-pharmacy-and-management-honours-and-master-of-pharmacy-practice.html',
+        'https://www.sydney.edu.au/study/applying/how-to-apply/undergraduate/mathematics-prerequisite.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. 2027 prerequisite: Mathematics Advanced (Band 4), whose IB equivalent is Maths AA SL5 or HL4, or Maths AI HL4, replacing the stored AA HL5. The guide and the prerequisite page say it applies to the IB taken in Australia; stored as content 3.4 stored Mechatronic Engineering. HSC assumed knowledge (not a requirement): Mathematics Advanced, Biology and Chemistry. Recommended: Physics. The guide and the course page give 6 years full-time, not 5.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -561,12 +812,17 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Politics, Philosophy, and Economics',
       duration: '3 years',
-      minIBPoints: 31,
+      minIBPoints: 32,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-politics-philosophy-and-economics.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-politics-philosophy-and-economics.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 32 for international students (stored 31). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): depends on the subjects chosen.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -578,12 +834,17 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Project Management',
       duration: '3 years',
-      minIBPoints: 28,
+      minIBPoints: 29,
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-project-management0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-project-management0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students (stored 28). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): depends on the subjects chosen.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -597,8 +858,13 @@ const refresh: RefreshFile = {
       minIBPoints: 29,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-psychology.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-psychology.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced, plus what the chosen subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -613,8 +879,13 @@ const refresh: RefreshFile = {
       minIBPoints: 29,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced, plus what the chosen subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -626,11 +897,16 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '3 years',
-      minIBPoints: 28,
+      minIBPoints: 29,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-health.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-health.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 29 for international students (stored 28). Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced and Biology, plus what the chosen subjects assume.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -646,8 +922,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-medical-science.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-medical-science.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 31 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced (depending on the major), Biology and Chemistry.'
     },
     // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Bachelor of Science and Doctor of Dental Medicine: in neither 2027 admission guide; page redirects to the plain BSc.
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor + Doctor of Medicine".
@@ -664,8 +945,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-and-doctor-of-medicine.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-science-and-doctor-of-medicine.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 45 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced (depending on the major), Biology and Chemistry. Admission also needs "satisfactory performance in Assessment Day" (an online group interview and written assessment, January 2027 for the 2027 intake), to which applicants who meet the score are invited; the Double Degree Medicine Program is for school leavers only.'
     },
     // Stored: checked for 2026 entry on 2026-01-16.
     {
@@ -680,8 +966,13 @@ const refresh: RefreshFile = {
       minIBPoints: 26,
       programUrl: 'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-social-work0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-social-work0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 26 for international students, as stored. Checked, none required: the course lists no prerequisites for 2027.'
     },
     // Stored: checked for 2026 entry on 2026-01-16. Degree stored as "Bachelor + Doctor of Veterinary Medicine".
     {
@@ -695,10 +986,15 @@ const refresh: RefreshFile = {
       duration: '6 years',
       minIBPoints: 37,
       programUrl:
-        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-veterinary-biology-and-doctor-of-veterinary-medicine.html',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-veterinary-biology-and-doctor-of-veterinary-medicine0.html',
       requirements: [],
-      checkedFor: null,
-      sources: []
+      checkedFor: 2027,
+      sources: [
+        'https://www.sydney.edu.au/dam/corporate/documents/study/how-to-apply/international-admission-guide.pdf',
+        'https://www.sydney.edu.au/courses/courses/uc/bachelor-of-veterinary-biology-and-doctor-of-veterinary-medicine0.html'
+      ],
+      notes:
+        'Sydney\'s International Admission Guide ("a guide for admission to our undergraduate courses in 2027"; entry "is based on the total score for the completed IB Diploma") and the course data for 2027 give an IB Diploma score of 37 for international students, as stored. The stored page now describes 2026 entry (or redirects); the 2027 page is ...bachelor-of-veterinary-biology-and-doctor-of-veterinary-medicine0.html. Checked, none required: the course lists no prerequisites for 2027. HSC assumed knowledge (not a requirement): Mathematics Advanced, Biology and Chemistry. Recommended: Physics. All applicants must also sit the Casper situational judgement test (Acuity Insights) for the 2026-2027 admissions cycle.'
     }
   ]
 }
