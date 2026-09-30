@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, and four discontinued Western programs left for the owner; 4.6's owner decisions are applied |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs and HKUST's Business extended majors left for the owner; 4.6's owner decisions are applied |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -82,7 +82,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.2 UK II — Manchester, Edinburgh — Immunology and Molecular Biology discontinued, for the owner
 - [x] 4.3 Canada I — Alberta, UBC, Toronto — five Alberta programs that admit no school leavers, for the owner
 - [x] 4.4 Canada II — McGill, Waterloo, Western — four discontinued Western programs for the owner
-- [ ] 4.5 Hong Kong and Singapore
+- [x] 4.5 Hong Kong and Singapore — HKUST's Business extended majors for the owner
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
 - [ ] 4.7 Australia, Switzerland, Spain
 - [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
@@ -129,8 +129,10 @@ Owner tasks — not AI work
   at 32, the lower of their two ranges: split into Materials (33) and Mining (32), or keep
 - [ ] Waterloo's IB pages name no intake, so its 45 programs are stamped 2026 (4.4). Re-check when Waterloo
   dates them, or confirm that its undated requirement pages count as 2027
-- [ ] Open HKUST's Business with Extended Major page in a browser (3.4): confirm the rename and
-  whether it is still a direct-entry choice
+- [ ] Keep or delete HKUST's Business with Extended Major (3.4, 4.5): the rename is confirmed (AI / Creative Arts and
+  Digital Humanities / Sustainability), but students choose it in Year 2, not at admission. Left unwritten
+- [ ] Re-check NTU and NUS once their 2027 lists appear (4.5): NTU's IB subject PDF is still the 2026 window's (the 2027
+  window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
   Engineering BEng, Information Management for Business, Neuroscience, Politics and International
   Relations, Urban Studies, Law. Say whether Civil Engineering BEng and Scandinavian Studies are still
@@ -323,6 +325,17 @@ not precision.
   admission-requirements/specific-diploma-requirements`, undated. Trinity's course pages describe 2026 entry; the
   `Trinity_Undergraduate_Prospectus_2027.pdf` (41 MB) has "Course Requirements 2027" with an IB column. The Internet
   Archive's `id_` bodies can be gzip.
+- **Found in 4.5:** HKU's international qualifications page loads everything from
+  `admissions.hku.hk/api/international_qualification/qualification?name=<any>` (JSON, "IB Diploma" → every programme's code,
+  lower boundary, subject and English rules, and page link); it answers curl. `join.hkust.edu.hk` answers curl again. Its
+  requirement blocks are Drupal views: the page takes `?general_requirement=46205` (the IB), and the English block comes from
+  `/views/ajax?view_name=admission_requirements&view_display_id=block_3&language_requirement=46246`. HKUST's IB figures are in
+  `join.hkust.edu.hk/docs/adm_figures/GCE_IB_3Yr_admission_standard.pdf`; how "senior level" reads for the IB is in the School of
+  Engineering's non-JUPAS FAQ and on `bmundergrad.hkust.edu.hk`'s international qualifications page. NTU's pages answer curl; its
+  IB subjects are `.../msr/emsr_ib.pdf`. NUS's own and faculty sites (`bba.`, `cde.`, `medicine.`, `dentistry.nus.edu.sg`) are
+  all Incapsula, which the link checker spots; `www.comp.nus.edu.sg` and `law1a.nus.edu.sg` serve content. NUS's IB PDFs are
+  `/oam/docs/.../ibdp-sp.pdf` (single degrees), `.../a_ib_nushs-mdp.pdf` (double degrees and majors) and
+  `.../faqs-for-international-baccalaureate.pdf`. `askadmissions.nus.edu.sg` did not resolve.
 
 ---
 
@@ -1780,6 +1793,75 @@ only), none created, four Western programs reported as discontinued. Backup:
   - Link checker, three universities: 100 URLs OK; 0 broken, redirected, unverifiable or year-pinned.
   - Public pages: Waterloo Computer Science shows 32 points and "Checked for 2026 entry"; Western Nursing
     shows 27 and 3.5 years, "checked for 2027 entry"; McGill Kinesiology shows its new name and 30.
+
+### 4.5 — Hong Kong and Singapore
+
+#### Status, 30 September 2026 — done (session 16); HKUST's Business extended majors for the owner
+
+Data files: `scripts/programs/2027/national-university-of-singapore.ts` (new) and `the-university-of-hong-kong.ts`,
+`hong-kong-university-of-science-and-technology.ts` and `nanyang-technological-university.ts` (continued from 3.4). Every
+change is explained in the program's `notes`. **Owner-approved and applied on 30 September 2026:** 143 programs written (HKU
+37, HKUST 46, NTU 40, NUS 20; 7 of them stamp only), none created, none discontinued, one HKUST program left unwritten.
+Backup: `scripts/backups/refresh/2026-09-30T06-14-49-544Z.json`.
+
+- **Sources and entry years.**
+  - HKU: the international qualifications page runs the 2027 intake (applications from 23 September 2026, interviews from
+    mid-December 2026); its IB data gives every programme's lower boundary for admissions, subject rules and English rule.
+    37 stamped 2027.
+  - HKUST: `join.hkust.edu.hk` answers again. Its international qualifications page runs the 2027 intake (applications from
+    2 October 2026 to 30 June 2027) and lists each application choice's subjects; the Business School's page gives 2027
+    boundary scores. 46 stamped 2027.
+  - NTU: the IB admission page is for 2027-28, but the "minimum subject requirements" PDF it links to is still the one for the
+    window that closed on 19 March 2026 ("correct as at February 2026"); programme pages name no year. 40 stamped 2026.
+  - NUS: the IB prerequisites are "accurate as of December 2025" and the IB FAQ is "for AY2026-2027 Admissions". 20 stamped
+    2026.
+- **Points changed (22), all up.**
+  - HKU (18), to its 2027 lower boundaries: 11 programmes with no subject rule 32 → 34 (Social Sciences 32 → 35); BBA,
+    BBA Accounting and Finance and Economics 36 → 38; Biomedical Engineering 34 → 36; Finance (AMPB) 39 → 40; BEd&BSc 33 → 34.
+    The other 16 already matched.
+  - HKUST (4): Information Systems, Management, Marketing and Operations Management 34 → 36. The Business School says every
+    program-based choice starts from IBDP 36 (to 42); 34 is the school-based boundary.
+  - **No IB minimum published (as for NTU in 3.4 and Trinity in 4.6):** HKUST publishes only university-wide ranges (25th-75th
+    percentile 35-41 for 2026 entry); NTU and NUS say their IB samples are too small for a grade profile. The stored points
+    (HKUST 34-39, NTU 33-40, NUS 30-44) are kept, marked unverified in each note.
+- **Subjects.**
+  - HKU: the published HL-or-SL rules, as mixed OR groups ("5 in Maths AA or AI at HL, or 6 in Maths AA at SL"); science
+    groups are now critical and take SL. English is 5 in English A or 6 in English B, not critical, except where the
+    programme's own subject rules name it (BBA, Economics, the engineering elite programmes and others), where it is critical.
+    Law's "6 in each examined subject" is in the notes.
+  - HKUST: "Mathematics" is stored as Maths AA SL or Maths AI HL (the Engineering FAQ and the Business School agree), and
+    sciences at SL, both at 4 (no grade named). The Business School's "senior level Mathematics" is HL Maths (Economics and
+    Finance, Quantitative Finance, RMBI). English: A at 4, Literature and Performance at 4, B at HL 4 or SL 5, not critical.
+    Two faculty pages give looser rules (the School of Science's database, labelled 2026; MAEC's own page); the university
+    page, which carries the 2027 dates, is followed.
+  - NTU: the PDF's subjects, at 4, since NTU names no grade for "at Higher Level" or "a good grade" (the stored 5s and 6s had no
+    source). **Aerospace now takes Computer Science** as its HL science, and its stored grade 6 had no source; the other
+    engineering programmes gained Computer Science or Biology the same way. Unsourced Mandarin and English rows are removed.
+  - NUS: the prerequisite list, at 4 for "pass", "good pass" and "very good pass" alike (NUS gives no number). Engineering is
+    Maths AA HL only; the Common Computer Science Programmes take one of Computer Science, Physics or Maths AA at HL or a
+    good pass in Maths AA SL or AI HL; Law's English 5 is not critical because an SAT route accepts 4.
+- **Not written, for the owner: HKUST Business with Extended Major** in AI, *Creative Arts and Digital Humanities* or
+  Sustainability. The rename is confirmed, but it is not a direct-entry choice: students apply "at the end of the third
+  semester", and no 2027 application choice lists it. Keep (renamed) or delete.
+- **Names, degrees, durations.** HKU Computer / Electrical / *Electronic* Engineering. NTU Communication Studies with Second
+  Major in Governance *and International Relations*; the Computer Science and Data Science and AI degrees are Bachelor of
+  Computing; Accountancy with Entrepreneurship is 3.5 years, Business 4 (not 3), Chinese Medicine 4 (not 5). NUS: the stored
+  "BBA with Minor in Business Analytics & AI Systems" matched no NUS programme and linked the **Bachelor of Computing in
+  Business Artificial Intelligence Systems**, which it now is (owner-approved, description rewritten); Business Analytics is a
+  Bachelor of Science; Environmental Engineering is Environmental and Sustainability Engineering.
+- **Coverage (for phase 5):** HKU's 2027 IB data lists 58 programmes; 37 are stored. Not stored include Medicine, Dentistry,
+  Pharmacy, Chinese Medicine, Quantitative Finance, the BSc, Mechanical and Robotics Engineering, and Social Work.
+- **Model limits**, recorded in the notes: "two of" (NUS Nursing), "6 in each examined subject" and "19 points in 3 HL
+  subjects" (HKU Law), grades named only as "good" or "very good", preferred subjects, portfolios, interviews and the UCAT.
+- **Verify.**
+  - `requirementsEntryYear`: HKU 37 × 2027; HKUST 46 × 2027 and 1 × 2026 (the unwritten extended major); NTU 40 × 2026; NUS
+    20 × 2026. All 143 written are flagged verified.
+  - `count(*)`: 1,274 before and after. Algolia: 1,274 records, no orphans.
+  - A second dry run finds all 143 up to date.
+  - Link checker, four universities: 129 URLs OK; 13 NUS pages unverifiable (Incapsula); HKUST GBM "no response" (its
+    certificate chain, as in 3.4) and one redirect, the unwritten extended major; 0 broken or year-pinned.
+  - Public pages: HKU Social Sciences shows 35 points and "checked for 2027 entry"; NUS Bachelor of Computing in Business
+    Artificial Intelligence Systems shows its new name, 40 and "Checked for 2026 entry"; HKUST BBA in Marketing shows 36.
 
 ### 4.6 — Netherlands and Ireland
 
