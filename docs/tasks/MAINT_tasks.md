@@ -32,7 +32,7 @@ pull request, merged before the next starts.
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
-| any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade for one option of 148 subject groups |
+| any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -373,24 +373,38 @@ or at SL 6") shows each option with its own level and grade on the student's pro
 "Mathematics: Analysis and Approaches or Mathematics: Applications and Interpretation or
 Mathematics: Analysis and Approaches or Mathematics: Applications and Interpretation — HL •
 Required: 5", which hides the SL 6 route and repeats the names. On 29 September 2026, 148
-groups in 112 programs mix levels or grades (the refresh tool writes them as `anyOf`;
+groups in 112 programs mixed levels or grades (the refresh tool writes them as `anyOf`;
 3.3 found 73 before phase 4). The data and matching are right, and the admin page
 (`app/admin/programs/[id]/page.tsx`) already lists each option with its own level and grade.
 
+**Growing with phase 4.** After content 4.5 (30 September 2026), **436 groups in 332 programs**
+mix levels or grades, and **183 of them name the same course twice** at different levels or
+grades. With no levels shown, those read as a repeated name: HKUST BBA in Marketing shows
+"English B or English B" for "English B at HL 4 or SL 5". Each remaining phase 4 session adds
+more, so the count will keep rising until this is fixed.
+
 **Files:** `components/student/ProgramCard.tsx`, the `else` branch that renders
-`group.requirements`. Check whether any other student-facing view renders requirement
-groups the same way.
+`group.requirements` (the card is used on the program page, search, saved programs and
+matches). `app/programs/[id]/page.tsx` also keeps only the *first* option of each group when
+it builds the meta description ("HL English A: Literature 5, ...") and the JSON-LD `Course`
+list, so a mixed group is misstated there too: list the options, or leave the group out.
+Check whether any other student-facing view renders requirement groups the same way.
 
 **Steps:**
 1. When a group's options share one level and grade, keep today's compact line.
 2. Otherwise, list each option with its level and grade, or collapse options that share
    one ("Mathematics AA or AI — HL 5 · or SL 6").
-3. Cover the grouping with a Vitest test on a pure helper, not the component.
+3. Name a course once when the group lists it at several levels or grades ("English B —
+   HL 4 or SL 5").
+4. Fix the meta description and JSON-LD in `app/programs/[id]/page.tsx` the same way, sharing
+   the helper.
+5. Cover the grouping with a Vitest test on a pure helper, not the component.
 
 **Verify:** Edinburgh Psychology BSc (`/programs/cmkcynsdg00197moeu7aoktel`) shows the HL 5
-and SL 6 routes for Mathematics; a single-level group, such as the science group on
-Manchester BSc Psychology (`/programs/cmkf6zfvq007d7msfu768e1dk`), is unchanged.
-No database access.
+and SL 6 routes for Mathematics; HKUST BBA in Marketing (`/programs/cmkv8bnwd004b7mpof3j9s1q2`)
+shows English B once, "HL 4 or SL 5", not "English B or English B"; a single-level group, such
+as the science group on Manchester BSc Psychology (`/programs/cmkf6zfvq007d7msfu768e1dk`), is
+unchanged. No database access.
 
 **Session size:** Small.
 
