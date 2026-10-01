@@ -172,7 +172,13 @@ const nextConfig: NextConfig = {
         hostname: '*.supabase.co',
         pathname: '/storage/**'
       }
-    ]
+    ],
+    // 31 days, not the default 4 hours. An optimized image expires after this
+    // or the source's Cache-Control, whichever is longer, and then the optimizer
+    // re-fetches the original from Supabase Storage - billed egress, one fetch
+    // per width requested. University images get a new URL whenever they are
+    // replaced (lib/supabase/storage.ts), so a long TTL never serves a stale one.
+    minimumCacheTTL: 2678400
   }
 }
 
