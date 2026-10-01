@@ -293,8 +293,17 @@ export async function invalidateProgramsCache(): Promise<void> {
 /**
  * Warm the programs cache
  *
- * Pre-loads programs into cache. Can be called on app startup
- * or after cache invalidation to avoid cold start.
+ * Unconditionally re-reads every program from Postgres and rewrites the cache,
+ * so it is for one-off use after a manual invalidation - see
+ * scripts/invalidate-program-cache.ts.
+ *
+ * Never call this on server start. instrumentation.ts used to, and on Vercel
+ * every cold start is a server start: from December 2025 to October 2026 it ran
+ * the full catalogue read about 600 times a day, which is ~1.2MB of billed
+ * Supabase egress each time and was what kept the project over its free-tier
+ * quota. The cache lives in Redis and is shared by every instance, so warming
+ * it per instance never saved anyone a cold read - getCachedPrograms already
+ * fills it on the first miss.
  */
 export async function warmProgramsCache(): Promise<void> {
   try {

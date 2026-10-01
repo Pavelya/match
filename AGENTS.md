@@ -35,11 +35,14 @@ development database, so every Prisma command run here hits production.
 
 ## Cost — Supabase is on a 5 GB free tier
 
-It has been exceeded once, by application code rather than traffic. Storage was
-restricted and every university image broke for days.
+It was exceeded every month from December 2025, by application code rather than
+traffic. Storage was restricted and every university image broke.
 
+- **Never read the whole catalogue per server start or per request.** `instrumentation.ts`
+  re-read every program on each Vercel cold start, ~600 times a day; that was the
+  recurring overage. The programs cache fills itself on a miss.
 - **Prefer `select` over `include`.** `include` returns every column of every joined
-  row. Both egress incidents came from `include`.
+  row, which multiplied the cost of each of those reads.
 - **Inspect production with aggregates** — `count()`, `sum(length(col))`, `max()`.
   Never `SELECT` a whole table just to see what is in it.
 - **Never store binary data in a column.** Images belong in Supabase Storage as URLs.

@@ -134,22 +134,31 @@ development database. Every Prisma command run from this directory hits producti
 
 ### Hard rules — cost
 
-Supabase is on the **free tier: 5 GB egress per month**. It has already been exceeded
-once, which restricted Storage and broke every university image for several days. The
-cause was application code, not traffic: a broken cache re-reading 37 MB per request.
+Supabase is on the **free tier: 5 GB egress per month**. It was exceeded every month
+from December 2025, which restricted Storage and broke every university image. The
+cause was application code, not traffic. `instrumentation.ts` called
+`warmProgramsCache()` on every server start, and on Vercel every cold start is a server
+start, so the full catalogue was re-read from Postgres about 600 times a day. Until
+August that read used `include` and moved about 3 MB; after it, about 1.2 MB. Found
+1 October 2026 from `pg_stat_statements`, and the hook removed.
 
-1. **Never `SELECT` whole tables from production to inspect them.** Use aggregates —
+1. **Nothing may read the whole catalogue per server start or per request.** The
+   programs cache lives in Redis and fills itself on a miss. To attribute egress, rank
+   `pg_stat_statements` by `rows` (read-only, via `DIRECT_URL`): a full-table query —
+   `WHERE $2=$3 OFFSET $1` — with a high call count is the signature.
+2. **Never `SELECT` whole tables from production to inspect them.** Use aggregates —
    `count()`, `sum(length(col))`, `max()`. A single careless `findMany` with `include`
    can move tens of megabytes.
-2. **Prefer `select` over `include`** in every new query. `include` returns every
-   column of every joined row. Both known egress incidents came from `include`.
-3. **`npm run build` queries the production database** — `app/ib-university-requirements/page.tsx`
+3. **Prefer `select` over `include`** in every new query. `include` returns every
+   column of every joined row, which roughly tripled the size of each of those reads.
+4. **`npm run build` queries the production database** — `app/ib-university-requirements/page.tsx`
    is prerendered and calls Prisma. Builds are cheap but not free; don't loop them.
    CI builds against its own throwaway Postgres and costs nothing.
-4. **Never store binary data in a database column.** Images belong in Supabase
-   Storage as URLs. One 537 KB base64 image joined across 68 programs is what caused
-   the outage.
-5. Keep AI sessions scoped. Each task below names the files to read so a session does
+5. **Never store binary data in a database column.** Images belong in Supabase
+   Storage as URLs. One 537 KB base64 image joined across 68 programs pushed
+   the cache payload to 38 MB, past Upstash's 10 MB limit, so the cache never saved and
+   every request read the database as well.
+6. Keep AI sessions scoped. Each task below names the files to read so a session does
    not have to explore the whole repo to start work.
 
 ### Verification commands
@@ -921,6 +930,7 @@ Not AI work, but they gate real value.
    "Type check, lint, format", "Tests", "Production build" and the Vercel check. Two
    minutes, and worth more than most remaining code changes.
 2. **Watch Supabase egress** for a week after the quota reset. Expected steady state is
-   well under 1 GB/month. If it climbs, look for a new `include` in a hot path first.
+   well under 1 GB/month. If it climbs, rank `pg_stat_statements` by `rows` first — see
+   [Hard rules — cost](#hard-rules--cost).
 3. ~~**Decide the test framework** for 7.1 before that session starts.~~ Decided in
    session 8: Vitest.
