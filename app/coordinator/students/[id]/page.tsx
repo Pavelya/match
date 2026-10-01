@@ -483,7 +483,6 @@ export default async function StudentDetailPage({ params }: PageProps) {
                             width={40}
                             height={40}
                             className="rounded-lg object-contain"
-                            unoptimized
                           />
                         ) : (
                           <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center">

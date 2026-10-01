@@ -37,10 +37,14 @@ export async function uploadUniversityImage(
     const extension = contentType.split('/')[1] || 'jpg'
     const filename = `${universityId}-${Date.now()}.${extension}`
 
-    // Upload to Supabase Storage
+    // Upload to Supabase Storage. Cached for a year: the filename is unique per
+    // upload, so a replaced image gets a new URL and this one never changes.
+    // The default is one hour, and every re-fetch after that - by a browser or
+    // by Vercel's image optimizer - is billed Supabase egress.
     const { data, error } = await getSupabaseClient()
       .storage.from(STORAGE_BUCKETS.UNIVERSITY_IMAGES)
       .upload(filename, buffer, {
+        cacheControl: '31536000',
         contentType,
         upsert: true
       })

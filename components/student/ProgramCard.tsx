@@ -517,6 +517,7 @@ export function ProgramCard({
                     src={program.university.image}
                     alt={program.university.name}
                     fill
+                    sizes="(min-width: 640px) 176px, 100vw"
                     className="object-cover"
                     priority
                   />
@@ -937,6 +938,7 @@ export function ProgramCard({
                     src={program.university.image}
                     alt={program.university.name}
                     fill
+                    sizes="(min-width: 640px) 192px, 100vw"
                     className="object-cover"
                   />
                 ) : (

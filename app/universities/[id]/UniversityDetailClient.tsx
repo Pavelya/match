@@ -101,9 +101,9 @@ export function UniversityDetailClient({ university }: UniversityDetailClientPro
                 src={university.image}
                 alt={university.name}
                 fill
+                sizes="(min-width: 640px) 288px, 100vw"
                 className="object-cover"
                 priority
-                unoptimized
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
