@@ -9,9 +9,10 @@ import type { UniversityUpdate } from './types'
 const update: UniversityUpdate = {
   university: 'University of Oxford',
   entryYear: 2027,
-  // Most rows come from department pages that name no year. They count as 2026 until the
-  // owner's spot check of two course pages (see the handoff file) confirms them; then 2027.
-  undatedEntryYear: 2026,
+  // Most rows come from department pages that name no year. The spot check of two course
+  // pages (Computer Science and Classics, both 39 for 2027 entry, 2 October 2026) confirmed
+  // them, so they count as 2027.
+  undatedEntryYear: 2027,
   checkedOn: '2026-09-24',
   programs: [
     {
@@ -32,13 +33,13 @@ const update: UniversityUpdate = {
       minIBPoints: 39,
       requirements: [],
       sources: [
+        'https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/asian-and-middle-eastern-studies',
         'https://www.orinst.ox.ac.uk/article/applying-undergraduate',
         'https://www.ox.ac.uk/admissions/undergraduate/courses/admissions-requirements/summary-table-of-admissions-requirements'
       ],
-      sourceYear: null,
+      sourceYear: 2027,
       notes:
-        'The summary table confirms AAA and no required subjects (a language is only relevant). IB points are not on the table. 39 comes from the faculty FAQ, which still gives 2026-entry dates: confirm it on the course page.',
-      hold: 'IB points are not on the summary table; confirm 39 on the course page.'
+        'The course page (2027 entry, read 2 October 2026) gives "39 (including core points) with 666 at HL" and no required subjects; a language is "helpful … not required". The summary table agrees.'
     },
     {
       id: 'cmkr3lmdl002f7mc2i4lnr19o',
@@ -403,12 +404,12 @@ const update: UniversityUpdate = {
       minIBPoints: 38,
       requirements: [],
       sources: [
+        'https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/history-of-art',
         'https://www.ox.ac.uk/admissions/undergraduate/courses/admissions-requirements/summary-table-of-admissions-requirements'
       ],
-      sourceYear: null,
+      sourceYear: 2027,
       notes:
-        'The summary table requires "a subject involving essay writing", which the model cannot express (almost every IB student meets it through Language A), and links the course at `history-of-art`. IB points are not on the table: confirm 38 on the course page.',
-      hold: 'IB points are not on the summary table; confirm 38 on the course page.'
+        'The course page (2027 entry, read 2 October 2026) gives "38 (including core points) with 666 at HL" and requires "an essay-based subject" at HL, which the model cannot express (almost every IB student meets it through Language A).'
     },
     {
       id: 'cmkr3luvc00677mc2ntipetz0',

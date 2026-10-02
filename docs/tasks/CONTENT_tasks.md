@@ -21,7 +21,7 @@ here, and this refresh does more production writes than any work before it.
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
 | 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
-| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. Two Oxford rows wait on the IB line from their course pages |
+| 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. The two held Oxford rows and the 2027 stamp were settled 2 October 2026; the owner's script run applies them |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
 | 7 | Requirements overview page | 2.4 | small | **Done.** 25 September 2026 |
@@ -57,7 +57,7 @@ Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
   blocked on Storage
-- [x] 1.2 Oxford and Cambridge fast lane — two Oxford rows held for the owner's check
+- [x] 1.2 Oxford and Cambridge fast lane — the two held Oxford rows settled 2 October 2026
 - [x] 1.3 Correct the false counts and the "Educaton" typo
 - [x] 1.4 Make page dates truthful
 
@@ -120,8 +120,10 @@ Owner tasks — not AI work
   (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
 - [x] Approve two more awards (4.6): Bachelor of Deaf Studies (Trinity's B.St.Su.) and Bachelor of Dental Technology
   (B.Dent.Tech.) — approved and applied, 29 September 2026
-- [ ] Re-check Erasmus IBA after 1 October 2026 (4.6): RSM says its September 2027 requirements are finalised then, so IBA is
-  stamped 2026. Groningen's IB table gives Global Politics & Sustainability a maths rule its own pages do not; kept as none
+- [x] Re-check Erasmus IBA after 1 October 2026 (4.6): RSM said its September 2027 requirements would be finalised then, so IBA
+  was stamped 2026. Re-checked 2 October 2026: RSM's IB page (last update 30 September 2026) now covers 2027–2028 with the same
+  Diploma, Mathematics, English and 33-point rules, so the data file says 2027; apply with
+  `npx tsx scripts/programs/refresh.ts erasmus-university-rotterdam`. Groningen's IB table gives Global Politics & Sustainability a maths rule its own pages do not; kept as none
 - [ ] Decide about five Alberta programs that admit nobody from high school (4.3): Medical Laboratory
   Science (a year of university first) and Secondary Education – CTS Communication Arts, Design, Media
   and Natural Resources (a trade certificate or diploma first). Left unwritten; keep or delete
@@ -167,9 +169,11 @@ Owner tasks — not AI work
 - [ ] Check bot-blocked sites by hand when the session cannot read them
 - [x] Apply the Oxford and Cambridge changes (1.2) — by script, 25 September 2026
 - [x] Compare the Oxford rows with Oxford's summary table (1.2) — 25 September 2026
-- [ ] Read the IB line on four Oxford course pages: the two held rows, plus Computer Science and
-  Classics as a spot check (1.2; details in the handoff file). A passing spot check moves 41 Oxford
-  programs from 2026 to 2027 (3.1)
+- [x] Read the IB line on four Oxford course pages: the two held rows, plus Computer Science and
+  Classics as a spot check (1.2; details in the handoff file). Done 2 October 2026: `www.ox.ac.uk` now answers WebFetch, all
+  four pages say 2027 entry and match the file (Asian and Middle Eastern Studies 39, History of Art 38, Computer Science 39,
+  Classics 39). The holds are cleared and `undatedEntryYear` is 2027, so the next
+  `apply-2027-requirements.ts --apply` writes the two held rows (stamped 2027 from their course pages) and moves the other 39 undated Oxford programs from 2026 to 2027 (3.1)
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [x] Approve the canonical degree list (3.2) — 26 September 2026
 - [ ] Choose the US model (6) and the German model (7)
