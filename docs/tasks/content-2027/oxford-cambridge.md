@@ -12,7 +12,7 @@ program ID. Task 3.1 reads this file to stamp these programs as checked for 2027
 | | Programs | Change | Unchanged | Owner check |
 |---|---|---|---|---|
 | Cambridge | 30 | 30 | 0 | 0 |
-| Oxford | 46 | 33 | 13 | 2 |
+| Oxford | 46 | 33 | 13 | 0 |
 
 **Cambridge — every row changes.** All 30 course pages say "for entry in 2027" and give the same
 minimum offer: **41–42 points, 776 at HL**. Stored values were the top of that range or above it
@@ -86,26 +86,27 @@ are only on the course pages.
   agree. Fine Art does not: Art is recommended only, so its Visual Arts requirement goes.
 - [x] **URLs.** Earth Sciences and History of Art take the table's links (`earth-sciences-geology`,
   `history-of-art`). Mathematics and Statistics shares the Mathematics row, so its URL is kept.
-- [ ] **IB points.** Not on the table. Its A-level tiers agree with the IB figures here (AAA with
+- [x] **IB points.** Not on the table. Its A-level tiers agree with the IB figures here (AAA with
   38 or 39, A*AA with 39 or 40, A*A*A with 40, or 39 for the Mathematics courses), but only the
-  course pages state IB points. A spot check settles it: open the course pages for Computer
-  Science and Classics and compare their IB line with this file (39 and 39). If both agree, the
-  department figures are current.
+  course pages state IB points. Spot check, 2 October 2026: `www.ox.ac.uk` answered WebFetch, and
+  the Computer Science and Classics course pages, both for 2027 entry, give 39 ("766 at HL (the 7
+  must be in HL Mathematics)") and 39 ("666 at HL, including 6s at HL in Latin and Greek if
+  taken"), as this file does. The department figures are current.
 
-Until that box is ticked, task 3.1 should stamp as 2027 only the Oxford rows whose source says
+Until that box was ticked, task 3.1 stamped as 2027 only the Oxford rows whose source says
 2027 (Fine Art, Materials Science, Philosophy and Theology, Religion and Asian and Middle Eastern
 Studies, Theology and Religion), and stamp the rest as 2026-checked.
 
-**Done that way in 3.1.** The Oxford data file sets `undatedEntryYear: 2026`, the year stamped on
-a row whose source names none. When the box is ticked, change it to 2027 and run
-`apply-2027-requirements.ts`: the dry run lists the undated rows as stamp-only, and `--apply`
+**Done that way in 3.1.** The Oxford data file set `undatedEntryYear: 2026`, the year stamped on
+a row whose source names none. With the box ticked it is 2027 (2 October 2026): run
+`apply-2027-requirements.ts`, whose dry run lists the undated rows as stamp-only, and `--apply`
 moves them to 2027.
 
-Rows still marked **owner check**, both needing only the IB line from their course page:
+**Owner checks settled, 2 October 2026.** Both held rows needed only the IB line from their
+course page, and both course pages say 2027 entry:
 
-- **Asian and Middle Eastern Studies** — confirm 39. It comes from a faculty FAQ that still gives
-  2026-entry dates.
-- **History of Art** — confirm 38. No reachable page states it.
+- **Asian and Middle Eastern Studies** — "39 (including core points) with 666 at HL": 39 confirmed.
+- **History of Art** — "38 (including core points) with 666 at HL": 38 confirmed.
 
 ## Rules used
 
@@ -131,7 +132,7 @@ admissions tests and STEP.
 | Program | Result | 2027 entry | Change from stored | Source | Checked | ID |
 |---|---|---|---|---|---|---|
 | Archaeology and Anthropology | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-archanth] · no year | 2026-09-24 | `cmkr3le5w00037mc2fc7uza3n` |
-| Asian and Middle Eastern Studies | changed · owner check | 39 · `none` | Points 38 → 39 | [AMES faculty][ames] · no year; [summary table][ox-summary] | 2026-09-25 | `cmkr3leho00057mc22nhlra58` |
+| Asian and Middle Eastern Studies | changed | 39 · `none` | Points 38 → 39 | [Course page](https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/asian-and-middle-eastern-studies) · 2027; [AMES faculty][ames]; [summary table][ox-summary] | 2026-10-02 | `cmkr3leho00057mc22nhlra58` |
 | Biochemistry (Molecular and Cellular) | changed | 39 · `CHEM HL7; (BIO or PHYS or MATH-AA or MATH-AI) SL6` | Points 40 → 39; Subjects `CHEM HL7; (MATH-AA or MATH-AI or BIO or PHYS) HL6 (nc)` → `CHEM HL7; (BIO or PHYS or MATH-AA or MATH-AI) SL6` | [Biochemistry][bioch], [St Hugh's][sth-bioch] · no year | 2026-09-24 | `cmkr3lmdl002f7mc2i4lnr19o` |
 | Biology | changed | 39 · `BIO HL6; (CHEM or PHYS or MATH-AA or MATH-AI) HL6` | Points 40 → 39; Subjects `BIO HL7; (CHEM or MATH-AA or MATH-AI or PHYS) HL6 (nc)` → `BIO HL6; (CHEM or PHYS or MATH-AA or MATH-AI) HL6` | [St Hugh's][sth-biology] · no year | 2026-09-24 | `cmkr3ln0f002r7mc2xpkikcba` |
 | Chemistry | unchanged | 40 · `CHEM HL7; (MATH-AA or MATH-AI) HL6` | unchanged | [Chemistry][chem] · no year | 2026-09-24 | `cmkr3lnl300337mc2h7tayqs6` |
@@ -155,7 +156,7 @@ admissions tests and STEP.
 | History and English | changed | 38 · `(ENG-LIT or ENG-LL) HL6` | Subjects `HIST HL6; (ENG-LIT or ENG-LL) HL6` → `(ENG-LIT or ENG-LL) HL6` | [History faculty][history] · no year | 2026-09-24 | `cmkr3li9y00197mc2j08ug4ja` |
 | History and Modern Languages | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history], [Modern Languages faculty][ml-hml] · no year | 2026-09-24 | `cmkr3lirn001h7mc28i03ye2h` |
 | History and Politics | changed | 38 · `none` | Subjects `HIST HL6` → `none` | [History faculty][history] · no year | 2026-09-24 | `cmkr3lj62001l7mc29de2sc2b` |
-| History of Art | changed · owner check | 38 · `none` | URL → `https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/history-of-art` | [summary table][ox-summary] | 2026-09-25 | `cmkr3lk04001x7mc2fbrml90n` |
+| History of Art | changed | 38 · `none` | URL → `https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/history-of-art` | [Course page](https://www.ox.ac.uk/admissions/undergraduate/courses/course-listing/history-of-art) · 2027; [summary table][ox-summary] | 2026-10-02 | `cmkr3lk04001x7mc2fbrml90n` |
 | Human Sciences | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-humsci] · no year | 2026-09-24 | `cmkr3luvc00677mc2ntipetz0` |
 | Law (Jurisprudence) | unchanged | 38 · `none` | unchanged | [St Hugh's][sth-law] · no year | 2026-09-24 | `cmkr3lv6900697mc2sfdierl7` |
 | Materials Science | changed | 40 · `(MATH-AA or MATH-AI) HL6; PHYS HL6` | Subjects `(MATH-AA or MATH-AI) HL7; PHYS HL7; CHEM HL6 (nc)` → `(MATH-AA or MATH-AI) HL6; PHYS HL6` | [Materials][materials] · 2027 | 2026-09-24 | `cmkr3lpte00417mc2bkushx85` |
@@ -180,7 +181,7 @@ admissions tests and STEP.
 ### Oxford notes
 
 - **Archaeology and Anthropology.** No specific subjects required; a mix of arts and sciences is called helpful.
-- **Asian and Middle Eastern Studies.** The summary table confirms AAA and no required subjects (a language is only relevant). IB points are not on the table. 39 comes from the faculty FAQ, which still gives 2026-entry dates: confirm it on the course page.
+- **Asian and Middle Eastern Studies.** The summary table confirms AAA and no required subjects (a language is only relevant). The course page (2027 entry) confirms 39 with 666 at HL, 2 October 2026.
 - **Biochemistry (Molecular and Cellular).** "7 in HL Chemistry and 6 in two other relevant subjects at HL or SL". The model can express one of the two; SL is used because an HL course also satisfies an SL requirement.
 - **Biology.** Biology and one of Chemistry, Physics or Maths at HL, "with 7 in HL Mathematics or a science". Which subject carries the 7 is not fixed, so each requirement is 6.
 - **Chemistry.** Alternative route not modelled: with SL Maths, 776 at HL with 7 in Chemistry and a second HL science, and 7 in SL Maths AA.
@@ -203,7 +204,7 @@ admissions tests and STEP.
 - **History and English.** "You must take English (Language or Literature)"; History is advised, not required.
 - **History and Modern Languages.** The language is required unless a beginners' option is chosen, so nothing is required overall.
 - **History and Politics.** "There are no specific requirements."
-- **History of Art.** The summary table requires "a subject involving essay writing", which the model cannot express (almost every IB student meets it through Language A), and links the course at `history-of-art`. IB points are not on the table: confirm 38 on the course page.
+- **History of Art.** The summary table requires "a subject involving essay writing", which the model cannot express (almost every IB student meets it through Language A), and links the course at `history-of-art`. The course page (2027 entry) confirms 38 with 666 at HL and requires "an essay-based subject", 2 October 2026.
 - **Human Sciences.** Biology or Maths "can be helpful … not required".
 - **Law (Jurisprudence).** Law with Law Studies in Europe expects French, German or Spanish at HL for those countries; not modelled.
 - **Materials Science.** "766 … with the 7 at HL in any one of Maths, Physics or Chemistry". Maths and Physics at HL are essential; Chemistry is only recommended, at SL if not HL.
