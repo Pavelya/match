@@ -33,6 +33,7 @@ pull request, merged before the next starts.
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
 | any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
+| any | TOK and EE core points | 5.8 | small | Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -66,6 +67,7 @@ Phase 5 — quick wins
 - [ ] 5.5 Restore the University of Manchester image
 - [ ] 5.6 Make the Algolia status script read every record
 - [ ] 5.7 Show each option's level and grade in mixed subject groups
+- [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
 
 Phase 6 — dependency majors
 
@@ -416,6 +418,82 @@ as the science group on Manchester BSc Psychology (`/programs/cmkf6zfvq007d7msfu
 unchanged. No database access.
 
 **Session size:** Small.
+
+---
+
+### 5.8 — Use the IB core points matrix for TOK and the Extended Essay
+
+**Outcome:** Every place that adds TOK and Extended Essay points to a student's total uses
+the IB's core points matrix, in one shared helper. A grade E in either blocks saving, with a
+message that it is the IB's failing condition, instead of being quietly scored. The stored
+totals the old formula got wrong are corrected.
+
+**Why:** Reported by the owner on 2 October 2026 for `/student/onboarding`. The core points
+are not a sum of two grades. The IB awards 0-3 points from a fixed matrix, and an E in TOK
+or the EE is a failing condition (no diploma):
+
+| TOK \ EE | A | B | C | D | E |
+|---|---|---|---|---|---|
+| **A** | 3 | 3 | 2 | 2 | failing |
+| **B** | 3 | 2 | 2 | 1 | failing |
+| **C** | 2 | 2 | 1 | 0 | failing |
+| **D** | 2 | 1 | 0 | 0 | failing |
+| **E** | failing | failing | failing | failing | failing |
+
+Confirm it on the IB's "DP passing criteria" page before coding. `ibo.org` answers curl and
+WebFetch with 403, so open it in a browser or ask the owner. The search index confirms A/A = 3
+and that an E is failing.
+
+The app has two formulas, both labelled "simplified", and they are wrong in opposite
+directions:
+
+- **Onboarding undercounts.** `app/student/onboarding/FieldSelectorClient.tsx`
+  (`calculateTotalPoints`) and `components/student/DetailedGradesInput.tsx` (`calculateTotal`,
+  the "+N" the student sees) score A=5 … E=1 and take `min(3, max(0, TOK + EE - 6))`. That gives
+  A/D 1 (should be 2), B/C and C/B 1 (2), B/D and D/B 0 (1), C/C 0 (1), and 0 for any E.
+- **The coordinator's edit form overcounts.** `app/coordinator/students/[id]/edit/StudentProfileForm.tsx`
+  maps A=3, B=2, C=1, D=0, E=0 and takes `min(TOK + EE, 3)`. That gives A/C, A/D, B/B and B/C 3
+  (should be 2), B/D 2 (1), C/C 2 (1), C/D 1 (0), and 2-3 points for combinations with an E.
+
+The APIs store whatever total the client sends (`app/api/students/profile/route.ts`,
+`app/api/coordinator/students/[id]/route.ts`), and matching uses `totalIBPoints`. **In
+production on 2 October 2026, 20 of the 140 profiles with six courses and both grades stored a
+total one point low**: B/C ×8, C/B ×8, C/C ×3, B/D ×1, all from the onboarding formula. None
+were high, so the coordinator form has not saved a wrong total yet. `QuickScoreInput` takes a
+total the student types, so it has no calculation to fix.
+
+**Files:** a new pure helper (for example `lib/ib/core-points.ts`), the three components
+above, and their callers.
+
+**Steps:**
+1. Write the helper: TOK grade and EE grade in, points (0-3) or "failing" out, straight from
+   the matrix. Cover all 25 combinations with a Vitest test next to it.
+2. Use it in `FieldSelectorClient.tsx`, `DetailedGradesInput.tsx` and `StudentProfileForm.tsx`.
+   Delete both local formulas and the coordinator's `GRADE_POINTS`.
+3. **An E blocks saving** (owner's decision, 2 October 2026). When TOK or the EE is E, disable
+   Continue / Save in the onboarding grades step, `DetailedGradesInput`, `QuickScoreInput` and the
+   coordinator edit form. Say why: "A grade E in TOK or the Extended Essay is a failing condition:
+   the IB does not award the diploma." Enforce it in the APIs too: `app/api/students/profile/route.ts`
+   and `app/api/coordinator/students/[id]/route.ts` answer 400 for an E, so an old client cannot
+   store one. No stored profile had an E on 2 October 2026, so nothing existing is locked out.
+   Recheck with an aggregate count before shipping.
+4. Consider recomputing the total server-side when a request carries six courses and both
+   grades, so a stale client cannot store a wrong total again.
+5. Correct the stored totals. Prepare a script that recomputes `totalIBPoints` only for
+   profiles with six courses and both grades whose total differs. It takes a backup first,
+   is a dry run by default and has `--apply`. **The owner approves before it runs**; it writes
+   production. Then clear the cached matches (`clearAllMatchCache`), since they used the old
+   totals. Use aggregates and `select` throughout.
+
+**Verify:** the Vitest test covers all 25 combinations. On `/student/onboarding`, six subjects
+totalling 36 with TOK B and EE C show "+2" and a total of 38 (today: "+1", 37). The coordinator
+edit form shows the same total for the same grades. Choosing E for TOK or the EE disables saving
+with the failing-condition message on every form, and a direct request with an E gets a 400 from
+both APIs. After the data fix, re-running the
+comparison query finds 0 of the 140 profiles off the matrix. `npm test`, `npx tsc --noEmit` and
+`npx eslint .` pass.
+
+**Session size:** Small. Code, a test and a 20-row data fix that needs the owner's approval.
 
 ---
 
