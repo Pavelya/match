@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Matches mobile</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="../tokens/tokens.css" />
+    <link rel="stylesheet" href="components.css" />
+    <style>
+      .top {
+        padding-block: 20px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+      }
+      .profile b {
+        font-variant-numeric: tabular-nums;
+      }
+      .tiers {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-block: 8px 100px;
+      }
+    </style>
+  </head>
+  <body class="ib">
+    <header class="ib-header">
+      <div class="wrap ib-header__in">
+        <a class="ib-logo" href="#"><span class="ib-logo__mark">IB</span>IB Match</a>
+        <div class="ib-header__actions">
+          <span class="ib-avatar" role="img" aria-label="Account">M</span>
+        </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="top">
+        <h1 class="t-display-lg">Your matches</h1>
+        <div class="profile">
+          <div style="flex: 1">
+            <b>39 points</b> <span class="muted">· 3 HL · Psychology, CS · UK, NL</span>
+          </div>
+          <a class="ib-btn ib-btn--ghost ib-btn--sm" href="#"
+            ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"
+              /></svg
+            >Edit</a
+          >
+        </div>
+        <div class="tiers" role="group" aria-label="Filter by match">
+          <button class="ib-chip" aria-pressed="true">All <span class="count">48</span></button
+          ><button class="ib-chip" aria-pressed="false">Strong <span class="count">14</span></button
+          ><button class="ib-chip" aria-pressed="false">Good <span class="count">21</span></button
+          ><button class="ib-chip" aria-pressed="false">
+            Possible <span class="count">13</span>
+          </button>
+        </div>
+      </div>
+      <div class="list">
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UvA</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 24+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University of Amsterdam</a> · Amsterdam, Netherlands
+              <span class="flag">🇳🇱</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 24+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >3 years</span
+              >
+            </div>
+            <div class="ib-pcard__match">
+              <div class="ib-score" data-tier="excellent" style="--pct: 92">
+                <span
+                  class="ib-score__ring"
+                  data-value="92%"
+                  role="img"
+                  aria-label="92 percent"
+                ></span
+                ><span class="ib-score__label">Excellent match</span>
+              </div>
+              <span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >38 of 24 points</span
+              ><span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >No subject requirements</span
+              ><span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Preferred country</span
+              ><a class="ib-pcard__why" href="#"
+                >Why this score<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" /></svg
+              ></a>
+            </div>
+          </div>
+        </article>
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UoE</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology BSc (Hons)</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 34+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="true"
+                aria-label="Saved Psychology BSc (Hons)"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University of Edinburgh</a> · Edinburgh, United Kingdom
+              <span class="flag">🇬🇧</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 34+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >4 years</span
+              >
+            </div>
+            <div class="ib-pcard__match">
+              <div class="ib-score" data-tier="strong" style="--pct: 86">
+                <span
+                  class="ib-score__ring"
+                  data-value="86%"
+                  role="img"
+                  aria-label="86 percent"
+                ></span
+                ><span class="ib-score__label">Strong match</span>
+              </div>
+              <span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >38 of 34 points</span
+              ><span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >3 of 3 subjects</span
+              ><span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >Preferred country</span
+              ><a class="ib-pcard__why" href="#"
+                >Why this score<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" /></svg
+              ></a>
+            </div>
+          </div>
+        </article>
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UCD</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology (BSc)</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 37+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology (BSc)"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University College Dublin</a> · Dublin, Ireland
+              <span class="flag">🇮🇪</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 37+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >3 years</span
+              >
+            </div>
+            <div class="ib-pcard__match">
+              <div class="ib-score" data-tier="good" style="--pct: 71">
+                <span
+                  class="ib-score__ring"
+                  data-value="71%"
+                  role="img"
+                  aria-label="71 percent"
+                ></span
+                ><span class="ib-score__label">Good match</span>
+              </div>
+              <span class="ib-pcard__reason" data-ok="yes"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" /></svg
+                >38 of 37 points</span
+              ><span class="ib-pcard__reason" data-ok="part"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" x2="12" y1="8" y2="12" />
+                  <line x1="12" x2="12.01" y1="16" y2="16" /></svg
+                >1 subject close</span
+              ><span class="ib-pcard__reason" data-ok="no"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" /></svg
+                >Outside your countries</span
+              ><a class="ib-pcard__why" href="#"
+                >Why this score<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" /></svg
+              ></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+    <nav class="ib-tabbar" aria-label="Main">
+      <a href="#" aria-current="page"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+          /></svg
+        >Matches</a
+      ><a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" /></svg
+        >Search</a
+      ><a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" /></svg
+        >Saved</a
+      ><a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" /></svg
+        >Profile</a
+      >
+    </nav>
+  </body>
+</html>

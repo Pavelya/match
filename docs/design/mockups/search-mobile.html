@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Search mobile</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="../tokens/tokens.css" />
+    <link rel="stylesheet" href="components.css" />
+    <style>
+      .top {
+        padding-block: 20px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .tools {
+        display: flex;
+        gap: 8px;
+      }
+      .tools .ib-btn {
+        flex: 1;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding-block: 8px 32px;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body class="ib">
+    <header class="ib-header">
+      <div class="wrap ib-header__in">
+        <a class="ib-logo" href="#"><span class="ib-logo__mark">IB</span>IB Match</a>
+        <div class="ib-header__actions">
+          <a class="ib-btn ib-btn--outline ib-btn--sm" href="#">Sign in</a>
+          <button class="ib-iconbtn" aria-label="Open menu" aria-expanded="false">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="4" x2="20" y1="12" y2="12" />
+              <line x1="4" x2="20" y1="6" y2="6" />
+              <line x1="4" x2="20" y1="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="top">
+        <h1 class="t-display-lg">Find programs</h1>
+        <div class="ib-search">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" /></svg
+          ><input class="ib-input" value="psychology" aria-label="Search programs" />
+        </div>
+        <div class="tools">
+          <button class="ib-btn ib-btn--outline">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="21" x2="14" y1="4" y2="4" />
+              <line x1="10" x2="3" y1="4" y2="4" />
+              <line x1="21" x2="12" y1="12" y2="12" />
+              <line x1="8" x2="3" y1="12" y2="12" />
+              <line x1="21" x2="16" y1="20" y2="20" />
+              <line x1="12" x2="3" y1="20" y2="20" />
+              <line x1="14" x2="14" y1="2" y2="6" />
+              <line x1="8" x2="8" y1="10" y2="14" />
+              <line x1="16" x2="16" y1="18" y2="22" /></svg
+            >Filters <span class="ib-badge ib-badge--brand">4</span></button
+          ><button class="ib-btn ib-btn--outline">
+            <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m21 16-4 4-4-4" />
+              <path d="M17 20V4" />
+              <path d="m3 8 4-4 4 4" />
+              <path d="M7 4v16" /></svg
+            >Best match
+          </button>
+        </div>
+        <div class="chips">
+          <span class="ib-chip ib-chip--remove"
+            >Social Sciences<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" /></svg></span
+          ><span class="ib-chip ib-chip--remove"
+            >🇬🇧 UK<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" /></svg></span
+          ><span class="ib-chip ib-chip--remove"
+            >🇳🇱 NL<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" /></svg
+          ></span>
+        </div>
+        <p class="ib-hint">
+          <b class="num" style="color: var(--fg)">47 programs</b> for “psychology”
+        </p>
+      </div>
+      <div class="list">
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UoE</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology BSc (Hons)</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 34+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology BSc (Hons)"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University of Edinburgh</a> · Edinburgh, United Kingdom
+              <span class="flag">🇬🇧</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 34+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >4 years</span
+              >
+            </div>
+          </div>
+        </article>
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UvA</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 24+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University of Amsterdam</a> · Amsterdam, Netherlands
+              <span class="flag">🇳🇱</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 24+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >3 years</span
+              >
+            </div>
+          </div>
+        </article>
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">LU</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 24+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">Leiden University</a> · Leiden, Netherlands <span class="flag">🇳🇱</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 24+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >3 years</span
+              >
+            </div>
+          </div>
+        </article>
+        <article class="ib-pcard">
+          <div class="ib-pcard__grid">
+            <div class="ib-pcard__logo" aria-hidden="true">UCD</div>
+            <h3 class="ib-pcard__title"><a href="#">Psychology (BSc)</a></h3>
+            <div class="ib-pcard__aside">
+              <div class="ib-pcard__points"><b>IB 37+</b><span>minimum points</span></div>
+              <button
+                class="ib-iconbtn ib-pcard__save"
+                aria-pressed="false"
+                aria-label="Save Psychology (BSc)"
+              >
+                <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                </svg>
+              </button>
+            </div>
+            <p class="ib-pcard__uni">
+              <a href="#">University College Dublin</a> · Dublin, Ireland
+              <span class="flag">🇮🇪</span>
+            </p>
+            <div class="ib-pcard__facts">
+              <span class="ib-pcard__fact ib-pcard__fact--points">IB 37+</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg
+                >Social Sciences</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"
+                  />
+                  <path d="M22 10v6" />
+                  <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" /></svg
+                >Bachelor of Science</span
+              ><span class="ib-pcard__fact"
+                ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" /></svg
+                >3 years</span
+              >
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,382 @@
+{
+  "primitives": {
+    "blue-50": {
+      "oklch": "oklch(0.972 0.013 259)",
+      "hex": "#f1f6ff"
+    },
+    "blue-100": {
+      "oklch": "oklch(0.940 0.029 259)",
+      "hex": "#e0ecff"
+    },
+    "blue-200": {
+      "oklch": "oklch(0.885 0.056 259)",
+      "hex": "#c3dbff"
+    },
+    "blue-300": {
+      "oklch": "oklch(0.800 0.101 259)",
+      "hex": "#96bfff"
+    },
+    "blue-400": {
+      "oklch": "oklch(0.705 0.155 259)",
+      "hex": "#629fff"
+    },
+    "blue-500": {
+      "oklch": "oklch(0.600 0.190 259)",
+      "hex": "#2f7bef"
+    },
+    "blue-600": {
+      "oklch": "oklch(0.530 0.200 261)",
+      "hex": "#1c62dd"
+    },
+    "blue-700": {
+      "oklch": "oklch(0.465 0.185 263)",
+      "hex": "#1c4ebf"
+    },
+    "blue-800": {
+      "oklch": "oklch(0.390 0.150 264)",
+      "hex": "#193c94"
+    },
+    "blue-900": {
+      "oklch": "oklch(0.310 0.110 265)",
+      "hex": "#142b67"
+    },
+    "blue-950": {
+      "oklch": "oklch(0.225 0.070 266)",
+      "hex": "#0c193c"
+    },
+    "ink-0": {
+      "oklch": "oklch(1.000 0.000 0)",
+      "hex": "#ffffff"
+    },
+    "ink-25": {
+      "oklch": "oklch(0.985 0.004 255)",
+      "hex": "#f8fafd"
+    },
+    "ink-50": {
+      "oklch": "oklch(0.967 0.007 255)",
+      "hex": "#f1f4f9"
+    },
+    "ink-100": {
+      "oklch": "oklch(0.937 0.011 256)",
+      "hex": "#e5ebf2"
+    },
+    "ink-200": {
+      "oklch": "oklch(0.895 0.015 257)",
+      "hex": "#d6dde6"
+    },
+    "ink-300": {
+      "oklch": "oklch(0.820 0.020 258)",
+      "hex": "#bcc5d1"
+    },
+    "ink-400": {
+      "oklch": "oklch(0.700 0.024 258)",
+      "hex": "#959fae"
+    },
+    "ink-500": {
+      "oklch": "oklch(0.600 0.026 259)",
+      "hex": "#778190"
+    },
+    "ink-600": {
+      "oklch": "oklch(0.490 0.028 260)",
+      "hex": "#576171"
+    },
+    "ink-700": {
+      "oklch": "oklch(0.395 0.028 261)",
+      "hex": "#3e4756"
+    },
+    "ink-800": {
+      "oklch": "oklch(0.300 0.028 262)",
+      "hex": "#262e3c"
+    },
+    "ink-900": {
+      "oklch": "oklch(0.220 0.026 263)",
+      "hex": "#141b27"
+    },
+    "ink-950": {
+      "oklch": "oklch(0.165 0.022 264)",
+      "hex": "#090e18"
+    },
+    "ink-975": {
+      "oklch": "oklch(0.135 0.018 264)",
+      "hex": "#050810"
+    },
+    "green-50": {
+      "oklch": "oklch(0.965 0.030 158)",
+      "hex": "#e4faec"
+    },
+    "green-200": {
+      "oklch": "oklch(0.880 0.080 158)",
+      "hex": "#abe8c4"
+    },
+    "green-500": {
+      "oklch": "oklch(0.680 0.150 156)",
+      "hex": "#2eb370"
+    },
+    "green-700": {
+      "oklch": "oklch(0.500 0.120 156)",
+      "hex": "#047745"
+    },
+    "green-300d": {
+      "oklch": "oklch(0.800 0.130 156)",
+      "hex": "#70d79a"
+    },
+    "green-950": {
+      "oklch": "oklch(0.260 0.045 158)",
+      "hex": "#0e2b1b"
+    },
+    "amber-50": {
+      "oklch": "oklch(0.975 0.026 85)",
+      "hex": "#fff6e3"
+    },
+    "amber-200": {
+      "oklch": "oklch(0.900 0.108 85)",
+      "hex": "#ffd988"
+    },
+    "amber-500": {
+      "oklch": "oklch(0.780 0.160 75)",
+      "hex": "#f2a618"
+    },
+    "amber-700": {
+      "oklch": "oklch(0.520 0.120 60)",
+      "hex": "#9a5505"
+    },
+    "amber-300d": {
+      "oklch": "oklch(0.840 0.140 80)",
+      "hex": "#fac053"
+    },
+    "amber-950": {
+      "oklch": "oklch(0.270 0.045 70)",
+      "hex": "#34220b"
+    },
+    "red-50": {
+      "oklch": "oklch(0.965 0.017 25)",
+      "hex": "#ffefee"
+    },
+    "red-200": {
+      "oklch": "oklch(0.880 0.063 25)",
+      "hex": "#ffc8c3"
+    },
+    "red-500": {
+      "oklch": "oklch(0.640 0.200 27)",
+      "hex": "#ed4b43"
+    },
+    "red-700": {
+      "oklch": "oklch(0.520 0.190 27)",
+      "hex": "#be2323"
+    },
+    "red-300d": {
+      "oklch": "oklch(0.780 0.120 25)",
+      "hex": "#fb9890"
+    },
+    "red-950": {
+      "oklch": "oklch(0.270 0.060 25)",
+      "hex": "#3f1917"
+    },
+    "sun-200": {
+      "oklch": "oklch(0.950 0.120 102)",
+      "hex": "#fef290"
+    },
+    "sun-300": {
+      "oklch": "oklch(0.915 0.160 100)",
+      "hex": "#fce555"
+    },
+    "sun-800": {
+      "oklch": "oklch(0.420 0.080 90)",
+      "hex": "#5e4b0c"
+    },
+    "blue-logo": {
+      "oklch": "oklch(0.576 0.185 259)",
+      "hex": "#3573e5"
+    }
+  },
+  "semantic": {
+    "bg": {
+      "light": "ink-25",
+      "dark": "ink-975",
+      "usage": "Page background."
+    },
+    "surface": {
+      "light": "ink-0",
+      "dark": "ink-950",
+      "usage": "Cards, header, inputs: the default raised surface on `bg`."
+    },
+    "surface-muted": {
+      "light": "ink-50",
+      "dark": "ink-900",
+      "usage": "Sunken areas: filter panels, quick-facts rows, table stripes."
+    },
+    "surface-strong": {
+      "light": "ink-100",
+      "dark": "ink-800",
+      "usage": "Hover fill for neutral controls, skeletons, chips at rest."
+    },
+    "surface-inverse": {
+      "light": "ink-950",
+      "dark": "ink-50",
+      "usage": "Footer and dark bands. Pair with `fg-on-inverse`."
+    },
+    "fg": {
+      "light": "ink-900",
+      "dark": "ink-50",
+      "usage": "Primary text and headings on `bg`, `surface`, `surface-muted`."
+    },
+    "fg-muted": {
+      "light": "ink-600",
+      "dark": "ink-400",
+      "usage": "Secondary text: university names, meta lines, hints. On `bg`, `surface`, `surface-muted`."
+    },
+    "fg-subtle": {
+      "light": "ink-500",
+      "dark": "ink-500",
+      "usage": "Placeholder and disabled text only; never for information that must be read."
+    },
+    "fg-on-inverse": {
+      "light": "ink-50",
+      "dark": "ink-900",
+      "usage": "Text on `surface-inverse`."
+    },
+    "border": {
+      "light": "ink-200",
+      "dark": "ink-800",
+      "usage": "Dividers and card outlines (decorative)."
+    },
+    "border-strong": {
+      "light": "ink-500",
+      "dark": "ink-500",
+      "usage": "Input and selectable-tile outlines: 3:1 against `surface`."
+    },
+    "primary": {
+      "light": "blue-600",
+      "dark": "blue-400",
+      "usage": "Primary buttons, links, selected states, focus ring. Text on `surface` and `bg`."
+    },
+    "primary-hover": {
+      "light": "blue-700",
+      "dark": "blue-300",
+      "usage": "Hover and pressed state of `primary` fills."
+    },
+    "on-primary": {
+      "light": "ink-0",
+      "dark": "ink-975",
+      "usage": "Text and icons on `primary` fills."
+    },
+    "primary-soft": {
+      "light": "blue-50",
+      "dark": "blue-950",
+      "usage": "Selected tiles, active nav pill, info callouts."
+    },
+    "primary-soft-fg": {
+      "light": "blue-700",
+      "dark": "blue-200",
+      "usage": "Text on `primary-soft`."
+    },
+    "brand-mark": {
+      "light": "blue-logo",
+      "dark": "blue-logo",
+      "usage": "The logo tile and large brand graphics only (not text)."
+    },
+    "focus": {
+      "light": "blue-600",
+      "dark": "blue-300",
+      "usage": "Focus outline: 2px solid, 2px offset, on every interactive element."
+    },
+    "success": {
+      "light": "green-700",
+      "dark": "green-300d",
+      "usage": "Requirement met, strong match: text and icons on `surface`."
+    },
+    "success-soft": {
+      "light": "green-50",
+      "dark": "green-950",
+      "usage": "Background of success callouts and met-requirement rows."
+    },
+    "warning": {
+      "light": "amber-700",
+      "dark": "amber-300d",
+      "usage": "Partly met, deadlines, data that needs checking: text and icons."
+    },
+    "warning-soft": {
+      "light": "amber-50",
+      "dark": "amber-950",
+      "usage": "Background of warning callouts."
+    },
+    "danger": {
+      "light": "red-700",
+      "dark": "red-300d",
+      "usage": "Requirement not met, errors, destructive actions: text and icons."
+    },
+    "danger-soft": {
+      "light": "red-50",
+      "dark": "red-950",
+      "usage": "Background of error callouts and unmet-requirement rows."
+    },
+    "highlight": {
+      "light": "sun-300",
+      "dark": "sun-300",
+      "usage": "Highlighter marker behind a key word in marketing headlines, and the 'Updated' badge. Always with `ink-900` text."
+    },
+    "on-highlight": {
+      "light": "ink-900",
+      "dark": "ink-900",
+      "usage": "Text on `highlight`."
+    }
+  },
+  "themes": {
+    "light": {
+      "bg": "#f8fafd",
+      "surface": "#ffffff",
+      "surface-muted": "#f1f4f9",
+      "surface-strong": "#e5ebf2",
+      "surface-inverse": "#090e18",
+      "fg": "#141b27",
+      "fg-muted": "#576171",
+      "fg-subtle": "#778190",
+      "fg-on-inverse": "#f1f4f9",
+      "border": "#d6dde6",
+      "border-strong": "#778190",
+      "primary": "#1c62dd",
+      "primary-hover": "#1c4ebf",
+      "on-primary": "#ffffff",
+      "primary-soft": "#f1f6ff",
+      "primary-soft-fg": "#1c4ebf",
+      "brand-mark": "#3573e5",
+      "focus": "#1c62dd",
+      "success": "#047745",
+      "success-soft": "#e4faec",
+      "warning": "#9a5505",
+      "warning-soft": "#fff6e3",
+      "danger": "#be2323",
+      "danger-soft": "#ffefee",
+      "highlight": "#fce555",
+      "on-highlight": "#141b27"
+    },
+    "dark": {
+      "bg": "#050810",
+      "surface": "#090e18",
+      "surface-muted": "#141b27",
+      "surface-strong": "#262e3c",
+      "surface-inverse": "#f1f4f9",
+      "fg": "#f1f4f9",
+      "fg-muted": "#959fae",
+      "fg-subtle": "#778190",
+      "fg-on-inverse": "#141b27",
+      "border": "#262e3c",
+      "border-strong": "#778190",
+      "primary": "#629fff",
+      "primary-hover": "#96bfff",
+      "on-primary": "#050810",
+      "primary-soft": "#0c193c",
+      "primary-soft-fg": "#c3dbff",
+      "brand-mark": "#3573e5",
+      "focus": "#96bfff",
+      "success": "#70d79a",
+      "success-soft": "#0e2b1b",
+      "warning": "#fac053",
+      "warning-soft": "#34220b",
+      "danger": "#fb9890",
+      "danger-soft": "#3f1917",
+      "highlight": "#fce555",
+      "on-highlight": "#141b27"
+    }
+  }
+}

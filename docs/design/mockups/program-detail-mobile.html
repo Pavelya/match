@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Program detail mobile</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="../tokens/tokens.css" />
+    <link rel="stylesheet" href="components.css" />
+    <style>
+      .crumb {
+        padding-top: 24px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 20px;
+        padding-block: 20px 28px;
+        align-items: start;
+      }
+      .hero .ib-pcard__logo {
+        width: 72px;
+        height: 72px;
+        font-size: 1.25rem;
+      }
+      .hero .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        color: var(--fg-muted);
+        margin-top: 8px;
+      }
+      .hero .meta span {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 40px;
+        align-items: start;
+        padding-bottom: 64px;
+      }
+      .panel {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+        padding: 22px;
+      }
+      .sec {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 36px;
+      }
+      .sec:first-child {
+        margin-top: 0;
+      }
+      .prose {
+        max-width: var(--container-prose);
+        color: var(--fg);
+      }
+      .prose p {
+        margin: 0 0 14px;
+      }
+      .prose ul {
+        margin: 0 0 14px;
+        padding-left: 20px;
+      }
+      .side {
+        position: sticky;
+        top: 88px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .match {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+        align-items: center;
+      }
+      .hero {
+        grid-template-columns: 56px 1fr;
+        gap: 14px;
+      }
+      .hero .ib-pcard__logo {
+        width: 56px;
+        height: 56px;
+      }
+      .cols {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .side {
+        position: static;
+      }
+      .actionbar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 64px;
+        display: flex;
+        gap: 10px;
+        padding: 10px 16px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        box-shadow: var(--shadow-md);
+      }
+      .actionbar .ib-btn {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body class="ib">
+    <header class="ib-header">
+      <div class="wrap ib-header__in">
+        <a class="ib-logo" href="#"><span class="ib-logo__mark">IB</span>IB Match</a>
+        <div class="ib-header__actions">
+          <span class="ib-avatar" role="img" aria-label="Account">M</span>
+        </div>
+      </div>
+    </header>
+    <main class="wrap" style="padding-bottom: 160px">
+      <nav class="crumb" aria-label="Breadcrumb">
+        <ol class="ib-crumbs">
+          <li><a href="#">Programs</a></li>
+          <li><a href="#">University of Edinburgh</a></li>
+        </ol>
+      </nav>
+      <div class="hero">
+        <div class="ib-pcard__logo" aria-hidden="true">UoE</div>
+        <div>
+          <span class="ib-badge ib-badge--highlight"
+            ><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg
+            >Checked for 2027</span
+          >
+          <h1 class="t-display-lg" style="margin-top: 6px">Psychology BSc (Hons)</h1>
+          <div class="meta">
+            <span><a href="#">University of Edinburgh</a></span
+            ><span>Edinburgh, UK 🇬🇧</span>
+          </div>
+        </div>
+      </div>
+      <dl class="ib-facts" style="grid-template-columns: repeat(3, minmax(0, 1fr))">
+        <div>
+          <dt>Min. points</dt>
+          <dd>34</dd>
+        </div>
+        <div>
+          <dt>Duration</dt>
+          <dd>4 years</dd>
+        </div>
+        <div>
+          <dt>Degree</dt>
+          <dd>BSc</dd>
+        </div>
+      </dl>
+      <section class="sec panel" style="margin-top: 20px">
+        <div class="match">
+          <div class="ib-score ib-score--lg" data-tier="strong" style="--pct: 86">
+            <span class="ib-score__ring" data-value="86%"></span>
+          </div>
+          <div>
+            <h2 class="t-heading-md" style="color: var(--success)">Strong match</h2>
+            <p class="muted" style="margin-top: 4px; font-size: 0.9375rem">
+              38 points, 4 to spare. English can be replaced by IELTS.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="sec">
+        <h2 class="t-heading-lg">IB requirements</h2>
+        <ul class="ib-reqs">
+          <li class="ib-req" data-status="met">
+            <span class="ib-req__icon"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg></span
+            ><span class="ib-req__name"
+              >Total IB points<small>Including TOK and EE bonus points</small></span
+            ><span class="ib-req__need">34 points</span
+            ><span class="ib-req__status"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg
+              >You have 38: 4 to spare</span
+            >
+          </li>
+          <li class="ib-req" data-status="met">
+            <span class="ib-req__icon"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg></span
+            ><span class="ib-req__name"
+              ><span class="ib-or">One of</span>Mathematics: Analysis and Approaches or Applications
+              and Interpretation<small>HL 5, or SL 6</small></span
+            ><span class="ib-req__need">HL 5 · SL 6</span
+            ><span class="ib-req__status"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg
+              >Your Mathematics AA HL 6 counts</span
+            >
+          </li>
+          <li class="ib-req" data-status="met">
+            <span class="ib-req__icon"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg></span
+            ><span class="ib-req__name"
+              ><span class="ib-or">One of</span>10 science or maths subjects<small
+                >Biology, Chemistry, Physics, Psychology, Geography and 5 more ·
+                <a href="#">Show all</a></small
+              ></span
+            ><span class="ib-req__need">HL 5</span
+            ><span class="ib-req__status"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" /></svg
+              >Your Biology HL 6 counts</span
+            >
+          </li>
+          <li class="ib-req" data-status="partial">
+            <span class="ib-req__icon"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" x2="12" y1="8" y2="12" />
+                <line x1="12" x2="12.01" y1="16" y2="16" /></svg></span
+            ><span class="ib-req__name"
+              ><span class="ib-or">One of</span>English B, English A: Literature, or English A:
+              Language &amp; Literature</span
+            ><span class="ib-req__need">SL 5</span
+            ><span class="ib-req__status"
+              ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" x2="12" y1="8" y2="12" />
+                <line x1="12" x2="12.01" y1="16" y2="16" /></svg
+              >Not in your subjects. An English test (IELTS 6.5) is accepted instead.</span
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+    <div class="actionbar">
+      <button class="ib-btn ib-btn--outline" aria-pressed="true">
+        <svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" /></svg
+        >Saved</button
+      ><a class="ib-btn ib-btn--primary" href="#"
+        >Program site<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 3h6v6" />
+          <path d="M10 14 21 3" />
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg
+      ></a>
+    </div>
+    <nav class="ib-tabbar" aria-label="Main">
+      <a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"
+          /></svg
+        >Matches</a
+      ><a href="#" aria-current="page"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.3-4.3" /></svg
+        >Search</a
+      ><a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" /></svg
+        >Saved</a
+      ><a href="#"
+        ><svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" /></svg
+        >Profile</a
+      >
+    </nav>
+  </body>
+</html>

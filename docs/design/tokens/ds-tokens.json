@@ -1,0 +1,687 @@
+{
+  "name": "IB Match",
+  "version": 1,
+  "meta": {
+    "source": "proposal",
+    "basis": "github pavelya/match app/globals.css + live audit, 2 October 2026"
+  },
+  "color": {
+    "themes": [
+      {
+        "id": "light",
+        "name": "Light"
+      },
+      {
+        "id": "dark",
+        "name": "Dark"
+      }
+    ],
+    "tokens": [
+      {
+        "name": "bg",
+        "value": {
+          "light": "#f8fafd",
+          "dark": "#050810"
+        },
+        "usage": "Page background."
+      },
+      {
+        "name": "surface",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#090e18"
+        },
+        "usage": "Cards, header, inputs: the default raised surface on `bg`."
+      },
+      {
+        "name": "surface-muted",
+        "value": {
+          "light": "#f1f4f9",
+          "dark": "#141b27"
+        },
+        "usage": "Sunken areas: filter panels, quick-facts rows, table stripes."
+      },
+      {
+        "name": "surface-strong",
+        "value": {
+          "light": "#e5ebf2",
+          "dark": "#262e3c"
+        },
+        "usage": "Hover fill for neutral controls, skeletons, chips at rest."
+      },
+      {
+        "name": "surface-inverse",
+        "value": {
+          "light": "#090e18",
+          "dark": "#f1f4f9"
+        },
+        "usage": "Footer and dark bands. Pair with `fg-on-inverse`."
+      },
+      {
+        "name": "fg",
+        "value": {
+          "light": "#141b27",
+          "dark": "#f1f4f9"
+        },
+        "usage": "Primary text and headings on `bg`, `surface`, `surface-muted`."
+      },
+      {
+        "name": "fg-muted",
+        "value": {
+          "light": "#576171",
+          "dark": "#959fae"
+        },
+        "usage": "Secondary text: university names, meta lines, hints. On `bg`, `surface`, `surface-muted`."
+      },
+      {
+        "name": "fg-subtle",
+        "value": {
+          "light": "#778190",
+          "dark": "#778190"
+        },
+        "usage": "Placeholder and disabled text only; never for information that must be read."
+      },
+      {
+        "name": "fg-on-inverse",
+        "value": {
+          "light": "#f1f4f9",
+          "dark": "#141b27"
+        },
+        "usage": "Text on `surface-inverse`."
+      },
+      {
+        "name": "border",
+        "value": {
+          "light": "#d6dde6",
+          "dark": "#262e3c"
+        },
+        "usage": "Dividers and card outlines (decorative)."
+      },
+      {
+        "name": "border-strong",
+        "value": {
+          "light": "#778190",
+          "dark": "#778190"
+        },
+        "usage": "Input and selectable-tile outlines: 3:1 against `surface`."
+      },
+      {
+        "name": "primary",
+        "value": {
+          "light": "#1c62dd",
+          "dark": "#629fff"
+        },
+        "usage": "Primary buttons, links, selected states, focus ring. Text on `surface` and `bg`."
+      },
+      {
+        "name": "primary-hover",
+        "value": {
+          "light": "#1c4ebf",
+          "dark": "#96bfff"
+        },
+        "usage": "Hover and pressed state of `primary` fills."
+      },
+      {
+        "name": "on-primary",
+        "value": {
+          "light": "#ffffff",
+          "dark": "#050810"
+        },
+        "usage": "Text and icons on `primary` fills."
+      },
+      {
+        "name": "primary-soft",
+        "value": {
+          "light": "#f1f6ff",
+          "dark": "#0c193c"
+        },
+        "usage": "Selected tiles, active nav pill, info callouts."
+      },
+      {
+        "name": "primary-soft-fg",
+        "value": {
+          "light": "#1c4ebf",
+          "dark": "#c3dbff"
+        },
+        "usage": "Text on `primary-soft`."
+      },
+      {
+        "name": "brand-mark",
+        "value": {
+          "light": "#3573e5",
+          "dark": "#3573e5"
+        },
+        "usage": "The logo tile and large brand graphics only (not text)."
+      },
+      {
+        "name": "focus",
+        "value": {
+          "light": "#1c62dd",
+          "dark": "#96bfff"
+        },
+        "usage": "Focus outline: 2px solid, 2px offset, on every interactive element."
+      },
+      {
+        "name": "success",
+        "value": {
+          "light": "#047745",
+          "dark": "#70d79a"
+        },
+        "usage": "Requirement met, strong match: text and icons on `surface`."
+      },
+      {
+        "name": "success-soft",
+        "value": {
+          "light": "#e4faec",
+          "dark": "#0e2b1b"
+        },
+        "usage": "Background of success callouts and met-requirement rows."
+      },
+      {
+        "name": "warning",
+        "value": {
+          "light": "#9a5505",
+          "dark": "#fac053"
+        },
+        "usage": "Partly met, deadlines, data that needs checking: text and icons."
+      },
+      {
+        "name": "warning-soft",
+        "value": {
+          "light": "#fff6e3",
+          "dark": "#34220b"
+        },
+        "usage": "Background of warning callouts."
+      },
+      {
+        "name": "danger",
+        "value": {
+          "light": "#be2323",
+          "dark": "#fb9890"
+        },
+        "usage": "Requirement not met, errors, destructive actions: text and icons."
+      },
+      {
+        "name": "danger-soft",
+        "value": {
+          "light": "#ffefee",
+          "dark": "#3f1917"
+        },
+        "usage": "Background of error callouts and unmet-requirement rows."
+      },
+      {
+        "name": "highlight",
+        "value": {
+          "light": "#fce555",
+          "dark": "#fce555"
+        },
+        "usage": "Highlighter marker behind a key word in marketing headlines, and the 'Updated' badge. Always with `ink-900` text."
+      },
+      {
+        "name": "on-highlight",
+        "value": {
+          "light": "#141b27",
+          "dark": "#141b27"
+        },
+        "usage": "Text on `highlight`."
+      },
+      {
+        "name": "blue-50",
+        "value": "#f1f6ff",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-100",
+        "value": "#e0ecff",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-200",
+        "value": "#c3dbff",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-300",
+        "value": "#96bfff",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-400",
+        "value": "#629fff",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-500",
+        "value": "#2f7bef",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-600",
+        "value": "#1c62dd",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-700",
+        "value": "#1c4ebf",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-800",
+        "value": "#193c94",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-900",
+        "value": "#142b67",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "blue-950",
+        "value": "#0c193c",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-25",
+        "value": "#f8fafd",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-50",
+        "value": "#f1f4f9",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-100",
+        "value": "#e5ebf2",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-200",
+        "value": "#d6dde6",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-300",
+        "value": "#bcc5d1",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-400",
+        "value": "#959fae",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-500",
+        "value": "#778190",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-600",
+        "value": "#576171",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-700",
+        "value": "#3e4756",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-800",
+        "value": "#262e3c",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-900",
+        "value": "#141b27",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      },
+      {
+        "name": "ink-950",
+        "value": "#090e18",
+        "usage": "Primitive. Use the semantic tokens above in components; primitives are for illustrations and charts."
+      }
+    ]
+  },
+  "type": {
+    "fonts": [],
+    "families": {
+      "display": "\"Bricolage Grotesque\", \"Atkinson Hyperlegible Next\", system-ui, sans-serif",
+      "sans": "\"Atkinson Hyperlegible Next\", system-ui, -apple-system, \"Segoe UI\", sans-serif"
+    },
+    "groups": [
+      {
+        "name": "Display",
+        "family": "display",
+        "styles": [
+          {
+            "name": "display-2xl",
+            "family": "display",
+            "fontSize": "64px",
+            "lineHeight": "1.02",
+            "fontWeight": 700,
+            "usage": "Marketing hero H1 only. 40px on phones to 64px on desktop. Fluid: clamp(2.5rem, 1.85rem + 2.6vw, 4rem).",
+            "letterSpacing": "-0.025em",
+            "sample": "Find programs that fit your IB Diploma"
+          },
+          {
+            "name": "display-xl",
+            "family": "display",
+            "fontSize": "48px",
+            "lineHeight": "1.06",
+            "fontWeight": 700,
+            "usage": "Marketing section headings (H2) and country-guide H1. Fluid: clamp(2rem, 1.6rem + 1.6vw, 3rem).",
+            "letterSpacing": "-0.02em",
+            "sample": "Study in the Netherlands with the IB Diploma"
+          },
+          {
+            "name": "display-lg",
+            "family": "display",
+            "fontSize": "36px",
+            "lineHeight": "1.1",
+            "fontWeight": 650,
+            "usage": "App page titles (H1): Search programs, Your matches, program name. Fluid: clamp(1.75rem, 1.55rem + 0.8vw, 2.25rem).",
+            "letterSpacing": "-0.015em",
+            "sample": "Psychology (BSc Hons)"
+          }
+        ]
+      },
+      {
+        "name": "Headings",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "heading-lg",
+            "family": "display",
+            "fontSize": "24px",
+            "lineHeight": "1.25",
+            "fontWeight": 650,
+            "usage": "Section headings (H2) inside app pages and guides.",
+            "letterSpacing": "-0.01em",
+            "sample": "Academic requirements"
+          },
+          {
+            "name": "heading-md",
+            "family": "sans",
+            "fontSize": "20px",
+            "lineHeight": "1.3",
+            "fontWeight": 700,
+            "usage": "Card titles in detail views, dialog titles (H3).",
+            "sample": "Why this is a strong match"
+          },
+          {
+            "name": "heading-sm",
+            "family": "sans",
+            "fontSize": "18px",
+            "lineHeight": "1.35",
+            "fontWeight": 700,
+            "usage": "Program card title, sub-sections (H3/H4).",
+            "sample": "Bachelor of Laws (LLB)"
+          }
+        ]
+      },
+      {
+        "name": "Text",
+        "family": "sans",
+        "styles": [
+          {
+            "name": "body-lg",
+            "family": "sans",
+            "fontSize": "18px",
+            "lineHeight": "1.6",
+            "fontWeight": 400,
+            "usage": "Lead paragraphs on marketing pages and guides.",
+            "sample": "Enter your predicted grades once. We check HL and SL requirements for 1,273 programs."
+          },
+          {
+            "name": "body",
+            "family": "sans",
+            "fontSize": "16px",
+            "lineHeight": "1.6",
+            "fontWeight": 400,
+            "usage": "Default running text, form values. Max line length 68ch.",
+            "sample": "Applicants need 37 points with HL 6 6 5, including Mathematics: Analysis and Approaches."
+          },
+          {
+            "name": "body-sm",
+            "family": "sans",
+            "fontSize": "14px",
+            "lineHeight": "1.5",
+            "fontWeight": 400,
+            "usage": "Secondary text: university name, meta lines, hints, table cells.",
+            "sample": "University of Edinburgh \u00b7 Edinburgh, United Kingdom"
+          },
+          {
+            "name": "label",
+            "family": "sans",
+            "fontSize": "15px",
+            "lineHeight": "1.25",
+            "fontWeight": 600,
+            "usage": "Buttons, form labels, nav items, chips.",
+            "sample": "Find my matches"
+          },
+          {
+            "name": "caption",
+            "family": "sans",
+            "fontSize": "13px",
+            "lineHeight": "1.4",
+            "fontWeight": 500,
+            "usage": "Badges, timestamps, footnotes. Never the only place essential information appears.",
+            "letterSpacing": "0.005em",
+            "sample": "Checked for 2027 entry"
+          },
+          {
+            "name": "overline",
+            "family": "sans",
+            "fontSize": "12px",
+            "lineHeight": "1.3",
+            "fontWeight": 700,
+            "usage": "Uppercase eyebrows above a heading. One per section, at most.",
+            "letterSpacing": "0.08em",
+            "sample": "Country guide"
+          }
+        ]
+      },
+      {
+        "name": "Numbers",
+        "family": "display",
+        "styles": [
+          {
+            "name": "stat-xl",
+            "family": "display",
+            "fontSize": "44px",
+            "lineHeight": "1",
+            "fontWeight": 700,
+            "usage": "Big numbers: match score, total IB points. Tabular figures.",
+            "letterSpacing": "-0.02em",
+            "sample": "86%"
+          },
+          {
+            "name": "stat-md",
+            "family": "display",
+            "fontSize": "22px",
+            "lineHeight": "1.1",
+            "fontWeight": 700,
+            "usage": "Points requirement on program cards (IB 37+). Tabular figures.",
+            "letterSpacing": "-0.01em",
+            "sample": "IB 37+"
+          }
+        ]
+      }
+    ]
+  },
+  "spacing": {
+    "tokens": [
+      {
+        "name": "space-0.5",
+        "value": "2px",
+        "usage": "Hairline gaps (icon to badge text)."
+      },
+      {
+        "name": "space-1",
+        "value": "4px",
+        "usage": "Tight inline gaps."
+      },
+      {
+        "name": "space-2",
+        "value": "8px",
+        "usage": "Gap inside chips and buttons; between label and input."
+      },
+      {
+        "name": "space-3",
+        "value": "12px",
+        "usage": "Gap between related rows (meta lines in a card)."
+      },
+      {
+        "name": "space-4",
+        "value": "16px",
+        "usage": "Mobile page gutter; card padding on phones; default stack gap."
+      },
+      {
+        "name": "space-5",
+        "value": "20px",
+        "usage": "Card padding on desktop."
+      },
+      {
+        "name": "space-6",
+        "value": "24px",
+        "usage": "Desktop gutter; gap between cards."
+      },
+      {
+        "name": "space-8",
+        "value": "32px",
+        "usage": "Gap between page sections in the app."
+      },
+      {
+        "name": "space-12",
+        "value": "48px",
+        "usage": "Marketing section padding on phones."
+      },
+      {
+        "name": "space-16",
+        "value": "64px",
+        "usage": "Marketing section padding on tablet."
+      },
+      {
+        "name": "space-24",
+        "value": "96px",
+        "usage": "Marketing section padding on desktop."
+      }
+    ]
+  },
+  "radius": {
+    "tokens": [
+      {
+        "name": "radius-sm",
+        "value": "6px",
+        "usage": "Badges, small tags, the grade buttons inside a segmented control."
+      },
+      {
+        "name": "radius-md",
+        "value": "10px",
+        "usage": "Buttons, inputs, selects, segmented controls, menu items."
+      },
+      {
+        "name": "radius-lg",
+        "value": "14px",
+        "usage": "Cards, program cards, callouts, dropdown panels."
+      },
+      {
+        "name": "radius-xl",
+        "value": "20px",
+        "usage": "Dialogs, bottom sheets, marketing feature panels."
+      },
+      {
+        "name": "radius-full",
+        "value": "9999px",
+        "usage": "Chips, avatars, switches and the score ring only. Not buttons."
+      }
+    ]
+  },
+  "shadow": {
+    "tokens": [
+      {
+        "name": "shadow-xs",
+        "value": "0 1px 2px rgb(16 24 40 / 0.06)",
+        "usage": "Inputs and buttons at rest (outline variants)."
+      },
+      {
+        "name": "shadow-sm",
+        "value": "0 1px 3px rgb(16 24 40 / 0.08), 0 1px 2px rgb(16 24 40 / 0.04)",
+        "usage": "Cards at rest."
+      },
+      {
+        "name": "shadow-md",
+        "value": "0 8px 20px -6px rgb(16 24 40 / 0.14), 0 2px 6px -2px rgb(16 24 40 / 0.06)",
+        "usage": "Card hover, sticky bars, dropdowns."
+      },
+      {
+        "name": "shadow-lg",
+        "value": "0 24px 48px -16px rgb(16 24 40 / 0.24)",
+        "usage": "Dialogs and bottom sheets."
+      }
+    ]
+  },
+  "layout": {
+    "tokens": [
+      {
+        "name": "container-app",
+        "value": "1200px",
+        "usage": "Max width of app pages (search, matches, program detail)."
+      },
+      {
+        "name": "container-wide",
+        "value": "1280px",
+        "usage": "Max width of marketing pages and the header."
+      },
+      {
+        "name": "container-prose",
+        "value": "42rem",
+        "usage": "Max width of running text: descriptions, guides, legal pages (about 68 characters)."
+      },
+      {
+        "name": "header-height",
+        "value": "64px",
+        "usage": "Site and app header."
+      },
+      {
+        "name": "tabbar-height",
+        "value": "64px",
+        "usage": "Mobile bottom tab bar, plus the safe-area inset."
+      },
+      {
+        "name": "tap-target",
+        "value": "44px",
+        "usage": "Minimum height of buttons, chips and tab-bar items on touch screens."
+      }
+    ]
+  },
+  "zIndex": {
+    "tokens": [
+      {
+        "name": "z-sticky",
+        "value": "20",
+        "usage": "Sticky filter bar, sticky summary."
+      },
+      {
+        "name": "z-header",
+        "value": "30",
+        "usage": "Header and bottom tab bar."
+      },
+      {
+        "name": "z-overlay",
+        "value": "40",
+        "usage": "Sheet and dialog scrim."
+      },
+      {
+        "name": "z-modal",
+        "value": "50",
+        "usage": "Dialog, sheet."
+      },
+      {
+        "name": "z-toast",
+        "value": "60",
+        "usage": "Toasts."
+      }
+    ]
+  }
+}
