@@ -17,7 +17,7 @@ import type { RefreshFile } from '../lib/refresh'
 const refresh: RefreshFile = {
   university: 'University of Gdańsk',
   entryYear: 2027,
-  checkedOn: '2026-09-27',
+  checkedOn: '2026-10-02',
   programs: [
     // Stored: not checked for any intake.
     {
@@ -32,13 +32,15 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl: 'https://rekrutacja.ug.edu.pl/en/kierunek/cultural-communication-2/',
       requirements: [],
-      checkedFor: 2026,
+      checkedFor: 2027,
       sources: [
+        'https://bip.ug.edu.pl/sites/default/files/nodes/akty_normatywne/120355/files/30_u_26.pdf',
+        'https://bip.ug.edu.pl/sites/default/files/nodes/akty_normatywne/120355/files/zal_nr_1_zasady.pdf',
         'https://rekrutacja.ug.edu.pl/en/kierunek/cultural-communication-2/',
         'https://en.ug.edu.pl/study/educational-offer'
       ],
       notes:
-        "Content 3.4: the stored page was the 2024/25 offer on old-en.ug.edu.pl (500); the programme now lives on UG's recruitment site. Same programme: first-cycle, full-time, English, Faculty of Languages, 3 years, 25 places. Checked, no subject strictly required: the ranking weights English 0.5, the candidate's native language 0.3 (another foreign language if English is native) and one of History, History of Art, Biology, Civics, Geography, Mathematics, Physics, Chemistry, a foreign language or Latin 0.2. The stored English SL4, science HL5 and language HL5 rows had no source and are removed. IB holders are exempt from the entrance exam for non-EU diplomas. 2025/26 threshold: 91.75 UG points. UG publishes no IB points minimum: candidates are ranked on weighted exam results, and the page gives only last year's threshold on UG's own scale. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The page is for 2026/27 recruitment (registration June-July 2026, now closed), so checked for 2026."
+        "Content 3.4: the stored page was the 2024/25 offer on old-en.ug.edu.pl (500); the programme now lives on UG's recruitment site. Same programme: first-cycle, full-time, English, Faculty of Languages, 3 years, 25 places. Checked, no subject strictly required: the ranking weights English 0.5, the candidate's native language 0.3 (another foreign language if English is native) and one of History, History of Art, Biology, Civics, Geography, Mathematics, Physics, Chemistry, a foreign language or Latin 0.2. The stored English SL4, science HL5 and language HL5 rows had no source and are removed. IB holders are exempt from the entrance exam for non-EU diplomas. 2025/26 threshold: 91.75 UG points. UG publishes no IB points minimum: candidates are ranked on weighted exam results, and the page gives only last year's threshold on UG's own scale. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). Content 4.8: UG Senate Resolution 30/26 (12 June 2026), Attachment 1, sets the 2027/2028 criteria for Cultural Communication: the same weights as above (English 0.5, the candidate's native language or another foreign language 0.3, one further subject 0.2; each IB grade is converted under § 10 (SL 7 = 100, 6 = 90, 5 = 75, 4 = 60, 3 = 45, 2 = 30 points; HL x1.75)), so checked for 2027. The recruitment page still describes 2026/27."
     },
     // Deleted 2026-09-27 at the owner's request (content 3.4), backup in scripts/backups/refresh/: Finance and Accounting, spec. Financial Analyst: not in UG's 2026/27 English offer (master's only).
     // Stored: not checked for any intake.
@@ -54,13 +56,15 @@ const refresh: RefreshFile = {
       minIBPoints: 34,
       programUrl: 'https://rekrutacja.ug.edu.pl/en/kierunek/international-business-4/',
       requirements: [],
-      checkedFor: 2026,
+      checkedFor: 2027,
       sources: [
+        'https://bip.ug.edu.pl/sites/default/files/nodes/akty_normatywne/120355/files/30_u_26.pdf',
+        'https://bip.ug.edu.pl/sites/default/files/nodes/akty_normatywne/120355/files/zal_nr_1_zasady.pdf',
         'https://rekrutacja.ug.edu.pl/en/kierunek/international-business-4/',
         'https://en.ug.edu.pl/study/educational-offer'
       ],
       notes:
-        "Content 3.4: the stored page was the 2025/26 offer on old-en.ug.edu.pl (year-pinned); the programme now lives on UG's recruitment site (international-business-4 is the first-cycle one; -3 is the master's). Same programme: first-cycle, full-time, English, Faculty of Economics, 3 years, 105 places. Checked, no subject strictly required: the ranking weights English 0.6 and two of Geography, History, Computer Science, Mathematics or Civics 0.2 each. The stored English SL4 (critical), humanities HL5 and Maths HL5 rows had no source and are removed. IB holders are exempt from the entrance exam for non-EU diplomas. 2025/26 threshold: 110.30 UG points. UG publishes no IB points minimum: candidates are ranked on weighted exam results, and the page gives only last year's threshold on UG's own scale. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). The page is for 2026/27 recruitment (registration June-July 2026, now closed), so checked for 2026."
+        "Content 3.4: the stored page was the 2025/26 offer on old-en.ug.edu.pl (year-pinned); the programme now lives on UG's recruitment site (international-business-4 is the first-cycle one; -3 is the master's). Same programme: first-cycle, full-time, English, Faculty of Economics, 3 years, 105 places. Checked, no subject strictly required: the ranking weights English 0.6 and two of Geography, History, Computer Science, Mathematics or Civics 0.2 each. The stored English SL4 (critical), humanities HL5 and Maths HL5 rows had no source and are removed. IB holders are exempt from the entrance exam for non-EU diplomas. 2025/26 threshold: 110.30 UG points. UG publishes no IB points minimum: candidates are ranked on weighted exam results, and the page gives only last year's threshold on UG's own scale. The stored 34 points predate this check and have no official source; they are kept, not re-verified (see the owner question in the 3.4 status). Content 4.8: UG Senate Resolution 30/26 (12 June 2026), Attachment 1, sets the 2027/2028 criteria for International Business: English 0.6 and two subjects at 0.2 each from Business and Management (new for 2027/28), Geography, History, Computer Science, Mathematics or Civics; each IB grade is converted under § 10 (SL 7 = 100, 6 = 90, 5 = 75, 4 = 60, 3 = 45, 2 = 30 points; HL x1.75). Checked, still none strictly required; checked for 2027. The recruitment page still describes 2026/27."
     }
   ]
 }

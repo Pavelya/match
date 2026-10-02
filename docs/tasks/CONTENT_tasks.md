@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) researched 2 October 2026, dry run awaiting the owner; 4.8b (the seven thin countries) next |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -85,8 +85,8 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.5 Hong Kong and Singapore — HKUST's Business extended majors for the owner
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
 - [x] 4.7 Australia, Switzerland, Spain — owner decisions applied: Melbourne checked by hand, a discontinued Sydney double deleted
-- [ ] 4.8 Italy, Sweden, Poland, Portugal, Czech Republic, Austria, Belgium, Denmark,
-  Israel, Estonia, Japan
+- [ ] 4.8a Italy, Sweden, Poland, Portugal — researched, dry run awaiting the owner's approval
+- [ ] 4.8b Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
 
 Phase 5 — Coverage
 
@@ -146,6 +146,18 @@ Owner tasks — not AI work
   description now says so, 30 September 2026
 - [ ] Open two or three UB pages in a browser (4.7): `web.ub.edu` refuses every client, and 13 stored links were not the degree's own
   page. The 33 new page codes come from the search index
+- [ ] Approve 4.8a's points policy, or not: where a university's only IB condition is the Diploma or a published 24-point
+  rule, store 24. That lowers Lund ×4 (36, 36, 35, 30), Dalarna (30), Sapienza ×8 (27-36, which were Sapienza's non-EU
+  pre-selection GPA scaled to 45) and Bologna ×12 (26-36, no source). Where no IB figure exists at all (Poland, Portugal,
+  Bologna's BAES), the stored points are kept, unverified, as for Gdańsk in 3.4
+- [ ] Confirm three renames in 4.8a that the universities do not spell out: Linnaeus "International Tourism Management" →
+  "International Tourism, Hospitality and Event Management Programme" and "The Economics Programme" → "Bachelor's Programme in
+  Economics and Data Analysis" (each new page reuses the stored description; neither says it replaces the old), and AGH
+  "Electronics and Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027)
+- [ ] Re-check after 16 October 2026, when the Swedish autumn 2027 round opens (4.8a): Linnaeus Peace and Development, and Lund
+  Fine Arts and both Music programmes, show only Autumn 2026, so they are stamped 2026
+- [ ] Re-check Italy and Portugal when the 2027/28 calls appear (4.8a): Bologna (12), Sapienza (8), Católica (7) and ISEG (4) are
+  stamped 2026; only Padua's joint degree with Bologna has published 2027/2028
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
   Engineering BEng, Information Management for Business, Neuroscience, Politics and International
   Relations, Urban Studies, Law. Say whether Civil Engineering BEng and Scandinavian Studies are still
@@ -362,6 +374,22 @@ not precision.
   refuses every client; WebSearch with `allowed_domains: ["web.ub.edu"]` gives each degree's page code in its titles. UAB pages
   answer curl and show the latest cut-off as "Admission mark". Complutense's BAES admits through KU Leuven
   (`ghum.kuleuven.be/EN/baes/apply`). The Internet Archive's CDX API was down again (503).
+- **Found in 4.8a:** Sweden's IB rules are national: UHR's `universityadmissions.se/.../ib-studies/for-ib-diplomas-2021-and-later/`
+  maps each Swedish course to IB subjects (grade 4; HL 3 for Biology, Chemistry and Physics; HL 3 maths counts one course lower) and
+  antagning.se has the IB-total merit table. Programme pages name the intake: Jönköping's slugs end `autumn-<year>-<code>` and the
+  old year 404s (its programme search is `.../12.303f01ec19164b393d38f8d9.htm?state=ajaxQuery&isRenderingAjaxResult=true&query=`);
+  Karlstad's `?occasion=<n>` picks the intake; Lund's `/lubas/i-uoh-lu-<code>` redirects to `/study/<slug>-<code>` and syllabi are
+  `kursplaner.lu.se/pdf/program/en/<code>`; Linnaeus's address shows the newest intake (`.../2026/` keeps the old) and a programme
+  re-coded for 2027 gets a new slug, listed under "similar programmes". `lnu.se` is a Cloudflare 403 to curl but WebFetch reads it.
+  Italy: MUR's circular for international students is valid for 2026-27 and 2027-28 and its Annex 1 sets the IB rule (24 points,
+  12 at HL); Bologna's `corsi.unibo.it/<cycle>/<code>/how-to-enrol` and Sapienza's MoveIn PDF (`academic_requirements_movein_<year>`)
+  name the year; `apply.unipd.it` already shows 2027/2028. Poland: every senate fixes the next year's rules by 30 June (Art. 70), so
+  2027/2028 resolutions exist: AGH `rekrutacja.agh.edu.pl/dokumenty/`, Jagiellonian `bip.uj.edu.pl` (Resolution 62/V/2026, attachments
+  3-5), Medical University of Warsaw `rekrutacja-info.wum.edu.pl/uchwala-rekrutacyjna-2027-2028-0`, Gdańsk `bip.ug.edu.pl`
+  (Resolution 30/26; § 10 converts IB grades). AGH's syllabus URLs carry the cycle (`/en/1/2/22/...` is 2026/2027). Portugal:
+  Católica's sites return an empty gzip body unless curl sends `--compressed`; the Porto school moved to `cpsbe.porto.ucp.pt`; ISEG's
+  IB maths list is `.../secretaria/en/applications/crediting/international-students/homologated-tests/`. The CNAES deliberation on
+  `diariodarepublica.pt` is JavaScript-only.
 
 ---
 
@@ -1525,7 +1553,9 @@ their public pages.
 | 4.5 | HKUST 47, HKU 38, NTU 40, NUS 20 | 145 | NTU Aerospace: add Computer Science to the second HL subject group, and find the source of the stored grade 6 (3.4 found NTU names no grades and publishes no IB points). HKUST's admissions site blocked every client in 3.4 |
 | 4.6 | Groningen 36, Amsterdam 24, Leiden 23, Erasmus 14, Delft 4, Trinity 58, UCD 25 | 184 | Split in two if it runs long. 48 Dutch programs have no subject requirements. Ireland: CAO 2027. UCD's 25 were checked for 2027 in 3.4 |
 | 4.7 | Sydney 41, Melbourne 14, ETH 22, Lausanne 15, EPFL 13, Basel 1, Barcelona 33, UAB 12, Complutense 1 | 152 | Melbourne and Barcelona block scripted requests. Australia: 2027 ATAR conversion |
-| 4.8 | Italy 30, Sweden 29, Poland 18, Portugal 11, Czech Rep. 9, Austria 7, Belgium 6, Denmark 5, Israel 4, Estonia 2, Japan 2 | 123 | Bocconi and Gdańsk done in 3.4 (Gdańsk publishes no IB points). Jönköping `autumn-2026` URLs. **None of** Sweden, Poland, Czech Republic, Austria, Belgium, Denmark, Estonia or Japan is verified |
+| 4.8 | Italy 30, Sweden 29, Poland 18, Portugal 11, Czech Rep. 9, Austria 7, Belgium 6, Denmark 5, Israel 4, Estonia 2, Japan 2 | 123 | Bocconi and Gdańsk done in 3.4 (Gdańsk publishes no IB points). Jönköping `autumn-2026` URLs. **None of** Sweden, Poland, Czech Republic, Austria, Belgium, Denmark, Estonia or Japan is verified. **Split in two on 2 October 2026** (below) |
+| 4.8a | Italy 30 (Bocconi done in 3.4), Sweden 29, Poland 17, Portugal 11 | 87 | 76 to research, plus Gdańsk's re-check. The four countries with real program lists |
+| 4.8b | Czech Rep. 9, Austria 7, Belgium 6, Denmark 5, Israel 4, Estonia 2, Japan 2 | 35 | Tel Aviv done in 3.3 (owner: leave as is). Exactly the countries phase 5 extends, so it can run with 5.1-5.2 |
 
 **The UK sessions (4.1, 4.2) must be finished by mid-December**, ahead of the 13 January
 2027 UCAS deadline.
@@ -2056,6 +2086,82 @@ Sydney 11, ETH 1, Lausanne 1), backup `scripts/backups/refresh/2026-09-30T11-15-
     its four subject rows. After the owner's decisions: Sydney Advanced Computing shows no subject rows, both Swiss medicine pages
     carry the restriction, Melbourne's Bachelor of Science (Advanced-Honours) shows "checked for 2027 entry", and the deleted
     double's page returns 404.
+
+### 4.8 — Italy, Sweden, Poland, Portugal (4.8a); seven thin countries (4.8b)
+
+Split on 2 October 2026, as 4.6 allowed. **4.8a** is Italy, Sweden, Poland and Portugal: 76 programs at 12 universities to
+research, plus Gdańsk (2), which 3.4 stamped 2026, and Bocconi (9), already checked for 2027 in 3.4. **4.8b** is the Czech
+Republic, Austria, Belgium, Denmark, Israel, Estonia and Japan (35 programs, Tel Aviv's 4 checked in 3.3): the countries phase 5
+extends, so 4.8b can run alongside 5.1 and 5.2.
+
+#### Status, 2 October 2026 — 4.8a researched (session 19a); dry run awaiting the owner
+
+Data files (new): `scripts/programs/2027/dalarna-university.ts`, `jonkoping-university.ts`, `karlstad-university.ts`,
+`linnaeus-university.ts`, `lund-university.ts`, `sapienza-university-of-rome.ts`, `university-of-bologna.ts`,
+`agh-university-of-krakow.ts`, `jagiellonian-university.ts`, `medical-university-of-warsaw.ts`,
+`catholic-university-of-portugal.ts` and `university-of-lisbon.ts`; `university-of-gdansk.ts` continued from 3.4. Every change is
+explained in the program's `notes`. **Not applied:** the dry run (78 programs, all changes or stamps, none new, none
+discontinued) waits for the owner.
+
+- **Sources and entry years** (43 stamped 2027, 35 stamped 2026):
+  - Sweden: each programme page states its Autumn 2027 requirements as Swedish courses, and UHR's IB page translates them
+    (rule 2 is met as for Catalonia in 4.7). 25 stamped 2027. Four show only Autumn 2026 and are stamped 2026: Linnaeus Peace and
+    Development, and Lund Fine Arts and both Music programmes (selected by portfolio or audition).
+  - Italy: MUR's circular is valid for 2026-27 and 2027-28 and sets the IB rule, but Bologna's and Sapienza's admission pages and
+    calls are for 2026/27. 20 stamped 2026. Bologna's Biology of Human and Environmental Health, which admits through Padua, is
+    stamped 2027: Padua's page already takes 2027/2028 applications.
+  - Poland: every senate has adopted its 2027/2028 rules (AGH 82/2026, Jagiellonian 62/V/2026, Medical University of Warsaw
+    42/2026, Gdańsk 30/26). All 17 stamped 2027, Gdańsk's two moving up from 2026.
+  - Portugal: Católica's pages are the 2026 rounds and ISEG's name no year. 11 stamped 2026.
+- **Points (25 down, none up), all to 24:**
+  - Sweden: the IB Diploma is the general entry requirement and selection converts the IB total from 24 points up. 24 of the 29
+    were already 24; Lund Economy and Society and International Business 36, Physics 35 and Physical Geography 30, and Dalarna 30,
+    had no source.
+  - Italy: Sapienza (34, 34, 36, 34, 36, 32, 27, 36) and Bologna ×12 (26-36). Both apply MUR's rule (24 points, 12 at HL), and
+    Sapienza states it itself. Sapienza's stored values were its non-EU pre-selection GPA minimum (60-80/100) scaled to 45; Sapienza
+    publishes no IB conversion for it, and the GPA is in the notes.
+  - Kept, unverified (no IB figure published, as for Gdańsk in 3.4): AGH, Jagiellonian, Medical University of Warsaw, Gdańsk,
+    Católica, ISEG and Bologna's BAES. **Owner question above.**
+- **Subjects.**
+  - Sweden: rebuilt from UHR's table. English 6 is English B SL or any English A at 4, not critical (a test can replace it).
+    Mathematics 2 is any maths at 3. Mathematics 3b/3c is AA SL 3, AI SL 4 or AI HL 3, and Mathematics 4 is AA SL 4 or AA/AI HL 3.
+    Sciences are SL 4 or HL 3. Jönköping's English grade 3 is raised to UHR's 4. Lund Mathematics gained its missing maths
+    requirement, and Lund Physics' single OR group of Chemistry, Maths or Physics became three requirements. Linnaeus International
+    Business now asks Mathematics 3b/3c for 2027 (2026: Mathematics 2). Lund Physical Geography needs two sciences; one is stored
+    (model limit, in the note).
+  - Italy: **all subject rows removed** (21). Admission is by test (SAT, CEnT-S, TOLC, IMAT or English Test HUM), and neither
+    university names a school subject.
+  - Poland: AGH, Jagiellonian's interview programmes and BASUS have no required subject; their rows are removed and the AGH
+    ranking formula is in the notes. Jagiellonian Medicine and Dentistry require completed Chemistry and Biology or Physics, stored
+    at SL 4 because no grade is named. Medical University of Warsaw scores Biology HL, Chemistry HL and Physics or Maths;
+    Dentistry's Biology and Chemistry move from SL to HL.
+  - Portugal: entrance exams. Católica Lisbon's international programmes need Maths AA SL/HL or AI HL plus a second exam (Business
+    Management, a History HL option, English A or English B HL). Católica Porto and ISEG need maths only. Neuroscience needs Biology
+    and maths; Medicine needs Biology, Chemistry, Physics and maths. Exam minimums (95/200, or 50%) are stored as grade 4.
+- **Renamed:** Jönköping's three business programmes drop "Bachelor in"; Linnaeus "International Tourism Management" →
+  "International Tourism, Hospitality and Event Management Programme" and "The Economics Programme" → "Bachelor's Programme in
+  Economics and Data Analysis" (new 2027 pages and codes, same text and requirements; owner question above); AGH "Electronics and
+  Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027).
+- **Links:** 33 URLs updated. Jönköping's six `autumn-2026` pages now 404 and move to `autumn-2027`. Karlstad's three occasions,
+  Linnaeus's three new slugs, Lund's nine `/lubas/` redirects, Bologna's Padua joint degree, AGH's five syllabi (2026/2027 cycle)
+  and Católica Porto's new domain are updated, and ISEG's trailing `#` is dropped. Every new URL answers 200, except Linnaeus's
+  ten, which return a Cloudflare 403 to scripts (WebFetch reads them).
+- **Fields and degrees:** ten fields corrected: Jönköping Prosthetics (was Business & Economics), Karlstad AI (Social Sciences),
+  four Linnaeus programmes (Economics and Visual Communication were Computer Science), Sapienza Global Humanities and three
+  Jagiellonian programmes. Swedish degrees are now Bachelor of Science, Bachelor of Fine Arts,
+  Bachelor of Music or Bachelor of Social Sciences as awarded. Polish and Portuguese long-cycle medicine and dentistry, and Bologna's
+  three single-cycle programmes (stored as "Combined Bachelor and Master"), are Single-Cycle Master's Degree. Bologna's BAES is a
+  Bachelor of Arts, as Complutense's is. Polish licencjat and inżynier degrees stay "Bachelor" (award not in the list).
+- **Model limits**, in the notes: Swedish selection by merit rank, Lund's "two sciences", Polish ranking formulas and interviews,
+  the Italian entrance tests, Portuguese exam minimums on a 200-point scale, and portfolio or audition selection.
+- **Verify after the apply:** a second dry run finds all 78 up to date; `requirementsEntryYear` as above; `count(*)` unchanged;
+  Algolia equals the database; the link checker for the four countries; two public pages (Lund Physics at 24 with three subject
+  rows; AGH's renamed programme).
+
+#### 4.8b — Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
+
+Not started. Charles University 9, JKU Linz 5, Graz 2, KU Leuven 6, CBS 5, Tel Aviv 4 (3.3: leave as is), Tartu 2, Tokyo 2.
+`ut.ee` answers scripts with 403 (3.3). None of these is verified.
 
 ---
 
