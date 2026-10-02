@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) researched 2 October 2026, dry run awaiting the owner; 4.8b (the seven thin countries) next |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) next |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -85,7 +85,7 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.5 Hong Kong and Singapore — HKUST's Business extended majors for the owner
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
 - [x] 4.7 Australia, Switzerland, Spain — owner decisions applied: Melbourne checked by hand, a discontinued Sydney double deleted
-- [ ] 4.8a Italy, Sweden, Poland, Portugal — researched, dry run awaiting the owner's approval
+- [x] 4.8a Italy, Sweden, Poland, Portugal — applied 2 October 2026; Swedish, Italian and Portuguese re-checks for the owner
 - [ ] 4.8b Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
 
 Phase 5 — Coverage
@@ -146,14 +146,14 @@ Owner tasks — not AI work
   description now says so, 30 September 2026
 - [ ] Open two or three UB pages in a browser (4.7): `web.ub.edu` refuses every client, and 13 stored links were not the degree's own
   page. The 33 new page codes come from the search index
-- [ ] Approve 4.8a's points policy, or not: where a university's only IB condition is the Diploma or a published 24-point
+- [x] Approve 4.8a's points policy, or not: where a university's only IB condition is the Diploma or a published 24-point
   rule, store 24. That lowers Lund ×4 (36, 36, 35, 30), Dalarna (30), Sapienza ×8 (27-36, which were Sapienza's non-EU
   pre-selection GPA scaled to 45) and Bologna ×12 (26-36, no source). Where no IB figure exists at all (Poland, Portugal,
-  Bologna's BAES), the stored points are kept, unverified, as for Gdańsk in 3.4
-- [ ] Confirm three renames in 4.8a that the universities do not spell out: Linnaeus "International Tourism Management" →
+  Bologna's BAES), the stored points are kept, unverified, as for Gdańsk in 3.4. Approved with the dry run and applied, 2 October 2026
+- [x] Confirm three renames in 4.8a that the universities do not spell out: Linnaeus "International Tourism Management" →
   "International Tourism, Hospitality and Event Management Programme" and "The Economics Programme" → "Bachelor's Programme in
   Economics and Data Analysis" (each new page reuses the stored description; neither says it replaces the old), and AGH
-  "Electronics and Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027)
+  "Electronics and Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027). Approved with the dry run and applied, 2 October 2026
 - [ ] Re-check after 16 October 2026, when the Swedish autumn 2027 round opens (4.8a): Linnaeus Peace and Development, and Lund
   Fine Arts and both Music programmes, show only Autumn 2026, so they are stamped 2026
 - [ ] Re-check Italy and Portugal when the 2027/28 calls appear (4.8a): Bologna (12), Sapienza (8), Católica (7) and ISEG (4) are
@@ -2094,14 +2094,16 @@ research, plus Gdańsk (2), which 3.4 stamped 2026, and Bocconi (9), already che
 Republic, Austria, Belgium, Denmark, Israel, Estonia and Japan (35 programs, Tel Aviv's 4 checked in 3.3): the countries phase 5
 extends, so 4.8b can run alongside 5.1 and 5.2.
 
-#### Status, 2 October 2026 — 4.8a researched (session 19a); dry run awaiting the owner
+#### Status, 2 October 2026 — 4.8a done (session 19a); applied the same day
 
 Data files (new): `scripts/programs/2027/dalarna-university.ts`, `jonkoping-university.ts`, `karlstad-university.ts`,
 `linnaeus-university.ts`, `lund-university.ts`, `sapienza-university-of-rome.ts`, `university-of-bologna.ts`,
 `agh-university-of-krakow.ts`, `jagiellonian-university.ts`, `medical-university-of-warsaw.ts`,
 `catholic-university-of-portugal.ts` and `university-of-lisbon.ts`; `university-of-gdansk.ts` continued from 3.4. Every change is
-explained in the program's `notes`. **Not applied:** the dry run (78 programs, all changes or stamps, none new, none
-discontinued) waits for the owner.
+explained in the program's `notes`. **Owner-approved and applied on 2 October 2026:** 78 programs written (Dalarna 1,
+Jönköping 6, Karlstad 3, Linnaeus 10, Lund 9, Sapienza 8, Bologna 13, AGH 5, Jagiellonian 8, Medical University of Warsaw 2,
+Gdańsk 2, Católica 7, ISEG 4; Gdańsk's two stamp only), none created, none discontinued. Backup:
+`scripts/backups/refresh/2026-10-02T11-36-25-980Z.json`.
 
 - **Sources and entry years** (43 stamped 2027, 35 stamped 2026):
   - Sweden: each programme page states its Autumn 2027 requirements as Swedish courses, and UHR's IB page translates them
@@ -2154,9 +2156,17 @@ discontinued) waits for the owner.
   Bachelor of Arts, as Complutense's is. Polish licencjat and inżynier degrees stay "Bachelor" (award not in the list).
 - **Model limits**, in the notes: Swedish selection by merit rank, Lund's "two sciences", Polish ranking formulas and interviews,
   the Italian entrance tests, Portuguese exam minimums on a 200-point scale, and portfolio or audition selection.
-- **Verify after the apply:** a second dry run finds all 78 up to date; `requirementsEntryYear` as above; `count(*)` unchanged;
-  Algolia equals the database; the link checker for the four countries; two public pages (Lund Physics at 24 with three subject
-  rows; AGH's renamed programme).
+- **Verify.**
+  - `requirementsEntryYear`: Dalarna 1, Jönköping 6, Karlstad 3, AGH 5, Jagiellonian 8, Medical University of Warsaw 2 and Gdańsk 2
+    × 2027; Linnaeus 9 × 2027, 1 × 2026; Lund 6 × 2027, 3 × 2026; Bologna 1 × 2027, 12 × 2026; Sapienza 8, Católica 7 and ISEG 4
+    × 2026 (Bocconi's 9 stay 2027). All 87 in the four countries are flagged verified.
+  - `count(*)`: 1,273 before and after. Algolia: 1,273 records, synced by the tool (78 written).
+  - A second dry run finds all 78 up to date.
+  - Link checker, four countries: 87 URLs, 77 OK and 10 unverifiable (Linnaeus, 403); 0 broken, redirected, soft 404 or
+    year-pinned.
+  - Public pages: Lund Physics shows 24 points, "Requirements checked for 2027 entry" and four subject groups; AGH's programme is
+    titled "Computer Science for Embedded Systems" and checked for 2027. The Swedish science and maths groups mix levels (SL 4 or
+    HL 3), so they read "Physics or Physics" until MAINT 5.7 shows each option's level and grade.
 
 #### 4.8b — Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
 
