@@ -29,7 +29,7 @@ here, and this refresh does more production writes than any work before it.
 | 9 | Canonical degree types and IB course codes | 3.2, 3.5 | small each | **Done.** 26 September 2026 |
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
-| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) next |
+| 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
@@ -86,7 +86,8 @@ Phase 4 — Program refresh for 2027 entry
 - [x] 4.6 Netherlands and Ireland — five programs deleted and two awards added at the owner's request
 - [x] 4.7 Australia, Switzerland, Spain — owner decisions applied: Melbourne checked by hand, a discontinued Sydney double deleted
 - [x] 4.8a Italy, Sweden, Poland, Portugal — applied 2 October 2026; Swedish, Italian and Portuguese re-checks for the owner
-- [ ] 4.8b Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
+- [x] 4.8b Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan — applied 3 October 2026; Tokyo's PEAK programs
+  discontinued, for the owner
 
 Phase 5 — Coverage
 
@@ -180,6 +181,16 @@ Owner tasks — not AI work
 - [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
   27 September 2026. Georgia Tech's version of the question stays with phase 6
 - [ ] Decide about France (5)
+- [ ] Decide about the University of Tokyo's two PEAK programs (4.8b): PEAK's admissions page says "The Admission for September
+  2026 Enrollment will be the last student recruitment for the PEAK". Both are reported as discontinued and left unwritten;
+  deleting them leaves Japan with no program in search (phase 5.2)
+- [x] Approve 4.8b's dry run, including 4.8a's points policy applied to six programs whose only IB condition is the Diploma
+  (Charles Computer Science 38 and Physiotherapy 34, KU Leuven Business Administration 30, Engineering Technology 30 and
+  Philosophy 28, Tartu Business Administration 34, all to 24). Approved and applied, 3 October 2026
+- [ ] Re-check the 4.8b programs stamped 2026 when their 2027 rules appear: Charles Computer Science (MFF's 2027/2028 page) and
+  Science (deadlines by November 2026), KU Leuven's European Studies (applications open in fall 2026), Tartu's two (by the end
+  of December), JKU's International Business Administration (a new procedure from spring 2027). JKU's other three and Graz's
+  two publish no intake: confirm, or re-check yearly
 
 ---
 
@@ -394,6 +405,22 @@ not precision.
   Católica's sites return an empty gzip body unless curl sends `--compressed`; the Porto school moved to `cpsbe.porto.ucp.pt`; ISEG's
   IB maths list is `.../secretaria/en/applications/crediting/international-students/homologated-tests/`. The CNAES deliberation on
   `diariodarepublica.pt` is JavaScript-only.
+
+- **Found in 4.8b:** Charles University's admission system answers curl. `is.cuni.cz/studium/eng/prijimacky/index.php?do=obory&druh=B&jazyk=ENG&zobraz=1`
+  lists the English bachelor's programmes on offer, and each intake gets a new `id_obor` (2027/2028 ids are 36xxx-37xxx); the
+  previous year's page keeps serving. MFF's Computer Science rules are at `mff.cuni.cz/en/admissions/admission-requirements-for-
+  bachelor-s-programmes-in-english/<yyyy-yyyy>`; the Faculty of Science's Science programme is on `natur.cuni.cz/en/admissions/
+  study-programmes/science`, its conditions in Czech under `natur.cuni.cz/uchazeci/bakalarske-studium/podminky-prijimaciho-rizeni/`.
+  CBS's `cbs.dk/en/study-programmes/bachelor-programmes/application-and-admission` has every programme's Danish-level requirements
+  and, under "Standard assessments", how each IB subject meets them; the Danish IB total conversion comes from
+  `ufmembedlandedb-g3c6dhagdga8bbhf.northeurope-01.azurewebsites.net/api/data/landedb?mode=articles&handbookId=3&countryId=269&subjectId=3`
+  (JSON; the ufsn.dk page only embeds it). JKU publishes no IB rule, only "general university entrance qualification"; the Austrian
+  science ministry (`bmwet.gv.at/.../universitätsreife.html`) says an IB Diploma is one, and its IB circular on `bmbwf.gv.at` now 404s.
+  Graz's IB rule is `internationale-studierende.uni-graz.at/en/application-with-ib-diploma/`. KU Leuven's `kuleuven.be/programmes/<slug>`
+  redirects to `onderwijsaanbod.kuleuven.be/opleidingen/e/SC_<n>/diploma_omschrijving`; `.../toelatingsvoorwaarden` holds both
+  academic years' tabs in one page (`id="2027-content"`), whatever `?tabs=` says. `ut.ee` answered curl again (the link checker
+  still got one 403) and WebFetch reads it; Tartu publishes no IB grade conversion in English. `peak.c.u-tokyo.ac.jp`'s certificate
+  expired on 30 September 2026 and every path now 404s; the Internet Archive has `www.peak.c.u-tokyo.ac.jp/apply/index.html`.
 
 ---
 
@@ -2172,10 +2199,73 @@ Gdańsk 2, Católica 7, ISEG 4; Gdańsk's two stamp only), none created, none di
     titled "Computer Science for Embedded Systems" and checked for 2027. The Swedish science and maths groups mix levels (SL 4 or
     HL 3), so they read "Physics or Physics" until MAINT 5.7 shows each option's level and grade.
 
-#### 4.8b — Czech Republic, Austria, Belgium, Denmark, Israel, Estonia, Japan
+#### Status, 3 October 2026 — 4.8b done (session 19b); applied the same day
 
-Not started. Charles University 9, JKU Linz 5, Graz 2, KU Leuven 6, CBS 5, Tel Aviv 4 (3.3: leave as is), Tartu 2, Tokyo 2.
-`ut.ee` answers scripts with 403 (3.3). None of these is verified.
+Data files (new): `scripts/programs/2027/charles-university.ts`, `copenhagen-business-school.ts`,
+`johannes-kepler-university-linz.ts`, `university-of-graz.ts`, `ku-leuven.ts`, `university-of-tartu.ts` and
+`university-of-tokyo.ts`. Tel Aviv's file is untouched (3.3: leave as is). Every change is explained in the program's `notes`.
+**Owner-approved and applied on 3 October 2026:** 29 programs written (Charles 9, CBS 5, JKU 5, Graz 2, KU Leuven 6, Tartu 2), none
+created, Tokyo's two reported as discontinued and left for the owner. Backup: `scripts/backups/refresh/2026-10-03T21-08-58-432Z.json`.
+
+- **Sources and entry years** (18 stamped 2027, 11 stamped 2026):
+  - Czech Republic: Charles's admission system already lists 2027/2028 for seven programs (FSV's five, Psychology, Physiotherapy),
+    each under a new page id: 7 stamped 2027. Computer Science (MFF's 2027/2028 page 404s) and Science (deadlines due by November
+    2026; its stored page is gone) use 2026/2027: 2 stamped 2026.
+  - Denmark: CBS's application and admission page describes the 2027 admission round (deadline 15 March 2027). 5 stamped 2027.
+  - Belgium: KU Leuven's admission pages carry a 2027-2028 tab. 5 stamped 2027. European Studies (BAES) is stamped 2026, as for
+    Complutense and Bologna: applications for 2027-2028 open in fall 2026.
+  - Austria: JKU's pages name no intake, except Transformation Studies (winter semester 2027/28): 1 stamped 2027, 4 stamped 2026
+    (International Business Administration's procedure is 2026/2027's). Graz's IB page is undated and its deadlines end with summer
+    semester 2027: 2 stamped 2026.
+  - Estonia: Tartu's pages still describe the 2026 intake and promise 2027's by the end of December. 2 stamped 2026.
+  - Japan: PEAK's last intake was September 2026; both programs discontinued, unwritten. Israel: Tel Aviv's four as they are.
+- **Points (11 down, none up):**
+  - CBS 30 → 24 (×5): its published minimum, 24 including bonus points. Quota 1 ranks by the IB total on the Danish scale; the
+    2026 cut-offs were about 37-40 IB points (ufsn.dk's 2026 table), in the notes.
+  - The Diploma is the only IB condition, so 24 under 4.8a's approved policy: Charles Computer Science 38 (MFF: the IB total "is not
+    a factor"; Maths HL 6 is) and Physiotherapy 34 (an interview), KU Leuven Business Administration 30, Engineering Technology 30
+    and Philosophy 28, and Tartu Business Administration 34 (a motivation letter and a maths test).
+  - Published and kept: Charles Economics and Finance 30 ("30 out of 42"), Graz 24, and 24 elsewhere where no figure exists.
+  - Kept, unverified (no IB figure, and selection scores school results, as for Poland in 4.8a): Charles Psychology 34 and Science 34,
+    Tartu Science and Technology 34. KU Leuven's BAES keeps 24, as Complutense's and Bologna's kept theirs.
+- **Subjects.**
+  - CBS: rebuilt from CBS's own IB table, all critical. English B at Danish 6.0 is English A (either course) or English B at IB 5;
+    Mathematics B is Maths AA or AI at SL or HL, at 3 (Sociology: 5); History, Social Studies or International Economics B is
+    Business Management, Economics, Global Politics or History, or Geography or Anthropology at HL, at 3. The stored rows asked Maths
+    AI at HL; AI SL now counts.
+  - Charles: Computer Science needs Maths AA or AI HL 6 (not critical: AP, SAT, ACT or A levels can replace it) and lists IB English
+    6 among its English proofs. Economics and Finance assesses any IB maths course. The other seven name no subject; their rows are
+    removed, and English is proved by a test or English-medium schooling. Science's stored HL 5-7 rows had no source; its interview is
+    waived for predicted HL + SL science grades totalling 13.
+  - Tartu: Science and Technology scores the school results in maths and in Biology, Chemistry or Physics (each at least 51 of 100
+    points); Tartu publishes no IB conversion in English, so both are stored at SL 4, critical. Business Administration has none.
+  - JKU, Graz and KU Leuven name no subject: all 13 programs' rows removed. KU Leuven "strongly advises" Maths AA HL for Business
+    Engineering (in the notes).
+- **Renamed:** JKU's five drop "Bachelor's Degree in" and degree suffixes ("Artificial Intelligence", "Biological Chemistry",
+  "International Business Administration", "Transformation Studies. Art x Science", "Chemistry and Chemical Technology"); Graz's
+  "Bachelor of Science BSc" → "Economics" and "Bachelor’s in English Studies / American Studies" → "English Studies/American Studies".
+- **Links:** 19 URLs updated: Charles's seven 2027/2028 page ids and Science's faculty page, CBS's five moved pages, and KU Leuven's
+  five redirect targets plus BAES's own site (the stored catalogue page is the old BAES, closed to new students).
+- **Degrees and duration:** 20 "Bachelor" or "Master" rows are now the award named (CBS, JKU, Graz, KU Leuven, Tartu); KU Leuven's
+  BAES was stored as a Master. Charles's Bc. stays "Bachelor" (award not in the list). JKU International Business Administration
+  is 3 years, not 2.
+- **Model limits**, in the notes: Danish quota selection and the English A language requirement (English B SL needs a test), Graz's
+  HL total of 12 and German C1 at Graz, Charles's ranking scales, interviews, videos and essays, KU Leuven's maths tests (OMPT, the
+  starting test), Tartu's unpublished IB conversion, and Latin for Graz's English Studies.
+- **Coverage (for phase 5):** Japan has no open program: UTokyo's English undergraduate page lists only the Global Science Course, a
+  third-year transfer. CBS's BSc in International Business is not stored. Charles lists more English bachelor's for 2027/2028
+  (Liberal Arts and Humanities, Coach, Fitness Coach, Protestant Theology).
+- **Verify.**
+  - `requirementsEntryYear`: Charles 7 × 2027, 2 × 2026; CBS 5 × 2027; KU Leuven 5 × 2027, 1 × 2026; JKU 1 × 2027, 4 × 2026; Graz 2 ×
+    2026; Tartu 2 × 2026. All 29 flagged verified. Tel Aviv's 4 stay 2026 (3.1); Tokyo's 2 are unchanged.
+  - `count(*)`: 1,273 before and after. Algolia: 1,273 records, synced by the tool (29 written). `check-algolia-status.ts` still
+    lists 273 "missing" because it reads only 1,000 ids (MAINT 5.6).
+  - A second dry run finds all 29 up to date.
+  - Link checker, seven countries: 35 URLs, 32 OK, 1 unverifiable (`ut.ee`, 403), 2 no response (PEAK, expired certificate); 0
+    broken, redirected, soft 404 or year-pinned.
+  - Public pages: CBS Business Administration and Sociology shows 24 points, a Bachelor of Science, "Requirements checked for 2027
+    entry" and three subject groups (the social-studies group reads SL 3, though Geography and Anthropology count only at HL, until
+    MAINT 5.7); Graz's program is titled "Economics", 24 points, checked for 2026.
 
 ---
 
@@ -2201,7 +2291,7 @@ and Austria (7), several of them with real demand.
 | Task | Countries | Demand / programs today |
 |---|---|---|
 | 5.1 | Austria, Belgium, Denmark | 29/7, 22/6, 22/5 |
-| 5.2 | Japan, Estonia, Czech Republic, Israel | 21/2, 9/2, 11/9, 4/4 |
+| 5.2 | Japan, Estonia, Czech Republic, Israel | 21/2 (both PEAK, closed after September 2026: 4.8b), 9/2, 11/9, 4/4 |
 
 **Verify:** Each country's search link returns the new programs; the Algolia count
 matches the database; each landing page's claims match what search returns.
