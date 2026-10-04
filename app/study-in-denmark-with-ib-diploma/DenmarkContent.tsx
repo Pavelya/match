@@ -560,8 +560,11 @@ export function DenmarkContent() {
                 <div className="flex items-start gap-3 text-gray-700">
                   <CheckCircle2 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <span>
-                    <strong>Some programmes have admission tests</strong> — these are typically in
-                    creative fields (arts, architecture, design) or specific professional programmes
+                    <strong>Some programmes have admission tests</strong> — often in creative fields
+                    (arts, architecture, design) or specific professional programmes. The University
+                    of Southern Denmark fills Quota 2 for most of its programmes through its own
+                    test, uniTEST, which assesses academic ability rather than subject knowledge;
+                    Quota 1 there still goes by GPA
                   </span>
                 </div>
                 <div className="flex items-start gap-3 text-gray-700">
@@ -583,7 +586,7 @@ export function DenmarkContent() {
               <div className="rounded-xl bg-white p-6 shadow-sm border border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <ExternalLink className="h-4 w-4 text-blue-600" />
-                  Official Source
+                  Official Sources
                 </h4>
                 <ul className="space-y-2 text-sm">
                   <li>
@@ -594,6 +597,16 @@ export function DenmarkContent() {
                       className="text-blue-600 hover:underline"
                     >
                       Study in Denmark — How to Apply
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sdu.dk/en/uddannelse/bachelor/bachelor-admission/admission-requirements/admission-test"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      University of Southern Denmark — Admission test
                     </a>
                   </li>
                 </ul>

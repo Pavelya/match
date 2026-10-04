@@ -461,9 +461,11 @@ async function refresh(args: ReturnType<typeof parseArgs>) {
     })
     const plan = planRefresh(file, stored, lookups)
     if (!university && plan.creates.length > 0) {
-      plan.errors.push(
-        `${file.university} is not in the database: add it in /admin/universities first`
-      )
+      // A dry run still prints the plan, so a new university's programs can be reviewed
+      // before the university itself is added (scripts/programs/add-universities.ts).
+      const missing = `${file.university} is not in the database: add it with scripts/programs/add-universities.ts or in /admin/universities first`
+      if (args.apply) plan.errors.push(missing)
+      else plan.warnings.push(`${missing}; --apply refuses until then`)
     }
     jobs.push({
       file,

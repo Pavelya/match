@@ -33,10 +33,10 @@ export const PAGE_DATES = {
   // Country pages. `COUNTRY-PAGE-BASELINE.md` §3.2 asks every new one to add a line.
   '/study-in-australia-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-austria-with-ib-diploma': { published: '2026-02-18', modified: '2026-09-25' },
-  '/study-in-belgium-with-ib-diploma': { published: '2026-02-24', modified: '2026-09-25' },
+  '/study-in-belgium-with-ib-diploma': { published: '2026-02-24', modified: '2026-10-04' },
   '/study-in-canada-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-czech-republic-with-ib-diploma': { published: '2026-02-24', modified: '2026-09-25' },
-  '/study-in-denmark-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
+  '/study-in-denmark-with-ib-diploma': { published: '2026-02-25', modified: '2026-10-04' },
   '/study-in-estonia-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
   '/study-in-germany-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-hong-kong-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },

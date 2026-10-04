@@ -203,6 +203,43 @@ const refresh: RefreshFile = {
       ],
       notes:
         "Content 4.8b: CBS's application and admission page describes the 2027 admission round (application deadline 15 March 2027, 12:00 CET, for an international exam in quota 1 or 2; diploma by 5 July). The IB Diploma qualifies with at least 24 points including bonus points, six subjects, three or four at HL, the Extended Essay, TOK and CAS. Specific requirements as CBS maps the IB (Danish 2.0 = IB 3, 6.0 = IB 5): English B at 6.0, met by English A Literature or Language and Literature or English B, SL or HL, at 5; the language requirement, English A level, is any English A or English B HL, so English B SL also needs a test. Mathematics B: Maths AA or AI, SL or HL, at 3. History, Social Studies or International Economics B: Business Management, Economics, Global Politics or History (SL or HL), or Geography or Social and Cultural Anthropology (HL), at 3. All three are conditions, so critical. Selection: 50% of places in quota 1 by the IB total converted to the Danish scale, the rest in quota 2 on a motivational essay, activities and grade level. The 2026 quota 1 cut-off was 10.2, about 39 IB points on ufsn.dk's 2026 conversion table (the 2027 table is due by 1 March 2027); 75 places. The published minimum is 24; the stored 30 had no source. The stored rows asked English at 4 or 5 and Maths AI at HL; Maths AI SL now counts. Bachelor of Science."
+    },
+    // Content 5.1: CBS's English-taught programme not stored before.
+    {
+      id: 'cmutgqb400000lj7mc7nu03fp',
+      status: 'current',
+      name: 'BSc in International Business',
+      description:
+        'BSc IB gives a broad grounding in business economics and strategy in a global context: how international companies spot opportunities, manage risk and adapt their strategies across markets with different laws, regulations and customers.\n\nAbout 45% of the programme is economics and mathematics, 30% trade and logistics, 15% organisation and management and 10% innovation and entrepreneurship. Maths is a working tool in about half of the compulsory courses, and the focus is on global markets and business strategy rather than finance and accounting. The programme is taught in English in Frederiksberg, Copenhagen, and about a third of its students come from abroad.',
+      field: 'Business & Economics',
+      degree: 'Bachelor of Science',
+      duration: '3 years',
+      minIBPoints: 24,
+      programUrl:
+        'https://www.cbs.dk/en/study-programmes/bachelor-programmes/bsc-international-business',
+      requirements: [
+        { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 5, critical: true },
+        { courses: ['MATH-AA', 'MATH-AI'], level: 'SL', grade: 3, critical: true },
+        {
+          anyOf: [
+            { course: 'BUS-MGMT', level: 'SL', grade: 3 },
+            { course: 'ECON', level: 'SL', grade: 3 },
+            { course: 'GLOB-POL', level: 'SL', grade: 3 },
+            { course: 'HIST', level: 'SL', grade: 3 },
+            { course: 'GEOG', level: 'HL', grade: 3 },
+            { course: 'ANTHRO', level: 'HL', grade: 3 }
+          ],
+          critical: true
+        }
+      ],
+      checkedFor: 2027,
+      sources: [
+        'https://www.cbs.dk/en/study-programmes/bachelor-programmes/application-and-admission',
+        'https://www.cbs.dk/en/study-programmes/bachelor-programmes/bsc-international-business',
+        'https://ufsn.dk/uddannelse/anerkendelse-og-dokumentation/find-vurderinger/eksamenshaandbogen/landedbtest/#handbookId=3&countryId=269&subjectId=3'
+      ],
+      notes:
+        "Content 5.1: new, the one English-taught CBS bachelor's programme that was not stored. CBS's application and admission page describes the 2027 admission round (application deadline 15 March 2027, 12:00 CET, for an international exam in quota 1 or 2). The IB Diploma qualifies with at least 24 points including bonus points. Specific requirements are the same as CBS's other English programmes, as CBS maps the IB: English B at 6.0 (English A Literature or Language and Literature, or English B, SL or HL, at 5), with English A level as the language requirement (any English A or English B HL, so English B SL also needs a test); Mathematics B (Maths AA or AI, SL or HL, at 3); History, Social Studies or International Economics B (Business Management, Economics, Global Politics or History, SL or HL, or Geography or Social and Cultural Anthropology at HL, at 3). All three are conditions, so critical. Selection: 60% of places in quota 1 by the IB total converted to the Danish scale, 40% in quota 2. The 2026 quota 1 cut-off was 11.1: on ufsn.dk's 2026 conversion table 41 IB points convert to 11.0 and 42 to 11.3, so about 42 points. 245 places; 3,069 applicants in 2026, 2,528 of them in quota 2. Published minimum 24. Bachelor of Science."
     }
   ]
 }

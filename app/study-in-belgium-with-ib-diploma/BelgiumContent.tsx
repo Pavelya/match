@@ -647,8 +647,10 @@ export function BelgiumContent() {
               IB English does <strong>not automatically waive</strong> language requirements. KU
               Leuven, for example, exempts only applicants whose previous diploma comes from an
               English-taught programme in Australia, English-speaking Canada, Ireland, New Zealand,
-              the United Kingdom or the United States. Study in Flanders gives B2 as the usual level
-              for English-taught programmes and for most Dutch-taught Bachelor&apos;s programmes.
+              the United Kingdom or the United States. The University of Antwerp exempts holders of
+              an International Baccalaureate who passed English as Language 1 (grade 5 or higher) or
+              at Level A (grade 3 or higher). Study in Flanders gives B2 as the usual level for
+              English-taught programmes and for most Dutch-taught Bachelor&apos;s programmes.
             </p>
 
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -675,6 +677,16 @@ export function BelgiumContent() {
                     className="text-blue-600 hover:underline"
                   >
                     KU Leuven — English proficiency tests
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.uantwerpen.be/en/study/admission-and-enrolment/admission/academic-bachelor/admission-requirements/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    University of Antwerp — Admission requirements for academic bachelor&apos;s
                   </a>
                 </li>
               </ul>
