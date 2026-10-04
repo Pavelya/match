@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
+| 20–22 | Thin countries, then France | 5.1, 5.2, 5.3 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 
@@ -93,6 +93,7 @@ Phase 5 — Coverage
 
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
 - [ ] 5.2 Japan, Estonia, Czech Republic, Israel
+- [ ] 5.3 France — research, universities and programs, and a landing page
 
 Phase 6 — USA
 
@@ -180,14 +181,13 @@ Owner tasks — not AI work
 - [ ] Choose the US model (6) and the German model (7)
 - [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
   27 September 2026. Georgia Tech's version of the question stays with phase 6
-- [ ] Decide about France (5): no student has it as a preference (4 October 2026). Students cannot choose it, as onboarding offers
-  only countries with programs; the coordinator's student form lists every country. Add coverage, or leave it (and consider hiding
-  countries without programs from the coordinator form too)
+- [x] Decide about France (5): no student had it as a preference (4 October 2026), and students cannot choose it, as onboarding offers
+  only countries with programs. **Owner, 4 October 2026: add coverage**, as task 5.3
 - [ ] Add images for the eight universities added in 5.1 (Aarhus, SDU, DTU, ITU, WU Vienna, Klagenfurt, VUB, Antwerp) in
   `/admin/universities`; Storage answered 200 again on 4 October 2026. They show the placeholder until then
-- [ ] Delete four orphan records from Algolia's `universities_production` index, or not (5.1): University of Oxford, ETH Zurich,
-  Australian National University and Harvard University, with December 2025 seed ids no university row has. The sync script only
-  upserts, so they stay until removed
+- [x] Delete four orphan records from Algolia's `universities_production` index, or not (5.1): University of Oxford, ETH Zurich,
+  Australian National University and Harvard University, with December 2025 seed ids no university row has. **Owner, 4 October
+  2026: remove the seed data**, as `MAINT_tasks.md` 5.9, which also checks for anything else the sample seed left
 - [ ] Re-check the 28 programs 5.1 stamped 2026 when their 2027 rules appear: Aarhus (6), SDU (11, uniTEST 2027 details from mid-October),
   DTU, ITU, WU Vienna's BBE (2027/28 procedure in mid-November 2026), Klagenfurt (6) and Antwerp (2, 2027-2028 applications open
   4 November 2026)
@@ -291,6 +291,12 @@ not precision.
   common, raise it as a separate task rather than stretching the model.
 - `programUrl` is the page for the entry year you checked. Manchester pins the year in
   the path (`/courses/2027/...`); use the new one.
+- **New universities carry their admissions office's contact** (owner, 4 October 2026):
+  `email` and `phone` for undergraduate or international admissions, where the university
+  publishes one, with the page in `sources`. A general switchboard or info address only when
+  no admissions contact exists; `null` when neither is published. 5.1's eight universities
+  were added before this rule and have none. One stored row is wrong: CBS's `phone` holds an
+  email address (`graduateadmission@cbs.dk`).
 
 ### Research rules
 
@@ -2306,8 +2312,9 @@ and Austria (7), several of them with real demand.
    Aim for at least 3 universities per country where they exist. Where a country
    genuinely has few, **update its landing page to say so instead of padding**.
 2. Add universities in `/admin/universities` (images go to Storage automatically; never
-   base64), or from a committed data file with `scripts/programs/add-universities.ts` (5.1).
-   Add programs with the tool as `new`, stamped 2027.
+   base64), or from a committed data file with `scripts/programs/add-universities.ts` (5.1),
+   with the admissions office's email and phone where published (data conventions). Add
+   programs with the tool as `new`, stamped 2027.
 3. **France** exists in the `Country` table with no universities and no landing page.
    Check whether students can select it as a preference, and ask the owner whether to add
    coverage or leave it.
@@ -2316,6 +2323,7 @@ and Austria (7), several of them with real demand.
 |---|---|---|
 | 5.1 | Austria, Belgium, Denmark | 29/7, 22/6, 22/5 |
 | 5.2 | Japan, Estonia, Czech Republic, Israel | 21/2 (both PEAK, closed after September 2026: 4.8b), 9/2, 11/9, 4/4 |
+| 5.3 | France | 0/0: no university, no program, no landing page; students cannot select it yet. [Task below](#53--france) |
 
 **Verify:** Each country's search link returns the new programs; the Algolia count
 matches the database; each landing page's claims match what search returns.
@@ -2345,6 +2353,10 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   total converted to the Danish scale, but quota 2 (an assessment at AU, SDU's uniTEST, CBS's essay) has no GPA minimum, so 24 as for
   CBS in 4.8b. Each note gives the quota 1 GPA minimum and the 2026 cut-off in IB points on ufsn.dk's 2026 table (6.0 = 28, 7.0 = 31,
   11.0 = 41, 11.3 = 42): AU 30-43, SDU 32-35 where selective, CBS International Business 42.
+  **Model limit:** matching reads only `minIBPoints`, so it treats these as open from 24. A 30-point student who meets the subjects sees
+  CBS International Business as a SAFETY ("very likely to be admitted") in selectivity tier 4, though quota 1 took about 42 in 2026 and
+  quota 2 is a competitive essay round. The same holds for CBS's five programmes from 4.8b, AU's Aarhus programmes (36-43) and SDU's
+  selective ones. Nothing stores the competitive figure apart from the notes.
 - **Entry years: 4 stamped 2027, 28 stamped 2026** (rule 2, over step 2's "stamped 2027"). 2027: CBS International Business (CBS's 2027
   round), SDU Economics and Business Administration in Sønderborg (its quota 1 minimum rises to 7.0 "from 2027 onwards") and both VUB
   programmes (deadlines 1 April and 1 August 2027). 2026: AU, the rest of SDU, DTU and ITU name no intake; WU's BBE procedure published is
@@ -2367,20 +2379,72 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   3). `lib/page-dates.ts` moves both to 4 October 2026. Austria's page needed no change.
 - **France (step 3):** no student has it as a preference. Onboarding offers only countries with programs
   (`getCachedCountriesWithPrograms`), so students cannot choose it; the coordinator's student form lists every country, so a coordinator
-  could. **Owner question below.**
+  could. **Owner, 4 October 2026: add coverage, as task 5.3.**
 - **Storage answers 200 again** (a stored university image, 4 October 2026; it was 402 in September). 1.1 step 3 and MAINT 5.5 can run, and
   the eight new universities can get images in `/admin/universities`.
 - **Verify.**
   - `count(*)`: 57 → 65 universities, 1,273 → 1,305 programs. Algolia: 1,305 program records (32 synced by the tool); filtering by
     country returns Austria 14, Belgium 10, Denmark 26, as the database. `check-algolia-status.ts` still lists false "missing" ids (MAINT 5.6).
   - The universities index (`sync-universities-algolia.ts`) holds 69 records for 65 universities: four orphans from December 2025 seed
-    data (old Oxford and ETH ids, ANU, Harvard), not from this session. **Owner question below.**
+    data (old Oxford and ETH ids, ANU, Harvard), not from this session. Removing them is `MAINT_tasks.md` 5.9.
   - A second dry run finds all 32 up to date (and CBS's five).
   - Link checker, the three countries: 50 URLs, 50 OK.
   - Public pages: ITU Data Science shows 24 points, Maths AA or AI and "Checked for 2026 entry"; VUB Business Economics shows "Requirements
     checked for 2027 entry"; Aarhus University's page lists its six programmes (no image yet).
   - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
     pages were read on 4 October.
+
+### 5.3 — France
+
+**Outcome:** France has universities and English-taught bachelor's programs in search that IB
+Diploma holders can actually enter, a landing page at `/study-in-france-with-ib-diploma`, and
+students can choose it as a preference.
+
+**Why:** The owner decided on 4 October 2026 to add France (5.1 asked). Today the `Country` row
+(code `FR`, id `cmip2am54000m7m189mi8faj3`) has no university, so onboarding hides it
+(`getCachedCountriesWithPrograms` lists only countries with programs) and no student has it as a
+preference; only the coordinator's student form, which lists every country, offers it. Demand is
+therefore unknown, not zero.
+
+**Part A — research (official sources only, as in [Research rules](#research-rules)):**
+1. **Recognition and route in.** Whether the IB Diploma gives access to French public
+   universities as the baccalauréat does, and on what conditions: the higher education ministry and
+   France Education International (France's ENIC-NARIC) first. Which platform each kind of applicant
+   uses: Parcoursup for first-year programmes, and Campus France's "Études en France" procedure for
+   many non-EU applicants. Check both for 2027 entry and note who goes where.
+2. **Where the English-taught bachelor's are.** Public universities' three-year licences are mostly
+   French-taught. Campus France, the government agency, publishes a catalogue of programmes taught in
+   English: start there, then each institution's own pages. Expect the options to cluster in
+   institutions with their own admission procedures (Sciences Po's undergraduate college, for
+   example) and in private business schools' bachelor's (ESSEC, ESCP, EDHEC and others). Verify each
+   one; none of these is checked yet.
+3. **What the stored fields mean here.** Whether any of them publishes an IB minimum or subject
+   rule, or only a holistic file; `minIBPoints` stays the published minimum (24, the Diploma, where
+   none is published, as for 5.1). Note entrance tests, interviews and portfolios as model limits.
+4. **Private institutions.** Business schools are `PRIVATE`, charge high fees and may run first years
+   outside France (ESCP's bachelor's is multi-campus). Record where each programme's first year is
+   taught. Ask the owner whether to include private institutions if they would outnumber public ones.
+5. Aim for at least three universities, as phase 5 asks. If France genuinely has few English-taught
+   bachelor's open to IB holders, the landing page says so plainly.
+
+**Part B — data:** add the universities with `scripts/programs/add-universities.ts`, each with its
+admissions office's email and phone where published (data conventions), then the programs with the
+refresh tool as `new`. Dry-run both, **the owner approves**, then apply, sync the universities index
+and run the link checker. Onboarding starts offering France on its own once a program exists, after
+the `countries-with-programs` cache expires (one hour); scripts do not revalidate that tag.
+
+**Part C — landing page:** `app/study-in-france-with-ib-diploma`, built to
+`docs/countries/COUNTRY-PAGE-BASELINE.md` (research, both files, the sitemap, the catalogue page
+registration, the country id in the search link), static with a one-week revalidate like the
+others, and a line in `lib/page-dates.ts`. AGENTS.md and `MAINT_tasks.md` 7.2 count 22 country pages:
+update them to 23. **Do not build it while `MAINT_tasks.md` 7.2 is collapsing the country pages**
+(refresh rule 4); if 7.2 has landed, add France through its data instead.
+
+**Verify:** France's search link returns the new programs; the Algolia count matches the database;
+France appears in onboarding's country list; every claim on the page matches its sources and what
+search returns; `npm run build` shows the page `○ (Static)`.
+
+**Session size:** Large. Part A and B in one session; Part C can be its own.
 
 ---
 

@@ -21,7 +21,9 @@ export interface UniversityDef {
   classification: Classification
   studentPopulation: number | null
   websiteUrl: string
+  /** The admissions office's, where published; a general address only when there is none (owner, 4 October 2026). */
   email: string | null
+  /** As `email`: the admissions office's number where published. */
   phone: string | null
   /** Official pages for the facts above. */
   sources: string[]

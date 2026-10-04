@@ -68,6 +68,7 @@ Phase 5 — quick wins
 - [ ] 5.6 Make the Algolia status script read every record
 - [ ] 5.7 Show each option's level and grade in mixed subject groups
 - [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
+- [ ] 5.9 Remove what the December 2025 sample seed left behind
 
 Phase 6 — dependency majors
 
@@ -494,6 +495,55 @@ comparison query finds 0 of the 140 profiles off the matrix. `npm test`, `npx ts
 `npx eslint .` pass.
 
 **Session size:** Small. Code, a test and a 20-row data fix that needs the owner's approval.
+
+---
+
+### 5.9 — Remove what the December 2025 sample seed left behind
+
+**Outcome:** Nothing from the sample seed remains in production or in either Algolia index, and
+the universities sync can no longer leave records behind.
+
+**Why:** Asked by the owner on 4 October 2026, after content task 5.1 found four records in
+Algolia's `universities_production` index that no `University` row has. On 6 December 2025,
+`scripts/seed-programs.ts` (commit `76799af`, since deleted) created five sample universities
+(Harvard, Oxford, Toronto, the Australian National University, ETH Zurich) and 20 sample programs,
+and pushed them to Algolia. What is left, checked with aggregates on 4 October 2026:
+
+| Where | What | Action |
+|---|---|---|
+| `universities_production` | 69 records for 65 universities. Orphans: `cmiudaqh700037m7zlgiho4os` University of Oxford, `cmiudarnn00097m7zpyjwfc3x` ETH Zurich, `cmiudar5900077m7zgzbep90n` Australian National University, `cmiudaq8w00017m7zoh7723vr` Harvard University | Delete |
+| `University` | One seeded row, University of Toronto (`cmiudaqto00057m7zzmkvdl3j`), now holding 40 real programs added in 2026 | **Keep.** Its base64 logo is CONTENT 1.1 step 3 |
+| `AcademicProgram` | No program created before 2026; the 20 sample programs are gone | Nothing |
+| `programs_production` | 1,305 records for 1,305 programs | Confirm with the orphan script |
+| `User`, `IBSchool` | One user and one school match "test" in a name or email; one user predates 2026 (likely the owner's account) | List for the owner; delete nothing unasked |
+
+`searchUniversities` in `lib/algolia/search.ts` has no caller, so students never see the orphans,
+but `scripts/sync-universities-algolia.ts` only upserts, so nothing removes them.
+
+**Files:** `scripts/find-algolia-orphans.ts` (programs only today), `scripts/sync-universities-algolia.ts`.
+
+**Steps:**
+1. **Inventory.** Extend `find-algolia-orphans.ts` to check `universities_production` as well (an
+   `--index` option, or both in one run), reading every record with `browseObjects`. Re-run the
+   aggregate checks above; production moves. Grep git history for any other script that wrote
+   sample data (`git log -i --grep=seed`).
+2. **The owner approves the deletion list.** Show each record and why it is an orphan. Ask about the
+   "test" user and school; they may be real.
+3. **Back up, then delete.** Algolia records are not in the database backup: save the orphans' JSON
+   to `scripts/backups/` (git-ignored) first, then delete them with `--delete`. If any database row is
+   approved for deletion, take a Supabase backup first (hard rule 4) and delete with `select`ed ids,
+   never a broad `WHERE`.
+4. **Stop it recurring.** Make `sync-universities-algolia.ts` delete records whose id has no
+   `University` row after it saves (or use `replaceAllObjects`), and print how many it removed.
+
+**Verify:** `universities_production` holds as many records as there are universities (65 on
+4 October 2026); the orphan script reports none in either index; the University of Toronto and its
+40 programs are untouched; the program search and a Toronto program page still work.
+
+**Guardrails:** Destructive. Nothing is deleted before the owner approves the list and the backup
+exists. Never delete the Toronto row: its 40 real programs and their 5 student saves (4 October 2026) hang off it.
+
+**Session size:** Small.
 
 ---
 
