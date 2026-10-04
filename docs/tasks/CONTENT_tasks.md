@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers |
+| 20–21 | Thin countries | 5.1, 5.2 | large each | Landing pages promise more than search delivers. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 
@@ -56,7 +56,7 @@ short before 13 January 2027, prioritise sessions 12–13 (UK) over session 6.
 Phase 1 — Fix now
 
 - [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
-  blocked on Storage
+  blocked on Storage, which answered 200 again on 4 October 2026 (5.1): step 3 can run
 - [x] 1.2 Oxford and Cambridge fast lane — the two held Oxford rows settled 2 October 2026
 - [x] 1.3 Correct the false counts and the "Educaton" typo
 - [x] 1.4 Make page dates truthful
@@ -91,7 +91,7 @@ Phase 4 — Program refresh for 2027 entry
 
 Phase 5 — Coverage
 
-- [ ] 5.1 Austria, Belgium, Denmark
+- [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
 - [ ] 5.2 Japan, Estonia, Czech Republic, Israel
 
 Phase 6 — USA
@@ -180,7 +180,17 @@ Owner tasks — not AI work
 - [ ] Choose the US model (6) and the German model (7)
 - [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
   27 September 2026. Georgia Tech's version of the question stays with phase 6
-- [ ] Decide about France (5)
+- [ ] Decide about France (5): no student has it as a preference (4 October 2026). Students cannot choose it, as onboarding offers
+  only countries with programs; the coordinator's student form lists every country. Add coverage, or leave it (and consider hiding
+  countries without programs from the coordinator form too)
+- [ ] Add images for the eight universities added in 5.1 (Aarhus, SDU, DTU, ITU, WU Vienna, Klagenfurt, VUB, Antwerp) in
+  `/admin/universities`; Storage answered 200 again on 4 October 2026. They show the placeholder until then
+- [ ] Delete four orphan records from Algolia's `universities_production` index, or not (5.1): University of Oxford, ETH Zurich,
+  Australian National University and Harvard University, with December 2025 seed ids no university row has. The sync script only
+  upserts, so they stay until removed
+- [ ] Re-check the 28 programs 5.1 stamped 2026 when their 2027 rules appear: Aarhus (6), SDU (11, uniTEST 2027 details from mid-October),
+  DTU, ITU, WU Vienna's BBE (2027/28 procedure in mid-November 2026), Klagenfurt (6) and Antwerp (2, 2027-2028 applications open
+  4 November 2026)
 - [ ] Decide about the University of Tokyo's two PEAK programs (4.8b): PEAK's admissions page says "The Admission for September
   2026 Enrollment will be the last student recruitment for the PEAK". Both are reported as discontinued and left unwritten;
   deleting them leaves Japan with no program in search (phase 5.2)
@@ -421,6 +431,19 @@ not precision.
   academic years' tabs in one page (`id="2027-content"`), whatever `?tabs=` says. `ut.ee` answered curl again (the link checker
   still got one 403) and WebFetch reads it; Tartu publishes no IB grade conversion in English. `peak.c.u-tokyo.ac.jp`'s certificate
   expired on 30 September 2026 and every path now 404s; the Internet Archive has `www.peak.c.u-tokyo.ac.jp/apply/index.html`.
+
+- **Found in 5.1:** `studyindenmark.dk`'s programme list loads by script and its API is behind a bot wall; go to each university.
+  Denmark: the Danish agency's letter "Optagelse af IB-elever" (copy at `bachelor.au.dk/fileadmin/ingen_mappe_valgt/IB_og_supplering.pdf`)
+  says an IB Diploma of 24+ points qualifies for all higher education; SDU's IB page and DTU's `ib-levels_2025.pdf` give the subject table
+  (A = HL, B = SL); CBS's application page has the per-subject list for the social studies group. ufsn.dk's JSON (4.8b) holds the 2026
+  total and single-grade tables. Many programmes now set a quota 1 GPA minimum (AU 6.0, SDU 7.0); quota 2 has none. AU's programme pages
+  (`bachelor.au.dk/en/<slug>`) show "Quota 1 2026" and name no intake; its full programme list is script-loaded. SDU's
+  `.../uddannelse/bachelor/<slug>/adgangskrav` pages are uniform (requirements, quota split, places, "Required GPA in 2026"). ITU pages
+  answer curl. Austria: WU's BBE selection page and `EN_IB_Diploma_2026_27.pdf`; Klagenfurt's English programmes are listed at
+  `aau.at/en/international/international-profile/degree-programmes-in-english/`, each with a fact box. Belgium: VUB's admission pages moved
+  to `vub.be/en/all-study-programmes-vub/...` (the programme pages did not) and its equivalence PDF lists the IB Diploma; Antwerp's
+  `.../admission/academic-bachelor/admission-requirements/` has an IB row and the English-test exemption. NVAO decision URLs change: the
+  Urban Sustainability Studies one moved from `bachelor-of-science-...` to `bachelor-of-arts-science-...`; EQAR's report pages are stable.
 
 ---
 
@@ -2283,7 +2306,8 @@ and Austria (7), several of them with real demand.
    Aim for at least 3 universities per country where they exist. Where a country
    genuinely has few, **update its landing page to say so instead of padding**.
 2. Add universities in `/admin/universities` (images go to Storage automatically; never
-   base64). Add programs with the tool as `new`, stamped 2027.
+   base64), or from a committed data file with `scripts/programs/add-universities.ts` (5.1).
+   Add programs with the tool as `new`, stamped 2027.
 3. **France** exists in the `Country` table with no universities and no landing page.
    Check whether students can select it as a preference, and ask the owner whether to add
    coverage or leave it.
@@ -2297,6 +2321,66 @@ and Austria (7), several of them with real demand.
 matches the database; each landing page's claims match what search returns.
 
 **Session size:** Large each.
+
+#### Status, 4 October 2026 — 5.1 done (session 20); applied the same day
+
+Data files (new): `scripts/programs/2027/new-universities.ts` (the universities), and one programs file per university:
+`aarhus-university.ts`, `university-of-southern-denmark.ts`, `technical-university-of-denmark.ts`, `it-university-of-copenhagen.ts`,
+`wu-vienna-university-of-economics-and-business.ts`, `university-of-klagenfurt.ts`, `vrije-universiteit-brussel.ts` and
+`university-of-antwerp.ts`; `copenhagen-business-school.ts` gains one program. Every program's `notes` give its sources and reasoning.
+**Owner-approved and applied on 4 October 2026:** 8 universities and 32 programs created, nothing existing changed. Backup:
+`scripts/backups/refresh/2026-10-04T06-51-40-474Z.json` (it lists the created programs; there was nothing to back up).
+
+| Country | Universities | Programs | Added |
+|---|---|---|---|
+| Austria | 2 → 4 | 7 → 14 | WU Vienna 1 (BBE), Klagenfurt 6 |
+| Belgium | 1 → 3 | 6 → 10 | VUB 2, Antwerp 2 |
+| Denmark | 1 → 5 | 5 → 26 | CBS 1 (BSc International Business), Aarhus 6, SDU 12, DTU 1, ITU 1 |
+
+- **New tooling.** `scripts/programs/add-universities.ts` creates the universities in a data file (dry run unless `--apply`; one already
+  stored under the same name is left alone), with its pure half in `scripts/programs/lib/universities.ts`, covered by Vitest. No image or
+  logo is written. `refresh.ts` now only warns, in a dry run, that a file's university is missing, so a new university's programs can be
+  reviewed before it exists; `--apply` still refuses.
+- **Points: all 32 at 24**, the Diploma. None of these universities publishes an IB minimum. Danish programmes rank quota 1 by the IB
+  total converted to the Danish scale, but quota 2 (an assessment at AU, SDU's uniTEST, CBS's essay) has no GPA minimum, so 24 as for
+  CBS in 4.8b. Each note gives the quota 1 GPA minimum and the 2026 cut-off in IB points on ufsn.dk's 2026 table (6.0 = 28, 7.0 = 31,
+  11.0 = 41, 11.3 = 42): AU 30-43, SDU 32-35 where selective, CBS International Business 42.
+- **Entry years: 4 stamped 2027, 28 stamped 2026** (rule 2, over step 2's "stamped 2027"). 2027: CBS International Business (CBS's 2027
+  round), SDU Economics and Business Administration in Sønderborg (its quota 1 minimum rises to 7.0 "from 2027 onwards") and both VUB
+  programmes (deadlines 1 April and 1 August 2027). 2026: AU, the rest of SDU, DTU and ITU name no intake; WU's BBE procedure published is
+  2026/27 (2027/28 due mid-November); Klagenfurt's pages give the 2026/27 admission periods; Antwerp's requirements are written for
+  enrolment in 2026-2027.
+- **Subjects.** Danish levels as SDU's and DTU's IB tables convert them: A = HL, B = SL, a pass (02) = IB 3; English B is English B SL or
+  any English A or English B HL. The Danish History/Social Studies B group uses CBS's published IB mapping (Business Management,
+  Economics, Global Politics or History, or Geography or Anthropology at HL). ITU Data Science needs Maths HL at 5 (average 6) and English
+  B SL 5 or English A. DTU General Engineering: Maths HL, Physics SL, Chemistry SL, English. SDU engineering: Maths HL and Physics SL
+  (Geoscience A has no IB course); Mechanical adds Chemistry. WU, Klagenfurt, VUB and Antwerp name no IB subject: checked, none required.
+- **Not added, and why:** ITU's Global Business Informatics, Software Development and Digital Design (Danish A now required); SDU's
+  International Business Administration, Language and Culture (English, German and Danish) and its three Bachelor of Engineering
+  variants; KU Leuven's Joint Bachelor in Sustainability (Jagiellonian-led, first year in Kraków) and its Biomedical Sciences bachelor's
+  (Dutch-taught); VUB's multilingual Linguistics and Literary Studies; Innsbruck's International Business and Economics (German, English
+  and a third language). Not researched: Roskilde, Aalborg and Copenhagen in Denmark, CEU and Modul in Vienna, Brussels School of
+  Governance, Austrian and Flemish universities of applied sciences. KU Leuven's six stored programmes are all its English bachelor's.
+- **Landing pages.** All three now have at least three universities, so none says options are limited. Two lines contradicted what search
+  now returns and were corrected: Denmark said admission tests are mostly for creative fields (SDU fills quota 2 for most programmes
+  with uniTEST), and Belgium said IB English never waives the language test (Antwerp exempts English as Language 1 at 5 or Level A at
+  3). `lib/page-dates.ts` moves both to 4 October 2026. Austria's page needed no change.
+- **France (step 3):** no student has it as a preference. Onboarding offers only countries with programs
+  (`getCachedCountriesWithPrograms`), so students cannot choose it; the coordinator's student form lists every country, so a coordinator
+  could. **Owner question below.**
+- **Storage answers 200 again** (a stored university image, 4 October 2026; it was 402 in September). 1.1 step 3 and MAINT 5.5 can run, and
+  the eight new universities can get images in `/admin/universities`.
+- **Verify.**
+  - `count(*)`: 57 → 65 universities, 1,273 → 1,305 programs. Algolia: 1,305 program records (32 synced by the tool); filtering by
+    country returns Austria 14, Belgium 10, Denmark 26, as the database. `check-algolia-status.ts` still lists false "missing" ids (MAINT 5.6).
+  - The universities index (`sync-universities-algolia.ts`) holds 69 records for 65 universities: four orphans from December 2025 seed
+    data (old Oxford and ETH ids, ANU, Harvard), not from this session. **Owner question below.**
+  - A second dry run finds all 32 up to date (and CBS's five).
+  - Link checker, the three countries: 50 URLs, 50 OK.
+  - Public pages: ITU Data Science shows 24 points, Maths AA or AI and "Checked for 2026 entry"; VUB Business Economics shows "Requirements
+    checked for 2027 entry"; Aarhus University's page lists its six programmes (no image yet).
+  - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
+    pages were read on 4 October.
 
 ---
 
