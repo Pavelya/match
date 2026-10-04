@@ -297,6 +297,21 @@ not precision.
   no admissions contact exists; `null` when neither is published. 5.1's eight universities
   were added before this rule and have none. One stored row is wrong: CBS's `phone` holds an
   email address (`graduateadmission@cbs.dk`).
+- **Competitive admission gets a "How competitive" paragraph** (owner, 4 October 2026). Where
+  places are ranked by grades and the university publishes last year's cut-off (Denmark's
+  quota 1, Sweden's merit ranks, a numerus clausus), `minIBPoints` stays the published minimum,
+  because applicants below the cut-off can still get in another way and matching holds only one
+  number. End the program's description with one paragraph that students will read: the year,
+  the share of places awarded on grades, the cut-off in IB points with the figure it was converted
+  from, and the other route and what it assesses. For example: "How competitive: in 2026, the 60%
+  of places awarded on grades (quota 1) went to applicants from about 42 IB points (a Danish GPA of
+  11.1). The other 40% are awarded on a motivational essay and activities (quota 2), where any
+  Diploma holder (24 points) can compete." Write none where every qualified applicant was admitted
+  or no figure is published. Say in `notes` that the paragraph is there: notes never reach the
+  site, and the figure goes stale each cycle, so **every refresh updates it**. Done for the 18
+  Danish programs in 5.1; Sweden's 29 programs rank by merit too and have none yet (their cut-offs
+  on antagning.se were not researched): add it at their next refresh. Phases 6 and 7 choose their
+  own model; where they keep a minimum and a cut-off exists, use this paragraph.
 
 ### Research rules
 
@@ -1588,7 +1603,8 @@ thing.
    sources state (2026 when they name none, rule 2). Export already wrote each degree type's
    canonical spelling (3.2); correct it where the award is wrong. Update URLs, including
    harmless redirects and year-pinned paths. Mark gone programs `discontinued`; add new ones
-   with status `new` and no id.
+   with status `new` and no id. Add or update the "How competitive" paragraph where
+   admission ranks by grades ([data conventions](#data-conventions)).
 4. Programs with no subject requirements: confirm "none" explicitly in `notes`. The tool
    refuses a checked program with no requirements and no note.
 5. Dry-run: `npx tsx scripts/programs/refresh.ts <slug> [<slug> ...]`. **The owner reviews
@@ -2314,7 +2330,8 @@ and Austria (7), several of them with real demand.
 2. Add universities in `/admin/universities` (images go to Storage automatically; never
    base64), or from a committed data file with `scripts/programs/add-universities.ts` (5.1),
    with the admissions office's email and phone where published (data conventions). Add
-   programs with the tool as `new`, stamped 2027.
+   programs with the tool as `new`, stamped 2027, with a "How competitive" paragraph where
+   admission ranks by grades and a cut-off is published (data conventions).
 3. **France** exists in the `Country` table with no universities and no landing page.
    Check whether students can select it as a preference, and ask the owner whether to add
    coverage or leave it.
@@ -2356,7 +2373,10 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   **Model limit:** matching reads only `minIBPoints`, so it treats these as open from 24. A 30-point student who meets the subjects sees
   CBS International Business as a SAFETY ("very likely to be admitted") in selectivity tier 4, though quota 1 took about 42 in 2026 and
   quota 2 is a competitive essay round. The same holds for CBS's five programmes from 4.8b, AU's Aarhus programmes (36-43) and SDU's
-  selective ones. Nothing stores the competitive figure apart from the notes.
+  selective ones. **Mitigated, owner-approved, 4 October 2026:** the 18 programs with a published 2026 cut-off above 24 (CBS 6,
+  Aarhus 6, SDU 5, ITU 1) now end their description with a "How competitive" paragraph, so students see the figure on the program
+  page (backup `scripts/backups/refresh/2026-10-04T11-48-05-369Z.json`). Matching's SAFETY label is unchanged; a separate competitive
+  score was considered and set aside as too costly and confusing for the benefit.
 - **Entry years: 4 stamped 2027, 28 stamped 2026** (rule 2, over step 2's "stamped 2027"). 2027: CBS International Business (CBS's 2027
   round), SDU Economics and Business Administration in Sønderborg (its quota 1 minimum rises to 7.0 "from 2027 onwards") and both VUB
   programmes (deadlines 1 April and 1 August 2027). 2026: AU, the rest of SDU, DTU and ITU name no intake; WU's BBE procedure published is
@@ -2421,6 +2441,8 @@ therefore unknown, not zero.
 3. **What the stored fields mean here.** Whether any of them publishes an IB minimum or subject
    rule, or only a holistic file; `minIBPoints` stays the published minimum (24, the Diploma, where
    none is published, as for 5.1). Note entrance tests, interviews and portfolios as model limits.
+   Where a programme ranks by grades and publishes a cut-off, add the "How competitive" paragraph
+   (data conventions).
 4. **Private institutions.** Business schools are `PRIVATE`, charge high fees and may run first years
    outside France (ESCP's bachelor's is multi-campus). Record where each programme's first year is
    taught. Ask the owner whether to include private institutions if they would outnumber public ones.

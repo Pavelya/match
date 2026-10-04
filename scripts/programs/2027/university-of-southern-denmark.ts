@@ -82,7 +82,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Artificial Intelligence (Vejle)',
       description:
-        "The Bachelor's programme in Artificial Intelligence at SDU Vejle teaches you to develop and apply the tools and methods of artificial intelligence, working with data, information and software to solve real-world problems. Compared with Computer Science, it puts more weight on the theory, development and application of AI and covers fewer of the classic computer science topics.\n\nNo coding experience is needed. The programme is taught in English on SDU's IT campus in Vejle, close to large employers of IT specialists.",
+        "The Bachelor's programme in Artificial Intelligence at SDU Vejle teaches you to develop and apply the tools and methods of artificial intelligence, working with data, information and software to solve real-world problems. Compared with Computer Science, it puts more weight on the theory, development and application of AI and covers fewer of the classic computer science topics.\n\nNo coding experience is needed. The programme is taught in English on SDU's IT campus in Vejle, close to large employers of IT specialists.\n\nHow competitive: in 2026, the 80% of places awarded on grades (quota 1) went to applicants from about 32 IB points (a Danish GPA of 7.6). The other 20% go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
@@ -91,14 +91,14 @@ const refresh: RefreshFile = {
       requirements: [ENGLISH_B, MATHS_A],
       checkedFor: 2026,
       sources: sources('artificial-intelligence-vejle'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 80% in quota 1; the required GPA was 7.6 (32 IB points on the 2026 table) and 66 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Artificial Intelligence.`
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 80% in quota 1; the required GPA was 7.6 (32 IB points on the 2026 table) and 66 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Artificial Intelligence. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
     },
     {
       id: 'cmutgqck2002flj7m962fieyf',
       status: 'current',
       name: 'Computer Science (Vejle)',
       description:
-        "Computer Science at SDU Vejle gives a broad introduction to all the major areas of the discipline, with room to specialise. The programme emphasises understanding, analysis and logical thinking, and teaches you to develop software that solves real problems, in areas such as AI, cybersecurity, software and data systems.\n\nPrior programming experience is not required. Teaching is in English on SDU's IT campus in Vejle, and graduates can go into software development, IT security or databases, or on to a master's programme.",
+        "Computer Science at SDU Vejle gives a broad introduction to all the major areas of the discipline, with room to specialise. The programme emphasises understanding, analysis and logical thinking, and teaches you to develop software that solves real problems, in areas such as AI, cybersecurity, software and data systems.\n\nPrior programming experience is not required. Teaching is in English on SDU's IT campus in Vejle, and graduates can go into software development, IT security or databases, or on to a master's programme.\n\nHow competitive: in 2026, places awarded on grades (quota 1) went to applicants from about 33 IB points (a Danish GPA of 7.8). The other places go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
@@ -107,7 +107,7 @@ const refresh: RefreshFile = {
       requirements: [ENGLISH_B, MATHS_A],
       checkedFor: 2026,
       sources: sources('computer-science-vejle'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: the required GPA was 7.8 (33 IB points on the 2026 table) and 88 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Computer Science.`
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: the required GPA was 7.8 (33 IB points on the 2026 table) and 88 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Computer Science. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
     },
     {
       id: 'cmutgqcqk002llj7m6m00aiwd',
@@ -130,7 +130,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'European Studies (Sønderborg)',
       description:
-        'The BSc in European Studies analyses regional, national and transnational structures and developments in Europe, drawing on political science, cultural studies, history and economics. The interdisciplinary programme builds theoretical understanding, factual knowledge and analytical skills in four main areas, among them politics and institutions, the historical foundations of European integration, and regional development.\n\nIt is taught in English in Sønderborg, on the Danish-German border.',
+        "The BSc in European Studies analyses regional, national and transnational structures and developments in Europe, drawing on political science, cultural studies, history and economics. The interdisciplinary programme builds theoretical understanding, factual knowledge and analytical skills in four main areas, among them politics and institutions, the historical foundations of European integration, and regional development.\n\nIt is taught in English in Sønderborg, on the Danish-German border.\n\nHow competitive: in 2026, the 60% of places awarded on grades (quota 1) went to applicants from about 34 IB points (a Danish GPA of 8.2). The other 40% go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
       field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
@@ -139,14 +139,14 @@ const refresh: RefreshFile = {
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
       checkedFor: 2026,
       sources: sources('europaeiske_studier', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 45 expected places, 60% in quota 1; the required GPA was 8.2 (34 IB points on the 2026 table) and 76 were admitted. ${NO_YEAR} BSc in European Studies.`
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 45 expected places, 60% in quota 1; the required GPA was 8.2 (34 IB points on the 2026 table) and 76 were admitted. ${NO_YEAR} BSc in European Studies. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
     },
     {
       id: 'cmutgqczd0034lj7mmh2tnufd',
       status: 'current',
       name: 'Economics and Business Administration (Sønderborg)',
       description:
-        "This bachelor's programme in Economics and Business Administration covers a broad range of business subjects, including marketing, accounting, finance and organisation, giving skills that can be used in private and public companies across industries. The Sønderborg programme focuses on global business: global marketing, international cooperation and cultural issues, and the challenges and opportunities modern global companies face.\n\nIt is taught in English at SDU Business School in Sønderborg.",
+        "This bachelor's programme in Economics and Business Administration covers a broad range of business subjects, including marketing, accounting, finance and organisation, giving skills that can be used in private and public companies across industries. The Sønderborg programme focuses on global business: global marketing, international cooperation and cultural issues, and the challenges and opportunities modern global companies face.\n\nIt is taught in English at SDU Business School in Sønderborg.\n\nHow competitive: in 2026, the 65% of places awarded on grades (quota 1) went to applicants from about 34 IB points (a Danish GPA of 8.3). The other 35% go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
@@ -155,7 +155,7 @@ const refresh: RefreshFile = {
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
       checkedFor: 2027,
       sources: sources('ha-soenderborg', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas, Contemporary History or International Economy B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} The page states that for applicants from 2027 onwards the quota 1 GPA minimum rises from 6.0 to 7.0, which takes 31 IB points on ufsn.dk's 2026 table (6.0 took 28); quota 2 places go to the best scores in SDU's entrance test, with no GPA minimum, so the published minimum is the Diploma, 24. 2026: 65 expected places, 65% in quota 1; the required GPA was 8.3 (34 IB points on the 2026 table) and 103 were admitted. Stamped 2027: the page gives the 2027 rule. Apply through optagelse.dk by 15 March, 12:00 noon. BSc in Economics and Business Administration.`
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas, Contemporary History or International Economy B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} The page states that for applicants from 2027 onwards the quota 1 GPA minimum rises from 6.0 to 7.0, which takes 31 IB points on ufsn.dk's 2026 table (6.0 took 28); quota 2 places go to the best scores in SDU's entrance test, with no GPA minimum, so the published minimum is the Diploma, 24. 2026: 65 expected places, 65% in quota 1; the required GPA was 8.3 (34 IB points on the 2026 table) and 103 were admitted. Stamped 2027: the page gives the 2027 rule. Apply through optagelse.dk by 15 March, 12:00 noon. BSc in Economics and Business Administration. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
     },
     {
       id: 'cmutgqd5u003glj7mvohbtrsq',
@@ -194,7 +194,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Market and Management Anthropology',
       description:
-        'Market and Management Anthropology is a signature programme of SDU Business School, with a small intake and intensive teaching, for students who want to become globally conscious, culturally sensitive and socially responsible managers. It combines anthropological theory and fieldwork methods with courses on marketing and management as social processes and practical managerial skills.\n\nYou study how markets emerge and work, how organisations navigate global and local conditions, and how people use goods and services to build identities. A semester of fieldwork abroad is compulsory. Taught entirely in English in Odense.',
+        "Market and Management Anthropology is a signature programme of SDU Business School, with a small intake and intensive teaching, for students who want to become globally conscious, culturally sensitive and socially responsible managers. It combines anthropological theory and fieldwork methods with courses on marketing and management as social processes and practical managerial skills.\n\nYou study how markets emerge and work, how organisations navigate global and local conditions, and how people use goods and services to build identities. A semester of fieldwork abroad is compulsory. Taught entirely in English in Odense.\n\nHow competitive: in 2026, the 75% of places awarded on grades (quota 1) went to applicants from about 35 IB points (a Danish GPA of 8.7). The other 25% go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
@@ -203,7 +203,7 @@ const refresh: RefreshFile = {
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
       checkedFor: 2026,
       sources: sources('market_management_anthropology', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 40 expected places, 75% in quota 1; the required GPA was 8.7 (35 IB points on the 2026 table) and 48 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Market and Management Anthropology.`
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 40 expected places, 75% in quota 1; the required GPA was 8.7 (35 IB points on the 2026 table) and 48 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Market and Management Anthropology. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
     },
     {
       id: 'cmutgqdlt0046lj7me3q0ecrt',
