@@ -64,7 +64,7 @@ Phase 5 — quick wins
 - [x] 5.2 Delete the unused admin programs API route
 - [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
 - [x] 5.4 Set `trustHost` explicitly in the auth config
-- [ ] 5.5 Restore the University of Manchester image
+- [x] 5.5 Restore the University of Manchester image — re-sourced and uploaded by the owner, 5 October 2026
 - [ ] 5.6 Make the Algolia status script read every record
 - [ ] 5.7 Show each option's level and grade in mixed subject groups
 - [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
@@ -337,6 +337,17 @@ returns **0**.
 rather than storing it, and that is intentional.
 
 **Session size:** Small, but partly a human task.
+
+#### Status, 5 October 2026 — done (by the owner)
+
+The owner re-sourced the photo and uploaded it in `/admin/universities` after Storage started
+answering again (CONTENT 5.1 found it at 200 on 4 October). Verified: the row's `image` is a
+Storage URL; a live Manchester program page serves it (200, `image/jpeg`);
+`SELECT count(*) FROM "University" WHERE image LIKE 'data:%'` returns 0, and every university now
+has an image. The admin save's background Algolia sync did not finish: all 68 Manchester records
+still had no image until `syncUniversityProgramsToAlgolia` ran from a script and the programs cache
+was cleared. One base64 value is left in a column, the University of Toronto's `logo`: CONTENT 1.1
+step 3 (`scripts/fix-university-images.ts`) can now run.
 
 ---
 

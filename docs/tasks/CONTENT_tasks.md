@@ -183,8 +183,8 @@ Owner tasks — not AI work
   27 September 2026. Georgia Tech's version of the question stays with phase 6
 - [x] Decide about France (5): no student had it as a preference (4 October 2026), and students cannot choose it, as onboarding offers
   only countries with programs. **Owner, 4 October 2026: add coverage**, as task 5.3
-- [ ] Add images for the eight universities added in 5.1 (Aarhus, SDU, DTU, ITU, WU Vienna, Klagenfurt, VUB, Antwerp) in
-  `/admin/universities`; Storage answered 200 again on 4 October 2026. They show the placeholder until then
+- [x] Add images for the eight universities added in 5.1 (Aarhus, SDU, DTU, ITU, WU Vienna, Klagenfurt, VUB, Antwerp) in
+  `/admin/universities`; Storage answered 200 again on 4 October 2026. Done by the owner, 4-5 October 2026, and synced to Algolia
 - [x] Delete four orphan records from Algolia's `universities_production` index, or not (5.1): University of Oxford, ETH Zurich,
   Australian National University and Harvard University, with December 2025 seed ids no university row has. **Owner, 4 October
   2026: remove the seed data**, as `MAINT_tasks.md` 5.9, which also checks for anything else the sample seed left
@@ -227,8 +227,10 @@ Owner tasks — not AI work
   ```
   Edits made in `/admin/programs` are meant to sync both on their own, but the sync runs
   after the response and is not guaranteed to finish on Vercel: a field rename in 1.3
-  never reached Algolia. After an admin edit, check the record and run the sync script
-  if it did not change.
+  never reached Algolia. `/admin/universities` behaves the same: of nine image uploads on
+  4-5 October 2026, four never reached their programs' Algolia records (`universityImageUrl`).
+  After an admin edit, check the record and run the sync script if it did not change, then
+  `npx tsx scripts/invalidate-program-cache.ts`.
 
 ### Calendar
 
