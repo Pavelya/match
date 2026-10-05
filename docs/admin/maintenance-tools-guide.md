@@ -171,18 +171,20 @@ npx tsx scripts/invalidate-program-cache.ts
 ```bash
 npx tsx scripts/fix-university-images.ts
 ```
-**Purpose:** Migrates university images from base64 to Supabase Storage URLs.
+**Purpose:** Migrates university images and logos from base64 to Supabase Storage URLs.
 
 **Use when:**
 - Images not appearing in search results
-- After importing universities with base64 images
+- After importing universities with base64 images or logos
 
 **What it does:**
-1. Finds universities with base64 images
-2. Uploads images to Supabase Storage
+1. Finds universities with a base64 image or logo
+2. Uploads each to Supabase Storage (a logo under its own `<id>-logo` key)
 3. Updates database with URLs
-4. Syncs affected programs to Algolia
-5. Invalidates program cache
+4. Syncs affected programs to Algolia, when an image changed
+5. Invalidates program cache, when an image changed
+
+A university already on URLs is skipped, so the script is safe to rerun.
 
 ---
 
