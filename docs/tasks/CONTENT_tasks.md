@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 dry-run** 5 October 2026, awaiting approval: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11) |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 
@@ -92,7 +92,8 @@ Phase 4 — Program refresh for 2027 entry
 Phase 5 — Coverage
 
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
-- [ ] 5.2 Japan, Estonia, Czech Republic, Israel
+- [ ] 5.2 Japan, Estonia, Czech Republic, Israel — dry run ready 5 October 2026: 10 universities, 62 programs; awaiting the owner's
+  approval
 - [ ] 5.3 France — research, universities and programs, and a landing page
 - [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants
 
@@ -202,6 +203,16 @@ Owner tasks — not AI work
   Science (deadlines by November 2026), KU Leuven's European Studies (applications open in fall 2026), Tartu's two (by the end
   of December), JKU's International Business Administration (a new procedure from spring 2027). JKU's other three and Graz's
   two publish no intake: confirm, or re-check yearly
+- [ ] Approve 5.2's dry run (10 universities, 62 programs), or not. Then: `add-universities.ts scripts/programs/2027/new-universities-5-2.ts
+  --apply`, `sync-universities-algolia.ts`, the refresh tool on the eleven files with `--apply`, and images for the ten universities
+- [ ] UTokyo's College of Design (5.2) publishes an expected IB score, 38 of 42 plus 2 core points, "not cut-off scores": stored at 24 with
+  the expectation in its "How competitive" paragraph. Keep, or store 38 as EPFL's published 38 of 42 is stored
+- [ ] Decide whether English-taught long-cycle medicine (Czech Republic: Masaryk and Charles's faculties; Estonia: Tartu) gets a pass of its
+  own (5.2 left it out)
+- [ ] Re-check the 18 programs 5.2 stamped 2026 when their 2027 rules appear: TalTech (4; its 2026/2027 round opened 1 February
+  2026), Masaryk's Faculty of Arts (2) and Biology and Biochemistry, VŠE's Economics, Reichman (9; 2027-28 regulations from November 2026)
+  and the Hebrew University's International BA. Waseda's science and engineering "How competitive" figure is 2022-2024: open the
+  faculty's 2026 average in a browser (its PDFs refuse scripts) and update it
 
 ---
 
@@ -474,6 +485,18 @@ not precision.
   to `vub.be/en/all-study-programmes-vub/...` (the programme pages did not) and its equivalence PDF lists the IB Diploma; Antwerp's
   `.../admission/academic-bachelor/admission-requirements/` has an IB row and the English-test exemption. NVAO decision URLs change: the
   Urban Sustainability Studies one moved from `bachelor-of-science-...` to `bachelor-of-arts-science-...`; EQAR's report pages are stable.
+
+- **Found in 5.2:** Waseda's HTML pages answer curl, but every PDF under `waseda.jp/.../assets/uploads/` is a Cloudflare challenge to curl and
+  WebFetch (403); the Internet Archive holds some (`id_` bodies are gzip). Each school's admissions page carries the next September's
+  schedule and its admission statistics, IB averages included, and the undergraduate FAQ lists the subject rules. UTokyo's College of Design
+  (`design.adm.u-tokyo.ac.jp`), Keio (guidebooks are `keio.ac.jp/files/<hash>`), Sophia (`adm.sophia.ac.jp`, booklets under
+  `/assets/uploads/sites/2/<yyyy>/<mm>/`) and ICU answer curl. Tallinn University's IB rule is `tlu.ee/en/ib`; its programme list pages
+  through `?page=` and each card links a DreamApply course slug. TalTech hides emails behind Cloudflare's `data-cfemail` (XOR with the first
+  byte). Masaryk's programme pages (`muni.cz/en/bachelors-and-masters-study-programmes/<id>-<slug>`) give "Criteria for evaluation" and the
+  deadlines; the Faculty of Arts' still show "data from the previous admission procedure". Each VŠE programme has its own site (`bba.`,
+  `emo.`, `ibb.`, `ids.`, `fis.`, `ffu.`, `econ.vse.cz`). `runi.ac.il` answers scripts with HTTP 247 and a Reblaze challenge
+  (`window.rbzns`), which the link checker now spots; WebFetch reads the pages and the `/media/` PDFs download. The Hebrew University's
+  International BA is on `overseas.huji.ac.il`.
 
 ---
 
@@ -2442,6 +2465,65 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
     checked for 2027 entry"; Aarhus University's page lists its six programmes (no image yet).
   - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
     pages were read on 4 October.
+
+#### Status, 5 October 2026 — 5.2 researched and dry-run (session 21); awaiting the owner's approval
+
+Data files (new): `scripts/programs/2027/new-universities-5-2.ts` (the universities; run `add-universities.ts` with its path), and one
+programs file per university: `waseda-university.ts`, `keio-university.ts`, `sophia-university.ts`,
+`international-christian-university.ts`, `tallinn-university.ts`, `tallinn-university-of-technology.ts`, `masaryk-university.ts`,
+`prague-university-of-economics-and-business.ts`, `reichman-university.ts` and `the-hebrew-university-of-jerusalem.ts`;
+`university-of-tokyo.ts` gains one program and moves `checkedOn` to 2026-10-05 (its two PEAK programmes stay discontinued and unwritten).
+Every program's `notes` give its sources and reasoning. **Dry run only: nothing is written until the owner approves.**
+
+| Country | Universities | Open programs | Added |
+|---|---|---|---|
+| Japan | 1 → 5 | 0 → 23 | UTokyo College of Design 1, Waseda 10, Keio 3, Sophia 8, ICU 1 |
+| Estonia | 1 → 3 | 2 → 12 | Tallinn University 6, TalTech 4 |
+| Czech Republic | 1 → 3 | 9 → 27 | Masaryk 10, Prague University of Economics and Business (VŠE) 8 |
+| Israel | 1 → 3 | 4 → 15 | Reichman 10, Hebrew University 1 |
+
+- **Points.** Stored at 24, the Diploma, except Tallinn University's 6 at **27**, its published IB minimum ("at least 27 out of 45", with
+  HL and SL conditions in the notes). No other university publishes an IB minimum: Waseda, Keio and UTokyo say outright that they set
+  none. Masaryk's Faculty of Economics accepts an IB of 28 with maths at 4 as proof of academic competence, but predicted grades do not
+  count and a Scio test is the alternative, so 24 (the route is in the notes). TalTech asks a secondary average of 60% of the maximum
+  without saying how an IB total maps to it: 24, with the rule in the notes.
+- **How competitive** (data conventions): Waseda's 10 and UTokyo's College of Design get the paragraph. Waseda publishes the IB average of
+  admitted applicants per school: 2026 Political Science and Economics 38.9 of 42 (218 of 994 admitted), TAISI 36.8 (119 of 405), SILS
+  37.5 (315 of 1,322 in September), JCulP 36.4 (23 of 162); science and engineering 38.1 for 2022-2024, the only figure readable (the
+  2026 PDF refuses scripts). UTokyo **expects** 38 of the 42 subject points and 2 core points for its first intake and says this is not a
+  cut-off. No other program publishes a figure: Keio has "no cut-off scores", and the rest select by test thresholds, interviews or
+  holistic review.
+- **Entry years: 44 stamped 2027, 18 stamped 2026** (rule 2). 2027: UTokyo, Waseda, Keio, Sophia and ICU (every page gives its 2027 round),
+  Tallinn University (autumn 2027 deadlines), Masaryk's Social Studies, Economics and Education programmes (7), VŠE's 7 with 2027/2028
+  rounds, and Reichman's ClimateTech double major (first intake 2027-28). 2026: TalTech (4; its admissions page is still 2026/2027),
+  Masaryk's Faculty of Arts (2, "data from the previous admission procedure") and Biology and Biochemistry (March 2026 exam), VŠE's
+  Economics (2026 deadlines), Reichman's other 9 (2026-27 regulations) and the Hebrew University (2026/27 deadline).
+- **Subjects.** Waseda: Political Science and Economics require maths, and Fundamental and Creative Science and Engineering maths, physics
+  and chemistry, at SL or HL; the FAQ lets an applicant apply without one, so none is critical (grade 4, none named). Sophia's Digital Green
+  Technology requires Maths AA or AI at HL and one of Physics, Chemistry or Biology at HL to apply with the IB (critical). Masaryk's
+  Economics programmes store the maths 4 of the IB route, not critical. Every other program names no IB subject: checked, none required.
+- **Degrees.** Japanese, Estonian and Israeli awards as named (Bachelor of Arts, of Science, of Engineering); UTokyo's College of Design is
+  an Integrated Bachelor's and Master's (five years); Reichman's Entrepreneurship and Computer Science a Double Bachelor's Degree (BA and
+  BSc); Czech bakalář degrees stay "Bachelor", as for Charles.
+- **Pending approvals at the universities:** UTokyo's College of Design and Sophia's Digital Green Technology were both "under review" or
+  "under application for approval" by MEXT when their 2027 admissions were published; both are taking applications.
+- **Not added, and why:** Technion's international BSc (taught in English for the first year only, then Hebrew; its fully English
+  Mechanical Engineering page still shows 2024/2025); Masaryk's Data Analytics (combined, part-time form only); long-cycle medicine,
+  dentistry and pharmacy in English (Masaryk, Charles's faculties, Tartu's six-year Medicine), left for a pass of their own; Tokyo's
+  Global Science Course (a third-year transfer). Not researched: Ritsumeikan APU, Tohoku, Nagoya, Kyushu, Hokkaido, Tsukuba, Institute
+  of Science Tokyo and Doshisha in Japan; the Czech Technical University, Palacký and the Czech University of Life Sciences; the Estonian
+  Business School and the Estonian University of Life Sciences; Ben-Gurion, Haifa and Bar-Ilan in Israel.
+- **Landing pages.** All four now have at least three universities with open programs, so none says options are limited, and no claim on
+  them contradicts the new programs: Japan's says English-taught programmes take the IB without the EJU, Estonia's gives Tallinn
+  University's 27 points and TalTech's 60% rule, and Israel's says international programmes may not require the Psychometric test. No
+  page text changes, so `lib/page-dates.ts` is untouched.
+- **Link checker.** Reichman's pages answer scripts with HTTP 247 and an empty Reblaze challenge, which the checker would have called
+  OK; `scripts/lib/link-check.ts` now recognises it (`window.rbzns`), with a test. Every other new program URL and source answers 200,
+  except Waseda's PDFs (Cloudflare, expected).
+- **To verify after the apply:** `count(*)` 65 → 75 universities and 1,305 → 1,367 programs; Algolia program records match; filtering by
+  country returns Japan 25 (23 open plus PEAK's two), Estonia 12, Czech Republic 27, Israel 15; a second dry run finds all 62 up to date;
+  the link checker on the four countries; public pages for one program per country; `sync-universities-algolia.ts`; images for the ten
+  universities in `/admin/universities` (owner).
 
 ### 5.3 — France
 

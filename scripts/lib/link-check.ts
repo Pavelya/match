@@ -38,7 +38,9 @@ const BOT_WALL = [
   /\/cdn-cgi\/challenge-platform\//i,
   /errors\.edgesuite\.net/i,
   // F5's JavaScript challenge (universiteitleiden.nl): the same page for every URL, 404s included.
-  /window\["bobcmn"\]|<title>[^<]*Access Blocked\s*<\/title>/i
+  /window\["bobcmn"\]|<title>[^<]*Access Blocked\s*<\/title>/i,
+  // Reblaze's JavaScript challenge (runi.ac.il): HTTP 247 and an empty body behind a script.
+  /window\.rbzns\s*=/
 ]
 
 function parse(url: string): URL | null {

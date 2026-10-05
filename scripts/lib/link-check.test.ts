@@ -31,6 +31,9 @@ describe('isBotWall', () => {
     expect(isBotWall('<title>Just a moment...</title>')).toBe(true)
     expect(isBotWall('<script>window["bobcmn"] = "10111/TSPD/3000";</script>')).toBe(true)
     expect(isBotWall('<title>Toegang geblokkeerd / Access Blocked</title>')).toBe(true)
+    expect(isBotWall('<script>;;window.rbzns={"protocol":"https:"};winsocks();</script>')).toBe(
+      true
+    )
     expect(isBotWall('<html><title>Physics | Example University</title>')).toBe(false)
   })
 })
