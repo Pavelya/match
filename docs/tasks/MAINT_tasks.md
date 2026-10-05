@@ -35,6 +35,7 @@ pull request, merged before the next starts.
 | any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
 | any | TOK and EE core points | 5.8 | small | Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 | any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
+| any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -71,6 +72,7 @@ Phase 5 — quick wins
 - [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
 - [ ] 5.10 Give the older university images a one-year cache
+- [ ] 5.11 Send school logos to Storage, as university logos already go
 
 Phase 6 — dependency majors
 
@@ -608,6 +610,62 @@ for every program. Never delete an object here. Do not run this while someone is
 in `/admin/universities`.
 
 **Session size:** Tiny.
+
+---
+
+### 5.11 — Send school logos to Storage, as university logos already go
+
+**Outcome:** A school logo uploaded in `/admin/schools` is stored as a Storage URL, never as base64,
+and the schema says so.
+
+**Why:** Found in CONTENT 1.1 on 5 October 2026. Nothing is wrong in production yet: there is one
+school and it has no logo. But `IBSchool.logo` is documented as "Base64 encoded image data (max
+~500KB)" in `prisma/schema.prisma`. The admin forms (`components/admin/schools/SchoolForm.tsx`,
+`SchoolEditForm.tsx`) read the file into a data URL, and both admin routes store whatever arrives
+(`app/api/admin/schools/route.ts:132`, `app/api/admin/schools/[id]/route.ts:175`). That is how
+Toronto's 365 KB logo reached the `University` row, the pattern in "Hard rules — cost". The first
+school logo uploaded would move up to 500 KB on every read of the whole row:
+- every load of the coordinator dashboard (`app/coordinator/dashboard/page.tsx:45` includes the school)
+- every Stripe webhook (`app/api/webhooks/stripe/route.ts` finds and updates the school without `select`)
+- the admin school list (every school's logo at once) and the admin school routes' responses
+
+The student settings and invitations pages select the logo on purpose, to show it.
+
+**Files:**
+- `app/api/admin/schools/route.ts` (POST) and `app/api/admin/schools/[id]/route.ts` (PUT): the writes
+- `app/api/admin/universities/route.ts` and `app/api/admin/universities/[id]/route.ts`: the rule to
+  copy, with a `route.test.ts` next to each
+- `lib/supabase/storage.ts`: `uploadUniversityImage` and `isBase64Image`
+- `prisma/schema.prisma`: the comment on `IBSchool.logo`
+
+**Steps:**
+1. **Upload, or refuse.** In both routes, upload a base64 logo with `uploadUniversityImage` and
+   store the URL. Use the key `school-<id>-logo` on update and `temp-<timestamp>-school-logo` on
+   create, which has no id yet, as the university create route does. Use the same bucket; a second
+   bucket is setup with nothing gained. If the upload fails, return 502 and save nothing. Store a
+   URL as it arrives. On update, do not re-upload a logo equal to the stored one: the edit form sends
+   it back on every save, and the university `[id]` route already handles this.
+2. **Correct the schema comment** to match `University.logo` ("Public Supabase Storage URL. Never
+   base64"). It is a comment, so no migration.
+3. **Test both routes** with Vitest, mocking `@/lib/prisma` and the storage module as the university
+   route tests do: base64 is uploaded and the URL stored; a failed upload returns 502 and writes
+   nothing; a URL is stored as it is; an unchanged logo is not re-uploaded.
+4. **Check production again before shipping.** If any school has gained a `data:` logo since
+   5 October, migrate it the way `scripts/fix-university-images.ts` migrates universities. Do not
+   `NULL` it.
+
+**Verify:**
+- `SELECT count(*) FROM "IBSchool" WHERE logo LIKE 'data:%'` returns **0**.
+- `npm test` passes, and the usual `tsc`, ESLint, Prettier and build checks are clean.
+- Only if the owner agrees, since the only school may be real: upload a logo in `/admin/schools`.
+  The row holds an `https://` URL, and the logo shows on the school's admin page and on a student's
+  settings page.
+
+**Guardrails:** Never store base64 as a fallback when Storage fails; the 502 is intentional, as for
+universities. Switching the whole-row reads above to `select` is not needed once the column holds
+URLs. Leave them unless the file is open anyway.
+
+**Session size:** Small.
 
 ---
 
