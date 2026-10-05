@@ -20,7 +20,7 @@ here, and this refresh does more production writes than any work before it.
 
 | # | Session | Tasks | Size | Why here |
 |---|---|---|---|---|
-| 1 | Stop loading the base64 logo | 1.1 | small | **Partly done.** The cost is gone; moving the logo to Storage waits on Storage (step 3). Fold into any later session |
+| 1 | Stop loading the base64 logo | 1.1 | small | **Done.** The cost went 24 September 2026; the logo is in Storage since 5 October 2026 |
 | 2 | Oxford and Cambridge fast lane | 1.2 | medium | **Done.** Applied 25 September 2026. The two held Oxford rows and the 2027 stamp were settled 2 October 2026; the owner's script run applies them |
 | 3 | Honest labels | 1.3, 1.4 | small | **Done.** 25 September 2026 |
 | 4–6 | Country pages for 2027 | 2.1–2.3 | medium each | **Done.** 25 September 2026. All 22 country pages say 2027 |
@@ -55,8 +55,8 @@ short before 13 January 2027, prioritise sessions 12–13 (UK) over session 6.
 
 Phase 1 — Fix now
 
-- [ ] 1.1 Stop loading the University of Toronto's base64 logo — steps 1, 2, 4 done; step 3
-  blocked on Storage, which answered 200 again on 4 October 2026 (5.1): step 3 can run
+- [x] 1.1 Stop loading the University of Toronto's base64 logo — step 3 done 5 October 2026: the
+  logo is a Storage URL and no `University` row holds base64
 - [x] 1.2 Oxford and Cambridge fast lane — the two held Oxford rows settled 2 October 2026
 - [x] 1.3 Correct the false counts and the "Educaton" typo
 - [x] 1.4 Make page dates truthful
@@ -545,6 +545,25 @@ a backup and the owner's approval.
   university (`app/admin/programs/[id]`, its edit page, `GET /api/admin/programs/[id]`, the
   program create and bulk routes, `app/admin/universities` list and detail and their API
   `GET`s), and the seed scripts, which look up their own university by name.
+
+#### Status, 5 October 2026 — step 3 done; 1.1 complete
+
+- **The logo is in Storage.** Toronto's `logo` is
+  `university-images/<id>-logo-1791225075783.jpeg`, written at 18:31 UTC on 5 October 2026,
+  minutes before this check. The script and the admin edit route both upload a logo under
+  `<id>-logo`, so the key does not record which one wrote it. The file is a valid 274 KB
+  JPEG, the 365 KB base64 decoded, served 200 with `cache-control: max-age=31536000`.
+- **Script run.** `npx tsx scripts/fix-university-images.ts` found 65 universities and 66
+  values, 65 images and the one logo, all already URLs: fixed 0, failed 0. Nothing was
+  written.
+- **Verify.**
+  - `count(*) WHERE logo LIKE 'data:%'` is **0**, and so is the same check on `image`.
+    `sum(length(logo))` over all 65 rows is 133 bytes; Toronto's alone was about 365 KB.
+  - The program page has not read the logo since session 1, so step 3 does not change it.
+    The coordinator's student page renders it with `<Image unoptimized>`, and
+    `*.supabase.co` is in `remotePatterns`. Five saved programs are at Toronto, so
+    coordinators see it. Not opened in a browser: the page needs a coordinator login.
+  - Docs only, no code change. `tsc`, ESLint and the build were not rerun.
 
 ---
 

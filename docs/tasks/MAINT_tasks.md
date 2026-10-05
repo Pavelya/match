@@ -34,6 +34,7 @@ pull request, merged before the next starts.
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
 | any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
 | any | TOK and EE core points | 5.8 | small | Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
+| any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -69,6 +70,7 @@ Phase 5 — quick wins
 - [ ] 5.7 Show each option's level and grade in mixed subject groups
 - [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
+- [ ] 5.10 Give the older university images a one-year cache
 
 Phase 6 — dependency majors
 
@@ -523,7 +525,7 @@ and pushed them to Algolia. What is left, checked with aggregates on 4 October 2
 | Where | What | Action |
 |---|---|---|
 | `universities_production` | 69 records for 65 universities. Orphans: `cmiudaqh700037m7zlgiho4os` University of Oxford, `cmiudarnn00097m7zpyjwfc3x` ETH Zurich, `cmiudar5900077m7zgzbep90n` Australian National University, `cmiudaq8w00017m7zoh7723vr` Harvard University | Delete |
-| `University` | One seeded row, University of Toronto (`cmiudaqto00057m7zzmkvdl3j`), now holding 40 real programs added in 2026 | **Keep.** Its base64 logo is CONTENT 1.1 step 3 |
+| `University` | One seeded row, University of Toronto (`cmiudaqto00057m7zzmkvdl3j`), now holding 40 real programs added in 2026 | **Keep.** Its logo moved to Storage on 5 October 2026 (CONTENT 1.1) |
 | `AcademicProgram` | No program created before 2026; the 20 sample programs are gone | Nothing |
 | `programs_production` | 1,305 records for 1,305 programs | Confirm with the orphan script |
 | `User`, `IBSchool` | One user and one school match "test" in a name or email; one user predates 2026 (likely the owner's account) | List for the owner; delete nothing unasked |
@@ -555,6 +557,57 @@ but `scripts/sync-universities-algolia.ts` only upserts, so nothing removes them
 exists. Never delete the Toronto row: its 40 real programs and their 5 student saves (4 October 2026) hang off it.
 
 **Session size:** Small.
+
+---
+
+### 5.10 — Give the older university images a one-year cache
+
+**Outcome:** Every university image and logo in Storage is served with
+`cache-control: max-age=31536000`, at the same URL as today.
+
+**Why:** Found in CONTENT 1.1 on 5 October 2026. Commit `a4103e7` (1 October) made new uploads
+cache for a year (`lib/supabase/storage.ts`), but objects keep the header they were uploaded with.
+Of the 66 objects the `University` rows point at, **56 still say `max-age=3600`**: every image
+uploaded before 1 October, 14.2 MB in all, 259 KB on average, the largest 492 KB. The other ten
+(Toronto's logo and the nine images uploaded on 4–5 October) already say a year.
+
+The same commit already covers the optimizer path, which is most traffic: `minimumCacheTTL` is
+31 days (`next.config.ts`), so Vercel re-fetches a source at most once per width per 31 days
+whatever its header says. The one-hour header still matters wherever a raw Storage URL leaves the
+site: `og:image` on the program and university pages (`app/programs/[id]/page.tsx`,
+`app/universities/[id]/page.tsx`), their JSON-LD `image`, and the admin forms that render
+`unoptimized`. Whatever fetches those URLs, Supabase's CDN or the client, may only reuse its copy
+for an hour, and each fetch from the origin is billed egress. The saving is small. The fix
+costs one 14 MB download and changes nothing else.
+
+**Files:** a new `scripts/fix-image-cache-control.ts`, committed like
+`scripts/fix-university-images.ts`; `lib/supabase/client.ts` for `getSupabaseClient` and the bucket name.
+
+**Steps:**
+1. **Dry run by default** (the `--apply` convention of `scripts/programs/add-universities.ts`). Read
+   every `University` `image` and `logo` with `select`, take each URL's object path in the
+   `university-images` bucket, and read that object's `metadata.cacheControl` from the bucket's
+   `list()`. No download is needed to find them. Print each one still on `max-age=3600`. Ignore
+   objects no row points at; that cleanup is separate.
+2. **Re-upload each object's own bytes to its own path.** `download(path)`, then
+   `upload(path, bytes, { upsert: true, cacheControl: '31536000', contentType })` with the stored
+   mimetype. The URL does not change, so no database write, no Algolia sync and no programs cache
+   invalidation are needed. Keep the downloaded bytes in the scratchpad until step 3 passes.
+3. **Do one object first**, check it (below), then the rest. Print a count at the end.
+
+**Verify:**
+- The dry run lists **0** objects on `max-age=3600` afterwards.
+- `curl -s -r 0-0 -o /dev/null -D - "<url>?v=check"` shows `cache-control: max-age=31536000`. The
+  query string skips Supabase's CDN copy, which can keep the old header for up to an hour. Each
+  object's size is unchanged.
+- The `University` rows' URLs are identical before and after (compare the list).
+- A university page, a program card in search and a program page's `og:image` still show the image.
+
+**Guardrails:** Never change a filename or URL; that would need a database write and an Algolia sync
+for every program. Never delete an object here. Do not run this while someone is uploading images
+in `/admin/universities`.
+
+**Session size:** Tiny.
 
 ---
 
