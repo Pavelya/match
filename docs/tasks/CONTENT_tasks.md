@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–22 | Thin countries, then France | 5.1, 5.2, 5.3 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 
@@ -94,6 +94,7 @@ Phase 5 — Coverage
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
 - [ ] 5.2 Japan, Estonia, Czech Republic, Israel
 - [ ] 5.3 France — research, universities and programs, and a landing page
+- [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants
 
 Phase 6 — USA
 
@@ -299,6 +300,27 @@ not precision.
   no admissions contact exists; `null` when neither is published. 5.1's eight universities
   were added before this rule and have none. One stored row is wrong: CBS's `phone` holds an
   email address (`graduateadmission@cbs.dk`).
+- **Every competitive program gets a "How competitive" paragraph** (owner, 4 October 2026).
+  This applies to every program from now on: whenever a session adds, refreshes or otherwise
+  touches a program, it adds or updates the paragraph if the program qualifies. A program
+  qualifies when admission ranks applicants, so meeting the stored minimum does not secure a
+  place, and the university publishes a figure that shows what it takes: last year's cut-off
+  (Denmark's quota 1, Sweden's merit ranks, Catalonia's admission mark, Ireland's CAO points, a
+  numerus fixus) or a typical admitted range. `minIBPoints` stays the published minimum, because
+  matching holds only one number and applicants below the cut-off can often still get in another
+  way. End the program's description with one paragraph that students will read: the year, the
+  share of places awarded on grades, the figure in IB points with the scale it was converted from
+  (or the original figure where no official conversion exists), and the other route and what it
+  assesses. For example: "How competitive: in 2026, the 60% of places awarded on grades (quota 1)
+  went to applicants from about 42 IB points (a Danish GPA of 11.1). The other 40% are awarded on
+  a motivational essay and activities (quota 2), where any Diploma holder (24 points) can
+  compete." Write none where every qualified applicant was admitted, where no figure is published,
+  or where the gap is a point or two (a UK typical offer one above the minimum). Say in `notes`
+  that the paragraph is there: notes never reach the site, and the figure goes stale each cycle,
+  so **every refresh updates it**. Done for the 18 Danish programs in 5.1; the rest of the stored
+  catalogue, Sweden first, is [task 5.4](#54--how-competitive-sweden-then-the-rest-of-the-catalogue).
+  Phases 6 and 7 choose their own model; where they keep a minimum and a figure like this exists,
+  they add the paragraph too.
 
 ### Research rules
 
@@ -1590,7 +1612,8 @@ thing.
    sources state (2026 when they name none, rule 2). Export already wrote each degree type's
    canonical spelling (3.2); correct it where the award is wrong. Update URLs, including
    harmless redirects and year-pinned paths. Mark gone programs `discontinued`; add new ones
-   with status `new` and no id.
+   with status `new` and no id. Add or update the "How competitive" paragraph where
+   admission ranks by grades ([data conventions](#data-conventions)).
 4. Programs with no subject requirements: confirm "none" explicitly in `notes`. The tool
    refuses a checked program with no requirements and no note.
 5. Dry-run: `npx tsx scripts/programs/refresh.ts <slug> [<slug> ...]`. **The owner reviews
@@ -2316,7 +2339,8 @@ and Austria (7), several of them with real demand.
 2. Add universities in `/admin/universities` (images go to Storage automatically; never
    base64), or from a committed data file with `scripts/programs/add-universities.ts` (5.1),
    with the admissions office's email and phone where published (data conventions). Add
-   programs with the tool as `new`, stamped 2027.
+   programs with the tool as `new`, stamped 2027, with a "How competitive" paragraph where
+   admission ranks by grades and a cut-off is published (data conventions).
 3. **France** exists in the `Country` table with no universities and no landing page.
    Check whether students can select it as a preference, and ask the owner whether to add
    coverage or leave it.
@@ -2326,6 +2350,7 @@ and Austria (7), several of them with real demand.
 | 5.1 | Austria, Belgium, Denmark | 29/7, 22/6, 22/5 |
 | 5.2 | Japan, Estonia, Czech Republic, Israel | 21/2 (both PEAK, closed after September 2026: 4.8b), 9/2, 11/9, 4/4 |
 | 5.3 | France | 0/0: no university, no program, no landing page; students cannot select it yet. [Task below](#53--france) |
+| 5.4 | Sweden, then the rest of the catalogue | "How competitive" paragraphs; no new programs. [Task below](#54--how-competitive-sweden-then-the-rest-of-the-catalogue) |
 
 **Verify:** Each country's search link returns the new programs; the Algolia count
 matches the database; each landing page's claims match what search returns.
@@ -2358,7 +2383,10 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   **Model limit:** matching reads only `minIBPoints`, so it treats these as open from 24. A 30-point student who meets the subjects sees
   CBS International Business as a SAFETY ("very likely to be admitted") in selectivity tier 4, though quota 1 took about 42 in 2026 and
   quota 2 is a competitive essay round. The same holds for CBS's five programmes from 4.8b, AU's Aarhus programmes (36-43) and SDU's
-  selective ones. Nothing stores the competitive figure apart from the notes.
+  selective ones. **Mitigated, owner-approved, 4 October 2026:** the 18 programs with a published 2026 cut-off above 24 (CBS 6,
+  Aarhus 6, SDU 5, ITU 1) now end their description with a "How competitive" paragraph, so students see the figure on the program
+  page (backup `scripts/backups/refresh/2026-10-04T11-48-05-369Z.json`). Matching's SAFETY label is unchanged; a separate competitive
+  score was considered and set aside as too costly and confusing for the benefit.
 - **Entry years: 4 stamped 2027, 28 stamped 2026** (rule 2, over step 2's "stamped 2027"). 2027: CBS International Business (CBS's 2027
   round), SDU Economics and Business Administration in Sønderborg (its quota 1 minimum rises to 7.0 "from 2027 onwards") and both VUB
   programmes (deadlines 1 April and 1 August 2027). 2026: AU, the rest of SDU, DTU and ITU name no intake; WU's BBE procedure published is
@@ -2423,6 +2451,8 @@ therefore unknown, not zero.
 3. **What the stored fields mean here.** Whether any of them publishes an IB minimum or subject
    rule, or only a holistic file; `minIBPoints` stays the published minimum (24, the Diploma, where
    none is published, as for 5.1). Note entrance tests, interviews and portfolios as model limits.
+   Where a programme ranks by grades and publishes a cut-off, add the "How competitive" paragraph
+   (data conventions).
 4. **Private institutions.** Business schools are `PRIVATE`, charge high fees and may run first years
    outside France (ESCP's bachelor's is multi-campus). Record where each programme's first year is
    taught. Ask the owner whether to include private institutions if they would outnumber public ones.
@@ -2447,6 +2477,62 @@ France appears in onboarding's country list; every claim on the page matches its
 search returns; `npm run build` shows the page `○ (Static)`.
 
 **Session size:** Large. Part A and B in one session; Part C can be its own.
+
+### 5.4 — How competitive: Sweden, then the rest of the catalogue
+
+**Outcome:** Every stored program that ranks applicants, and whose university publishes what it
+took to get in, ends its description with a "How competitive" paragraph
+([data conventions](#data-conventions)), so a student at the stored minimum is not misled.
+
+**Why:** Asked by the owner on 4 October 2026. Matching reads only `minIBPoints`, the published
+minimum, and labels a program a SAFETY when a student clears it, even where last year's admitted
+applicants scored far higher. 5.1 found this for Denmark and added the paragraph to 18 programs; the
+cut-offs other sessions found sit only in the data files' notes, which never reach the site.
+
+**Part A — Sweden (29 programs: Dalarna 1, Jönköping 6, Karlstad 3, Linnaeus 10, Lund 9).** All are
+stored at 24, the general entry requirement; selection is by merit rank (4.8a).
+1. **How IB holders are ranked.** UHR's IB page (`universityadmissions.se/.../ib-studies/for-ib-diplomas-2021-and-later/`)
+   and antagning.se's table converting the IB total to a Swedish merit value (4.8a). Confirm which
+   selection group IB applicants compete in; do not assume.
+2. **What it took in autumn 2026.** The admission statistics on antagning.se or universityadmissions.se
+   give, per programme and round, the lowest merit value admitted in each selection group, or "all
+   qualified admitted". Use the IB's group, convert back to IB points with the table, and write the
+   paragraph: the round, the cut-off in IB points with the merit value, and the other routes (for
+   example the Swedish Scholastic Aptitude Test group) if they matter to an IB applicant. No paragraph
+   where every qualified applicant was admitted. Portfolio and audition programmes (Lund's Fine Arts and
+   Music) are selected on the work: say so, with no figure.
+3. **Run it after 16 October 2026**, when the autumn 2027 round opens, so the same session re-checks
+   the four programmes 4.8a stamped 2026 (owner tasks).
+
+**Part B — the rest of the stored catalogue.**
+1. **Inventory.** Search the notes in `scripts/programs/2027/` for cut-offs, typical or admitted
+   ranges, ranking, merit, CAO points, numerus fixus and quotas, and list each candidate with the figure
+   its notes already give. Found on 4 October 2026, each still to check against the rule: Universitat de
+   Barcelona (33) and UAB (12), which admit on a mark out of 14 with June 2026 cut-offs in the notes,
+   above what the IB access grade alone reaches; Trinity (56) and UCD (25), with CAO points cut-offs for
+   EU applicants; McGill (36) and Western (40), with typical admitted ranges whose bottom is stored;
+   Erasmus's IBA (a numerus fixus ranked 75% on grades); the numerus fixus programmes the notes name
+   at Groningen, Amsterdam, Delft and Leiden; Alberta (its "previous competitive scores" by program,
+   whose bottom is stored); the Polish and Czech ranking formulas (AGH, Jagiellonian,
+   Charles); Portugal; and Hong Kong (HKU's lower boundaries, HKUST's admission figures), where the
+   stored figure may already be the competitive one.
+2. **Decide each against the rule.** Qualifies: admission ranks applicants and an official figure shows
+   what it took. Does not: everyone qualified got in, no figure is published, the stored figure already
+   is the cut-off and says so, or the gap is a point or two. Where no official IB conversion exists,
+   give the original figure and what it means for an IB applicant (Catalonia: the mark out of 14 and
+   the weighted exam subjects it takes). List the programs examined and not given a paragraph, with
+   the reason, in the status.
+3. **Write, dry-run, apply.** Descriptions and notes only, with the refresh tool, one university's file
+   at a time. Keep each file's `checkedOn` unless the program's requirements are re-checked, so nothing
+   is re-stamped (5.1 did this for CBS). The tool refuses edits to programs left unchecked (Tel Aviv,
+   Tokyo): leave those to their own refresh. **The owner approves the dry run** before `--apply`.
+
+**Verify:** a second dry run finds every written program up to date; two programs per country show
+the paragraph on their public pages; the status lists every candidate with "paragraph" or the reason
+for none.
+
+**Session size:** Part A is one medium session (after 16 October 2026); Part B is large and can be
+split by country.
 
 ---
 
