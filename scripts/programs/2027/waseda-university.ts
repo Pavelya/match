@@ -1,7 +1,7 @@
 import type { RefreshFile } from '../lib/refresh'
 
 /**
- * Waseda University: its English-based undergraduate programmes, added for content task 5.2.
+ * Waseda University: its English-based undergraduate programmes, added for content task 5.2 and created, with the university, on 6 October 2026.
  * Every school's page gives its September 2027 schedule, so all ten are stamped 2027.
  *
  * Waseda's PDFs (application guides, the list of application documents, the admission statistics)
@@ -49,7 +49,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8ads30001047m81vbznfo',
+      status: 'current',
       name: 'Political Science',
       description: `Waseda's School of Political Science and Economics teaches a BA in Political Science entirely in English in Tokyo. The degree promotes the scientific understanding of politics, from cooperation and conflict in local communities to disputes between states, and requires courses in analytical and quantitative methods. Students build a broad foundation over the first two years and then usually specialise in a subfield.\n\nThe English-based programme admits in September only, on a holistic review of the application documents, and no Japanese is required.\n\n${PSE_COMPETITIVE}`,
       field: 'Social Sciences',
@@ -63,7 +64,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${MATHS} ${PSE_2027} B.A. in Political Science. ${PSE_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8adzb0004047mlczx9wlr',
+      status: 'current',
       name: 'Economics',
       description: `Waseda's School of Political Science and Economics teaches a BA in Economics entirely in English in Tokyo. It combines solid theoretical foundations with the collection and analysis of empirical data, building quantitative skills through microeconomics, macroeconomics, game theory and econometrics, and offers specialised courses that apply them to real policy issues. The school runs one of the largest laboratories for experimental economics in Asia.\n\nThe English-based programme admits in September only, on a holistic review of the application documents, and no Japanese is required.\n\n${PSE_COMPETITIVE}`,
       field: 'Business & Economics',
@@ -77,7 +79,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${MATHS} ${PSE_2027} B.A. in Economics. ${PSE_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8ae3n0007047mnvh51rmk',
+      status: 'current',
       name: 'Global Political Economy',
       description: `Waseda's School of Political Science and Economics teaches a BA in Global Political Economy entirely in English in Tokyo. The degree draws on both political science and economics, grounding students in theory and evidence from the two disciplines so they can analyse today's complex, interconnected world without the boundaries of either.\n\nThe English-based programme admits in September only, on a holistic review of the application documents, and no Japanese is required.\n\n${PSE_COMPETITIVE}`,
       field: 'Social Sciences',
@@ -91,7 +94,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${MATHS} ${PSE_2027} B.A. in Global Political Economy. ${PSE_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8ae7a000a047mxiyl6216',
+      status: 'current',
       name: 'Transnational and Interdisciplinary Studies in Social Innovation (TAISI)',
       description:
         'TAISI is the English-based degree programme of Waseda\'s School of Social Sciences, training "social innovators". Students take foundation courses in economics, politics, humanities, history, marketing and law, then specialise in one of four fields: peace building and international cooperation, community and social development, social organization and working, or economic and environmental sustainability. Fieldwork and workshops with local governments and organisations apply classroom theory, and the programme looks at domestic and international issues from a Japanese perspective.\n\nHow competitive: in 2026, 119 of 405 applicants were admitted, and those admitted averaged 36.8 IB points out of 42 (without bonus points). Waseda sets no minimum score and decides on the whole application.',
@@ -111,7 +115,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${NO_SUBJECT} The school's admissions page links the "Application Guide for TAISI Admission September 2027 Entry", so stamped 2027. 60 places; document screening, with an online interview if needed. Bachelor of Arts in Social Sciences. The description's last paragraph, "How competitive", gives the 2026 figures from that page; update it at each refresh.`
     },
     {
-      status: 'new',
+      id: 'cmuw8aean000b047mkim7vkfa',
+      status: 'current',
       name: 'International Liberal Studies',
       description:
         "Waseda's School of International Liberal Studies (SILS), founded in 2004, teaches a liberal arts degree in English to a student body from many countries. Students take courses across a wide range of academic fields, study abroad, and pursue interdisciplinary questions about a globalising world, with the aim of living and working in a multicultural society.\n\nSILS admits in September and, for applicants from overseas, in April, on a holistic review of the application documents.\n\nHow competitive: for September 2026 entry, 315 of 1,322 applicants were admitted, and SILS's admitted applicants average 37.5 IB points out of 42. SILS has no minimum score and decides on the whole application.",
@@ -132,7 +137,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${NO_SUBJECT} SILS's admissions page gives the 2027 AO September Entry schedule (early application 7-12 January 2027, regular to 28 January 2027) and the 2027 AO April Entry (Overseas) one, so stamped 2027. Quotas: 150 in September, 100 in April. Bachelor's degree in International Liberal Studies. The description's last paragraph, "How competitive", gives the September 2026 applicants and admitted from SILS's data page, and the IBDP average it publishes (undated, beside the 2024-2026 tables); update it at each refresh.`
     },
     {
-      status: 'new',
+      id: 'cmuw8aebm000c047msn5pm2to',
+      status: 'current',
       name: 'Global Studies in Japanese Cultures Program (JCulP)',
       description:
         "JCulP is the English-based programme of Waseda's School of Culture, Media and Society, focused on research into Japanese culture in all its diversity and on Japanese literature. Japanese and overseas students study together in Tokyo and take part in cultural exchange through their research; overseas students also take Japanese language courses.\n\nHow competitive: for 2026 entry, 23 of 162 applicants in the overseas students category were admitted, and they averaged 36.4 IB points out of 42. Waseda sets no minimum score and decides on the whole application.",
@@ -152,7 +158,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${NO_SUBJECT} The school's admissions page publishes the "2027 Application Guide for Overseas Students" (24 September 2026, September 2027 enrolment), so stamped 2027. Quotas: 15 in September, 15 in April (April is for graduates of Japanese high schools). Bachelor of Arts. The description's last paragraph, "How competitive", gives the 2026 figures from that page; update it at each refresh.`
     },
     {
-      status: 'new',
+      id: 'cmuw8aede000d047mrivljurf',
+      status: 'current',
       name: 'Mathematical Sciences',
       description: `Waseda's School of Fundamental Science and Engineering teaches a major in Mathematical Sciences in English, covering algebra, geometry, analysis, statistics and numerical analysis. At the start of the fourth year students join either the Department of Mathematics or the Department of Applied Mathematics, which decides whether they graduate with a Bachelor of Science or a Bachelor of Engineering. About 70% of the faculty's students go on to graduate school.\n\n${FSCI_COMPETITIVE}`,
       field: 'Natural Sciences',
@@ -170,7 +177,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${SCIENCE} ${FSCI_2027} 30 places in the School of Fundamental Science and Engineering. Bachelor of Science or Bachelor of Engineering, by department; stored as Bachelor of Science. ${FSCI_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8aei2000i047m2pvkm08n',
+      status: 'current',
       name: 'Computer Science and Communications Engineering',
       description: `Waseda's School of Fundamental Science and Engineering teaches a major in Computer Science and Communications Engineering in English, covering programming, logic circuits and computer architecture as well as information and communications technology. Graduates receive a Bachelor of Engineering, and about 70% of the faculty's students go on to graduate school.\n\n${FSCI_COMPETITIVE}`,
       field: 'Computer Science',
@@ -188,7 +196,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${SCIENCE} ${FSCI_2027} 30 places in the School of Fundamental Science and Engineering. Bachelor of Engineering. ${FSCI_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8aep2000n047mxbkvpfjl',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: `Waseda's School of Creative Science and Engineering teaches a major in Mechanical Engineering in English, covering both traditional mechanical engineering, such as manufacturing, and modern fields such as robotics. The school's practice-oriented teaching looks at the technological and environmental systems that support people's lives, and about 70% of the faculty's students go on to graduate school.\n\n${FSCI_COMPETITIVE}`,
       field: 'Engineering',
@@ -206,7 +215,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${IB} ${SCIENCE} ${FSCI_2027} 30 places in the School of Creative Science and Engineering. Bachelor of Engineering. ${FSCI_NOTE}`
     },
     {
-      status: 'new',
+      id: 'cmuw8aets000s047movlszog3',
+      status: 'current',
       name: 'Civil and Environmental Engineering',
       description: `Waseda's School of Creative Science and Engineering teaches a major in Civil and Environmental Engineering in English: how to build a better and more sustainable society through the design and construction of infrastructure. Teaching is practice-oriented, and about 70% of the faculty's students go on to graduate school.\n\n${FSCI_COMPETITIVE}`,
       field: 'Engineering',

@@ -2,7 +2,7 @@ import type { RefreshFile } from '../lib/refresh'
 
 /**
  * Masaryk University: its full-time bachelor's programmes taught in English, added for content task
- * 5.2. Each faculty runs its own procedure. Social Studies, Economics and Administration and
+ * 5.2 and created, with the university, on 6 October 2026. Each faculty runs its own procedure. Social Studies, Economics and Administration and
  * Education publish their 2027 application windows (stamped 2027); the Faculty of Arts' pages show
  * "data from the previous admission procedure" and Science's the March 2026 exam (stamped 2026).
  * Not added: Data Analytics, taught only in the combined (part-time) form, and the long-cycle General
@@ -37,7 +37,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8afq1001o047mgbmjmtqk',
+      status: 'current',
       name: 'Global Challenges: Society, Politics, Environment',
       description:
         "This Faculty of Social Studies programme takes an interdisciplinary approach to political, social and environmental global challenges, drawing on political science, environmental studies, social anthropology and sociology. It looks at contemporary challenges at the level of individuals, social structures and policies, and stresses a range of research methods; practical workshops in the final year deal with global political, social and environmental risks.\n\nGraduates work in government agencies, research institutions and NGOs, or continue to master's study. Admission is by an online general academic test.",
@@ -56,7 +57,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${GAP} ${DIPLOMA} Checked, none required: no subject is named. ${FSS_DATES} Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afr1001p047m19rdv2h1',
+      status: 'current',
       name: 'International Relations and European Politics',
       description:
         'This Faculty of Social Studies programme develops an understanding of international relations and European politics, with emphasis on analysing and interpreting their theory with critical reflection. It focuses on modern issues, theories of conflict and cooperation, European integration and international political economy, with courses from international security and diplomacy to the politics of the Middle East and East Asia, and builds analytical and research skills throughout.\n\nAdmission is in two rounds: a review of documents and a cover letter, then an online interview.',
@@ -75,7 +77,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. Two rounds: documents (proof of English, ID, transcript, cover letter), at least 30 of 40 points for an invitation, then an online interview, at least 30 of 40 for admission. ${DIPLOMA} Checked, none required: no subject is named. ${FSS_DATES} Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afrx001q047msjylmndt',
+      status: 'current',
       name: 'Politics, Media, and Communication',
       description:
         'This Faculty of Social Studies programme focuses on the interplay between politics, the media and society. It brings together comparative political science, political theory and research on political behaviour with the study of media audiences, new media and mass communication, reflecting how new media and the changing place of parties and states have made the media central to understanding politics today.\n\nAdmission is by an online general academic test.',
@@ -90,7 +93,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${GAP} ${DIPLOMA} Checked, none required: no subject is named. ${FSS_DATES} Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afw0001r047mh286mnls',
+      status: 'current',
       name: 'Business Management and Finance',
       description:
         'This programme at the Faculty of Economics and Administration in Brno gives a foundation in management, finance, marketing and economics while developing leadership, teamwork, problem-solving and analytical skills. Students choose a finance track (financial markets, investments, accounting and corporate finance) or a management track (leadership, strategy and managing people and projects).\n\nIt admits in February and September. An IB Diploma of 28 points with maths at 4 shows the academic competence the faculty asks for; applicants without final results take an online Scio test instead.',
@@ -110,7 +114,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${ECON_RULE} Tuition CZK 120,000 a year. Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag0k001u047m6llj22ss',
+      status: 'current',
       name: 'Economics and Public Policy',
       description:
         'This programme at the Faculty of Economics and Administration in Brno gives multidisciplinary theory and practical skills for understanding economic concepts and the complexities of public policy and decision-making: how governments and the public sector operate, public administration, and traditional and innovative ways of delivering public services. It is aimed at future public sector leaders.\n\nIt admits in February and September. An IB Diploma of 28 points with maths at 4 shows the academic competence the faculty asks for; applicants without final results take an online Scio test instead.',
@@ -125,7 +130,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${ECON_RULE} Tuition CZK 100,000 a year. Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag41001x047mmeq0d168',
+      status: 'current',
       name: 'Biology and Biochemistry',
       description:
         "This Faculty of Science programme gives a broad theoretical and practical education in biology and biochemistry, with an interdisciplinary approach: inorganic and organic chemistry, biochemistry, general biology, microbiology, physiology and molecular biology, and the laboratory skills of both fields. It prepares students for the faculty's English-taught master's programmes in Molecular and Cell Biology and in Biochemical and Cellular Technologies.\n\nAdmission is by a two-round entrance exam, starting with an online test.",
@@ -140,7 +146,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. The programme page describes the 2026 procedure: an online test of 12 open questions on 10 March 2026 (at least 350 of 500 points) with the motivation letter and transcript, then a second round, and admission by overall result within the programme's capacity. No 2027 dates, so stamped 2026. ${DIPLOMA} Checked, none required: no subject is a condition, though the test covers biology and chemistry. Tuition EUR 3,000 a year. Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag4z001y047mp31jacml',
+      status: 'current',
       name: 'Culture, Media and Performative Arts',
       description:
         'This Faculty of Arts programme offers an interdisciplinary education in culture, media and performance, studying not only films, theatre and new media but the institutions, industries, practices, histories and audiences that shape them. It draws on its Central European setting in Brno, between Prague and Vienna, with courses from visual anthropology and film theory to media industries and the history of Central European culture, and a practical training placement.\n\nApplicants with a secondary school diploma are admitted after an entrance examination.',
@@ -155,7 +162,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${FF_RULE} ${DIPLOMA} Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag5y001z047mdes1zjb7',
+      status: 'current',
       name: 'English Language and Literature',
       description:
         'This Faculty of Arts programme covers the histories, cultures and literatures of English-speaking countries, mainly the UK, the USA, Canada and Australia, together with linguistic theory and the theory and practice of translation. Lectures and small seminars develop analytical and critical thinking and the use of written and spoken English; apart from translation courses, all teaching is in English, by Czech and native-speaker faculty.\n\nAdmission is in two rounds: a review of the motivation letter, recommendation letters and English certificate, then an interview in English.',
@@ -170,7 +178,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${FF_RULE} First round: motivation letter, recommendation letters and the level of English shown by a certificate; second round: a 15-20 minute interview on English, motivation, reading and knowledge of English-speaking countries. ${DIPLOMA} Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag6w0020047m5haadtob',
+      status: 'current',
       name: 'Education for Diversity and Inclusion',
       description:
         'This Faculty of Education programme is for future educators, social workers, coaches and facilitators in a multicultural world. Students develop intercultural competence across three tracks of their choice, education and psychology, social education, and special and inclusive education, and work in schools, NGOs and social centres in the Czech Republic and abroad, including a one-semester international internship.\n\nAdmission is by an online interview.',
@@ -185,7 +194,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${PED_RULE} ${DIPLOMA} Tuition CZK 68,000 a year. Bachelor (Bc.): the award is not in the degree list.`
     },
     {
-      status: 'new',
+      id: 'cmuw8ag7t0021047ml7nc2b99',
+      status: 'current',
       name: 'English Language for Education',
       description:
         "This Faculty of Education programme prepares future English teachers, teaching assistants and language school teachers. Students study the English language and the literature, history and culture of English-speaking countries, and above all how to teach them in a modern, creative and effective way, with compulsory teaching practice in real schools during the bachelor's degree. It leads on to the master's in Lower Secondary School English Language Teacher Training.\n\nAdmission is by an online interview.",

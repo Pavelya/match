@@ -2,7 +2,7 @@ import type { RefreshFile } from '../lib/refresh'
 
 /**
  * The Hebrew University of Jerusalem: the International BA of its Rothberg International School,
- * taught in English, added for content task 5.2. The page takes applications for 2026/27 (deadline
+ * taught in English, added for content task 5.2 and created, with the university, on 6 October 2026. The page takes applications for 2026/27 (deadline
  * 1 August 2026) and names no 2027 dates, so stamped 2026.
  *
  * Dry run: npx tsx scripts/programs/refresh.ts the-hebrew-university-of-jerusalem
@@ -16,7 +16,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8agtr002k047mnsjdn4re',
+      status: 'current',
       name: 'International BA (double major: Liberal Arts, Business Administration, English)',
       description:
         "The Rothberg International School's International BA lets students complete a double-major degree in English in three years on the Hebrew University's Mount Scopus campus in Jerusalem, choosing two of three fields: liberal arts, business administration and English. Students can add a semester- or year-long internship, and can go straight on to a one-year international MA, earning both degrees within four years.\n\nAdmission is decided by committee: direct admission with SAT or ACT scores, or a test-optional track that adds a first year in the school's study abroad programme.",

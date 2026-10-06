@@ -2,7 +2,7 @@ import type { RefreshFile } from '../lib/refresh'
 
 /**
  * Prague University of Economics and Business (VŠE): its bachelor's programmes taught in English,
- * added for content task 5.2. Applications for 2027/2028 open on 1 November 2026, and seven
+ * added for content task 5.2 and created, with the university, on 6 October 2026. Applications for 2027/2028 open on 1 November 2026, and seven
  * programmes publish their 2027 rounds (stamped 2027); the Faculty of Economics' Economics page
  * still gives the 2026 deadlines (stamped 2026). None publishes an IB figure or subject: the IB is
  * accepted as proof of secondary education, assessed in the e-application, and admission is by
@@ -29,7 +29,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8agak0022047mtz3909rv',
+      status: 'current',
       name: 'Business Administration',
       description:
         'The Bachelor of Business Administration at the Faculty of Business Administration in Prague educates future business professionals in managing business performance, with a broad economic overview, analytical thinking and social responsibility. Students can take a double degree with KEDGE Business School in Bordeaux.\n\nApplicants upload an essay on an economic topic and a short motivational video, then have an interview in Prague or online; there are three application rounds for September entry.',
@@ -48,7 +49,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${INTAKES} Admission: an essay in English (business plan summary, a company, or similar topics), a motivational video of one to three minutes, then an on-site or online interview. ${NONE} ${FEES} Expected intake about 150 (2026/2027 regulation).`
     },
     {
-      status: 'new',
+      id: 'cmuw8agbi0023047mogolemat',
+      status: 'current',
       name: 'Economics of Markets and Organizations',
       description:
         'This programme is run by the Faculty of Business Administration with CERGE-EI, the Center for Economic Research and Graduate Education. It combines economics and management to explain the principles that govern markets and industries, with a focus on market dynamics, competition and industry structure, in response to growing market concentration and a changing economic environment.\n\nApplicants upload an essay and a short motivational video, then have a brief interview in Prague or online.',
@@ -67,7 +69,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${INTAKES} (The third round is subject to available places.) Admission: an essay in English on a given economic topic, a motivational video, then an interview. ${NONE} ${FEES} Expected intake about 30 (2026/2027 regulation).`
     },
     {
-      status: 'new',
+      id: 'cmuw8agcg0024047miarme7bo',
+      status: 'current',
       name: 'International Business',
       description:
         'The Bachelor of International Business at the Faculty of International Relations gives theoretical and practical knowledge for doing business on a global scale, with strong language skills; graduates move into mid-level management in multinational companies or start their own businesses. In the third year students can take a double degree with the University of Vaasa or OTH Regensburg.\n\nAdmission is by an online interview on one of five business topics, assessing motivation and English; no English certificate is needed.',
@@ -82,7 +85,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. Applications open 1 November 2026, deadline 28 February 2027, interviews in March 2027 (a second round only if places remain), so stamped 2027. The online interview scores motivation (50 points, at least 25) and English (50, at least 25), and the Dean sets the minimum total. ${NONE} ${FEES}`
     },
     {
-      status: 'new',
+      id: 'cmuw8agde0025047m7qjq78qz',
+      status: 'current',
       name: 'International and Diplomatic Studies',
       description:
         'International and Diplomatic Studies at the Faculty of International Relations covers international politics and economics, international law, comparative politics, diplomatic history and diplomatic theory and practice, with economics at the core and a strong emphasis on the European Union, alongside optional courses on other world regions.\n\nThere is no entrance test, essay or motivation letter: admission is by a short online interview in English on knowledge and motivation, and applicants are admitted in order of their score.',
@@ -97,7 +101,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. Applications for September 2027: round I 1 November 2026 to 28 February 2027 (interviews in March), round II 1 March to 30 April 2027 (May); one round only; "Official conditions of admission 2027/2028" are linked. Stamped 2027. An online interview of about 10 minutes: knowledge and motivation (up to 50) and English (up to 50), at least 25 in each and a total above the Dean's threshold; admitted in order of score. English at B2, assessed in the interview. ${NONE} ${FEES}`
     },
     {
-      status: 'new',
+      id: 'cmuw8ageb0026047mvrf8sohr',
+      status: 'current',
       name: 'Economic Data Science',
       description:
         'Economic Data Science at the Faculty of Informatics and Statistics prepares students to work with the data on which companies and public bodies base fundamental decisions. They learn to analyse data in depth with advanced statistical and econometric methods, and the link to economics equips them to make decisions at the highest level.\n\nAdmission is by a CV and an online general academic test (Scio GAP).',
@@ -113,7 +118,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${FIS} ${NONE} ${FEES}`
     },
     {
-      status: 'new',
+      id: 'cmuw8agfa0027047mll5bmfgy',
+      status: 'current',
       name: 'Business Information Systems and Computer Science',
       description:
         'This new programme at the Faculty of Informatics and Statistics, opening for the September 2027 intake, teaches how to connect IT, data and business: developing applications, working with AI and managing projects, so that graduates can both understand technology and use it to deliver results.\n\nAdmission is by a CV and an online general academic test (Scio GAP).',
@@ -128,7 +134,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. First intake September 2027 (VŠE's programme list). ${FIS} ${NONE} ${FEES}`
     },
     {
-      status: 'new',
+      id: 'cmuw8agg80028047m0v7x719n',
+      status: 'current',
       name: 'Finance and Accounting',
       description:
         'The Bachelor of Finance and Accounting at the Faculty of Finance and Accounting combines the two fields: corporate finance, investments, financial and management accounting, law, taxation and ICT in business, taught in intensive blocks. The programme is accredited by ACCA, so graduates are eligible for the ACCA Higher Diploma in Accounting and Business and exemptions from four ACCA exams.\n\nApplicants with a complete e-application are invited to an online interview after each of three deadlines.',
@@ -148,7 +155,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. Applications open 1 November 2026, deadlines 30 November 2026, 28 February 2027 and 30 April 2027, online interviews in December, March and May, start of study September 2027, so stamped 2027. A CV and motivation letter, then an online interview on MS Teams. ${NONE} ${FEES}`
     },
     {
-      status: 'new',
+      id: 'cmuw8agh60029047mb07bo1iq',
+      status: 'current',
       name: 'Economics',
       description:
         "The English-taught Economics programme at the Faculty of Economics, VŠE's primary faculty, prepares professional economists for the public and private sectors at home and abroad, with a base in economics, law and other social disciplines and an emphasis on international economics and politics. It has run since 2012/2013 and has more than 100 students from 24 countries.\n\nApplicants submit an essay, a motivational video and a CV, and are admitted from 70 points.",

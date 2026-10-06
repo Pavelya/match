@@ -2,7 +2,7 @@ import type { RefreshFile } from '../lib/refresh'
 
 /**
  * International Christian University: the College of Liberal Arts through English Language Based
- * Admissions, added for content task 5.2. The schedule for April and September 2027 entry is
+ * Admissions, added for content task 5.2 and created, with the university, on 6 October 2026. The schedule for April and September 2027 entry is
  * published, so stamped 2027.
  *
  * Dry run: npx tsx scripts/programs/refresh.ts international-christian-university
@@ -16,7 +16,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8afd2001d047m9qyw085u',
+      status: 'current',
       name: 'Liberal Arts',
       description:
         'ICU has a single College of Liberal Arts in Mitaka, western Tokyo, where students explore many fields before choosing one of more than 30 majors, as a single major, double major or major and minor, before their third year. Teaching is bilingual in Japanese and English: students admitted through English Language Based Admissions need no Japanese to enter and study it intensively at ICU.\n\nThey enter in April or September, after a review of their documents and, for some school systems, an online interview.',

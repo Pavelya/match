@@ -1,7 +1,7 @@
 import type { RefreshFile } from '../lib/refresh'
 
 /**
- * Sophia University: its English-taught undergraduate programmes, added for content task 5.2.
+ * Sophia University: its English-taught undergraduate programmes, added for content task 5.2 and created, with the university, on 6 October 2026.
  * The application procedure booklets for 2027 entry (published May to July 2026) give the rules and
  * schedules, so all eight are stamped 2027. Green Science and Green Engineering took their last
  * students in autumn 2026; the Department of Digital Green Technology replaces them from April 2027.
@@ -36,7 +36,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8aezx0010047m3597auz6',
+      status: 'current',
       name: 'Liberal Arts',
       description:
         "Sophia's Faculty of Liberal Arts has taught an international liberal arts education in English in Tokyo for more than fifty years. Students begin with the Core Program's training in critical thinking and writing, then choose one of three majors: Comparative Culture, Social Studies, or International Business and Economics. The faculty also hosts many exchange students each semester.\n\nIt admits in April and September on a review of application documents, with no Japanese required.",
@@ -51,7 +52,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. FLA application procedure booklet, Spring and Autumn 2027 (published May 2026): enrolment 1 April or 21 September 2027; 60 places in spring (up to 46 more through recommendation-based admissions) and 80 in autumn. ${IB} Checked, none required: no subject is named. Stamped 2027. B.A. in Liberal Arts.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af2v0011047mzuppbe8s',
+      status: 'current',
       name: 'Journalism (SPSF)',
       description: `${SPSF_INTRO} The Department of Journalism, in the Faculty of Humanities, awards a BA in Journalism.\n\n${SPSF_OUTRO}`,
       field: 'Media',
@@ -65,7 +67,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in Journalism.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af3r0012047mi6i7fkkn',
+      status: 'current',
       name: 'Education (SPSF)',
       description: `${SPSF_INTRO} The Department of Education, in the Faculty of Human Sciences, awards a BA in Education.\n\n${SPSF_OUTRO}`,
       field: 'Education',
@@ -79,7 +82,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in Education.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af4q0013047meuoseg00',
+      status: 'current',
       name: 'Sociology (SPSF)',
       description: `${SPSF_INTRO} The Department of Sociology, in the Faculty of Human Sciences, awards a BA in Sociology.\n\n${SPSF_OUTRO}`,
       field: 'Social Sciences',
@@ -93,7 +97,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in Sociology.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af5n0014047meek9g9eb',
+      status: 'current',
       name: 'Economics (SPSF)',
       description: `${SPSF_INTRO} The Department of Economics, in the Faculty of Economics, awards a BA in Economics.\n\n${SPSF_OUTRO}`,
       field: 'Business & Economics',
@@ -107,7 +112,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in Economics.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af6m0015047m19fzs6ws',
+      status: 'current',
       name: 'Management (SPSF)',
       description: `${SPSF_INTRO} The Department of Management, in the Faculty of Economics, awards a BA in Management.\n\n${SPSF_OUTRO}`,
       field: 'Business & Economics',
@@ -121,7 +127,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in Management.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af7k0016047mon13cazq',
+      status: 'current',
       name: 'Global Studies: International Relations or Area Studies (SPSF)',
       description: `${SPSF_INTRO} The Department of Global Studies, in the Faculty of Global Studies, awards a BA in International Relations or a BA in Area Studies; students choose between them in their second year.\n\n${SPSF_OUTRO}`,
       field: 'Social Sciences',
@@ -135,7 +142,8 @@ const refresh: RefreshFile = {
       notes: `${SPSF_RULE} BA in International Relations or BA in Area Studies, the major chosen in the sophomore year; stored as one program, as applicants apply to the department.`
     },
     {
-      status: 'new',
+      id: 'cmuw8af9d0017047m7q2qvc4r',
+      status: 'current',
       name: 'Digital Green Technology',
       description:
         "Sophia's Department of Digital Green Technology (DGTech), opening in April 2027 in the Faculty of Science and Technology, teaches engineering in English with data science and digital technologies at its core. Students build a foundation in data science and programming, machine learning and AI, then study electrical and mechanical engineering, biology and chemistry, and finally green transformation technologies for problems such as carbon neutrality, resource recycling and biodiversity.\n\nClasses are small, about half of each intake is expected to be international, and the department admits in April and September on a review of application documents.",

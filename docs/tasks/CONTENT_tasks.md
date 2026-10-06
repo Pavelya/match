@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 dry-run** 5 October 2026, awaiting approval: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11) |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 
@@ -92,8 +92,7 @@ Phase 4 — Program refresh for 2027 entry
 Phase 5 — Coverage
 
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
-- [ ] 5.2 Japan, Estonia, Czech Republic, Israel — dry run ready 5 October 2026: 10 universities, 62 programs; awaiting the owner's
-  approval
+- [x] 5.2 Japan, Estonia, Czech Republic, Israel — applied 6 October 2026: 10 universities, 62 programs; images for the owner
 - [ ] 5.3 France — research, universities and programs, and a landing page
 - [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants
 
@@ -203,10 +202,11 @@ Owner tasks — not AI work
   Science (deadlines by November 2026), KU Leuven's European Studies (applications open in fall 2026), Tartu's two (by the end
   of December), JKU's International Business Administration (a new procedure from spring 2027). JKU's other three and Graz's
   two publish no intake: confirm, or re-check yearly
-- [ ] Approve 5.2's dry run (10 universities, 62 programs), or not. Then: `add-universities.ts scripts/programs/2027/new-universities-5-2.ts
-  --apply`, `sync-universities-algolia.ts`, the refresh tool on the eleven files with `--apply`, and images for the ten universities
-- [ ] UTokyo's College of Design (5.2) publishes an expected IB score, 38 of 42 plus 2 core points, "not cut-off scores": stored at 24 with
-  the expectation in its "How competitive" paragraph. Keep, or store 38 as EPFL's published 38 of 42 is stored
+- [x] Approve 5.2's dry run (10 universities, 62 programs). Approved and applied, 6 October 2026
+- [ ] Add images for the ten universities added in 5.2 (Waseda, Keio, Sophia, ICU, Tallinn University, TalTech, Masaryk, VŠE, Reichman,
+  the Hebrew University) in `/admin/universities`, then check their programs' Algolia records (standing context)
+- [x] UTokyo's College of Design (5.2) publishes an expected IB score, 38 of 42 plus 2 core points, "not cut-off scores". **Owner, 6 October
+  2026: keep 24** with the expectation in its "How competitive" paragraph
 - [ ] Decide whether English-taught long-cycle medicine (Czech Republic: Masaryk and Charles's faculties; Estonia: Tartu) gets a pass of its
   own (5.2 left it out)
 - [ ] Re-check the 18 programs 5.2 stamped 2026 when their 2027 rules appear: TalTech (4; its 2026/2027 round opened 1 February
@@ -2466,14 +2466,16 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
     pages were read on 4 October.
 
-#### Status, 5 October 2026 — 5.2 researched and dry-run (session 21); awaiting the owner's approval
+#### Status, 6 October 2026 — 5.2 done (session 21); applied the same day
 
 Data files (new): `scripts/programs/2027/new-universities-5-2.ts` (the universities; run `add-universities.ts` with its path), and one
 programs file per university: `waseda-university.ts`, `keio-university.ts`, `sophia-university.ts`,
 `international-christian-university.ts`, `tallinn-university.ts`, `tallinn-university-of-technology.ts`, `masaryk-university.ts`,
 `prague-university-of-economics-and-business.ts`, `reichman-university.ts` and `the-hebrew-university-of-jerusalem.ts`;
 `university-of-tokyo.ts` gains one program and moves `checkedOn` to 2026-10-05 (its two PEAK programmes stay discontinued and unwritten).
-Every program's `notes` give its sources and reasoning. **Dry run only: nothing is written until the owner approves.**
+Every program's `notes` give its sources and reasoning; pages were read on 5 October 2026 (`checkedOn`). **Owner-approved and applied on
+6 October 2026:** 10 universities and 62 programs created, nothing existing changed. Backup: `scripts/backups/refresh/2026-10-06T05-18-39-086Z.json`
+(it lists the created programs). The data files now carry each program's id with status `current`.
 
 | Country | Universities | Open programs | Added |
 |---|---|---|---|
@@ -2520,10 +2522,20 @@ Every program's `notes` give its sources and reasoning. **Dry run only: nothing 
 - **Link checker.** Reichman's pages answer scripts with HTTP 247 and an empty Reblaze challenge, which the checker would have called
   OK; `scripts/lib/link-check.ts` now recognises it (`window.rbzns`), with a test. Every other new program URL and source answers 200,
   except Waseda's PDFs (Cloudflare, expected).
-- **To verify after the apply:** `count(*)` 65 → 75 universities and 1,305 → 1,367 programs; Algolia program records match; filtering by
-  country returns Japan 25 (23 open plus PEAK's two), Estonia 12, Czech Republic 27, Israel 15; a second dry run finds all 62 up to date;
-  the link checker on the four countries; public pages for one program per country; `sync-universities-algolia.ts`; images for the ten
-  universities in `/admin/universities` (owner).
+- **Owner decision, 6 October 2026:** UTokyo's College of Design stays at 24 with its expected 38 of 42 in the "How competitive"
+  paragraph, rather than storing the expectation as a minimum.
+- **Verify.**
+  - `count(*)`: 65 → 75 universities, 1,305 → 1,367 programs; Japan 5 universities and 25 programs (23 open, PEAK's two), Estonia 3 and 12,
+    Czech Republic 3 and 27, Israel 3 and 15. Algolia: 1,367 program records (62 synced by the tool), and filtering by country returns the
+    same four counts. The universities index holds 79 records: the 75 universities and the four seed orphans (`MAINT_tasks.md` 5.9).
+  - A second dry run finds all 62 up to date.
+  - Link checker, the four countries: 68 URLs, 53 OK, 0 broken, redirected, soft 404 or year-pinned; 13 unverifiable (Reichman's 10, now
+    caught as a Reblaze challenge, and TalTech's and Tartu's, which refuse the checker with 403 though curl with a browser User-Agent reads
+    them; the count moved between two runs); 2 no response (PEAK, known).
+  - Public pages: Waseda Political Science shows 24 points, the maths row, "Requirements checked for 2027 entry" and its "How competitive"
+    paragraph; Tallinn University Law shows 27 points and checked for 2027; Masaryk's Global Challenges and Reichman's Business
+    Administration show their universities and 24 points.
+  - Images for the ten universities are for the owner (`/admin/universities`).
 
 ### 5.3 — France
 

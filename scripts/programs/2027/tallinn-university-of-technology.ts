@@ -2,7 +2,7 @@ import type { RefreshFile } from '../lib/refresh'
 
 /**
  * Tallinn University of Technology (TalTech): its four bachelor's programmes taught in English,
- * added for content task 5.2. TalTech's admissions page still describes the 2026/2027 round
+ * added for content task 5.2 and created, with the university, on 6 October 2026. TalTech's admissions page still describes the 2026/2027 round
  * (international applications opened 1 February 2026), so all four are stamped 2026.
  *
  * Dry run: npx tsx scripts/programs/refresh.ts tallinn-university-of-technology
@@ -23,7 +23,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-05',
   programs: [
     {
-      status: 'new',
+      id: 'cmuw8afmb001k047mal3u4oqg',
+      status: 'current',
       name: 'Cyber Security Engineering',
       description:
         "TalTech's BSc in Cyber Security Engineering, in its School of Information Technologies, teaches students to protect the connected devices and critical infrastructure that digital life depends on. Graduates start as IT specialists and can grow into roles such as CERT member or chief security officer, or continue to TalTech's MSc in Cybersecurity, studying in one of the world's most digitised countries.\n\nApplicants who pass a document check take a proctored online test of logic, algorithmic thinking and school mathematics, then an online interview with a motivation letter. Tuition is EUR 7,000 a year, free for EU/EEA citizens.",
@@ -38,7 +39,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${RULE} Online test at least 60 points, then the motivation letter and online interview at least 60 points; in-depth knowledge of maths, programming and IT is beneficial but not essential. 180 ECTS. BSc in Cyber Security Engineering.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afn9001l047murd3i5j2',
+      status: 'current',
       name: 'Integrated Engineering',
       description:
         "TalTech's BSc in Integrated Engineering, in its School of Engineering, trains engineers whose knowledge is not limited to one narrow subject. General studies cover mathematical analysis, physics, chemistry, metrology and entrepreneurship; core studies cover robotics, machine automation, programming, materials engineering and logistics; and special studies cover design and integrated engineering.\n\nApplicants take a 30-minute proctored online test of school mathematics, physics, chemistry and IT, and those with at least 60 points go on to an online interview. Tuition is EUR 6,000 a year, free for EU/EEA citizens.",
@@ -53,7 +55,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${RULE} Online test at least 60 of 100 to be invited to the interview; admitted with at least 60 points for the test and interview combined. 180 ECTS. BSc in Integrated Engineering.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afo7001m047mlpje2ovp',
+      status: 'current',
       name: 'International Business Administration',
       description:
         "TalTech's EFMD-accredited International Business Administration programme, in its School of Business and Governance, prepares students for an international business career in Estonia's digital society. Core studies cover micro- and macroeconomics, business mathematics, statistics, logistics and international business ethics, and students specialise in entrepreneurship and marketing or in finance and accounting.\n\nApplicants take an online mathematics test and, if they pass, an online interview. Tuition is EUR 5,000 a year for all students.",
@@ -73,7 +76,8 @@ const refresh: RefreshFile = {
       notes: `Content 5.2: new. ${RULE} A 2.5-hour proctored online mathematics test (numbers, algebra, functions, equations, calculus, probability and statistics), then an online interview; an SAT score is an asset. 180 ECTS. Bachelor of Arts in Social Sciences.`
     },
     {
-      status: 'new',
+      id: 'cmuw8afp6001n047mll1mddgi',
+      status: 'current',
       name: 'Law',
       description:
         "TalTech's Law programme, in its School of Business and Governance, prepares lawyers, legal engineers and architects of legal solutions for a technology-driven private and public sector, in one of the world's most digitised countries. Teaching combines face-to-face and online learning with project-based work that develops critical thinking and practical skills.\n\nAdmission combines an online test, a motivation letter and CV, and an interview. Tuition is EUR 5,000 a year for all students.",
