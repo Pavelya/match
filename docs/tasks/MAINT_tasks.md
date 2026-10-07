@@ -36,6 +36,13 @@ pull request, merged before the next starts.
 | any | TOK and EE core points | 5.8 | small | Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 | any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
 | any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
+| any | No hidden matches | 5.12 | small | The matches page finds 14 and shows 10, with no way to see the rest. Program data comes from the Redis cache, so showing more costs no database reads |
+| any | 3 or 4 Higher Level subjects | 5.13 | small | The diploma check accepts two HL subjects. Same files as 5.8: do them together |
+| any | Unused components | 5.14 | tiny | Five components with no importers, two of them linking to routes that do not exist. Fold into any session |
+| any | How a missing HL level scores | 5.15 | research, then small | An SL-for-HL gap that grades can't fix outranks a one-point shortfall. Owner decides before any change |
+
+**Before the rebranding** (`REBRANDING_tasks.md`, step 1): run 5.14, then 5.8 with 5.13, then 5.12,
+and preferably 5.7, before the redesign builds on them. Branch protection is on (7 October 2026).
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -73,6 +80,10 @@ Phase 5 — quick wins
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
 - [ ] 5.10 Give the older university images a one-year cache
 - [ ] 5.11 Send school logos to Storage, as university logos already go
+- [ ] 5.12 Show every match, not only the top 10
+- [ ] 5.13 Require 3 or 4 Higher Level subjects
+- [ ] 5.14 Delete unused student-side components
+- [ ] 5.15 Decide how a missing HL level should score
 
 Phase 6 — dependency majors
 
@@ -90,9 +101,10 @@ Phase 7 — structural
 
 Owner tasks — not AI work
 
-- [ ] Enable branch protection on `main`
+- [x] Enable branch protection on `main` — ruleset "Protect main", 7 October 2026
 - [ ] Watch Supabase egress for a week after the quota reset
 - [x] Decide the test framework before session 8 — Vitest
+- [ ] Decide whether the cookie consent banner is needed while no optional cookies are set
 
 ---
 
@@ -121,7 +133,7 @@ documentation and has been correct every time it was consulted.
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
 | Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Only 6.6 (the `prisma-client` generator) is left in phase 6 |
-| Branch protection | **off** — CI reports but does not block a red merge |
+| Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
 
@@ -427,6 +439,10 @@ Check whether any other student-facing view renders requirement groups the same 
    the helper.
 5. Cover the grouping with a Vitest test on a pure helper, not the component.
 
+**Rebranding.** `REBRANDING_tasks.md` 2.2 replaces `ProgramCard` within weeks of 6 October 2026. If this
+task has not started by then, do steps 1–3 and 5 inside 2.2's new requirement checklist and keep
+only step 4 (meta description and JSON-LD) here. The helper is the same either way.
+
 **Verify:** Edinburgh Psychology BSc (`/programs/cmkcynsdg00197moeu7aoktel`) shows the HL 5
 and SL 6 routes for Mathematics; HKUST BBA in Marketing (`/programs/cmkv8bnwd004b7mpof3j9s1q2`)
 shows English B once, "HL 4 or SL 5", not "English B or English B"; a single-level group, such
@@ -666,6 +682,134 @@ universities. Switching the whole-row reads above to `select` is not needed once
 URLs. Leave them unless the file is open anyway.
 
 **Session size:** Small.
+
+---
+
+### 5.12 — Show every match, not only the top 10
+
+**Outcome:** A student sees every match the algorithm returns, up to a generous bound, and the page
+no longer says "Showing top 10".
+
+**Why:** Owner's screenshot, 6 October 2026: "We found 14 programs matching your profile. Showing
+top 10." Nothing on the page reaches the other four. `app/api/students/matches/route.ts:124` does
+`matches.slice(0, 10)`. Program data comes from the Redis programs cache (`getCachedPrograms`), not
+Postgres, so returning more costs **no extra database reads**; only the JSON grows, by about 1-2 KB
+per match.
+
+**Files:** `app/api/students/matches/route.ts`, `app/student/matches/RecommendationsClient.tsx`,
+and `lib/matching/` (`getCachedMatchesV10`) to learn what `matches` contains.
+
+**Steps:**
+1. Read what `getCachedMatchesV10` returns. `totalMatches` was 14 in the owner's case, so it is
+   already filtered, not the whole catalogue. Confirm the filter, and say in the PR what it is.
+2. Return all of them, with a named constant as an upper bound (50). Keep `totalMatches` and
+   `returnedCount` honest.
+3. Change the heading copy: "14 programs match your profile". The redesign groups them later
+   (`REBRANDING_tasks.md` phase 2); this task only stops hiding them.
+4. Check the matches cache (`lib/matching/cache.ts`) still stores what it stored. If it holds only the top
+   10, raise it to match.
+
+**Verify:** for a profile with more than 10 matches, every one appears and the counts agree. The
+response stays under about 100 KB. `npx tsx scripts/run-all-tests.ts` and `npm test` pass.
+
+**Session size:** Small.
+
+---
+
+### 5.13 — Require 3 or 4 Higher Level subjects
+
+**Outcome:** Onboarding, the coordinator's edit form and both profile APIs refuse a diploma without
+3 or 4 HL subjects, and say why.
+
+**Why:** Design audit 5.3. `validateDiploma` in `components/student/DetailedGradesInput.tsx` checks
+grade 1s, 2s and 3s, the HL and SL point floors, the 24-point total and an E in the core, but not
+the number of HL subjects. Six SL subjects fail anyway (0 HL points is under 12), but **two HL
+subjects at 7 and 7 pass** (14 HL points), and so do five or six HL. The IB requires at least three
+and at most four HL subjects. Confirm that on the IB's Diploma Programme pages before coding:
+`ibo.org` refuses scripts, so open it in a browser or ask the owner.
+
+**Files:** `components/student/DetailedGradesInput.tsx` (`validateDiploma`),
+`app/coordinator/students/[id]/edit/StudentProfileForm.tsx`, `app/api/students/profile/route.ts`,
+`app/api/coordinator/students/[id]/route.ts`. These are the same files as 5.8, so do the two together, and
+put the diploma rules in one shared pure helper next to 5.8's core-points helper.
+
+**Steps:**
+1. Add the rule to the shared helper: "Take 3 or 4 subjects at Higher Level (you have 2)."
+2. Use it in both forms and both APIs; the APIs answer 400.
+3. Vitest: 2, 3, 4 and 5 HL subjects.
+4. Check existing profiles with an aggregate (count of profiles whose HL course count is not 3
+   or 4) and report it. Do not change stored data without the owner.
+
+**Verify:** two HL subjects show the message and block saving; three and four pass. A direct API
+request with two HL subjects gets a 400. `npm test` passes.
+
+**Session size:** Small. Fold into 5.8.
+
+---
+
+### 5.14 — Delete unused student-side components
+
+**Outcome:** No dead components, and none that link to routes that do not exist.
+
+**Why:** Design audit 1.5. These have no importers (checked 6 October 2026 with grep):
+
+- `components/shared/Header.tsx` and `components/shared/Footer.tsx`. They link to `/programs`,
+  `/universities`, `/about`, `/pricing`, `/for-schools` and `/auth/signup`, none of which exist.
+- `components/ui/animated-number.tsx`, `loading-wrapper.tsx`, `button-loading.tsx`.
+
+**Keep** `components/student/MatchBreakdown.tsx`: it is also unused, but its logic becomes "Why this
+match" in `REBRANDING_tasks.md` phase 2.
+
+**Steps:** confirm each file still has no importer, delete it, and run the verification commands.
+
+**Verify:** `tsc`, ESLint, Prettier, the build and both test suites pass.
+
+**Session size:** Tiny.
+
+---
+
+### 5.15 — Decide how a missing HL level should score
+
+**Outcome:** An owner decision, recorded here, on whether a requirement met only at the wrong level
+(SL where HL is required) should rank below being a point short. If so, a scoring change with the
+matching suite green.
+
+**Why:** In the design audit (6 October 2026) the production matching code was run locally, unchanged,
+for one student (38 points, Maths AA HL 6, Spanish B SL 6, …) against real programs and their
+stored requirements. Criticality was left at the schema default, `isCritical = false`.
+
+| Program | Gap | Overall |
+|---|---|---|
+| Trinity, Computer Science, Linguistics and a Language | language at HL, student has it at SL | **90%** |
+| Oxford, Economics and Management | 1 point short | 88% |
+| Cambridge, Economics | 3 points short | 88% |
+| Imperial, Economics, Finance and Data Science | 1 point and 1 grade short | 77% |
+
+Six other programs tied at 100%.
+
+- **Level gaps outrank point gaps.** `calculateSLForHLScore` gives a level mismatch about 0.8 on that
+  requirement, and the 0.9 "unmet requirements" cap is the binding limit. A level gap usually cannot be fixed in
+  the final year; a point can.
+- **Point gaps all score alike:** 1 and 3 points short both come out at 88%.
+
+The redesign groups matches by status first, so this affects order within a group. It still
+affects which programs are recommended at all.
+
+**Read first:** `lib/matching/subject-matcher.ts`, `penalties.ts`, `categorization.ts` (V10
+`SAFETY`/`MATCH`/`REACH`/`UNLIKELY`), `docs/matching/DOC_2_matching-algo X.md` and
+`docs/matching/matching-algo-rollback-plan.md`.
+
+**Steps:**
+1. Research only: list two or three options, with the rankings each produces for the table above
+   and a few more real profiles. Use local runs of `calculateMatch`; no database writes.
+2. The owner decides.
+3. Implement, extend the `.verify.ts` suite, follow the rollback plan, and clear the match cache
+   (`clearAllMatchCache`).
+
+**Verify:** `npx tsx scripts/run-all-tests.ts` passes with the new cases. The table above re-run shows the
+agreed order.
+
+**Session size:** Research small; the change small to medium.
 
 ---
 
@@ -1130,6 +1274,9 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 
 **Outcome:** One `[country]` route driven by data, instead of 22 near-identical pages.
 
+**Rebranding.** Done as `REBRANDING_tasks.md` 4.2, in the new design, so the guides are migrated once.
+The constraints below still apply there.
+
 **Why:** 4,387 lines across 22 directories. The prose is genuinely country-specific and
 belongs in the repo, but the ~200-line page shell around it — metadata, three or four
 JSON-LD blocks, the same section scaffold — is copy-pasted every time. Adding a country
@@ -1175,12 +1322,18 @@ Recorded so nobody re-opens them without new information.
 
 Not AI work, but they gate real value.
 
-1. **Enable branch protection on `main`.** CI currently reports but does not block; a
-   red PR can still be merged. Settings → Branches → require status checks → tick
-   "Type check, lint, format", "Tests", "Production build" and the Vercel check. Two
-   minutes, and worth more than most remaining code changes.
+1. ~~**Enable branch protection on `main`.**~~ Done 7 October 2026: a repository ruleset ("Protect
+   main", active, no bypass) on the default branch requires a pull request (0 approvals) and the
+   status checks "Type check, lint, format", "Tests", "Production build" and Vercel, with the
+   branch up to date. It also blocks deletion and force pushes. A direct push to `main` is rejected.
 2. **Watch Supabase egress** for a week after the quota reset. Expected steady state is
    well under 1 GB/month. If it climbs, rank `pg_stat_statements` by `rows` first — see
    [Hard rules — cost](#hard-rules--cost).
 3. ~~**Decide the test framework** for 7.1 before that session starts.~~ Decided in
    session 8: Vitest.
+4. **Decide whether the cookie consent banner is needed.** It shows on every first visit and covers
+   about 20% of a phone screen, including the bottom navigation. Yet its own comments say no
+   optional cookies are set yet (`components/shared/CookieConsentBanner.tsx:6,14`). If only strictly
+   necessary cookies are used, a consent banner is generally not required under the ePrivacy rules.
+   Confirm with whoever owns legal before removing it. Analytics is a separate, later task, and
+   would bring the question back (design audit §8, 6 October 2026).
