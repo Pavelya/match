@@ -16,6 +16,16 @@ Steps 1 and 2 run in parallel: prep is code, step 2 is design and documentation.
 to `main` as usual**: they are fixes production needs now. **Rebranding work never goes to `main`
 piece by piece.**
 
+**Sequence (owner, 7 October 2026):**
+
+1. **All of P3–P8 lands on `main` first.**
+2. Then B1–B3 set up the branch.
+3. Then the `rebranding` branch is created from that `main`, and phase 1 starts once its boards are
+   approved.
+
+The branch thus starts with every prep fix already in it, which keeps later merges small. Step 2's
+design work runs meanwhile.
+
 **How to use this.** [Start here](#start-here) gives the build order. Each task lists its
 **must-haves**: the redesign itself fixes the UX bugs the audit found, so each fix is written into
 the task that rebuilds that screen rather than kept as a separate patch. Every task also meets the
@@ -46,7 +56,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | P8 | `CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration) | AI, small each | Needed by 2.4. Can run during phase 1 |
 | B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
 | B2 | Protect `rebranding` too: add it as a target of the "Protect main" ruleset, or a second ruleset with the same rules | Owner, minutes | The branch collects 15+ pull requests; it must stay green and cannot be force-pushed or deleted |
-| B3 | Check that sign-in works on the branch's Vercel preview (the stable alias for the `rebranding` branch): Google OAuth redirect URIs, magic-link URLs, `AUTH_URL` in Vercel's Preview environment | Owner with AI, small | The owner reviews every screen there, logged-in ones included, before anything reaches production. The preview reads the production database, as every preview does today: the cost rules apply |
+| B3 | **A review address for the branch.** In Vercel, add a domain such as `rebranding.ibmatch.com` and assign it to the Git branch `rebranding`. Then set **branch-specific** Preview variables (`NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` = that address), so sign-in and email links stay on it: `lib/env.ts` requires `NEXTAUTH_URL`, and invites build links from these two. Add the address's callback to the Google OAuth client. Make sure it is not indexed: a `noindex` header, or `app/robots.ts` disallowing everything outside production. Then sign in there, by Google and by magic link | Owner with AI, small | The owner reviews every screen there, logged-in ones included, before anything reaches production. A stable address is easier to share than per-commit preview URLs. It reads and writes the **production database** (there is no other), so a sign-up or a save there is real data, and the cost rules apply |
 
 **Not needed before the rebranding:**
 
@@ -60,15 +70,21 @@ the template before release.
 
 ### The rebranding branch
 
-- **One long-lived branch, `rebranding`**, created from `main` once B1 has landed. Every rebranding
+- **One long-lived branch, `rebranding`**, created from `main` after P3–P8 and B1 have landed. Every rebranding
   task is its own short branch with a pull request **into `rebranding`**, never into `main`.
   Production keeps today's look until the release merge.
 - **Merge `main` into `rebranding` at least weekly**, and before starting each phase, so prep fixes
   and content work flow in and conflicts stay small. Expect them in files the redesign replaces
   (`ProgramCard.tsx`, the onboarding components). Keep the logic from `main`; keep the markup from
   `rebranding`.
-- **The owner reviews on the branch's Vercel preview** (B3). Seeing every screen there, together, is
-  also when the final logo is decided.
+- **The owner reviews on the branch's own address** (B3), which always shows the branch's latest
+  deploy. Seeing every screen there, together, is also when the final logo is decided.
+- **Why a branch, not feature flags or a separate Vercel environment.**
+  - **Feature flags** would put unfinished redesign code into production behind a switch: the "mix in
+    production" the owner ruled out. The new tokens restyle every page at once, which makes flags
+    impractical anyway.
+  - **Vercel's custom environments** (a paid-plan feature) or a second Vercel project would also
+    deploy this branch, with more setup and nothing gained. There is still only one database.
 - **Release:** one pull request from `rebranding` into `main`, once every phase is built and its
   design QA passed, and the final logo is chosen. If the final logo is a new mark, the clearance
   search must be back first.
