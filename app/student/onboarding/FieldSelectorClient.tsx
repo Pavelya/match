@@ -9,6 +9,8 @@ import { QuickScoreInput } from '@/components/student/QuickScoreInput'
 import { DetailedGradesInput } from '@/components/student/DetailedGradesInput'
 import { StepIndicator } from '@/components/ui/step-indicator'
 import { FadeIn } from '@/components/ui/fade-in'
+import { hasFailingCoreGrade } from '@/lib/ib/core-points'
+import { calculateTotalPoints } from '@/lib/ib/diploma'
 
 interface Field {
   id: string
@@ -97,23 +99,9 @@ export function FieldSelectorClient({
     setStep(3)
   }
 
-  // Calculate total IB points from course selections
-  const calculateTotalPoints = () => {
-    if (courseSelections.length !== 6 || !tokGrade || !eeGrade) return null
-
-    const subjectPoints = courseSelections.reduce((sum, sel) => sum + sel.grade, 0)
-
-    // TOK/EE bonus points (simplified - actual IB matrix is more complex)
-    const tokValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade)
-    const eeValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(eeGrade)
-    const bonusPoints = Math.min(3, Math.max(0, tokValue + eeValue - 6))
-
-    return subjectPoints + bonusPoints
-  }
-
   // Quick score handlers - kept for when/if we bring back quick score option
   const handleContinueFromQuickScore = async () => {
-    if (!totalPoints || !tokGrade || !eeGrade) return
+    if (!totalPoints || !tokGrade || !eeGrade || hasFailingCoreGrade(tokGrade, eeGrade)) return
 
     setIsSaving(true)
     setSaveError(null)
@@ -152,7 +140,7 @@ export function FieldSelectorClient({
     setSaveError(null)
 
     try {
-      const totalPoints = calculateTotalPoints()
+      const totalPoints = calculateTotalPoints(courseSelections, tokGrade, eeGrade)
 
       const response = await fetch('/api/students/profile', {
         method: 'POST',
@@ -322,7 +310,9 @@ export function FieldSelectorClient({
                 </Button>
                 <Button
                   onClick={handleContinueFromQuickScore}
-                  disabled={totalPoints === null || isSaving}
+                  disabled={
+                    totalPoints === null || hasFailingCoreGrade(tokGrade, eeGrade) || isSaving
+                  }
                   size="lg"
                 >
                   {isSaving ? 'Saving...' : 'Complete Profile'}

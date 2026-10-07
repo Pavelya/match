@@ -14,6 +14,8 @@ import { useRouter } from 'next/navigation'
 import { FormSection, FormDivider, FormActions } from '@/components/admin/shared'
 import { BookOpen, Target, Plus, Trash2, Loader2, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getCorePoints } from '@/lib/ib/core-points'
+import { calculateTotalPoints, getSaveBlocker } from '@/lib/ib/diploma'
 
 interface Course {
   courseId: string
@@ -60,7 +62,6 @@ interface StudentProfileFormProps {
 }
 
 const GRADES = ['A', 'B', 'C', 'D', 'E']
-const GRADE_POINTS: Record<string, number> = { A: 3, B: 2, C: 1, D: 0, E: 0 }
 const GROUP_NAMES: Record<number, string> = {
   1: 'Language & Literature',
   2: 'Language Acquisition',
@@ -91,17 +92,24 @@ export function StudentProfileForm({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Calculate total IB points
-  const calculatedPoints = useMemo(() => {
-    const coursePoints = courses.reduce((sum, c) => sum + c.grade, 0)
-    const tokPoints = GRADE_POINTS[tokGrade] || 0
-    const eePoints = GRADE_POINTS[eeGrade] || 0
-    // TOK + EE combined gives 0-3 bonus points (simplified calculation)
-    const bonusPoints = Math.min(tokPoints + eePoints, 3)
-    return coursePoints + bonusPoints
-  }, [courses, tokGrade, eeGrade])
+  // Only rows with a course chosen are saved, so only they count
+  const enteredCourses = useMemo(() => courses.filter((c) => c.courseId), [courses])
 
-  const totalIBPoints = useManualPoints ? parseInt(manualPoints) || 0 : calculatedPoints
+  // Calculate total IB points: subject grades plus the core points from the IB matrix
+  const calculatedPoints = useMemo(() => {
+    const coursePoints = enteredCourses.reduce((sum, c) => sum + c.grade, 0)
+    const corePoints = getCorePoints(tokGrade, eeGrade)
+    return coursePoints + (typeof corePoints === 'number' ? corePoints : 0)
+  }, [enteredCourses, tokGrade, eeGrade])
+
+  // With six subjects and both core grades the total is fixed, and the API recomputes it,
+  // so a manual override only applies to an incomplete profile
+  const isTotalDerived = calculateTotalPoints(enteredCourses, tokGrade, eeGrade) !== null
+  const totalIBPoints =
+    useManualPoints && !isTotalDerived ? parseInt(manualPoints) || 0 : calculatedPoints
+
+  // An E in TOK or the EE, or six subjects without 3 or 4 at HL, cannot be saved
+  const saveBlocker = getSaveBlocker(enteredCourses, tokGrade, eeGrade)
 
   // Add a course
   const addCourse = useCallback(() => {
@@ -138,6 +146,7 @@ export function StudentProfileForm({
   // Submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (saveBlocker) return
     setIsSubmitting(true)
     setError(null)
 
@@ -146,7 +155,7 @@ export function StudentProfileForm({
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          courses: courses.filter((c) => c.courseId), // Only include valid courses
+          courses: enteredCourses,
           totalIBPoints: totalIBPoints,
           tokGrade: tokGrade || null,
           eeGrade: eeGrade || null,
@@ -318,34 +327,36 @@ export function StudentProfileForm({
               <div>
                 <div className="text-2xl font-bold">{totalIBPoints}</div>
                 <div className="text-xs text-muted-foreground">
-                  {useManualPoints ? 'Manual override' : 'Auto-calculated'}
+                  {useManualPoints && !isTotalDerived ? 'Manual override' : 'Auto-calculated'}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={useManualPoints}
-                onChange={(e) => setUseManualPoints(e.target.checked)}
-                className="rounded border-gray-300"
-              />
-              Override manually
-            </label>
-            {useManualPoints && (
-              <input
-                type="number"
-                min="0"
-                max="45"
-                value={manualPoints}
-                onChange={(e) => setManualPoints(e.target.value)}
-                className="h-10 w-24 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                placeholder="0-45"
-              />
-            )}
-          </div>
+          {!isTotalDerived && (
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-2 text-sm">
+                <input
+                  type="checkbox"
+                  checked={useManualPoints}
+                  onChange={(e) => setUseManualPoints(e.target.checked)}
+                  className="rounded border-gray-300"
+                />
+                Override manually
+              </label>
+              {useManualPoints && (
+                <input
+                  type="number"
+                  min="0"
+                  max="45"
+                  value={manualPoints}
+                  onChange={(e) => setManualPoints(e.target.value)}
+                  className="h-10 w-24 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  placeholder="0-45"
+                />
+              )}
+            </div>
+          )}
         </div>
       </FormSection>
 
@@ -413,6 +424,13 @@ export function StudentProfileForm({
         )}
       </FormSection>
 
+      {saveBlocker && (
+        <div className="mt-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+          <div className="text-sm text-red-700">{saveBlocker}</div>
+        </div>
+      )}
+
       <FormActions>
         <button
           type="button"
@@ -424,7 +442,7 @@ export function StudentProfileForm({
         </button>
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || saveBlocker !== null}
           className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
           {isSubmitting ? (

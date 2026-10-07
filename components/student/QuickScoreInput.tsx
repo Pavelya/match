@@ -3,6 +3,7 @@
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
+import { CORE_FAILING_MESSAGE, hasFailingCoreGrade } from '@/lib/ib/core-points'
 
 const GRADE_OPTIONS = ['A', 'B', 'C', 'D', 'E'] as const
 
@@ -114,6 +115,12 @@ export function QuickScoreInput({
           ))}
         </div>
       </div>
+
+      {hasFailingCoreGrade(tokGrade, eeGrade) && (
+        <p className="rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
+          {CORE_FAILING_MESSAGE}
+        </p>
+      )}
 
       {totalPoints !== null && tokGrade && eeGrade && (
         <div className="rounded-lg bg-muted p-4">

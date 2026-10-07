@@ -4,6 +4,8 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { invalidateStudentCache } from '@/lib/matching/cache'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { isCoreGrade } from '@/lib/ib/core-points'
+import { calculateTotalPoints, getSaveBlocker } from '@/lib/ib/diploma'
 
 interface CourseSelection {
   courseId: string
@@ -17,6 +19,7 @@ interface SaveProfileRequest {
   courseSelections: CourseSelection[]
   tokGrade: string | null
   eeGrade: string | null
+  /** Ignored: the total is computed from the courses and core grades below */
   totalIBPoints: number | null
 }
 
@@ -49,9 +52,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Please select exactly 6 IB courses' }, { status: 400 })
     }
 
-    if (!data.tokGrade || !data.eeGrade) {
+    if (!isCoreGrade(data.tokGrade) || !isCoreGrade(data.eeGrade)) {
       return NextResponse.json({ error: 'Please provide TOK and EE grades' }, { status: 400 })
     }
+
+    // An E in TOK or the EE, or not 3 or 4 HL subjects: the IB awards no diploma
+    const saveBlocker = getSaveBlocker(data.courseSelections, data.tokGrade, data.eeGrade)
+    if (saveBlocker) {
+      return NextResponse.json({ error: saveBlocker }, { status: 400 })
+    }
+
+    // Computed here rather than taken from the client, so a stale client cannot store a
+    // total the old formula got wrong
+    const totalIBPoints = calculateTotalPoints(data.courseSelections, data.tokGrade, data.eeGrade)
 
     const studentId = session.user.id
 
@@ -79,7 +92,7 @@ export async function POST(request: NextRequest) {
       profile = await prisma.studentProfile.create({
         data: {
           userId: studentId,
-          totalIBPoints: data.totalIBPoints,
+          totalIBPoints,
           tokGrade: data.tokGrade,
           eeGrade: data.eeGrade,
           preferredFields: {
@@ -113,7 +126,7 @@ export async function POST(request: NextRequest) {
         existingCountryIds.size !== newCountryIds.size ||
         ![...existingCountryIds].every((id) => newCountryIds.has(id))
       const scalarChanged =
-        existingProfile.totalIBPoints !== data.totalIBPoints ||
+        existingProfile.totalIBPoints !== totalIBPoints ||
         existingProfile.tokGrade !== data.tokGrade ||
         existingProfile.eeGrade !== data.eeGrade
 
@@ -143,7 +156,7 @@ export async function POST(request: NextRequest) {
       const updateData: any = {}
 
       if (scalarChanged) {
-        updateData.totalIBPoints = data.totalIBPoints
+        updateData.totalIBPoints = totalIBPoints
         updateData.tokGrade = data.tokGrade
         updateData.eeGrade = data.eeGrade
       }
