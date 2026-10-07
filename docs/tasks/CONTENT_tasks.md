@@ -345,6 +345,44 @@ not precision.
   catalogue, Sweden first, is [task 5.4](#54--how-competitive-sweden-then-the-rest-of-the-catalogue).
   Phases 6 and 7 choose their own model; where they keep a minimum and a figure like this exists,
   they add the paragraph too.
+- **Fields of study: one home per discipline** (8.1, owner, 7 October 2026). A program's `field` follows
+  the rule in `lib/programs/fields-of-study.ts`, not the faculty that teaches it or how the university
+  groups it:
+  - One discipline goes to its home: "Economics" is Business & Economics wherever it is taught.
+  - A compound goes to its last discipline: "Biomedical Engineering" is Engineering.
+  - A joint degree goes to its first-named discipline: "Mathematics and Economics" is Natural Sciences.
+  - A double degree with a Bachelor of Laws is Law. PPE is Social Sciences.
+  - Design lives in Architecture, and Mathematics in Natural Sciences.
+
+  How to work with it:
+  - **Resolve every fields-of-study warning before the owner reviews the dry run.** The refresh tool
+    prints "filed under X, but the fields-of-study rule … files it under Y" and still applies, so
+    the session must read it. Change the `field`, or, where the name misleads the rule, ask the owner.
+    A program the owner keeps elsewhere goes into `KEPT` with its id and the reason. A new program
+    gets its id at `--apply`, so add it then.
+  - **Some names get no warning.** A name that names no discipline in the table ("Bachelor of Arts and
+    Sciences", a US "undeclared" or college-level entry), one that names only "Science", or one not in
+    English is never checked. The rule's word stems are English, so store programmes under their
+    published English names. Choose those fields by what the programme teaches and say why in `notes`.
+  - **A discipline the table lacks** goes into `DISCIPLINES` with its home field, with the owner's
+    approval. The Vitest suite checks that no description names another field's discipline.
+  - **Never add, rename or re-describe a field in `/admin/reference` or the database alone.**
+    `FIELD_NAMES` and `FIELD_DESCRIPTIONS` are the source. Write descriptions with
+    `npx tsx scripts/programs/field-inventory.ts --apply`, then run the full Algolia sync, because every
+    record copies its field's description. A new field also needs the owner, an icon (`lib/icons.tsx`)
+    and a decision about students who picked the field it splits from.
+  - **After any session that adds or re-files programs**, run
+    `npx tsx scripts/programs/field-inventory.ts`. It must report 0 outliers and 0 descriptions that
+    differ; put the result in the PR.
+  - A program whose `field` alone changes is re-filed: only its field is written, checked or not, and
+    its stamps stay.
+  - **Files 8.1 added:**
+    - Oxford and Cambridge each have a second, refresh-shaped file beside their 1.2 file
+      (`university-of-oxford-refresh.ts`, `university-of-cambridge-refresh.ts`), every program
+      unchecked.
+    - TUM and Georgia Tech have starter files, which phases 7 and 6 start from.
+    - `MAINT_tasks.md` 5.16 brings the same suggestion to the admin program forms. Until it lands, a
+      program added in `/admin/programs` is checked only by the inventory.
 
 ### Research rules
 
@@ -1671,7 +1709,8 @@ thing.
    admission ranks by grades ([data conventions](#data-conventions)).
 4. Programs with no subject requirements: confirm "none" explicitly in `notes`. The tool
    refuses a checked program with no requirements and no note.
-5. Dry-run: `npx tsx scripts/programs/refresh.ts <slug> [<slug> ...]`. **The owner reviews
+5. Dry-run: `npx tsx scripts/programs/refresh.ts <slug> [<slug> ...]`. Resolve every
+   fields-of-study warning first ([data conventions](#data-conventions)). **The owner reviews
    the diff.** Then add `--apply`. It prints the ids of created programs: set each in the
    file with status `current`, or the next dry run refuses the duplicate.
 6. Run the link checker for the batch:
@@ -2587,8 +2626,12 @@ therefore unknown, not zero.
 
 **Part B — data:** add the universities with `scripts/programs/add-universities.ts`, each with its
 admissions office's email and phone where published (data conventions), then the programs with the
-refresh tool as `new`. Dry-run both, **the owner approves**, then apply, sync the universities index
-and run the link checker. Onboarding starts offering France on its own once a program exists, after
+refresh tool as `new`. File each program under the fields-of-study rule
+([data conventions](#data-conventions)). A business school's BBA or "Bachelor in Management" is Business &
+Economics. A liberal-arts college programme whose name names no discipline gets no warning: choose its
+field with the owner and say why in `notes`. The dry run must show no fields-of-study warning. Dry-run
+both, **the owner approves**, then apply, sync the universities index, run the link checker and run
+`scripts/programs/field-inventory.ts` (0 outliers). Onboarding starts offering France on its own once a program exists, after
 the `countries-with-programs` cache expires (one hour); scripts do not revalidate that tag.
 
 **Part C — landing page:** `app/study-in-france-with-ib-diploma`, built to
@@ -2652,6 +2695,9 @@ stored at 24, the general entry requirement; selection is by merit rank (4.8a).
    at a time. Keep each file's `checkedOn` unless the program's requirements are re-checked, so nothing
    is re-stamped (5.1 did this for CBS). The tool refuses edits to programs left unchecked (Tel Aviv,
    Tokyo): leave those to their own refresh. **The owner approves the dry run** before `--apply`.
+   8.1 re-filed 135 programs through these same files on 7 October 2026, and the files match the
+   database. A dry run should therefore show only the new paragraphs. A fields-of-study warning means
+   something drifted since: report it in the PR rather than re-filing in this session.
 
 **Verify:** a second dry run finds every written program up to date; two programs per country show
 the paragraph on their public pages; the status lists every candidate with "paragraph" or the reason
@@ -2694,6 +2740,25 @@ model and the universities.**
 being presented as a published figure. Add the chosen universities with the tool. Align
 `app/study-in-usa-with-ib-diploma` with the decision.
 
+**Fields of study (8.1, [data conventions](#data-conventions)).**
+
+- **Start from the existing file.** `scripts/programs/2027/georgia-institute-of-technology.ts` was
+  exported on 7 October 2026 with every program unchecked. It carries the 13 fields 8.1 re-filed:
+  Economics and its two joint degrees to Business & Economics, International Affairs (with and without
+  Modern Languages) and Public Policy to Social Sciences, Computer Engineering (both) to Engineering,
+  Mathematics and Computing to Natural Sciences, Neuroscience to Medicine & Health, Industrial Design
+  and Urban Planning to Architecture, and Music Technology to Arts & Humanities.
+- **Edit it in place.** `--export` refuses to overwrite it. `--force` would rebuild it from the
+  database, which holds the same fields, but would drop its 8.1 note.
+- **File by discipline, not by college.** Georgia Tech groups Economics under its College of Liberal
+  Arts; the rule files programs by discipline, so keep the re-filed fields. Computational Media stays
+  in Computer Science (`KEPT`).
+- **Watch for entries that name no discipline.** US admission is often to a college, or "undeclared".
+  A program stored that way gets no warning, so its field is the owner's decision, made with the model.
+- **Field matching applies to every program**, whatever the model does with points: every new US
+  program needs a field the rule agrees with, or one the owner keeps. Finish with
+  `scripts/programs/field-inventory.ts` at 0 outliers.
+
 **Session size:** One research session, one or two build sessions.
 
 ---
@@ -2727,7 +2792,20 @@ Germany is the third most wanted country (36 students).
 
 **Part B — build (one or two sessions):** Refresh TUM under the chosen model, add the
 chosen universities with the tool, and align `app/study-in-germany-with-ib-diploma` with
-the decision. It has already had its 2027 pass in 2.2; this is about how it describes
+the decision.
+
+**Fields of study (8.1, [data conventions](#data-conventions)).**
+
+- **Start from the existing file.** `scripts/programs/2027/technical-university-of-munich.ts` was
+  exported on 7 October 2026 with every program unchecked. 8.1 re-filed two programs: Agricultural
+  Sciences and Horticultural Sciences to Environmental Studies, and Life Sciences Nutrition to
+  Medicine & Health. Refresh TUM from that file, editing it in place: `--force` would drop its 8.1
+  note.
+- **Store English names.** The rule reads English names, so store each programme under its published
+  English name ("Information Systems", not "Wirtschaftsinformatik"); otherwise the dry run cannot check
+  its field.
+- New German programs follow the rule like any other. Finish with `scripts/programs/field-inventory.ts`
+  at 0 outliers. It has already had its 2027 pass in 2.2; this is about how it describes
 requirements.
 
 **Session size:** One research session, one or two build sessions.
@@ -2869,6 +2947,8 @@ no deploy. The seed now takes them from the rule.
 **Keeping it.** The refresh tool's dry run now warns when a program's field disagrees with the rule, so
 5.3, 6 and 7 file new programs consistently. A new discipline, or a program the rule misreads, is added to
 the table or `KEPT` with the owner's approval. Re-run the inventory after a data session that touches fields.
+How future sessions work with the rule is in [data conventions](#data-conventions); 5.3, 5.4, 6 and 7
+each say what applies to them. The admin program forms have no check yet: `MAINT_tasks.md` 5.16.
 
 ---
 

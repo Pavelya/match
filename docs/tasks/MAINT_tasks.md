@@ -40,6 +40,7 @@ pull request, merged before the next starts.
 | any | 3 or 4 Higher Level subjects | 5.13 | small | **Done** (7 October 2026). The diploma check accepts two HL subjects. Same files as 5.8: do them together |
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
+| any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
 Branch protection is on (7 October 2026).
@@ -84,6 +85,7 @@ Phase 5 — quick wins
 - [x] 5.13 Require 3 or 4 Higher Level subjects
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
+- [ ] 5.16 Suggest the field of study in the admin program forms
 
 Phase 6 — dependency majors
 
@@ -868,6 +870,71 @@ affects which programs are recommended at all.
 agreed order.
 
 **Session size:** Research small; the change small to medium.
+
+---
+
+### 5.16 — Suggest the field of study in the admin program forms
+
+**Outcome:** In `/admin/programs`, a program's field follows the fields-of-study rule by default.
+Typing a new program's name pre-selects the field the rule gives. Choosing another field, on the new
+or the edit form, shows why the rule disagrees. The bulk upload preview flags each row whose field
+disagrees. Nothing is blocked: an admin can keep a different field.
+
+**Why:** `CONTENT_tasks.md` 8.1 (7 October 2026) gave each discipline one field of study and re-filed
+135 programs. The refresh tool's dry run warns when a program's field disagrees with the rule.
+Programs added or edited in the admin pages get no check, so they can recreate the split 8.1 fixed
+(Economics under Social Sciences, say). Only a later run of `scripts/programs/field-inventory.ts`
+would find it.
+
+**Read first:**
+
+- `lib/programs/fields-of-study.ts`: `homeOf`, `KEPT` and the rule in its header. It is pure, with no
+  imports, so a client component can use it.
+- `components/admin/programs/ProgramForm.tsx` (new program: the name input, then the field `<select>`,
+  id `fieldOfStudy`) and `ProgramEditForm.tsx` (edit).
+- `components/admin/programs/BulkUploadForm.tsx` and `lib/bulk-upload/csv-parser.ts`: the preview and
+  its validation; `fieldMap` maps field names to ids.
+- `components/admin/reference/ReferenceDataClient.tsx`, where field names and descriptions can be
+  edited.
+
+**Steps:**
+
+1. **A pure helper** next to the rule, for example `suggestField(name, programId?)`. It returns the
+   `KEPT` field for a kept program, otherwise `homeOf(name)`'s field and the disciplines it read,
+   otherwise null. Cover it with Vitest.
+2. **New program form.** Until the admin picks a field, the name pre-selects the suggested one, with
+   a line under the select: "Suggested from the name: Business & Economics (Economics)". Once the
+   admin picks a field, typing no longer changes it. If the chosen field differs, show: "The
+   fields-of-study rule files this name under Business & Economics. Keep your choice only if the
+   name misleads it." Map names to ids with the `fieldsOfStudy` the form already receives.
+3. **Edit form.** Never change the stored field on its own. Show the same line when the selected
+   field differs from the suggestion; show nothing when they agree, or when the program is in `KEPT`
+   with that field.
+4. **Bulk upload.** In the preview, add a warning (not an error) to each row whose `field_of_study`
+   differs from the suggestion, naming the suggested field. Rows still upload.
+5. **Reference data page.** Beside Fields of Study, say that names and descriptions come from
+   `lib/programs/fields-of-study.ts` and are written with `field-inventory.ts --apply`. An edit made
+   on this page shows up as drift in the inventory. Ask the owner whether to make the description
+   read-only there instead.
+6. A field an admin keeps on purpose stays in the inventory's outlier list until the program's id is
+   added to `KEPT` with the owner's reason. Say so in the hint's help text and in the PR.
+
+**Must not:**
+
+- Add database reads: the forms already receive the fields.
+- Reach a student-facing bundle: only admin components import the rule.
+- Block saving or uploading.
+- Touch stored data.
+
+**Verify:** in `npm run dev`, **without saving** (the database is production):
+
+- On the new form, typing "Economics" selects Business & Economics, and "Mathematics and Computer
+  Science" selects Natural Sciences. Picking Social Sciences for "Economics" shows the line.
+- Editing Bocconi's Economics shows no line, and neither does a `KEPT` program in its kept field.
+- A CSV row "Economics" filed under Social Sciences shows a warning in the preview and stays valid.
+- `tsc`, ESLint, Prettier, Vitest and the build pass.
+
+**Session size:** Small.
 
 ---
 

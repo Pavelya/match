@@ -60,7 +60,8 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 
 **Not needed before the rebranding:**
 
-- `MAINT_tasks.md` 5.6, 5.9, 5.10, 5.11, 5.15 (level-gap scoring changes order, not design), 6.6, 7.1.
+- `MAINT_tasks.md` 5.6, 5.9, 5.10, 5.11, 5.15 (level-gap scoring changes order, not design), 5.16 (admin
+  forms only), 6.6, 7.1.
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
