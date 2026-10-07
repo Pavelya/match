@@ -48,7 +48,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 |---|---|---|---|
 | P1 | ~~Enable branch protection on `main`~~ **Done 7 October 2026** (`MAINT_tasks.md`, owner tasks) | Owner, minutes | The rebranding is 15+ pull requests, and merging `main` deploys. Today a red CI can still be merged |
 | P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens on the `rebranding` branch. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
-| P3 | `MAINT_tasks.md` 5.14: delete unused components | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
+| P3 | ~~`MAINT_tasks.md` 5.14: delete unused components~~ **Done 7 October 2026** | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | `MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix) | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | `MAINT_tasks.md` 5.12: every match, not the top 10 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
 | P6 | `MAINT_tasks.md` 5.7: levels and grades in either/or groups | AI, small | Recommended, not blocking. Students see "English B or English B" in 436 groups today, and 2.2 reuses the helper |

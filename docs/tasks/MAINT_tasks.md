@@ -38,10 +38,10 @@ pull request, merged before the next starts.
 | any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
 | any | No hidden matches | 5.12 | small | The matches page finds 14 and shows 10, with no way to see the rest. Program data comes from the Redis cache, so showing more costs no database reads |
 | any | 3 or 4 Higher Level subjects | 5.13 | small | The diploma check accepts two HL subjects. Same files as 5.8: do them together |
-| any | Unused components | 5.14 | tiny | Five components with no importers, two of them linking to routes that do not exist. Fold into any session |
+| any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 
-**Before the rebranding** (`REBRANDING_tasks.md`, step 1): run 5.14, then 5.8 with 5.13, then 5.12,
+**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14 is done; run 5.8 with 5.13, then 5.12,
 and preferably 5.7, before the redesign builds on them. Branch protection is on (7 October 2026).
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
@@ -82,7 +82,7 @@ Phase 5 — quick wins
 - [ ] 5.11 Send school logos to Storage, as university logos already go
 - [ ] 5.12 Show every match, not only the top 10
 - [ ] 5.13 Require 3 or 4 Higher Level subjects
-- [ ] 5.14 Delete unused student-side components
+- [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 
 Phase 6 — dependency majors

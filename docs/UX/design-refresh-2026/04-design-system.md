@@ -121,7 +121,7 @@ not a stylistic one, so it does not conflict with Prettier.
 
 | New component | Replaces | Notes |
 |---|---|---|
-| `SiteHeader` (public and app variants) and `SiteFooter` | `StudentHeader`, `StudentFooter`, dead `shared/Header.tsx` and `shared/Footer.tsx` | One public route-group layout that wraps home, guides, requirements hub, how-it-works, FAQs, contact, support-us, universities and programs. The logged-out nav shows real public destinations only. |
+| `SiteHeader` (public and app variants) and `SiteFooter` | `StudentHeader`, `StudentFooter` (the dead `shared/Header.tsx` and `shared/Footer.tsx` were deleted in MAINT 5.14) | One public route-group layout that wraps home, guides, requirements hub, how-it-works, FAQs, contact, support-us, universities and programs. The logged-out nav shows real public destinations only. |
 | `TabBar` (phone) | `MobileBottomNav` | Matches · Explore · Shortlist · Profile. Matches uses the logo's two-circle mark, not a heart. Hidden during first-run onboarding (focus mode). No hide-on-scroll (it costs a scroll listener and hides navigation people look for); a translucent background is enough. |
 | `ProfileHub` (phone) and Profile tabs (desktop) | `/student/settings` page, "Academic" tab | Predicted total and edit, interests, countries, account (name, school, appearance), your data (download, delete), sign out. Keeps every Settings feature. |
 | `ChoiceList` (rows with checkbox) and `ChoiceGrid` (two-column checkboxes with filter) | `FieldSelector`, `LocationSelector` (tall `Card` divs) | Real `<input type="checkbox">` in a `<fieldset>`, so they are keyboard-operable for free. About 56px rows and 48px tiles; sticky footer with count and Continue. Every field gets its own icon (Education and Media currently share one). |
@@ -141,8 +141,8 @@ not a stylistic one, so it does not conflict with Prettier.
 | `Skeleton` | `animate-shimmer`, `.skeleton-bg` | Static tint, same box as the final card. |
 | `CountryFlag` (SVG, only the 22 used) | flag emoji and the Windows polyfill font | Identical on every OS; drops a font download on Windows. Optional, phase 4. |
 
-Animation helpers: `animated-number.tsx`, `loading-wrapper.tsx` and `button-loading.tsx` are
-already unused (no importers). `fade-in.tsx` (6 importers) and `stagger-children.tsx` (2) wrap
+Animation helpers: `animated-number.tsx`, `loading-wrapper.tsx` and `button-loading.tsx` had no
+importers and were deleted in MAINT 5.14. `fade-in.tsx` (6 importers) and `stagger-children.tsx` (2) wrap
 whole pages and lists in entrance animations, which is the "visual theatrics" 2026 practice moves
 away from and which delays content by up to 800ms on the matches page. Remove them as their
 screens are rebuilt, and reduce `page-loader.tsx` to the static Skeleton.
