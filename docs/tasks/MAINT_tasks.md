@@ -39,7 +39,7 @@ pull request, merged before the next starts.
 | any | No hidden matches | 5.12 | small | The matches page finds 14 and shows 10, with no way to see the rest. Program data comes from the Redis cache, so showing more costs no database reads |
 | any | 3 or 4 Higher Level subjects | 5.13 | small | The diploma check accepts two HL subjects. Same files as 5.8: do them together |
 | any | Unused components | 5.14 | tiny | Five components with no importers, two of them linking to routes that do not exist. Fold into any session |
-| any | How a missing HL level scores | 5.15 | research, then small | An SL-for-HL gap that grades can't fix outranks a one-point shortfall. Owner decides before any change |
+| any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): run 5.14, then 5.8 with 5.13, then 5.12,
 and preferably 5.7, before the redesign builds on them. Branch protection is on (7 October 2026).
@@ -83,7 +83,7 @@ Phase 5 — quick wins
 - [ ] 5.12 Show every match, not only the top 10
 - [ ] 5.13 Require 3 or 4 Higher Level subjects
 - [ ] 5.14 Delete unused student-side components
-- [ ] 5.15 Decide how a missing HL level should score
+- [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 
 Phase 6 — dependency majors
 
@@ -770,6 +770,12 @@ match" in `REBRANDING_tasks.md` phase 2.
 ---
 
 ### 5.15 — Decide how a missing HL level should score
+
+**Decision, 7 October 2026 (owner): no change for now.** The rebranding's requirement-based status
+groups put a level gap ("Missing a requirement") and a point gap ("Within reach") in different groups,
+so students see the difference regardless of the score. Accepted until then: a level gap can show a
+higher fit than a point gap, and 1 and 3 points short score the same. **The whole matching math will be
+revisited later** as its own piece of work. The findings below are kept for that review.
 
 **Outcome:** An owner decision, recorded here, on whether a requirement met only at the wrong level
 (SL where HL is required) should rank below being a point short. If so, a scoring change with the

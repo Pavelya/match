@@ -96,8 +96,8 @@ and desktop. The owner must also have approved the board, by a comment on the ca
 record the board and the approval date. After building, the pull request includes screenshots
 next to the board (design QA). A visual change that is not on an approved board is not merged.
 
-**Decisions taken during step 2:** the match status model (blocks 2.1). It is easiest to decide
-with both versions side by side on a board.
+**Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
+Within reach, Missing a requirement). See [Open questions](#open-questions).
 
 ---
 
@@ -112,7 +112,7 @@ tasks.
 | 2 | Primitives | 1.2 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
 | 3 | Site chrome | 1.5 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
 | 4 | Logo | 1.3 | small | Lens, provisionally. The final mark and the clearance search are needed before the release merge, not before this task |
-| 5 | Match data | 2.1 | small | **Blocked** until the owner picks the status model |
+| 5 | Match data | 2.1 | small | Requirement-based statuses (decided 7 October 2026) |
 | 6–7 | Match card and results | 2.2 | large | Replaces `ProgramCard` |
 | 8 | Explore | 2.3 | medium | |
 | 9 | Program and university pages | 2.4 | medium | |
@@ -164,7 +164,7 @@ Owner decisions — not AI work
 - [ ] Before the release merge, confirm the final mark. If it is a new mark (Lens or another), commission
   a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
 - [ ] Add `rebranding` to the branch protection (B2) and check sign-in on its preview (B3)
-- [ ] Choose the match status model ([Open questions](#open-questions)). Blocks 2.1
+- [x] Choose the match status model: **requirement-based** (7 October 2026)
 - [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
 
 ---
@@ -319,7 +319,7 @@ Logged out, nothing in the header leads to sign-in except "Sign in" and "Get my 
 
 ### 2.1 — Match data for the new cards
 
-**Blocked** until the owner chooses the status model ([Open questions](#open-questions)).
+**Status model:** requirement-based, decided 7 October 2026 ([Open questions](#open-questions)).
 
 **Outcome:** The matching result carries what the cards need, with no change to scores.
 
@@ -470,14 +470,22 @@ rule, not a formatting one, so it does not conflict with Prettier.
 
 ## Open questions
 
-1. **Match status model** (blocks 2.1). The design proposes requirement-based statuses: Meets all
-   requirements, Within reach, Missing a requirement. The V10 algorithm already returns a `category`
-   for every match, `SAFETY` / `MATCH` / `REACH` / `UNLIKELY` (`lib/matching/categorization.ts`), which no
-   student screen shows. It is score- and margin-based, and its copy promises an admission likelihood
-   IB Match cannot know (see `CONTENT_tasks.md` 5.4). Reuse V10 with honest copy, or derive the
-   requirement statuses. Never show both.
-2. **How a level gap scores:** `MAINT_tasks.md` 5.15. It affects order within a status group, not the
-   design.
+Both are decided; kept here for the reasoning.
+
+1. **Match status model: requirement-based** (owner, 7 October 2026).
+   - **The statuses:** Meets all requirements, Within reach, Missing a requirement, derived from
+     `academicMatch` (`04-design-system.md` §9). Each card shows the points margin ("✓ 38 / 33
+     points"), so "comfortably above" stays visible without promising admission.
+   - **V10's categories are not shown.** `SAFETY` / `MATCH` / `REACH` / `UNLIKELY` from
+     `lib/matching/categorization.ts` stay in the code and the API response, unused by the UI. Their copy
+     promises an admission likelihood IB Match cannot know, and "Reach" mixes fixable gaps (a point
+     short) with unfixable ones (a missing subject or level).
+   - Whether to remove the V10 categories belongs to the later matching review.
+2. **How a level gap scores: no change for now** (owner, 7 October 2026; `MAINT_tasks.md` 5.15). The
+   status groups already separate a level gap from a point gap. Scores only order cards within a group,
+   and show inside "Why this match". **Accepted for now:** a "Missing a requirement" card can show a
+   higher fit than a "Within reach" one, and 1 and 3 points short score the same. The whole matching
+   math is revisited later, separately from the rebranding.
 
 ## Related tasks elsewhere
 
@@ -488,6 +496,6 @@ rule, not a formatting one, so it does not conflict with Prettier.
 | 5.12 | `MAINT_tasks.md` | Return every match, not the top 10. Needed by 2.2 |
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |
 | 5.14 | `MAINT_tasks.md` | Delete unused components. Independent |
-| 5.15 | `MAINT_tasks.md` | How a level gap scores. Independent |
+| 5.15 | `MAINT_tasks.md` | How a level gap scores. Decided 7 October 2026: no change now; revisit with the whole matching math later |
 | 7.2 | `MAINT_tasks.md` | Country pages collapse. Done as 4.2 |
 | 8.1–8.3 | `CONTENT_tasks.md` | Fields of study (used by 3.1), campus city and image credits (used by 2.4) |
