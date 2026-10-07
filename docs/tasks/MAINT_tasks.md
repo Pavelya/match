@@ -36,13 +36,13 @@ pull request, merged before the next starts.
 | any | TOK and EE core points | 5.8 | small | **Done** (7 October 2026), data fix included. Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 | any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
 | any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
-| any | No hidden matches | 5.12 | small | The matches page finds 14 and shows 10, with no way to see the rest. Program data comes from the Redis cache, so showing more costs no database reads |
+| any | No hidden matches | 5.12 | small | **Done** (7 October 2026). The matches page found 14 and showed 10, with no way to see the rest. It now shows up to 50; profiles have 63 matches at the median |
 | any | 3 or 4 Higher Level subjects | 5.13 | small | **Done** (7 October 2026). The diploma check accepts two HL subjects. Same files as 5.8: do them together |
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 
-**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8 and 5.13 are done; run 5.12,
-and preferably 5.7, before the redesign builds on them. Branch protection is on (7 October 2026).
+**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13 and 5.12 are done; run
+5.7 preferably, before the redesign builds on it. Branch protection is on (7 October 2026).
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -80,7 +80,7 @@ Phase 5 — quick wins
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
 - [ ] 5.10 Give the older university images a one-year cache
 - [ ] 5.11 Send school logos to Storage, as university logos already go
-- [ ] 5.12 Show every match, not only the top 10
+- [x] 5.12 Show every match, not only the top 10 — up to 50
 - [x] 5.13 Require 3 or 4 Higher Level subjects
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
@@ -724,6 +724,24 @@ and `lib/matching/` (`getCachedMatchesV10`) to learn what `matches` contains.
 response stays under about 100 KB. `npx tsx scripts/run-all-tests.ts` and `npm test` pass.
 
 **Session size:** Small.
+
+**Done, 7 October 2026.** The route returns every match up to `MAX_MATCHES_RETURNED` (50, in
+`lib/matching/cache.ts`), and past it the page says "63 programs match your profile. Showing the best
+50." Step 1's filter is the V10 candidate filter in `lib/matching/optimized-matcher.ts`: programs
+within about 10 points of the student's total (5-point buckets, plus every program with no minimum), in
+their fields and countries, relaxed in tiers until at least 10 remain. Every candidate is scored and
+none is dropped for its score. The matches cache already stored the whole list (step 4).
+
+Measured on the 142 profiles with courses, against the 1,367 cached programs: a profile has 63 matches
+at the median, 217 at p90 and 592 at most; 141 had more than 10, and **77 still have more than 50**.
+A match is about 3.3 KB of JSON (program 1.7 KB, academic match 1.1 KB), not 1-2 KB, so 50 matches
+are 134 KB at the median and 274 KB at most. Vercel serves the route brotli-compressed: 7 KB at the
+median and 12 KB at most on the wire. The 100 KB bound holds for what is sent, not for the raw JSON.
+Rebranding 2.2 should expect lists longer than 50.
+
+The coordinator's view of a student's matches (`app/api/coordinator/students/[id]/matches/route.ts`)
+still shows the top 10. It runs the V9 path, which scores the whole catalogue, so its total is every
+program; not changed here.
 
 ---
 

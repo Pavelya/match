@@ -21,6 +21,7 @@ export {
   getCachedMatch,
   getCachedMatches,
   getCachedMatchesV10,
+  MAX_MATCHES_RETURNED,
   invalidateStudentCache,
   invalidateProgramCache,
   clearAllMatchCache,

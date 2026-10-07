@@ -3,7 +3,8 @@
  *
  * GET /api/students/matches
  *
- * Returns top 10 program matches for the authenticated student based on:
+ * Returns every program match for the authenticated student, up to
+ * MAX_MATCHES_RETURNED, best first, based on:
  * - Academic profile (courses, grades, IB points)
  * - Preferences (fields, countries)
  * - Matching algorithm score
@@ -23,7 +24,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { getCachedMatchesV10 } from '@/lib/matching'
+import { getCachedMatchesV10, MAX_MATCHES_RETURNED } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
@@ -87,7 +88,7 @@ export async function GET() {
 
     // NOTE: We do NOT use Algolia pre-filtering for the matches API.
     // The matching algorithm must run against ALL programs to correctly
-    // rank and return the top 10 programs by match score.
+    // rank the programs by match score.
     // Algolia pre-filtering is only suitable for search/browse pages.
 
     // Transform Prisma types to matching algorithm types
@@ -120,14 +121,14 @@ export async function GET() {
       algorithmVersion: 'v10'
     })
 
-    // Return top 10 matches with full program data
-    const topMatches = matches.slice(0, 10)
+    // Return every match with full program data, up to MAX_MATCHES_RETURNED
+    const returnedMatches = matches.slice(0, MAX_MATCHES_RETURNED)
 
     // Create lookup map for O(1) access instead of O(n) .find() per match
     const programMap = new Map(allPrograms.map((p) => [p.id, p]))
 
     // Enrich matches with full program data and V10 fields using O(1) lookups
-    const enrichedMatches = topMatches.map((match) => {
+    const enrichedMatches = returnedMatches.map((match) => {
       const program = programMap.get(match.programId)
       return {
         // Core match data
@@ -193,7 +194,7 @@ export async function GET() {
       matches: enrichedMatches,
       studentId,
       totalMatches: matches.length,
-      returnedCount: topMatches.length,
+      returnedCount: returnedMatches.length,
       algorithmVersion: 'v10'
     })
   } catch (error) {

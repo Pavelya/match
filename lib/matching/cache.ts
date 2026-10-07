@@ -30,6 +30,13 @@ import { isFeatureEnabled, getEnabledV10Features } from '@/lib/feature-flags'
 const CACHE_TTL = 1800
 
 /**
+ * Most matches the student matches API returns, best first. The V10 candidate
+ * filter can leave several hundred (63 at the median in October 2026), and each
+ * match is about 3 KB of JSON.
+ */
+export const MAX_MATCHES_RETURNED = 50
+
+/**
  * Scan for keys matching a pattern using SCAN (non-blocking)
  * Unlike KEYS, SCAN doesn't block Redis while iterating
  */
@@ -337,7 +344,7 @@ export async function getCachedMatchesV10(
         latencyMs: performance.now() - startTime,
         totalPrograms: programs.length,
         candidatesEvaluated: cached.length,
-        resultsReturned: Math.min(10, cached.length),
+        resultsReturned: Math.min(MAX_MATCHES_RETURNED, cached.length),
         categoryDistribution: countCategories(cached),
         studentPoints: student.totalIBPoints,
         algorithmVersion: 'v10',
@@ -398,7 +405,7 @@ export async function getCachedMatchesV10(
         matchTimeMs: optimizedResult.stats.matchTimeMs,
         totalPrograms: optimizedResult.stats.totalPrograms,
         candidatesEvaluated: optimizedResult.stats.candidatesAfterFilter,
-        resultsReturned: Math.min(10, results.length),
+        resultsReturned: Math.min(MAX_MATCHES_RETURNED, results.length),
         categoryDistribution: countCategories(results),
         studentPoints: student.totalIBPoints,
         cacheHits: optimizedResult.stats.cacheStats?.hits,
@@ -445,7 +452,7 @@ export async function getCachedMatchesV10(
         latencyMs: performance.now() - startTime,
         totalPrograms: programs.length,
         candidatesEvaluated: programs.length,
-        resultsReturned: Math.min(10, results.length),
+        resultsReturned: Math.min(MAX_MATCHES_RETURNED, results.length),
         categoryDistribution: countCategories(results),
         studentPoints: student.totalIBPoints,
         algorithmVersion: 'v9',
