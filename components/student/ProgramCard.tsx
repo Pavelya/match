@@ -35,6 +35,13 @@ import { cn } from '@/lib/utils'
 import type { MatchResult, SubjectMatchDetail } from '@/lib/matching/types'
 import type { RequirementsCheck } from '@/lib/programs/entry-year'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
+import {
+  formatCourses,
+  formatLevelGrades,
+  groupRequirements,
+  optionsForCourse,
+  type RequirementOption
+} from '@/lib/programs/requirement-groups'
 import { SignUpCTA } from '@/components/student/SignUpCTA'
 
 // Course requirement for detail view
@@ -236,79 +243,58 @@ function getRequirementStatus(
 }
 
 /**
- * Process requirements: for OR groups, select the best matching option
- * Returns a flat list of requirements with the best OR match selected
+ * Process requirements: for OR groups, select the best matching option.
+ * Returns one entry per requirement: the row the status is checked against, and what the tile
+ * names. For an OR group that is the course the student took, at every level and grade the
+ * group accepts it; when they took none of its courses, the whole group.
  */
 function processRequirementsForDisplay(
   requirements: CourseRequirement[],
   studentCourses: StudentCourse[]
-): { requirement: CourseRequirement; isFromOrGroup: boolean; orGroupSize: number }[] {
-  const result: { requirement: CourseRequirement; isFromOrGroup: boolean; orGroupSize: number }[] =
-    []
-  const processedGroups = new Set<string>()
+): { key: string; requirement: CourseRequirement; options: RequirementOption[] }[] {
+  return groupRequirements(requirements).map((group) => {
+    // Find which option the student actually took
+    let bestReq: CourseRequirement | null = null
+    let bestScore = 0
 
-  for (const req of requirements) {
-    if (req.orGroupId) {
-      if (!processedGroups.has(req.orGroupId)) {
-        processedGroups.add(req.orGroupId)
-        const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
-
-        // Find which option the student actually took
-        let bestReq = groupItems[0]
-        let bestScore = -1
-
-        for (const option of groupItems) {
-          // Check if student took this specific course
-          const studentHasCourse = studentCourses.some(
-            (sc) => sc.ibCourse.id === option.ibCourse.id
-          )
-
-          if (studentHasCourse) {
-            const status = getRequirementStatus(option, studentCourses)
-            // Prioritize: met > partial > not taken
-            const score = status.met ? 2 : 1
-            if (score > bestScore) {
-              bestScore = score
-              bestReq = option
-            }
-            // If we found a met requirement, stop searching
-            if (status.met) break
-          }
-        }
-
-        // If no student course matched, fall back to original logic
-        if (bestScore === -1) {
-          for (const option of groupItems) {
-            const status = getRequirementStatus(option, studentCourses)
-            const score = status.met ? 2 : status.status === 'Not taken in your diploma' ? 0 : 1
-            if (score > bestScore) {
-              bestScore = score
-              bestReq = option
-            }
-          }
-        }
-
-        result.push({ requirement: bestReq, isFromOrGroup: true, orGroupSize: groupItems.length })
+    for (const option of group.rows) {
+      if (!studentCourses.some((sc) => sc.ibCourse.id === option.ibCourse.id)) continue
+      const status = getRequirementStatus(option, studentCourses)
+      // Prioritize: met > close or partial credit > short
+      const score = status.met ? 3 : status.color === 'text-orange-600' ? 2 : 1
+      if (score > bestScore) {
+        bestScore = score
+        bestReq = option
       }
-    } else {
-      result.push({ requirement: req, isFromOrGroup: false, orGroupSize: 1 })
+      // If we found a met requirement, stop searching
+      if (status.met) break
     }
-  }
 
-  return result
+    if (!bestReq) return { key: group.key, requirement: group.rows[0], options: group.options }
+    return {
+      key: group.key,
+      requirement: bestReq,
+      options: optionsForCourse(group, bestReq.ibCourse.id)
+    }
+  })
 }
 
 /**
- * Process requirements for card display: for OR groups, select the best matching option
- * Uses match result data instead of student courses (for card variant without full student profile)
+ * Process requirements for card display: for OR groups, show the option that matched.
+ * Uses match result data instead of student courses (for card variant without full student profile).
+ * The matcher names the course, not the level, so an OR group shows that course at every level
+ * and grade the group accepts it; with no match, the whole group.
  */
 function processRequirementsForCardDisplay(
   requirements: CourseRequirement[],
   subjectMatches: SubjectMatchDetail[] | undefined
-): { requirement: CourseRequirement; status: string; reason?: string }[] {
-  const result: { requirement: CourseRequirement; status: string; reason?: string }[] = []
-  const processedGroups = new Set<string>()
-
+): {
+  key: string
+  requirement: CourseRequirement
+  options: RequirementOption[]
+  status: string
+  reason?: string
+}[] {
   // Helper to find match for a specific courseId
   const findMatchForCourse = (courseId: string): SubjectMatchDetail | undefined => {
     return subjectMatches?.find((sm) => {
@@ -324,86 +310,58 @@ function processRequirementsForCardDisplay(
     })
   }
 
-  for (const req of requirements) {
-    if (req.orGroupId) {
-      if (!processedGroups.has(req.orGroupId)) {
-        processedGroups.add(req.orGroupId)
-        const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
+  return groupRequirements(requirements).map((group) => {
+    // For OR groups, the match entry is the same for all options in the group
+    const match = findMatchForCourse(group.rows[0].ibCourse.id)
+    const matchedReq = match?.matchedCourseId
+      ? group.rows.find((row) => row.ibCourse.id === match.matchedCourseId)
+      : undefined
 
-        // For OR groups, find the match entry (it's the same for all options in the group)
-        const orGroupMatch = findMatchForCourse(groupItems[0].ibCourse.id)
-
-        // Use matchedCourseId to find the correct option to display
-        let displayReq = groupItems[0] // Fallback to first
-
-        if (orGroupMatch?.matchedCourseId) {
-          // Find the requirement that matches the courseId from the match result
-          const matchedReq = groupItems.find(
-            (item) => item.ibCourse.id === orGroupMatch.matchedCourseId
-          )
-          if (matchedReq) {
-            displayReq = matchedReq
-          }
-        } else {
-          // FALLBACK: No matched course ID, try to find best based on status
-          // (This handles backward compatibility or edge cases)
-          for (const option of groupItems) {
-            const optionMatch = findMatchForCourse(option.ibCourse.id)
-            if (optionMatch?.status === 'FULL_MATCH') {
-              displayReq = option
-              break
-            }
-          }
-        }
-
-        // Use the status from the OR group match
-        result.push({
-          requirement: displayReq,
-          status: orGroupMatch?.status || 'NO_MATCH',
-          reason: orGroupMatch?.reason
-        })
-      }
-    } else {
-      // Regular requirement (not OR group)
-      const matchInfo = findMatchForCourse(req.ibCourse.id)
-      result.push({
-        requirement: req,
-        status: matchInfo?.status || 'NO_MATCH',
-        reason: matchInfo?.reason
-      })
+    return {
+      key: group.key,
+      requirement: matchedReq ?? group.rows[0],
+      options: matchedReq ? optionsForCourse(group, matchedReq.ibCourse.id) : group.options,
+      status: match?.status || 'NO_MATCH',
+      reason: match?.reason
     }
-  }
-
-  return result
+  })
 }
 
 /**
- * Group requirements for public display (logged-out users)
- * Returns grouped requirements: standalone requirements and OR-groups
+ * The course names and required levels and grades on a requirement tile. One course, or one
+ * OR group, at one level and grade keeps the compact line ("HL • Required: 5"). Otherwise each
+ * option shows its own levels and grades ("English B, Required: HL 4 or SL 5").
  */
-type GroupedRequirement =
-  | { type: 'single'; requirement: CourseRequirement }
-  | { type: 'or-group'; requirements: CourseRequirement[] }
-
-function groupRequirementsForPublicDisplay(
-  requirements: CourseRequirement[]
-): GroupedRequirement[] {
-  const result: GroupedRequirement[] = []
-  const processedGroups = new Set<string>()
-
-  for (const req of requirements) {
-    if (req.orGroupId) {
-      if (!processedGroups.has(req.orGroupId)) {
-        processedGroups.add(req.orGroupId)
-        const groupItems = requirements.filter((r) => r.orGroupId === req.orGroupId)
-        result.push({ type: 'or-group', requirements: groupItems })
-      }
-    } else {
-      result.push({ type: 'single', requirement: req })
-    }
+function RequirementOptions({ options }: { options: RequirementOption[] }) {
+  if (options.length === 1 && options[0].levelGrades.length === 1) {
+    const [{ level, minGrade }] = options[0].levelGrades
+    return (
+      <>
+        <p className="font-medium text-sm leading-tight">{formatCourses(options[0].courses)}</p>
+        <p className="text-xs text-muted-foreground">
+          {level} • Required: {minGrade}
+        </p>
+      </>
+    )
   }
 
-  return result
+  return (
+    <>
+      {options.map((option, index) => (
+        <div key={option.courses.map((c) => c.id).join()}>
+          {index > 0 && (
+            <p className="my-1 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+              or
+            </p>
+          )}
+          <p className="font-medium text-sm leading-tight">{formatCourses(option.courses)}</p>
+          <p className="text-xs text-muted-foreground">
+            Required: {formatLevelGrades(option.levelGrades)}
+          </p>
+        </div>
+      ))}
+    </>
+  )
 }
 
 export function ProgramCard({
@@ -703,126 +661,85 @@ export function ProgramCard({
                   processRequirementsForDisplay(
                     program.courseRequirements,
                     studentProfile.courses
-                  ).map(
-                    ({
-                      requirement: req,
-                      isFromOrGroup: _isFromOrGroup,
-                      orGroupSize: _orGroupSize
-                    }) => {
-                      const status = getRequirementStatus(req, studentProfile.courses)
-                      const isPartialCredit = !status.met && status.color === 'text-orange-600'
-                      const borderStyle = status.met
-                        ? 'border-primary/20 bg-primary/5'
-                        : isPartialCredit
-                          ? 'border-orange-200 bg-transparent'
-                          : 'border-destructive/20 bg-transparent'
+                  ).map(({ key, requirement: req, options }) => {
+                    const status = getRequirementStatus(req, studentProfile.courses)
+                    const isPartialCredit = !status.met && status.color === 'text-orange-600'
+                    const borderStyle = status.met
+                      ? 'border-primary/20 bg-primary/5'
+                      : isPartialCredit
+                        ? 'border-orange-200 bg-transparent'
+                        : 'border-destructive/20 bg-transparent'
 
-                      return (
-                        <div key={req.id} className={cn('rounded-xl border-2 p-3', borderStyle)}>
-                          <div className="flex items-start gap-2">
-                            <div
+                    return (
+                      <div key={key} className={cn('rounded-xl border-2 p-3', borderStyle)}>
+                        <div className="flex items-start gap-2">
+                          <div
+                            className={cn(
+                              'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
+                              status.met ? 'bg-primary/10' : 'bg-muted'
+                            )}
+                          >
+                            <SubjectGroupIcon
+                              groupId={req.ibCourse.group}
                               className={cn(
-                                'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg',
-                                status.met ? 'bg-primary/10' : 'bg-muted'
+                                'h-4 w-4',
+                                status.met ? 'text-primary' : 'text-muted-foreground'
                               )}
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <RequirementOptions options={options} />
+                            <p
+                              className={cn('text-xs mt-0.5 flex items-center gap-1', status.color)}
                             >
-                              <SubjectGroupIcon
-                                groupId={req.ibCourse.group}
-                                className={cn(
-                                  'h-4 w-4',
-                                  status.met ? 'text-primary' : 'text-muted-foreground'
-                                )}
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="font-medium text-sm leading-tight">
-                                {req.ibCourse.name}
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                {req.requiredLevel} • Required: {req.minGrade}
-                              </p>
-                              <p
-                                className={cn(
-                                  'text-xs mt-0.5 flex items-center gap-1',
-                                  status.color
-                                )}
-                              >
-                                {status.met ? (
-                                  <Check className="h-2.5 w-2.5" />
-                                ) : (
-                                  <AlertCircle className="h-2.5 w-2.5" />
-                                )}
-                                {status.status}
-                              </p>
-                            </div>
+                              {status.met ? (
+                                <Check className="h-2.5 w-2.5" />
+                              ) : (
+                                <AlertCircle className="h-2.5 w-2.5" />
+                              )}
+                              {status.status}
+                            </p>
                           </div>
                         </div>
-                      )
-                    }
-                  )}
+                      </div>
+                    )
+                  })}
 
                 {/* Course Requirement Tiles - Without Student Profile (Public View) */}
                 {program.courseRequirements &&
                   program.courseRequirements.length > 0 &&
                   !studentProfile &&
-                  groupRequirementsForPublicDisplay(program.courseRequirements).map(
-                    (group, index) => {
-                      if (group.type === 'single') {
-                        const req = group.requirement
-                        return (
-                          <div key={req.id} className="rounded-xl border-2 border-muted p-3">
-                            <div className="flex items-start gap-2">
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
-                                <SubjectGroupIcon
-                                  groupId={req.ibCourse.group}
-                                  className="h-4 w-4 text-muted-foreground"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="font-medium text-sm leading-tight">
-                                  {req.ibCourse.name}
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  {req.requiredLevel} • Required: {req.minGrade}
-                                </p>
-                              </div>
-                            </div>
+                  groupRequirements(program.courseRequirements).map((group) => {
+                    // An OR group naming one course at several levels has no "One of" badge:
+                    // "Required: HL 4 or SL 5" already says it.
+                    const courseCount = group.options.reduce((n, o) => n + o.courses.length, 0)
+                    return (
+                      <div
+                        key={group.key}
+                        className={cn(
+                          'rounded-xl border-2 border-muted p-3',
+                          courseCount > 1 && 'relative'
+                        )}
+                      >
+                        {courseCount > 1 && (
+                          <div className="absolute -top-2 right-3 px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-semibold uppercase tracking-wide rounded-full">
+                            One of
                           </div>
-                        )
-                      } else {
-                        // OR-group: display as a single card with all options listed
-                        const reqs = group.requirements
-                        const firstReq = reqs[0]
-                        return (
-                          <div
-                            key={`or-group-${index}`}
-                            className="rounded-xl border-2 border-muted p-3 relative"
-                          >
-                            {/* OR Badge */}
-                            <div className="absolute -top-2 right-3 px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-[10px] font-semibold uppercase tracking-wide rounded-full">
-                              One of
-                            </div>
-                            <div className="flex items-start gap-2">
-                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
-                                <SubjectGroupIcon
-                                  groupId={firstReq.ibCourse.group}
-                                  className="h-4 w-4 text-muted-foreground"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="font-medium text-sm leading-tight">
-                                  {reqs.map((r) => r.ibCourse.name).join(' or ')}
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  {firstReq.requiredLevel} • Required: {firstReq.minGrade}
-                                </p>
-                              </div>
-                            </div>
+                        )}
+                        <div className="flex items-start gap-2">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+                            <SubjectGroupIcon
+                              groupId={group.rows[0].ibCourse.group}
+                              className="h-4 w-4 text-muted-foreground"
+                            />
                           </div>
-                        )
-                      }
-                    }
-                  )}
+                          <div className="flex-1 min-w-0">
+                            <RequirementOptions options={group.options} />
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
               </div>
             </div>
           )}
@@ -1116,7 +1033,7 @@ export function ProgramCard({
                       processRequirementsForCardDisplay(
                         program.courseRequirements,
                         matchResult.academicMatch.subjectMatches
-                      ).map(({ requirement: req, status, reason }) => {
+                      ).map(({ key, requirement: req, options, status, reason }) => {
                         const isMet = status === 'FULL_MATCH'
                         const isPartial = status === 'PARTIAL_MATCH'
                         const borderStyle = isMet
@@ -1126,7 +1043,7 @@ export function ProgramCard({
                             : 'border-destructive/20 bg-transparent'
 
                         return (
-                          <div key={req.id} className={cn('rounded-xl border-2 p-3', borderStyle)}>
+                          <div key={key} className={cn('rounded-xl border-2 p-3', borderStyle)}>
                             <div className="flex items-start gap-2">
                               <div
                                 className={cn(
@@ -1143,12 +1060,7 @@ export function ProgramCard({
                                 />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="font-medium text-sm leading-tight">
-                                  {req.ibCourse.name}
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  {req.requiredLevel} • Required: {req.minGrade}
-                                </p>
+                                <RequirementOptions options={options} />
                                 {isMet ? (
                                   <p className="text-xs mt-0.5 flex items-center gap-1 text-primary">
                                     <Check className="h-2.5 w-2.5" />

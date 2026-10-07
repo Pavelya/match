@@ -51,7 +51,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | P3 | ~~`MAINT_tasks.md` 5.14: delete unused components~~ **Done 7 October 2026** | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | ~~`MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix)~~ **Done 7 October 2026**, data fix applied | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
-| P6 | `MAINT_tasks.md` 5.7: levels and grades in either/or groups | AI, small | Recommended, not blocking. Students see "English B or English B" in 436 groups today, and 2.2 reuses the helper |
+| P6 | ~~`MAINT_tasks.md` 5.7: levels and grades in either/or groups~~ **Done 7 October 2026**: `groupRequirements` in `lib/programs/requirement-groups.ts` | AI, small | Recommended, not blocking. Students saw "English B or English B" in 436 groups, and 2.2 reuses the helper |
 | P7 | `CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
 | P8 | `CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration) | AI, small each | Needed by 2.4. Can run during phase 1 |
 | B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
@@ -362,7 +362,8 @@ state", "Matches" and "Phone · Why this match, opened".
 - **Status groups** on the matches page, the third collapsed. It shows every match `MAINT_tasks.md`
   5.12 returns, with no "top 10" copy.
 - **Either/or requirements** show each option's own level and grade. This is the display half of
-  `MAINT_tasks.md` 5.7, which ships to `main` first (prep P6). Reuse its helper here.
+  `MAINT_tasks.md` 5.7, which shipped to `main` first (prep P6). Reuse its helper here:
+  `groupRequirements` in `lib/programs/requirement-groups.ts`.
 - **Honest save.** "Saved" appears only after the server confirms; a failure reverts with a toast.
   Logged out, Save leads to sign-in (a same-origin `callbackUrl` to the program with `?save=1`) and
   saves the program on return. Today it shows "Saved" and stores nothing (audit 4.1).
@@ -507,7 +508,7 @@ Both are decided; kept here for the reasoning.
 
 | Task | Where | Relation |
 |---|---|---|
-| 5.7 | `MAINT_tasks.md` | Either/or groups. Its display half can be done in 2.2 |
+| 5.7 | `MAINT_tasks.md` | Either/or groups. Done 7 October 2026; 2.2 reuses its helper |
 | 5.8 | `MAINT_tasks.md` | TOK/EE core points and E blocks saving. Do it before 3.2, which uses its helper |
 | 5.12 | `MAINT_tasks.md` | Return every match, not the top 10. Needed by 2.2 |
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |

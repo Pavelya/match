@@ -32,7 +32,7 @@ pull request, merged before the next starts.
 | 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
-| any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
+| any | Mixed subject groups | 5.7 | small | **Done** (7 October 2026). Students saw the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. The helper is `lib/programs/requirement-groups.ts` |
 | any | TOK and EE core points | 5.8 | small | **Done** (7 October 2026), data fix included. Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 | any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
 | any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
@@ -41,8 +41,8 @@ pull request, merged before the next starts.
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 
-**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13 and 5.12 are done; run
-5.7 preferably, before the redesign builds on it. Branch protection is on (7 October 2026).
+**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
+Branch protection is on (7 October 2026).
 
 Sessions 1 and 2 are the cheapest and safest — good places to start.
 Session 3 is the most valuable.
@@ -75,7 +75,7 @@ Phase 5 — quick wins
 - [x] 5.4 Set `trustHost` explicitly in the auth config
 - [x] 5.5 Restore the University of Manchester image — re-sourced and uploaded by the owner, 5 October 2026
 - [ ] 5.6 Make the Algolia status script read every record
-- [ ] 5.7 Show each option's level and grade in mixed subject groups
+- [x] 5.7 Show each option's level and grade in mixed subject groups
 - [x] 5.8 Use the IB core points matrix for TOK and the Extended Essay — data fix applied 7 October 2026: 20 totals, each +1
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
 - [ ] 5.10 Give the older university images a one-year cache
@@ -451,6 +451,25 @@ as the science group on Manchester BSc Psychology (`/programs/cmkf6zfvq007d7msfu
 unchanged. No database access.
 
 **Session size:** Small.
+
+**Done, 7 October 2026.** `groupRequirements` in `lib/programs/requirement-groups.ts` turns the rows
+into requirements, each with its options, each option with the levels and grades it is accepted at.
+Courses accepted at the same levels and grades share an option, so a course is named once:
+"Mathematics: Analysis and Approaches or Mathematics: Applications and Interpretation — Required: HL 5
+or SL 6". A group whose options differ lists each with "or" between them. One course or group at one
+level and grade keeps today's line, "HL • Required: 5". Vitest covers the cases in
+`requirement-groups.test.ts`. All three pages above checked logged out.
+
+The logged-in tiles showed one option only, and the matches card could show the wrong one: the matcher
+returns the matched course, not its level, so English B matched at SL 5 showed as "HL • Required: 4".
+Both logged-in tiles now show the student's course at every level and grade the group accepts it, and
+the whole group when the student took none of its courses. On the program page, among the courses the
+student took, a close one (orange) now beats one further off, so the status speaks to the nearer route.
+
+The meta description lists each group's options and puts the level after the course ("Physics HL 6",
+was "HL Physics 6"); a long group pushes it to the existing fallback without subjects, where it used to
+name the first option as if it were required. JSON-LD has one `Course` per requirement, naming every
+course the group accepts. The meta keywords still take each group's first option: they carry no grade.
 
 ---
 
