@@ -19,6 +19,12 @@ import { calculateMatch } from '@/lib/matching'
 import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import type { MatchResult } from '@/lib/matching/types'
 import { requirementsCheck } from '@/lib/programs/entry-year'
+import {
+  describeRequirement,
+  formatCourses,
+  formatLevelGrades,
+  groupRequirements
+} from '@/lib/programs/requirement-groups'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -147,37 +153,17 @@ export async function generateMetadata({ params }: PageProps) {
     const currentYear = new Date().getFullYear()
     const academicCycle = `${currentYear}/${(currentYear + 1) % 100}` // e.g., "2026/27"
 
-    // Build subject requirements string (max 2-3 key subjects for brevity)
+    // Build subject requirements string (max 2-3 key subjects for brevity). Each OR group
+    // lists its options with their own levels and grades: "English B HL 4 or SL 5". When that
+    // is too long, the fallbacks below leave the subjects out.
     let subjectText = ''
     if (program.courseRequirements && program.courseRequirements.length > 0) {
-      // Group by orGroupId to handle OR-groups correctly
-      const requirements = program.courseRequirements
-      const uniqueRequirements: Array<{ course: string; level: string; grade: number }> = []
-      const processedGroups = new Set<string>()
-
-      for (const req of requirements) {
-        // For OR-groups, only take the first option
-        if (req.orGroupId) {
-          if (processedGroups.has(req.orGroupId)) continue
-          processedGroups.add(req.orGroupId)
-        }
-
-        uniqueRequirements.push({
-          course: req.ibCourse.name,
-          level: req.requiredLevel,
-          grade: req.minGrade
-        })
-
-        // Limit to 3 subjects for description brevity
-        if (uniqueRequirements.length >= 3) break
-      }
-
-      if (uniqueRequirements.length > 0) {
-        const subjectsList = uniqueRequirements
-          .map((r) => `${r.level} ${r.course} ${r.grade}`)
-          .join(', ')
-        subjectText = `, ${subjectsList}`
-      }
+      // Limit to 3 subjects for description brevity
+      const subjectsList = groupRequirements(program.courseRequirements)
+        .slice(0, 3)
+        .map(describeRequirement)
+        .join(', ')
+      subjectText = `, ${subjectsList}`
     }
 
     // Build description with progressive fallbacks for length
@@ -448,37 +434,35 @@ export default async function ProgramDetailPage({ params }: PageProps) {
       '@type': 'Offer',
       category: 'Academic Program'
     },
-    // Course schema for IB requirements (Task 2.1)
+    // Course schema for IB requirements (Task 2.1). One Course per requirement: an OR group
+    // names every course it accepts. When its options do not share one level and grade,
+    // competencyRequired gives each its own ("HL 4 or SL 5"), and educationalLevel is left out.
     hasCourse:
       program.courseRequirements && program.courseRequirements.length > 0
-        ? (() => {
-            const courses = []
-            const processedGroups = new Set<string>()
-
-            for (const req of program.courseRequirements) {
-              // For OR-groups, only include the first option
-              if (req.orGroupId) {
-                if (processedGroups.has(req.orGroupId)) continue
-                processedGroups.add(req.orGroupId)
+        ? groupRequirements(program.courseRequirements).map((group) => {
+            const courses = group.options.flatMap((o) => o.courses)
+            const levelGrades = group.options.flatMap((o) => o.levelGrades)
+            const levels = new Set(levelGrades.map((lg) => lg.level))
+            const [first] = group.rows
+            return {
+              '@type': 'Course',
+              name: formatCourses(courses),
+              courseCode: courses.length === 1 ? first.ibCourse.code : undefined,
+              educationalLevel: levels.size === 1 ? first.requiredLevel : undefined, // "HL" or "SL"
+              competencyRequired:
+                group.options.length > 1
+                  ? describeRequirement(group)
+                  : levelGrades.length > 1
+                    ? formatLevelGrades(levelGrades)
+                    : `Minimum grade ${first.minGrade}`,
+              inLanguage: 'en',
+              provider: {
+                '@type': 'Organization',
+                name: 'International Baccalaureate Organization',
+                url: 'https://www.ibo.org'
               }
-
-              courses.push({
-                '@type': 'Course',
-                name: req.ibCourse.name,
-                courseCode: req.ibCourse.code,
-                educationalLevel: req.requiredLevel, // "HL" or "SL"
-                competencyRequired: `Minimum grade ${req.minGrade}`,
-                inLanguage: 'en',
-                provider: {
-                  '@type': 'Organization',
-                  name: 'International Baccalaureate Organization',
-                  url: 'https://www.ibo.org'
-                }
-              })
             }
-
-            return courses
-          })()
+          })
         : undefined,
     // EducationalOccupationalCredential for IB Diploma admission requirements (Task 2.2)
     educationalCredentialAwarded: program.minIBPoints
