@@ -43,6 +43,7 @@ import {
   type RequirementOption
 } from '@/lib/programs/requirement-groups'
 import { SignUpCTA } from '@/components/student/SignUpCTA'
+import { ImageCredit } from '@/components/shared/ImageCredit'
 
 // Course requirement for detail view
 interface CourseRequirement {
@@ -87,6 +88,8 @@ interface ProgramCardProps {
       name: string
       abbreviation?: string | null
       image?: string | null
+      /** The image's credit; the detail variant captions the image with it. */
+      imageCredit?: string | null
       description?: string
       websiteUrl?: string
     }
@@ -467,8 +470,8 @@ export function ProgramCard({
 
           {/* Hero Section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            {/* University Image - Same size as card variant */}
-            <div className="shrink-0 w-full sm:w-auto">
+            {/* University Image - Same size as card variant, with its credit as the caption */}
+            <figure className="shrink-0 w-full sm:w-44">
               <div className="relative aspect-[16/9] sm:aspect-square w-full sm:h-44 sm:w-44 overflow-hidden rounded-xl bg-muted">
                 {program.university.image ? (
                   <Image
@@ -485,7 +488,8 @@ export function ProgramCard({
                   </div>
                 )}
               </div>
-            </div>
+              {program.university.image && <ImageCredit credit={program.university.imageCredit} />}
+            </figure>
 
             {/* Program Info */}
             <div className="flex-1 space-y-3">

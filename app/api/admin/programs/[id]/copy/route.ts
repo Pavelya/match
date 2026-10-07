@@ -119,6 +119,7 @@ export async function POST(request: Request, { params }: RouteParams) {
         fieldOfStudyId: original.fieldOfStudyId,
         degreeType: original.degreeType,
         duration: original.duration,
+        campusCity: original.campusCity,
         minIBPoints: original.minIBPoints,
         programUrl: original.programUrl,
         // Reset verification fields — admin must re-verify the copy

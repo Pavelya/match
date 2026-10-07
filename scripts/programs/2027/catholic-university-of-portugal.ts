@@ -54,6 +54,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor',
       duration: '3 years',
+      // Campus, 7 October 2026: Católica Porto Business School, UCP Campus Porto (program page)
+      campusCity: 'Porto',
       minIBPoints: 38,
       programUrl: 'https://cpsbe.porto.ucp.pt/undergraduate/economics-degree',
       requirements: [
@@ -84,6 +86,8 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: "Single-Cycle Master's Degree",
       duration: '6 years',
+      // Campus, 7 October 2026: program page: "will take place at the Sintra Campus of the UCP"
+      campusCity: 'Sintra',
       minIBPoints: 40,
       programUrl: 'https://fm.ucp.pt/integrated-master-medicine/integrated-master-medicine',
       requirements: [
@@ -229,6 +233,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor',
       duration: '3 years',
+      // Campus, 7 October 2026: Católica Porto Business School, UCP Campus Porto (program page)
+      campusCity: 'Porto',
       minIBPoints: 38,
       programUrl: 'https://cpsbe.porto.ucp.pt/undergraduate/management-degree',
       requirements: [

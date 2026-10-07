@@ -42,7 +42,7 @@ const universities: UniversitiesFile = {
       description:
         'Keio University, founded in 1858, is a private university with about 34,000 students on campuses in Tokyo and at Shonan Fujisawa (SFC). Two English-taught undergraduate routes are open to IB applicants: PEARL, a four-year BA in Economics at the Faculty of Economics in Tokyo, and the GIGA Program at SFC, where students earn a BA in Policy Management or in Environment and Information Studies. Both admit in September on submitted documents, with no interview.',
       country: 'Japan',
-      city: 'Tokyo, Fujisawa',
+      city: 'Tokyo',
       classification: 'PRIVATE',
       studentPopulation: 34000,
       websiteUrl: 'https://www.keio.ac.jp/en/',

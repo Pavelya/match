@@ -28,6 +28,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { FieldIcon } from '@/lib/icons'
+import { ImageCredit } from '@/components/shared/ImageCredit'
 
 interface Program {
   id: string
@@ -56,6 +57,7 @@ interface UniversityData {
   classification: 'PUBLIC' | 'PRIVATE'
   studentPopulation: number | null
   image: string | null
+  imageCredit: string | null
   websiteUrl: string
   email: string | null
   phone: string | null
@@ -93,8 +95,8 @@ export function UniversityDetailClient({ university }: UniversityDetailClientPro
 
       {/* Hero Section */}
       <div className="flex flex-col sm:flex-row gap-6">
-        {/* University Image */}
-        <div className="shrink-0 w-full sm:w-auto">
+        {/* University Image, with its credit as the caption */}
+        <figure className="shrink-0 w-full sm:w-72">
           <div className="relative aspect-[16/9] sm:aspect-[4/3] w-full sm:h-56 sm:w-72 overflow-hidden rounded-xl bg-muted">
             {university.image ? (
               <Image
@@ -111,7 +113,8 @@ export function UniversityDetailClient({ university }: UniversityDetailClientPro
               </div>
             )}
           </div>
-        </div>
+          {university.image && <ImageCredit credit={university.imageCredit} />}
+        </figure>
 
         {/* University Info */}
         <div className="flex-1 space-y-4">

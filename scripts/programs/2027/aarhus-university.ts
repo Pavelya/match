@@ -157,6 +157,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Economics and Business Administration in Herning"
+      campusCity: 'Herning',
       minIBPoints: 24,
       programUrl: 'https://bachelor.au.dk/en/economics-and-business-administration-auhe/',
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],

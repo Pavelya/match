@@ -18,6 +18,7 @@ const program = (
     field: 'Sciences',
     degreeType,
     duration: '3 years',
+    campusCity: null,
     minIBPoints: 38,
     programUrl: 'https://example.ac.uk/physics',
     requirements: [

@@ -17,9 +17,9 @@
  *                          the stamps `requirementsVerified`, `requirementsUpdatedAt` (the file's
  *                          checkedOn) and `requirementsEntryYear` (the program's checkedFor).
  *                          `new` programs are created. Nothing is ever deleted: `discontinued`
- *                          programs are only reported. A program whose field of study alone
- *                          changes is re-filed: only its field is written, checked or not, and
- *                          its stamps stay (content 8.1). Then syncs the written programs to Algolia
+ *                          programs are only reported. A program whose field of study or campus
+ *                          city alone changes is re-filed: only those are written, checked or not,
+ *                          and its stamps stay (content 8.1, 8.2). Then syncs the written programs to Algolia
  *                          and clears the programs cache and cached matches, which the standalone
  *                          Prisma client does not do on its own.
  *   --restore <backup>     Put the programs in a backup back as they were (dry run unless
@@ -123,6 +123,7 @@ const PROGRAM_SELECT = {
   description: true,
   degreeType: true,
   duration: true,
+  campusCity: true,
   minIBPoints: true,
   programUrl: true,
   requirementsVerified: true,
@@ -153,6 +154,7 @@ async function loadStored(where: Prisma.AcademicProgramWhereInput): Promise<Stor
       field: p.fieldOfStudy.name,
       degreeType: p.degreeType,
       duration: p.duration,
+      campusCity: p.campusCity,
       minIBPoints: p.minIBPoints,
       programUrl: p.programUrl,
       requirements: p.courseRequirements.map((r): RequirementRow => ({
@@ -262,7 +264,8 @@ async function loadDataFile(file: string): Promise<RefreshFile> {
 function describeNew(c: ProgramCreate): string[] {
   const t = c.target
   return [
-    `${t.minIBPoints ?? 'no'} points · ${t.degreeType} · ${t.duration} · ${t.field}`,
+    `${t.minIBPoints ?? 'no'} points · ${t.degreeType} · ${t.duration} · ${t.field}` +
+      (t.campusCity ? ` · taught in ${t.campusCity}` : ''),
     `Subjects: ${formatRequirements(t.requirements)}`,
     `URL: ${t.programUrl ?? 'none'}`
   ]
@@ -279,7 +282,7 @@ function printPlan(title: string, plan: RefreshPlan) {
     }
   }
   for (const r of plan.refiles) {
-    console.log(`  REFILE        ${r.name}  (${r.id})  Field: ${r.from} → ${r.to}`)
+    console.log(`  REFILE        ${r.name}  (${r.id})  ${r.changes.join('; ')}`)
   }
   for (const c of plan.creates) {
     console.log(`  NEW           ${c.name}`)
@@ -332,6 +335,7 @@ function programData(t: RefreshState, stamps: Stamps, ref: Reference) {
     fieldOfStudyId: ref.fieldIds.get(t.field)!,
     degreeType: t.degreeType,
     duration: t.duration,
+    campusCity: t.campusCity,
     minIBPoints: t.minIBPoints,
     programUrl: t.programUrl,
     ...stamps
@@ -428,7 +432,7 @@ async function run(jobs: Job[], files: string[], ref: Reference) {
     try {
       await prisma.academicProgram.update({
         where: { id: r.id },
-        data: { fieldOfStudyId: ref.fieldIds.get(r.to)! },
+        data: { fieldOfStudyId: ref.fieldIds.get(r.field)!, campusCity: r.campusCity },
         select: { id: true }
       })
       synced.push(r.id)
@@ -530,7 +534,7 @@ async function refresh(args: ReturnType<typeof parseArgs>) {
   console.log(
     '\nEvery program written gets requirementsVerified = true, requirementsUpdatedAt = the ' +
       "file's checkedOn and requirementsEntryYear = its checkedFor. A re-filed program gets " +
-      'its new field only.'
+      'its new field and campus city only.'
   )
   if (!args.apply) {
     console.log('\nDry run: nothing written. Re-run with --apply to write.\n')
@@ -546,7 +550,8 @@ async function restore(file: string, apply: boolean) {
   const plan = planRestore(
     backup.programs.map((p) => ({
       id: p.id,
-      state: p.state,
+      // Backups from before content 8.2 hold no campus city: none was stored then.
+      state: { ...p.state, campusCity: p.state.campusCity ?? null },
       stamps: {
         ...p.stamps,
         requirementsUpdatedAt: p.stamps.requirementsUpdatedAt

@@ -5,8 +5,11 @@
  *
  * A university is only ever created. One already stored under the same name (any case) is
  * listed and left as it is, so the file can be run again after an apply. Images and logos are
- * not part of the file: they go to Storage through /admin/universities, never into a column.
+ * not part of the file: they go to Storage through /admin/universities, never into a column, and
+ * an image's credit goes beside it there, never into the description (content 8.3).
  */
+
+import { splitImageCredit } from '@/lib/universities/image-credit'
 
 export type Classification = 'PUBLIC' | 'PRIVATE'
 
@@ -16,7 +19,10 @@ export interface UniversityDef {
   description: string
   /** A `Country` name. */
   country: string
-  /** Where the programs added with it are taught, as the stored TUM row lists campuses. */
+  /**
+   * One place: the seat or main campus (content 8.2). A program taught on another campus gives
+   * its own `campusCity` in its refresh data file.
+   */
   city: string
   classification: Classification
   studentPopulation: number | null
@@ -72,7 +78,17 @@ export function planUniversities(
     const problems: string[] = []
     if (!u?.name?.trim()) problems.push('has no name')
     if (!u?.description?.trim()) problems.push('has no description')
+    else if (splitImageCredit(u.description)) {
+      problems.push(
+        'description ends with an image credit: add it with the image, in /admin/universities'
+      )
+    }
     if (!u?.city?.trim()) problems.push('has no city')
+    else if (/[,;/]/.test(u.city)) {
+      problems.push(
+        `city "${u.city}" lists several places: give the main campus, and campusCity to programs taught elsewhere`
+      )
+    }
     if (!countries.has(u?.country)) problems.push(`country "${u?.country}" is not in Country`)
     if (u?.classification !== 'PUBLIC' && u?.classification !== 'PRIVATE') {
       problems.push(`classification "${u?.classification}" is not PUBLIC or PRIVATE`)

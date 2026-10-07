@@ -29,6 +29,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Borlänge"
+      campusCity: 'Borlänge',
       minIBPoints: 24,
       programUrl:
         'https://www.du.se/en/study-at-du/programmes-courses-and-course-packages/programmes/international-tourism-management/',

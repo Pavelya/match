@@ -265,16 +265,20 @@ model University {
 
   countryId String
   country   Country @relation(fields: [countryId], references: [id])
+  // One place: the seat or main campus. A program taught elsewhere sets its own campusCity.
   city      String
 
   classification    UniversityType // PUBLIC, PRIVATE
   studentPopulation Int?
 
-  logo       String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
-  image      String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
-  websiteUrl String
-  email      String?
-  phone      String?
+  logo        String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
+  image       String? @db.Text // Public Supabase Storage URL. Never base64: see scripts/fix-university-images.ts
+  // The image's credit, shown as a caption wherever the full image is: "By Jason Tong - Own work,
+  // CC BY-SA 3.0, https://commons.wikimedia.org/...". Never in the description.
+  imageCredit String?
+  websiteUrl  String
+  email       String?
+  phone       String?
 
   programs AcademicProgram[]
   agents   UniversityAgentProfile[]
@@ -304,6 +308,10 @@ model AcademicProgram {
 
   degreeType String // Bachelor, Master, etc.
   duration   String // "4 years"
+
+  // Where it is taught, when that is not University.city: UBC's Okanagan programs, Kelowna.
+  // Null: the university's city. Show and index `campusCity ?? university.city`.
+  campusCity String?
 
   // IB Requirements
   minIBPoints Int?

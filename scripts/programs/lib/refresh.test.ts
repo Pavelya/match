@@ -30,6 +30,7 @@ const stored = (overrides: Partial<StoredProgram['state']> = {}, id = 'p1'): Sto
     field: 'Sciences',
     degreeType: 'BSc',
     duration: '3 years',
+    campusCity: null,
     minIBPoints: 38,
     programUrl: 'https://example.ac.uk/2026/physics',
     requirements: [
@@ -152,7 +153,13 @@ describe('planRefresh', () => {
     )
     expect(plan.errors).toEqual([])
     expect(plan.refiles).toEqual([
-      { id: 'p1', name: 'Physics', from: 'Sciences', to: 'Engineering' }
+      {
+        id: 'p1',
+        name: 'Physics',
+        field: 'Engineering',
+        campusCity: null,
+        changes: ['Field: Sciences → Engineering']
+      }
     ])
     expect(plan.writes).toEqual([])
     expect(plan.unchecked).toEqual([])
@@ -184,7 +191,7 @@ describe('planRefresh', () => {
       lookups,
       TODAY
     )
-    expect(plan.refiles.map((r) => r.to)).toEqual(['Engineering'])
+    expect(plan.refiles.map((r) => r.field)).toEqual(['Engineering'])
     expect(plan.writes).toEqual([])
 
     // With a stamp to change as well, it is an ordinary write.
@@ -196,6 +203,95 @@ describe('planRefresh', () => {
     )
     expect(restamped.refiles).toEqual([])
     expect(restamped.writes[0].changes).toEqual(['Field: Sciences → Engineering'])
+  })
+
+  it('re-files a program whose campus city alone changed, checked or not', () => {
+    const plan = planRefresh(
+      withProgram([stored()], { campusCity: 'Kelowna' }),
+      [stored()],
+      lookups,
+      TODAY
+    )
+    expect(plan.errors).toEqual([])
+    expect(plan.refiles).toEqual([
+      {
+        id: 'p1',
+        name: 'Physics',
+        field: 'Sciences',
+        campusCity: 'Kelowna',
+        changes: ['Campus city: none → Kelowna']
+      }
+    ])
+    expect(plan.writes).toEqual([])
+
+    // Back to the university's city, with a new field too.
+    const moved = stored({ campusCity: 'Kelowna' })
+    const back = planRefresh(
+      withProgram([moved], { campusCity: null, field: 'Engineering' }),
+      [moved],
+      lookups,
+      TODAY
+    )
+    expect(back.refiles[0].changes).toEqual([
+      'Field: Sciences → Engineering',
+      'Campus city: Kelowna → none'
+    ])
+  })
+
+  it('keeps the stored campus city when the file leaves it out', () => {
+    const moved = stored({ campusCity: 'Kelowna' })
+    const file = exported([moved])
+    expect(file.programs[0].campusCity).toBe('Kelowna')
+    delete file.programs[0].campusCity
+    const plan = planRefresh(file, [moved], lookups, TODAY)
+    expect(plan.errors).toEqual([])
+    expect(plan.refiles).toEqual([])
+    expect(plan.unchecked).toEqual(['Physics'])
+  })
+
+  it('writes a campus city with a checked change, and creates a new program with one', () => {
+    const plan = planRefresh(
+      withProgram([stored()], { ...checked, campusCity: 'Kelowna', minIBPoints: 36 }),
+      [stored()],
+      lookups,
+      TODAY
+    )
+    expect(plan.writes[0].changes).toEqual([
+      'Points: 38 → 36',
+      'Degree: "BSc" → "Bachelor of Science"',
+      'Campus city: none → Kelowna'
+    ])
+    expect(plan.writes[0].target.campusCity).toBe('Kelowna')
+
+    const file = exported([])
+    file.programs.push({
+      ...exported([stored()]).programs[0],
+      ...checked,
+      id: undefined,
+      status: 'new',
+      name: 'Geography',
+      campusCity: 'Kelowna'
+    })
+    expect(planRefresh(file, [], lookups, TODAY).creates[0].target.campusCity).toBe('Kelowna')
+  })
+
+  it('refuses a campus city that is empty or lists several places', () => {
+    const plan = planRefresh(
+      withProgram([stored(), stored({ name: 'Chemistry' }, 'p2')], { campusCity: ' ' }),
+      [stored(), stored({ name: 'Chemistry' }, 'p2')],
+      lookups,
+      TODAY
+    )
+    expect(plan.errors).toEqual([
+      "Chemistry (p2): campusCity is empty: give a city, or null for the university's"
+    ])
+    const list = planRefresh(
+      withProgram([stored()], { campusCity: 'Garching, Ottobrunn' }),
+      [stored()],
+      lookups,
+      TODAY
+    )
+    expect(list.errors).toEqual(['Physics (p1): campusCity "Garching, Ottobrunn" is not one place'])
   })
 
   it('warns when a field disagrees with the fields-of-study rule', () => {

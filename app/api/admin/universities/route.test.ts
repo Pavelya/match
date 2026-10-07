@@ -84,3 +84,30 @@ describe('POST /api/admin/universities — logo', () => {
     expect(prismaMock.university.create.mock.calls[0][0].data.logo).toBeNull()
   })
 })
+
+// Content 8.3: the credit is a caption under the image, never part of the description.
+describe('POST /api/admin/universities — image credit', () => {
+  const CREDIT =
+    'By Jason Tong - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32208955'
+
+  it('stores the credit with the image, and none without one', async () => {
+    await post({ ...VALID_UNIVERSITY, image: STORAGE_URL, imageCredit: ` ${CREDIT} ` })
+    expect(prismaMock.university.create.mock.calls[0][0].data).toMatchObject({
+      image: STORAGE_URL,
+      imageCredit: CREDIT
+    })
+
+    await post({ ...VALID_UNIVERSITY, name: 'Other University', imageCredit: CREDIT })
+    expect(prismaMock.university.create.mock.calls[1][0].data.imageCredit).toBeNull()
+  })
+
+  it('refuses a description that ends with a credit, and creates nothing', async () => {
+    const res = await post({
+      ...VALID_UNIVERSITY,
+      description: `A university.\n\nImage attribution: ${CREDIT}`
+    })
+
+    expect(res.status).toBe(400)
+    expect(prismaMock.university.create).not.toHaveBeenCalled()
+  })
+})

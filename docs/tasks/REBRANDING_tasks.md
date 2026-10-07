@@ -53,7 +53,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
 | P6 | ~~`MAINT_tasks.md` 5.7: levels and grades in either/or groups~~ **Done 7 October 2026**: `groupRequirements` in `lib/programs/requirement-groups.ts` | AI, small | Recommended, not blocking. Students saw "English B or English B" in 436 groups, and 2.2 reuses the helper |
 | P7 | ~~`CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping)~~ **Done 7 October 2026**, applied: 135 programs re-filed, new descriptions in `FIELD_DESCRIPTIONS` (`lib/programs/fields-of-study.ts`) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
-| P8 | `CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration) | AI, small each | Needed by 2.4. Can run during phase 1 |
+| P8 | ~~`CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration)~~ **Done 7 October 2026**, both migrations and data applied: `campusCity` on 50 programs, one city per university, 66 credits in `University.imageCredit` | AI, small each | Needed by 2.4. Can run during phase 1 |
 | B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
 | B2 | Protect `rebranding` too: add it as a target of the "Protect main" ruleset, or a second ruleset with the same rules | Owner, minutes | The branch collects 15+ pull requests; it must stay green and cannot be force-pushed or deleted |
 | B3 | **A review address for the branch.** In Vercel, add a domain such as `rebranding.ibmatch.com` and assign it to the Git branch `rebranding`. Then set **branch-specific** Preview variables (`NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` = that address), so sign-in and email links stay on it: `lib/env.ts` requires `NEXTAUTH_URL`, and invites build links from these two. Add the address's callback to the Google OAuth client. Make sure it is not indexed: a `noindex` header, or `app/robots.ts` disallowing everything outside production. Then sign in there, by Google and by magic link | Owner with AI, small | The owner reviews every screen there, logged-in ones included, before anything reaches production. A stable address is easier to share than per-commit preview URLs. It reads and writes the **production database** (there is no other), so a sign-up or a save there is real data, and the cost rules apply |
@@ -394,7 +394,10 @@ detail" and "Phone · Program (dark)".
   Science and Doctor of Medicine).
 - A fit panel (logged in) or "Sign in and add your grades to check these" (logged out).
 - The entry-year note, with the caution style when the requirements are from an older intake.
-- When `CONTENT_tasks.md` 8.2 and 8.3 land: the campus city, and the image credit as a caption.
+- The campus city, and the image credit as a caption (`CONTENT_tasks.md` 8.2 and 8.3, done 7 October
+  2026). Show `campusCity ?? university.city` wherever a program's place is shown, and render
+  `university.imageCredit` with `components/shared/ImageCredit.tsx` as the `<figcaption>` of every full
+  image. A thumbnail needs none.
 
 ### 2.5 — Shortlist with compare
 

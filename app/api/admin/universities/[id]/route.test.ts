@@ -111,3 +111,35 @@ describe('PATCH /api/admin/universities/[id] — logo', () => {
     expect(select).toMatchObject({ id: true, name: true })
   })
 })
+
+// Content 8.3: the credit is a caption under the image, never part of the description.
+describe('PATCH /api/admin/universities/[id] — image credit', () => {
+  const CREDIT =
+    'By Jason Tong - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32208955'
+
+  it('stores the credit trimmed, and clears it when sent empty', async () => {
+    expect((await patch({ image: STORAGE_URL, imageCredit: ` ${CREDIT} ` })).status).toBe(200)
+    expect(storedData()).toEqual({ image: STORAGE_URL, imageCredit: CREDIT })
+
+    vi.clearAllMocks()
+    prismaMock.user.findUnique.mockResolvedValue({ role: 'PLATFORM_ADMIN' })
+    prismaMock.university.findUnique.mockResolvedValue({ id: ID, logo: null })
+    expect((await patch({ imageCredit: '' })).status).toBe(200)
+    expect(storedData()).toEqual({ imageCredit: null })
+  })
+
+  it('clears the credit with the image', async () => {
+    const res = await patch({ image: '', imageCredit: CREDIT })
+
+    expect(res.status).toBe(200)
+    expect(storedData()).toEqual({ image: null, imageCredit: null })
+  })
+
+  it('refuses a description that ends with a credit, and writes nothing', async () => {
+    const res = await patch({ description: `A university.\n\nImage: ${CREDIT}` })
+
+    expect(res.status).toBe(400)
+    expect((await res.json()).error).toMatch(/Image credit field/)
+    expect(prismaMock.university.update).not.toHaveBeenCalled()
+  })
+})

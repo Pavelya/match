@@ -29,6 +29,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: programme guide: "Bachelor of Business Administration (Brussels)"
+      campusCity: 'Brussels',
       minIBPoints: 24,
       programUrl:
         'https://onderwijsaanbod.kuleuven.be/opleidingen/e/SC_53266472/diploma_omschrijving',
@@ -51,6 +53,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: programme guide: "Brussels Academic Bachelor's"
+      campusCity: 'Brussels',
       minIBPoints: 24,
       programUrl:
         'https://onderwijsaanbod.kuleuven.be/opleidingen/e/SC_54764298/diploma_omschrijving',

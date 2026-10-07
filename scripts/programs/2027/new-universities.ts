@@ -19,7 +19,7 @@ const universities: UniversitiesFile = {
       description:
         "Aarhus University is a public university in Aarhus, Denmark, with about 37,500 students in five faculties. It teaches six bachelor's programmes in English: Cognitive Science, Computer Science, Data Science, IT Product Development and Economics and Business Administration in Aarhus, and Economics and Business Administration at its Herning campus. Applications go through Denmark's national admission system, optagelse.dk, by 15 March for applicants with an international exam such as the IB.",
       country: 'Denmark',
-      city: 'Aarhus, Herning',
+      city: 'Aarhus',
       classification: 'PUBLIC',
       studentPopulation: 37500,
       websiteUrl: 'https://international.au.dk/',
@@ -33,7 +33,7 @@ const universities: UniversitiesFile = {
       description:
         "The University of Southern Denmark received its first students in Odense in September 1966 and now has five faculties and about 32,000 students, more than 15% of them from abroad. Its English-taught bachelor's programmes are in Odense, in Sønderborg on the German border, and at SDU Vejle, its IT campus. Most programmes fill part of their places through an entrance test (quota 2) rather than school grades.",
       country: 'Denmark',
-      city: 'Odense, Sønderborg, Vejle',
+      city: 'Odense',
       classification: 'PUBLIC',
       studentPopulation: 32000,
       websiteUrl: 'https://www.sdu.dk/en',

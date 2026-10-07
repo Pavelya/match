@@ -31,6 +31,13 @@ export interface RefreshProgram {
   /** A canonical degree type from `lib/programs/degree-types.ts` (content 3.2). */
   degree: DegreeType
   duration: string
+  /**
+   * Where it is taught, when that is not the university's city (content 8.2): "Kelowna" for UBC's
+   * Okanagan programs. One place, from the program's official page; where the university lists
+   * several main locations, the first, or null when the university's city is among them. Null: the
+   * university's city. Left out: as stored.
+   */
+  campusCity?: string | null
   /** The published minimum total. A typical offer above it goes in `notes`. */
   minIBPoints: number | null
   /** The page for the intake checked. */
@@ -63,6 +70,7 @@ export interface RefreshState extends ProgramState {
   field: string
   degreeType: string
   duration: string
+  campusCity: string | null
 }
 
 export interface Stamps {
@@ -98,15 +106,17 @@ export interface ProgramWrite {
 }
 
 /**
- * A program whose field of study changes and nothing else (content 8.1). The field is how a
- * program is filed, not a claim about its requirements, so a re-filed program needs no check
- * and keeps its stamps.
+ * A program whose filing alone changes: its field of study (content 8.1), its campus city (8.2), or
+ * both. Neither is a claim about its requirements, so a re-filed program needs no check and keeps
+ * its stamps. Only these two are written.
  */
 export interface ProgramRefile {
   id: string
   name: string
-  from: string
-  to: string
+  field: string
+  campusCity: string | null
+  /** What changes, in words. */
+  changes: string[]
 }
 
 export interface ProgramCreate {
@@ -120,7 +130,7 @@ export interface RefreshPlan {
   warnings: string[]
   /** Existing programs to write: changed, or only re-stamped. */
   writes: ProgramWrite[]
-  /** Existing programs whose field alone changes: only the field is written. */
+  /** Existing programs whose field or campus city alone changes: only those are written. */
   refiles: ProgramRefile[]
   creates: ProgramCreate[]
   upToDate: string[]
@@ -137,6 +147,19 @@ export interface RefreshPlan {
 const EARLIEST_ENTRY_YEAR = 2020
 const STATUSES: readonly string[] = ['current', 'new', 'discontinued']
 
+/** How a program is filed, as the dry run words it: its field and its campus city. */
+function diffFiling(current: RefreshState, target: RefreshState): string[] {
+  const changes: string[] = []
+  if (current.field !== target.field) {
+    changes.push(`Field: ${current.field} → ${target.field}`)
+  }
+  if (current.campusCity !== target.campusCity) {
+    // None: the university's city.
+    changes.push(`Campus city: ${current.campusCity ?? 'none'} → ${target.campusCity ?? 'none'}`)
+  }
+  return changes
+}
+
 /** The dry run's lines for one program: every field that changes, in words. */
 export function diffState(current: RefreshState, target: RefreshState): string[] {
   const changes = diffProgram(current, target)
@@ -146,9 +169,7 @@ export function diffState(current: RefreshState, target: RefreshState): string[]
   if (current.duration !== target.duration) {
     changes.push(`Duration: "${current.duration}" → "${target.duration}"`)
   }
-  if (current.field !== target.field) {
-    changes.push(`Field: ${current.field} → ${target.field}`)
-  }
+  changes.push(...diffFiling(current, target))
   if (current.description !== target.description) {
     changes.push(
       `Description: rewritten (${current.description.length} → ${target.description.length} characters)`
@@ -179,14 +200,18 @@ export function diffStamps(current: Stamps, target: Stamps): string[] {
   return changes
 }
 
-/** A program's state as the file gives it. */
-export function stateFromProgram(p: RefreshProgram): RefreshState {
+/** A program's state as the file gives it. A file that leaves out `campusCity` keeps the stored one. */
+export function stateFromProgram(
+  p: RefreshProgram,
+  storedCampusCity: string | null = null
+): RefreshState {
   return {
     name: p.name,
     description: p.description,
     field: p.field,
     degreeType: p.degree,
     duration: p.duration,
+    campusCity: p.campusCity === undefined ? storedCampusCity : p.campusCity,
     minIBPoints: p.minIBPoints,
     programUrl: p.programUrl,
     requirements: rowsFromDefs(p.requirements)
@@ -223,6 +248,13 @@ function checkFields(p: RefreshProgram, file: RefreshFile, lookups: Lookups): st
     )
   }
   if (!p.duration?.trim()) problems.push('has no duration')
+  if (p.campusCity !== undefined && p.campusCity !== null) {
+    if (typeof p.campusCity !== 'string' || !p.campusCity.trim()) {
+      problems.push("campusCity is empty: give a city, or null for the university's")
+    } else if (p.campusCity !== p.campusCity.trim() || /[,;/]/.test(p.campusCity)) {
+      problems.push(`campusCity "${p.campusCity}" is not one place`)
+    }
+  }
   if (
     p.minIBPoints !== null &&
     !(Number.isInteger(p.minIBPoints) && p.minIBPoints >= 24 && p.minIBPoints <= 45)
@@ -376,7 +408,7 @@ export function planRefresh(
       )
     }
 
-    const target = stateFromProgram(p)
+    const target = stateFromProgram(p, (p.id && byId.get(p.id)?.state.campusCity) || null)
     const stamps: Stamps | null =
       p.checkedFor === null || !checkedOn
         ? null
@@ -416,14 +448,22 @@ export function planRefresh(
       finalNames.set(p.id!, p.name)
       renamed.push(p.id!)
     }
-    const refile = { id: p.id!, name: p.name, from: now.state.field, to: target.field }
+    // The stored program as it would be re-filed: its new field and campus city, nothing else.
+    const filed = { ...now.state, field: target.field, campusCity: target.campusCity }
+    const refile: ProgramRefile = {
+      id: p.id!,
+      name: p.name,
+      field: target.field,
+      campusCity: target.campusCity,
+      changes: diffFiling(now.state, target)
+    }
     if (!stamps) {
       // Export writes the canonical degree for a stored variant spelling; that alone is no edit.
-      // A new field alone is no claim about requirements either: it is re-filed, unstamped.
+      // A new field or campus city alone is no claim about requirements either: it is re-filed,
+      // unstamped.
       const current = {
-        ...now.state,
-        degreeType: lookups.canonicalDegree(now.state.degreeType) ?? now.state.degreeType,
-        field: target.field
+        ...filed,
+        degreeType: lookups.canonicalDegree(now.state.degreeType) ?? now.state.degreeType
       }
       const edits = diffState(current, target)
       if (edits.length > 0) {
@@ -433,7 +473,7 @@ export function planRefresh(
         )
         return
       }
-      if (refile.from !== refile.to) plan.refiles.push(refile)
+      if (refile.changes.length > 0) plan.refiles.push(refile)
       else plan.unchecked.push(p.name)
       return
     }
@@ -446,8 +486,8 @@ export function planRefresh(
     }
     if (
       stampChanges.length === 0 &&
-      refile.from !== refile.to &&
-      diffState({ ...now.state, field: target.field }, target).length === 0
+      refile.changes.length > 0 &&
+      diffState(filed, target).length === 0
     ) {
       plan.refiles.push(refile)
       return

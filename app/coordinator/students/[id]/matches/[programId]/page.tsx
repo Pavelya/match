@@ -101,6 +101,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
       description: true,
       degreeType: true,
       duration: true,
+      campusCity: true,
       minIBPoints: true,
       programUrl: true,
       requirementsEntryYear: true,
@@ -110,6 +111,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
           name: true,
           abbreviatedName: true,
           image: true,
+          imageCredit: true,
           city: true,
           websiteUrl: true,
           country: {
@@ -158,11 +160,12 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
     minIBPoints: program.minIBPoints,
     programUrl: program.programUrl,
     requirementsCheck: requirementsCheck(program.requirementsEntryYear),
-    city: program.university.city,
+    city: program.campusCity ?? program.university.city,
     university: {
       name: program.university.name,
       abbreviation: program.university.abbreviatedName,
       image: program.university.image,
+      imageCredit: program.university.imageCredit,
       websiteUrl: program.university.websiteUrl
     },
     country: {

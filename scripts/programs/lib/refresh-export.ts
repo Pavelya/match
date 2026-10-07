@@ -33,6 +33,7 @@ export function exportProgram(
     field: s.state.field,
     degree: (canonicalDegree(s.state.degreeType) ?? s.state.degreeType) as DegreeType,
     duration: s.state.duration,
+    campusCity: s.state.campusCity,
     minIBPoints: s.state.minIBPoints,
     programUrl: s.state.programUrl,
     requirements: defsFromRows(s.state.requirements),

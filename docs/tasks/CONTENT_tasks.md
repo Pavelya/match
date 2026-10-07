@@ -33,7 +33,7 @@ here, and this refresh does more production writes than any work before it.
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
-| any | Design-audit data fixes | 8.1–8.3 | small to medium each | From the student design audit (6 October 2026). **8.1 done** and applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. 8.2 and 8.3 need a schema field each, through a migration |
+| any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
 screens are reviewed with real data; 8.2 and 8.3 before the program page (rebranding 2.4). Country-page
@@ -113,9 +113,11 @@ Phase 7 — Germany
 
 Phase 8 — Data found by the design audit
 
-- [ ] 8.1 One home per discipline in the fields of study
-- [ ] 8.2 Show the campus city for programs taught away from the main campus
-- [ ] 8.3 Move image credits out of university descriptions
+- [x] 8.1 One home per discipline in the fields of study — applied 7 October 2026: 135 programs re-filed
+- [x] 8.2 Show the campus city for programs taught away from the main campus — applied 7 October 2026: 50
+  programs, 9 university cities
+- [x] 8.3 Move image credits out of university descriptions — applied 7 October 2026: 66 credits; 9
+  images have none, for the owner
 
 Owner tasks — not AI work
 
@@ -383,6 +385,16 @@ not precision.
     - TUM and Georgia Tech have starter files, which phases 7 and 6 start from.
     - `MAINT_tasks.md` 5.16 brings the same suggestion to the admin program forms. Until it lands, a
       program added in `/admin/programs` is checked only by the inventory.
+- **Where a program is taught** (8.2, 7 October 2026). `University.city` is one place: the seat or main
+  campus. A program taught elsewhere sets `campusCity` in its data file, from its official page, and
+  every page and search record shows `campusCity ?? university.city`. Where the university lists several
+  main locations, take the first, or none when the university's own city is among them. A campus city
+  alone is re-filed like a field: no check, no new stamps. `add-universities.ts` refuses a city that
+  lists several places, and a new program at a multi-campus university gets its `campusCity` with it.
+- **Image credits** (8.3, 7 October 2026). A university image's credit goes in the Image credit field
+  of `/admin/universities`, beside the upload, and shows as the image's caption. Never in the
+  description: the admin routes and `add-universities.ts` refuse a description that ends with one. A
+  Wikimedia image always needs its credit.
 
 ### Research rules
 
@@ -2805,7 +2817,15 @@ the decision.
   English name ("Information Systems", not "Wirtschaftsinformatik"); otherwise the dry run cannot check
   its field.
 - New German programs follow the rule like any other. Finish with `scripts/programs/field-inventory.ts`
-  at 0 outliers. It has already had its 2027 pass in 2.2; this is about how it describes
+  at 0 outliers.
+
+**Campus cities (8.2).** TUM's city is Munich, and 25 of its programs carry a `campusCity` from their
+"Main Locations" (Garching 9, Freising 9, Straubing 3, Heilbronn 2, Singapore 2), with a comment above
+each in the data file. Keep them when refreshing. **Decide here** what to do with the two joint degrees
+with the Singapore Institute of Technology (Chemical Engineering, Electronics and Data Engineering):
+TUM lists Singapore as their only location, so they show Singapore under Germany's flag and match
+students who want Germany. The owner kept them as they are on 7 October 2026, for this phase to settle.
+Engineering and Materials Science is taught in Salzburg and Munich, and shows Munich. It has already had its 2027 pass in 2.2; this is about how it describes
 requirements.
 
 **Session size:** One research session, one or two build sessions.
@@ -2977,6 +2997,71 @@ programs are unchanged. The migration applies cleanly with `migrate deploy`.
 
 **Session size:** Small to medium (one migration, a few display points, a small data pass).
 
+#### Status, 7 October 2026 — done (rebranding prep P8); applied the same day
+
+**Inventory**, by aggregates. Seven universities stored a list of campuses as their city: Aarhus, Católica
+Portugal, Charles, Dalarna, Keio, TUM ("Munich, Garching, Freising, Heilbronn, Straubing, Ottobrunn") and
+SDU. Two more held no city at all: Linnaeus "LNU" and Western "Ontario". By name, the campus markers were
+UBC's "(Okanagan)", KU Leuven's "(Brussels)", Aarhus's "(Herning)" and SDU's "(Vejle)" and "(Sønderborg)".
+The University of Tokyo's "(PEAK, Komaba)" is in Tokyo. Every other parenthesis names a degree or a track.
+
+**Schema.** `AcademicProgram.campusCity` (nullable; null is the university's city), through
+`20261007120000_add_program_campus_city`, applied with `migrate deploy` at the owner's approval.
+`University.city` is documented as one place.
+
+**Display and index:** `campusCity ?? university.city` on the program card (matches, saved, search),
+the program page and its JSON-LD address, the coordinator's program page, the matches APIs (through
+the programs cache, which now carries `campusCity`), the Algolia record (both builders) and the admin
+program page. The copy route carries it over.
+
+**Refresh tool.** `campusCity` is optional in a data file: left out, the stored value stays. A campus
+city alone goes through 8.1's re-file path (no check, stamps kept), and the dry run prints
+"Campus city: none → Kelowna". Export writes it for every program. One place only: a list is refused.
+Vitest covers it.
+
+**Data**, from the official pages, read 7 October 2026, each with a comment above it in its data file:
+
+| University | City now | Programs given a campus city |
+|---|---|---|
+| University of British Columbia | Vancouver | Kelowna 2 (the Okanagan programs) |
+| KU Leuven | Leuven | Brussels 2 |
+| Aarhus University | Aarhus, was "Aarhus, Herning" | Herning 1 |
+| University of Southern Denmark | Odense, was 3 cities | Sønderborg 7, Vejle 4 |
+| Catholic University of Portugal | Lisbon, was 4 cities | Porto 2, Sintra 1 (Medicine) |
+| Dalarna University | Falun, was "Borlänge, Falun" | Borlänge 1 |
+| Keio University | Tokyo, was "Tokyo, Fujisawa" | Fujisawa 2 (GIGA) |
+| Linnaeus University | Växjö, was "LNU" | Kalmar 3 |
+| Technical University of Munich | Munich, was 6 places | Garching 9, Freising 9, Straubing 3, Heilbronn 2, Singapore 2 |
+| Charles University | Prague, was 3 cities | none: all 9 are at Prague faculties |
+| Western University | London, was "Ontario" | none |
+
+The university cities went through `scripts/fix-university-cities.ts`, whose table records each old
+value and the source; it writes a row only while it still holds the old value. The campus cities went
+through the refresh tool: a dry run of the nine files showed the 50 re-filings and nothing else.
+
+**Owner decisions, 7 October 2026:** TUM's two joint degrees with SIT show Singapore; phase 7 decides
+whether they belong under Germany at all. Engineering and Materials Science (Salzburg and Munich)
+shows Munich.
+
+**Applied:** 9 cities (130 programs synced to Algolia), 50 campus cities (backup
+`scripts/backups/refresh/2026-10-07T18-58-47-676Z.json`), then a full Algolia sync (1,367 records) and the
+programs cache and cached matches cleared.
+
+**Verify:**
+
+- Both UBC Okanagan programs show Kelowna: stored, and in the public search API
+  (`/api/programs/search?q=Okanagan`); the other 48 UBC programs still show Vancouver. Cards and pages
+  follow on deploy. On a local copy, the program page showed the campus city and its JSON-LD
+  `addressLocality`.
+- Other programs are unchanged: grouped by university and city, all 1,367 Algolia records match
+  `campusCity ?? city` in the database. No university city lists several places.
+- Both migrations apply cleanly with `migrate deploy`: on an empty local Postgres (all nine), in CI,
+  and in production.
+- Type check, lint, Prettier, Vitest, the matching suite and the build pass.
+
+**Not done:** campus cities can be set only through the refresh tool. The admin forms get an input in
+`MAINT_tasks.md` 5.16.
+
 ---
 
 ### 8.3 — Move image credits out of university descriptions
@@ -3000,3 +3085,52 @@ CC BY-SA requires the credit, so it must stay, but as a credit beside the photo.
 and its About text ends at the description.
 
 **Session size:** Small.
+
+#### Status, 7 October 2026 — done (rebranding prep P8); applied the same day
+
+**Count.** Step 1's query found 11 ("Image attribution: …"), but credits had three spellings. 66 of the 75
+descriptions ended with one: 11 "Image attribution:", 54 "Image:", and UCL's unlabelled "By Tagishsimon
+… https://commons.wikimedia.org/…". 64 were Wikimedia Commons credits; Tallinn University credits
+en.wikipedia, and JKU Linz its own campus page. Each was the description's last line.
+
+**Schema.** `University.imageCredit` (nullable), through `20261007120100_add_university_image_credit`,
+applied with `migrate deploy` at the owner's approval.
+
+**The rule** is `lib/universities/image-credit.ts`: `splitImageCredit` takes a credit off a
+description's last line, and `creditParts` lays it out with each address as a link named after its
+host ("commons.wikimedia.org"). Vitest covers both, with the stored spellings.
+
+**Caption.** `components/shared/ImageCredit.tsx` renders "Image: …" as the `<figcaption>` of the full
+image on the university page and the program page (also the coordinator's program page). Result
+cards are treated as thumbnails and carry none: each links to the program page, which does. Today a
+card's image is 192px on desktop but full width on a phone; the rebranding makes it 48–64px (audit
+3.3). The coordinator's match list shows 40px thumbnails.
+
+**Keeping it.** The university forms in `/admin/universities` get an Image credit field beside the
+upload; removing the image clears it. Both admin routes refuse a description whose last line is a
+credit, and so does `add-universities.ts`.
+
+**Moved** with `scripts/move-image-credits.ts`: dry run first, a backup, then each row written only if
+its description was still the one planned from. Backup:
+`scripts/backups/move-image-credits/2026-10-07T18-58-59-901Z.json`. The universities index in Algolia
+was synced too; no page reads it.
+
+**Verify:**
+
+- Step 1's count returns **0**, and so does `description ILIKE '%wikimedia%'`. 66 universities hold
+  an `imageCredit`.
+- Sydney's About ends "…world-class programs across medicine, law, engineering, and arts.", and its
+  credit is stored: "By Jason Tong - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/…". The
+  caption shows on deploy. On a local copy, the university page and the program page rendered it
+  under the image.
+- Type check, lint, Prettier, Vitest, the matching suite and the build pass.
+
+**For the owner:**
+
+- **Nine images have no credit:** Erasmus, Leiden, McGill, Universitat de Barcelona, Amsterdam, UBC,
+  Edinburgh, Groningen and Toronto. If any came from Wikimedia, its licence needs one: add it in the
+  new field.
+- Two credits are in Polish, as Wikimedia's Polish interface wrote them (Copenhagen Business School,
+  Keio: "Autorstwa … – Praca własna"); in English, "By … - Own work". Four are long, because they
+  quote the file page (HKUST, Dalarna, Sophia, Imperial). Author, licence and link are enough; both
+  can be edited in the new field.

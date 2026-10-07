@@ -66,6 +66,8 @@ export interface CachedProgram {
   }
   degreeType: string
   duration: string
+  /** Where it is taught when that is not `university.city`. Show `campusCity ?? university.city`. */
+  campusCity: string | null
   minIBPoints: number | null
   programUrl: string | null
   courseRequirements: Array<{
@@ -99,6 +101,7 @@ async function fetchProgramsFromDB() {
       universityId: true,
       degreeType: true,
       duration: true,
+      campusCity: true,
       minIBPoints: true,
       programUrl: true,
       fieldOfStudyId: true,
@@ -210,6 +213,7 @@ function optimizeForCache(
     },
     degreeType: p.degreeType,
     duration: p.duration,
+    campusCity: p.campusCity,
     minIBPoints: p.minIBPoints,
     programUrl: p.programUrl,
     courseRequirements: p.courseRequirements.map((cr) => ({

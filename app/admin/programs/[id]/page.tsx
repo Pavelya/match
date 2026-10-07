@@ -118,7 +118,8 @@ export default async function ProgramDetailPage({ params }: PageProps) {
                 <div>
                   <p className="font-medium text-foreground">{program.university.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {program.university.country.flagEmoji} {program.university.city},{' '}
+                    {program.university.country.flagEmoji}{' '}
+                    {program.campusCity ?? program.university.city},{' '}
                     {program.university.country.name}
                   </p>
                 </div>

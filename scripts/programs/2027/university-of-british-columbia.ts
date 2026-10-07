@@ -404,6 +404,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
+      // Campus, 7 October 2026: taught "at UBC’s Okanagan campus", in Kelowna (program page)
+      campusCity: 'Kelowna',
       minIBPoints: 37,
       programUrl: 'https://you.ubc.ca/programs/data-science/',
       requirements: [
@@ -710,6 +712,8 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '4 years',
+      // Campus, 7 October 2026: UBC’s Okanagan campus, in Kelowna (program page)
+      campusCity: 'Kelowna',
       minIBPoints: 32,
       programUrl: 'https://you.ubc.ca/programs/geography/',
       requirements: [],

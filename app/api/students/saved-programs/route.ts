@@ -52,6 +52,7 @@ export async function GET() {
             name: true,
             degreeType: true,
             duration: true,
+            campusCity: true,
             minIBPoints: true,
             university: {
               select: {
@@ -108,7 +109,7 @@ export async function GET() {
       degreeType: sp.program.degreeType,
       duration: sp.program.duration,
       minIBPoints: sp.program.minIBPoints,
-      city: sp.program.university.city,
+      city: sp.program.campusCity ?? sp.program.university.city,
       courseRequirements: sp.program.courseRequirements.map((cr) => ({
         id: cr.id,
         ibCourse: {

@@ -82,6 +82,7 @@ async function syncToAlgolia() {
         description: true,
         degreeType: true,
         duration: true,
+        campusCity: true,
         minIBPoints: true,
         createdAt: true,
         updatedAt: true,
@@ -126,7 +127,8 @@ async function syncToAlgolia() {
       universityImageUrl: program.university.image?.startsWith('http')
         ? program.university.image
         : undefined,
-      city: program.university.city ?? undefined,
+      // Where the program is taught: its campus, else the university's city.
+      city: program.campusCity ?? program.university.city,
 
       fieldOfStudyId: program.fieldOfStudy.id,
       fieldOfStudy: {
