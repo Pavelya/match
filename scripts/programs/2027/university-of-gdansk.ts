@@ -26,7 +26,7 @@ const refresh: RefreshFile = {
       name: 'Cultural Communication',
       description:
         'The Cultural Communication course, taught entirely in English, is designed for candidates with an interest in contemporary culture, literature and linguistics, who want to acquire a broad range of theoretical and practical knowledge as well as skills necessary for work in international cultural institutions and organisations.\nDrawing on the research and teaching experience of the Faculty of Languages at the University of Gdańsk, the interdisciplinary study programme explores various aspects of communication within culture, through culture and between cultures. It includes courses on audiovisual and digital culture; theatre, dance and performance; European and world literatures and their intermedial adaptations; the interrelations between culture and politics; as well as classes on linguistic analysis of discourse and social aspects of language. Taking the cue from its location in a city where for centuries the cultures of Western and Eastern Europe have met in fruitful dialogue, the programme also offers an introduction to the literature and culture of Poland and Central and Eastern Europe.',
-      field: 'Social Sciences',
+      field: 'Media',
       degree: 'Bachelor',
       duration: '3 years',
       minIBPoints: 34,

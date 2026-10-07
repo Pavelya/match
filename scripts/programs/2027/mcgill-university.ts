@@ -763,7 +763,7 @@ const refresh: RefreshFile = {
       name: 'Kinesiology',
       description:
         'About the Department of Kinesiology and Physical Education\nThe Department of Kinesiology and Physical Education offers one program leading to a B.Ed. degree in Physical and Health Education, one program leading to a B.Sc. degree in Kinesiology (Major or Honours), and a Minor in Kinesiology for Science students. For more information, please visit the undergraduate program information section.\n\nKinesiology (B.Sc.) (90 credits)\nKinesiology - Honours (B.Sc.) (90 credits)\nPhysical and Health Education (B.Ed.) (120 credits)',
-      field: 'Education',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 30,
@@ -1120,7 +1120,7 @@ const refresh: RefreshFile = {
       name: 'Software Engineering (Co-op)',
       description:
         'About Computer Science\nComputer Science covers the theory and practice behind the design and implementation of computer and information systems. Fundamental to computer science are questions about how to describe, process, manage, and analyze information and computation. A fundamental building block is the study of algorithms. An algorithm presents a detailed sequence of actions solving a particular task. A computer program is the implementation of an algorithm in a specific programming language, which enables a computer to execute the algorithm. Software generally refers to a computer program or a set of related computer programs.\n\nBased on the building blocks of computational thinking and programming, computer science is split into many different areas. Examples are:\n\nAlgorithms and data structures\nProgramming languages and methodology\nTheory of computation\nSoftware engineering (the design of large software systems)\nComputer architecture (the structure of the hardware)\nCommunication between computers\nOperating systems (the software that shields users from the underlying hardware)\nDatabase systems (software that handles large amounts of data efficiently)\nArtificial intelligence and Machine Learning (algorithms inspired by human information processing)\nComputer vision (algorithms that let computers see and recognize their environment)\nComputer graphics\nRobotics (algorithms that control robots)\nComputational biology (algorithms and methods that address problems inspired by biology)\nComputer science also plays an important role in many other fields, including biology, physics, engineering, business, music, and neuroscience, where it is necessary to process and reason about large amounts of data. Computer science is strongly related to mathematics, linguistics, and engineering.\n\nA degree in computer science offers excellent job prospects. The use of computers and specialized software plays a crucial role in business, science, and our personal life. Computer science graduates are in high demand. Computer scientists find jobs in software development, consulting, research, and project management. As computer scientists often develop the software for a specific application domain (e.g., business, engineering, medicine), they must be prepared and willing to get to know their application area.',
-      field: 'Engineering',
+      field: 'Computer Science',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
       minIBPoints: 35,

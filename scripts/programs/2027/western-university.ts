@@ -246,7 +246,7 @@ const refresh: RefreshFile = {
       name: 'Data Science',
       description:
         'Join our community of scholars in high-tech research labs. Build your own degree path with thousands of options. At Western, you are a scientist.',
-      field: 'Natural Sciences',
+      field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 27,
@@ -327,7 +327,7 @@ const refresh: RefreshFile = {
       name: 'Economics',
       description:
         'Analysis, perspective, insights. Social sciences take you to heady places. At Western, you dig into what the ideas mean for real people and organizations.',
-      field: 'Social Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 27,
@@ -1011,7 +1011,7 @@ const refresh: RefreshFile = {
       name: 'Statistical & Actuarial Sciences',
       description:
         'Join our community of scholars in high-tech research labs. Build your own degree path with thousands of options. At Western, you are a scientist.',
-      field: 'Natural Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 27,

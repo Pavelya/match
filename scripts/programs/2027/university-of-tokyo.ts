@@ -29,7 +29,7 @@ const refresh: RefreshFile = {
       name: 'College of Design',
       description:
         "The UTokyo College of Design is a new faculty of the University of Tokyo, opening in September 2027, with a five-year combined bachelor's and master's programme taught entirely in English. Students bring together knowledge from many fields and integrate it through design approaches to tackle complex social issues, building their own learning pathways across conventional disciplines, and gain practical experience through long-term internships in Japan or abroad. All first-year students live in university housing.\n\nThe college admits 100 students a year, from Japan and around the world: 50 through Japan's Common Test (Route A) and 50 through international qualifications such as the IB (Route B), selected on transcripts, test results, essays, a video, an evaluation and an online interview.\n\nHow competitive: for this first intake, the college expects IB applicants to have 38 of the 42 subject points and at least 2 points for Theory of Knowledge and the Extended Essay, 40 in all. This is not a cut-off: admission is holistic, and Route B has 50 places for applicants from across the world.",
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: "Integrated Bachelor's and Master's",
       duration: '5 years',
       minIBPoints: 24,

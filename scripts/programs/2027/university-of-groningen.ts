@@ -68,7 +68,7 @@ const refresh: RefreshFile = {
       name: 'Applied Physics',
       description:
         "How can physics help in designing innovative technical solutions? How can you apply scientific knowledge to develop new materials and technologies? If you are curious about applying fundamental science to practical challenges, then the Bachelor's programme Applied Physics at the University of Groningen might be for you.",
-      field: 'Engineering',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,
@@ -294,7 +294,7 @@ const refresh: RefreshFile = {
       name: 'Communication and Information Studies',
       description:
         'In Communication and Information Studies (CIS) you learn to recognize where communication succeeds or fails, design and implement interventions for improving communication, and measure the success of these interventions. CIS focuses on communication from a language perspective in the broadest sense: text, spoken language, gestures, images, digital media and, more recently, generative artificial intelligence.',
-      field: 'Social Sciences',
+      field: 'Media',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 24,
@@ -649,7 +649,7 @@ const refresh: RefreshFile = {
       name: 'International Relations and International Organization',
       description:
         'Can the EU survive the rise of euroscepticism and populism? Why does international cooperation on global environmental issues prove so difficult? IRIO in Groningen is a multidisciplinary, English-taught programme in which you study political issues at an international level. You look at the place of politics, history, economics and law in international relations, as well as the role of international organizations. Note: IRIO is a numerus fixus programme, with only 300 students admitted per year.',
-      field: 'Arts & Humanities',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 24,
@@ -671,7 +671,7 @@ const refresh: RefreshFile = {
       name: 'Liberal Arts and Sciences',
       description:
         "At University College Groningen (UCG), we believe education should be more than just acquiring knowledge—it should be a journey of discovery. Our Liberal Arts and Sciences programme is designed for curious, ambitious students who want to explore multiple disciplines, think critically, and tackle the world's most pressing challenges. UCG offers a small-scale, interactive learning environment where you are encouraged to think beyond traditional academic boundaries. Our flexible and interdisciplinary curriculum allows you to explore a wide range of subjects while specialising in a major of your choice: Humanities, Sciences, or Social Sciences.",
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

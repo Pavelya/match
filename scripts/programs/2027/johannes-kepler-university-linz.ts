@@ -123,7 +123,7 @@ const refresh: RefreshFile = {
       name: 'Chemistry and Chemical Technology',
       description:
         "Chemistry and Chemical Technology (CCT) Bachelor's Degree Program\n\nSustainable materials, clean energy, new drugs. The Bachelor's degree program in Chemistry and Chemical Technology introduces you to molecules, innovative technologies, and chemical processes that are transforming our world.",
-      field: 'Engineering',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

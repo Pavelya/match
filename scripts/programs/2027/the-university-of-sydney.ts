@@ -94,7 +94,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Agricultural Science',
       description:
         "Solve the biggest problems facing our world with agricultural sciences. Australia's first university for agricultural science.",
-      field: 'Natural Sciences',
+      field: 'Environmental Studies',
       degree: 'Bachelor of Agricultural Science',
       duration: '3 years',
       minIBPoints: 26,
@@ -116,7 +116,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Animal and Veterinary Bioscience',
       description:
         'Broad overview of domestic animals and wildlife species. Study animal behaviour, biotechnologies, and nutrition.',
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Animal and Veterinary Bioscience',
       duration: '3 years',
       minIBPoints: 29,
@@ -600,7 +600,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Media and Communications',
       description:
         'Make your mark in media, launch your career. Gain essential skills in media production.',
-      field: 'Arts & Humanities',
+      field: 'Media',
       degree: 'Bachelor of Media and Communications',
       duration: '3 years',
       minIBPoints: 34,

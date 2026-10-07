@@ -56,7 +56,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Arts and Bachelor of Education in Language Education - English',
       description:
         'Jointly offered by the Faculty of Arts and the Faculty of Education, this programme enables students to earn both a BA in English language and linguistics and a BEd in English language education over five years of study. Following graduation, you will meet the requirements for English language teachers in both primary and secondary schools as recommended by the HKSAR government. The curriculum integrates academic and professional studies in language education including pedagogical, psychological and sociological underpinnings of professional practice, with teaching experience in local schools. The programme is equivalent to a BA plus a Postgraduate Diploma in Education – a professional teaching qualification recognised locally.',
-      field: 'Arts & Humanities',
+      field: 'Education',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
       minIBPoints: 34,
@@ -361,7 +361,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Arts in Urban Studies',
       description:
         'This programme is a full-time four-year undergraduate programme designed to prepare students for careers in urban planning, urban design, and related fields. The programme provides a comprehensive understanding of urban issues, including urban development, housing, transportation, and environmental sustainability.',
-      field: 'Architecture',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 34,
@@ -618,7 +618,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Education and Bachelor of Science',
       description:
         'Jointly offered by the Faculty of Education and the Faculty of Science, this five-year degree integrates academic and professional studies in science education. The interdisciplinary programme will equip you to teach science subjects across primary and secondary schools in Hong Kong. You will complete a science major through the Faculty of Science plus core courses in professional education through the Faculty of Education. A choice of seven science majors includes biochemistry, biological sciences, chemistry, ecology and biodiversity, food and nutritional science, molecular biology and biotechnology, and physics. Graduates will earn a BSc and a BEd in Science Education. The programme is equivalent to a BSc plus a Postgraduate Diploma in Education – a professional teaching qualification recognised locally.',
-      field: 'Natural Sciences',
+      field: 'Education',
       degree: "Double Bachelor's Degree",
       duration: '5 years',
       minIBPoints: 34,
@@ -651,7 +651,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Education in Early Childhood Education and Special Education',
       description:
         "Learn to teach children from birth to six in kindergartens, child care centres, and special child care centres. The five-year programme will equip you with the knowledge, skills, and attitude to work with young children and their families. The curriculum fully integrates early childhood and inclusive education to prepare you to effectively recognise and acknowledge children's diverse needs and support both typical and atypical development. Following graduation, you can apply for registration as a qualified kindergarten teacher, a child care worker and supervisor under the Child Care Services Regulations. You will be considered as having acquired training on the One-year In-service Course in Special Child Care Work recognised by the Social Welfare Department, and to have met the academic qualifications required as a kindergarten principal.",
-      field: 'Social Sciences',
+      field: 'Education',
       degree: 'Bachelor of Education',
       duration: '5 years',
       minIBPoints: 34,
@@ -1002,7 +1002,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Journalism, Media and Artificial Intelligence',
       description:
         'This programme combines journalism, media studies, and artificial intelligence. Students will learn about the role of AI in modern media, digital storytelling, and the ethics of AI in journalism. An internship is required. Double major options are available. The programme prepares students for careers in journalism, media production, public relations, and digital content creation.',
-      field: 'Social Sciences',
+      field: 'Media',
       degree: 'Bachelor',
       duration: '4 years',
       minIBPoints: 34,

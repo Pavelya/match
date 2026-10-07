@@ -909,7 +909,7 @@ const refresh: RefreshFile = {
       name: 'European Studies',
       description:
         'European Studies is a broad-ranging and integrated programme that offers students the chance to learn European languages, and also to study history and social sciences. This programme encourages students to think about our continent in all its complexity, and to analyse Europe’s cultures, history, and politics.',
-      field: 'Arts & Humanities',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 35,

@@ -1,4 +1,5 @@
 import { isDegreeType, type DegreeType } from '@/lib/programs/degree-types'
+import { KEPT, homeOf } from '@/lib/programs/fields-of-study'
 import {
   defOptions,
   diffProgram,
@@ -96,6 +97,18 @@ export interface ProgramWrite {
   stamps: Stamps
 }
 
+/**
+ * A program whose field of study changes and nothing else (content 8.1). The field is how a
+ * program is filed, not a claim about its requirements, so a re-filed program needs no check
+ * and keeps its stamps.
+ */
+export interface ProgramRefile {
+  id: string
+  name: string
+  from: string
+  to: string
+}
+
 export interface ProgramCreate {
   name: string
   target: RefreshState
@@ -107,6 +120,8 @@ export interface RefreshPlan {
   warnings: string[]
   /** Existing programs to write: changed, or only re-stamped. */
   writes: ProgramWrite[]
+  /** Existing programs whose field alone changes: only the field is written. */
+  refiles: ProgramRefile[]
   creates: ProgramCreate[]
   upToDate: string[]
   /** `current` programs left at `checkedFor: null`. */
@@ -270,6 +285,7 @@ export function planRefresh(
     errors: [],
     warnings: [],
     writes: [],
+    refiles: [],
     creates: [],
     upToDate: [],
     unchecked: [],
@@ -351,6 +367,15 @@ export function planRefresh(
     for (const problem of problems) error(`${label}: ${problem}`)
     if (problems.length > 0) return
 
+    // Content 8.1: one home per discipline. A warning, because the rule reads names, not pages.
+    const home = (p.id && KEPT[p.id]?.field) || homeOf(p.name)?.field
+    if (home && home !== p.field) {
+      plan.warnings.push(
+        `${label}: filed under ${p.field}, but the fields-of-study rule ` +
+          `(lib/programs/fields-of-study.ts) files it under ${home}`
+      )
+    }
+
     const target = stateFromProgram(p)
     const stamps: Stamps | null =
       p.checkedFor === null || !checkedOn
@@ -391,11 +416,14 @@ export function planRefresh(
       finalNames.set(p.id!, p.name)
       renamed.push(p.id!)
     }
+    const refile = { id: p.id!, name: p.name, from: now.state.field, to: target.field }
     if (!stamps) {
       // Export writes the canonical degree for a stored variant spelling; that alone is no edit.
+      // A new field alone is no claim about requirements either: it is re-filed, unstamped.
       const current = {
         ...now.state,
-        degreeType: lookups.canonicalDegree(now.state.degreeType) ?? now.state.degreeType
+        degreeType: lookups.canonicalDegree(now.state.degreeType) ?? now.state.degreeType,
+        field: target.field
       }
       const edits = diffState(current, target)
       if (edits.length > 0) {
@@ -405,7 +433,8 @@ export function planRefresh(
         )
         return
       }
-      plan.unchecked.push(p.name)
+      if (refile.from !== refile.to) plan.refiles.push(refile)
+      else plan.unchecked.push(p.name)
       return
     }
 
@@ -413,6 +442,14 @@ export function planRefresh(
     const stampChanges = diffStamps(now.stamps, stamps)
     if (changes.length === 0 && stampChanges.length === 0) {
       plan.upToDate.push(p.name)
+      return
+    }
+    if (
+      stampChanges.length === 0 &&
+      refile.from !== refile.to &&
+      diffState({ ...now.state, field: target.field }, target).length === 0
+    ) {
+      plan.refiles.push(refile)
       return
     }
     plan.writes.push({

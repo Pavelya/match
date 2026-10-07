@@ -180,7 +180,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Science in Business Analytics',
       description:
         'The Business Analytics programme trains students in the application of data science and analytical techniques to business problems. Students learn statistics, machine learning, optimization, and how to derive actionable insights from data. The programme bridges computing and business, preparing graduates for careers in data analytics, business intelligence, and consulting.',
-      field: 'Computer Science',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 40,
@@ -418,7 +418,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Engineering in Environmental and Sustainability Engineering',
       description:
         'Environmental Engineering applies engineering principles to protect and improve the environment. Students learn about water treatment, air quality, waste management, and sustainable development. The programme prepares graduates for careers in environmental consulting, sustainability, and public health.',
-      field: 'Environmental Studies',
+      field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
       minIBPoints: 38,

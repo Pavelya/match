@@ -150,7 +150,7 @@ const refresh: RefreshFile = {
       name: 'Entrepreneurship and Computer Science (double major)',
       description:
         'This English-taught double major at Reichman awards a BA in Entrepreneurship and a BSc in Computer Science. Students build real ventures from idea to working prototype with mentors from industry, while mastering mathematics, algorithms, data structures, complexity theory, machine learning and software development, and business courses in financial management, marketing and the legal side of new ventures.\n\nAdmitted students take a mathematics refresher and a preparatory mathematics course before the first year.',
-      field: 'Computer Science',
+      field: 'Business & Economics',
       degree: "Double Bachelor's Degree",
       duration: '3 years',
       minIBPoints: 24,
@@ -187,7 +187,7 @@ const refresh: RefreshFile = {
       name: 'Entrepreneurship and Sustainability (ClimateTech) (double major)',
       description:
         'This new English-taught double major at Reichman, opening in 2027-28, prepares students to work where AI, energy infrastructure and climate technology meet, and to lead ventures that combine commercial opportunity with environmental impact. Students learn systems thinking and data literacy, green finance and ESG, regulation and technology-driven innovation, through courses on sustainability sectors, venture development and applied projects in renewable energy, the circular economy and climate finance.',
-      field: 'Environmental Studies',
+      field: 'Business & Economics',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 24,

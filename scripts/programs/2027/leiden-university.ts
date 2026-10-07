@@ -203,7 +203,7 @@ const refresh: RefreshFile = {
       name: 'International Studies',
       description:
         'The International Studies programme will provide you with the tools to study regional topics, developments and phenomena from a humanities perspective and put them in a global context. You will acquire in-depth knowledge of one of eight world regions and learn one of the key languages. Our multifaceted approach will allow you to interpret and analyse the world from a humanities perspective. In order to be able to do this, you will explore the historical and cultural background of the region of your choice, as well as its political and economic developments.',
-      field: 'Arts & Humanities',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 24,
@@ -271,7 +271,7 @@ const refresh: RefreshFile = {
       name: 'LUC: Culture, History and Society',
       description:
         'The Culture, History and Society (CHS) Major at Leiden University College The Hague combines conceptual and methodological insights from the social sciences (anthropology, geography and sociology) and humanities (art history, cultural studies, history and literature). Our aim is to appreciate, examine and understand the density of social life in its cultural, historical, moral and political manifestations. We explore ideas central to modern cities, migration, gender, race, coloniality, heritage, inequality and power by looking both at dynamics in social relations and the relations between humans and the environment.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 35,
@@ -295,7 +295,7 @@ const refresh: RefreshFile = {
       name: 'LUC: Earth, Energy and Sustainability',
       description:
         'The Earth, Energy and Sustainability (EES) Major operates at the forefront of environmental sciences, with a balance between understanding key concepts within a classroom setting, and applying the gained knowledge in real-life situations, both in the field and in the laboratory. What are some of the key environmental challenges related to population growth now, and in the future? What can you do to make a real change in this world? At LUC we emphasize that sustainability ultimately exists within a human context, with many crosslinks to the social sciences.',
-      field: 'Environmental Studies',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 35,
@@ -320,7 +320,7 @@ const refresh: RefreshFile = {
       name: 'LUC: Governance, Economics and Development',
       description:
         'Inequality and difference in the prosperity within and across societies concerns us. However, people seldom consider the fact that most inequality is result of human choices: over time, different societies organize themselves in different ways, these differences may affect the quality of peoples lives. This Major Governance, Economics and Development is designed to give students the tools to better understand these processes and identify how tools of governance can be used to enhance or impair development and prosperity by integrating insights from Anthropology, Data Science, Development Studies, Economics, Political Science, and Public Policy.',
-      field: 'Business & Economics',
+      field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 35,

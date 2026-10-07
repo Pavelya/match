@@ -143,7 +143,7 @@ const refresh: RefreshFile = {
       name: 'Economics, Politics and Social Sciences',
       description:
         'The programme offers a multidisciplinary approach to contemporary problems through economic, political, legal and managerial studies. It provides sound quantitative training enabling you to interpret economic, political and social phenomena. You can graduate either in economics or in politics.',
-      field: 'Social Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor',
       duration: '3 years',
       minIBPoints: 24,

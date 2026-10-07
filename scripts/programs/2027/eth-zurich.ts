@@ -387,7 +387,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor Earth and Climate Sciences',
       description:
         "Earth scientists make a vital contribution to the exploration of all parts of planet Earth. They study the Earth's materials from the atomic to the planetary scale and try to understand the evolution of the planet in the past as well as its present and future development. Their work is practice-based: searching for water, mineral resources and energy sources; predicting and controlling natural disasters; solving hydrogeological problems in major technical projects; developing long-term solutions for the disposal of all types of waste; understanding the causes and consequences of climatic and other environmental change.",
-      field: 'Environmental Studies',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,

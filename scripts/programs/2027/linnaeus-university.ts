@@ -59,7 +59,7 @@ const refresh: RefreshFile = {
       name: 'Design + Change',
       description:
         'Do you want to use design and its tools and methods to make a difference in the world? Then this is the right degree for you. The most important challenge of today and in the future concerns sustainability – to create a world that is good for both people and the planet, locally and globally. The bachelor’s programme in Design +Change combines design creativity with knowledge of sustainability for a profession at the cutting edge of design.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Fine Arts',
       duration: '3 years',
       minIBPoints: 24,
@@ -294,7 +294,7 @@ const refresh: RefreshFile = {
       name: 'Visual Communication +Change',
       description:
         'Do you want to use visual communication to make a difference in the world? Then this is the right degree for you. The programme combines creative practices, visual art, and graphic design with knowledge of sustainability to prepare you for a profession as a visual communicator with a diverse set of graphic and conceptual tools.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Fine Arts',
       duration: '3 years',
       minIBPoints: 24,

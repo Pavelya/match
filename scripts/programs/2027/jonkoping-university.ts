@@ -128,7 +128,7 @@ const refresh: RefreshFile = {
       name: 'Graphic Design and Web Development',
       description:
         'Want to shape the new media landscape? This programme combines graphic design, programming and web design with marketing communication and User Experience Design. The programme gives you a broad understanding and all the prerequisites to find your place in the digital world.',
-      field: 'Computer Science',
+      field: 'Architecture',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

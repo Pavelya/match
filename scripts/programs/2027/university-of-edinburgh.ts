@@ -753,7 +753,7 @@ const refresh: RefreshFile = {
       name: 'Graphic Design BA (Hons)',
       description:
         'Balance project guidelines with personal expression through traditional and contemporary technologies. Bold, lateral thinking with understanding of process, technique and business.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 34,
@@ -830,7 +830,7 @@ const refresh: RefreshFile = {
       name: 'Interior Design BA (Hons)',
       description:
         'Interior Design practice involves the reuse of existing buildings and places to reinvent them for new activities, ensuring human occupation, inclusivity, accessibility, and reduced environmental impact.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 34,
@@ -879,7 +879,7 @@ const refresh: RefreshFile = {
       name: 'Landscape Architecture MA (Hons)',
       description:
         'Throughout MA Landscape Architecture you will develop an understanding of materials and technology, alongside cultural and ecological processes, enabling you to design sustainable environments fit for the locations they inhabit.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '5 years',
       minIBPoints: 34,
@@ -1203,7 +1203,7 @@ const refresh: RefreshFile = {
       name: 'Philosophy and Psychology MA (Hons)',
       description:
         'Philosophy gives you the skills to think about great philosophical questions in a clear and systematic way. Psychology is an experimental and observational science that studies how we perceive, think and learn about the world around us.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
       minIBPoints: 34,
@@ -1277,7 +1277,7 @@ const refresh: RefreshFile = {
       name: 'Product Design BA (Hons)',
       description:
         "Understand people and society by questioning and reflecting on design's role in existing and emerging systems. Develop diverse skill sets building on traditional methods and exploring those at the forefront of the discipline.",
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 34,
@@ -1401,7 +1401,7 @@ const refresh: RefreshFile = {
       name: 'Reproductive Biology BSc (Hons)',
       description:
         'Reproductive biology aims to understand the scientific principles that govern reproduction in humans and other mammals.',
-      field: 'Medicine & Health',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,

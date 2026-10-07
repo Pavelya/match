@@ -72,7 +72,7 @@ const refresh: RefreshFile = {
       name: 'Biomedical Sciences',
       description:
         "The bachelor's degree in Biomedical Sciences integrates transversal knowledge from genetics, biochemistry, microbiology, physiology, cell biology and statistics, among others, to offer a global vision of the causes of pathology and the tools available for studying, diagnosing and treating it. This bachelor's degree addresses various aspects of clinical disorders from the molecular, cellular and physiological scale to their distribution in human populations to prepare professionals capable of working in different fields: Biomedical Research, Diagnosis Laboratories, Pharmaceutical Industry, and Public Health Institutes.",
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 40,
@@ -164,7 +164,7 @@ const refresh: RefreshFile = {
       name: 'Communication and Cultural Industries',
       description:
         'Provide an interdisciplinary education in the social sciences, arts, humanities, and communication technologies. Foster a critical, analytical, and reflective capacity regarding the communicative phenomenon, coupled with a humanistic, artistic, and technical understanding of the forms, processes, and trends in the different types of communication (oral, written, visual, audiovisual, and multimedia). Facilitate a basic and comprehensive understanding of the main events and messages that shape the current communicative and cultural landscape.',
-      field: 'Social Sciences',
+      field: 'Media',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,

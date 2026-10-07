@@ -48,7 +48,7 @@ const refresh: RefreshFile = {
       name: 'Economics',
       description:
         'The BSc in Economics is a program focused on economics with a solid quantitative foundation and a rich interdisciplinary nature. It prepares students to understand economic and social phenomena using mathematical models and statistical techniques, combining statistics, mathematics, machine learning, econometrics and micro- and macroeconomics. From the second semester of the second year students choose one of two tracks: Economic Sciences, or Economic and Data Sciences. The program is offered entirely in English.',
-      field: 'Social Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,
@@ -93,7 +93,7 @@ const refresh: RefreshFile = {
       name: 'Management and Computer Science',
       description:
         'The BSc in Management and Computer Science develops mathematical, statistical and computational skills to train managers able to leverage the strategic role of data analysis. Students learn to acquire, organize, analyze and interpret data in support of economic, managerial and financial decision-making in any sector, covering mathematical and statistical structures, machine learning, computing, legal frameworks and economic thinking. The program is offered entirely in English.',
-      field: 'Computer Science',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

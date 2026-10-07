@@ -70,7 +70,7 @@ const refresh: RefreshFile = {
       name: 'History and Area Studies',
       description:
         'Are you looking for a BA program with an added value? This program will give you not only expertise in modern history, culture and politics of Central Europe but also knowledge of Czech language. It will teach you how to grasp regional problems in their context. You will understand the historical and cultural underpinnings of Central Europe. You can become a highly skilled employee in the civil service or diplomacy, in NGOs or international institutions as well as in private companies or media. \n\nHistory and Area Studies is an interdisciplinary study program that focuses on modern history, culture and politics with respect to the Czech Republic in Central European and global context. This program combines education in history and area studies with active training in the Czech language, ensuring you achieve fluency, cultural competence, historical knowledge, and social understanding of Central Europe.\n\nThe curriculum focuses both on education in modern history and area studies, and on Czech language education. The Czech language courses progress from the basic grammar and vocabulary to the advanced level of Czech that you will be able to reach by the end of your studies. Modern history and area studies mandatory courses will give you a broad overview of major topics in contemporary Central European history, culture, politics, and economics. You will then have a solid background for more in-depth study of selected topics in the elective courses where you can discuss the topics in Czech thanks to the rising language knowledge and skills.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor',
       duration: '3 years',
       minIBPoints: 24,
@@ -108,7 +108,7 @@ const refresh: RefreshFile = {
       name: 'Politics, Philosophy and Economics',
       description:
         'If you are interested in politics, philosophy and economics and wish to get a thorough grounding in these three disciplines, this Oxford-style PPE program is the right choice. You will learn to analyse complex social, political and economic problems. You can pursue a career in politics, banking and finance, business management, journalism, education, public services, diplomacy and government.\n\nModeled on the Oxford PPE, this program lets you explore foundations of domestic and international politics and economics,all underpinned by philosophical rigour. Courses are designed to foster critical thinking about social developments in the world and sensitivity to ethical challenges in political decision-making in the environment marked by cultural diversity and economic inequality.\n\nYou will learn to analyse complex social, political and economic problems in an interdisciplinary manner and solve them from complementary perspectives. Since all compulsory courses have to be taken during the first three semesters of the program, from the fourth semester onwards you can choose one of three available study tracks: Politics & Philosophy, Economics & Politics or Philosophy & Economics.',
-      field: 'Business & Economics',
+      field: 'Social Sciences',
       degree: 'Bachelor',
       duration: '3 years',
       minIBPoints: 24,

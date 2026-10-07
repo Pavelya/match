@@ -218,7 +218,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor Life Sciences Engineering',
       description:
         "The Bachelor's studies strongly emphasize mathematics and physics, since these two subjects account for almost half of the classes taken during the first and second year. Computer science also has a prominent place. There are also classes in molecular and cellular biology, as well as chemistry. During the third year, the curriculum offers units in engineering, with classes in electronics for example, and in biosciences, in which a deeper knowledge is gained of subjects such as systems physiology. The students can also choose options like genetics, developmental biology, as well as artificial intelligence or structural mechanics.",
-      field: 'Medicine & Health',
+      field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,

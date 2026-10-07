@@ -274,7 +274,7 @@ const refresh: RefreshFile = {
       name: 'European Studies',
       description:
         "With one glance at the news, you know that Europe's place in the world, and Europeans' identities, are undergoing rapid developments. In this Bachelor's you will learn to see how the borders, languages, institutions, traditions and populations of Europe have always been ambiguous, and are constantly changing – including now, as new challenges reopen old discussions on power, representation, and equality. Explore these dynamics through an interdisciplinary lens and learn about culture, history, economics, politics, law and international relations.",
-      field: 'Arts & Humanities',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 24,
@@ -320,7 +320,7 @@ const refresh: RefreshFile = {
       name: 'Global Communication Science',
       description:
         'Media and digital technologies connect people worldwide, making communication a more powerful tool than ever. Companies like Google, TikTok, and X influence what we see, hear and believe, but what goes viral in one country may be banned elsewhere. In this programme, you will explore the effect of media across cultures globally. Study with students from different countries and prepare for an exciting career in an international environment.',
-      field: 'Social Sciences',
+      field: 'Media',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,
