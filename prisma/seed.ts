@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma-standalone'
+import { FIELD_DESCRIPTIONS, type FieldName } from '@/lib/programs/fields-of-study'
 
 async function main() {
   console.log('Seeding IB courses...')
@@ -92,68 +93,22 @@ async function main() {
   }
 
   console.log('Seeding fields of study...')
-  const fields = [
-    {
-      name: 'Business & Economics',
-      iconName: '💼',
-      description: 'Finance, Marketing, International Business, Entrepreneurship'
-    },
-    {
-      name: 'Engineering',
-      iconName: '⚙️',
-      description: 'Mechanical, Electrical, Computer Science, Civil Engineering'
-    },
-    {
-      name: 'Medicine & Health',
-      iconName: '🏥',
-      description: 'Medicine, Nursing, Pharmacy, Public Health, Dentistry'
-    },
-    {
-      name: 'Computer Science',
-      iconName: '💻',
-      description: 'Programming, AI, Data Science, Cybersecurity'
-    },
-    {
-      name: 'Law',
-      iconName: '⚖️',
-      description: 'International Law, Corporate Law, Criminal Justice'
-    },
-    {
-      name: 'Arts & Humanities',
-      iconName: '🎨',
-      description: 'Fine Arts, Literature, History, Philosophy, Languages'
-    },
-    {
-      name: 'Natural Sciences',
-      iconName: '🔬',
-      description: 'Biology, Chemistry, Physics, Mathematics, Environmental Science'
-    },
-    {
-      name: 'Social Sciences',
-      iconName: '👥',
-      description: 'Psychology, Sociology, Political Science, Economics'
-    },
-    {
-      name: 'Architecture',
-      iconName: '🏛️',
-      description: 'Architecture, Urban Planning, Interior Design, Landscape'
-    },
-    {
-      name: 'Environmental Studies',
-      iconName: '🌱',
-      description: 'Sustainability, Climate Science, Conservation, Renewable Energy'
-    },
-    {
-      name: 'Education',
-      iconName: '📚',
-      description: 'Teaching, Educational Psychology'
-    },
-    {
-      name: 'Media',
-      iconName: '📺',
-      description: 'Journalism, Digital Media, Film Production'
-    }
+  // Descriptions come from the fields-of-study rule (content 8.1), so a re-seed keeps them.
+  const icons: Array<{ name: FieldName; iconName: string }> = [
+    { name: 'Business & Economics', iconName: '💼' },
+    { name: 'Engineering', iconName: '⚙️' },
+    { name: 'Medicine & Health', iconName: '🏥' },
+    { name: 'Computer Science', iconName: '💻' },
+    { name: 'Law', iconName: '⚖️' },
+    { name: 'Arts & Humanities', iconName: '🎨' },
+    { name: 'Natural Sciences', iconName: '🔬' },
+    { name: 'Social Sciences', iconName: '👥' },
+    { name: 'Architecture', iconName: '🏛️' },
+    { name: 'Environmental Studies', iconName: '🌱' },
+    { name: 'Education', iconName: '📚' },
+    { name: 'Media', iconName: '📺' }
   ]
+  const fields = icons.map((field) => ({ ...field, description: FIELD_DESCRIPTIONS[field.name] }))
 
   for (const field of fields) {
     await prisma.fieldOfStudy.upsert({

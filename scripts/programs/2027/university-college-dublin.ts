@@ -26,7 +26,7 @@ const refresh: RefreshFile = {
       name: 'Actuarial & Financial Studies (BSc)',
       description:
         'If you enjoy studying Higher Level Mathematics for the Leaving Certificate or at A-Level and you have strong analytical and problem-solving skills, Actuarial & Financial Studies could be for you. An actuary is a professional who uses numbers to make judgements about the future. This course will prepare you for a professional career in the actuarial or financial professions, but it has also been designed to be broader and more diverse than most traditional courses in actuarial science.',
-      field: 'Natural Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor',
       duration: '4 years',
       minIBPoints: 42,
@@ -274,7 +274,7 @@ const refresh: RefreshFile = {
       name: 'Business & Law (BBL)',
       description:
         "The Business & Law (BBL) degree is a popular choice for many students and is extremely well regarded by employers across the legal and financial communities. The degree is a 'double major' which means it combines law and business in a single degree, providing an ideal skill-set for the commercial world and offering valuable career flexibility. If you choose this degree, you will undertake business and law modules in equal measure for your first three years in both the UCD Sutherland School of Law and the UCD Quinn School of Business. This allows you to gain a deep understanding of both disciplines while offering you the opportunity to choose in final year which area interests you most for your career progression.",
-      field: 'Law',
+      field: 'Business & Economics',
       degree: 'Bachelor of Business and Law',
       duration: '4 years',
       minIBPoints: 33,
@@ -484,7 +484,7 @@ const refresh: RefreshFile = {
       name: 'Economics (BSc)',
       description:
         "Economics explores how and why people make decisions and choose between alternative ways of spending their money and using their time, energy and skills. That is why Economics can help to shed light on decision-making in areas from love and marriage, to sports and crime. If you are interested in people's behaviour and in current affairs, and if you enjoy problem-solving and are naturally analytical with good numeracy skills, then Economics will appeal to you.",
-      field: 'Social Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 29,

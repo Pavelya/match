@@ -79,7 +79,7 @@ const refresh: RefreshFile = {
       name: 'Architecture Studies',
       description:
         'The Daniels Faculty of Architecture, Landscape, and Design offers a Bachelor of Arts in Architectural Studies that provides a foundation in architectural history, theory, and design thinking. Students explore the built environment through courses in design studios, architectural history, urban studies, and sustainability. The program prepares students for graduate studies in architecture, urban planning, landscape architecture, or related fields, as well as careers in design, heritage conservation, and the cultural sectors.',
-      field: 'Arts & Humanities',
+      field: 'Architecture',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 33,
@@ -684,7 +684,7 @@ const refresh: RefreshFile = {
       name: 'Immunology',
       description:
         "Immunology is an integrative branch of the medical sciences that draws upon the more traditional disciplines of Molecular Biology, Microbiology, Pathology, and Biochemistry. In essence, Immunology is the study of the physiological responses that result when foreign (i.e., non-self) materials are introduced into a vertebrate organism such as humans. Traditionally, the discipline has focused on the body's response to infectious micro-organisms, with the purpose of developing effective vaccines. However, the scope of modern Immunology now encompasses all aspects of self vs. non-self recognition phenomena including organ transplantation, tumour immunology and autoimmune diseases. Recent major advances in our understanding of the cellular and molecular basis of the immune response promise to provide us with a new generation of prophylactic, therapeutic and diagnostic reagents of relevance to human and animal health.",
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
@@ -973,7 +973,7 @@ const refresh: RefreshFile = {
       name: 'Neuroscience',
       description:
         'Neuroscience is the study of the nervous system, including the brain and spinal cord. The program integrates knowledge from biology, psychology, chemistry, and physics to understand how the brain works. Students learn about neural development, sensory and motor systems, cognition, and neurological disorders. The program prepares students for careers in research, healthcare, pharmaceuticals, and graduate studies in neuroscience, medicine, or related fields.',
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,

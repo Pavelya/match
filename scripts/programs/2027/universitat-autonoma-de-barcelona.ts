@@ -50,7 +50,7 @@ const refresh: RefreshFile = {
       name: 'Bioinformatics',
       description:
         "Researchers and professionals in the field of biomedicine and other areas of life sciences often find themselves with an overload of data proceeding from a variety of different devices. The capacity to process, visualise and analyse this large amount of data offers unique opportunities to improve our knowledge of biology and to continue to advance in the fields of medicine, agriculture, and the food industry.\n\nThe main challenge faced by professionals in this field is to convert all these new discoveries into improvements in health, more efficient healthcare and a greater economic and social progress for society.\n\nThe bachelor's degree in Bioinformatics combines skills in mathematics, computational modelling and biology with an interdisciplinary approach and special attention to biomedical applications. You will receive an integrated training based on knowledge, values and skills.\n\nAs a student of this degree, you must have a solid foundation in science, good logical thinking skills, ability to apply abstract models and be good at observing, paying attention and concentrating. You must also be creative, imaginative and have an interest in the life sciences and medicine.",
-      field: 'Natural Sciences',
+      field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 36,
@@ -98,7 +98,7 @@ const refresh: RefreshFile = {
       name: 'Contemporary History, Politics and Economics',
       description:
         "This bachelor's degree is taught in a balanced way between the faculties of Arts & Humanities, Political Science and Sociology, and Economics and Business Studies. The interdisciplinarity and transversality of the contents are the main values of a degree that aims to prepare versatile people, with a great capacity for analysis and with a global and multifaceted vision of the socio-political and economic problems of the contemporary world. The degree provides graduates with the skills and knowledge needed to analyse and propose solutions to political issues and their economic consequences in a given historical setting.\n\nThis bachelor's degree is for you if...\n- You believe that the complex problems of today's world need professionals capable of conducting multidisciplinary analyses.\n- You feel passionate about current events and would like to see in the media more comprehensive visions based on historical, economic, political and social knowledge.\n- You think that a multidisciplinary perspective helps to face the challenges of today's society and to propose solutions.\n- You have a discursive spirit; you like to argue, discuss, and defend your opinions, and you have no trouble accepting opposing analyzes.\n- You are a thoughtful, critical and analytical person.\n- You have a knowledge of English that allows you to take 80% of the subjects in this language.\n- You are thinking of a degree that will allow you international mobility.",
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 32,

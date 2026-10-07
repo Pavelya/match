@@ -414,7 +414,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'BAEcon Data Science and Economics',
       description: 'Combine data science skills with economic analysis.',
-      field: 'Business & Economics',
+      field: 'Computer Science',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 36,
@@ -829,7 +829,7 @@ const refresh: RefreshFile = {
       name: 'BSc Cognitive Neuroscience and Psychology',
       description:
         'Combine psychology with neuroscience to understand the biological basis of behaviour and cognition.',
-      field: 'Social Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 35,
@@ -930,7 +930,7 @@ const refresh: RefreshFile = {
       name: 'BSc Education',
       description:
         'Study the theory and practice of education, preparing for careers in teaching, educational policy, and research.',
-      field: 'Social Sciences',
+      field: 'Education',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 34,

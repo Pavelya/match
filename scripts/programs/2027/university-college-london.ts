@@ -409,7 +409,7 @@ const refresh: RefreshFile = {
       name: 'BSc Information Management for Business',
       description:
         "Developed in close collaboration with some of the UK's best-known companies, this pioneering Information Management for Business BSc offers a unique balance of IT, management and business skills to ensure that our graduates have the expertise to succeed in the industries of the future.",
-      field: 'Computer Science',
+      field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,

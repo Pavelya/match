@@ -143,6 +143,69 @@ describe('planRefresh', () => {
     ])
   })
 
+  it('re-files an unchecked program whose field alone changed, and writes nothing else', () => {
+    const plan = planRefresh(
+      withProgram([stored()], { field: 'Engineering' }),
+      [stored()],
+      lookups,
+      TODAY
+    )
+    expect(plan.errors).toEqual([])
+    expect(plan.refiles).toEqual([
+      { id: 'p1', name: 'Physics', from: 'Sciences', to: 'Engineering' }
+    ])
+    expect(plan.writes).toEqual([])
+    expect(plan.unchecked).toEqual([])
+  })
+
+  it('still refuses a re-filed unchecked program with any other edit', () => {
+    const plan = planRefresh(
+      withProgram([stored()], { field: 'Engineering', minIBPoints: 36 }),
+      [stored()],
+      lookups,
+      TODAY
+    )
+    expect(plan.errors).toEqual([
+      'Physics (p1): edited but not checked. Set checkedFor to the intake the sources state, or undo: Points: 38 → 36'
+    ])
+  })
+
+  it('re-files a checked program without re-stamping it', () => {
+    const current = stored({ degreeType: 'Bachelor of Science' })
+    const stamps = {
+      requirementsVerified: true,
+      requirementsUpdatedAt: new Date('2026-09-26T00:00:00Z'),
+      requirementsEntryYear: 2027
+    }
+    const program = { ...current, stamps }
+    const plan = planRefresh(
+      withProgram([program], { ...checked, field: 'Engineering' }),
+      [program],
+      lookups,
+      TODAY
+    )
+    expect(plan.refiles.map((r) => r.to)).toEqual(['Engineering'])
+    expect(plan.writes).toEqual([])
+
+    // With a stamp to change as well, it is an ordinary write.
+    const restamped = planRefresh(
+      withProgram([current], { ...checked, field: 'Engineering' }),
+      [current],
+      lookups,
+      TODAY
+    )
+    expect(restamped.refiles).toEqual([])
+    expect(restamped.writes[0].changes).toEqual(['Field: Sciences → Engineering'])
+  })
+
+  it('warns when a field disagrees with the fields-of-study rule', () => {
+    const economics = stored({ name: 'Economics', field: 'Sciences' })
+    const plan = planRefresh(exported([economics]), [economics], lookups, TODAY)
+    expect(plan.warnings).toEqual([
+      'Economics (p1): filed under Sciences, but the fields-of-study rule (lib/programs/fields-of-study.ts) files it under Business & Economics'
+    ])
+  })
+
   it('lists programs whose sources describe an earlier intake', () => {
     const file = withProgram([stored()], { ...checked, checkedFor: 2026 })
     const plan = planRefresh(file, [stored()], lookups, TODAY)

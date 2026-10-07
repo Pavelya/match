@@ -83,7 +83,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Global Political Economy',
       description: `Waseda's School of Political Science and Economics teaches a BA in Global Political Economy entirely in English in Tokyo. The degree draws on both political science and economics, grounding students in theory and evidence from the two disciplines so they can analyse today's complex, interconnected world without the boundaries of either.\n\nThe English-based programme admits in September only, on a holistic review of the application documents, and no Japanese is required.\n\n${PSE_COMPETITIVE}`,
-      field: 'Social Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Arts',
       duration: '4 years',
       minIBPoints: 24,

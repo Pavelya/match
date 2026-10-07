@@ -821,7 +821,7 @@ const refresh: RefreshFile = {
       name: 'Immunology and Infection',
       description:
         'This program focuses on the immune system and infectious diseases. Students study immunology, microbiology, and host-pathogen interactions, preparing for careers in research, public health, or biomedical fields.',
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 32,
@@ -972,7 +972,7 @@ const refresh: RefreshFile = {
       name: 'Mathematics and Economics (Honors)',
       description:
         'This joint Honors program combines rigorous mathematics training with economics, preparing students for graduate study in economics or quantitative finance.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
@@ -1005,7 +1005,7 @@ const refresh: RefreshFile = {
       name: 'Mathematics and Finance (Honors)',
       description:
         'This joint Honors program combines mathematics with finance, preparing students for careers in quantitative finance, risk management, and financial technology.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
@@ -1264,7 +1264,7 @@ const refresh: RefreshFile = {
       name: 'Pharmacology (Honors)',
       description:
         'This program studies how drugs affect living systems. Students learn about drug mechanisms, pharmacokinetics, and toxicology, preparing for careers in pharmaceutical research or healthcare.',
-      field: 'Natural Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 34,
@@ -1493,7 +1493,7 @@ const refresh: RefreshFile = {
       name: 'Secondary Education - CTS Media',
       description:
         'Prepares students to teach Career and Technology Studies with a focus on media production, digital communication, and multimedia technologies.',
-      field: 'Media',
+      field: 'Education',
       degree: 'Bachelor of Education',
       duration: '4 years',
       minIBPoints: 28,

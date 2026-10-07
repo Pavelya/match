@@ -52,7 +52,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | P4 | ~~`MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix)~~ **Done 7 October 2026**, data fix applied | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
 | P6 | ~~`MAINT_tasks.md` 5.7: levels and grades in either/or groups~~ **Done 7 October 2026**: `groupRequirements` in `lib/programs/requirement-groups.ts` | AI, small | Recommended, not blocking. Students saw "English B or English B" in 436 groups, and 2.2 reuses the helper |
-| P7 | `CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
+| P7 | ~~`CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping)~~ **Done 7 October 2026**, applied: 135 programs re-filed, new descriptions in `FIELD_DESCRIPTIONS` (`lib/programs/fields-of-study.ts`) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
 | P8 | `CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration) | AI, small each | Needed by 2.4. Can run during phase 1 |
 | B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
 | B2 | Protect `rebranding` too: add it as a target of the "Protect main" ruleset, or a second ruleset with the same rules | Owner, minutes | The branch collects 15+ pull requests; it must stay green and cannot be force-pushed or deleted |
@@ -423,7 +423,8 @@ step 1" and "step 2".
 - **A draft is saved after each step.** Today nothing is saved until the last button (`03-flows.md` F1).
 - The heading says "Set up your profile" on a first visit and "Update your profile" after
   (audit 1.3).
-- Field descriptions come from `CONTENT_tasks.md` 8.1 once it lands.
+- Field descriptions are `FIELD_DESCRIPTIONS` in `lib/programs/fields-of-study.ts` (`CONTENT_tasks.md` 8.1,
+  done), stored in `FieldOfStudy.description`. Each names its own field's disciplines only; keep it so.
 
 ### 3.2 — Subject editor
 

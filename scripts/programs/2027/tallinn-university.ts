@@ -113,7 +113,7 @@ const refresh: RefreshFile = {
       name: 'Crossmedia in Film and Television',
       description:
         "Crossmedia at Tallinn University's Baltic Film, Media and Arts School combines media production, storytelling and marketing: students learn to tell stories that move from one platform to another, for example from a film to a television series to a live performance. The programme mixes theoretical groundwork with practical assignments.\n\nAdmission has three stages, starting with a three-minute audiovisual CV, and ends with an interview, online for international applicants.",
-      field: 'Media',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 27,

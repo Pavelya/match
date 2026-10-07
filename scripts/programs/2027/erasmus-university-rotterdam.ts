@@ -398,7 +398,7 @@ const refresh: RefreshFile = {
       name: 'Liberal Arts and Sciences',
       description:
         'Shape your education in a vibrant community through an interdisciplinary, international Liberal Arts and Sciences programme. Explore various subjects and specialise in fields like Business, Psychology, or Medicine. Broaden your horizons by building your own curriculum within a Liberal Arts and Sciences Bachelor (BSc) Programme. Pursue your passion, choosing from wide range of disciplines, including Economics & Business, Neuroscience, International Relations, and more. Benefit from small tutorial groups and active participation in your studies.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 30,

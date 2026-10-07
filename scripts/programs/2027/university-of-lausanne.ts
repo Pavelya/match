@@ -159,7 +159,7 @@ const refresh: RefreshFile = {
       name: 'Geosciences and Environment',
       description:
         "After a common first year, students choose one of three paths: Environmental Sciences (interdisciplinary sustainability), Geography (society-environment interface), or Geology (Earth's physical and chemical processes). The program combines fieldwork with laboratory and computational approaches.",
-      field: 'Environmental Studies',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 32,
@@ -193,7 +193,7 @@ const refresh: RefreshFile = {
       name: 'Human Movement and Sport Sciences',
       description:
         'This program comprises one main discipline (Major) and one secondary discipline (Minor). Human movement and sport sciences are naturally multifaceted, addressing phenomena that are not only biological but also physiological, psychological, social, historical, and economic. Admission requires passing a physical education exam.',
-      field: 'Social Sciences',
+      field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 32,

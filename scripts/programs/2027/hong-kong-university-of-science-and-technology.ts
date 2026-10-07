@@ -1127,7 +1127,7 @@ const refresh: RefreshFile = {
       name: 'BSc in Data Analytics and Artificial Intelligence in Science',
       description:
         'In this big data era, an enormous amount of data is continuously generated and obtained in almost every science, technology, and social science field. Data Analytics and Artificial Intelligence in Science (DASC) is a major program designed for science students who want to learn data analysis skills and practice them in various science disciplines. The curriculum starts with basic training in programming and computational methods, as well as analytic methods and statistics, data visualization, machine learning and artificial intelligence skills. Students will then declare one of the following study tracks at the start of Year 3 to practise and sharpen their skills.',
-      field: 'Natural Sciences',
+      field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 35,
@@ -1352,7 +1352,7 @@ const refresh: RefreshFile = {
       name: 'BSc in Innovation, Design and Technology',
       description:
         'The BSc in Innovation, Design and Technology program provides a multi-disciplinary training to students in innovation, design and technology. Students acquire knowledge in design and systems thinking, specific technology and entrepreneurial spirit through learning-by-doing. The program adopts team-based and project-based learning as the primary method of instruction. Students work on projects throughout their four years of study.',
-      field: 'Engineering',
+      field: 'Architecture',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 37,
@@ -1443,7 +1443,7 @@ const refresh: RefreshFile = {
       name: 'BSc in Mathematics and Economics',
       description:
         'The Mathematics and Economics (MAEC) program is jointly offered by the School of Science and School of Business and Management of HKUST. The program provides students with solid training in the fundamental theories of both mathematics and economics. The curriculum equips students with quantitative reasoning skills, conceptual understanding, and the ability to communicate effectively in mathematics and the language of economics and social sciences. This interdisciplinary degree is suitable for students who seek to obtain a finance industry position that emphasizes quantitative skills.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 38,

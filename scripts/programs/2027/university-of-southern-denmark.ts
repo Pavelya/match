@@ -195,7 +195,7 @@ const refresh: RefreshFile = {
       name: 'Market and Management Anthropology',
       description:
         "Market and Management Anthropology is a signature programme of SDU Business School, with a small intake and intensive teaching, for students who want to become globally conscious, culturally sensitive and socially responsible managers. It combines anthropological theory and fieldwork methods with courses on marketing and management as social processes and practical managerial skills.\n\nYou study how markets emerge and work, how organisations navigate global and local conditions, and how people use goods and services to build identities. A semester of fieldwork abroad is compulsory. Taught entirely in English in Odense.\n\nHow competitive: in 2026, the 75% of places awarded on grades (quota 1) went to applicants from about 35 IB points (a Danish GPA of 8.7). The other 25% go to the best scores in SDU's admission test, uniTEST (quota 2), where any Diploma holder (24 points) can compete.",
-      field: 'Business & Economics',
+      field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

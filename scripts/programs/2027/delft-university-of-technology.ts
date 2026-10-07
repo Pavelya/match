@@ -77,7 +77,7 @@ const refresh: RefreshFile = {
       name: 'Earth, Climate and Technology',
       description:
         "Are you looking for a degree that combines knowledge of the Earth with engineering? Do you want to develop solutions for challenges related to climate change, the energy transition, and the availability of scarce resources? Then Earth, Climate and Technology is the programme for you! In this English-taught bachelor's programme, you will apply your technical knowledge to the part of the Earth that closely interacts with our environment, from the atmosphere to a few kilometres deep into the Earth's crust. You'll learn how to study climate change using models and satellite data, and how to address its impacts on the planet. You will delve into technical solutions for the energy transition, such as geothermal energy and CO2 storage. Additionally, you'll explore sustainable ways to extract the natural resources needed for solar panels, wind turbines, and the batteries of electric cars.",
-      field: 'Environmental Studies',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,

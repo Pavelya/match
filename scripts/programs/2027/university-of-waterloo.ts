@@ -58,7 +58,7 @@ const refresh: RefreshFile = {
       name: 'Actuarial Science',
       description:
         "Actuarial Science applies mathematics, statistics, and financial theory to study uncertain future events, especially in insurance and finance. At Waterloo, you'll learn to assess risk and uncertainty while preparing for professional actuarial exams. Our program is one of the largest and most respected in the world.",
-      field: 'Natural Sciences',
+      field: 'Business & Economics',
       degree: 'Bachelor of Mathematics',
       duration: '5 years',
       minIBPoints: 30,
@@ -577,7 +577,7 @@ const refresh: RefreshFile = {
       name: 'Computing and Financial Management',
       description:
         "Computing and Financial Management combines computer science with business and finance. You'll develop strong programming skills while learning accounting, economics, and financial analysis. This unique program prepares you for careers in fintech, investment banking, and technology consulting.",
-      field: 'Business & Economics',
+      field: 'Computer Science',
       degree: 'Bachelor of Computing and Financial Management',
       duration: '5 years',
       minIBPoints: 32,
@@ -831,7 +831,7 @@ const refresh: RefreshFile = {
       name: 'Geography and Aviation',
       description:
         "Geography and Aviation is a unique program combining geography with professional flight training. You'll earn your commercial pilot license while studying aviation management, meteorology, and geography. Graduates are prepared for careers as commercial pilots and in aviation management.",
-      field: 'Environmental Studies',
+      field: 'Social Sciences',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
       minIBPoints: 27,
@@ -868,7 +868,7 @@ const refresh: RefreshFile = {
       name: 'Geography and Environmental Management',
       description:
         "Geography and Environmental Management explores the relationship between humans and the environment. You'll study urban planning, GIS, resource management, and environmental policy. The program combines physical and human geography perspectives.",
-      field: 'Environmental Studies',
+      field: 'Social Sciences',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
       minIBPoints: 30,
@@ -923,7 +923,7 @@ const refresh: RefreshFile = {
       name: 'Geospatial Data Science',
       description:
         "Geomatics (Geographic Information Science) focuses on collecting, managing, and analyzing spatial data. You'll study GIS, remote sensing, surveying, and spatial analysis. The program prepares you for careers in urban planning, environmental management, and technology.",
-      field: 'Environmental Studies',
+      field: 'Computer Science',
       degree: 'Bachelor of Environmental Studies',
       duration: '4 years',
       minIBPoints: 27,

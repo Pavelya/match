@@ -156,7 +156,7 @@ const refresh: RefreshFile = {
       name: 'Bachelor of Applied Computing in Finance',
       description:
         'An interdisciplinary degree that blends deep domain knowledge in finance and strong technological and analytical skillsets through a unique mix of classroom learning and experiential training.',
-      field: 'Business & Economics',
+      field: 'Computer Science',
       degree: 'Bachelor of Applied Computing',
       duration: '4 years',
       minIBPoints: 38,
@@ -759,7 +759,7 @@ const refresh: RefreshFile = {
       name: 'Computer Engineering',
       description:
         'Integrates computer science and electronic engineering to develop computer systems and devices.',
-      field: 'Computer Science',
+      field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
       minIBPoints: 37,

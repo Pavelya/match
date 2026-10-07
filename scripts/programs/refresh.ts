@@ -6,8 +6,9 @@
  * about why; this tool works a university at a time, from a data file committed with the PR.
  *
  *   --export <university>  Write a starter data file from the database, at
- *                          scripts/programs/<intake>/<university-slug>.ts, with every program
- *                          unchecked. Refuses to overwrite an existing file without --force.
+ *                          scripts/programs/<intake>/<university-slug>.ts, or at --out <file>,
+ *                          with every program unchecked. Refuses to overwrite an existing file
+ *                          without --force.
  *   <slug or file> ...     Dry run: check each file and print, per program, what would change.
  *                          Nothing is written. Several files can be given at once.
  *   --apply                Write it. First a backup of every program it will change
@@ -16,7 +17,9 @@
  *                          the stamps `requirementsVerified`, `requirementsUpdatedAt` (the file's
  *                          checkedOn) and `requirementsEntryYear` (the program's checkedFor).
  *                          `new` programs are created. Nothing is ever deleted: `discontinued`
- *                          programs are only reported. Then syncs the written programs to Algolia
+ *                          programs are only reported. A program whose field of study alone
+ *                          changes is re-filed: only its field is written, checked or not, and
+ *                          its stamps stay (content 8.1). Then syncs the written programs to Algolia
  *                          and clears the programs cache and cached matches, which the standalone
  *                          Prisma client does not do on its own.
  *   --restore <backup>     Put the programs in a backup back as they were (dry run unless
@@ -30,6 +33,7 @@
  *
  * Run with:
  *   npx tsx scripts/programs/refresh.ts --export "Tel Aviv University"
+ *   npx tsx scripts/programs/refresh.ts --export "University of Oxford" --out <file>
  *   npx tsx scripts/programs/refresh.ts tel-aviv-university                 # dry run
  *   npx tsx scripts/programs/refresh.ts tel-aviv-university --apply
  *   npx tsx scripts/programs/refresh.ts --restore <backup.json> [--apply]
@@ -51,6 +55,7 @@ import {
   planRefresh,
   planRestore,
   type ProgramCreate,
+  type ProgramRefile,
   type ProgramWrite,
   type RefreshFile,
   type RefreshPlan,
@@ -80,6 +85,7 @@ function parseArgs(argv: string[]) {
     apply: false,
     force: false,
     export: null as string | null,
+    out: null as string | null,
     restore: null as string | null,
     files: [] as string[]
   }
@@ -88,6 +94,7 @@ function parseArgs(argv: string[]) {
     if (arg === '--apply') args.apply = true
     else if (arg === '--force') args.force = true
     else if (arg === '--export') args.export = argv[++i] ?? null
+    else if (arg === '--out') args.out = argv[++i] ?? null
     else if (arg === '--restore') args.restore = argv[++i] ?? null
     else if (arg.startsWith('--')) throw new Error(`Unknown option: ${arg}`)
     else args.files.push(arg)
@@ -100,6 +107,7 @@ function parseArgs(argv: string[]) {
   }
   if (args.export !== null && args.apply)
     throw new Error('--export writes a file, not the database')
+  if (args.out !== null && args.export === null) throw new Error('--out goes with --export')
   return args
 }
 
@@ -178,7 +186,7 @@ type Reference = Awaited<ReturnType<typeof loadReference>>
 
 // --- export ---------------------------------------------------------------------------
 
-async function exportUniversity(query: string, force: boolean) {
+async function exportUniversity(query: string, force: boolean, outArg: string | null) {
   const universities = await prisma.university.findMany({ select: { id: true, name: true } })
   const wanted = query.trim().toLowerCase()
   const university = universities.find(
@@ -195,7 +203,7 @@ async function exportUniversity(query: string, force: boolean) {
 
   const slug = slugify(university.name)
   const entryYear = currentEntryYear()
-  const out = path.join(__dirname, String(entryYear), `${slug}.ts`)
+  const out = outArg ? path.resolve(outArg) : path.join(__dirname, String(entryYear), `${slug}.ts`)
   if (existsSync(out) && !force) {
     throw new Error(
       `${path.relative(process.cwd(), out)} exists. It may hold checked work: re-run with --force to replace it.`
@@ -206,7 +214,7 @@ async function exportUniversity(query: string, force: boolean) {
   const today = new Date().toISOString().slice(0, 10)
   const file = exportFile(university.name, entryYear, today, stored, canonicalDegreeType)
   const comments = new Map(stored.map((s) => [s.id, storedComment(s, canonicalDegreeType)]))
-  const command = `npx tsx scripts/programs/refresh.ts ${slug}`
+  const command = `npx tsx scripts/programs/refresh.ts ${outArg ? path.relative(process.cwd(), out) : slug}`
   const prettier = await import('prettier')
   const text = await prettier.format(renderRefreshFile(file, comments, command), {
     ...(await prettier.resolveConfig(out)),
@@ -270,6 +278,9 @@ function printPlan(title: string, plan: RefreshPlan) {
       console.log(`  STAMP         ${w.name}  ${w.stampChanges.join('; ')}`)
     }
   }
+  for (const r of plan.refiles) {
+    console.log(`  REFILE        ${r.name}  (${r.id})  Field: ${r.from} → ${r.to}`)
+  }
   for (const c of plan.creates) {
     console.log(`  NEW           ${c.name}`)
     for (const line of describeNew(c)) console.log(`                  ${line}`)
@@ -298,6 +309,7 @@ function printPlan(title: string, plan: RefreshPlan) {
   const changed = plan.writes.filter((w) => w.changes.length > 0).length
   console.log(
     `  Summary: ${changed} change, ${plan.writes.length - changed} stamp only, ` +
+      `${plan.refiles.length} re-filed, ` +
       `${plan.creates.length} new, ${plan.discontinued.length} discontinued, ` +
       `${plan.unchecked.length} not checked, ${plan.upToDate.length} already up to date.`
   )
@@ -360,6 +372,7 @@ interface Job {
   university: string
   universityId: string | null
   writes: ProgramWrite[]
+  refiles: ProgramRefile[]
   creates: ProgramCreate[]
   /** What each written program looked like, for the backup. */
   before: Map<string, StoredProgram>
@@ -367,8 +380,9 @@ interface Job {
 
 async function run(jobs: Job[], files: string[], ref: Reference) {
   const writes = jobs.flatMap((j) => j.writes.map((w) => ({ job: j, w })))
+  const refiles = jobs.flatMap((j) => j.refiles.map((r) => ({ job: j, r })))
   const creates = jobs.flatMap((j) => j.creates.map((c) => ({ job: j, c })))
-  if (writes.length + creates.length === 0) {
+  if (writes.length + refiles.length + creates.length === 0) {
     console.log('\nNothing to write.\n')
     return
   }
@@ -376,10 +390,13 @@ async function run(jobs: Job[], files: string[], ref: Reference) {
   const backup: Backup = {
     takenAt: new Date().toISOString(),
     files: files.map((f) => path.relative(process.cwd(), f)),
-    programs: writes.map(({ job, w }) => {
-      const before = job.before.get(w.id)!
+    programs: [
+      ...writes.map(({ job, w }) => ({ job, id: w.id })),
+      ...refiles.map(({ job, r }) => ({ job, id: r.id }))
+    ].map(({ job, id }) => {
+      const before = job.before.get(id)!
       return {
-        id: w.id,
+        id,
         university: before.university,
         state: before.state,
         stamps: {
@@ -407,6 +424,19 @@ async function run(jobs: Job[], files: string[], ref: Reference) {
       console.error(`❌ ${w.name} (${w.id}) was not written:`, error)
     }
   }
+  for (const { r } of refiles) {
+    try {
+      await prisma.academicProgram.update({
+        where: { id: r.id },
+        data: { fieldOfStudyId: ref.fieldIds.get(r.to)! },
+        select: { id: true }
+      })
+      synced.push(r.id)
+    } catch (error) {
+      failed++
+      console.error(`❌ ${r.name} (${r.id}) was not re-filed:`, error)
+    }
+  }
   for (const { job, c } of creates) {
     try {
       const id = await createProgram(c, job.universityId!, ref)
@@ -419,8 +449,8 @@ async function run(jobs: Job[], files: string[], ref: Reference) {
     }
   }
   console.log(
-    `\n✅ Wrote ${synced.length - backup.created.length} of ${writes.length} programs, ` +
-      `created ${backup.created.length} of ${creates.length}.`
+    `\n✅ Wrote ${synced.length - backup.created.length} of ${writes.length + refiles.length} ` +
+      `programs (${refiles.length} re-filed), created ${backup.created.length} of ${creates.length}.`
   )
   if (backup.created.length > 0) {
     console.log("Created. In the data file, give each its id and status 'current':")
@@ -474,6 +504,7 @@ async function refresh(args: ReturnType<typeof parseArgs>) {
       university: file.university,
       universityId: university?.id ?? null,
       writes: plan.writes,
+      refiles: plan.refiles,
       creates: plan.creates,
       before: new Map(stored.map((s) => [s.id, s]))
     })
@@ -498,7 +529,8 @@ async function refresh(args: ReturnType<typeof parseArgs>) {
   }
   console.log(
     '\nEvery program written gets requirementsVerified = true, requirementsUpdatedAt = the ' +
-      "file's checkedOn and requirementsEntryYear = its checkedFor."
+      "file's checkedOn and requirementsEntryYear = its checkedFor. A re-filed program gets " +
+      'its new field only.'
   )
   if (!args.apply) {
     console.log('\nDry run: nothing written. Re-run with --apply to write.\n')
@@ -556,7 +588,7 @@ async function restore(file: string, apply: boolean) {
   }
   const before = new Map(stored.map((s) => [s.id, s]))
   await run(
-    [{ university: '', universityId: null, writes: plan.writes, creates: [], before }],
+    [{ university: '', universityId: null, writes: plan.writes, refiles: [], creates: [], before }],
     [file],
     ref
   )
@@ -564,7 +596,7 @@ async function restore(file: string, apply: boolean) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2))
-  if (args.export !== null) return exportUniversity(args.export, args.force)
+  if (args.export !== null) return exportUniversity(args.export, args.force, args.out)
   console.log(
     `\n${args.apply ? '✏️  WRITING' : '🔍 DRY RUN'} — ${args.restore ? 'restore' : 'refresh'}`
   )

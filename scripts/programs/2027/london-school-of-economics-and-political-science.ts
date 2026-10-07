@@ -26,7 +26,7 @@ const refresh: RefreshFile = {
       name: 'BA Anthropology and Law',
       description:
         'Master the principles of law while challenging how it shapes our world. Study at the UK’s top-rated anthropology and law departments for the best of both fields',
-      field: 'Environmental Studies',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 37,
@@ -89,7 +89,7 @@ const refresh: RefreshFile = {
       name: 'BA Social Anthropology',
       description:
         "Explore what makes us human. Learn about different rituals, belief systems and cultural practices. Study in the UK's top-rated anthropology research department.",
-      field: 'Environmental Studies',
+      field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '3 years',
       minIBPoints: 37,
@@ -222,7 +222,7 @@ const refresh: RefreshFile = {
       name: 'BSc Economic History',
       description:
         'Explore the drivers of global inequality, poverty, and financial turmoil. Learn from leading economic historians at the forefront of the field.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -243,7 +243,7 @@ const refresh: RefreshFile = {
       name: 'BSc Economic History and Geography',
       description:
         "Explore economic change's roots in geography, past and present. Learn from top economic historians and geographers at research's forefront.",
-      field: 'Environmental Studies',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 37,
@@ -399,7 +399,7 @@ const refresh: RefreshFile = {
       name: 'BSc Financial Mathematics and Statistics',
       description:
         'Learn mathematical and statistical principles for financial decisions and investments. Prepare for careers in finance, accounting and many other areas.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 39,
@@ -422,7 +422,7 @@ const refresh: RefreshFile = {
       name: 'BSc Geography with Economics',
       description:
         'Study the impact of economics on human development and the environment. Gain geographical and mathematical skills that will set you apart.',
-      field: 'Environmental Studies',
+      field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -443,7 +443,7 @@ const refresh: RefreshFile = {
       name: 'BSc History and Politics',
       description:
         'This programme explores how political ideas, people and institutions have influenced historical change and developments through time.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -595,7 +595,7 @@ const refresh: RefreshFile = {
       name: 'BSc Language, Culture and Society',
       description:
         'Combine the study of sociology with learning a modern language. Spend a year abroad at one of our partner institutions.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 37,
@@ -639,7 +639,7 @@ const refresh: RefreshFile = {
       name: 'BSc Mathematics and Economics',
       description:
         'Dream of a career where you can apply your maths skills to solve real-world economic problems? This degree offers the perfect preparation.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 39,
@@ -661,7 +661,7 @@ const refresh: RefreshFile = {
       name: 'BSc Mathematics with Data Science',
       description:
         'Combine your study of maths with data science - and explore the fascinating world of AI and machine learning.',
-      field: 'Computer Science',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 39,
@@ -684,7 +684,7 @@ const refresh: RefreshFile = {
       name: 'BSc Mathematics with Economics',
       description:
         'Develop the quantitative knowledge and analytical skills required for a rewarding career in finance or business.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 39,
@@ -706,7 +706,7 @@ const refresh: RefreshFile = {
       name: 'BSc Mathematics, Statistics and Business',
       description:
         'Dive into the real-world applications of maths and statistics in business. Complete practical projects, with opportunities for internship in the City.',
-      field: 'Business & Economics',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 39,
@@ -729,7 +729,7 @@ const refresh: RefreshFile = {
       name: 'BSc Philosophy and Economics',
       description:
         'If you’re interested in an economics degree but you’d like to take your learning to a deeper philosophical level, then this is the degree for you.',
-      field: 'Business & Economics',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -750,7 +750,7 @@ const refresh: RefreshFile = {
       name: 'BSc Philosophy, Logic and Scientific Method',
       description:
         'Grapple with some of the biggest philosophical questions facing us today and sharpen your skills in logical reasoning.',
-      field: 'Social Sciences',
+      field: 'Arts & Humanities',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -772,7 +772,7 @@ const refresh: RefreshFile = {
       name: 'BSc Philosophy, Politics and Economics',
       description:
         'Study philosophy, politics and economics at LSE – internationally renowned in all three subjects. Gain real-world experience on an external client project.',
-      field: 'Business & Economics',
+      field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
       minIBPoints: 39,

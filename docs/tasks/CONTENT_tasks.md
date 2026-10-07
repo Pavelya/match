@@ -33,7 +33,7 @@ here, and this refresh does more production writes than any work before it.
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
-| any | Design-audit data fixes | 8.1–8.3 | small to medium each | From the student design audit (6 October 2026). 8.1 changes what students match on; 8.2 and 8.3 need a schema field each, through a migration |
+| any | Design-audit data fixes | 8.1–8.3 | small to medium each | From the student design audit (6 October 2026). **8.1 done** and applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. 8.2 and 8.3 need a schema field each, through a migration |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
 screens are reviewed with real data; 8.2 and 8.3 before the program page (rebranding 2.4). Country-page
@@ -2778,6 +2778,97 @@ except joint degrees the owner kept. Searching "economics" shows the agreed fiel
 program.
 
 **Session size:** Medium.
+
+#### Status, 7 October 2026 — done (rebranding prep P7); applied the same day
+
+**The rule** is `lib/programs/fields-of-study.ts`: the disciplines, each with one home field and the words
+that name it in a program name; the twelve descriptions (`FIELD_DESCRIPTIONS`); and `homeOf(name)`, which
+files a program by its name. One discipline goes to its home. A compound goes to its last discipline
+("Biomedical Engineering" is Engineering, "Economic History" is History), and "X of Y", "X for Y", "X in Y"
+to X. A joint degree goes to its first-named discipline; adjectives joined by "and" are one compound
+("Electrical and Computer Engineering"). Degree titles are skipped, and a subject in brackets counts only when
+nothing outside them names one. Two special cases: a double degree with a Bachelor of Laws is Law, and
+Philosophy, Politics and Economics is Social Sciences. A name that names no discipline, or only "Science",
+is left where it is (80 programs, such as "Innovation and Technology" and "Human Sciences"). Vitest covers
+it, including that no description names another field's discipline.
+
+**Owner decisions, 7 October 2026:**
+
+- Joint degrees go by their **first-named discipline**, as the task suggested. 39 moved: "Mathematics and
+  Economics" (LSE, HKUST, Alberta) and "Mathematics and Computer Science" (Imperial, Oxford) to Natural
+  Sciences, Manchester's "Data Science and Economics" to Computer Science.
+- **Design lives in Architecture**, whose description already named Interior Design.
+- **Mathematics stays in Natural Sciences**, first in its description, with no field of its own.
+- **13 programs are kept** outside the rule, in `KEPT` with the reason: names that mislead it, such as
+  Charles's "Sustainability in Marketing and Media Communication" (Media) and Masaryk's "English Language for
+  Education" (Education). Linnaeus's "Visual Communication +Change" is filed with Design.
+- Unchanged defaults: Biomedical Sciences, Neuroscience and Immunology in Medicine & Health; Bioinformatics
+  in Computer Science; European Studies in Social Sciences; Actuarial Science in Business & Economics;
+  Communication in Media; Film in Arts & Humanities.
+
+**Inventory** (`scripts/programs/field-inventory.ts`): one aggregate query counts, per discipline, the
+programs filed under each field. The outlier list reads only programs that name another field's discipline,
+and only their id, name, field and university: 484 of 1,367. Before the fix there were **147 outliers**:
+101 with one discipline, 39 joint degrees filed under a later-named discipline, 5 filed under none of
+theirs, and 2 PPE. Less the 13 kept, 135 were re-filed. The largest groups:
+
+- **Economics** outside Business & Economics: Bocconi, Western and UCD (Social Sciences), Georgia Tech
+  (Arts & Humanities), and Waseda's Global Political Economy.
+- **Cambridge** filed 12 humanities degrees under Social Sciences: History, Philosophy, Classics,
+  English, Linguistics, Modern and Medieval Languages, Asian and Middle Eastern Studies, Anglo-Saxon,
+  Norse and Celtic, Archaeology, History of Art, Theology, and History and Modern Languages. It also
+  filed Geography under Environmental Studies and Design under Engineering.
+- **LSE** filed Social Anthropology, and Anthropology and Law, under Environmental Studies.
+- Computer Engineering under Computer Science (NTU, Georgia Tech ×2); Software Engineering under
+  Engineering (McGill); Communication under Social Sciences (UB, Groningen, Gdańsk, UvA); Education under
+  Social Sciences (Manchester, HKU); biomedical sciences, immunology, pharmacology and neuroscience under
+  Natural Sciences.
+
+**Re-filing** went through the refresh tool, which gained a re-file path. When a program's field is the
+only change, only the field is written, checked or not, and the stamps stay: a field is how a program is
+filed, not a claim about its requirements. `--export --out` wrote refresh-shaped files for Oxford and
+Cambridge beside their 1.2 files (`university-of-oxford-refresh.ts`, `university-of-cambridge-refresh.ts`).
+`--export` wrote starter files for TUM and Georgia Tech, all unchecked, for phases 7 and 6. A dry run of
+the 45 files showed the 135 re-filings and nothing else.
+
+**Applied** with the owner's approval:
+
+- 135 programs re-filed and synced to Algolia. Backup: `scripts/backups/refresh/2026-10-07T14-35-32-772Z.json`.
+- 11 descriptions written by `field-inventory.ts --apply`. Law's was already right.
+- A full Algolia sync (1,367 records), because every record copies its field's description.
+- The programs cache and cached matches cleared.
+
+Onboarding reads the fields through a one-hour cache (`lib/reference-data.ts`), so the descriptions needed
+no deploy. The seed now takes them from the rule.
+
+| Field | Description now |
+|---|---|
+| Architecture | Architecture, Landscape Architecture, Urban Planning, Design |
+| Arts & Humanities | History, Philosophy, Literature, Languages, Fine Arts, Music, Film |
+| Business & Economics | Economics, Business, Finance, Accounting, Marketing |
+| Computer Science | Software, AI, Data Science, Cybersecurity |
+| Education | Teaching, Early Childhood, Physical Education |
+| Engineering | Mechanical, Electrical, Civil, Aerospace, Computer Engineering |
+| Environmental Studies | Environmental Science, Sustainability, Climate, Conservation, Agriculture |
+| Law | International Law, Corporate Law, Criminal Justice (unchanged) |
+| Media | Journalism, Communication, Digital Media |
+| Medicine & Health | Medicine, Nursing, Pharmacy, Dentistry, Public Health, Biomedical Sciences |
+| Natural Sciences | Mathematics, Statistics, Physics, Chemistry, Biology, Earth Sciences |
+| Social Sciences | Psychology, Sociology, Politics, International Relations, Anthropology, Geography |
+
+**Verify:**
+
+- No discipline appears in two descriptions: `fields-of-study.test.ts`.
+- The inventory re-run finds **0 outliers**, with the 13 kept programs where the owner chose, and 0 of 12
+  descriptions differ.
+- Algolia, "economics": none of the 331 hits is outside the field the rule gives. All 64 programs whose only
+  or first-named discipline is Economics are under Business & Economics. The other programs named Economics
+  are joint degrees led by another discipline ("Mathematics and Economics", "Law with Economics", PPE).
+- Type check, lint, Prettier, Vitest, the matching suite and the build pass.
+
+**Keeping it.** The refresh tool's dry run now warns when a program's field disagrees with the rule, so
+5.3, 6 and 7 file new programs consistently. A new discipline, or a program the rule misreads, is added to
+the table or `KEPT` with the owner's approval. Re-run the inventory after a data session that touches fields.
 
 ---
 

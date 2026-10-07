@@ -762,7 +762,7 @@ const refresh: RefreshFile = {
       name: 'Ecology and Environmental Biology',
       description:
         'Understand the behaviour of living systems from the level of cells up to whole organisms and ecosystems. This specialist course focuses on the interaction between living organisms and species and their environment. You will learn to assess the impact plants, animals and microbes have on their ecosystem.',
-      field: 'Environmental Studies',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 38,
@@ -961,7 +961,7 @@ const refresh: RefreshFile = {
       name: 'Mathematics and Computer Science',
       description:
         'If you are both mathematically inclined and interested in computer science, then a Mathematics and Computer Science degree is perfect for you. Taught jointly by the Departments of Computing and Mathematics, this course will enable you to develop a firm foundation in mathematics – particularly in pure mathematics, numerical analysis and statistics. You will also learn the essentials of computer science, with an emphasis on software development and broader theoretical topics.',
-      field: 'Computer Science',
+      field: 'Natural Sciences',
       degree: 'Bachelor of Engineering',
       duration: '3 years',
       minIBPoints: 41,

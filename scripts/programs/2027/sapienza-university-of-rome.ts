@@ -48,7 +48,7 @@ const refresh: RefreshFile = {
       name: 'Bioinformatics',
       description:
         'The Degree Course in Bioinformatics is a three-year degree program entirely taught in English. The objective of the Degree Course is to train qualified figures with a background in bioinformatics, biomolecular, pharmaceutical, and information technology (IT) scientific research that synergistically integrates i) a solid set of theoretical skills in basic scientific disciplines; ii) extensive skills in the biomolecular, technological-applicative, and IT fields; iii) critical scientific assessment, competences, information, and communication skills. Graduates in Bioinformatics will have a solid multi- and transdisciplinary scientific cultural background and a strong foundation in the reference areas (e.g., biochemistry, genetics, molecular biology, medicinal chemistry, and computer science)….',
-      field: 'Natural Sciences',
+      field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,
