@@ -439,9 +439,10 @@ Check whether any other student-facing view renders requirement groups the same 
    the helper.
 5. Cover the grouping with a Vitest test on a pure helper, not the component.
 
-**Rebranding.** `REBRANDING_tasks.md` 2.2 replaces `ProgramCard` within weeks of 6 October 2026. If this
-task has not started by then, do steps 1–3 and 5 inside 2.2's new requirement checklist and keep
-only step 4 (meta description and JSON-LD) here. The helper is the same either way.
+**Rebranding.** The redesign is built on a separate `rebranding` branch and reaches production in one
+merge at the end, so today's `ProgramCard` stays live until then. Do this task in full on `main`; it
+is prep P6 in `REBRANDING_tasks.md`. Rebranding 2.2 then reuses the helper in its new requirement
+checklist.
 
 **Verify:** Edinburgh Psychology BSc (`/programs/cmkcynsdg00197moeu7aoktel`) shows the HL 5
 and SL 6 routes for Mathematics; HKUST BBA in Marketing (`/programs/cmkv8bnwd004b7mpof3j9s1q2`)

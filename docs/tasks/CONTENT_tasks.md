@@ -37,8 +37,9 @@ here, and this refresh does more production writes than any work before it.
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
 screens are reviewed with real data; 8.2 and 8.3 before the program page (rebranding 2.4). Country-page
-edits (5.3 France, 6 USA, 7 Germany) must not overlap with rebranding 4.2, which moves all guides
-onto one template.
+edits (5.3 France, 6 USA, 7 Germany) land on `main`, while rebranding 4.2 rewrites the guides on the
+`rebranding` branch: 4.2 runs late, after merging the latest `main`, and ports any later country edit
+before release.
 
 **Phases 2 and 3–4 are independent.** Country pages touch no program data. If time runs
 short before 13 January 2027, prioritise sessions 12–13 (UK) over session 6.
