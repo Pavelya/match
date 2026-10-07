@@ -14,6 +14,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
+import { CREDIT_IN_DESCRIPTION_ERROR, splitImageCredit } from '@/lib/universities/image-credit'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -114,6 +115,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       studentPopulation,
       logo,
       image,
+      imageCredit,
       websiteUrl,
       email,
       phone
@@ -151,7 +153,15 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       if (typeof description !== 'string' || description.trim().length === 0) {
         return NextResponse.json({ error: 'Invalid description' }, { status: 400 })
       }
+      // Content 8.3: a credit in the description showed up in the About text. It is a caption now.
+      if (splitImageCredit(description)) {
+        return NextResponse.json({ error: CREDIT_IN_DESCRIPTION_ERROR }, { status: 400 })
+      }
       updateData.description = description.trim()
+    }
+
+    if (imageCredit !== undefined && imageCredit !== null && typeof imageCredit !== 'string') {
+      return NextResponse.json({ error: 'Invalid image credit' }, { status: 400 })
     }
 
     if (countryId !== undefined) {
@@ -241,9 +251,14 @@ export async function PATCH(request: Request, { params }: RouteParams) {
           updateData.image = image.trim()
         }
       } else {
-        // Image was cleared
+        // Image was cleared, and its credit with it
         updateData.image = null
+        updateData.imageCredit = null
       }
+    }
+
+    if (imageCredit !== undefined && updateData.image !== null) {
+      updateData.imageCredit = imageCredit?.trim() || null
     }
 
     if (websiteUrl !== undefined) {

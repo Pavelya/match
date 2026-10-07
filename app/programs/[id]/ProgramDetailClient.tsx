@@ -45,6 +45,7 @@ interface ProgramData {
     name: string
     abbreviation?: string | null
     image?: string | null
+    imageCredit?: string | null
     description?: string
     websiteUrl?: string
   }

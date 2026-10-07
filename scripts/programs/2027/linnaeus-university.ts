@@ -85,6 +85,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: programme page: Campus Kalmar
+      campusCity: 'Kalmar',
       minIBPoints: 24,
       programUrl:
         'https://lnu.se/en/programme/international-business-programme-eginb/kalmar-international-autumn/',
@@ -119,6 +121,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: programme page: Campus Kalmar
+      campusCity: 'Kalmar',
       minIBPoints: 24,
       programUrl:
         'https://lnu.se/en/programme/international-tourism-hospitality-and-event-management-programme/kalmar-international-autumn/',
@@ -146,6 +150,8 @@ const refresh: RefreshFile = {
       field: 'Media',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: programme page: Campus Kalmar
+      campusCity: 'Kalmar',
       minIBPoints: 24,
       programUrl:
         'https://lnu.se/en/programme/media-and-entrepreneurship-programme/kalmar-international-autumn/',

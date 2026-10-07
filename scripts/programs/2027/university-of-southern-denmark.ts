@@ -86,6 +86,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Vejle"
+      campusCity: 'Vejle',
       minIBPoints: 24,
       programUrl: `${BASE}/artificial-intelligence-vejle`,
       requirements: [ENGLISH_B, MATHS_A],
@@ -102,6 +104,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Vejle"
+      campusCity: 'Vejle',
       minIBPoints: 24,
       programUrl: `${BASE}/computer-science-vejle`,
       requirements: [ENGLISH_B, MATHS_A],
@@ -118,6 +122,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Campus: Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/electronics`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
@@ -134,6 +140,8 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/europaeiske_studier`,
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
@@ -150,6 +158,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/ha-soenderborg`,
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
@@ -166,6 +176,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Campus: Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/innovation_and_business`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
@@ -182,6 +194,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Campus: Vejle"
+      campusCity: 'Vejle',
       minIBPoints: 24,
       programUrl: `${BASE}/interactive-technology-engineering`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
@@ -214,6 +228,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/mechanical-engineering`,
       requirements: [
@@ -235,6 +251,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Location Campus: Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/mechatronics`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
@@ -251,6 +269,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Software Engineering BSc in Engineering / Vejle"
+      campusCity: 'Vejle',
       minIBPoints: 24,
       programUrl: `${BASE}/software-engineering-vejle`,
       requirements: [ENGLISH_B, MATHS_A],
@@ -267,6 +287,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: program page: "Software Engineering BSc in Engineering / Sønderborg"
+      campusCity: 'Sønderborg',
       minIBPoints: 24,
       programUrl: `${BASE}/softwareengineering-sb`,
       requirements: [ENGLISH_B, MATHS_A],

@@ -85,6 +85,7 @@ export async function transformProgramToAlgolia(
         description: true,
         degreeType: true,
         duration: true,
+        campusCity: true,
         minIBPoints: true,
         createdAt: true,
         updatedAt: true,
@@ -132,7 +133,8 @@ export async function transformProgramToAlgolia(
       universityImageUrl: program.university.image?.startsWith('http')
         ? program.university.image
         : undefined,
-      city: program.university.city ?? undefined,
+      // Where the program is taught: its campus, else the university's city.
+      city: program.campusCity ?? program.university.city,
 
       // Field of Study (nested)
       fieldOfStudyId: program.fieldOfStudy.id,

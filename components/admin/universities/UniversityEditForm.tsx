@@ -55,6 +55,7 @@ interface University {
   studentPopulation: number | null
   logo: string | null
   image: string | null
+  imageCredit: string | null
   websiteUrl: string
   email: string | null
   phone: string | null
@@ -84,6 +85,7 @@ export function UniversityEditForm({ university, countries }: UniversityEditForm
     studentPopulation: university.studentPopulation?.toString() || '',
     logo: university.logo || '',
     image: university.image || '',
+    imageCredit: university.imageCredit || '',
     websiteUrl: university.websiteUrl,
     email: university.email || '',
     phone: university.phone || ''
@@ -121,7 +123,8 @@ export function UniversityEditForm({ university, countries }: UniversityEditForm
   }
 
   function handleRemoveImage(field: 'logo' | 'image') {
-    setFormData({ ...formData, [field]: '' })
+    // The credit belongs to the image, so it goes with it.
+    setFormData({ ...formData, [field]: '', ...(field === 'image' && { imageCredit: '' }) })
     const inputRef = field === 'logo' ? logoInputRef : imageInputRef
     if (inputRef.current) {
       inputRef.current.value = ''
@@ -276,6 +279,9 @@ export function UniversityEditForm({ university, countries }: UniversityEditForm
                 required
               />
             </div>
+            <p className="mt-1 text-xs text-muted-foreground">
+              One place: the main campus. A program taught elsewhere has its own campus city.
+            </p>
           </div>
 
           {/* Website URL */}
@@ -345,6 +351,26 @@ export function UniversityEditForm({ university, countries }: UniversityEditForm
                 <p className="text-xs text-muted-foreground">
                   Max file size: 500KB. Supported formats: JPG, PNG, GIF, WebP
                 </p>
+                <div>
+                  <label
+                    htmlFor="imageCredit"
+                    className="block text-sm font-medium text-foreground mb-1"
+                  >
+                    Image credit
+                  </label>
+                  <input
+                    id="imageCredit"
+                    type="text"
+                    value={formData.imageCredit}
+                    onChange={(e) => setFormData({ ...formData, imageCredit: e.target.value })}
+                    className="w-full px-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                    placeholder="e.g., By Jason Tong - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32208955"
+                  />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Shown as the image&apos;s caption. A Wikimedia licence requires it. Never put it
+                    in the description.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

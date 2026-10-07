@@ -13,6 +13,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
+import { CREDIT_IN_DESCRIPTION_ERROR, splitImageCredit } from '@/lib/universities/image-credit'
 
 export async function GET() {
   try {
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
       studentPopulation,
       logo,
       image,
+      imageCredit,
       websiteUrl,
       email,
       phone
@@ -95,6 +97,15 @@ export async function POST(request: Request) {
 
     if (!description || typeof description !== 'string' || description.trim().length === 0) {
       return NextResponse.json({ error: 'Description is required' }, { status: 400 })
+    }
+
+    // Content 8.3: a credit in the description showed up in the About text. It is a caption now.
+    if (splitImageCredit(description)) {
+      return NextResponse.json({ error: CREDIT_IN_DESCRIPTION_ERROR }, { status: 400 })
+    }
+
+    if (imageCredit != null && typeof imageCredit !== 'string') {
+      return NextResponse.json({ error: 'Invalid image credit' }, { status: 400 })
     }
 
     if (!countryId || typeof countryId !== 'string') {
@@ -210,6 +221,8 @@ export async function POST(request: Request) {
         studentPopulation: studentPopulation ? parseInt(studentPopulation, 10) : null,
         logo: logoToSave,
         image: imageToSave,
+        // A credit without an image has nothing to caption.
+        imageCredit: imageToSave ? imageCredit?.trim() || null : null,
         websiteUrl: websiteUrl.trim(),
         email: email?.trim() || null,
         phone: phone?.trim() || null

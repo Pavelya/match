@@ -157,7 +157,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
               degreeType: program.degreeType,
               duration: program.duration,
               minIBPoints: program.minIBPoints,
-              city: program.university.city,
+              city: program.campusCity ?? program.university.city,
               courseRequirements: program.courseRequirements.map((cr) => ({
                 id: cr.id,
                 ibCourse: {

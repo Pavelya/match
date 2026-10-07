@@ -44,6 +44,7 @@ const getProgram = cache((id: string) =>
       description: true,
       degreeType: true,
       duration: true,
+      campusCity: true,
       minIBPoints: true,
       programUrl: true,
       requirementsEntryYear: true,
@@ -53,6 +54,7 @@ const getProgram = cache((id: string) =>
           name: true,
           abbreviatedName: true,
           image: true,
+          imageCredit: true,
           city: true,
           websiteUrl: true,
           country: {
@@ -367,12 +369,13 @@ export default async function ProgramDetailPage({ params }: PageProps) {
     minIBPoints: program.minIBPoints,
     programUrl: program.programUrl,
     requirementsCheck: requirementsCheck(program.requirementsEntryYear),
-    city: program.university.city,
+    city: program.campusCity ?? program.university.city,
     university: {
       id: program.university.id,
       name: program.university.name,
       abbreviation: program.university.abbreviatedName,
       image: program.university.image,
+      imageCredit: program.university.imageCredit,
       websiteUrl: program.university.websiteUrl
     },
     country: {
@@ -422,7 +425,7 @@ export default async function ProgramDetailPage({ params }: PageProps) {
       url: program.university.websiteUrl,
       address: {
         '@type': 'PostalAddress',
-        addressLocality: program.university.city,
+        addressLocality: program.campusCity ?? program.university.city,
         addressCountry: program.university.country.code
       }
     },

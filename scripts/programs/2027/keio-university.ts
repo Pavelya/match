@@ -50,6 +50,8 @@ const refresh: RefreshFile = {
       field: 'Social Sciences',
       degree: 'Bachelor of Arts',
       duration: '4 years',
+      // Campus, 7 October 2026: GIGA is at the Shonan Fujisawa Campus (admissions page)
+      campusCity: 'Fujisawa',
       minIBPoints: 24,
       programUrl: GIGA,
       requirements: [],
@@ -66,6 +68,8 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Arts',
       duration: '4 years',
+      // Campus, 7 October 2026: GIGA is at the Shonan Fujisawa Campus (admissions page)
+      campusCity: 'Fujisawa',
       minIBPoints: 24,
       programUrl: GIGA,
       requirements: [],

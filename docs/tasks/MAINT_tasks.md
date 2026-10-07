@@ -40,7 +40,7 @@ pull request, merged before the next starts.
 | any | 3 or 4 Higher Level subjects | 5.13 | small | **Done** (7 October 2026). The diploma check accepts two HL subjects. Same files as 5.8: do them together |
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
-| any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there |
+| any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
 Branch protection is on (7 October 2026).
@@ -918,6 +918,11 @@ would find it.
    read-only there instead.
 6. A field an admin keeps on purpose stays in the inventory's outlier list until the program's id is
    added to `KEPT` with the owner's reason. Say so in the hint's help text and in the PR.
+7. **Campus city** (`CONTENT_tasks.md` 8.2, 7 October 2026). `AcademicProgram.campusCity` holds where a
+   program is taught when that is not its university's city (UBC's Okanagan programs: Kelowna). Only
+   the refresh tool writes it today; the copy route carries it over. Add an optional "Campus city"
+   input to both forms and the bulk upload's columns, empty meaning the university's city, with the
+   university's city as the placeholder. Its API routes trim it and store null for empty.
 
 **Must not:**
 

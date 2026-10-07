@@ -33,6 +33,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching, Ottobrunn
+      campusCity: 'Garching',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/aerospace-bachelor-of-science-bsc',
@@ -61,6 +63,8 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/agricultural-and-horticultural-sciences-bachelor-of-science-bsc',
@@ -118,6 +122,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching, Weihenstephan (Freising)
+      campusCity: 'Garching',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/biochemistry-bachelor-of-science-bsc',
@@ -146,6 +152,8 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Straubing
+      campusCity: 'Straubing',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/bioeconomy-bachelor-of-science-bsc',
@@ -203,6 +211,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/brewing-and-beverage-technology-bachelor-of-science-bsc',
@@ -231,6 +241,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Straubing
+      campusCity: 'Straubing',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/chemical-biotechnology-bachelor-of-science-bsc',
@@ -259,6 +271,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/chemical-engineering-bachelor-of-science-bsc',
@@ -287,6 +301,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Singapore, at TUM Asia; the country stays Germany (owner)
+      campusCity: 'Singapore',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/chemical-engineering-bachelor-of-engineering-beng',
@@ -315,6 +331,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/chemistry-bachelor-of-science-bsc',
@@ -399,6 +417,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Singapore, at TUM Asia; the country stays Germany (owner)
+      campusCity: 'Singapore',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/electronics-and-data-engineering-bachelor-of-engineering-beng',
@@ -455,6 +475,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/engineering-science-bachelor-of-science-bsc',
@@ -511,6 +533,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising), Garching
+      campusCity: 'Freising',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/food-chemistry-bachelor-of-science-bsc',
@@ -539,6 +563,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/food-technology-bachelor-of-science-bsc',
@@ -567,6 +593,8 @@ const refresh: RefreshFile = {
       field: 'Environmental Studies',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/forest-science-and-resource-management-bachelor-of-science-bsc',
@@ -680,6 +708,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/informatics-bachelor-of-science-bsc',
@@ -708,6 +738,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Heilbronn
+      campusCity: 'Heilbronn',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/information-engineering-at-tum-campus-heilbronn-bachelor-of-science-bsc',
@@ -736,6 +768,8 @@ const refresh: RefreshFile = {
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/information-systems-bachelor-of-science-bsc',
@@ -793,6 +827,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/life-sciences-biology-bachelor-of-science-bsc',
@@ -821,6 +857,8 @@ const refresh: RefreshFile = {
       field: 'Medicine & Health',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/life-sciences-nutrition-bachelor-of-science-bsc',
@@ -849,6 +887,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Heilbronn
+      campusCity: 'Heilbronn',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/management-and-data-science',
@@ -905,6 +945,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/mathematics-bachelor-of-science-bsc',
@@ -933,6 +975,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising), Garching
+      campusCity: 'Freising',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/molecular-biotechnology-bachelor-of-science-bsc',
@@ -961,6 +1005,8 @@ const refresh: RefreshFile = {
       field: 'Engineering',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Weihenstephan (Freising)
+      campusCity: 'Freising',
       minIBPoints: 38,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/pharmaceutical-bioprocess-engineering-bachelor-of-science-bsc',
@@ -989,6 +1035,8 @@ const refresh: RefreshFile = {
       field: 'Natural Sciences',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Garching
+      campusCity: 'Garching',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/physics-bachelor-of-science-bsc',
@@ -1041,6 +1089,8 @@ const refresh: RefreshFile = {
       field: 'Business & Economics',
       degree: 'Bachelor of Science',
       duration: '3 years',
+      // Campus, 7 October 2026: tum.de "Main Locations": Straubing
+      campusCity: 'Straubing',
       minIBPoints: 36,
       programUrl:
         'https://www.tum.de/en/studies/degree-programs/detail/sustainable-management-and-technology-bachelor-of-science-bsc',
