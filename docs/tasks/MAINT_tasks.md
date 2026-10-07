@@ -33,11 +33,11 @@ pull request, merged before the next starts.
 | any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
 | any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
 | any | Mixed subject groups | 5.7 | small | Students see the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. Grows with each phase 4 session |
-| any | TOK and EE core points | 5.8 | small | Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
+| any | TOK and EE core points | 5.8 | small | **Code done** (7 October 2026); the data fix is approved and runs once it is deployed. Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
 | any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
 | any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
 | any | No hidden matches | 5.12 | small | The matches page finds 14 and shows 10, with no way to see the rest. Program data comes from the Redis cache, so showing more costs no database reads |
-| any | 3 or 4 Higher Level subjects | 5.13 | small | The diploma check accepts two HL subjects. Same files as 5.8: do them together |
+| any | 3 or 4 Higher Level subjects | 5.13 | small | **Done** (7 October 2026). The diploma check accepts two HL subjects. Same files as 5.8: do them together |
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 
@@ -76,12 +76,12 @@ Phase 5 — quick wins
 - [x] 5.5 Restore the University of Manchester image — re-sourced and uploaded by the owner, 5 October 2026
 - [ ] 5.6 Make the Algolia status script read every record
 - [ ] 5.7 Show each option's level and grade in mixed subject groups
-- [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay
+- [ ] 5.8 Use the IB core points matrix for TOK and the Extended Essay — code done 7 October 2026; the data fix (20 totals, each +1) is approved by the owner and runs after deploy
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
 - [ ] 5.10 Give the older university images a one-year cache
 - [ ] 5.11 Send school logos to Storage, as university logos already go
 - [ ] 5.12 Show every match, not only the top 10
-- [ ] 5.13 Require 3 or 4 Higher Level subjects
+- [x] 5.13 Require 3 or 4 Higher Level subjects
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 
@@ -528,6 +528,13 @@ comparison query finds 0 of the 140 profiles off the matrix. `npm test`, `npx ts
 
 **Session size:** Small. Code, a test and a 20-row data fix that needs the owner's approval.
 
+**Done, 7 October 2026** (with 5.13). The helpers are `lib/ib/core-points.ts` and `lib/ib/diploma.ts`;
+both APIs now compute the total themselves when a request carries six courses and both grades, and the
+coordinator form offers its manual override only while a profile is incomplete. The data fix is
+`scripts/fix-core-points-totals.ts`. Its dry run found 20 of 141 profiles off the matrix, all +1 (C/B ×8,
+B/C ×8, C/C ×3, B/D ×1), and no profile with an E. The owner approved `--apply` for after the code is
+deployed.
+
 ---
 
 ### 5.9 — Remove what the December 2025 sample seed left behind
@@ -745,6 +752,10 @@ put the diploma rules in one shared pure helper next to 5.8's core-points helper
 request with two HL subjects gets a 400. `npm test` passes.
 
 **Session size:** Small. Fold into 5.8.
+
+**Done, 7 October 2026** (with 5.8). Step 4's count, from `scripts/fix-core-points-totals.ts`: of the
+six-course profiles, 3 have two HL subjects, 123 three and 15 four. The three were left unchanged; they
+see the message the next time they save.
 
 ---
 

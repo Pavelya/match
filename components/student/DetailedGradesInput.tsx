@@ -6,6 +6,8 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { SubjectSelectorDialog } from './SubjectSelectorDialog'
 import { X, AlertTriangle } from 'lucide-react'
+import { getCorePoints } from '@/lib/ib/core-points'
+import { validateDiploma } from '@/lib/ib/diploma'
 
 const GRADE_OPTIONS = ['A', 'B', 'C', 'D', 'E'] as const
 
@@ -23,11 +25,6 @@ interface CourseSelection {
   grade: number
 }
 
-interface DiplomaValidationResult {
-  isValid: boolean
-  failingReasons: string[]
-}
-
 interface DetailedGradesInputProps {
   courses: IBCourse[]
   selections: CourseSelection[]
@@ -40,83 +37,6 @@ interface DetailedGradesInputProps {
   ) => void
   /** Callback to notify parent of validation status (used to disable save button) */
   onValidationChange?: (isValid: boolean) => void
-}
-
-/**
- * Validate IB Diploma requirements
- * Returns validation result with any failing reasons
- */
-function validateDiploma(
-  selections: CourseSelection[],
-  tokGrade: string | null,
-  eeGrade: string | null,
-  totalPoints: number
-): DiplomaValidationResult {
-  const failingReasons: string[] = []
-
-  // Only validate if we have enough data
-  if (selections.length < 6 || !tokGrade || !eeGrade) {
-    return { isValid: true, failingReasons: [] }
-  }
-
-  // 1. E in TOK or EE = automatic fail
-  if (tokGrade === 'E') {
-    failingReasons.push('Grade E in Theory of Knowledge results in diploma failure')
-  }
-  if (eeGrade === 'E') {
-    failingReasons.push('Grade E in Extended Essay results in diploma failure')
-  }
-
-  // 2. Grade 1 in any subject = automatic fail
-  const grade1Subjects = selections.filter((s) => s.grade === 1)
-  if (grade1Subjects.length > 0) {
-    const subjectNames = grade1Subjects.map((s) => s.courseName).join(', ')
-    failingReasons.push(`Grade 1 in any subject results in diploma failure (${subjectNames})`)
-  }
-
-  // 3. More than two grades of 2 = fail
-  const grade2Count = selections.filter((s) => s.grade === 2).length
-  if (grade2Count > 2) {
-    failingReasons.push(
-      `More than two grades of 2 results in diploma failure (you have ${grade2Count})`
-    )
-  }
-
-  // 4. More than three grades of 3 or below = fail
-  const lowGradeCount = selections.filter((s) => s.grade <= 3).length
-  if (lowGradeCount > 3) {
-    failingReasons.push(
-      `More than three grades of 3 or below results in diploma failure (you have ${lowGradeCount})`
-    )
-  }
-
-  // 5. Fewer than 12 points in HL subjects = fail
-  const hlPoints = selections.filter((s) => s.level === 'HL').reduce((sum, s) => sum + s.grade, 0)
-  if (hlPoints < 12) {
-    failingReasons.push(
-      `Fewer than 12 points in HL subjects results in diploma failure (you have ${hlPoints})`
-    )
-  }
-
-  // 6. Fewer than 9 points in SL subjects = fail
-  const slPoints = selections.filter((s) => s.level === 'SL').reduce((sum, s) => sum + s.grade, 0)
-  if (slPoints < 9) {
-    failingReasons.push(
-      `Fewer than 9 points in SL subjects results in diploma failure (you have ${slPoints})`
-    )
-  }
-
-  // 7. Total points less than 24 = fail
-  if (totalPoints < 24) {
-    failingReasons.push(
-      `Total points below 24 results in diploma failure (you have ${totalPoints})`
-    )
-  }
-
-  return {
-    isValid: failingReasons.length === 0,
-    failingReasons
-  }
 }
 
 export function DetailedGradesInput({
@@ -151,13 +71,9 @@ export function DetailedGradesInput({
   const calculateTotal = () => {
     const subjectPoints = selections.reduce((sum, sel) => sum + sel.grade, 0)
 
-    // TOK/EE bonus points (simplified - actual IB matrix is more complex)
-    let bonusPoints = 0
-    if (tokGrade && eeGrade) {
-      const tokValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(tokGrade)
-      const eeValue = 5 - ['A', 'B', 'C', 'D', 'E'].indexOf(eeGrade)
-      bonusPoints = Math.min(3, Math.max(0, tokValue + eeValue - 6))
-    }
+    // TOK/EE core points from the IB matrix. An E fails the diploma and adds nothing.
+    const corePoints = getCorePoints(tokGrade, eeGrade)
+    const bonusPoints = typeof corePoints === 'number' ? corePoints : 0
 
     return { subjectPoints, bonusPoints, total: subjectPoints + bonusPoints }
   }
@@ -167,8 +83,8 @@ export function DetailedGradesInput({
 
   // Validate diploma requirements
   const validation = useMemo(
-    () => validateDiploma(selections, tokGrade, eeGrade, total),
-    [selections, tokGrade, eeGrade, total]
+    () => validateDiploma(selections, tokGrade, eeGrade),
+    [selections, tokGrade, eeGrade]
   )
 
   // Notify parent of validation changes
