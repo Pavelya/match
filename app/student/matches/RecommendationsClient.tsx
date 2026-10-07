@@ -214,14 +214,17 @@ export function RecommendationsClient() {
     )
   }
 
+  const { totalMatches, returnedCount } = matches
+  const matchCount =
+    returnedCount < totalMatches
+      ? `${totalMatches} programs match your profile. Showing the best ${returnedCount}.`
+      : `${totalMatches} ${totalMatches === 1 ? 'program matches' : 'programs match'} your profile.`
+
   return (
     <PageContainer>
       {/* Animated Header */}
       <FadeIn direction="down" duration={400}>
-        <PageHeader
-          title="Your Program Recommendations"
-          description={`We found ${matches.totalMatches} programs matching your profile. Showing top ${matches.returnedCount}.`}
-        />
+        <PageHeader title="Your Program Recommendations" description={matchCount} />
       </FadeIn>
 
       {/* Animated Recommendations Grid */}
