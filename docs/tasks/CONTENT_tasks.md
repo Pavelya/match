@@ -33,6 +33,12 @@ here, and this refresh does more production writes than any work before it.
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
+| any | Design-audit data fixes | 8.1–8.3 | small to medium each | From the student design audit (6 October 2026). 8.1 changes what students match on; 8.2 and 8.3 need a schema field each, through a migration |
+
+**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
+screens are reviewed with real data; 8.2 and 8.3 before the program page (rebranding 2.4). Country-page
+edits (5.3 France, 6 USA, 7 Germany) must not overlap with rebranding 4.2, which moves all guides
+onto one template.
 
 **Phases 2 and 3–4 are independent.** Country pages touch no program data. If time runs
 short before 13 January 2027, prioritise sessions 12–13 (UK) over session 6.
@@ -103,6 +109,12 @@ Phase 6 — USA
 Phase 7 — Germany
 
 - [ ] 7 Research how to model German admissions, then refresh and extend
+
+Phase 8 — Data found by the design audit
+
+- [ ] 8.1 One home per discipline in the fields of study
+- [ ] 8.2 Show the campus city for programs taught away from the main campus
+- [ ] 8.3 Move image credits out of university descriptions
 
 Owner tasks — not AI work
 
@@ -2624,3 +2636,101 @@ the decision. It has already had its 2027 pass in 2.2; this is about how it desc
 requirements.
 
 **Session size:** One research session, one or two build sessions.
+
+---
+
+## Phase 8 — Data found by the design audit
+
+Found during the student design audit (`docs/UX/design-refresh-2026/01-audit.md`, 5–6 October
+2026). UX fixes from the same audit are in `docs/tasks/REBRANDING_tasks.md`, and logic bugs in
+`docs/tasks/MAINT_tasks.md` 5.12–5.15. The repeated names in either/or groups ("Analysis and
+Approaches or Analysis and Approaches") are **not** a data issue: the data is right, and the card prints
+the first option's level for all (`MAINT_tasks.md` 5.7).
+
+### 8.1 — One home per discipline in the fields of study
+
+**Outcome:** Each discipline belongs to one field of study. No discipline is named in two field
+descriptions, and programs are filed consistently.
+
+**Why:** The onboarding screen (owner's screenshot, 6 October 2026) lists the same discipline under
+two fields:
+
+- Computer Science is a field, and also in Engineering's description.
+- Economics is in Business & Economics and in Social Sciences.
+- Environmental Science is in Natural Sciences and Environmental Studies.
+- Mathematics sits under Natural Sciences with no field of its own.
+
+Programs follow suit. Of the first 50 results of a public search for "economics" on 6 October 2026, 36
+programs named Economics are filed under Business & Economics, 4 under Social Sciences (Western's and
+Bocconi's among them) and 2 under Arts & Humanities. Field matching is exact
+(`lib/matching/field-matcher.ts`). A student who picks only Business & Economics gets no field match
+for those six, and the onboarding copy invites exactly that choice.
+
+**Steps:**
+1. **Inventory with aggregates, not full reads.** Count programs per field whose names contain each
+   discipline word (economics, computer, data science, psychology, environmental, mathematics,
+   architecture …), with `select` and `count()`. List the outliers.
+2. **Propose a rule per discipline** (for example: Economics → Business & Economics, Psychology →
+   Social Sciences; joint degrees by their first-named discipline) and the description wording.
+   **The owner approves** the rule and the list.
+3. Rewrite the `FieldOfStudy` descriptions so no discipline appears twice. Re-file the outlier
+   programs through the refresh tool's data files, one university at a time, with a dry run first.
+4. Sync the changed programs to Algolia, and clear the match cache (`clearAllMatchCache`), because
+   field matches change.
+
+**Verify:** no discipline word appears in two field descriptions. Re-running step 1 finds no outlier
+except joint degrees the owner kept. Searching "economics" shows the agreed field on every Economics
+program.
+
+**Session size:** Medium.
+
+---
+
+### 8.2 — Show the campus city for programs taught away from the main campus
+
+**Outcome:** A program taught on another campus shows that campus's city on cards, its page and in
+search.
+
+**Why:** The location shown is always `University.city`. UBC's "Data Science (Okanagan)" and
+"Geography (Okanagan)" show Vancouver, both on the owner's matches screenshot and in the public
+search API on 6 October 2026. UBC Okanagan is in Kelowna. Other multi-campus universities may be the
+same. Charles University's city is stored as "Prague, Hradec Králové, Plzeň", which suits no single
+program.
+
+**Steps:**
+1. Inventory with aggregates: programs whose names carry a campus marker (a city or campus in
+   parentheses, "campus"), and universities whose `city` holds more than one place.
+2. Add a nullable `Program.city` (or `campusCity`) through a migration file and `prisma migrate
+   deploy`. **Never `db push`** (`MAINT_tasks.md`, hard rules). The owner approves the migration.
+3. Display and index `program.city ?? university.city`: the program card, the program page, the
+   Algolia record builder (`transformToProgram` reads `result.city`), and the JSON-LD address.
+4. Fill it from the official program pages through the refresh tool, with a dry run first.
+
+**Verify:** both UBC Okanagan programs show Kelowna on their cards, their pages and in search. Other
+programs are unchanged. The migration applies cleanly with `migrate deploy`.
+
+**Session size:** Small to medium (one migration, a few display points, a small data pass).
+
+---
+
+### 8.3 — Move image credits out of university descriptions
+
+**Outcome:** An image's credit appears as a small caption under the image, not inside the "About"
+text.
+
+**Why:** The University of Sydney's About section ends with "Image attribution: By Jason Tong - Own
+work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=32208955" (seen 5 October 2026).
+CC BY-SA requires the credit, so it must stay, but as a credit beside the photo.
+
+**Steps:**
+1. Count affected rows: `SELECT count(*) FROM "University" WHERE description ILIKE '%attribution%'`.
+2. Add a nullable `University.imageCredit` through a migration (owner approves). A script moves the
+   credit text out of each description: dry run by default, `--apply`, a backup first, and only the
+   matched rows written.
+3. Render it as a caption under the image on the university page, and wherever else the full image
+   is shown. A thumbnail needs no caption, but the credit must appear wherever the full image does.
+
+**Verify:** re-running the count in step 1 returns 0. Sydney's page shows the credit as a caption,
+and its About text ends at the description.
+
+**Session size:** Small.
