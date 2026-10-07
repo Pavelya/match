@@ -8,9 +8,23 @@
 1. [Prepare](#step-1--prepare): a short list of MAINT and CONTENT tasks that unblock the rebranding.
 2. [Design first](#step-2--design-first): turn the phases below into one task per component and one per
    screen or flow. Each has an approved design before any code.
-3. Build, phase by phase, with each change compared against its approved design.
+3. Build, phase by phase, on the [`rebranding` branch](#the-rebranding-branch), with each change
+   compared against its approved design.
+4. Release: one merge of `rebranding` into `main`, once every screen is built and approved.
 
-Steps 1 and 2 run in parallel: prep is code, step 2 is design and documentation.
+Steps 1 and 2 run in parallel: prep is code, step 2 is design and documentation. **Prep tasks ship
+to `main` as usual**: they are fixes production needs now. **Rebranding work never goes to `main`
+piece by piece.**
+
+**Sequence (owner, 7 October 2026):**
+
+1. **All of P3–P8 lands on `main` first.**
+2. Then B1–B3 set up the branch.
+3. Then the `rebranding` branch is created from that `main`, and phase 1 starts once its boards are
+   approved.
+
+The branch thus starts with every prep fix already in it, which keeps later merges small. Step 2's
+design work runs meanwhile.
 
 **How to use this.** [Start here](#start-here) gives the build order. Each task lists its
 **must-haves**: the redesign itself fixes the UX bugs the audit found, so each fix is written into
@@ -33,13 +47,16 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | Order | Task | Who | Why before the rebranding |
 |---|---|---|---|
 | P1 | ~~Enable branch protection on `main`~~ **Done 7 October 2026** (`MAINT_tasks.md`, owner tasks) | Owner, minutes | The rebranding is 15+ pull requests, and merging `main` deploys. Today a red CI can still be merged |
-| P2 | Choose the logo mark and start the clearance search (owner decisions, in the full list) | Owner | A search takes days to weeks. Starting now keeps 1.3 from blocking phase 1 |
+| P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens on the `rebranding` branch. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
 | P3 | `MAINT_tasks.md` 5.14: delete unused components | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | `MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix) | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | `MAINT_tasks.md` 5.12: every match, not the top 10 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
 | P6 | `MAINT_tasks.md` 5.7: levels and grades in either/or groups | AI, small | Recommended, not blocking. Students see "English B or English B" in 436 groups today, and 2.2 reuses the helper |
 | P7 | `CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
 | P8 | `CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration) | AI, small each | Needed by 2.4. Can run during phase 1 |
+| B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
+| B2 | Protect `rebranding` too: add it as a target of the "Protect main" ruleset, or a second ruleset with the same rules | Owner, minutes | The branch collects 15+ pull requests; it must stay green and cannot be force-pushed or deleted |
+| B3 | **A review address for the branch.** In Vercel, add a domain such as `rebranding.ibmatch.com` and assign it to the Git branch `rebranding`. Then set **branch-specific** Preview variables (`NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` = that address), so sign-in and email links stay on it: `lib/env.ts` requires `NEXTAUTH_URL`, and invites build links from these two. Add the address's callback to the Google OAuth client. Make sure it is not indexed: a `noindex` header, or `app/robots.ts` disallowing everything outside production. Then sign in there, by Google and by magic link | Owner with AI, small | The owner reviews every screen there, logged-in ones included, before anything reaches production. A stable address is easier to share than per-commit preview URLs. It reads and writes the **production database** (there is no other), so a sign-up or a save there is real data, and the cost rules apply |
 
 **Not needed before the rebranding:**
 
@@ -47,8 +64,32 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
-must not overlap with 4.2. Either finish them before 4.2, or write them straight onto the new
-template.
+land on `main`, while 4.2 rewrites the same pages on `rebranding`. Do 4.2 late, straight after
+merging the latest `main` into `rebranding`. Port any country edit made on `main` after that into
+the template before release.
+
+### The rebranding branch
+
+- **One long-lived branch, `rebranding`**, created from `main` after P3–P8 and B1 have landed. Every rebranding
+  task is its own short branch with a pull request **into `rebranding`**, never into `main`.
+  Production keeps today's look until the release merge.
+- **Merge `main` into `rebranding` at least weekly**, and before starting each phase, so prep fixes
+  and content work flow in and conflicts stay small. Expect them in files the redesign replaces
+  (`ProgramCard.tsx`, the onboarding components). Keep the logic from `main`; keep the markup from
+  `rebranding`.
+- **The owner reviews on the branch's own address** (B3), which always shows the branch's latest
+  deploy. Seeing every screen there, together, is also when the final logo is decided.
+- **Why a branch, not feature flags or a separate Vercel environment.**
+  - **Feature flags** would put unfinished redesign code into production behind a switch: the "mix in
+    production" the owner ruled out. The new tokens restyle every page at once, which makes flags
+    impractical anyway.
+  - **Vercel's custom environments** (a paid-plan feature) or a second Vercel project would also
+    deploy this branch, with more setup and nothing gained. There is still only one database.
+- **Release:** one pull request from `rebranding` into `main`, once every phase is built and its
+  design QA passed, and the final logo is chosen. If the final logo is a new mark, the clearance
+  search must be back first.
+- **Data never waits for the branch.** Migrations (`CONTENT_tasks.md` 8.2, 8.3) and data fixes go
+  to `main` through their own tasks. The branch only displays them.
 
 ## Step 2 — Design first
 
@@ -71,8 +112,8 @@ and desktop. The owner must also have approved the board, by a comment on the ca
 record the board and the approval date. After building, the pull request includes screenshots
 next to the board (design QA). A visual change that is not on an approved board is not merged.
 
-**Decisions taken during step 2:** the match status model (blocks 2.1). It is easiest to decide
-with both versions side by side on a board.
+**Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
+Within reach, Missing a requirement). See [Open questions](#open-questions).
 
 ---
 
@@ -86,8 +127,8 @@ tasks.
 | 1 | Tokens, type and theme | 1.1, 1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, every app screen picks up the new colours |
 | 2 | Primitives | 1.2 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
 | 3 | Site chrome | 1.5 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
-| 4 | Logo | 1.3 | small | **Blocked** until the owner picks the mark and the clearance search is back |
-| 5 | Match data | 2.1 | small | **Blocked** until the owner picks the status model |
+| 4 | Logo | 1.3 | small | Lens, provisionally. The final mark and the clearance search are needed before the release merge, not before this task |
+| 5 | Match data | 2.1 | small | Requirement-based statuses (decided 7 October 2026) |
 | 6–7 | Match card and results | 2.2 | large | Replaces `ProgramCard` |
 | 8 | Explore | 2.3 | medium | |
 | 9 | Program and university pages | 2.4 | medium | |
@@ -134,11 +175,12 @@ Phase 4 — Public pages
 
 Owner decisions — not AI work
 
-- [ ] Choose the logo mark: Lens (recommended), Threshold, or Rings (Mastercard risk). See the canvas
-  board "Logo options and clearance". Blocks 1.3
-- [ ] Commission a trademark clearance search for the chosen mark: EUIPO and USPTO, figurative marks,
-  Nice classes 41 and 42. Blocks shipping 1.3
-- [ ] Choose the match status model ([Open questions](#open-questions)). Blocks 2.1
+- [x] Choose the logo mark: **Lens, provisionally** (7 October 2026). Final decision after seeing all
+  screens on the `rebranding` branch
+- [ ] Before the release merge, confirm the final mark. If it is a new mark (Lens or another), commission
+  a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
+- [ ] Add `rebranding` to the branch protection (B2) and check sign-in on its preview (B3)
+- [x] Choose the match status model: **requirement-based** (7 October 2026)
 - [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
 
 ---
@@ -163,7 +205,8 @@ Owner decisions — not AI work
 | Direction | B, "Ultramarine" |
 | Colour | Brand #2B3FD6 on paper #F7F6F2; lime #D5F36B for brand moments only |
 | Type | Newsreader for display (22px and up), Geist for UI; Geist Mono dropped |
-| Logo | A new mark, if it clears a similarity check; **loaded from configuration, never hard-coded** |
+| Logo | **Lens, provisionally** (7 October 2026); the final decision comes after seeing all screens. A new mark needs a clearance search before release. **Loaded from configuration, never hard-coded** |
+| Where the work lives | **A dedicated `rebranding` branch**; production gets the redesign in one merge at the end |
 | Match score | Status first; the percentage only inside "Why this match" |
 | Dark mode | Follows the OS by default, with a toggle in the desktop account menu, the phone Profile tab and the public footer |
 | Sign-in | **Stays first.** No try-before-sign-up |
@@ -234,7 +277,9 @@ built from the tokens.
 
 ### 1.3 — Brand configuration and the new logo
 
-**Blocked** until the owner chooses the mark and the clearance search is back.
+**Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance"). The
+final mark is decided before the release merge, and swapping it must be a change to the config and
+asset files only.
 
 **Outcome:** One module (`lib/brand/config.ts`, `04-design-system.md` §8) names every brand asset,
 and nothing else hard-codes a logo.
@@ -290,7 +335,7 @@ Logged out, nothing in the header leads to sign-in except "Sign in" and "Get my 
 
 ### 2.1 — Match data for the new cards
 
-**Blocked** until the owner chooses the status model ([Open questions](#open-questions)).
+**Status model:** requirement-based, decided 7 October 2026 ([Open questions](#open-questions)).
 
 **Outcome:** The matching result carries what the cards need, with no change to scores.
 
@@ -317,8 +362,7 @@ state", "Matches" and "Phone · Why this match, opened".
 - **Status groups** on the matches page, the third collapsed. It shows every match `MAINT_tasks.md`
   5.12 returns, with no "top 10" copy.
 - **Either/or requirements** show each option's own level and grade. This is the display half of
-  `MAINT_tasks.md` 5.7. If 5.7 is not done yet, build its helper here and leave only its meta
-  description and JSON-LD part in MAINT.
+  `MAINT_tasks.md` 5.7, which ships to `main` first (prep P6). Reuse its helper here.
 - **Honest save.** "Saved" appears only after the server confirms; a failure reverts with a toast.
   Logged out, Save leads to sign-in (a same-origin `callbackUrl` to the program with `?save=1`) and
   saves the program on return. Today it shows "Saved" and stores nothing (audit 4.1).
@@ -423,8 +467,9 @@ fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
 **Must-haves:** everything 7.2 lists: static with a one-week revalidate, URLs unchanged, per-country
 JSON-LD preserved, the sitemap unchanged. Tokens only, which removes about 4,260 hard-coded palette
-classes. Migrate two or three, compare the rendered text before and after, then do the rest. Do not
-start while `CONTENT_tasks.md` phase 5 is editing guides.
+classes. Migrate two or three, compare the rendered text before and after, then do the rest. Start straight
+after merging the latest `main` into `rebranding`, and port any later country edits from `main`
+before release (see [The rebranding branch](#the-rebranding-branch)).
 
 ### 4.3 — Other public pages
 
@@ -441,14 +486,22 @@ rule, not a formatting one, so it does not conflict with Prettier.
 
 ## Open questions
 
-1. **Match status model** (blocks 2.1). The design proposes requirement-based statuses: Meets all
-   requirements, Within reach, Missing a requirement. The V10 algorithm already returns a `category`
-   for every match, `SAFETY` / `MATCH` / `REACH` / `UNLIKELY` (`lib/matching/categorization.ts`), which no
-   student screen shows. It is score- and margin-based, and its copy promises an admission likelihood
-   IB Match cannot know (see `CONTENT_tasks.md` 5.4). Reuse V10 with honest copy, or derive the
-   requirement statuses. Never show both.
-2. **How a level gap scores:** `MAINT_tasks.md` 5.15. It affects order within a status group, not the
-   design.
+Both are decided; kept here for the reasoning.
+
+1. **Match status model: requirement-based** (owner, 7 October 2026).
+   - **The statuses:** Meets all requirements, Within reach, Missing a requirement, derived from
+     `academicMatch` (`04-design-system.md` §9). Each card shows the points margin ("✓ 38 / 33
+     points"), so "comfortably above" stays visible without promising admission.
+   - **V10's categories are not shown.** `SAFETY` / `MATCH` / `REACH` / `UNLIKELY` from
+     `lib/matching/categorization.ts` stay in the code and the API response, unused by the UI. Their copy
+     promises an admission likelihood IB Match cannot know, and "Reach" mixes fixable gaps (a point
+     short) with unfixable ones (a missing subject or level).
+   - Whether to remove the V10 categories belongs to the later matching review.
+2. **How a level gap scores: no change for now** (owner, 7 October 2026; `MAINT_tasks.md` 5.15). The
+   status groups already separate a level gap from a point gap. Scores only order cards within a group,
+   and show inside "Why this match". **Accepted for now:** a "Missing a requirement" card can show a
+   higher fit than a "Within reach" one, and 1 and 3 points short score the same. The whole matching
+   math is revisited later, separately from the rebranding.
 
 ## Related tasks elsewhere
 
@@ -459,6 +512,6 @@ rule, not a formatting one, so it does not conflict with Prettier.
 | 5.12 | `MAINT_tasks.md` | Return every match, not the top 10. Needed by 2.2 |
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |
 | 5.14 | `MAINT_tasks.md` | Delete unused components. Independent |
-| 5.15 | `MAINT_tasks.md` | How a level gap scores. Independent |
+| 5.15 | `MAINT_tasks.md` | How a level gap scores. Decided 7 October 2026: no change now; revisit with the whole matching math later |
 | 7.2 | `MAINT_tasks.md` | Country pages collapse. Done as 4.2 |
 | 8.1–8.3 | `CONTENT_tasks.md` | Fields of study (used by 3.1), campus city and image credits (used by 2.4) |

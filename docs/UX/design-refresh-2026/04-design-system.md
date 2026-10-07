@@ -255,10 +255,11 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 Order on the card: gap (×), then close (–), then met (✓), then info (•). Show at most four; the rest
 collapse to "+N met".
 
-**Status model (open question, `REBRANDING_tasks.md`).** The V10 algorithm already returns a
-`category` for each match, `SAFETY` / `MATCH` / `REACH` / `UNLIKELY` (`lib/matching/categorization.ts`),
-which no student screen shows. Its copy promises admission likelihood that IB Match cannot know.
-The statuses below derive from requirements instead. Choose one before phase 2; never show both.
+**Status model: requirement-based (owner, 7 October 2026).** The V10 algorithm's `category`
+(`SAFETY` / `MATCH` / `REACH` / `UNLIKELY`, `lib/matching/categorization.ts`) stays unused by the UI. Its
+copy promises an admission likelihood IB Match cannot know, and "Reach" mixes fixable and unfixable gaps.
+Scores are unchanged for now (`MAINT_tasks.md` 5.15). They order cards within a group and appear only
+in "Why this match".
 
 **Card status**: **Meets all requirements** if every chip is met. **Within reach** if there is no gap and at
 most one subject is close, whether or not points are close. **Missing a requirement** otherwise. Badge copy is specific:
