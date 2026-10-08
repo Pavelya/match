@@ -153,16 +153,16 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 8 October 2026.** The canvas has 23 boards. The owner approved "B · Foundations"
-and "Theme: System, Light, Dark" in chat: D1.1, D1.3 and D1.4 are approved, and D1.2 for its
-desktop scale. Thirty tasks need a screen size or states added. Ten have no board.
+**Where it stands, 8 October 2026.** The canvas has 26 boards. The owner approved "B · Foundations",
+"Theme: System, Light, Dark" and the three "D1.2 Type" boards in chat: D1.1 to D1.4 are approved.
+Twenty-nine tasks need a screen size or states added. Ten have no board.
 
 ### Foundations
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
 | D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
-| D1.2 Type | "B · Foundations": the scale in Newsreader and Geist | Phone sizes: Display XL (56px) and Display L (44px) do not fit at 390px | Desktop scale, 8 October 2026. Phone sizes still to approve |
+| D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row | Nothing | 8 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
@@ -446,10 +446,12 @@ Newsreader and Geist.
   so today's pages don't download it; the browser fetches it only where the new design uses it. Geist
   Mono goes with `NoAISection.tsx` (`app/how-it-works/_components/NoAISection.tsx:32`, its only use) when
   4.3 rebuilds How it works.
+- Type as in §2, with the phone sizes below 768px set by the tokens, not by components, and the rules
+  under the table.
 - Radius, spacing, elevation and motion tokens as in §3.
 
-**Verify:** the contrast table in the PR; build static as before; font transfer at most 60 KB; without
-the preview link, today's colours.
+**Verify:** the contrast table in the PR; build static as before; font transfer at most 60 KB; type at
+390px and 1440px matches the D1.2 boards; without the preview link, today's colours.
 
 ### 1.2 — Primitives
 

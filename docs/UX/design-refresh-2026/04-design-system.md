@@ -92,23 +92,38 @@ not a stylistic one, so it does not conflict with Prettier.
 
 ## 2 · Typography
 
-| Style | Family, weight | Size / line height | Use |
-|---|---|---|---|
-| Display XL | Newsreader 500 | 56/60 desktop, 40/44 phone, letter-spacing −0.02em | Home hero |
-| Display L | Newsreader 500 | 44/48, 32/36 phone | Section heads on marketing pages, country guide titles |
-| H1 | Newsreader 500 | 34–40/1.1 | Page titles in the app (Your matches, Explore programs) |
-| H2 | Geist 600 | 22/30 | Section titles (Entry requirements) |
-| H3 | Geist 600 | 17/24 | Card titles |
-| Body L | Geist 400 | 17/28 | Marketing paragraphs, program descriptions |
-| Body | Geist 400 | 15/24 | App default |
-| Small | Geist 500 | 13/18 | Meta lines, badges |
-| Label | Geist 600, uppercase, +0.06em | 12/16 | Group labels, table headers |
-| Figures | Geist 600, `tabular-nums` | as needed | Points, grades, counts |
+Size / line height in px. Approved 8 October 2026 (D1.2): the desktop scale on "B · Foundations",
+the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs on a phone.
+
+| Style | Family, weight | Desktop, 768px and up | Phone, below 768px | Use |
+|---|---|---|---|---|
+| Display XL | Newsreader 500, −0.02em | 56/60 | **40/44** | Home hero |
+| Display L | Newsreader 500, −0.015em | 44/48 | **32/36** | Section heads on marketing pages, country guide titles |
+| H1 | Newsreader 500, −0.01em | 34/40 | **30/36** | Page titles in the app (Your matches, Explore programs), program and university names |
+| H2 | Geist 600, −0.01em | 22/30 | 22/30 | Section titles (Entry requirements) |
+| H3 | Geist 600 | 17/24 | 17/24 | Card titles |
+| Body L | Geist 400 | 17/28 | 17/28 | Marketing paragraphs, program descriptions |
+| Body | Geist 400 | 15/24 | 15/24 | App default |
+| Input | Geist 400 | 15/24 | **16/24** | Text typed into fields and search |
+| Small | Geist 500 | 13/18 | 13/18 | Meta lines, badges |
+| Label | Geist 600, uppercase, +0.06em | 12/16 | 12/16 | Group labels, table headers |
+| Figures | Geist 600, `tabular-nums` | As needed; the big total 40/44 | As needed; the big total **32/36** | Points, grades, counts |
 
 - Load with `next/font/google`: `Geist` (variable) and `Newsreader` (variable, with the `opsz` axis),
   latin subset. Remove `Geist_Mono`.
-- Serif only at 22px and above. Never set body text in it.
+- Serif only at 22px and above. Never set body text in it. On a phone the smallest serif is H1 at 30px.
 - Hierarchy uses 400 against 600, not 500 against 600 (Windows ClearType flattens 500).
+- **The token changes, not the component.** Each style is one class (`text-display-xl`), and its value
+  switches at 768px (`48rem`) in `globals.css`, where the phone tab bar gives way to the header. No
+  component picks a phone size of its own.
+- **Sizes in rem,** so text follows the browser's text-size setting. At 200% zoom a 1440px window is
+  720px wide, gets the phone sizes and reflows (WCAG 1.4.10).
+- **Fields are 16px on a phone.** iOS Safari zooms in on any field whose text is under 16px, and the
+  page stays zoomed.
+- **Nothing under 12px.** Label is the smallest text on any screen.
+- `text-wrap: balance` on Display and H1, `text-wrap: pretty` on Body L. Every heading that shows a
+  program or university name gets `overflow-wrap: break-word`: program names run to 110 characters,
+  and one word to 24 ("Mathematics/Mathematical").
 
 ## 3 · Space, radius, elevation, motion
 
