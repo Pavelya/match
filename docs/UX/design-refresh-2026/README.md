@@ -85,7 +85,7 @@ separate "fix first" phase for UX.
 | 1 · Foundations | Tokens in `app/globals.css` (light and dark), fonts, **brand config with the logo loaded from it** (04 §8), theme switching with System, Light and Dark (04 §10), primitives (Button, Input, Chip, StatusBadge, Card), **one public layout with header and footer for every student-facing route** | ~1 week |
 | 2 · Core app | Split `ProgramCard` (1,278 lines, three jobs) into MatchCard, ResultRow and ProgramDetail; requirement checklist; matches in three status groups with requirement chips and "Why this match" on desktop and phone (04 §9); search toolbar, phone filter sheet, 20 results per page; program page; shortlist with compare | ~2 weeks |
 | 3 · Profile | Compact interest and country steps with a sticky Continue, and no tab bar during first run; inline subject editor in place of the 6-step dialog; HL-count check; one component for first run and editing; the phone Profile tab becomes the hub that absorbs Settings | ~1 week |
-| 4 · Marketing and content | New home; move the 22 country guides onto one template that keeps them static with the one-week revalidate; How it works, FAQs | ~1–1.5 weeks |
+| 4 · Marketing and content | New home; move the 23 country guides onto one template that keeps them static with the one-week revalidate; How it works, FAQs | ~1–1.5 weeks |
 
 ## Decisions (6 October 2026)
 
@@ -111,6 +111,6 @@ trademark registers (EUIPO and USPTO), classes 41 and 42, before release day.
   fonts 60 KB in total, must keep CLS at 0, and must not add a client component where a server component works.
 - **Supabase cost rules from AGENTS.md still bind.** Nothing in the redesign reads more data. Do not
   log UI events to Postgres.
-- **The 22 `study-in-*` pages stay static** with the one-week revalidate.
+- **The 23 `study-in-*` pages stay static** with the one-week revalidate.
 - **Windows, macOS, iOS, Android and ChromeOS** in current Chrome, Edge, Safari and Firefox. Every
   feature in the proposal is Baseline or degrades to plain navigation (see 02-research.md §4).
