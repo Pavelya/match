@@ -127,7 +127,8 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
   for both families. Every serif style is 500, and optical size 36 matches the boards from 30 to 44px
   and stays close at 56px; Google's default static cut (optical size 16) sets visibly wider.
   `next/font/google` can't pin an optical size, hence the local files: latin (23.8 KB) and latin-ext
-  (14.6 KB, loaded only for names that need it, such as "Łódzki"). Built 8 October 2026 (1.1).
+  (14.6 KB, loaded only for names that need it, such as "Łódzki"). Built 8 October 2026 (1.1); the
+  owner chose it over the variable font the same day.
   `Geist_Mono` goes when 4.3 rebuilds How it works.
 - Serif only at 22px and above. Never set body text in it. On a phone the smallest serif is H1 at 30px.
 - Hierarchy uses 400 against 600, not 500 against 600 (Windows ClearType flattens 500).

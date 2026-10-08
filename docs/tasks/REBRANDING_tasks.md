@@ -500,7 +500,7 @@ Newsreader and Geist.
 390px and 1440px matches the D1.2 boards; without the preview link, today's colours.
 
 **Done 8 October 2026.** Newsreader is a static 500 cut at optical size 36, self-hosted: the variable
-font missed the font budget (`04-design-system.md` §2). The type styles are `text-display-xl` to
+font missed the font budget (`04-design-system.md` §2). The owner chose the static cut on 8 October. The type styles are `text-display-xl` to
 `text-total`, and the contrast check runs in `app/globals.test.ts`.
 
 ### 1.2 — Primitives
