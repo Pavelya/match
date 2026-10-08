@@ -160,23 +160,23 @@ theme switch are in D1.4.
 | D2.2 Text input and search | The search field | Focus, an error with its message, disabled, dark | |
 | D2.3 Select and subject picker | The subject picker, closed | Open, filtered by typing, no results; dark | |
 | D2.4 Segmented control | SL or HL and grades 1–7, one chosen | Focus, disabled, a choice that blocks saving (an E in TOK or the EE), dark | |
-| D2.5 Chips | Filter chips, an applied filter with "Country · 3", removable countries, "Clear all", "Only ones I qualify for" | Focus, the on/off chip in both states, dark | |
+| D2.5 Chips | Filter chips, an applied filter with "Country · 3", removable countries, "Clear all", "Only ones I qualify for" | Focus, the on/off chip in both states, dark. Owner's question, 8 October 2026: flags on country chips? Proposed: no. They compete with the status colours, and flag emoji need a font on Windows. If flags are wanted, put them in the country picker (D4.4) as SVG | |
 | D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
-| D2.7 Status badge and requirement chip | The three statuses and "Checked for 2027 entry"; chips on "Match card: every state" | Dark | |
+| D2.7 Status badge and requirement chip | The three statuses and "Checked for 2027 entry"; chips on "Match card: every state" | An icon on the info chip: "Checked for 2027 entry" has none, unlike the others (owner, 8 October 2026). Dark | |
 | D2.8 Card and skeleton | A match card's skeleton | Skeletons for a result row and the program page, dark | |
 | D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
 | D2.11 Empty and error states | None | **No board.** One layout for no matches, no results, an empty shortlist and a failed load | |
 | D2.12 Header | Signed in on desktop, on every page board; signed out on desktop, on "Home (logged out)" | The phone header signed out and signed in; focus mode ("Save and exit", as on the first-run boards); dark | |
 | D2.13 Footer | "Theme: System, Light, Dark", desktop and phone | Dark | |
-| D2.14 Phone tab bar | On Components and every phone board | Focus, dark | |
+| D2.14 Phone tab bar | On Components and every phone board | Focus, dark. The Matches icon is the rejected Rings mark (owner, 8 October 2026). Proposed: a Lucide icon like the other three tabs, so the bar does not change with the logo | |
 | D2.15 Bottom sheet | "Phone · Filters sheet" | Dark | |
 
 ### Patterns
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark | |
+| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page | |
 | D3.2 Why this match | Open on "Match card: every state" (desktop) and on "Phone · Why this match, opened" | Dark | |
 | D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone | |
 | D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade | |
