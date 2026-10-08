@@ -135,18 +135,18 @@ session's gate.
   board counts), and every content state that applies: loading, empty, error, signed in and signed
   out, profile incomplete, a missing image, a long name.
 
-**Where it stands, 8 October 2026.** The canvas has 23 boards and no comments, so nothing is approved
-yet. Three tasks are ready for review as they are. Thirty need a screen size or states added. Ten have
-no board.
+**Where it stands, 8 October 2026.** The canvas has 23 boards. The owner approved "B · Foundations"
+and "Theme: System, Light, Dark" in chat: D1.1, D1.3 and D1.4 are approved, and D1.2 for its
+desktop scale. Thirty tasks need a screen size or states added. Ten have no board.
 
 ### Foundations
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing. **Ready for review** | |
-| D1.2 Type | "B · Foundations": the scale in Newsreader and Geist | Phone sizes: Display XL (56px) and Display L (44px) do not fit at 390px | |
-| D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing. **Ready for review** | |
-| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row | Nothing. **Ready for review** | |
+| D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
+| D1.2 Type | "B · Foundations": the scale in Newsreader and Geist | Phone sizes: Display XL (56px) and Display L (44px) do not fit at 390px | Desktop scale, 8 October 2026. Phone sizes still to approve |
+| D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
+| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row | Nothing | 8 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
 
 ### Components
