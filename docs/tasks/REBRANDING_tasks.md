@@ -255,6 +255,33 @@ merges into `main`, behind the preview switch.**
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 
+### Run order: design, approve, build
+
+The owner's sequence, one row at a time. In each row, run the design session, approve its boards
+(✋), then run the build session. The next row's design can start while the current row builds.
+Rows 3 and 4 can share a design session.
+
+| Row | 1 · Design session | 2 · ✋ You approve | 3 · Build session | Status |
+|---|---|---|---|---|
+| 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
+| 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | **Next** |
+| 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Design can start now |
+| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards | `/build 3`: site chrome (1.5) | |
+| 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
+| 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
+| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
+| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards | `/build 9`: program and university pages (2.4) | |
+| 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
+| 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
+| 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
+| 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
+| 14 | `/design D4.1`: Home on a phone | First decide whether the cookie banner stays (owner decisions), then the Home board | `/build 14`: Home (4.1) | |
+| 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
+| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
+| 17 | None | Confirm the final logo. A new mark needs its clearance search back first | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
+| 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
+
 ### How a build session works
 
 A prompt such as "Do build session 1" or `/build 1` is enough: these are the standing instructions.
