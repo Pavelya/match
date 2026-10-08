@@ -1,5 +1,30 @@
 import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
+import { extendTailwindMerge } from 'tailwind-merge'
+
+// The new design's token classes from app/globals.css. Without them tailwind-merge would read
+// text-h1 as a text colour, and cn('text-h1', 'text-muted-foreground') would drop the size.
+const twMerge = extendTailwindMerge({
+  extend: {
+    theme: {
+      text: [
+        'display-xl',
+        'display-l',
+        'h1',
+        'h2',
+        'h3',
+        'body-l',
+        'body',
+        'field',
+        'small',
+        'label',
+        'total'
+      ],
+      radius: ['chip', 'control', 'card', 'sheet'],
+      shadow: ['raised', 'overlay'],
+      ease: ['standard']
+    }
+  }
+})
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

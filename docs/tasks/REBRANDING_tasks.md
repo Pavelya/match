@@ -237,7 +237,7 @@ merges into `main`, behind the preview switch.**
 | # | Session | Tasks | Design gate | Size | Notes |
 |---|---|---|---|---|---|
 | 0 | The preview switch | 0.1 | — | small | **Done 8 October 2026** |
-| 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
+| 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
 | 3 | Site chrome | 1.5 | D1.4, D2.12–D2.14 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
 | 4 | Logo | 1.3 | D1.5 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
@@ -265,7 +265,7 @@ Rows 3 and 4 can share a design session.
 | Row | 1 · Design session | 2 · ✋ You approve | 3 · Build session | Status |
 |---|---|---|---|---|
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
-| 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Designs approved 8 October 2026. **Next: `/build 1`** |
+| 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Design can start now |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards. D1.4 is already approved | `/build 3`: site chrome (1.5) | |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
@@ -308,10 +308,10 @@ Phase 0 — Setup
 
 Phase 1 — Foundations
 
-- [ ] 1.1 Tokens and type
+- [x] 1.1 Tokens and type (8 October 2026)
 - [ ] 1.2 Primitives
 - [ ] 1.3 Brand configuration and the new logo
-- [ ] 1.4 Theme switching: System, Light, Dark
+- [x] 1.4 Theme switching: System, Light, Dark (8 October 2026)
 - [ ] 1.5 Site chrome on every student-facing page
 
 Phase 2 — Core app
@@ -499,6 +499,10 @@ Newsreader and Geist.
 **Verify:** the contrast table in the PR; build static as before; font transfer at most 60 KB; type at
 390px and 1440px matches the D1.2 boards; without the preview link, today's colours.
 
+**Done 8 October 2026.** Newsreader is a static 500 cut at optical size 36, self-hosted: the variable
+font missed the font budget (`04-design-system.md` §2). The owner chose the static cut on 8 October. The type styles are `text-display-xl` to
+`text-total`, and the contrast check runs in `app/globals.test.ts`.
+
 ### 1.2 — Primitives
 
 **Outcome:** Button, Input, Select, Chip, Segmented, StatusBadge, Card and Skeleton in the new style,
@@ -553,6 +557,10 @@ and nothing else hard-codes a logo.
   there is no flash. `color-scheme` is set so native controls and scrollbars follow.
 - `ThemeSwitch` component (System, Light, Dark radio group). Placing it is 1.5 (account menu, footer)
   and 3.3 (phone Profile tab).
+
+**Done 8 October 2026.** `components/ds/ThemeSwitch.tsx`, with a `labelled` variant (account menu,
+Profile tab) and an `icons` variant (footer), on native radio inputs. The choice is handled in
+`lib/theme.ts`; the head script is `THEME_SCRIPT`. Nothing places it yet.
 
 ### 1.5 — Site chrome on every student-facing page
 

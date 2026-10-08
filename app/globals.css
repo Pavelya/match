@@ -2,7 +2,24 @@
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+/*
+ * Dark mode belongs to the new design only (rebranding 1.4): it follows the OS unless the student
+ * picked Light or Dark, which sets data-theme on <html> (lib/theme.ts). Today's screens never get
+ * it, so their few dark: classes stay off until release.
+ */
+@custom-variant dark {
+  &:where([data-ui='next'][data-theme='dark'], [data-ui='next'][data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(
+      [data-ui='next']:not([data-theme='light']),
+      [data-ui='next']:not([data-theme='light']) *
+    ) {
+      @slot;
+    }
+  }
+}
 
 @theme inline {
   --color-background: var(--background);
@@ -42,6 +59,29 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Direction B (rebranding 1.1). The values exist only under [data-ui='next'], below. */
+  --color-ink-3: var(--ink-3);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-ink: var(--brand-ink);
+  --color-lime: var(--lime);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-close: var(--close);
+  --color-close-soft: var(--close-soft);
+  --color-gap: var(--gap);
+  --color-gap-soft: var(--gap-soft);
+  /* 6 · 10 · 14 · 20 from the one --radius; rounded-full for pills and avatars */
+  --radius-chip: calc(var(--radius) - 8px);
+  --radius-control: calc(var(--radius) - 4px);
+  --radius-card: var(--radius);
+  --radius-sheet: calc(var(--radius) + 6px);
+  /* Flat is a 1px border-border; these add to it */
+  --shadow-raised: var(--elevation-raised);
+  --shadow-overlay: var(--elevation-overlay);
+  /* With duration-120 (press), duration-180 (hover, state) and duration-240 (sheets, dialogs) */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 :root {
@@ -155,6 +195,212 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ==========================================
+ * Direction B, "Ultramarine" (rebranding 1.1 and 1.4)
+ *
+ * Only the new design sets data-ui="next" on <html> (lib/new-ui.ts), so students keep today's
+ * look until release; at cleanup (R.2) this block moves to :root. Values from
+ * docs/UX/design-refresh-2026/04-design-system.md §1–3; app/globals.test.ts measures the
+ * contrast of every pair in light and dark.
+ * ========================================== */
+
+[data-ui='next'] {
+  color-scheme: light;
+
+  /* The shadcn names, re-pointed, so bg-primary and text-muted-foreground follow */
+  --background: #f7f6f2; /* paper */
+  --foreground: #14161b; /* ink */
+  --card: #ffffff; /* surface */
+  --card-foreground: #14161b;
+  --popover: #ffffff;
+  --popover-foreground: #14161b;
+  --primary: #2b3fd6; /* brand */
+  --primary-foreground: #ffffff;
+  --secondary: #efeee8; /* sunken */
+  --secondary-foreground: #14161b;
+  --muted: #efeee8; /* sunken */
+  --muted-foreground: #464b57; /* ink-2 */
+  --accent: #efeee8;
+  --accent-foreground: #14161b;
+  --destructive: #b3261e;
+  --border: #e3e1d9; /* line */
+  --input: #cfccc1; /* line-2 */
+  --ring: #2b3fd6;
+
+  /* New: tertiary text, brand states, and the three match statuses */
+  --ink-3: #686d79;
+  --brand-hover: #2233b4;
+  --brand-soft: #e8eafb;
+  --brand-ink: #1c2a99;
+  --lime: #d5f36b; /* brand moments only: never status, never text */
+  --ok: #17723f;
+  --ok-soft: #e2f2e7;
+  --close: #94580a;
+  --close-soft: #fbefd9;
+  --gap: #b3261e;
+  --gap-soft: #fbe6e4;
+
+  --radius: 0.875rem;
+  --elevation-raised: 0 1px 2px rgb(20 22 27 / 0.06);
+  --elevation-overlay: 0 12px 32px -12px rgb(20 22 27 / 0.22);
+
+  /* The type sizes that differ on a phone; the 48rem media query below has the desktop ones */
+  --type-display-xl: 2.5rem;
+  --type-display-xl-leading: 2.75rem;
+  --type-display-l: 2rem;
+  --type-display-l-leading: 2.25rem;
+  --type-h1: 1.875rem;
+  --type-h1-leading: 2.25rem;
+  --type-field: 1rem; /* 16px, or iOS Safari zooms in on the field */
+  --type-total: 2rem;
+  --type-total-leading: 2.25rem;
+
+  @variant dark {
+    color-scheme: dark;
+
+    --background: #0e1014;
+    --foreground: #f1f0eb;
+    --card: #161920;
+    --card-foreground: #f1f0eb;
+    --popover: #161920;
+    --popover-foreground: #f1f0eb;
+    --primary: #8e9bff;
+    --primary-foreground: #0b0e2b; /* dark text on the lighter brand */
+    --secondary: #1d2129;
+    --secondary-foreground: #f1f0eb;
+    --muted: #1d2129;
+    --muted-foreground: #bbbfc9;
+    --accent: #1d2129;
+    --accent-foreground: #f1f0eb;
+    --destructive: #ff8e85;
+    --border: #2a2f3a;
+    --input: #3a404d;
+    --ring: #8e9bff;
+
+    --ink-3: #9095a2;
+    --brand-hover: #a6b0ff;
+    --brand-soft: #1e2452;
+    --brand-ink: #c9cfff;
+    --ok: #72d69b;
+    --ok-soft: #14301f;
+    --close: #f0b95c;
+    --close-soft: #33260f;
+    --gap: #ff8e85;
+    --gap-soft: #3a1715;
+
+    --elevation-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+/* 768px: where the phone tab bar gives way to the header */
+@media (width >= 48rem) {
+  [data-ui='next'] {
+    --type-display-xl: 3.5rem;
+    --type-display-xl-leading: 3.75rem;
+    --type-display-l: 2.75rem;
+    --type-display-l-leading: 3rem;
+    --type-h1: 2.125rem;
+    --type-h1-leading: 2.5rem;
+    --type-field: 0.9375rem;
+    --type-total: 2.5rem;
+    --type-total-leading: 2.75rem;
+  }
+}
+
+/*
+ * Type (04-design-system.md §2): one class per style, and no component picks a phone size of its
+ * own. Newsreader only at 22px and above; the Geist styles inherit the body's font stack, which
+ * keeps the flag polyfill. A font-*, leading-* or tracking-* class still overrides a style.
+ * The Input style is text-field, because text-input is already the --input border colour.
+ */
+@utility text-display-xl {
+  font-family: var(--font-newsreader-ext), var(--font-newsreader), serif;
+  font-size: var(--type-display-xl);
+  line-height: var(--type-display-xl-leading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+@utility text-display-l {
+  font-family: var(--font-newsreader-ext), var(--font-newsreader), serif;
+  font-size: var(--type-display-l);
+  line-height: var(--type-display-l-leading);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+@utility text-h1 {
+  font-family: var(--font-newsreader-ext), var(--font-newsreader), serif;
+  font-size: var(--type-h1);
+  line-height: var(--type-h1-leading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+@utility text-h2 {
+  font-size: 1.375rem;
+  line-height: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  overflow-wrap: break-word;
+}
+
+@utility text-h3 {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+  overflow-wrap: break-word;
+}
+
+@utility text-body-l {
+  font-size: 1.0625rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+  text-wrap: pretty;
+}
+
+@utility text-body {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+@utility text-field {
+  font-size: var(--type-field);
+  line-height: 1.5rem;
+  font-weight: 400;
+}
+
+@utility text-small {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+}
+
+/* The smallest text on any screen */
+@utility text-label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* The big points total, "38 / 37". Other figures add tabular-nums to their own style */
+@utility text-total {
+  font-size: var(--type-total);
+  line-height: var(--type-total-leading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -169,6 +415,21 @@
      */
     font-family:
       'Twemoji Country Flags', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  /* The new design's app default is Body, 15/24 */
+  [data-ui='next'] body {
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+  }
+
+  /*
+   * A real outline, which forced colours keep, where a box-shadow ring disappears. Base layer, so
+   * today's components that set outline-none keep their own ring until 1.2 replaces them.
+   */
+  [data-ui='next'] :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
