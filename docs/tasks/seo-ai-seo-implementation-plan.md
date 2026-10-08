@@ -1,7 +1,9 @@
 # SEO & AI SEO Implementation Plan
 
 **Created:** 2026-01-29  
-**Status:** Awaiting Review  
+**Status:** Out of date (8 October 2026). Parts are live: the `/ib-university-requirements` hub,
+and program and university structured data. `MAINT_tasks.md` 7.3 turns the rest into current tasks
+after the rebranding. Until then, read this as background, not as a task list.  
 **Priority:** High
 
 ---

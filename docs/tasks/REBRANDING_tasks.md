@@ -323,6 +323,9 @@ Owner decisions — not AI work
 - [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
 - [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
+- [ ] Before release day, make sure Google Search Console covers the site (the January 2026 SEO plan
+  left this open), and note a baseline: indexed pages, clicks and the top pages for the last three
+  months. R.1 and R.2 compare against it
 
 ---
 
@@ -382,6 +385,21 @@ animation patches the audit first proposed.
 10. **Tests:** Vitest for new pure helpers, plus the AGENTS.md verification commands.
 11. **Hidden until release:** without the preview link, every page is unchanged, and `npm run build`
     lists the same pages as Static as before.
+12. **SEO parity** on every page a search engine sees (everything outside `/student`):
+    - **Switch the content, not the SEO.** `metadata` or `generateMetadata` and the JSON-LD stay in
+      `page.tsx`, outside the `showsNewUi()` branch, so both designs share one copy. Public pages
+      already keep them there, most with their content in a separate component (`UKContent`,
+      `ProgramDetailClient`, …). The only intended differences are the logo URL (1.3) and the new
+      breadcrumbs (2.4). Any other change to titles, descriptions or structured data is a separate
+      pull request.
+    - **One `<h1>`** with the same meaning as today, headings in order with no skipped level, and the
+      logo is not a heading. Every fact the old page showed is still on the page.
+    - **Text stays in the server HTML.** Whatever the structured data describes (FAQ answers,
+      requirements) is visible on the page. A collapsed section is fine; text fetched on click is not.
+    - Real `<a href>` links for navigation and breadcrumbs. Descriptive `alt` text on content images,
+      `alt=""` on decorative ones.
+    - **Check:** the pull request shows the SEO snapshot (1.5) of each changed page type, without and
+      with the preview link, and explains every difference.
 
 ---
 
@@ -528,10 +546,16 @@ and nothing else hard-codes a logo.
   `MobileBottomNav.tsx:141`). Hidden during first-run onboarding (3.1).
 - **Footer:** public links and the `ThemeSwitch`.
 - Keep URLs unchanged.
+- **The SEO snapshot script**, which every later public-page task uses (Definition of done 12).
+  `scripts/seo-snapshot.ts <url>` prints the `<title>`, meta description, canonical, robots meta, each
+  JSON-LD block and the heading outline (`h1` to `h3`). With `NEW_UI_PREVIEW_KEY` set, it also opens the
+  preview link, keeps the Draft Mode cookie, fetches the page again and prints the differences. It
+  only fetches pages; no database.
 
 **Verify:** `npm run build` lists the static pages unchanged. In the preview, every listed page shows
 the header; without the link, they are as today. Logged out, nothing in the header leads to sign-in
-except "Sign in" and "Get my matches".
+except "Sign in" and "Get my matches". The SEO snapshot of `/`, one guide and one program page shows
+no difference.
 
 ---
 
@@ -600,6 +624,12 @@ detail" and "Phone · Program (dark)".
 **Must-haves:**
 - **Breadcrumbs** (Explore / Canada / University of Toronto) instead of `history.back()` links
   (audit 1.4).
+- **Breadcrumb structured data.** A `BreadcrumbList` JSON-LD block on both pages, item for item the
+  same names and URLs as the visible breadcrumbs. The current page's item may leave out its URL. None
+  exist on the site today. It renders only with the new design, because structured data must match
+  what the page shows. Where the country crumb links is decided on board D4.8; the country's guide,
+  where there is one, is the natural target. Validate it in Google's Rich Results Test by pasting the
+  preview's HTML, since the test cannot open the preview.
 - **Requirements always listed**, including the minimum points for logged-out visitors. Today the
   points tile needs a match result, so the block can render empty (audit 4.2; Sydney's Bachelor of
   Science and Doctor of Medicine).
@@ -696,9 +726,10 @@ fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
 **Must-haves:** everything 7.2 lists: static with a one-week revalidate, URLs unchanged, per-country
 JSON-LD preserved, the sitemap unchanged. Tokens only, which removes about 4,260 hard-coded palette
-classes. Migrate two or three, compare the rendered text before and after, then do the rest. Until release,
-the old guides stay live beside the template, so an edit to a migrated country goes into both. Do it
-late.
+classes. Migrate two or three, compare the rendered text and the SEO snapshot (Definition of done 12)
+before and after, then do the rest. Each guide's `Article`, `FAQPage` and speakable blocks must come
+out identical. Until release, the old guides stay live beside the template, so an edit to a migrated
+country goes into both. Do it late.
 
 ### 4.3 — Other public pages
 
@@ -707,6 +738,10 @@ the legal pages, sign-in, the school invitation pages, and the 404 and error pag
 design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
 
 **Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)).
+
+**Must-haves:** the FAQs page's structured data and its visible questions keep coming from one list
+(today both read `faqs` in `app/faqs/page.tsx`, from the CMS or `FALLBACK_FAQS`). Every page passes
+the SEO snapshot comparison (Definition of done 12).
 
 ### 4.4 — Guard against raw palette classes
 
@@ -726,9 +761,12 @@ rule, not a formatting one, so it does not conflict with Prettier.
 
 **Steps:**
 1. Confirm the final logo. If it is a new mark, the clearance search must be back.
-2. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
+2. Confirm the owner has the Search Console baseline (owner decisions).
+3. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
    rebuilds the static pages in the new design, and emails switch too.
-3. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+4. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+5. Run the home page, one guide and one program page through Google's Rich Results Test: the same
+   items as before release, plus the breadcrumbs.
 
 **Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not.
 
@@ -736,7 +774,8 @@ rule, not a formatting one, so it does not conflict with Prettier.
 
 **Outcome:** One design in the code.
 
-**Steps:** after about two stable weeks:
+**Steps:** after about two stable weeks, once Search Console shows no fall in indexed pages or clicks
+against the baseline:
 - delete the old screens and components (`ProgramCard`, the replaced parts of `components/ui/`, the
   onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages);
 - delete the switch, the preview routes and bar, both variables and the old logo files;
@@ -774,5 +813,7 @@ Both are decided; kept here for the reasoning.
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |
 | 5.14 | `MAINT_tasks.md` | Delete unused components. Independent |
 | 5.15 | `MAINT_tasks.md` | How a level gap scores. Decided 7 October 2026: no change now; revisit with the whole matching math later |
+| 5.17 | `MAINT_tasks.md` | University pages in the sitemap. Independent; any time |
 | 7.2 | `MAINT_tasks.md` | Country pages collapse. Done as 4.2 |
+| 7.3 | `MAINT_tasks.md` | Refresh the SEO and AI search plan. After R.1 |
 | 8.1–8.3 | `CONTENT_tasks.md` | Fields of study (used by 3.1), campus city and image credits (used by 2.4) |

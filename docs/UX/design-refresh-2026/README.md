@@ -112,5 +112,9 @@ trademark registers (EUIPO and USPTO), classes 41 and 42, before release day.
 - **Supabase cost rules from AGENTS.md still bind.** Nothing in the redesign reads more data. Do not
   log UI events to Postgres.
 - **The 23 `study-in-*` pages stay static** with the one-week revalidate.
+- **SEO stays as it is.** The redesign changes how a page looks, never its title, description,
+  canonical URL or structured data. It keeps one `<h1>` and the text in the server HTML
+  (`REBRANDING_tasks.md`, Definition of done 12). Improving SEO is separate work after release
+  (`MAINT_tasks.md` 7.3).
 - **Windows, macOS, iOS, Android and ChromeOS** in current Chrome, Edge, Safari and Firefox. Every
   feature in the proposal is Baseline or degrades to plain navigation (see 02-research.md §4).

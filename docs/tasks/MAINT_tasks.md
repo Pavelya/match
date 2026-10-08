@@ -41,6 +41,8 @@ pull request, merged before the next starts.
 | any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
+| any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
+| after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
 Branch protection is on (7 October 2026).
@@ -86,6 +88,7 @@ Phase 5 — quick wins
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 - [ ] 5.16 Suggest the field of study in the admin program forms
+- [ ] 5.17 List the university pages in the sitemap
 
 Phase 6 — dependency majors
 
@@ -100,6 +103,7 @@ Phase 7 — structural
 
 - [ ] 7.1 Test coverage beyond the matching algorithm
 - [ ] 7.2 Collapse the 23 country landing pages
+- [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 
 Owner tasks — not AI work
 
@@ -943,6 +947,43 @@ would find it.
 
 ---
 
+### 5.17 — List the university pages in the sitemap
+
+**Outcome:** `app/sitemap.ts` lists every university page that has at least one program, each with a
+real `lastModified`.
+
+**Why:** `/universities/[id]` is public and indexable. It has its own metadata and
+`CollegeOrUniversity` structured data, and program pages link to it. The sitemap lists every program,
+the guides and the requirements hub, but no university page, so search engines find them only by
+following links. Found 8 October 2026, in the SEO review for the rebranding.
+
+**Read first:** `app/sitemap.ts`, especially its header rule: `lastModified` is only ever a real
+date. Then `node_modules/next/dist/docs/` on `sitemap.ts`.
+
+**Steps:**
+
+1. Add `universityId` to the existing programs query's `select`. Then add one query beside it:
+   `prisma.university.findMany({ where: { programs: { some: {} } }, select: { id: true, updatedAt: true } })`.
+2. Each university becomes `/universities/<id>`, with `changeFrequency: 'monthly'` and a priority
+   below the programs' 0.8. Its `lastModified` is the later of its own `updatedAt` and its newest
+   program's, because the page lists its programs.
+3. Vitest with `@/lib/prisma` mocked: a university with programs is listed with the right date, and
+   one without programs is not.
+
+**Must not:**
+
+- Read anything but ids and dates. Use `select`, never `include` (cost rules above).
+- Change any existing entry.
+- Use `new Date()` for a date.
+
+**Verify:** `npm run build` passes. `/sitemap.xml` from `npm start` lists as many university URLs as
+`SELECT count(*) FROM "University" u WHERE EXISTS (SELECT 1 FROM "AcademicProgram" p WHERE
+p."universityId" = u.id)` returns. That query is an aggregate, so it is safe on production.
+
+**Session size:** Tiny. Independent of the rebranding.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -1432,6 +1473,46 @@ their ISR config until phase 3a fixed them.
 
 **Session size:** Large. Migrate two or three countries first, prove the pattern, then
 do the rest.
+
+---
+
+### 7.3 — Refresh the SEO and AI search plan, after the rebranding
+
+**Outcome:** `docs/tasks/seo-ai-seo-implementation-plan.md` is replaced by a short, current, ordered
+task list, each task checked against the live site.
+
+**When:** after `REBRANDING_tasks.md` R.1 (release day). The redesign changes the page templates and
+headings, so title and content work planned before it would be planned twice. Until then the
+redesign only keeps what exists (its Definition of done 12, "SEO parity").
+
+**Why:** the plan was written on 29 January 2026 and still says "Awaiting Review", but parts of it
+are live: the `/ib-university-requirements` hub (its Task 4), and program and university structured
+data. The file does not say what is left.
+
+**Steps:**
+
+1. **Mark what is done**, from the code, not the plan: each task, with the file that implements it.
+2. **Re-check the rest against current guidance**, Google Search Central first. One change since
+   many such recommendations were written: in 2023 Google limited FAQ rich results to well-known
+   government and health sites, and dropped HowTo rich results. The site's markup (26 pages with
+   `FAQPage`, 2 with `HowTo`) still describes the pages, but it will not earn rich results. Don't add
+   more for that reason.
+3. **AI search: write down the owner's decisions.**
+   - **Which AI crawlers may read the site.** `app/robots.ts` allows every crawler today. Search
+     crawlers (such as `OAI-SearchBot`, `Claude-SearchBot`, `PerplexityBot`) are what get the site
+     cited in AI answers. Training crawlers (such as `GPTBot`, `ClaudeBot`) and the `Google-Extended`
+     token are a separate choice.
+   - **Whether to add `llms.txt`.** Low priority: no major AI search engine has confirmed using it.
+   - **Bing Webmaster Tools** beside Search Console: Bing's index also feeds Microsoft Copilot.
+4. **Order by data.** Start from the Search Console baseline the owner takes before release
+   (`REBRANDING_tasks.md`, owner decisions) and the queries that bring students today.
+5. Write the result as tasks in this file's format (Outcome, Why, Steps, Verify), one per session,
+   and mark the old plan superseded.
+
+**Must not:** change titles, URLs, robots rules or structured data. This task only plans; each change
+is its own session.
+
+**Session size:** Small. Reading and writing, no code.
 
 ---
 
