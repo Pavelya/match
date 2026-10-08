@@ -40,6 +40,12 @@ const envSchema = z.object({
   INTERNAL_API_KEY: z.string().optional(),
   NEXT_PUBLIC_APP_URL: z.string().url().optional(),
 
+  // Rebranding preview switch (lib/new-ui.ts). Neither is NEXT_PUBLIC_.
+  // "true" gives everyone the new design; unset or "false" keeps today's.
+  NEW_UI_FOR_EVERYONE: z.enum(['true', 'false']).optional(),
+  // The secret in /api/preview?key=..., which turns the new design on for one browser.
+  NEW_UI_PREVIEW_KEY: z.string().min(32).optional(),
+
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
 })

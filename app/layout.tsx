@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner'
 import { CountryFlagPolyfill } from '@/components/shared/CountryFlagPolyfill'
+import { NewUiPreviewBar } from '@/components/shared/NewUiPreviewBar'
 import { ToastProvider } from '@/components/providers/toast-provider'
+import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -75,12 +77,16 @@ export const metadata: Metadata = {
   }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode
 }>) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
+
+  // Which design this request gets (rebranding task 0.1). `data-ui="next"` is the hook for the
+  // new design's scoped tokens; for everyone else `<html>` stays exactly as it is.
+  const newUi = await showsNewUi()
 
   // Centralized Organization schema for consistent E-E-A-T signals across the site
   const organizationSchema = {
@@ -118,8 +124,14 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className="light" style={{ colorScheme: 'light' }}>
+    <html
+      lang="en"
+      className="light"
+      style={{ colorScheme: 'light' }}
+      data-ui={newUi ? 'next' : undefined}
+    >
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {newUi && !newUiForEveryone() && <NewUiPreviewBar />}
         {/* Centralized Organization schema for AI search engines */}
         <script
           type="application/ld+json"
