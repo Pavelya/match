@@ -370,7 +370,7 @@ animation patches the audit first proposed.
 4. **No emoji in interface chrome**; Lucide icons, per `docs/UX/icons-reference.md` (audit 2.7).
 5. **No infinite animations.** Only transform and opacity; reduced motion swaps movement for a fade
    (audit 6.7).
-6. **Static pages stay static.** The 22 `study-in-*` guides, `/` and `/ib-university-requirements` are
+6. **Static pages stay static.** The 23 `study-in-*` guides, `/` and `/ib-university-requirements` are
    prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `showsNewUi()` (0.1) is
    the one exception: Draft Mode keeps them static. `npm run build` must still list them `○ (Static)`.
 7. **No new database reads.** The theme lives in `localStorage`. Use `select` over `include` in
@@ -513,7 +513,7 @@ and nothing else hard-codes a logo.
 **Design gate:** D1.4, D2.12, D2.13 and D2.14, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
-- **A header on the pages that have none today** (audit 1.1): `/`, the 22 country guides,
+- **A header on the pages that have none today** (audit 1.1): `/`, the 23 country guides,
   `/ib-university-requirements`, `/how-it-works`, `/faqs`, `/contact`, `/support-us`,
   `/universities/[id]`.
 - **Static-safe.** `app/programs/layout.tsx` calls `auth()`, which reads cookies. Public pages must
@@ -689,7 +689,7 @@ fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
 ### 4.2 — Country guides on one template
 
-**Outcome:** The 22 guides render from one template and typed data, in the new design. This is
+**Outcome:** The 23 guides render from one template and typed data, in the new design. This is
 `MAINT_tasks.md` 7.2 done once, here.
 
 **Design gate:** D4.12, approved ([Step 2](#step-2--design-first)).
