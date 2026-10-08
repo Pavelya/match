@@ -67,7 +67,7 @@ traffic. Storage was restricted and every university image broke.
   `@typescript/native` is an alias for `typescript@7` (which owns the `tsc` binary).
   Running `npm install -D typescript@latest` collapses that and breaks `npx eslint .`
   with "typescript-eslint does not support TS 7.0".
-- **The 22 `study-in-*` pages are static with a one-week revalidate deliberately.**
+- **The 23 `study-in-*` pages are static with a one-week revalidate deliberately.**
   Keep them static; dynamic rendering costs both latency and money.
 - `npm start` needs `AUTH_TRUST_HOST=true` outside Vercel, or every `/api/auth/*` route
   returns 500 with `UntrustedHost`. Auth.js v5 auto-trusts only in dev and on Vercel.

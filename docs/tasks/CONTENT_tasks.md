@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
@@ -100,7 +100,7 @@ Phase 5 — Coverage
 
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
 - [x] 5.2 Japan, Estonia, Czech Republic, Israel — applied 6 October 2026: 10 universities, 62 programs; images for the owner
-- [ ] 5.3 France — research, universities and programs, and a landing page
+- [x] 5.3 France — applied 8 October 2026: 11 universities, 20 programs, and `/study-in-france-with-ib-diploma`; images for the owner
 - [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants
 
 Phase 6 — USA
@@ -228,6 +228,22 @@ Owner tasks — not AI work
   2026), Masaryk's Faculty of Arts (2) and Biology and Biochemistry, VŠE's Economics, Reichman (9; 2027-28 regulations from November 2026)
   and the Hebrew University's International BA. Waseda's science and engineering "How competitive" figure is 2022-2024: open the
   faculty's 2026 average in a browser (its PDFs refuse scripts) and update it
+- [x] Choose which private institutions France gets (5.3): public institutions would number 7 and private business schools 15 or more.
+  **Owner, 8 October 2026: the public ones plus a few leading private schools** (ESSEC, ESCP, EDHEC, emlyon), and joint degrees only
+  where the first years are in France and France admits to them (CentraleSupélec's McGill, CityU Hong Kong and ESSEC degrees; not
+  Sciences Po's international dual BAs, nor BITS Pilani)
+- [x] Approve 5.3's dry run (11 universities, 20 programs). Approved and applied, 8 October 2026
+- [ ] Add images for the eleven universities added in 5.3 (École polytechnique, Sciences Po, Université PSL, CentraleSupélec, Centrale
+  Nantes, Centrale Lille Institut, Université Toulouse Capitole, ESSEC, ESCP, EDHEC, emlyon) in `/admin/universities`, then check their
+  programs' Algolia records (standing context)
+- [ ] Approve three more degree types, or not (5.3), stored as "Bachelor" for now: Bachelor of Science and Engineering (PSL's I-BE³),
+  Bachelor in Management and Engineering Sciences (Centrale Lille with SKEMA) and Bachelor in AI, Data & Management Sciences
+  (CentraleSupélec with ESSEC)
+- [ ] Decide whether to add the American University of Paris (5.3): offered as a fifth private school, not researched. US-style, majors
+  chosen after admission, so it needs a choice of how to store it (one entry, or its majors)
+- [ ] Re-check the 5 programs 5.3 stamped 2026 when their 2027 pages appear: PSL's Artificial Intelligence (still the September 2026
+  intake), CentraleSupélec's CityU Hong Kong and ESSEC joint degrees (their calendars are still 2026's), Centrale Lille's Management and
+  Engineering Sciences (no intake named) and TSM's Global Management (2026 calendar)
 
 ---
 
@@ -560,6 +576,18 @@ not precision.
   `emo.`, `ibb.`, `ids.`, `fis.`, `ffu.`, `econ.vse.cz`). `runi.ac.il` answers scripts with HTTP 247 and a Reblaze challenge
   (`window.rbzns`), which the link checker now spots; WebFetch reads the pages and the `/media/` PDFs download. The Hebrew University's
   International BA is on `overseas.huji.ac.il`.
+
+- **Found in 5.3:** the higher education ministry (`enseignementsup-recherche.gouv.fr`) and `parcoursup.gouv.fr` answer curl and WebFetch with
+  403; `france-education-international.fr` (ENIC-NARIC) serves an Anubis proof-of-work page with HTTP 200 to curl and a 403 to WebFetch.
+  Their rules are repeated on pages that answer: Campus France (`campusfrance.org/en/application-higher-education-france`, the
+  2027-2028 Parcoursup and DAP timetables; country sites such as `australie.campusfrance.org`, the DAP's B2 French rule), Service-Public
+  (`service-public.gouv.fr/particuliers/vosdroits/F463`, comparability) and Eduscol's BFI FAQ PDF (the IB's status). Campus France's
+  English-taught catalogue loads from `tie-api.campusfrance.org/sgetprograms/1` (all programmes, JSON; level 10-12 is bachelor's,
+  `levelRequiredId` 10 is entry after school) and `/sgetprogram/<id>`; it is self-reported and incomplete (no Sciences Po Bachelor,
+  ESSEC or EDHEC). ESSEC's programme pages are Next.js: the calendar and fees are in the `__NEXT_DATA__` JSON. EDHEC hides emails behind
+  Cloudflare's `data-cfemail`; Centrale Nantes inserts a hidden `spamkiller` span inside its addresses. ESCP's Bachelor FAQ PDF predates
+  the 2021 IB syllabus. École polytechnique, Sciences Po, PSL, CentraleSupélec, Centrale Nantes, TSM, ESCP, EDHEC and emlyon pages all
+  answer curl.
 
 ---
 
@@ -2455,7 +2483,7 @@ and Austria (7), several of them with real demand.
 |---|---|---|
 | 5.1 | Austria, Belgium, Denmark | 29/7, 22/6, 22/5 |
 | 5.2 | Japan, Estonia, Czech Republic, Israel | 21/2 (both PEAK, closed after September 2026: 4.8b), 9/2, 11/9, 4/4 |
-| 5.3 | France | 0/0: no university, no program, no landing page; students cannot select it yet. [Task below](#53--france) |
+| 5.3 | France | 0/0: no university, no program, no landing page; students could not select it. **Done 8 October 2026**: 11 universities, 20 programs, a landing page. [Task below](#53--france) |
 | 5.4 | Sweden, then the rest of the catalogue | "How competitive" paragraphs; no new programs. [Task below](#54--how-competitive-sweden-then-the-rest-of-the-catalogue) |
 
 **Verify:** Each country's search link returns the new programs; the Algolia count
@@ -2658,6 +2686,86 @@ France appears in onboarding's country list; every claim on the page matches its
 search returns; `npm run build` shows the page `○ (Static)`.
 
 **Session size:** Large. Part A and B in one session; Part C can be its own.
+
+#### Status, 8 October 2026 — 5.3 done (session 22); applied the same day
+
+Data files (new): `scripts/programs/2027/new-universities-5-3.ts` (the universities; run `add-universities.ts` with its path), and one
+programs file per university: `ecole-polytechnique.ts`, `sciences-po.ts`, `universite-psl.ts`, `centralesupelec.ts`, `centrale-nantes.ts`,
+`centrale-lille-institut.ts`, `universite-toulouse-capitole.ts`, `essec-business-school.ts`, `escp-business-school.ts`,
+`edhec-business-school.ts` and `emlyon-business-school.ts`. Every program's `notes` give its sources and reasoning; pages were read on
+8 October 2026. **Owner-approved and applied on 8 October 2026:** 11 universities and 20 programs created, nothing existing changed. Backup:
+`scripts/backups/refresh/2026-10-08T12-43-53-171Z.json` (it lists the created programs). The data files carry each program's id with status
+`current`.
+
+- **Part A, recognition.** The Ministry of Education's Eduscol FAQ (January 2024): the IB "est un diplôme privé" that "ne permet pas l'accès de
+  droit aux universités françaises (un examen du dossier par la commission d'équivalence propre à chaque établissement ... est nécessaire)".
+  Service-Public: no legal equivalence for foreign diplomas; the host institution decides; an ENIC-NARIC attestation of comparability is
+  optional and has no legal value (€20 plus €100).
+- **Routes in (2027-2028, Campus France).** Parcoursup for first-year programmes (EU students, French-baccalaureate holders, and anyone
+  applying to a selective programme): registration January-March 2027, choices by April, admission June-July. The DAP for students from
+  outside the EU entering a university licence: 1 October to 15 December 2026, French at B2 (DELF, DALF or a TCF taken by 15 February 2027),
+  online through "Études en France" in the 75 countries it covers, otherwise at the embassy. **Almost every English-taught bachelor's admits
+  on its own platform** (Polytechnique says applications through Campus France "will not be examined"); PSL's AI bachelor's and TSM take
+  applicants through Parcoursup or "Études en France", and Polytechnique and ESCP accept Parcoursup as an alternative.
+- **Where the English-taught bachelor's are.** Public university licences are French-taught; the English ones that enter from school are at
+  grandes écoles and in business schools. Public side found: 7 institutions. Private business schools would have outnumbered them (15+), so
+  the owner chose the public ones plus four leading private schools, and joint degrees that start in France (owner tasks).
+
+| Institution | Type | Programs | Stamped | Where (first years) |
+|---|---|---|---|---|
+| École polytechnique | Public | 3 (BSc double majors: Mathematics with Computer Science, Economics, Physics) | 2027 | Palaiseau |
+| Sciences Po | Public | 4 (BA tracks taught in English: Asia-Pacific, Mediterranean and Middle East, North America, Africa) | 2027 | Le Havre, Menton, Reims |
+| Université PSL | Public | 2 (Artificial Intelligence; Environmentally Engaged Engineering, I-BE³) | 2026, 2027 | Paris; Sophia Antipolis |
+| CentraleSupélec | Public | 3 joint (Global Engineering with McGill; Innovation Engineering and Entrepreneurship with CityU Hong Kong; AI, Data and Management Sciences with ESSEC) | 2027, 2026, 2026 | Paris-Saclay (Gif-sur-Yvette) |
+| Centrale Nantes | Public | 1 (BSc in Engineering) | 2027 | Nantes |
+| Centrale Lille Institut | Public | 1 (Management and Engineering Sciences, with SKEMA) | 2026 | Villeneuve-d'Ascq |
+| Université Toulouse Capitole | Public | 1 (TSM's BSc in Global Management) | 2026 | Toulouse |
+| ESSEC Business School | Private | 1 (Global BBA, English track) | 2027 | Cergy |
+| ESCP Business School | Private | 1 (Bachelor in Management, BSc) | 2027 | Paris, Berlin, London or Turin |
+| EDHEC Business School | Private | 1 (International BBA, Global Business Track) | 2027 | Nice |
+| emlyon business school | Private | 2 (Global BBA, English track; BSc in Data Science for Responsible Business) | 2027 | Lyon |
+
+- **Points.** No school publishes an IB minimum: all at 24, the Diploma, except CentraleSupélec's McGill degree at **30**, McGill's "grades of 5
+  or better on each Higher and Standard Level subject" with Maths (AA, or AI at HL), Chemistry and Physics at 5, critical, as McGill's own
+  engineering programs are stored. Polytechnique says "there are no minimum grades required"; Sciences Po sets its minimum marks each year
+  after review.
+- **Subjects.** Polytechnique advises Maths HL (preferably AA) and another science at HL: stored, not critical. PSL's AI expects an advanced
+  maths curriculum (Maths HL, not critical). Others name maths, or maths and science, as background (stored at SL, not critical). Sciences Po
+  says outright "There are no specific subject requirements"; ESSEC, ESCP, EDHEC and emlyon name none. **Model limits** (in the notes):
+  interviews nearly everywhere, maths tests (Centrale Lille, emlyon's BSc, the ESSEC joint degree), emlyon's aptitude tests, EDHEC's
+  personality app.
+- **How competitive:** no paragraph. None of these schools publishes admitted scores or a cut-off.
+- **Entry years: 15 stamped 2027, 5 stamped 2026** (rule 2): the 2026 ones still show the 2026 round (owner tasks).
+- **Degrees.** Canonical where they fit; three awards outside the list are stored as "Bachelor" for the owner (owner tasks). Polytechnique's
+  three double majors, chosen after a common first year, are three programs, as Waseda's School of Political Science and Economics was in 5.2.
+- **Contacts.** Admissions addresses where published (Polytechnique, CentraleSupélec, Centrale Nantes, ESCP Paris, EDHEC); Sciences Po's
+  switchboard and emlyon's general address where nothing else exists; null for PSL, Toulouse Capitole, Centrale Lille and ESSEC, whose notes
+  carry the programme contact where there is one. Centrale Lille's student count is null (none published).
+- **Not added, and why:** French-taught tracks (Sciences Po Paris, Dijon, Nancy, Poitiers, Menton's French track and Reims's French Africa
+  minor; EDHEC's Business Management Track; ESSEC's French tracks), Sciences Po's 11 international dual BAs and CentraleSupélec's BITS Pilani
+  degree (owner), Centrale Nantes's BBA Data, AI & Management ("No recruitment in 2026-27"), entry into the second or third year only
+  (Besançon's BUTs, Toulouse Jean-Jaurès's THFS, PSL's Sustainability Sciences, Strasbourg's and Paris 1's international licences), Grenoble
+  INP's nuclear bachelor (after a degree). Not researched: the American University of Paris (owner tasks), EDHEC's BSc in International
+  Business Analytics and Management, and the other business schools (SKEMA, IESEG, KEDGE, GEM, TBS, NEOMA, Audencia and more).
+- **Part C, landing page.** `app/study-in-france-with-ib-diploma` (page and `FranceContent.tsx`), built to the baseline: recognition,
+  equivalence, the three routes, no conversion, interviews and tests, French for licences and English for the programs in search, public and
+  private fees (Campus France 2026-27: €178 or €2,902 a year at public universities; private about €6,000-€18,000+), documents, the 2027
+  timeline, five FAQs with sources, and the search link with France's id. Static with a one-week revalidate; `lib/page-dates.ts` publishes it
+  on 8 October 2026; `FR` added to the catalogue page's `COUNTRY_GUIDE_SLUGS`. AGENTS.md and `MAINT_tasks.md` 7.2 now count 23 country pages.
+  The ministry, Parcoursup and ENIC-NARIC pages refuse scripts, so the page cites Campus France and Service-Public, which repeat them.
+- **Verify.**
+  - `count(*)`: 75 → 86 universities, 1,367 → 1,387 programs; France 11 universities and 20 programs. Algolia: 1,387 program records (20
+    synced by the tool), and filtering by France's country id returns 20. The universities index holds 90 records: the 86 universities and the
+    four seed orphans (`MAINT_tasks.md` 5.9).
+  - A second dry run finds all 20 up to date, and the universities file all 11 stored.
+  - Link checker, France: 19 URLs, 19 OK. Every source and university URL in the files answered 200 before the apply (62 URLs).
+  - Field inventory: 0 outliers, 0 descriptions differ. No fields-of-study warning in the dry run.
+  - Onboarding: the countries-with-programs query now returns 23 countries, France included; onboarding shows it once the one-hour
+    `countries-with-programs` cache expires (scripts do not revalidate the tag).
+  - `npm run build`: `/study-in-france-with-ib-diploma` is `○ (Static)`, revalidate 1w; the catalogue page links France's guide.
+  - Public pages (`next start`): Sciences Po's Asia-Pacific minor shows Le Havre, 24 points and "Requirements checked for 2027 entry";
+    CentraleSupélec's Global Engineering shows 30 points and its maths row; EDHEC's Global Business Track shows Nice.
+  - Images for the eleven universities are for the owner (`/admin/universities`).
 
 ### 5.4 — How competitive: Sweden, then the rest of the catalogue
 

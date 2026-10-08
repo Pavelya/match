@@ -38,6 +38,7 @@ export const PAGE_DATES = {
   '/study-in-czech-republic-with-ib-diploma': { published: '2026-02-24', modified: '2026-09-25' },
   '/study-in-denmark-with-ib-diploma': { published: '2026-02-25', modified: '2026-10-04' },
   '/study-in-estonia-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
+  '/study-in-france-with-ib-diploma': { published: '2026-10-08', modified: '2026-10-08' },
   '/study-in-germany-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-hong-kong-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
   '/study-in-ireland-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },

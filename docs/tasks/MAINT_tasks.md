@@ -99,7 +99,7 @@ Phase 6 — dependency majors
 Phase 7 — structural
 
 - [ ] 7.1 Test coverage beyond the matching algorithm
-- [ ] 7.2 Collapse the 22 country landing pages
+- [ ] 7.2 Collapse the 23 country landing pages
 
 Owner tasks — not AI work
 
@@ -1400,9 +1400,9 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 
 ---
 
-### 7.2 — Collapse the 22 country landing pages
+### 7.2 — Collapse the 23 country landing pages
 
-**Outcome:** One `[country]` route driven by data, instead of 22 near-identical pages.
+**Outcome:** One `[country]` route driven by data, instead of 23 near-identical pages.
 
 **Rebranding.** Done as `REBRANDING_tasks.md` 4.2, in the new design, so the guides are migrated once.
 The constraints below still apply there.
@@ -1425,7 +1425,7 @@ their ISR config until phase 3a fixed them.
   anything with a database-derived value.
 
 **Verify:**
-- `npm run build` shows all 22 routes still `○ (Static)` with a 1-week revalidate
+- `npm run build` shows all 23 routes still `○ (Static)` with a 1-week revalidate
 - Every URL returns 200 and its title, meta description and JSON-LD match what the old
   page produced — diff the rendered HTML of two or three before and after
 - The sitemap still lists them
