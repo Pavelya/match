@@ -50,8 +50,8 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | P6 | ~~`MAINT_tasks.md` 5.7: levels and grades in either/or groups~~ **Done 7 October 2026**: `groupRequirements` in `lib/programs/requirement-groups.ts` | AI, small | Recommended, not blocking. Students saw "English B or English B" in 436 groups, and 2.2 reuses the helper |
 | P7 | ~~`CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping)~~ **Done 7 October 2026**, applied: 135 programs re-filed, new descriptions in `FIELD_DESCRIPTIONS` (`lib/programs/fields-of-study.ts`) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
 | P8 | ~~`CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration)~~ **Done 7 October 2026**, both migrations and data applied: `campusCity` on 50 programs, one city per university, 66 credits in `University.imageCredit` | AI, small each | Needed by 2.4. Can run during phase 1 |
-| S1 | ~~**The preview switch** (task [0.1](#01--the-preview-switch))~~ **Built 8 October 2026**: `showsNewUi()` in `lib/new-ui.ts`, `/api/preview`, the preview bar. Checked locally with a test key; the Vercel checks in 0.1's Verify wait for S2 | AI, small | Every rebranding pull request depends on it. It replaces the earlier branch setup (B1–B3), which is no longer needed |
-| S2 | In Vercel, add `NEW_UI_PREVIEW_KEY` to **Production** and **Preview**: a long random string, for example from `openssl rand -hex 24`. At least 32 characters, or the build fails (`lib/env.ts`). Redeploy, then bookmark `https://<site>/api/preview?key=<key>` | Owner, minutes | Before S1 is verified; without it nobody can see the new design. Keep the link private. A leaked link shows only an unfinished design, and changing the key closes it |
+| S1 | ~~**The preview switch** (task [0.1](#01--the-preview-switch))~~ **Done 8 October 2026** (PR #65): `showsNewUi()` in `lib/new-ui.ts`, `/api/preview`, the preview bar. Verified on production: visitors get the prebuilt pages unchanged, wrong keys get a 404, the link shows the new design | AI, small | Every rebranding pull request depends on it. It replaces the earlier branch setup (B1–B3), which is no longer needed |
+| S2 | ~~In Vercel, add `NEW_UI_PREVIEW_KEY` to **Production** and **Preview**: a long random string, for example from `openssl rand -hex 24`. At least 32 characters, or the build fails (`lib/env.ts`). Redeploy, then bookmark `https://<site>/api/preview?key=<key>`~~ **Done 8 October 2026** | Owner, minutes | Before S1 is verified; without it nobody can see the new design. Keep the link private. A leaked link shows only an unfinished design, and changing the key closes it |
 
 **Not needed before the rebranding:**
 
@@ -165,7 +165,7 @@ tasks. **Every session merges into `main`, behind the preview switch.**
 
 Phase 0 — Setup
 
-- [x] 0.1 The preview switch (8 October 2026; the Vercel checks wait for S2)
+- [x] 0.1 The preview switch (8 October 2026)
 
 Phase 1 — Foundations
 
@@ -208,7 +208,7 @@ Owner decisions — not AI work
 - [x] Choose how the redesign reaches production: **a preview switch on `main`** (7–8 October 2026)
 - [ ] Before release day, confirm the final mark. If it is a new mark (Lens or another), commission
   a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
-- [ ] Set the preview key in Vercel and bookmark the link (S2)
+- [x] Set the preview key in Vercel and bookmark the link (S2, 8 October 2026)
 - [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
 - [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
