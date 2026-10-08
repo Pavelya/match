@@ -56,7 +56,9 @@ Contrast is against the token's usual background (paper or surface).
 `app/globals.css` already uses the shadcn variable names (`--background`, `--primary`, `--muted`…)
 through `@theme inline`. Keep those names so existing `bg-primary` and `text-muted-foreground`
 classes keep working, and **point them at the new values**. Then add the semantic tokens that
-do not exist yet:
+do not exist yet. **Until release, all of this is scoped to `[data-ui="next"]` instead of `:root`**,
+so only the new design picks it up. The cleanup after release moves it to `:root`, as written
+below (`REBRANDING_tasks.md` 1.1 and R.2):
 
 ```css
 :root {
@@ -294,6 +296,9 @@ This is the only place the percentage appears. Reuse the logic in the unused
 - Light tokens on `:root`. Dark tokens under
   `@media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { … } }`
   and again under `:root[data-theme='dark']`. Remove the forced `className="light"` from `<html>`.
+  **Until release**, the dark tokens sit inside the `[data-ui="next"]` scope, and only the new design
+  drops the forced light `<html>`. Everyone else keeps it, so old screens don't change
+  (`REBRANDING_tasks.md` 0.1, 1.4).
 - The choice is stored in `localStorage` (`ibm-theme`: `system` | `light` | `dark`), **per device**.
   Use no cookie and no database: reading a cookie in the root layout would make every page dynamic,
   including the 22 static country guides. A synced preference is not worth that cost.

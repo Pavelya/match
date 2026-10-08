@@ -8,23 +8,19 @@
 1. [Prepare](#step-1--prepare): a short list of MAINT and CONTENT tasks that unblock the rebranding.
 2. [Design first](#step-2--design-first): turn the phases below into one task per component and one per
    screen or flow. Each has an approved design before any code.
-3. Build, phase by phase, on the [`rebranding` branch](#the-rebranding-branch), with each change
-   compared against its approved design.
-4. Release: one merge of `rebranding` into `main`, once every screen is built and approved.
+3. Build **on `main`, behind [the preview switch](#how-the-redesign-reaches-production-the-preview-switch)**,
+   in small pull requests. The owner sees the new design through a secret link; every student keeps
+   today's site. Compare each change against its approved design.
+4. [Release](#from-preview-to-release): one variable and a redeploy switch everyone over. The old design
+   is deleted about two weeks later.
 
-Steps 1 and 2 run in parallel: prep is code, step 2 is design and documentation. **Prep tasks ship
-to `main` as usual**: they are fixes production needs now. **Rebranding work never goes to `main`
-piece by piece.**
+Steps 1 and 2 run in parallel: prep is code, step 2 is design and documentation. **Students never see
+a mix of old and new.** Only the code holds both versions, until the cleanup.
 
-**Sequence (owner, 7 October 2026):**
-
-1. **All of P3–P8 lands on `main` first.**
-2. Then B1–B3 set up the branch.
-3. Then the `rebranding` branch is created from that `main`, and phase 1 starts once its boards are
-   approved.
-
-The branch thus starts with every prep fix already in it, which keeps later merges small. Step 2's
-design work runs meanwhile.
+**Decided 7–8 October 2026 (owner):** a preview switch on `main`, not a long-lived `rebranding` branch.
+This is the common practice for large redesigns: small pull requests into the main branch,
+unfinished work hidden behind a flag, and release kept separate from deploy. Facebook's 2020 redesign
+went the same way: opt-in first, then everyone.
 
 **How to use this.** [Start here](#start-here) gives the build order. Each task lists its
 **must-haves**: the redesign itself fixes the UX bugs the audit found, so each fix is written into
@@ -47,16 +43,15 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | Order | Task | Who | Why before the rebranding |
 |---|---|---|---|
 | P1 | ~~Enable branch protection on `main`~~ **Done 7 October 2026** (`MAINT_tasks.md`, owner tasks) | Owner, minutes | The rebranding is 15+ pull requests, and merging `main` deploys. Today a red CI can still be merged |
-| P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens on the `rebranding` branch. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
+| P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens in the preview. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
 | P3 | ~~`MAINT_tasks.md` 5.14: delete unused components~~ **Done 7 October 2026** | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | ~~`MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix)~~ **Done 7 October 2026**, data fix applied | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
 | P6 | ~~`MAINT_tasks.md` 5.7: levels and grades in either/or groups~~ **Done 7 October 2026**: `groupRequirements` in `lib/programs/requirement-groups.ts` | AI, small | Recommended, not blocking. Students saw "English B or English B" in 436 groups, and 2.2 reuses the helper |
 | P7 | ~~`CONTENT_tasks.md` 8.1: one home per discipline in the fields of study (the owner approves the mapping)~~ **Done 7 October 2026**, applied: 135 programs re-filed, new descriptions in `FIELD_DESCRIPTIONS` (`lib/programs/fields-of-study.ts`) | AI, medium | It changes which programs match, so it should land before the matches screens are reviewed with real data. 3.1 uses the new descriptions |
 | P8 | ~~`CONTENT_tasks.md` 8.2 and 8.3: campus city and image credits (each one migration)~~ **Done 7 October 2026**, both migrations and data applied: `campusCity` on 50 programs, one city per university, 66 credits in `University.imageCredit` | AI, small each | Needed by 2.4. Can run during phase 1 |
-| B1 | Run CI on the `rebranding` branch: add it to `pull_request` and `push` in `.github/workflows/ci.yml` (today both list only `main`). Land it on `main`, then create `rebranding` from `main` | AI, tiny | Without it, pull requests into `rebranding` run no checks |
-| B2 | Protect `rebranding` too: add it as a target of the "Protect main" ruleset, or a second ruleset with the same rules | Owner, minutes | The branch collects 15+ pull requests; it must stay green and cannot be force-pushed or deleted |
-| B3 | **A review address for the branch.** In Vercel, add a domain such as `rebranding.ibmatch.com` and assign it to the Git branch `rebranding`. Then set **branch-specific** Preview variables (`NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` = that address), so sign-in and email links stay on it: `lib/env.ts` requires `NEXTAUTH_URL`, and invites build links from these two. Add the address's callback to the Google OAuth client. Make sure it is not indexed: a `noindex` header, or `app/robots.ts` disallowing everything outside production. Then sign in there, by Google and by magic link | Owner with AI, small | The owner reviews every screen there, logged-in ones included, before anything reaches production. A stable address is easier to share than per-commit preview URLs. It reads and writes the **production database** (there is no other), so a sign-up or a save there is real data, and the cost rules apply |
+| S1 | **The preview switch** (task [0.1](#01--the-preview-switch)) | AI, small | Every rebranding pull request depends on it. It replaces the earlier branch setup (B1–B3), which is no longer needed |
+| S2 | In Vercel, add `NEW_UI_PREVIEW_KEY` to **Production** and **Preview**: a long random string, for example from `openssl rand -hex 24`. Redeploy, then bookmark `https://<site>/api/preview?key=<key>` | Owner, minutes | Before S1 is verified; without it nobody can see the new design. Keep the link private. A leaked link shows only an unfinished design, and changing the key closes it |
 
 **Not needed before the rebranding:**
 
@@ -65,32 +60,52 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
-land on `main`, while 4.2 rewrites the same pages on `rebranding`. Do 4.2 late, straight after
-merging the latest `main` into `rebranding`. Port any country edit made on `main` after that into
-the template before release.
+land on `main` as usual. Once 4.2 has moved a country onto the new template, an edit to that country
+goes into both versions until release, so do 4.2 late.
 
-### The rebranding branch
+### How the redesign reaches production: the preview switch
 
-- **One long-lived branch, `rebranding`**, created from `main` after P3–P8 and B1 have landed. Every rebranding
-  task is its own short branch with a pull request **into `rebranding`**, never into `main`.
-  Production keeps today's look until the release merge.
-- **Merge `main` into `rebranding` at least weekly**, and before starting each phase, so prep fixes
-  and content work flow in and conflicts stay small. Expect them in files the redesign replaces
-  (`ProgramCard.tsx`, the onboarding components). Keep the logic from `main`; keep the markup from
-  `rebranding`.
-- **The owner reviews on the branch's own address** (B3), which always shows the branch's latest
-  deploy. Seeing every screen there, together, is also when the final logo is decided.
-- **Why a branch, not feature flags or a separate Vercel environment.**
-  - **Feature flags** would put unfinished redesign code into production behind a switch: the "mix in
-    production" the owner ruled out. The new tokens restyle every page at once, which makes flags
-    impractical anyway.
-  - **Vercel's custom environments** (a paid-plan feature) or a second Vercel project would also
-    deploy this branch, with more setup and nothing gained. There is still only one database.
-- **Release:** one pull request from `rebranding` into `main`, once every phase is built and its
-  design QA passed, and the final logo is chosen. If the final logo is a new mark, the clearance
-  search must be back first.
-- **Data never waits for the branch.** Migrations (`CONTENT_tasks.md` 8.2, 8.3) and data fixes go
-  to `main` through their own tasks. The branch only displays them.
+- **Everything merges into `main` in small pull requests**, public and signed-in pages alike. Each new
+  page or component sits beside the old one, and the switch (task 0.1) decides which one renders.
+- **The owner sees the new design through a secret link.** Opening `/api/preview?key=…` once turns
+  on Next.js Draft Mode for that browser. Every page, public or signed in, then shows the new design.
+  Everyone else keeps getting today's site, and static pages stay prebuilt for them. The preview ends
+  when the browser closes, at "Exit", or at the next deploy; open the link again.
+- **Tested 8 October 2026** on Next.js 16.3.4, in a throwaway app run locally:
+  - a page with a one-week revalidate that checks Draft Mode still built as Static;
+  - visitors got the prebuilt old page, before and after a preview;
+  - the secret link gave the new page, rendered fresh;
+  - a wrong key got a 404.
+
+  Reading a URL parameter in the page instead made it Dynamic. That is why the key sets a cookie
+  once, rather than staying in every URL.
+- **Where to review:** production, with the link, signed in and signed out. Pull request previews
+  work the same way, since the key is set there too. Seeing every screen together is also when the
+  final logo is decided.
+- **Cost:** while previewing, the owner's page views render on demand instead of from the cache, and
+  the small reference lists in `lib/reference-data.ts` are read on each view instead of hourly.
+  Negligible for one person. Nobody else's views change.
+- **New code sits next to the old.** New screens and components live in their own files, so old
+  screens are not edited. The new tokens apply only under `data-ui="next"`, which only the new design
+  sets.
+- **Data never waits.** Migrations and data fixes go to `main` through their own tasks, as in step 1.
+- **Not chosen** (7–8 October 2026):
+  - **A long-lived `rebranding` branch:** weeks of drift and weekly merges, and a big-bang release
+    that can only be undone as a whole.
+  - **An email allowlist:** it cannot reach static pages, which are prebuilt and never see who is
+    visiting.
+  - **A URL parameter on every link:** lost on the first click, and reading it makes static pages
+    dynamic.
+  - **A separate Vercel environment or project:** more setup for the same result, and still one
+    database.
+
+### From preview to release
+
+1. **Preview.** Only the owner, through the link. All phases are built and reviewed here. For early
+   feedback, the link can go to a few students; no code is needed.
+2. **Release day (R.1).** Set `NEW_UI_FOR_EVERYONE=true` and redeploy: everyone gets the new design at
+   once. **Rollback** is the reverse: set it to `false` and redeploy.
+3. **Cleanup (R.2)**, after about two stable weeks: one design left in the code.
 
 ## Step 2 — Design first
 
@@ -121,14 +136,15 @@ Within reach, Missing a requirement). See [Open questions](#open-questions).
 ## Start here
 
 This is the build order, after steps 1 and 2. Step 2 will replace these rows with the finer-grained
-tasks.
+tasks. **Every session merges into `main`, behind the preview switch.**
 
 | # | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Tokens, type and theme | 1.1, 1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, every app screen picks up the new colours |
+| 0 | The preview switch | 0.1 | small | First. Every later pull request uses it |
+| 1 | Tokens, type and theme | 1.1, 1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
 | 3 | Site chrome | 1.5 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
-| 4 | Logo | 1.3 | small | Lens, provisionally. The final mark and the clearance search are needed before the release merge, not before this task |
+| 4 | Logo | 1.3 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
 | 5 | Match data | 2.1 | small | Requirement-based statuses (decided 7 October 2026) |
 | 6–7 | Match card and results | 2.2 | large | Replaces `ProgramCard` |
 | 8 | Explore | 2.3 | medium | |
@@ -138,12 +154,18 @@ tasks.
 | 12 | Subject editor | 3.2 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
 | 13 | Profile tab and settings | 3.3 | medium | |
 | 14 | Home | 4.1 | medium | |
-| 15+ | Country guides | 4.2 | large | Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
-| last | Other public pages and the guard | 4.3, 4.4 | medium | |
+| 15 | Country guides | 4.2 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
+| 16 | Other public pages and the guard | 4.3, 4.4 | medium | |
+| 17 | Release day | R.1 | small | One variable and a redeploy |
+| 18 | Cleanup | R.2 | medium | About two weeks later |
 
 ---
 
 ## The full list
+
+Phase 0 — Setup
+
+- [ ] 0.1 The preview switch
 
 Phase 1 — Foundations
 
@@ -174,13 +196,20 @@ Phase 4 — Public pages
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
 
+Release
+
+- [ ] R.1 Release day
+- [ ] R.2 Cleanup
+
 Owner decisions — not AI work
 
 - [x] Choose the logo mark: **Lens, provisionally** (7 October 2026). Final decision after seeing all
-  screens on the `rebranding` branch
-- [ ] Before the release merge, confirm the final mark. If it is a new mark (Lens or another), commission
+  screens in the preview
+- [x] Choose how the redesign reaches production: **a preview switch on `main`** (7–8 October 2026)
+- [ ] Before release day, confirm the final mark. If it is a new mark (Lens or another), commission
   a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
-- [ ] Add `rebranding` to the branch protection (B2) and check sign-in on its preview (B3)
+- [ ] Set the preview key in Vercel and bookmark the link (S2)
+- [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
 - [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
 
@@ -207,7 +236,7 @@ Owner decisions — not AI work
 | Colour | Brand #2B3FD6 on paper #F7F6F2; lime #D5F36B for brand moments only |
 | Type | Newsreader for display (22px and up), Geist for UI; Geist Mono dropped |
 | Logo | **Lens, provisionally** (7 October 2026); the final decision comes after seeing all screens. A new mark needs a clearance search before release. **Loaded from configuration, never hard-coded** |
-| Where the work lives | **A dedicated `rebranding` branch**; production gets the redesign in one merge at the end |
+| Where the work lives | **On `main`, behind a preview switch** (7–8 October 2026): the owner sees the new design through a secret link, everyone else sees today's site. Release is one variable and a redeploy |
 | Match score | Status first; the percentage only inside "Why this match" |
 | Dark mode | Follows the OS by default, with a toggle in the desktop account menu, the phone Profile tab and the public footer |
 | Sign-in | **Stays first.** No try-before-sign-up |
@@ -230,8 +259,8 @@ animation patches the audit first proposed.
 5. **No infinite animations.** Only transform and opacity; reduced motion swaps movement for a fade
    (audit 6.7).
 6. **Static pages stay static.** The 22 `study-in-*` guides, `/` and `/ib-university-requirements` are
-   prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `npm run build` must
-   still list them `○ (Static)`.
+   prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `showsNewUi()` (0.1) is
+   the one exception: Draft Mode keeps them static. `npm run build` must still list them `○ (Static)`.
 7. **No new database reads.** The theme lives in `localStorage`. Use `select` over `include` in
    anything touched.
 8. **Budget** (production, 5 October 2026: JS 171 KB, CSS 22 KB, fonts 52 KB, CLS 0): no more JS,
@@ -239,6 +268,47 @@ animation patches the audit first proposed.
 9. **Every OS:** Chrome on Windows, Safari on macOS and iOS, at 1440px and 390px, light, dark and
    forced colours, 200% zoom.
 10. **Tests:** Vitest for new pure helpers, plus the AGENTS.md verification commands.
+11. **Hidden until release:** without the preview link, every page is unchanged, and `npm run build`
+    lists the same pages as Static as before.
+
+---
+
+## Phase 0 — Setup
+
+### 0.1 — The preview switch
+
+**Outcome:** One server-side helper decides which design a request gets. A secret link turns the new
+design on for one browser, through Next.js Draft Mode. Students see no change.
+
+**Must-haves:**
+- Read `node_modules/next/dist/docs/01-app/02-guides/draft-mode.md` first.
+- `lib/new-ui.ts`, server-only: `showsNewUi()` is true when `NEW_UI_FOR_EVERYONE` is `true`, or when
+  Draft Mode is on (`(await draftMode()).isEnabled`). Add `NEW_UI_FOR_EVERYONE` and
+  `NEW_UI_PREVIEW_KEY` to `lib/env.ts` as optional. Neither is `NEXT_PUBLIC_`.
+- `app/api/preview/route.ts` (GET, `?key=`):
+  - compare the key with `NEW_UI_PREVIEW_KEY` in constant time (`crypto.timingSafeEqual`);
+  - a missing key, a wrong key or an unset variable gets a 404;
+  - the right key enables Draft Mode and redirects to `/`, never to a URL taken from the request.
+
+  `app/api/preview/exit/route.ts` (POST) disables it and redirects to `/`. `proxy.ts` already skips
+  `/api`.
+- The root layout calls `showsNewUi()` once. For the new design it sets `data-ui="next"` on `<html>`,
+  the hook for the scoped tokens (1.1). For everyone else, `<html>` stays exactly as today.
+- A page that has a new version branches the same way:
+  `return (await showsNewUi()) ? <NewPage /> : <OldPage />`.
+- A small "New design preview · Exit" bar while Draft Mode is on, but not once everyone has the new
+  design. A reviewer always knows which design is showing.
+- Vitest for the key check (missing, wrong, different length, right), and for `showsNewUi()` with
+  `next/headers` mocked.
+
+**Verify:**
+- `npm run build` lists the same pages as Static as before.
+- On this pull request's Vercel preview, once the owner has set the key (S2):
+  - without the link, the HTML is unchanged;
+  - with the link, `<html data-ui="next">` and the preview bar appear;
+  - a wrong key gets a 404;
+  - Exit returns to today's site.
+- After merging, the same check on production.
 
 ---
 
@@ -250,21 +320,28 @@ animation patches the audit first proposed.
 Newsreader and Geist.
 
 **Must-haves:**
-- Re-point the existing shadcn variables (`--background`, `--primary`, `--muted`, …) to the new
+- **Scoped to `[data-ui="next"]`** (set on `<html>` by 0.1), **not bare `:root`**, so old screens keep
+  today's look until release.
+  Inside the scope, re-point the shadcn variables (`--background`, `--primary`, `--muted`, …) to the new
   values and add the semantic ones (`--ok`, `--close`, `--gap` and their `-soft` pairs,
-  `--brand-soft`, `--ink-3`, `--lime`), so existing classes keep working (`04-design-system.md` §1).
+  `--brand-soft`, `--ink-3`, `--lime`) (`04-design-system.md` §1). They move to `:root` at cleanup
+  (R.2).
 - Every token pair passes the Definition of done's contrast rule. The table in §1 lists the
   intended ratios; measure them again.
-- Fonts through `next/font`, latin subset, variable. **Remove Geist Mono**; it is used once
-  (`app/how-it-works/_components/NoAISection.tsx:32`).
+- Fonts through `next/font`, latin subset, variable. Newsreader gets `preload: false` until cleanup,
+  so today's pages don't download it; the browser fetches it only where the new design uses it. Geist
+  Mono goes with `NoAISection.tsx` (`app/how-it-works/_components/NoAISection.tsx:32`, its only use) when
+  4.3 rebuilds How it works.
 - Radius, spacing, elevation and motion tokens as in §3.
 
-**Verify:** the contrast table in the PR; build static as before; font transfer at most 60 KB.
+**Verify:** the contrast table in the PR; build static as before; font transfer at most 60 KB; without
+the preview link, today's colours.
 
 ### 1.2 — Primitives
 
 **Outcome:** Button, Input, Select, Chip, Segmented, StatusBadge, Card and Skeleton in the new style,
-built from the tokens.
+built from the tokens, **as new components in their own folder** (for example `components/ds/`). Today's
+`components/ui/` stays untouched for the old screens until cleanup.
 
 **Must-haves:**
 - **Focus is an outline**, not `outline-none` plus a box-shadow ring (today `components/ui/button.tsx:8`,
@@ -279,7 +356,7 @@ built from the tokens.
 ### 1.3 — Brand configuration and the new logo
 
 **Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance"). The
-final mark is decided before the release merge, and swapping it must be a change to the config and
+final mark is decided before release day, and swapping it must be a change to the config and
 asset files only.
 
 **Outcome:** One module (`lib/brand/config.ts`, `04-design-system.md` §8) names every brand asset,
@@ -287,7 +364,9 @@ and nothing else hard-codes a logo.
 
 **Must-haves:**
 - All 29 references in 19 files read from it: student, coordinator and admin headers; sign-in and
-  invitation pages; `app/layout.tsx` metadata; JSON-LD logos; all 7 email templates.
+  invitation pages; `app/layout.tsx` metadata; JSON-LD logos; all 7 email templates. Pages pick the
+  logo through `showsNewUi()`, so the preview shows it everywhere. **Emails** go to students, so they
+  follow `NEW_UI_FOR_EVERYONE` alone and change on release day.
 - Assets are SVG with **outlined paths, never `<text>`**. Today's logo is live text in Inter and
   renders in Arial on Windows (audit 2.4). Each asset is checked at 16, 32 and 180px, light and dark.
 - A PNG at 2× for email; favicon, Apple touch icon and Open Graph image made from the mark.
@@ -298,8 +377,10 @@ and nothing else hard-codes a logo.
 **Outcome:** The site follows the OS by default and remembers a manual choice per device.
 
 **Must-haves** (`04-design-system.md` §10):
-- Dark tokens under `prefers-color-scheme` and `[data-theme='dark']`. Remove the forced
-  `className="light"` from `<html>` (`app/layout.tsx:121`).
+- Dark tokens under `prefers-color-scheme` and `[data-theme='dark']`, inside the `data-ui="next"`
+  scope. For the new design, the root layout drops the forced `className="light"` and
+  `colorScheme: 'light'` from `<html>` (`app/layout.tsx:121`). For everyone else they stay until
+  release, or old screens would change for students on a dark OS.
 - The choice is stored in `localStorage` only. An inline head script sets `data-theme` before paint, so
   there is no flash. `color-scheme` is set so native controls and scrollbars follow.
 - `ThemeSwitch` component (System, Light, Dark radio group). Placing it is 1.5 (account menu, footer)
@@ -324,11 +405,11 @@ and nothing else hard-codes a logo.
   hide-on-scroll, no looping "incomplete" dot (today `StudentHeader.tsx:103`,
   `MobileBottomNav.tsx:141`). Hidden during first-run onboarding (3.1).
 - **Footer:** public links and the `ThemeSwitch`.
-- Keep URLs unchanged. Do not move the country guides' files while `CONTENT_tasks.md` phase 5
-  edits them.
+- Keep URLs unchanged.
 
-**Verify:** `npm run build` lists the static pages unchanged. Every listed page shows the header.
-Logged out, nothing in the header leads to sign-in except "Sign in" and "Get my matches".
+**Verify:** `npm run build` lists the static pages unchanged. In the preview, every listed page shows
+the header; without the link, they are as today. Logged out, nothing in the header leads to sign-in
+except "Sign in" and "Get my matches".
 
 ---
 
@@ -473,20 +554,48 @@ fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
 **Must-haves:** everything 7.2 lists: static with a one-week revalidate, URLs unchanged, per-country
 JSON-LD preserved, the sitemap unchanged. Tokens only, which removes about 4,260 hard-coded palette
-classes. Migrate two or three, compare the rendered text before and after, then do the rest. Start straight
-after merging the latest `main` into `rebranding`, and port any later country edits from `main`
-before release (see [The rebranding branch](#the-rebranding-branch)).
+classes. Migrate two or three, compare the rendered text before and after, then do the rest. Until release,
+the old guides stay live beside the template, so an edit to a migrated country goes into both. Do it
+late.
 
 ### 4.3 — Other public pages
 
 **Outcome:** `/ib-university-requirements`, `/how-it-works`, `/faqs`, `/contact`, `/support-us`,
-the legal pages and sign-in move to the new design, using tokens only.
+the legal pages and sign-in move to the new design, using tokens only. Geist Mono is removed with
+`NoAISection.tsx`.
 
 ### 4.4 — Guard against raw palette classes
 
 **Outcome:** A lint rule fails on raw palette classes (`text-blue-600`, `bg-gray-50`, …) in
 student-facing code, so the two styling systems cannot drift apart again (audit 2.2). It is a code-quality
 rule, not a formatting one, so it does not conflict with Prettier.
+
+---
+
+## Release
+
+### R.1 — Release day
+
+**Outcome:** Everyone sees the new design, in one deploy.
+
+**Steps:**
+1. Confirm the final logo. If it is a new mark, the clearance search must be back.
+2. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
+   rebuilds the static pages in the new design, and emails switch too.
+3. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+
+**Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not.
+
+### R.2 — Cleanup
+
+**Outcome:** One design in the code.
+
+**Steps:** after about two stable weeks:
+- delete the old screens and components (`ProgramCard`, the replaced parts of `components/ui/`, the
+  onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages);
+- delete the switch, the preview routes and bar, both variables and the old logo files;
+- move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
+- re-run the full verification and the budget check.
 
 ---
 
