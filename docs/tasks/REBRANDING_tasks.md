@@ -135,6 +135,24 @@ session's gate.
   board counts), and every content state that applies: loading, empty, error, signed in and signed
   out, profile incomplete, a missing image, a long name.
 
+### How a design session works
+
+A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are the standing instructions.
+
+1. Read this Step 2, the task's row, and the documents the row or its build task names (usually
+   `04-design-system.md`, `03-flows.md` and audit references).
+2. Work on the [canvas](#where-the-design-lives). **Never change an approved board.** A change to
+   one is a new board, reviewed again. New boards go in a new row, named as in the table.
+3. Draw everything in the row's "To add before review" column, to [the design gate](#step-2--design-first):
+   phone and desktop, light and dark, every state that applies.
+4. Use real content: real program, university and subject names and real requirements. Read the
+   database with aggregates or a narrow `select` only (`AGENTS.md`, cost).
+5. **Design only:** no app code. Stop when the boards are ready, and tell the owner which boards to
+   review and what changed.
+6. Fixes from the owner's comments are made on the canvas. When the owner approves, on the board or
+   in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
+   in a docs pull request.
+
 **Where it stands, 8 October 2026.** The canvas has 23 boards. The owner approved "B · Foundations"
 and "Theme: System, Light, Dark" in chat: D1.1, D1.3 and D1.4 are approved, and D1.2 for its
 desktop scale. Thirty tasks need a screen size or states added. Ten have no board.
@@ -236,6 +254,21 @@ merges into `main`, behind the preview switch.**
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
+
+### How a build session works
+
+A prompt such as "Do build session 1" or `/build 1` is enough: these are the standing instructions.
+
+1. Find the session's row above. **Check its design gate first:** every design task it lists needs a
+   date in its "Approved" column in Step 2. If one is missing, stop and say which.
+2. Read the task sections, [Standing context](#standing-context), the
+   [Definition of done](#definition-of-done) and the approved boards on the canvas.
+3. Branch from `origin/main`, and check the branch before every commit. Build behind the
+   [preview switch](#how-the-redesign-reaches-production-the-preview-switch), with new files next to
+   the old ones.
+4. The pull request runs the `AGENTS.md` verification and puts screenshots next to the approved
+   boards. The owner merges. Tick the task in [The full list](#the-full-list) in the same pull
+   request.
 
 ---
 
