@@ -265,7 +265,7 @@ Rows 3 and 4 can share a design session.
 | Row | 1 · Design session | 2 · ✋ You approve | 3 · Build session | Status |
 |---|---|---|---|---|
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
-| 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | **Next** |
+| 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Designs approved 8 October 2026. **Next: `/build 1`** |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Design can start now |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards. D1.4 is already approved | `/build 3`: site chrome (1.5) | |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
@@ -280,7 +280,7 @@ Rows 3 and 4 can share a design session.
 | 14 | `/design D4.1`: Home on a phone | First decide whether the cookie banner stays (owner decisions), then the Home board | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
-| 17 | None | Confirm the final logo. A new mark needs its clearance search back first | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
+| 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 
 ### How a build session works
