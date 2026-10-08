@@ -109,24 +109,101 @@ goes into both versions until release, so do 4.2 late.
 
 ## Step 2 — Design first
 
-The phases below are an outline. Before any of it is built, each becomes smaller tasks, in this
-order:
+**Nothing is coded before its design is approved.** Every design task below goes through the same
+stages, and changes are made in the first two, while they are still cheap:
 
-1. **Foundations:** tokens, type, theme. One task each, each with a canvas board.
-2. **Components:** one task per component (button, input, chip, segmented control, status badge,
-   requirement chip, card, menu, sheet, tab bar, header, footer, theme switch, skeleton, empty and error
-   states, …).
-3. **Patterns:** composed pieces (match card, result row, requirement checklist, filter toolbar,
-   "Why this match", subject row, compare table).
-4. **Screens and flows:** one task per screen or flow, including the states the canvas does not
-   show yet: loading, empty, error, sign-in, invitations, the university page, 404, the country guide
-   template, the requirements hub, How it works and FAQs.
+1. **Draw.** A session completes the task's boards on the canvas: phone and desktop, light and dark,
+   and every state in the last-but-one column. New boards go in new rows on the canvas, named as in
+   the tables.
+2. **Review and fix.** The owner comments on the boards. Fixes are made on the canvas, not in code,
+   and reviewed again.
+3. **Approve.** The owner comments "Approved" on each board. The next session writes the date in the
+   table's last column.
+4. **Build.** Only then can a build task whose **design gate** lists it start. Its pull request puts
+   screenshots next to the boards (design QA). A visual change that is not on an approved board is
+   not merged.
 
-**The design gate.** A task can start only when its board on the canvas shows every state that
-applies: default, hover, focus, active, disabled, loading, error and empty, in light and dark, on phone
-and desktop. The owner must also have approved the board, by a comment on the canvas, and the task must
-record the board and the approval date. After building, the pull request includes screenshots
-next to the board (design QA). A visual change that is not on an approved board is not merged.
+Design runs ahead of the build, in the order of [Start here](#start-here), which lists each build
+session's gate.
+
+**The design gate: what a board must show before it can be approved.**
+
+- **Components:** every interaction state that applies (default, hover, focus, active, disabled,
+  loading, error), in light and dark. Screens reuse them, so screen boards need not repeat hover and
+  focus.
+- **Patterns and screens:** phone (390px) and desktop (1440px), light and dark (a dark switch on the
+  board counts), and every content state that applies: loading, empty, error, signed in and signed
+  out, profile incomplete, a missing image, a long name.
+
+**Where it stands, 8 October 2026.** The canvas has 23 boards and no comments, so nothing is approved
+yet. Three tasks are ready for review as they are. Thirty need a screen size or states added. Ten have
+no board.
+
+### Foundations
+
+| Task | On the canvas today | To add before review | Approved |
+|---|---|---|---|
+| D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing. **Ready for review** | |
+| D1.2 Type | "B · Foundations": the scale in Newsreader and Geist | Phone sizes: Display XL (56px) and Display L (44px) do not fit at 390px | |
+| D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing. **Ready for review** | |
+| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row | Nothing. **Ready for review** | |
+| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
+
+### Components
+
+On "B · Components" unless another board is named. That board is light only. The account menu and
+theme switch are in D1.4.
+
+| Task | On the canvas today | To add before review | Approved |
+|---|---|---|---|
+| D2.1 Button | Primary, secondary and link; default, hover, focus and disabled; Save and Saved | Pressed, loading ("Saving"), dark | |
+| D2.2 Text input and search | The search field | Focus, an error with its message, disabled, dark | |
+| D2.3 Select and subject picker | The subject picker, closed | Open, filtered by typing, no results; dark | |
+| D2.4 Segmented control | SL or HL and grades 1–7, one chosen | Focus, disabled, a choice that blocks saving (an E in TOK or the EE), dark | |
+| D2.5 Chips | Filter chips, an applied filter with "Country · 3", removable countries, "Clear all", "Only ones I qualify for" | Focus, the on/off chip in both states, dark | |
+| D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
+| D2.7 Status badge and requirement chip | The three statuses and "Checked for 2027 entry"; chips on "Match card: every state" | Dark | |
+| D2.8 Card and skeleton | A match card's skeleton | Skeletons for a result row and the program page, dark | |
+| D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
+| D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
+| D2.11 Empty and error states | None | **No board.** One layout for no matches, no results, an empty shortlist and a failed load | |
+| D2.12 Header | Signed in on desktop, on every page board; signed out on desktop, on "Home (logged out)" | The phone header signed out and signed in; focus mode ("Save and exit", as on the first-run boards); dark | |
+| D2.13 Footer | "Theme: System, Light, Dark", desktop and phone | Dark | |
+| D2.14 Phone tab bar | On Components and every phone board | Focus, dark | |
+| D2.15 Bottom sheet | "Phone · Filters sheet" | Dark | |
+
+### Patterns
+
+| Task | On the canvas today | To add before review | Approved |
+|---|---|---|---|
+| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark | |
+| D3.2 Why this match | Open on "Match card: every state" (desktop) and on "Phone · Why this match, opened" | Dark | |
+| D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone | |
+| D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade | |
+| D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
+| D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
+| D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px | |
+
+### Screens and flows
+
+| Task | On the canvas today | To add before review | Approved |
+|---|---|---|---|
+| D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner once the owner decides | |
+| D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
+| D4.3 First run, step 1: interests | Phone, light | Desktop, dark | |
+| D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
+| D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
+| D4.6 Matches | Desktop (interactive, dark switch), phone, phone "Why this match" | Phone dark; loading; no matches; profile incomplete (`03-flows.md` F6); a failed load | |
+| D4.7 Explore | Desktop (dark switch), phone, phone filters sheet | Signed out; no results; loading the next 20; phone dark | |
+| D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found | |
+| D4.9 University page | None | **No board.** Phone and desktop | |
+| D4.10 Shortlist | Desktop compare (dark switch) | Desktop list view; phone list and compare; an empty shortlist | |
+| D4.11 Profile and settings | Desktop "Academic profile", Subjects and grades tab only (dark switch); "Phone · Profile tab" | The desktop Interests, Countries and Account tabs; unsaved changes; a failed save; delete account; phone dark | |
+| D4.12 Country guide template | None | **No board.** Phone and desktop, drawn from one guide's real content | |
+| D4.13 Requirements hub | None | **No board.** `/ib-university-requirements` | |
+| D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
+| D4.15 404 and error pages | None | **No board** | |
+| D4.16 School invitation | None | **No board.** Same flow, new look (`03-flows.md`) | |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -135,29 +212,30 @@ Within reach, Missing a requirement). See [Open questions](#open-questions).
 
 ## Start here
 
-This is the build order, after steps 1 and 2. Step 2 will replace these rows with the finer-grained
-tasks. **Every session merges into `main`, behind the preview switch.**
+This is the build order. **A session starts only when every design task in its gate is approved**
+([Step 2](#step-2--design-first)), so the design work runs a session or two ahead. **Every session
+merges into `main`, behind the preview switch.**
 
-| # | Session | Tasks | Size | Notes |
-|---|---|---|---|---|
-| 0 | The preview switch | 0.1 | small | First. Every later pull request uses it |
-| 1 | Tokens, type and theme | 1.1, 1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
-| 2 | Primitives | 1.2 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
-| 3 | Site chrome | 1.5 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
-| 4 | Logo | 1.3 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
-| 5 | Match data | 2.1 | small | Requirement-based statuses (decided 7 October 2026) |
-| 6–7 | Match card and results | 2.2 | large | Replaces `ProgramCard` |
-| 8 | Explore | 2.3 | medium | |
-| 9 | Program and university pages | 2.4 | medium | |
-| 10 | Shortlist and compare | 2.5 | medium | |
-| 11 | First-run steps | 3.1 | medium | |
-| 12 | Subject editor | 3.2 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
-| 13 | Profile tab and settings | 3.3 | medium | |
-| 14 | Home | 4.1 | medium | |
-| 15 | Country guides | 4.2 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
-| 16 | Other public pages and the guard | 4.3, 4.4 | medium | |
-| 17 | Release day | R.1 | small | One variable and a redeploy |
-| 18 | Cleanup | R.2 | medium | About two weeks later |
+| # | Session | Tasks | Design gate | Size | Notes |
+|---|---|---|---|---|---|
+| 0 | The preview switch | 0.1 | — | small | **Done 8 October 2026** |
+| 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
+| 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
+| 3 | Site chrome | 1.5 | D1.4, D2.12–D2.14 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
+| 4 | Logo | 1.3 | D1.5 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
+| 5 | Match data | 2.1 | None | small | Requirement-based statuses (decided 7 October 2026) |
+| 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | Replaces `ProgramCard` |
+| 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | |
+| 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | |
+| 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
+| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | |
+| 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
+| 13 | Profile tab and settings | 3.3 | D2.10, D4.11 | medium | |
+| 14 | Home | 4.1 | D4.1 | medium | |
+| 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
+| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
+| 17 | Release day | R.1 | — | small | One variable and a redeploy |
+| 18 | Cleanup | R.2 | — | medium | About two weeks later |
 
 ---
 
@@ -226,7 +304,8 @@ Owner decisions — not AI work
   implementation notes (§8 brand config, §9 match status, §10 theme).
 - **Canvas:** https://claude.ai/artifact/TyMyphwJN7iwx3rSPLsjuH (private to the owner). Rows 2–4 hold
   the system and the pages; row 5 has the latest boards (match states, phone "Why this match",
-  theme, logo).
+  theme, logo). Boards for the design tasks go in new rows, named as in
+  [Step 2](#step-2--design-first).
 
 ### Decisions, 6 October 2026
 
@@ -319,6 +398,8 @@ design on for one browser, through Next.js Draft Mode. Students see no change.
 **Outcome:** `app/globals.css` carries the Direction B tokens in light and dark, and the app uses
 Newsreader and Geist.
 
+**Design gate:** D1.1, D1.2 and D1.3, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:**
 - **Scoped to `[data-ui="next"]`** (set on `<html>` by 0.1), **not bare `:root`**, so old screens keep
   today's look until release.
@@ -343,6 +424,8 @@ the preview link, today's colours.
 built from the tokens, **as new components in their own folder** (for example `components/ds/`). Today's
 `components/ui/` stays untouched for the old screens until cleanup.
 
+**Design gate:** D2.1 to D2.5, D2.7 and D2.8, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:**
 - **Focus is an outline**, not `outline-none` plus a box-shadow ring (today `components/ui/button.tsx:8`,
   `input.tsx:18`). Tailwind v4's `outline-none` and `outline-hidden` differ: read its docs in
@@ -362,6 +445,8 @@ asset files only.
 **Outcome:** One module (`lib/brand/config.ts`, `04-design-system.md` §8) names every brand asset,
 and nothing else hard-codes a logo.
 
+**Design gate:** D1.5, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:**
 - All 29 references in 19 files read from it: student, coordinator and admin headers; sign-in and
   invitation pages; `app/layout.tsx` metadata; JSON-LD logos; all 7 email templates. Pages pick the
@@ -376,6 +461,8 @@ and nothing else hard-codes a logo.
 
 **Outcome:** The site follows the OS by default and remembers a manual choice per device.
 
+**Design gate:** D1.4, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves** (`04-design-system.md` §10):
 - Dark tokens under `prefers-color-scheme` and `[data-theme='dark']`, inside the `data-ui="next"`
   scope. For the new design, the root layout drops the forced `className="light"` and
@@ -389,6 +476,8 @@ and nothing else hard-codes a logo.
 ### 1.5 — Site chrome on every student-facing page
 
 **Outcome:** The same header, footer and phone tab bar on every student-facing page, logged in or out.
+
+**Design gate:** D1.4, D2.12, D2.13 and D2.14, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
 - **A header on the pages that have none today** (audit 1.1): `/`, the 22 country guides,
@@ -421,6 +510,8 @@ except "Sign in" and "Get my matches".
 
 **Outcome:** The matching result carries what the cards need, with no change to scores.
 
+**Design gate:** none; nothing on screen changes.
+
 **Must-haves:**
 - An additive change to `SubjectMatchDetail` (`lib/matching/types.ts`): `kind` (`met`, `grade_short`,
   `level_short`, `not_taken`), `gradeGap`, `studentLevel` and `studentGrade`. Today the detail does
@@ -434,6 +525,8 @@ except "Sign in" and "Get my matches".
 **Outcome:** `ProgramCard` (1,278 lines, three jobs) is replaced by MatchCard, ResultRow and
 RequirementChecklist. The matches page groups by status. See the canvas boards "Match card: every
 state", "Matches" and "Phone · Why this match, opened".
+
+**Design gate:** D2.9, D2.11, D3.1, D3.2, D3.4 and D4.6, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
 - **Every requirement visible on the card** as a chip with its own status and the student's grade
@@ -458,6 +551,8 @@ state", "Matches" and "Phone · Why this match, opened".
 with the result count on its button, compact result rows, and 20 results per page with "Show 20
 more". See the canvas boards "Explore programs", "Phone · Explore" and "Phone · Filters sheet".
 
+**Design gate:** D2.15, D3.3, D3.5 and D4.7, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:** filters stay in the URL, as today. "Only ones I qualify for" appears once the student
 has a profile. Rows show minimum points large and aligned, and the student's fit when logged in.
 Images are 48–64px thumbnails, not full width (audit 3.3).
@@ -466,6 +561,8 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
 
 **Outcome:** The program page and university page in the new layout. See the canvas boards "Program
 detail" and "Phone · Program (dark)".
+
+**Design gate:** D3.4, D4.8 and D4.9, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
 - **Breadcrumbs** (Explore / Canada / University of Toronto) instead of `history.back()` links
@@ -487,6 +584,8 @@ minimum points against the student's, named subjects, country, degree and length
 and the official link. See the canvas board "Shortlist and compare". The saved page shows fit,
 which it does not today (audit F4 in `03-flows.md`).
 
+**Design gate:** D3.7 and D4.10, approved ([Step 2](#step-2--design-first)).
+
 ---
 
 ## Phase 3 — Profile and onboarding
@@ -495,6 +594,8 @@ which it does not today (audit F4 in `03-flows.md`).
 
 **Outcome:** Steps 1 and 2 of onboarding as compact lists. See the canvas boards "Phone · First run,
 step 1" and "step 2".
+
+**Design gate:** D2.6, D4.3 and D4.4, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
 - Real checkboxes in a `<fieldset>` (today `Card` divs with `onClick`, unusable from the keyboard,
@@ -518,6 +619,8 @@ grade 1–7), then TOK and EE. It replaces `SubjectSelectorDialog`, `DetailedGra
 `QuickScoreInput` and `StepIndicator`. See the canvas boards "Academic profile" and "Phone · First
 run, step 3".
 
+**Design gate:** D3.6 and D4.5, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:**
 - Radio semantics for level and grade (audit 6.4). Editing in place: no remove-and-re-add.
 - A live total labelled "So far" until six subjects and both core grades are in (audit 5.5).
@@ -529,6 +632,8 @@ run, step 3".
 
 **Outcome:** The phone Profile tab is one hub, and desktop has the same content as Profile page tabs.
 `/student/settings` folds into it. See the canvas board "Phone · Profile tab".
+
+**Design gate:** D2.10 and D4.11, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:** the predicted total with "Edit subjects and grades"; interests and countries (opening
 the 3.1 screens); account (name, school connection, `ThemeSwitch`); your data (download, delete);
@@ -544,6 +649,8 @@ sign out. **Keep every current Settings feature.**
 the generic illustration, three steps, why the IB matters, country guides, the founder's note, a final
 call to action, and the footer.
 
+**Design gate:** D4.1, approved ([Step 2](#step-2--design-first)).
+
 **Must-haves:** stays static. The hero image is replaced by markup, so no 575 KB PNG source. The copy
 fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
@@ -551,6 +658,8 @@ fits the sign-in-first flow. The cookie banner follows the owner's decision.
 
 **Outcome:** The 22 guides render from one template and typed data, in the new design. This is
 `MAINT_tasks.md` 7.2 done once, here.
+
+**Design gate:** D4.12, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:** everything 7.2 lists: static with a one-week revalidate, URLs unchanged, per-country
 JSON-LD preserved, the sitemap unchanged. Tokens only, which removes about 4,260 hard-coded palette
@@ -561,14 +670,18 @@ late.
 ### 4.3 — Other public pages
 
 **Outcome:** `/ib-university-requirements`, `/how-it-works`, `/faqs`, `/contact`, `/support-us`,
-the legal pages and sign-in move to the new design, using tokens only. Geist Mono is removed with
-`NoAISection.tsx`.
+the legal pages, sign-in, the school invitation pages, and the 404 and error pages move to the new
+design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
+
+**Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)).
 
 ### 4.4 — Guard against raw palette classes
 
 **Outcome:** A lint rule fails on raw palette classes (`text-blue-600`, `bg-gray-50`, …) in
 student-facing code, so the two styling systems cannot drift apart again (audit 2.2). It is a code-quality
 rule, not a formatting one, so it does not conflict with Prettier.
+
+**Design gate:** none; nothing on screen changes.
 
 ---
 
