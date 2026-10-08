@@ -258,7 +258,8 @@ merges into `main`, behind the preview switch.**
 ### Run order: design, approve, build
 
 The owner's sequence, one row at a time. In each row, run the design session, approve its boards
-(✋), then run the build session. The next row's design can start while the current row builds.
+(✋), then run the build session. A row lists only the design work still to do; the Design gate
+column above also lists the designs already approved. The next row's design can start while the current row builds.
 Rows 3 and 4 can share a design session.
 
 | Row | 1 · Design session | 2 · ✋ You approve | 3 · Build session | Status |
@@ -266,12 +267,12 @@ Rows 3 and 4 can share a design session.
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | **Next** |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Design can start now |
-| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards | `/build 3`: site chrome (1.5) | |
+| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards. D1.4 is already approved | `/build 3`: site chrome (1.5) | |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
-| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards | `/build 9`: program and university pages (2.4) | |
+| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
