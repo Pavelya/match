@@ -75,7 +75,8 @@ traffic. Storage was restricted and every university image broke.
 ## Workflow
 
 **Merging `main` deploys to production.** Work on a branch, open a pull request, let CI
-pass, and let the user merge. Never commit to `main`.
+pass, and let the user merge. Never commit to `main`. The user merges between sessions, so
+start every change from a new branch off `origin/main` and check the branch before committing.
 
 Verification — all free, and nothing reaches a third party except the build:
 
@@ -88,6 +89,8 @@ npm test && npx tsx scripts/run-all-tests.ts
 
 - `docs/tasks/MAINT_tasks.md` — remaining work, grouped into sessions, with the full
   standing context and per-task verification
+- `docs/tasks/REBRANDING_tasks.md` — the redesign: design tasks (D…) on the canvas, build
+  sessions in code, and how each kind of session runs
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning
   behind each choice
 - `docs/security/security-audit-report-2026-01.md` — security audit history
