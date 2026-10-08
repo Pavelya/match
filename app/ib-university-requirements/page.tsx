@@ -85,6 +85,11 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
     slug: 'estonia',
     summary: 'Accepted without Estonian state exams · Apply via DreamApply'
   },
+  FR: {
+    slug: 'france',
+    summary:
+      "No automatic recognition · English-taught bachelor's at selective schools, own applications"
+  },
   DE: {
     slug: 'germany',
     summary: 'KMK subject rules for direct access · KMK grade conversion · uni-assist or direct'
