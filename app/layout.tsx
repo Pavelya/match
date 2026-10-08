@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner'
 import { CountryFlagPolyfill } from '@/components/shared/CountryFlagPolyfill'
 import { NewUiPreviewBar } from '@/components/shared/NewUiPreviewBar'
 import { ToastProvider } from '@/components/providers/toast-provider'
 import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
+import { THEME_SCRIPT } from '@/lib/theme'
+import { cn } from '@/lib/utils'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,6 +18,43 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin']
+})
+
+// The new design's display face (rebranding 1.1): Newsreader 500, the only weight its styles
+// use, cut at optical size 36 for headings from 30 to 56px. A static cut keeps the font budget
+// (the variable font with its opsz axis is 132 KB for latin alone), and it is self-hosted because
+// next/font/google can't pin an optical size. Latin-ext loads only for names that need it, as
+// Google's subsets do. Not preloaded, so today's pages never download either file.
+const newsreader = localFont({
+  src: './fonts/newsreader/newsreader-500-opsz36-latin.woff2',
+  weight: '500',
+  variable: '--font-newsreader',
+  preload: false,
+  adjustFontFallback: 'Times New Roman',
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value:
+        'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD'
+    }
+  ]
+})
+
+// The type styles in globals.css list this face before the latin one. In the other order the latin
+// face's size-adjusted Times New Roman fallback would catch latin-ext letters first.
+const newsreaderLatinExt = localFont({
+  src: './fonts/newsreader/newsreader-500-opsz36-latin-ext.woff2',
+  weight: '500',
+  variable: '--font-newsreader-ext',
+  preload: false,
+  adjustFontFallback: false,
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value:
+        'U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF'
+    }
+  ]
 })
 
 export const metadata: Metadata = {
@@ -126,11 +166,30 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className="light"
-      style={{ colorScheme: 'light' }}
+      className={newUi ? undefined : 'light'}
+      style={newUi ? undefined : { colorScheme: 'light' }}
       data-ui={newUi ? 'next' : undefined}
+      suppressHydrationWarning={newUi}
     >
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      {/*
+       * The new design follows the OS, or the student's choice (rebranding 1.4). The script sets
+       * data-theme before first paint; it is the reason for suppressHydrationWarning. Today's
+       * design stays forced light until release, or its screens would change on a dark OS.
+       */}
+      {newUi && (
+        <head>
+          <meta name="color-scheme" content="light dark" />
+          <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        </head>
+      )}
+      <body
+        className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          newUi && [newsreader.variable, newsreaderLatinExt.variable],
+          'antialiased'
+        )}
+      >
         {newUi && !newUiForEveryone() && <NewUiPreviewBar />}
         {/* Centralized Organization schema for AI search engines */}
         <script

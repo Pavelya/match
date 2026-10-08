@@ -47,9 +47,21 @@ Contrast is against the token's usual background (paper or surface).
 | `--paper` / `--surface` / `--sunken` | #0E1014 / #161920 / #1D2129 | Not pure black, so surfaces stay distinguishable on cheap panels |
 | `--line` / `--line-2` | #2A2F3A / #3A404D | |
 | `--ink` / `--ink-2` / `--ink-3` | #F1F0EB / #BBBFC9 / #9095A2 | 16.7, 10.4 and 6.4:1 |
-| `--brand` / `--on-brand` | #8E9BFF / #0B0E2B | Lighter brand; **dark text on the button** (7.7:1) |
+| `--brand` / `--on-brand` | #8E9BFF / #0B0E2B | Lighter brand; **dark text on the button** (7.5:1) |
+| `--brand-hover` | #A6B0FF | Hover and pressed, as on "B · Foundations" |
 | `--brand-soft` / `--brand-ink` | #1E2452 / #C9CFFF | |
 | `--ok` / `--close` / `--gap` (text) | #72D69B / #F0B95C / #FF8E85 | On their `-soft` backgrounds #14301F / #33260F / #3A1715 |
+
+**Measured 8 October 2026** (`app/globals.test.ts`, which fails the build's tests if a pair drops below
+AA): every text pair reaches 4.5:1 and the focus outline 3:1, in light and dark. Three limits come with
+the values rather than with a token:
+
+- `--ink-3` is for paper and surface. On `--sunken` in light it is 4.46:1, so no `--ink-3` text in wells,
+  segmented tracks or table headers.
+- `--line-2`, the field border, is 1.5 to 1.8:1. A field's edge needs 3:1 (WCAG 1.4.11) unless something
+  else shows where the field is; D2.2 settles it.
+- `--lime` is the same in both themes, so text on it is always #14161B, never `--foreground` (1.1:1 in
+  dark).
 
 ### Mapping onto the current setup
 
@@ -109,13 +121,22 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | Label | Geist 600, uppercase, +0.06em | 12/16 | 12/16 | Group labels, table headers |
 | Figures | Geist 600, `tabular-nums` | As needed; the big total 40/44 | As needed; the big total **32/36** | Points, grades, counts |
 
-- Load with `next/font/google`: `Geist` (variable) and `Newsreader` (variable, with the `opsz` axis),
-  latin subset. Remove `Geist_Mono`.
+- `Geist` (variable) through `next/font/google`. **Newsreader is a static 500 cut at optical size 36**,
+  self-hosted through `next/font/local` (`app/fonts/newsreader/`), not preloaded. The variable font with
+  its `opsz` axis is 132 KB for latin alone, and 61 KB with the weight fixed, against a 60 KB budget
+  for both families. Every serif style is 500, and optical size 36 matches the boards from 30 to 44px
+  and stays close at 56px; Google's default static cut (optical size 16) sets visibly wider.
+  `next/font/google` can't pin an optical size, hence the local files: latin (23.8 KB) and latin-ext
+  (14.6 KB, loaded only for names that need it, such as "Łódzki"). Built 8 October 2026 (1.1).
+  `Geist_Mono` goes when 4.3 rebuilds How it works.
 - Serif only at 22px and above. Never set body text in it. On a phone the smallest serif is H1 at 30px.
 - Hierarchy uses 400 against 600, not 500 against 600 (Windows ClearType flattens 500).
 - **The token changes, not the component.** Each style is one class (`text-display-xl`), and its value
   switches at 768px (`48rem`) in `globals.css`, where the phone tab bar gives way to the header. No
-  component picks a phone size of its own.
+  component picks a phone size of its own. The classes: `text-display-xl`, `text-display-l`, `text-h1`,
+  `text-h2`, `text-h3`, `text-body-l`, `text-body`, `text-field` (Input: `text-input` is already the
+  `--input` border colour), `text-small`, `text-label` and `text-total` (the big points total). A
+  `font-*`, `leading-*` or `tracking-*` class still overrides a style's default.
 - **Sizes in rem,** so text follows the browser's text-size setting. At 200% zoom a 1440px window is
   720px wide, gets the phone sizes and reflows (WCAG 1.4.10).
 - **Fields are 16px on a phone.** iOS Safari zooms in on any field whose text is under 16px, and the
