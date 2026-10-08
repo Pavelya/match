@@ -68,11 +68,10 @@ playful look weakens trust with parents and IB coordinators, who also use the si
 
 ## Phasing for B
 
-Phases 1–3 merge into `main` in small pull requests, **behind a switch**: only allowlisted accounts
-see the new design, and every student keeps today's site. The static public pages (phase 4) come in on
-one short release branch. Release goes in stages: the team, optionally volunteers, then everyone, then
-the old screens are deleted (`REBRANDING_tasks.md`, "How the redesign reaches production: the
-switch"; decided 7 October 2026). None of it needs a database change.
+All rebranding work merges into `main` in small pull requests, **behind a preview switch**. The owner
+sees the new design through a secret link, and every student keeps today's site. On release day, one
+variable and a redeploy switch everyone over (`REBRANDING_tasks.md`, "How the redesign reaches
+production: the preview switch"; decided 7–8 October 2026). None of it needs a database change.
 
 **Tracked as tasks:** `docs/tasks/REBRANDING_tasks.md` (the phases below; each audit UX fix is a
 must-have of the task that rebuilds its screen), `docs/tasks/MAINT_tasks.md` 5.12–5.15 (logic),
@@ -95,14 +94,14 @@ separate "fix first" phase for UX.
 | 1 | Direction | **B** | everything below |
 | 2 | Colour | **Ultramarine #2B3FD6** | 04 §1 |
 | 3 | Serif display | **Yes, Newsreader** | 04 §2 |
-| 4 | New logo mark | **Lens, provisionally** (7 October 2026). The final mark is decided after seeing every screen behind the switch. The two-circle "Rings" was dropped for its closeness to Mastercard's marks. **The logo loads from configuration**, so a later swap is a file change. A new mark needs a clearance search before release. | canvas row 5, 04 §8 |
+| 4 | New logo mark | **Lens, provisionally** (7 October 2026). The final mark is decided after seeing every screen in the preview. The two-circle "Rings" was dropped for its closeness to Mastercard's marks. **The logo loads from configuration**, so a later swap is a file change. A new mark needs a clearance search before release. | canvas row 5, 04 §8 |
 | 5 | Match score | **Status first; the percentage moves into "Why this match".** Statuses are **requirement-based** (Meets all, Within reach, Missing a requirement), not the algorithm's Safety/Match/Reach labels (7 October 2026). Scores stay as they are for now (`MAINT_tasks.md` 5.15). The card keeps every requirement visible as a small status chip, so nothing is hidden. "Why this match" opens in place on desktop and on a phone. Every state (full match, HL counting for SL, either/or, points short, grade short, SL where HL is required, subject not taken, no named subjects, outside your fields, older data) is on the canvas, with fit scores from the real algorithm. | canvas row 5, 03 F2, 04 §9 |
 | 6 | Dark mode | **System by default, with a toggle**: the account menu (desktop), the Profile tab (phone), and the footer of every public page | canvas row 5, 04 §10 |
 | 7 | Try-before-sign-up | **No: sign-in stays first.** First run saves a draft after each step instead. | 03 F1 |
 | 8 | Analytics | **Out of scope here**; to be handled as a separate task | n/a |
 
 **Logo, 7 October 2026: Lens, provisionally.** The owner will confirm or replace it after seeing all screens
-behind the switch. If the final logo is a new mark, it needs a formal clearance search in the EU and US
+in the preview. If the final logo is a new mark, it needs a formal clearance search in the EU and US
 trademark registers (EUIPO and USPTO), classes 41 and 42, before release day.
 
 ## Guardrails that apply to every option

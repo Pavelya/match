@@ -441,7 +441,7 @@ Check whether any other student-facing view renders requirement groups the same 
    the helper.
 5. Cover the grouping with a Vitest test on a pure helper, not the component.
 
-**Rebranding.** The redesign is built on `main` behind a switch, next to the old screens, so today's
+**Rebranding.** The redesign is built on `main` behind a preview switch, next to the old screens, so today's
 `ProgramCard` stays live for students until release day. Do this task in full on `main`; it
 is prep P6 in `REBRANDING_tasks.md`. Rebranding 2.2 then reuses the helper in its new requirement
 checklist.
