@@ -596,6 +596,17 @@ not precision.
   the 2021 IB syllabus. École polytechnique, Sciences Po, PSL, CentraleSupélec, Centrale Nantes, TSM, ESCP, EDHEC and emlyon pages all
   answer curl.
 
+- **Found in 5.4:** CAO's points lists answer curl: `www2.cao.ie/points/l8.php` (level 8, round 1 and round 2 columns; `*` not
+  everyone on that score got a place, `#` a test, interview or portfolio), `l76.php` (levels 7 and 6; Trinity's Dental Technology is
+  there) and `l8_tr001_rnd1.pdf` (Trinity's Joint Honours ranges by subject). Trinity's IB-to-CAO scale is on its undergraduate
+  admission requirements page; UCD publishes none. Spain's IB conversion is Orden EFD/550/2025 (`boe.es/buscar/act.php?id=BOE-A-2025-10777`):
+  annex II gives the IB subject grades on a 2-7 scale and annex III's formula is an image (`/datos/imagenes/disp/2025/131/10777_15733602_1.png`),
+  which makes the access mark the subject average plus 3. AGH's thresholds by qualification round are in the "Progi punktowe" tab of
+  `rekrutacja.agh.edu.pl/kierunki-studiow/` (server HTML; "nie rankingowano" means not ranked); its resolution's formula (2) is an image
+  that pypdf extracts. The University of Gdańsk's IB scores are § 10 of Resolution 30/26 and its pages show only the previous round's
+  threshold. McGill's IB page answered curl. Edinburgh explains its IB ranges on `.../entry-requirements/understanding/standard`.
+  DGES's placement results (`dges.gov.pt/coloc/2026`) are a JavaScript app.
+
 ---
 
 ## Phase 1 — Fix now
