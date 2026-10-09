@@ -5,6 +5,7 @@ import './globals.css'
 import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner'
 import { CountryFlagPolyfill } from '@/components/shared/CountryFlagPolyfill'
 import { NewUiPreviewBar } from '@/components/shared/NewUiPreviewBar'
+import { PublicChrome } from '@/components/site/chrome'
 import { ToastProvider } from '@/components/providers/toast-provider'
 import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
 import { THEME_SCRIPT } from '@/lib/theme'
@@ -198,7 +199,8 @@ export default async function RootLayout({
         />
         <CountryFlagPolyfill />
         <ToastProvider>
-          {children}
+          {/* The new design's header and footer on public pages (rebranding 1.5) */}
+          {newUi ? <PublicChrome>{children}</PublicChrome> : children}
           <CookieConsentBanner />
         </ToastProvider>
       </body>
