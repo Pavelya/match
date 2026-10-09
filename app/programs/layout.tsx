@@ -1,5 +1,6 @@
 import { auth } from '@/lib/auth/config'
 import { StudentHeader } from '@/components/layout/StudentHeader'
+import { LegacyLogo } from '@/components/brand/LegacyLogo'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { SignedInChrome, SignedOutChrome } from '@/components/site/chrome'
@@ -35,6 +36,7 @@ export default async function ProgramsLayout({ children }: { children: React.Rea
   return (
     <div className="min-h-screen bg-background">
       <StudentHeader
+        logo={<LegacyLogo size={48} priority />}
         isLoggedIn={isLoggedIn}
         user={
           session

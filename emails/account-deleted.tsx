@@ -14,19 +14,20 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Link,
   Preview,
   Section,
   Text
 } from '@react-email/components'
+import { EmailHeader } from '@/components/email/EmailHeader'
+import { emailBrand } from '@/lib/brand/email'
 
 interface AccountDeletedEmailProps {
   userName?: string
 }
 
-// App's primary blue color (from globals.css)
-const PRIMARY_COLOR = '#3573E5'
+// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
+const PRIMARY_COLOR = emailBrand().color
 
 export default function AccountDeletedEmail({ userName }: AccountDeletedEmailProps) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
@@ -37,15 +38,7 @@ export default function AccountDeletedEmail({ userName }: AccountDeletedEmailPro
       <Preview>Your IB Match account has been deleted</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={logoContainer}>
-            <Img
-              src={`${baseUrl}/logo-email.png`}
-              width="60"
-              height="60"
-              alt="IB Match"
-              style={logo}
-            />
-          </Section>
+          <EmailHeader baseUrl={baseUrl} />
           <Heading style={h1}>Account Deleted</Heading>
 
           <Text style={text}>Hello{userName ? ` ${userName}` : ''},</Text>
@@ -119,15 +112,6 @@ const container = {
   padding: '40px 48px',
   maxWidth: '560px',
   borderRadius: '8px'
-}
-
-const logoContainer = {
-  textAlign: 'center' as const,
-  marginBottom: '24px'
-}
-
-const logo = {
-  display: 'inline-block'
 }
 
 const h1 = {

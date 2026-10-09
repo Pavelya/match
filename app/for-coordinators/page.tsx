@@ -5,6 +5,8 @@ import { CoordinatorFeatures } from './_components/CoordinatorFeatures'
 import { CoordinatorDashboard } from './_components/CoordinatorDashboard'
 import { CoordinatorCTA } from './_components/CoordinatorCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { organizationLogo } from '@/lib/brand/metadata'
+import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
@@ -45,46 +47,51 @@ export const metadata: Metadata = {
 }
 
 // JSON-LD structured data for SEO and AI search
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: 'IB Match for Coordinators',
-  description: 'Partner page for IB Coordinators to help their students with university matching.',
-  url: `${baseUrl}/for-coordinators`,
-  ...pageDates('/for-coordinators'),
-  isPartOf: {
-    '@type': 'WebSite',
-    name: 'IB Match',
-    url: baseUrl
-  },
-  about: {
-    '@type': 'Service',
-    name: 'IB Match Coordinator Partnership',
+function jsonLd(logo: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'IB Match for Coordinators',
     description:
-      'University matching tools for IB Diploma Programme coordinators to help students find suitable university programs.',
-    provider: {
-      '@type': 'Organization',
+      'Partner page for IB Coordinators to help their students with university matching.',
+    url: `${baseUrl}/for-coordinators`,
+    ...pageDates('/for-coordinators'),
+    isPartOf: {
+      '@type': 'WebSite',
       name: 'IB Match',
-      url: baseUrl,
-      logo: `${baseUrl}/og-image.png`
+      url: baseUrl
     },
-    audience: {
-      '@type': 'EducationalAudience',
-      educationalRole: 'IB Coordinator'
+    about: {
+      '@type': 'Service',
+      name: 'IB Match Coordinator Partnership',
+      description:
+        'University matching tools for IB Diploma Programme coordinators to help students find suitable university programs.',
+      provider: {
+        '@type': 'Organization',
+        name: 'IB Match',
+        url: baseUrl,
+        logo
+      },
+      audience: {
+        '@type': 'EducationalAudience',
+        educationalRole: 'IB Coordinator'
+      }
+    },
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', '.feature-description', 'article p']
     }
-  },
-  speakable: {
-    '@type': 'SpeakableSpecification',
-    cssSelector: ['h1', 'h2', '.feature-description', 'article p']
   }
 }
 
-export default function CoordinatorLandingPage() {
+export default async function CoordinatorLandingPage() {
+  // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
+  const logo = organizationLogo(baseUrl, await showsNewUi()).url
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
       />
       <main className="flex min-h-screen flex-col">
         <CoordinatorHero />

@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { StudentHeader } from '@/components/layout/StudentHeader'
+import { LegacyLogo } from '@/components/brand/LegacyLogo'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { StudentFooter } from '@/components/layout/StudentFooter'
@@ -62,6 +63,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
   return (
     <div className="min-h-screen bg-background">
       <StudentHeader
+        logo={<LegacyLogo size={48} priority />}
         isLoggedIn={true}
         user={{
           image: session.user?.image,

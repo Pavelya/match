@@ -13,7 +13,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { School, Check, Eye, Edit, FileText, Loader2 } from 'lucide-react'
 
@@ -28,13 +27,16 @@ interface AcceptStudentInviteFormProps {
     countryFlag: string | null
   }
   coordinatorName?: string | null
+  /** From the server, which knows the design (rebranding 1.3) */
+  logo: React.ReactNode
 }
 
 export function AcceptStudentInviteForm({
   token,
   email,
   school,
-  coordinatorName
+  coordinatorName,
+  logo
 }: AcceptStudentInviteFormProps) {
   const router = useRouter()
   const [consentChecked, setConsentChecked] = useState(false)
@@ -96,15 +98,7 @@ export function AcceptStudentInviteForm({
   return (
     <div>
       {/* Logo */}
-      <div className="flex justify-center mb-6">
-        <Image
-          src="/logo-restored.svg"
-          alt="IB Match"
-          width={48}
-          height={48}
-          className="rounded-lg"
-        />
-      </div>
+      <div className="flex justify-center mb-6">{logo}</div>
 
       {/* Header */}
       <h1 className="text-2xl font-bold text-foreground text-center mb-2">Join {school.name}</h1>

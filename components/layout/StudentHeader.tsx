@@ -35,6 +35,8 @@ interface StudentHeaderProps {
   isLoggedIn?: boolean
   /** Whether the student has completed all 3 onboarding steps */
   isOnboardingComplete?: boolean
+  /** Today's logo (`LegacyLogo`), rendered by the server so the brand configuration stays out of this chunk */
+  logo: React.ReactNode
 }
 
 // Navigation links configuration
@@ -50,7 +52,8 @@ const navLinks = [
 export function StudentHeader({
   user,
   isLoggedIn = false,
-  isOnboardingComplete = true
+  isOnboardingComplete = true,
+  logo
 }: StudentHeaderProps) {
   const pathname = usePathname()
 
@@ -71,14 +74,7 @@ export function StudentHeader({
         <div className="flex h-16 items-center">
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <Image
-              src="/logo-restored.svg"
-              alt="IB Match"
-              width={48}
-              height={48}
-              className="rounded-lg"
-              priority
-            />
+            {logo}
           </Link>
 
           {/* Navigation - Hidden on mobile, close to logo */}

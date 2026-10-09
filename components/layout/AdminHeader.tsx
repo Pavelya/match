@@ -16,6 +16,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { legacyBrand } from '@/lib/brand/config'
 import { cn } from '@/lib/utils'
 
 interface AdminHeaderProps {
@@ -48,7 +49,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
           {/* Logo */}
           <Link href="/admin/dashboard" className="shrink-0 flex items-center gap-2">
             <Image
-              src="/logo-restored.svg"
+              src={legacyBrand.logo}
               alt="IB Match"
               width={40}
               height={40}
