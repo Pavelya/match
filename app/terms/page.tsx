@@ -7,6 +7,7 @@ import { auth } from '@/lib/auth/config'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { MarkdownContent } from '@/components/shared/MarkdownContent'
+import { showsNewUi } from '@/lib/new-ui'
 
 // ISR - page fetches CMS content and is cached for 1 hour
 export const revalidate = 3600
@@ -193,6 +194,8 @@ If you have any questions about these Terms, please contact us:
 export default async function TermsOfServicePage() {
   const session = await auth()
   const isLoggedIn = !!session
+  // The new design draws its own header and footer round this page (rebranding 1.5)
+  const newUi = await showsNewUi()
 
   // Compute avatar values server-side
   const avatarColor = session ? getAvatarColor(session.user?.email) : ''
@@ -213,19 +216,21 @@ export default async function TermsOfServicePage() {
 
   return (
     <>
-      <StudentHeader
-        isLoggedIn={isLoggedIn}
-        user={
-          session
-            ? {
-                image: session.user?.image,
-                name: session.user?.name,
-                avatarColor,
-                initial
-              }
-            : null
-        }
-      />
+      {!newUi && (
+        <StudentHeader
+          isLoggedIn={isLoggedIn}
+          user={
+            session
+              ? {
+                  image: session.user?.image,
+                  name: session.user?.name,
+                  avatarColor,
+                  initial
+                }
+              : null
+          }
+        />
+      )}
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12">
           <h1 className="mb-2 text-3xl font-bold">Terms of Service</h1>
@@ -241,7 +246,7 @@ export default async function TermsOfServicePage() {
         </div>
       </PageContainer>
       <StudentFooter />
-      <MobileBottomNav isLoggedIn={isLoggedIn} />
+      {!newUi && <MobileBottomNav isLoggedIn={isLoggedIn} />}
     </>
   )
 }

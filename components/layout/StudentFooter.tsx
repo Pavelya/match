@@ -10,6 +10,7 @@
  */
 
 import Link from 'next/link'
+import { showsNewUi } from '@/lib/new-ui'
 
 // Footer navigation links
 const footerLinks = [
@@ -22,7 +23,11 @@ const footerLinks = [
   { href: '/for-coordinators', label: 'For Coordinators' }
 ]
 
-export function StudentFooter() {
+export async function StudentFooter() {
+  // The new design's frame draws its own footer (components/site, rebranding 1.5), on every page
+  // that renders this one. Deleted at cleanup (R.2).
+  if (await showsNewUi()) return null
+
   const currentYear = new Date().getFullYear()
 
   return (

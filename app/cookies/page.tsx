@@ -7,6 +7,7 @@ import { auth } from '@/lib/auth/config'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { MarkdownContent } from '@/components/shared/MarkdownContent'
+import { showsNewUi } from '@/lib/new-ui'
 
 export const metadata: Metadata = {
   title: 'Cookie Policy',
@@ -78,6 +79,8 @@ We may update this Cookie Policy from time to time. Changes will be posted on th
 export default async function CookiePolicyPage() {
   const session = await auth()
   const isLoggedIn = !!session
+  // The new design draws its own header and footer round this page (rebranding 1.5)
+  const newUi = await showsNewUi()
 
   // Compute avatar values server-side
   const avatarColor = session ? getAvatarColor(session.user?.email) : ''
@@ -98,19 +101,21 @@ export default async function CookiePolicyPage() {
 
   return (
     <>
-      <StudentHeader
-        isLoggedIn={isLoggedIn}
-        user={
-          session
-            ? {
-                image: session.user?.image,
-                name: session.user?.name,
-                avatarColor,
-                initial
-              }
-            : null
-        }
-      />
+      {!newUi && (
+        <StudentHeader
+          isLoggedIn={isLoggedIn}
+          user={
+            session
+              ? {
+                  image: session.user?.image,
+                  name: session.user?.name,
+                  avatarColor,
+                  initial
+                }
+              : null
+          }
+        />
+      )}
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12">
           <h1 className="mb-2 text-3xl font-bold">Cookie Policy</h1>
@@ -126,7 +131,7 @@ export default async function CookiePolicyPage() {
         </div>
       </PageContainer>
       <StudentFooter />
-      <MobileBottomNav isLoggedIn={isLoggedIn} />
+      {!newUi && <MobileBottomNav isLoggedIn={isLoggedIn} />}
     </>
   )
 }

@@ -243,7 +243,7 @@ merges into `main`, behind the preview switch.**
 | 0 | The preview switch | 0.1 | — | small | **Done 8 October 2026** |
 | 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | **Done 9 October 2026.** Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
-| 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
+| 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
 | 4 | Logo | 1.3 | D1.5 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
 | 5 | Match data | 2.1 | None | small | Requirement-based statuses (decided 7 October 2026) |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | Replaces `ProgramCard` |
@@ -271,7 +271,7 @@ Rows 3 and 4 can share a design session.
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Done 9 October 2026 |
-| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Boards approved 9 October 2026; the build is next |
+| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
@@ -316,7 +316,7 @@ Phase 1 — Foundations
 - [x] 1.2 Primitives (9 October 2026)
 - [ ] 1.3 Brand configuration and the new logo
 - [x] 1.4 Theme switching: System, Light, Dark (8 October 2026)
-- [ ] 1.5 Site chrome on every student-facing page
+- [x] 1.5 Site chrome on every student-facing page (9 October 2026)
 
 Phase 2 — Core app
 
@@ -666,6 +666,43 @@ except "Sign in" and "Get my matches". On a phone, scrolling down hides the tab 
 brings it back, with no layout shift. The SEO snapshot of `/`, one guide and one program page shows
 no difference.
 
+**Done 9 October 2026.** In `components/site/`:
+
+- `PublicHeader` (signed out), `AppHeader` (signed in) with `AccountMenu`, `SiteMenu` (Menu, below
+  1024px), `SiteFooter`, `TabBar` and `SiteFrame` (skip link, header, `#main`, footer, tab bar).
+  `CurrentLink` sets `aria-current`; the links and the rules for "current" and for hiding the tab
+  bar are in `nav.ts`, with Vitest tests. Sign out is a form action (`sign-out.ts`).
+- **Placement.** The root layout wraps every page in `PublicFrame`, which gives a public page the
+  signed-out header and the footer, and steps aside on `/student`, `/programs` and the staff areas
+  (`hasOwnChrome`). A public page added later gets the chrome without asking. `/student` and
+  `/programs` draw theirs from the session. Today's footer returns nothing in the new design, and
+  the three legal pages skip today's header and bottom nav there. No page file moved.
+- **Today's visitors download almost none of it.** The layouts place the chrome through
+  `components/site/chrome.tsx`, which lazy-loads two chunks (5.5 and 7.0 KB gzipped) only where they
+  render. Measured against `main` on the prebuilt pages without the preview: JS +0.2 KB and CSS
+  +1.3 KB gzipped (26.4 KB, under the 32 KB budget). A plain import put the whole chrome in the root
+  layout's chunk, and `next/dynamic` added 1.1 KB of loader. `chrome.tsx` goes at cleanup (R.2).
+- `npm run build` lists every route as `main` does, revalidate times included. The SEO snapshot
+  (`scripts/seo-snapshot.ts`) shows no difference on `/`, a guide, Explore, a program, a university,
+  FAQs and Privacy.
+
+Departures from the boards, each small:
+
+- **First run's focus mode moves to 3.1.** Its "Save and exit" saves the step in progress, which
+  needs the step drafts 3.1 adds; today's onboarding saves nothing before the last step, so the
+  button would claim a save it can't make. Until 3.1, first run shows the normal chrome with
+  Academic current. `SiteLogo` without `href` is the focus-mode logo.
+- **No count beside Shortlist in the desktop nav yet** (on "D2.12 Header"). Saving happens in the
+  browser and a layout doesn't re-render on navigation, so a count read by the layout would go
+  stale, and reading it is a new query. It comes with the shared save state in 2.2 or 2.5.
+- **The avatar keeps the student's Google photo** (owner, 9 October 2026; the boards draw only the
+  initial). Google's own 64px size (`avatarPhotoUrl` in `lib/avatar-utils.ts`), not the image
+  optimiser; the initial on brand-ink without a photo, and in its place if the photo fails to load.
+- From 768 to 1023px, Menu holds the four links only: "Get my matches" is already beside it.
+- In the preview, the skip link is the second Tab stop, after the preview bar's Exit.
+- `ThemeSwitch`'s `icons` variant shows "Appearance" beside the icons on a phone, as on the footer
+  board.
+
 ---
 
 ## Phase 2 — Core app
@@ -778,7 +815,9 @@ step 1" and "step 2".
 - Countries as a two-column grid with a filter box and "Open to anywhere".
 - A sticky footer with the count and Continue (today Continue sits below 6 rows of cards, 11 on a phone).
 - **Focus mode:** no tab bar; the header shows "Save and exit", which saves the step in progress,
-  then goes to Home (decided 9 October 2026, D2.12).
+  then goes to Home (decided 9 October 2026, D2.12). Moved here from 1.5, which built the rest of
+  the chrome: the button needs this task's step drafts. The student layout turns it on while first
+  run is unfinished, on `/student/onboarding` only.
 - **A draft is saved after each step.** Today nothing is saved until the last button (`03-flows.md` F1).
 - The heading says "Set up your profile" on a first visit and "Update your profile" after
   (audit 1.3).

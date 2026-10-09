@@ -6,12 +6,35 @@ import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { ReconsentChecker } from '@/components/shared/ReconsentChecker'
+import { SignedInChrome } from '@/components/site/chrome'
+import { showsNewUi } from '@/lib/new-ui'
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
 
   if (!session) {
     redirect('/auth/signin')
+  }
+
+  // The new design (rebranding 1.5): its header, footer and tab bar. The account panel shows the
+  // student their own name and email. First run's focus mode comes with 3.1, whose step drafts its
+  // "Save and exit" needs, so until then first run shows the normal chrome.
+  if (await showsNewUi()) {
+    return (
+      <>
+        <SignedInChrome
+          user={{
+            name: session.user?.name ?? null,
+            email: session.user?.email ?? null,
+            image: session.user?.image ?? null,
+            initial: getAvatarInitial(session.user?.email, session.user?.name)
+          }}
+        >
+          {children}
+        </SignedInChrome>
+        <ReconsentChecker />
+      </>
+    )
   }
 
   // Compute avatar values server-side to avoid exposing email to client

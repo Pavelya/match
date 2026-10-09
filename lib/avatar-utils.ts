@@ -50,3 +50,20 @@ export function getAvatarInitial(email?: string | null, name?: string | null): s
   }
   return '?'
 }
+
+/**
+ * A Google profile photo at `px` pixels. Google sizes its photos from the options after the last
+ * `=` in the URL (`=s96-c`), so asking for the size shown avoids downloading a larger one. Any
+ * other URL is returned as it is. Safe to call from server components.
+ */
+export function avatarPhotoUrl(url: string, px: number): string {
+  let host: string
+  try {
+    host = new URL(url).hostname
+  } catch {
+    return url
+  }
+  if (!host.endsWith('.googleusercontent.com')) return url
+  const sized = `=s${px}-c`
+  return /=[^/=]*$/.test(url) ? url.replace(/=[^/=]*$/, sized) : `${url}${sized}`
+}

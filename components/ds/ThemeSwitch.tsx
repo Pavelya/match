@@ -23,9 +23,9 @@ const serverChoice = (): ThemeChoice => 'system'
 
 interface ThemeSwitchProps {
   /**
-   * `labelled`: icon and word under a visible "Appearance" (desktop account menu, phone Profile
-   * tab). `icons`: icons only, each named for screen readers (public footer). Canvas: "Theme:
-   * System, Light, Dark".
+   * `labelled`: icon and word under a visible "Appearance" (the account menu). `icons`: icons
+   * only, each named for screen readers, with "Appearance" beside them on a phone and for screen
+   * readers only from 768px (the footer). Canvas: "Theme: System, Light, Dark", "D2.13 Footer".
    */
   variant?: 'labelled' | 'icons'
   className?: string
@@ -47,10 +47,19 @@ export function ThemeSwitch({ variant = 'labelled', className }: ThemeSwitchProp
   }, [])
 
   return (
-    <div className={cn(labelled && 'flex flex-col gap-2', className)}>
+    <div
+      className={cn(
+        labelled ? 'flex flex-col gap-2' : 'flex items-center justify-between gap-4',
+        className
+      )}
+    >
       <span
         id={`${id}-label`}
-        className={labelled ? 'text-small text-muted-foreground' : 'sr-only'}
+        className={
+          labelled
+            ? 'text-small text-muted-foreground'
+            : 'text-body text-muted-foreground md:sr-only'
+        }
       >
         Appearance
       </span>
