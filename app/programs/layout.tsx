@@ -18,6 +18,7 @@ export default async function ProgramsLayout({ children }: { children: React.Rea
         user={{
           name: session.user?.name ?? null,
           email: session.user?.email ?? null,
+          image: session.user?.image ?? null,
           initial: getAvatarInitial(session.user?.email, session.user?.name)
         }}
       >

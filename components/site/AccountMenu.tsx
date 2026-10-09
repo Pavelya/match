@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { ChevronDown, ChevronUp, LogOut } from 'lucide-react'
 import { ThemeSwitch } from '@/components/ds/ThemeSwitch'
+import { avatarPhotoUrl } from '@/lib/avatar-utils'
 import { cn } from '@/lib/utils'
 import { CurrentLink } from './CurrentLink'
 import { ACCOUNT_LINKS } from './nav'
@@ -12,8 +14,45 @@ import { useDisclosure } from './use-disclosure'
 export interface AccountUser {
   name: string | null
   email: string | null
+  /** The Google profile photo, when the student signed in with Google */
+  image: string | null
   /** The name's first letter, else the email's */
   initial: string
+}
+
+/**
+ * The student's Google photo, or the initial on brand-ink without one. The photo sits over the
+ * initial, so the initial shows while it loads, and it gives way to it if it fails to load. Kept
+ * from today's header (owner, 9 October 2026); the boards draw the initial.
+ */
+function Avatar({ user }: { user: AccountUser }) {
+  const [photoFailed, setPhotoFailed] = useState(false)
+  return (
+    <span
+      aria-hidden="true"
+      className="relative inline-flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full bg-brand-ink text-[0.875rem] font-semibold text-primary-foreground forced-colors:border forced-colors:border-[CanvasText]"
+    >
+      {user.initial}
+      {user.image && !photoFailed && (
+        // A plain img: next/image would double this chunk, and there is nothing to optimise
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          // Google's own 64px photo, sharp at 32px
+          src={avatarPhotoUrl(user.image, 64)}
+          alt=""
+          width={32}
+          height={32}
+          referrerPolicy="no-referrer"
+          onError={() => setPhotoFailed(true)}
+          // A photo that failed before hydration fired its error before React was listening
+          ref={(img) => {
+            if (img?.complete && img.naturalWidth === 0) setPhotoFailed(true)
+          }}
+          className="absolute inset-0 size-full object-cover"
+        />
+      )}
+    </span>
+  )
 }
 
 /**
@@ -37,12 +76,7 @@ export function AccountMenu({ user, className }: { user: AccountUser; className?
           'aria-expanded:border-line-3 aria-expanded:bg-muted aria-expanded:text-foreground forced-colors:not-aria-expanded:border-0'
         )}
       >
-        <span
-          aria-hidden="true"
-          className="inline-flex size-8 items-center justify-center rounded-full bg-brand-ink text-[0.875rem] font-semibold text-primary-foreground forced-colors:border forced-colors:border-[CanvasText]"
-        >
-          {user.initial}
-        </span>
+        <Avatar user={user} />
         <Chevron aria-hidden="true" size={16} className="hidden md:block" />
       </button>
       {open && <div aria-hidden="true" className={cn(scrimClass, 'md:hidden')} />}

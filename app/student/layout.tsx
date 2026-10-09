@@ -26,6 +26,7 @@ export default async function StudentLayout({ children }: { children: React.Reac
           user={{
             name: session.user?.name ?? null,
             email: session.user?.email ?? null,
+            image: session.user?.image ?? null,
             initial: getAvatarInitial(session.user?.email, session.user?.name)
           }}
         >

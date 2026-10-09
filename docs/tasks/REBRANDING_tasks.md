@@ -678,7 +678,7 @@ no difference.
   `/programs` draw theirs from the session. Today's footer returns nothing in the new design, and
   the three legal pages skip today's header and bottom nav there. No page file moved.
 - **Today's visitors download almost none of it.** The layouts place the chrome through
-  `components/site/chrome.tsx`, which lazy-loads two chunks (5.5 and 6.6 KB gzipped) only where they
+  `components/site/chrome.tsx`, which lazy-loads two chunks (5.5 and 7.0 KB gzipped) only where they
   render. Measured against `main` on the prebuilt pages without the preview: JS +0.2 KB and CSS
   +1.3 KB gzipped (26.4 KB, under the 32 KB budget). A plain import put the whole chrome in the root
   layout's chunk, and `next/dynamic` added 1.1 KB of loader. `chrome.tsx` goes at cleanup (R.2).
@@ -695,7 +695,9 @@ Departures from the boards, each small:
 - **No count beside Shortlist in the desktop nav yet** (on "D2.12 Header"). Saving happens in the
   browser and a layout doesn't re-render on navigation, so a count read by the layout would go
   stale, and reading it is a new query. It comes with the shared save state in 2.2 or 2.5.
-- The avatar is the initial on brand-ink, as drawn; a Google photo no longer shows.
+- **The avatar keeps the student's Google photo** (owner, 9 October 2026; the boards draw only the
+  initial). Google's own 64px size (`avatarPhotoUrl` in `lib/avatar-utils.ts`), not the image
+  optimiser; the initial on brand-ink without a photo, and in its place if the photo fails to load.
 - From 768 to 1023px, Menu holds the four links only: "Get my matches" is already beside it.
 - In the preview, the skip link is the second Tab stop, after the preview bar's Exit.
 - `ThemeSwitch`'s `icons` variant shows "Appearance" beside the icons on a phone, as on the footer
