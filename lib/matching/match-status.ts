@@ -7,9 +7,10 @@
  * reach, or Missing a requirement. The V10 `category` stays unused by the UI. Scores only order
  * cards within a status and appear inside "Why this match".
  *
- * Course names are the stored ones ("Mathematics: Analysis and Approaches"). For an either/or
- * the chip names the course the student took, at every level and grade the group accepts it,
- * as the program card does (`optionsForCourse`); with none taken, the whole group.
+ * Course names are short ("Maths AA", `lib/ib/course-names.ts`). For an either/or the chip
+ * names the course the student took, at every level and grade the group accepts it, as the
+ * program card does (`optionsForCourse`). With none taken, it names the group, or for a long
+ * group its first course and how many others.
  */
 
 import type {
@@ -28,6 +29,7 @@ import {
   type RequirementGroup
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
+import { shortCourseName } from '@/lib/ib/course-names'
 
 /** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
 export type CardStatus = 'meets' | 'close' | 'gap'
@@ -71,6 +73,9 @@ const CLOSE_POINTS = 3
 
 /** Chips a card shows before met ones collapse into "+N met". */
 const CARD_CHIPS = 4
+
+/** Courses an unmet either/or names before it counts the rest: groups reach 45. */
+const NAMED_COURSES = 2
 
 const KIND_ORDER: ChipKind[] = ['gap', 'close', 'met', 'info']
 
@@ -158,13 +163,23 @@ function assessPoints(studentPoints: number, minIBPoints: number | null): Assess
 }
 
 function assessSubject(detail: SubjectMatchDetail): Assessed {
-  const kind = kindOf(detail)
-  const { gradeGap, studentLevel, studentGrade } = detail
+  let kind = kindOf(detail)
+  let { gradeGap } = detail
+  const { studentLevel, studentGrade } = detail
   const group = groupOf(detail.requirement)
   const courseId =
     'options' in detail.requirement ? detail.matchedCourseId : detail.requirement.courseId
   // The course the student took, at every level and grade the requirement accepts it
   const option = kind !== 'not_taken' && courseId ? optionsForCourse(group, courseId)[0] : undefined
+  // An either/or can accept the course at the student's own level too ("Maths AA HL 5 or SL 7").
+  // The matcher reports the option that scores best, and SL 6 for HL 5 outscores a grade short
+  // at SL (MAINT_tasks.md 5.15), so judge the student at their own level. They can't meet it
+  // there, or that option would have scored 1.
+  const atTheirLevel = option?.levelGrades.filter((lg) => lg.level === studentLevel) ?? []
+  if (kind === 'level_short' && studentGrade && atTheirLevel.length > 0) {
+    kind = 'grade_short'
+    gradeGap = Math.min(...atTheirLevel.map((lg) => lg.minGrade)) - studentGrade
+  }
   const named = option
     ? `${formatCourses(option.courses)} ${formatLevelGrades(option.levelGrades)}`
     : describeRequirement(group)
@@ -197,12 +212,26 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
         need: `${courseName} HL`
       }
     case 'not_taken': {
+      const courses = group.options.flatMap((o) => o.courses)
       const groupLevels = new Set(group.options.flatMap((o) => o.levelGrades.map((lg) => lg.level)))
-      const allCourses = formatCourses(group.options.flatMap((o) => o.courses))
+      const atLevel = groupLevels.size === 1 ? ` ${[...groupLevels][0]}` : ''
+      if (courses.length <= NAMED_COURSES) {
+        return {
+          chip: { kind: 'gap', label: `${named} · not taken` },
+          source: 'subject',
+          need: `${formatCourses(courses)}${atLevel}`
+        }
+      }
+      // "French B HL 5 or 2 others"; "Why this match" lists every option
+      const [first] = group.options
+      const others = `or ${courses.length - 1} others`
       return {
-        chip: { kind: 'gap', label: `${named} · not taken` },
+        chip: {
+          kind: 'gap',
+          label: `${first.courses[0].name} ${formatLevelGrades(first.levelGrades)} ${others} · not taken`
+        },
         source: 'subject',
-        need: groupLevels.size === 1 ? `${allCourses} ${[...groupLevels][0]}` : allCourses
+        need: `${first.courses[0].name}${atLevel} ${others}`
       }
     }
   }
@@ -228,7 +257,7 @@ function groupOf(requirement: SubjectRequirement | ORGroupRequirement): Requirem
       requiredLevel: o.level,
       minGrade: o.minimumGrade,
       orGroupId: 'requirement',
-      ibCourse: { id: o.courseId, name: o.courseName }
+      ibCourse: { id: o.courseId, name: shortCourseName(o.courseName) }
     }))
   )
   return group

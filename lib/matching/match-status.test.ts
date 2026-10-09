@@ -2,13 +2,14 @@ import { describe, expect, it } from 'vitest'
 import type { MatchStatus as BadgeStatus, RequirementKind } from '@/components/ds/StatusBadge'
 import { cardChips, deriveMatchStatus, type MatchChip, type MatchStatusInput } from './match-status'
 import { calculateMatch } from './scorer'
+import { calculateORGroupMatch } from './subject-matcher'
 import { transformProgram } from './transformers'
 import type { AcademicMatchScore, IBGrade, StudentProfile, SubjectMatchDetail } from './types'
 
 /*
  * One test per row of the chip table in 04-design-system.md §9, then the card status and its
  * badge. Results come from the production matcher, so these also cover the fields it adds.
- * Course names are the stored ones; the table shortens them ("Maths").
+ * Courses carry their stored names, as the matcher gets them; the chips shorten them.
  */
 
 const COURSES = {
@@ -123,13 +124,13 @@ describe('requirement chips (04-design-system.md §9)', () => {
 
   it('FULL_MATCH: ✓ Maths HL 6', () => {
     expect(status({ requires: [['mathsAA', 'HL', 6]] }).chips).toContainEqual(
-      chip('met', 'Mathematics: Analysis and Approaches HL 6')
+      chip('met', 'Maths AA HL 6')
     )
   })
 
   it('FULL_MATCH with HL for SL: ✓ Maths SL 6 · your HL 6', () => {
     expect(status({ requires: [['mathsAA', 'SL', 6]] }).chips).toContainEqual(
-      chip('met', 'Mathematics: Analysis and Approaches SL 6 · your HL 6')
+      chip('met', 'Maths AA SL 6 · your HL 6')
     )
   })
 
@@ -138,14 +139,12 @@ describe('requirement chips (04-design-system.md §9)', () => {
       ['englishLit', 'SL', 6],
       ['englishLL', 'SL', 6]
     ]
-    expect(status({ requires: [englishA] }).chips).toContainEqual(
-      chip('met', 'English A: Literature SL 6')
-    )
+    expect(status({ requires: [englishA] }).chips).toContainEqual(chip('met', 'English A Lit SL 6'))
   })
 
   it('PARTIAL_MATCH, grade 1 below: – Maths HL 7 · you 6', () => {
     expect(status({ requires: [['mathsAA', 'HL', 7]] }).chips).toContainEqual(
-      chip('close', 'Mathematics: Analysis and Approaches HL 7 · you 6')
+      chip('close', 'Maths AA HL 7 · you 6')
     )
   })
 
@@ -154,7 +153,7 @@ describe('requirement chips (04-design-system.md §9)', () => {
       c.courseId === COURSES.mathsAA.id ? { ...c, grade: 5 as const } : c
     )
     expect(status({ requires: [['mathsAA', 'HL', 7]] }, { courses: grade5 }).chips).toContainEqual(
-      chip('gap', 'Mathematics: Analysis and Approaches HL 7 · you 5')
+      chip('gap', 'Maths AA HL 7 · you 5')
     )
   })
 
@@ -179,6 +178,24 @@ describe('requirement chips (04-design-system.md §9)', () => {
     expect(status({ requires: [languages] }, { courses: noSpanish }).chips).toContainEqual(
       chip('gap', 'French B or Spanish B HL 5 · not taken')
     )
+  })
+
+  it('a long either/or, none met: names its first course and counts the rest', () => {
+    const noSpanish = STUDENT.courses.filter((c) => c.courseId !== COURSES.spanishB.id)
+    const result = status(
+      {
+        requires: [
+          [
+            ['frenchB', 'HL', 5],
+            ['englishB', 'HL', 5],
+            ['biology', 'SL', 5]
+          ]
+        ]
+      },
+      { courses: noSpanish }
+    )
+    expect(result.chips).toContainEqual(chip('gap', 'French B HL 5 or 2 others · not taken'))
+    expect(result.badge).toBe('Needs French B or 2 others')
   })
 
   it('no named subjects (POINTS_ONLY): • No named subjects', () => {
@@ -249,6 +266,30 @@ describe('card status and badge', () => {
     })
   })
 
+  it('within reach: judged at their own level when an either/or accepts it ("HL 5 or SL 7")', () => {
+    const mathsSL6 = STUDENT.courses.map((c) =>
+      c.courseId === COURSES.mathsAA.id ? { ...c, level: 'SL' as const } : c
+    )
+    // The matcher reports the HL option: SL 6 for HL 5 scores 0.80, a grade short at SL 0.78.
+    const option = (level: 'HL' | 'SL', minimumGrade: IBGrade) => ({
+      courseId: COURSES.mathsAA.id,
+      courseName: COURSES.mathsAA.name,
+      level,
+      minimumGrade,
+      isCritical: false
+    })
+    const group = { options: [option('HL', 5), option('SL', 7)], isCritical: false }
+    expect(calculateORGroupMatch(group, mathsSL6).kind).toBe('level_short')
+
+    const mathsAA: Row[] = [
+      ['mathsAA', 'HL', 5],
+      ['mathsAA', 'SL', 7]
+    ]
+    const result = status({ requires: [mathsAA] }, { courses: mathsSL6 })
+    expect(result).toMatchObject({ status: 'close', badge: 'Within reach · 1 grade short' })
+    expect(result.chips).toContainEqual(chip('close', 'Maths AA HL 5 or SL 7 · you SL 6'))
+  })
+
   it('missing: two subjects a grade short is more than within reach', () => {
     expect(
       status({
@@ -259,7 +300,7 @@ describe('card status and badge', () => {
       })
     ).toMatchObject({
       status: 'gap',
-      badge: 'Needs a 7 in Mathematics: Analysis and Approaches and a 7 in Physics'
+      badge: 'Needs a 7 in Maths AA and a 7 in Physics'
     })
   })
 
@@ -294,8 +335,8 @@ describe('card status and badge', () => {
       chip('gap', 'Biology HL 5 · not taken'),
       chip('gap', 'Chemistry HL 5 · you SL'),
       chip('met', '38 / 34 points'),
-      chip('met', 'English A: Literature SL 5'),
-      chip('met', 'Mathematics: Analysis and Approaches SL 5 · your HL 6'),
+      chip('met', 'English A Lit SL 5'),
+      chip('met', 'Maths AA SL 5 · your HL 6'),
       chip('info', 'Medicine & Health · not your field')
     ])
     expect(cardChips(result.chips)).toEqual([
