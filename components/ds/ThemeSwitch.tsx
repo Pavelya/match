@@ -69,15 +69,19 @@ export function ThemeSwitch({ variant = 'labelled', className }: ThemeSwitchProp
             <label
               key={value}
               className={cn(
-                'relative inline-flex cursor-pointer items-center justify-center text-muted-foreground',
-                'has-checked:bg-card has-checked:text-foreground has-checked:shadow-[0_1px_2px_rgb(20_22_27/0.12)]',
-                'dark:has-checked:bg-border dark:has-checked:shadow-none',
+                // The chosen option has a 1px line-3 edge, 3.3:1 against the track; the others a
+                // transparent one, so nothing shifts when the choice moves ("D1.4 Theme · chosen
+                // edge"). 44px tall below 768px, the touch size of every control ("· phone size").
+                'relative inline-flex cursor-pointer items-center justify-center border border-transparent text-muted-foreground',
+                'has-checked:border-line-3 has-checked:bg-card has-checked:text-foreground dark:has-checked:bg-border',
                 'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring',
-                // Forced colours drop backgrounds, so the choice is shown in the system highlight.
-                'forced-colors:has-checked:bg-[Highlight] forced-colors:has-checked:text-[HighlightText] forced-colors:has-checked:forced-color-adjust-none',
+                // Forced colours drop backgrounds, so the choice is shown in the system highlight,
+                // and would draw the transparent edges, so the other options lose theirs.
+                'forced-colors:not-has-checked:border-0',
+                'forced-colors:has-checked:bg-[Highlight] forced-colors:has-checked:text-[HighlightText] forced-colors:has-checked:outline-[Highlight] forced-colors:has-checked:forced-color-adjust-none',
                 labelled
-                  ? 'h-9.5 gap-1.5 rounded-[0.5rem] text-small has-checked:font-semibold md:h-8.5'
-                  : 'h-9 w-11 rounded-full md:h-8 md:w-9'
+                  ? 'h-11 gap-1.5 rounded-[0.5rem] text-small has-checked:font-semibold md:h-8.5'
+                  : 'size-11 rounded-full md:h-8 md:w-9'
               )}
             >
               <input

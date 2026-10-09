@@ -3,13 +3,14 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 // The new design's colour tokens (rebranding 1.1) must meet WCAG 2.2 AA in light and dark:
-// 4.5:1 for text and 3:1 for the focus outline. This reads them from app/globals.css, so a token
-// change that breaks a pair fails here rather than on a student's screen.
+// 4.5:1 for text, and 3:1 for the focus outline and the edges that show where to act. This reads
+// them from app/globals.css, so a token change that breaks a pair fails here rather than on a
+// student's screen.
 //
 // Known limits, by design rather than by token (04-design-system.md §1):
 // - ink-3 is for paper and surface. On sunken in light it is 4.46:1, so no ink-3 text in wells.
-// - The field border (--input, line-2) is 1.5 to 1.8:1. A field needs more than its border to
-//   be seen as one: D2.2 settles that.
+// - line-2 is 1.5 to 1.8:1, so it only decorates (chips, secondary buttons). Fields and the chosen
+//   segment use line-3, which --input points to (D2.2 and D2.4, decided 8 October 2026).
 // - Lime is the same in both themes, so text on it is always the light ink, never --foreground.
 
 const css = readFileSync(join(__dirname, 'globals.css'), 'utf8')
@@ -68,6 +69,7 @@ const PAIRS: [string, string, number][] = [
   // Buttons, at rest and on hover, and links
   ['--primary-foreground', '--primary', TEXT],
   ['--primary-foreground', '--brand-hover', TEXT],
+  ['--primary-foreground', '--brand-ink', TEXT], // pressed
   ['--primary', '--background', TEXT],
   ['--primary', '--card', TEXT],
   ['--brand-ink', '--brand-soft', TEXT],
@@ -80,6 +82,12 @@ const PAIRS: [string, string, number][] = [
   ['--gap', '--card', TEXT],
   ['--destructive', '--background', TEXT],
   ['--destructive', '--card', TEXT],
+  // A chosen E in TOK or the Extended Essay fills with gap (D2.4)
+  ['--background', '--gap', TEXT],
+  // Field edges on paper and surface, and the chosen segment's edge on its track
+  ['--line-3', '--background', UI],
+  ['--line-3', '--card', UI],
+  ['--line-3', '--muted', UI],
   // The focus outline
   ['--ring', '--background', UI],
   ['--ring', '--card', UI],
