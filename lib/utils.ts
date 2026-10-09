@@ -20,7 +20,7 @@ const twMerge = extendTailwindMerge({
         'total'
       ],
       radius: ['chip', 'control', 'card', 'sheet'],
-      shadow: ['raised', 'overlay'],
+      shadow: ['raised', 'raised-hover', 'overlay'],
       ease: ['standard']
     }
   }

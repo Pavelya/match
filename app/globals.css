@@ -62,6 +62,8 @@
 
   /* Direction B (rebranding 1.1). The values exist only under [data-ui='next'], below. */
   --color-ink-3: var(--ink-3);
+  --color-line-2: var(--line-2);
+  --color-line-3: var(--line-3);
   --color-brand-hover: var(--brand-hover);
   --color-brand-soft: var(--brand-soft);
   --color-brand-ink: var(--brand-ink);
@@ -79,6 +81,7 @@
   --radius-sheet: calc(var(--radius) + 6px);
   /* Flat is a 1px border-border; these add to it */
   --shadow-raised: var(--elevation-raised);
+  --shadow-raised-hover: var(--elevation-raised-hover);
   --shadow-overlay: var(--elevation-overlay);
   /* With duration-120 (press), duration-180 (hover, state) and duration-240 (sheets, dialogs) */
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -224,11 +227,13 @@
   --accent-foreground: #14161b;
   --destructive: #b3261e;
   --border: #e3e1d9; /* line */
-  --input: #cfccc1; /* line-2 */
+  --input: var(--line-3); /* fields, checkboxes and the switch track follow it */
   --ring: #2b3fd6;
 
-  /* New: tertiary text, brand states, and the three match statuses */
+  /* New: tertiary text, edges, brand states, and the three match statuses */
   --ink-3: #686d79;
+  --line-2: #cfccc1; /* edges that only decorate: chips, secondary buttons */
+  --line-3: #858277; /* edges that show where to act: fields, the chosen segment (3:1) */
   --brand-hover: #2233b4;
   --brand-soft: #e8eafb;
   --brand-ink: #1c2a99;
@@ -242,6 +247,7 @@
 
   --radius: 0.875rem;
   --elevation-raised: 0 1px 2px rgb(20 22 27 / 0.06);
+  --elevation-raised-hover: 0 4px 12px -4px rgb(20 22 27 / 0.14);
   --elevation-overlay: 0 12px 32px -12px rgb(20 22 27 / 0.22);
 
   /* The type sizes that differ on a phone; the 48rem media query below has the desktop ones */
@@ -274,10 +280,11 @@
     --accent-foreground: #f1f0eb;
     --destructive: #ff8e85;
     --border: #2a2f3a;
-    --input: #3a404d;
     --ring: #8e9bff;
 
     --ink-3: #9095a2;
+    --line-2: #3a404d;
+    --line-3: #6b7180;
     --brand-hover: #a6b0ff;
     --brand-soft: #1e2452;
     --brand-ink: #c9cfff;
@@ -288,6 +295,8 @@
     --gap: #ff8e85;
     --gap-soft: #3a1715;
 
+    --elevation-raised: 0 1px 2px rgb(0 0 0 / 0.4);
+    --elevation-raised-hover: 0 4px 12px -4px rgb(0 0 0 / 0.6);
     --elevation-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6);
   }
 }
@@ -430,6 +439,78 @@
   [data-ui='next'] :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 2px;
+  }
+}
+
+/*
+ * The native select's open list (components/ds/Select.tsx, D2.3), where the browser supports
+ * customisable select (Chrome and Edge). Safari and Firefox keep their own menu. Unlayered, so
+ * base-select beats the appearance-none utility that the others need.
+ */
+@supports (appearance: base-select) {
+  [data-ui='next'] .ds-select,
+  [data-ui='next'] .ds-select::picker(select) {
+    appearance: base-select;
+  }
+
+  [data-ui='next'] .ds-select {
+    display: flex;
+    align-items: center;
+  }
+
+  /* The component draws its own chevron */
+  [data-ui='next'] .ds-select::picker-icon {
+    display: none;
+  }
+
+  [data-ui='next'] .ds-select::picker(select) {
+    margin-top: 6px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--popover);
+    color: var(--popover-foreground);
+    box-shadow: var(--elevation-overlay);
+  }
+
+  [data-ui='next'] .ds-select option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 2.75rem;
+    padding: 0 10px;
+    border-radius: 0.5rem;
+  }
+
+  [data-ui='next'] .ds-select option:checked {
+    font-weight: 600;
+  }
+
+  /* The transparent outline is what forced colours show for the active option */
+  [data-ui='next'] .ds-select option:hover,
+  [data-ui='next'] .ds-select option:focus-visible {
+    background: var(--muted);
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+  }
+
+  /* Lucide's Check, in brand, after the name */
+  [data-ui='next'] .ds-select option::checkmark {
+    order: 1;
+    margin-left: auto;
+    width: 16px;
+    height: 16px;
+    content: '';
+    background: var(--primary);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+
+  @media (forced-colors: active) {
+    [data-ui='next'] .ds-select option::checkmark {
+      forced-color-adjust: none;
+      background: CanvasText;
+    }
   }
 }
 
