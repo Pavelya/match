@@ -153,13 +153,14 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 9 October 2026.** The canvas has 39 boards. The owner approved in chat "B ·
+**Where it stands, 9 October 2026.** The canvas has 41 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
 questions and approved the four row 8 boards: "D2.12 Header", "D2.13 Footer", "D2.14 Phone tab bar"
-and a third D1.4 change, "D1.4 Account menu". Nineteen tasks need a screen size or states added. Ten
-have no board.
+and a third D1.4 change, "D1.4 Account menu". Then the two row 9 boards, "D1.5 Logo: Lens" and
+"D1.5 Share image", with one mark in both themes (D1.5). Eighteen tasks need a screen size or states
+added. Ten have no board.
 
 ### Foundations
 
@@ -169,7 +170,7 @@ have no board.
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
-| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
+| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
 
 ### Components
 
@@ -272,7 +273,7 @@ Rows 3 and 4 can share a design session.
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Done 9 October 2026 |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
-| 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
+| 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Boards approved 9 October 2026; the build is next |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
@@ -575,6 +576,9 @@ and nothing else hard-codes a logo.
 
 **Design gate:** D1.5, approved ([Step 2](#step-2--design-first)).
 
+**Decided 9 October 2026 (owner):** one mark in both themes, approved with "D1.5 Logo: Lens" and
+"D1.5 Share image" (canvas row 9).
+
 **Must-haves:**
 - All 29 references in 19 files read from it: student, coordinator and admin headers; sign-in and
   invitation pages; `app/layout.tsx` metadata; JSON-LD logos; all 7 email templates. Pages pick the
@@ -582,7 +586,29 @@ and nothing else hard-codes a logo.
   follow `NEW_UI_FOR_EVERYONE` alone and change on release day.
 - Assets are SVG with **outlined paths, never `<text>`**. Today's logo is live text in Inter and
   renders in Arial on Windows (audit 2.4). Each asset is checked at 16, 32 and 180px, light and dark.
-- A PNG at 2× for email; favicon, Apple touch icon and Open Graph image made from the mark.
+- **One mark in both themes:** the #2B3FD6 square with the lime lens, whose lens keeps 6.1:1 at every
+  size. The dark header and footer use it too, in place of the #8E9BFF square on D2.12 and D2.13 that
+  `SiteLogo` builds with `fill-primary` today. So there is no `<picture>`: a dark source would follow
+  the OS, not the Appearance setting.
+- **Two drawings of the mark,** both in a 32-unit square with 8-unit corners. The page mark, for 24px
+  and up, has its lens where two circles of radius 10, 10 apart, overlap. The favicon, for 16 and
+  32px only, draws the same lens 25% larger (radius 12.5), so its points survive at 16px.
+- **The logo is the mark as an `<img>` and `brand.name` as text** in Geist 650, 17/24, −0.025em,
+  8px from the mark on a phone and 10px from 768px; header mark 28px, footer 26px. The name follows
+  the theme and Windows contrast themes. The logo is never a heading.
+- **The seven files** in `public/brand/` (the board's table): `mark.svg`; `favicon.svg`;
+  `favicon-32.png` for browsers without SVG icons; `apple-touch-icon.png`, 180 × 180, opaque, with
+  square corners (iOS rounds them); `logo-email.png`, 80 × 80; `logo-512.png`, the page mark full
+  bleed, for the JSON-LD Organization logo; and `og-image.png`, 1200 × 630, exported from
+  "D1.5 Share image".
+- **Three fixes on the way**, the logo URL changes SEO parity allows (Definition of done 12):
+  `icons.apple` points at `favicon.svg` today, and iOS needs the PNG; `og-image.png` is a 640 × 640
+  JPEG declared as 1024 × 1024, so the new one is declared at its real 1200 × 630; and the JSON-LD
+  `logo` moves from the share image to `logo-512.png`, since a logo should be square.
+- **The email header:** the mark PNG at 40px, left-aligned, beside "IB Match" as text in the email's
+  own font stack (22/28, 600), since mail apps in dark mode recolour text but never images. The button
+  takes `brand.colors.brand`, #2B3FD6 (white on it 7.5:1; today's #3573E5 is 4.4:1). Nothing else in
+  the emails changes.
 - Changing the logo later means replacing files and, at most, editing the config. No component changes.
 
 ### 1.4 — Theme switching: System, Light, Dark
