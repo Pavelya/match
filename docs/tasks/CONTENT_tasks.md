@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
@@ -101,7 +101,8 @@ Phase 5 — Coverage
 - [x] 5.1 Austria, Belgium, Denmark — applied 4 October 2026: 8 universities, 32 programs; images for the owner
 - [x] 5.2 Japan, Estonia, Czech Republic, Israel — applied 6 October 2026: 10 universities, 62 programs; images for the owner
 - [x] 5.3 France — applied 8 October 2026: 11 universities, 20 programs, and `/study-in-france-with-ib-diploma`; images for the owner
-- [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants
+- [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants. Part B applied
+  9 October 2026: 171 paragraphs in 10 files; Part A (Sweden) after 16 October 2026
 
 Phase 6 — USA
 
@@ -244,6 +245,12 @@ Owner tasks — not AI work
 - [ ] Re-check the 5 programs 5.3 stamped 2026 when their 2027 pages appear: PSL's Artificial Intelligence (still the September 2026
   intake), CentraleSupélec's CityU Hong Kong and ESSEC joint degrees (their calendars are still 2026's), Centrale Lille's Management and
   Engineering Sciences (no intake named) and TSM's Global Management (2026 calendar)
+- [x] Approve 5.4 Part B's dry run: 171 programs in 10 files get a "How competitive" paragraph, descriptions only, no stamp
+  changes (the status lists every program examined). Approved and applied, 9 October 2026
+- [x] UCD publishes no IB-to-CAO scale (5.4): its 22 paragraphs say so and convert CAO points on Trinity's indicative scale,
+  naming Trinity. **Owner, 9 October 2026: keep it**
+- [x] Dutch numerus fixus programmes select by tests, assessments or a lottery, and their universities publish ranking
+  numbers and applicant counts, not grades (5.4). **Owner, 9 October 2026: no paragraph**
 
 ---
 
@@ -588,6 +595,17 @@ not precision.
   Cloudflare's `data-cfemail`; Centrale Nantes inserts a hidden `spamkiller` span inside its addresses. ESCP's Bachelor FAQ PDF predates
   the 2021 IB syllabus. École polytechnique, Sciences Po, PSL, CentraleSupélec, Centrale Nantes, TSM, ESCP, EDHEC and emlyon pages all
   answer curl.
+
+- **Found in 5.4:** CAO's points lists answer curl: `www2.cao.ie/points/l8.php` (level 8, round 1 and round 2 columns; `*` not
+  everyone on that score got a place, `#` a test, interview or portfolio), `l76.php` (levels 7 and 6; Trinity's Dental Technology is
+  there) and `l8_tr001_rnd1.pdf` (Trinity's Joint Honours ranges by subject). Trinity's IB-to-CAO scale is on its undergraduate
+  admission requirements page; UCD publishes none. Spain's IB conversion is Orden EFD/550/2025 (`boe.es/buscar/act.php?id=BOE-A-2025-10777`):
+  annex II gives the IB subject grades on a 2-7 scale and annex III's formula is an image (`/datos/imagenes/disp/2025/131/10777_15733602_1.png`),
+  which makes the access mark the subject average plus 3. AGH's thresholds by qualification round are in the "Progi punktowe" tab of
+  `rekrutacja.agh.edu.pl/kierunki-studiow/` (server HTML; "nie rankingowano" means not ranked); its resolution's formula (2) is an image
+  that pypdf extracts. The University of Gdańsk's IB scores are § 10 of Resolution 30/26 and its pages show only the previous round's
+  threshold. McGill's IB page answered curl. Edinburgh explains its IB ranges on `.../entry-requirements/understanding/standard`.
+  DGES's placement results (`dges.gov.pt/coloc/2026`) are a JavaScript app.
 
 ---
 
@@ -2825,6 +2843,86 @@ for none.
 
 **Session size:** Part A is one medium session (after 16 October 2026); Part B is large and can be
 split by country.
+
+#### Status, 9 October 2026 — Part B done (session 23); applied the same day; Part A waits for 16 October
+
+**Part A (Sweden) is not started:** step 3 says to run it after 16 October 2026, when the autumn 2027 round
+opens, so that it re-checks 4.8a's four programmes stamped 2026 in the same pass.
+
+**Part B: 171 programs get a paragraph, in 10 data files.** Descriptions, notes and sources only; every
+file keeps its `checkedOn`, so nothing is re-stamped. The dry run showed 171 changes, each "Description:
+rewritten", no stamp change and no fields-of-study warning. Sources were read on 9 October 2026; each
+program's `notes` name the figure and how it was converted.
+
+**The rule as applied.** A paragraph where admission ranks applicants, an official figure from the latest
+round shows what it took, and that figure is **3 or more IB points above the stored minimum**, or beyond
+what the IB alone can reach. For a range of cut-offs (McGill's typical minimums, Edinburgh's offer range,
+Trinity's Joint Honours pairs) the top of the range is compared; for a range of admitted students' grades
+(Western) its bottom.
+
+| University | Paragraphs | Figure | What it means for an IB applicant |
+|---|---|---|---|
+| Trinity College Dublin | 47 of 56 | CAO round 1 points, 2026 (`www2.cao.ie/points/l8.php`; Joint Honours ranges from `l8_tr001_rnd1.pdf`) | Trinity's "Indicative Points Equivalence" (24 = 360, 27 = 389, 30 = 420, 36 = 496, 42 = 566, 45 = 600), interpolated, plus 25 for HL Mathematics at 4 or better; counted in where the course requires HL Mathematics. Medicine: HPAT-combined points, no conversion |
+| University College Dublin | 22 of 25 | CAO round 1 points, 2026 | UCD publishes no IB scale, so the paragraph says so and names Trinity's (kept by the owner). Medicine: HPAT-combined. The non-EU route's minimum is in each paragraph |
+| Universitat de Barcelona | 23 of 33 | June 2026 first-allocation cut-off, out of 14 | Orden EFD/550/2025, annex III: the access mark is the average subject grade plus 3, so a cut-off up to 10 converts to points from the six subjects; above 10 needs UNEDasiss specific tests (PCE) in the weighted subjects |
+| Universitat Autònoma de Barcelona | 5 of 12 | as UB | as UB |
+| McGill University | 25 of 36 | "Typical minimum admission grades ranges" on its IB page (out of 42, core excluded) | The range itself; subject grades where McGill gives them |
+| Western University | 9 of 44 | "Typically had averages between" on its IB page (no year named) | The range itself, and Western's "low to mid 30s" advice where the range starts below 35 |
+| University of Edinburgh | 32 of 50 | The standard IB range, "the grades most applicants needed to receive an offer in recent years" | The range itself, with its HL profile |
+| Imperial College London | 2 of 50 | Typical offer 43–44 (2025 entry) against a minimum of 40: Aeronautical Engineering, Aeronautics with Spacecraft Engineering | The figure itself |
+| AGH University of Krakow | 4 of 5 | Summer 2026 thresholds, five qualification rounds (`rekrutacja.agh.edu.pl/kierunki-studiow/`) | The recruitment index (2 × maths + 6 × main HL subject + 2 × second, a 7 scoring 100); AGH defines no lowest IB grade, so no points equivalent is claimed |
+| University of Gdańsk | 2 of 2 | "Point threshold in 2025/2026" (the newest the page shows) | Resolution 30/26 § 10 (SL 7 = 100, 6 = 90, 5 = 75, 4 = 60; HL × 1.75) and the 2027/2028 weights, with worked examples |
+
+**Examined, no paragraph, and why:**
+
+- **Every qualified applicant admitted** (Catalan cut-off 5.000): UB English Studies, History, History of Art,
+  Linguistics, Philosophy, Tourism; UAB English Studies and its four English double degrees, Tourism (English).
+- **Gap under 3 points:** UB Geography and Global Change (5.842), Geology (6.362), Social Work (7.818), Sociology
+  (7.810); Trinity Classics, Ancient History and Archaeology, Computer Science (519 with the HL maths bonus is about
+  36, stored 37), Computer Science, Linguistics and a Language, Deaf Studies, Music, Nursing - General; UCD Actuarial
+  & Financial Studies, Sport & Exercise Management; McGill Arts and Science, Bioengineering, Kinesiology and the four
+  Macdonald-campus programs (28–30); Edinburgh Civil Engineering (32–34), Philosophy and Psychology (34–36); Western's
+  31 programs whose admitted range starts at 28 or below (Arts & Humanities, Science, Social Science and the rest);
+  Imperial's other 48 (typical offer at most 2 above the minimum, or none published).
+- **No range or cut-off of its own:** McGill Education, Nursing, Physical Education (a single 30) and Music
+  (Schulich); Edinburgh's 16 programs with a single set of grades; UAB Primary Education (English) (the
+  English-taught group has no pre-enrolment code); UCD BSc Business (non-EU route only).
+- **Outside the CAO or ranked on something else:** Trinity Acting (The Lir), Drama Studies (Joint Honours)
+  (questionnaire), Dental Technology (level 7, interview: CAO's #589* does not say how the interview counts).
+- **AGH Mechanical Engineering:** its fourth round (2026) was not ranked, so every qualified applicant got in.
+- **The stored figure is already the competitive one:** HKU (its "lower boundary" is the score "considered
+  competitive for entry"); Manchester (typical offers stored); Oxford, Cambridge, LSE, UCL (the offer is the
+  stored figure); Sydney and Melbourne (the stored IB score is the admission score).
+- **No figure published:** Waterloo and Toronto (published minimums only); Leiden University College (35 to
+  enter its selection, nothing on who got in); DTU (no quota 1 cut-off on its page); HKUST (only university-wide ranges, 35–41 for 2026, below the stored program floors);
+  NUS and NTU (both say their IB samples are too small for a grade profile); Alberta (faculty ranges in high-school
+  percentages and a 30–37 IB range across all programs, nothing per program); UBC; EPFL (ranks IB applicants on their
+  total since 2025 but publishes no cut-off); Erasmus IBA (ranked 75% on grades, no cut-off published); Sciences Po,
+  Polytechnique and the rest of France (5.3); Portugal (ISEG's English degrees are in the national contest, whose
+  last-placed grades are on the Portuguese 0–200 scale with no published IB conversion; Católica publishes none);
+  Charles, Masaryk, VŠE, Tartu, TalTech, Tallinn, Reichman, the Hebrew University, Sophia, ICU, Keio (5.2).
+- **Selection procedures that publish no grade figure:** the Dutch numerus fixus programmes (UvA Business
+  Administration, Psychology and Political Science, the last a lottery; Groningen International Business and Psychology;
+  Leiden and Erasmus Psychology; Erasmus IBEB; Delft Aerospace Engineering and Computer Science and Engineering), whose
+  universities publish ranking numbers or applicant counts, not grades (owner, 9 October 2026: no paragraph). Also ranked on
+  tests or interviews: Jagiellonian, Medical University of Warsaw (80% a test), Bocconi, Sapienza and Bologna, WU
+  Vienna's BBE and Klagenfurt's selection programme.
+- **Open admission, no ranking:** ETH Zurich, Lausanne and Basel (medicine aside, which admits Swiss residents only),
+  KU Leuven, Antwerp, VUB, JKU, Graz and Klagenfurt's other programmes.
+- **Already done or left to their own refresh:** Aarhus, SDU, CBS, ITU, Waseda, UTokyo (5.1, 4.8b, 5.2); Tel Aviv,
+  Tokyo's PEAK, Georgia Tech and TUM are unchecked, which the tool refuses to edit (phases 6 and 7 for the last two).
+
+**Owner-approved and applied on 9 October 2026.** Backup: `scripts/backups/refresh/2026-10-09T19-43-33-252Z.json`. The tool wrote
+171 of 171 programs and synced all 171 to Algolia (0 failed), then cleared the programs cache and cached matches. The owner's
+decisions the same day: keep UCD's paragraphs on Trinity's scale; no paragraph for the Dutch numerus fixus programmes.
+
+**Verify.**
+- A second dry run finds all 309 programs in the 10 files up to date (Western's four discontinued programs reported as before).
+- Public pages on `www.ibmatch.com/programs/<id>`, two per country, all show the paragraph: Trinity Law and UCD Commerce;
+  UB Business Administration and Management and UAB Artificial Intelligence; McGill Biology and Western Engineering;
+  Edinburgh Computer Science and Imperial Aeronautical Engineering; AGH Computer Science and Gdańsk International Business.
+- `tsc`, ESLint, Prettier, Vitest (478 tests) and the matching suite pass. `npm run build` was not run: only data files and
+  docs changed.
 
 ---
 
