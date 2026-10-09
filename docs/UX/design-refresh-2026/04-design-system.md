@@ -28,7 +28,8 @@ Contrast is against the token's usual background (paper or surface).
 | `--surface` | #FFFFFF | Cards, inputs, sheets | n/a |
 | `--sunken` | #EFEEE8 | Wells, segmented-control track, table header | n/a |
 | `--line` | #E3E1D9 | Hairlines, card edges | n/a |
-| `--line-2` | #CFCCC1 | Input and chip borders | 1.5:1 decorative; field shape also carries meaning |
+| `--line-2` | #CFCCC1 | Chip and secondary-button borders | 1.5:1; decorative edges only |
+| `--line-3` | #858277 | Field edges: inputs, selects, checkboxes, the switch track, the chosen segment | 3.9:1 on surface, 3.6:1 on paper |
 | `--ink` | #14161B | Primary text | 16.7:1 |
 | `--ink-2` | #464B57 | Secondary text | 8.1:1 |
 | `--ink-3` | #686D79 | Tertiary text, minimum for any text | 4.8:1 |
@@ -45,7 +46,7 @@ Contrast is against the token's usual background (paper or surface).
 | Token | Value | Notes |
 |---|---|---|
 | `--paper` / `--surface` / `--sunken` | #0E1014 / #161920 / #1D2129 | Not pure black, so surfaces stay distinguishable on cheap panels |
-| `--line` / `--line-2` | #2A2F3A / #3A404D | |
+| `--line` / `--line-2` / `--line-3` | #2A2F3A / #3A404D / #6B7180 | line-3: 3.6:1 on surface, 3.9:1 on paper |
 | `--ink` / `--ink-2` / `--ink-3` | #F1F0EB / #BBBFC9 / #9095A2 | 16.7, 10.4 and 6.4:1 |
 | `--brand` / `--on-brand` | #8E9BFF / #0B0E2B | Lighter brand; **dark text on the button** (7.5:1) |
 | `--brand-hover` | #A6B0FF | Hover and pressed, as on "B · Foundations" |
@@ -58,8 +59,8 @@ the values rather than with a token:
 
 - `--ink-3` is for paper and surface. On `--sunken` in light it is 4.46:1, so no `--ink-3` text in wells,
   segmented tracks or table headers.
-- `--line-2`, the field border, is 1.5 to 1.8:1. A field's edge needs 3:1 (WCAG 1.4.11) unless something
-  else shows where the field is; D2.2 settles it.
+- `--line-2` is 1.5 to 1.8:1, so it only decorates. A field's edge needs 3:1 (WCAG 1.4.11), so fields
+  use `--line-3` (D2.2, decided 8 October 2026; added in 1.2).
 - `--lime` is the same in both themes, so text on it is always #14161B, never `--foreground` (1.1:1 in
   dark).
 
@@ -79,12 +80,12 @@ below (`REBRANDING_tasks.md` 1.1 and R.2):
   --foreground: #14161B;          /* ink */
   --muted: #EFEEE8;               /* sunken */
   --muted-foreground: #464B57;    /* ink-2 */
-  --border: #E3E1D9;  --input: #CFCCC1;
+  --border: #E3E1D9;  --input: #858277;   /* line-3 */
   --primary: #2B3FD6; --primary-foreground: #FFFFFF;
   --ring: #2B3FD6;
   --destructive: #B3261E;
   /* new */
-  --ink-3: #686D79; --brand-soft: #E8EAFB; --brand-ink: #1C2A99; --lime: #D5F36B;
+  --ink-3: #686D79; --line-3: #858277; --brand-soft: #E8EAFB; --brand-ink: #1C2A99; --lime: #D5F36B;
   --ok: #17723F; --ok-soft: #E2F2E7; --close: #94580A; --close-soft: #FBEFD9;
   --gap: #B3261E; --gap-soft: #FBE6E4;
 }
@@ -292,7 +293,7 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | Requirements from an earlier intake | • Checked for 2026 entry | info |
 
 Order on the card: gap (×), then close (–), then met (✓), then info (•). Show at most four; the rest
-collapse to "+N met".
+collapse to "+N met", which uses the met style with a tick. Info chips carry Lucide's Info icon (D2.7).
 
 **Status model: requirement-based (owner, 7 October 2026).** The V10 algorithm's `category`
 (`SAFETY` / `MATCH` / `REACH` / `UNLIKELY`, `lib/matching/categorization.ts`) stays unused by the UI. Its
