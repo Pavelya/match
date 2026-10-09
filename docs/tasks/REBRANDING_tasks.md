@@ -153,9 +153,11 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 8 October 2026.** The canvas has 26 boards. The owner approved "B · Foundations",
-"Theme: System, Light, Dark" and the three "D1.2 Type" boards in chat: D1.1 to D1.4 are approved.
-Twenty-nine tasks need a screen size or states added. Ten have no board.
+**Where it stands, 9 October 2026.** The canvas has 35 boards. The owner approved in chat "B ·
+Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
+D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and "D1.4 Theme · chosen edge" on 9
+October. "D1.4 Theme · phone size" waits for approval. Twenty-two tasks need a screen size or states
+added. Ten have no board.
 
 ### Foundations
 
@@ -164,7 +166,7 @@ Twenty-nine tasks need a screen size or states added. Ten have no board.
 | D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
-| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row | Nothing | 8 October 2026 |
+| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px) | Approve "D1.4 Theme · phone size" | 8 October 2026; the chosen edge 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
 
 ### Components
@@ -174,14 +176,14 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D2.1 Button | Primary, secondary and link; default, hover, focus and disabled; Save and Saved | Pressed, loading ("Saving"), dark | |
-| D2.2 Text input and search | The search field | Focus, an error with its message, disabled, dark | |
-| D2.3 Select and subject picker | The subject picker, closed | Open, filtered by typing, no results; dark | |
-| D2.4 Segmented control | SL or HL and grades 1–7, one chosen | Focus, disabled, a choice that blocks saving (an E in TOK or the EE), dark | |
-| D2.5 Chips | Filter chips, an applied filter with "Country · 3", removable countries, "Clear all", "Only ones I qualify for" | Focus, the on/off chip in both states, dark. Owner's question, 8 October 2026: flags on country chips? Proposed: no. They compete with the status colours, and flag emoji need a font on Windows. If flags are wanted, put them in the country picker (D4.4) as SVG | |
+| D2.1 Button | "D2.1 Button" (row 7): primary, secondary, link and icon in every state, light and dark; the Save toggle from Save to Saving to Saved, and signed out. Loading is the label "Saving…", never a spinner | Nothing | 9 October 2026 |
+| D2.2 Text input and search | "D2.2 Text input and search" (row 7): the sign-in email, the IB points range and the Explore search in every state, and on a phone. Field edges use the new line-3 token (owner, 8 October 2026) | Nothing | 9 October 2026 |
+| D2.3 Select and subject picker | "D2.3 Select and subject picker" (row 7): a native select (the Matches sort order); the subject picker closed, open, filtered by typing, with no results, and on a phone | Nothing | 9 October 2026 |
+| D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
+| D2.5 Chips | "D2.5 Chips" (row 7): filter, on/off and removable chips with "Clear all", in every state. No flags on country chips (owner, 8 October 2026); SVG flags in the country picker (D4.4) only if ever wanted | Nothing | 9 October 2026 |
 | D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
-| D2.7 Status badge and requirement chip | The three statuses and "Checked for 2027 entry"; chips on "Match card: every state" | An icon on the info chip: "Checked for 2027 entry" has none, unlike the others (owner, 8 October 2026). Dark | |
-| D2.8 Card and skeleton | A match card's skeleton | Skeletons for a result row and the program page, dark | |
+| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026) | Nothing | 9 October 2026 |
+| D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
 | D2.11 Empty and error states | None | **No board.** One layout for no matches, no results, an empty shortlist and a failed load | |
@@ -238,7 +240,7 @@ merges into `main`, behind the preview switch.**
 |---|---|---|---|---|---|
 | 0 | The preview switch | 0.1 | — | small | **Done 8 October 2026** |
 | 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
-| 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8 | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton |
+| 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
 | 3 | Site chrome | 1.5 | D1.4, D2.12–D2.14 | medium | Header, footer and phone tab bar on every student-facing page; static pages stay static |
 | 4 | Logo | 1.3 | D1.5 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
 | 5 | Match data | 2.1 | None | small | Requirement-based statuses (decided 7 October 2026) |
@@ -266,7 +268,7 @@ Rows 3 and 4 can share a design session.
 |---|---|---|---|---|
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
-| 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Design can start now |
+| 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Designs approved 9 October 2026. "D1.4 Theme · phone size" waits for approval |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards. D1.4 is already approved | `/build 3`: site chrome (1.5) | |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
@@ -509,7 +511,8 @@ font missed the font budget (`04-design-system.md` §2). The owner chose the sta
 built from the tokens, **as new components in their own folder** (for example `components/ds/`). Today's
 `components/ui/` stays untouched for the old screens until cleanup.
 
-**Design gate:** D2.1 to D2.5, D2.7 and D2.8, approved ([Step 2](#step-2--design-first)).
+**Design gate:** D2.1 to D2.5, D2.7 and D2.8, approved ([Step 2](#step-2--design-first)), and the two
+D1.4 change boards for `ThemeSwitch`.
 
 **Must-haves:**
 - **Focus is an outline**, not `outline-none` plus a box-shadow ring (today `components/ui/button.tsx:8`,
@@ -518,6 +521,16 @@ built from the tokens, **as new components in their own folder** (for example `c
 - Segmented controls and chips use radio, checkbox or `aria-pressed` semantics.
 - Heights 36, 44 and 52; one radius; 44px touch targets.
 - Skeleton is a static tint the size of the final content. No shimmer.
+- **Decided on the boards** (owner, 8 and 9 October 2026; canvas row 7):
+  - A new token, `--line-3` (#858277 light, #6B7180 dark), for field edges: 3.6 to 3.9:1 where
+    `--line-2` is 1.5 to 1.7:1. `--input` points to it, so fields, checkboxes and the switch track
+    follow; `--line-2` stays for decorative edges. Add its pairs to `app/globals.test.ts`.
+  - Loading is a label ("Saving…"), never a spinner. A disabled button uses `aria-disabled`, stays
+    focusable and names its reason next to it.
+  - The chosen segment has a 1px `--line-3` edge, 3.3:1 against its track. `ThemeSwitch` gets the
+    same edge, and options 44px tall below 768px ("D1.4 Theme · chosen edge" and "· phone size").
+  - Chips are 36px tall and 8px apart, with a 44px hit area. No flags on country chips.
+  - A card's edge is a real 1px border, not a box-shadow hairline, so it survives forced colours.
 
 **Verify:** keyboard and forced-colours check on a page using each primitive.
 
