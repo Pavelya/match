@@ -41,6 +41,7 @@ export function calculateSubjectMatch(
       requirement,
       score: 0.0,
       status: 'NO_MATCH',
+      kind: 'not_taken',
       reason: 'Subject not taken'
     }
   }
@@ -48,13 +49,21 @@ export function calculateSubjectMatch(
   // Case 2: Check level and grade
   const levelMatch = compareLevels(studentCourse.level, requirement.level)
   const gradeMatch = studentCourse.grade >= requirement.minimumGrade
+  // What the cards show beside the requirement ("you 6"), whatever the case below
+  const student = {
+    gradeGap: Math.max(0, requirement.minimumGrade - studentCourse.grade),
+    studentLevel: studentCourse.level,
+    studentGrade: studentCourse.grade
+  }
 
   // Case 2a: Perfect match (level ok and grade met)
   if (levelMatch === 'EXACT_OR_HIGHER' && gradeMatch) {
     return {
       requirement,
       score: 1.0,
-      status: 'FULL_MATCH'
+      status: 'FULL_MATCH',
+      kind: 'met',
+      ...student
     }
   }
 
@@ -66,6 +75,8 @@ export function calculateSubjectMatch(
       requirement,
       score,
       status: 'PARTIAL_MATCH',
+      kind: 'level_short',
+      ...student,
       reason: `Level mismatch: SL instead of HL (grade ${studentCourse.grade})`
     }
   }
@@ -82,6 +93,8 @@ export function calculateSubjectMatch(
       requirement,
       score,
       status: 'PARTIAL_MATCH',
+      kind: 'grade_short',
+      ...student,
       reason: `Grade ${gradeGap} point${gradeGap > 1 ? 's' : ''} below requirement`
     }
   }
@@ -91,6 +104,8 @@ export function calculateSubjectMatch(
     requirement,
     score: 0.25,
     status: 'PARTIAL_MATCH',
+    kind: 'grade_short',
+    ...student,
     reason: 'Minimal credit for taking the subject'
   }
 }
@@ -111,6 +126,7 @@ export function calculateORGroupMatch(
     requirement: orGroup,
     score: 0.0,
     status: 'NO_MATCH',
+    kind: 'not_taken',
     reason: 'None of the OR options met'
   }
 
@@ -123,6 +139,10 @@ export function calculateORGroupMatch(
         requirement: orGroup,
         score: match.score,
         status: match.status,
+        kind: match.kind,
+        gradeGap: match.gradeGap,
+        studentLevel: match.studentLevel,
+        studentGrade: match.studentGrade,
         reason: `Best match via ${option.courseName}: ${match.reason || 'Fully met'}`,
         // Track which specific course matched for display purposes
         matchedCourseId: option.courseId,

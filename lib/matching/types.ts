@@ -129,11 +129,28 @@ export interface LocationMatchScore {
   noPreferences: boolean
 }
 
+/**
+ * How a requirement stands, for display (rebranding 2.1): met, a grade below the minimum, SL
+ * where HL is required, or not taken. The cards read this rather than parsing `reason`.
+ */
+export type SubjectMatchKind = 'met' | 'grade_short' | 'level_short' | 'not_taken'
+
 /** Subject match detail for a single requirement */
 export interface SubjectMatchDetail {
   requirement: SubjectRequirement | ORGroupRequirement
   score: number // 0 to 1
   status: 'FULL_MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH'
+  /*
+   * `kind`, `gradeGap`, `studentLevel` and `studentGrade` are set on every detail the subject
+   * matcher returns. They are optional so that details made without them still type-check:
+   * hand-built test fixtures, and results cached in Redis before they existed.
+   */
+  kind?: SubjectMatchKind
+  /** Grades below the minimum, 0 when the grade is met. Absent when not taken. */
+  gradeGap?: number
+  /** The student's own level and grade in the course; for an OR-group, the matched course's. */
+  studentLevel?: CourseLevel
+  studentGrade?: IBGrade
   reason?: string // e.g., "Grade 1 point below", "Level mismatch (SL vs HL)"
   /** The actual courseId that produced the best match (for OR-groups) */
   matchedCourseId?: string
