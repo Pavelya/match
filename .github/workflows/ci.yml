@@ -84,7 +84,9 @@ jobs:
     # so this also proves the migration history can still reproduce the schema.
     services:
       postgres:
-        image: postgres:16
+        # The official image through Amazon's public mirror: Docker Hub's anonymous pull limit
+        # on GitHub's shared runners failed this job three times running on 9 October 2026.
+        image: public.ecr.aws/docker/library/postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
