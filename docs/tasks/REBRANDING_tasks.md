@@ -199,7 +199,7 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page | |
+| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page. **Short course names** ("Maths AA", owner, 9 October 2026): the list in `lib/ib/course-names.ts` (2.1); the board confirms or changes it | |
 | D3.2 Why this match | Open on "Match card: every state" (desktop) and on "Phone · Why this match, opened" | Dark | |
 | D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone | |
 | D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade | |
@@ -246,7 +246,7 @@ merges into `main`, behind the preview switch.**
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | **Done 9 October 2026.** Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
 | 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
 | 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
-| 5 | Match data | 2.1 | None | small | Requirement-based statuses (decided 7 October 2026) |
+| 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | Replaces `ProgramCard` |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | |
@@ -274,7 +274,7 @@ Rows 3 and 4 can share a design session.
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Done 9 October 2026 |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
-| 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
+| 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
@@ -321,7 +321,7 @@ Phase 1 — Foundations
 
 Phase 2 — Core app
 
-- [ ] 2.1 Match data for the new cards
+- [x] 2.1 Match data for the new cards (9 October 2026)
 - [ ] 2.2 Match card, result row and requirement checklist
 - [ ] 2.3 Explore: toolbar, phone filter sheet, rows
 - [ ] 2.4 Program and university pages
@@ -785,6 +785,39 @@ Departures from the boards, each small:
 - A pure helper derives the card status and the chips (`04-design-system.md` §9), with a Vitest
   test per case in the §9 table.
 - `npx tsx scripts/run-all-tests.ts` passes unchanged: scores must not move.
+
+**Done 9 October 2026.**
+
+- `SubjectMatchDetail` carries `kind`, `gradeGap`, `studentLevel` and `studentGrade`, set by
+  `lib/matching/subject-matcher.ts` on every detail; for an either/or, the matched course's. They
+  are optional in the type, so the verify fixtures and results already cached in Redis (30 minutes)
+  still type-check and render.
+- `deriveMatchStatus` (`lib/matching/match-status.ts`) gives the card status as `StatusBadge` takes
+  it (`meets`, `close`, `gap`), the badge copy, and every chip as `RequirementChip` takes it, in §9's
+  order. `cardChips` fits them on a card: problems and notes always, met ones up to four, the rest
+  "+N met". 2.2 passes these straight through.
+- **Chips use short course names** (owner, 9 October 2026): "Maths AA HL 7 · you 6", from the list
+  in `lib/ib/course-names.ts`. It shortens the 15 of production's 55 courses that are too long for a
+  chip; any other course, or one added later, keeps its stored name. D3.1 confirms the list.
+- An either/or names the course the student took, as the program card does today, so §9's
+  "English A SL 6 · via Literature" reads "English A Lit SL 6". D3.1 chooses between the two. With
+  none taken, a group of one or two courses is named in full ("French B or Spanish B HL 5 · not
+  taken"); a longer one, up to 45 courses, names its first and counts the rest ("French B HL 5 or 2
+  others · not taken"), as D3.1 proposes.
+- **Badge copy beyond §9's examples, kept for now, is for D3.1 to confirm:** "Needs 6 more points", "Needs a 7 in
+  Physics", two needs then "and 1 more", "Germany · not one of your countries". "Needs a language at
+  HL" (the board) needs course groups the result doesn't carry; the helper says "Needs French B or
+  Spanish B HL".
+- **Scores did not move:** the suite passes with no test changed, and a fingerprint of 72,060
+  synthetic results (every score, status, reason, category and adjustment) is byte-identical before
+  and after.
+- **Judged at the student's own level.** An either/or reports the option that scores best, and in a
+  non-critical requirement SL 6 for an HL 5 option (0.80) outscores one grade short at SL (0.78,
+  `MAINT_tasks.md` 5.15). So when the group also accepts the course at the student's level
+  ("Maths AA HL 5 or SL 7"), the helper judges them there: SL 6 is "Within reach · 1 grade short",
+  not missing HL. Scores are unchanged. **Left for the level-gap scoring review:** across different
+  courses (Physics SL 7, or Chemistry HL 5 with a 4) the result names only the best-scoring course,
+  so the card shows Physics missing HL.
 
 ### 2.2 — Match card, result row and requirement checklist
 
