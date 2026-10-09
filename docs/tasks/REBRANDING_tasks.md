@@ -156,10 +156,10 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
 **Where it stands, 9 October 2026.** The canvas has 39 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
-(chosen edge, phone size) on 9 October. Row 8 holds the site chrome for review: "D2.12 Header",
-"D2.13 Footer", "D2.14 Phone tab bar" and a third D1.4 change, "D1.4 Account menu". The owner decided
-the header's open questions the same day (D2.12 row). Nineteen tasks need a screen size or states
-added. Ten have no board.
+(chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
+questions and approved the four row 8 boards: "D2.12 Header", "D2.13 Footer", "D2.14 Phone tab bar"
+and a third D1.4 change, "D1.4 Account menu". Nineteen tasks need a screen size or states added. Ten
+have no board.
 
 ### Foundations
 
@@ -168,7 +168,7 @@ added. Ten have no board.
 | D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
-| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge and the phone size 9 October 2026. The account menu change: not yet |
+| D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026 | Lens at 16, 32 and 180px in light and dark; the favicon, Apple touch icon, email header and Open Graph image | |
 
 ### Components
@@ -189,9 +189,9 @@ theme switch are in D1.4.
 | D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
 | D2.11 Empty and error states | None | **No board.** One layout for no matches, no results, an empty shortlist and a failed load | |
-| D2.12 Header | "D2.12 Header" (row 8): desktop signed in and signed out, 768 to 1023px, the phone header signed out (Sign in, Menu) and signed in (Guides, the avatar and its panel), a student editing their profile, focus mode, every state, light and dark. **Decided 9 October 2026 (owner):** prebuilt public pages show the signed-out header to everyone, and "Sign in" goes to `/student`; no search box in the header; Guides in the phone header; "Save and exit" saves the step, then goes to Home; Academic is the fourth place, in the nav and on the tab bar; Menu signed out and the avatar signed in, never both | Nothing | |
-| D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Proposed: three link groups on every page, Students, About and Legal, with Support us under About | Nothing | |
-| D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Proposed: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a pill behind the current tab's icon, no count on Shortlist | Nothing | |
+| D2.12 Header | "D2.12 Header" (row 8): desktop signed in and signed out, 768 to 1023px, the phone header signed out (Sign in, Menu) and signed in (Guides, the avatar and its panel), a student editing their profile, focus mode, every state, light and dark. **Decided 9 October 2026 (owner):** prebuilt public pages show the signed-out header to everyone, and "Sign in" goes to `/student`; no search box in the header; Guides in the phone header; "Save and exit" saves the step, then goes to Home; Academic is the fourth place, in the nav and on the tab bar; Menu signed out and the avatar signed in, never both | Nothing | 9 October 2026 |
+| D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
+| D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
 | D2.15 Bottom sheet | "Phone · Filters sheet" | Dark | |
 
 ### Patterns
@@ -271,7 +271,7 @@ Rows 3 and 4 can share a design session.
 | 0 | None | None | Preview switch (0.1) | Done 8 October 2026 |
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Done 9 October 2026 |
-| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | |
+| 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Boards approved 9 October 2026; the build is next |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
@@ -613,7 +613,8 @@ Profile tab) and an `icons` variant (footer), on native radio inputs. The choice
 ([Step 2](#step-2--design-first)).
 
 **Decided 9 October 2026 (owner):** the header proposals on "D2.12 Header"; Academic in place of
-Profile; Menu or the avatar on a phone, never both; the tab bar hides on scroll as it does today.
+Profile; Menu or the avatar on a phone, never both; the tab bar hides on scroll as it does today. The
+gate's boards were approved the same day.
 
 **Must-haves:**
 - **A header on the pages that have none today** (audit 1.1): `/`, the 23 country guides,
@@ -638,14 +639,20 @@ Profile; Menu or the avatar on a phone, never both; the tab bar hides on scroll 
   finished, not the URL.
 - **Phone tab bar:** Matches · Explore · Shortlist · Academic (`/student/onboarding`). No heart icon
   (audit 1.6), no looping "incomplete" dot (today `StudentHeader.tsx:103`, `MobileBottomNav.tsx:141`).
-  Hidden during first-run onboarding (3.1). See "D2.14 Phone tab bar".
+  Hidden during first-run onboarding (3.1). Matches uses Lucide's `ListChecks` and Academic its
+  `GraduationCap`. The current tab gets a brand-soft pill behind its icon, as well as the colour and
+  weight, so it still shows in forced colours. No count on the Shortlist tab. See "D2.14 Phone tab
+  bar".
 - **The tab bar hides on scroll down and shows on scroll up, as it does today** (owner, 9 October
   2026; `MobileBottomNav.tsx`). It hides once the page has moved 10px since the last change and is
   more than 100px from the top. It shows on scroll up, within 100px of the top, on a page too short to
   scroll, and whenever one of its tabs gets keyboard focus. The motion is a 240ms `transform` slide
   with the standard easing, and a fade with reduced motion. The bar is fixed and the page keeps its
   bottom padding, so nothing reflows; hidden, its links stay focusable.
-- **Footer:** public links and the `ThemeSwitch`. See "D2.13 Footer".
+- **Footer:** three link groups and the `ThemeSwitch`, on every student-facing page and, on a phone,
+  above the tab bar. Students: Explore programs, Country guides, How it works, FAQs. About: For IB
+  coordinators, Support us, Contact. Legal: Privacy, Terms, Cookies. The group names label their
+  `<nav>`s and are not headings. See "D2.13 Footer".
 - Keep URLs unchanged.
 - **The SEO snapshot script**, which every later public-page task uses (Definition of done 12).
   `scripts/seo-snapshot.ts <url>` prints the `<title>`, meta description, canonical, robots meta, each

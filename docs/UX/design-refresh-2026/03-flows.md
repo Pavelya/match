@@ -184,8 +184,8 @@ only through the header avatar, and there is no appearance setting.
 
 **Decided 9 October 2026 (owner; canvas "D2.12 Header", "D2.14 Phone tab bar", "D1.4 Account menu")**
 
-- Tab bar: **Matches · Explore · Shortlist · Academic**. Matches gets a Lucide icon instead of a
-  heart, so the bar no longer has two "favourite" icons, and it doesn't change with the logo.
+- Tab bar: **Matches · Explore · Shortlist · Academic**. Matches gets Lucide's List checks instead
+  of a heart, so the bar no longer has two "favourite" icons, and it doesn't change with the logo.
 - **Academic** opens the academic profile at `/student/onboarding`, the page that serves new and
   existing students: the predicted total with "Edit subjects and grades", then Interests and
   Countries (each opens the same compact step screens used in first run). The desktop nav has it
