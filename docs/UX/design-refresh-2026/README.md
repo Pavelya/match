@@ -84,7 +84,7 @@ separate "fix first" phase for UX.
 | Content, in parallel | One home per discipline in the fields of study, re-file the Economics outliers, de-duplicate field descriptions, add a campus city for programs such as UBC Okanagan (audit §9, 4.8) | admin work, no code |
 | 1 · Foundations | Tokens in `app/globals.css` (light and dark), fonts, **brand config with the logo loaded from it** (04 §8), theme switching with System, Light and Dark (04 §10), primitives (Button, Input, Chip, StatusBadge, Card), **one public layout with header and footer for every student-facing route** | ~1 week |
 | 2 · Core app | Split `ProgramCard` (1,278 lines, three jobs) into MatchCard, ResultRow and ProgramDetail; requirement checklist; matches in three status groups with requirement chips and "Why this match" on desktop and phone (04 §9); search toolbar, phone filter sheet, 20 results per page; program page; shortlist with compare | ~2 weeks |
-| 3 · Profile | Compact interest and country steps with a sticky Continue, and no tab bar during first run; inline subject editor in place of the 6-step dialog; HL-count check; one component for first run and editing; the phone Profile tab becomes the hub that absorbs Settings | ~1 week |
+| 3 · Profile | Compact interest and country steps with a sticky Continue, and no tab bar during first run; inline subject editor in place of the 6-step dialog; HL-count check; one component for first run and editing; the Academic tab for the profile, and Settings behind the avatar (9 October 2026) | ~1 week |
 | 4 · Marketing and content | New home; move the 23 country guides onto one template that keeps them static with the one-week revalidate; How it works, FAQs | ~1–1.5 weeks |
 
 ## Decisions (6 October 2026)
@@ -96,7 +96,7 @@ separate "fix first" phase for UX.
 | 3 | Serif display | **Yes, Newsreader** | 04 §2 |
 | 4 | New logo mark | **Lens, provisionally** (7 October 2026). The final mark is decided after seeing every screen in the preview. The two-circle "Rings" was dropped for its closeness to Mastercard's marks. **The logo loads from configuration**, so a later swap is a file change. A new mark needs a clearance search before release. | canvas row 5, 04 §8 |
 | 5 | Match score | **Status first; the percentage moves into "Why this match".** Statuses are **requirement-based** (Meets all, Within reach, Missing a requirement), not the algorithm's Safety/Match/Reach labels (7 October 2026). Scores stay as they are for now (`MAINT_tasks.md` 5.15). The card keeps every requirement visible as a small status chip, so nothing is hidden. "Why this match" opens in place on desktop and on a phone. Every state (full match, HL counting for SL, either/or, points short, grade short, SL where HL is required, subject not taken, no named subjects, outside your fields, older data) is on the canvas, with fit scores from the real algorithm. | canvas row 5, 03 F2, 04 §9 |
-| 6 | Dark mode | **System by default, with a toggle**: the account menu (desktop), the Profile tab (phone), and the footer of every public page | canvas row 5, 04 §10 |
+| 6 | Dark mode | **System by default, with a toggle**: the account menu behind the avatar (desktop and phone, since 9 October 2026) and the footer of every page | canvas rows 5 and 8, 04 §10 |
 | 7 | Try-before-sign-up | **No: sign-in stays first.** First run saves a draft after each step instead. | 03 F1 |
 | 8 | Analytics | **Out of scope here**; to be handled as a separate task | n/a |
 

@@ -41,7 +41,7 @@ Contrast is against the token's usual background (paper or surface).
 | `--close` / `--close-soft` | #94580A / #FBEFD9 | Within reach, older requirements data | 5.0:1 |
 | `--gap` / `--gap-soft` | #B3261E / #FBE6E4 | Missing requirement, errors | 5.5:1 |
 
-### Dark (System by default, with a toggle in the account menu, the phone Profile tab and every public footer; see §10)
+### Dark (System by default, with a toggle in the account menu and in every footer; see §10)
 
 | Token | Value | Notes |
 |---|---|---|
@@ -161,12 +161,12 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 
 | New component | Replaces | Notes |
 |---|---|---|
-| `SiteHeader` (public and app variants) and `SiteFooter` | `StudentHeader`, `StudentFooter` (the dead `shared/Header.tsx` and `shared/Footer.tsx` were deleted in MAINT 5.14) | One public route-group layout that wraps home, guides, requirements hub, how-it-works, FAQs, contact, support-us, universities and programs. The logged-out nav shows real public destinations only. |
-| `TabBar` (phone) | `MobileBottomNav` | Matches · Explore · Shortlist · Profile. Matches uses the logo's two-circle mark, not a heart. Hidden during first-run onboarding (focus mode). No hide-on-scroll (it costs a scroll listener and hides navigation people look for); a translucent background is enough. |
-| `ProfileHub` (phone) and Profile tabs (desktop) | `/student/settings` page, "Academic" tab | Predicted total and edit, interests, countries, account (name, school, appearance), your data (download, delete), sign out. Keeps every Settings feature. |
+| `SiteHeader` (public and app variants) and `SiteFooter` | `StudentHeader`, `StudentFooter` (the dead `shared/Header.tsx` and `shared/Footer.tsx` were deleted in MAINT 5.14) | One public route-group layout that wraps home, guides, requirements hub, how-it-works, FAQs, contact, support-us, universities and programs. The logged-out nav shows real public destinations only. Signed in: Matches · Explore · Shortlist · Academic · Guides and the avatar (9 October 2026). On a phone, Menu when signed out and Guides with the avatar when signed in, never both. Canvas: "D2.12 Header", "D2.13 Footer". |
+| `TabBar` (phone) | `MobileBottomNav` | Matches · Explore · Shortlist · Academic (9 October 2026). Matches gets a Lucide icon, not a heart and not the logo's mark, so the bar doesn't change with the logo. Hidden during first-run onboarding (focus mode). **Hides on scroll down and shows on scroll up, as `MobileBottomNav` does today** (owner, 9 October 2026, replacing this file's earlier "no hide-on-scroll"): a 240ms `transform` slide, a fade with reduced motion, and its links stay focusable while hidden. Canvas: "D2.14 Phone tab bar". |
+| Academic page and Settings | `/student/settings` page, "Academic" tab | Split on 9 October 2026 (`REBRANDING_tasks.md` 3.3). Academic, at `/student/onboarding`: predicted total and edit, interests, countries. Settings, from the account menu: account (name, school), your data (download, delete). Appearance and sign out sit in the account menu. Keeps every Settings feature. |
 | `ChoiceList` (rows with checkbox) and `ChoiceGrid` (two-column checkboxes with filter) | `FieldSelector`, `LocationSelector` (tall `Card` divs) | Real `<input type="checkbox">` in a `<fieldset>`, so they are keyboard-operable for free. About 56px rows and 48px tiles; sticky footer with count and Continue. Every field gets its own icon (Education and Media currently share one). |
 | `BrandMark` and `BrandLogo` | `logo-restored.svg`, `favicon.svg`, `logo-email.png` and 29 hard-coded references | Render whatever `lib/brand/config.ts` points to (§8). The mark is chosen on the canvas "Logo options" board (Lens recommended), drawn as outlined paths, with favicon, Apple touch icon, email PNG and OG image generated from it. |
-| `ThemeSwitch` and `AccountMenu` | none (the avatar links straight to Settings) | System, Light, Dark as a radio group, in the desktop account menu, on the phone Profile tab and in every public footer (§10). |
+| `ThemeSwitch` and `AccountMenu` | none (the avatar links straight to Settings) | System, Light, Dark as a radio group, in the account menu behind the avatar on desktop and phone, and in every footer (§10). The menu is a disclosure, not an ARIA menu: Settings, FAQs, Contact, Appearance, Sign out (canvas "D1.4 Account menu"). |
 | `RequirementChip`, `MatchStatusBadge`, `WhyThisMatch` | tile grids and the colour logic in `ProgramCard`, the unused `MatchBreakdown` | One chip per requirement with its own status; a badge derived from them; one disclosure for desktop and phone (§9). |
 | `Button`, `Input`, `Select` | `components/ui/button.tsx`, `input.tsx`, `select.tsx` | New files in `components/ds/` (1.2); `components/ui/` stays for today's screens until cleanup. Heights 36 / 44 / 52, one radius. Select is the native element; the subject list is `SubjectPicker`. |
 | `Chip` (filter, removable) and `Segmented` | inline buttons in `SearchClient`, `QuickScoreInput`, `DetailedGradesInput` | Real `role="radio"` and `aria-checked`, or `aria-pressed`. |
@@ -344,8 +344,9 @@ This is the only place the percentage appears. Reuse the logic in the unused
   so a reload doesn't flash the wrong theme. Add `suppressHydrationWarning` on `<html>` and
   `<meta name="color-scheme" content="light dark">` (plus the CSS `color-scheme` property), so
   native controls and Windows scrollbars follow the theme.
-- `ThemeSwitch` is a radio group (System, Light, Dark). It appears in the desktop account menu,
-  on the phone Profile tab under Account, and in every public footer (icon-only with
-  `aria-label`s on desktop, labelled on phone). Canvas: "Theme: System, Light, Dark".
+- `ThemeSwitch` is a radio group (System, Light, Dark). It appears in the account menu behind the
+  avatar, on desktop and phone, and in every footer (icon-only with `aria-label`s on desktop,
+  labelled on phone). Canvas: "Theme: System, Light, Dark" and "D1.4 Account menu"; until 9 October
+  2026 the phone placement was the Profile tab, which became Academic.
 - Check every page in light, dark and forced colours before each PR.
 

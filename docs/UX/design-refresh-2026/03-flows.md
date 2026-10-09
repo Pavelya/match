@@ -49,7 +49,8 @@ About **50 interactions plus an email round-trip**, and sign-in comes before the
   checkbox grid that fits on about one phone screen. Sticky footer: "3 selected · Continue".
 - **Step 3:** one row per IB group (below).
 - **Focus mode:** no tab bar during first run, just the logo, "Save and exit" and "Back to …". The
-  tab bar appears once the student has matches.
+  tab bar appears once the student has matches. "Save and exit" saves the step in progress and goes
+  to Home (9 October 2026).
 
 ```
 Home ─ "Get my matches" ─▶ Sign in (unchanged) ─▶ 1 Interests ─▶ 2 Countries
@@ -167,7 +168,7 @@ is complete. At step 3, remove the subject, re-add it through the six-step dialo
 program pages, and a looping amber dot in the navigation.
 
 **Keep** the calls to action, which are well written. **Drop** the looping animation. Show "Profile 2 of 3"
-as text on the Profile tab instead.
+as text on the Academic tab instead.
 
 ## F7 · Sign-in
 
@@ -181,21 +182,27 @@ and shortlist to your account"). Keep Google's button within Google's branding r
 the onboarding wizard. Settings (name, school connection, sign out, export, delete) is reachable
 only through the header avatar, and there is no appearance setting.
 
-**Proposed (canvas: "Phone · Profile tab")**
+**Decided 9 October 2026 (owner; canvas "D2.12 Header", "D2.14 Phone tab bar", "D1.4 Account menu")**
 
-- Tab bar: **Matches · Explore · Shortlist · Profile**. Matches gets the two-circle mark from the
-  logo instead of a heart, so the bar no longer has two "favourite" icons.
-- The **Profile tab is one hub**: the predicted total with "Edit subjects and grades", then
-  Interests and Countries (each opens the same compact step screens used in first run), then
-  Account (name, school connection, appearance: System / Light / Dark), Your data (download,
-  delete), and Sign out. Everything in today's Settings page is kept.
-- On desktop the avatar opens the same content as tabs on the Profile page (Subjects and grades ·
-  Interests · Countries · Account).
+- Tab bar: **Matches · Explore · Shortlist · Academic**. Matches gets a Lucide icon instead of a
+  heart, so the bar no longer has two "favourite" icons, and it doesn't change with the logo.
+- **Academic** opens the academic profile at `/student/onboarding`, the page that serves new and
+  existing students: the predicted total with "Edit subjects and grades", then Interests and
+  Countries (each opens the same compact step screens used in first run). The desktop nav has it
+  too, between Shortlist and Guides.
+- **The avatar opens the account menu**, in the header on desktop and phone: Settings (name, school
+  connection, your data: download, delete), FAQs, Contact, Appearance (System / Light / Dark) and
+  Sign out. Everything in today's Settings page is kept.
+- On a phone the header has Menu only when signed out, and Guides with the avatar when signed in, so
+  the two menus never sit side by side.
+- The tab bar hides on scroll down and comes back on scroll up, as it does today.
+- An earlier proposal made the fourth tab a Profile hub holding all of this; it left no clear way
+  to edit the academic profile, and it repeated the avatar.
 
 ## What stays exactly as is
 
 - Four destinations: Matches, Explore (renamed from "Program Search"), Shortlist (renamed from
-  "Saved"), Profile.
+  "Saved"), Academic.
 - Onboarding order: interests → countries → grades.
 - The honesty notes about which entry year requirements were checked for.
 - School invitation flows: same flow, new look.
