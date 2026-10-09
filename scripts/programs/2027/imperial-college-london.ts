@@ -25,7 +25,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Aeronautical Engineering',
       description:
-        "Develop engineering, computational, and analytical skills, as well as the specific knowledge and experience required for careers in the aerospace industry. Before choosing to continue or transfer to another course, all students apply to this degree, MEng Aeronautical Engineering (H401). You'll gain a solid understanding of aerodynamics, lightweight structures, and structural mechanics, as well as flight mechanics.",
+        "Develop engineering, computational, and analytical skills, as well as the specific knowledge and experience required for careers in the aerospace industry. Before choosing to continue or transfer to another course, all students apply to this degree, MEng Aeronautical Engineering (H401). You'll gain a solid understanding of aerodynamics, lightweight structures, and structural mechanics, as well as flight mechanics.\n\nHow competitive: 40 points is Imperial's minimum, but its typical offer for this course is 43 to 44 points, the grades it asked of at least half of the IB and A-level applicants it made offers to for 2025 entry.",
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '4 years',
@@ -42,7 +42,7 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/aeronautical-engineering/'
       ],
       notes:
-        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview.'
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the course page\'s typical offer (43 to 44 points; "Typical offers are based on offers made by each department to at least 50% of 2025 entry A-level and IB applicants who were yet to achieve their grades"); update it at each refresh.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MEng".
     {
@@ -50,7 +50,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Aeronautics with Spacecraft Engineering',
       description:
-        "Acquire the engineering, computational and analytical skills required for a career in the aeronautical industry in this professionally accredited course. As part of the specialist spacecraft stream, you'll be equipped with an analytical skill set appropriate to the design of spacecraft technologies. You'll also gain an insight into the unique challenges involved in designing space systems for launch and operation, working in the start-of-the-art learning environment provided by the Department of Aeronautics.",
+        "Acquire the engineering, computational and analytical skills required for a career in the aeronautical industry in this professionally accredited course. As part of the specialist spacecraft stream, you'll be equipped with an analytical skill set appropriate to the design of spacecraft technologies. You'll also gain an insight into the unique challenges involved in designing space systems for launch and operation, working in the start-of-the-art learning environment provided by the Department of Aeronautics.\n\nHow competitive: 40 points is Imperial's minimum, but its typical offer for this course is 43 to 44 points, the grades it asked of at least half of the IB and A-level applicants it made offers to for 2025 entry.",
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '4 years',
@@ -67,7 +67,7 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/aeronautics-spacecraft-engineering/'
       ],
       notes:
-        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Aeronautical Engineering (H401) and can transfer to the spacecraft stream. Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview.'
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Applicants apply to Aeronautical Engineering (H401) and can transfer to the spacecraft stream. Minimum 40 points with 7 in Mathematics and 7 in Physics at HL. Mathematics AA or AI accepted at HL; AA preferred. Typical offer 43–44. ESAT and interview. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the course page\'s typical offer (43 to 44 points; "Typical offers are based on offers made by each department to at least 50% of 2025 entry A-level and IB applicants who were yet to achieve their grades"); update it at each refresh.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "BSc".
     {

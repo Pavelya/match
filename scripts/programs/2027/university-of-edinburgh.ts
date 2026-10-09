@@ -25,7 +25,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Accounting and Business MA (Hons)',
       description:
-        'This programme combines the study of accounting and business to prepare you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'This programme combines the study of accounting and business to prepare you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -39,10 +39,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business'
+        'https://study.ed.ac.uk/programmes/undergraduate/189-accounting-and-business',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS NN14, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS NN14, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -50,7 +51,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Accounting and Finance MA (Hons)',
       description:
-        'This programme combines the study of accounting and finance to prepare you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'This programme combines the study of accounting and finance to prepare you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -64,10 +65,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance'
+        'https://study.ed.ac.uk/programmes/undergraduate/464-accounting-and-finance',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS NN43, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS NN43, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -178,7 +180,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Business and Economics MA (Hons)',
       description:
-        'The MA Business and Economics combines the relative academic rigour of mainstream economics with the more practical and vocational perspective of business.',
+        'The MA Business and Economics combines the relative academic rigour of mainstream economics with the more practical and vocational perspective of business.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -200,10 +202,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics'
+        'https://study.ed.ac.uk/programmes/undergraduate/186-business-and-economics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS NL11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS NL11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -211,7 +214,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Business and Law MA (Hons)',
       description:
-        'Combines the study of business and law to prepare you for social, political and legal challenges facing contemporary organizations. AACSB and EQUIS double accredited.',
+        'Combines the study of business and law to prepare you for social, political and legal challenges facing contemporary organizations. AACSB and EQUIS double accredited.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -225,10 +228,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law'
+        'https://study.ed.ac.uk/programmes/undergraduate/188-business-and-law',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS NM11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical; the page names no English course, so English B is added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS NM11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical; the page names no English course, so English B is added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -236,7 +240,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Business with Marketing MA (Hons)',
       description:
-        'Combine the study of business with marketing to prepare for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'Combine the study of business with marketing to prepare for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -250,10 +254,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing'
+        'https://study.ed.ac.uk/programmes/undergraduate/607-business-with-marketing',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS N1N5, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS N1N5, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -261,7 +266,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Chemical Engineering BEng (Hons)',
       description:
-        'Chemical engineers design, develop and operate processes that convert raw materials into high-value products. You will learn to tackle global challenges in energy, environment, and sustainability.',
+        'Chemical engineers design, develop and operate processes that convert raw materials into high-value products. You will learn to tackle global challenges in energy, environment, and sustainability.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
@@ -277,10 +282,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/99-chemical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H800, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6.'
+        'Year of entry 2027 (start September 2027); UCAS H800, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -288,7 +294,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Chemical Engineering MEng (Hons)',
       description:
-        'The five-year integrated Masters in Chemical Engineering includes advanced study and a paid industry placement. Fully accredited by IChemE for Chartered Engineer status.',
+        'The five-year integrated Masters in Chemical Engineering includes advanced study and a paid industry placement. Fully accredited by IChemE for Chartered Engineer status.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '5 years',
@@ -304,10 +310,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/100-chemical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H804, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6.'
+        'Year of entry 2027 (start September 2027); UCAS H804, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) and Chemistry at HL 5; Physics at SL 5, required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 666 at HL to include Chemistry and Mathematics (Analysis and approaches only) at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -398,7 +405,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Computer Science and Mathematics BSc (Hons)',
       description:
-        'Mathematics forms the foundation of computer science. With the increasing scale of computing systems, and growing volumes of data, we are developing and using more sophisticated mathematical techniques every day.',
+        'Mathematics forms the foundation of computer science. With the increasing scale of computing systems, and growing volumes of data, we are developing and using more sophisticated mathematical techniques every day.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 755 at HL to 43 points with 777 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
@@ -413,10 +420,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics'
+        'https://study.ed.ac.uk/programmes/undergraduate/64-computer-science-and-mathematics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS GG14, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 755 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 7, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 755 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS GG14, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 755 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 7, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 755 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -424,7 +432,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Computer Science BSc (Hons)',
       description:
-        'Computer science is the study of computation, information, and automation. You will explore the theory, design, and implementation of algorithms and data structures, study how systems manage complexity, and examine the profound impact of computer science on almost every aspect of our lives.',
+        'Computer science is the study of computation, information, and automation. You will explore the theory, design, and implementation of algorithms and data structures, study how systems manage complexity, and examine the profound impact of computer science on almost every aspect of our lives.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 665 at HL to 43 points with 777 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Computer Science',
       degree: 'Bachelor of Science',
       duration: '4 years',
@@ -438,10 +446,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science'
+        'https://study.ed.ac.uk/programmes/undergraduate/57-computer-science',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS G400, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS G400, BSc (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -449,7 +458,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Economics and Mathematics MA (Hons)',
       description:
-        'This combined programme complements the basic grounding in mathematical techniques provided within Economics, with a more thorough and rigorous development of mathematical principles.',
+        'This combined programme complements the basic grounding in mathematical techniques provided within Economics, with a more thorough and rigorous development of mathematical principles.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -463,17 +472,19 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics'
+        'https://study.ed.ac.uk/programmes/undergraduate/133-economics-and-mathematics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS LG11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS LG11, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
       id: 'cmkcj2oio004o7mhe4xh31isw',
       status: 'current',
       name: 'Economics and Politics MA (Hons)',
-      description: 'This popular joint programme combines two core social science disciplines.',
+      description:
+        'This popular joint programme combines two core social science disciplines.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -495,10 +506,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics'
+        'https://study.ed.ac.uk/programmes/undergraduate/135-economics-and-politics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS LL12, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS LL12, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -506,7 +518,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Economics MA (Hons)',
       description:
-        'This programme gives you the opportunity to examine the economic incentives that shape and reconcile the important decisions made by individuals, businesses, governments and societies.',
+        'This programme gives you the opportunity to examine the economic incentives that shape and reconcile the important decisions made by individuals, businesses, governments and societies.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -528,10 +540,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/122-economics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/122-economics'
+        'https://study.ed.ac.uk/programmes/undergraduate/122-economics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS L100, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS L100, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -539,7 +552,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Economics with Finance MA (Hons)',
       description:
-        'There are obvious crossovers between economics and finance. In addition to covering the core of the economics programme, we will introduce you to the basic principles of finance before moving onto more advanced topics such as: investments, securities, corporate finance.',
+        'There are obvious crossovers between economics and finance. In addition to covering the core of the economics programme, we will introduce you to the basic principles of finance before moving onto more advanced topics such as: investments, securities, corporate finance.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -561,10 +574,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance'
+        'https://study.ed.ac.uk/programmes/undergraduate/469-economics-with-finance',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS L1N3, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS L1N3, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Mathematics (AA or AI) at HL 5, or at SL 6 if not taken at HL, stored as one mixed group (was Mathematics HL 5 alone). English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -572,7 +586,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Electrical and Mechanical Engineering MEng (Hons)',
       description:
-        'Electromechanical engineers work on everything from energy generation and hybrid vehicles to aircraft design and satellite technology. Dual accredited by IMechE and IET.',
+        'Electromechanical engineers work on everything from energy generation and hybrid vehicles to aircraft design and satellite technology. Dual accredited by IMechE and IET.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '5 years',
@@ -594,10 +608,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/109-electrical-and-mechanical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/109-electrical-and-mechanical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/109-electrical-and-mechanical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS HHH6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
+        'Year of entry 2027 (start September 2027); UCAS HHH6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -605,7 +620,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Electronics and Computer Science MEng (Hons)',
       description:
-        'A fascinating combination of electronics and computer science. Learn to design and apply both hardware and software of general-purpose and embedded computer systems.',
+        'A fascinating combination of electronics and computer science. Learn to design and apply both hardware and software of general-purpose and embedded computer systems.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 665 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '5 years',
@@ -627,10 +642,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/70-electronics-and-computer-science/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/70-electronics-and-computer-science'
+        'https://study.ed.ac.uk/programmes/undergraduate/70-electronics-and-computer-science',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS GHK6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS GHK6, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons)".
     {
@@ -638,7 +654,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Electronics and Electrical Engineering BEng (Hons)',
       description:
-        'Pioneer change in modern technologies from smartphone processors to wind turbine power electronics. Create more powerful, efficient and universal products, systems and materials.',
+        'Pioneer change in modern technologies from smartphone processors to wind turbine power electronics. Create more powerful, efficient and universal products, systems and materials.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
@@ -660,10 +676,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/88-electronics-and-electrical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/88-electronics-and-electrical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/88-electronics-and-electrical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H600, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
+        'Year of entry 2027 (start September 2027); UCAS H600, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BEng (Hons) / MEng (Hons)".
     {
@@ -671,7 +688,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Engineering BEng/MEng (Hons)',
       description:
-        'This entry route degree allows you to experience different areas of engineering before specializing in Year 2. Choose from Chemical, Civil, Electrical, Electronics, or Mechanical Engineering.',
+        'This entry route degree allows you to experience different areas of engineering before specializing in Year 2. Choose from Chemical, Civil, Electrical, Electronics, or Mechanical Engineering.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Engineering',
       degree: "Integrated Bachelor's and Master's",
       duration: '4-5 years',
@@ -692,10 +709,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/75-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/75-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/75-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H100, BEng/MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS H100, BEng/MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MA (Hons)".
     {
@@ -703,7 +721,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Finance and Business MA (Hons)',
       description:
-        'This degree combines the study of finance and business to prepare for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'This degree combines the study of finance and business to prepare for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -717,10 +735,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business'
+        'https://study.ed.ac.uk/programmes/undergraduate/603-finance-and-business',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS NN13, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS NN13, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -728,7 +747,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Global Law LLB (Hons)',
       description:
-        'Designed to prepare you for globally oriented legal careers. Includes a mandatory exchange year abroad at partner law schools spanning six continents. Does not qualify for Scottish legal practice.',
+        'Designed to prepare you for globally oriented legal careers. Includes a mandatory exchange year abroad at partner law schools spanning six continents. Does not qualify for Scottish legal practice.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -741,10 +760,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/671-global-law/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/671-global-law'
+        'https://study.ed.ac.uk/programmes/undergraduate/671-global-law',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS M116, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS M116, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -803,7 +823,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Informatics MInf',
       description:
-        'Our flagship MInf degree is an integrated programme that earns you a Masters level qualification over five years. You will gain a range of experience across all areas of informatics and be able to study your chosen specialist area in-depth at Masters level.',
+        'Our flagship MInf degree is an integrated programme that earns you a Masters level qualification over five years. You will gain a range of experience across all areas of informatics and be able to study your chosen specialist area in-depth at Masters level.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 665 at HL to 43 points with 777 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Computer Science',
       degree: 'Master of Informatics',
       duration: '5 years',
@@ -818,10 +838,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme'
+        'https://study.ed.ac.uk/programmes/undergraduate/430-informatics-5-year-undergraduate-masters-programme',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS G500, MInf. IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS G500, MInf. IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -853,7 +874,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'International Business MA (Hons)',
       description:
-        'This degree prepares you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'This degree prepares you for the social, political, environmental and cultural challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Business & Economics',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -867,10 +888,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/183-international-business/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/183-international-business'
+        'https://study.ed.ac.uk/programmes/undergraduate/183-international-business',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS N120, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS N120, MA (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. Checked, no HL subject required. Mathematics (AA or AI) at SL 5 is required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake.
     {
@@ -908,7 +930,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Law (Ordinary and Honours) LLB (Hons)',
       description:
-        'The main qualifying LLB for Scottish legal practice. Prepares you for a career as a solicitor or advocate in Scotland, with foundation in Scots law and legal systems.',
+        'The main qualifying LLB for Scottish legal practice. Prepares you for a career as a solicitor or advocate in Scotland, with foundation in Scots law and legal systems.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -921,10 +943,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours'
+        'https://study.ed.ac.uk/programmes/undergraduate/168-law-ordinary-and-honours',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS M114, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS M114, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -932,7 +955,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Law and Business LLB (Hons)',
       description:
-        'Study law alongside business, exploring important connections between legal and business practices, particularly in property rights, contracting, and regulation.',
+        'Study law alongside business, exploring important connections between legal and business practices, particularly in property rights, contracting, and regulation.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -946,10 +969,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business'
+        'https://study.ed.ac.uk/programmes/undergraduate/174-law-and-business',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS MN11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS MN11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. Mathematics (AA or AI) at SL 5 is required, so now critical. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -957,7 +981,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Law and History LLB (Hons)',
       description:
-        'Study law alongside one of the largest and most diverse history departments in the UK, deepening your knowledge of geographical regions, chronological periods and themes.',
+        'Study law alongside one of the largest and most diverse history departments in the UK, deepening your knowledge of geographical regions, chronological periods and themes.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -970,10 +994,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history'
+        'https://study.ed.ac.uk/programmes/undergraduate/180-law-and-history',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS MV11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS MV11, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -981,7 +1006,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Law and International Relations LLB (Hons)',
       description:
-        'Combine law with international relations, studying the origins and evolution of the state system, global non-state actors, and international cooperation and conflict.',
+        'Combine law with international relations, studying the origins and evolution of the state system, global non-state actors, and international cooperation and conflict.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -995,10 +1020,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations'
+        'https://study.ed.ac.uk/programmes/undergraduate/482-law-and-international-relations',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS ML1F, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS ML1F, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "LLB (Hons)".
     {
@@ -1006,7 +1032,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Law and Politics LLB (Hons)',
       description:
-        'Study law alongside politics, gaining understanding of political systems, governance processes, and political analysis. Ideal location near Scottish Parliament.',
+        'Study law alongside politics, gaining understanding of political systems, governance processes, and political analysis. Ideal location near Scottish Parliament.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 37 points with 666 at HL to 40 points with 766 at HL to receive an offer, and some years are more competitive than others, so 37 does not guarantee one.',
       field: 'Law',
       degree: 'Bachelor of Laws',
       duration: '4 years',
@@ -1019,10 +1045,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics'
+        'https://study.ed.ac.uk/programmes/undergraduate/171-law-and-politics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS ML12, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS ML12, LLB (Hons). IB standard requirements: offers in recent years ranged from 40 points with 766 at HL to 37 points with 666 at HL; the bottom of the range is stored. English at HL 5, critical. The page names no English course; English B added, as the university excludes only ab initio. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MBChB".
     {
@@ -1059,7 +1086,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Mechanical Engineering BEng (Hons)',
       description:
-        'Mechanical engineers turn ideas into realities, creating systems and machines that generate movement and power. Lead technological advancements across diverse industries.',
+        'Mechanical engineers turn ideas into realities, creating systems and machines that generate movement and power. Lead technological advancements across diverse industries.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
@@ -1080,10 +1107,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/82-mechanical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/82-mechanical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/82-mechanical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H300, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
+        'Year of entry 2027 (start September 2027); UCAS H300, BEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "MEng (Hons)".
     {
@@ -1091,7 +1119,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Mechanical Engineering MEng (Hons)',
       description:
-        'The five-year integrated Masters in Mechanical Engineering includes a paid industrial placement. Fully accredited by IMechE for Chartered Engineer status.',
+        'The five-year integrated Masters in Mechanical Engineering includes a paid industrial placement. Fully accredited by IMechE for Chartered Engineer status.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 32 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 32 does not guarantee one.',
       field: 'Engineering',
       degree: 'Master of Engineering',
       duration: '5 years',
@@ -1112,10 +1140,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/83-mechanical-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/83-mechanical-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/83-mechanical-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS H303, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6.'
+        'Year of entry 2027 (start September 2027); UCAS H303, MEng (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 32 points with 655 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 5; one of Physics, Biology, Chemistry, Computer Science or Design Technology at HL 5 (Physics preferred); Physics at SL 5 if not at HL. Both are required, so now critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Second-year entry: 38 points with 766 at HL to include Mathematics (Analysis and approaches only) and Physics or Design Technology at 6. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -1252,7 +1281,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Politics MA (Hons)',
       description:
-        'Study the theory and practice of how societies are governed. Explore political institutions, power dynamics, and the nature of a just society under leading academics.',
+        'Study the theory and practice of how societies are governed. Explore political institutions, power dynamics, and the nature of a just society under leading academics.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Social Sciences',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -1265,10 +1294,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/124-politics/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/124-politics'
+        'https://study.ed.ac.uk/programmes/undergraduate/124-politics',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS L200, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS L200, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. Checked, no specific subjects required apart from English. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BA (Hons)".
     {
@@ -1300,7 +1330,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Psychology and Business MA (Hons)',
       description:
-        'Study how we perceive, think and learn about the world, combined with preparation for challenges facing contemporary businesses, governments and not-for-profit organisations.',
+        'Study how we perceive, think and learn about the world, combined with preparation for challenges facing contemporary businesses, governments and not-for-profit organisations.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Social Sciences',
       degree: 'Master of Arts (Scottish undergraduate)',
       duration: '4 years',
@@ -1339,10 +1369,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business'
+        'https://study.ed.ac.uk/programmes/undergraduate/116-psychology-and-business',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS CN81, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS CN81, MA (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -1350,7 +1381,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Psychology BSc (Hons)',
       description:
-        'The scientific study of the mind, brain, and behaviour. Focus on building and testing theories to explain how people interact with each other and the world around them using experimental and observational methods.',
+        'The scientific study of the mind, brain, and behaviour. Focus on building and testing theories to explain how people interact with each other and the world around them using experimental and observational methods.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 655 at HL to 37 points with 666 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Social Sciences',
       degree: 'Bachelor of Science',
       duration: '4 years',
@@ -1389,10 +1420,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/370-psychology/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/370-psychology'
+        'https://study.ed.ac.uk/programmes/undergraduate/370-psychology',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS C802, BSc (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS C802, BSc (Hons). IB standard requirements: offers in recent years ranged from 37 points with 666 at HL to 34 points with 655 at HL; the bottom of the range is stored. One of Biology, Chemistry, Computer Science, Environmental Systems and Societies, Geography, Mathematics, Physics, Psychology or Sports, Exercise and Health Science at HL 5 (ESS and SEHS added), and Mathematics (AA or AI) at SL 6 if not at HL, stored as one mixed group with HL 5. Both are required, so now critical. Was 37, the top of the range; the science group and Mathematics SL 6 were not critical. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 34 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BSc (Hons)".
     {
@@ -1427,7 +1459,7 @@ const refresh: RefreshFile = {
       status: 'current',
       name: 'Software Engineering BEng (Hons)',
       description:
-        'The study of software engineering will allow you to write good software and give you the necessary engineering skills to meet system requirements, including: reliability, maintainability, usability, cost-effectiveness.',
+        'The study of software engineering will allow you to write good software and give you the necessary engineering skills to meet system requirements, including: reliability, maintainability, usability, cost-effectiveness.\n\nHow competitive: Edinburgh usually makes offers to the highest-qualified applicants. In recent years most applicants needed from 34 points with 665 at HL to 43 points with 777 at HL to receive an offer, and some years are more competitive than others, so 34 does not guarantee one.',
       field: 'Computer Science',
       degree: 'Bachelor of Engineering',
       duration: '4 years',
@@ -1441,10 +1473,11 @@ const refresh: RefreshFile = {
       sources: [
         'https://study.ed.ac.uk/undergraduate/entry-requirements/international-qualifications/international-baccalaureate',
         'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering/entry-requirements?country=267',
-        'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering'
+        'https://study.ed.ac.uk/programmes/undergraduate/59-software-engineering',
+        'https://study.ed.ac.uk/undergraduate/entry-requirements/understanding/standard'
       ],
       notes:
-        'Year of entry 2027 (start September 2027); UCAS G600, BEng (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL.'
+        'Year of entry 2027 (start September 2027); UCAS G600, BEng (Hons). IB standard requirements: offers in recent years ranged from 43 points with 777 at HL to 34 points with 665 at HL; the bottom of the range is stored. Mathematics (Analysis and approaches only) at HL 6, taken no more than two years before entry. English at SL 5 (ab initio not accepted), not critical because an English language qualification also meets it; English B counts. English B added. The HL profile cannot be held by the model. Widening access minimum (UK residents only): 32 points with 655 at HL. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the programme\'s standard IB range, which Edinburgh explains as "the predicted or achieved grades most applicants needed to receive an offer in recent years" ("We usually make offers to the highest qualified applicants. Some years are more competitive than others"); update it at each refresh.'
     },
     // Stored: not checked for any intake. Degree stored as "BVM&S".
     {
