@@ -7,6 +7,7 @@ import { CountryFlagPolyfill } from '@/components/shared/CountryFlagPolyfill'
 import { NewUiPreviewBar } from '@/components/shared/NewUiPreviewBar'
 import { PublicChrome } from '@/components/site/chrome'
 import { ToastProvider } from '@/components/providers/toast-provider'
+import { brandIcons, organizationLogo, shareImage } from '@/lib/brand/metadata'
 import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
 import { THEME_SCRIPT } from '@/lib/theme'
 import { cn } from '@/lib/utils'
@@ -58,7 +59,8 @@ const newsreaderLatinExt = localFont({
   ]
 })
 
-export const metadata: Metadata = {
+// One copy for both designs. generateMetadata() adds the logo files, which follow the design.
+const sharedMetadata = {
   title: {
     template: '%s | IB Match',
     default: 'IB Match - Find Your Perfect University Program'
@@ -83,22 +85,13 @@ export const metadata: Metadata = {
       'Discover university programs that match your IB profile. Get personalized recommendations based on your subjects, grades, and preferences.',
     type: 'website',
     locale: 'en_US',
-    siteName: 'IB Match',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1024,
-        height: 1024,
-        alt: 'IB Match - Find Your Perfect University Program'
-      }
-    ]
+    siteName: 'IB Match'
   },
   twitter: {
     card: 'summary_large_image',
     title: 'IB Match - Find Your Perfect University Program',
     description:
-      'Discover university programs that match your IB profile. Get personalized recommendations.',
-    images: ['/og-image.png']
+      'Discover university programs that match your IB profile. Get personalized recommendations.'
   },
   robots: {
     index: true,
@@ -110,11 +103,28 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1
     }
-  },
-  icons: {
-    icon: { url: '/favicon.svg', type: 'image/svg+xml' },
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg'
+  }
+} satisfies Metadata
+
+// The icons and the share image follow the design a request gets (rebranding 1.3)
+export async function generateMetadata(): Promise<Metadata> {
+  const newUi = await showsNewUi()
+  const ogImage = shareImage(newUi)
+  return {
+    ...sharedMetadata,
+    openGraph: {
+      ...sharedMetadata.openGraph,
+      images: [
+        {
+          url: ogImage.src,
+          width: ogImage.width,
+          height: ogImage.height,
+          alt: 'IB Match - Find Your Perfect University Program'
+        }
+      ]
+    },
+    twitter: { ...sharedMetadata.twitter, images: [ogImage.src] },
+    icons: brandIcons(newUi)
   }
 }
 
@@ -138,11 +148,9 @@ export default async function RootLayout({
     url: baseUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${baseUrl}/og-image.png`,
-      width: 1024,
-      height: 1024
+      ...organizationLogo(baseUrl, newUi)
     },
-    image: `${baseUrl}/og-image.png`,
+    image: `${baseUrl}${shareImage(newUi).src}`,
     description:
       'University matching platform for International Baccalaureate students. Find programs that match your IB grades, subjects, and preferences.',
     foundingDate: '2025',

@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { SingaporeContent } from './SingaporeContent'
+import { brand, legacyBrand } from '@/lib/brand/config'
+import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
@@ -41,7 +43,9 @@ export const metadata: Metadata = {
   }
 }
 
-export default function StudyInSingaporePage() {
+export default async function StudyInSingaporePage() {
+  // The publisher logo follows the design (rebranding 1.3); the rest of the structured data is shared
+  const publisherLogo = (await showsNewUi()) ? brand.logoSquare.src : legacyBrand.singaporeGuideLogo
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -79,7 +83,7 @@ export default function StudyInSingaporePage() {
       url: baseUrl,
       logo: {
         '@type': 'ImageObject',
-        url: `${baseUrl}/images/logo.png`
+        url: `${baseUrl}${publisherLogo}`
       }
     },
     about: [

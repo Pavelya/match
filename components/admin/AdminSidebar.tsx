@@ -44,6 +44,8 @@ interface AdminSidebarProps {
     avatarColor: string
     initial: string
   }
+  /** The logo's mark, which the layout picks for the design (rebranding 1.3) */
+  mark: React.ReactNode
 }
 
 // Navigation links configuration for admin sidebar
@@ -62,7 +64,7 @@ const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/legal-content', label: 'Legal Content', icon: FileText }
 ]
 
-export function AdminSidebar({ user }: AdminSidebarProps) {
+export function AdminSidebar({ user, mark }: AdminSidebarProps) {
   const pathname = usePathname()
 
   const handleLogout = () => {
@@ -74,14 +76,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
       {/* Logo Section */}
       <div className="flex h-16 items-center gap-3 border-b px-4">
         <Link href="/admin/dashboard" className="flex items-center gap-3">
-          <Image
-            src="/logo-restored.svg"
-            alt="IB Match"
-            width={36}
-            height={36}
-            className="rounded-lg"
-            priority
-          />
+          {mark}
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">IB Match</span>
             <span className="text-xs text-muted-foreground">Admin Panel</span>

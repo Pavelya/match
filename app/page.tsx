@@ -5,6 +5,8 @@ import { HowItWorks } from './landing/students/_components/HowItWorks'
 import { TrustSection } from './landing/students/_components/TrustSection'
 import { CallToAction } from './landing/students/_components/CallToAction'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { organizationLogo } from '@/lib/brand/metadata'
+import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
@@ -49,59 +51,63 @@ export const metadata: Metadata = {
 }
 
 // JSON-LD structured data for SEO and AI search
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      name: 'IB Match',
-      url: baseUrl,
-      description: 'University matching platform for International Baccalaureate students',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${baseUrl}/programs/search?q={search_term_string}`
-        },
-        'query-input': 'required name=search_term_string'
+function jsonLd(logo: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        name: 'IB Match',
+        url: baseUrl,
+        description: 'University matching platform for International Baccalaureate students',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${baseUrl}/programs/search?q={search_term_string}`
+          },
+          'query-input': 'required name=search_term_string'
+        }
+      },
+      {
+        '@type': 'EducationalOrganization',
+        name: 'IB Match',
+        url: baseUrl,
+        logo,
+        description:
+          'Platform connecting IB students with suitable university programs based on their predicted grades, subjects, and preferences',
+        knowsAbout: [
+          'International Baccalaureate',
+          'IB Diploma Programme',
+          'University Admissions',
+          'Higher Level subjects',
+          'Standard Level subjects'
+        ]
+      },
+      {
+        '@type': 'WebPage',
+        '@id': baseUrl,
+        name: 'IB Match - Find Your Perfect University Program',
+        description:
+          'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
+        ...pageDates('/'),
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.hero-description', '.feature-title', '.feature-description']
+        }
       }
-    },
-    {
-      '@type': 'EducationalOrganization',
-      name: 'IB Match',
-      url: baseUrl,
-      logo: `${baseUrl}/og-image.png`,
-      description:
-        'Platform connecting IB students with suitable university programs based on their predicted grades, subjects, and preferences',
-      knowsAbout: [
-        'International Baccalaureate',
-        'IB Diploma Programme',
-        'University Admissions',
-        'Higher Level subjects',
-        'Standard Level subjects'
-      ]
-    },
-    {
-      '@type': 'WebPage',
-      '@id': baseUrl,
-      name: 'IB Match - Find Your Perfect University Program',
-      description:
-        'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
-      ...pageDates('/'),
-      speakable: {
-        '@type': 'SpeakableSpecification',
-        cssSelector: ['h1', '.hero-description', '.feature-title', '.feature-description']
-      }
-    }
-  ]
+    ]
+  }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
+  const logo = organizationLogo(baseUrl, await showsNewUi()).url
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
       />
       <main className="flex min-h-screen flex-col">
         <Hero />

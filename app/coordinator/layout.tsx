@@ -17,6 +17,9 @@ import { CoordinatorSidebar } from '@/components/coordinator/CoordinatorSidebar'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { ReconsentChecker } from '@/components/shared/ReconsentChecker'
+import { BrandMark } from '@/components/brand/BrandMark'
+import { LegacyLogo } from '@/components/brand/LegacyLogo'
+import { showsNewUi } from '@/lib/new-ui'
 
 export default async function CoordinatorLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -122,6 +125,8 @@ export default async function CoordinatorLayout({ children }: { children: React.
           avatarColor,
           initial
         }}
+        // The mark follows the design (rebranding 1.3)
+        mark={(await showsNewUi()) ? <BrandMark size={36} /> : <LegacyLogo size={36} priority />}
       />
       {/* Main content with left margin to account for sidebar */}
       <main className="ml-64 min-h-screen">{children}</main>

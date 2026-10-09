@@ -7,6 +7,8 @@ import { TechStack } from './_components/TechStack'
 import { NoAISection } from './_components/NoAISection'
 import { HowItWorksCTA } from './_components/HowItWorksCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { organizationLogo } from '@/lib/brand/metadata'
+import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 
 // Static generation - page is pre-rendered at build time
@@ -78,62 +80,66 @@ const webPageSchema = {
 
 // TechArticle schema for E-E-A-T signals (Task 5.3)
 // Signals expertise and authority to AI search engines
-const techArticleSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'TechArticle',
-  headline: 'How IB Match Works: Technology Behind University Matching for IB Students',
-  description:
-    'Technical deep dive into IB Match: Algolia-powered search, three-factor compatibility scoring, and transparent matching algorithms for International Baccalaureate students.',
-  url: `${baseUrl}/how-it-works`,
-  ...pageDates('/how-it-works'),
-  author: {
-    '@type': 'Organization',
-    name: 'IB Match',
-    url: baseUrl,
-    logo: `${baseUrl}/og-image.png`,
-    description: 'University matching platform for International Baccalaureate students'
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: 'IB Match',
-    url: baseUrl,
-    logo: `${baseUrl}/og-image.png`
-  },
-  about: [
-    {
-      '@type': 'Thing',
-      name: 'University Matching',
-      description: 'Algorithm and technology for matching students with university programs'
+function techArticleSchema(logo: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: 'How IB Match Works: Technology Behind University Matching for IB Students',
+    description:
+      'Technical deep dive into IB Match: Algolia-powered search, three-factor compatibility scoring, and transparent matching algorithms for International Baccalaureate students.',
+    url: `${baseUrl}/how-it-works`,
+    ...pageDates('/how-it-works'),
+    author: {
+      '@type': 'Organization',
+      name: 'IB Match',
+      url: baseUrl,
+      logo,
+      description: 'University matching platform for International Baccalaureate students'
     },
-    {
-      '@type': 'Thing',
-      name: 'International Baccalaureate',
-      description: 'IB Diploma program requirements and university admission'
+    publisher: {
+      '@type': 'Organization',
+      name: 'IB Match',
+      url: baseUrl,
+      logo
     },
-    {
-      '@type': 'Thing',
-      name: 'Search Technology',
-      description: 'Algolia-powered search and filtering for educational programs'
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'University Matching',
+        description: 'Algorithm and technology for matching students with university programs'
+      },
+      {
+        '@type': 'Thing',
+        name: 'International Baccalaureate',
+        description: 'IB Diploma program requirements and university admission'
+      },
+      {
+        '@type': 'Thing',
+        name: 'Search Technology',
+        description: 'Algolia-powered search and filtering for educational programs'
+      }
+    ],
+    abstract:
+      'IB Match uses fast search technology and transparent scoring to match International Baccalaureate students with university programs. Our platform evaluates compatibility based on IB points, subject requirements, and student preferences without AI black boxes.',
+    articleBody:
+      'IB Match leverages Algolia search to enable instant filtering across university programs. Our three-factor scoring system evaluates: (1) IB Points Compatibility - comparing student scores against program requirements, (2) Subject Match - analyzing HL/SL course alignment, and (3) Preference Alignment - considering student location and field preferences. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.',
+    proficiencyLevel: 'Expert',
+    dependencies: 'Algolia Search, Next.js, PostgreSQL',
+    teaches: [
+      'How university matching algorithms work',
+      'IB requirements evaluation methodology',
+      'Search technology for educational platforms'
+    ],
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', '.section-description', 'article p']
     }
-  ],
-  abstract:
-    'IB Match uses fast search technology and transparent scoring to match International Baccalaureate students with university programs. Our platform evaluates compatibility based on IB points, subject requirements, and student preferences without AI black boxes.',
-  articleBody:
-    'IB Match leverages Algolia search to enable instant filtering across university programs. Our three-factor scoring system evaluates: (1) IB Points Compatibility - comparing student scores against program requirements, (2) Subject Match - analyzing HL/SL course alignment, and (3) Preference Alignment - considering student location and field preferences. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.',
-  proficiencyLevel: 'Expert',
-  dependencies: 'Algolia Search, Next.js, PostgreSQL',
-  teaches: [
-    'How university matching algorithms work',
-    'IB requirements evaluation methodology',
-    'Search technology for educational platforms'
-  ],
-  speakable: {
-    '@type': 'SpeakableSpecification',
-    cssSelector: ['h1', 'h2', '.section-description', 'article p']
   }
 }
 
-export default function HowItWorksPage() {
+export default async function HowItWorksPage() {
+  // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
+  const logo = organizationLogo(baseUrl, await showsNewUi()).url
   return (
     <>
       {/* WebPage schema */}
@@ -144,7 +150,7 @@ export default function HowItWorksPage() {
       {/* TechArticle schema for E-E-A-T */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema(logo)) }}
       />
       <main className="flex min-h-screen flex-col">
         <HowItWorksHero />

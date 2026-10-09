@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { StudentHeader } from '@/components/layout/StudentHeader'
+import { LegacyLogo } from '@/components/brand/LegacyLogo'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { auth } from '@/lib/auth/config'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
@@ -211,6 +212,7 @@ export default async function PrivacyPolicyPage() {
     <>
       {!newUi && (
         <StudentHeader
+          logo={<LegacyLogo size={48} priority />}
           isLoggedIn={isLoggedIn}
           user={
             session

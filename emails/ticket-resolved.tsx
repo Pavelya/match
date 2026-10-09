@@ -14,12 +14,13 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Link,
   Preview,
   Section,
   Text
 } from '@react-email/components'
+import { EmailHeader } from '@/components/email/EmailHeader'
+import { emailBrand } from '@/lib/brand/email'
 import { TicketCategory } from '@prisma/client'
 
 interface TicketResolvedEmailProps {
@@ -30,8 +31,8 @@ interface TicketResolvedEmailProps {
   userName?: string
 }
 
-// App's primary blue color (from globals.css)
-const PRIMARY_COLOR = '#3573E5'
+// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
+const PRIMARY_COLOR = emailBrand().color
 
 // Map category enum to human-readable labels
 const categoryLabels: Record<TicketCategory, string> = {
@@ -59,15 +60,7 @@ export default function TicketResolvedEmail({
       <Preview>Your support ticket {ticketNumber} has been resolved - IB Match</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Section style={logoContainer}>
-            <Img
-              src={`${baseUrl}/logo-email.png`}
-              width="60"
-              height="60"
-              alt="IB Match"
-              style={logo}
-            />
-          </Section>
+          <EmailHeader baseUrl={baseUrl} />
           <Heading style={h1}>Your Request Has Been Resolved</Heading>
 
           <Text style={text}>Hello{userName ? ` ${userName}` : ''},</Text>
@@ -139,15 +132,6 @@ const container = {
   padding: '40px 48px',
   maxWidth: '560px',
   borderRadius: '8px'
-}
-
-const logoContainer = {
-  textAlign: 'center' as const,
-  marginBottom: '24px'
-}
-
-const logo = {
-  display: 'inline-block'
 }
 
 const h1 = {

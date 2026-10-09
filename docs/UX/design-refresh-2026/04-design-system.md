@@ -165,7 +165,7 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `TabBar` (phone) | `MobileBottomNav` | Matches · Explore · Shortlist · Academic (9 October 2026). Matches uses Lucide's `ListChecks`, not a heart and not the logo's mark, so the bar doesn't change with the logo; Academic uses `GraduationCap`. The current tab gets a brand-soft pill behind its icon. No count on Shortlist. Hidden during first-run onboarding (focus mode). **Hides on scroll down and shows on scroll up, as `MobileBottomNav` does today** (owner, 9 October 2026, replacing this file's earlier "no hide-on-scroll"): a 240ms `transform` slide, a fade with reduced motion, and its links stay focusable while hidden. Canvas: "D2.14 Phone tab bar". |
 | Academic page and Settings | `/student/settings` page, "Academic" tab | Split on 9 October 2026 (`REBRANDING_tasks.md` 3.3). Academic, at `/student/onboarding`: predicted total and edit, interests, countries. Settings, from the account menu: account (name, school), your data (download, delete). Appearance and sign out sit in the account menu. Keeps every Settings feature. |
 | `ChoiceList` (rows with checkbox) and `ChoiceGrid` (two-column checkboxes with filter) | `FieldSelector`, `LocationSelector` (tall `Card` divs) | Real `<input type="checkbox">` in a `<fieldset>`, so they are keyboard-operable for free. About 56px rows and 48px tiles; sticky footer with count and Continue. Every field gets its own icon (Education and Media currently share one). |
-| `BrandMark` and `BrandLogo` | `logo-restored.svg`, `favicon.svg`, `logo-email.png` and 29 hard-coded references | Render whatever `lib/brand/config.ts` points to (§8): the mark as an `<img>`, the name as text. Lens, provisionally (7 October 2026), drawn at every size on "D1.5 Logo: Lens" and approved 9 October 2026: one mark in both themes, outlined paths, a favicon drawing for 16 and 32px, and the Apple touch icon, email PNG and share image made from it. |
+| `BrandMark` and `SiteLogo` (the lockup) | `logo-restored.svg`, `favicon.svg`, `logo-email.png` and 29 hard-coded references | Render whatever `lib/brand/config.ts` points to (§8): the mark as an `<img>`, the name as text. Lens, provisionally (7 October 2026), drawn at every size on "D1.5 Logo: Lens" and approved 9 October 2026: one mark in both themes, outlined paths, a favicon drawing for 16 and 32px, and the Apple touch icon, email PNG and share image made from it. |
 | `ThemeSwitch` and `AccountMenu` | none (the avatar links straight to Settings) | System, Light, Dark as a radio group, in the account menu behind the avatar on desktop and phone, and in every footer (§10). The menu is a disclosure, not an ARIA menu: Settings, FAQs, Contact, Appearance, Sign out (canvas "D1.4 Account menu"). |
 | `RequirementChip`, `MatchStatusBadge`, `WhyThisMatch` | tile grids and the colour logic in `ProgramCard`, the unused `MatchBreakdown` | One chip per requirement with its own status; a badge derived from them; one disclosure for desktop and phone (§9). |
 | `Button`, `Input`, `Select` | `components/ui/button.tsx`, `input.tsx`, `select.tsx` | New files in `components/ds/` (1.2); `components/ui/` stays for today's screens until cleanup. Heights 36 / 44 / 52, one radius. Select is the native element; the subject list is `SubjectPicker`. |
@@ -240,16 +240,19 @@ export const brand = {
   faviconPng: '/brand/favicon-32.png', // for browsers without SVG icons
   appleTouchIcon: '/brand/apple-touch-icon.png', // 180×180, opaque, square corners
   emailLogo: '/brand/logo-email.png', // 80×80, shown at 40px: many email clients block SVG
-  logoSquare: '/brand/logo-512.png', // 512×512, the JSON-LD Organization logo
-  ogImage: '/brand/og-image.png', // 1200×630
-  colors: { brand: '#2B3FD6', highlight: '#D5F36B' } // emails and the web manifest
+  logoSquare: { src: '/brand/logo-512.png', width: 512, height: 512 }, // the JSON-LD Organization logo
+  ogImage: { src: '/brand/og-image.png', width: 1200, height: 630 },
+  colors: { brand: '#2B3FD6', highlight: '#D5F36B' }
 } as const
 ```
+
+Until cleanup (R.2), the same module holds `legacyBrand`: today's files, which every page keeps
+without the preview and every email keeps until release day. Built in task 1.3, 9 October 2026.
 
 The files and their sizes were approved on the canvas board "D1.5 Logo: Lens" (9 October 2026), the
 share image on "D1.5 Share image".
 
-- `BrandMark` and `BrandLogo` read it and render the mark as an `<img>`, with `brand.name` beside it
+- `BrandMark` and `SiteLogo` read it and render the mark as an `<img>`, with `brand.name` beside it
   as text in Geist 650, so the name follows the theme and Windows contrast themes. **One mark serves
   both themes** (owner, 9 October 2026): the lens keeps 6.1:1 on the #2B3FD6 square, against 2.0:1 on
   the lighter #8E9BFF one. So there is no `<picture>`, whose dark source would follow the OS rather

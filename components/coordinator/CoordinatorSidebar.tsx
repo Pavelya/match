@@ -75,9 +75,11 @@ export interface CoordinatorSidebarProps {
     avatarColor: string
     initial: string
   }
+  /** The logo's mark, which the layout picks for the design (rebranding 1.3) */
+  mark: React.ReactNode
 }
 
-export function CoordinatorSidebar({ school, user }: CoordinatorSidebarProps) {
+export function CoordinatorSidebar({ school, user, mark }: CoordinatorSidebarProps) {
   const pathname = usePathname()
   const isVIP = school.subscriptionTier === 'VIP'
   const hasFullAccess = school.hasFullAccess
@@ -91,14 +93,7 @@ export function CoordinatorSidebar({ school, user }: CoordinatorSidebarProps) {
       {/* Logo Section */}
       <div className="flex h-16 items-center gap-3 border-b px-4">
         <Link href="/coordinator/dashboard" className="flex items-center gap-3">
-          <Image
-            src="/logo-restored.svg"
-            alt="IB Match"
-            width={36}
-            height={36}
-            className="rounded-lg"
-            priority
-          />
+          {mark}
           <div className="flex flex-col">
             <span className="text-sm font-semibold text-foreground">IB Match</span>
             <span className="text-xs text-muted-foreground">Coordinator</span>

@@ -9,7 +9,7 @@
 
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
+import { AuthLogo } from '@/components/brand/AuthLogo'
 import { prisma } from '@/lib/prisma'
 import { AcceptStudentInviteForm } from './AcceptStudentInviteForm'
 
@@ -19,6 +19,8 @@ interface PageProps {
 
 export default async function AcceptStudentInvitePage({ params }: PageProps) {
   const { token } = await params
+  // The logo follows the design (rebranding 1.3)
+  const logo = <AuthLogo legacySize={48} />
 
   // Validate token
   const invitation = await prisma.invitation.findUnique({
@@ -46,15 +48,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
           <div className="rounded-xl border bg-card p-8">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/logo-restored.svg"
-                alt="IB Match"
-                width={48}
-                height={48}
-                className="rounded-lg"
-              />
-            </div>
+            <div className="flex justify-center mb-6">{logo}</div>
             <h1 className="text-2xl font-bold text-foreground mb-4">Invalid Invitation</h1>
             <p className="text-muted-foreground mb-6">
               This invitation link is invalid or has already been used.
@@ -74,15 +68,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
           <div className="rounded-xl border bg-card p-8">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/logo-restored.svg"
-                alt="IB Match"
-                width={48}
-                height={48}
-                className="rounded-lg"
-              />
-            </div>
+            <div className="flex justify-center mb-6">{logo}</div>
             <h1 className="text-2xl font-bold text-foreground mb-4">Invitation Expired</h1>
             <p className="text-muted-foreground mb-6">
               This invitation has expired. Please contact your coordinator for a new invitation.
@@ -102,15 +88,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
           <div className="rounded-xl border bg-card p-8">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/logo-restored.svg"
-                alt="IB Match"
-                width={48}
-                height={48}
-                className="rounded-lg"
-              />
-            </div>
+            <div className="flex justify-center mb-6">{logo}</div>
             <h1 className="text-2xl font-bold text-foreground mb-4">Already Accepted</h1>
             <p className="text-muted-foreground mb-6">
               This invitation has already been accepted. You can sign in to your account.
@@ -138,15 +116,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
           <div className="rounded-xl border bg-card p-8">
-            <div className="flex justify-center mb-6">
-              <Image
-                src="/logo-restored.svg"
-                alt="IB Match"
-                width={48}
-                height={48}
-                className="rounded-lg"
-              />
-            </div>
+            <div className="flex justify-center mb-6">{logo}</div>
             <h1 className="text-2xl font-bold text-foreground mb-4">Invalid Invitation Type</h1>
             <p className="text-muted-foreground mb-6">
               This is not a student invitation. Please use the correct invitation link.
@@ -175,6 +145,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
               countryFlag: invitation.school!.country.flagEmoji
             }}
             coordinatorName={invitation.invitedBy.name}
+            logo={logo}
           />
         </div>
       </div>

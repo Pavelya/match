@@ -245,7 +245,7 @@ merges into `main`, behind the preview switch.**
 | 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | **Done 9 October 2026.** Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
 | 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
-| 4 | Logo | 1.3 | D1.5 | small | Lens, provisionally. The final mark and the clearance search are needed before release day, not before this task |
+| 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
 | 5 | Match data | 2.1 | None | small | Requirement-based statuses (decided 7 October 2026) |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | Replaces `ProgramCard` |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | |
@@ -273,7 +273,7 @@ Rows 3 and 4 can share a design session.
 | 1 | `/design D1.2`: type on a phone | D1.2. D1.1, D1.3 and D1.4 were approved on 8 October 2026 | `/build 1`: tokens, type and theme (1.1, 1.4) | Done 8 October 2026 |
 | 2 | `/design D2.1–D2.5, D2.7, D2.8`: button, input, subject picker, segmented control, chips, status badge, card and skeleton | Those seven boards | `/build 2`: primitives (1.2) | Done 9 October 2026 |
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
-| 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Boards approved 9 October 2026; the build is next |
+| 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Any time: no design needed |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
@@ -315,7 +315,7 @@ Phase 1 — Foundations
 
 - [x] 1.1 Tokens and type (8 October 2026)
 - [x] 1.2 Primitives (9 October 2026)
-- [ ] 1.3 Brand configuration and the new logo
+- [x] 1.3 Brand configuration and the new logo (9 October 2026)
 - [x] 1.4 Theme switching: System, Light, Dark (8 October 2026)
 - [x] 1.5 Site chrome on every student-facing page (9 October 2026)
 
@@ -610,6 +610,43 @@ and nothing else hard-codes a logo.
   takes `brand.colors.brand`, #2B3FD6 (white on it 7.5:1; today's #3573E5 is 4.4:1). Nothing else in
   the emails changes.
 - Changing the logo later means replacing files and, at most, editing the config. No component changes.
+
+**Done 9 October 2026.**
+
+- `lib/brand/config.ts` names every file: `brand` for the new design, and `legacyBrand` for today's
+  files, which every page and email keeps until release and which go at cleanup (R.2). No logo path
+  is written anywhere else. `lib/brand/metadata.ts` gives the icons, the share image and the JSON-LD
+  logo for a design, and `lib/brand/email.ts` the emails' logo and colour, read from
+  `NEW_UI_FOR_EVERYONE` alone. Vitest covers both, and checks that each file in `public/brand/` has
+  its size, that the touch icon is opaque and that the SVGs have no `<text>`.
+- **Components.** `BrandMark` (`components/brand/`) is the mark as an `<img>`. `SiteLogo` draws the
+  lockup with it and `brand.name`, so the header and footer show the same #2B3FD6 mark in dark.
+  `AuthLogo` gives the sign-in and invitation cards the lockup, or today's logo, from the server;
+  `LegacyLogo` is today's. The root layout's `metadata` became `generateMetadata()`, which adds only
+  the icons and the share image to one shared copy.
+- **The client pages take their logo from the server**, so no client chunk carries the config or
+  both logos: the two sign-in pages moved into `SignIn.tsx` and `CoordinatorSignIn.tsx` behind a
+  small server `page.tsx`, and the student invitation form, the coordinator and admin sidebars and
+  today's `StudentHeader` take a `logo` or `mark` prop.
+- **Hidden until release, measured.** `npm run build` lists every route as before, revalidate times
+  included. Without the preview, the HTML of `/`, a guide, FAQs, both sign-in pages, an invitation and
+  Privacy is unchanged, and so is the gzipped JS and CSS they load. All seven emails render
+  byte-identical with the flag off. The SEO snapshot differs only in the logo URLs.
+
+Departures and findings:
+
+- **The emails' whole brand colour changes, not only the button.** Links and the support tickets'
+  accent use the same constant, and leaving them #3573E5 would put the second blue the board rules
+  out beside the new button. The header sits 32px above the heading, as drawn.
+- **Sign-in and invitation cards show the lockup**, not the bare mark, since today's logo carries the
+  name in its image. The coordinator and admin sidebars swap only the mark, at today's 36px, because
+  the name is already text beside it.
+- **The Singapore guide's JSON-LD names `/images/logo.png`, which has never existed.** Kept for
+  today's page, which stays unchanged; the new design names `logo-512.png`.
+- **Pages that set their own `openGraph` have no share image.** `/`, FAQs, How it works and all 23
+  guides replace the root `openGraph` without `images`, so a link to the home page shows no picture
+  today, in either design. Fixing it changes their metadata, so it is a separate pull request.
+- `components/layout/AdminHeader.tsx` is never rendered; it reads `legacyBrand` like the rest.
 
 ### 1.4 — Theme switching: System, Light, Dark
 
