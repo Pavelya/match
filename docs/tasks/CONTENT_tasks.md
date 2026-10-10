@@ -353,7 +353,10 @@ not precision.
   points requirement, and cards and pages say "No IB minimum · holistic admission"
   (`lib/programs/ib-minimum.ts`). Store subject rows only for what the university calls required;
   "encouraged", "recommended" and "expected" go in the description. The "How competitive"
-  paragraph uses the Common Data Set admit rate (C1), the international one where reported.
+  paragraph uses the Common Data Set admit rate (C1), the international one where reported. The same
+  figures go in `University.admitRate`, `internationalAdmitRate` and `admitRateYear`, from a data file,
+  with `scripts/programs/set-admit-rates.ts`; the new match card shows them (rebranding D2.7, D3.1).
+  Matching never reads them.
 - **Subject requirements:** one row per required subject. Alternatives share an
   `orGroupId`. "Mathematics" with no course named means `MATH-AA` or `MATH-AI` in one OR
   group; a named course means only that course.
@@ -3068,6 +3071,23 @@ The owner chose all eight recommendations on 10 October 2026, adding Arizona Sta
     university page shows "No IB minimum". The USA page has the medicine-and-law FAQ and no "38–45". The MS page
     returns 404. `/ib-university-requirements` was prerendered before the apply and still showed "38–38": it
     refreshes on its revalidation timer.
+- **Admit rates for the match card** (owner, 10 October 2026). With no minimum, points play no part for US programs, and only
+  required subjects, country and field order them, so MIT (4.6% admitted) and Arizona State (88.4%) look alike on a card. The owner
+  approved storing each university's admit rate for the new card, with matching unchanged.
+  - **Schema.** `University.admitRate` and `internationalAdmitRate` (percent, one decimal) and `admitRateYear` (the fall intake),
+    nullable, through `20261010120000_add_university_admit_rate` (three `ADD COLUMN`s, the whole `migrate diff`), applied with
+    `migrate deploy` on 10 October 2026; `migrate status` is up to date.
+  - **Data.** `scripts/programs/2027/admit-rates-us.ts` holds each university's Common Data Set counts (Harvard: its Fact Book), and
+    `scripts/programs/set-admit-rates.ts` (dry run, `--apply`; pure half `lib/admit-rates.ts`, Vitest-tested) writes those three
+    columns and nothing else. Georgia Tech is written (13.3%, international 7.3%, fall 2025). The other 11 are listed as not stored
+    yet; Part B2's apply runs the script again for them.
+  - **Matching unchanged.** No file under `lib/`, `app/` or `components/` changed. A fingerprint of 52,488 synthetic results (every
+    score, status, chip and V10 field, for programs with and without a minimum) is byte-identical before and after, and
+    `run-all-tests.ts` passes unchanged.
+  - **The card waits for design.** Nothing is coded before its board is approved, and the new match card is rebranding build 6–7.
+    `REBRANDING_tasks.md` now asks D2.7 to draw both US chips (the no-minimum chip was added to §9 after D2.7's approval) and D3.1
+    the admit rate on a card; D3.3, D3.4, D3.7, D4.8 and D4.13 to draw a no-minimum state; and 2.2 to pass the admit rate through.
+    The current `ProgramCard` is not changed: 2.2 deletes it.
 - **Next, Part B2:** the 11 universities with `add-universities.ts`, about 15–30 majors each, under the same model.
 
 #### Status, 10 October 2026 — Part B2 built (session 26); the apply waits for the owner

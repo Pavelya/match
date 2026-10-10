@@ -185,7 +185,7 @@ theme switch are in D1.4.
 | D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.5 Chips | "D2.5 Chips" (row 7): filter, on/off and removable chips with "Clear all", in every state. No flags on country chips (owner, 8 October 2026); SVG flags in the country picker (D4.4) only if ever wanted | Nothing | 9 October 2026 |
 | D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
-| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026) | Nothing | 9 October 2026 |
+| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026) | **Two chips added after approval, for programs with no IB minimum** (`CONTENT_tasks.md` 6, US, 10 October 2026): "• No IB minimum · holistic admission", already in §9 and `deriveMatchStatus`, and a proposed admit-rate version, "• No IB minimum · admits 4.6%", from `University.admitRate`. Draw both, light and dark, for the owner's review before build 6–7 | 9 October 2026, except the two US chips |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
@@ -199,13 +199,13 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page. **Short course names** ("Maths AA", owner, 9 October 2026): the list in `lib/ib/course-names.ts` (2.1); the board confirms or changes it | |
+| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page. **Short course names** ("Maths AA", owner, 9 October 2026): the list in `lib/ib/course-names.ts` (2.1); the board confirms or changes it. **A US program** (`CONTENT_tasks.md` 6, 10 October 2026): no points chip, the no-minimum chip with its admit rate, and two cards for the same student, MIT (4.6%) and Arizona State (88.4%), to show the admit rate is what tells them apart: their status and score are the same | |
 | D3.2 Why this match | Open on "Match card: every state" (desktop) and on "Phone · Why this match, opened" | Dark | |
-| D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone | |
-| D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade | |
+| D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone. A program with no IB minimum (US, `CONTENT_tasks.md` 6): what the large, aligned points column shows instead of a number | |
+| D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade; a program with no IB minimum (US): the points line says so, with the admit rate | |
 | D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
-| D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px | |
+| D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px; a US program (no IB minimum, its admit rate) in the minimum-points row | |
 
 ### Screens and flows
 
@@ -218,12 +218,12 @@ theme switch are in D1.4.
 | D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
 | D4.6 Matches | Desktop (interactive, dark switch), phone, phone "Why this match" | Phone dark; loading; no matches; profile incomplete (`03-flows.md` F6); a failed load | |
 | D4.7 Explore | Desktop (dark switch), phone, phone filters sheet | Signed out; no results; loading the next 20; phone dark | |
-| D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found | |
+| D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found; a US program with no IB minimum, its admit rate and its "How competitive" paragraph | |
 | D4.9 University page | None | **No board.** Phone and desktop | |
 | D4.10 Shortlist | Desktop compare (dark switch) | Desktop list view; phone list and compare; an empty shortlist | |
 | D4.11 Academic profile and settings | Desktop "Academic profile", Subjects and grades tab only (dark switch); "Phone · Profile tab" | The split decided on 9 October 2026 (3.3): the Academic page (subjects and grades, interests, countries) and Settings (account, your data); the desktop Interests, Countries and Account content; unsaved changes; a failed save; delete account; phone dark | |
 | D4.12 Country guide template | None | **No board.** Phone and desktop, drawn from one guide's real content | |
-| D4.13 Requirements hub | None | **No board.** `/ib-university-requirements` | |
+| D4.13 Requirements hub | None | **No board.** `/ib-university-requirements`, including a country whose programs set no IB minimum (the USA) | |
 | D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
 | D4.15 404 and error pages | None | **No board** | |
 | D4.16 School invitation | None | **No board.** Same flow, new look (`03-flows.md`) | |
@@ -275,7 +275,7 @@ Rows 3 and 4 can share a design session.
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
-| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards | `/build 6–7`: match card and results (2.2) | |
+| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
@@ -842,6 +842,10 @@ state", "Matches" and "Phone · Why this match, opened".
   Logged out, Save leads to sign-in (a same-origin `callbackUrl` to the program with `?save=1`) and
   saves the program on return. Today it shows "Saved" and stores nothing (audit 4.1).
 - No "Refresh Recommendations" button (audit 4.4).
+- **Programs with no IB minimum** (US, `CONTENT_tasks.md` 6): no points chip, the no-minimum chip and the university's admit rate
+  (`University.admitRate`, `internationalAdmitRate`, `admitRateYear`), as approved on D2.7 and D3.1. The matches API and the
+  programs cache do not carry the admit rate yet; add it there. Display only: matching never reads it, and the 2.1 fingerprint
+  must stay byte-identical.
 - Delete `ProgramCard.tsx` when nothing imports it.
 
 ### 2.3 — Explore: toolbar, phone filter sheet, rows

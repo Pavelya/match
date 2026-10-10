@@ -280,6 +280,14 @@ model University {
   email       String?
   phone       String?
 
+  // How selective admission is, for universities that set no IB minimum (US, content 6): the
+  // share of first-year applicants admitted, in percent with one decimal, for the fall intake of
+  // admitRateYear, from the Common Data Set (C1). internationalAdmitRate where the university
+  // reports it. Display only: matching never reads these. Set by scripts/programs/set-admit-rates.ts.
+  admitRate              Float?
+  internationalAdmitRate Float?
+  admitRateYear          Int?
+
   programs AcademicProgram[]
   agents   UniversityAgentProfile[]
 
