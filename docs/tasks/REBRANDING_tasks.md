@@ -213,7 +213,7 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner once the owner decides | |
+| D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner, which stays (owner, 10 October 2026) | |
 | D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
 | D4.3 First run, step 1: interests | Phone, light | Desktop, dark | |
 | D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
@@ -284,7 +284,7 @@ Rows 3 and 4 can share a design session.
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
-| 14 | `/design D4.1`: Home on a phone | First decide whether the cookie banner stays (owner decisions), then the Home board | `/build 14`: Home (4.1) | |
+| 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
@@ -357,7 +357,7 @@ Owner decisions — not AI work
 - [x] Set the preview key in Vercel and bookmark the link (S2, 8 October 2026)
 - [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
-- [ ] Decide whether the cookie banner stays (`MAINT_tasks.md`, owner tasks). Affects 4.1
+- [x] Decide whether the cookie banner stays: **it stays** (10 October 2026; `MAINT_tasks.md`, owner tasks). Affects 4.1
 - [ ] Before release day, make sure Google Search Console covers the site (the January 2026 SEO plan
   left this open), and note a baseline: indexed pages, clicks and the top pages for the last three
   months. R.1 and R.2 compare against it
@@ -1009,7 +1009,7 @@ call to action, and the footer.
 **Design gate:** D4.1, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:** stays static. The hero image is replaced by markup, so no 575 KB PNG source. The copy
-fits the sign-in-first flow. The cookie banner follows the owner's decision.
+fits the sign-in-first flow. The cookie banner stays (owner, 10 October 2026), in the new design.
 
 ### 4.2 — Country guides on one template
 
