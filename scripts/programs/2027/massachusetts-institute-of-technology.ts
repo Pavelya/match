@@ -165,7 +165,7 @@ const refresh: RefreshFile = {
         'https://catalog.mit.edu/schools/engineering/nuclear-science-engineering/',
         ...SOURCES
       ],
-      notes: NOTES
+      notes: `${NOTES} Field: Engineering, kept at the owner's request (10 October 2026). The fields-of-study rule files it under Natural Sciences because "Science" is named first, but it is an engineering degree in the School of Engineering. Its KEPT entry (lib/programs/fields-of-study.ts) is added at the apply, when it has an id.`
     },
     {
       status: 'new',

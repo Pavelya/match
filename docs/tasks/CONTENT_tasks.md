@@ -202,8 +202,9 @@ Owner tasks — not AI work
   The German model is still open
 - [ ] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
   subject rows (status, phase 6). Then add their images in `/admin/universities`
-- [ ] Keep MIT's Nuclear Science and Engineering (Course 22) in Engineering, as a `KEPT` exception to the fields-of-study rule, or file it
-  under Natural Sciences as the rule does (6, Part B2)
+- [x] Keep MIT's Nuclear Science and Engineering (Course 22) in Engineering, as a `KEPT` exception to the fields-of-study rule, or file it
+  under Natural Sciences as the rule does (6, Part B2). **Owner, 10 October 2026: keep it in Engineering.** Its `KEPT` entry is added at
+  the apply, when the program has an id
 - [ ] Re-check the 107 US programs 6 stamped 2026 (MIT, Harvard, Stanford, Purdue, Arizona State) when their admissions pages name the fall
   2027 intake
 - [x] Approve 6 Part B1's Georgia Tech dry run: 44 programs lose the 38 and the two unsourced subject rows, become
@@ -3104,7 +3105,8 @@ one programs file per university, each with a header saying how it admits and wh
   Health, 11 Media, 10 Architecture, 9 Environmental Studies, 8 Arts & Humanities. The rule's warnings were followed (Stanford's
   Management Science and Engineering to Business & Economics, its Earth Systems to Natural Sciences, BU's Film and Television to Arts &
   Humanities) except one, for the owner: MIT's **Nuclear Science and Engineering (Course 22)** is an engineering degree that the rule
-  files under Natural Sciences ("Science" is named first); it is kept in Engineering, for `KEPT` at the apply.
+  files under Natural Sciences ("Science" is named first); it stays in Engineering (owner, 10 October 2026), and its `KEPT` entry is
+  added at the apply.
 - **Campus cities.** ASU's Nursing and Journalism are taught at the Downtown Phoenix campus, so their campus city is Phoenix.
 - **Links.** All 240 distinct program links answered, except two bot walls, which serve the pages to browsers: Harvard's FAS
   department sites (403, a bot check) and every umich.edu site. Michigan was read from Internet Archive copies of 14 April to
