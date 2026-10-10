@@ -940,7 +940,9 @@ phone" (row 11).
 **Found on the boards, not changed by 2.2:** 16 requirement rows in 10 programs store grade 1, so a
 card says "Maths AA SL 1" (Boston University, Business Administration); and one course can satisfy two
 requirement groups (152 cases in 53 programs), so Manchester's MBChB card shows "Biology HL 6 · you 5"
-twice.
+twice. The second is a matching fault, not just a display one: such programs can show "Meets all
+requirements" to a student with only one of the two subjects they need. Tracked as
+`MAINT_tasks.md` 5.18; 2.2 shows what the matcher returns.
 
 ### 2.3 — Explore: toolbar, phone filter sheet, rows
 
