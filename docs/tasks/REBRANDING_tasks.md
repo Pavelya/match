@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 10 October 2026.** The canvas has 46 boards. The owner approved in chat "B ·
+**Where it stands, 10 October 2026.** The canvas has 50 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -162,7 +162,9 @@ and a third D1.4 change, "D1.4 Account menu". Then the two row 9 boards, "D1.5 L
 "D1.5 Share image", with one mark in both themes (D1.5). On 10 October the owner approved the five
 row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3.1 Match card ·
 phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
-minimum". Fifteen tasks need a screen size or states added. Ten have no board.
+minimum". Later that day, the four row 11 boards, again with every recommendation: "D2.9 Toast",
+"D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches · phone". Build 6–7's gate is
+complete. Fourteen tasks need a screen size or states added. Eight have no board.
 
 ### Foundations
 
@@ -189,9 +191,9 @@ theme switch are in D1.4.
 | D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
 | D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none | Nothing | 9 October 2026; the two US chips 10 October 2026 |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
-| D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
+| D2.9 Toast | "D2.9 Toast" (row 11): every message (Saved, Removed with Undo, a failed save or removal, the save made after signing in), the action and close states, placement on desktop and phone, the longest name, forced colours, light and dark. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
-| D2.11 Empty and error states | None | **No board.** One layout for no matches, no results, an empty shortlist and a failed load | |
+| D2.11 Empty and error states | "D2.11 Empty and error states" (row 11): one panel for no matches, no results, an empty shortlist, a failed load ("Trying again…", failed again) and the profile call to action with its steps, desktop and phone, light and dark, with real copy. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D2.12 Header | "D2.12 Header" (row 8): desktop signed in and signed out, 768 to 1023px, the phone header signed out (Sign in, Menu) and signed in (Guides, the avatar and its panel), a student editing their profile, focus mode, every state, light and dark. **Decided 9 October 2026 (owner):** prebuilt public pages show the signed-out header to everyone, and "Sign in" goes to `/student`; no search box in the header; Guides in the phone header; "Save and exit" saves the step, then goes to Home; Academic is the fourth place, in the nav and on the tab bar; Menu signed out and the avatar signed in, never both | Nothing | 9 October 2026 |
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
 | D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
@@ -218,7 +220,7 @@ theme switch are in D1.4.
 | D4.3 First run, step 1: interests | Phone, light | Desktop, dark | |
 | D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
 | D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
-| D4.6 Matches | Desktop (interactive, dark switch), phone, phone "Why this match" | Phone dark; loading; no matches; profile incomplete (`03-flows.md` F6); a failed load | |
+| D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
 | D4.7 Explore | Desktop (dark switch), phone, phone filters sheet | Signed out; no results; loading the next 20; phone dark | |
 | D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found; a US program with no IB minimum, its admit rate and its "How competitive" paragraph | |
 | D4.9 University page | None | **No board.** Phone and desktop | |
@@ -277,7 +279,7 @@ Rows 3 and 4 can share a design session.
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
-| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) || D3.1, D3.2, D3.4 and D2.7's US chips approved 10 October 2026; D2.9, D2.11 and D4.6 next |
+| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | All six boards and D2.7's US chips approved 10 October 2026; build next |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
@@ -826,7 +828,8 @@ Departures from the boards, each small:
 **Outcome:** `ProgramCard` (1,278 lines, three jobs) is replaced by MatchCard, ResultRow and
 RequirementChecklist. The matches page groups by status. See the canvas boards "D3.1 Match card",
 "D3.1 Match card · phone", "D3.2 Why this match", "D3.4 Requirement checklist" and "D2.7 Chip · no IB
-minimum" (row 10), and "Matches".
+minimum" (row 10), and "D2.9 Toast", "D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches ·
+phone" (row 11).
 
 **Design gate:** D2.9, D2.11, D3.1, D3.2, D3.4 and D4.6, approved ([Step 2](#step-2--design-first)).
 
@@ -836,8 +839,13 @@ minimum" (row 10), and "Matches".
 - **"Why this match"** opens in place on desktop and phone: needed against actual values, what would
   close the gap, field and country, and the fit score with its weighted parts. Reuse the logic in
   `components/student/MatchBreakdown.tsx`, then delete that file.
-- **Status groups** on the matches page, the third collapsed. It shows every match `MAINT_tasks.md`
-  5.12 returns, with no "top 10" copy.
+- **Status groups** on the matches page, the third collapsed, **grouped before any cap** (D4.6). Today
+  the route keeps the best 50 by score (`MAX_MATCHES_RETURNED`, `MAINT_tasks.md` 5.12) and only then
+  could the page group them. For the D4.6 student that is 50 of 139 "Meets all" programs, all at 100%,
+  and none of the 21 within reach or the 11 missing a requirement; 77 of 142 profiles have more than
+  50 matches. Every match reaches the page, with true group counts and no "top 10" or "best 50" copy.
+  Slim what each match sends (a card needs a fraction of today's 3.3 KB) and decide whether "Why this
+  match" loads with the list or on opening; the response stays small on the wire.
 - **Either/or requirements** show each option's own level and grade. This is the display half of
   `MAINT_tasks.md` 5.7, which shipped to `main` first (prep P6). Reuse its helper here:
   `groupRequirements` in `lib/programs/requirement-groups.ts`.
@@ -877,6 +885,64 @@ minimum" (row 10), and "Matches".
   because a required subject is one grade short"), "It isn't a chance of admission", and a link to
   the program page. A US program's points row says "No minimum" and gives the admit rate, the
   international one too where reported, with the year.
+
+**Decided on the boards (owner, 10 October 2026, row 11), every recommendation approved:**
+- **Five per group, then "Show 20 more"** (D4.6). Each open group shows its first five cards, then a
+  secondary button ("Show 20 more", or the remainder: "Show 16 more") beside "Showing 5 of 139". It
+  moves focus to the first new card's title. On a phone the button is full width.
+- **Order inside a group** (D4.6). Score first, then the minimum closest to the student's total, then
+  programs with no IB minimum, then university and program A–Z. 139 programs tie at 100% for the D4.6
+  student, so "Best fit" needs the second key; the list opens with LSE and UCL at 38/38, then Trinity
+  and UBC at 37. "Lowest points needed" and "Country" put no minimum last too. Scores don't change.
+  The sort is D2.3's native select: Best fit, Lowest points needed, Country.
+- **Three jump links, no filter tabs** (D4.6). Under the summary sentence: "139 meet all
+  requirements", "21 within reach", "11 missing a requirement", each with its status icon, linking to
+  its group heading. On a phone, a panel of three 48px rows (group, count, arrow). A group with no
+  programs is left out, with its link; with one group there are no links.
+- **Groups** (D4.6). Each heading is an h2 with the status icon in a 28px circle and one line under it.
+  "Missing a requirement" is a bar holding a button with aria-expanded, collapsed unless it is the only
+  group. The summary reads "171 programs in your fields and countries, grouped by how close you are"
+  (phone: "in your 2 fields and 5 countries"). The list ends: "That's every program in your fields and
+  countries near your total. Explore has every program, each with your fit." When the matcher widened
+  its search (fewer than 10 candidates), the summary says "Few programs fit your fields and countries,
+  so this list also includes others near your total"; the route needs to return the tier it used.
+- **The profile beside the list** (D4.6, desktop). A flat panel at 320px, sticky: the predicted total,
+  the six subjects by short name, TOK and EE, fields, countries, and Edit to Academic, then the line
+  about intakes. It comes in the matches response (no extra database read), so loading and a failed
+  load treat it like the list. Below 1024px it goes: the summary sentence counts the fields and
+  countries, and Academic is a tab away.
+- **Loading** (D2.8, D4.6). The header and title stay; the summary, the jump links, three cards and
+  the profile are skeletons, the sort select is disabled, and one hidden status says "Loading
+  matches". It replaces the page loader and the FadeIn and StaggerChildren entrances.
+- **Empty and error states** (D2.11). One flat panel in the list's place: a 44px icon tile (sunken;
+  gap-soft for errors; brand-soft for the profile call to action), an h2, one or two sentences, at
+  most two D2.1 buttons, left-aligned; stacked full width on a phone. The copy is on the board:
+  "Nothing meets the requirements yet" above the open Missing group, "No programs match these filters"
+  (Explore), "Your shortlist is empty", "Your matches didn't load" with "Try again", which reads
+  "Trying again…" while it runs and adds a contact line after a second failure, and "Complete your
+  academic profile" with three steps (Interests, Countries, Subjects and grades) and "Add subjects and
+  grades". The panel is the live region the skeleton held. It replaces `CompleteProfileCTA` and the
+  full-screen blocks in `RecommendationsClient`.
+- **Toast** (D2.9). The other theme: the foreground and background tokens swapped, with the other
+  theme's ok, gap and focus colours. One at a time, a new one replacing the last. Bottom centre on
+  desktop, 24px up; on a phone 12px above the tab bar, 16px from the edge while the bar is hidden,
+  with the action under the message. Messages: "Saved to your shortlist." (View shortlist), "Removed
+  from your shortlist." (Undo), "Couldn't save Computer Science." and "Couldn't remove Computer
+  Science." (Try again), "Signed in. Computer Science is on your shortlist." and "Signed in, but
+  Computer Science wasn't saved." Every toast has a close button. Successes 5 seconds, failures 10;
+  hover or focus pauses; no progress bar. One polite live region named Notifications. It replaces
+  `components/ui/toast.tsx`.
+- **No image** (D3.1's initials, as drawn on D4.6). The stored `abbreviatedName` when it is an acronym
+  of five letters or fewer (MIT, UCLA, UBC), otherwise the initials of the name's main words: the
+  University of Michigan's is stored as the word "Michigan", so its tile reads "UM". Imperial's is
+  stored as "London"; it has an image, so it never shows.
+
+**Found on the boards, not changed by 2.2:** 16 requirement rows in 10 programs store grade 1, so a
+card says "Maths AA SL 1" (Boston University, Business Administration); and one course can satisfy two
+requirement groups (152 cases in 53 programs), so Manchester's MBChB card shows "Biology HL 6 · you 5"
+twice. The second is a matching fault, not just a display one: such programs can show "Meets all
+requirements" to a student with only one of the two subjects they need. Tracked as
+`MAINT_tasks.md` 5.18; 2.2 shows what the matcher returns.
 
 ### 2.3 — Explore: toolbar, phone filter sheet, rows
 

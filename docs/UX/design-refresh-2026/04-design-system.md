@@ -179,6 +179,8 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `CompareTable` | none | Shortlist compare view. |
 | `CountryGuide` template and data files | the 22 `*Content.tsx` files (about 20,000 lines) | Same sections as `docs/countries/COUNTRY-PAGE-BASELINE.md`, rendered from typed data. Pages stay static with `revalidate` of one week. |
 | `Skeleton` | `animate-shimmer`, `.skeleton-bg` | Static tint, same box as the final card. |
+| `Toast` | `components/ui/toast.tsx` (slides from the right, progress bar) | The other theme: foreground and background swapped. One at a time; bottom centre on desktop, above the tab bar on a phone; an action and a close button; 5 s for success, 10 s for failure, paused on hover or focus; one polite live region. Canvas: "D2.9 Toast". |
+| `EmptyState` | `CompleteProfileCTA`, the full-screen blocks in `RecommendationsClient` | One flat panel in a list's place: icon tile, h2, a sentence or two, up to two buttons, an optional step list. No matches, no results, empty shortlist, failed load ("Trying again…"), profile call to action. Canvas: "D2.11 Empty and error states". |
 | `CountryFlag` (SVG, only the 22 used) | flag emoji and the Windows polyfill font | Identical on every OS; drops a font download on Windows. Optional, phase 4. |
 
 Animation helpers: `animated-number.tsx`, `loading-wrapper.tsx` and `button-loading.tsx` had no
@@ -325,9 +327,14 @@ most one subject is close, whether or not points are close. **Missing a requirem
 "Needs German B HL", "Needs Biology HL and Chemistry HL", "Needs a 7 in Maths AA", "Needs 6 more points",
 and for a long group with no course taken, "Needs French B or 11 others at HL".
 
-**Lists**: grouped by status (the "Missing a requirement" group is collapsed by default), then
-sorted by `overallScore` within each group. Running the production algorithm on real programs
-showed why the score cannot lead on its own:
+**Lists**: grouped by status (the "Missing a requirement" group is collapsed by default, unless it is
+the only group), then sorted by `overallScore` within each group. Ties, which are common, go to the
+minimum closest to the student's total, then programs with no IB minimum, then university and program
+A–Z. Group **before** any cap on the list, never after: a student with 139 programs at 100% would
+otherwise see nothing but "Meets all". Each group shows five cards, then "Show 20 more"; three jump
+links (a three-row panel on a phone) lead to the groups. Approved on "D4.6 Matches" and "D4.6
+Matches · phone" (owner, 10 October 2026). Running the production algorithm on real programs showed
+why the score cannot lead on its own:
 
 - A level gap that grades can't fix (SL where HL is required) scored **90%**.
 - Being 1 point short scored **88%**, and so did being 3 points short.
