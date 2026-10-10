@@ -295,20 +295,23 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | Points short by 4 or more | × 33 / 39 points | gap |
 | `FULL_MATCH` | ✓ Maths HL 6 | met |
 | `FULL_MATCH` with HL for SL | ✓ Maths SL 6 · your HL 6 | met |
-| Either/or met | ✓ English A SL 6 · via Literature | met |
+| Either/or met (names the course taken, D3.1) | ✓ English A Lit SL 6 | met |
 | `PARTIAL_MATCH`, grade 1 below | – Maths HL 7 · you 6 | close |
 | `PARTIAL_MATCH`, grade 2+ below | × Maths HL 7 · you 5 | gap |
 | `PARTIAL_MATCH`, SL instead of HL | × Chemistry HL 5 · you SL | gap |
 | `NO_MATCH`, not taken | × Biology HL 5 · not taken | gap |
-| Either/or, none met | × French or Spanish HL 5 · not taken | gap |
-| No IB minimum (`minIBPoints` null: US, holistic; content 6; not yet on the D2.7 board) | • No IB minimum · holistic admission | info |
-| No IB minimum, and the university reports an admit rate (`University.admitRate`; proposed, not yet on a board) | • No IB minimum · admits 4.6% | info |
+| Either/or of three or more courses, the student's short of it | × Spanish B HL 5 or 5 others · you SL | gap |
+| Either/or, none taken | × French B or Spanish B HL 5 · not taken; three or more: × French B HL 6 or 11 others · not taken | gap |
+| No IB minimum (`minIBPoints` null: US, holistic; content 6) and no admit rate | • No IB minimum · holistic admission | info |
+| No IB minimum, and the university reports an admit rate (`University.admitRate`, the overall rate; first among the notes) | • No IB minimum · admits 4.6% | info |
 | No named subjects (`POINTS_ONLY`) | • No named subjects | info |
 | Field or country not preferred | • Medicine & Health · not your field | info |
 | Requirements from an earlier intake | • Checked for 2026 entry | info |
 
-Order on the card: gap (×), then close (–), then met (✓), then info (•). Show at most four; the rest
-collapse to "+N met", which uses the met style with a tick. Info chips carry Lucide's Info icon (D2.7).
+Order on the card: gap (×), then close (–), then met (✓), then info (•). Missing, close and info chips
+always show; met ones fill up to four and the rest collapse to "+N met", which uses the met style with a
+tick. Info chips carry Lucide's Info icon (D2.7). The two no-minimum chips were approved on "D2.7 Chip ·
+no IB minimum", and the copy of every chip and badge on "D3.1 Match card" (owner, 10 October 2026).
 
 **Status model: requirement-based (owner, 7 October 2026).** The V10 algorithm's `category`
 (`SAFETY` / `MATCH` / `REACH` / `UNLIKELY`, `lib/matching/categorization.ts`) stays unused by the UI. Its
@@ -319,7 +322,8 @@ in "Why this match".
 **Card status**: **Meets all requirements** if every chip is met. **Within reach** if there is no gap and at
 most one subject is close, whether or not points are close. **Missing a requirement** otherwise. Badge copy is specific:
 "Within reach · 1 point short", "Within reach · 1 grade short", "Within reach · 1 point, 1 grade",
-"Needs Biology HL and Chemistry HL", "Needs a language at HL".
+"Needs German B HL", "Needs Biology HL and Chemistry HL", "Needs a 7 in Maths AA", "Needs 6 more points",
+and for a long group with no course taken, "Needs French B or 11 others at HL".
 
 **Lists**: grouped by status (the "Missing a requirement" group is collapsed by default), then
 sorted by `overallScore` within each group. Running the production algorithm on real programs
@@ -338,8 +342,14 @@ opens a region inside the card. It contains:
 1. Each requirement with needed and actual values.
 2. A one-line note: what would close it, or why grades alone can't.
 3. Field and country.
-4. The **fit score**, with its three weighted parts (`weightsUsed` × component scores) and any
-   adjustment in plain words ("Lowered because 2 of 4 subject requirements aren't met").
+4. The **fit score**, with its three weighted parts (`weightsUsed` × component scores), their sum and
+   any cap in plain words ("Adds up to 81%, capped at 80% because a required subject is one grade
+   short"), then "It isn't a chance of admission".
+
+Approved on "D3.2 Why this match" (owner, 10 October 2026): the button keeps its name when open; every
+requirement is listed, the ones in "+N met" too, with the other courses at their own levels and grades,
+and a group of more than eight courses opens from "All N options"; a US program's points row gives the
+admit rate; the panel ends with a link to the program page.
 
 This is the only place the percentage appears. Reuse the logic in the unused
 `MatchBreakdown.tsx`; drop its dialog.

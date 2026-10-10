@@ -153,14 +153,16 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 9 October 2026.** The canvas has 41 boards. The owner approved in chat "B ·
+**Where it stands, 10 October 2026.** The canvas has 46 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
 questions and approved the four row 8 boards: "D2.12 Header", "D2.13 Footer", "D2.14 Phone tab bar"
 and a third D1.4 change, "D1.4 Account menu". Then the two row 9 boards, "D1.5 Logo: Lens" and
-"D1.5 Share image", with one mark in both themes (D1.5). Eighteen tasks need a screen size or states
-added. Ten have no board.
+"D1.5 Share image", with one mark in both themes (D1.5). On 10 October the owner approved the five
+row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3.1 Match card ·
+phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
+minimum". Fifteen tasks need a screen size or states added. Ten have no board.
 
 ### Foundations
 
@@ -185,7 +187,7 @@ theme switch are in D1.4.
 | D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.5 Chips | "D2.5 Chips" (row 7): filter, on/off and removable chips with "Clear all", in every state. No flags on country chips (owner, 8 October 2026); SVG flags in the country picker (D4.4) only if ever wanted | Nothing | 9 October 2026 |
 | D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
-| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026) | **Two chips added after approval, for programs with no IB minimum** (`CONTENT_tasks.md` 6, US, 10 October 2026): "• No IB minimum · holistic admission", already in §9 and `deriveMatchStatus`, and a proposed admit-rate version, "• No IB minimum · admits 4.6%", from `University.admitRate`. Draw both, light and dark, for the owner's review before build 6–7 | 9 October 2026, except the two US chips |
+| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none | Nothing | 9 October 2026; the two US chips 10 October 2026 |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | None | **No board.** "Saved", and a save that failed and was undone (2.2) | |
 | D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
@@ -199,10 +201,10 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "Match card: every state" (desktop, every requirement case, from the real algorithm); "Phone · Matches" | Saving, saved and a failed save; a long program name; dark. The card on "B · Components" predates this board and still shows a text line; replace it. **Long and either/or requirements** (owner's question, 8 October 2026), drawn from the worst real cases. Production, 8 October 2026: 1,326 of 1,367 programs name four requirements or fewer, and 41 name five or six. 1,697 of the 2,170 requirements are either/or groups of 2 to 45 options, and 466 groups mix levels or grades. Proposed: every requirement is a chip, problems first, at most four, and only met ones collapse to "+N met", so a problem is never hidden. A met group names the option that met it ("via Physics"). An unmet one names the student's nearest option and how many others there are. Every option with its own level and grade appears only in "Why this match" and on the program page. **Short course names** ("Maths AA", owner, 9 October 2026): the list in `lib/ib/course-names.ts` (2.1); the board confirms or changes it. **A US program** (`CONTENT_tasks.md` 6, 10 October 2026): no points chip, the no-minimum chip with its admit rate, and two cards for the same student, MIT (4.6%) and Arizona State (88.4%), to show the admit rate is what tells them apart: their status and score are the same | |
-| D3.2 Why this match | Open on "Match card: every state" (desktop) and on "Phone · Why this match, opened" | Dark | |
+| D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 | Nothing | 10 October 2026 |
+| D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
 | D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone. A program with no IB minimum (US, `CONTENT_tasks.md` 6): what the large, aligned points column shows instead of a number | |
-| D3.4 Requirement checklist | "Program detail", Components | Signed out (no "You" column, "Sign in and add your grades to check these"); either/or groups with each option's level and grade; a program with no IB minimum (US): the points line says so, with the admit rate | |
+| D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
 | D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
 | D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px; a US program (no IB minimum, its admit rate) in the minimum-points row | |
@@ -275,7 +277,7 @@ Rows 3 and 4 can share a design session.
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
-| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | |
+| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) || D3.1, D3.2, D3.4 and D2.7's US chips approved 10 October 2026; D2.9, D2.11 and D4.6 next |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
@@ -798,13 +800,13 @@ Departures from the boards, each small:
   "+N met". 2.2 passes these straight through.
 - **Chips use short course names** (owner, 9 October 2026): "Maths AA HL 7 · you 6", from the list
   in `lib/ib/course-names.ts`. It shortens the 15 of production's 55 courses that are too long for a
-  chip; any other course, or one added later, keeps its stored name. D3.1 confirms the list.
+  chip; any other course, or one added later, keeps its stored name. D3.1 confirmed the list (10 October 2026).
 - An either/or names the course the student took, as the program card does today, so §9's
-  "English A SL 6 · via Literature" reads "English A Lit SL 6". D3.1 chooses between the two. With
+  "English A SL 6 · via Literature" reads "English A Lit SL 6". D3.1 chose the course name (10 October 2026). With
   none taken, a group of one or two courses is named in full ("French B or Spanish B HL 5 · not
   taken"); a longer one, up to 45 courses, names its first and counts the rest ("French B HL 5 or 2
-  others · not taken"), as D3.1 proposes.
-- **Badge copy beyond §9's examples, kept for now, is for D3.1 to confirm:** "Needs 6 more points", "Needs a 7 in
+  others · not taken"), as D3.1 proposed and the owner approved.
+- **Badge copy beyond §9's examples, confirmed on D3.1 (10 October 2026), with one change in 2.2:** "Needs 6 more points", "Needs a 7 in
   Physics", two needs then "and 1 more", "Germany · not one of your countries". "Needs a language at
   HL" (the board) needs course groups the result doesn't carry; the helper says "Needs French B or
   Spanish B HL".
@@ -822,8 +824,9 @@ Departures from the boards, each small:
 ### 2.2 — Match card, result row and requirement checklist
 
 **Outcome:** `ProgramCard` (1,278 lines, three jobs) is replaced by MatchCard, ResultRow and
-RequirementChecklist. The matches page groups by status. See the canvas boards "Match card: every
-state", "Matches" and "Phone · Why this match, opened".
+RequirementChecklist. The matches page groups by status. See the canvas boards "D3.1 Match card",
+"D3.1 Match card · phone", "D3.2 Why this match", "D3.4 Requirement checklist" and "D2.7 Chip · no IB
+minimum" (row 10), and "Matches".
 
 **Design gate:** D2.9, D2.11, D3.1, D3.2, D3.4 and D4.6, approved ([Step 2](#step-2--design-first)).
 
@@ -847,6 +850,33 @@ state", "Matches" and "Phone · Why this match, opened".
   programs cache do not carry the admit rate yet; add it there. Display only: matching never reads it, and the 2.1 fingerprint
   must stay byte-identical.
 - Delete `ProgramCard.tsx` when nothing imports it.
+
+**Decided on the boards (owner, 10 October 2026), every recommendation approved:**
+- **Chip and badge copy** (D3.1). A met either/or names the course taken ("English A Lit SL 6"), not
+  "via Literature". An unmet either/or of three or more courses names the student's course and counts
+  the rest: "Spanish B HL 5 or 5 others · you SL". `match-status.ts` says "Spanish B HL 5 · you SL"
+  today; change it. Groups of two stay as they are ("Maths AA HL 7 · you 6"). With no course taken in
+  a long group the badge reads "Needs French B or 11 others at HL", not "Needs French B HL or 11
+  others". The 15 short names in `lib/ib/course-names.ts` stay. Every other badge as the helper writes
+  it (the table on "D3.1 Match card").
+- **The card** (D3.1). Missing, close and note chips always show; met ones fill up to four and the
+  rest collapse into "+N met", as `cardChips` does. Program and university names wrap in full
+  (`overflow-wrap`), never cut with an ellipsis. A university with no image gets its initials ("MIT")
+  on brand-soft, hidden from screen readers. "Why this match" has a chevron and a 44px target. Phone:
+  padding 16, thumbnail 48, no line under the header, "Why this match" below the chips at 14px.
+- **No IB minimum** (D2.7 change, D3.1). The chip is "No IB minimum · admits 4.6%", the overall
+  `admitRate` with one decimal, first among the notes, with hidden text " of first-year applicants";
+  "No IB minimum · holistic admission" when the rate is null. The status stays "Meets all
+  requirements".
+- **"Why this match"** (D3.2). The button keeps its name when open; aria-expanded and a turning
+  chevron carry the state. The panel lists every requirement, the ones in "+N met" too, in the D3.4
+  table at 14px, with the other courses at their own levels and grades. Groups of more than eight
+  courses (41 of 2,170) name the student's course and open the rest from "All 25 options", grouped by
+  level and grade. Then one note on what would close it, the caution line for an older intake, field
+  and country, the fit score with its three parts, the sum and any cap in plain words ("capped at 80%
+  because a required subject is one grade short"), "It isn't a chance of admission", and a link to
+  the program page. A US program's points row says "No minimum" and gives the admit rate, the
+  international one too where reported, with the year.
 
 ### 2.3 — Explore: toolbar, phone filter sheet, rows
 
@@ -881,6 +911,15 @@ detail" and "Phone · Program (dark)".
   Science and Doctor of Medicine).
 - A fit panel (logged in) or "Sign in and add your grades to check these" (logged out).
 - The entry-year note, with the caution style when the requirements are from an older intake.
+- **The requirement checklist as approved on D3.4** (owner, 10 October 2026). The status icon and the
+  "You" column only when the student's grades are known. Signed out, two columns ending with "Sign in
+  and add your grades to check these"; signed in with no grades, "Add your grades to check these",
+  linking to Academic; no line when there is nothing to check (no minimum and no named subjects). An
+  either/or is named by the course the student took, with the others under it; signed out, by the
+  courses themselves. More than eight courses go under "All N options" in a `<details>` element, so
+  the text is in the server HTML. A US program: "No minimum", with "Holistic admission" and the admit
+  rate, the international one too where reported, and the year. The entry-year line is plain when
+  current and the caution line when older or unchecked.
 - The campus city, and the image credit as a caption (`CONTENT_tasks.md` 8.2 and 8.3, done 7 October
   2026). Show `campusCity ?? university.city` wherever a program's place is shown, and render
   `university.imageCredit` with `components/shared/ImageCredit.tsx` as the `<figcaption>` of every full
