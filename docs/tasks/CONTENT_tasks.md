@@ -31,7 +31,7 @@ here, and this refresh does more production writes than any work before it.
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
-| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page; Georgia Tech's apply waits for the owner. Part B2 adds the 11 universities |
+| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). Part B2 adds the 11 universities |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
@@ -108,7 +108,7 @@ Phase 6 — USA
 
 - [ ] 6 Research how to model US admissions, then refresh and extend — Part A done 9 October 2026
   (`content-2027/usa-model-decision.md`), model chosen 10 October 2026; Part B1 (code, Georgia Tech, USA page)
-  built 10 October 2026, Georgia Tech's apply pending; Part B2 (11 universities) next
+  applied 10 October 2026; Part B2 (11 universities) next
 
 Phase 7 — Germany
 
@@ -200,9 +200,9 @@ Owner tasks — not AI work
 - [ ] Choose the US model (6) and the German model (7). **US chosen 10 October 2026:** all eight decisions in
   `docs/tasks/content-2027/usa-model-decision.md` as recommended, with Arizona State added to the ten universities.
   The German model is still open
-- [ ] Approve 6 Part B1's Georgia Tech dry run: 44 programs lose the 38 and the two unsourced subject rows, become
+- [x] Approve 6 Part B1's Georgia Tech dry run: 44 programs lose the 38 and the two unsourced subject rows, become
   "Bachelor of Science", get a "How competitive" paragraph and are stamped 2027; Aerospace Engineering (MS) is then
-  deleted (decision 7). Apply after the PR is merged, so the "No IB minimum" copy is live first
+  deleted (decision 7). Approved and applied 10 October 2026, after PR #88 was deployed
 - [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
   27 September 2026. Georgia Tech's version of the question stays with phase 6
 - [x] Decide about France (5): no student had it as a preference (4 October 2026), and students cannot choose it, as onboarding offers
@@ -3016,7 +3016,7 @@ Deliverable: `docs/tasks/content-2027/usa-model-decision.md`. Pages were read on
     Law, and no US program can match those picks.
 - **Found along the way:** the precompute route fills a matches cache that `/api/students/matches` never reads.
 
-#### Status, 10 October 2026 — Part B1 built (session 25); Georgia Tech's apply waits for the owner
+#### Status, 10 October 2026 — Part B1 done (session 25); applied the same day
 
 The owner chose all eight recommendations on 10 October 2026, adding Arizona State to the ten universities.
 
@@ -3048,6 +3048,19 @@ The owner chose all eight recommendations on 10 October 2026, adding Arizona Sta
   - A new FAQ explains that medicine and law follow a bachelor's degree (EducationUSA).
   - The closing call to action no longer offers a search by IB points.
   - The FAQ's JSON-LD copy matches. `lib/page-dates.ts` dates this page and `/ib-university-requirements` 10 October 2026.
+- **Applied 10 October 2026** with the owner's approval, after PR #88 had deployed.
+  - **The refresh** wrote 44 programs and synced them to Algolia, and the caches were cleared. Backup:
+    `scripts/backups/refresh/2026-10-10T06-27-34-966Z.json`.
+  - **Aerospace Engineering (MS)** was deleted with its 6 requirement rows in one transaction, then removed from Algolia
+    (its record now 404s). Nobody had saved it. Backup: `scripts/backups/refresh/deleted-2026-10-10T06-27-52-945Z.json`.
+    Its data-file entry is a one-line comment.
+  - **Checked afterwards.** All 44 programs have no minimum, no subject rows, "Bachelor of Science" and 2027, and no other
+    program has a null minimum. Algolia keeps all 44 under a 30-point maximum filter and none under a minimum filter.
+    The re-run dry run reports 44 up to date.
+  - **Live pages.** A Georgia Tech program page shows "No IB minimum" and its "How competitive" paragraph. The
+    university page shows "No IB minimum". The USA page has the medicine-and-law FAQ and no "38–45". The MS page
+    returns 404. `/ib-university-requirements` was prerendered before the apply and still showed "38–38": it
+    refreshes on its revalidation timer.
 - **Next, Part B2:** the 11 universities with `add-universities.ts`, about 15–30 majors each, under the same model.
 
 ---
