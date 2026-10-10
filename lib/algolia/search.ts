@@ -82,9 +82,10 @@ export async function searchCandidatePrograms(
     }
 
     // Points filter - include programs where student is within 5 points of requirement
-    // This catches near-misses that should still appear in results
+    // This catches near-misses that should still appear in results. Programs that set no IB
+    // minimum have no minimumIBPoints, so they need their own clause (content 6).
     const pointsThreshold = studentPoints + 5
-    filters.push(`minimumIBPoints <= ${pointsThreshold} OR minimumIBPoints = 0`)
+    filters.push(`(minimumIBPoints <= ${pointsThreshold} OR noIBMinimum = 1)`)
 
     const filterString = filters.length > 0 ? filters.join(' AND ') : ''
 
@@ -223,8 +224,9 @@ export async function searchPrograms(
       filterParts.push(`minimumIBPoints >= ${Math.floor(filters.minPoints)}`)
     }
 
+    // A program with no IB minimum is within any maximum, and below any minimum (content 6)
     if (filters?.maxPoints !== undefined && Number.isFinite(filters.maxPoints)) {
-      filterParts.push(`minimumIBPoints <= ${Math.floor(filters.maxPoints)}`)
+      filterParts.push(`(minimumIBPoints <= ${Math.floor(filters.maxPoints)} OR noIBMinimum = 1)`)
     }
 
     const filterString = filterParts.join(' AND ')

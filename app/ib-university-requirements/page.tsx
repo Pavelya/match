@@ -157,8 +157,9 @@ const COUNTRY_GUIDE_SLUGS: Record<string, { slug: string; summary: string }> = {
 
 export default async function IBUniversityRequirementsPage() {
   const [stats, _countries, fields] = await Promise.all([
+    // Every program counts; the points figures cover those that set a minimum. US programs set
+    // none (content 6): Prisma's _min, _max and _avg skip nulls.
     prisma.academicProgram.aggregate({
-      where: { minIBPoints: { not: null } },
       _count: true,
       _min: { minIBPoints: true },
       _max: { minIBPoints: true },
@@ -171,7 +172,6 @@ export default async function IBUniversityRequirementsPage() {
   // Get program counts by country
   const programsByCountry = await prisma.academicProgram.groupBy({
     by: ['universityId'],
-    where: { minIBPoints: { not: null } },
     _count: true,
     _min: { minIBPoints: true },
     _max: { minIBPoints: true },
@@ -200,8 +200,9 @@ export default async function IBUniversityRequirementsPage() {
     {
       country: { id: string; name: string; code: string; flagEmoji: string }
       programCount: number
-      minPoints: number
-      maxPoints: number
+      /** Null while none of the country's programs sets a minimum. */
+      minPoints: number | null
+      maxPoints: number | null
       totalPoints: number
       countForAvg: number
     }
@@ -216,8 +217,8 @@ export default async function IBUniversityRequirementsPage() {
       countryStats.set(countryId, {
         country: university.country,
         programCount: 0,
-        minPoints: program._min.minIBPoints || 45,
-        maxPoints: program._max.minIBPoints || 24,
+        minPoints: null,
+        maxPoints: null,
         totalPoints: 0,
         countForAvg: 0
       })
@@ -225,8 +226,10 @@ export default async function IBUniversityRequirementsPage() {
 
     const stat = countryStats.get(countryId)!
     stat.programCount += program._count
-    stat.minPoints = Math.min(stat.minPoints, program._min.minIBPoints || 45)
-    stat.maxPoints = Math.max(stat.maxPoints, program._max.minIBPoints || 24)
+    const { minIBPoints: min } = program._min
+    const { minIBPoints: max } = program._max
+    if (min !== null) stat.minPoints = Math.min(stat.minPoints ?? min, min)
+    if (max !== null) stat.maxPoints = Math.max(stat.maxPoints ?? max, max)
     if (program._avg.minIBPoints) {
       stat.totalPoints += program._avg.minIBPoints * program._count
       stat.countForAvg += program._count
@@ -257,7 +260,6 @@ export default async function IBUniversityRequirementsPage() {
   // Field data
   const programsByField = await prisma.academicProgram.groupBy({
     by: ['fieldOfStudyId'],
-    where: { minIBPoints: { not: null } },
     _count: true,
     _avg: { minIBPoints: true }
   })
@@ -271,7 +273,7 @@ export default async function IBUniversityRequirementsPage() {
         iconName: field.iconName,
         description: field.description,
         programCount: stat?._count || 0,
-        avgPoints: stat?._avg.minIBPoints ? Math.round(stat._avg.minIBPoints) : 0
+        avgPoints: stat?._avg.minIBPoints ? Math.round(stat._avg.minIBPoints) : null
       }
     })
     .filter((f) => f.programCount > 0)
@@ -333,7 +335,7 @@ export default async function IBUniversityRequirementsPage() {
     },
     {
       question: 'What IB points do I need for university?',
-      answer: `Minimum requirements in our database range from ${minPoints} to ${maxPoints} points, depending on the program, institution, and country. Competitive programs at top universities often ask for 38 or more, while less selective programs may accept 24–30. Many programs also require specific subjects at Higher Level (HL) with minimum grades.`
+      answer: `Minimum requirements in our database range from ${minPoints} to ${maxPoints} points, depending on the program, institution, and country. Competitive programs at top universities often ask for 38 or more, while less selective programs may accept 24–30. Many programs also require specific subjects at Higher Level (HL) with minimum grades. US universities set no IB minimum: they admit holistically, reading predicted IB grades alongside essays, recommendations and, at many, the SAT or ACT.`
     },
     {
       question: 'Do I need specific Higher Level (HL) subjects?',

@@ -1,7 +1,7 @@
 # USA — how to model US admissions
 
 **Task:** content 6, Part A (`docs/tasks/CONTENT_tasks.md`) · **Researched:** 9 October 2026 ·
-**Decides:** the owner. Part B builds what is chosen here.
+**Decided:** by the owner on 10 October 2026, all as recommended (below). Part B builds it.
 
 ## Summary
 
@@ -32,13 +32,16 @@ searched, and no schema change ([section 4](#4-model-options)).
 
 ## Decisions for the owner
 
-| # | Decision | Recommended |
+**Owner, 10 October 2026: all eight as recommended.** For decision 5 that means the first ten of the shortlist plus
+Arizona State, eleven universities, so that students in the low-to-mid 30s have one realistic US option.
+
+| # | Decision | Recommended, and chosen |
 |---|---|---|
 | 1 | The model: (a) no minimum, (b) a published typical range, (c) a separate track outside points matching, or (d) the Diploma floor, 24, as France and Denmark | **(a)**, with (b)'s figures in the "How competitive" paragraph ([section 4](#4-model-options)) |
 | 2 | What a card says for a program with no minimum | The badge stays requirement-based (owner, 7 October 2026), plus an info chip: **"No IB minimum · holistic admission"** |
 | 3 | The "How competitive" figure for US programs, which publish no IB cut-off | The **Common Data Set admit rate** (C1), the international rate where the university reports it, plus the university's own words about IB applicants |
 | 4 | Which subject rules become requirement rows | Only what the university calls **required** (Boston University: a year of calculus for Engineering and Business). "Encouraged", "recommended" and "should take" go in the description. The new card status counts any unmet row as missing, whether or not it is critical |
-| 5 | Which universities to add | The first ten of the [shortlist](#5-shortlist), or swap in USC or Arizona State |
+| 5 | Which universities to add | The first ten of the [shortlist](#5-shortlist) **plus Arizona State**; USC later |
 | 6 | What one stored program is | **One per major**, as Georgia Tech already is, about 15–30 majors per university chosen from the fields US-bound students pick. Not one entry per admitting college |
 | 7 | Georgia Tech's **Aerospace Engineering (MS)** | A graduate degree no school leaver can apply to. Rule 3 forbids deleting it without the owner: keep or delete |
 | 8 | Medicine and law | No US program to store. Both are graduate-entry, so the country page should say so. Store no "pre-med" or "pre-law" entries; they are preparation tracks, not majors |
@@ -143,7 +146,8 @@ more later, (c) can be built on top of (a).
    - The program and university pages say "No IB minimum (holistic admission)" instead of hiding the line.
    - `/ib-university-requirements` shows a country whose programs set no minimum.
    - Algolia indexes a `hasMinimumIBPoints` flag, so the search page's points filter can keep those programs, if the
-     owner wants them kept.
+     owner wants them kept. *As built (10 October 2026): a numeric `noIBMinimum = 1` marker, because Algolia ORs only
+     filters of one type; a maximum-points filter keeps these programs and a minimum-points filter leaves them out.*
    - Vitest cases for each.
 2. **Georgia Tech.** Refresh it from its starter file under the model:
    - Points null, and **no subject rows**: Georgia Tech requires none of the IB.

@@ -29,6 +29,7 @@ import {
   type RequirementGroup
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
+import { NO_IB_MINIMUM_NOTE } from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
 
 /** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
@@ -98,6 +99,8 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
   for (const detail of academicMatch.subjectMatches) assessed.push(assessSubject(detail))
 
   const notes: string[] = []
+  // A program with no minimum says why there is no points chip (content 6)
+  if (!points) notes.push(NO_IB_MINIMUM_NOTE)
   if (academicMatch.subjectMatches.length === 0) notes.push('No named subjects')
   if (!fieldMatch.isMatch && !fieldMatch.noPreferences) {
     notes.push(`${input.fieldName} · not your field`)

@@ -29,6 +29,7 @@ import {
   Tv,
   CheckCircle2
 } from 'lucide-react'
+import { NO_IB_MINIMUM } from '@/lib/programs/ib-minimum'
 
 interface Stats {
   totalPrograms: number
@@ -44,8 +45,9 @@ interface Country {
   code: string
   flagEmoji: string
   programCount: number
-  minPoints: number
-  maxPoints: number
+  /** Null when none of the country's programs sets an IB minimum (the USA, content 6). */
+  minPoints: number | null
+  maxPoints: number | null
   avgPoints: number
   guideSlug: string | null
   guideSummary: string | null
@@ -57,7 +59,8 @@ interface Field {
   iconName: string | null
   description: string | null
   programCount: number
-  avgPoints: number
+  /** Null when none of the field's programs sets an IB minimum. */
+  avgPoints: number | null
 }
 
 interface Faq {
@@ -200,7 +203,9 @@ export function RequirementsContent({ stats, countries, fields, faqs }: Props) {
                     {country.programCount} programs
                   </span>
                   <span>
-                    {country.minPoints}–{country.maxPoints} IB pts
+                    {country.minPoints === null
+                      ? NO_IB_MINIMUM
+                      : `${country.minPoints}–${country.maxPoints} IB pts`}
                   </span>
                 </div>
               </Link>
@@ -332,7 +337,8 @@ export function RequirementsContent({ stats, countries, fields, faqs }: Props) {
                       {field.name}
                     </p>
                     <p className="text-sm text-gray-500">
-                      {field.programCount} programs · Avg {field.avgPoints} IB pts
+                      {field.programCount} programs
+                      {field.avgPoints !== null && ` · Avg ${field.avgPoints} IB pts`}
                     </p>
                   </div>
                   <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-blue-600 flex-shrink-0 transition-colors" />

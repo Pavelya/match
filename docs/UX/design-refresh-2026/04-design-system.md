@@ -301,6 +301,7 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | `PARTIAL_MATCH`, SL instead of HL | × Chemistry HL 5 · you SL | gap |
 | `NO_MATCH`, not taken | × Biology HL 5 · not taken | gap |
 | Either/or, none met | × French or Spanish HL 5 · not taken | gap |
+| No IB minimum (`minIBPoints` null: US, holistic; content 6) | • No IB minimum · holistic admission | info |
 | No named subjects (`POINTS_ONLY`) | • No named subjects | info |
 | Field or country not preferred | • Medicine & Health · not your field | info |
 | Requirements from an earlier intake | • Checked for 2026 entry | info |

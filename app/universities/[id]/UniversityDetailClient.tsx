@@ -29,6 +29,7 @@ import {
 import { cn } from '@/lib/utils'
 import { FieldIcon } from '@/lib/icons'
 import { ImageCredit } from '@/components/shared/ImageCredit'
+import { NO_IB_MINIMUM } from '@/lib/programs/ib-minimum'
 
 interface Program {
   id: string
@@ -257,12 +258,10 @@ export function UniversityDetailClient({ university }: UniversityDetailClientPro
                           </span>
                           <span>•</span>
                           <span>{program.duration}</span>
-                          {program.minIBPoints && (
-                            <>
-                              <span>•</span>
-                              <span>{program.minIBPoints} IB pts</span>
-                            </>
-                          )}
+                          <span>•</span>
+                          <span>
+                            {program.minIBPoints ? `${program.minIBPoints} IB pts` : NO_IB_MINIMUM}
+                          </span>
                         </div>
                       </div>
                     </div>

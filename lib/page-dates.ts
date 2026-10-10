@@ -28,7 +28,7 @@ export const PAGE_DATES = {
   // that document's date instead.
   '/faqs': { published: '2025-12-23', modified: '2025-12-23' },
   '/how-it-works': { published: '2026-01-14', modified: '2026-09-25' },
-  '/ib-university-requirements': { published: '2026-01-29', modified: '2026-09-25' },
+  '/ib-university-requirements': { published: '2026-01-29', modified: '2026-10-10' },
 
   // Country pages. `COUNTRY-PAGE-BASELINE.md` §3.2 asks every new one to add a line.
   '/study-in-australia-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
@@ -53,7 +53,7 @@ export const PAGE_DATES = {
   '/study-in-sweden-with-ib-diploma': { published: '2026-02-18', modified: '2026-09-25' },
   '/study-in-switzerland-with-ib-diploma': { published: '2026-02-15', modified: '2026-09-25' },
   '/study-in-uk-with-ib-diploma': { published: '2026-02-15', modified: '2026-09-25' },
-  '/study-in-usa-with-ib-diploma': { published: '2026-02-20', modified: '2026-09-25' }
+  '/study-in-usa-with-ib-diploma': { published: '2026-02-20', modified: '2026-10-10' }
 } as const satisfies Record<string, PageDates>
 
 export type DatedPage = keyof typeof PAGE_DATES

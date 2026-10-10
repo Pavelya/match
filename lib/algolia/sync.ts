@@ -51,6 +51,12 @@ export interface AlgoliaProgramRecord {
 
   // Requirements
   minimumIBPoints?: number
+  /**
+   * 1 when the program sets no IB minimum (US, content 6), else absent. A record without
+   * `minimumIBPoints` fails every numeric filter on it, so points filters add
+   * `OR noIBMinimum = 1` to keep these programs.
+   */
+  noIBMinimum?: number
   requiredCourses?: Array<{
     courseId: string
     courseName: string
@@ -161,6 +167,7 @@ export async function transformProgramToAlgolia(
 
       // Requirements
       minimumIBPoints: program.minIBPoints ?? undefined,
+      noIBMinimum: program.minIBPoints === null ? 1 : undefined,
       requiredCourses: program.courseRequirements.map((req) => ({
         courseId: req.ibCourse.id,
         courseName: req.ibCourse.name,

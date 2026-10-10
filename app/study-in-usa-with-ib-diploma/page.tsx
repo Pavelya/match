@@ -170,7 +170,15 @@ const faqSchema = {
       name: 'What IB scores do I need for top US universities?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'US universities do not publish minimum IB score requirements. However, successful applicants to highly selective universities (Ivy League, Stanford, MIT) typically present scores of 38–45 with strong HL grades (6s and 7s). Because admissions are holistic, essays, extracurriculars, and recommendation letters also play a significant role. Source: EducationUSA — US Department of State.'
+        text: "US universities publish no minimum IB score. Georgia Tech, for example, says there is no minimum, but that competitive applicants have mostly 6s and 7s. Admission is holistic: your predicted grades are read alongside essays, activities, recommendations and, at many universities, the SAT or ACT. A university's admit rate, published in its Common Data Set, is the best guide to how competitive it is, and IB Match shows it on each university's programs. Source: Georgia Tech — International First-Year Admission."
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I study medicine or law in the USA straight after the IB?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. In the US, medicine and law are professional degrees that start after a bachelor’s degree. You first complete a four-year bachelor’s in any subject, taking the prerequisite courses medical or law schools ask for (sciences, for medicine), and then apply. That is why IB Match lists no US programs in Medicine or Law. Source: EducationUSA — What is a Graduate Student?'
       }
     }
   ]

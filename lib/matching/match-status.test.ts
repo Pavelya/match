@@ -205,6 +205,15 @@ describe('requirement chips (04-design-system.md §9)', () => {
     ])
   })
 
+  it('no IB minimum (US, content 6): • No IB minimum · holistic admission, and meets all', () => {
+    const result = status({ minIBPoints: null }, { totalIBPoints: 26 })
+    expect(result.chips).toEqual([
+      chip('info', 'No IB minimum · holistic admission'),
+      chip('info', 'No named subjects')
+    ])
+    expect(result.status).toBe('meets')
+  })
+
   it('field or country not preferred: • Medicine & Health · not your field', () => {
     const { chips } = status({ field: 'medicine', country: 'germany' })
     expect(chips).toContainEqual(chip('info', 'Medicine & Health · not your field'))
@@ -451,7 +460,8 @@ describe('details without the display fields', () => {
     expect(result.chips).toEqual([
       chip('gap', 'Physics HL 6'),
       chip('gap', 'Physics HL 6 · not taken'),
-      chip('met', 'Physics HL 6')
+      chip('met', 'Physics HL 6'),
+      chip('info', 'No IB minimum · holistic admission')
     ])
   })
 })

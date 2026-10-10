@@ -34,6 +34,7 @@ import {
 import { cn } from '@/lib/utils'
 import type { MatchResult, SubjectMatchDetail } from '@/lib/matching/types'
 import type { RequirementsCheck } from '@/lib/programs/entry-year'
+import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE } from '@/lib/programs/ib-minimum'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 import {
   formatCourses,
@@ -176,6 +177,26 @@ function RequirementsCheckNote({
         — confirm on {site}
       </span>
     </p>
+  )
+}
+
+/**
+ * The points tile for a program that sets no IB minimum (US universities admit holistically),
+ * where the points tile would otherwise be missing without a word.
+ */
+function NoIBMinimumTile() {
+  return (
+    <div className="rounded-xl border-2 border-border p-3">
+      <div className="flex items-start gap-2">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-muted">
+          <GraduationCap className="h-4 w-4 text-current opacity-70" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-medium text-sm leading-tight">Total IB Points</p>
+          <p className="text-xs text-muted-foreground">{NO_IB_MINIMUM_NOTE}</p>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -536,10 +557,10 @@ export function ProgramCard({
                   <GraduationCap className="h-4 w-4 text-muted-foreground" />
                   {program.degreeType}
                 </span>
-                {program.minIBPoints && (
+                {program.minIBPoints !== undefined && (
                   <span className="flex items-center gap-1.5 text-primary font-medium">
                     <GraduationCap className="h-4 w-4" />
-                    {program.minIBPoints} IB Points
+                    {program.minIBPoints ? `${program.minIBPoints} IB Points` : NO_IB_MINIMUM}
                   </span>
                 )}
               </div>
@@ -603,7 +624,7 @@ export function ProgramCard({
           )}
 
           {/* Academic Requirements - Unified Grid Layout */}
-          {(program.minIBPoints || (program.courseRequirements?.length ?? 0) > 0) && (
+          {(program.minIBPoints !== undefined || (program.courseRequirements?.length ?? 0) > 0) && (
             <div className="space-y-3">
               <div className="space-y-1">
                 <h4 className="font-semibold text-sm">Academic Requirements</h4>
@@ -617,6 +638,7 @@ export function ProgramCard({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {/* IB Points Tile */}
+                {program.minIBPoints === null && <NoIBMinimumTile />}
                 {program.minIBPoints && matchResult && (
                   <div
                     className={cn(
@@ -942,10 +964,10 @@ export function ProgramCard({
                     <GraduationCap className="h-4 w-4 text-muted-foreground" />
                     {program.degreeType}
                   </span>
-                  {program.minIBPoints && (
+                  {program.minIBPoints !== undefined && (
                     <span className="flex items-center gap-1.5 text-primary font-medium">
                       <GraduationCap className="h-4 w-4" />
-                      {program.minIBPoints} IB Points
+                      {program.minIBPoints ? `${program.minIBPoints} IB Points` : NO_IB_MINIMUM}
                     </span>
                   )}
                 </div>
@@ -985,11 +1007,13 @@ export function ProgramCard({
               </div>
 
               {/* Academic Requirements */}
-              {(program.minIBPoints || (program.courseRequirements?.length ?? 0) > 0) && (
+              {(program.minIBPoints !== undefined ||
+                (program.courseRequirements?.length ?? 0) > 0) && (
                 <div className="space-y-3">
                   <h4 className="font-semibold text-sm">Academic Requirements</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {/* IB Points Tile */}
+                    {program.minIBPoints === null && <NoIBMinimumTile />}
                     {program.minIBPoints && (
                       <div
                         className={cn(
