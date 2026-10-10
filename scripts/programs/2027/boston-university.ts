@@ -40,7 +40,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2aq09a0000h97mrfvwscxd',
+      status: 'current',
       name: 'Biomedical Engineering',
       description: described(
         'Engineering science and technology applied to biology, medicine and biotechnology, from physiological measuring and diagnostic systems to quantitative understanding of how the human body works and fails.',
@@ -65,7 +66,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject row: "Applicants to the College of Engineering are required to have a year of calculus. For students enrolled in IB courses, this requirement would be met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations" (first-year page; the same for the Questrom School of Business). Stored as one either/or, Maths AA SL 1 (HL counts) or Maths AI HL 1, critical: the condition is enrolment, not a grade.`
     },
     {
-      status: 'new',
+      id: 'cmv2aq0dy0003h97mf79nrmlw',
+      status: 'current',
       name: 'Computer Engineering',
       description: described(
         'One of the two degrees of the Department of Electrical and Computer Engineering: modern computers as complex systems, single machines or networks, that are the "brains" of communication and control systems.',
@@ -90,7 +92,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject row: "Applicants to the College of Engineering are required to have a year of calculus. For students enrolled in IB courses, this requirement would be met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations" (first-year page; the same for the Questrom School of Business). Stored as one either/or, Maths AA SL 1 (HL counts) or Maths AI HL 1, critical: the condition is enrolment, not a grade.`
     },
     {
-      status: 'new',
+      id: 'cmv2aq0kn0006h97mvok8qc3u',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'The use and control of electromagnetic energy, the thread that links the many disciplines of electrical engineering, from the transducers that capture information to the systems that process it.',
@@ -115,7 +118,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject row: "Applicants to the College of Engineering are required to have a year of calculus. For students enrolled in IB courses, this requirement would be met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations" (first-year page; the same for the Questrom School of Business). Stored as one either/or, Maths AA SL 1 (HL counts) or Maths AI HL 1, critical: the condition is enrolment, not a grade.`
     },
     {
-      status: 'new',
+      id: 'cmv2aq0pa0009h97m3hx0reg3',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'How robots move, airplanes fly and big data enables big ideas: innovation for sustainable energy, engineered biological tissues, new materials and science from the nanoscale to the solar system.',
@@ -140,7 +144,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject row: "Applicants to the College of Engineering are required to have a year of calculus. For students enrolled in IB courses, this requirement would be met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations" (first-year page; the same for the Questrom School of Business). Stored as one either/or, Maths AA SL 1 (HL counts) or Maths AI HL 1, critical: the condition is enrolment, not a grade.`
     },
     {
-      status: 'new',
+      id: 'cmv2aq0sy000ch97mc2gxr2vb',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'The organization, design and construction of hardware and software systems, and the mathematics to abstract and analyse computational processes and design efficient solutions.',
@@ -157,7 +162,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq0vq000dh97m9zdq4zoz',
+      status: 'current',
       name: 'Data Science',
       description: described(
         'Computational and inferential thinking combined to collect, explore and analyse data, identify patterns and draw conclusions, in the Faculty of Computing and Data Sciences.',
@@ -174,7 +180,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq0xl000eh97mw1qombqj',
+      status: 'current',
       name: 'Business Administration (BSBA)',
       description: described(
         "The Questrom School of Business's Bachelor of Science in Business Administration: business and functional disciplines, how they depend on each other, business's role in society, and skills such as teamwork and career management.",
@@ -199,7 +206,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject row: "Applicants to the College of Engineering are required to have a year of calculus. For students enrolled in IB courses, this requirement would be met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations" (first-year page; the same for the Questrom School of Business). Stored as one either/or, Maths AA SL 1 (HL counts) or Maths AI HL 1, critical: the condition is enrolment, not a grade.`
     },
     {
-      status: 'new',
+      id: 'cmv2aq11h000hh97mxt0m1jaw',
+      status: 'current',
       name: 'Economics',
       description: described(
         'Core microeconomic and macroeconomic theory with the empirical skills to apply economic reasoning in a data-driven world, training in theory and econometrics, and electives.',
@@ -216,7 +224,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq12c000ih97mg6v7r156',
+      status: 'current',
       name: 'Mathematics and Statistics',
       description: described(
         'Abstract thinking and critical reasoning through courses across mathematical disciplines, for careers in every sector that needs mathematicians and statisticians.',
@@ -233,7 +242,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq138000jh97mb24zzwvt',
+      status: 'current',
       name: 'Physics',
       description: described(
         'A foundation of knowledge and problem-solving ability for many careers, in a department known for teaching and active research, with close contact between students and faculty.',
@@ -250,7 +260,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq147000kh97mxfrxyc8c',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'A research-focused major: a core in analytical, organic, physical, inorganic and biochemistry, then materials, computational and biological chemistry, with project-based laboratories.',
@@ -267,7 +278,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq155000lh97m0rsj0vtu',
+      status: 'current',
       name: 'Biology',
       description: described(
         'Breadth across the biological disciplines and a chance to study one specialized area in depth, through lecture, laboratory and research.',
@@ -284,7 +296,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq162000mh97mddeibs6i',
+      status: 'current',
       name: 'Neuroscience',
       description: described(
         'How networks of nerve cells, from a few hundred in small invertebrates to about 100 billion in humans, produce motivations, sensations, memories and actions.',
@@ -301,7 +314,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq171000nh97m2vogntgu',
+      status: 'current',
       name: 'Health Science',
       description: described(
         'An interdisciplinary Bachelor of Science in the health sciences and global public health, combining biological sciences, humanities and social sciences with a strong foundation in global health.',
@@ -318,7 +332,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1a8000oh97mmfeo9g6v',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'The concerns and issues of public life: how political communities reconcile justice, power, liberty and authority, drawing on history, law, economics, psychology, sociology and philosophy.',
@@ -335,7 +350,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1b7000ph97mv0i8z4ae',
+      status: 'current',
       name: 'Psychology',
       description: described(
         'The science of human behaviour and mental processes, preparing for graduate study in psychology, medicine, law and other professions.',
@@ -352,7 +368,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1c4000qh97mlshkho0m',
+      status: 'current',
       name: 'International Relations',
       description: described(
         'How the world works, studied across disciplines; offered by the Frederick S. Pardee School of Global Studies to students of the College of Arts & Sciences.',
@@ -372,7 +389,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1d0000rh97mxc6vps14',
+      status: 'current',
       name: 'Journalism',
       description: described(
         'Reporting, writing, editing, production, design and civic responsibility, and how to work as a professional: deadlines, interviews and research.',
@@ -389,7 +407,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1e2000sh97mo99humcr',
+      status: 'current',
       name: 'Film and Television',
       description: described(
         'Film, television and new media with a liberal arts education: theory, storytelling and production, taught by faculty and alumni from the industry.',
@@ -409,7 +428,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1f1000th97mezv196f8',
+      status: 'current',
       name: 'Environmental Analysis and Policy',
       description: described(
         'A social science training specialized in the environment: the social and institutional framework of environmental and natural resource planning, management and policy.',
@@ -430,7 +450,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1fy000uh97mhsvru3uq',
+      status: 'current',
       name: 'Architectural Studies',
       description: described(
         'Understanding, designing and writing about historical and contemporary buildings and spaces, for careers and graduate study in architecture, landscape architecture, historic preservation and urban planning.',
@@ -450,7 +471,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq1gw000vh97mgfiwd3h8',
+      status: 'current',
       name: 'English',
       description: described(
         'Literature in all its richness, from the canon of past works to the cultural, media, graphic and digital forms of the 21st century.',

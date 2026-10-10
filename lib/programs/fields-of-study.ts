@@ -439,6 +439,12 @@ export const KEPT: Record<string, { name: string; field: FieldName; why: string 
     name: 'Linnaeus University — Visual Communication +Change',
     field: 'Architecture',
     why: 'a design degree, filed with Design'
+  },
+  // Owner, 10 October 2026 (content 6, Part B2)
+  cmv2aoz5t00066v7mjfwgp8lg: {
+    name: 'Massachusetts Institute of Technology — Nuclear Science and Engineering (Course 22)',
+    field: 'Engineering',
+    why: 'an engineering degree in the School of Engineering; "Science" is named first'
   }
 }
 

@@ -44,7 +44,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2apvj10000gh7m0vclw4va',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Mechanical engineering builds the physical systems and devices of modern society, from air conditioning and automobiles to robots, power plants, artificial limbs and rocket engines, with hands-on computer and laboratory work.',
@@ -65,7 +66,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvmc0001gh7m1zcwc43y',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'From subway systems to smartphones, innovations by electrical engineers touch every part of modern life, and the program trains the next generation of them.',
@@ -86,7 +88,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvna0002gh7mdywerizk',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'The design, construction and operation of the built environment, from individual structures such as bridges and skyscrapers to transportation and water supply networks.',
@@ -107,7 +110,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvo80003gh7mnj8udxs9',
+      status: 'current',
       name: 'Chemical and Biomolecular Engineering',
       description: described(
         'Broad scientific and engineering principles applied to chemical, pharmaceutical, consumer product and materials industries, also preparing for graduate study in engineering, medicine, business and law.',
@@ -128,7 +132,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvpa0004gh7m78a1mmzc',
+      status: 'current',
       name: 'Computer Engineering',
       description: described(
         'Computer-based devices and information networks, and the work they make possible, from reconstructing genomes to designing robots and business software.',
@@ -149,7 +154,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvq80005gh7mrqleeofw',
+      status: 'current',
       name: 'Computer Science (Tandon)',
       description: described(
         "How to design, build and use the computers and systems people rely on every day, from smartphones to the databases of banks and hospitals; the Tandon School of Engineering's computer science degree.",
@@ -170,7 +176,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvr60006gh7me6kyimyt',
+      status: 'current',
       name: 'Computer Science (Arts and Science)',
       description: described(
         'Computing in theory and application, in the Department of Computer Science of the Courant Institute of Mathematical Sciences, a world-renowned centre for mathematics and computer science.',
@@ -191,7 +198,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvs40007gh7mz7nml3w3',
+      status: 'current',
       name: 'Data Science',
       description: described(
         'Rigorous training in statistical modelling, machine learning and data-driven reasoning, grounded in computer science and mathematics, with attention to ethics.',
@@ -211,7 +219,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvt30008gh7m0xabkkrl',
+      status: 'current',
       name: 'Business',
       description: described(
         "The Stern School of Business's STEM-certified Bachelor of Science, combining business fundamentals with a broad liberal arts foundation.",
@@ -231,7 +240,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvtz0009gh7mbicjlrza',
+      status: 'current',
       name: 'Economics',
       description: described(
         'Individual and group decision-making, the structure of markets and economies, and the relations between regions in the global economy.',
@@ -251,7 +261,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvuw000agh7m8ft2byp4',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'Pure and applied mathematics taught by the faculty of the Courant Institute of Mathematical Sciences, a leading research centre that integrates mathematical theory and applications.',
@@ -271,7 +282,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvvq000bgh7madoxdssc',
+      status: 'current',
       name: 'Physics',
       description: described(
         'The most basic of the natural sciences: understanding the world on every scale of length, time and energy through fundamental models that quantitatively explain observation and experiment.',
@@ -291,7 +303,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvwo000cgh7mz4kkxpyc',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         "The Bachelor of Science of NYU's Department of Chemistry, one of the oldest in the College of Arts and Science, where the American Chemical Society was founded in 1876.",
@@ -311,7 +324,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvxj000dgh7mdk0upre7',
+      status: 'current',
       name: 'Biology',
       description: described(
         'The workings of life in all its forms, from microbes to animals and plants and from molecular and cellular processes to ecosystems, in a department with world-class laboratories.',
@@ -331,7 +345,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apvyh000egh7mxjg4w3en',
+      status: 'current',
       name: 'Neural Science',
       description: described(
         'The function of the brain across disciplines, from molecular and cellular mechanisms in nerve cells to the behaviour of whole organisms, with mathematical and computational modelling.',
@@ -352,7 +367,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw1r000fgh7mxcxk0lvs',
+      status: 'current',
       name: 'Nursing',
       description: described(
         "Rory Meyers College of Nursing's four-year Bachelor of Science, which first-year students enter in the fall: arts and science courses with a progression of nursing courses, preparing for the NCLEX licensure examination.",
@@ -373,7 +389,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw2s000ggh7m74btn53b',
+      status: 'current',
       name: 'Politics',
       description: described(
         'A deeper analytical understanding of political events grounded in logic and evidence, in the Wilf Family Department of Politics.',
@@ -393,7 +410,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw3o000hgh7mt1q9qiq9',
+      status: 'current',
       name: 'International Relations',
       description: described(
         "The global system's past, the tools to work in it today and to respond to future developments, on an interdisciplinary basis, in the Wilf Family Department of Politics.",
@@ -414,7 +432,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw4k000igh7m3n7wc4jr',
+      status: 'current',
       name: 'Psychology',
       description: described(
         'Mind and behaviour from many perspectives: cognitive psychology, social and personality psychology, cognitive neuroscience and developmental psychology.',
@@ -434,7 +453,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw5j000jgh7m1vmv9272',
+      status: 'current',
       name: 'Journalism',
       description: described(
         'Journalism with a public mission: the skills of reporting, research, writing and multimedia storytelling.',
@@ -454,7 +474,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw6j000kgh7mcac47iq7',
+      status: 'current',
       name: 'Environmental Studies',
       description: described(
         'The breadth of understanding and skills to resolve environmental questions and build a sustainable future from local to global scale, through integrated, problem-oriented study across disciplines.',
@@ -475,7 +496,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw7h000lgh7moraujamu',
+      status: 'current',
       name: 'Urban Design and Architecture Studies',
       description: described(
         'An interdisciplinary, analytic approach to the physical city, with a humanistic perspective and preprofessional training for future architects, city planners, public administrators and writers on urban problems.',
@@ -496,7 +518,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apw8h000mgh7mjbc8h9gd',
+      status: 'current',
       name: 'History',
       description: described(
         'The study of human experience in its times and places, and a method of thinking that teaches students to analyse and interpret cultural, social, economic and political evidence.',

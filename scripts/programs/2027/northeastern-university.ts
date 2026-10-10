@@ -42,7 +42,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2aq5gn0000i67mhqwym6ey',
+      status: 'current',
       name: 'Bioengineering',
       description: described(
         'Engineering in a biological context, such as the human body, an ecosystem or a bioreactor, where the interface with living systems shapes the design of devices, instruments and implants.'
@@ -62,7 +63,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5hj0001i67mgmla2iqg',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         'A broad education in science, mathematics and engineering fundamentals applied to current problems with modern tools such as computational software and computer-aided design.'
@@ -82,7 +84,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5if0002i67mpqocf9eu',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'Conceptualizing, designing and building sustainable infrastructure and environments: resilient urban infrastructure, clean water and a clean environment.'
@@ -102,7 +105,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5je0003i67mgs6stpo6',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'The engineers behind global communication systems, computer chips, pacemakers, MRI and space missions, turning new concepts into the next generation of technology.'
@@ -122,7 +126,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5ko0004i67mqvjyypcz',
+      status: 'current',
       name: 'Computer Engineering',
       description: described(
         'Researching, designing and developing the hardware and software behind wireless communications, multimedia, portable devices and internet computing.'
@@ -142,7 +147,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5lo0005i67mmqjpbebl',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'The design, development and manufacture of machinery and devices that transmit power or convert thermal energy into mechanical form, practised with modern computer tools.'
@@ -162,7 +168,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5mk0006i67m8nuiuodl',
+      status: 'current',
       name: 'Industrial Engineering',
       description: described(
         'The design and analysis of systems of people, equipment and materials, evaluating alternatives to make the decisions that best advance an enterprise.'
@@ -182,7 +189,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5nl0007i67mvu107ydw',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'Program design, software development, computer organization, systems and networks, theory of computation, programming languages, and advanced algorithms and data.'
@@ -202,7 +210,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5qg0008i67mobdcn6y5',
+      status: 'current',
       name: 'Artificial Intelligence',
       description: described(
         'The full breadth of artificial intelligence, from classical methods to modern data-centric approaches, combining computer and data science with mathematics, statistics and probability.'
@@ -222,7 +231,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5rg0009i67mhzgpnbv8',
+      status: 'current',
       name: 'Business Administration',
       description: described(
         'The theory and practice of management through active learning, problem-driven research, corporate partnerships and experiential assignments, with a global and entrepreneurial outlook.'
@@ -242,7 +252,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5sb000ai67mh33ehlem',
+      status: 'current',
       name: 'Economics',
       description: described(
         'Economics with an emphasis on mathematical models, with room for economic development, game theory and mathematical economics, and supporting mathematics and computer science courses.'
@@ -262,7 +273,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5tb000bi67mpvp3iiy1',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'The degree most mathematics majors choose, recommended for those strongly interested in mathematics and science: 14 mathematics courses and two in physics.'
@@ -282,7 +294,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5ub000ci67mwhuqj8j7',
+      status: 'current',
       name: 'Physics',
       description: described(
         'A strong foundation in classical and modern physics: electromagnetism, dynamics, the building blocks of matter, energy and radiation.'
@@ -301,7 +314,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5vb000di67mrq0h53z7',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'Breadth and depth in chemistry fundamentals, quantitative problem-solving, communication skills and laboratory experience.'
@@ -321,7 +335,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5wa000ei67mtslujijh',
+      status: 'current',
       name: 'Biology',
       description: described(
         'Life from molecules and cells through organs to populations, ecosystems and evolution, on a groundwork of mathematics, chemistry and physics.'
@@ -340,7 +355,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5xc000fi67mdt8atwnz',
+      status: 'current',
       name: 'Behavioral Neuroscience',
       description: described(
         'The biological bases of behaviour in health and disease, combining biology and psychology with the physical sciences and mathematics to understand how physiological systems control behaviour.'
@@ -360,7 +376,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5ya000gi67mogqrogjs',
+      status: 'current',
       name: 'Nursing',
       description: described(
         'The Bachelor of Science in Nursing: 130 credits of intensive, sequential classes and clinical work, close to nursing faculty, building the core skills of a nursing career.'
@@ -379,7 +396,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq5z9000hi67mvtz8kodw',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'American government, comparative politics, international relations and political philosophy, through introductory and methods courses, electives and a capstone.'
@@ -399,7 +417,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq604000ii67moo5al21e',
+      status: 'current',
       name: 'Psychology',
       description: described(
         "A research-based education across basic and applied psychology, with in-depth study of the student's own interests."
@@ -419,7 +438,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq614000ji67ml3z5njmt',
+      status: 'current',
       name: 'Journalism',
       description: described(
         'The skills and experience to tell stories about a hometown, the world or an organization, for students who love to write and follow the news.'
@@ -439,7 +459,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq621000ki67moqqm5i2i',
+      status: 'current',
       name: 'Communication Studies',
       description: described(
         'The communication skills and understanding of the communication process needed in a complex, changing society: effective communication, communication theory and practice.'
@@ -459,7 +480,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq651000li67mpdpj9rd7',
+      status: 'current',
       name: 'Environmental and Sustainability Sciences',
       description: described(
         'Transdisciplinary skills for pressing environmental problems, grounded in Earth systems, ecology and sustainable development, with data management and geographic information systems.'
@@ -479,7 +501,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aq662000mi67m5kjlj988',
+      status: 'current',
       name: 'Architecture',
       description: described(
         'A rigorous studio sequence with architecture history and building technology, to respond innovatively and conscientiously to the needs of the built environment and its inhabitants.'
