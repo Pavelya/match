@@ -43,7 +43,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2aqa3b0000kc7m38ezykcy',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Mechanical engineers design, build and control the devices, machines, processes and systems that are the mainstay of modern industrial society, from spacecraft to sustainable energy systems.',
@@ -63,7 +64,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqa6o0001kc7m91fajhyj',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'How electricity powers the world, and how to identify and solve complex problems with the principles of engineering, science and mathematics.',
@@ -83,7 +85,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqa7o0002kc7m5ww2acsy',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'Turning raw materials into skyscrapers, bridges and sustainable cities, with hands-on projects that build problem-solving skills and technical expertise.',
@@ -103,7 +106,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqa8o0003kc7m5e3pmlup',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         'Chemistry, physics and mathematics applied to converting raw materials and chemicals into more useful or valuable forms, and to designing new materials and chemical products.',
@@ -123,7 +127,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqa9o0004kc7mupje6ebs',
+      status: 'current',
       name: 'Aerospace Engineering (Aeronautics)',
       description: described(
         'The technologies behind the design and development of aerospace vehicles and systems; the aeronautics concentration centres on aircraft and helicopters.',
@@ -144,7 +149,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqaao0005kc7mhovbiq27',
+      status: 'current',
       name: 'Biomedical Engineering',
       description: described(
         'Designing medical technologies, analysing biological systems and applying data and artificial intelligence to clinical and biomedical problems.',
@@ -164,7 +170,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqabo0006kc7mfnixobpa',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'A strong mathematical foundation with hands-on programming and project-based work, pairing rigorous theory with building software that works.',
@@ -184,7 +191,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqacn0007kc7mzl3t50q9',
+      status: 'current',
       name: 'Data Science',
       description: described(
         'Statistical, computational and mathematical tools for finding patterns in large, complex data, preparing critical analysts for business, research and government.'
@@ -203,7 +211,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqado0008kc7m2a89kv0p',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'A deep grounding in theoretical and applied mathematics: differential equations, modelling, numerical analysis, number theory, topology, cryptography and real analysis.'
@@ -219,7 +228,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqaem0009kc7mnopry6i0',
+      status: 'current',
       name: 'Physics',
       description: described(
         'The science that underpins most others: the fundamental principles of matter behind engineering, astronomy, chemistry and biochemistry.'
@@ -235,7 +245,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqafk000akc7mmc6v2184',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'Broad expertise across organic, inorganic, analytical, physical and biological chemistry: the full foundation a professional chemist needs.'
@@ -251,7 +262,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqagk000bkc7mrhx6c72t',
+      status: 'current',
       name: 'Biological Sciences',
       description: described(
         'The diversity of living systems and the connections that sustain life, with flexible specializations and hands-on research in faculty laboratories.'
@@ -270,7 +282,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqahg000ckc7mn85wr6u4',
+      status: 'current',
       name: 'Neuroscience',
       description: described(
         "How the brain and nervous system work, drawing on the Department of Psychology's research and its links with Barrow Neurological Institute, Mayo Clinic and the Translational Genomics Research Institute."
@@ -286,7 +299,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqaid000dkc7mnbezri1o',
+      status: 'current',
       name: 'Nursing',
       description: described(
         'Evidence-based practice, clinical reasoning, innovation, interprofessional communication and information technology, in the Edson College of Nursing and Health Innovation.',
@@ -304,7 +318,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqal8000ekc7mh0trv84t',
+      status: 'current',
       name: 'Economics',
       description: described(
         'The analytical tools to identify trends, inform policy decisions and address societal challenges, and how economies function, in the W. P. Carey School of Business.',
@@ -321,7 +336,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqam5000fkc7mwn9tbyqv',
+      status: 'current',
       name: 'Finance',
       description: described(
         'Corporate finance, investments, valuation and financial modelling, to evaluate companies, markets and financial decisions.',
@@ -338,7 +354,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqan5000gkc7mk7gpm7sy',
+      status: 'current',
       name: 'Management',
       description: described(
         'Management as measurable behaviours that drive performance, taught by award-winning faculty, with the skills to lead a thriving team.',
@@ -355,7 +372,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqao5000hkc7mig9e997a',
+      status: 'current',
       name: 'Psychology',
       description: described(
         'How biological, cognitive, developmental and social forces shape human and animal behaviour, with scientific reasoning, data analysis and quantitative methods.'
@@ -371,7 +389,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqap5000ikc7mlhclmbhz',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'How political institutions, public policies and governing systems shape societies, with research, analysis and persuasive skills for law school, campaigns or diplomacy.'
@@ -390,7 +409,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqaq1000jkc7mwex0o3dt',
+      status: 'current',
       name: 'Journalism',
       description: described(
         "The Walter Cronkite School of Journalism and Mass Communication's Bachelor of Arts: reporting, producing and audience engagement, publishing stories for real audiences."
@@ -407,7 +427,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqar1000kkc7mhenfwg38',
+      status: 'current',
       name: 'Sustainability',
       description: described(
         'Environmental, economic and societal challenges tackled through science, systems thinking and hands-on experience, in the Rob Walton College of Global Futures.'
@@ -426,7 +447,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aqarw000lkc7mr87f4630',
+      status: 'current',
       name: 'Architectural Studies',
       description: described(
         'Space and environments and how people engage with them: the intellectual, artistic and technical skills for a future in architecture, in the Herberger Institute for Design and the Arts.'

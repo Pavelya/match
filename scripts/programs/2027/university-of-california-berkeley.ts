@@ -44,7 +44,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2apd1i0000dc7mu7hkwid8',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Mechanical engineers serve society by solving problems in transportation, energy, the environment and human health, from investigating the physical phenomena around us to manufacturing and evaluating products. The degree is ABET-accredited.',
@@ -61,7 +62,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd2h0001dc7mk0qxzhnd',
+      status: 'current',
       name: 'Electrical Engineering and Computer Sciences',
       description: described(
         'The EECS major, in the College of Engineering, combines the fundamentals of computer science and electrical engineering in one major. It requires more mathematics and science than the Computer Science BA, which requires more breadth courses.',
@@ -78,7 +80,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd3i0002dc7mab0yzz3c',
+      status: 'current',
       name: 'Aerospace Engineering',
       description: described(
         "Berkeley's aerospace engineering degree, taught by the Department of Mechanical Engineering, for students who want to design aircraft, spacecraft and the systems that fly them.",
@@ -95,7 +98,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd4e0003dc7m66d2c6c1',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         'The College of Chemistry offers Chemical Engineering through its Department of Chemical and Biomolecular Engineering, an ABET-accredited Bachelor of Science in the design of chemical and biomolecular processes.',
@@ -112,7 +116,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd5e0004dc7motwh8h5a',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'An ABET-accredited four-year curriculum with a strong background in engineering science, design and practice, and optional emphases in project management, environmental engineering, geosystems, structures and transportation.',
@@ -129,7 +134,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd6c0005dc7mldpqd5xn',
+      status: 'current',
       name: 'Bioengineering',
       description: described(
         'A multidisciplinary major for students strong in the physical sciences, mathematics and biology, with concentrations in biomedical devices, imaging, cell and tissue engineering, and synthetic and computational biology.',
@@ -146,7 +152,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd7e0006dc7mit7sqesc',
+      status: 'current',
       name: 'Materials Science and Engineering',
       description: described(
         'Materials scientists and engineers work in every aspect of technology, from designing materials for integrated circuits to materials for energy, medicine and structures.',
@@ -163,7 +170,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd8e0007dc7m382avo75',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'The CS major of the College of Computing, Data Science, and Society emphasizes the science of computer science: theory of computation, algorithms, computer architecture, programming languages, operating systems, databases and artificial intelligence.',
@@ -180,7 +188,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apd9e0008dc7mpr6p1lpf',
+      status: 'current',
       name: 'Data Science',
       description: described(
         "Data Science combines computational and inferential reasoning to draw conclusions from data about the real world, with a core in mathematics, computing, probability and human contexts and ethics, and a domain emphasis of the student's choice.",
@@ -197,7 +206,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdac0009dc7ml1veldjg',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         "The Department of Mathematics' major leads to the Bachelor of Arts and prepares students for advanced degrees in mathematics, the physical sciences, economics and engineering, and for graduate work in business, education, law and medicine.",
@@ -214,7 +224,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdb9000adc7m8e2xq9ux',
+      status: 'current',
       name: 'Statistics',
       description: described(
         'A systematic grounding in applied and theoretical statistics and probability, in a department particularly strong in machine learning.',
@@ -231,7 +242,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdc9000bdc7m3c5kbvkh',
+      status: 'current',
       name: 'Physics',
       description: described(
         'A broad and thorough understanding of the fundamentals of physics, rather than specialized skills; graduates go on to graduate work in many sciences or to academic, industrial and government laboratories.',
@@ -248,7 +260,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdey000cdc7mj9lwrfmq',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         "The College of Chemistry's Bachelor of Science gives a strong foundation in experimental processes, instrumentation and quantitative analysis, with advanced mathematics and physics, for careers as professional chemists or graduate study.",
@@ -265,7 +278,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdfw000ddc7m263hmsn9',
+      status: 'current',
       name: 'Molecular and Cell Biology',
       description: described(
         'The molecular structures and processes of cellular life and their roles in how organisms function, reproduce and develop, across biochemistry, microbiology, biophysics, genetics, cell physiology, immunology and neurobiology.',
@@ -282,7 +296,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdgr000edc7mmr1x57kr',
+      status: 'current',
       name: 'Economics',
       description: described(
         'A department of over 1,500 undergraduates offering courses from economic history to advanced macroeconomics, with study abroad and research opportunities.',
@@ -299,7 +314,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdhp000fdc7mnxsqoyg6',
+      status: 'current',
       name: 'Business Administration',
       description: described(
         'The Haas School of Business undergraduate program, leading to the Bachelor of Science; first-year applicants can enter Haas directly through its Spieker Undergraduate business program or the Global Management Program.',
@@ -316,7 +332,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdin000gdc7m1t5qreio',
+      status: 'current',
       name: 'Environmental Economics and Policy',
       description: described(
         'The Rausser College of Natural Resources major on the economic and political institutions that shape how natural resources and the environment are developed and managed, built on microeconomic theory and resource economics.',
@@ -333,7 +350,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdjk000hdc7msn966rif',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'The exercise of power in its many forms and consequences: the ethics of power, political ideas such as liberty and justice, the historical, economic and social forces on politics, and how the US and other political systems work.',
@@ -350,7 +368,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdkk000idc7mu5k16ly0',
+      status: 'current',
       name: 'Psychology',
       description: described(
         'Psychology as a science that describes, understands and predicts behaviour, from sensory experience to complex cognition, genetics to culture, and early childhood to old age.',
@@ -367,7 +386,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdlk000jdc7mk0j0lq5q',
+      status: 'current',
       name: 'Public Health',
       description: described(
         'Offered by the School of Public Health through Letters & Science: epidemiology, biostatistics, environmental health, health behaviour and health policy, the interdisciplinary science of preventing disease and injury in communities.',
@@ -384,7 +404,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdmh000kdc7m08ajys2g',
+      status: 'current',
       name: 'Media Studies',
       description: described(
         'An interdisciplinary framework from the liberal arts, social sciences and humanities for understanding the role of media in economic, social, political and cultural life, with concentrations in digital studies, global cultural studies and media law and policy.',
@@ -401,7 +422,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apdnf000ldc7mqe1uiat9',
+      status: 'current',
       name: 'Architecture',
       description: described(
         "Berkeley's preprofessional architecture degree combines required courses in environmental design and architecture with varied individual programs, and prepares students for a Master of Architecture.",

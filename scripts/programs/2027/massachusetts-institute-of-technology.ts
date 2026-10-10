@@ -43,7 +43,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2aoyzl00006v7m6i0gnqm1',
+      status: 'current',
       name: 'Aerospace Engineering (Course 16)',
       description: described(
         "MIT's Department of Aeronautics and Astronautics (AeroAstro) researches and engineers aerospace systems and technologies, and its Bachelor of Science in Aerospace Engineering educates the engineers who design aircraft, spacecraft and the systems in them."
@@ -62,7 +63,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz0w00016v7mxeh716z0',
+      status: 'current',
       name: 'Biological Engineering (Course 20)',
       description: described(
         'Biological engineering fuses engineering analysis and synthesis with modern molecular-to-genomic biology, to understand how biological systems work as physical and chemical mechanisms and how they respond to medical therapeutics, environmental agents and genetic variation.'
@@ -78,7 +80,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz1u00026v7mgeii8xkm',
+      status: 'current',
       name: 'Chemical Engineering (Course 10)',
       description: described(
         'Chemical engineering translates molecular information into new products and processes. It deals with chemical, physical and biological transformations, described from the submolecular to the macroscopic scale, for industries from nanotechnology and biotechnology to energy.'
@@ -94,7 +97,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz2t00036v7m1fjukjr7',
+      status: 'current',
       name: 'Electrical Engineering with Computing (Course 6-5)',
       description: described(
         "One of the bachelor's degrees of MIT's Department of Electrical Engineering and Computer Science, combining electrical engineering (circuits and systems, devices, photonics, power and energy) with the computing it depends on."
@@ -114,7 +118,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz3w00046v7moo783sa0',
+      status: 'current',
       name: 'Materials Science and Engineering (Course 3)',
       description: described(
         'Materials science and engineering studies how atoms and molecules are built into solid materials and how their structure governs their properties, for every class of material used in energy, sustainability, nanotechnology, healthcare, information technology and manufacturing.'
@@ -133,7 +138,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz4u00056v7m4x05xy74',
+      status: 'current',
       name: 'Mechanical Engineering (Course 2)',
       description: described(
         'Mechanical engineering is concerned with the responsible development of products, processes and power, at scales from molecules to large and complex systems: the world of mass, motion, forces and energy. It is one of the broadest of the engineering professions.'
@@ -149,7 +155,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoz5t00066v7mjfwgp8lg',
+      status: 'current',
       name: 'Nuclear Science and Engineering (Course 22)',
       description: described(
         'Nuclear Science and Engineering educates students to develop and understand nuclear technologies for society and the environment, from safe, cost-competitive nuclear energy systems to new tools for measuring and modelling matter and radiation.'
@@ -168,7 +175,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Field: Engineering, kept at the owner's request (10 October 2026). The fields-of-study rule files it under Natural Sciences because "Science" is named first, but it is an engineering degree in the School of Engineering. Its KEPT entry (lib/programs/fields-of-study.ts) is added at the apply, when it has an id.`
     },
     {
-      status: 'new',
+      id: 'cmv2aoz9900076v7m83mveu5c',
+      status: 'current',
       name: 'Computer Science and Engineering (Course 6-3)',
       description: described(
         "MIT's computer science degree, in the Department of Electrical Engineering and Computer Science: algorithms and theory, software engineering, computer systems and architecture, security, graphics and artificial intelligence."
@@ -188,7 +196,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoza700086v7mm649f0va',
+      status: 'current',
       name: 'Artificial Intelligence and Decision Making (Course 6-4)',
       description: described(
         'A degree of the Department of Electrical Engineering and Computer Science centred on artificial intelligence, machine learning and decision-making: how to build systems that learn, reason and act, and how to model and optimize decisions.'
@@ -208,7 +217,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozb400096v7mbkud2log',
+      status: 'current',
       name: 'Mathematics (Course 18)',
       description: described(
         'Mathematics at MIT ranges from pure mathematics (analysis, algebra, geometry and topology) to applied areas such as combinatorics, computational biology, fluid dynamics, theoretical computer science and theoretical physics. Course 18 also offers Mathematics with Computer Science.'
@@ -224,7 +234,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozc3000a6v7m4ui05ey3',
+      status: 'current',
       name: 'Physics (Course 8)',
       description: described(
         'Physics at MIT centres on the fundamental principles that govern the physical world, including space and time and matter and energy in all its forms, from the subatomic to the cosmological.'
@@ -240,7 +251,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozd5000b6v7m2u3n8rmc',
+      status: 'current',
       name: 'Chemistry (Course 5)',
       description: described(
         'Chemistry is the study of atoms, molecules and solids: the changes they undergo, the principles behind them and ways to create new compounds and materials, with problems from pharmaceuticals and solar cells to clean fuels and batteries.'
@@ -256,7 +268,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aoze5000c6v7md9nws9fo',
+      status: 'current',
       name: 'Biology (Course 7)',
       description: described(
         'Biology at MIT is quantitative: molecular biology, biochemistry, genetics and cell biology form the core, with a solid grounding in mathematics, physics and chemistry and an emphasis on practical experimentation.'
@@ -272,7 +285,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozf0000d6v7moo00ecvs',
+      status: 'current',
       name: 'Earth, Atmospheric and Planetary Sciences (Course 12)',
       description: described(
         'The study of the Earth and other planets: geology, geochemistry, geobiology and geophysics, the atmosphere, oceans and climate, and planetary science.'
@@ -291,7 +305,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozfw000e6v7mapl0qevu',
+      status: 'current',
       name: 'Brain and Cognitive Sciences (Course 9)',
       description: described(
         'The study of mind, brain and behaviour, asking fundamental questions about intelligent processes and how the brain is organized, through four themes: molecular and cellular neuroscience, systems neuroscience, cognitive science and computation.'
@@ -307,7 +322,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozgu000f6v7mtrn1ap9v',
+      status: 'current',
       name: 'Economics (Course 14-1)',
       description: described(
         'Economics studies decision-making by individuals and the aggregate outcomes it produces, and how government and other interventions affect well-being, with methods from mathematical modelling to data science and randomized trials.'
@@ -326,7 +342,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozhr000g6v7mcu1fc2pw',
+      status: 'current',
       name: 'Management (Course 15-1)',
       description: described(
         "The MIT Sloan School of Management's business degree: a foundation in probability and statistics, managerial communication and psychology, microeconomics and accounting, then core business functions (finance, operations, marketing, strategy) and a concentration of the student's choice."
@@ -342,7 +359,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozio000h6v7ma8getbgf',
+      status: 'current',
       name: 'Political Science (Course 17)',
       description: described(
         'Political science is the systematic study of government and the political process: how political power develops and is used, the causes and consequences of political behaviour and conflict, and the relationship between the individual and the state.'
@@ -362,7 +380,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozjo000i6v7md8w6k5qf',
+      status: 'current',
       name: 'Architecture (Course 4)',
       description: described(
         "MIT's undergraduate architecture degree, in a department that spans architecture and urbanism, building technology, computation, the history and theory of architecture and art, and art, culture and technology."
@@ -378,7 +397,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozkn000j6v7mcg20izy9',
+      status: 'current',
       name: 'Planning (Course 11)',
       description: described(
         "The Department of Urban Studies and Planning's Bachelor of Science in Planning studies how cities and regions work and how planning and policy can shape them."
@@ -397,7 +417,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozns000k6v7mre1ytxdy',
+      status: 'current',
       name: 'Comparative Media Studies',
       description: described(
         'Comparative Media Studies studies contemporary media (film, television, games, social media and digital interactive forms) and teaches students to think across them by creating and producing media themselves.'
@@ -417,7 +438,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aozon000l6v7mcw2skzj6',
+      status: 'current',
       name: 'Music (Course 21M)',
       description: described(
         "MIT's music major develops creativity, research ability and aesthetic sensibility through performance, composition, history, culture, technology and analysis, in close contact with faculty, performers and composers."

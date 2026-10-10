@@ -31,7 +31,7 @@ here, and this refresh does more production writes than any work before it.
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
-| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs written and dry-run, waiting for the owner's approval |
+| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
@@ -106,9 +106,9 @@ Phase 5 — Coverage
 
 Phase 6 — USA
 
-- [ ] 6 Research how to model US admissions, then refresh and extend — Part A done 9 October 2026
+- [x] 6 Research how to model US admissions, then refresh and extend — Part A done 9 October 2026
   (`content-2027/usa-model-decision.md`), model chosen 10 October 2026; Part B1 (code, Georgia Tech, USA page)
-  applied 10 October 2026; Part B2 (11 universities, 242 programs) built 10 October 2026, its apply waits for the owner
+  applied 10 October 2026; Part B2 (11 universities, 242 programs) applied 10 October 2026; images for the owner
 
 Phase 7 — Germany
 
@@ -200,8 +200,12 @@ Owner tasks — not AI work
 - [ ] Choose the US model (6) and the German model (7). **US chosen 10 October 2026:** all eight decisions in
   `docs/tasks/content-2027/usa-model-decision.md` as recommended, with Arizona State added to the ten universities.
   The German model is still open
-- [ ] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
-  subject rows (status, phase 6). Then add their images in `/admin/universities`
+- [x] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
+  subject rows (status, phase 6). Approved and applied 10 October 2026, with their admit rates
+- [ ] Add images for the eleven US universities added in 6 (MIT, Harvard, Stanford, UC Berkeley, UCLA, Michigan, Purdue, NYU, Boston
+  University, Northeastern, Arizona State) in `/admin/universities`, then check their programs' Algolia records (standing context)
+- [ ] Update UCLA's 23 program links when its 2027 General Catalog appears: they name `/major/2026/`, the newest catalog on
+  10 October 2026 (`/major/2027/` answered 500)
 - [x] Keep MIT's Nuclear Science and Engineering (Course 22) in Engineering, as a `KEPT` exception to the fields-of-study rule, or file it
   under Natural Sciences as the rule does (6, Part B2). **Owner, 10 October 2026: keep it in Engineering.** Its `KEPT` entry is added at
   the apply, when the program has an id
@@ -3090,7 +3094,7 @@ The owner chose all eight recommendations on 10 October 2026, adding Arizona Sta
     The current `ProgramCard` is not changed: 2.2 deletes it.
 - **Next, Part B2:** the 11 universities with `add-universities.ts`, about 15–30 majors each, under the same model.
 
-#### Status, 10 October 2026 — Part B2 built (session 26); the apply waits for the owner
+#### Status, 10 October 2026 — Part B2 done (session 26); applied the same day
 
 Data files (new): `scripts/programs/2027/new-universities-6.ts` (the 11 universities; run `add-universities.ts` with its path) and
 one programs file per university, each with a header saying how it admits and where its descriptions come from. Pages were read on
@@ -3136,6 +3140,21 @@ one programs file per university, each with a header saying how it admits and wh
   publish a phone number and a form but no admissions email.
 - **Not added:** medicine and law (graduate-entry, decision 8), online-only majors (ASU English), NYU Abu Dhabi and Shanghai, and the
   catalogs' Oakland and New York City versions of Northeastern majors.
+- **Applied 10 October 2026** with the owner's approval, after PRs #90 and #91 had deployed; the dry runs were unchanged.
+  - **Universities.** `add-universities.ts` created the 11, and `sync-universities-algolia.ts` indexed them. No images yet.
+  - **Programs.** The refresh tool created all 242, file by file, and synced each to Algolia and cleared the caches. The data files now
+    carry each program's id with status `current`, and every dry run reports them up to date.
+  - **Admit rates.** `set-admit-rates.ts` wrote the other 11 universities' rates (Georgia Tech's was already stored).
+  - **Fields.** MIT's Nuclear Science and Engineering is in `KEPT` (owner, 10 October 2026). `field-inventory.ts`: 0 outliers, 14 kept by
+    the owner, 0 of 12 descriptions differ.
+  - **Checked afterwards.** Production holds 1,628 programs at 97 universities; 286 have no IB minimum (Georgia Tech's 44 and these 242).
+    Each US university has its program count, stamps, admit rate and subject rows as planned (BU 5 programs, Purdue Nursing).
+  - **Links** (`check-program-links.ts --country "United States"`, 284 URLs): 252 OK; 31 unverifiable, the umich.edu and
+    `*.fas.harvard.edu` bot walls; 1 transient timeout (NYU Physics, which answered on a retry); and UCLA's 23 catalog links
+    counted as year-pinned, because they name 2026, the newest catalog (for the owner).
+  - **Live pages.** MIT's university page lists "No IB minimum". Purdue Nursing's page shows its "How competitive" paragraph and the
+    Biology requirement, and BU Mechanical Engineering's shows the Maths AA or AI either/or. `/ib-university-requirements` shows the
+    USA with no minimum. A US search capped at 30 points returns all 286 programs.
 
 ---
 

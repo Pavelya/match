@@ -43,7 +43,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2ap4b80000br7mmz26tc3f',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'Computer science at Harvard is about tools and technology and about understanding the world: the computational viewpoint applies to systems from swarms of insects to markets and neurons. The concentration has strong ties to engineering, economics, law, biology, physics, statistics, mathematics and linguistics.'
@@ -59,7 +60,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4cb0001br7mq8le3ihc',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'Electrical engineering builds the information and communication pathways that link us and the devices and systems that send, receive, store and compute on information ever faster. Harvard offers it as an accredited Bachelor of Science and as a Bachelor of Arts.'
@@ -78,7 +80,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4d90002br7m06gkq3nc',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Mechanical engineering uses the principles of physics and materials science to analyse and design mechanical and thermal systems, central to energy, transportation, manufacturing and infrastructure.'
@@ -94,7 +97,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4e70003br7mbh1m8kof',
+      status: 'current',
       name: 'Biomedical Engineering',
       description: described(
         'Biomedical engineering lies where the physical and life sciences meet, using physics and chemistry to understand how living systems work. Its approach is quantitative: mathematical analysis and modelling of systems from the subcellular to the whole organism.'
@@ -110,7 +114,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4f50004br7mzm3bi9t6',
+      status: 'current',
       name: 'Engineering Sciences',
       description: described(
         'The Engineering Sciences program gives future engineers the technical background to develop and evaluate engineering innovations, apply them to local and global problems and decide about them in their social context. Harvard offers it as an accredited Bachelor of Science and as a Bachelor of Arts.'
@@ -130,7 +135,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4im0005br7mrfuehuy5',
+      status: 'current',
       name: 'Environmental Science and Engineering',
       description: described(
         'An interdisciplinary program for understanding, predicting and responding to natural and human-induced environmental change, from global warming to air and water pollution, drawing on atmospheric physics and chemistry, oceanography, hydrology, geophysics and ecology.'
@@ -150,7 +156,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4jm0006br7mgfm2xr0a',
+      status: 'current',
       name: 'Environmental Science and Public Policy',
       description: described(
         'A multidisciplinary introduction to current environmental problems, combining the underlying science and technology with their economic, political, legal, historical and ethical dimensions.'
@@ -166,7 +173,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4kj0007br7mles3mx21',
+      status: 'current',
       name: 'Applied Mathematics',
       description: described(
         "Applied mathematics is a quantitative liberal arts degree that combines mathematical thinking with an application area of the student's choice, from physics or biology to economics."
@@ -182,7 +190,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4li0008br7m592uqcg0',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'Mathematics is the science of order: finding the tools to perceive order where it is hidden. The concentration builds from analysis and algebra to the fields of modern mathematics.'
@@ -198,7 +207,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4mh0009br7mzf3iwosr',
+      status: 'current',
       name: 'Statistics',
       description: described(
         'Statistics is the body of principled methods for collecting and analysing data, making rational decisions under uncertainty and modelling randomness, with a theoretical core and applications across the social, natural and medical sciences.'
@@ -214,7 +224,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4ne000abr7mefvwg0gb',
+      status: 'current',
       name: 'Physics',
       description: described(
         'Physics studies the fundamental laws that govern all matter (relativity, quantum mechanics and the basic forces), from molecules, atoms and sub-nuclear particles to the properties those laws give rise to in larger systems.'
@@ -230,7 +241,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4oh000bbr7mxt9juit8',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'Chemistry is the science of the structure, properties and reactions of matter: a basic science for understanding the world and a practical one with a great variety of applications, fundamental to biology, biochemistry and engineering.'
@@ -246,7 +258,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4pg000cbr7mbs4cbbme',
+      status: 'current',
       name: 'Molecular and Cellular Biology',
       description: described(
         'Molecular and Cellular Biology investigates biological processes through molecules and their interactions in cells and tissues, and how the genome orchestrates cell behaviour.'
@@ -265,7 +278,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4qe000dbr7mhouk5n21',
+      status: 'current',
       name: 'Neuroscience',
       description: described(
         'Neuroscience asks how billions of neurons create sensory, emotional and intellectual life and all animal behaviour. The field is interdisciplinary, drawing on genetics, chemistry, molecular biology, mathematics, systems biology, computer science and cognitive science.'
@@ -281,7 +295,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4r9000ebr7mb98q9csf',
+      status: 'current',
       name: 'Economics',
       description: described(
         'Economics studies social systems such as markets, corporations, legislatures and families as the outcome of interactions between goal-directed individuals, and makes recommendations meant to leave people better off.'
@@ -297,7 +312,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4s5000fbr7m7657swun',
+      status: 'current',
       name: 'Government',
       description: described(
         "Harvard's Department of Government is, like political science, an umbrella for a wide range of political subjects and ways of studying them, at the crossroads of history, law, economics, sociology, philosophy and ethics."
@@ -313,7 +329,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4t3000gbr7m7ochoxcb',
+      status: 'current',
       name: 'Psychology',
       description: described(
         'Psychology is the scientific study of the mind, at every level from measurements of the brain to individuals, groups and organizations, with research on attention, perception, memory, reasoning and decision-making.'
@@ -329,7 +346,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4u2000hbr7m261wtswk',
+      status: 'current',
       name: 'History',
       description: described(
         'History covers every dimension of human interaction in the past (social life, the economy, culture, thought and politics) with the techniques of the humanities and social sciences, in courses that span the globe.'
@@ -345,7 +363,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4x8000ibr7mn27p903j',
+      status: 'current',
       name: 'English',
       description: described(
         'The English concentration makes students expert makers and interpreters of stories: analysing and appreciating the language of the past, crafting new narratives and communicating meaningfully through language.'
@@ -361,7 +380,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2ap4y7000jbr7m8xsjkwli',
+      status: 'current',
       name: 'Philosophy',
       description: described(
         "Philosophy studies humanity's fundamental questions (how to live, what society to strive for, the limits of knowledge, truth, justice and beauty) systematically and rigorously, through careful argument."

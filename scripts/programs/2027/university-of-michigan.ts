@@ -45,7 +45,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2apm7l0000ew7mjpy3269d',
+      status: 'current',
       name: 'Aerospace Engineering',
       description: described(
         'Aerospace engineering is the science and practice of flight, in two branches: aeronautics, the design of aircraft within the atmosphere, and astronautics, the design of spacecraft just outside it and beyond.',
@@ -62,7 +63,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apm8l0001ew7mwjdc8gfo',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         "The College of Engineering's Bachelor of Science in Engineering in mechanical engineering.",
@@ -79,7 +81,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmbd0002ew7mksda5ig2',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         "The Bachelor of Science in Engineering in electrical engineering, from the College of Engineering's Electrical and Computer Engineering division.",
@@ -100,7 +103,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmcd0003ew7mij5v4xtl',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         "Chemical engineers transform matter into solutions to society's greatest challenges, from the future of medicine to powering a sustainable society.",
@@ -117,7 +121,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmda0004ew7mtmpg4d64',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'Civil engineering is the design, building and maintenance of the infrastructure that supports modern society (bridges, roads, buildings and water systems) with sustainability and resilience built in.',
@@ -137,7 +142,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apme90005ew7mlhns36bv',
+      status: 'current',
       name: 'Biomedical Engineering',
       description: described(
         'Biomedical engineering for students who enjoy mathematics, physics and chemistry and are interested in biology and medicine, with a design program that solves problems for real clients.',
@@ -154,7 +160,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmf70006ew7m1bm8rghb',
+      status: 'current',
       name: 'Materials Science and Engineering',
       description: described(
         'A broad foundation in every class of material (metals, polymers, ceramics and semiconductors), using chemistry and physics to understand how bonding and atomic arrangement shape their properties.',
@@ -171,7 +178,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmg60007ew7m69y2x77x',
+      status: 'current',
       name: 'Computer Science (BSE)',
       description: described(
         'Computer science in the College of Engineering: the theory of computation and its applications, designing and analysing algorithms, storing and retrieving information, how computers work and building software systems for complex problems. LSA offers the same major as a Bachelor of Science.',
@@ -192,7 +200,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmh60008ew7m4nbmbkaf',
+      status: 'current',
       name: 'Data Science',
       description: described(
         'A foundation in the parts of computer science, statistics and mathematics needed to analyse and manipulate large or complex data, ending in a capstone.',
@@ -212,7 +221,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmi40009ew7m3odctjhq',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'Mathematics in several tracks: pure mathematics, mathematical sciences, actuarial mathematics, the mathematics of finance and risk management, and honors mathematics.',
@@ -232,7 +242,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmj2000aew7mw36gjimj',
+      status: 'current',
       name: 'Statistics',
       description: described(
         'Applied statistics, statistical theory and statistical computing, built on multivariable calculus, linear algebra and programming, with advanced electives and a capstone.',
@@ -252,7 +263,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmk1000bew7mf5xxscnb',
+      status: 'current',
       name: 'Physics',
       description: described(
         "The Department of Physics' major in the College of Literature, Science, and the Arts.",
@@ -269,7 +281,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmkx000cew7mfr1dyokd',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         "The Department of Chemistry's majors in the College of Literature, Science, and the Arts, including a Bachelor of Science in Chemistry with 60 credits in the sciences and mathematics.",
@@ -290,7 +303,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmls000dew7m64zyiink',
+      status: 'current',
       name: 'Neuroscience',
       description: described(
         'A major whose core covers neurobiology, genetics, biochemistry and biopsychology, with an honors track built on two terms of independent research.',
@@ -310,7 +324,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmmo000eew7maw5yj56l',
+      status: 'current',
       name: 'Nursing',
       description: described(
         "The School of Nursing's Bachelor of Science in Nursing develops clinical expertise and critical thinkers and leaders in the profession, with hands-on experience and world-renowned faculty.",
@@ -327,7 +342,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmpx000few7mawaesmif',
+      status: 'current',
       name: 'Economics',
       description: described(
         "The Department of Economics' major in the College of Literature, Science, and the Arts.",
@@ -344,7 +360,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmqt000gew7msukb1grx',
+      status: 'current',
       name: 'Business Administration (BBA)',
       description: described(
         "The Ross School of Business's BBA, built on action-based learning: its students start, advise, invest in and lead real businesses.",
@@ -361,7 +378,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmrt000hew7mzmlibbad',
+      status: 'current',
       name: 'Political Science',
       description: described(
         "The Department of Political Science's major in the College of Literature, Science, and the Arts.",
@@ -381,7 +399,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmsq000iew7mirtxhn5e',
+      status: 'current',
       name: 'Psychology',
       description: described(
         "LSA's general psychology major, with experiential lab courses and an honors research track; Michigan also offers Biopsychology, Cognition, and Neuroscience.",
@@ -402,7 +421,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmtr000jew7mxuhdmqke',
+      status: 'current',
       name: 'Communication and Media',
       description: described(
         'The mass media and emerging media: how they evolved, their effects, how people use them, and their regulation and industry practices.',
@@ -423,7 +443,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmur000kew7m1q2xj9wr',
+      status: 'current',
       name: 'Environment',
       description: described(
         'The Program in the Environment, run jointly by LSA and the School for Environment and Sustainability, studies the interactions of human beings and their environment across the natural sciences, social sciences and humanities.',
@@ -443,7 +464,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apmvq000lew7mtgydrfc2',
+      status: 'current',
       name: 'Architecture',
       description: described(
         "Taubman College's Bachelor of Science in Architecture, one of the leading undergraduate design programs in the US, combines a collaborative studio culture with technology, global perspectives and sustainable design.",

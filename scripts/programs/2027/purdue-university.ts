@@ -45,7 +45,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2apqsq0000fo7mukngt913',
+      status: 'current',
       name: 'Aeronautical and Astronautical Engineering',
       description: described(
         'The design, development, analysis, testing and production of aircraft, missiles and space vehicles: aeronautics for military and civilian aircraft, astronautics for rockets, spacecraft and space systems, with hands-on work in the largest academic propulsion laboratory.',
@@ -65,7 +66,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqtm0001fo7mggflpb6v',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'The broadest of the engineering majors: physics, electronics, 3D printing, fluid mechanics, heat transfer and controls, with motorsports and rocket teams, research and study abroad.',
@@ -82,7 +84,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apquk0002fo7mfs2m6c43',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'How to design, develop and operate the systems behind autonomous vehicles, biomedical devices, robotics, artificial intelligence and power systems, from microcontrollers and lasers to smart energy and communication systems.',
@@ -99,7 +102,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqve0003fo7msj9cz54j',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         'Resilient infrastructure, smart cities and environmental sustainability, from building roads to restoring rivers, with nine engineering emphasis areas.',
@@ -116,7 +120,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqwj0004fo7mgh41zdok',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         'Chemistry and physics applied to designing the equipment and processes that make fuels, detergents, paper and food, turning laboratory processes into efficient full-scale operations.',
@@ -133,7 +138,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqxh0005fo7mlbyhju1w',
+      status: 'current',
       name: 'Biomedical Engineering',
       description: described(
         'Engineering principles applied to healthcare: medical imaging, prosthetics, wearable health devices and drug delivery, with engineering fundamentals, design, bioinstrumentation and circuit theory.',
@@ -150,7 +156,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqyi0006fo7mk4ijzp0a',
+      status: 'current',
       name: 'Computer Engineering',
       description: described(
         'Designing computers by blending hardware and software, from smartphones to the systems behind innovation, with advanced study in artificial intelligence, compilers, graphics, networks and operating systems.',
@@ -167,7 +174,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apqzh0007fo7mvt3b3zlb',
+      status: 'current',
       name: 'Industrial Engineering',
       description: described(
         'Designing, analysing and improving systems of people, materials, technology and information, such as supply chains, production lines and hospital patient flow, using mathematics, science and business.',
@@ -184,7 +192,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr0g0008fo7m0daxxj2p',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'Computer science in the oldest computer science department in the world: programming, algorithms, systems, data science, software engineering and cybersecurity, with electives in artificial intelligence, robotics and computational biology.'
@@ -200,7 +209,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr1e0009fo7m626agq23',
+      status: 'current',
       name: 'Data Science',
       description: described(
         'Statistical analysis, machine learning and computational thinking at the meeting point of computer science and statistics, with an emphasis in computer science, mathematics or applied statistics.'
@@ -216,7 +226,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr2c000afo7myd7z2bj4',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         'Pure and applied mathematics in a flexible major that teaches logical, abstract and adaptive thinking and leaves room for a second major or minor.'
@@ -232,7 +243,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr39000bfo7m1iwj7cc4',
+      status: 'current',
       name: 'Applied Statistics',
       description: described(
         'Designing data collection, performing advanced analysis and interpreting results for decisions, with probability, statistical theory, data analytics and statistical computing.'
@@ -248,7 +260,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr64000cfo7m2dhhzfrr',
+      status: 'current',
       name: 'Physics',
       description: described(
         'Classical mechanics, quantum theory, electromagnetism, relativity and thermodynamics, with specialization in particle physics, astrophysics or condensed matter through electives and research.'
@@ -264,7 +277,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr71000dfo7m33gkdf1j',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'A strong foundation in chemical principles, laboratory techniques and scientific reasoning, with room for a second major or minor in fields such as biology, psychology, management or forensic science.'
@@ -280,7 +294,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apr7y000efo7ms1wprduz',
+      status: 'current',
       name: 'Biology',
       description: described(
         'A broad foundation in the life sciences, from genetics and ecology to neuroscience and cell biology, for careers in healthcare, research, biotechnology and public service, and for medical, dental and veterinary school.'
@@ -296,7 +311,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apraf000ffo7mrq1t3ray',
+      status: 'current',
       name: 'Nursing',
       description: described(
         "Purdue's Bachelor of Science in Nursing: anatomy, physiology, pharmacology, nursing ethics and specialized care, with laboratory practice, simulation and clinical placements, leading to the NCLEX-RN licensing exam."
@@ -315,7 +331,8 @@ const refresh: RefreshFile = {
       notes: `${NOTES} Subject rows: "you are required to complete at least two years of science courses, which must include: Biology — 1 year, Chemistry — 1 year" (major page; "One year must be chemistry and one year must be biology", first-year criteria). Stored as Biology and Chemistry taken, SL 1 (HL counts), both critical.`
     },
     {
-      status: 'new',
+      id: 'cmv2apreg000ifo7m4widmvm9',
+      status: 'current',
       name: 'Economics',
       description: described(
         'In the Daniels School of Business: how people decide with limited resources and the incentives behind their choices, applied to business and policy, with strong data analysis skills.',
@@ -332,7 +349,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprff000jfo7mhl1leaj0',
+      status: 'current',
       name: 'Finance',
       description: described(
         'Money, markets and investments in the Daniels School of Business: managing wealth, evaluating risk, interpreting financial statements and analysing global markets.',
@@ -349,7 +367,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprgf000kfo7my54h1t6w',
+      status: 'current',
       name: 'Psychological Sciences',
       description: described(
         'A broad overview of human behaviour across clinical, cognitive, developmental, industrial and organizational, behavioural neuroscience and social psychology, with research and co-op opportunities.'
@@ -365,7 +384,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprhd000lfo7m9godjflt',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'The tools to lead change and analyse current events and public problems, with applied research alongside faculty, research labs and internships from local to international.'
@@ -381,7 +401,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprkp000mfo7mrqstg6oq',
+      status: 'current',
       name: 'Communication',
       description: described(
         'Crafting messages that inform, influence and inspire: students start in pre-communication with three core courses, advance with a 2.67 GPA and choose from eight concentrations such as public relations and strategic communication.'
@@ -397,7 +418,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprlk000nfo7m8l1nl1zs',
+      status: 'current',
       name: 'Natural Resources and Environmental Science',
       description: described(
         'An interdisciplinary applied science major on understanding and managing human impact on the environment: ecology, conservation, climate policy and sustainable land and water use, in six concentrations.'
@@ -417,7 +439,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aprmf000ofo7m80vxid76',
+      status: 'current',
       name: 'Landscape Architecture',
       description: described(
         'Designing outdoor spaces that blend natural systems with human needs, from parks and plazas to regional ecosystems: design, technical drafting and plant science, with a professional co-op, preparing for licensure.'

@@ -43,7 +43,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-10',
   programs: [
     {
-      status: 'new',
+      id: 'cmv2aphkr0000e47mvxjh3wjb',
+      status: 'current',
       name: 'Aerospace Engineering',
       description: described(
         'The design and construction of fixed-wing and rotary-wing aircraft for air transportation and defence, and of spacecraft for the exploration and use of space, with the technologies around them.',
@@ -60,7 +61,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphmb0001e47mxgn0wq76',
+      status: 'current',
       name: 'Bioengineering',
       description: described(
         "The Samueli School of Engineering's bioengineering degree, accredited by the Engineering Accreditation Commission of ABET, applying engineering to biology and medicine.",
@@ -77,7 +79,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphnf0002e47m78ua4xyq',
+      status: 'current',
       name: 'Chemical Engineering',
       description: described(
         'A professionally oriented education in modern chemical engineering, with options in biomedical, biomolecular, environmental and semiconductor manufacturing engineering.',
@@ -94,7 +97,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphoc0003e47m8j55fr1f',
+      status: 'current',
       name: 'Civil Engineering',
       description: described(
         "The Samueli School of Engineering's civil engineering degree, accredited by the Engineering Accreditation Commission of ABET.",
@@ -111,7 +115,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphpd0004e47maxleu36r',
+      status: 'current',
       name: 'Electrical Engineering',
       description: described(
         'Preparation in mathematics and science leading to the fundamentals of the three areas of electrical engineering: signals and systems, circuits and embedded systems, and physical wave electronics.',
@@ -131,7 +136,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphqh0005e47mrsrm3j5b',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Basic knowledge in thermodynamics, fluid mechanics, heat transfer, solid mechanics, mechanical design, dynamics, control, mechanical systems, manufacturing and materials; the program is ABET-accredited.',
@@ -151,7 +157,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphri0006e47m8gwyy73s',
+      status: 'current',
       name: 'Computer Science',
       description: described(
         'Professional preparation in computer science for students not necessarily interested in computer hardware: computer science courses, a minor or technical support area, and a core from the social sciences, life sciences and humanities.',
@@ -168,7 +175,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphsh0007e47m0rh0ovlx',
+      status: 'current',
       name: 'Computer Science and Engineering',
       description: described(
         'The education to design, implement, test and use the hardware and software of digital computers and systems, spanning the Computer Science and Electrical and Computer Engineering departments.',
@@ -188,7 +196,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphv50008e47mddcww80m',
+      status: 'current',
       name: 'Mathematics',
       description: described(
         "UCLA's mathematics major, for students whose basic interest is mathematics; the College also offers applied, financial actuarial and computational mathematics majors.",
@@ -205,7 +214,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphw60009e47mceniakwf',
+      status: 'current',
       name: 'Statistics and Data Science',
       description: described(
         'A general introduction to the practice of statistics, with the theory for graduate research and exposure to modern techniques, for graduate study or work in industry or government.',
@@ -225,7 +235,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphx6000ae47mbq9vknzg',
+      status: 'current',
       name: 'Physics',
       description: described(
         'The physics major for students who intend to continue toward a PhD in physics; the department also offers a Bachelor of Arts.'
@@ -241,7 +252,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphy5000be47m7qfeoho9',
+      status: 'current',
       name: 'Chemistry',
       description: described(
         'The chemistry major for students who intend to pursue a career in chemistry.'
@@ -257,7 +269,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2aphz3000ce47me4hhywvv',
+      status: 'current',
       name: 'Biology',
       description: described(
         'For students with a broad interest in biology: preparation for postgraduate training in medicine and the health sciences, academic and public service careers in biology, and the biological industries.'
@@ -273,7 +286,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api01000de47mi2qbedb4',
+      status: 'current',
       name: 'Neuroscience',
       description: described(
         "UCLA's interdepartmental neuroscience major in the life sciences division of the College."
@@ -289,7 +303,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api0z000ee47mmw87cyqa',
+      status: 'current',
       name: 'Nursing (Prelicensure)',
       description: described(
         'Prepares nurse generalists with skills in primary, secondary and tertiary prevention and care for individuals and populations, and the basis for a leadership role; students learn the art and science of nursing from current research.',
@@ -306,7 +321,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api1x000fe47mb4ecdo1h',
+      status: 'current',
       name: 'Economics',
       description: described(
         "The Department of Economics' general economics major in the College's social sciences division.",
@@ -323,7 +339,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api2y000ge47m2927qr75',
+      status: 'current',
       name: 'Business Economics',
       description: described(
         'Economics with a business orientation: not a business school curriculum, but a focused one guided by the logic and integrative perspective of economics, preparing students for graduate study and business careers.',
@@ -340,7 +357,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api3y000he47ms6fm3eu7',
+      status: 'current',
       name: 'Political Science',
       description: described(
         'Basic political processes and institutions in different national and cultural contexts, relations between states, the changing relations between citizens and governments, and the values by which political systems are judged.',
@@ -357,7 +375,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api4t000ie47msmva4249',
+      status: 'current',
       name: 'Psychology',
       description: described(
         "The most general of UCLA's three psychology majors, with broad and in-depth coverage of the fundamental areas of psychology, preparing for postgraduate study or further training in law, education, government and public policy.",
@@ -374,7 +393,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api5r000je47mx13gen7i',
+      status: 'current',
       name: 'Communication',
       description: described(
         'An interdisciplinary major on human communication at many levels of analysis, drawing on the natural and social sciences and the humanities, with four areas of focus.'
@@ -390,7 +410,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api6q000ke47mm3ripoys',
+      status: 'current',
       name: 'Environmental Science',
       description: described(
         'A collaboration of the Institute of the Environment and Sustainability with the departments of atmospheric and oceanic sciences, civil and environmental engineering, earth and space sciences, ecology and evolutionary biology, environmental health sciences and geography.'
@@ -406,7 +427,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2api9q000le47me90vtp01',
+      status: 'current',
       name: 'Architectural Studies',
       description: described(
         'A program on the built environment that treats architecture as a cultural, creative and technical practice with direct social impact, with architecture and urban design courses from the history and theory of design to studio work.',
@@ -423,7 +445,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv2apiap000me47mr68x2ywn',
+      status: 'current',
       name: 'English',
       description: described(
         "The Department of English's major: students plan, with its counsellors and faculty adviser, a course of study in literature that fits their interests and the degree's requirements."
