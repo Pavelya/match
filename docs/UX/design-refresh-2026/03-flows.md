@@ -81,7 +81,9 @@ top 10"), and the rest cannot be reached. Requirement tiles say "met" without th
 - Three groups by status (canvas: "Match card: every state"):
   **Meets all requirements**; **Within reach** (every subject at the right level, up to 3 points
   or one grade short); and **Missing a requirement** (a subject not taken, SL where HL is
-  required, or further off), which starts collapsed. A segmented control filters the list.
+  required, or further off), which starts collapsed. Three jump links under the summary lead to
+  the groups; each shows five cards, then "Show 20 more" (decided on "D4.6 Matches", 10 October
+  2026, in place of the segmented filter first proposed here).
 - Each card is about 180px and still shows **every requirement at once**, as a small chip with its own
   status: "✓ 38 / 37 points", "– Maths HL 7 · you 6", "× Biology HL 5 · not taken". Problems
   come first. More than four chips collapse to "+2 met". That keeps today's "see everything" at
@@ -108,7 +110,10 @@ top 10"), and the rest cannot be reached. Requirement tiles say "met" without th
   the collapsed "Missing a requirement" group, all within the student's fields and countries. Close
   the list with a line pointing to Explore for everything else. The matching
   already scores the full candidate set before `slice(0, 10)`, so returning a few more small rows
-  costs almost nothing. Keep a generous upper bound (for example 50) as a guard.
+  costs almost nothing. Keep a generous upper bound (for example 50) as a guard. **Changed on
+  "D4.6 Matches" (10 October 2026):** a bound of 50 taken before grouping hid every "Within reach"
+  program from students with 50 or more at 100%, so the list is grouped first and each group pages
+  by itself.
 
 ## F3 · Logged-out visitor from Google lands on a country guide or a program page
 
@@ -169,6 +174,10 @@ program pages, and a looping amber dot in the navigation.
 
 **Keep** the calls to action, which are well written. **Drop** the looping animation. Show "Profile 2 of 3"
 as text on the Academic tab instead.
+
+**Approved 10 October 2026** ("D2.11 Empty and error states", "D4.6 Matches"): on Matches and Shortlist
+the call to action is the empty-state panel, "Complete your academic profile", listing the three steps
+with the ones already saved ticked, and "Add subjects and grades".
 
 ## F7 · Sign-in
 
