@@ -42,6 +42,7 @@ pull request, merged before the next starts.
 | any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
+| any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -89,6 +90,7 @@ Phase 5 — quick wins
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 - [ ] 5.16 Suggest the field of study in the admin program forms
 - [ ] 5.17 List the university pages in the sitemap
+- [ ] 5.18 Count a course once when a program needs different subjects
 
 Phase 6 — dependency majors
 
@@ -981,6 +983,85 @@ date. Then `node_modules/next/dist/docs/` on `sitemap.ts`.
 p."universityId" = u.id)` returns. That query is an aggregate, so it is safe on production.
 
 **Session size:** Tiny. Independent of the rebranding.
+
+---
+
+### 5.18 — Count a course once when a program needs different subjects
+
+**Outcome:** A program whose requirements need different subjects ("HL 6 in one of Biology,
+Chemistry or Physics, and HL 5 in another") is met only when each requirement has its own course.
+Programs whose rules let one course count twice keep today's result. Scores and statuses for every
+other program are unchanged.
+
+**Why:** Found on the rebranding board "D4.6 Matches" (10 October 2026). `evaluateAllRequirements`
+in `lib/matching/academic-matcher.ts` checks each requirement (a single row, or an either/or group
+sharing an `orGroupId`) against all of the student's courses on its own. Nothing marks a course as
+used, so one course can meet two requirements. The University of Manchester's MBChB Medicine has two
+groups, all at HL 6: Biology or Chemistry; and Biology, Chemistry, Maths AA, Maths AI, Physics or
+Psychology. One Biology HL 6 meets both, so a student with no second science sees "Meets all
+requirements". A student with Biology HL 5 sees the chip "Biology HL 6 · you 5" twice.
+
+**How many.** 53 programs have a course in two requirements: 39 with two groups sharing courses, 14
+with a single row whose course is also in a group. Measured 10 October 2026 by a local script on an
+anonymised copy of the 150 profiles that have courses (no database writes): if every requirement
+needed its own course, 1,159 profile and program pairs that meet every subject requirement and the
+points today would no longer meet them (97 profiles, 51 programs). 46 of those pairs are in the
+student's own fields and countries, so on Matches (20 profiles, 19 programs). Not every one is wrong,
+because the rules differ:
+
+| University | Programs | Pairs that change | On Matches | How the rule reads |
+|---|---|---|---|---|
+| Lausanne | 15 | 615 | 3 | Swiss rule: maths, a science, a humanities subject, and an HL in maths or a science. One maths HL may count twice, so today's result is probably right |
+| Trinity College Dublin | 17 | 288 | 8 | "HL 6 in one of Biology, Chemistry, Physics and HL 5 in another" (Medicine, Dental Science): two different subjects |
+| Edinburgh | 12 | 134 | 17 | Unclear. Cognitive Science (Humanities): an HL 5 science or maths, and Maths HL 5 or SL 6 |
+| Basel | 1 | 38 | 0 | As Lausanne |
+| Manchester | 2 | 34 | 9 | Two different subjects |
+| Nanyang Technological University | 2 | 24 | 6 | Physics at any level and an HL science: one Physics HL may count twice |
+| UCL | 1 | 23 | 3 | BSc Psychology lists the same HL 6 group twice: two different subjects |
+| Western | 1 | 3 | 0 | Probably two different subjects (Chemistry, and a science) |
+
+TUM's two programs in the 53 change nothing for any profile. The rows cannot say which rule a
+program means, so the fix needs one more fact per program, not just a different matcher.
+
+**Read first:** `lib/matching/academic-matcher.ts`, `subject-matcher.ts`, `lib/matching/types.ts`,
+`lib/programs/requirement-groups.ts`, the `ProgramCourseRequirement` model in
+`prisma/schema.prisma`, 5.15 above, and `docs/matching/matching-algo-rollback-plan.md`.
+
+**Steps:**
+
+1. Research only. For each of the 53 programs, read the official requirements (`programUrl`) and
+   record which rule it uses: different subjects, one course may count twice, or a data error (the
+   rows don't match the page). List them with the link and the date checked. To find them, group
+   `ProgramCourseRequirement` by program and course and keep those in more than one
+   `COALESCE("orGroupId", id)`. That is an aggregate; select only ids and names.
+2. The owner decides how to store the rule. The simplest is a boolean on the program, "each
+   requirement needs its own course", off by default so nothing changes until it is set. The
+   alternative is to restructure the rows so no course appears twice, which the current schema can't
+   express for "two of these, one at HL 6".
+3. Implement it in the matcher. When the flag is on, assign courses to requirements with a maximum
+   bipartite matching (programs have a handful of requirements), preferring the assignment that meets
+   the most requirements, then the highest grades. A requirement left without a course of its own is
+   reported as not met, with the course it would have used, so the chip says what is missing.
+4. The chip and badge copy for "a second subject is needed" is a visible change: add it to a design
+   board and have it approved before coding (`REBRANDING_tasks.md`, Step 2).
+5. The migration adds the column (additive; `prisma migrate deploy` only). Setting the flag on the
+   programs from step 1 is a data change: the owner approves it and a backup comes first. Then clear
+   the match cache (`clearAllMatchCache`).
+
+**Must not:**
+
+- Change the score or status of any program without the flag. Prove it with the synthetic fingerprint
+  method from `REBRANDING_tasks.md` 2.1, restricted to unflagged programs: byte-identical before and
+  after.
+- Run `prisma migrate dev` or `prisma db push` (standing context).
+
+**Verify:** `npx tsx scripts/run-all-tests.ts` passes with new cases. Manchester MBChB: Biology HL 6
+alone is not met; Biology HL 6 with Chemistry HL 6 is met. Lausanne Law: Maths AA HL alone still meets
+both its maths requirements. `npm test` covers the assignment helper. Re-running the count above,
+the flagged programs drop out and the rest are unchanged.
+
+**Session size:** Research small (step 1). The change medium. Best done with the matching review
+(5.15), after rebranding build 6–7, which changes `lib/matching/match-status.ts`.
 
 ---
 
