@@ -11,6 +11,8 @@
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { RecommendationsClient } from './RecommendationsClient'
+import { NewMatches } from './NewMatches'
+import { showsNewUi } from '@/lib/new-ui'
 
 export const metadata = {
   title: 'Your Matches',
@@ -28,5 +30,5 @@ export default async function MatchesPage() {
     redirect('/auth/signin')
   }
 
-  return <RecommendationsClient />
+  return (await showsNewUi()) ? <NewMatches /> : <RecommendationsClient />
 }

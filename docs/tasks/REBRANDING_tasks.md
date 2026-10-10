@@ -251,7 +251,7 @@ merges into `main`, behind the preview switch.**
 | 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
 | 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
 | 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
-| 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | Replaces `ProgramCard` |
+| 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
@@ -279,7 +279,7 @@ Rows 3 and 4 can share a design session.
 | 3 | `/design D2.12–D2.14`: header, footer, phone tab bar | Those three boards and "D1.4 Account menu". The rest of D1.4 is already approved | `/build 3`: site chrome (1.5) | Done 9 October 2026 |
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
-| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | All six boards and D2.7's US chips approved 10 October 2026; build next |
+| 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
@@ -326,7 +326,8 @@ Phase 1 — Foundations
 Phase 2 — Core app
 
 - [x] 2.1 Match data for the new cards (9 October 2026)
-- [ ] 2.2 Match card, result row and requirement checklist
+- [x] 2.2 Match card, result row and requirement checklist (11 October 2026; the result row is built
+  in 2.3, the checklist's program-page variant in 2.4)
 - [ ] 2.3 Explore: toolbar, phone filter sheet, rows
 - [ ] 2.4 Program and university pages
 - [ ] 2.5 Shortlist with compare
@@ -761,7 +762,8 @@ Departures from the boards, each small:
   Academic current. `SiteLogo` without `href` is the focus-mode logo.
 - **No count beside Shortlist in the desktop nav yet** (on "D2.12 Header"). Saving happens in the
   browser and a layout doesn't re-render on navigation, so a count read by the layout would go
-  stale, and reading it is a new query. It comes with the shared save state in 2.2 or 2.5.
+  stale, and reading it is a new query. It comes with the shortlist in 2.5 (decided in 2.2: the
+  Matches response could feed it only on Matches).
 - **The avatar keeps the student's Google photo** (owner, 9 October 2026; the boards draw only the
   initial). Google's own 64px size (`avatarPhotoUrl` in `lib/avatar-utils.ts`), not the image
   optimiser; the initial on brand-ink without a photo, and in its place if the photo fails to load.
@@ -944,6 +946,66 @@ twice. The second is a matching fault, not just a display one: such programs can
 requirements" to a student with only one of the two subjects they need. Tracked as
 `MAINT_tasks.md` 5.18; 2.2 shows what the matcher returns.
 
+**Done 11 October 2026.**
+
+- **The page.** `app/student/matches/MatchesClient.tsx`, loaded through `NewMatches.tsx` as its own
+  chunk, so today's students download none of it (the lesson of 1.5's `chrome.tsx`). Groups by
+  status before any cap, five cards a group then "Show 20 more" (focus to the first new title, "20
+  more shown" read out), three jump links (a three-row panel on a phone), the sort, the profile
+  panel from 1024px, the loading skeleton, and the D2.11 panels for a failed load, an incomplete
+  profile and "Nothing meets the requirements yet" above an open Missing group.
+- **The card and "Why this match"** in `components/match/`: `MatchCard` (and its skeleton),
+  `WhyThisMatch` (the D3.4 table at 14px on desktop, a list on a phone, "All N options" over eight
+  courses) and `useShortlist`, the honest save: "Saved" only after the server confirms, a failure
+  reverts with a toast, removing offers Undo.
+- **`Toast` and `EmptyState`** in `components/ds/`. The toast's other-theme colours are tokens
+  (`--toast-ok`, `--toast-gap`, `--toast-ring`) with their contrast in `app/globals.test.ts`; on a
+  phone it follows the tab bar, which now marks itself `data-tab-bar` and `data-hidden`.
+- **The data.** A new route, `GET /api/students/matches/list`, returns every match as the card and
+  "Why" show it, built on the server by `lib/matching/match-list.ts` and `match-why.ts`, with the
+  profile panel and the shortlist's ids, from the one profile query (now a `select`). Today's
+  `GET /api/students/matches` is unchanged and goes at cleanup. For the D4.6 student: 171 matches,
+  1.4 KB each with "Why" included, **10 KB gzipped**, so "Why this match" loads with the list and
+  opening it fetches nothing. The programs cache (`programs:all:v3`) adds the entry year and the
+  admit rates; a deployment still on `v2` keeps reading its own key.
+- **Copy changes approved on D3.1 and D2.7**, in `match-status.ts`: "Spanish B HL 5 or 5 others · you
+  SL", "Needs French B or 11 others at HL", "No IB minimum · admits 4.6%" (read out with " of
+  first-year applicants"). `MatchBreakdown.tsx` is deleted; its logic is `match-why.ts`.
+- **Checked.** Scores unchanged: the 72,060-result fingerprint is byte-identical before and after.
+  `npm run build` lists every route as `main` does, plus the new API route. Measured against a
+  build of `main`, today's students download no new code: JS +0.4 KB gzipped on public pages and
+  +0.6 KB on Matches (renamed identifiers and module ids in shared chunks), CSS +1.6 KB (28.8 KB,
+  under 32). The new page's own code is 10.1 KB gzipped against today's 23.5 KB. Design QA
+  screenshots of every board state, desktop and phone, light and dark, forced colours and 900px,
+  are in the pull request.
+
+Departures and hand-offs:
+
+- **The result row moves to 2.3**, whose gate holds its board (D3.3). **The checklist's
+  program-page variant** (signed out, no grades yet, the entry-year line) comes with 2.4; this
+  session built the table inside "Why this match".
+- **`ProgramCard.tsx` stays** until cleanup: today's Explore, program, university, shortlist and
+  coordinator pages still import it, and today's design keeps them until release.
+- **The signed-out Save moves to the first signed-out card** (2.3's rows, 2.4's program page).
+  Matches is always signed in, and sign-in ignores `callbackUrl` today (`app/auth/signin/SignIn.tsx`
+  returns to `/student`), so "saves on the way back" needs sign-in changed first. The two
+  after-sign-in toasts on D2.9 go with it.
+- **The Shortlist count in the desktop nav** (drawn on D4.6) moves to 2.5: the Matches response
+  could feed it on Matches only, and it would vanish on every other page.
+- **The toast provider is in the signed-in frame** (`AppFrame`), not the root layout: only a
+  signed-in student saves, and a client component in the root layout joins every visitor's download.
+- **"Why this match" opens with a fade, not a height change**: the Definition of done allows only
+  transform and opacity.
+- **"The route returns the tier it used"** became "the list says when it reaches beyond the
+  student's fields and countries", read from the results (`isWidened`). The matcher widens past
+  them only from tier 3, and every such tier adds programs outside them, so the summary appears
+  exactly when the board asks; the match cache, shared with today's route, keeps its shape.
+- **Copy the boards didn't draw**, kept to the boards' words: with a widened list the empty panel
+  says "All 38 programs in this list" and the closing line keeps only its Explore sentence; a
+  student open to every field or country reads "Business & Economics; you're open to every
+  field"; "Get started" until interests and countries are both saved; the fit sentence for caps the
+  boards didn't show ("capped at 90% because you're 2 points short").
+
 ### 2.3 — Explore: toolbar, phone filter sheet, rows
 
 **Outcome:** Search uses a chip toolbar (Field, Country, IB points, Length), a bottom sheet on phones
@@ -951,6 +1013,9 @@ with the result count on its button, compact result rows, and 20 results per pag
 more". See the canvas boards "Explore programs", "Phone · Explore" and "Phone · Filters sheet".
 
 **Design gate:** D2.15, D3.3, D3.5 and D4.7, approved ([Step 2](#step-2--design-first)).
+
+**From 2.2:** the result row (D3.3), and signed out, Save as a link to sign-in that returns to the
+program with `?save=1` (see 2.4). Saving goes through `useShortlist` (`components/match/`).
 
 **Must-haves:** filters stay in the URL, as today. "Only ones I qualify for" appears once the student
 has a profile. Rows show minimum points large and aligned, and the student's fit when logged in.
@@ -976,6 +1041,10 @@ detail" and "Phone · Program (dark)".
   points tile needs a match result, so the block can render empty (audit 4.2; Sydney's Bachelor of
   Science and Doctor of Medicine).
 - A fit panel (logged in) or "Sign in and add your grades to check these" (logged out).
+- **The signed-out Save, from 2.2.** Sign-in returns to a same-origin `callbackUrl` (today
+  `app/auth/signin/SignIn.tsx` always goes to `/student`); the program page, reached with `?save=1`
+  and signed in, saves the program and says so: "Signed in. Computer Science is on your shortlist."
+  or "Signed in, but Computer Science wasn't saved." (D2.9).
 - The entry-year note, with the caution style when the requirements are from an older intake.
 - **The requirement checklist as approved on D3.4** (owner, 10 October 2026). The status icon and the
   "You" column only when the student's grades are known. Signed out, two columns ending with "Sign in
@@ -999,6 +1068,9 @@ and the official link. See the canvas board "Shortlist and compare". The saved p
 which it does not today (audit F4 in `03-flows.md`).
 
 **Design gate:** D3.7 and D4.10, approved ([Step 2](#step-2--design-first)).
+
+**From 2.2:** the count beside Shortlist in the desktop nav (drawn on D4.6 and D2.12), from a source
+every signed-in page has.
 
 ---
 
