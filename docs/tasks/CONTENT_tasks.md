@@ -31,7 +31,7 @@ here, and this refresh does more production writes than any work before it.
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
-| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). Part B2 adds the 11 universities |
+| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs written and dry-run, waiting for the owner's approval |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
@@ -108,7 +108,7 @@ Phase 6 — USA
 
 - [ ] 6 Research how to model US admissions, then refresh and extend — Part A done 9 October 2026
   (`content-2027/usa-model-decision.md`), model chosen 10 October 2026; Part B1 (code, Georgia Tech, USA page)
-  applied 10 October 2026; Part B2 (11 universities) next
+  applied 10 October 2026; Part B2 (11 universities, 242 programs) built 10 October 2026, its apply waits for the owner
 
 Phase 7 — Germany
 
@@ -200,6 +200,12 @@ Owner tasks — not AI work
 - [ ] Choose the US model (6) and the German model (7). **US chosen 10 October 2026:** all eight decisions in
   `docs/tasks/content-2027/usa-model-decision.md` as recommended, with Arizona State added to the ten universities.
   The German model is still open
+- [ ] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
+  subject rows (status, phase 6). Then add their images in `/admin/universities`
+- [ ] Keep MIT's Nuclear Science and Engineering (Course 22) in Engineering, as a `KEPT` exception to the fields-of-study rule, or file it
+  under Natural Sciences as the rule does (6, Part B2)
+- [ ] Re-check the 107 US programs 6 stamped 2026 (MIT, Harvard, Stanford, Purdue, Arizona State) when their admissions pages name the fall
+  2027 intake
 - [x] Approve 6 Part B1's Georgia Tech dry run: 44 programs lose the 38 and the two unsourced subject rows, become
   "Bachelor of Science", get a "How competitive" paragraph and are stamped 2027; Aerospace Engineering (MS) is then
   deleted (decision 7). Approved and applied 10 October 2026, after PR #88 was deployed
@@ -3062,6 +3068,52 @@ The owner chose all eight recommendations on 10 October 2026, adding Arizona Sta
     returns 404. `/ib-university-requirements` was prerendered before the apply and still showed "38–38": it
     refreshes on its revalidation timer.
 - **Next, Part B2:** the 11 universities with `add-universities.ts`, about 15–30 majors each, under the same model.
+
+#### Status, 10 October 2026 — Part B2 built (session 26); the apply waits for the owner
+
+Data files (new): `scripts/programs/2027/new-universities-6.ts` (the 11 universities; run `add-universities.ts` with its path) and
+one programs file per university, each with a header saying how it admits and where its descriptions come from. Pages were read on
+9 and 10 October 2026.
+
+| University | Programs | Stamped | Admits to | Subject rows |
+|---|---|---|---|---|
+| Massachusetts Institute of Technology | 22 | 2026 | MIT; major after the first year | none |
+| Harvard University | 20 | 2026 | Harvard College; a concentration from 50 fields | none |
+| Stanford University | 20 | 2026 | Stanford; a major by the end of the second year | none |
+| University of California, Berkeley | 22 | 2027 | A primary major on the UC application | none |
+| University of California, Los Angeles | 23 | 2027 | A major on the UC application; some pre-major | none |
+| University of Michigan | 22 | 2027 | One of 15 schools and colleges | none |
+| Purdue University | 23 | 2026 | A specific major; First-Year Engineering | Nursing: Biology and Chemistry |
+| New York University | 23 | 2027 | A campus and programs on the Common App | none |
+| Boston University | 22 | 2027 | A school or college | Engineering (4) and Questrom: Maths AA, or AI HL |
+| Northeastern University | 23 | 2027 | A major; a Signature Program first | none |
+| Arizona State University | 22 | 2026 | A major, on published criteria | none |
+
+- **The model.** Every program has no IB minimum. Its description ends with a "How competitive" paragraph from the Common Data Set
+  2025-2026, C1 (Harvard: its Fact Book), with the international admit rate where reported (Purdue 22%, BU 16%, Northeastern 3.9%, ASU
+  90%), and says how the university admits.
+- **Subject rows** only where a university says "required": Purdue Nursing ("at least two years of science courses, which must include:
+  Biology — 1 year, Chemistry — 1 year"), stored as Biology SL 1 and Chemistry SL 1; BU's College of Engineering and Questrom ("required
+  to have a year of calculus ... met with enrollment in HL or SL Math Analysis & Approaches or HL Math Applications & Interpretations"),
+  stored as one either/or. Advice stays in descriptions: NYU Stern and Tandon "should take" Maths AA or AI HL; Purdue engineering's
+  "chemistry (expected)"; ASU's higher GPA and test criteria for engineering, nursing and business.
+- **Stamps.** 2027 where an admissions page names the fall 2027 cycle (UC's dates page, Michigan's application changes, Northeastern's
+  counselor page) or sets its policy through it (NYU testing "through the 2027-2028 application cycle", BU "through fall 2028"). MIT,
+  Harvard, Stanford, Purdue and ASU name no intake (ASU's international page still lists fall 2026 dates): 107 programs stamped 2026.
+- **Fields.** 68 Engineering, 52 Natural Sciences, 24 Social Sciences, 23 Business & Economics, 22 Computer Science, 15 Medicine &
+  Health, 11 Media, 10 Architecture, 9 Environmental Studies, 8 Arts & Humanities. The rule's warnings were followed (Stanford's
+  Management Science and Engineering to Business & Economics, its Earth Systems to Natural Sciences, BU's Film and Television to Arts &
+  Humanities) except one, for the owner: MIT's **Nuclear Science and Engineering (Course 22)** is an engineering degree that the rule
+  files under Natural Sciences ("Science" is named first); it is kept in Engineering, for `KEPT` at the apply.
+- **Campus cities.** ASU's Nursing and Journalism are taught at the Downtown Phoenix campus, so their campus city is Phoenix.
+- **Links.** All 240 distinct program links answered, except two bot walls, which serve the pages to browsers: Harvard's FAS
+  department sites (403, a bot check) and every umich.edu site. Michigan was read from Internet Archive copies of 14 April to
+  4 October 2026, and its LSA descriptions from the search index, so they are short. Redirected links were updated: ASU to
+  `degrees.asu.edu`, two Northeastern catalog paths, Taubman College, Harvard SEAS.
+- **Contacts.** The admissions office's, or BU's international admissions office. Harvard, Stanford, Berkeley, UCLA, Michigan and ASU
+  publish a phone number and a form but no admissions email.
+- **Not added:** medicine and law (graduate-entry, decision 8), online-only majors (ASU English), NYU Abu Dhabi and Shanghai, and the
+  catalogs' Oakland and New York City versions of Northeastern majors.
 
 ---
 
