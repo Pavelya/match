@@ -95,10 +95,20 @@ const faqs = [
   },
   {
     question: 'What IB scores do I need for top US universities?',
+    // Checked 9 October 2026, with Purdue, Stanford, USC and the Common Data Set
+    // (docs/tasks/content-2027/usa-model-decision.md)
     answer:
-      'US universities do not publish minimum IB score requirements. However, successful applicants to highly selective universities (Ivy League, Stanford, MIT) typically present scores of 38–45 with strong HL grades (6s and 7s). Because admissions are holistic, essays, extracurriculars, and recommendation letters also play a significant role.',
-    source: 'EducationUSA — US Department of State',
-    sourceUrl: 'https://educationusa.state.gov/'
+      "US universities publish no minimum IB score. Georgia Tech, for example, says there is no minimum, but that competitive applicants have mostly 6s and 7s. Admission is holistic: your predicted grades are read alongside essays, activities, recommendations and, at many universities, the SAT or ACT. A university's admit rate, published in its Common Data Set, is the best guide to how competitive it is, and IB Match shows it on each university's programs.",
+    source: 'Georgia Tech — International First-Year Admission',
+    sourceUrl: 'https://admission.gatech.edu/international/first-year'
+  },
+  {
+    question: 'Can I study medicine or law in the USA straight after the IB?',
+    answer:
+      'No. In the US, medicine and law are professional degrees that start after a bachelor’s degree. You first complete a four-year bachelor’s in any subject, taking the prerequisite courses medical or law schools ask for (sciences, for medicine), and then apply. That is why IB Match lists no US programs in Medicine or Law.',
+    source: 'EducationUSA — What is a Graduate Student?',
+    sourceUrl:
+      'https://educationusa.state.gov/your-5-steps-us-study/research-your-options/graduate/what-graduate-student'
   }
 ]
 
@@ -878,8 +888,8 @@ export function USAContent() {
               Ready to Find Your Match in the USA?
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Discover US university programmes that match your IB profile. Search by IB points,
-              subject requirements, and field of study.
+              Discover US university programmes that match your IB profile. Search by field of study
+              and subject requirements; US universities set no IB points minimum.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
