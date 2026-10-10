@@ -31,7 +31,7 @@ here, and this refresh does more production writes than any work before it.
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
-| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway |
+| 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md` recommends no IB minimum for US programs; the owner chooses the model and the universities |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
@@ -106,7 +106,8 @@ Phase 5 — Coverage
 
 Phase 6 — USA
 
-- [ ] 6 Research how to model US admissions, then refresh and extend
+- [ ] 6 Research how to model US admissions, then refresh and extend — Part A done 9 October 2026
+  (`content-2027/usa-model-decision.md`); Part B waits for the owner's choice
 
 Phase 7 — Germany
 
@@ -195,7 +196,10 @@ Owner tasks — not AI work
   `apply-2027-requirements.ts --apply` writes the two held rows (stamped 2027 from their course pages) and moves the other 39 undated Oxford programs from 2026 to 2027 (3.1)
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [x] Approve the canonical degree list (3.2) — 26 September 2026
-- [ ] Choose the US model (6) and the German model (7)
+- [ ] Choose the US model (6) and the German model (7). For the US, the eight decisions are at the top of
+  `docs/tasks/content-2027/usa-model-decision.md`: the model (recommended: no IB minimum), card copy, the "How
+  competitive" figure, which subject rules become rows, the universities, one program per major, Georgia Tech's
+  Aerospace Engineering (MS), and medicine and law
 - [x] Tel Aviv publishes no IB minimum (3.3): leave its four programs as they are — owner,
   27 September 2026. Georgia Tech's version of the question stays with phase 6
 - [x] Decide about France (5): no student had it as a preference (4 October 2026), and students cannot choose it, as onboarding offers
@@ -2978,6 +2982,29 @@ being presented as a published figure. Add the chosen universities with the tool
   `scripts/programs/field-inventory.ts` at 0 outliers.
 
 **Session size:** One research session, one or two build sessions.
+
+#### Status, 9 October 2026 — Part A done (session 24); the owner chooses
+
+Deliverable: `docs/tasks/content-2027/usa-model-decision.md`. Pages were read on 9 October 2026; no data or code changed.
+
+- **No US university checked publishes an IB minimum.** Georgia Tech, Purdue and Stanford say so in as many words;
+  UC says predicted scores are never "the only factor". The Common Data Set has no IB item (C9-C12 are SAT/ACT,
+  class rank and GPA). IB figures on US pages are for credit after admission, such as UC's "30 or above".
+- **Georgia Tech's 38 is a placeholder.** It sits on all 45 programs with the same two subject rows, none ever
+  checked. The programs were entered 20-23 February 2026, likely by the admin copy feature, which carries both.
+  Georgia Tech publishes no minimum ("mostly scores of 6 and 7"), and HL maths and sciences are "encouraged but not
+  required". It admitted 7% of its 9,758 international first-year applicants for fall 2025 (CDS 2025-2026, C1).
+- **Matching already handles a null minimum** as "no points requirement". Part B must change four places for it: the
+  card needs a chip saying why, `/ib-university-requirements` would drop the USA, Algolia's points filters hide such
+  records, and the old pages hide the line silently. The refresh tool accepts null.
+- **Recommendation:** model (a): no IB minimum, subject rows only where a university says "required", an info chip,
+  and a "How competitive" paragraph from CDS admit rates. Shortlist: MIT, Harvard, Stanford, UC Berkeley, UCLA,
+  Michigan, Purdue, NYU, Boston University and Northeastern, with USC and Arizona State as alternates.
+- **For the owner:**
+  - Georgia Tech's Aerospace Engineering (MS) is a graduate degree.
+  - Medicine and law are graduate-entry in the US. Of the 37 US-bound students, 8 pick Medicine & Health and 7 pick
+    Law, and no US program can match those picks.
+- **Found along the way:** the precompute route fills a matches cache that `/api/students/matches` never reads.
 
 ---
 
