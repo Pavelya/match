@@ -76,9 +76,22 @@ export interface TransformableProgram {
 }
 
 /**
+ * The student fields matching reads. A profile selected with only these (the new matches route)
+ * or included in full (PrismaStudentWithRelations) both fit.
+ */
+export interface TransformableStudent {
+  totalIBPoints: number | null
+  tokGrade: string | null
+  eeGrade: string | null
+  courses: Array<{ level: string; grade: number; ibCourse: { id: string; name: string } }>
+  preferredFields: Array<{ id: string }>
+  preferredCountries: Array<{ id: string }>
+}
+
+/**
  * Transform Prisma student profile to matching algorithm format
  */
-export function transformStudent(prismaStudent: PrismaStudentWithRelations): StudentProfile {
+export function transformStudent(prismaStudent: TransformableStudent): StudentProfile {
   return {
     // Academic data - handle nulls properly
     totalIBPoints: prismaStudent.totalIBPoints ?? 0,

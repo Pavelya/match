@@ -92,8 +92,9 @@ top 10"), and the rest cannot be reached. Requirement tiles say "met" without th
   match, opened"). The same disclosure component is used on both; the phone version stacks.
   Inside: each requirement with needed and actual values, a one-line "to close it" note for
   within-reach programs (or why grades alone can't close it), field and country, then the
-  **fit score** with its three weighted parts. This is where the percentage lives now. It
-  reuses the logic in the unused `MatchBreakdown.tsx`.
+  **fit score** with its three weighted parts. This is where the percentage lives now. Built in
+  rebranding 2.2 from the logic of the old `MatchBreakdown.tsx` (`lib/matching/match-why.ts`), which
+  was then deleted.
 - **Why the status leads, not the percentage.** Running the production algorithm on real programs
   for the mockup student:
   - A program that needs a language at HL, which she has at SL, scores **90%**.

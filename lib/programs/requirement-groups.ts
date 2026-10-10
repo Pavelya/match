@@ -100,7 +100,8 @@ function optionsOf(rows: RequirementRow[]): RequirementOption[] {
   return [...options.values()]
 }
 
-function compareLevelGrades(a: LevelGrade, b: LevelGrade): number {
+/** HL first, then the lower grade first. */
+export function compareLevelGrades(a: LevelGrade, b: LevelGrade): number {
   if (a.level !== b.level) return a.level === 'HL' ? -1 : b.level === 'HL' ? 1 : 0
   return a.minGrade - b.minGrade
 }
