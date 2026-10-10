@@ -110,7 +110,7 @@ Owner tasks — not AI work
 - [x] Enable branch protection on `main` — ruleset "Protect main", 7 October 2026
 - [ ] Watch Supabase egress for a week after the quota reset
 - [x] Decide the test framework before session 8 — Vitest
-- [ ] Decide whether the cookie consent banner is needed while no optional cookies are set
+- [x] Decide whether the cookie consent banner is needed while no optional cookies are set: it stays (10 October 2026)
 
 ---
 
@@ -1547,4 +1547,5 @@ Not AI work, but they gate real value.
    optional cookies are set yet (`components/shared/CookieConsentBanner.tsx:6,14`). If only strictly
    necessary cookies are used, a consent banner is generally not required under the ePrivacy rules.
    Confirm with whoever owns legal before removing it. Analytics is a separate, later task, and
-   would bring the question back (design audit §8, 6 October 2026).
+   would bring the question back (design audit §8, 6 October 2026). **Decided 10 October 2026
+   (owner): the banner stays.**
