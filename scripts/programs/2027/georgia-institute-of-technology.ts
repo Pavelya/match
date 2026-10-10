@@ -75,24 +75,7 @@ const refresh: RefreshFile = {
       ],
       notes: NOTES
     },
-    // Stored: not checked for any intake.
-    {
-      id: 'cmly666xb00017mpg4x6xd0vt',
-      status: 'discontinued',
-      name: 'Aerospace Engineering (MS)',
-      description:
-        'Focus: providing a master’s-level curriculum that allows specialization in the areas of aerodynamics and fluid mechanics, aeroelasticity and structural dynamics, flight mechanics and control, propulsion and combustion, structural mechanics and materials behavior, and system design and optimization.',
-      field: 'Engineering',
-      degree: 'Master',
-      duration: '5 years',
-      minIBPoints: 38,
-      programUrl: 'https://www.gatech.edu/academics/degrees/masters/aerospace-engineering-ms',
-      requirements: [],
-      checkedFor: null,
-      sources: ['https://www.gatech.edu/academics/degrees/masters/aerospace-engineering-ms'],
-      notes:
-        "Content 6 (Part B, 10 October 2026): a graduate degree (master's), which no school leaver can apply to; Georgia Tech's Aerospace Engineering (BS) is stored. Deleted at the owner's request (decision 7, usa-model-decision.md), after this file's apply."
-    },
+    // Deleted 2026-10-10 at the owner's request (content 6, decision 7), backup in scripts/backups/refresh/: Aerospace Engineering (MS): a graduate degree (master's), which no school leaver can apply to; the Aerospace Engineering (BS) above is stored.
     // Stored: not checked for any intake.
     {
       id: 'cmlz6h3qp00ij7mpgc2uogysw',
