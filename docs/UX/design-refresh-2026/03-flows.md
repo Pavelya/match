@@ -150,7 +150,9 @@ deciding from is the one place their fit is not shown.
   **"Only ones I qualify for"**, appears once a profile exists. Applied filters show as removable
   chips.
 - **Rows instead of cards**: thumbnail, program, university and city, country, length, minimum points
-  (large, aligned), your fit, save. 20 per page with "Show 20 more". The URL keeps all of this.
+  (large, aligned), your fit, save. 20 per page with "Show 20 more". The URL keeps all of this,
+  how many are shown too, so Back from a program returns to the same row (approved on "D4.7
+  Explore", 11 October 2026).
 - **Save while logged out** opens sign-in, remembers the program, and saves it on return. No
   false confirmation.
 - **Shortlist** (renamed from "Saved") with a **Compare** view: fit, minimum points against yours,

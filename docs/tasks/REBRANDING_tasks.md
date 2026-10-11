@@ -164,10 +164,10 @@ row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3
 phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
 minimum". Later that day, the four row 11 boards, again with every recommendation: "D2.9 Toast",
 "D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches · phone". Build 6–7's gate is
-complete. On 11 October row 12 drew Explore's five boards, and the owner approved three in chat:
+complete. On 11 October row 12 drew Explore's five boards, and the owner approved all five in chat:
 "D2.15 Bottom sheet", with every recommendation and new labels for the profile shortcuts, then "D3.3
-Result row" and "D3.5 Filter toolbar", each with every recommendation, D3.5's shortcuts worded as on
-the sheet. "D4.7 Explore" and "D4.7 Explore · phone" await review. A change board for one program card in every list (D3.8) is parked until the
+Result row", "D3.5 Filter toolbar" (its shortcuts worded as on the sheet), "D4.7 Explore" and "D4.7
+Explore · phone", each with every recommendation. Build 8's gate is complete. A change board for one program card in every list (D3.8) is parked until the
 whole design can be seen in the preview (5.1). Ten other tasks need a screen size or states added.
 Eight have no board.
 
@@ -227,7 +227,7 @@ theme switch are in D1.4.
 | D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
 | D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
 | D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D4.7 Explore | Desktop (dark switch), phone, phone filters sheet | Signed out; no results; loading the next 20; phone dark | |
+| D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width | Nothing | 11 October 2026 |
 | D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found; a US program with no IB minimum, its admit rate and its "How competitive" paragraph | |
 | D4.9 University page | None | **No board.** Phone and desktop | |
 | D4.10 Shortlist | Desktop compare (dark switch) | Desktop list view; phone list and compare; an empty shortlist | |
@@ -287,7 +287,7 @@ Rows 3 and 4 can share a design session.
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
-| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15, D3.3 and D3.5 approved the same day, D4.7 in review |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs approved 11 October 2026 (row 12); build 8 next |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
@@ -1090,6 +1090,37 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   grades to see which ones you qualify for", to Academic. "Only ones I qualify for", when on, is
   also a removable chip. The URL holds all of it: the search, fields, countries, the points range
   (which today's page leaves out), the no-minimum box, length, the switch and the sort.
+- **The Explore page** (D4.7 and its phone board, every recommendation approved). The header (D2.12:
+  signed in, or the public one), then a 1192px column from 40px down: the H1 "Explore programs"
+  (34/40; the same meaning as today's "Search Programs", one h1) with "1,628 programs in 23
+  countries, each with its IB requirements.", both numbers from what the page already loads (the
+  search's total and the country list); the search at 52px, up to 760 wide, in a search landmark;
+  the toolbar (D3.5); the count as a polite status ("73 programs for “computer science”") with the
+  applied chips and Clear all; the rows (D3.3); "Show 20 more" with "Showing 20 of 73"; the
+  questions; the footer. 20px between blocks, no side panel. **20 at a time**, in place of 50 a
+  page with Previous and Next: new rows join the list, focus moves to the first new name and "20
+  more shown" is read out; while they load the button reads "Loading 20 more…" (aria-busy) and
+  skeleton rows the size of real ones follow the last row (D2.8). How many are shown goes in the URL
+  with the filters, so Back from a program returns to the same row. If the next 20 fail, a short
+  notice takes the button's place ("The next 20 didn't load. Check your connection and try again.
+  The 20 above stay." with "Try again"), a case D2.11 didn't draw. **A filter change keeps the rows
+  until the new ones arrive**: no skeleton flash, the list aria-busy, the count changing with the
+  rows. Signed out there is no fit column, and "Sign in to see which ones you qualify for" stands
+  where the switch would be; no banner. The first 20 are in the server HTML for everyone, as today;
+  the fit follows in its column. 2.3 decides where the fit is computed: one narrow profile read per
+  search, or the matches already cached for the student; signed out, nothing is read. With no
+  search typed the list opens at the highest minimum, as today (the search service's ranking). No
+  results and a failed load use D2.11's panel in the list's place ("No programs match these
+  filters", naming the filters, with "Clear all filters"; "Programs didn't load", "Try again"), with
+  the search, toolbar and applied chips still usable. **The page's questions become visible**: the
+  eight questions of the FAQPage structured data, collapsed `<details>` at the end under the h2
+  "Questions about Explore", with their words unchanged (SEO parity; the JSON-LD stays in
+  `page.tsx`). Two answers are out of date ("see your match probability", "over 1000 university
+  programs" when there are 1,628): rewording them is a separate pull request after 2.3. On a
+  phone: one Filters button carrying the number chosen ("Filters · 3") beside the switch, opening
+  the sheet (D2.15); the count, then the applied chips, then Sort on its own line at the right;
+  "Show 20 more" full width under "Showing 20 of 73"; the questions and the footer above the tab
+  bar. Signed out there is no tab bar (D2.14). The Shortlist count in the nav comes with 2.5.
 
 ### 2.4 — Program and university pages
 
