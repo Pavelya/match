@@ -164,10 +164,10 @@ row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3
 phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
 minimum". Later that day, the four row 11 boards, again with every recommendation: "D2.9 Toast",
 "D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches · phone". Build 6–7's gate is
-complete. On 11 October row 12 drew Explore's five boards, and the owner approved two in chat:
+complete. On 11 October row 12 drew Explore's five boards, and the owner approved three in chat:
 "D2.15 Bottom sheet", with every recommendation and new labels for the profile shortcuts, then "D3.3
-Result row", with every recommendation. "D3.5 Filter toolbar", "D4.7 Explore" and "D4.7 Explore ·
-phone" await review. A change board for one program card in every list (D3.8) is parked until the
+Result row" and "D3.5 Filter toolbar", each with every recommendation, D3.5's shortcuts worded as on
+the sheet. "D4.7 Explore" and "D4.7 Explore · phone" await review. A change board for one program card in every list (D3.8) is parked until the
 whole design can be seen in the preview (5.1). Ten other tasks need a screen size or states added.
 Eight have no board.
 
@@ -212,7 +212,7 @@ theme switch are in D1.4.
 | D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
 | D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row | Nothing | 11 October 2026 |
 | D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
-| D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
+| D3.5 Filter toolbar | "D3.5 Filter toolbar" (row 12): the desktop toolbar with each chip's menu open (Field, Country, IB points, Length), light and dark; no programs match; an IB points value it can't use; "Only ones I qualify for" on; signed out; signed in before adding grades; the toolbar at 900px. Phones use the sheet (D2.15). **Decided 11 October 2026 (owner), every recommendation:** a choice applies at once, as in the sheet; menus are popovers holding a labelled dialog, not ARIA menus; no count beside each option; "Include programs with no IB minimum", ticked by default; Length 3 years, 4 years, 5 years or more; Sort: Most relevant, Lowest points needed, Highest points needed; signed out or without grades, a link in the switch's place. The profile shortcuts read "Use my fields", "Use my countries" and "Up to my 38", as on the sheet | Nothing | 11 October 2026 |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
 | D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px; a US program (no IB minimum, its admit rate) in the minimum-points row | |
 | D3.8 Program card in every list | "Program card · one for every list (D3.1, D3.3)" (row 12): on a phone, prototype A (48px, as approved), B (64px, one header for every list, recommended on the board) and C (72px), each in Matches, Explore and Shortlist, and B in dark | **Parked 11 October 2026 (owner):** A, as approved, stays until the whole design can be seen in the preview; reviewed again in [5.1](#51--the-program-card-in-every-list) | |
@@ -287,7 +287,7 @@ Rows 3 and 4 can share a design session.
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
-| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15 and D3.3 approved the same day, D3.5 and D4.7 in review |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15, D3.3 and D3.5 approved the same day, D4.7 in review |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
@@ -1049,7 +1049,7 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   "Use my fields", "Use my countries" and "Up to my 38", which ticks the student's own choices and
   nothing else; no limit on how many boxes are ticked. Opens with a 240ms slide, closes in 180ms, a
   fade with reduced motion. The sections' filters themselves (the no-minimum box, Length's three
-  options) are D3.5's, still in review.
+  options) are D3.5's, below.
 - **The result row** (D3.3, every recommendation approved). A program with no IB minimum shows
   "None" in the IB minimum column, smaller than the figures, with the university's overall admit
   rate under it ("Admits 3.8%"), read as "IB minimum: none. Admits 3.8% of first-year applicants";
@@ -1067,6 +1067,29 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   The fit arrives after the rows, as a skeleton the size of a badge. Signed out, Save is a link,
   "Sign in to save Computer Science, University of Toronto", that returns to the program with
   `?save=1`.
+- **The filter toolbar** (D3.5, every recommendation approved). The chips Field, Country, IB points
+  and Length (D2.5), the switch "Only ones I qualify for", and Sort at the right, which moves to its
+  own line between 768 and 1023px. Each chip opens a popover (the HTML popover attribute) holding a
+  labelled dialog, not an ARIA menu: focus moves to its first control and returns to the chip when
+  it closes; one open at a time; 8px under its chip, left edges aligned, opening leftwards at the
+  window's edge. Field 320px wide, Country 440 in two columns A to Z, IB points 340, Length 300;
+  rows 40px. A choice applies at once, as in the sheet; the footer holds Clear (this filter only)
+  and the count button ("Show 43 programs"; "No programs match", aria-disabled, at zero); Escape and
+  a click outside close the menu and keep the choice. No count beside each option. Signed in with a
+  profile, the menus carry the sheet's shortcuts: "Use my fields", "Use my countries", "Up to my
+  38". IB points: From and To (D2.2) with "The program's minimum: any whole number from 24 to 45"; a
+  value it can't use shows D2.2's error when the field loses focus and isn't applied (the count
+  stays, the chip stays unfilled). "Include programs with no IB minimum", ticked by default: today a
+  "to" value keeps those 286 US programs and a "from" value drops them silently
+  (`lib/algolia/search.ts`). An applied range names itself on the chip: "IB points · up to 38".
+  Length: 3 years, 4 years, 5 years or more, from the 9 stored values (3½ counts as 3, 4½ and "4–5"
+  as 4, "5 years (4+1)" as 5); the search index needs the length as a number of years. Sort: Most
+  relevant, Lowest points needed, Highest points needed, with programs that have no IB minimum last
+  in both points sorts; no "Best fit". Signed out, the switch's place holds "Sign in to see which
+  ones you qualify for", which returns to this search; signed in before adding grades, "Add your
+  grades to see which ones you qualify for", to Academic. "Only ones I qualify for", when on, is
+  also a removable chip. The URL holds all of it: the search, fields, countries, the points range
+  (which today's page leaves out), the no-minimum box, length, the switch and the sort.
 
 ### 2.4 — Program and university pages
 
