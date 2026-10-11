@@ -1,9 +1,9 @@
 import { auth } from '@/lib/auth/config'
 import { ExploreQuestions } from '@/components/explore/ExploreQuestions'
 import { catalogueSummary, chosenCount, readExplore, type ExploreQuery } from '@/lib/explore/query'
-import { getCatalogueSize, searchExplore } from '@/lib/explore/search'
-import { exploreViewer, qualifier } from '@/lib/explore/student'
-import { SIGNED_OUT, type ExploreRow } from '@/lib/explore/types'
+import { getCatalogueSize, searchExplore, type ExploreList } from '@/lib/explore/search'
+import { exploreViewer } from '@/lib/explore/student'
+import { SIGNED_OUT } from '@/lib/explore/types'
 import { logger } from '@/lib/logger'
 import { getCachedCountriesWithPrograms, getCachedFields } from '@/lib/reference-data'
 import { NewExplore } from './NewExplore'
@@ -11,8 +11,8 @@ import { NewExplore } from './NewExplore'
 /**
  * Explore in the new design (rebranding 2.3), on the server: the list the URL asks for, with as
  * many rows as it had shown, in the HTML for everyone, as today. Signed in, one narrow read of
- * the profile says whether the student has grades (the fit column and the switch), gives the
- * shortcuts their choices, and marks what's on the shortlist. Signed out, nothing is read.
+ * the profile gives the fit (worked out from the rows' own search records), the switch, the
+ * shortcuts' choices and what's on the shortlist. Signed out, nothing is read.
  */
 export async function NewExplorePage({
   searchParams
@@ -36,10 +36,10 @@ export async function NewExplorePage({
   // The switch needs grades; without them, the list without it
   const query: ExploreQuery = student ? asked.query : { ...asked.query, qualify: false }
 
-  let list: { total: number; rows: ExploreRow[] } | null = null
+  // Signed in with grades, the rows come with the fit, so it is in the HTML too
+  let list: ExploreList | null = null
   try {
-    const qualifies = query.qualify && student ? await qualifier(student) : undefined
-    list = await searchExplore(query, { offset: 0, length: asked.shown }, qualifies)
+    list = await searchExplore(query, { offset: 0, length: asked.shown }, student)
   } catch (error) {
     logger.error('Explore failed to load', { error })
   }
@@ -56,6 +56,7 @@ export async function NewExplorePage({
           shown: asked.shown,
           total: list?.total ?? 0,
           rows: list?.rows ?? [],
+          fits: list?.fits ?? {},
           failed: list === null
         }}
         viewer={viewer}

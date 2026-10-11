@@ -2,7 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // Explore's list (rebranding 2.3): one search in the search service's own order; every match,
 // past its 1,000-hit window, for the points sorts and "Only ones I qualify for"; the fit only
-// for a signed-in student with grades, from one narrow read; nothing read for anyone else.
+// for a signed-in student with grades, from one narrow read and the search records themselves.
+// Nothing reads the programs cache (3 MB from Upstash each time, MAINT_tasks.md 5.19).
 
 const { authMock, prismaMock, programsMock, searchMock, browseMock } = vi.hoisted(() => ({
   authMock: vi.fn(),
@@ -35,42 +36,39 @@ const COUNT = 1200
 const minimum = (i: number) => (i % 10 === 0 ? null : 24 + (i % 22))
 const id = (i: number) => `program-${i}`
 
+/** Every hundredth program asks for Chemistry or Biology at HL 5, which the student hasn't got */
+const needsScience = (i: number) => i % 100 === 5
+
 const records = Array.from({ length: COUNT }, (_, i) => ({
   objectID: id(i),
   programName: `Program ${i}`,
+  universityId: 'u',
   universityName: 'University of Toronto',
+  countryId: 'ca',
+  fieldOfStudyId: 'f',
   country: { name: 'Canada' },
   duration: '4 years',
+  requiredCourses: needsScience(i)
+    ? ['chemistry', 'biology'].map((course) => ({
+        courseId: course,
+        courseName: course === 'chemistry' ? 'Chemistry' : 'Biology',
+        level: 'HL',
+        minimumGrade: 5,
+        isCritical: true,
+        orGroupId: 'science'
+      }))
+    : [
+        {
+          courseId: 'physics',
+          courseName: 'Physics',
+          level: 'HL',
+          minimumGrade: 5,
+          isCritical: true,
+          orGroupId: null
+        }
+      ],
   ...(minimum(i) === null ? { admitRate: 4.6 } : { minimumIBPoints: minimum(i) })
 }))
-
-function cachedProgram(i: number) {
-  return {
-    id: id(i),
-    name: `Program ${i}`,
-    universityId: 'u',
-    university: {
-      id: 'u',
-      name: 'University of Toronto',
-      abbreviatedName: null,
-      image: null,
-      city: 'Toronto',
-      admitRate: null,
-      internationalAdmitRate: null,
-      admitRateYear: null,
-      country: { id: 'ca', name: 'Canada', code: 'CA', flagEmoji: '' }
-    },
-    fieldOfStudyId: 'f',
-    fieldOfStudy: { id: 'f', name: 'Field', iconName: null, description: null },
-    degreeType: 'BSc',
-    duration: '4 years',
-    campusCity: null,
-    minIBPoints: minimum(i),
-    requirementsEntryYear: 2027,
-    programUrl: null,
-    courseRequirements: []
-  }
-}
 
 const PROFILE = {
   totalIBPoints: 38,
@@ -98,7 +96,6 @@ beforeEach(() => {
   vi.clearAllMocks()
   authMock.mockResolvedValue(null)
   prismaMock.studentProfile.findUnique.mockResolvedValue(PROFILE)
-  programsMock.mockResolvedValue(Array.from({ length: COUNT }, (_, i) => cachedProgram(i)))
   searchMock.mockImplementation(async ({ searchParams: p }: SearchArgs) => {
     const start = p.offset ?? (p.page ?? 0) * (p.hitsPerPage ?? 20)
     const length = p.length ?? p.hitsPerPage ?? 20
@@ -123,21 +120,33 @@ describe('GET /api/programs/explore', () => {
       length: 20
     })
     expect(browseMock).not.toHaveBeenCalled()
+    expect(searchMock.mock.calls[0][0].searchParams.attributesToRetrieve).not.toContain(
+      'requiredCourses'
+    )
     expect(prismaMock.studentProfile.findUnique).not.toHaveBeenCalled()
     expect(programsMock).not.toHaveBeenCalled()
   })
 
-  it('signed in with grades: each row comes with its fit, from one narrow read', async () => {
+  it('signed in with grades: each row comes with its fit, from its own search record', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     const body = await get('')
     expect(body.rows).toHaveLength(20)
     expect(Object.keys(body.fits ?? {})).toEqual(body.rows.map((r) => r.id))
-    // program-1 needs 25, program-0 none, program-17 needs 41: three points short is within reach
+    // program-0 has no minimum, program-17 needs 41 (three points short is within reach), and
+    // program-5 needs Chemistry or Biology at HL, an either/or the record carries
     expect(body.fits?.['program-0']).toEqual({ status: 'meets', badge: 'Meets all requirements' })
     expect(body.fits?.['program-17']).toEqual({
       status: 'close',
       badge: 'Within reach · 3 points short'
     })
+    expect(body.fits?.['program-5']).toEqual({
+      status: 'gap',
+      badge: 'Needs Chemistry or Biology HL'
+    })
+    expect(searchMock.mock.calls[0][0].searchParams.attributesToRetrieve).toContain(
+      'requiredCourses'
+    )
+    expect(programsMock).not.toHaveBeenCalled()
     expect(prismaMock.studentProfile.findUnique).toHaveBeenCalledOnce()
     expect(prismaMock.studentProfile.findUnique.mock.calls[0][0].select).not.toHaveProperty(
       'savedPrograms'
@@ -146,12 +155,13 @@ describe('GET /api/programs/explore', () => {
 
   it('"Only ones I qualify for" counts every match, past the search window', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
-    const meets = records.filter((_, i) => (minimum(i) ?? 0) <= 38)
+    const meets = records.filter((_, i) => (minimum(i) ?? 0) <= 38 && !needsScience(i))
     const body = await get('qualify=1&offset=0&length=20')
     expect(body.total).toBe(meets.length)
     expect(body.rows.map((r) => r.id)).toEqual(meets.slice(0, 20).map((r) => r.objectID))
     expect(Object.values(body.fits ?? {}).every((fit) => fit?.status === 'meets')).toBe(true)
     expect(browseMock).toHaveBeenCalledOnce()
+    expect(programsMock).not.toHaveBeenCalled()
   })
 
   it('signed out, the switch is ignored: it needs grades', async () => {

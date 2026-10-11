@@ -38,13 +38,7 @@ import {
   type ExploreQuery,
   type ExploreSort
 } from '@/lib/explore/query'
-import type {
-  ExploreFit,
-  ExploreResponse,
-  ExploreRow,
-  ExploreViewer,
-  FitResponse
-} from '@/lib/explore/types'
+import type { ExploreFit, ExploreResponse, ExploreRow, ExploreViewer } from '@/lib/explore/types'
 
 /*
  * Explore in the new design (rebranding 2.3; canvas boards "D4.7 Explore" and "D4.7 Explore ·
@@ -53,8 +47,8 @@ import type {
  * chips, the rows, and 20 at a time with "Show 20 more". A choice applies at once and goes in
  * the URL with how many rows are shown, so Back from a program returns to the same row. A change
  * keeps the rows until new ones arrive: the list is busy, with no skeleton flash. The first
- * rows come in the server HTML for everyone; signed in with grades, the fit follows into its
- * column. Replaces SearchClient, which today's design keeps until release.
+ * rows come in the server HTML for everyone, with the fit when the student has grades; later
+ * rows come with theirs. Replaces SearchClient, which today's design keeps until release.
  */
 
 export interface ExploreInitial {
@@ -62,6 +56,8 @@ export interface ExploreInitial {
   shown: number
   total: number
   rows: ExploreRow[]
+  /** The rows' fit, signed in with grades: in the server HTML with them */
+  fits: Record<string, ExploreFit>
   failed: boolean
 }
 
@@ -77,8 +73,8 @@ export interface ExploreClientProps {
 interface List {
   rows: ExploreRow[]
   total: number
-  /** By program id; missing while the fit loads, null when there is none */
-  fits: Record<string, ExploreFit | null>
+  /** By program id, signed in with grades */
+  fits: Record<string, ExploreFit>
 }
 
 /** A pause after typing or ticking before the list asks again, as today's page waits */
@@ -90,7 +86,11 @@ const ACADEMIC = APP_PLACES.academic.href
 export function ExploreClient({ initial, viewer, fields, countries, summary }: ExploreClientProps) {
   const [query, setQuery] = useState(initial.query)
   const [text, setText] = useState(initial.query.q)
-  const [list, setList] = useState<List>({ rows: initial.rows, total: initial.total, fits: {} })
+  const [list, setList] = useState<List>({
+    rows: initial.rows,
+    total: initial.total,
+    fits: initial.fits
+  })
   const [phase, setPhase] = useState<'ready' | 'busy' | 'failed'>(
     initial.failed ? 'failed' : 'ready'
   )
@@ -164,26 +164,10 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
       setQuery(asked)
       setText(asked.q)
       void load(asked, fromUrl.shown)
-      return
     }
-    // The first rows are in the server HTML; their fit follows
-    if (viewer.hasGrades && initial.rows.length > 0) void loadFits(initial.rows.map((r) => r.id))
     // Once, on arrival
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const loadFits = async (ids: string[]) => {
-    let fits: Record<string, ExploreFit | null>
-    try {
-      const response = await fetch(`/api/programs/explore/fit?ids=${ids.join(',')}`)
-      if (!response.ok) throw new Error(`status ${response.status}`)
-      fits = ((await response.json()) as FitResponse).fits
-    } catch {
-      // No fit to show rather than a skeleton that never resolves
-      fits = Object.fromEntries(ids.map((id) => [id, null]))
-    }
-    setList((l) => ({ ...l, fits: { ...fits, ...l.fits } }))
-  }
 
   // "Show 20 more" moves focus to the first new name
   useEffect(() => {
@@ -498,10 +482,9 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
           >
             <ResultHeadings fitColumn={fitColumn} />
             <ol>
-              {list.rows.map((row, index) => (
+              {list.rows.map((row) => (
                 <ResultRow
                   key={row.id}
-                  index={index}
                   row={row}
                   fitColumn={fitColumn}
                   fit={list.fits[row.id]}

@@ -52,6 +52,11 @@ interface AlgoliaProgramRecord {
     level: string
     minimumGrade: number
     isCritical: boolean
+    /**
+     * Requirements sharing one are an either/or group. Explore works out each student's fit
+     * from these records (rebranding 2.3), so it never reads the programs cache.
+     */
+    orGroupId: string | null
   }>
   isActive: boolean
   createdAt: number
@@ -109,6 +114,7 @@ async function syncToAlgolia() {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
+            orGroupId: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }
@@ -162,7 +168,8 @@ async function syncToAlgolia() {
         courseName: req.ibCourse.name,
         level: req.requiredLevel,
         minimumGrade: req.minGrade,
-        isCritical: req.isCritical
+        isCritical: req.isCritical,
+        orGroupId: req.orGroupId
       })),
 
       isActive: true,

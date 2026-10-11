@@ -2,16 +2,21 @@ import 'server-only'
 import { unstable_cache } from 'next/cache'
 import { getAlgoliaClient, INDEX_NAMES } from '@/lib/algolia/client'
 import { logger } from '@/lib/logger'
+import type { StudentProfile } from '@/lib/matching/types'
 import { exploreFilters } from './filters'
+import { FIT_ATTRIBUTES, fitProgram, programFit } from './fit'
 import type { ExploreQuery } from './query'
 import { ROW_ATTRIBUTES, sortByPoints, toRow, type RowRecord } from './records'
-import type { ExploreRow } from './types'
+import type { ExploreFit, ExploreRow } from './types'
 
 /**
  * Explore's list from the search service (rebranding 2.3). In its own order (relevance, then
  * the highest minimum first) with no switch, a window of the list is one search, as on today's
  * page. The points sorts and "Only ones I qualify for" need every matching program: they are
  * read in full, filtered and sorted here, and the window cut from them.
+ *
+ * With a student who has grades, the records come with their requirements and each row with
+ * the student's fit, worked out here. Nothing else is read: no database, no programs cache.
  */
 
 /** The search pages no further than this, so the full list browses past it. */
@@ -22,17 +27,27 @@ export interface ExploreWindow {
   length: number
 }
 
+export interface ExploreList {
+  total: number
+  rows: ExploreRow[]
+  /** By program id, when there is a student with grades */
+  fits?: Record<string, ExploreFit>
+}
+
 export async function searchExplore(
   query: ExploreQuery,
   window: ExploreWindow,
-  qualifies?: (programId: string) => boolean
-): Promise<{ total: number; rows: ExploreRow[] }> {
+  student?: StudentProfile | null
+): Promise<ExploreList> {
   const started = performance.now()
   const filters = exploreFilters(query)
+  const attributes = student ? [...ROW_ATTRIBUTES, ...FIT_ATTRIBUTES] : ROW_ATTRIBUTES
+  const qualify = query.qualify && student ? student : null
   const end = window.offset + window.length
 
-  let result: { total: number; rows: ExploreRow[] }
-  if (query.sort === 'relevant' && !qualifies && end <= SEARCH_WINDOW) {
+  let total: number
+  let records: RowRecord[]
+  if (query.sort === 'relevant' && !qualify && end <= SEARCH_WINDOW) {
     const page = await getAlgoliaClient().searchSingleIndex<RowRecord>({
       indexName: INDEX_NAMES.PROGRAMS,
       searchParams: {
@@ -40,28 +55,37 @@ export async function searchExplore(
         filters,
         offset: window.offset,
         length: window.length,
-        attributesToRetrieve: ROW_ATTRIBUTES,
+        attributesToRetrieve: attributes,
         attributesToHighlight: []
       }
     })
-    result = { total: page.nbHits ?? page.hits.length, rows: page.hits.map(toRow) }
+    total = page.nbHits ?? page.hits.length
+    records = page.hits
   } else {
-    let records = await everyMatch(query.q, filters)
-    if (qualifies) records = records.filter((r) => qualifies(r.objectID))
-    if (query.sort !== 'relevant') records = sortByPoints(records, query.sort)
-    result = { total: records.length, rows: records.slice(window.offset, end).map(toRow) }
+    let all = await everyMatch(query.q, filters, attributes)
+    if (qualify) all = all.filter((r) => programFit(qualify, fitProgram(r)).status === 'meets')
+    if (query.sort !== 'relevant') all = sortByPoints(all, query.sort)
+    total = all.length
+    records = all.slice(window.offset, end)
+  }
+
+  const list: ExploreList = { total, rows: records.map(toRow) }
+  if (student) {
+    list.fits = Object.fromEntries(
+      records.map((r) => [r.objectID, programFit(student, fitProgram(r))])
+    )
   }
 
   logger.info('explore_search', {
     query: query.q || '(empty)',
     filters: filters ?? '(none)',
     sort: query.sort,
-    qualify: Boolean(qualifies),
+    qualify: Boolean(qualify),
     offset: window.offset,
-    total: result.total,
+    total,
     ms: Math.round(performance.now() - started)
   })
-  return result
+  return list
 }
 
 /**
@@ -69,7 +93,11 @@ export async function searchExplore(
  * rest are browsed, which ranks by the minimum alone, and follow the first 1,000; with nothing
  * typed, that is the search's own order.
  */
-async function everyMatch(q: string, filters: string | undefined): Promise<RowRecord[]> {
+async function everyMatch(
+  q: string,
+  filters: string | undefined,
+  attributes: string[]
+): Promise<RowRecord[]> {
   const client = getAlgoliaClient()
   const first = await client.searchSingleIndex<RowRecord>({
     indexName: INDEX_NAMES.PROGRAMS,
@@ -78,7 +106,7 @@ async function everyMatch(q: string, filters: string | undefined): Promise<RowRe
       filters,
       hitsPerPage: SEARCH_WINDOW,
       page: 0,
-      attributesToRetrieve: ROW_ATTRIBUTES,
+      attributesToRetrieve: attributes,
       attributesToHighlight: []
     }
   })
@@ -92,7 +120,7 @@ async function everyMatch(q: string, filters: string | undefined): Promise<RowRe
       query: q,
       filters,
       hitsPerPage: SEARCH_WINDOW,
-      attributesToRetrieve: ROW_ATTRIBUTES
+      attributesToRetrieve: attributes
     },
     aggregator: (response) => {
       for (const record of response.hits) if (!seen.has(record.objectID)) rest.push(record)
@@ -102,8 +130,9 @@ async function everyMatch(q: string, filters: string | undefined): Promise<RowRe
 }
 
 /**
- * How many programs the catalogue holds, for the summary under the title. The search service
- * counts them; kept for an hour, as the country list beside it is.
+ * How many programs the catalogue holds, for the summary under the title when the list is
+ * narrowed. The search service counts them, once a day: it changes a few times a week, and
+ * each count is a search request against the free plan's 10,000 a month.
  */
 export const getCatalogueSize = unstable_cache(
   async (): Promise<number> => {
@@ -114,5 +143,5 @@ export const getCatalogueSize = unstable_cache(
     return result.nbHits ?? 0
   },
   ['explore-catalogue-size'],
-  { revalidate: 3600, tags: ['explore-catalogue-size'] }
+  { revalidate: 86_400, tags: ['explore-catalogue-size'] }
 )

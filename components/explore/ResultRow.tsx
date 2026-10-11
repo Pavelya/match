@@ -44,15 +44,13 @@ interface ResultRowProps {
   row: ExploreRow
   /** Whether the list has a fit column: signed in with grades */
   fitColumn: boolean
-  /** The row's fit; undefined while it loads, null when there is none */
-  fit: ExploreFit | null | undefined
+  /** The row's fit, which comes with the row */
+  fit: ExploreFit | undefined
   saved: boolean
   saving: boolean
   onToggleSave: () => void
   /** Signed out, Save is a link to sign-in that comes back to the program */
   signInHref?: string
-  /** Its place in the list, which varies the loading fit's width (D2.8) */
-  index: number
 }
 
 export function ResultRow({
@@ -62,10 +60,8 @@ export function ResultRow({
   saved,
   saving,
   onToggleSave,
-  signInHref,
-  index
+  signInHref
 }: ResultRowProps) {
-  const widths = SKELETON_WIDTHS[index % SKELETON_WIDTHS.length]
   return (
     <li className={rowClasses(fitColumn)}>
       <UniversityThumb image={row.image} initials={row.initials} />
@@ -89,7 +85,7 @@ export function ResultRow({
             {row.city && ` · ${row.city}`}
           </span>
         </span>
-        {fitColumn && <PhoneFit fit={fit} width={widths[2]} />}
+        {fit && <PhoneFit fit={fit} />}
       </div>
 
       <span className="text-body max-lg:hidden">
@@ -105,17 +101,13 @@ export function ResultRow({
 
       {fitColumn && (
         <span className="flex min-w-0 max-lg:hidden">
-          {fit === undefined ? (
-            <Skeleton className="h-7 rounded-full" style={{ width: widths[3] }} />
-          ) : (
-            fit && (
-              <StatusBadge status={fit.status} className="rounded-[0.875rem] py-1">
-                <span className="min-w-0">
-                  <span className="sr-only">Your fit: </span>
-                  {fit.badge}
-                </span>
-              </StatusBadge>
-            )
+          {fit && (
+            <StatusBadge status={fit.status} className="rounded-[0.875rem] py-1">
+              <span className="min-w-0">
+                <span className="sr-only">Your fit: </span>
+                {fit.badge}
+              </span>
+            </StatusBadge>
           )}
         </span>
       )}
@@ -173,11 +165,7 @@ function Minimum({ row }: { row: ExploreRow }) {
 }
 
 /** On a phone, the fit is the badge's words in its status colour, with its icon */
-function PhoneFit({ fit, width }: { fit: ExploreFit | null | undefined; width: string }) {
-  if (fit === undefined) {
-    return <SkeletonLine line={18} bar={10} width={width} className="mt-1 lg:hidden" />
-  }
-  if (!fit) return null
+function PhoneFit({ fit }: { fit: ExploreFit }) {
   const { Icon, text } = STATUS[fit.status]
   return (
     <span

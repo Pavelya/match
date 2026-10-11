@@ -4,10 +4,15 @@
  * student's points and subjects against the program's minimum and named subjects. Field and
  * country are notes on a card, never the status, and Explore lists programs outside both.
  * "Only ones I qualify for" keeps the programs whose status is "meets".
+ *
+ * The program's side comes from its search record, which the list fetches anyway: the minimum
+ * and every requirement with its either/or group. So Explore never reads the programs cache, a
+ * 3 MB read from Upstash each time (MAINT_tasks.md 5.19).
  */
 
 import { calculateAcademicMatch } from '@/lib/matching/academic-matcher'
 import { deriveMatchStatus } from '@/lib/matching/match-status'
+import { transformProgram } from '@/lib/matching/transformers'
 import type { ProgramRequirements, StudentProfile } from '@/lib/matching/types'
 import type { ExploreFit } from './types'
 
@@ -15,6 +20,53 @@ import type { ExploreFit } from './types'
 export interface FitProgram {
   requirements: ProgramRequirements
   minIBPoints: number | null
+}
+
+/** A search record's fields the fit reads, as lib/algolia/sync.ts writes them */
+export interface FitRecord {
+  objectID: string
+  programName: string
+  universityId?: string
+  universityName: string
+  countryId?: string
+  fieldOfStudyId?: string
+  minimumIBPoints?: number
+  requiredCourses?: {
+    courseId: string
+    courseName: string
+    level: string
+    minimumGrade: number
+    isCritical: boolean
+    orGroupId?: string | null
+  }[]
+}
+
+/** The search record retrieves these too when there is a fit to work out */
+export const FIT_ATTRIBUTES = ['universityId', 'countryId', 'fieldOfStudyId', 'requiredCourses']
+
+/** A search record as the matcher reads a program: the same shape the programs cache gives it */
+export function fitProgram(record: FitRecord): FitProgram {
+  return {
+    minIBPoints: record.minimumIBPoints ?? null,
+    requirements: transformProgram({
+      id: record.objectID,
+      name: record.programName,
+      minIBPoints: record.minimumIBPoints ?? null,
+      university: {
+        id: record.universityId ?? '',
+        name: record.universityName,
+        country: { id: record.countryId ?? '' }
+      },
+      fieldOfStudy: { id: record.fieldOfStudyId ?? '' },
+      courseRequirements: (record.requiredCourses ?? []).map((req) => ({
+        ibCourse: { id: req.courseId, name: req.courseName },
+        requiredLevel: req.level,
+        minGrade: req.minimumGrade,
+        isCritical: req.isCritical,
+        orGroupId: req.orGroupId ?? null
+      }))
+    })
+  }
 }
 
 /** Field and country don't decide the status, so they are left out of it */

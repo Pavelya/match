@@ -28,12 +28,8 @@ export interface ExploreFit {
 export interface ExploreResponse {
   total: number
   rows: ExploreRow[]
-  /** By program id, when a signed-in student has grades; null where there is none to show */
-  fits?: Record<string, ExploreFit | null>
-}
-
-export interface FitResponse {
-  fits: Record<string, ExploreFit | null>
+  /** By program id, when a signed-in student has grades */
+  fits?: Record<string, ExploreFit>
 }
 
 /** Who is looking, as far as the page needs: one narrow read when signed in, none signed out */

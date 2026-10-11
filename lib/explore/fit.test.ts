@@ -3,7 +3,7 @@ import { deriveMatchStatus } from '@/lib/matching/match-status'
 import type { CachedProgram } from '@/lib/matching/program-cache'
 import { calculateMatch } from '@/lib/matching/scorer'
 import { transformProgram, transformStudent } from '@/lib/matching/transformers'
-import { programFit } from './fit'
+import { fitProgram, programFit } from './fit'
 
 // The D3.1 student, 38 points, with no preferences: Explore lists programs outside them anyway
 const STUDENT = transformStudent({
@@ -127,5 +127,35 @@ describe('programFit', () => {
       requirementsEntryYear: p.requirementsEntryYear
     })
     expect(fit(p)).toEqual({ status: matches.status, badge: matches.badge })
+  })
+
+  it('reads a search record as it reads the programs cache', () => {
+    const p = program({
+      minIBPoints: 36,
+      courseRequirements: [
+        requirement('maths-aa', 'Mathematics: Analysis and Approaches', 'HL', 7),
+        requirement('spa-b', 'Spanish B', 'HL', 5, 'lang'),
+        requirement('fre-b', 'French B', 'HL', 5, 'lang')
+      ]
+    })
+    const record = {
+      objectID: p.id,
+      programName: p.name,
+      universityId: p.university.id,
+      universityName: p.university.name,
+      countryId: p.university.country.id,
+      fieldOfStudyId: p.fieldOfStudyId,
+      minimumIBPoints: p.minIBPoints ?? undefined,
+      requiredCourses: p.courseRequirements.map((r) => ({
+        courseId: r.ibCourse.id,
+        courseName: r.ibCourse.name,
+        level: r.requiredLevel,
+        minimumGrade: r.minGrade,
+        isCritical: r.isCritical,
+        orGroupId: r.orGroupId
+      }))
+    }
+    expect(fitProgram(record).requirements).toEqual(transformProgram(p))
+    expect(programFit(STUDENT, fitProgram(record))).toEqual(fit(p))
   })
 })

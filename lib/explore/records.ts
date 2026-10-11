@@ -5,6 +5,7 @@
  */
 
 import { universityInitials } from '@/lib/programs/university-initials'
+import type { FitRecord } from './fit'
 import type { ExploreSort } from './query'
 import type { ExploreRow } from './types'
 
@@ -22,16 +23,13 @@ export const ROW_ATTRIBUTES = [
   'admitRate'
 ]
 
-export interface RowRecord {
-  objectID: string
-  programName: string
-  universityName: string
+/** A search record: what a row shows, and what the fit reads when the student has grades */
+export interface RowRecord extends FitRecord {
   universityAbbreviation?: string
   universityImageUrl?: string
   city?: string
   country?: { name: string }
   duration?: string
-  minimumIBPoints?: number
   admitRate?: number | null
 }
 
