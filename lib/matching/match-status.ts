@@ -34,8 +34,10 @@ import {
   type RequirementOption
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
-import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE } from '@/lib/programs/ib-minimum'
+import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE, formatRate } from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
+
+export { formatRate }
 
 /** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
 export type CardStatus = 'meets' | 'close' | 'gap'
@@ -297,11 +299,6 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
 /** "or 5 others", for a group of six courses; only groups of three or more are counted */
 function others(courseCount: number): string {
   return `or ${courseCount - 1} others`
-}
-
-/** "4.6%": the stored rate has one decimal, and keeps it ("16.0%"). */
-export function formatRate(rate: number): string {
-  return `${rate.toFixed(1)}%`
 }
 
 /**

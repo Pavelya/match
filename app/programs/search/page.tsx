@@ -13,6 +13,9 @@ import { getCachedFields, getCachedCountriesWithPrograms } from '@/lib/reference
 import { SearchClient } from './SearchClient'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { EXPLORE_QUESTIONS } from '@/lib/explore/questions'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewExplorePage } from './NewExplorePage'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -78,7 +81,45 @@ export const metadata = {
   }
 }
 
-export default async function SearchPage() {
+// FAQ Schema for SEO rich snippets (Task 3.2). Both designs send this one copy; the new one
+// also shows the questions on the page (rebranding 2.3).
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: EXPLORE_QUESTIONS.map(({ question, answer }) => ({
+    '@type': 'Question',
+    name: question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: answer
+    }
+  }))
+}
+
+const faqScript = (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+  />
+)
+
+interface SearchPageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  // The new design (rebranding 2.3) reads the list from the URL, so a link or Back from a
+  // program returns to the same list. The page is already rendered on each request: its
+  // layout reads the session.
+  if (await showsNewUi()) {
+    return (
+      <>
+        {faqScript}
+        <NewExplorePage searchParams={await searchParams} />
+      </>
+    )
+  }
+
   // Fetch reference data for filter options AND initial programs for SEO
   // Initial programs prevent "Soft 404" by showing real content on first render
   const [fields, countries, initialSearchResult] = await Promise.all([
@@ -90,86 +131,11 @@ export default async function SearchPage() {
       .catch(() => ({ hits: [], nbHits: 0, page: 0, nbPages: 0, processingTimeMS: 0 }))
   ])
 
-  // FAQ Schema for SEO rich snippets (Task 3.2)
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'How do I search for IB programs?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Use the search bar to find programs by name, or use the filters to browse by IB points (24-45), country, and field of study. You can filter by specific IB point requirements to find programs that match your predicted score.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I filter programs by IB points?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, you can filter programs by IB points ranging from 24 to 45. This helps you find programs that match your predicted or achieved IB score. Programs are displayed with their minimum IB points requirement.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What countries are available in the search?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'The search includes programs from universities worldwide, including the UK, USA, Canada, Australia, Singapore, Netherlands, Germany, and many more countries. Use the country filter to browse programs by location.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'What fields of study can I search for?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'You can search across all major fields of study including Computer Science, Engineering, Medicine, Business, Arts, Sciences, Social Sciences, and more. Use the field filter to find programs in your area of interest.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How do I know if I meet the IB requirements?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Each program card shows the minimum IB points required. Click on a program to see detailed IB requirements including specific course requirements (HL/SL subjects and minimum grades). You can also create a profile to see your match probability.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'Can I search for programs with specific IB course requirements?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, each program page shows detailed IB course requirements including which subjects are required at HL or SL level and the minimum grades needed. You can browse programs and compare their specific IB course requirements.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How many programs are in the database?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'The database includes over 1000 university programs from top institutions worldwide. All programs accept the IB Diploma and display IB-specific admission requirements including points and course requirements.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: 'How do I apply to programs I find?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Each program card includes a link to the official university program page where you can find detailed application information and apply directly. The program pages also show contact information for university admissions offices.'
-        }
-      }
-    ]
-  }
-
   return (
     <>
       <PageContainer>
         {/* FAQ Schema for rich snippets */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
+        {faqScript}
 
         <PageHeader
           title="Search Programs"

@@ -9,33 +9,43 @@ import { cn } from '@/lib/utils'
  * tall and 8px from the next, with 4px of invisible hit area above and below, so each is a 44px
  * touch target and neighbours never overlap. Labels are Body (15px). No flags on country chips.
  */
-const chipBase = cn(
+export const chipBase = cn(
   'relative inline-flex h-9 shrink-0 items-center rounded-full border text-body font-medium whitespace-nowrap',
   'transition-[color,background-color,border-color,scale] duration-180 ease-standard',
   "before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']"
 )
 
 /** Forced colours drop the fills, so an applied or on chip takes the system highlight. */
-const highlighted =
+export const highlighted =
   'forced-colors:border-[Highlight] forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:outline-[Highlight] forced-colors:forced-color-adjust-none'
 
 interface FilterChipProps extends Omit<ComponentProps<'button'>, 'children'> {
   label: string
   /** How many are chosen; above 0 the chip shows as applied ("Country · 3"). */
   count?: number
-  /** Whether its menu is open. */
+  /** What is chosen, where a count can't say it: "up to 38" (D3.5). Shows as applied. */
+  chosen?: string | null
+  /** Whether its menu is open; the chevron turns up (D3.5). */
   expanded: boolean
 }
 
 /** Opens a filter menu (D3.5 draws the menus). Named with its count: "Country, 3 chosen". */
-export function FilterChip({ label, count = 0, expanded, className, ...props }: FilterChipProps) {
-  const applied = count > 0
+export function FilterChip({
+  label,
+  count = 0,
+  chosen: named,
+  expanded,
+  className,
+  ...props
+}: FilterChipProps) {
+  const chosen = named ?? (count > 0 ? String(count) : null)
+  const applied = chosen !== null
   return (
     <button
       type="button"
       aria-haspopup="dialog"
       aria-expanded={expanded}
-      aria-label={applied ? `${label}, ${count} chosen` : undefined}
+      aria-label={named ? `${label}, ${named}` : applied ? `${label}, ${count} chosen` : undefined}
       className={cn(
         chipBase,
         'gap-1.5 pr-3 pl-3.5',
@@ -48,8 +58,13 @@ export function FilterChip({ label, count = 0, expanded, className, ...props }: 
       )}
       {...props}
     >
-      {applied ? `${label} · ${count}` : label}
-      <ChevronDown aria-hidden="true" size={14} strokeWidth={2} className="shrink-0" />
+      {applied ? `${label} · ${chosen}` : label}
+      <ChevronDown
+        aria-hidden="true"
+        size={14}
+        strokeWidth={2}
+        className={cn('shrink-0', expanded && 'rotate-180')}
+      />
     </button>
   )
 }

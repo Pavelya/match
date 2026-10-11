@@ -18,6 +18,7 @@ import {
 import { shortCourseName } from '@/lib/ib/course-names'
 import { getCorePoints } from '@/lib/ib/core-points'
 import { universityInitials } from '@/lib/programs/university-initials'
+import { inProse } from '@/lib/programs/country-prose'
 
 type ListedResult = Pick<
   MatchResult,
@@ -171,20 +172,6 @@ const NOT_YET = 'Not added yet'
 
 function names(items: { name: string }[]): string[] {
   return items.map((i) => i.name).sort((a, b) => a.localeCompare(b, 'en'))
-}
-
-/** Countries as a sentence names them: "the UK", "the Netherlands" */
-const IN_PROSE: Record<string, string> = {
-  'United Kingdom': 'the UK',
-  'United States': 'the USA',
-  Netherlands: 'the Netherlands',
-  'United Arab Emirates': 'the UAE',
-  'Czech Republic': 'the Czech Republic',
-  Philippines: 'the Philippines'
-}
-
-function inProse(country: string): string {
-  return IN_PROSE[country] ?? country
 }
 
 /** "Canada, Ireland and the UK" */
