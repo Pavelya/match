@@ -145,8 +145,10 @@ deciding from is the one place their fit is not shown.
 **Proposed (canvas: "Explore programs", "Phone · Explore", "Phone · Filters sheet", "Shortlist and compare")**
 
 - **Toolbar chips** (Field · Country · IB points · Length) that open small menus on desktop and a
-  bottom sheet on phones, with the result count on the apply button. A switch, **"Only ones I
-  qualify for"**, appears once a profile exists. Applied filters show as removable chips.
+  bottom sheet on phones, with the result count on its button. Each choice applies at once, so
+  closing the sheet never loses one (approved on "D2.15 Bottom sheet", 11 October 2026). A switch,
+  **"Only ones I qualify for"**, appears once a profile exists. Applied filters show as removable
+  chips.
 - **Rows instead of cards**: thumbnail, program, university and city, country, length, minimum points
   (large, aligned), your fit, save. 20 per page with "Show 20 more". The URL keeps all of this.
 - **Save while logged out** opens sign-in, remembers the program, and saves it on return. No

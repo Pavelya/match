@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 10 October 2026.** The canvas has 50 boards. The owner approved in chat "B ·
+**Where it stands, 11 October 2026.** The canvas has 55 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -164,7 +164,10 @@ row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3
 phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
 minimum". Later that day, the four row 11 boards, again with every recommendation: "D2.9 Toast",
 "D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches · phone". Build 6–7's gate is
-complete. Fourteen tasks need a screen size or states added. Eight have no board.
+complete. On 11 October row 12 drew Explore's five boards, and the owner approved "D2.15 Bottom
+sheet" in chat, with every recommendation and new labels for the profile shortcuts. "D3.3 Result
+row", "D3.5 Filter toolbar", "D4.7 Explore" and "D4.7 Explore · phone" await review. Ten other tasks
+need a screen size or states added. Eight have no board.
 
 ### Foundations
 
@@ -197,7 +200,7 @@ theme switch are in D1.4.
 | D2.12 Header | "D2.12 Header" (row 8): desktop signed in and signed out, 768 to 1023px, the phone header signed out (Sign in, Menu) and signed in (Guides, the avatar and its panel), a student editing their profile, focus mode, every state, light and dark. **Decided 9 October 2026 (owner):** prebuilt public pages show the signed-out header to everyone, and "Sign in" goes to `/student`; no search box in the header; Guides in the phone header; "Save and exit" saves the step, then goes to Home; Academic is the fourth place, in the nav and on the tab bar; Menu signed out and the avatar signed in, never both | Nothing | 9 October 2026 |
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
 | D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
-| D2.15 Bottom sheet | "Phone · Filters sheet" | Dark | |
+| D2.15 Bottom sheet | "D2.15 Bottom sheet" (row 12): Explore's filters on a phone, light and dark: open, a choice applied, "Only ones I qualify for" on, scrolled, no programs match, an IB points value it can't use, keyboard focus, signed out, the count not arriving, forced colours. Replaces "Phone · Filters sheet". **Decided 11 October 2026 (owner):** a choice applies at once and the button carries the count ("Show 43 programs"); closing never loses a choice; a native dialog, no drag handle; every section open in one scroll; "No programs match" disables the button; profile shortcuts "Use my fields", "Use my countries" and "Up to my 38", with no limit on how many boxes are ticked | Nothing | 11 October 2026 |
 
 ### Patterns
 
@@ -280,7 +283,7 @@ Rows 3 and 4 can share a design session.
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
-| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15 approved the same day, D3.3, D3.5 and D4.7 in review |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
@@ -1010,7 +1013,9 @@ Departures and hand-offs:
 
 **Outcome:** Search uses a chip toolbar (Field, Country, IB points, Length), a bottom sheet on phones
 with the result count on its button, compact result rows, and 20 results per page with "Show 20
-more". See the canvas boards "Explore programs", "Phone · Explore" and "Phone · Filters sheet".
+more". See the canvas boards in row 12: "D2.15 Bottom sheet", "D3.3 Result row", "D3.5 Filter
+toolbar", "D4.7 Explore" and "D4.7 Explore · phone". They replace "Explore programs", "Phone ·
+Explore" and "Phone · Filters sheet".
 
 **Design gate:** D2.15, D3.3, D3.5 and D4.7, approved ([Step 2](#step-2--design-first)).
 
@@ -1020,6 +1025,22 @@ program with `?save=1` (see 2.4). Saving goes through `useShortlist` (`component
 **Must-haves:** filters stay in the URL, as today. "Only ones I qualify for" appears once the student
 has a profile. Rows show minimum points large and aligned, and the student's fit when logged in.
 Images are 48–64px thumbnails, not full width (audit 3.3).
+
+**Decided on the boards (owner, 11 October 2026):**
+- **The phone filters sheet** (D2.15, every recommendation approved). A choice applies at once: the
+  list behind the sheet updates, the URL keeps up, and the footer button carries the count ("Show 43
+  programs"). Closing never loses a choice, whichever way it closes: the button, the X, the scrim,
+  Escape or Android's Back. A native `<dialog>` opened with `showModal`, named by its "Filters"
+  heading, which takes focus first; focus returns to the Filters button. No drag handle. 92% of the
+  screen, header and footer fixed, the middle scrolling. Every section open: "Only ones I qualify
+  for" (with a profile), Field and Country as two-column grids, IB points, Length, each heading
+  saying what's chosen ("Country · 3 chosen"). With nothing matching, the button reads "No programs
+  match" and is aria-disabled beside Clear all; if the count request fails it reads "Show programs"
+  and still closes. Signed in with a profile, each heading line carries a shortcut from the profile,
+  "Use my fields", "Use my countries" and "Up to my 38", which ticks the student's own choices and
+  nothing else; no limit on how many boxes are ticked. Opens with a 240ms slide, closes in 180ms, a
+  fade with reduced motion. The sections' filters themselves (the no-minimum box, Length's three
+  options) are D3.5's, still in review.
 
 ### 2.4 — Program and university pages
 
