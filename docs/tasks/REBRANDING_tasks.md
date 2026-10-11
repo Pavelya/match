@@ -164,10 +164,10 @@ row 10 boards in chat, with every recommendation on them: "D3.1 Match card", "D3
 phone", "D3.2 Why this match", "D3.4 Requirement checklist" and the change board "D2.7 Chip · no IB
 minimum". Later that day, the four row 11 boards, again with every recommendation: "D2.9 Toast",
 "D2.11 Empty and error states", "D4.6 Matches" and "D4.6 Matches · phone". Build 6–7's gate is
-complete. On 11 October row 12 drew Explore's five boards, and the owner approved "D2.15 Bottom
-sheet" in chat, with every recommendation and new labels for the profile shortcuts. "D3.3 Result
-row", "D3.5 Filter toolbar", "D4.7 Explore" and "D4.7 Explore · phone" await review. Ten other tasks
-need a screen size or states added. Eight have no board.
+complete. On 11 October row 12 drew Explore's five boards, and the owner approved two in chat:
+"D2.15 Bottom sheet", with every recommendation and new labels for the profile shortcuts, then "D3.3
+Result row", with every recommendation. "D3.5 Filter toolbar", "D4.7 Explore" and "D4.7 Explore ·
+phone" await review. Ten other tasks need a screen size or states added. Eight have no board.
 
 ### Foundations
 
@@ -208,7 +208,7 @@ theme switch are in D1.4.
 |---|---|---|---|
 | D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D3.3 Result row | "Explore programs" (desktop table), "Phone · Explore" (list) | Signed out, and signed in without a profile (no fit); dark on phone. A program with no IB minimum (US, `CONTENT_tasks.md` 6): what the large, aligned points column shows instead of a number | |
+| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row | Nothing | 11 October 2026 |
 | D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
 | D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
@@ -283,7 +283,7 @@ Rows 3 and 4 can share a design session.
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
-| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15 approved the same day, D3.3, D3.5 and D4.7 in review |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs drawn 11 October 2026 (row 12); D2.15 and D3.3 approved the same day, D3.5 and D4.7 in review |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
@@ -1041,6 +1041,23 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   nothing else; no limit on how many boxes are ticked. Opens with a 240ms slide, closes in 180ms, a
   fade with reduced motion. The sections' filters themselves (the no-minimum box, Length's three
   options) are D3.5's, still in review.
+- **The result row** (D3.3, every recommendation approved). A program with no IB minimum shows
+  "None" in the IB minimum column, smaller than the figures, with the university's overall admit
+  rate under it ("Admits 3.8%"), read as "IB minimum: none. Admits 3.8% of first-year applicants";
+  "Holistic" when a university reports no rate (none does today). The search index doesn't carry the
+  admit rate yet. The fit is the Matches badge word for word (`deriveMatchStatus`), wrapping inside
+  its column; no percentage and no requirement chips. Signed out, or signed in before adding grades,
+  there is no fit column and the program column takes the room. An ordered list, not a table: each
+  program name an h3 and the row's only link, Save the only other control; the desktop column
+  headings are drawn but hidden from screen readers, and each value carries its label ("Length 4
+  years", "IB minimum 37"). Desktop columns: thumbnail 56, program, country 140, length 88, IB
+  minimum 104, fit 260, Save 44, 16 apart (without a fit: country 160, length 100, minimum 120). On a
+  phone: thumbnail 48, the name, university and country, the fit in its status colour with its icon,
+  the minimum on the right with "points" under it ("None" over "admits 3.8%"), Save; D2.8's 44px
+  phone skeleton grows to 48. Names wrap in full. No hover on the whole row; the name underlines.
+  The fit arrives after the rows, as a skeleton the size of a badge. Signed out, Save is a link,
+  "Sign in to save Computer Science, University of Toronto", that returns to the program with
+  `?save=1`.
 
 ### 2.4 — Program and university pages
 

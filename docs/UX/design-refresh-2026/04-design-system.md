@@ -173,7 +173,7 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `StatusBadge` (`meets` · `close` · `gap` · `neutral`) | `getMatchRating` colours, tile borders | Icon plus word plus colour. The single source of status styling. |
 | `RequirementChecklist` | the four duplicated tile grids in `ProgramCard` | Rows: icon · requirement (with "either X or Y") · needed · you. A logged-out variant without the "you" column. |
 | `MatchCard` | `ProgramCard` variant `card` with `showMatchDetails` | About 180px; status and evidence line; "Why this match" disclosure. |
-| `ResultRow` | `ProgramCard` in search and saved | Thumbnail · program · university · country · length · points · fit · save. |
+| `ResultRow` | `ProgramCard` in search and saved | Thumbnail · program · university · country · length · points · fit · save. An ordered list with the name as the only link; no fit column signed out or before grades; the fit is the Matches badge; no IB minimum shows "None" and the admit rate. Thumbnails 56px, 48 on a phone. Canvas: "D3.3 Result row" (approved 11 October 2026). |
 | `ProgramHero`, `KeyFacts`, `FitPanel` | `ProgramCard` variant `detail` | Breadcrumbs instead of `history.back()`. |
 | `SubjectRow` and `ProfileEditor` | `SubjectSelectorDialog`, `DetailedGradesInput`, `QuickScoreInput`, `StepIndicator` | One editor for first run and edit. Live total; diploma checks including the 3–4 HL rule. |
 | `CompareTable` | none | Shortlist compare view. |
