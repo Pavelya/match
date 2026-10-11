@@ -167,7 +167,9 @@ minimum". Later that day, the four row 11 boards, again with every recommendatio
 complete. On 11 October row 12 drew Explore's five boards, and the owner approved two in chat:
 "D2.15 Bottom sheet", with every recommendation and new labels for the profile shortcuts, then "D3.3
 Result row", with every recommendation. "D3.5 Filter toolbar", "D4.7 Explore" and "D4.7 Explore ·
-phone" await review. Ten other tasks need a screen size or states added. Eight have no board.
+phone" await review. A change board for one program card in every list (D3.8) is parked until the
+whole design can be seen in the preview (5.1). Ten other tasks need a screen size or states added.
+Eight have no board.
 
 ### Foundations
 
@@ -213,6 +215,7 @@ theme switch are in D1.4.
 | D3.5 Filter toolbar | "Explore programs" (chips closed), "Phone · Filters sheet" | Each desktop chip opened (Field, Country, IB points, Length); dark | |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
 | D3.7 Compare table | "Shortlist and compare" (desktop) | Phone: how four programs compare at 390px; a US program (no IB minimum, its admit rate) in the minimum-points row | |
+| D3.8 Program card in every list | "Program card · one for every list (D3.1, D3.3)" (row 12): on a phone, prototype A (48px, as approved), B (64px, one header for every list, recommended on the board) and C (72px), each in Matches, Explore and Shortlist, and B in dark | **Parked 11 October 2026 (owner):** A, as approved, stays until the whole design can be seen in the preview; reviewed again in [5.1](#51--the-program-card-in-every-list) | |
 
 ### Screens and flows
 
@@ -264,6 +267,7 @@ merges into `main`, behind the preview switch.**
 | 14 | Home | 4.1 | D4.1 | medium | |
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
+| After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 
@@ -292,6 +296,7 @@ Rows 3 and 4 can share a design session.
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
+| After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 
@@ -347,6 +352,10 @@ Phase 4 — Public pages
 - [ ] 4.2 Country guides on one template
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
+
+Phase 5 — After the whole preview
+
+- [ ] 5.1 The program card in every list (review)
 
 Release
 
@@ -1220,6 +1229,39 @@ student-facing code, so the two styling systems cannot drift apart again (audit 
 rule, not a formatting one, so it does not conflict with Prettier.
 
 **Design gate:** none; nothing on screen changes.
+
+---
+
+## Phase 5 — After the whole preview
+
+Questions the owner chose to settle after seeing the whole new design, A to Z, in the preview. Each
+gets a session of its own.
+
+### 5.1 — The program card in every list
+
+**Outcome:** One program card on phones for Matches, Explore and Shortlist, chosen with every
+screen built and seen together.
+
+**Why later (owner, 11 October 2026):** on a real phone the 48px photo looks small beside the three
+lines of text in an Explore row. The change board "Program card · one for every list (D3.1, D3.3)"
+(canvas row 12, task D3.8) draws three prototypes in all three lists at 390px: A, 48px, as approved
+on D3.1 and D3.3; B, 64px with one header for every list, recommended on the board; C, 72px. The
+owner kept A to see the whole experience first.
+
+**Design gate:** D3.8, approved.
+
+**When:** after session 16, once every screen is built behind the preview switch. Before release
+day if the change is wanted then; otherwise as its own session after release.
+
+**Must-haves:**
+- Review Matches, Explore and Shortlist on a real phone in the preview, light and dark, beside the
+  change board. Add a prototype to the board if the review suggests one.
+- If B or C is chosen: one header in every list (the photo, the name at 17/24, university and
+  country, the status in words, the IB minimum on the right, Save); on Matches the points and
+  no-minimum chips give way to the figure on the right, and the subject chips and "Why this match"
+  stay. `MatchCard` (2.2), `ResultRow` (2.3) and the Shortlist list (2.5) change together. Desktop
+  keeps its 56px photo.
+- If A stays: close D3.8 and this task with a note of the decision.
 
 ---
 
