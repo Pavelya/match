@@ -69,6 +69,8 @@ interface RequirementChipProps {
    * colour don't reach them. Off for "+2 met", which says it already.
    */
   spokenKind?: boolean
+  /** Read out after the words only: " of first-year applicants" after "admits 4.6%" */
+  spokenAfter?: string
   /** `li` inside RequirementChipList; `span` standing alone. */
   as?: 'li' | 'span'
   className?: string
@@ -79,6 +81,7 @@ export function RequirementChip({
   kind,
   children,
   spokenKind = true,
+  spokenAfter,
   as: Tag = 'li',
   className
 }: RequirementChipProps) {
@@ -102,6 +105,7 @@ export function RequirementChip({
       <span>
         {spokenKind && <span className="sr-only">{spoken}</span>}
         {children}
+        {spokenAfter && <span className="sr-only">{spokenAfter}</span>}
       </span>
     </Tag>
   )

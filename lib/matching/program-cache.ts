@@ -23,8 +23,10 @@ import { redis } from '@/lib/redis/client'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 
-// Cache configuration - v2 uses optimized data structure
-const PROGRAMS_CACHE_KEY = 'programs:all:v2'
+// Cache configuration. v3 adds the entry year and the admit rates the new match cards show
+// (rebranding 2.2); a deployment still on v2 keeps its own key, so neither reads the other's shape.
+const PROGRAMS_CACHE_KEY = 'programs:all:v3'
+const OLDER_CACHE_KEYS = ['programs:all:v2', 'programs:all:v1']
 // Six hours, not one. Each refresh re-reads every program from Postgres, which
 // is billed egress on Supabase; at hourly that is 24 full reads a day for data
 // that changes a few times a week. All four write paths - create, update,
@@ -50,6 +52,10 @@ export interface CachedProgram {
     abbreviatedName: string | null
     image: string | null
     city: string
+    /** Percent admitted, for programs with no IB minimum. Display only: matching never reads it. */
+    admitRate: number | null
+    internationalAdmitRate: number | null
+    admitRateYear: number | null
     country: {
       id: string
       name: string
@@ -69,6 +75,8 @@ export interface CachedProgram {
   /** Where it is taught when that is not `university.city`. Show `campusCity ?? university.city`. */
   campusCity: string | null
   minIBPoints: number | null
+  /** The intake the requirements were checked for; null when never checked. */
+  requirementsEntryYear: number | null
   programUrl: string | null
   courseRequirements: Array<{
     id: string
@@ -103,6 +111,7 @@ async function fetchProgramsFromDB() {
       duration: true,
       campusCity: true,
       minIBPoints: true,
+      requirementsEntryYear: true,
       programUrl: true,
       fieldOfStudyId: true,
       university: {
@@ -112,6 +121,9 @@ async function fetchProgramsFromDB() {
           abbreviatedName: true,
           image: true,
           city: true,
+          admitRate: true,
+          internationalAdmitRate: true,
+          admitRateYear: true,
           country: {
             select: { id: true, name: true, code: true, flagEmoji: true }
           }
@@ -197,6 +209,9 @@ function optimizeForCache(
       abbreviatedName: p.university.abbreviatedName,
       image: cacheableImage(p.university, offenders),
       city: p.university.city,
+      admitRate: p.university.admitRate,
+      internationalAdmitRate: p.university.internationalAdmitRate,
+      admitRateYear: p.university.admitRateYear,
       country: {
         id: p.university.country.id,
         name: p.university.country.name,
@@ -215,6 +230,7 @@ function optimizeForCache(
     duration: p.duration,
     campusCity: p.campusCity,
     minIBPoints: p.minIBPoints,
+    requirementsEntryYear: p.requirementsEntryYear,
     programUrl: p.programUrl,
     courseRequirements: p.courseRequirements.map((cr) => ({
       id: cr.id,
@@ -285,9 +301,8 @@ export async function getCachedPrograms(): Promise<CachedProgram[]> {
  */
 export async function invalidateProgramsCache(): Promise<void> {
   try {
-    // Delete both v1 (legacy) and v2 (current) keys
-    await redis.del(PROGRAMS_CACHE_KEY)
-    await redis.del('programs:all:v1') // Clean up legacy key
+    // The current key, and the older ones a deployment still running earlier code may read
+    await redis.del(PROGRAMS_CACHE_KEY, ...OLDER_CACHE_KEYS)
     logger.info('Programs cache invalidated')
   } catch (error) {
     logger.error('Failed to invalidate programs cache', { error })

@@ -9,11 +9,15 @@
  *
  * Course names are short ("Maths AA", `lib/ib/course-names.ts`). For an either/or the chip
  * names the course the student took, at every level and grade the group accepts it, as the
- * program card does (`optionsForCourse`). With none taken, it names the group, or for a long
- * group its first course and how many others.
+ * program card does (`optionsForCourse`). Short of it in a group of three or more courses, it
+ * counts the others too ("Spanish B HL 5 or 5 others · you SL"). With none taken, it names the
+ * group, or for a long group its first course and how many others. Copy approved on "D3.1 Match
+ * card" (owner, 10 October 2026).
  */
 
 import type {
+  CourseLevel,
+  IBGrade,
   MatchResult,
   ORGroupRequirement,
   SubjectMatchDetail,
@@ -26,10 +30,11 @@ import {
   formatLevelGrades,
   groupRequirements,
   optionsForCourse,
-  type RequirementGroup
+  type RequirementGroup,
+  type RequirementOption
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
-import { NO_IB_MINIMUM_NOTE } from '@/lib/programs/ib-minimum'
+import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE } from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
 
 /** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
@@ -42,6 +47,8 @@ export interface MatchChip {
   kind: ChipKind
   /** "Maths HL 7 · you 6". The icon and the spoken "Met:" or "Missing:" come from `kind`. */
   label: string
+  /** Read out after the label only: " of first-year applicants" after "admits 4.6%". */
+  spokenAfter?: string
   /** The "+2 met" chip, which says its kind already. */
   collapsed?: boolean
 }
@@ -58,6 +65,11 @@ export interface MatchStatusInput {
   countryName: string
   /** The intake the program's requirements were checked for. */
   requirementsEntryYear: number | null
+  /**
+   * The university's admit rate in percent (`University.admitRate`), for a program with no IB
+   * minimum. Display only, like everything here.
+   */
+  admitRate?: number | null
   now?: Date
 }
 
@@ -70,7 +82,7 @@ export interface MatchStatus {
 }
 
 /** Points short that still count as within reach. */
-const CLOSE_POINTS = 3
+export const CLOSE_POINTS = 3
 
 /** Chips a card shows before met ones collapse into "+N met". */
 const CARD_CHIPS = 4
@@ -98,24 +110,31 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
   if (points) assessed.push(points)
   for (const detail of academicMatch.subjectMatches) assessed.push(assessSubject(detail))
 
-  const notes: string[] = []
-  // A program with no minimum says why there is no points chip (content 6)
-  if (!points) notes.push(NO_IB_MINIMUM_NOTE)
-  if (academicMatch.subjectMatches.length === 0) notes.push('No named subjects')
+  const notes: MatchChip[] = []
+  const note = (label: string, spokenAfter?: string) =>
+    notes.push(spokenAfter ? { kind: 'info', label, spokenAfter } : { kind: 'info', label })
+  // A program with no minimum says why there is no points chip (content 6), first among the
+  // notes, with the university's admit rate where it reports one (D2.7 change)
+  if (!points) {
+    if (input.admitRate == null) note(NO_IB_MINIMUM_NOTE)
+    else
+      note(`${NO_IB_MINIMUM} · admits ${formatRate(input.admitRate)}`, ' of first-year applicants')
+  }
+  if (academicMatch.subjectMatches.length === 0) note('No named subjects')
   if (!fieldMatch.isMatch && !fieldMatch.noPreferences) {
-    notes.push(`${input.fieldName} · not your field`)
+    note(`${input.fieldName} · not your field`)
   }
   if (!locationMatch.isMatch && !locationMatch.noPreferences) {
-    notes.push(`${input.countryName} · not one of your countries`)
+    note(`${input.countryName} · not one of your countries`)
   }
   const check = requirementsCheck(input.requirementsEntryYear, input.now)
-  if (check.status === 'older') notes.push(`Checked for ${check.entryYear} entry`)
+  if (check.status === 'older') note(`Checked for ${check.entryYear} entry`)
 
   const chips = [
     ...KIND_ORDER.flatMap((kind) =>
       assessed.filter((a) => a.chip.kind === kind).map((a) => a.chip)
     ),
-    ...notes.map((label): MatchChip => ({ kind: 'info', label }))
+    ...notes
   ]
 
   const gaps = assessed.filter((a) => a.chip.kind === 'gap')
@@ -165,14 +184,31 @@ function assessPoints(studentPoints: number, minIBPoints: number | null): Assess
   }
 }
 
-function assessSubject(detail: SubjectMatchDetail): Assessed {
+/**
+ * One subject requirement as the cards and "Why this match" judge it: its kind after the
+ * own-level rule below, and the student's course within it.
+ */
+export interface SubjectFacts {
+  kind: SubjectMatchKind
+  gradeGap?: number
+  studentLevel?: CourseLevel
+  studentGrade?: IBGrade
+  /** Critical to the program (the matcher's caps read it) */
+  isCritical: boolean
+  group: RequirementGroup
+  /** The course the student took, at every level and grade the requirement accepts it */
+  option?: RequirementOption
+  /** Distinct courses the requirement accepts */
+  courseCount: number
+}
+
+export function subjectFacts(detail: SubjectMatchDetail): SubjectFacts {
   let kind = kindOf(detail)
   let { gradeGap } = detail
   const { studentLevel, studentGrade } = detail
   const group = groupOf(detail.requirement)
   const courseId =
     'options' in detail.requirement ? detail.matchedCourseId : detail.requirement.courseId
-  // The course the student took, at every level and grade the requirement accepts it
   const option = kind !== 'not_taken' && courseId ? optionsForCourse(group, courseId)[0] : undefined
   // An either/or can accept the course at the student's own level too ("Maths AA HL 5 or SL 7").
   // The matcher reports the option that scores best, and SL 6 for HL 5 outscores a grade short
@@ -183,10 +219,27 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
     kind = 'grade_short'
     gradeGap = Math.min(...atTheirLevel.map((lg) => lg.minGrade)) - studentGrade
   }
+  return {
+    kind,
+    gradeGap,
+    studentLevel,
+    studentGrade,
+    isCritical: detail.requirement.isCritical,
+    group,
+    option,
+    courseCount: group.options.reduce((n, o) => n + o.courses.length, 0)
+  }
+}
+
+function assessSubject(detail: SubjectMatchDetail): Assessed {
+  const { kind, gradeGap, studentLevel, studentGrade, group, option, courseCount } =
+    subjectFacts(detail)
   const named = option
     ? `${formatCourses(option.courses)} ${formatLevelGrades(option.levelGrades)}`
     : describeRequirement(group)
   const courseName = option ? formatCourses(option.courses) : named
+  // Short of a group of three or more courses, the chip says the others count too
+  const unmet = option && courseCount > NAMED_COURSES ? `${named} ${others(courseCount)}` : named
   // "your HL 6" only where the level isn't plain from the requirement
   const levels = (option ? [option] : group.options).flatMap((o) => o.levelGrades)
   const level =
@@ -203,14 +256,14 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
       return {
         chip: {
           kind: gradeGap === 1 ? 'close' : 'gap',
-          label: studentGrade ? `${named} · you ${level}${studentGrade}` : named
+          label: studentGrade ? `${unmet} · you ${level}${studentGrade}` : unmet
         },
         source: 'subject',
         need: studentGrade && gradeGap ? `a ${studentGrade + gradeGap} in ${courseName}` : named
       }
     case 'level_short':
       return {
-        chip: { kind: 'gap', label: `${named} · you SL` },
+        chip: { kind: 'gap', label: `${unmet} · you SL` },
         source: 'subject',
         need: `${courseName} HL`
       }
@@ -225,19 +278,30 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
           need: `${formatCourses(courses)}${atLevel}`
         }
       }
-      // "French B HL 5 or 2 others"; "Why this match" lists every option
+      // "French B HL 5 or 2 others"; "Why this match" lists every option. The badge puts the
+      // level last: "Needs French B or 11 others at HL"
       const [first] = group.options
-      const others = `or ${courses.length - 1} others`
+      const rest = others(courses.length)
       return {
         chip: {
           kind: 'gap',
-          label: `${first.courses[0].name} ${formatLevelGrades(first.levelGrades)} ${others} · not taken`
+          label: `${first.courses[0].name} ${formatLevelGrades(first.levelGrades)} ${rest} · not taken`
         },
         source: 'subject',
-        need: `${first.courses[0].name}${atLevel} ${others}`
+        need: `${first.courses[0].name} ${rest}${atLevel ? ` at${atLevel}` : ''}`
       }
     }
   }
+}
+
+/** "or 5 others", for a group of six courses; only groups of three or more are counted */
+function others(courseCount: number): string {
+  return `or ${courseCount - 1} others`
+}
+
+/** "4.6%": the stored rate has one decimal, and keeps it ("16.0%"). */
+export function formatRate(rate: number): string {
+  return `${rate.toFixed(1)}%`
 }
 
 /**

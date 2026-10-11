@@ -64,7 +64,11 @@ interface Program {
 
 const OCTOBER_2026 = new Date('2026-10-09T12:00:00Z')
 
-function status(program: Program, student: Partial<StudentProfile> = {}) {
+function status(
+  program: Program,
+  student: Partial<StudentProfile> = {},
+  admitRate: number | null = null
+) {
   const courseRequirements = (program.requires ?? []).flatMap((entry, i) => {
     const rows = Array.isArray(entry[0]) ? (entry as Row[]) : [entry as Row]
     const orGroupId = Array.isArray(entry[0]) ? `group-${i}` : null
@@ -100,6 +104,7 @@ function status(program: Program, student: Partial<StudentProfile> = {}) {
     countryName: 'Germany',
     requirementsEntryYear:
       program.requirementsEntryYear === undefined ? 2027 : program.requirementsEntryYear,
+    admitRate,
     now: OCTOBER_2026
   })
 }
@@ -198,6 +203,54 @@ describe('requirement chips (04-design-system.md §9)', () => {
     expect(result.badge).toBe('Needs French B or 2 others')
   })
 
+  it('a long either/or at one level, none met: the badge puts the level last', () => {
+    const noSpanish = STUDENT.courses.filter((c) => c.courseId !== COURSES.spanishB.id)
+    const result = status(
+      {
+        requires: [
+          [
+            ['frenchB', 'HL', 6],
+            ['englishB', 'HL', 6],
+            ['biology', 'HL', 6]
+          ]
+        ]
+      },
+      { courses: noSpanish }
+    )
+    expect(result.chips).toContainEqual(chip('gap', 'French B HL 6 or 2 others · not taken'))
+    expect(result.badge).toBe('Needs French B or 2 others at HL')
+  })
+
+  it('either/or of three or more, yours short of it: names yours and counts the rest', () => {
+    const languages: Row[] = [
+      ['frenchB', 'HL', 5],
+      ['spanishB', 'HL', 5],
+      ['englishB', 'HL', 5]
+    ]
+    const result = status({ requires: [languages] })
+    expect(result.chips).toContainEqual(chip('gap', 'Spanish B HL 5 or 2 others · you SL'))
+    expect(result.badge).toBe('Needs Spanish B HL')
+
+    const maths: Row[] = [
+      ['mathsAA', 'HL', 7],
+      ['mathsAI', 'HL', 7],
+      ['physics', 'HL', 7]
+    ]
+    expect(status({ requires: [maths] }).chips).toContainEqual(
+      chip('close', 'Maths AA HL 7 or 2 others · you 6')
+    )
+  })
+
+  it('either/or of two, yours short of it: as a single course (Maths AA HL 7 · you 6)', () => {
+    const maths: Row[] = [
+      ['mathsAA', 'HL', 7],
+      ['mathsAI', 'HL', 7]
+    ]
+    expect(status({ requires: [maths] }).chips).toContainEqual(
+      chip('close', 'Maths AA HL 7 · you 6')
+    )
+  })
+
   it('no named subjects (POINTS_ONLY): • No named subjects', () => {
     expect(status({ minIBPoints: 33 }).chips).toEqual([
       chip('met', '38 / 33 points'),
@@ -212,6 +265,24 @@ describe('requirement chips (04-design-system.md §9)', () => {
       chip('info', 'No named subjects')
     ])
     expect(result.status).toBe('meets')
+  })
+
+  it('no IB minimum, and an admit rate: • No IB minimum · admits 4.6%, first among the notes', () => {
+    const result = status({ minIBPoints: null, field: 'medicine' }, {}, 4.6)
+    expect(result.chips).toEqual([
+      {
+        kind: 'info',
+        label: 'No IB minimum · admits 4.6%',
+        spokenAfter: ' of first-year applicants'
+      },
+      chip('info', 'No named subjects'),
+      chip('info', 'Medicine & Health · not your field')
+    ])
+    expect(result.status).toBe('meets')
+    // One decimal, always
+    expect(status({ minIBPoints: null }, {}, 16).chips[0].label).toBe(
+      'No IB minimum · admits 16.0%'
+    )
   })
 
   it('field or country not preferred: • Medicine & Health · not your field', () => {

@@ -74,6 +74,8 @@
   --color-close-soft: var(--close-soft);
   --color-gap: var(--gap);
   --color-gap-soft: var(--gap-soft);
+  --color-toast-ok: var(--toast-ok);
+  --color-toast-gap: var(--toast-gap);
   /* 6 · 10 · 14 · 20 from the one --radius; rounded-full for pills and avatars */
   --radius-chip: calc(var(--radius) - 8px);
   --radius-control: calc(var(--radius) - 4px);
@@ -244,6 +246,10 @@
   --close-soft: #fbefd9;
   --gap: #b3261e;
   --gap-soft: #fbe6e4;
+  /* The toast takes the other theme (D2.9): its icons and focus outline are the dark theme's */
+  --toast-ok: #72d69b;
+  --toast-gap: #ff8e85;
+  --toast-ring: #8e9bff;
 
   --radius: 0.875rem;
   --elevation-raised: 0 1px 2px rgb(20 22 27 / 0.06);
@@ -294,10 +300,30 @@
     --close-soft: #33260f;
     --gap: #ff8e85;
     --gap-soft: #3a1715;
+    --toast-ok: #17723f;
+    --toast-gap: #b3261e;
+    --toast-ring: #2b3fd6;
 
     --elevation-raised: 0 1px 2px rgb(0 0 0 / 0.4);
     --elevation-raised-hover: 0 4px 12px -4px rgb(0 0 0 / 0.6);
     --elevation-overlay: 0 16px 40px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+/*
+ * The toast on a phone (D2.9): 12px above the tab bar, and 16px above the screen's edge while the
+ * bar is hidden, moving with it. The bar is 59px plus its safe-area padding (TabBar.tsx).
+ */
+@media (width < 48rem) {
+  [data-ui='next'] .ds-toast-region {
+    bottom: calc(1rem + env(safe-area-inset-bottom));
+    translate: 0 calc(env(safe-area-inset-bottom) - max(6px, env(safe-area-inset-bottom)) - 55px);
+    transition: translate 240ms var(--ease-standard);
+  }
+
+  [data-ui='next'] body:has([data-tab-bar][data-hidden]) .ds-toast-region,
+  [data-ui='next'] body:not(:has([data-tab-bar])) .ds-toast-region {
+    translate: none;
   }
 }
 

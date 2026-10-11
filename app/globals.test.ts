@@ -91,7 +91,12 @@ const PAIRS: [string, string, number][] = [
   // The focus outline
   ['--ring', '--background', UI],
   ['--ring', '--card', UI],
-  ['--ring', '--muted', UI]
+  ['--ring', '--muted', UI],
+  // The toast takes the other theme: page colours swapped, the other theme's icons and outline
+  ['--background', '--foreground', TEXT],
+  ['--toast-ok', '--foreground', UI],
+  ['--toast-gap', '--foreground', UI],
+  ['--toast-ring', '--foreground', UI]
 ]
 
 describe.each([

@@ -44,6 +44,9 @@ export function TabBar() {
   return (
     <nav
       aria-label="Main"
+      // The toast reads these to sit above the bar, and to follow it down (app/globals.css)
+      data-tab-bar=""
+      data-hidden={scroll.visible ? undefined : ''}
       onFocus={() => setScroll((state) => (state.visible ? state : { ...state, visible: true }))}
       className={cn(
         'fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 gap-x-1 border-t border-border bg-background/94 px-1 pt-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] md:hidden',

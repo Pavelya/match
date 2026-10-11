@@ -167,7 +167,7 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `ChoiceList` (rows with checkbox) and `ChoiceGrid` (two-column checkboxes with filter) | `FieldSelector`, `LocationSelector` (tall `Card` divs) | Real `<input type="checkbox">` in a `<fieldset>`, so they are keyboard-operable for free. About 56px rows and 48px tiles; sticky footer with count and Continue. Every field gets its own icon (Education and Media currently share one). |
 | `BrandMark` and `SiteLogo` (the lockup) | `logo-restored.svg`, `favicon.svg`, `logo-email.png` and 29 hard-coded references | Render whatever `lib/brand/config.ts` points to (§8): the mark as an `<img>`, the name as text. Lens, provisionally (7 October 2026), drawn at every size on "D1.5 Logo: Lens" and approved 9 October 2026: one mark in both themes, outlined paths, a favicon drawing for 16 and 32px, and the Apple touch icon, email PNG and share image made from it. |
 | `ThemeSwitch` and `AccountMenu` | none (the avatar links straight to Settings) | System, Light, Dark as a radio group, in the account menu behind the avatar on desktop and phone, and in every footer (§10). The menu is a disclosure, not an ARIA menu: Settings, FAQs, Contact, Appearance, Sign out (canvas "D1.4 Account menu"). |
-| `RequirementChip`, `MatchStatusBadge`, `WhyThisMatch` | tile grids and the colour logic in `ProgramCard`, the unused `MatchBreakdown` | One chip per requirement with its own status; a badge derived from them; one disclosure for desktop and phone (§9). |
+| `RequirementChip`, `MatchStatusBadge`, `WhyThisMatch` | tile grids and the colour logic in `ProgramCard`, and `MatchBreakdown` (deleted in 2.2) | One chip per requirement with its own status; a badge derived from them; one disclosure for desktop and phone (§9). |
 | `Button`, `Input`, `Select` | `components/ui/button.tsx`, `input.tsx`, `select.tsx` | New files in `components/ds/` (1.2); `components/ui/` stays for today's screens until cleanup. Heights 36 / 44 / 52, one radius. Select is the native element; the subject list is `SubjectPicker`. |
 | `Chip` (filter, removable) and `Segmented` | inline buttons in `SearchClient`, `QuickScoreInput`, `DetailedGradesInput` | Real `role="radio"` and `aria-checked`, or `aria-pressed`. |
 | `StatusBadge` (`meets` · `close` · `gap` · `neutral`) | `getMatchRating` colours, tile borders | Icon plus word plus colour. The single source of status styling. |
@@ -358,8 +358,8 @@ requirement is listed, the ones in "+N met" too, with the other courses at their
 and a group of more than eight courses opens from "All N options"; a US program's points row gives the
 admit rate; the panel ends with a link to the program page.
 
-This is the only place the percentage appears. Reuse the logic in the unused
-`MatchBreakdown.tsx`; drop its dialog.
+This is the only place the percentage appears. Built in 2.2 (`lib/matching/match-why.ts`) from the
+logic of `MatchBreakdown.tsx`, without its dialog; that file is deleted.
 
 ## 10 · Theme switching (System, Light, Dark)
 
