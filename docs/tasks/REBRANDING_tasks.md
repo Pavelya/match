@@ -1179,6 +1179,12 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   every board state, desktop and phone, light and dark, forced colours and 900px, are in the pull
   request.
 
+- **Fixed after merging (11 October 2026):** a choice of Length made in the menu or the sheet did
+  nothing. The list request's window parameter was also called `length`, so it replaced the
+  filter's; it is now `limit`, built by `exploreListUrl` in `lib/explore/query.ts`. A link that
+  already carried `length=4` always worked, which is how the QA missed it: the behaviour checks
+  now apply every filter in the browser and compare the count with the server's for the same URL.
+
 Departures and hand-offs:
 
 - **Rows stack below 1024px**, not 768. D3.3 draws 1192 and 390; from 768 to 1023 the seven

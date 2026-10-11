@@ -28,6 +28,7 @@ vi.mock('@/lib/algolia/client', () => ({
 }))
 
 import { NextRequest } from 'next/server'
+import { EMPTY_QUERY, exploreListUrl } from '@/lib/explore/query'
 import type { ExploreResponse } from '@/lib/explore/types'
 import { GET } from './route'
 
@@ -108,7 +109,7 @@ beforeEach(() => {
 
 describe('GET /api/programs/explore', () => {
   it('signed out: one search for the window, no fit, nothing read', async () => {
-    const body = await get('q=science&offset=20&length=20')
+    const body = await get('q=science&offset=20&limit=20')
     expect(body.total).toBe(COUNT)
     expect(body.rows.map((r) => r.id)).toEqual(records.slice(20, 40).map((r) => r.objectID))
     expect(body.rows[0]).toMatchObject({ university: 'University of Toronto', country: 'Canada' })
@@ -156,12 +157,22 @@ describe('GET /api/programs/explore', () => {
   it('"Only ones I qualify for" counts every match, past the search window', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     const meets = records.filter((_, i) => (minimum(i) ?? 0) <= 38 && !needsScience(i))
-    const body = await get('qualify=1&offset=0&length=20')
+    const body = await get('qualify=1&offset=0&limit=20')
     expect(body.total).toBe(meets.length)
     expect(body.rows.map((r) => r.id)).toEqual(meets.slice(0, 20).map((r) => r.objectID))
     expect(Object.values(body.fits ?? {}).every((fit) => fit?.status === 'meets')).toBe(true)
     expect(browseMock).toHaveBeenCalledOnce()
     expect(programsMock).not.toHaveBeenCalled()
+  })
+
+  it('keeps the Length filter beside the window, as the page asks for it', async () => {
+    const url = new URL(exploreListUrl({ ...EMPTY_QUERY, lengths: [4] }, 20, 20), 'http://x')
+    await get(url.search.slice(1))
+    expect(searchMock.mock.calls[0][0].searchParams).toMatchObject({
+      filters: 'durationYears = 4',
+      offset: 20,
+      length: 20
+    })
   })
 
   it('signed out, the switch is ignored: it needs grades', async () => {
@@ -171,13 +182,13 @@ describe('GET /api/programs/explore', () => {
   })
 
   it('sorts by points over every match, programs with no minimum last', async () => {
-    const low = await get('sort=low&length=400')
+    const low = await get('sort=low&limit=400')
     expect(low.total).toBe(COUNT)
     expect(low.rows[0].minIBPoints).toBe(24)
     const lows = low.rows.map((r) => r.minIBPoints ?? Infinity)
     expect(lows).toEqual([...lows].sort((a, b) => a - b))
 
-    const last = await get(`sort=high&offset=${COUNT - 20}&length=20`)
+    const last = await get(`sort=high&offset=${COUNT - 20}&limit=20`)
     expect(last.rows.every((r) => r.minIBPoints === null)).toBe(true)
     expect(last.rows[0].admitRate).toBe(4.6)
   })
