@@ -258,7 +258,7 @@ merges into `main`, behind the preview switch.**
 | 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
 | 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
-| 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | |
+| 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | |
@@ -287,7 +287,7 @@ Rows 3 and 4 can share a design session.
 | 4 | `/design D1.5`: Lens at every size | The logo board | `/build 4`: the logo from configuration (1.3) | Done 9 October 2026 |
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
-| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Designs approved 11 October 2026 (row 12); build 8 next |
+| 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
@@ -336,7 +336,7 @@ Phase 2 — Core app
 - [x] 2.1 Match data for the new cards (9 October 2026)
 - [x] 2.2 Match card, result row and requirement checklist (11 October 2026; the result row is built
   in 2.3, the checklist's program-page variant in 2.4)
-- [ ] 2.3 Explore: toolbar, phone filter sheet, rows
+- [x] 2.3 Explore: toolbar, phone filter sheet, rows (11 October 2026)
 - [ ] 2.4 Program and university pages
 - [ ] 2.5 Shortlist with compare
 
@@ -427,8 +427,12 @@ animation patches the audit first proposed.
 6. **Static pages stay static.** The 23 `study-in-*` guides, `/` and `/ib-university-requirements` are
    prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `showsNewUi()` (0.1) is
    the one exception: Draft Mode keeps them static. `npm run build` must still list them `○ (Static)`.
-7. **No new database reads.** The theme lives in `localStorage`. Use `select` over `include` in
-   anything touched.
+7. **No new database reads, and no new reads of the programs cache.** The theme lives in
+   `localStorage`. Use `select` over `include` in anything touched. The programs cache
+   (`programs:all:v3`) is 3 MB per read against Upstash's free 10 GB a month (MAINT_tasks.md 5.19),
+   and Algolia's free plan allows 10,000 search requests a month. Before building a screen, list
+   every read it makes (database, Redis, search) against today's, and raise any new one with the
+   owner first (owner, 11 October 2026).
 8. **Budget** (production, 5 October 2026: JS 171 KB, CSS 22 KB, fonts 52 KB, CLS 0): no more JS,
    CSS at most 32 KB, fonts at most 60 KB, CLS stays 0.
 9. **Every OS:** Chrome on Windows, Safari on macOS and iOS, at 1440px and 390px, light, dark and
@@ -1121,6 +1125,86 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   the sheet (D2.15); the count, then the applied chips, then Sort on its own line at the right;
   "Show 20 more" full width under "Showing 20 of 73"; the questions and the footer above the tab
   bar. Signed out there is no tab bar (D2.14). The Shortlist count in the nav comes with 2.5.
+
+**Done 11 October 2026.**
+
+- **The page.** `app/programs/search/ExploreClient.tsx`, loaded through `NewExplore.tsx` as its own
+  chunk, so today's visitors download none of it. `NewExplorePage.tsx` reads the list from the URL
+  on the server and puts its rows in the HTML for everyone, as many as the URL had shown. Signed
+  in, one narrow profile read says whether the student has grades (the fit column and the switch),
+  gives the shortcuts their choices and marks what's on the shortlist; signed out, nothing is read.
+  The questions (`components/explore/ExploreQuestions.tsx`) and the FAQ structured data share one
+  copy, `lib/explore/questions.ts`, and today's page sends byte-identical JSON-LD.
+- **The parts** in `components/explore/`: `FilterMenu` (a chip and its popover, a labelled
+  dialog), `FilterSheet` (the native dialog, the Filters button and the switch's row),
+  `FilterParts` (checkbox rows, the IB points fields, the shortcuts) and `ResultRow` (with its
+  headings and skeleton). D2.5's `FilterChip` now names an applied range ("IB points · up to 38")
+  and turns its chevron up while its menu is open, as D3.5 draws. `UniversityThumb` moved out of
+  `MatchCard`, which shares it.
+- **The list.** `GET /api/programs/explore` takes the page's own URL parameters and a window. In
+  the search service's own order with the switch off, a window is one search, as today. The points
+  sorts and "Only ones I qualify for" need every match, so they read them all (the search, then a
+  browse past its 1,000-hit window), filter and sort on the server, and cut the window; programs
+  with no IB minimum come last in both sorts. The URL state, words and filters are in
+  `lib/explore/`, with Vitest tests.
+- **Where the fit is computed, as 2.3 had to decide:** on the server, from one narrow read of the
+  student's subjects per search, fresh each time so a change to the academic profile shows at
+  once, and the rows' own search records, which carry the minimum and every requirement with its
+  either/or group (`lib/explore/fit.ts`). Explore reads nothing else: no programs cache, no match
+  cache. The cached matches cover only the student's fields and countries near their total, and
+  Explore lists every program, so they couldn't serve. The status needs only the academic match,
+  so the fit is the Matches badge word for word; for all 1,628 programs and three test profiles
+  (29, 38 and 44 points), the fit from the search records equals the fit from the programs cache.
+  The rows come with their fit, the first ones in the server HTML.
+- **Why not the programs cache (owner, 11 October 2026):** it is 3 MB per read from Upstash, whose
+  free plan allows 10 GB a month, so about 3,300 reads, and Matches already reads it on every load
+  (MAINT_tasks.md 5.19). The first version of this build read it for the fit too; it was changed
+  before merging, so the redesign adds no Upstash reads beyond 2.2's 5.5% on Matches. Upstash on
+  11 October 2026: 1 GB and 6.1K commands of the month used.
+- **The search index** carries `durationYears` (3, 4, or 5 for five or more), the university's
+  `admitRate`, and each requirement's `orGroupId` in `requiredCourses`. `lib/algolia/sync.ts`
+  writes all three; `scripts/algolia-explore-attributes.ts` filled the 1,628 records already there
+  on 11 October 2026, with the owner's approval (615, 929 and 84 by length; 286 with a rate; 5,902
+  requirement rows, 5,426 in either/or groups). `scripts/sync-to-algolia-standalone.ts` writes them
+  too, and `noIBMinimum`, which it had left out.
+- **Checked.** Without the preview, `/programs/search` sends the same HTML as `main`, signed out
+  and signed in; `npm run build` lists every route as `main` does, plus the new API route, with
+  36 static pages on both. Today's visitors download 0.17 KB more JavaScript, gzipped (the lazy
+  wrapper's reference), and the CSS is 29.7 KB (+1.1, under 32). The new page's own code is 11.0 KB
+  gzipped, plus 6.6 KB of shortlist and toast code it shares with Matches. No matcher code
+  changed, and the matching suite passes. A whole run of the behaviour checks read the programs
+  cache zero times.
+  38 behaviour checks pass (headings, focus after "Show 20 more", Back to the same 40 rows, the
+  menus' and sheet's focus and Escape, the sorts, the signed-out links). Design QA screenshots of
+  every board state, desktop and phone, light and dark, forced colours and 900px, are in the pull
+  request.
+
+Departures and hand-offs:
+
+- **Rows stack below 1024px**, not 768. D3.3 draws 1192 and 390; from 768 to 1023 the seven
+  columns left the name about 20px. In that range the toolbar is D3.5's, and the rows are the
+  phone's with the 56px thumbnail.
+- **A visually hidden h2, "Programs",** above the rows: the board's h1, then an h3 per program,
+  would skip a level (Definition of done 12).
+- **An IB points value it can't use removes the range while it stands,** so the count is the one
+  without it, as D3.5 says ("the count stays 73"), even when the other field is usable.
+- **Copy the boards didn't draw,** kept to their words: the no-minimum box unticked on its own
+  shows "IB points · with a minimum" on the chip and "Only with an IB minimum" as an applied chip;
+  no results for a search with no filters reads "No programs match this search", with "Clear the
+  search"; with the switch on, "No Medicine & Health programs on IB Match meet every requirement
+  with your grades yet."
+- **The fit is in the server HTML with the rows,** so the "fit arriving" state drawn on D3.3 and
+  D4.7 no longer happens: the fit needs no second request now.
+- **The summary's catalogue count** is the list's own total when nothing narrows it, and otherwise
+  the search service's count, kept for a day: each count is a search request against Algolia's
+  free 10,000 a month. No database read.
+- **"Up to my 38"** is offered for a total from 24 to 45, the range the field takes.
+- **The signed-out Save** links to sign-in with the program and `?save=1`. Sign-in still returns
+  to `/student`; 2.4 makes it return and save.
+- **Found, not changed:** the page's title reads "… | IB Match | IB Match" on `main` too (the
+  title carries the suffix and the root template adds it again), and in forced colours D2.2's
+  search field draws its inner input's edge as a second box. Each is its own pull request, as is
+  rewording the two out-of-date questions.
 
 ### 2.4 — Program and university pages
 

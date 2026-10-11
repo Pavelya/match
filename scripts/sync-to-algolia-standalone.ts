@@ -8,6 +8,7 @@
 import 'dotenv/config'
 import { prisma } from '@/lib/prisma-standalone'
 import { algoliasearch } from 'algoliasearch'
+import { durationYears } from '@/lib/programs/duration'
 
 // Truncate description to stay under Algolia's 10KB record limit
 function truncateDescription(text: string, maxLength = 500): string {
@@ -41,13 +42,21 @@ interface AlgoliaProgramRecord {
   }
   degreeType: string
   duration: string
+  durationYears?: number
   minimumIBPoints?: number
+  noIBMinimum?: number
+  admitRate?: number
   requiredCourses?: Array<{
     courseId: string
     courseName: string
     level: string
     minimumGrade: number
     isCritical: boolean
+    /**
+     * Requirements sharing one are an either/or group. Explore works out each student's fit
+     * from these records (rebranding 2.3), so it never reads the programs cache.
+     */
+    orGroupId: string | null
   }>
   isActive: boolean
   createdAt: number
@@ -93,6 +102,7 @@ async function syncToAlgolia() {
             abbreviatedName: true,
             image: true,
             city: true,
+            admitRate: true,
             country: { select: { id: true, name: true, code: true } }
           }
         },
@@ -104,6 +114,7 @@ async function syncToAlgolia() {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
+            orGroupId: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }
@@ -147,13 +158,18 @@ async function syncToAlgolia() {
 
       degreeType: program.degreeType,
       duration: program.duration,
+      // As lib/algolia/sync.ts writes them; Explore filters on all three (rebranding 2.3)
+      durationYears: durationYears(program.duration) ?? undefined,
       minimumIBPoints: program.minIBPoints ?? undefined,
+      noIBMinimum: program.minIBPoints === null ? 1 : undefined,
+      admitRate: program.university.admitRate ?? undefined,
       requiredCourses: program.courseRequirements.map((req) => ({
         courseId: req.ibCourse.id,
         courseName: req.ibCourse.name,
         level: req.requiredLevel,
         minimumGrade: req.minGrade,
-        isCritical: req.isCritical
+        isCritical: req.isCritical,
+        orGroupId: req.orGroupId
       })),
 
       isActive: true,

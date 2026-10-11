@@ -43,6 +43,7 @@ pull request, merged before the next starts.
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
+| before release day | Programs cache read on every Matches load | 5.19 | small | Every Matches load, and every profile save, downloads the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Keep it in each server's memory for a few minutes instead. Measured 11 October 2026; before rebranding release day (R.1), which sends every student through the new Matches |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -91,6 +92,7 @@ Phase 5 — quick wins
 - [ ] 5.16 Suggest the field of study in the admin program forms
 - [ ] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
+- [ ] 5.19 Read the programs cache once per server, not on every Matches load
 
 Phase 6 — dependency majors
 
@@ -1062,6 +1064,77 @@ the flagged programs drop out and the rest are unchanged.
 
 **Session size:** Research small (step 1). The change medium. Best done with the matching review
 (5.15), after rebranding build 6–7, which changes `lib/matching/match-status.ts`.
+
+---
+
+### 5.19 — Read the programs cache once per server, not on every Matches load
+
+**Outcome:** Matches, the match precompute and the coordinator pages read the programs cache from
+Upstash at most once per server instance every few minutes, not on every request. A change to a
+student's academic profile still shows at once: only program data, which changes a few times a
+week, may lag by those minutes. When Upstash fails, the app reads the catalogue from Supabase once
+and keeps it, instead of on every request.
+
+**Why:** Upstash's free plan allows 10 GB of bandwidth and 500,000 commands a month. The programs
+cache, `programs:all:v3`, is 3,013,227 bytes (measured 11 October 2026), and `getCachedPrograms()`
+in `lib/matching/program-cache.ts` downloads all of it on every call, so 10 GB covers about 3,300
+calls a month: roughly 110 a day. These call it on every request:
+
+- `app/api/students/matches/route.ts`: today's Matches page, on every load
+- `app/api/students/matches/list/route.ts`: the new design's Matches (`REBRANDING_tasks.md` 2.2),
+  on every load
+- `app/api/students/matches/precompute/route.ts`: after every save of the academic profile
+  (`app/api/students/profile/route.ts`) and every coordinator edit of a student
+- `app/coordinator/students/[id]/page.tsx`, `app/api/coordinator/students/[id]/matches/route.ts`,
+  `app/coordinator/analytics/page.tsx`, `app/api/coordinator/analytics/route.ts`
+
+Usage from 1 to 11 October 2026 (the Upstash console, Usage tab): 1 GB of 10 GB and 6.1K of 500K
+commands, much of it from rebranding QA, so about 3 GB for the month at that pace. Nothing is close
+to the limit yet; the risk is more students, and rebranding release day (R.1), when every student
+uses the new Matches. History: rebranding 2.2 added four fields to the cache (+5.5%, 2.86 MB to
+3.01 MB). Rebranding 2.3 (Explore, PR #98) first read the cache for each signed-in student's fit,
+and was changed before merging to read nothing from it: the fit comes from the search records
+(`lib/explore/fit.ts`). So Matches and the coordinator pages are its only readers. Raised by the
+owner on 11 October 2026, after the Supabase overage (see "Hard rules — cost" above): the
+service must not run out of quota in the middle of a month.
+
+A second risk is in the same function: if the Redis read throws, `getCachedPrograms()` falls back
+to `fetchProgramsFromDB()`, the full catalogue from Supabase (about 1.2 MB), on every request until
+Redis answers again. That is the read pattern that kept Supabase over its quota from December 2025.
+
+**Read first:** `lib/matching/program-cache.ts` and the callers above; `getCachedMatchesV10` in
+`lib/matching/cache.ts` (the per-student match cache: 30 minutes, cleared on every profile save by
+`invalidateStudentCache`, which is why profile changes show at once; this task must not change
+that); "Hard rules — cost" above; `REBRANDING_tasks.md` 2.2 and 2.3 (their "Done" sections) and
+its Definition of done, point 7. PR #98's first commit, `7e8ed73`, has a five-minute in-memory
+copy of the catalogue in `lib/explore/student.ts` (`fitPrograms`), removed when Explore stopped
+reading the cache; it is a starting point.
+
+**Steps:**
+
+1. Keep the parsed catalogue in module memory, per server instance, for a few minutes (five, as a
+   start): one shared promise with a timestamp, so concurrent requests wait for one read, dropped
+   on failure so the next request tries again. `invalidateProgramsCache()` also drops this
+   instance's copy; other instances catch up within the minutes, which is fine for admin edits.
+2. On a Redis failure, read from Supabase once and keep that copy for the same minutes, instead of
+   reading on every request. Log it as an error so it is seen.
+3. Optional, if Matches still dominates: a slimmer Redis key with only what the matcher reads (ids,
+   minimum, requirements, field and country ids) beside the full one. Measure first.
+
+**Must not:**
+
+- Change any score or status. Prove it with the synthetic fingerprint method from
+  `REBRANDING_tasks.md` 2.1: byte-identical before and after.
+- Delay a student's own profile changes: the match cache and its invalidation stay as they are.
+- Add any database read, or a new call to `getCachedPrograms()` anywhere.
+
+**Verify:** a Vitest test with `@/lib/redis/client` mocked: two calls within the minutes make one
+Redis read; a call after them makes a second; an invalidation makes the next call read again; a
+Redis failure reads the database once for both of two calls. `npm test` and
+`npx tsx scripts/run-all-tests.ts` pass. After merging, compare the Upstash bandwidth per day for
+a week before and after.
+
+**Session size:** Small. Independent of the rebranding, but before its release day.
 
 ---
 

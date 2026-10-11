@@ -11,3 +11,8 @@ export const NO_IB_MINIMUM = 'No IB minimum'
 
 /** The card chip and the requirements tile. */
 export const NO_IB_MINIMUM_NOTE = 'No IB minimum · holistic admission'
+
+/** "4.6%": the stored admit rate has one decimal, and keeps it ("16.0%"). */
+export function formatRate(rate: number): string {
+  return `${rate.toFixed(1)}%`
+}

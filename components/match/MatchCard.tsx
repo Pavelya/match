@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -9,6 +8,7 @@ import { SaveToggle } from '@/components/ds/SaveToggle'
 import { Skeleton, SkeletonLine } from '@/components/ds/Skeleton'
 import { RequirementChip, RequirementChipList, StatusBadge } from '@/components/ds/StatusBadge'
 import type { MatchItem } from '@/lib/matching/match-groups'
+import { UniversityThumb } from './UniversityThumb'
 import { WhyThisMatch } from './WhyThisMatch'
 
 /*
@@ -97,32 +97,6 @@ export function MatchCard({ match, saved, saving, onToggleSave }: MatchCardProps
         <WhyThisMatch id={panelId} programId={match.id} programName={match.name} why={match.why} />
       )}
     </article>
-  )
-}
-
-/** 56px (48 on a phone). Without an image, the initials on brand-soft, hidden from screen readers. */
-function UniversityThumb({ image, initials }: { image: string | null; initials: string }) {
-  const [failed, setFailed] = useState(false)
-  if (image && !failed) {
-    return (
-      <Image
-        src={image}
-        alt=""
-        // Fixed size, so 1x and 2x only; a `sizes` would bring the whole device srcset
-        width={56}
-        height={56}
-        onError={() => setFailed(true)}
-        className="size-12 rounded-control object-cover md:size-14"
-      />
-    )
-  }
-  return (
-    <span
-      aria-hidden="true"
-      className="flex size-12 items-center justify-center rounded-control border border-transparent bg-brand-soft text-[0.875rem] font-semibold tracking-[0.02em] text-brand-ink md:size-14 md:text-body"
-    >
-      {initials}
-    </span>
   )
 }
 

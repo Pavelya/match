@@ -8,6 +8,7 @@
 import { getAlgoliaClient, INDEX_NAMES } from './client'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
+import { durationYears } from '@/lib/programs/duration'
 
 /**
  * Algolia Program Record
@@ -46,6 +47,8 @@ export interface AlgoliaProgramRecord {
   // Program details
   degreeType: string // Bachelor, Master, etc.
   duration: string // "4 years"
+  /** Explore's Length filter (rebranding 2.3): 3, 4, or 5 for five years or more */
+  durationYears?: number
   tuitionFee?: number
   currency?: string
 
@@ -57,12 +60,22 @@ export interface AlgoliaProgramRecord {
    * `OR noIBMinimum = 1` to keep these programs.
    */
   noIBMinimum?: number
+  /**
+   * The university's overall admit rate in percent, which Explore shows beside "None" for a
+   * program with no IB minimum (rebranding 2.3). Display only; university edits re-sync it.
+   */
+  admitRate?: number
   requiredCourses?: Array<{
     courseId: string
     courseName: string
     level: string
     minimumGrade: number
     isCritical: boolean
+    /**
+     * Requirements sharing one are an either/or group. Explore works out each student's fit
+     * from these records (rebranding 2.3), so it never reads the programs cache.
+     */
+    orGroupId: string | null
   }>
 
   // Metadata
@@ -102,6 +115,7 @@ export async function transformProgramToAlgolia(
             abbreviatedName: true,
             image: true,
             city: true,
+            admitRate: true,
             country: { select: { id: true, name: true, code: true } }
           }
         },
@@ -113,6 +127,7 @@ export async function transformProgramToAlgolia(
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
+            orGroupId: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }
@@ -162,18 +177,21 @@ export async function transformProgramToAlgolia(
       // Program details
       degreeType: program.degreeType,
       duration: program.duration,
+      durationYears: durationYears(program.duration) ?? undefined,
       tuitionFee: undefined, // Not in schema yet
       currency: undefined, // Not in schema yet
 
       // Requirements
       minimumIBPoints: program.minIBPoints ?? undefined,
       noIBMinimum: program.minIBPoints === null ? 1 : undefined,
+      admitRate: program.university.admitRate ?? undefined,
       requiredCourses: program.courseRequirements.map((req) => ({
         courseId: req.ibCourse.id,
         courseName: req.ibCourse.name,
         level: req.requiredLevel,
         minimumGrade: req.minGrade,
-        isCritical: req.isCritical
+        isCritical: req.isCritical,
+        orGroupId: req.orGroupId
       })),
 
       // Metadata
