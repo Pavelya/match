@@ -9,6 +9,7 @@ import {
   clearFilter,
   countParts,
   exploreHref,
+  exploreListUrl,
   exploreParams,
   noResultsText,
   pointsRange,
@@ -99,6 +100,16 @@ describe('exploreHref', () => {
     expect(exploreHref({ ...EMPTY_QUERY, q: 'law', qualify: true }, 40)).toBe(
       '/programs/search?q=law&qualify=1&shown=40'
     )
+  })
+})
+
+describe('exploreListUrl', () => {
+  it('asks for a window without losing the Length filter', () => {
+    const url = new URL(exploreListUrl({ ...EMPTY_QUERY, lengths: [3, 4] }, 40, 20), 'http://x')
+    expect(url.pathname).toBe('/api/programs/explore')
+    expect(readExplore(url.searchParams).query.lengths).toEqual([3, 4])
+    expect(url.searchParams.get('offset')).toBe('40')
+    expect(url.searchParams.get('limit')).toBe('20')
   })
 })
 

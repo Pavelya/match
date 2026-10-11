@@ -27,7 +27,7 @@ import {
   clearFilter,
   countParts,
   exploreHref,
-  exploreParams,
+  exploreListUrl,
   hasChoices,
   noResultsText,
   pointsRange,
@@ -547,11 +547,8 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
   )
 }
 
-async function fetchList(query: ExploreQuery, offset: number, length: number) {
-  const params = exploreParams(query)
-  params.set('offset', String(offset))
-  params.set('length', String(length))
-  const response = await fetch(`/api/programs/explore?${params}`)
+async function fetchList(query: ExploreQuery, offset: number, limit: number) {
+  const response = await fetch(exploreListUrl(query, offset, limit))
   if (!response.ok) throw new Error(`status ${response.status}`)
   return (await response.json()) as ExploreResponse
 }

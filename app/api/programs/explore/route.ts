@@ -3,7 +3,7 @@
  * keeps GET /api/programs/search until release; that route goes at cleanup (R.2).
  *
  * Takes the page's own URL parameters (lib/explore/query.ts) and a window, `offset` and
- * `length`, and returns the window's rows with the list's total, which the filter menus and
+ * `limit` (`exploreListUrl`), and returns the window's rows with the list's total, which the filter menus and
  * the sheet show on their button. Open to everyone, as the search is. Signed in with grades,
  * the rows come with the student's fit, from one narrow read of their subjects and the search
  * records themselves, and "Only ones I qualify for" applies; signed out, nothing is read. It
@@ -31,7 +31,8 @@ export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams
     const { query } = readExplore(params)
     const offset = whole(params.get('offset'), 0, 0, MAX_OFFSET)
-    const length = whole(params.get('length'), PAGE_SIZE, 1, MAX_SHOWN)
+    // `limit`, not `length`: that is the Length filter's parameter
+    const length = whole(params.get('limit'), PAGE_SIZE, 1, MAX_SHOWN)
 
     const session = await auth()
     // Read fresh each time, so a change to the academic profile shows at once. The switch needs

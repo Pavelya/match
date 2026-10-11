@@ -129,6 +129,17 @@ export function exploreParams(query: ExploreQuery, shown = PAGE_SIZE): URLSearch
 
 export const EXPLORE_PATH = '/programs/search'
 
+/**
+ * The list route's URL for a window of the list: the page's own parameters, then `offset` and
+ * `limit`. Neither name is one of the page's: `length` is the Length filter.
+ */
+export function exploreListUrl(query: ExploreQuery, offset: number, limit: number): string {
+  const params = exploreParams(query)
+  params.set('offset', String(offset))
+  params.set('limit', String(limit))
+  return `/api/programs/explore?${params}`
+}
+
 export function exploreHref(query: ExploreQuery, shown = PAGE_SIZE): string {
   const params = exploreParams(query, shown).toString()
   return params ? `${EXPLORE_PATH}?${params}` : EXPLORE_PATH
