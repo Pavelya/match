@@ -44,7 +44,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-12',
   programs: [
     {
-      status: 'new',
+      id: 'cmv5p3spd0000wu7mk6e42fda',
+      status: 'current',
       name: 'Liberal Arts and Sciences',
       description:
         "The Liberal Arts and Sciences (LAS) BA/BSc is a four-year, English-taught programme at University College Freiburg (UCF). It offers a shared Core, flexible Electives, and academic depth in a Major chosen after the first year, such as Its majors are Culture and History, Governance, Life Sciences, and Environmental and Sustainability Sciences.\n\nHow Freiburg decides: 74 places. For 90% of them, applicants from Germany and the EU are ranked on their school grade (converted to the German scale), an essay and a motivation letter, and the essay and the letter must each be rated at least 4.0; 10% go on waiting time. Non-EU applicants without a German school certificate compete in a separate quota of 20% of the places. You apply through hochschulstart and the university's portal from 1 June to 15 July. Freiburg publishes no cut-off. Teaching is in English (B2), with no German required; you earn a BA or a BSc depending on your major.",

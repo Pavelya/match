@@ -43,7 +43,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-12',
   programs: [
     {
-      status: 'new',
+      id: 'cmv5p3uv60000xo7m99ox6dg6',
+      status: 'current',
       name: 'International Business Administration',
       description:
         'Three unforgettable years at a top business school. Two internships. One semester abroad. Small classes, big topics. And a WHU family for life. We help turn your aspirations into reality. For who you want to be and everything you want to achieve. Take the first step and find your purpose with WHU.\n\nHow WHU decides: after an online application, candidates take an analytical test, an online assessment and one-on-one interviews, and WHU selects on academic performance as well as personal characteristics and activities. Applications for 2027 entry run from 15 October 2026 to 15 May 2027, with an early-bird deadline of 31 January 2027. You need a recognised school-leaving qualification such as the IB, about six weeks of internships before you start, and TOEFL iBT 95, IELTS 7 or Cambridge C1 Advanced at grade C, unless you graduate from an English-taught school. You can study in English, or in German and English.',

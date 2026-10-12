@@ -26,7 +26,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-12',
   programs: [
     {
-      status: 'new',
+      id: 'cmv5p3wxu0000yl7m771711z7',
+      status: 'current',
       name: 'Artistic Practice and Society',
       description:
         "Bard College Berlin's BA degree program in Artistic Practice and Society offers students the opportunity to explore all areas of the practicing arts in the context of a liberal arts education, with a core program in the central works and innovations of the past, and the chance to engage with the most recent and exciting developments in contemporary art.\n\nHow Bard decides: holistically, from a motivation essay, a graded writing sample, transcripts of your last four years and two academic recommendations; the SAT or ACT is optional, and there is no IB minimum. For fall 2027, early action closes on 1 November and regular decision on 10 January, and citizens of the EU and a few other countries can apply until 1 May. Teaching is in English (C1), and every student must reach B1 German by the end of the second year. Every graduate receives a US BA, and a graduate whose school certificate is equivalent to the German Abitur also a German BA.",
@@ -48,7 +49,8 @@ const refresh: RefreshFile = {
         ' Field by content: the rule names no discipline in "Artistic Practice and Society", a program in the practicing arts.'
     },
     {
-      status: 'new',
+      id: 'cmv5p3wyw0001yl7mcu7j78s6',
+      status: 'current',
       name: 'Economics, Politics, and Social Thought',
       description:
         'The BA degree program in Economics, Politics, and Social Thought provides disciplinary training in economics and politics within the framework of a core program in intellectual history that encourages the thoughtful and culturally well-informed application of social-scientific methodology and principle.\n\nHow Bard decides: holistically, from a motivation essay, a graded writing sample, transcripts of your last four years and two academic recommendations; the SAT or ACT is optional, and there is no IB minimum. For fall 2027, early action closes on 1 November and regular decision on 10 January, and citizens of the EU and a few other countries can apply until 1 May. Teaching is in English (C1), and every student must reach B1 German by the end of the second year. Every graduate receives a US BA, and a graduate whose school certificate is equivalent to the German Abitur also a German BA.',
@@ -68,7 +70,8 @@ const refresh: RefreshFile = {
       notes: NOTES
     },
     {
-      status: 'new',
+      id: 'cmv5p3x1w0002yl7mgw80z77r',
+      status: 'current',
       name: 'Humanities, the Arts, and Social Thought',
       description:
         "Bard College Berlin's BA degree program in Humanities, the Arts, and Social Thought affords students the opportunity to gain a thorough training in the fields of the humanities while also acquiring a knowledge of the key intellectual developments, works, and debates that lie at the origin of the disciplines of the social and natural sciences and the practicing arts.\n\nHow Bard decides: holistically, from a motivation essay, a graded writing sample, transcripts of your last four years and two academic recommendations; the SAT or ACT is optional, and there is no IB minimum. For fall 2027, early action closes on 1 November and regular decision on 10 January, and citizens of the EU and a few other countries can apply until 1 May. Teaching is in English (C1), and every student must reach B1 German by the end of the second year. Every graduate receives a US BA, and a graduate whose school certificate is equivalent to the German Abitur also a German BA.",
