@@ -1,7 +1,7 @@
 # Germany — how to model German admissions
 
 **Task:** content 7, Part A (`docs/tasks/CONTENT_tasks.md`) · **Researched:** 12 October 2026 ·
-**Decided:** not yet. The owner chooses (below); Part B builds it.
+**Decided:** by the owner on 12 October 2026, all as recommended (below). Part B builds it.
 
 ## Summary
 
@@ -39,7 +39,12 @@ university accepts an IB course as proof. Then add a closing paragraph saying ho
 
 ## Decisions for the owner
 
-| # | Decision | Recommended |
+**Owner, 12 October 2026: all nine as recommended.** Two points stay open by design. Decision 3's borderline
+programmes (Architecture, Landscape Architecture, Health Science, Nutrition, science teaching) come to the owner
+with Part B's dry run. Decision 4 made no recommendation for ETH and Lausanne, so they stay as they are until
+Switzerland's next refresh.
+
+| # | Decision | Recommended, and chosen |
 |---|---|---|
 | 1 | The model: (a) the KMK floor, 24, with rows and a selection paragraph; (b) a converted cut-off or aptitude threshold as the minimum; (c) no minimum (null), as for the USA; (d) keep 36/38 | **(a)** ([section 4](#4-model-options)) |
 | 2 | Which KMK conditions become requirement rows | **Maths AA or AI at HL, grade 4, critical**, on every maths, science and engineering programme. **A KMK science** (Biology, Chemistry or Physics) and **a KMK social science** (the agreement's eight), each SL 4 and critical, on every programme that admits on the KMK rules. The HL rule, the grade-3 offset, the language pair and the school exception list go in notes ([section 1](#1-recognition-the-kmk-agreement)) |

@@ -32,7 +32,7 @@ here, and this refresh does more production writes than any work before it.
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
-| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **The owner chooses** (nine decisions) |
+| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** Part B1 refreshes TUM and the Germany page; B2 adds the six universities |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
@@ -113,7 +113,7 @@ Phase 6 — USA
 Phase 7 — Germany
 
 - [ ] 7 Research how to model German admissions, then refresh and extend — Part A done 12 October 2026
-  (`content-2027/germany-model-decision.md`); the owner chooses
+  (`content-2027/germany-model-decision.md`); all nine decisions chosen as recommended the same day; Part B next
 
 Phase 8 — Data found by the design audit
 
@@ -198,11 +198,11 @@ Owner tasks — not AI work
   `apply-2027-requirements.ts --apply` writes the two held rows (stamped 2027 from their course pages) and moves the other 39 undated Oxford programs from 2026 to 2027 (3.1)
 - [x] Approve the entry-year backfill (3.1) — run 26 September 2026
 - [x] Approve the canonical degree list (3.2) — 26 September 2026
-- [ ] Choose the US model (6) and the German model (7). **US chosen 10 October 2026:** all eight decisions in
+- [x] Choose the US model (6) and the German model (7). **US chosen 10 October 2026:** all eight decisions in
   `docs/tasks/content-2027/usa-model-decision.md` as recommended, with Arizona State added to the ten universities.
-  The German model is still open: nine decisions in `docs/tasks/content-2027/germany-model-decision.md` (12 October 2026),
-  among them the model, the KMK rows, German for German-taught programmes, the universities to add and TUM's two Singapore
-  joint degrees
+  **German chosen 12 October 2026:** all nine decisions in `docs/tasks/content-2027/germany-model-decision.md` as
+  recommended: the KMK floor (24) with rows, German for German-taught programmes, six universities to add, and TUM's two
+  Singapore joint degrees moved to Singapore
 - [x] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
   subject rows (status, phase 6). Approved and applied 10 October 2026, with their admit rates
 - [ ] Add images for the eleven US universities added in 6 (MIT, Harvard, Stanford, UC Berkeley, UCLA, Michigan, Purdue, NYU, Boston
@@ -3267,7 +3267,9 @@ changed.
   - Shortlist, English-taught first: Constructor University, Leuphana, Rhine-Waal University of Applied
     Sciences, Freiburg's Liberal Arts and Sciences, WHU and Bard College Berlin; Frankfurt School as an alternate.
   - Move the two SIT joint degrees to Singapore.
-- **For the owner:** nine decisions, in the file's table.
+- **Owner, 12 October 2026: all nine as recommended.** Decision 3's borderline programmes come to the owner with
+  Part B's dry run; ETH and Lausanne stay as they are until Switzerland's next refresh (decision 4 made no recommendation
+  for them).
 
 ---
 
