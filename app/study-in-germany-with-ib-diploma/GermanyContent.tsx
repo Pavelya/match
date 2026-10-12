@@ -98,9 +98,10 @@ const faqs = [
   {
     question: 'Is German mandatory for all programs?',
     answer:
-      'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs.',
-    source: 'hochschulstart — International applicants (in German)',
-    sourceUrl: 'https://www.hochschulstart.de/informieren-planen/internationale-bewerbende'
+      'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs. Nationally, the IB counts as that proof only in its bilingual German version (GIB); otherwise each university decides, and TUM, for example, accepts only German A at Higher Level.',
+    source: 'KMK — Proof of German for foreign certificates (PDF, in German)',
+    sourceUrl:
+      'https://www.kmk.org/zab/fileadmin/Dateien/pdf/ZAB/Hochschulzugang_Beschluesse_der_KMK/Zugang-auslaendischer-Bildungsnachweis-Deutschkenntnisse_16_12_2020.pdf'
   }
 ]
 
@@ -384,7 +385,8 @@ export function GermanyContent() {
             <p className="mt-6 text-gray-600">
               The KMK formula is <strong>N = 1 + 3 × (42 − P) / (42 − 24)</strong>, where P is your
               IB total including bonus points. 24 points give a German grade of 4.0, and 42 to 45
-              points give 1.0. This is the grade that counts where a program selects by grade
+              points give 1.0. The grade is set to one decimal and not rounded, so 37 points give
+              1.8 and 36 give 2.0. This is the grade that counts where a program selects by grade
               (Numerus Clausus).
             </p>
 
@@ -422,6 +424,16 @@ export function GermanyContent() {
                     className="text-blue-600 hover:underline"
                   >
                     KMK — Agreement on the recognition of the IB Diploma (English translation, PDF)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.kmk.org/fileadmin/pdf/ZAB/Hochschulzugang_Beschluesse_der_KMK/GesNot05.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    KMK — Overall grade for foreign certificates (PDF, in German)
                   </a>
                 </li>
               </ul>
@@ -523,6 +535,10 @@ export function GermanyContent() {
                 <p className="text-gray-600">
                   <strong>C1 German</strong> required (TestDaF or DSH)
                 </p>
+                <p className="mt-2 text-sm text-gray-600">
+                  Your IB counts only where a university says so: TUM accepts German A at Higher
+                  Level.
+                </p>
               </div>
 
               <div className="rounded-2xl bg-gray-50 p-8 border border-gray-200">
@@ -537,7 +553,9 @@ export function GermanyContent() {
             </div>
 
             <p className="mt-6 text-gray-600">
-              Language requirements are set by individual universities.
+              Language requirements are set by individual universities. English-taught
+              bachelor&apos;s programs are few: in winter 2025/26, 439 of Germany&apos;s 11,767
+              first-degree programs (3.7%) were taught mainly in English.
             </p>
 
             <div className="mt-6 rounded-xl bg-white p-6 shadow-sm border border-gray-200">
@@ -556,7 +574,36 @@ export function GermanyContent() {
                     hochschulstart
                   </a>
                 </li>
-                <li className="text-gray-500">University admission pages</li>
+                <li>
+                  <a
+                    href="https://www.kmk.org/zab/fileadmin/Dateien/pdf/ZAB/Hochschulzugang_Beschluesse_der_KMK/Zugang-auslaendischer-Bildungsnachweis-Deutschkenntnisse_16_12_2020.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    KMK — Proof of German for foreign certificates (PDF, in German)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.hrk.de/fileadmin/redaktion/hrk/02-Dokumente/02-03-Studium/02-03-01-Studium-Studienreform/HRK_Statistik_BA_MA_UEbrige_WiSe_2025_26.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    HRK — Statistics on study programs, winter 2025/26 (PDF, in German)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tum.de/en/studies/application/application-info-portal/applicants-with-international-baccalaureate"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    TUM — Applicants with an International Baccalaureate Diploma
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -623,13 +670,24 @@ export function GermanyContent() {
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
-                    <span>Subject rules may be more flexible</span>
+                    <span>The KMK subject conditions usually still apply</span>
                   </li>
                   <li className="flex items-start gap-2 text-gray-600">
                     <CheckCircle2 className="h-5 w-5 text-gray-500 mt-0.5 flex-shrink-0" />
                     <span>Tuition fees usually apply</span>
                   </li>
                 </ul>
+                <p className="mt-4 text-sm">
+                  <strong>Example:</strong>{' '}
+                  <a
+                    href="https://www.frankfurt-school.de/cms/fallback/de/dam/jcr:11afb288-73ae-4c59-a1ea-bbd78884bfcf/2025_Requirements%20IB%20Diploma.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    Frankfurt School — IB Diploma requirements (PDF)
+                  </a>
+                </p>
               </div>
             </div>
           </div>
