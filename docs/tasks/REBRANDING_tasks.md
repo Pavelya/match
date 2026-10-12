@@ -182,7 +182,7 @@ page", "D4.8 Program page · phone", "D4.9 University page" and "D4.9 University
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
-| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (6.1): go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable | |
+| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (5.2), before release day: go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable | |
 
 ### Components
 
@@ -271,9 +271,9 @@ merges into `main`, behind the preview switch.**
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
+| 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
-| 19 | Motion and feedback | 6.1 | D1.6 | medium | After cleanup: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 
 ### Run order: design, approve, build
 
@@ -301,9 +301,9 @@ Rows 3 and 4 can share a design session.
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
+| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
-| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (6.1) | After cleanup |
 
 ### How a build session works
 
@@ -361,15 +361,12 @@ Phase 4 — Public pages
 Phase 5 — After the whole preview
 
 - [ ] 5.1 The program card in every list (review)
+- [ ] 5.2 Motion and feedback in every component
 
 Release
 
 - [ ] R.1 Release day
 - [ ] R.2 Cleanup
-
-Phase 6 — After release
-
-- [ ] 6.1 Motion and feedback in every component
 
 Owner decisions — not AI work
 
@@ -1590,6 +1587,45 @@ day if the change is wanted then; otherwise as its own session after release.
   keeps its 56px photo.
 - If A stays: close D3.8 and this task with a note of the decision.
 
+### 5.2 — Motion and feedback in every component
+
+**Outcome:** One way the app moves and answers a touch, the same in every component and screen, so it
+feels like one app.
+
+**Why (owner, 12 October 2026):** testing the cards on a phone, a program's name is its only link,
+with nothing to show it can be tapped and no response when it is. D1.3 (approved 8 October 2026) set
+the motion tokens: 120ms for a press, 180ms for hover and state, 240ms for sheets, dialogs and list
+to detail, one easing, only transform and opacity, and a fade instead of movement with reduced
+motion. Each component built since has chosen its own response within them. On a press, buttons
+shrink to 98%, the link cards on the program and university pages to 99%, and a tab's icon to 96%
+with a grey fill, while Matches cards and Explore rows give no response at all. "Why this match"
+and "How the fit is worked out" fade in, and chevrons turn. The list-to-program view transition
+D1.3 describes was never built. The owner wants one standard, chosen after looking at every screen.
+
+**When:** session 19, after session 16 and the program card review (5.1), before release day. Built
+behind the preview switch, like every session before release.
+
+**Design gate:** D1.6, approved ([Step 2](#step-2--design-first)).
+
+**Must-haves:**
+- **Investigate first** (the design session for D1.6): go over every screen on a real phone and on
+  desktop, in light, dark, reduced motion and forced colours. List each interaction (a tap or press,
+  hover, focus, opening and closing a menu, sheet, disclosure or dialog, saving and what follows,
+  loading, toasts, moving between pages), what it does today, and in which component.
+- **One rule set on one board,** "D1.6 Motion and feedback": each kind of interaction once, with its
+  response, its timing and its token, in light, dark and reduced motion. Cases to settle:
+  - press feedback on everything tappable, cards and rows included;
+  - the tap target of a program card or row: the name only, as D3.1 and D3.3 approved, or the whole
+    card through the name's link, with Save and "Why this match" above it. If 5.1 changed the card,
+    review the card it chose;
+  - hover on desktop only, and never the only sign that something is a link;
+  - the list-to-program view transition in D1.3: build it, or drop it from the system.
+- **Keep the Definition of done:** only transform and opacity, no infinite animations, a fade with
+  reduced motion, and no more JavaScript than the rules need.
+- **The build:** apply the approved rules to every component in one pull request, through shared
+  classes or tokens rather than each component's own, so later work follows them by default.
+  Screenshots beside the board, as in every build.
+
 ---
 
 ## Release
@@ -1620,48 +1656,6 @@ against the baseline:
 - delete the switch, the preview routes and bar, both variables and the old logo files;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check.
-
----
-
-## Phase 6 — After release
-
-### 6.1 — Motion and feedback in every component
-
-**Outcome:** One way the app moves and answers a touch, the same in every component and screen, so it
-feels like one app.
-
-**Why (owner, 12 October 2026):** testing the cards on a phone, a program's name is its only link,
-with nothing to show it can be tapped and no response when it is. D1.3 (approved 8 October 2026) set
-the motion tokens: 120ms for a press, 180ms for hover and state, 240ms for sheets, dialogs and list
-to detail, one easing, only transform and opacity, and a fade instead of movement with reduced
-motion. Each component built since has chosen its own response within them. On a press, buttons
-shrink to 98%, the link cards on the program and university pages to 99%, and a tab's icon to 96%
-with a grey fill, while Matches cards and Explore rows give no response at all. "Why this match"
-and "How the fit is worked out" fade in, and chevrons turn. The list-to-program view transition
-D1.3 describes was never built. The owner wants one standard, chosen after looking at every screen.
-
-**When:** session 19, after cleanup (R.2), when only the new design is left in the code.
-
-**Design gate:** D1.6, approved ([Step 2](#step-2--design-first)).
-
-**Must-haves:**
-- **Investigate first** (the design session for D1.6): go over every screen on a real phone and on
-  desktop, in light, dark, reduced motion and forced colours. List each interaction (a tap or press,
-  hover, focus, opening and closing a menu, sheet, disclosure or dialog, saving and what follows,
-  loading, toasts, moving between pages), what it does today, and in which component.
-- **One rule set on one board,** "D1.6 Motion and feedback": each kind of interaction once, with its
-  response, its timing and its token, in light, dark and reduced motion. Cases to settle:
-  - press feedback on everything tappable, cards and rows included;
-  - the tap target of a program card or row: the name only, as D3.1 and D3.3 approved, or the whole
-    card through the name's link, with Save and "Why this match" above it. If 5.1 changed the card,
-    review the card it chose;
-  - hover on desktop only, and never the only sign that something is a link;
-  - the list-to-program view transition in D1.3: build it, or drop it from the system.
-- **Keep the Definition of done:** only transform and opacity, no infinite animations, a fade with
-  reduced motion, and no more JavaScript than the rules need.
-- **The build:** apply the approved rules to every component in one pull request, through shared
-  classes or tokens rather than each component's own, so later work follows them by default.
-  Screenshots beside the board, as in every build.
 
 ---
 
