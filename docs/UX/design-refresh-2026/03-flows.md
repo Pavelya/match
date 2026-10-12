@@ -128,7 +128,8 @@ render empty (audit 4.2).
 - The **same header and footer on every public page** (one layout for the public route group):
   Explore programs · Country guides · How it works · For schools · Sign in · **Get my matches**.
 - **Real breadcrumbs** on programs and universities (Explore / Canada / University of Toronto)
-  instead of history-based back links.
+  instead of history-based back links. The trail stops above the page, and the country opens its
+  guide (approved on "D4.8 Program page", 12 October 2026).
 - On a program page the requirements are **always** listed. Logged out, the "Your fit" panel
   becomes "Sign in and add your grades to check these: about 2 minutes", which leads into F1
   and lands back on this program.

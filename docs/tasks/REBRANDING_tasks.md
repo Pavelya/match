@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 11 October 2026.** The canvas has 55 boards. The owner approved in chat "B ·
+**Where it stands, 12 October 2026.** The canvas has 60 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -168,8 +168,10 @@ complete. On 11 October row 12 drew Explore's five boards, and the owner approve
 "D2.15 Bottom sheet", with every recommendation and new labels for the profile shortcuts, then "D3.3
 Result row", "D3.5 Filter toolbar" (its shortcuts worded as on the sheet), "D4.7 Explore" and "D4.7
 Explore · phone", each with every recommendation. Build 8's gate is complete. A change board for one program card in every list (D3.8) is parked until the
-whole design can be seen in the preview (5.1). Ten other tasks need a screen size or states added.
-Eight have no board.
+whole design can be seen in the preview (5.1). On 12 October row 13 drew the program and university
+pages, and the owner approved all four boards in chat with every recommendation: "D4.8 Program
+page", "D4.8 Program page · phone", "D4.9 University page" and "D4.9 University page · phone". Build
+9's gate is complete. Nine other tasks need a screen size or states added. Seven have no board.
 
 ### Foundations
 
@@ -228,8 +230,8 @@ theme switch are in D1.4.
 | D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
 | D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
 | D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width | Nothing | 11 October 2026 |
-| D4.8 Program page | Desktop signed in (dark switch); phone signed in, dark only | Signed out on both; phone light; the image credit caption; no image; a program the student is missing a requirement for; not found; a US program with no IB minimum, its admit rate and its "How competitive" paragraph | |
-| D4.9 University page | None | **No board.** Phone and desktop | |
+| D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4 | Nothing | 12 October 2026 |
+| D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
 | D4.10 Shortlist | Desktop compare (dark switch) | Desktop list view; phone list and compare; an empty shortlist | |
 | D4.11 Academic profile and settings | Desktop "Academic profile", Subjects and grades tab only (dark switch); "Phone · Profile tab" | The split decided on 9 October 2026 (3.3): the Academic page (subjects and grades, interests, countries) and Settings (account, your data); the desktop Interests, Countries and Account content; unsaved changes; a failed save; delete account; phone dark | |
 | D4.12 Country guide template | None | **No board.** Phone and desktop, drawn from one guide's real content | |
@@ -288,7 +290,7 @@ Rows 3 and 4 can share a design session.
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
-| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | |
+| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Designs approved 12 October 2026 (row 13); build 9 next |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
@@ -1214,24 +1216,30 @@ Departures and hand-offs:
 
 ### 2.4 — Program and university pages
 
-**Outcome:** The program page and university page in the new layout. See the canvas boards "Program
-detail" and "Phone · Program (dark)".
+**Outcome:** The program page and university page in the new layout. See the canvas boards "D4.8
+Program page", "D4.8 Program page · phone", "D4.9 University page" and "D4.9 University page ·
+phone" (row 13, approved 12 October 2026).
 
 **Design gate:** D3.4, D4.8 and D4.9, approved ([Step 2](#step-2--design-first)).
 
 **Must-haves:**
-- **Breadcrumbs** (Explore / Canada / University of Toronto) instead of `history.back()` links
-  (audit 1.4).
+- **Breadcrumbs** instead of `history.back()` links (audit 1.4). **The trail stops above the page**
+  (D4.8, 12 October 2026): Explore / Canada / University of Toronto on a program page, Explore /
+  Canada on a university page; the h1 names the page itself. A `nav` named Breadcrumb holding an
+  `<ol>`, links 32px tall, wrapping on a phone, names never cut. **The country crumb opens the
+  country's guide**, `/study-in-…-with-ib-diploma`: all 23 countries on IB Match have one. A fixed
+  list keyed by the country code, which the page already reads, maps them; Explore filtered to a
+  country is not used, since it points search engines back to `/programs/search`.
 - **Breadcrumb structured data.** A `BreadcrumbList` JSON-LD block on both pages, item for item the
-  same names and URLs as the visible breadcrumbs. The current page's item may leave out its URL. None
-  exist on the site today. It renders only with the new design, because structured data must match
-  what the page shows. Where the country crumb links is decided on board D4.8; the country's guide,
-  where there is one, is the natural target. Validate it in Google's Rich Results Test by pasting the
-  preview's HTML, since the test cannot open the preview.
+  same names and URLs as the visible breadcrumbs: Explore, the country and, on a program page, the
+  university, each with its URL. None exist on the site today. It renders only with the new design,
+  because structured data must match what the page shows. Validate it in Google's Rich Results Test
+  by pasting the preview's HTML, since the test cannot open the preview.
 - **Requirements always listed**, including the minimum points for logged-out visitors. Today the
   points tile needs a match result, so the block can render empty (audit 4.2; Sydney's Bachelor of
   Science and Doctor of Medicine).
-- A fit panel (logged in) or "Sign in and add your grades to check these" (logged out).
+- A fit panel (logged in) or "Sign in and add your grades to check these" (logged out). As approved
+  on D4.8: see "Decided on the boards" below.
 - **The signed-out Save, from 2.2.** Sign-in returns to a same-origin `callbackUrl` (today
   `app/auth/signin/SignIn.tsx` always goes to `/student`); the program page, reached with `?save=1`
   and signed in, saves the program and says so: "Signed in. Computer Science is on your shortlist."
@@ -1250,6 +1258,83 @@ detail" and "Phone · Program (dark)".
   2026). Show `campusCity ?? university.city` wherever a program's place is shown, and render
   `university.imageCredit` with `components/shared/ImageCredit.tsx` as the `<figcaption>` of every full
   image. A thumbnail needs none.
+- **No new read** (Definition of done 7). The program page reads what it reads today: the program
+  with its requirements (a select), and signed in, the student's profile (today an `include`, which
+  2.4 narrows to a `select`) and the shortlist, for Save. The university page reads its one query
+  today, plus columns of rows it already reads: `admitRate`, `internationalAdmitRate` and
+  `admitRateYear` on the university, `campusCity` on each program. The program page's select gains
+  the same three university columns for the facts and the checklist. Neither page reads the programs
+  cache or the search service.
+
+**Decided on the boards (D4.8, D4.9, every recommendation approved 12 October 2026):**
+
+- **The program page.** The header (signed in, or the public one), then a 1192px column: the trail;
+  the hero, with the H1 (34/40, the program's name, one h1 as today), "University of Toronto ·
+  Toronto, Canada" (the university's name links to its page; the place said once when city and
+  country are the same, "Singapore"), four facts in one bordered row (IB minimum, Length, Degree,
+  Field; with no minimum, "None" and "Admits 4.6%" under it, as on Explore's rows), Save (D2.1) and
+  "Official program page" (primary, a new tab, said to screen readers), and the image at 16:11 with
+  its credit as the `<figcaption>`. **No image, no figure:** the hero is one column of 760, with no
+  placeholder or initials at that size (15 universities have none). Below, at 784: Entry
+  requirements (D3.4) with the entry-year line; **How competitive**, its own section with an h2 when
+  the description ends with a paragraph starting "How competitive:" (486 programs), placed under the
+  requirements and taken out of About; About the program, Body L 17/28, the whole text in the server
+  HTML but **cut at eight lines with "Read the whole description"** (`aria-expanded`) when it runs
+  past ten (72 programs pass 1,500 characters; McGill's Mining and Materials Engineering is 6,316);
+  and "The university", one link card (thumbnail or initials at 56px, name, place) to its page.
+- **The fit panel**, at 360 beside them, staying in view as the page scrolls. Signed in with grades:
+  "Your fit" (an h2 styled as a label), the large status badge (D2.7), one sentence from
+  `whyThisMatch`'s note ("You meet every requirement.", "Your Chemistry is SL where HL is needed, so
+  better grades alone won't meet this.", the US note), field and country as in D3.2, then **"How the
+  fit is worked out"**, a button with `aria-expanded` that opens D3.2's fit score with its parts and
+  sentence, so the percentage is never the headline, and "Edit your grades" to Academic. Signed out:
+  "Do you meet these?", "Sign in and add your subjects and grades. IB Match checks each requirement
+  against them, here and on every program.", "Sign in to check" (returning to the page) and "Takes
+  about 2 minutes." Signed in with no grades: the same heading, "Add your subjects and grades, and IB
+  Match checks each requirement against them." and "Add your grades" to Academic. **Not drawn:**
+  "Similar programs you meet" and "Rank in your matches" from the old board, which need the
+  student's whole match list.
+- **Save** keeps its place in every state. Signed out it is a link styled as the button, named "Save
+  Computer Science: sign in first", to sign-in with `callbackUrl` back to the page and `?save=1`;
+  the page saves, Save reads "Saved", D2.9's toast says "Signed in. Computer Science is on your
+  shortlist.", and the address drops `?save=1` so a reload doesn't save twice. A failed save: Save
+  back to "Save" and "Couldn't save Computer Science." with Try again (D2.9).
+- **Loading:** D2.8's program skeleton in this layout, the header real. **Not found:** a page of its
+  own in place of Next's bare "404 | This page could not be found." (what a removed program shows
+  today): "We can't find that program", "It may have been removed when its university stopped
+  offering it, or the link may be incomplete. Search for it by name or university, or explore every
+  program.", a search form to Explore with a Search button, and "Explore programs". It still answers
+  404. The university page has the same, "We can't find that university".
+- **The program page on a phone:** the trail, the image (16:10, radius 16) with its credit, the H1
+  (30/36), then the fit panel (or "Do you meet these?"), the facts in a 2 × 2 grid, Save (118px) and
+  "Official program page" filling the row, then the requirements (D3.4's phone list), How
+  competitive, About and the university. **No bar fixed to the bottom:** signed in, the tab bar is
+  there already, with no tab current on these pages.
+- **The university page.** **Signed in, the signed-in header**: `/universities` reads the session as
+  `/programs` does (`hasOwnChrome` and a layout like `app/programs/layout.tsx`); the page is already
+  built per request, and it is the same cookie check, with no database read. The hero: H1, the place,
+  "also known as U of T" **only when the short name adds something** (not when it is part of the
+  name); facts (Type, Students, On IB Match "40 programs", and for a US university "Admit rate 4.6%"
+  with "First-year applicants, fall 2025", the international rate too where reported); "Official
+  website" and "See its programs" (to the list); the image and its credit as on the program page.
+  Below at 784: About the university (the same eight-line rule) and **every program, grouped by
+  field** under "Programs on IB Match" ("40 programs in 9 fields"), field links at the top (a nav
+  named Fields, when there is more than one field), an h3 per field with its count, then rows A–Z:
+  the name (the only link), degree, length and the minimum ("None" for a US program, the rate stays
+  in the facts). **A program taught away from the university's city** says "Taught in Reims" under
+  its name. Headings use the full name, never the short one. Beside them at 360: Contact (website,
+  email and phone, each a link) and the country's guide as one link card ("How universities there
+  read the IB: admission, grades, documents and the timeline."). **No fit on this page:** beside the
+  count, "See which ones you qualify for" opens Explore with the university's name typed, which
+  returns exactly its programs (Toronto 40 of 40, Manchester 68 of 68); signed out, "Sign in to see
+  which ones you qualify for"; no grades, "Add your grades to see which ones you qualify for". On a
+  phone: field links wrap above the list, a row is two lines (the name, then degree and length, the
+  minimum on the right, the campus in the second line), and Contact and the guide follow the
+  programs.
+
+**Found while drawing, not part of 2.4** (content fixes): Imperial's `abbreviatedName` is "London"
+(today's university page says "Programs at London") and Linnaeus's is "Växjö, Kalmar"; NTU's phone is
+stored as "65) 67911744".
 
 ### 2.5 — Shortlist with compare
 
