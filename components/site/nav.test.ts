@@ -77,6 +77,7 @@ describe('hasOwnChrome', () => {
       '/student/matches',
       '/programs/search',
       '/programs/abc',
+      '/universities/abc',
       '/admin/dashboard',
       '/coordinator/students',
       '/auth/signin'
@@ -90,7 +91,6 @@ describe('hasOwnChrome', () => {
       '/',
       '/study-in-uk-with-ib-diploma',
       '/ib-university-requirements',
-      '/universities/abc',
       '/privacy',
       '/a-page-added-later',
       '/students-guide'

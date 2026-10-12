@@ -10,6 +10,10 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { UniversityDetailClient } from './UniversityDetailClient'
+import { NewUniversityPage } from './NewUniversityPage'
+import { breadcrumbJsonLd, universityTrail } from '@/components/detail/trail'
+import { auth } from '@/lib/auth/config'
+import { showsNewUi } from '@/lib/new-ui'
 import { serializeJsonLd } from '@/lib/utils'
 
 interface PageProps {
@@ -37,6 +41,10 @@ const getUniversity = cache((id: string) =>
       websiteUrl: true,
       email: true,
       phone: true,
+      // Display only, in the new design's facts (rebranding 2.4)
+      admitRate: true,
+      internationalAdmitRate: true,
+      admitRateYear: true,
       country: {
         select: { id: true, name: true, code: true, flagEmoji: true }
       },
@@ -47,6 +55,7 @@ const getUniversity = cache((id: string) =>
           degreeType: true,
           duration: true,
           minIBPoints: true,
+          campusCity: true,
           fieldOfStudy: { select: { id: true, name: true } }
         },
         orderBy: {
@@ -117,40 +126,6 @@ export default async function UniversityDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  // Transform data for client component
-  const universityData = {
-    id: university.id,
-    name: university.name,
-    abbreviatedName: university.abbreviatedName,
-    description: university.description,
-    city: university.city,
-    country: {
-      id: university.country.id,
-      name: university.country.name,
-      code: university.country.code,
-      flagEmoji: university.country.flagEmoji
-    },
-    classification: university.classification,
-    studentPopulation: university.studentPopulation,
-    image: university.image,
-    imageCredit: university.imageCredit,
-    websiteUrl: university.websiteUrl,
-    email: university.email,
-    phone: university.phone,
-    programCount: university._count.programs,
-    programs: university.programs.map((program) => ({
-      id: program.id,
-      name: program.name,
-      degreeType: program.degreeType,
-      duration: program.duration,
-      minIBPoints: program.minIBPoints,
-      fieldOfStudy: {
-        id: program.fieldOfStudy.id,
-        name: program.fieldOfStudy.name
-      }
-    }))
-  }
-
   // JSON-LD structured data for SEO and AI search (Task 2.3: Enhanced comprehensive schema)
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -214,12 +189,67 @@ export default async function UniversityDetailPage({ params }: PageProps) {
         : undefined
   }
 
+  const jsonLdScript = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+    />
+  )
+
+  // The new design (rebranding 2.4): every program by field, the trail, and the session for the
+  // link to Explore, which the layout has read already
+  if (await showsNewUi()) {
+    const trail = universityTrail(university.country)
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
+    return (
+      <>
+        {jsonLdScript}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(trail, baseUrl)) }}
+        />
+        <NewUniversityPage university={university} trail={trail} signedIn={!!(await auth())} />
+      </>
+    )
+  }
+
+  // Transform data for client component
+  const universityData = {
+    id: university.id,
+    name: university.name,
+    abbreviatedName: university.abbreviatedName,
+    description: university.description,
+    city: university.city,
+    country: {
+      id: university.country.id,
+      name: university.country.name,
+      code: university.country.code,
+      flagEmoji: university.country.flagEmoji
+    },
+    classification: university.classification,
+    studentPopulation: university.studentPopulation,
+    image: university.image,
+    imageCredit: university.imageCredit,
+    websiteUrl: university.websiteUrl,
+    email: university.email,
+    phone: university.phone,
+    programCount: university._count.programs,
+    programs: university.programs.map((program) => ({
+      id: program.id,
+      name: program.name,
+      degreeType: program.degreeType,
+      duration: program.duration,
+      minIBPoints: program.minIBPoints,
+      fieldOfStudy: {
+        id: program.fieldOfStudy.id,
+        name: program.fieldOfStudy.name
+      }
+    }))
+  }
+
   return (
     <PageContainer>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-      />
+      {jsonLdScript}
       <UniversityDetailClient university={universityData} />
     </PageContainer>
   )

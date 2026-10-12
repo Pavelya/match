@@ -3,7 +3,7 @@ import { StudentHeader } from '@/components/layout/StudentHeader'
 import { LegacyLogo } from '@/components/brand/LegacyLogo'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
-import { SignedInChrome, SignedOutChrome } from '@/components/site/chrome'
+import { SessionChrome } from '@/components/site/SessionChrome'
 import { showsNewUi } from '@/lib/new-ui'
 
 export default async function ProgramsLayout({ children }: { children: React.ReactNode }) {
@@ -12,21 +12,7 @@ export default async function ProgramsLayout({ children }: { children: React.Rea
 
   // The new design (rebranding 1.5): the signed-in chrome when the session says so, else the
   // public one every prebuilt page has
-  if (await showsNewUi()) {
-    if (!session) return <SignedOutChrome>{children}</SignedOutChrome>
-    return (
-      <SignedInChrome
-        user={{
-          name: session.user?.name ?? null,
-          email: session.user?.email ?? null,
-          image: session.user?.image ?? null,
-          initial: getAvatarInitial(session.user?.email, session.user?.name)
-        }}
-      >
-        {children}
-      </SignedInChrome>
-    )
-  }
+  if (await showsNewUi()) return <SessionChrome session={session}>{children}</SessionChrome>
 
   // Compute avatar values server-side to avoid exposing email to client
   const avatarColor = session ? getAvatarColor(session.user?.email) : ''

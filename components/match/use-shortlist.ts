@@ -1,14 +1,14 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { useToast } from '@/components/ds/Toast'
+import { useToast, type ToastOptions } from '@/components/ds/Toast'
 
 /*
  * Saving to the shortlist, honestly (rebranding 2.2, audit 4.1). Save shows "Saving…" while the
  * server answers and "Saved" only once it confirms; a failure goes back and says so in a toast
- * with "Try again". Removing offers "Undo". Toast copy from "D2.9 Toast". Matches is always
- * signed in; the signed-out Save, which signs in and saves on the way back, comes with the first
- * signed-out card (2.3, 2.4).
+ * with "Try again". Removing offers "Undo". Toast copy from "D2.9 Toast". Signed out, Save is a
+ * link to sign-in that comes back to the program page with ?save=1, which saves it and says so
+ * (2.4, `saveAfterSignIn`).
  */
 
 export interface ShortlistProgram {
@@ -36,9 +36,16 @@ export function useShortlist(initialIds: readonly string[] = []) {
     []
   )
 
-  /** Save or remove one program, then say how it went. A toast's action runs it again. */
+  /**
+   * Save or remove one program, then say how it went. A toast's action runs it again. Back from
+   * sign-in, the messages say so too.
+   */
   const change = useCallback(
-    async function change(program: ShortlistProgram, to: 'save' | 'remove'): Promise<void> {
+    async function change(
+      program: ShortlistProgram,
+      to: 'save' | 'remove',
+      afterSignIn = false
+    ): Promise<void> {
       mark(setPending, program.id, true)
       let ok = false
       try {
@@ -63,14 +70,12 @@ export function useShortlist(initialIds: readonly string[] = []) {
       if (to === 'save') {
         toast(
           ok
-            ? {
-                tone: 'ok',
-                message: 'Saved to your shortlist.',
-                action: { label: 'View shortlist', href: SHORTLIST_HREF }
-              }
+            ? savedToast(program, afterSignIn)
             : {
                 tone: 'gap',
-                message: `Couldn’t save ${program.name}.`,
+                message: afterSignIn
+                  ? `Signed in, but ${program.name} wasn’t saved.`
+                  : `Couldn’t save ${program.name}.`,
                 action: { label: 'Try again', onClick: () => void change(program, 'save') }
               }
         )
@@ -104,10 +109,30 @@ export function useShortlist(initialIds: readonly string[] = []) {
     [change, pending, saved]
   )
 
+  /** Back from sign-in with ?save=1: saves the program, unless it is on the shortlist already */
+  const saveAfterSignIn = useCallback(
+    (program: ShortlistProgram) => {
+      if (saved.has(program.id)) toast(savedToast(program, true))
+      else void change(program, 'save', true)
+    },
+    [change, saved, toast]
+  )
+
   return {
     isSaved: (id: string) => saved.has(id),
     isSaving: (id: string) => pending.has(id),
     toggle,
-    reset
+    reset,
+    saveAfterSignIn
+  }
+}
+
+function savedToast(program: ShortlistProgram, afterSignIn: boolean): ToastOptions {
+  return {
+    tone: 'ok',
+    message: afterSignIn
+      ? `Signed in. ${program.name} is on your shortlist.`
+      : 'Saved to your shortlist.',
+    action: { label: 'View shortlist', href: SHORTLIST_HREF }
   }
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { deriveMatchStatus } from './match-status'
-import { whyThisMatch, type WhyInput } from './match-why'
+import { requirementRows, whyThisMatch, type WhyInput } from './match-why'
 import { calculateMatch } from './scorer'
 import { transformProgram } from './transformers'
 import type { IBGrade, StudentProfile } from './types'
@@ -410,5 +410,105 @@ describe('the fit score and its working', () => {
     expect(why({ minIBPoints: 40 }).fit.sentence).toMatch(
       /^Adds up to \d+%, capped at 90% because you’re 2 points short\.$/
     )
+  })
+})
+
+describe('the checklist without grades (D3.4, signed out or before grades)', () => {
+  const rows = (requires: (Row | Row[])[], minIBPoints: number | null = 38) =>
+    requirementRows({
+      minIBPoints,
+      universityName: 'Arizona State University',
+      admitRate: 88.4,
+      internationalAdmitRate: 89.9,
+      admitRateYear: 2025,
+      requirements: requires.flatMap((entry, i) => {
+        const group = Array.isArray(entry[0]) ? (entry as Row[]) : [entry as Row]
+        return group.map(([course, requiredLevel, minGrade], j) => ({
+          id: `${i}-${j}`,
+          ibCourse: { id: course, name: COURSE_NAMES[course] },
+          requiredLevel,
+          minGrade,
+          orGroupId: Array.isArray(entry[0]) ? `group-${i}` : null
+        }))
+      })
+    })
+
+  it('the minimum, then each requirement in the order the program lists them (Imperial)', () => {
+    expect(
+      rows([
+        ['chemistry', 'HL', 6],
+        [...LANGUAGES.slice(0, 8), 'spanishB' as Course].flatMap((c): Row[] => [
+          [c, 'HL', 5],
+          [c, 'SL', 6]
+        ]),
+        [
+          ['biology', 'HL', 6],
+          ['mathsAA', 'HL', 6],
+          ['mathsAI', 'HL', 6],
+          ['physics', 'HL', 6]
+        ]
+      ])
+    ).toEqual([
+      { kind: 'info', type: 'points', name: 'IB Diploma points', needed: '38', you: null },
+      {
+        kind: 'info',
+        type: 'subject',
+        name: 'Chemistry',
+        needed: 'HL 6',
+        you: null,
+        detail: undefined
+      },
+      {
+        kind: 'info',
+        type: 'subject',
+        name: 'One of 9 courses',
+        needed: 'HL 5 or SL 6',
+        you: null,
+        options: {
+          count: 9,
+          groups: [
+            {
+              label: 'HL 5 or SL 6 · 9 courses',
+              courses:
+                'French B, German B, Italian B, Dutch B, Russian B, Arabic B, Mandarin B, Japanese B, Spanish B'
+            }
+          ]
+        }
+      },
+      {
+        kind: 'info',
+        type: 'subject',
+        name: 'Biology, Maths AA, Maths AI or Physics',
+        needed: 'HL 6',
+        you: null,
+        detail: undefined
+      }
+    ])
+  })
+
+  it('names the first option and lists the others at their own levels (Toronto)', () => {
+    expect(
+      rows([
+        [
+          ['mathsAA', 'SL', 6],
+          ['mathsAI', 'HL', 6]
+        ]
+      ])[1]
+    ).toMatchObject({ name: 'Maths AA', needed: 'SL 6', detail: 'or Maths AI at HL 6' })
+  })
+
+  it('no IB minimum: the admit rates; no subjects: "None"', () => {
+    expect(rows([], null)).toEqual([
+      {
+        kind: 'info',
+        type: 'points',
+        name: 'IB Diploma points',
+        needed: 'No minimum',
+        you: null,
+        detail:
+          'Holistic admission. Arizona State University admitted 88.4% of first-year applicants for fall 2025, and 89.9% of international applicants.'
+      },
+      { kind: 'info', type: 'none', name: 'Named subjects', needed: 'None', you: null }
+    ])
   })
 })

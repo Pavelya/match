@@ -8,11 +8,22 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Info, AlertCircle } from 'lucide-react'
+import { returnPath } from '@/lib/auth/callback-url'
 
-function SignInForm({ logo }: { logo: React.ReactNode }) {
+interface SignInProps {
+  logo: React.ReactNode
+  /**
+   * Return to the page that sent the visitor here (`callbackUrl`), as the new design's Save and
+   * "Sign in to check" expect (rebranding 2.4). Today's design keeps going to /student.
+   */
+  followCallback?: boolean
+}
+
+function SignInForm({ logo, followCallback = false }: SignInProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const declineInvite = searchParams.get('declineInvite') === 'true'
+  const callbackUrl = (followCallback && returnPath(searchParams.get('callbackUrl'))) || '/student'
 
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -26,7 +37,7 @@ function SignInForm({ logo }: { logo: React.ReactNode }) {
     try {
       const result = await signIn('resend', {
         email,
-        callbackUrl: '/student',
+        callbackUrl,
         redirect: false
       })
 
@@ -53,7 +64,7 @@ function SignInForm({ logo }: { logo: React.ReactNode }) {
   const handleGoogleSignIn = async () => {
     setError(null)
     try {
-      await signIn('google', { callbackUrl: '/student' })
+      await signIn('google', { callbackUrl })
     } catch {
       setError('Too many sign-in attempts. Please wait a moment and try again.')
     }
@@ -169,7 +180,7 @@ function SignInForm({ logo }: { logo: React.ReactNode }) {
 }
 
 /** The sign-in card. `logo` comes from the server, which knows the design (rebranding 1.3). */
-export function SignIn({ logo }: { logo: React.ReactNode }) {
+export function SignIn({ logo, followCallback }: SignInProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Suspense
@@ -185,7 +196,7 @@ export function SignIn({ logo }: { logo: React.ReactNode }) {
           </Card>
         }
       >
-        <SignInForm logo={logo} />
+        <SignInForm logo={logo} followCallback={followCallback} />
       </Suspense>
     </div>
   )

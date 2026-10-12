@@ -261,7 +261,7 @@ merges into `main`, behind the preview switch.**
 | 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
-| 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | |
+| 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
@@ -290,7 +290,7 @@ Rows 3 and 4 can share a design session.
 | 5 | None | None | `/build 5`: match data (2.1) | Done 9 October 2026 |
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
-| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Designs approved 12 October 2026 (row 13); build 9 next |
+| 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Done 12 October 2026 |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
@@ -339,7 +339,7 @@ Phase 2 — Core app
 - [x] 2.2 Match card, result row and requirement checklist (11 October 2026; the result row is built
   in 2.3, the checklist's program-page variant in 2.4)
 - [x] 2.3 Explore: toolbar, phone filter sheet, rows (11 October 2026)
-- [ ] 2.4 Program and university pages
+- [x] 2.4 Program and university pages (12 October 2026)
 - [ ] 2.5 Shortlist with compare
 
 Phase 3 — Profile and onboarding
@@ -1335,6 +1335,81 @@ phone" (row 13, approved 12 October 2026).
 **Found while drawing, not part of 2.4** (content fixes): Imperial's `abbreviatedName` is "London"
 (today's university page says "Programs at London") and Linnaeus's is "Växjö, Kalmar"; NTU's phone is
 stored as "65) 67911744".
+
+**Done 12 October 2026.**
+
+- **The pages.** `app/programs/[id]/NewProgramPage.tsx` and `app/universities/[id]/NewUniversityPage.tsx`,
+  server components: everything is server HTML but three small parts, which load as their own chunks
+  through `components/detail/islands.tsx` (Save with the return from sign-in and "How the fit is
+  worked out" in `components/program/ProgramIslands.tsx`; "Read the whole description" in
+  `components/detail/ReadMore.tsx`). One element order serves both sizes: from 1024px a grid of
+  572 + 164 + 360 puts the image beside the title and the fit panel, sticky, beside the
+  requirements. The parts both pages share are in `components/detail/` (trail, facts, hero image,
+  not-found panel), the checklist and fit panel in `components/program/`, the list by field in
+  `components/university/`.
+- **The checklist (D3.4):** a table from 768px and the phone list below, with "All N options" in a
+  `<details>` element. With grades, the rows are "Why this match"'s (`statusAndWhy`, extracted from
+  `matchItem` in `lib/matching/match-list.ts`); without, `requirementRows` in
+  `lib/matching/match-why.ts` names each requirement by its courses. The status icons moved to
+  `components/match/requirement-status.ts`, shared with "Why this match".
+- **Trail and structured data:** `components/detail/trail.ts` builds the trail and the
+  `BreadcrumbList` from one list; the country crumb opens its guide (`lib/programs/country-guides.ts`,
+  all 23, tested against the `study-in-*` pages). Both pages' existing structured data is the same
+  copy in both designs; the `BreadcrumbList` comes with the new design only.
+- **Sign-in returns** to a same-site `callbackUrl` (`returnPath` in `lib/auth/callback-url.ts`) in
+  the new design; today's sign-in still goes to `/student`. Back on a program with `?save=1`, the page
+  saves it (or says it is saved already), D2.9's toast says so, and the address drops `?save=1`
+  without reloading.
+- **`/universities` reads the session** in the new design (`app/universities/layout.tsx`, the chrome
+  in `components/site/SessionChrome.tsx`, shared with `/programs`); `hasOwnChrome` lists it.
+- **Descriptions** are cut at eight lines past ten by an estimate made on the server (74 characters
+  a line from 768px, 38 on a phone; `lib/programs/description.ts`), so the page never changes height
+  as it loads. A closing "How competitive:" paragraph becomes its own section, starting with a
+  capital (386 of the 486 continue in lower case after the colon).
+- **Reads.** The program page reads the program as today, with three more university columns.
+  Signed in, one narrow read of the profile (subjects, choices and whether this program is on the
+  shortlist, `lib/programs/viewer.ts`) replaces today's two: the whole profile with every course and
+  choice included, and the browser's request for the whole shortlist, with its rate-limit call to
+  Upstash. Today's page narrows its include to a select too. The university page makes its one query
+  with four more columns. Neither reads the programs cache or the search service.
+- **Checked.** Without the preview, a program (signed out and in), a university, both not-found
+  pages, sign-in, Explore, Home, a guide and the requirements hub send the same HTML as `main`, and
+  `npm run build` lists every route as `main` does, `/auth/signin` still static. Today's visitors
+  download 0.2 KB more JavaScript on program and university pages, gzipped (the lazy wrapper), and
+  none elsewhere; CSS is 30.1 KB (+0.9, under 32). The new pages' own code is 3.6 KB gzipped signed
+  in and 0.7 KB for "Read the whole description". The SEO snapshot differs only by the 1.3 logo
+  URLs, the new `BreadcrumbList` and the headings of the new layout; titles, descriptions, canonical
+  URLs and each page's own structured data are unchanged. Both not-found pages answer 404. Design QA
+  screenshots of every board state, desktop and phone, light and dark, forced colours, 900px and the
+  200% zoom width, are in the pull request.
+
+Departures and hand-offs:
+
+- **No loading state.** A `loading.tsx` for these routes would make Next prefetch every link to a
+  program or university (dynamic routes are prefetched only with one): a server render for each of
+  Explore's 20 rows, Matches' cards and today's cards, for every visitor. It would also stream the
+  page, so a missing program would answer 200 with `noindex` instead of 404. Moving between pages
+  keeps the previous page until the next arrives, as today; D2.8's program skeleton stays unused.
+- **The university page doesn't know whether a student has grades**, so signed in it always says
+  "See which ones you qualify for": telling them apart needs a profile read the page doesn't make.
+  Without grades, Explore shows its own "Add your grades" link in the switch's place.
+- **Open for the owner: Save from a brand-new account.** Profiles are made by the first run, so a
+  visitor who presses Save and signs up comes back with no profile, and the save fails with "Signed
+  in, but Computer Science wasn't saved." Either send a new account through the first run before
+  saving, or let the save create the profile; both are their own task.
+- **Today's design keeps Next's bare 404 for a missing program.** A not-found page in the segment
+  renders inside the programs layout, which in today's design would add today's header around it;
+  `app/programs/[id]/layout.tsx` sends today's 404 to the root's instead, using the request's one
+  read of the program.
+- **Two columns from 1024px**; from 768 to 1023 the page is the phone's order at desktop type sizes
+  (the boards draw 1440 and 390). Save and the official page sit side by side from 768.
+- **Copy the boards didn't draw:** a US university that reports an international admit rate adds
+  "89.9% of international applicants" under its rate; no admit rate under "None" reads "Holistic
+  admission".
+- **Every university has an image now** (97 of 97), so the one-column hero shows only if one is
+  removed; it was checked with an image hidden locally.
+- **The hero image** asks the image optimizer for a 1,200px width on desktop, where today's pages ask
+  for 384 and 640: one fetch from Supabase Storage per image and width, kept for 31 days.
 
 ### 2.5 — Shortlist with compare
 
