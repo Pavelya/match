@@ -44,6 +44,13 @@ programmes (Architecture, Landscape Architecture, Health Science, Nutrition, sci
 with Part B's dry run. Decision 4 made no recommendation for ETH and Lausanne, so they stay as they are until
 Switzerland's next refresh.
 
+**As built (Part B1, 12 October 2026):**
+
+- **Decision 3** follows the Bavarian recognition office's IB sheet (March 2026), which lists the subjects that need maths HL. Six
+  TUM programs it does not name go to the owner with the dry run.
+- **Decision 7.** Bioeconomics is not added: TUM's page says "New applications are only possible for Bioeconomy". Stored Geodesy and
+  Geoinformation is closed the same way, replaced by Geodesy and Earth Observation, and reported as discontinued.
+
 | # | Decision | Recommended, and chosen |
 |---|---|---|
 | 1 | The model: (a) the KMK floor, 24, with rows and a selection paragraph; (b) a converted cut-off or aptitude threshold as the minimum; (c) no minimum (null), as for the USA; (d) keep 36/38 | **(a)** ([section 4](#4-model-options)) |

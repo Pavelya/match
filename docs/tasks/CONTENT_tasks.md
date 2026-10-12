@@ -32,7 +32,7 @@ here, and this refresh does more production writes than any work before it.
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
-| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** Part B1 refreshes TUM and the Germany page; B2 adds the six universities |
+| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; built 12 October 2026, waiting for the owner's approval of the dry run. B2 adds the six universities |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
@@ -113,7 +113,8 @@ Phase 6 — USA
 Phase 7 — Germany
 
 - [ ] 7 Research how to model German admissions, then refresh and extend — Part A done 12 October 2026
-  (`content-2027/germany-model-decision.md`); all nine decisions chosen as recommended the same day; Part B next
+  (`content-2027/germany-model-decision.md`); all nine decisions chosen as recommended the same day; Part B1 (TUM, SIT, Germany page)
+  built 12 October 2026, waiting for approval; B2 (six universities) next
 
 Phase 8 — Data found by the design audit
 
@@ -203,6 +204,14 @@ Owner tasks — not AI work
   **German chosen 12 October 2026:** all nine decisions in `docs/tasks/content-2027/germany-model-decision.md` as
   recommended: the KMK floor (24) with rows, German for German-taught programmes, six universities to add, and TUM's two
   Singapore joint degrees moved to Singapore
+- [ ] Approve 7 Part B1's dry run (status, phase 7): TUM's 37 programs at 24 with the KMK rows, 4 new programs, Geodesy and
+  Geoinformation reported as discontinued, SIT added, and the two joint degrees moved to it. Confirm six borderline maths-HL calls:
+  HL for Agricultural and Horticultural Sciences, Forest Science, Bioeconomy, Landscape Architecture and Teaching (Scientific
+  Education); none for Management and Technology
+- [ ] Delete TUM's Geodesy and Geoinformation, or keep it (7 B1): closed to new applicants, replaced by Geodesy and Earth Observation;
+  nobody has saved it
+- [ ] TUM's pages and statutes name no intake (7 B1), so its 39 programs are stamped 2026: confirm the standing rules count for 2027,
+  or re-check when TUM dates them (as for Waterloo)
 - [x] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
   subject rows (status, phase 6). Approved and applied 10 October 2026, with their admit rates
 - [ ] Add images for the eleven US universities added in 6 (MIT, Harvard, Stanford, UC Berkeley, UCLA, Michigan, Purdue, NYU, Boston
@@ -653,6 +662,18 @@ not precision.
     admission-requirements page is a 404 (its programme list at `.../study/programmes-and-enrolment-modes/all-degree-programmes`
     answers).
   - **Answer curl:** Constructor, Leuphana, Freiburg, WHU and Bard College Berlin.
+- **Found in 7 (Part B1):**
+  - **TUM.** TUM's IB page is `tum.de/en/studies/application/application-info-portal/applicants-with-international-baccalaureate`.
+    Each programme page's "Required Language Proficiency" and "Admission Category" decide its rows and closing paragraph. A page
+    that says "is being transitioned into the new Bachelor's program ..." is closed to new applicants. TUM's aptitude-recommendation
+    statutes (SOV) say the result has no effect on admission (§ 7).
+  - **The maths-HL boundary.** The Bavarian recognition office's IB sheet,
+    `cms-cdn.lmu.de/media/lmu/downloads/studium/internationale-studierende/merkblatt-ib.pdf` (March 2026), lists which subject
+    groups need maths HL.
+  - **LMU.** Its Bioinformatics aptitude page is marked "nicht mehr aktuell": a local NC since winter 2022/23.
+  - **TUM Asia** (`tum-asia.edu.sg`) answers curl and gives each SIT joint degree's next intake and IB conditions.
+  - **SIT.** `singaporetech.edu.sg` serves scripts a 212-byte page and WebFetch nothing; the Internet Archive has its contact page.
+  - **Salzburg.** `plus.ac.at` answers curl.
 
 ---
 
@@ -3270,6 +3291,71 @@ changed.
 - **Owner, 12 October 2026: all nine as recommended.** Decision 3's borderline programmes come to the owner with
   Part B's dry run; ETH and Lausanne stay as they are until Switzerland's next refresh (decision 4 made no recommendation
   for them).
+
+#### Status, 12 October 2026 — Part B1 built (session 28); waiting for the owner's approval
+
+Data files: `scripts/programs/2027/technical-university-of-munich.ts` (edited in place, with its 8.1 note and campus comments; written
+by a generator in this session's scratchpad, `gen-tum.ts`) and `scripts/programs/2027/new-universities-7.ts` (SIT). Pages were read on
+12 October 2026.
+
+- **TUM's university-wide IB page** (`.../application-info-portal/applicants-with-international-baccalaureate`) applies the KMK
+  conditions, through a uni-assist VPD or a notice from Bavaria's recognition office (ZASt), and says "only an IB with German A as
+  Higher Level is recognized as proof of German language skills". Part A had missed it.
+- **Where maths HL applies.** The Bavarian recognition office's IB sheet (March 2026, on `cms-cdn.lmu.de`) names the subjects:
+  - **Maths HL needed:** maths and natural sciences (geosciences, environmental and nutrition sciences included) and technical
+    subjects (architecture, computer science, engineering, "Wirtschaft und Ingenieurwesen").
+  - **Maths SL enough:** medicine, psychology, humanities, social sciences, law, economics and sport.
+  - **Borderline, for the owner:** it calls its list "a selection", so six programs are the owner's call. Set to HL: Agricultural
+    and Horticultural Sciences, Forest Science, Bioeconomy, Landscape Architecture, Teaching (Scientific Education). Set to none:
+    Management and Technology.
+- **37 programs refreshed:**
+  - **Points and rows.** 24 points. A KMK science and a KMK social science row, both critical. Maths AA or AI at HL on maths, science
+    and technical programs. German A at HL (critical) on German-taught programs. German A or B at HL (not critical) on Aerospace and
+    Information Engineering, which also take A2 certificates. The January template rows are gone.
+  - **Engineering and Materials Science** is applied for at Salzburg under Austrian rules, so it has no rows ("checked, none
+    required"); its description says German B2.
+  - **Closing paragraph.** Each description ends with how TUM decides:
+    - open admission (14 programs);
+    - an aptitude assessment (16): the statute's weights, thresholds and second stage, plus the IB totals that pass or fail with 6s
+      in the weighted subjects, labelled as calculated;
+    - an aptitude recommendation (5), whose statutes say the result "hat keine Auswirkung auf den Hochschulzugang";
+    - LMU's local NC (Bioinformatics), Salzburg, or SIT's portal.
+  - **Stamps.** 2026: no TUM page names an intake. 2027 for the two SIT degrees (TUM Asia: "Next intake September 2027").
+- **4 new programs:**
+  - Geodesy and Earth Observation (English; Natural Sciences, as the fields rule files it).
+  - Sustainable Engineering for Materials and Processes (English; Straubing).
+  - Mechanical Engineering (German; Garching).
+  - Sport Science (German and English; Medicine & Health).
+- **Corrections to decision 7:**
+  - **Geodesy and Geoinformation is closed to new applicants.** "Being transitioned into the new Bachelor's program in Geodesy and
+    Earth Observation. New applications are only possible for Geodesy and Earth Observation." It is marked discontinued, for the
+    owner.
+  - **Bioeconomics is not added** for the same reason ("New applications are only possible for Bioeconomy").
+- **Dry run:** 37 change, 4 new, 1 discontinued, 0 fields-of-study warnings. The 39 programs stamped 2026 are listed as describing
+  an earlier intake.
+- **SIT (decision 8):**
+  - **The university.** `singaporetech.edu.sg` serves scripts a 212-byte page and WebFetch nothing, so SIT's entry comes from the
+    Internet Archive's copy of its contact page (15 August 2026) and the search index. It is public, in Singapore, with a phone
+    number and no admissions email. `add-universities.ts` dry run: 1 new.
+  - **The move.** It happens after the TUM apply, with a one-off script in the scratchpad (`move-sit.ts`; dry run checked): both
+    programs to SIT, renamed "(Joint Degree with TUM)", campus city cleared, with a backup, an Algolia sync and cleared caches.
+    A SIT data file then replaces their two TUM entries.
+- **Germany page:**
+  - The grade is truncated: 37 points give 1.8.
+  - The IB is German-language proof nationally only as the bilingual GIB; TUM accepts German A HL. The FAQ and its JSON-LD copy
+    both say so.
+  - 439 of 11,767 first-degree programs are taught mainly in English (HRK, winter 2025/26).
+  - Private universities: "The KMK subject conditions usually still apply", with Frankfurt School's sheet as the example.
+  - `lib/page-dates.ts` dates it 12 October 2026.
+- **Checks:** `tsc`, `eslint`, `prettier --check`, `npm test` (664 tests) and `run-all-tests.ts` pass. `npm run build` passes; the
+  Germany page stays static with a one-week revalidate.
+- **Apply order, after approval:**
+  1. `refresh.ts technical-university-of-munich --apply`.
+  2. `add-universities.ts .../new-universities-7.ts --apply`, then `sync-universities-algolia.ts`.
+  3. `move-sit.ts --apply`.
+  4. The SIT data file.
+  5. `field-inventory.ts` at 0 outliers.
+  6. Live checks.
 
 ---
 
