@@ -56,7 +56,8 @@ const refresh: RefreshFile = {
   checkedOn: '2026-10-12',
   programs: [
     {
-      status: 'new',
+      id: 'cmv5p3mue0000vw7m0uzbofso',
+      status: 'current',
       name: 'Agribusiness',
       description:
         'Would you like to study agribusiness and play an active role in shaping the future of the agricultural sector? The agricultural sector is booming, but global competition, increasing resource scarcity and rising consumer expectations are posing major challenges for farms. That is why companies urgently need specialists who are well-versed in current issues relating to the agricultural and food industry, rural development, sustainability management and agricultural policy. On the Agribusiness (B.A.) degree programme, you will acquire precisely this business expertise and key management skills, with a clear focus on the agricultural and food industry. You will learn how companies can successfully compete in the market in the face of growing quality demands on food and the increasing importance of logistics.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -80,7 +81,8 @@ const refresh: RefreshFile = {
         ' No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office\'s list (ZASt, March 2026). Unrestricted admission ("no Numerus Clausus"). Field by content: the rule names no discipline in "Agribusiness", the business of the agricultural and food industry.'
     },
     {
-      status: 'new',
+      id: 'cmv5p3n1i000cvw7m0u8e1z83',
+      status: 'current',
       name: 'Bioengineering',
       description:
         "Are you interested in studying bioengineering and fascinated by the exciting intersection of the natural sciences and engineering ? Biotechnology is present in countless aspects of our daily lives – from traditional products such as cheese, wine and bread to innovative detergents, cosmetics, biofuels and medicines. Those wishing to study bioengineering learn to understand precisely these biological processes and to apply them to the development of modern, forward-looking products. Our English-taught Bachelor’s programme at the Kleve campus offers a strongly science-oriented education. From the very start, the programme closely integrates biological and chemical subjects with technical disciplines. You will gain an understanding of all areas of what is known as ‘biotechnological colour theory ’: medical (red), agricultural (green) and industrial (white) biotechnology . As your studies progress, you will also have the opportunity to pursue individual areas of interest and specialise, for example, in plant biotechnology or industrial biotechnology. If you decide to study Bioengineering at Rhine-Waal University of Applied Sciences, you will benefit from intensive support in small study groups and the excellent facilities in our modern laboratories . With English as the language of instruction and fellow students from more than 60 countries, you will also be perfectly prepared for a career in an international environment from day one.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -104,7 +106,8 @@ const refresh: RefreshFile = {
         " Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published."
     },
     {
-      status: 'new',
+      id: 'cmv5p3n67000qvw7m9rs9d32x',
+      status: 'current',
       name: 'Engineering',
       description:
         'The Bachelor’s degree programme in Engineering gives you the opportunity to develop high-tech solutions and shape the technologies of the future. Whether it’s robotics, electronics or information and communication technology, or a combination with a focus on economics leading to a degree in Business Engineering – with us, you’ll find the specialisation that suits your interests!\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -128,7 +131,8 @@ const refresh: RefreshFile = {
         ' Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Unrestricted admission ("no Numerus Clausus").'
     },
     {
-      status: 'new',
+      id: 'cmv5p3nd50014vw7mq7qpwmwd',
+      status: 'current',
       name: 'Engineering for Sustainability',
       description:
         "Would you like to combine technology with environmental awareness? Would you like to work on projects in laboratories right from your first semester? Can you do without traditional lectures and seminars? Then you’ve come to the right place! This degree programme will prepare you for careers in sustainable product development, environmental technologies or international projects. It is aimed at anyone who wants to approach engineering in a holistic and forward-looking way.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -152,7 +156,8 @@ const refresh: RefreshFile = {
         " Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published."
     },
     {
-      status: 'new',
+      id: 'cmv5p3nhv001ivw7mx26lcz0d',
+      status: 'current',
       name: 'Environment and Energy',
       description:
         'Do you want to help protect the environment? Are you fascinated by the natural sciences? Then consider a degree in Environment and Energy. In this degree programme you’ll study and do research in a deeply interdisciplinary environment that weaves together environmental sciences, energy technology, economics and more. Against this backdrop, the focus of your studies will be on renewable energy, sustainability and effective environmental protection measures. With a Bachelor of Science in Environment and Energy you’re qualified to work for environmental protection and monitoring organisations, in industry and in the renewable energy sector.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -176,7 +181,8 @@ const refresh: RefreshFile = {
         ' Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Unrestricted admission ("no Numerus Clausus"). Campus: Kamp-Lintfort (program page).'
     },
     {
-      status: 'new',
+      id: 'cmv5p3nmb001wvw7m1zrfqwhd',
+      status: 'current',
       name: 'Gender and Diversity',
       description:
         'Study alongside like-minded people who share your enthusiasm for diversity, and play an active role in shaping society. With its interdisciplinary and international focus, our degree opens up a wide range of career and academic opportunities for you.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -200,7 +206,8 @@ const refresh: RefreshFile = {
         ' No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office\'s list (ZASt, March 2026). Unrestricted admission ("no Numerus Clausus"). Field by content: the rule names no discipline in "Gender and Diversity", a social science program.'
     },
     {
-      status: 'new',
+      id: 'cmv5p3nt30028vw7my6u5wy3h',
+      status: 'current',
       name: 'Information and Communication Design',
       description:
         'Do you love developing ideas and making them come alive? Then Information and Communication Design is the right choice for you. Here you’ll study not only fundamental visualisation techniques such as illustration and photography, but also advanced subjects like interaction design, editorial design and identity design. Our greatest passions are the new and the visionary. During your studies, you’ll be tasked with numerous personal design projects, each one an opportunity to take your ideas from the drawing board to reality using your growing skills and knowhow. This type of approach provides the perfect preparation for a later career in the design world, whether at an agency or as an independent designer.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -224,7 +231,8 @@ const refresh: RefreshFile = {
         ' No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office\'s list (ZASt, March 2026). Unrestricted admission ("no Numerus Clausus"). Campus: Kamp-Lintfort (program page).'
     },
     {
-      status: 'new',
+      id: 'cmv5p3nxg002kvw7mgc8fgobx',
+      status: 'current',
       name: 'Infotronic Systems Engineering',
       description:
         "If you’re interested in the cutting edge and enjoy solving complex puzzles involving technology, then Infotronic (= informatics + electronics) Systems Engineering is for you. Here you’ll cut your teeth on a wide range of data collection systems and their uses, studying computer science, data processing, electrical technology and signal processing technology along the way. At the end of this challenging path stands an engineer who can effectively plan and build complex, interconnected systems.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -248,7 +256,8 @@ const refresh: RefreshFile = {
         " Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published. Campus: Kamp-Lintfort (program page)."
     },
     {
-      status: 'new',
+      id: 'cmv5p3o20002yvw7m0dliyff6',
+      status: 'current',
       name: 'International Business Administration',
       description:
         "Are you interested in global economics and international issues? Do you want to study in English and have a knack for analytical thinking and problem solving? Then study International Business Administration! In this degree programme you’ll learn how to navigate incredibly complex national and international markets and lead companies to economic success.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -273,7 +282,8 @@ const refresh: RefreshFile = {
         " No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office's list (ZASt, March 2026). Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published. Campus: Kamp-Lintfort (program page)."
     },
     {
-      status: 'new',
+      id: 'cmv5p3o8u003avw7m0u4s5ovs',
+      status: 'current',
       name: 'International Business and Management',
       description:
         "On the International Business and Management degree programme, we foster methodological, social and future-oriented skills (e.g. data literacy, critical thinking) and develop our students into generalists who can respond flexibly to changing market demands.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -298,7 +308,8 @@ const refresh: RefreshFile = {
         " No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office's list (ZASt, March 2026). Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published."
     },
     {
-      status: 'new',
+      id: 'cmv5p3odm003mvw7mxglo1mg5',
+      status: 'current',
       name: 'International Relations',
       description:
         "With us, you’ll study politics, economics and law in an international context. Seize this opportunity: start your English-taught Bachelor’s degree in International Relations, kick-start your international career and play an active role in shaping the future.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -322,7 +333,8 @@ const refresh: RefreshFile = {
         " No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office's list (ZASt, March 2026). Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published."
     },
     {
-      status: 'new',
+      id: 'cmv5p3ok1003yvw7ma3ngkdws',
+      status: 'current',
       name: 'International Taxation and Law',
       description:
         'The International Taxation and Law degree programme aims to provide students with the best possible preparation for future developments through practice-oriented teaching and close collaboration with tax and other professional advisers in the SME sector, as well as with the ‘Big Four’ firms both in Germany and abroad.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -346,7 +358,8 @@ const refresh: RefreshFile = {
         ' No maths HL: a subject outside maths, science and engineering in the Bavarian recognition office\'s list (ZASt, March 2026). Unrestricted admission ("no Numerus Clausus").'
     },
     {
-      status: 'new',
+      id: 'cmv5p3ooe004avw7mmq7bfgd3',
+      status: 'current',
       name: 'Mobility and Logistics',
       description:
         "Are you the kind of person who wants to move not just the little things around, but the big things, too? Then study Mobility and Logistics. Learn how to improve the transport of freight and people and explore innovative ways to enhance production and distribution processes! Imagine using the latest, sustainable technologies to make travel easier and more comfortable or manufacturing and transportation processes more robust and resilient. We’ll teach you how to plan and manage modern logistics systems, supply chains, and transportation effectively so that, as a graduate, you can not only help ensure regional logistics centres thrive in the future, but also contribute to solving thrilling and complex logistical puzzles of global importance.\n\nHow HSRW decides: places are limited and, when there are more applicants than places, allocated under the rules of North Rhine-Westphalia, often by your final grade, through hochschulstart's Dialogue-Oriented Service Procedure. HSRW publishes no cut-off. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.",
@@ -370,7 +383,8 @@ const refresh: RefreshFile = {
         " Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Restricted admission, allocated through hochschulstart's DoSV (HSRW's bachelor's application page); no cut-off published. Campus: Kamp-Lintfort (program page). Field by content, for the owner: the rule names no discipline in \"Mobility and Logistics\", which plans and manages transport and production systems with sustainable technologies; filed under Engineering, with maths HL as a technical subject."
     },
     {
-      status: 'new',
+      id: 'cmv5p3osw004ovw7mwxtxwjxq',
+      status: 'current',
       name: 'Nature-Inspired Materials',
       description:
         'Are you interested in the natural sciences and keen to develop sustainable materials or find innovative solutions for recycling? On the Nature-Inspired Materials degree programme, you’ll study in state-of-the-art laboratories and, after gaining a broad foundation in the subject, you can specialise in one of three exciting areas: Biomaterials specialisation: Focus on the interfaces between materials and biological systems, bio-derived materials and nature-inspired innovations. Material Technology specialisation: Focus on the technical development and production of new materials.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -394,7 +408,8 @@ const refresh: RefreshFile = {
         ' Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Unrestricted admission ("no Numerus Clausus"). Field by content: the rule names no discipline in "Nature-Inspired Materials", which "combines chemistry, materials science and biology with engineering".'
     },
     {
-      status: 'new',
+      id: 'cmv5p3ozi0052vw7mdg48i1th',
+      status: 'current',
       name: 'Sustainable Agriculture',
       description:
         'How can the agricultural sector successfully transition to sustainable farming? If you wish to study Sustainable Agriculture , you will be addressing precisely this pressing issue for the future. Global competition, increasing resource scarcity and climate change pose immense challenges to traditional agricultural production systems worldwide. Our English-taught Bachelor’s programme in Sustainable Agriculture (B.Sc.) at the Kleve campus focuses on the ecological design of agricultural and horticultural production. This wide-ranging programme combines subjects from the natural, economic and social sciences with technical disciplines such as precision farming and urban farming. If you decide to study Sustainable Agriculture at Rhine-Waal University of Applied Sciences, you will benefit from interdisciplinary projects, practical field trips and a strong international focus. This will provide you with the best possible preparation for developing solutions and optimisation concepts for the global agricultural economy of tomorrow.\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
@@ -418,7 +433,8 @@ const refresh: RefreshFile = {
         ' Maths HL: a natural science or technical subject; the KMK applies the maths rule at universities of applied sciences too. Unrestricted admission ("no Numerus Clausus"). Maths HL as for TUM\'s agricultural sciences (owner, 12 October 2026).'
     },
     {
-      status: 'new',
+      id: 'cmv5p3p3z005gvw7mevfra4mf',
+      status: 'current',
       name: 'Sustainable Tourism',
       description:
         'The Sustainable Tourism degree programme will equip you to become a change agent in the tourism sector and provide you with in-depth knowledge in the fields of tourism, sustainable development, economics, sociology and ecology\n\nHow HSRW decides: open admission. Every applicant whose qualification is recognised is admitted, with no numerus clausus. Teaching is in English (B2), with no German required. International applicants apply through uni-assist by 15 July.',
