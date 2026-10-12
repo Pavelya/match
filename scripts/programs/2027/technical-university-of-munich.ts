@@ -27,8 +27,8 @@ import type { RequirementDef } from '../lib/requirements-diff'
  * Engineering. Each description ends with how TUM decides, from the program's page and its statute. The template
  * rows of January 2026 (36/38 points, German B HL 5 on every program) had no TUM source and are gone.
  *
- * Stamped 2026: TUM's pages and statutes name no intake. The SIT joint degrees are stamped 2027 (TUM Asia: "Next
- * intake September 2027"); after the apply they move to the Singapore Institute of Technology (decision 8). Geodesy
+ * Stamped 2026: TUM's pages and statutes name no intake. The SIT joint degrees, stamped 2027 (TUM Asia: "Next
+ * intake September 2027"), moved to the Singapore Institute of Technology on 12 October 2026 (decision 8). Geodesy
  * and Geoinformation is closed to new applicants and reported as discontinued; Bioeconomics (decision 7) is not added,
  * as its page says "New applications are only possible for Bioeconomy".
  *
@@ -47,9 +47,6 @@ const ZAST =
   'https://cms-cdn.lmu.de/media/lmu/downloads/studium/internationale-studierende/merkblatt-ib.pdf'
 const SOURCES = [IB_PAGE, LANGUAGE_PAGE, KMK_AGREEMENT, ZAST]
 
-const TUM_ASIA_CHE = 'https://tum-asia.edu.sg/undergraduate-studies/chemical-engineering/'
-const TUM_ASIA_EDDE =
-  'https://tum-asia.edu.sg/undergraduate-studies/electronics-and-data-engineering/'
 const SALZBURG_ADMISSION =
   'https://www.plus.ac.at/studium/vor-dem-studium-3/zulassungsvoraussetzungen/bachelorstudium/?lang=en'
 const SALZBURG_PROGRAM =
@@ -97,9 +94,6 @@ const GERMAN_A_OR_B_HL: RequirementDef = {
 
 const NOTES =
   "Content 7 (Part B1, 12 October 2026): German model (a), owner, 12 October 2026. minIBPoints 24: the KMK's IB agreement (as amended 15 June 2023) recognises the Diploma with a 4 or better in all six subjects; TUM's IB page applies it, through a uni-assist VPD or a ZASt notification. Rows: a KMK science and a KMK social science (critical). Not modelled: the KMK's HL rule (a language, maths or a science at HL), the grade-3 offset, the language pair, and the 348 schools whose maths SL counts as HL. The stored 36/38 and the German B HL 5, Maths HL 5 and Physics HL 5 rows came from the January 2026 field templates (commit fe15f2d) and had no TUM source. Stamped 2026: the program page, the IB page and the statute name no intake (TUM's dates page lists winter semester 2027/28 lecture dates, not requirements). The description ends with how TUM decides: update it when TUM amends the statute."
-
-const SIT_NOTES =
-  "Content 7 (Part B1, 12 October 2026): joint degree of TUM and the Singapore Institute of Technology, taught in Singapore and applied for through SIT's portal. TUM Asia's program page states the IB conditions (the KMK's, with maths at HL) and the next intake, September 2027, so stamped 2027. minIBPoints 24 and the KMK rows as for TUM. After the apply it moves to SIT (decision 8)."
 
 const EMS_NOTES =
   "Content 7 (Part B1, 12 October 2026): joint degree with the University of Salzburg, applied for and enrolled at Salzburg under Austrian rules. Checked, none required: Salzburg accepts the IB Diploma (24) for EU and EEA applicants, sets no numerus clausus, and asks for German at B2, which the description says. Stamped 2026: Salzburg's pages name no intake."
@@ -351,33 +345,8 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL: a technical subject in the Bavarian recognition office\'s list (ZASt, March 2026: "Technische Fächer"). Aptitude assessment from the statute: 50% converted grade, 50% subject grades (maths (×3) and your best science (×2)); pass 80, refused at or below 64; second stage an interview. The paragraph\'s IB figures are calculated: KMK grade truncated, IB subject grades on Annex 2 formula 3 (7 = 100, 4 = 40), no extra points.'
     },
-    // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Engineering (B.Eng.)".
-    {
-      id: 'cmkraexci003d7mjvujybfiyj',
-      status: 'current',
-      name: 'Chemical Engineering (Joint Degree with SIT)',
-      description: described(
-        'Jointly awarded by TUM and Singapore Institute of Technology (SIT), the Bachelor of Engineering with Honours in Chemical Engineering is a four-year degree program. This joint degree equips students with relevant Industry 4.0 skillsets to thrive in the local and global chemical industry.',
-        "How it is decided: you apply through the Singapore Institute of Technology's portal, from mid-January to mid-March, for the September 2027 intake. TUM Asia, which teaches the program with SIT, applies Germany's IB conditions, with maths at HL. Teaching is in English, in Singapore."
-      ),
-      field: 'Engineering',
-      degree: 'Bachelor of Engineering',
-      duration: '4 years',
-      campusCity: 'Singapore',
-      minIBPoints: 24,
-      programUrl:
-        'https://www.tum.de/en/studies/degree-programs/detail/chemical-engineering-bachelor-of-engineering-beng',
-      requirements: [MATHS_HL, KMK_SCIENCE, KMK_SOCIAL_SCIENCE],
-      checkedFor: 2027,
-      sources: [
-        'https://www.tum.de/en/studies/degree-programs/detail/chemical-engineering-bachelor-of-engineering-beng',
-        TUM_ASIA_CHE,
-        KMK_AGREEMENT
-      ],
-      notes:
-        SIT_NOTES +
-        ' Maths HL: TUM Asia\'s IB conditions for the joint degree ("1 Mathematics subject in HL").'
-    },
+    // Chemical Engineering (Joint Degree with SIT): moved to the Singapore Institute of Technology on 12 October 2026 (decision 8), with its id;
+    // see singapore-institute-of-technology.ts.
     // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Science (B.Sc.)".
     {
       id: 'cmkrafddd00fl7mjv9uyk4bkg',
@@ -454,33 +423,8 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL: a technical subject in the Bavarian recognition office\'s list (ZASt, March 2026: "Technische Fächer").'
     },
-    // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Engineering (B.Eng.)".
-    {
-      id: 'cmkraezlf00517mjvalf8bv2n',
-      status: 'current',
-      name: 'Electronics and Data Engineering (Joint Degree with SIT)',
-      description: described(
-        'Jointly awarded by TUM and Singapore Institute of Technology (SIT), the Bachelor of Engineering with Honours in Electronics and Data Engineering is a four-year degree programme. This programme is aimed to equip students with the necessary skills and competencies in the emerging digital workforce.',
-        "How it is decided: you apply through the Singapore Institute of Technology's portal, from mid-January to mid-March, for the September 2027 intake. TUM Asia, which teaches the program with SIT, applies Germany's IB conditions, with maths at HL. Teaching is in English, in Singapore."
-      ),
-      field: 'Engineering',
-      degree: 'Bachelor of Engineering',
-      duration: '4 years',
-      campusCity: 'Singapore',
-      minIBPoints: 24,
-      programUrl:
-        'https://www.tum.de/en/studies/degree-programs/detail/electronics-and-data-engineering-bachelor-of-engineering-beng',
-      requirements: [MATHS_HL, KMK_SCIENCE, KMK_SOCIAL_SCIENCE],
-      checkedFor: 2027,
-      sources: [
-        'https://www.tum.de/en/studies/degree-programs/detail/electronics-and-data-engineering-bachelor-of-engineering-beng',
-        TUM_ASIA_EDDE,
-        KMK_AGREEMENT
-      ],
-      notes:
-        SIT_NOTES +
-        ' Maths HL: TUM Asia\'s IB conditions for the joint degree ("1 Mathematics subject in HL").'
-    },
+    // Electronics and Data Engineering (Joint Degree with SIT): moved to the Singapore Institute of Technology on 12 October 2026 (decision 8), with its id;
+    // see singapore-institute-of-technology.ts.
     // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Science (B.Sc.)".
     {
       id: 'cmkraf0pq005v7mjvjcpc13si',
@@ -1110,9 +1054,10 @@ const refresh: RefreshFile = {
         NOTES +
         " Maths HL, for the owner: teacher training is not in the Bavarian recognition office's list (ZASt, March 2026); this program trains teachers of maths and the sciences."
     },
-    // Content 7 B1, 12 October 2026: new. Replaces Geodesy and Geoinformation.
+    // Content 7 B1, 12 October 2026: created. Replaces Geodesy and Geoinformation.
     {
-      status: 'new',
+      id: 'cmv5mpbrb00egcw7mu6bqmmz1',
+      status: 'current',
       name: 'Geodesy and Earth Observation',
       description: described(
         'Whether it’s land use, environmental risk management, or space exploration: spatial data are required for a wide range of societal, scientific, and economic applications. This program provides the skills needed to acquire, analyse, and apply geoinformation using modern technologies.',
@@ -1135,9 +1080,10 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL: a natural science in the Bavarian recognition office\'s list (ZASt, March 2026: "Mathematik und Naturwissenschaften"). Aptitude recommendation (SOV): the statute says its result "hat keine Auswirkung auf den Hochschulzugang".'
     },
-    // Content 7 B1, 12 October 2026: new. Offered for winter semester entry; not stored before.
+    // Content 7 B1, 12 October 2026: created. Offered for winter semester entry; not stored before.
     {
-      status: 'new',
+      id: 'cmv5mpbw900eucw7m425zxksm',
+      status: 'current',
       name: 'Sustainable Engineering for Materials and Processes',
       description: described(
         'Sustainability starts with the foundations of our industry – materials and production processes. The English-taught Bachelor’s program Sustainable Engineering for Materials and Processes (B.Sc.) trains experts who rethink materials and manufacturing: resource-efficient, recyclable, and future-ready.',
@@ -1161,9 +1107,10 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL: a technical subject in the Bavarian recognition office\'s list (ZASt, March 2026: "Technische Fächer"). Aptitude recommendation (SOV): the statute says its result "hat keine Auswirkung auf den Hochschulzugang".'
     },
-    // Content 7 B1, 12 October 2026: new. Offered for winter semester entry; not stored before.
+    // Content 7 B1, 12 October 2026: created. Offered for winter semester entry; not stored before.
     {
-      status: 'new',
+      id: 'cmv5mpc0t00f8cw7ml9ut8ch0',
+      status: 'current',
       name: 'Mechanical Engineering',
       description: described(
         'Mechanical and plant engineering is a pillar of the German economy and one of its key drivers of innovation. Students of the Mechanical Engineering program learn to develop innovative and sustainable technical solutions in mechanical engineering based on natural sciences and engineering.',
@@ -1187,9 +1134,10 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL: a technical subject in the Bavarian recognition office\'s list (ZASt, March 2026: "Technische Fächer"). Aptitude assessment from the statute: 65% converted grade, 35% subject grades (maths (×3), German and your best science or computer science (×2)); pass 72, refused at or below 64; second stage an interview. The paragraph\'s IB figures are calculated: KMK grade truncated, IB subject grades on Annex 2 formula 3 (7 = 100, 4 = 40), no extra points.'
     },
-    // Content 7 B1, 12 October 2026: new. Offered for winter semester entry; not stored before.
+    // Content 7 B1, 12 October 2026: created. Offered for winter semester entry; not stored before.
     {
-      status: 'new',
+      id: 'cmv5mpc7v00focw7m0rwub138',
+      status: 'current',
       name: 'Sport Science',
       description: described(
         'The interdisciplinary Bachelor’s degree program in Sport Science is dedicated to the holistic understanding of the human body in the context of physical activity and sport.',
