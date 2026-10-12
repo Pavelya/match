@@ -50,6 +50,8 @@ Switzerland's next refresh.
   TUM programs it does not name go to the owner with the dry run.
 - **Decision 7.** Bioeconomics is not added: TUM's page says "New applications are only possible for Bioeconomy". Stored Geodesy and
   Geoinformation is closed the same way, replaced by Geodesy and Earth Observation, and reported as discontinued.
+- **Decision 6 (Part B2).** Constructor and Bard College Berlin publish no minimum and admit holistically, so they follow the content 6
+  convention (no IB minimum) rather than the KMK's 24. This is for the owner to confirm with B2's dry run.
 
 | # | Decision | Recommended, and chosen |
 |---|---|---|
