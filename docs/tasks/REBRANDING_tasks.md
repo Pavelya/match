@@ -225,7 +225,7 @@ theme switch are in D1.4.
 |---|---|---|---|
 | D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner, which stays (owner, 10 October 2026) | |
 | D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
-| D4.3 First run, step 1: interests | Phone, light | Desktop, dark | |
+| D4.3 First run, step 1: interests | Phone, light | Desktop, dark; first run reached from Save on a program (3.1, owner, 12 October 2026): whether the steps name the program they'll save at the end, and the message back on the program once it is saved | |
 | D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
 | D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing | |
 | D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
@@ -263,7 +263,7 @@ merges into `main`, behind the preview switch.**
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
-| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | |
+| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | Also: a new account that pressed Save goes through first run, then back to save the program (owner, 12 October 2026) |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
 | 14 | Home | 4.1 | D4.1 | medium | |
@@ -1393,10 +1393,10 @@ Departures and hand-offs:
 - **The university page doesn't know whether a student has grades**, so signed in it always says
   "See which ones you qualify for": telling them apart needs a profile read the page doesn't make.
   Without grades, Explore shows its own "Add your grades" link in the switch's place.
-- **Open for the owner: Save from a brand-new account.** Profiles are made by the first run, so a
-  visitor who presses Save and signs up comes back with no profile, and the save fails with "Signed
-  in, but Computer Science wasn't saved." Either send a new account through the first run before
-  saving, or let the save create the profile; both are their own task.
+- **Save from a brand-new account: decided 12 October 2026 (owner).** Profiles are made by the
+  first run, so a visitor who presses Save and signs up comes back with no profile, and for now the
+  save fails with "Signed in, but Computer Science wasn't saved." New accounts will go through the
+  first run first, then back to the program, which saves it: a must-have of 3.1 (session 11).
 - **Today's design keeps Next's bare 404 for a missing program.** A not-found page in the segment
   renders inside the programs layout, which in today's design would add today's header around it;
   `app/programs/[id]/layout.tsx` sends today's 404 to the root's instead, using the request's one
@@ -1451,6 +1451,20 @@ step 1" and "step 2".
   (audit 1.3).
 - Field descriptions are `FIELD_DESCRIPTIONS` in `lib/programs/fields-of-study.ts` (`CONTENT_tasks.md` 8.1,
   done), stored in `FieldOfStudy.description`. Each names its own field's disciplines only; keep it so.
+- **Save from a new account goes through first run, then saves (owner, 12 October 2026).** A visitor
+  who presses Save on a program (2.4) and signs up comes back before first run has made a profile,
+  so today's 2.4 save fails ("Signed in, but Computer Science wasn't saved."). Instead:
+  - The program page (`app/programs/[id]/NewProgramPage.tsx`), signed in with `?save=1` while first
+    run is unfinished (the `/student` rule: no profile, no fields or no total, all in the profile read
+    it makes already), redirects to `/student/onboarding?return=` the program with `?save=1`, rather
+    than trying the save.
+  - First run keeps `return` through its steps and drafts, checked with `returnPath`
+    (`lib/auth/callback-url.ts`). When the last step saves the profile, it goes there instead of
+    Matches; without one it ends at Matches, as today. "Save and exit" still goes to Home (D2.12).
+  - Until 3.2 rebuilds step 3, the last step is today's (`FieldSelectorClient.tsx`). Today's design
+    never sets `return`, so it is unchanged.
+  - Back on the program, the page saves it as for any signed-in student. What first run says about
+    the waiting program, and the message once it is saved, are drawn on D4.3.
 
 ### 3.2 — Subject editor
 
@@ -1467,6 +1481,8 @@ run, step 3".
 - Diploma checks through the shared helpers from `MAINT_tasks.md` 5.8 (core points, E blocks saving)
   and 5.13 (3 or 4 HL subjects). Messages match the disabled save button (audit 5.6).
 - Lucide icons for TOK and the EE; no emoji (audit 2.7).
+- **Keep first run's return address** (3.1, owner, 12 October 2026): the last step goes to `return`
+  when there is one, else Matches.
 
 ### 3.3 — Academic profile and settings
 
