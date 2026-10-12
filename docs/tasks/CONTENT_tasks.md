@@ -211,7 +211,8 @@ Owner tasks — not AI work
 - [ ] Approve 7 Part B2's dry run (status, phase 7): six universities (`new-universities-8.ts`) and 46 English-taught programs in six
   files. Confirm three calls: Constructor and Bard College Berlin publish no minimum and admit holistically, so they have no IB
   minimum (null, the content 6 convention) rather than the KMK's 24; Freiburg's Liberal Arts and Sciences has no maths HL row (it
-  awards a BA or a BSc by major); Rhine-Waal's Mobility and Logistics is filed under Engineering with maths HL
+  awards a BA or a BSc by major); Rhine-Waal's Mobility and Logistics is filed under Engineering with maths HL. **The three calls
+  were confirmed by the owner, 12 October 2026**; the dry run waits for approval
 - [ ] Add images for the six universities added in 7 B2 (Constructor, Leuphana, Rhine-Waal, Freiburg, WHU, Bard College Berlin) in
   `/admin/universities`, then check their programs' Algolia records (standing context)
 - [x] Delete TUM's Geodesy and Geoinformation, or keep it (7 B1): closed to new applicants, replaced by Geodesy and Earth Observation;
@@ -3412,7 +3413,7 @@ by a generator in this session's scratchpad (`gen-b2.py`). Pages were read on 12
   - **Left out:** Constructor's online-only Applied Computer Science, and every German-taught program.
   - **Two Constructor programs** (Artificial Intelligence, Computer and Information Technology) expect accreditation in spring 2027, and
     their descriptions say so.
-- **No IB minimum for Constructor and Bard, for the owner.** Both publish no minimum and admit holistically, so they follow the content 6
+- **No IB minimum for Constructor and Bard** (confirmed by the owner, 12 October 2026, with the other two calls). Both publish no minimum and admit holistically, so they follow the content 6
   convention (null), not the KMK's 24:
   - Constructor: "we do not have any particular minimum grade requirement", and no required subjects; the SAT or ACT only at enrollment
     when a diploma gives no direct German access.
