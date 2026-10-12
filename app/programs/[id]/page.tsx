@@ -9,12 +9,16 @@
  * This page is for students viewing their own matches or public program browsing.
  */
 
-import { cache } from 'react'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { PageContainer } from '@/components/layout/PageContainer'
 import { ProgramDetailClient } from './ProgramDetailClient'
+import { getProgram, type ProgramPageData } from './program'
+import { NewProgramPage } from './NewProgramPage'
+import { breadcrumbJsonLd, programTrail } from '@/components/detail/trail'
+import { showsNewUi } from '@/lib/new-ui'
+import { serializeJsonLd } from '@/lib/utils'
 import { calculateMatch } from '@/lib/matching'
 import { transformStudent, transformProgram } from '@/lib/matching/transformers'
 import type { MatchResult } from '@/lib/matching/types'
@@ -30,56 +34,10 @@ interface PageProps {
   params: Promise<{ id: string }>
 }
 
-// One read per render, shared by generateMetadata and the page: React's cache
-// memoises it for the rest of the request. Selected, not included - `include`
-// returned every University column, and University.logo can hold an inline
-// base64 image (365KB for Toronto), so every render of one of its programs moved
-// that logo twice without ever showing it. Keep this to the fields read below.
-const getProgram = cache((id: string) =>
-  prisma.academicProgram.findUnique({
-    where: { id },
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      degreeType: true,
-      duration: true,
-      campusCity: true,
-      minIBPoints: true,
-      programUrl: true,
-      requirementsEntryYear: true,
-      university: {
-        select: {
-          id: true,
-          name: true,
-          abbreviatedName: true,
-          image: true,
-          imageCredit: true,
-          city: true,
-          websiteUrl: true,
-          country: {
-            select: { id: true, name: true, code: true, flagEmoji: true }
-          }
-        }
-      },
-      fieldOfStudy: {
-        select: { id: true, name: true, iconName: true, description: true }
-      },
-      courseRequirements: {
-        select: {
-          id: true,
-          requiredLevel: true,
-          minGrade: true,
-          isCritical: true,
-          orGroupId: true,
-          ibCourse: {
-            select: { id: true, name: true, code: true, group: true }
-          }
-        }
-      }
-    }
-  })
-)
+/** The site's address, for the breadcrumb structured data */
+function siteUrl() {
+  return process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
+}
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params
@@ -331,20 +289,47 @@ export default async function ProgramDetailPage({ params }: PageProps) {
 
   // Check if user is logged in and get student profile for matching
   const session = await auth()
+
+  // Both designs send the same structured data (rebranding 2.4, Definition of done 12)
+  const jsonLdScript = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(programJsonLd(program)) }}
+    />
+  )
+
+  // The new design (rebranding 2.4) reads the student's profile itself, narrowly
+  if (await showsNewUi()) {
+    const trail = programTrail(program.university.country, program.university)
+    return (
+      <>
+        {jsonLdScript}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(trail, siteUrl())) }}
+        />
+        <NewProgramPage program={program} trail={trail} userId={session?.user?.id ?? null} />
+      </>
+    )
+  }
+
   let matchResult: MatchResult | null = null
   let studentProfile = null
 
   if (session?.user?.id) {
+    // Only what matching and the card read: an include returned every column of the profile,
+    // its courses and its choices
     studentProfile = await prisma.studentProfile.findUnique({
       where: { userId: session.user.id },
-      include: {
+      select: {
+        totalIBPoints: true,
+        tokGrade: true,
+        eeGrade: true,
         courses: {
-          include: {
-            ibCourse: true
-          }
+          select: { level: true, grade: true, ibCourse: { select: { id: true, name: true } } }
         },
-        preferredFields: true,
-        preferredCountries: true
+        preferredFields: { select: { id: true, name: true } },
+        preferredCountries: { select: { id: true, name: true } }
       }
     })
 
@@ -413,8 +398,22 @@ export default async function ProgramDetailPage({ params }: PageProps) {
       }
     : null
 
-  // JSON-LD structured data for SEO and AI search (Task 2.1: Enhanced with Course schema)
-  const jsonLd = {
+  return (
+    <PageContainer>
+      {jsonLdScript}
+      <ProgramDetailClient
+        program={programForCard}
+        matchResult={matchResult ?? undefined}
+        studentProfile={studentProfileForCard}
+        isLoggedIn={!!session?.user?.id}
+      />
+    </PageContainer>
+  )
+}
+
+/** JSON-LD structured data for SEO and AI search (Task 2.1: Enhanced with Course schema) */
+function programJsonLd(program: ProgramPageData) {
+  return {
     '@context': 'https://schema.org',
     '@type': 'EducationalOccupationalProgram',
     name: program.name,
@@ -482,19 +481,4 @@ export default async function ProgramDetailPage({ params }: PageProps) {
         }
       : undefined
   }
-
-  return (
-    <PageContainer>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <ProgramDetailClient
-        program={programForCard}
-        matchResult={matchResult ?? undefined}
-        studentProfile={studentProfileForCard}
-        isLoggedIn={!!session?.user?.id}
-      />
-    </PageContainer>
-  )
 }

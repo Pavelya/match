@@ -21,10 +21,14 @@ import {
 import {
   compareLevelGrades,
   formatLevelGrades,
+  groupRequirements,
   type LevelGrade,
-  type RequirementOption
+  type RequirementGroup,
+  type RequirementOption,
+  type RequirementRow
 } from '@/lib/programs/requirement-groups'
 import { currentEntryYear, requirementsCheck } from '@/lib/programs/entry-year'
+import { shortCourseName } from '@/lib/ib/course-names'
 
 /** An either/or lists up to eight courses in its row; more open from "All N options" (D3.2). */
 export const LISTED_COURSES = 8
@@ -152,8 +156,14 @@ function pointsRow(input: WhyInput): WhyRow {
   }
 }
 
+/** What the points row says about admit rates, for a program with no minimum */
+type AdmitRates = Pick<
+  WhyInput,
+  'universityName' | 'admitRate' | 'internationalAdmitRate' | 'admitRateYear'
+>
+
 /** "Holistic admission. MIT admitted 4.6% of first-year applicants for fall 2025." */
-function holisticDetail(input: WhyInput): string {
+function holisticDetail(input: AdmitRates): string {
   if (input.admitRate == null) return 'Holistic admission.'
   const year = input.admitRateYear ? ` for fall ${input.admitRateYear}` : ''
   const international =
@@ -198,27 +208,81 @@ function subjectRow(facts: SubjectFacts): WhyRow {
   }
 
   // Not taken: the requirement is named by its courses, or counted when there are many
+  return { ...namedByCourses(group, courseCount), kind: 'gap', reason: reason(facts) }
+}
+
+/** A requirement named by the courses it accepts, or counted past eight, with nobody's grades */
+function namedByCourses(group: RequirementGroup, courseCount: number): WhyRow {
   const [first, ...rest] = group.options
-  if (!listed) {
+  if (courseCount > LISTED_COURSES) {
     return {
-      kind: 'gap',
+      kind: 'info',
       type: 'subject',
       name: `One of ${courseCount} courses`,
       needed: formatLevelGrades(unionLevelGrades(group.options)),
       you: null,
-      reason: reason(facts),
       options: optionGroups(group.options, null, courseCount)
     }
   }
   return {
-    kind: 'gap',
+    kind: 'info',
     type: 'subject',
     name: listCourses(first.courses.map((c) => c.name)),
     needed: formatLevelGrades(first.levelGrades),
     you: null,
-    reason: reason(facts),
     detail: rest.length > 0 ? `or ${describeOptions(rest)}` : undefined
   }
+}
+
+export interface RequirementsInput extends AdmitRates {
+  minIBPoints: number | null
+  /** The program's requirement rows, as its page selects them */
+  requirements: RequirementRow[]
+}
+
+/**
+ * The requirement checklist without grades to check (D3.4): signed out, or signed in before
+ * adding any. The same rows as "Why this match", in the order the program lists them, with no
+ * status and no "You": the points, then each requirement named by its courses.
+ */
+export function requirementRows(input: RequirementsInput): WhyRow[] {
+  const points: WhyRow = input.minIBPoints
+    ? {
+        kind: 'info',
+        type: 'points',
+        name: 'IB Diploma points',
+        needed: String(input.minIBPoints),
+        you: null
+      }
+    : {
+        kind: 'info',
+        type: 'points',
+        name: 'IB Diploma points',
+        needed: 'No minimum',
+        you: null,
+        detail: holisticDetail(input)
+      }
+  const groups = groupRequirements(
+    input.requirements.map((row) => ({
+      ...row,
+      ibCourse: { ...row.ibCourse, name: shortCourseName(row.ibCourse.name) }
+    }))
+  )
+  if (groups.length === 0) {
+    return [
+      points,
+      { kind: 'info', type: 'none', name: 'Named subjects', needed: 'None', you: null }
+    ]
+  }
+  return [
+    points,
+    ...groups.map((group) =>
+      namedByCourses(
+        group,
+        group.options.reduce((n, o) => n + o.courses.length, 0)
+      )
+    )
+  ]
 }
 
 function reason({ kind, gradeGap }: SubjectFacts): string | undefined {

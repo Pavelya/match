@@ -2,18 +2,10 @@
 
 import { useId, useState, type ReactNode } from 'react'
 import Link from 'next/link'
-import {
-  ChevronDown,
-  CircleAlert,
-  CircleCheck,
-  CircleMinus,
-  CircleX,
-  Info,
-  type LucideIcon
-} from 'lucide-react'
+import { ChevronDown, CircleAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import type { ChipKind } from '@/lib/matching/match-status'
 import type { WhyRow, WhyThisMatch as WhyData } from '@/lib/matching/match-why'
+import { REQUIREMENT_STATUS as STATUS, YOU_TEXT as YOU } from './requirement-status'
 
 /*
  * "Why this match", opened inside its card (rebranding 2.2, canvas board "D3.2 Why this match",
@@ -23,21 +15,6 @@ import type { WhyRow, WhyThisMatch as WhyData } from '@/lib/matching/match-why'
  * only place the percentage appears. Everything is in the match the list already loaded, so
  * opening it fetches nothing. Replaces MatchBreakdown's dialog.
  */
-
-const STATUS: Record<ChipKind, { Icon: LucideIcon; label: string; text: string; soft: string }> = {
-  met: { Icon: CircleCheck, label: 'Met', text: 'text-ok', soft: 'bg-ok-soft' },
-  close: { Icon: CircleMinus, label: 'Close', text: 'text-close', soft: 'bg-close-soft' },
-  gap: { Icon: CircleX, label: 'Missing', text: 'text-gap', soft: 'bg-gap-soft' },
-  info: { Icon: Info, label: 'Note', text: 'text-muted-foreground', soft: 'bg-muted' }
-}
-
-/** The student's value takes the status colour; a note's stays ink. */
-const YOU: Record<ChipKind, string> = {
-  met: 'text-ok',
-  close: 'text-close',
-  gap: 'text-gap',
-  info: 'text-foreground'
-}
 
 interface WhyThisMatchProps {
   id: string

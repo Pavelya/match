@@ -155,7 +155,8 @@ deciding from is the one place their fit is not shown.
   how many are shown too, so Back from a program returns to the same row (approved on "D4.7
   Explore", 11 October 2026).
 - **Save while logged out** opens sign-in, remembers the program, and saves it on return. No
-  false confirmation.
+  false confirmation. A new account goes through first run first, then back to the program, which
+  saves it (owner, 12 October 2026; `REBRANDING_tasks.md` 3.1).
 - **Shortlist** (renamed from "Saved") with a **Compare** view: fit, minimum points against yours,
   named subjects, country, degree and length, the year the requirements were checked, official
   link. All of this data already exists.

@@ -7,8 +7,8 @@
 
 import type { CachedProgram } from './program-cache'
 import type { MatchResult } from './types'
-import { cardChips, deriveMatchStatus } from './match-status'
-import { whyThisMatch } from './match-why'
+import { cardChips, deriveMatchStatus, type MatchStatus } from './match-status'
+import { whyThisMatch, type WhyThisMatch } from './match-why'
 import {
   compareBestFit,
   type MatchItem,
@@ -31,12 +31,31 @@ type ListedResult = Pick<
   | 'adjustments'
 >
 
-export function matchItem(
+/** What the status and "Why this match" read of a program: the cached one, or a page's own select */
+export interface WhyProgram {
+  minIBPoints: number | null
+  requirementsEntryYear: number | null
+  programUrl: string | null
+  fieldOfStudy: { name: string }
+  university: {
+    name: string
+    admitRate: number | null
+    internationalAdmitRate: number | null
+    admitRateYear: number | null
+    country: { name: string; code: string }
+  }
+}
+
+/**
+ * A match's status and "Why this match", as the card shows them and, from rebranding 2.4, the
+ * program page's fit panel and checklist.
+ */
+export function statusAndWhy(
   result: ListedResult,
-  program: CachedProgram,
+  program: WhyProgram,
   studentPoints: number,
   now?: Date
-): MatchItem {
+): { status: MatchStatus; why: WhyThisMatch } {
   const { university } = program
   const status = deriveMatchStatus({
     result,
@@ -49,17 +68,7 @@ export function matchItem(
     now
   })
   return {
-    id: program.id,
-    name: program.name,
-    university: university.name,
-    country: university.country.name,
-    image: university.image,
-    initials: universityInitials(university.name, university.abbreviatedName),
-    minIBPoints: program.minIBPoints,
-    score: Math.round(result.overallScore * 100),
-    status: status.status,
-    badge: status.badge,
-    chips: cardChips(status.chips),
+    status,
     why: whyThisMatch({
       result,
       status: status.status,
@@ -76,6 +85,30 @@ export function matchItem(
       programUrl: program.programUrl,
       now
     })
+  }
+}
+
+export function matchItem(
+  result: ListedResult,
+  program: CachedProgram,
+  studentPoints: number,
+  now?: Date
+): MatchItem {
+  const { university } = program
+  const { status, why } = statusAndWhy(result, program, studentPoints, now)
+  return {
+    id: program.id,
+    name: program.name,
+    university: university.name,
+    country: university.country.name,
+    image: university.image,
+    initials: universityInitials(university.name, university.abbreviatedName),
+    minIBPoints: program.minIBPoints,
+    score: Math.round(result.overallScore * 100),
+    status: status.status,
+    badge: status.badge,
+    chips: cardChips(status.chips),
+    why
   }
 }
 
