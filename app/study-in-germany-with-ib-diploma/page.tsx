@@ -201,7 +201,7 @@ const faqSchema = {
       name: 'Is German mandatory for all programs?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs. Source: hochschulstart — International applicants (in German).'
+        text: 'No. English-taught programs exist, but language proof is required. International applicants must show German proficiency at enrolment for German-taught programs. Nationally, the IB counts as that proof only in its bilingual German version (GIB); otherwise each university decides, and TUM, for example, accepts only German A at Higher Level. Source: KMK — Proof of German for foreign certificates (PDF, in German).'
       }
     }
   ]
