@@ -43,7 +43,7 @@ pull request, merged before the next starts.
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
-| before release day | Programs cache read on every Matches load | 5.19 | small | Every Matches load, and every profile save, downloads the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Keep it in each server's memory for a few minutes instead. Measured 11 October 2026; before rebranding release day (R.1), which sends every student through the new Matches |
+| before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -92,7 +92,7 @@ Phase 5 — quick wins
 - [ ] 5.16 Suggest the field of study in the admin program forms
 - [ ] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
-- [ ] 5.19 Read the programs cache once per server, not on every Matches load
+- [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
 
 Phase 6 — dependency majors
 
@@ -1136,6 +1136,26 @@ a week before and after.
 
 **Session size:** Small. Independent of the rebranding, but before its release day.
 
+**Done, 12 October 2026.** `getCachedPrograms()` keeps one shared promise per server instance for
+five minutes (`KEPT_FOR_MS`): concurrent requests wait for the one read, and a failed read is not
+kept. `invalidateProgramsCache()` drops this instance's copy before it deletes the Redis keys, so a
+failed delete does not keep it either. On a Redis failure, the database copy is kept the same way and
+logged as an error. One more double read went too: a miss whose Redis write failed fell into the
+`catch` and read the database a second time; it now logs the failed write and returns what it read.
+Sharing the array is safe because no caller changes it: the transformers copy values out, and every
+sort runs on a new array. The function's comment says so for future callers.
+
+`lib/matching/program-cache.test.ts` covers the four cases above, plus concurrent calls, a failed
+Redis write and a failed read; five of its nine tests fail against the old module. Scores are
+unchanged: the 72,060-result fingerprint is byte-identical before and after. Step 3, the slimmer
+key, is not done: measure first.
+
+On Vercel, "per server instance" means per function instance. Routes bundled into separate functions
+keep separate copies, and an admin edit drops only the copy where it ran; the others catch up within
+the five minutes. How much this saves depends on how often Vercel reuses a warm instance, which only
+Upstash's usage can show, so the comparison is an owner task (5 below). If Matches still dominates
+after it, do step 3.
+
 ---
 
 ## Phase 6 — Dependency majors
@@ -1703,3 +1723,6 @@ Not AI work, but they gate real value.
    Confirm with whoever owns legal before removing it. Analytics is a separate, later task, and
    would bring the question back (design audit §8, 6 October 2026). **Decided 10 October 2026
    (owner): the banner stays.**
+5. **Compare Upstash bandwidth per day** for the week before and the week after 5.19 merges (the
+   Upstash console, Usage tab). From 1 to 11 October 2026 it was about 0.1 GB a day, much of it
+   rebranding QA. If it does not fall, or Matches still dominates, do 5.19's step 3.

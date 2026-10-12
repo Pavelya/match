@@ -1,8 +1,10 @@
 /**
  * Program Data Cache
  *
- * Caches all program data in Redis to avoid fetching from DB on every request.
- * Every write path invalidates it explicitly, so the TTL is only a backstop.
+ * Caches all program data in Redis to avoid fetching from DB on every request,
+ * and keeps the parsed copy in each server instance's memory for a few minutes
+ * so that a request does not download it from Redis either. Every write path
+ * invalidates it explicitly, so the TTL is only a backstop.
  *
  * OPTIMIZED in v2:
  * - Strips unnecessary fields (descriptions, timestamps, logos) to reduce payload
@@ -37,6 +39,14 @@ const PROGRAMS_CACHE_TTL = 6 * 60 * 60
 // Upstash rejects any request larger than 10MB. Checked before writing so an
 // oversized payload is reported as a named cause rather than an opaque error.
 const UPSTASH_MAX_REQUEST_BYTES = 10 * 1024 * 1024
+
+// Each server instance keeps the catalogue for five minutes. The Redis copy is about 3 MB and
+// Upstash's free plan allows 10 GB a month, so reading it on every Matches load and every profile
+// save would cover only about 3,300 of them a month. A student's own profile changes still show at
+// once: saving clears that student's match cache (lib/matching/cache.ts), not this. Only program
+// edits can lag, by up to these minutes on instances other than the one that made them.
+const KEPT_FOR_MS = 5 * 60 * 1000
+let kept: { at: number; programs: Promise<CachedProgram[]> } | null = null
 
 /**
  * Optimized program data for caching
@@ -260,38 +270,51 @@ function optimizeForCache(
 /**
  * Get all programs with caching
  *
- * First checks Redis cache, falls back to DB if not found.
- * Automatically caches optimized results for 1 hour.
+ * Kept in this instance's memory for KEPT_FOR_MS; past that, read from Redis, and on a miss
+ * from the database, which also refills Redis. Concurrent requests share one read, and a failed
+ * one is not kept, so the next request tries again.
+ *
+ * Every caller shares the returned array, so none may change it or the programs in it.
  *
  * @returns Array of programs with essential relations for matching
  */
-export async function getCachedPrograms(): Promise<CachedProgram[]> {
-  try {
-    // Try to get from Redis cache
-    const cached = await redis.get<CachedProgram[]>(PROGRAMS_CACHE_KEY)
-
-    if (cached) {
-      logger.debug('Programs cache hit', { count: cached.length })
-      return cached
-    }
-
-    logger.info('Programs cache miss, fetching from DB')
-
-    // Fetch from database
-    const programs = await fetchProgramsFromDB()
-
-    // Optimize for cache (strip unnecessary fields)
-    const optimized = optimizeForCache(programs)
-
-    await writeProgramsCache(optimized)
-
-    return optimized
-  } catch (error) {
-    // If Redis fails, fall back to direct DB query (still optimized)
-    logger.error('Programs cache error, falling back to DB', { error })
-    const programs = await fetchProgramsFromDB()
-    return optimizeForCache(programs)
+export function getCachedPrograms(): Promise<CachedProgram[]> {
+  if (!kept || Date.now() - kept.at > KEPT_FOR_MS) {
+    const programs = readPrograms()
+    const entry = { at: Date.now(), programs }
+    kept = entry
+    programs.catch(() => {
+      if (kept === entry) kept = null
+    })
   }
+  return kept.programs
+}
+
+async function readPrograms(): Promise<CachedProgram[]> {
+  let cached: CachedProgram[] | null
+  try {
+    cached = await redis.get<CachedProgram[]>(PROGRAMS_CACHE_KEY)
+  } catch (error) {
+    // Kept like a Redis copy, so an outage costs one database read per instance every few
+    // minutes rather than one per request: the read pattern behind the Supabase overage.
+    logger.error('Programs cache error, falling back to DB', { error })
+    return optimizeForCache(await fetchProgramsFromDB())
+  }
+
+  if (cached) {
+    logger.debug('Programs cache hit', { count: cached.length })
+    return cached
+  }
+
+  logger.info('Programs cache miss, fetching from DB')
+  const optimized = optimizeForCache(await fetchProgramsFromDB())
+  try {
+    await writeProgramsCache(optimized)
+  } catch (error) {
+    // The programs are already read; a failed write must not read them again
+    logger.error('Failed to write programs cache', { error })
+  }
+  return optimized
 }
 
 /**
@@ -300,6 +323,8 @@ export async function getCachedPrograms(): Promise<CachedProgram[]> {
  * Call this when programs are added, updated, or deleted.
  */
 export async function invalidateProgramsCache(): Promise<void> {
+  // This instance's copy; other instances keep theirs for up to KEPT_FOR_MS
+  kept = null
   try {
     // The current key, and the older ones a deployment still running earlier code may read
     await redis.del(PROGRAMS_CACHE_KEY, ...OLDER_CACHE_KEYS)
