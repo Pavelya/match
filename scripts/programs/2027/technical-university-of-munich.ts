@@ -29,7 +29,7 @@ import type { RequirementDef } from '../lib/requirements-diff'
  *
  * Stamped 2026: TUM's pages and statutes name no intake. The SIT joint degrees, stamped 2027 (TUM Asia: "Next
  * intake September 2027"), moved to the Singapore Institute of Technology on 12 October 2026 (decision 8). Geodesy
- * and Geoinformation is closed to new applicants and reported as discontinued; Bioeconomics (decision 7) is not added,
+ * and Geoinformation, closed to new applicants, was deleted at the owner's request on 12 October 2026; Bioeconomics (decision 7) is not added,
  * as its page says "New applications are only possible for Bioeconomy".
  *
  * Dry run: npx tsx scripts/programs/refresh.ts technical-university-of-munich
@@ -581,30 +581,8 @@ const refresh: RefreshFile = {
         NOTES +
         ' Maths HL, for the owner: forest science is not in the Bavarian recognition office\'s list (ZASt, March 2026, "a selection"); filed with the environmental sciences it names.'
     },
-    // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Science (B.Sc.)".
-    // Content 7 B1, 12 October 2026: TUM's page says "The Bachelor's program in Geodesy and Geoinformation is
-    // being transitioned into the new Bachelor's program in Geodesy and Earth Observation. New applications are only
-    // possible for Geodesy and Earth Observation." Reported for the owner (rule 3); its successor is added below.
-    {
-      id: 'cmkraf55100977mjvrgd95dl7',
-      status: 'discontinued',
-      name: 'Geodesy and Geoinformation',
-      description:
-        "The bachelor's program in Geodesy deals with the documentation of the anthroposphere through the use of surveys conducted at ground level, from the air and from outer space, as well as with the processing and representation of geoinformation.",
-      field: 'Engineering',
-      degree: 'Bachelor of Science',
-      duration: '3 years',
-      minIBPoints: 38,
-      programUrl:
-        'https://www.tum.de/en/studies/degree-programs/detail/geodesy-and-geoinformation-bachelor-of-science-bsc',
-      requirements: [],
-      checkedFor: null,
-      sources: [
-        'https://www.tum.de/en/studies/degree-programs/detail/geodesy-and-geoinformation-bachelor-of-science-bsc'
-      ],
-      notes:
-        'Discontinued: replaced by Geodesy and Earth Observation (taught in English). For the owner to delete.'
-    },
+    // Geodesy and Geoinformation: closed to new applicants (replaced by Geodesy and Earth Observation); deleted at the
+    // owner's request on 12 October 2026, with its 14 requirement rows. Nobody had saved it.
     // Stored: checked for 2026 entry on 2026-01-23. Degree stored as "Bachelor of Science (B.Sc.)".
     {
       id: 'cmkrafkpc00l97mjvo5pe8bgy',

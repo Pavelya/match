@@ -32,7 +32,7 @@ here, and this refresh does more production writes than any work before it.
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
-| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; **applied 12 October 2026**: TUM's 39 programs at 24, 4 of them new, and SIT with the two joint degrees. Geodesy and Geoinformation (closed) waits for the owner. B2 adds the six universities |
+| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; **applied 12 October 2026**: TUM's 39 programs at 24, 4 of them new, and SIT with the two joint degrees. Geodesy and Geoinformation (closed) deleted at the owner's request. B2 adds the six universities |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
@@ -208,8 +208,8 @@ Owner tasks — not AI work
   Geoinformation reported as discontinued, SIT added, and the two joint degrees moved to it. Confirm six borderline maths-HL calls:
   HL for Agricultural and Horticultural Sciences, Forest Science, Bioeconomy, Landscape Architecture and Teaching (Scientific
   Education); none for Management and Technology. **Approved and applied 12 October 2026**, the six calls as set
-- [ ] Delete TUM's Geodesy and Geoinformation, or keep it (7 B1): closed to new applicants, replaced by Geodesy and Earth Observation;
-  nobody has saved it
+- [x] Delete TUM's Geodesy and Geoinformation, or keep it (7 B1): closed to new applicants, replaced by Geodesy and Earth Observation;
+  nobody has saved it. **Deleted at the owner's request, 12 October 2026**
 - [ ] TUM's pages and statutes name no intake (7 B1), so its 39 programs are stamped 2026: confirm the standing rules count for 2027,
   or re-check when TUM dates them (as for Waterloo)
 - [x] Approve 6 Part B2's dry run: 11 universities (`new-universities-6.ts`) and 242 programs in 11 files, all with no IB minimum, 6 with
@@ -3376,8 +3376,10 @@ by a generator in this session's scratchpad, `gen-tum.ts`) and `scripts/programs
     - **Live pages.** Aerospace and Mechanical Engineering show 24 IB points, "How TUM decides" and their rows. Chemical
       Engineering shows SIT, Singapore and "Requirements checked for 2027 entry". The Germany page changes go live when this PR
       merges.
-  - **Left for the owner.** Geodesy and Geoinformation is still stored with its January 38 and template rows, because it is
-    discontinued and the tool writes none: delete it, or keep it.
+  - **Geodesy and Geoinformation deleted** at the owner's request the same day. The program and its 14 requirement rows went in one
+    transaction (nobody had saved it), then it was removed from Algolia (its record now 404s) and the caches were cleared. Backup:
+    `scripts/backups/refresh/deleted-2026-10-12T19-19-25-880Z.json`. Its data-file entry is a comment, and the TUM dry run reports 39
+    up to date. Production now holds 1,631 programs. The live page returns 404.
 
 ---
 
