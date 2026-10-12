@@ -32,7 +32,7 @@ here, and this refresh does more production writes than any work before it.
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
 | 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
-| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; **applied 12 October 2026**: TUM's 39 programs at 24, 4 of them new, and SIT with the two joint degrees. Geodesy and Geoinformation (closed) deleted at the owner's request. B2 adds the six universities |
+| 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; **applied 12 October 2026**: TUM's 39 programs at 24, 4 of them new, and SIT with the two joint degrees. Geodesy and Geoinformation (closed) deleted at the owner's request. **Part B2** (session 29): six English-taught universities and 46 programs, built 12 October 2026, waiting for the owner's approval of the dry run |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 8.1 should land before the matches
@@ -114,7 +114,7 @@ Phase 7 — Germany
 
 - [ ] 7 Research how to model German admissions, then refresh and extend — Part A done 12 October 2026
   (`content-2027/germany-model-decision.md`); all nine decisions chosen as recommended the same day; Part B1 (TUM, SIT, Germany page)
-  applied 12 October 2026; B2 (six universities) next
+  applied 12 October 2026; B2 (six universities, 46 programs) built 12 October 2026, waiting for approval
 
 Phase 8 — Data found by the design audit
 
@@ -208,6 +208,13 @@ Owner tasks — not AI work
   Geoinformation reported as discontinued, SIT added, and the two joint degrees moved to it. Confirm six borderline maths-HL calls:
   HL for Agricultural and Horticultural Sciences, Forest Science, Bioeconomy, Landscape Architecture and Teaching (Scientific
   Education); none for Management and Technology. **Approved and applied 12 October 2026**, the six calls as set
+- [ ] Approve 7 Part B2's dry run (status, phase 7): six universities (`new-universities-8.ts`) and 46 English-taught programs in six
+  files. Confirm three calls: Constructor and Bard College Berlin publish no minimum and admit holistically, so they have no IB
+  minimum (null, the content 6 convention) rather than the KMK's 24; Freiburg's Liberal Arts and Sciences has no maths HL row (it
+  awards a BA or a BSc by major); Rhine-Waal's Mobility and Logistics is filed under Engineering with maths HL. **The three calls
+  were confirmed by the owner, 12 October 2026**; the dry run waits for approval
+- [ ] Add images for the six universities added in 7 B2 (Constructor, Leuphana, Rhine-Waal, Freiburg, WHU, Bard College Berlin) in
+  `/admin/universities`, then check their programs' Algolia records (standing context)
 - [x] Delete TUM's Geodesy and Geoinformation, or keep it (7 B1): closed to new applicants, replaced by Geodesy and Earth Observation;
   nobody has saved it. **Deleted at the owner's request, 12 October 2026**
 - [ ] TUM's pages and statutes name no intake (7 B1), so its 39 programs are stamped 2026: confirm the standing rules count for 2027,
@@ -674,6 +681,13 @@ not precision.
   - **TUM Asia** (`tum-asia.edu.sg`) answers curl and gives each SIT joint degree's next intake and IB conditions.
   - **SIT.** `singaporetech.edu.sg` serves scripts a 212-byte page and WebFetch nothing; the Internet Archive has its contact page.
   - **Salzburg.** `plus.ac.at` answers curl.
+- **Found in 7 (Part B2):**
+  - **Constructor.** Its program pages answer curl and name the 2027 application periods; the FAQ has the IB range.
+  - **Leuphana.** It publishes its College cut-offs as `.../college/bewerben/bachelor/Zulassungsgrenzen_WiSe_<yy>_<yy>.pdf`. A grade
+    gives 40 − 10 × grade points (1.0 = 30); the test adds up to 24.
+  - **Rhine-Waal and WHU** hide emails in TYPO3's `data-mailto-token`: shift each letter back by `data-mailto-vector`. Rhine-Waal's
+    program pages share one "At a glance" block (degree, semesters, restricted or not, campus, language).
+  - **Bard College Berlin** answers curl; its admissions contact is on the application-requirements page.
 
 ---
 
@@ -3380,6 +3394,53 @@ by a generator in this session's scratchpad, `gen-tum.ts`) and `scripts/programs
     transaction (nobody had saved it), then it was removed from Algolia (its record now 404s) and the caches were cleared. Backup:
     `scripts/backups/refresh/deleted-2026-10-12T19-19-25-880Z.json`. Its data-file entry is a comment, and the TUM dry run reports 39
     up to date. Production now holds 1,631 programs. The live page returns 404.
+
+#### Status, 12 October 2026 — Part B2 built (session 29); waiting for the owner's approval
+
+Data files (new): `scripts/programs/2027/new-universities-8.ts` (the six universities) and one programs file per university, written
+by a generator in this session's scratchpad (`gen-b2.py`). Pages were read on 12 October 2026.
+
+| University | Programs | Stamped | IB minimum | Rows |
+|---|---|---|---|---|
+| Constructor University (Bremen, private) | 18 | 2027 | none (null) | none |
+| Leuphana University Lüneburg (public) | 7 | 2026 | 24 | KMK science and social science; maths HL on Global Environmental and Sustainability Sciences |
+| Rhine-Waal University of Applied Sciences (Kleve, public) | 16 | 2026 | 24 | KMK rows; maths HL on 8 science and technical programs |
+| University of Freiburg (public) | 1 | 2026 | 24 | KMK rows |
+| WHU – Otto Beisheim School of Management (Vallendar, private) | 1 | 2027 | 24 | KMK rows |
+| Bard College Berlin (private) | 3 | 2027 | none (null) | none |
+
+- **Only English-taught bachelor's programs.**
+  - **Left out:** Constructor's online-only Applied Computer Science, and every German-taught program.
+  - **Two Constructor programs** (Artificial Intelligence, Computer and Information Technology) expect accreditation in spring 2027, and
+    their descriptions say so.
+- **No IB minimum for Constructor and Bard** (confirmed by the owner, 12 October 2026, with the other two calls). Both publish no minimum and admit holistically, so they follow the content 6
+  convention (null), not the KMK's 24:
+  - Constructor: "we do not have any particular minimum grade requirement", and no required subjects; the SAT or ACT only at enrollment
+    when a diploma gives no direct German access.
+  - Bard: the US degree on any national high school diploma; the German BA needs Abitur equivalence.
+- **Closing paragraphs:**
+  - **Constructor:** its typical IB range (34-45, "most successful").
+  - **Leuphana:** the winter 2025/26 cut-offs from its Zulassungsgrenzen PDF. In the best quota (30% of places, grade only),
+    Psychology needed 1.1 (about 41 IB points), Digital Media 1.4 (40), Studium Individuale 1.5 (39) and International Business
+    Administration and Entrepreneurship 1.7 (38). Everyone was admitted to Economics, Cultural Studies and Global Environmental and
+    Sustainability Sciences.
+  - **Rhine-Waal:** open admission, or the DoSV allocation with no published cut-off.
+  - **Freiburg, WHU and Bard:** their selection procedures.
+- **Stamps.** 2027 where a page names the 2027 intake: Constructor's "Application Periods 2027", WHU's 15 October 2026 – 15 May 2027
+  window, Bard's "accepting applications for entry in Fall 2027". Otherwise 2026: Leuphana, Rhine-Waal and Freiburg name no intake.
+- **Fields.** The rule's fields, with eight names it cannot read filed by content and explained in notes (Robotics, Agribusiness, Gender
+  and Diversity, Mobility and Logistics, Nature-Inspired Materials and others). Rhine-Waal's Kamp-Lintfort programs carry that campus
+  city.
+- **Contacts:** Constructor study@ and +49 421 200 4200, Leuphana's student service, Rhine-Waal's info@ (the only address on its
+  application pages), Freiburg study@, WHU bachelor@, Bard admissions@.
+- **Dry runs:** `add-universities.ts`: 6 new. The six program files: 46 new, 0 errors, 0 fields-of-study warnings. The only warnings
+  are "no program is stored", as the universities come first at the apply.
+- **Apply order, after approval:**
+  1. `add-universities.ts .../new-universities-8.ts --apply`, then `sync-universities-algolia.ts`.
+  2. The six program files with `--apply`.
+  3. Ids into the data files.
+  4. `field-inventory.ts` at 0 outliers.
+  5. Live checks.
 
 ---
 
