@@ -273,7 +273,7 @@ merges into `main`, behind the preview switch.**
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | **Done 13 October 2026.** List and Compare from one response with the fit, one read more than today (the student's subjects); up to four on desktop, two on a phone. The nav count is kept in the browser, with no read of its own |
-| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | Also: Save without grades, on a program or an Explore row, goes through first run and back to save the program, telling the student at each step where it leads (owner, 12 and 13 October 2026) |
+| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | **Done 13 October 2026.** Steps 1 and 2 in the new design, saved as drafts; focus mode from first run's mark on the page; Save without grades through first run and back, on a program or an Explore row. Step 3 is today's until 3.2 |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
 | 14 | Home | 4.1 | D4.1 | medium | |
@@ -303,7 +303,7 @@ Rows 3 and 4 can share a design session.
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Done 12 October 2026 |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | Done 13 October 2026 |
-| 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Boards approved 13 October 2026 |
+| 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Done 13 October 2026 |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
@@ -356,7 +356,7 @@ Phase 2 — Core app
 
 Phase 3 — Profile and onboarding
 
-- [ ] 3.1 First-run interest and country steps
+- [x] 3.1 First-run interest and country steps (13 October 2026)
 - [ ] 3.2 Subject editor
 - [ ] 3.3 Academic profile and settings
 
@@ -1698,6 +1698,41 @@ approved 13 October 2026):**
   is saved, but Computer Science wasn't." with Try again, which repeats the save only.
 - **Reads and writes.** No new reads. One save of the student's own profile per step instead of one at
   the end.
+
+**Built 13 October 2026 (session 11).** First run in the new design is
+`app/student/onboarding/FirstRun.tsx` (lazy, through `NewOnboarding.tsx`), with the rows and tiles
+in `components/ds/Choice.tsx` and the rules in `lib/student/` (`first-run.ts`, `country-filter.ts`,
+`draft.ts`). Steps 1 and 2 save through `PUT /api/students/profile/preferences`: one upsert of the
+student's own profile, creating it on step 1, with no read before it; cached matches are
+invalidated only for a student who has grades. The page's one profile read is now a `select`.
+Save without grades: `SaveSignInLink` takes `needs="grades"`, the program page redirects a `?save=1`
+return without grades to first run on the server, and Explore saves on arrival from `?save=`.
+
+Departures and hand-offs:
+
+- **Focus mode follows the page, not the layout.** Next keeps a layout mounted through client
+  navigation, so a layout choosing focus mode would keep it after first run ends, and never switch
+  to it from Matches' "Add subjects and grades". Instead the signed-in frame (`AppFrame`) draws both
+  headers, and first run puts a mark on its page (`data-first-run`); `app/globals.css` shows focus
+  mode's header and hides the usual one, the footer and the tab bar while the mark is there, with
+  `:has()`, as the toast already does. No read in the layout.
+- **The two new field icons live in `components/first-run/field-icons.ts`**, not `lib/icons.tsx`'s
+  maps, until cleanup (R.2) merges them: `lib/icons.tsx` feeds today's `FieldSelector`, `ProgramCard`,
+  `SearchClient` and the prebuilt requirements hub, whose icons and download stay as they are
+  (Definition of done 8 and 11).
+- **The waiting program's names ride in first run's address** (`program`, `university`), so first run
+  reads nothing to say what is waiting. A link made up with other names would show them, but saves
+  only the program in its return address, which `returnPath` keeps on this site.
+- **Step 3 is today's** (`DetailedGradesInput`), under the new step count and a plain h2, "Your
+  subjects and grades", so the headings stay in order. "Save and exit" there keeps the interests and
+  countries but not subjects in progress, since the profile route takes all six at once; 3.2's editor
+  saves them as they go.
+- **First run's `loading.tsx` shows today's spinner only in today's design**; the new design has no
+  spinners, and its steps come in the server's HTML.
+- **"Edit your grades" on the fit panel still goes to Academic**, as approved; only "Add your
+  grades" (the "Do you meet these?" panel and the checklist's prompt) comes back to the program.
+- **Old design unchanged.** Today's first run, program page and Explore render as before without the
+  preview link; the new API route is the only route added.
 
 ### 3.2 — Subject editor
 

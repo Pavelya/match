@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SaveToggle } from '@/components/ds/SaveToggle'
 import { useShortlist, type ShortlistProgram } from '@/components/match/use-shortlist'
+import { VIA_FIRST_RUN, VIA_PARAM } from '@/lib/student/first-run'
 import type { FitPart } from '@/lib/matching/match-why'
 
 /*
@@ -18,27 +19,34 @@ export interface ProgramSaveProps {
   program: ShortlistProgram
   /** On the shortlist when the page was built */
   saved: boolean
+  /** First run, coming back here to save: where a save refused for want of a profile goes */
+  firstRunHref: string
 }
 
 /**
- * Save (D2.1), and the save a visitor asked for before signing in: sign-in returns here with
- * ?save=1, the program is saved, D2.9's toast says so, and the address drops ?save=1 so a reload
- * doesn't save twice. Replacing the address in place, not through the router, keeps the page
- * from loading again.
+ * Save (D2.1), and the save a student asked for on the way here: sign-in, or first run for a
+ * student who had no grades (3.1), returns here with ?save=1, the program is saved, D2.9's toast
+ * says so ("Signed in." or "Profile saved."), and the address drops ?save=1 so a reload doesn't
+ * save twice. Replacing the address in place, not through the router, keeps the page from
+ * loading again.
  */
-export function ProgramSave({ program, saved }: ProgramSaveProps) {
-  const shortlist = useShortlist(saved ? [program.id] : [])
-  const { saveAfterSignIn } = shortlist
+export function ProgramSave({ program, saved, firstRunHref }: ProgramSaveProps) {
+  const toFirstRun = useCallback(() => firstRunHref, [firstRunHref])
+  const shortlist = useShortlist(saved ? [program.id] : [], { firstRunHref: toFirstRun })
+  const { saveOnReturn } = shortlist
   const asked = useRef(false)
 
   useEffect(() => {
     const url = new URL(window.location.href)
-    if (asked.current || url.searchParams.get('save') !== '1') return
+    const via = url.searchParams.get(VIA_PARAM)
+    const save = url.searchParams.get('save') === '1'
+    if (asked.current || (!save && !via)) return
     asked.current = true
     url.searchParams.delete('save')
+    url.searchParams.delete(VIA_PARAM)
     window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
-    saveAfterSignIn(program)
-  }, [program, saveAfterSignIn])
+    if (save) saveOnReturn(program, via === VIA_FIRST_RUN ? 'first-run' : 'sign-in')
+  }, [program, saveOnReturn])
 
   return (
     <SaveToggle

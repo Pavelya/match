@@ -9,6 +9,8 @@ interface SearchInputProps extends Omit<ComponentProps<'input'>, 'value' | 'onCh
   onValueChange: (value: string) => void
   /** Names the field for screen readers ("Search programs"); the placeholder is only an example. */
   'aria-label': string
+  /** The clear button's name: "Clear search", or "Clear filter" for first run's countries */
+  clearLabel?: string
 }
 
 /**
@@ -21,6 +23,7 @@ export function SearchInput({
   onValueChange,
   className,
   onKeyDown,
+  clearLabel = 'Clear search',
   ...props
 }: SearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -60,7 +63,7 @@ export function SearchInput({
       {value && (
         <button
           type="button"
-          aria-label="Clear search"
+          aria-label={clearLabel}
           onClick={() => {
             onValueChange('')
             inputRef.current?.focus()

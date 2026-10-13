@@ -15,6 +15,8 @@ interface SaveToggleProps {
   variant?: 'word' | 'icon'
   /** Signed out: Save is a link to sign-in, which saves the program on return. */
   signInHref?: string
+  /** Signed in without grades: Save is a link to first run, which saves it on return (3.1). */
+  firstRunHref?: string
   className?: string
 }
 
@@ -29,17 +31,20 @@ export function SaveToggle({
   programName,
   variant = 'word',
   signInHref,
+  firstRunHref,
   className
 }: SaveToggleProps) {
   const word = variant === 'word'
   const iconSize = word ? 18 : 20
 
-  if (signInHref) {
+  const linkHref = signInHref ?? firstRunHref
+  if (linkHref) {
     return (
       <SaveSignInLink
-        href={signInHref}
+        href={linkHref}
         programName={programName}
         variant={variant}
+        needs={signInHref ? 'sign-in' : 'grades'}
         className={className}
       />
     )

@@ -10,6 +10,7 @@ import {
   countParts,
   exploreHref,
   exploreListUrl,
+  exploreSaveHref,
   exploreParams,
   noResultsText,
   pointsRange,
@@ -100,6 +101,18 @@ describe('exploreHref', () => {
     expect(exploreHref({ ...EMPTY_QUERY, q: 'law', qualify: true }, 40)).toBe(
       '/programs/search?q=law&qualify=1&shown=40'
     )
+  })
+})
+
+describe('exploreSaveHref', () => {
+  it('keeps the search and the rows shown, and asks for the save', () => {
+    const href = exploreSaveHref({ ...EMPTY_QUERY, q: 'computer science' }, 40, 'abc123')
+    expect(href).toBe('/programs/search?q=computer+science&shown=40&save=abc123')
+    // The save is no part of the list itself
+    expect(readExplore(new URLSearchParams(href.split('?')[1]))).toEqual({
+      query: { ...EMPTY_QUERY, q: 'computer science' },
+      shown: 40
+    })
   })
 })
 

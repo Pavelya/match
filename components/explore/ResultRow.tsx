@@ -51,6 +51,8 @@ interface ResultRowProps {
   onToggleSave: () => void
   /** Signed out, Save is a link to sign-in that comes back to the program */
   signInHref?: string
+  /** Signed in without grades, a link to first run that comes back to save it (3.1) */
+  firstRunHref?: string
   /** h2 on the Shortlist (2.5), whose rows sit straight under its h1 */
   heading?: 'h2' | 'h3'
 }
@@ -63,6 +65,7 @@ export function ResultRow({
   saving,
   onToggleSave,
   signInHref,
+  firstRunHref,
   heading: Heading = 'h3'
 }: ResultRowProps) {
   return (
@@ -122,6 +125,7 @@ export function ResultRow({
         onToggle={onToggleSave}
         programName={`${row.name}, ${row.university}`}
         signInHref={signInHref}
+        firstRunHref={firstRunHref}
         className="max-lg:-mt-2.5"
       />
     </li>

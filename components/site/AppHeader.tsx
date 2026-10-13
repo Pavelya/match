@@ -14,7 +14,7 @@ import { headerClass, headerRowClass, navLinkClass } from './styles'
  */
 export function AppHeader({ user }: { user: AccountUser }) {
   return (
-    <header className={headerClass}>
+    <header data-app-chrome="" className={headerClass}>
       <div className={cn(headerRowClass, 'md:gap-6 md:pr-4 lg:gap-7 lg:pr-6')}>
         <SiteLogo
           href="/student/matches"
