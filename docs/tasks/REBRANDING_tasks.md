@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 13 October 2026.** The canvas has 64 boards. The owner approved in chat "B ·
+**Where it stands, 13 October 2026.** The canvas has 70 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -175,7 +175,12 @@ page", "D4.8 Program page · phone", "D4.9 University page" and "D4.9 University
 owner approved all four boards in chat with every recommendation, but one: a phone compares two
 programs side by side, at most, and the phone boards were redrawn to that: "D3.7 Compare table",
 "D3.7 Compare table · phone", "D4.10 Shortlist" and "D4.10 Shortlist · phone". Build 10's gate is
-complete. Seven other tasks need a screen size or states added. Eight have no board.
+complete. Later that day row 15 drew first run's steps 1 and 2, their checkbox rows and Save without
+grades, and the owner approved all six boards in chat with every recommendation: "D2.6 Checkbox rows
+and grid", the change board "D2.1 Save · without grades" (which also changes the D3.3 row, D4.7's link
+and D4.8's Save before grades), "D4.3 First run, step 1", "D4.3 First run, step 1 · phone", "D4.4
+First run, step 2" and "D4.4 First run, step 2 · phone". Build 11's gate is complete. Four other
+tasks need a screen size or states added. Eight have no board.
 
 ### Foundations
 
@@ -195,12 +200,12 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D2.1 Button | "D2.1 Button" (row 7): primary, secondary, link and icon in every state, light and dark; the Save toggle from Save to Saving to Saved, and signed out. Loading is the label "Saving…", never a spinner | Nothing | 9 October 2026 |
+| D2.1 Button | "D2.1 Button" (row 7): primary, secondary, link and icon in every state, light and dark; the Save toggle from Save to Saving to Saved, and signed out. Loading is the label "Saving…", never a spinner. "D2.1 Save · without grades" (row 15), a change board: for a signed-in student without grades, Save is a link to first run drawn exactly as Save, never a toggle, named "Save Computer Science: add your grades first", with "Add your grades first. We’ll save it when you finish." under the program page's buttons; on Explore rows the icon link carries that name. Decisions in 3.1 | Nothing | 9 October 2026; Save without grades 13 October 2026 |
 | D2.2 Text input and search | "D2.2 Text input and search" (row 7): the sign-in email, the IB points range and the Explore search in every state, and on a phone. Field edges use the new line-3 token (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.3 Select and subject picker | "D2.3 Select and subject picker" (row 7): a native select (the Matches sort order); the subject picker closed, open, filtered by typing, with no results, and on a phone | Nothing | 9 October 2026 |
 | D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.5 Chips | "D2.5 Chips" (row 7): filter, on/off and removable chips with "Clear all", in every state. No flags on country chips (owner, 8 October 2026); SVG flags in the country picker (D4.4) only if ever wanted | Nothing | 9 October 2026 |
-| D2.6 Checkbox rows and grid | "Phone · First run, step 1" and "step 2" | Focus, the limit reached ("5 of 5"), desktop width, dark | |
+| D2.6 Checkbox rows and grid | "D2.6 Checkbox rows and grid" (row 15): the field row, the country tile, "Open to anywhere", the filter (empty, typed, no match) and the footer with the count and Continue, in every state, light and dark, at 358px and in the desktop's 880px column, and forced colours. **Decided 13 October 2026 (owner), every recommendation:** the whole row is the label, with Explore's box at its right end; chosen shows the tick, a 1px brand edge and the brand-soft fill, and nothing reflows; at five fields the other boxes are grey and aria-disabled, still reachable, and the footer says why ("You can choose up to 5. Untick one to choose Law."); examples wrap, never cut; Education gets Lucide Presentation and Media Newspaper. Decisions in 3.1 | Nothing | 13 October 2026 |
 | D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none | Nothing | 9 October 2026; the two US chips 10 October 2026 |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | "D2.9 Toast" (row 11): every message (Saved, Removed with Undo, a failed save or removal, the save made after signing in), the action and close states, placement on desktop and phone, the longest name, forced colours, light and dark. Decisions in 2.2 | Nothing | 10 October 2026 |
@@ -217,7 +222,7 @@ theme switch are in D1.4.
 |---|---|---|---|
 | D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row | Nothing | 11 October 2026 |
+| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the icon link to first run named "Save … : add your grades first" ("D2.1 Save · without grades", row 15), not a toggle; built in 3.1 | Nothing | 11 October 2026; Save before grades 13 October 2026 |
 | D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
 | D3.5 Filter toolbar | "D3.5 Filter toolbar" (row 12): the desktop toolbar with each chip's menu open (Field, Country, IB points, Length), light and dark; no programs match; an IB points value it can't use; "Only ones I qualify for" on; signed out; signed in before adding grades; the toolbar at 900px. Phones use the sheet (D2.15). **Decided 11 October 2026 (owner), every recommendation:** a choice applies at once, as in the sheet; menus are popovers holding a labelled dialog, not ARIA menus; no count beside each option; "Include programs with no IB minimum", ticked by default; Length 3 years, 4 years, 5 years or more; Sort: Most relevant, Lowest points needed, Highest points needed; signed out or without grades, a link in the switch's place. The profile shortcuts read "Use my fields", "Use my countries" and "Up to my 38", as on the sheet. **Changed 13 October 2026 (owner):** the hint under "Include programs with no IB minimum" reads "Mostly US universities, which admit on the whole application", in place of "All 12 US universities admit without one", since two German universities now set no minimum too (`CONTENT_tasks.md` 7); built in 2.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
 | D3.6 Subject editor | "Academic profile" (desktop, interactive), "Phone · First run, step 3" | The diploma checks' messages (3 or 4 HL, an E in TOK or the EE, a group with no subject), the picker open, dark on phone | |
@@ -230,12 +235,12 @@ theme switch are in D1.4.
 |---|---|---|---|
 | D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner, which stays (owner, 10 October 2026) | |
 | D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
-| D4.3 First run, step 1: interests | Phone, light | Desktop, dark; first run reached from Save without grades, on a program or an Explore row (3.1, owner, 12 and 13 October 2026), with what the student is told at each point: Save itself before it is pressed (a change board for the approved D2.1 Save and D3.3 row), the waiting program's line and the step count on each step, opening at a later step, "Save and exit" with a program waiting, the message back on the program and on Explore, and a save that fails on return | |
-| D4.4 First run, step 2: countries | Phone, light | Desktop, dark, a country filter with no results | |
-| D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing; the waiting program's line and the step count, as on D4.3 (3.1, owner, 13 October 2026) | |
+| D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 | Nothing | 13 October 2026 |
+| D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 | Nothing | 13 October 2026 |
+| D4.5 First run, step 3: subjects | Phone, light | Desktop, dark, the diploma checks failing; the waiting program's line and the step count, as on D4.3 (3.1, owner, 13 October 2026), and, opening at step 3, "Your interests and countries are saved." | |
 | D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width | Nothing | 11 October 2026 |
-| D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4 | Nothing | 12 October 2026 |
+| D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width. **Changed 13 October 2026 (owner):** signed in before adding grades, the link in the switch's place reads "Add your grades to check your fit and save programs" ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 11 October 2026; the link 13 October 2026 |
+| D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the link to first run with "Add your grades first. We’ll save it when you finish." under it, and the panel's "Add your grades" comes back to the program, without `?save=1` ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 12 October 2026; Save before grades 13 October 2026 |
 | D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
 | D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
 | D4.11 Academic profile and settings | Desktop "Academic profile", Subjects and grades tab only (dark switch); "Phone · Profile tab" | The split decided on 9 October 2026 (3.3): the Academic page (subjects and grades, interests, countries) and Settings (account, your data); the desktop Interests, Countries and Account content; unsaved changes; a failed save; delete account; phone dark | |
@@ -268,7 +273,7 @@ merges into `main`, behind the preview switch.**
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | **Done 13 October 2026.** List and Compare from one response with the fit, one read more than today (the student's subjects); up to four on desktop, two on a phone. The nav count is kept in the browser, with no read of its own |
-| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | Also: Save without grades, on a program or an Explore row, goes through first run and back to save the program, telling the student at each step where it leads (owner, 12 and 13 October 2026) |
+| 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | Also: Save without grades, on a program or an Explore row, goes through first run and back to save the program, telling the student at each step where it leads (owner, 12 and 13 October 2026) |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
 | 14 | Home | 4.1 | D4.1 | medium | |
@@ -298,7 +303,7 @@ Rows 3 and 4 can share a design session.
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Done 12 October 2026 |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | Done 13 October 2026 |
-| 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
+| 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Boards approved 13 October 2026 |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
@@ -1557,10 +1562,14 @@ Departures, each small:
 
 ### 3.1 — First-run interest and country steps
 
-**Outcome:** Steps 1 and 2 of onboarding as compact lists. See the canvas boards "Phone · First run,
-step 1" and "step 2".
+**Outcome:** Steps 1 and 2 of onboarding as compact lists, and Save without grades through first run
+and back. See the canvas boards in row 15 (approved 13 October 2026): "D2.6 Checkbox rows and grid",
+"D2.1 Save · without grades", "D4.3 First run, step 1", "D4.3 First run, step 1 · phone", "D4.4 First
+run, step 2" and "D4.4 First run, step 2 · phone". They replace "Phone · First run, step 1" and
+"step 2".
 
-**Design gate:** D2.6, D4.3 and D4.4, approved ([Step 2](#step-2--design-first)).
+**Design gate:** D2.6, D4.3 and D4.4, and the change board "D2.1 Save · without grades", approved
+([Step 2](#step-2--design-first)).
 
 **Must-haves:**
 - Real checkboxes in a `<fieldset>` (today `Card` divs with `onClick`, unusable from the keyboard,
@@ -1613,8 +1622,8 @@ step 1" and "step 2".
     line about the waiting program. Today's design never sets `return`, so it is unchanged.
 - **Tell the student where each step leads (owner, 13 October 2026: few students save, and some get
   lost on the way).** At every point of the flow above the student can see what will happen next
-  and what has been kept. The words and their places are D4.3's to draw; the drafts below are
-  starting points:
+  and what has been kept. D4.3 drew the words and their places, approved 13 October 2026 (see
+  "Decided on the boards" below); these drafts were its starting points:
   - **Before pressing:** Save without grades says where it leads, in its accessible name and in
     words where the board shows them: "Save Computer Science: add your grades first".
   - **On every step:** one line names the waiting program and the promise: "Computer Science,
@@ -1629,6 +1638,66 @@ step 1" and "step 2".
     nav count appears.
   - **If that save fails:** "Your profile is saved, but Computer Science wasn't." with "Try again",
     which tries the save, not first run.
+
+**Decided on the boards (D2.6, D4.3, D4.4 and "D2.1 Save · without grades", every recommendation
+approved 13 October 2026):**
+
+- **Checkbox rows and tiles (D2.6).** The whole row is the label, with Explore's box
+  (`components/explore/checkbox.ts`) at its right end. A field row: a 36px icon tile, the name (15/22
+  semibold, which labels the box) and the examples (13/18 in ink-2, which describe it), at least 56px,
+  wrapping and never cut. A country tile: at least 48px, the name wrapping. Chosen shows the tick, a
+  1px brand edge and the brand-soft fill, with the icon in brand on a white tile; the name keeps its
+  weight, so nothing reflows. Hover darkens the edge to line-3, pressed is the sunken fill, focus is
+  the 2px ring round the whole row (`label:has(:focus-visible)`). Colours change in 120ms; nothing
+  moves.
+- **Five fields at most, as today; one at least.** At five, the other boxes turn grey and
+  `aria-disabled` (still in Tab order), their text at full contrast, and pressing one ticks nothing:
+  the footer says "You can choose up to 5. Untick one to choose Law.", politely. With none, Continue
+  is `aria-disabled` and the footer says "Choose at least one field".
+- **Icons.** Education is Lucide `Presentation`, Media `Newspaper`. Graduation cap stays the Academic
+  tab's; School would read as a second building beside Architecture's.
+- **The page.** Focus mode as D2.12; on a phone the header stays at the top. The h1, small, is "Set up
+  your profile" ("Update your profile" after first run), beside "Step 1 of 3" and a three-part
+  progress bar; each step's question is its h2 (34/40 on desktop, 30/36 on a phone) and takes focus
+  when the step opens. The page title follows the step: "Set up your profile · Step 1 of 3 · IB
+  Match". Step 2 has "Back to interests". Desktop is one 880px column with the field rows two to a
+  line and the country tiles four; phones one and two.
+- **The footer,** fixed to the bottom: the count ("2 of 5 chosen", "3 chosen", "Every country") or a
+  message, and Continue; 88px with a 48px button on a phone, a full-width 76px bar on desktop with a
+  44px one. Continue saves the step as a draft ("Saving…", no spinner), then opens the next. If that
+  save fails, the student stays with every choice kept, and D2.9's toast says "Couldn't save your
+  interests." (or "your countries") with Try again. After first run the footer sits on the tab bar
+  and moves with it.
+- **Step 2.** "Open to anywhere" is a checkbox row (Lucide `Earth`, "Programs in all 23 countries")
+  above the filter. Ticked, the filter and the grid hide, the footer says "Every country", and the step
+  saves no countries with `openToAllLocations` set, a column the profile already has and Matches
+  already reads; unticked, the countries chosen before come back. Never both saved. Continue needs a
+  country or "Open to anywhere" ("Choose a country, or Open to anywhere"). The filter, D2.2's field at
+  16px, matches any part of a name without accents, as `picker-filter.ts` does, plus short names: UK,
+  Britain and England find the United Kingdom, US and USA the United States, Holland the Netherlands,
+  Czechia the Czech Republic. It hides tiles, never choices, and the count still counts them. Nothing
+  found: "No country matches “brazil”", "IB Match has programs in 23 countries. Brazil isn't one of
+  them yet." and Clear filter. Tiles stay in alphabetical order.
+- **Save without grades ("D2.1 Save · without grades").** A link drawn exactly as Save, never a
+  toggle, named "Save Computer Science: add your grades first". On the program page, "Add your grades
+  first. We'll save it when you finish." sits under the buttons, and the "Do you meet these?" panel's
+  "Add your grades" comes back to the program too, without `?save=1`. On an Explore row the icon
+  link's name is "Save Computer Science, University of Toronto: add your grades first", and the link in
+  the switch's place reads "Add your grades to check your fit and save programs".
+- **The way through, word for word (D4.3).** On every step, under the step count, with the bookmark:
+  "Computer Science, University of Toronto, is waiting. We'll add it to your shortlist when you
+  finish." Opening at a later step, a tick line above it: "Your interests are saved." (step 3: "Your
+  interests and countries are saved.", D4.5). "Save and exit" with a program waiting saves the step,
+  then opens a small dialog (a popover under the button on desktop; on a phone a panel dropping from
+  the header over a scrim): "Your choices are saved." and "Computer Science isn't on your shortlist
+  yet. Finish your profile and we'll add it.", with Keep going (focused first; Escape does the same)
+  and Exit to Home. With nothing waiting it leaves at once (D2.12). Back where Save was pressed: "Profile
+  saved. Computer Science is on your shortlist." with View shortlist; Save reads Saved and the
+  Shortlist count shows 1. Explore opens at the same search and row, now with the fit, and focus lands
+  on that row's Save; on a phone the program page opens at the top. If the save fails: "Your profile
+  is saved, but Computer Science wasn't." with Try again, which repeats the save only.
+- **Reads and writes.** No new reads. One save of the student's own profile per step instead of one at
+  the end.
 
 ### 3.2 — Subject editor
 
