@@ -3,8 +3,9 @@ import { Bookmark } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 /*
- * Save's look, and Save signed out, which is a link to sign-in (canvas "D2.1 Button", Save
- * toggle). Not a client module, so a server page can render the signed-out link without
+ * Save's look, and Save as a link: signed out, to sign-in (canvas "D2.1 Button", Save toggle);
+ * signed in without grades, to first run ("D2.1 Save · without grades", rebranding 3.1). Either
+ * comes back and saves. Not a client module, so a server page can render the link without
  * downloading the toggle (rebranding 2.4); SaveToggle renders the same.
  */
 
@@ -35,26 +36,34 @@ export function saveToggleClasses({
   )
 }
 
-/** Signed out, Save leads to sign-in, which saves the program on the way back. */
+/**
+ * Save as a link, drawn as Save, never a toggle: it can't be on until the student is signed in
+ * and has grades. Its name says where it leads. Both ways come back and save the program.
+ */
 export function SaveSignInLink({
   href,
   programName,
   variant = 'word',
+  needs = 'sign-in',
   className
 }: {
   href: string
   /** "Computer Science" on the program page; "Computer Science, University of Toronto" on rows */
   programName: string
   variant?: 'word' | 'icon'
+  /** What saving needs first: signing in, or the student's grades (first run) */
+  needs?: 'sign-in' | 'grades'
   className?: string
 }) {
   const word = variant === 'word'
+  const label =
+    needs === 'grades'
+      ? `Save ${programName}: add your grades first`
+      : word
+        ? `Save ${programName}: sign in first`
+        : `Sign in to save ${programName}`
   return (
-    <Link
-      href={href}
-      className={saveToggleClasses({ word, className })}
-      aria-label={word ? `Save ${programName}: sign in first` : `Sign in to save ${programName}`}
-    >
+    <Link href={href} className={saveToggleClasses({ word, className })} aria-label={label}>
       <Bookmark aria-hidden="true" size={word ? 18 : 20} strokeWidth={1.75} />
       {word && 'Save'}
     </Link>

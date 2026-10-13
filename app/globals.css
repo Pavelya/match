@@ -327,6 +327,56 @@
   }
 }
 
+/*
+ * First run (rebranding 3.1). Focus mode (D2.12): while the page carries first run's mark, the
+ * signed-in frame shows focus mode's header and hides the usual header, footer and tab bar
+ * (components/site/AppFrame.tsx). The page decides, so it holds through client navigation.
+ */
+[data-ui='next'] body:not(:has([data-first-run])) [data-focus-chrome],
+[data-ui='next'] body:has([data-first-run]) [data-app-chrome] {
+  display: none;
+}
+
+/*
+ * The steps' footer (D2.6) is fixed to the bottom, and the toast rises 12px above it. Editing
+ * after first run, the tab bar shows too: the footer sits on it and follows it as it hides
+ * (D4.3, phone). Heights: the footer is 61px plus its safe-area padding on a phone and 76px on
+ * desktop (FirstRun.tsx); the bar is 59px plus its own (TabBar.tsx).
+ */
+[data-ui='next'] {
+  --step-footer: calc(3.75rem + 1px + max(0.75rem, env(safe-area-inset-bottom)));
+  --tab-bar-height: calc(3.625rem + 1px + max(0.375rem, env(safe-area-inset-bottom)));
+}
+
+[data-ui='next'] body:has([data-step-footer]) .ds-toast-region {
+  bottom: calc(var(--step-footer) + 0.75rem);
+  translate: none;
+}
+
+@media (width < 48rem) {
+  [data-ui='next'] [data-step-footer] {
+    transition: translate 240ms var(--ease-standard);
+  }
+
+  [data-ui='next']
+    body:has([data-tab-bar]:not([data-hidden])):not(:has([data-first-run]))
+    [data-step-footer] {
+    translate: 0 calc(-1 * var(--tab-bar-height));
+  }
+
+  [data-ui='next']
+    body:has([data-step-footer]):has([data-tab-bar]:not([data-hidden])):not(:has([data-first-run]))
+    .ds-toast-region {
+    bottom: calc(var(--step-footer) + var(--tab-bar-height) + 0.75rem);
+  }
+}
+
+@media (width >= 48rem) {
+  [data-ui='next'] {
+    --step-footer: 4.75rem;
+  }
+}
+
 /* 768px: where the phone tab bar gives way to the header */
 @media (width >= 48rem) {
   [data-ui='next'] {

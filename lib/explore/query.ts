@@ -145,6 +145,19 @@ export function exploreHref(query: ExploreQuery, shown = PAGE_SIZE): string {
   return params ? `${EXPLORE_PATH}?${params}` : EXPLORE_PATH
 }
 
+/** Where Save, pressed on a row, asks to save a program on the way back */
+export const SAVE_PARAM = 'save'
+
+/**
+ * Explore as it is, asking to save a program when the student comes back: where first run
+ * returns after Save without grades (rebranding 3.1). The same search, filters and rows shown.
+ */
+export function exploreSaveHref(query: ExploreQuery, shown: number, programId: string): string {
+  const params = exploreParams(query, shown)
+  params.set(SAVE_PARAM, programId)
+  return `${EXPLORE_PATH}?${params}`
+}
+
 /** How many of the four filters' choices are made: "Filters · 3" on a phone */
 export function chosenCount(query: ExploreQuery): number {
   return (

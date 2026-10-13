@@ -9,7 +9,7 @@ import { RemovableChipGroup, ToggleChip } from '@/components/ds/Chip'
 import { EmptyState } from '@/components/ds/EmptyState'
 import { SearchInput } from '@/components/ds/SearchInput'
 import { Select } from '@/components/ds/Select'
-import { useShortlist } from '@/components/match/use-shortlist'
+import { useShortlist, type ShortlistProgram } from '@/components/match/use-shortlist'
 import { APP_PLACES } from '@/components/site/nav'
 import { FilterMenu } from '@/components/explore/FilterMenu'
 import { FilterSheet, FiltersButton, QualifyRow } from '@/components/explore/FilterSheet'
@@ -28,17 +28,21 @@ import {
   countParts,
   exploreHref,
   exploreListUrl,
+  exploreSaveHref,
   hasChoices,
+  isId,
   noResultsText,
   pointsRange,
   programsCount,
   readExplore,
   removeChip,
+  SAVE_PARAM,
   signInTo,
   type ExploreQuery,
   type ExploreSort
 } from '@/lib/explore/query'
 import type { ExploreFit, ExploreResponse, ExploreRow, ExploreViewer } from '@/lib/explore/types'
+import { VIA_FIRST_RUN, VIA_PARAM, firstRunHref } from '@/lib/student/first-run'
 
 /*
  * Explore in the new design (rebranding 2.3; canvas boards "D4.7 Explore" and "D4.7 Explore ·
@@ -102,8 +106,25 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
   /** Remounts the IB points fields after a reset, which can leave the applied range as it was */
   const [pointsKey, setPointsKey] = useState(0)
 
-  const shortlist = useShortlist(viewer.savedIds, { whole: viewer.signedIn })
   const latest = useRef(initial.query)
+  const rowsRef = useRef(initial.rows)
+  /**
+   * Save without grades (3.1): first run, which comes back to this search and these rows to save
+   * the program. Also where a save refused for want of a profile goes.
+   */
+  const toFirstRun = useCallback((program: ShortlistProgram) => {
+    const row = rowsRef.current.find((r) => r.id === program.id)
+    const shown = Math.max(PAGE_SIZE, rowsRef.current.length)
+    return firstRunHref(
+      exploreSaveHref(latest.current, shown, program.id),
+      row ? { program: row.name, university: row.university } : undefined
+    )
+  }, [])
+  const shortlist = useShortlist(viewer.savedIds, {
+    whole: viewer.signedIn,
+    firstRunHref: toFirstRun
+  })
+  const { saveOnReturn } = shortlist
   const request = useRef(0)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
   const focusNext = useRef<string | null>(null)
@@ -168,6 +189,35 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
     // Once, on arrival
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    rowsRef.current = list.rows
+  }, [list.rows])
+
+  // Back from sign-in or first run asking to save a program (?save=…): save it, say so, and bring
+  // its row into view with focus on its Save (D4.3). The address drops the request, so a reload
+  // doesn't save twice.
+  const savedOnArrival = useRef(false)
+  useEffect(() => {
+    if (savedOnArrival.current || !viewer.signedIn) return
+    const url = new URL(window.location.href)
+    const id = url.searchParams.get(SAVE_PARAM)
+    const via = url.searchParams.get(VIA_PARAM)
+    if (!id && !via) return
+    savedOnArrival.current = true
+    url.searchParams.delete(SAVE_PARAM)
+    url.searchParams.delete(VIA_PARAM)
+    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
+    if (!id || !isId(id)) return
+    const row = initial.rows.find((r) => r.id === id)
+    saveOnReturn(
+      { id, name: row?.name ?? 'The program' },
+      via === VIA_FIRST_RUN ? 'first-run' : 'sign-in'
+    )
+    const item = document.getElementById(`explore-${id}`)?.closest('li')
+    item?.scrollIntoView({ block: 'center' })
+    item?.querySelector<HTMLButtonElement>('button[aria-pressed]')?.focus({ preventScroll: true })
+  }, [initial.rows, saveOnReturn, viewer.signedIn])
 
   // "Show 20 more" moves focus to the first new name
   useEffect(() => {
@@ -295,7 +345,7 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
         )}
       >
         {viewer.signedIn
-          ? 'Add your grades to see which ones you qualify for'
+          ? 'Add your grades to check your fit and save programs'
           : 'Sign in to see which ones you qualify for'}
       </Link>
     )
@@ -492,6 +542,14 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
                   saving={shortlist.isSaving(row.id)}
                   onToggleSave={() => shortlist.toggle({ id: row.id, name: row.name })}
                   signInHref={viewer.signedIn ? undefined : signInTo(`/programs/${row.id}?save=1`)}
+                  firstRunHref={
+                    viewer.signedIn && !viewer.hasGrades
+                      ? firstRunHref(
+                          exploreSaveHref(query, Math.max(PAGE_SIZE, list.rows.length), row.id),
+                          { program: row.name, university: row.university }
+                        )
+                      : undefined
+                  }
                 />
               ))}
               {more === 'loading' &&

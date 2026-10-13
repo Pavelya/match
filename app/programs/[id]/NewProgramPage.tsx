@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { ChevronRight, ExternalLink } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ds/button-variants'
@@ -23,6 +24,7 @@ import { currentEntryYear, requirementsCheck } from '@/lib/programs/entry-year'
 import { formatRate } from '@/lib/programs/ib-minimum'
 import { universityInitials } from '@/lib/programs/university-initials'
 import { programViewer } from '@/lib/programs/viewer'
+import { firstRunHref } from '@/lib/student/first-run'
 import { placeName } from '@/lib/universities/details'
 import type { ProgramPageData } from './program'
 
@@ -42,19 +44,32 @@ import type { ProgramPageData } from './program'
 export async function NewProgramPage({
   program,
   trail,
-  userId
+  userId,
+  save
 }: {
   program: ProgramPageData
   trail: Crumb[]
   userId: string | null
+  /** ?save=1: back from sign-in, or first run, asking to save this program */
+  save: boolean
 }) {
   const { university, fieldOfStudy } = program
   const { country } = university
   const path = `/programs/${program.id}`
-  const academic = APP_PLACES.academic.href
 
   const viewer = userId ? await programViewer(userId, program.id) : null
   const student = viewer?.student ?? null
+
+  // Saving needs grades (3.1). Without them, Save goes through first run and back here with
+  // ?save=1, which saves it; "Add your grades" comes back too, without saving.
+  const saveViaFirstRun = firstRunHref(`${path}?save=1`, {
+    program: program.name,
+    university: university.name
+  })
+  const academic = APP_PLACES.academic.href
+  const addGrades = firstRunHref(path)
+  // Signed in from Save without grades: on to first run, rather than a save that would fail
+  if (viewer && !student && save) redirect(saveViaFirstRun)
   const fit = student
     ? statusAndWhy(
         calculateMatch({ student, program: transformProgram(program), mode: 'BALANCED' }),
@@ -79,7 +94,7 @@ export async function NewProgramPage({
     fit || !checkable
       ? null
       : userId
-        ? { text: 'Add your grades to check these', href: academic }
+        ? { text: 'Add your grades to check these', href: addGrades }
         : { text: 'Sign in and add your grades to check these', href: signInTo(path) }
 
   const { about, competitive } = splitDescription(program.description)
@@ -161,7 +176,7 @@ export async function NewProgramPage({
         ) : (
           <FitAsk
             signedIn={userId !== null}
-            href={userId ? academic : signInTo(path)}
+            href={userId ? addGrades : signInTo(path)}
             className="lg:sticky lg:top-6 lg:col-start-3 lg:row-start-5 lg:mt-10 lg:self-start"
           />
         )}
@@ -171,8 +186,14 @@ export async function NewProgramPage({
         </div>
 
         <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 md:flex md:flex-wrap md:gap-3 lg:col-start-1 lg:row-start-3 lg:mt-6">
-          {viewer ? (
-            <ProgramSave program={{ id: program.id, name: program.name }} saved={viewer.saved} />
+          {viewer && student ? (
+            <ProgramSave
+              program={{ id: program.id, name: program.name }}
+              saved={viewer.saved}
+              firstRunHref={saveViaFirstRun}
+            />
+          ) : viewer ? (
+            <SaveSignInLink href={saveViaFirstRun} programName={program.name} needs="grades" />
           ) : (
             <SaveSignInLink href={signInTo(`${path}?save=1`)} programName={program.name} />
           )}
@@ -187,6 +208,11 @@ export async function NewProgramPage({
               <ExternalLink aria-hidden="true" size={16} strokeWidth={2} />
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
+          )}
+          {viewer && !student && (
+            <p className="col-span-2 text-small font-normal text-muted-foreground md:basis-full">
+              Add your grades first. We’ll save it when you finish.
+            </p>
           )}
         </div>
 

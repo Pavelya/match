@@ -32,6 +32,7 @@ import {
 
 interface PageProps {
   params: Promise<{ id: string }>
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
 }
 
 /** The site's address, for the breadcrumb structured data */
@@ -278,7 +279,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default async function ProgramDetailPage({ params }: PageProps) {
+export default async function ProgramDetailPage({ params, searchParams }: PageProps) {
   const { id } = await params
 
   const program = await getProgram(id)
@@ -308,7 +309,12 @@ export default async function ProgramDetailPage({ params }: PageProps) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(breadcrumbJsonLd(trail, siteUrl())) }}
         />
-        <NewProgramPage program={program} trail={trail} userId={session?.user?.id ?? null} />
+        <NewProgramPage
+          program={program}
+          trail={trail}
+          userId={session?.user?.id ?? null}
+          save={(await searchParams)?.save === '1'}
+        />
       </>
     )
   }

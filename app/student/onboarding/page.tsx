@@ -8,6 +8,8 @@ import {
   getCachedIBCourses
 } from '@/lib/reference-data'
 import { PageContainer } from '@/components/layout/PageContainer'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewOnboardingPage } from './NewOnboardingPage'
 
 export const metadata = {
   title: 'Complete Your Profile',
@@ -24,11 +26,20 @@ const ONBOARDING_STEPS = [
   { number: 3, label: 'Academic Profile' }
 ]
 
-export default async function OnboardingPage() {
+export default async function OnboardingPage({
+  searchParams
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   // Check authentication
   const session = await auth()
   if (!session) {
     redirect('/auth/signin')
+  }
+
+  // The new design (rebranding 3.1): first run's steps, drafts and the way back to Save
+  if (session.user?.id && (await showsNewUi())) {
+    return <NewOnboardingPage userId={session.user.id} searchParams={await searchParams} />
   }
 
   // Fetch reference data from cache (Next.js unstable_cache)
