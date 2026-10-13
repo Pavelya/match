@@ -159,7 +159,10 @@ deciding from is the one place their fit is not shown.
   saves it (owner, 12 October 2026; `REBRANDING_tasks.md` 3.1).
 - **Shortlist** (renamed from "Saved") with a **Compare** view: fit, minimum points against yours,
   named subjects, country, degree and length, the year the requirements were checked, official
-  link. All of this data already exists.
+  link. All of this data already exists. Approved on "D3.7 Compare table" and "D4.10 Shortlist"
+  (13 October 2026): the list shows each program's fit; up to four programs side by side on desktop,
+  two on a phone, picked with two selects; a removed program keeps its row until the student leaves
+  the page, so Save undoes it.
 
 ## F5 · Student updates a grade (new predictions arrive)
 
