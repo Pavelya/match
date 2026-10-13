@@ -45,8 +45,12 @@ About **50 interactions plus an email round-trip**, and sign-in comes before the
 
 - **Step 1:** twelve compact rows (icon, name, one line of examples, checkbox), about 56px each,
   with a sticky footer: "2 of 5 chosen · Continue".
-- **Step 2:** an "Open to anywhere" switch, a filter box, then the 22 countries as a two-column
-  checkbox grid that fits on about one phone screen. Sticky footer: "3 selected · Continue".
+- **Step 2:** an "Open to anywhere" row, a filter box, then the 23 countries as a two-column
+  checkbox grid (four columns on desktop). Sticky footer: "3 chosen · Continue".
+- **Approved 13 October 2026** ("D2.6 Checkbox rows and grid", "D4.3 First run, step 1", "D4.4 First
+  run, step 2", desktop and phone): each step saves as a draft on Continue; "Set up your profile" on a
+  first visit, "Update your profile" after; Continue needs one field, and a country or "Open to
+  anywhere", which is saved as every country. Decisions in `REBRANDING_tasks.md` 3.1.
 - **Step 3:** one row per IB group (below).
 - **Focus mode:** no tab bar during first run, just the logo, "Save and exit" and "Back to …". The
   tab bar appears once the student has matches. "Save and exit" saves the step in progress and goes
@@ -201,13 +205,17 @@ Save on a program or an Explore row (no grades: a link that says "add your grade
   ─▶ First run, at the first step not yet saved
        every step: "Computer Science, University of Toronto, is waiting. We'll add it to your
        shortlist when you finish." · "Step 1 of 3"
-       "Save and exit": "Your choices are saved. Computer Science isn't on your shortlist yet." ─▶ Home
+       opening at a later step: "Your interests are saved."
+       "Save and exit": "Your choices are saved. Computer Science isn't on your shortlist yet.
+       Finish your profile and we'll add it." · Keep going · Exit to Home ─▶ Home
   ─▶ the last step saves the grades ─▶ back where Save was pressed (Explore keeps the search)
   ─▶ the program is saved: "Profile saved. Computer Science is on your shortlist." · View shortlist
 ```
 
 Saving waits for grades, not just a profile: the shortlist's fit and Compare need them. No new
-read: both pages know from the profile read they make already. The words are drafts for D4.3.
+read: both pages know from the profile read they make already. **Approved 13 October 2026** with
+these words (D4.3 and the change board "D2.1 Save · without grades"); if the save fails on the way
+back: "Your profile is saved, but Computer Science wasn't." with Try again.
 
 ## F7 · Sign-in
 
