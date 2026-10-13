@@ -7,6 +7,12 @@ interface SelectProps extends Omit<ComponentProps<'select'>, 'id'> {
   label: ReactNode
   hint?: ReactNode
   id?: string
+  /**
+   * The browser's own open list in every browser, for a long list of long names: the Shortlist's
+   * compare selects (2.5). The closed select then cuts a long name with an ellipsis, which
+   * Chrome's styled select can't do: it wraps the name instead.
+   */
+  native?: boolean
 }
 
 /**
@@ -14,9 +20,18 @@ interface SelectProps extends Omit<ComponentProps<'select'>, 'id'> {
  * 1.2, canvas board "D2.3 Select and subject picker"). No JavaScript: phones get their native
  * picker, and keyboards and screen readers work as they always do. Chrome and Edge draw the open
  * list in the new style (`.ds-select` in app/globals.css); Safari and Firefox show their own menu.
- * Over about ten options, use SubjectPicker's pattern instead.
+ * Over about ten options, use SubjectPicker's pattern instead, or `native` where the boards ask for
+ * a select.
  */
-export function Select({ label, hint, id, className, children, ...props }: SelectProps) {
+export function Select({
+  label,
+  hint,
+  id,
+  native = false,
+  className,
+  children,
+  ...props
+}: SelectProps) {
   const autoId = useId()
   const selectId = id ?? autoId
   const hintId = `${selectId}-hint`
@@ -30,7 +45,11 @@ export function Select({ label, hint, id, className, children, ...props }: Selec
         <select
           id={selectId}
           aria-describedby={hint ? hintId : undefined}
-          className={cn(fieldClasses, 'ds-select peer cursor-pointer appearance-none pr-10')}
+          className={cn(
+            fieldClasses,
+            native ? 'text-ellipsis' : 'ds-select',
+            'peer cursor-pointer appearance-none pr-10'
+          )}
           {...props}
         >
           {children}

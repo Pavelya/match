@@ -12,6 +12,8 @@ import { panelRowClass, scrimClass } from './styles'
 import { useDisclosure } from './use-disclosure'
 
 export interface AccountUser {
+  /** Whose Shortlist count the header shows (2.5) */
+  id: string
   name: string | null
   email: string | null
   /** The Google profile photo, when the student signed in with Google */

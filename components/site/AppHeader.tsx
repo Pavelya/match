@@ -2,13 +2,14 @@ import { BookOpen } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { AccountMenu, type AccountUser } from './AccountMenu'
 import { CurrentLink } from './CurrentLink'
-import { APP_LINKS, GUIDES_LINK } from './nav'
+import { APP_LINKS, APP_PLACES, GUIDES_LINK } from './nav'
+import { ShortlistCount } from './shortlist-count'
 import { SiteLogo } from './SiteLogo'
 import { headerClass, headerRowClass, navLinkClass } from './styles'
 
 /**
- * The signed-in header (D2.12): Matches, Explore, Shortlist, Academic and Guides, then the
- * avatar and its account panel. From 768 to 1023px the wordmark hides so everything fits. On a
+ * The signed-in header (D2.12): Matches, Explore, Shortlist with its count (2.5), Academic and
+ * Guides, then the avatar and its account panel. From 768 to 1023px the wordmark hides so everything fits. On a
  * phone the tab bar carries the four places, and the header keeps Guides and the avatar.
  */
 export function AppHeader({ user }: { user: AccountUser }) {
@@ -22,16 +23,20 @@ export function AppHeader({ user }: { user: AccountUser }) {
           className="mr-auto md:mr-0"
         />
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-          {APP_LINKS.map((link) => (
-            <CurrentLink
-              key={link.href}
-              href={link.href}
-              section={link.section}
-              className={navLinkClass}
-            >
-              {link.label}
-            </CurrentLink>
-          ))}
+          {APP_LINKS.map((link) => {
+            const shortlist = link.href === APP_PLACES.shortlist.href
+            return (
+              <CurrentLink
+                key={link.href}
+                href={link.href}
+                section={link.section}
+                className={cn(navLinkClass, shortlist && 'group')}
+              >
+                {link.label}
+                {shortlist && <ShortlistCount />}
+              </CurrentLink>
+            )
+          })}
         </nav>
         <CurrentLink
           href={GUIDES_LINK.href}

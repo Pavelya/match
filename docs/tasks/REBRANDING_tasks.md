@@ -267,7 +267,7 @@ merges into `main`, behind the preview switch.**
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
-| 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | |
+| 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | **Done 13 October 2026.** List and Compare from one response with the fit, one read more than today (the student's subjects); up to four on desktop, two on a phone. The nav count is kept in the browser, with no read of its own |
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4 | medium | Also: a new account that pressed Save goes through first run, then back to save the program (owner, 12 October 2026) |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
@@ -297,7 +297,7 @@ Rows 3 and 4 can share a design session.
 | 6–7 | `/design D3.1, D3.2, D3.4`: match card, "Why this match", requirement checklist, and the two US chips on D2.7. Then `/design D2.9, D2.11, D4.6`: toast, empty and error states, the Matches screen | Those six boards, and D2.7's US chips | `/build 6–7`: match card and results (2.2) | Done 11 October 2026 |
 | 8 | `/design D2.15, D3.3, D3.5, D4.7`: bottom sheet, result row, filter toolbar, Explore | Those four boards | `/build 8`: Explore (2.3) | Done 11 October 2026 |
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Done 12 October 2026 |
-| 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | |
+| 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | Done 13 October 2026 |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards | `/build 11`: first-run steps (3.1) | |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
@@ -347,7 +347,7 @@ Phase 2 — Core app
   in 2.3, the checklist's program-page variant in 2.4)
 - [x] 2.3 Explore: toolbar, phone filter sheet, rows (11 October 2026)
 - [x] 2.4 Program and university pages (12 October 2026)
-- [ ] 2.5 Shortlist with compare
+- [x] 2.5 Shortlist with compare (13 October 2026)
 
 Phase 3 — Profile and onboarding
 
@@ -1497,6 +1497,58 @@ side by side):**
   would see the list under the panel, without the fit column). Loading: D2.8 skeleton rows under the
   real title and links, one hidden "Loading your shortlist". A failed load: D2.11's panel, "Your
   shortlist didn't load".
+
+**Done 13 October 2026.**
+
+- **The page.** `app/student/saved/ShortlistClient.tsx`, loaded through `NewShortlist.tsx` as its own
+  chunk, so today's visitors download none of it. It asks `GET /api/students/shortlist` once; List
+  and Compare are links whose addresses change with `history.pushState`, so switching views, Back
+  and choosing programs read nothing (the choice replaces the history entry). The compare table is in
+  `components/shortlist/` (`CompareTable` from 768px, `ComparePair` below it, the "Choose programs"
+  popover and the view links); the list is Explore's `ResultRow`, which now takes `heading="h2"`. The
+  rules for the address, the columns, the phone pair and the words are pure and tested
+  (`lib/shortlist/view.ts`). The profile call to action moved out of Matches into
+  `components/match/CompleteProfile.tsx`, so both pages show the same D2.11 panel.
+- **Reads.** The route reads what today's `GET /api/students/saved-programs` reads, the profile and
+  the saved programs, with one thing more: the profile becomes a select with the student's subjects
+  and grades, fields and countries ("Not one of your countries" and the first-run steps). The saved
+  programs are the same select with `programUrl`, `requirementsEntryYear` and the university's
+  `admitRate` added, and the field's icon and description dropped. The fit is Explore's
+  (`academicFit`, extracted from `programFit` in `lib/explore/fit.ts`), the subjects in the D3.1 chip
+  words (`subjectChips` in `lib/matching/match-status.ts`), worked out on the server from the rows
+  the query returns (`lib/shortlist/items.ts`). No programs cache, no search.
+- **The nav count** (from 2.2) is kept in the browser for the signed-in student
+  (`lib/shortlist/count.ts`, `components/site/shortlist-count.tsx`), as the theme is, with no read of
+  its own: Matches, Explore and the Shortlist record it from the shortlist they load anyway, and every
+  save or removal the server confirms moves it. Every signed-in page shows it; another account in the
+  same browser never sees it. A save made on another device shows once one of those three pages
+  loads, and until a count is known the link shows none. The server can't see browser storage, so the
+  count appears as the page wakes: a layout shift of 0.00014 on a full load of a signed-in page with
+  a count (none on navigation between pages, none on public pages).
+- **The hint** under "Include programs with no IB minimum" reads "Mostly US universities, which admit
+  on the whole application" (`components/explore/FilterParts.tsx`).
+- **Checked.** Without the preview, eleven pages (the Shortlist, Matches and Academic signed in,
+  Home, How it works, a guide, the requirements hub, a program signed in and out, a university,
+  Explore) send the same HTML as `main`, and `npm run build` lists every route as `main` does, plus
+  the new API route. Today's visitors download 0.1 KB more JavaScript on the Shortlist, gzipped (the
+  lazy wrapper), and none elsewhere; CSS is 31.1 KB (+0.4, under 32). The new page's own code is
+  14.1 KB gzipped. In the browser: every control used, the list loaded once in a production build,
+  42 checks passed (views, Back, a reload, choosing, the phone selects, removing, Undo, a failed
+  removal, the count). Design QA screenshots of every board state, desktop and phone, light and dark,
+  forced colours, 768, 900 and the 200% zoom width, are in the pull request.
+
+Departures, each small:
+
+- **Copy the boards didn't draw:** "Nothing is on your shortlist now." when every program on the page
+  has been removed; "Not checked yet" with "Confirm the requirements before you apply." for a program
+  whose requirements haven't been checked for any intake (7 of 1,677 programs). The tab title is
+  "Your shortlist" in the new design, as the page and the nav name it; today's stays "Saved Programs".
+- **"Saved to your shortlist." has no "View shortlist" on the Shortlist itself** (after Undo or a
+  re-save): the student is already there.
+- **The phone selects use the browser's own list** (`native` on D2.3's `Select`): Chrome's styled
+  select wraps a long name over several lines instead of cutting it short, as the board draws.
+- **No summary before grades.** The board's "Profile incomplete" frame has none, and no student has
+  saved programs without grades today; the list under the panel shows no fit column.
 
 ---
 

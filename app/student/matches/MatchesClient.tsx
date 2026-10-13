@@ -7,7 +7,6 @@ import {
   Check,
   ChevronDown,
   CircleAlert,
-  GraduationCap,
   ListChecks,
   Minus,
   X,
@@ -19,6 +18,7 @@ import { ButtonLink } from '@/components/ds/ButtonLink'
 import { EmptyState } from '@/components/ds/EmptyState'
 import { Select } from '@/components/ds/Select'
 import { LoadingRegion, Skeleton, SkeletonLine } from '@/components/ds/Skeleton'
+import { CompleteProfile } from '@/components/match/CompleteProfile'
 import { MatchCard, MatchCardSkeleton } from '@/components/match/MatchCard'
 import { useShortlist } from '@/components/match/use-shortlist'
 import { APP_PLACES } from '@/components/site/nav'
@@ -36,7 +36,6 @@ import {
   type MatchItem,
   type MatchesProfile,
   type MatchesResponse,
-  type ProfileStep,
   type SortOrder
 } from '@/lib/matching/match-groups'
 
@@ -512,32 +511,6 @@ function StatusCircle({ Icon, className }: { Icon: LucideIcon; className: string
     >
       <Icon size={16} strokeWidth={2.4} />
     </span>
-  )
-}
-
-function CompleteProfile({ steps }: { steps: ProfileStep[] }) {
-  const choicesSaved = steps.filter((s) => s.name !== 'Subjects and grades').every((s) => s.done)
-  return (
-    <EmptyState
-      icon={GraduationCap}
-      tone="brand"
-      title="Complete your academic profile"
-      steps={steps}
-      actions={
-        <>
-          <ButtonLink href={ACADEMIC}>
-            {choicesSaved ? 'Add subjects and grades' : 'Get started'}
-          </ButtonLink>
-          <ButtonLink href={EXPLORE} variant="secondary">
-            Explore programs
-          </ButtonLink>
-        </>
-      }
-      meta="About 2 minutes. You can change it any time."
-    >
-      Add your six IB subjects and grades, and we’ll match you with programs in your fields and
-      countries.
-    </EmptyState>
   )
 }
 

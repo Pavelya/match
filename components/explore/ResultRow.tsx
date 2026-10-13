@@ -13,8 +13,8 @@ import { formatRate } from '@/lib/programs/ib-minimum'
 
 /*
  * One program in Explore's list (rebranding 2.3, canvas board "D3.3 Result row", approved 11
- * October 2026). An item of an ordered list: the name is an h3 and the row's only link, Save its
- * only other control. From 1024px the values sit in columns under headings drawn for sighted
+ * October 2026). An item of an ordered list: the name is a heading (an h3 on Explore, an h2 on the
+ * Shortlist) and the row's only link, Save its only other control. From 1024px the values sit in columns under headings drawn for sighted
  * readers; each value carries its own label for screen readers ("Length 4 years"). Below that
  * the row stacks: the name, university and country, the fit in its status colour, and the
  * minimum on the right. No hover on the row; the name underlines. Names wrap in full.
@@ -51,6 +51,8 @@ interface ResultRowProps {
   onToggleSave: () => void
   /** Signed out, Save is a link to sign-in that comes back to the program */
   signInHref?: string
+  /** h2 on the Shortlist (2.5), whose rows sit straight under its h1 */
+  heading?: 'h2' | 'h3'
 }
 
 export function ResultRow({
@@ -60,14 +62,15 @@ export function ResultRow({
   saved,
   saving,
   onToggleSave,
-  signInHref
+  signInHref,
+  heading: Heading = 'h3'
 }: ResultRowProps) {
   return (
     <li className={rowClasses(fitColumn)}>
       <UniversityThumb image={row.image} initials={row.initials} />
 
       <div className="flex min-w-0 flex-col">
-        <h3 className="text-[0.9375rem] leading-5 font-semibold break-words lg:text-h3">
+        <Heading className="text-[0.9375rem] leading-5 font-semibold break-words lg:text-h3">
           <Link
             id={`explore-${row.id}`}
             href={`/programs/${row.id}`}
@@ -75,7 +78,7 @@ export function ResultRow({
           >
             {row.name}
           </Link>
-        </h3>
+        </Heading>
         <span className="text-small font-normal break-words text-muted-foreground">
           <span className="lg:hidden">
             {row.university} · {row.country}

@@ -13,7 +13,7 @@
 import { calculateAcademicMatch } from '@/lib/matching/academic-matcher'
 import { deriveMatchStatus } from '@/lib/matching/match-status'
 import { transformProgram } from '@/lib/matching/transformers'
-import type { ProgramRequirements, StudentProfile } from '@/lib/matching/types'
+import type { AcademicMatchScore, ProgramRequirements, StudentProfile } from '@/lib/matching/types'
 import type { ExploreFit } from './types'
 
 /** What the fit reads of a program */
@@ -73,17 +73,26 @@ export function fitProgram(record: FitRecord): FitProgram {
 const NO_PREFERENCE = { score: 1, isMatch: true, noPreferences: true }
 
 export function programFit(student: StudentProfile, program: FitProgram): ExploreFit {
+  const { status, badge } = academicFit(student, program)
+  return { status, badge }
+}
+
+/**
+ * The fit with the academic match it was worked out from, whose subjects the Shortlist's
+ * compare table lists (rebranding 2.5).
+ */
+export function academicFit(
+  student: StudentProfile,
+  program: FitProgram
+): ExploreFit & { academicMatch: AcademicMatchScore } {
+  const academicMatch = calculateAcademicMatch(student, program.requirements)
   const { status, badge } = deriveMatchStatus({
-    result: {
-      academicMatch: calculateAcademicMatch(student, program.requirements),
-      fieldMatch: NO_PREFERENCE,
-      locationMatch: NO_PREFERENCE
-    },
+    result: { academicMatch, fieldMatch: NO_PREFERENCE, locationMatch: NO_PREFERENCE },
     studentPoints: student.totalIBPoints,
     minIBPoints: program.minIBPoints,
     fieldName: '',
     countryName: '',
     requirementsEntryYear: null
   })
-  return { status, badge }
+  return { status, badge, academicMatch }
 }

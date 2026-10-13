@@ -6,16 +6,21 @@
  * - Same card layout as the search page
  * - Option to remove programs from saved list
  * - Fast loading with optimized queries
+ *
+ * In the new design (rebranding 2.5) this is the Shortlist, with List and Compare: NewShortlist.
  */
 
 import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import { SavedProgramsClient } from './SavedProgramsClient'
+import { NewShortlist } from './NewShortlist'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { Loader2 } from 'lucide-react'
+import { showsNewUi } from '@/lib/new-ui'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
-export const metadata = {
+const metadata = {
   title: 'Saved Programs',
   description: 'View and manage your saved university programs.',
   robots: {
@@ -39,6 +44,14 @@ export const metadata = {
   }
 }
 
+/**
+ * Behind sign-in and noindex in both designs. The new design names the page as its title and
+ * nav do; nothing else changes.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  return (await showsNewUi()) ? { ...metadata, title: 'Your shortlist' } : metadata
+}
+
 function LoadingSkeleton() {
   return (
     <div className="space-y-4">
@@ -51,7 +64,9 @@ function LoadingSkeleton() {
   )
 }
 
-export default function SavedProgramsPage() {
+export default async function SavedProgramsPage() {
+  if (await showsNewUi()) return <NewShortlist />
+
   return (
     <PageContainer>
       <PageHeader title="Saved Programs" description="Programs you've saved for later review" />
