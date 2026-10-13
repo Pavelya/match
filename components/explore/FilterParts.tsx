@@ -5,21 +5,13 @@ import { cn } from '@/lib/utils'
 import { FieldMessage } from '@/components/ds/Field'
 import { Input } from '@/components/ds/Input'
 import { POINTS, POINTS_ERROR, readPoints } from '@/lib/explore/query'
+import { checkboxClasses } from './checkbox'
 
 /*
  * What the desktop menus (D3.5) and the phone sheet (D2.15) both hold: rows of checkboxes, the
  * IB points range with its no-minimum box, and the shortcuts from the student's profile. Every
- * choice applies at once. Checkboxes use the line-3 edge and a brand fill, as both boards draw
- * them; D2.6 settles the checkbox row for first run (3.1).
+ * choice applies at once. The checkbox itself is in ./checkbox.ts.
  */
-
-export const checkboxClasses = cn(
-  'grid size-5 shrink-0 cursor-pointer appearance-none place-content-center rounded-[5px] border border-line-3 bg-card',
-  "after:hidden after:-mt-[3px] after:h-[5px] after:w-2.5 after:-rotate-45 after:border-b-2 after:border-l-2 after:border-primary-foreground after:content-['']",
-  'checked:border-primary checked:bg-primary checked:after:block',
-  // Ticked boxes take Highlight in forced colours (D2.15)
-  'forced-colors:border-[CanvasText] forced-colors:bg-[Canvas] forced-colors:forced-color-adjust-none forced-colors:after:border-[HighlightText] forced-colors:checked:border-[Highlight] forced-colors:checked:bg-[Highlight]'
-)
 
 export interface Option {
   id: string
@@ -204,7 +196,7 @@ export function PointsInputs({
         <span className="flex flex-col gap-0.5">
           <span>Include programs with no IB minimum</span>
           <span className="text-small font-normal text-muted-foreground">
-            All 12 US universities admit without one
+            Mostly US universities, which admit on the whole application
           </span>
         </span>
       </CheckRow>

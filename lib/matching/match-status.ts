@@ -154,6 +154,16 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
 }
 
 /**
+ * Every subject requirement in the chips' words, missing first, then within reach and met: the
+ * compare table's Subjects row (rebranding 2.5, "D3.7 Compare table"), which shows them all
+ * where a card collapses the met ones. Empty when the program names no subjects.
+ */
+export function subjectChips(subjectMatches: SubjectMatchDetail[]): MatchChip[] {
+  const chips = subjectMatches.map((detail) => assessSubject(detail).chip)
+  return KIND_ORDER.flatMap((kind) => chips.filter((chip) => chip.kind === kind))
+}
+
+/**
  * The chips a card shows: at most four, problems and notes always, and the met ones that fit.
  * The rest collapse into "+N met" at the end.
  */

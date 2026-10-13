@@ -102,7 +102,7 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
   /** Remounts the IB points fields after a reset, which can leave the applied range as it was */
   const [pointsKey, setPointsKey] = useState(0)
 
-  const shortlist = useShortlist(viewer.savedIds)
+  const shortlist = useShortlist(viewer.savedIds, { whole: viewer.signedIn })
   const latest = useRef(initial.query)
   const request = useRef(0)
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
