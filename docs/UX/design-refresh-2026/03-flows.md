@@ -156,7 +156,8 @@ deciding from is the one place their fit is not shown.
   Explore", 11 October 2026).
 - **Save while logged out** opens sign-in, remembers the program, and saves it on return. No
   false confirmation. A new account goes through first run first, then back to the program, which
-  saves it (owner, 12 October 2026; `REBRANDING_tasks.md` 3.1).
+  saves it (owner, 12 October 2026; `REBRANDING_tasks.md` 3.1). So does any student without grades
+  who presses Save (F6).
 - **Shortlist** (renamed from "Saved") with a **Compare** view: fit, minimum points against yours,
   named subjects, country, degree and length, the year the requirements were checked, official
   link. All of this data already exists. Approved on "D3.7 Compare table" and "D4.10 Shortlist"
@@ -188,6 +189,25 @@ as text on the Academic tab instead.
 **Approved 10 October 2026** ("D2.11 Empty and error states", "D4.6 Matches"): on Matches and Shortlist
 the call to action is the empty-state panel, "Complete your academic profile", listing the three steps
 with the ones already saved ticked, and "Add subjects and grades".
+
+**Save without grades (owner, 12 and 13 October 2026; `REBRANDING_tasks.md` 3.1).** In the new
+design today, Save on Explore or a program page fails for a student without a profile, and its "Try
+again" fails too.
+In production 40 of 191 student accounts have no profile, and 41 of the 152 with grades have
+saved a program. Proposed:
+
+```
+Save on a program or an Explore row (no grades: a link that says "add your grades first")
+  ─▶ First run, at the first step not yet saved
+       every step: "Computer Science, University of Toronto, is waiting. We'll add it to your
+       shortlist when you finish." · "Step 1 of 3"
+       "Save and exit": "Your choices are saved. Computer Science isn't on your shortlist yet." ─▶ Home
+  ─▶ the last step saves the grades ─▶ back where Save was pressed (Explore keeps the search)
+  ─▶ the program is saved: "Profile saved. Computer Science is on your shortlist." · View shortlist
+```
+
+Saving waits for grades, not just a profile: the shortlist's fit and Compare need them. No new
+read: both pages know from the profile read they make already. The words are drafts for D4.3.
 
 ## F7 · Sign-in
 
