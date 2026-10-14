@@ -51,7 +51,10 @@ About **50 interactions plus an email round-trip**, and sign-in comes before the
   run, step 2", desktop and phone): each step saves as a draft on Continue; "Set up your profile" on a
   first visit, "Update your profile" after; Continue needs one field, and a country or "Open to
   anywhere", which is saved as every country. Decisions in `REBRANDING_tasks.md` 3.1.
-- **Step 3:** one row per IB group (below).
+- **Step 3:** one row per IB group (below). **Approved 14 October 2026** ("D3.6 Subject editor",
+  "D4.5 First run, step 3", desktop and phone): any subject in any row, the last "Group 6 · The arts,
+  or another subject"; one total in the footer, "So far" until whole; each diploma check where it
+  applies and again in the footer; the button is Finish. Decisions in `REBRANDING_tasks.md` 3.2.
 - **Focus mode:** no tab bar during first run, just the logo, "Save and exit" and "Back to …". The
   tab bar appears once the student has matches. "Save and exit" saves the step in progress and goes
   to Home (9 October 2026).
@@ -61,7 +64,7 @@ Home ─ "Get my matches" ─▶ Sign in (unchanged) ─▶ 1 Interests ─▶ 2
   ─▶ 3 Six subjects (one row per IB group)
      each row: type-ahead subject · SL/HL · grade 1–7   = 3 per subject, 18 in all
      TOK, EE                                             2
-     live total and diploma checks, "See my matches"     1
+     live total and diploma checks, "Finish"             1
   ─▶ Matches in three status groups, with reasons
 ```
 
@@ -181,6 +184,9 @@ is complete. At step 3, remove the subject, re-add it through the six-step dialo
 - Change the grade in place; the total and diploma checks update live; "Save and update matches".
 - After saving, matches show a one-line summary of what moved, for example "2 programs now meet
   all requirements". This needs only a comparison of before and after lists, not new data.
+- **Approved 14 October 2026** (D4.5, after first run): the same editor, with "Save changes", which
+  waits for a change and then shows the total before it ("Was 38 before your changes"). Where it
+  leads, and the Academic page itself, are D4.11's.
 
 ## F6 · Logged in, profile incomplete
 
