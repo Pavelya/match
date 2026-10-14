@@ -277,7 +277,7 @@ merges into `main`, behind the preview switch.**
 | 9 | Program and university pages | 2.4 | D3.4, D4.8, D4.9 | medium | **Done 12 October 2026.** Breadcrumbs with structured data, the requirement checklist signed in and out, the fit panel, every program by field, not-found pages; sign-in returns to the page and Save saves on the way back. No loading state (it would prefetch every program link) |
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | **Done 13 October 2026.** List and Compare from one response with the fit, one read more than today (the student's subjects); up to four on desktop, two on a phone. The nav count is kept in the browser, with no read of its own |
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | **Done 13 October 2026.** Steps 1 and 2 in the new design, saved as drafts; focus mode from first run's mark on the page; Save without grades through first run and back, on a program or an Explore row. Step 3 is today's until 3.2 |
-| 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | After `MAINT_tasks.md` 5.8 and 5.13, whose helpers it uses (both done 7 October 2026) |
+| 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | **Done 14 October 2026.** One editor, `ProfileEditor`, for first run's step 3 and editing after: a row per IB group, any subject in any row, the core, the checks, and one total in the footer. Save and exit keeps a draft without a total; the IB's failing conditions read the same words everywhere (`lib/ib/diploma.ts`) |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
 | 14 | Home | 4.1 | D4.1 | medium | |
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
@@ -307,7 +307,7 @@ Rows 3 and 4 can share a design session.
 | 9 | `/design D4.8, D4.9`: program and university pages | Those two boards. D3.4 is approved in row 6–7 | `/build 9`: program and university pages (2.4) | Done 12 October 2026 |
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | Done 13 October 2026 |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Done 13 October 2026 |
-| 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | |
+| 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | Done 14 October 2026 |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
@@ -360,7 +360,7 @@ Phase 2 — Core app
 Phase 3 — Profile and onboarding
 
 - [x] 3.1 First-run interest and country steps (13 October 2026)
-- [ ] 3.2 Subject editor
+- [x] 3.2 Subject editor (14 October 2026)
 - [ ] 3.3 Academic profile and settings
 
 Phase 4 — Public pages
@@ -1818,6 +1818,56 @@ grade 1–7), then TOK and EE. It replaces `SubjectSelectorDialog`, `DetailedGra
   Academic, is D4.11's to decide.
 - **Reads and writes.** No new reads: the profile and the cached subjects (`getCachedIBCourses`) that
   first run reads today. Finish writes the profile once, as today; Save and exit once, as a draft.
+
+**Built 14 October 2026 (session 12).** The editor is `components/profile-editor/ProfileEditor.tsx`
+(the six rows, the checks under them and the core), its rules `lib/student/subject-editor.ts` (where
+saved subjects go, the list per row, the Higher Level line, the core line, the footer's 14 states
+and what Save and exit keeps), and step 3 and its footer are in `app/student/onboarding/FirstRun.tsx`,
+in first run's lazy chunk. The IB's other failing conditions are `otherFailingConditions` in
+`lib/ib/diploma.ts`, in the approved words; `validateDiploma` returns them after the E and Higher
+Level messages, as before. Save and exit at step 3 is a third kind of draft on
+`PUT /api/students/profile/preferences` (`step: 'subjects'`): one update of the student's own
+profile, written only where it has no total (`totalIBPoints: null` in the update's `where`), so a
+draft can never undo a finished profile; otherwise 409. Finish and Save changes post to
+`POST /api/students/profile`, unchanged. The primitives gained what the rows need: `Segmented` a
+hidden legend, an id, options that share the row (`stretch`), a red choice without a message of
+its own (`invalid`) and an outside description (`describedBy`); `SubjectPicker` an id and the
+ellipsis; `Button` `onRefused`, for a press while it is aria-disabled.
+
+Departures and hand-offs:
+
+- **No `aria-invalid` on a chosen 1 or E.** ARIA doesn't allow it on a radio (build 2 found the
+  same). The choice turns red, and the words say why: D2.4's message under the E, and the
+  conditions under the subjects for a 1.
+- **Waiting levels and grades are D2.4's disabled state,** sunken with a line edge, as D3.6's note
+  says ("D2.4's disabled state"); D3.6's drawing shows them as outlines.
+- **An E stops Finish as soon as it is chosen,** with the footer's "To finish, choose a TOK grade
+  from A to D.", not only once everything is in; the boards draw the E with everything in. A missing
+  TOK grade alone reads "Add your TOK grade", beside the board's "Add your Extended Essay grade".
+- **Pressing Finish early** moves focus to the first thing missing: a row's field, its level or its
+  grade, or TOK or the EE; for the Higher Level count or the IB's other conditions, to the lines
+  under the subjects; for an E, to that grade.
+- **Today's step shows the new words too.** The conditions live in the shared helper, as decided, so
+  today's `DetailedGradesInput` lists them in the new words: 69 bytes more JavaScript (gzip) on
+  today's onboarding page. Nothing else in today's design changes, and `npm run build` lists the
+  same pages as Static.
+- **Today's `SubjectSelectorDialog`, `DetailedGradesInput`, `QuickScoreInput` and `StepIndicator`
+  stay** for today's design until cleanup (R.2); the new design no longer uses them. First run's lazy
+  chunk grows from 8.3 to 15.6 KB (gzip) in the new design only, since today's step sits in the
+  page's own chunk until then.
+- **Opening at step 3 with a saved draft** places each subject as decided; the tick line is 3.1's.
+  QA reached step 3 through steps 1 and 2, since a draft lives in the database.
+- **Found, not changed: the Standard and Higher Level floors for four Higher Level subjects.** The
+  helper asks for 9 points at Standard Level and 12 at Higher Level whatever the count. The IB's
+  rule is 5 at Standard Level for a student with two Standard Level subjects, and the best three
+  grades for one with four at Higher Level. So a student with four at Higher Level and Standard Level
+  grades of 4 and 4 can't finish, and HL 4, 4, 3, 2 passes where the IB would fail it. 15 of 152
+  students take four at Higher Level. A rule change, so a separate task.
+- **Found, not changed: `text-body/…` and `text-small/…` emit no CSS.** Both are custom
+  `@utility` classes, which take no line-height modifier, so those elements inherit their size. Fixed
+  here in `FirstRun.tsx` and the editor (`text-[0.9375rem]/5`); still in `components/ds/Choice.tsx`
+  (first run's rows, 15/24 rather than 15/22) and `components/match/WhyThisMatch.tsx`, whose
+  `text-small/5` lines may show at 15px rather than 13px.
 
 ### 3.3 — Academic profile and settings
 

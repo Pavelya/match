@@ -10,7 +10,10 @@ import { readDraft } from '@/lib/student/draft'
  * First run's step drafts (rebranding 3.1, today `03-flows.md` F1 "nothing is saved until the
  * last button"): Continue on step 1 saves the interests, on step 2 the countries or "Open to
  * anywhere", before any grades exist. One write of the student's own profile, creating it on
- * the first step; no read before it. Grades still save through POST /api/students/profile.
+ * the first step; no read before it. Step 3's Save and exit (3.2) keeps the complete subjects
+ * and the core without a total, so the student still has no grades; it writes only a profile
+ * that has none, so it can never undo a finished one. Grades still save, with their total,
+ * through POST /api/students/profile.
  */
 
 export async function PUT(request: NextRequest) {
@@ -32,6 +35,43 @@ export async function PUT(request: NextRequest) {
   const draft = readDraft(body)
   if (typeof draft === 'string') {
     return NextResponse.json({ error: draft }, { status: 400 })
+  }
+
+  if (draft.step === 'subjects') {
+    try {
+      await prisma.studentProfile.update({
+        where: { userId, totalIBPoints: null },
+        data: {
+          tokGrade: draft.tokGrade,
+          eeGrade: draft.eeGrade,
+          courses: {
+            deleteMany: {},
+            create: draft.courses.map(({ courseId, level, grade }) => ({
+              ibCourseId: courseId,
+              level,
+              grade
+            }))
+          }
+        },
+        select: { id: true }
+      })
+      return NextResponse.json({ success: true })
+    } catch (error) {
+      const code = (error as { code?: string }).code
+      // No profile without grades: a finished profile saves through Save changes
+      if (code === 'P2025') {
+        return NextResponse.json({ error: 'Your profile already has grades' }, { status: 409 })
+      }
+      // A subject that doesn't exist
+      if (code === 'P2003') {
+        return NextResponse.json({ error: 'Unknown subject' }, { status: 400 })
+      }
+      logger.error(
+        { error: error instanceof Error ? error.message : 'Unknown error', step: draft.step },
+        'Failed to save a first-run step'
+      )
+      return NextResponse.json({ error: 'Failed to save. Please try again.' }, { status: 500 })
+    }
   }
 
   const choices =

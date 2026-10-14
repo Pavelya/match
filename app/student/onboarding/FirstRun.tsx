@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Bookmark, CircleCheck, Earth, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -9,21 +9,31 @@ import { CheckboxRow, CheckboxTile } from '@/components/ds/Choice'
 import { SearchInput } from '@/components/ds/SearchInput'
 import { useToast } from '@/components/ds/Toast'
 import { fieldIcon } from '@/components/first-run/field-icons'
+import { ProfileEditor, focusEditorTarget } from '@/components/profile-editor/ProfileEditor'
 import { useFirstRunExit } from '@/components/site/first-run-exit'
 import { useShortlistCounter } from '@/components/site/shortlist-count'
-import { Button as TodayButton } from '@/components/ui/button'
-import { DetailedGradesInput } from '@/components/student/DetailedGradesInput'
 import { calculateTotalPoints } from '@/lib/ib/diploma'
 import { MAX_FIELDS } from '@/lib/student/draft'
 import { filterCountries } from '@/lib/student/country-filter'
 import { finishHref, firstRunTitle, type FirstRunStep, type Waiting } from '@/lib/student/first-run'
+import {
+  chosenSubjects,
+  editorFooter,
+  isBlank,
+  placeSubjects,
+  subjectsDraft,
+  type EditorFooter,
+  type SubjectsState
+} from '@/lib/student/subject-editor'
 
 /*
  * First run's steps in the new design (rebranding 3.1; boards "D2.6 Checkbox rows and grid",
- * "D4.3 First run, step 1" and "D4.4 First run, step 2", approved 13 October 2026). Steps 1 and 2
- * save as drafts on Continue, so leaving loses nothing (03-flows F1). Step 3 is today's subject
- * step until 3.2 rebuilds it. Loaded through NewOnboarding.tsx, so today's design downloads none
- * of it.
+ * "D4.3 First run, step 1" and "D4.4 First run, step 2", approved 13 October 2026), and step 3,
+ * the subject editor (3.2; "D3.6 Subject editor" and "D4.5 First run, step 3", approved 14
+ * October 2026). Steps 1 and 2 save as drafts on Continue, so leaving loses nothing (03-flows F1);
+ * step 3 writes nothing while choosing, and Finish saves the profile once, with its total. After
+ * first run the same steps edit the profile, and Finish is Save changes. Loaded through
+ * NewOnboarding.tsx, so today's design downloads none of it.
  */
 
 interface IBCourse {
@@ -66,6 +76,8 @@ export interface FirstRunProps {
 
 const PREFERENCES = '/api/students/profile/preferences'
 
+const SUBJECTS_FAILED = 'Couldn’t save your subjects and grades.'
+
 async function saveDraft(body: unknown): Promise<boolean> {
   try {
     const response = await fetch(PREFERENCES, {
@@ -94,11 +106,26 @@ export function FirstRun(props: FirstRunProps) {
   const [refused, setRefused] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
-  const [courseSelections, setCourseSelections] = useState(props.initial.courseSelections)
-  const [tokGrade, setTokGrade] = useState(props.initial.tokGrade)
-  const [eeGrade, setEeGrade] = useState(props.initial.eeGrade)
-  const [diplomaValid, setDiplomaValid] = useState(true)
-  const [saveError, setSaveError] = useState<string | null>(null)
+  const courses = props.courses
+  // Step 3 opens on the saved subjects, each in its group's row (D3.6). After first run, what was
+  // saved is kept apart, so Save changes waits for a change and shows the total before it.
+  const [opening] = useState<SubjectsState>(() => ({
+    rows: placeSubjects(
+      props.initial.courseSelections.map(({ courseId, level, grade }) => ({
+        courseId,
+        level,
+        grade
+      })),
+      courses
+    ),
+    tok: props.initial.tokGrade,
+    ee: props.initial.eeGrade
+  }))
+  const [subjects, setSubjects] = useState<SubjectsState>(opening)
+  const footer = useMemo(
+    () => editorFooter(subjects, courses, firstRun ? null : opening),
+    [subjects, courses, firstRun, opening]
+  )
 
   const question = useRef<HTMLHeadingElement>(null)
   const moved = useRef(false)
@@ -143,8 +170,9 @@ export function FirstRun(props: FirstRunProps) {
     })
   }
 
-  // "Save and exit" in focus mode's header saves the step in progress (D2.12). Step 3's subjects
-  // are kept once all six are in, until 3.2's editor saves them as they go.
+  // "Save and exit" in focus mode's header saves the step in progress (D2.12). At step 3 it keeps
+  // each complete subject and the core as a draft without a total, so the student still has no
+  // grades and Save keeps leading here (D4.5).
   const exitPlan = useMemo(
     () => ({
       waiting,
@@ -152,16 +180,22 @@ export function FirstRun(props: FirstRunProps) {
         let saved = true
         if (step === 1 && chosenFields.length > 0) saved = await interests()
         if (step === 2 && (anywhere || chosenCountries.length > 0)) saved = await places()
+        if (step === 3 && !isBlank(subjects)) saved = await saveDraft(subjectsDraft(subjects))
         if (!saved) {
           toast({
             tone: 'gap',
-            message: step === 1 ? 'Couldn’t save your interests.' : 'Couldn’t save your countries.'
+            message:
+              step === 1
+                ? 'Couldn’t save your interests.'
+                : step === 2
+                  ? 'Couldn’t save your countries.'
+                  : SUBJECTS_FAILED
           })
         }
         return saved
       }
     }),
-    [waiting, step, chosenFields, anywhere, chosenCountries, interests, places, toast]
+    [waiting, step, chosenFields, anywhere, chosenCountries, subjects, interests, places, toast]
   )
   useFirstRunExit(exitPlan)
 
@@ -180,11 +214,15 @@ export function FirstRun(props: FirstRunProps) {
 
   const shownCountries = useMemo(() => filterCountries(countries, filter), [countries, filter])
 
-  /** Step 3, today's: all six subjects, TOK and the EE, then back where Save was pressed */
+  /**
+   * Finish (Save changes after first run): the profile once, with its total, as today; then back
+   * where Save was pressed, or Matches. If it fails the student stays, everything kept (D2.9).
+   */
   const complete = async () => {
-    if (courseSelections.length !== 6 || !tokGrade || !eeGrade || !diplomaValid || saving) return
+    if (!footer.ready || saving) return
     setSaving(true)
-    setSaveError(null)
+    const courseSelections = chosenSubjects(subjects.rows, courses)
+    let saved = false
     try {
       const response = await fetch('/api/students/profile', {
         method: 'POST',
@@ -193,23 +231,33 @@ export function FirstRun(props: FirstRunProps) {
           interestedFields: chosenFields,
           preferredCountries: anywhere ? [] : chosenCountries,
           courseSelections,
-          tokGrade,
-          eeGrade,
-          totalIBPoints: calculateTotalPoints(courseSelections, tokGrade, eeGrade)
+          tokGrade: subjects.tok,
+          eeGrade: subjects.ee,
+          totalIBPoints: calculateTotalPoints(courseSelections, subjects.tok, subjects.ee)
         })
       })
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}))
-        throw new Error(error.error || 'Failed to save profile')
-      }
-      // The first grades mean an empty shortlist: the nav count starts at 0, and a save makes 1
-      if (firstRun) counter?.record(0)
-      router.push(finishHref(returnTo))
-    } catch (error) {
-      setSaveError(error instanceof Error ? error.message : 'Failed to save profile')
-      setSaving(false)
+      saved = response.ok
+    } catch {
+      saved = false
     }
+    if (!saved) {
+      setSaving(false)
+      toast({
+        tone: 'gap',
+        message: SUBJECTS_FAILED,
+        // The latest Finish, so a choice changed since the failure is saved too
+        action: { label: 'Try again', onClick: () => finishAgain.current() }
+      })
+      return
+    }
+    // The first grades mean an empty shortlist: the nav count starts at 0, and a save makes 1
+    if (firstRun) counter?.record(0)
+    router.push(finishHref(returnTo))
   }
+  const finishAgain = useRef<() => void>(() => {})
+  useEffect(() => {
+    finishAgain.current = () => void complete()
+  })
 
   const fieldsFull = chosenFields.length >= MAX_FIELDS
 
@@ -219,23 +267,23 @@ export function FirstRun(props: FirstRunProps) {
       data-first-run={firstRun ? '' : undefined}
       className={cn(
         'mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-4 md:gap-5 md:px-6 md:pt-8',
-        step === 3 ? 'pb-16' : 'pb-[calc(var(--step-footer)+2.5rem)]'
+        'pb-[calc(var(--step-footer)+2.5rem)]'
       )}
     >
-      {step === 2 && (
+      {step !== 1 && (
         <button
           type="button"
-          onClick={() => go(1)}
+          onClick={() => go(step === 3 ? 2 : 1)}
           className="-my-2 -ml-1 inline-flex h-9 items-center gap-1.5 self-start rounded-chip px-1 text-body font-medium text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft aria-hidden="true" size={16} strokeWidth={2} />
-          Back to interests
+          {step === 3 ? 'Back to countries' : 'Back to interests'}
         </button>
       )}
 
       <div className="flex flex-col gap-2.5">
         <div className="flex items-baseline justify-between gap-4">
-          <h1 className="text-body/6 font-semibold text-muted-foreground">
+          <h1 className="text-body font-semibold text-muted-foreground">
             {firstRun ? 'Set up your profile' : 'Update your profile'}
           </h1>
           <span className="text-small font-normal text-muted-foreground tabular-nums">
@@ -266,7 +314,7 @@ export function FirstRun(props: FirstRunProps) {
       </div>
 
       {props.kept && step === opened && (
-        <p className="flex items-start gap-2.5 text-body/[1.375rem]">
+        <p className="flex items-start gap-2.5 text-[0.9375rem]/[1.375rem]">
           <CircleCheck
             aria-hidden="true"
             size={18}
@@ -277,7 +325,7 @@ export function FirstRun(props: FirstRunProps) {
         </p>
       )}
 
-      {waiting && step !== 3 && (
+      {waiting && (
         <div className="grid grid-cols-[20px_minmax(0,1fr)] items-start gap-x-3 rounded-[0.75rem] border border-border bg-card px-4 py-3.25">
           <Bookmark
             aria-hidden="true"
@@ -285,7 +333,7 @@ export function FirstRun(props: FirstRunProps) {
             strokeWidth={1.75}
             className="mt-px text-primary"
           />
-          <p className="text-body/[1.375rem]">
+          <p className="text-[0.9375rem]/[1.375rem]">
             <strong className="font-semibold">{waiting.program}</strong>, {waiting.university}, is
             waiting. We’ll add it to your shortlist when you finish.
           </p>
@@ -298,15 +346,20 @@ export function FirstRun(props: FirstRunProps) {
             ? 'What would you like to study?'
             : step === 2
               ? 'Where would you like to study?'
-              : 'Your subjects and grades'}
+              : 'What are your subjects and grades?'}
         </h2>
-        {step !== 3 && (
-          <p className="text-body text-muted-foreground md:text-body-l">
-            {step === 1
-              ? 'Choose up to five. You can change them any time.'
-              : 'Choose as many as you like, or Open to anywhere.'}
-          </p>
-        )}
+        <p className="text-body text-muted-foreground md:text-body-l">
+          {step === 1
+            ? 'Choose up to five. You can change them any time.'
+            : step === 2
+              ? 'Choose as many as you like, or Open to anywhere.'
+              : !firstRun
+                ? 'Change a subject, level or grade where it is. Your matches update when you save.'
+                : waiting
+                  ? // The waiting line says where finishing leads
+                    'Your six subjects, each with its level and your predicted grade. Final grades work too.'
+                  : 'Your six subjects, each with its level and your predicted grade. Final grades work too. When you finish, we’ll show your matches.'}
+        </p>
       </div>
 
       {step === 1 && (
@@ -402,44 +455,16 @@ export function FirstRun(props: FirstRunProps) {
         </fieldset>
       )}
 
-      {step === 3 && (
-        // Today's subject step (FieldSelectorClient.tsx) until 3.2 rebuilds it
-        <div className="flex flex-col gap-6">
-          <DetailedGradesInput
-            courses={props.courses}
-            selections={courseSelections}
-            tokGrade={tokGrade}
-            eeGrade={eeGrade}
-            onSelectionsChange={(selections, tok, ee) => {
-              setCourseSelections(selections)
-              setTokGrade(tok)
-              setEeGrade(ee)
-            }}
-            onValidationChange={setDiplomaValid}
-          />
-          {saveError && (
-            <div className="rounded-lg bg-destructive/10 p-4 text-sm text-destructive">
-              {saveError}
-            </div>
-          )}
-          <div className="mt-2 flex justify-between">
-            <TodayButton variant="outline" onClick={() => go(2)} size="lg" disabled={saving}>
-              ← Back
-            </TodayButton>
-            <TodayButton
-              onClick={() => void complete()}
-              disabled={
-                courseSelections.length !== 6 || !tokGrade || !eeGrade || !diplomaValid || saving
-              }
-              size="lg"
-            >
-              {saving ? 'Saving...' : 'Complete Profile'}
-            </TodayButton>
-          </div>
-        </div>
-      )}
+      {step === 3 && <ProfileEditor courses={courses} value={subjects} onChange={setSubjects} />}
 
-      {step !== 3 && (
+      {step === 3 ? (
+        <SubjectsFooter
+          footer={footer}
+          label={firstRun ? 'Finish' : 'Save changes'}
+          saving={saving}
+          onFinish={() => void complete()}
+        />
+      ) : (
         <StepFooter
           status={
             step === 1
@@ -464,6 +489,100 @@ export function FirstRun(props: FirstRunProps) {
 }
 
 /**
+ * Step 3's footer (D3.6): the count over "So far", the one thing left, or the total; a failed
+ * check in the line's place, with Info. Finish is aria-disabled and described by the line until it
+ * can go on; pressing it then reads the line again and moves focus to what is missing.
+ */
+function SubjectsFooter({
+  footer,
+  label,
+  saving,
+  onFinish
+}: {
+  footer: EditorFooter
+  label: string
+  saving: boolean
+  onFinish: () => void
+}) {
+  const { line } = footer
+  const key = JSON.stringify(line)
+  // A press that couldn't go on: the line it was refused on, and how many times
+  const [refusedOn, setRefusedOn] = useState<{ key: string; times: number } | null>(null)
+  const pressed = refusedOn !== null && refusedOn.key === key
+  const times = pressed ? refusedOn.times : 0
+
+  let first: ReactNode
+  let second: string | null = null
+  if (line.kind === 'count') {
+    first = (
+      <>
+        <strong className="font-semibold text-foreground">{line.done}</strong> of 6 subjects
+      </>
+    )
+    second = line.soFar
+  } else if (line.kind === 'left') {
+    first = line.text
+    second = line.soFar
+  } else if (line.kind === 'total') {
+    first = (
+      <>
+        Total <strong className="font-semibold">{line.total}</strong> points
+      </>
+    )
+    second = line.detail
+  } else {
+    first = line.text
+  }
+  const notice = line.kind === 'reason' || pressed
+
+  return (
+    <StepFooterFrame
+      status={
+        <p
+          role="status"
+          id="first-run-status"
+          className={cn(
+            'flex min-w-0 items-start gap-2 tabular-nums',
+            notice || line.kind === 'total' ? 'text-foreground' : 'text-muted-foreground'
+          )}
+        >
+          {notice && (
+            <Info aria-hidden="true" size={18} strokeWidth={2} className="mt-px shrink-0" />
+          )}
+          {/* A new node each press, so the line is read out again */}
+          <span key={times} className="flex min-w-0 flex-col">
+            <span className="text-[0.9375rem]/5">{first}</span>
+            {second && (
+              <span className="text-small text-muted-foreground">
+                {/* The two lines are flex items: a stop between them, so they aren't read as one */}
+                <span className="sr-only">. </span>
+                {second}
+              </span>
+            )}
+          </span>
+        </p>
+      }
+      button={
+        <Button
+          disabled={!footer.ready}
+          loading={saving}
+          loadingLabel="Saving…"
+          aria-describedby={footer.ready ? undefined : 'first-run-status'}
+          onClick={onFinish}
+          onRefused={() => {
+            setRefusedOn({ key, times: times + 1 })
+            if (footer.target) focusEditorTarget(footer.target)
+          }}
+          className="h-12 min-w-30 px-6 text-[1rem] md:h-11 md:min-w-32 md:px-5 md:text-body"
+        >
+          {label}
+        </Button>
+      }
+    />
+  )
+}
+
+/**
  * The footer fixed to the bottom of every step (D2.6): the count, or what Continue needs, or why
  * a box didn't tick, then Continue, which saves the step. 88px with a 48px button on a phone; a
  * full-width 76px bar on desktop with its contents on the page's column.
@@ -480,16 +599,13 @@ function StepFooter({
   onContinue: () => void
 }) {
   return (
-    <div
-      data-step-footer=""
-      className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/94 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:h-19 md:py-0"
-    >
-      <div className="mx-auto flex w-full max-w-[58rem] items-center justify-between gap-3 px-4 md:h-full md:gap-6 md:px-6">
+    <StepFooterFrame
+      status={
         <p
           role="status"
           id="first-run-status"
           className={cn(
-            'flex min-w-0 items-start gap-2 text-body/5 tabular-nums',
+            'flex min-w-0 items-start gap-2 text-[0.9375rem]/5 tabular-nums',
             status.notice || status.strong ? 'text-foreground' : 'text-muted-foreground'
           )}
         >
@@ -503,6 +619,8 @@ function StepFooter({
             {status.text}
           </span>
         </p>
+      }
+      button={
         <Button
           disabled={!ready}
           loading={saving}
@@ -513,6 +631,21 @@ function StepFooter({
         >
           Continue
         </Button>
+      }
+    />
+  )
+}
+
+/** The bar itself: 88px on a phone, a full-width 76px bar on desktop on the page's column */
+function StepFooterFrame({ status, button }: { status: ReactNode; button: ReactNode }) {
+  return (
+    <div
+      data-step-footer=""
+      className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/94 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:h-19 md:py-0"
+    >
+      <div className="mx-auto flex w-full max-w-[58rem] items-center justify-between gap-3 px-4 md:h-full md:gap-6 md:px-6">
+        {status}
+        {button}
       </div>
     </div>
   )

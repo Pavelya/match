@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server'
 // invalidate cached matches only for a student who has grades (rebranding 3.1).
 
 const { prismaMock, invalidateMock } = vi.hoisted(() => ({
-  prismaMock: { studentProfile: { upsert: vi.fn(), findUnique: vi.fn() } },
+  prismaMock: { studentProfile: { upsert: vi.fn(), update: vi.fn(), findUnique: vi.fn() } },
   invalidateMock: vi.fn(async () => undefined)
 }))
 
@@ -62,6 +62,29 @@ describe('readDraft', () => {
     expect(typeof readDraft({ step: 'countries', countries: [], anywhere: false })).toBe('string')
   })
 
+  it('takes complete subjects and the core, each subject once', () => {
+    const physics = { courseId: 'phys', level: 'HL', grade: 6 }
+    expect(
+      readDraft({ step: 'subjects', courses: [physics], tokGrade: 'B', eeGrade: null })
+    ).toEqual({ step: 'subjects', courses: [physics], tokGrade: 'B', eeGrade: null })
+    expect(readDraft({ step: 'subjects', courses: [], tokGrade: null, eeGrade: null })).toEqual({
+      step: 'subjects',
+      courses: [],
+      tokGrade: null,
+      eeGrade: null
+    })
+    const bad = (courses: unknown[], tokGrade: unknown = null) =>
+      typeof readDraft({ step: 'subjects', courses, tokGrade, eeGrade: null })
+    expect(bad([{ ...physics, grade: null }])).toBe('string')
+    expect(bad([{ ...physics, level: 'XL' }])).toBe('string')
+    expect(bad([{ ...physics, grade: 8 }])).toBe('string')
+    expect(bad([physics, physics])).toBe('string')
+    expect(bad(Array.from({ length: 7 }, (_, i) => ({ ...physics, courseId: `c${i}` })))).toBe(
+      'string'
+    )
+    expect(bad([physics], 'F')).toBe('string')
+  })
+
   it('refuses anything else', () => {
     expect(typeof readDraft({ step: 'grades' })).toBe('string')
     expect(typeof readDraft({ step: 'interests', fields: ['<script>'] })).toBe('string')
@@ -111,6 +134,40 @@ describe('PUT /api/students/profile/preferences', () => {
     )
     const response = await put({ step: 'interests', fields: ['nope'] })
     expect(response.status).toBe(400)
+  })
+
+  it('keeps step 3’s subjects as a draft, only on a profile without grades', async () => {
+    prismaMock.studentProfile.update.mockResolvedValue({ id: 'p1' })
+    const response = await put({
+      step: 'subjects',
+      courses: [{ courseId: 'phys', level: 'HL', grade: 6 }],
+      tokGrade: 'B',
+      eeGrade: null
+    })
+    expect(response.status).toBe(200)
+    expect(prismaMock.studentProfile.findUnique).not.toHaveBeenCalled()
+    expect(prismaMock.studentProfile.update).toHaveBeenCalledTimes(1)
+    expect(prismaMock.studentProfile.update).toHaveBeenCalledWith({
+      where: { userId: 'user-1', totalIBPoints: null },
+      data: {
+        tokGrade: 'B',
+        eeGrade: null,
+        courses: {
+          deleteMany: {},
+          create: [{ ibCourseId: 'phys', level: 'HL', grade: 6 }]
+        }
+      },
+      select: { id: true }
+    })
+    expect(invalidateMock).not.toHaveBeenCalled()
+  })
+
+  it('never turns a finished profile back into a draft', async () => {
+    prismaMock.studentProfile.update.mockRejectedValue(
+      Object.assign(new Error('x'), { code: 'P2025' })
+    )
+    const response = await put({ step: 'subjects', courses: [], tokGrade: 'A', eeGrade: 'A' })
+    expect(response.status).toBe(409)
   })
 
   it('needs a signed-in student', async () => {

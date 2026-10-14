@@ -14,6 +14,8 @@ interface ButtonProps extends Omit<ComponentProps<'button'>, 'disabled'>, Button
   loading?: boolean
   /** Given to a button that can load, so it is as wide as the longer label and never jumps. */
   loadingLabel?: ReactNode
+  /** Pressed while disabled (not while loading): say again why, and move focus to what's missing. */
+  onRefused?: () => void
 }
 
 export function Button({
@@ -22,6 +24,7 @@ export function Button({
   disabled = false,
   loading = false,
   loadingLabel,
+  onRefused,
   type = 'button',
   className,
   onClick,
@@ -34,6 +37,7 @@ export function Button({
     // aria-disabled doesn't stop clicks or form submission, so stop them here.
     if (inert) {
       event.preventDefault()
+      if (disabled && !loading) onRefused?.()
       return
     }
     onClick?.(event)
