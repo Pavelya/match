@@ -8,6 +8,10 @@ type SegmentValue = string | number
 
 interface SegmentedProps<T extends SegmentValue> {
   legend: ReactNode
+  /** The legend is read out but not shown, where a header names the column (D3.6). */
+  hideLegend?: boolean
+  /** On the fieldset, so a page can move focus to it. */
+  id?: string
   options: readonly { value: T; label: ReactNode }[]
   value: T | null
   onValueChange: (value: T) => void
@@ -18,6 +22,8 @@ interface SegmentedProps<T extends SegmentValue> {
   variant?: 'track' | 'separate'
   /** Desktop width of each separate option: 46 for 1–7, 52 for A–E. On a phone they share the row. */
   optionWidth?: number
+  /** Separate options share the row at every width (TOK and the EE, D3.6). */
+  stretch?: boolean
   disabled?: boolean
   /** Says what's missing while disabled: "Choose a subject first". */
   disabledReason?: ReactNode
@@ -26,6 +32,13 @@ interface SegmentedProps<T extends SegmentValue> {
    * red and this message is read out.
    */
   error?: ReactNode
+  /**
+   * The chosen option is red without a message of its own: a 1, or an E explained elsewhere.
+   * Colour only: ARIA doesn't allow aria-invalid on a radio, so the words say why.
+   */
+  invalid?: boolean
+  /** A message elsewhere that describes this choice too, such as one E message for TOK and EE. */
+  describedBy?: string
   className?: string
 }
 
@@ -36,33 +49,41 @@ interface SegmentedProps<T extends SegmentValue> {
  */
 export function Segmented<T extends SegmentValue>({
   legend,
+  hideLegend = false,
+  id,
   options,
   value,
   onValueChange,
   variant = 'track',
   optionWidth = 46,
+  stretch = false,
   disabled = false,
   disabledReason,
   error,
+  invalid = false,
+  describedBy,
   className
 }: SegmentedProps<T>) {
   const name = useId()
-  const messageId = `${name}-message`
+  const messageId = `${id ?? name}-message`
   const track = variant === 'track'
   const chosen = options.findIndex((option) => option.value === value)
   const message = error ?? (disabled ? disabledReason : undefined)
+  const red = Boolean(error) || invalid
+  const described = [message ? messageId : null, describedBy].filter(Boolean).join(' ')
 
   return (
     <fieldset
+      id={id}
       disabled={disabled}
-      aria-describedby={message ? messageId : undefined}
+      aria-describedby={described || undefined}
       className={cn('m-0 flex min-w-0 flex-col border-0 p-0', className)}
     >
       <legend
         className={cn(
           fieldLabelClasses,
           'p-0',
-          track ? 'mb-1.5' : 'mb-3',
+          hideLegend ? 'sr-only' : track ? 'mb-1.5' : 'mb-3',
           disabled && 'text-ink-3'
         )}
       >
@@ -75,7 +96,7 @@ export function Segmented<T extends SegmentValue>({
           track
             ? // The transparent border shows as the track's edge in forced colours.
               'relative h-11 gap-[3px] rounded-control border border-transparent bg-muted p-0.5'
-            : 'gap-1.5 tabular-nums md:grid-cols-[repeat(var(--n),var(--w))]'
+            : cn('gap-1.5 tabular-nums', !stretch && 'md:grid-cols-[repeat(var(--n),var(--w))]')
         )}
       >
         {track && chosen >= 0 && !disabled && (
@@ -114,7 +135,7 @@ export function Segmented<T extends SegmentValue>({
                       'h-11 min-w-11 rounded-control border border-line-2 bg-card text-foreground',
                       'transition-[color,background-color,border-color] duration-180 ease-standard',
                       'not-has-checked:not-has-disabled:hover:border-line-3 not-has-checked:not-has-disabled:hover:bg-muted',
-                      error
+                      red
                         ? 'has-checked:border-transparent has-checked:bg-gap has-checked:text-background'
                         : 'has-checked:border-transparent has-checked:bg-primary has-checked:text-primary-foreground',
                       'has-disabled:border-border has-disabled:bg-muted has-disabled:text-ink-3'

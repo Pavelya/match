@@ -4,6 +4,7 @@ import {
   calculateTotalPoints,
   checkHigherLevelCount,
   getSaveBlocker,
+  otherFailingConditions,
   validateDiploma,
   type NamedDiplomaCourse
 } from './diploma'
@@ -96,12 +97,54 @@ describe('validateDiploma', () => {
     const courses = subjects(3, 4).map((c, i) => (i >= 4 ? { ...c, grade: 3 } : c))
     expect(validateDiploma(courses, 'B', 'C').isValid).toBe(true)
     expect(validateDiploma(courses, 'C', 'C').failingReasons).toEqual([
-      'Total points below 24 results in diploma failure (you have 23)'
+      'Your total needs to be 24 or more (you have 23).'
     ])
   })
 
   it('waits for six subjects and both core grades', () => {
     expect(validateDiploma(subjects(2).slice(0, 5), 'E', 'E').isValid).toBe(true)
     expect(validateDiploma(subjects(2), 'A', null).isValid).toBe(true)
+  })
+})
+
+describe('otherFailingConditions', () => {
+  // The words D3.6 approved (14 October 2026), shared by every form that shows them
+  it('names the subjects with a 1', () => {
+    const courses = subjects(3).map((c, i) =>
+      i === 1 ? { ...c, courseName: 'Physics', grade: 1 } : c
+    )
+    expect(otherFailingConditions(courses, 'B', 'C')).toEqual([
+      'No subject can have a 1 (you have a 1 in Physics).'
+    ])
+    const two = courses.map((c, i) => (i === 4 ? { ...c, courseName: 'Chemistry', grade: 1 } : c))
+    expect(otherFailingConditions(two, 'B', 'C')[0]).toBe(
+      'No subject can have a 1 (you have a 1 in Physics and Chemistry).'
+    )
+  })
+
+  it('counts 2s and grades of 3 or below', () => {
+    // HL 7 7 7, SL 2 2 2: three 2s, and three grades of 3 or below is still allowed
+    const courses = subjects(3, 7).map((c, i) => (i >= 3 ? { ...c, grade: 2 } : c))
+    expect(otherFailingConditions(courses, 'A', 'A')).toEqual([
+      'Have no more than two grades of 2 (you have 3).',
+      'Your Standard Level grades need 9 points or more (you have 6).'
+    ])
+    const four = subjects(3, 7).map((c, i) => (i >= 2 ? { ...c, grade: 3 } : c))
+    expect(otherFailingConditions(four, 'A', 'A')).toContain(
+      'Have no more than three grades of 3 or below (you have 4).'
+    )
+  })
+
+  it('says what each points floor needs and what the student has', () => {
+    // HL 4 4 3 = 11, SL 4 4 3 = 11, core C/D = 0: 22 in all
+    const courses = subjects(3, 4).map((c, i) => (i === 2 || i === 5 ? { ...c, grade: 3 } : c))
+    expect(otherFailingConditions(courses, 'C', 'D')).toEqual([
+      'Your Higher Level grades need 12 points or more (you have 11).',
+      'Your total needs to be 24 or more (you have 22).'
+    ])
+  })
+
+  it('is empty for a diploma the IB would award', () => {
+    expect(otherFailingConditions(subjects(3), 'B', 'C')).toEqual([])
   })
 })

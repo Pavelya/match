@@ -59,79 +59,78 @@ export function getSaveBlocker(
   return checkHigherLevelCount(courses)
 }
 
+/** "Physics", "Physics and Chemistry", "Physics, Chemistry and Biology" */
+function listNames(names: string[]): string {
+  if (names.length <= 1) return names.join('')
+  return `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`
+}
+
 /**
- * Every IB failing condition onboarding checks, once six subjects and both core grades are in.
+ * The IB's failing conditions besides an E in the core and the Higher Level count, in the words
+ * every form shows (rebranding 3.2, board "D3.6 Subject editor"): a 1, too many 2s or low grades,
+ * too few points at Higher or Standard Level, or in all. For six subjects and both core grades;
+ * an E adds no core points to the total.
+ */
+export function otherFailingConditions(
+  selections: NamedDiplomaCourse[],
+  tokGrade: string | null,
+  eeGrade: string | null
+): string[] {
+  const reasons: string[] = []
+
+  const ones = selections.filter((s) => s.grade === 1).map((s) => s.courseName)
+  if (ones.length > 0) {
+    reasons.push(`No subject can have a 1 (you have a 1 in ${listNames(ones)}).`)
+  }
+
+  const twos = selections.filter((s) => s.grade === 2).length
+  if (twos > 2) {
+    reasons.push(`Have no more than two grades of 2 (you have ${twos}).`)
+  }
+
+  const low = selections.filter((s) => s.grade <= 3).length
+  if (low > 3) {
+    reasons.push(`Have no more than three grades of 3 or below (you have ${low}).`)
+  }
+
+  const hlPoints = sumGrades(selections.filter((s) => s.level === 'HL'))
+  if (hlPoints < 12) {
+    reasons.push(`Your Higher Level grades need 12 points or more (you have ${hlPoints}).`)
+  }
+
+  const slPoints = sumGrades(selections.filter((s) => s.level === 'SL'))
+  if (slPoints < 9) {
+    reasons.push(`Your Standard Level grades need 9 points or more (you have ${slPoints}).`)
+  }
+
+  const corePoints = getCorePoints(tokGrade, eeGrade)
+  const totalPoints = sumGrades(selections) + (typeof corePoints === 'number' ? corePoints : 0)
+  if (totalPoints < 24) {
+    reasons.push(`Your total needs to be 24 or more (you have ${totalPoints}).`)
+  }
+
+  return reasons
+}
+
+/**
+ * Every IB failing condition onboarding checks, once six subjects and both core grades are in:
+ * an E in the core, the Higher Level count, then the others.
  */
 export function validateDiploma(
   selections: NamedDiplomaCourse[],
   tokGrade: string | null,
   eeGrade: string | null
 ): DiplomaValidationResult {
-  const failingReasons: string[] = []
-
   // Only validate if we have enough data
   if (selections.length < DIPLOMA_SUBJECT_COUNT || !tokGrade || !eeGrade) {
     return { isValid: true, failingReasons: [] }
   }
 
-  // 1. E in TOK or EE = automatic fail
-  if (hasFailingCoreGrade(tokGrade, eeGrade)) {
-    failingReasons.push(CORE_FAILING_MESSAGE)
-  }
-
-  // 2. 3 or 4 subjects at Higher Level
+  const failingReasons: string[] = []
+  if (hasFailingCoreGrade(tokGrade, eeGrade)) failingReasons.push(CORE_FAILING_MESSAGE)
   const higherLevelReason = checkHigherLevelCount(selections)
-  if (higherLevelReason) {
-    failingReasons.push(higherLevelReason)
-  }
-
-  // 3. Grade 1 in any subject = automatic fail
-  const grade1Subjects = selections.filter((s) => s.grade === 1)
-  if (grade1Subjects.length > 0) {
-    const subjectNames = grade1Subjects.map((s) => s.courseName).join(', ')
-    failingReasons.push(`Grade 1 in any subject results in diploma failure (${subjectNames})`)
-  }
-
-  // 4. More than two grades of 2 = fail
-  const grade2Count = selections.filter((s) => s.grade === 2).length
-  if (grade2Count > 2) {
-    failingReasons.push(
-      `More than two grades of 2 results in diploma failure (you have ${grade2Count})`
-    )
-  }
-
-  // 5. More than three grades of 3 or below = fail
-  const lowGradeCount = selections.filter((s) => s.grade <= 3).length
-  if (lowGradeCount > 3) {
-    failingReasons.push(
-      `More than three grades of 3 or below results in diploma failure (you have ${lowGradeCount})`
-    )
-  }
-
-  // 6. Fewer than 12 points in HL subjects = fail
-  const hlPoints = sumGrades(selections.filter((s) => s.level === 'HL'))
-  if (hlPoints < 12) {
-    failingReasons.push(
-      `Fewer than 12 points in HL subjects results in diploma failure (you have ${hlPoints})`
-    )
-  }
-
-  // 7. Fewer than 9 points in SL subjects = fail
-  const slPoints = sumGrades(selections.filter((s) => s.level === 'SL'))
-  if (slPoints < 9) {
-    failingReasons.push(
-      `Fewer than 9 points in SL subjects results in diploma failure (you have ${slPoints})`
-    )
-  }
-
-  // 8. Total points less than 24 = fail. A failing core adds nothing.
-  const corePoints = getCorePoints(tokGrade, eeGrade)
-  const totalPoints = sumGrades(selections) + (typeof corePoints === 'number' ? corePoints : 0)
-  if (totalPoints < 24) {
-    failingReasons.push(
-      `Total points below 24 results in diploma failure (you have ${totalPoints})`
-    )
-  }
+  if (higherLevelReason) failingReasons.push(higherLevelReason)
+  failingReasons.push(...otherFailingConditions(selections, tokGrade, eeGrade))
 
   return {
     isValid: failingReasons.length === 0,

@@ -30,6 +30,8 @@ interface SubjectPickerProps {
   onValueChange: (value: string) => void
   /** The row's own group, listed first ("Group 5 · Mathematics"). */
   firstGroup?: string
+  /** The field's id, so a page can move focus to it. */
+  id?: string
   placeholder?: string
   className?: string
 }
@@ -50,10 +52,12 @@ export function SubjectPicker({
   value,
   onValueChange,
   firstGroup,
+  id: fieldId,
   placeholder = 'Choose a subject',
   className
 }: SubjectPickerProps) {
   const id = useId()
+  const inputId = fieldId ?? `${id}-input`
   const listId = `${id}-list`
   const hintId = `${id}-hint`
   const fieldRef = useRef<HTMLDivElement>(null)
@@ -162,13 +166,13 @@ export function SubjectPicker({
 
   return (
     <div ref={fieldRef} className={cn('flex scroll-mt-4 flex-col gap-1.5', className)}>
-      <label htmlFor={`${id}-input`} className={fieldLabelClasses}>
+      <label htmlFor={inputId} className={fieldLabelClasses}>
         {label}
       </label>
       <div className="relative">
         <input
           ref={inputRef}
-          id={`${id}-input`}
+          id={inputId}
           role="combobox"
           aria-expanded={open}
           aria-controls={open ? listId : undefined}
@@ -189,7 +193,8 @@ export function SubjectPicker({
           }}
           onKeyDown={onKeyDown}
           onBlur={close}
-          className={cn(fieldClasses, 'pr-11')}
+          // A name too long for the closed field ends in an ellipsis; the list shows it whole (D3.6)
+          className={cn(fieldClasses, 'pr-11 text-ellipsis')}
         />
         <Chevron
           aria-hidden="true"
