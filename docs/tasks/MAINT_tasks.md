@@ -43,7 +43,7 @@ pull request, merged before the next starts.
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
-| any | One IB diploma rule for every role | 5.20 | medium | Students, coordinators and both APIs check different subsets of the IB's rule, and the points floors are wrong for four Higher Level subjects. One check, matching the IB's current regulations, wherever grades are saved. The coordinator part is in the same task; new words need the owner's approval first |
+| any | One IB diploma rule for every role | 5.20 | medium | Students, coordinators and both APIs check different subsets of the IB's rule, and the points floors are wrong for four Higher Level subjects. One check, matching the IB's current regulations, wherever grades are saved. The coordinator part is in the same task; the new words were approved on 16 October 2026 |
 | before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -1237,13 +1237,12 @@ linked to a school, so a coordinator could edit them.
   3.1 and 3.2) keep choices and complete subjects without a total, and write only a profile that has
   no total. They keep their own shape check and need no diploma check.
 
-**Ask the owner first:** the words for the two new cases. The approved words are "Your Higher Level
-grades need 12 points or more (you have 11)." and "Your Standard Level grades need 9 points or more
-(you have 8)." (board "D3.6 Subject editor", 14 October 2026). With four at Higher Level they would
-give the wrong points. Drafts: "Your three best Higher Level grades need 12 points or more (you have
-11)." and "Your two Standard Level grades need 5 points or more (you have 4)." These are new cases of
-an approved message in the new design, so they need approval in chat. Add them to D3.6 if the owner
-asks for a board (`REBRANDING_tasks.md`, Step 2). Coordinators see the same words.
+**The words, approved by the owner on 16 October 2026.** The two new cases read "Your three best
+Higher Level grades need 12 points or more (you have 11)." and "Your two Standard Level grades need 5
+points or more (you have 4)." Every other case keeps the words approved on board "D3.6 Subject
+editor" (14 October 2026): "Your Higher Level grades need 12 points or more (you have 11)." and "Your
+Standard Level grades need 9 points or more (you have 8)." for three and three. Coordinators see the
+same words.
 
 **Steps:**
 
@@ -1301,7 +1300,8 @@ from per where n = 6 group by hl order by hl;
 
 **Verify:** the tests above pass, and `npm test`. By hand: in the new design's first run (with the
 preview link), today's step and the coordinator's form, HL 7, 7, 6, 6 with SL 4 and 4 saves, and HL
-4, 4, 3, 2 shows the three-best message and doesn't save. The coordinator's form has no typed total.
+4, 4, 3, 2 shows "Your three best Higher Level grades need 12 points or more (you have 11)." and
+doesn't save. The coordinator's form has no typed total.
 A direct request to either API with a 1 gets a 400 naming it.
 
 **Session size:** Medium: one helper, two APIs, three forms. Independent of the rebranding; the new
