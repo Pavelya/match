@@ -43,7 +43,7 @@ pull request, merged before the next starts.
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
-| any | Diploma floors for four Higher Level subjects | 5.20 | small | The diploma check ignores the IB's rules for a student with four subjects at Higher Level, so some valid diplomas can't be saved and some failing ones can. Today's step and the new subject editor share the helper. New words need the owner's approval first |
+| any | One IB diploma rule for every role | 5.20 | medium | Students, coordinators and both APIs check different subsets of the IB's rule, and the points floors are wrong for four Higher Level subjects. One check, matching the IB's current regulations, wherever grades are saved. The coordinator part is in the same task; the new words were approved on 16 October 2026 |
 | before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -94,7 +94,7 @@ Phase 5 — quick wins
 - [ ] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
-- [ ] 5.20 Apply the IB's points floors for four Higher Level subjects
+- [ ] 5.20 One IB diploma rule wherever grades are saved, by any role
 
 Phase 6 — dependency majors
 
@@ -1160,77 +1160,116 @@ after it, do step 3.
 
 ---
 
-### 5.20 — Apply the IB's points floors for four Higher Level subjects
+### 5.20 — One IB diploma rule wherever grades are saved, by any role
 
-**Outcome:** The diploma check applies the IB's Higher and Standard Level points floors the way the IB
-does for a student with four subjects at Higher Level: the three best Higher Level grades need 12
-points, and the two Standard Level grades need 5. Every place that shows the IB's failing conditions
-uses the corrected rule, in words the owner approved: today's subject step and the new design's
-subject editor.
+**Outcome:** One check decides whether a set of grades is a diploma the IB would award, and every
+place that saves grades uses it: the student's forms in both designs, the coordinator's form, and
+both APIs. A student and a coordinator get the same answer for the same grades, in the same words.
+The check matches the IB's current regulations, including the points floors for four Higher Level
+subjects, which are wrong today. Decided by the owner on 16 October 2026: "One rule for IB,
+regardless of the role, 100% aligned with the latest IB specs."
 
-**Why:** Found in rebranding build 12 (PR #115; `REBRANDING_tasks.md` 3.2). `otherFailingConditions`
-in `lib/ib/diploma.ts` sums every Higher Level grade against 12 and every Standard Level grade
-against 9, whatever the count. Two of the IB's failing conditions depend on the count:
+**Why:** The rule is split today, and part of it is wrong.
 
-- fewer than 12 points at Higher Level; **for a candidate with four Higher Level subjects, the three
-  highest grades count**;
-- fewer than 9 points at Standard Level; **a candidate with two Standard Level subjects needs at
-  least 5**.
+| Where grades are saved | What it checks today |
+|---|---|
+| Today's subject step (`components/student/DetailedGradesInput.tsx`, `validateDiploma`) | Everything below, with the wrong floors |
+| The new design's subject editor (`components/profile-editor/ProfileEditor.tsx`, `ibConditions` in `lib/student/subject-editor.ts`; rebranding 3.2) | Everything below, with the wrong floors |
+| `POST /api/students/profile` (`app/api/students/profile/route.ts`) | Six subjects, TOK and EE A to E, an E, the Higher Level count (`getSaveBlocker`). Not grade ranges, levels or repeated subjects |
+| The coordinator's form (`app/coordinator/students/[id]/edit/StudentProfileForm.tsx`) | An E and the Higher Level count. **A typed total** ("Manual override") when the six subjects and both core grades aren't all there |
+| `PATCH /api/coordinator/students/[id]` (`app/api/coordinator/students/[id]/route.ts`) | An E and the Higher Level count, with six subjects. Takes `totalIBPoints` from the request when the total can't be worked out |
+| Admin (`app/api/admin/students/[id]/route.ts`) | Nothing to check: view and delete only |
 
-So the helper is wrong both ways for a student with four at Higher Level:
+So a coordinator, or a direct request, can save a profile with a 1, a total under 24, a grade of 9,
+or a total typed over fewer than six subjects. The same subject twice reaches the database's unique
+key and fails as a 500, not a 400. A student can't do any of this, but only because the page stops
+them.
 
-- **Too strict.** HL 7, 7, 6, 6 with SL 4 and 4 is refused ("you have 8"), although the IB would
-  award the diploma: 34 points before the core. That student can't finish first run or save a
-  profile, and nothing on the page says the rule is wrong.
-- **Too lenient.** HL 4, 4, 3, 2 passes (13 points), although the three best make 11 and the IB
-  would not award the diploma.
+The points floors are wrong in the shared helper (`otherFailingConditions` in `lib/ib/diploma.ts`),
+found in rebranding build 12 (PR #115). It sums every Higher Level grade against 12 and every
+Standard Level grade against 9, whatever the count. The IB counts the three best Higher Level grades
+for a candidate with four, and asks for 5 at Standard Level from one with two. So HL 7, 7, 6, 6 with
+SL 4 and 4 is refused (34 points before the core, a diploma the IB would award), and HL 4, 4, 3, 2
+passes (13, but the three best make 11).
 
-Confirm both rules on the IB's pages before coding. `ibo.org` refuses scripts, so open it in a
-browser or ask the owner, as for 5.13.
+**The IB's rule.** The IB's "DP passing criteria" page
+(https://www.ibo.org/about-the-ib/what-it-means-to-be-an-ib-student/recognizing-student-achievement/about-assessment/dp-passing-criteria/)
+and "General regulations: Diploma Programme" for 2026
+(https://ibo.org/globalassets/new-structure/become-an-ib-school/pdfs/dp-2026-general-regulations.pdf)
+are the authority. `ibo.org` refuses scripts, so **step 1 is to read both in a browser** (the owner,
+or a session with a browser tool) and confirm each line below word for word. As the search index
+showed them on 16 October 2026, with how this app applies each to predicted grades:
 
-Production, 15 October 2026, from one aggregate over saved profiles: 152 have six subjects, and 16
-of them take four at Higher Level. None of the 16 has Standard Level points from 5 to 8, or three
-best Higher Level grades under 12. The lowest are 10 and 15. **So no saved profile changes status.**
-The cost falls on students the rule stops before they can save, and no count can show those.
+| The IB's condition | Here |
+|---|---|
+| Six subjects, at least three and no more than four at Higher Level (registration, in the general regulations) | Checked (5.13) |
+| CAS requirements met | Not entered; not checked |
+| Total of 24 points or more | Checked: six grades plus the core points |
+| No N for TOK, the EE or any subject | Not applicable: an N is no grade at all |
+| No E in TOK or the EE | Checked (5.8) |
+| No grade 1 in any subject | Checked |
+| No more than two grades of 2 | Checked |
+| No more than three grades of 3 or below | Checked |
+| 12 points or more at Higher Level; **with four Higher Level subjects, the three highest grades count** | **Fix:** today all count |
+| 9 points or more at Standard Level; **with two Standard Level subjects, at least 5** | **Fix:** today 9 always |
+| No penalty for academic misconduct | Not applicable |
 
-**Where the rule is used:** `otherFailingConditions` is the only place the two floors are worked
-out. It feeds:
+Plus the core points from the IB's matrix (5.8), and grades that exist: 1 to 7 for a subject, A to
+E for TOK and the EE.
 
-- `validateDiploma`, which today's step shows (`components/student/DetailedGradesInput.tsx`);
-- `ibConditions` in `lib/student/subject-editor.ts`: the new design's editor
-  (`components/profile-editor/ProfileEditor.tsx`) and its footer, which stops Finish (rebranding
-  3.2).
+**Production, 16 October 2026** (read-only aggregates): 154 profiles have a total. 153 have six
+subjects; one has a total without six subjects, and isn't linked to a school. 3 have two subjects at
+Higher Level (known since 5.13), and 16 have four. Every stored total equals the worked-out total. No
+profile fails any other condition under the corrected rule, so **no saved profile changes status**.
+The four whose grades already break the rule see why the next time anyone saves them. 6 students are
+linked to a school, so a coordinator could edit them.
 
-Neither profile API nor the coordinator's form checks these conditions. They refuse only an E in
-the core and the Higher Level count (`getSaveBlocker`).
+**The rule, as built:**
 
-**Ask the owner first:**
+- **Grades are a diploma, or they aren't saved as one.** Saving grades with a total needs six
+  different subjects, each SL or HL with a grade from 1 to 7, TOK and the EE from A to E, and every
+  condition met. The total is always worked out, never taken from a form or a request.
+- **One function** in `lib/ib/diploma.ts` checks shape and conditions and returns every failing
+  reason, in the order the forms show them: the core, the Higher Level count, then the others. The
+  forms, both APIs and the new editor's footer all call it. Keep the existing exports as thin
+  wrappers, or update every caller; leave no second copy of any rule.
+- **Drafts aren't diplomas.** First run's drafts (`PUT /api/students/profile/preferences`, rebranding
+  3.1 and 3.2) keep choices and complete subjects without a total, and write only a profile that has
+  no total. They keep their own shape check and need no diploma check.
 
-1. **The words.** The approved words are "Your Higher Level grades need 12 points or more (you have
-   11)." and "Your Standard Level grades need 9 points or more (you have 8)." (board "D3.6 Subject
-   editor", 14 October 2026). They can't stay as they are for four at Higher Level, because they
-   would give the wrong points. Drafts: "Your three best Higher Level grades need 12 points or more
-   (you have 11)." and "Your two Standard Level grades need 5 points or more (you have 4)." They are
-   new cases of an approved message in the new design, so they need the owner's approval in chat.
-   Add them to the D3.6 board if the owner asks for one (`REBRANDING_tasks.md`, Step 2).
-2. **The APIs.** Should `POST /api/students/profile` and the coordinator's
-   `PATCH /api/coordinator/students/[id]` refuse every IB condition, not only an E and the Higher Level
-   count? Today a coordinator, or a direct request, can save a profile with a 1 or a total under 24.
-   If yes, that is a step of this task: `getSaveBlocker` takes the whole check, and both APIs and the
-   coordinator's form use it, with Vitest for both APIs. Check first what the coordinator's form does
-   with a student whose saved profile already fails.
+**The words, approved by the owner on 16 October 2026.** The two new cases read "Your three best
+Higher Level grades need 12 points or more (you have 11)." and "Your two Standard Level grades need 5
+points or more (you have 4)." Every other case keeps the words approved on board "D3.6 Subject
+editor" (14 October 2026): "Your Higher Level grades need 12 points or more (you have 11)." and "Your
+Standard Level grades need 9 points or more (you have 8)." for three and three. Coordinators see the
+same words.
 
 **Steps:**
 
-1. In `otherFailingConditions`: with four Higher Level subjects, sum the three highest Higher Level
-   grades; otherwise sum them all. With two Standard Level subjects, the floor is 5; otherwise 9.
-   Any other count at Higher Level already fails on the count (5.13), so keep today's sums there.
-2. Use the approved words, with the points the rule counted.
-3. Vitest in `lib/ib/diploma.test.ts`: HL 7, 7, 6, 6 with SL 4, 4 passes; with SL 2, 2 it fails, 4
-   points against 5. HL 4, 4, 3, 2 fails with 11. Exactly 12 from the three best, and exactly 5 at
-   Standard Level, both pass. Three and three is unchanged: SL 8 still fails, and so does HL 11. Add
-   a footer case to `lib/student/subject-editor.test.ts`.
-4. Run the aggregate below again and report it. Change no stored data.
+1. Read the IB's two pages in a browser and confirm the table above. Note any difference to the
+   owner before coding. Put the document, its version and the date checked in the helper's comment.
+2. **The rule.** In `lib/ib/diploma.ts`: the shape check, and the floors. With four Higher Level
+   subjects, sum the three highest Higher Level grades; with two Standard Level subjects, the floor
+   is 5. Any other count at Higher Level already fails on the count, so the sums there don't matter.
+   Then the one function.
+3. **The student's side.** `POST /api/students/profile` refuses anything the function refuses: 400,
+   with the first reason as `error` and all of them as `reasons`. Today's step and the new editor
+   take the corrected rule through the helper.
+4. **The coordinator's side.** The form shows every reason, as the student's step does, and stops
+   saving. **The typed total goes**: a coordinator enters six subjects and both core grades, and the
+   total is worked out, as for the student. `PATCH /api/coordinator/students/[id]` checks the profile
+   as it will be stored with the same function, and ignores a `totalIBPoints` in the request.
+   Preferences alone (fields, countries) still save without a grades check.
+5. **Tests**, all Vitest:
+   - `lib/ib/diploma.test.ts`: HL 7, 7, 6, 6 with SL 4, 4 passes, and with SL 2, 2 fails (4 points
+     against 5). HL 4, 4, 3, 2 fails with 11. Exactly 12 from the three best, and exactly 5 at
+     Standard Level, both pass. Three and three is unchanged: SL 8 fails, and so does HL 11. A grade
+     of 0 or 8, an unknown level, a repeated subject and five subjects are refused.
+   - `lib/student/subject-editor.test.ts`: a footer case for each new floor.
+   - Both API routes, with `@/lib/prisma` mocked: a 1, a total under 24 and four HL with SL 4, 4
+     answer the same way for a student and a coordinator, and a coordinator's `totalIBPoints` is
+     ignored.
+6. Run the aggregate below again and report it. Change no stored data.
 
 ```sql
 -- Saved six-subject profiles by Higher Level count, and how many the corrected floors would change
@@ -1254,17 +1293,20 @@ from per where n = 6 group by hl order by hl;
 
 **Must not:**
 
-- Change any total, score or match. The floors only decide whether the IB would award a diploma, and
-  nothing in matching reads them. `npx tsx scripts/run-all-tests.ts` passes unchanged.
-- Change the words for three at Higher Level and three at Standard Level, or anything else that
-  D3.6 approved.
+- Change any total, score or match. The conditions decide only whether grades can be saved; matching
+  reads the stored total and subjects. `npx tsx scripts/run-all-tests.ts` passes unchanged.
+- Change stored data, or re-save a profile to "fix" it.
+- Change the approved words for any case but the two new ones.
 
-**Verify:** the Vitest cases above pass. In the new design's first run (with the preview link) and in
-today's step, HL 7, 7, 6, 6 with SL 4 and 4 lets Finish go on. HL 4, 4, 3, 2 shows the approved
-three-best message and stops Finish. `npm test` passes.
+**Verify:** the tests above pass, and `npm test`. By hand: in the new design's first run (with the
+preview link), today's step and the coordinator's form, HL 7, 7, 6, 6 with SL 4 and 4 saves, and HL
+4, 4, 3, 2 shows "Your three best Higher Level grades need 12 points or more (you have 11)." and
+doesn't save. The coordinator's form has no typed total.
+A direct request to either API with a 1 gets a 400 naming it.
 
-**Session size:** Small. Independent of the rebranding: the new editor takes the rule through the
-helper.
+**Session size:** Medium: one helper, two APIs, three forms. Independent of the rebranding; the new
+editor takes the rule through the helper. If the pull request gets hard to review, land steps 1 to 3
+first, then step 4, in two pull requests under this task.
 
 ---
 

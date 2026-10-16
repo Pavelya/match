@@ -1862,7 +1862,8 @@ Departures and hand-offs:
   rule is 5 at Standard Level for a student with two Standard Level subjects, and the best three
   grades for one with four at Higher Level. So a student with four at Higher Level and Standard Level
   grades of 4 and 4 can't finish, and HL 4, 4, 3, 2 passes where the IB would fail it. 15 of 152
-  students take four at Higher Level. A rule change, so a separate task: `MAINT_tasks.md` 5.20.
+  students take four at Higher Level. A rule change, so a separate task: `MAINT_tasks.md` 5.20. Its two new messages, for four at
+  Higher Level and two at Standard Level, were approved on 16 October 2026 (owner, in chat).
 - **Found, not changed: `text-body/…` and `text-small/…` emit no CSS.** Both are custom
   `@utility` classes, which take no line-height modifier, so those elements inherit their size. Fixed
   here in `FirstRun.tsx` and the editor (`text-[0.9375rem]/5`); still in `components/ds/Choice.tsx`
