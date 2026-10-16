@@ -82,22 +82,6 @@ jobs:
 
     # Builds against a throwaway database created from prisma/migrations alone,
     # so this also proves the migration history can still reproduce the schema.
-    services:
-      postgres:
-        # The official image through Amazon's public mirror: Docker Hub's anonymous pull limit
-        # on GitHub's shared runners failed this job three times running on 9 October 2026.
-        image: public.ecr.aws/docker/library/postgres:16
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ibmatch_ci
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/ibmatch_ci
@@ -115,6 +99,18 @@ jobs:
       UPSTASH_REDIS_REST_TOKEN: ci-placeholder
 
     steps:
+      # The runner's own PostgreSQL, installed on GitHub's Ubuntu images and stopped by default.
+      # Nothing to download, so no registry's anonymous limit can fail the job: Docker Hub's did
+      # three times running on 9 October 2026, then Amazon's public mirror ("Data limit
+      # exceeded") on 16 October 2026.
+      - name: Start PostgreSQL
+        run: |
+          sudo systemctl start postgresql.service
+          pg_isready --host localhost --timeout 30
+          sudo -u postgres psql --quiet --command "ALTER USER postgres PASSWORD 'postgres';"
+          sudo -u postgres createdb ibmatch_ci
+          sudo -u postgres psql --tuples-only --command 'SELECT version();'
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
