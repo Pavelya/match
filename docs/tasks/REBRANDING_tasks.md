@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 14 October 2026.** The canvas has 73 boards. The owner approved in chat "B ·
+**Where it stands, 18 October 2026.** The canvas has 78 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -182,7 +182,11 @@ and D4.8's Save before grades), "D4.3 First run, step 1", "D4.3 First run, step 
 First run, step 2" and "D4.4 First run, step 2 · phone". Build 11's gate is complete. On 14 October
 row 16 drew the subject editor and first run's step 3, and the owner approved all three boards in chat
 with every recommendation: "D3.6 Subject editor", "D4.5 First run, step 3" and "D4.5 First run, step 3
-· phone". Build 12's gate is complete. Two other tasks need a screen size or states added. Eight have
+· phone". Build 12's gate is complete. On 18 October row 17 drew the confirm dialog, the Academic
+page and Settings, and the owner approved all five boards in chat with every recommendation,
+including the change it makes to D4.3, D4.4 and D4.5 after first run: "D2.10 Confirm dialog", "D4.11
+Academic profile", "D4.11 Academic profile · phone", "D4.11 Settings" and "D4.11 Settings · phone".
+Build 13's gate is complete. One other task needs a screen size or states added (D4.1). Seven have
 no board.
 
 ### Foundations
@@ -203,7 +207,7 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D2.1 Button | "D2.1 Button" (row 7): primary, secondary, link and icon in every state, light and dark; the Save toggle from Save to Saving to Saved, and signed out. Loading is the label "Saving…", never a spinner. "D2.1 Save · without grades" (row 15), a change board: for a signed-in student without grades, Save is a link to first run drawn exactly as Save, never a toggle, named "Save Computer Science: add your grades first", with "Add your grades first. We’ll save it when you finish." under the program page's buttons; on Explore rows the icon link carries that name. Decisions in 3.1 | Nothing | 9 October 2026; Save without grades 13 October 2026 |
+| D2.1 Button | "D2.1 Button" (row 7): primary, secondary, link and icon in every state, light and dark; the Save toggle from Save to Saving to Saved, and signed out. Loading is the label "Saving…", never a spinner. "D2.1 Save · without grades" (row 15), a change board: for a signed-in student without grades, Save is a link to first run drawn exactly as Save, never a toggle, named "Save Computer Science: add your grades first", with "Add your grades first. We’ll save it when you finish." under the program page's buttons; on Explore rows the icon link carries that name. Decisions in 3.1 **Changed 18 October 2026 (owner):** a danger variant, drawn on "D2.10 Confirm dialog" (row 17): filled #B3261E with white text in light, #FF8E85 with dark text in dark, its own edge in forced colours, and only inside a confirm dialog, for Delete account and Unlink. Decisions in 3.3 | Nothing | 9 October 2026; Save without grades 13 October 2026; the danger variant 18 October 2026 |
 | D2.2 Text input and search | "D2.2 Text input and search" (row 7): the sign-in email, the IB points range and the Explore search in every state, and on a phone. Field edges use the new line-3 token (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.3 Select and subject picker | "D2.3 Select and subject picker" (row 7): a native select (the Matches sort order); the subject picker closed, open, filtered by typing, with no results, and on a phone | Nothing | 9 October 2026 |
 | D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
@@ -212,7 +216,7 @@ theme switch are in D1.4.
 | D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none | Nothing | 9 October 2026; the two US chips 10 October 2026 |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | "D2.9 Toast" (row 11): every message (Saved, Removed with Undo, a failed save or removal, the save made after signing in), the action and close states, placement on desktop and phone, the longest name, forced colours, light and dark. Decisions in 2.2 | Nothing | 10 October 2026 |
-| D2.10 Confirm dialog | None | **No board.** Delete account (3.3) | |
+| D2.10 Confirm dialog | "D2.10 Confirm dialog" (row 17): Delete account, Unlink from school and "Leave without saving?" in every state (open, the word typed, hover, keyboard focus, pressed, working, failed), light, dark, forced colours and on a phone, and the danger button in every state beside its neighbours. It replaces today's two shadcn dialogs and the browser's `alert()` in Settings. **Decided 18 October 2026 (owner), every recommendation:** one `ConfirmDialog`, a native `<dialog>` with `role="alertdialog"`; focus starts on the safe button, Escape is Cancel, a click on the dimmed page does nothing; the primary on the right, side by side at 48px on a phone; a danger button (D2.1) only inside a dialog; "Type DELETE to confirm" kept, in any case; working and failing inside the dialog; centred on a phone too. Decisions in 3.3 | Nothing | 18 October 2026 |
 | D2.11 Empty and error states | "D2.11 Empty and error states" (row 11): one panel for no matches, no results, an empty shortlist, a failed load ("Trying again…", failed again) and the profile call to action with its steps, desktop and phone, light and dark, with real copy. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D2.12 Header | "D2.12 Header" (row 8): desktop signed in and signed out, 768 to 1023px, the phone header signed out (Sign in, Menu) and signed in (Guides, the avatar and its panel), a student editing their profile, focus mode, every state, light and dark. **Decided 9 October 2026 (owner):** prebuilt public pages show the signed-out header to everyone, and "Sign in" goes to `/student`; no search box in the header; Guides in the phone header; "Save and exit" saves the step, then goes to Home; Academic is the fourth place, in the nav and on the tab bar; Menu signed out and the avatar signed in, never both | Nothing | 9 October 2026 |
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
@@ -238,15 +242,15 @@ theme switch are in D1.4.
 |---|---|---|---|
 | D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner, which stays (owner, 10 October 2026) | |
 | D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
-| D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 | Nothing | 13 October 2026 |
-| D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 | Nothing | 13 October 2026 |
-| D4.5 First run, step 3: subjects | "D4.5 First run, step 3" and "D4.5 First run, step 3 · phone" (row 16): the step in light and dark on both, first visit, four subjects in, the list open, a group with no subject, ready, two at Higher Level, an E in TOK, the IB's other conditions, keyboard focus, finishing, a failed save, and after first run with and without a change; then Save without grades at step 3: opening with "Your interests and countries are saved." under the step count and the waiting line, ready, and Save and exit. They replace "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** the question "What are your subjects and grades?"; the button is Finish, and Save changes after first run, with the total before the change; desktop one 880px column, each subject on one line, the core a second panel; Save and exit keeps complete rows and the core as a draft without a total; Finish saves once. Where Save changes leads is D4.11's. Phone: rows stack, grades at 46px; the open list's field comes up under the header. Decisions in 3.2 | Nothing | 14 October 2026 |
+| D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
+| D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
+| D4.5 First run, step 3: subjects | "D4.5 First run, step 3" and "D4.5 First run, step 3 · phone" (row 16): the step in light and dark on both, first visit, four subjects in, the list open, a group with no subject, ready, two at Higher Level, an E in TOK, the IB's other conditions, keyboard focus, finishing, a failed save, and after first run with and without a change; then Save without grades at step 3: opening with "Your interests and countries are saved." under the step count and the waiting line, ready, and Save and exit. They replace "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** the question "What are your subjects and grades?"; the button is Finish, and Save changes after first run, with the total before the change; desktop one 880px column, each subject on one line, the core a second panel; Save and exit keeps complete rows and the core as a draft without a total; Finish saves once. Where Save changes leads is D4.11's: back to Academic (18 October 2026). Phone: rows stack, grades at 46px; the open list's field comes up under the header. Decisions in 3.2 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 14 October 2026; opened from Academic 18 October 2026 |
 | D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
 | D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width. **Changed 13 October 2026 (owner):** signed in before adding grades, the link in the switch's place reads "Add your grades to check your fit and save programs" ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 11 October 2026; the link 13 October 2026 |
 | D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the link to first run with "Add your grades first. We’ll save it when you finish." under it, and the panel's "Add your grades" comes back to the program, without `?save=1` ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 12 October 2026; Save before grades 13 October 2026 |
 | D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
 | D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
-| D4.11 Academic profile and settings | Desktop "Academic profile", Subjects and grades tab only (dark switch); "Phone · Profile tab" | The split decided on 9 October 2026 (3.3): the Academic page (subjects and grades, interests, countries) and Settings (account, your data); the desktop Interests, Countries and Account content; unsaved changes; a failed save; delete account; phone dark | |
+| D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 | Nothing | 18 October 2026 |
 | D4.12 Country guide template | None | **No board.** Phone and desktop, drawn from one guide's real content | |
 | D4.13 Requirements hub | None | **No board.** `/ib-university-requirements`, including a country whose programs set no IB minimum (the USA) | |
 | D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
@@ -1814,8 +1818,8 @@ grade 1–7), then TOK and EE. It replaces `SubjectSelectorDialog`, `DetailedGra
 - **After first run.** The signed-in header, "Update your profile", "Change a subject, level or grade
   where it is. Your matches update when you save." and Save changes, `aria-disabled` with "No changes
   to save yet" until something changes, then "Total 39 points" over "Was 38 before your changes"; an
-  E: "To save, choose a TOK grade from A to D." Where Save changes leads, Matches as today or back to
-  Academic, is D4.11's to decide.
+  E: "To save, choose a TOK grade from A to D." **Decided 18 October 2026 (D4.11):** Academic opens
+  the editor on its own, and Save changes goes back to Academic (3.3).
 - **Reads and writes.** No new reads: the profile and the cached subjects (`getCachedIBCourses`) that
   first run reads today. Finish writes the profile once, as today; Save and exit once, as a draft.
 
@@ -1886,6 +1890,118 @@ phone show the same content.
 interests and countries (opening the 3.1 screens). In Settings, the account (name, school
 connection) and your data (download, delete). Appearance and Sign out are in the account menu (1.5).
 **Keep every current Settings feature.**
+- **The delete route runs its deletes in one transaction.** Today
+  `app/api/students/account/delete/route.ts` deletes saved programs, courses, the profile, sessions,
+  accounts, tokens and the user one after another, so a failure can leave half an account. In one
+  `prisma.$transaction` a failure deletes nothing, which the dialog's message says.
+- **The export includes "Open to anywhere"** (`openToAllLocations`), which 3.1 started saving and
+  `app/api/students/account/export/route.ts` leaves out.
+- **No new reads.** Academic reads what `/student/onboarding` reads today: the profile once, with a
+  select, and the cached fields, countries and subjects for their names. Settings reads what it reads
+  today, through its five-minute cache. The page after deleting is static and reads nothing.
+
+**Decided on the boards (D2.10 and D4.11, every recommendation approved 18 October 2026).** Canvas
+row 17: "D2.10 Confirm dialog", "D4.11 Academic profile", "D4.11 Academic profile · phone", "D4.11
+Settings" and "D4.11 Settings · phone". They replace "Academic profile" and "Phone · Profile tab".
+
+The confirm dialog (D2.10):
+
+- **One component, `ConfirmDialog`,** for Delete account, Unlink from school and leaving an edit
+  unsaved. A native `<dialog>` opened with `showModal`, `role="alertdialog"`, named by its title and
+  described by its text: a title that asks, a sentence or a short list, an optional field, two
+  buttons. 480px on desktop, the full width less 16px on a phone, centred on both, radius 16, the
+  overlay elevation and a real 1px edge. Title 20/28, semibold; Delete and Unlink put Lucide
+  `TriangleAlert` before it in the danger colour.
+- **Focus starts on the safe button** (Cancel, Keep editing); Tab stays inside; Escape is Cancel;
+  closing returns focus to the button that opened it. A click on the dimmed page does nothing.
+- **Buttons.** The primary on the right; on a phone the two side by side, half the width each, 48px.
+  Labels short enough for that; the title carries the detail.
+- **A danger variant in `Button`** (D2.1): #B3261E with white text in light (6.5:1), hover #931F19;
+  #FF8E85 with #0E1014 in dark (8.6:1), hover #FFADA6; system colours with an edge in forced
+  colours. Only inside a confirm dialog, for actions that delete or take away access. The buttons
+  that open the dialogs are secondary: "Delete account" in red text, "Unlink from school" in ink.
+- **Working and failing inside the dialog.** The action says "Deleting…" or "Unlinking…", no spinner;
+  Cancel is `aria-disabled` and the field read-only. A failure keeps the dialog open with the
+  reason above the buttons (`role="alert"`), and focus moves to the action to try again.
+- **Motion.** In: a fade and an 8px rise in 240ms; out: 180ms; the page dims with it. Reduced motion
+  fades only.
+- **The words.** Delete: "Delete your account?", "This deletes everything in your account, for
+  good:", then "Your account and how you sign in", "Your subjects and grades, interests and
+  countries", "Your shortlist" and, when linked, "Your link to {school}"; "You can make a new account
+  with the same email any time."; the field "Type DELETE to confirm" (any case, trimmed), and Delete
+  account `aria-disabled` until it matches; Cancel. Failed: "Couldn't delete your account. Nothing
+  was deleted. Try again in a moment." Unlink: "Unlink from {school}?", "Coordinators at your school
+  will no longer see your academic profile or your matches. To link again, your school needs to send
+  you a new invitation."; Cancel, Unlink. Failed: "Couldn't unlink from your school. Nothing changed.
+  Try again in a moment." Leaving: "Leave without saving?", "Your changes to your interests aren't
+  saved yet. If you leave, your profile stays as it was." (or "your countries", "your subjects and
+  grades"); Leave (secondary), Keep editing (primary).
+
+The Academic page (D4.11):
+
+- **Before grades, Academic is first run,** at the first step not yet saved, as built in 3.1.
+- **With grades, a summary.** The signed-in header with Academic current; the h1 "Academic profile"
+  (34/40 on desktop, 30/36 on a phone) and "Your subjects, interests and countries decide your
+  matches. Change any of them here." In the 880px column, three panels: **Subjects and grades**,
+  "38" (Newsreader, 52px; 44 on a phone) with "points predicted", "36 from subjects, 2 core points",
+  "Your six subjects" two to a line (one on a phone) in their rows' order, each as "Physics HL 6" and
+  read as "Physics, Higher Level, grade 6", then "Theory of Knowledge B · Extended Essay C", and
+  "Edit subjects and grades"; then **Interests** ("2 of 5", each field with its icon on brand-soft,
+  "Edit interests") and **Countries** ("3 countries", the names in one line, or "Open to anywhere"
+  with "Programs in all 23 countries"; "Edit countries") side by side, stacked on a phone. The
+  buttons are links drawn as secondary buttons, at the top right of the first panel and the foot of
+  the others on desktop, full width at each panel's foot on a phone. Names wrap, never cut. Nothing
+  on the summary edits.
+- **A saved profile the IB's rules stop** shows its first message on the subjects panel, in the
+  editor's words ("Take 3 or 4 subjects at Higher Level (you have 2).", Lucide `CircleAlert`, on
+  gap-soft), with "Your matches use these grades until you change them."
+- **Loading:** the three panels as D2.8 skeletons, the same boxes, no shimmer.
+- **Each screen opens on its own** (this changes D4.3, D4.4 and D4.5 after first run, and 3.1's and
+  3.2's build, which walk from step 1 to step 3): the signed-in header and tab bar, "Back to Academic
+  profile", the small h1 "Update your profile" with no step count or progress bar, then the step's
+  question. Subs: "Choose up to five. Your matches update when you save." / "Choose as many as you
+  like, or Open to anywhere. Your matches update when you save." / 3.2's "Change a subject, level or
+  grade where it is. Your matches update when you save." Page titles: "Update your interests · IB
+  Match", and the same for countries and for subjects and grades. The boards don't fix the
+  addresses; give each screen its own, so Back and a reload keep it.
+- **Save changes.** Nothing is written until it is pressed; Continue's drafts are first run's only.
+  The footer: the count ("2 of 5 chosen", "3 chosen") over "No changes to save yet", Save changes
+  `aria-disabled`; after a change, "3 of 5 chosen" or "Every country" over "Not saved yet"; subjects
+  as 3.2. "Saving…", then **back to Academic**, with D2.9's toast "Your interests are saved, and your
+  matches are updated." (or "Your countries are saved…", "Your subjects and grades are saved…") and
+  See matches. A failure keeps the student there with the change, and the toast says "Couldn't save
+  your interests." (or "your countries", "your subjects and grades") with Try again.
+- **Leaving with changes not saved** by any link on the page, in the header or the tab bar opens
+  D2.10's "Leave without saving?". Closing the tab or reloading gets the browser's own prompt
+  (`beforeunload`).
+
+Settings (D4.11):
+
+- **The page.** The signed-in header with no nav item or tab current; the h1 "Settings" and "Your
+  account, your school and your data." Three panels in the 880px column, each row's label in a 160px
+  column on desktop and above it on a phone. Appearance and Sign out leave the page; they are in the
+  account menu.
+- **Account.** Email, with "You sign in with this address, so it can't be changed here."; Name, a
+  field (placeholder "Add your name", at most 100 characters, 16px text on a phone) with Save name
+  beside it (under it on a phone), `aria-disabled` until the name changes, and "Shown in your account
+  menu, and to your school's coordinator if you link your account."; Member since. An empty name is
+  allowed, as today. Saving: "Saving…", then D2.9's "Name saved."; failed: "Couldn't save your name."
+  with Try again.
+- **School.** Not linked: Lucide `School`, "Not linked to a school", "If your IB coordinator uses IB
+  Match, they can invite you by email. Accept the invitation, and they can see your academic profile
+  and your matches to guide you.", and no button. Linked: the school's logo if it has one, else
+  `School`; its name, wrapped; "Krakow, Poland · linked through an invitation on 2 September 2026"
+  (without "through an invitation" when it wasn't); "Coordinators at your school can see your
+  academic profile and your matches, to guide you."; Unlink from school, which asks first (D2.10).
+  Unlinked: "You're no longer linked to your school.", and focus to the School heading. No flag emoji.
+- **Your data.** "Download your data", "Your account, profile, grades, interests, countries and
+  shortlist, as a JSON file.", Download: "Preparing…", then the file as today; failed, "Couldn't
+  prepare your data." with Try again, in place of `alert()`. "Delete your account", "Deletes your
+  account and everything in it, for good.", Delete account (D2.10).
+- **After deleting,** the student is signed out onto a small static page of its own (noindex, the
+  public header): "Your account is deleted", "We've deleted your account, your subjects and grades,
+  your interests and countries, and your shortlist. You can make a new account with the same email
+  any time.", and Go to Home. Today they land on Home with no word.
 
 ---
 
