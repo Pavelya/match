@@ -237,6 +237,8 @@ Two buttons:
 | **Secondary** | White border rounded-full | `/programs/search?countries={COUNTRY_DB_ID}` |
 
 Text:
+- Heading: `Ready to Find Your Match in {Country}?`, the same on every guide, no exceptions (owner,
+  18 October 2026). The new design writes it in sentence case (`REBRANDING_tasks.md` 4.2)
 - Primary: `Get Started — It's Free` with `ArrowRight` icon
 - Secondary: `Explore Programs in {Country}` with `Search` icon
 - Subtext: `100% free for students. No credit card required.`

@@ -61,7 +61,10 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
 land on `main` as usual. Once 4.2 has moved a country onto the new template, an edit to that country
-goes into both versions until release, so do 4.2 late.
+goes into both versions until release, so do 4.2 late. **Met 18 October 2026:** all three landed
+(France 8 October, the USA 10 October, Germany 12 October), and the open CONTENT task 5.4 changes
+program descriptions only, so the owner unlocked 4.2. The second half still holds: an edit to a
+migrated guide goes into both versions until release.
 
 ### How the redesign reaches production: the preview switch
 
@@ -153,7 +156,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 18 October 2026.** The canvas has 80 boards. The owner approved in chat "B ·
+**Where it stands, 18 October 2026.** The canvas has 83 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -188,8 +191,12 @@ including the change it makes to D4.3, D4.4 and D4.5 after first run: "D2.10 Con
 Academic profile", "D4.11 Academic profile · phone", "D4.11 Settings" and "D4.11 Settings · phone".
 Build 13's gate is complete. Later that day row 18 drew Home on desktop and phone, with the cookie
 banner, and the owner approved both boards in chat with every recommendation: "D4.1 Home" and "D4.1
-Home · phone". Build 14's gate is complete. Eight tasks have no board, D2.16 (the policy update
-banner) added by the owner the same day.
+Home · phone". Build 14's gate is complete. Then row 19 drew the country guide template, Ireland's
+guide whole and sections of five other guides, on desktop and phone, and the owner approved all three
+boards in chat with every recommendation, adding one rule, the same final heading on every guide:
+"D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone". Build
+15's gate is complete, and the owner unlocked it the same day. Seven tasks have no board, D2.16 (the
+policy update banner) added by the owner on 18 October.
 
 ### Foundations
 
@@ -254,7 +261,7 @@ theme switch are in D1.4.
 | D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
 | D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
 | D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 | Nothing | 18 October 2026 |
-| D4.12 Country guide template | None | **No board.** Phone and desktop, drawn from one guide's real content | |
+| D4.12 Country guide template | "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone" (row 19): Ireland's guide whole at 1440px and 390px, light and dark, then a jump from "On this page", questions open and focused, a source link, dark and forced colours; sections of the USA, Australia, Hong Kong, Belgium and the Czech Republic on the same template, and the longest title (the Netherlands). **Decided 18 October 2026 (owner), every recommendation:** the question is the h2, and the short label moves into "On this page"; "On this page" a sticky column from 1024px and a closed disclosure on a phone, with no mark for the section being read; one secondary "Explore programs in {country}" in the hero, no count; three callouts (short answer, note, caution) in place of today's coloured boxes and emoji, and plain bullets; one 720px column on the paper; the questions collapsed; "More country guides" and Home's lime band at the end; the update date shown; no flag and no breadcrumb trail. **And one rule:** every guide's final heading is "Ready to find your match in {country}?", Hong Kong, Poland and Portugal included. Decisions in 4.2 | Nothing | 18 October 2026 |
 | D4.13 Requirements hub | None | **No board.** `/ib-university-requirements`, including a country whose programs set no IB minimum (the USA) | |
 | D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
 | D4.15 404 and error pages | None | **No board** | |
@@ -287,7 +294,7 @@ merges into `main`, behind the preview switch.**
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | **Done 14 October 2026.** One editor, `ProfileEditor`, for first run's step 3 and editing after: a row per IB group, any subject in any row, the core, the checks, and one total in the footer. Save and exit keeps a draft without a total; the IB's failing conditions read the same words everywhere (`lib/ib/diploma.ts`) |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
-| 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
+| 15 | Country guides | 4.2 | D4.12 | large | **Unlocked 18 October 2026 (owner):** the country-page edits the coordination rule waited for have landed. Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
@@ -318,7 +325,7 @@ Rows 3 and 4 can share a design session.
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | Done 14 October 2026 |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
-| 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
+| 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Design approved 18 October 2026; build unlocked |
 | Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Added 18 October 2026 (owner) |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
@@ -2194,7 +2201,94 @@ JSON-LD preserved, the sitemap unchanged. Tokens only, which removes about 4,260
 classes. Migrate two or three, compare the rendered text and the SEO snapshot (Definition of done 12)
 before and after, then do the rest. Each guide's `Article`, `FAQPage` and speakable blocks must come
 out identical. Until release, the old guides stay live beside the template, so an edit to a migrated
-country goes into both. Do it late.
+country goes into both. **Unlocked 18 October 2026 (owner):** the CONTENT edits the
+[coordination rule](#step-1--prepare) waited for have landed.
+
+**Decided on the boards (D4.12, every recommendation approved 18 October 2026).** Canvas row 19:
+"D4.12 Country guide" (Ireland's guide whole, light and dark, then moving around the page), "D4.12
+Country guide · other guides" (sections of the USA, Australia, Hong Kong, Belgium and the Czech
+Republic) and "D4.12 Country guide · phone".
+
+- **A guide is data.** Its h1, eyebrow, intro, update date (`lib/page-dates.ts`) and Explore link with
+  the country's id; then its sections, each an id, the short label for "On this page", the h2, blocks
+  and sources; then the questions and the final band's paragraph. Eleven blocks: paragraph, list,
+  subheading (h3), short answer, note, caution, cards (two or three), table, two tables, timeline and
+  document list. Rich text keeps today's bold and links. Every word stays today's, headings in
+  sentence case, except as listed under "Expected differences".
+- **Headings.** One h1, Display L (44/48, 32/36 on a phone), today's words ("Study in Ireland with the
+  IB Diploma"). Each section's h2 is today's question or title, in Newsreader at the H1 size (34/40,
+  30/36 on a phone): "How Ireland recognizes the IB Diploma". Today's short label ("Recognition") is
+  the section's entry in "On this page", not a heading. h3 for subheadings, cards, the short answer,
+  each question and "Official sources". The body is an `<article>`, each section has
+  `.content-section` and each answer `.faq-answer`, so the JSON-LD's speakable selectors find
+  elements; the JSON-LD itself is unchanged.
+- **Layout.** Desktop: in the 1240px column, "On this page" in a 248px column, then the 720px text
+  column, 80px apart. Sections sit on the paper, divided by a hairline, 48px above and 56px below. A
+  phone: one column with 16px sides, sections 40px above and 44px below. No grey and white bands.
+- **Hero.** The eyebrow, Small 600 in ink-2: "Official university admission guide for IB students
+  (2027)". The h1. The intro, Body L in ink-2 with class `hero-description`, today's words without
+  bold. Three lines with Lucide `Check` in the ok colour: "IB Diploma only", "Official sources" and
+  "Last updated for the 2027 intake, on 25 September 2026", the date in a `<time>` from
+  `lib/page-dates.ts`, the same date as the Article JSON-LD's `dateModified`. One secondary `lg`
+  button (52px, full width on a phone), "Explore programs in Ireland" with `ArrowRight`, to Explore
+  with the country chosen. No flag (emoji or SVG), no program count, and no breadcrumb trail: the
+  header marks Country guides as current (1.5), and a trail would add BreadcrumbList JSON-LD.
+- **"On this page".** Desktop, from 1024px: a nav named by its h2 (Label, "On this page"), sticky 96px
+  from the top, the section labels as 36px links in ink-2, then a hairline and the link "Explore
+  programs in Ireland" with `ArrowRight`. Below 1024px: a `<details>` under the hero, closed, its
+  52px summary with Lucide `List`, "On this page", the count ("10 sections") and a chevron; open,
+  44px rows. A link jumps straight to its section's h2, under the sticky header. Nothing marks the
+  section being read: that needs script on a prebuilt page.
+- **Blocks.**
+  - Paragraphs: Body L (17/28) in ink, bold at 600.
+  - Lists: plain bullets in ink-3, never ticks, which mean a met requirement (D3.4).
+  - Short answer: surface, a 1px line edge, radius 14, 24 by 28px in (20 on a phone). An h3 holding
+    the word in Newsreader (34/40, 30/36 on a phone: "No", "Yes") with the line after it in H3, then
+    today's paragraph in Body L ink-2. No status colour: "No" is good news in Ireland and a warning
+    in the UK.
+  - Note: sunken, Lucide `Info` in ink-2, Body (15/24) in ink, radius 14.
+  - Caution: close-soft, Lucide `TriangleAlert` in close, Body in ink. Today's amber and red boxes and
+    the warning emoji become cautions; a coloured card that isn't a warning (the Czech guide's
+    Medicine card) becomes a plain card. Both callouts carry a transparent 1px border, which forced
+    colours draws.
+  - Cards: two or three to a row, stacked on a phone; surface, a 1px line edge, radius 14, 20px in,
+    an h3 and a list or a sentence in Body.
+  - Tables: a real `<table>` in a surface panel, radius 14: a caption, column headers in Label (ink-2)
+    on sunken, the first column a row header, numbers right-aligned in tabular figures, words
+    left-aligned and wrapping. A table of numbers only is 440px wide at most on desktop. Two of one
+    kind sit side by side from 1024px and stack below it. No guide has more than three columns, so
+    no table scrolls sideways. A note under a table is Body in ink-2.
+  - Timeline: an ordered list in a surface panel, a row per date: the date at 600 in tabular figures
+    with its time under it in Small, then the event as an h3 and its text in Body ink-2. A 168px date
+    column on desktop; the date above the event on a phone. Ireland's "5 November 2026 (12:00): CAO
+    Applications Open" splits into "5 November 2026", "12:00" and "CAO applications open".
+  - Document list: a surface panel, a row per document with Lucide `FileText` in ink-2.
+  - Sources: at the end of each section, "Official source" or "Official sources" (an h3 in Label,
+    ink-3), then each link in Body 500 with Lucide `ExternalLink` and "(opens in a new tab)" for
+    screen readers. The last word and the icon never part.
+- **Questions.** Today's h2 ("Frequently asked questions (IB only)"), then one surface panel of
+  `<details>`, all closed, as Explore's (D4.7): each summary an h3 question and a chevron that turns
+  over 180ms (no turn with reduced motion); the answer in Body L with `.faq-answer`, the same text as
+  the FAQ JSON-LD, then "Source:" and its link. Then today's line, "Learn how IB Match evaluates Irish
+  admission requirements for your profile.", linking to `/how-it-works`.
+- **The end of the page.** "More country guides" on the surface band: the h2, "How universities in each
+  country read the IB Diploma, for 2027 entry.", the link "IB rules by country", and the other 22
+  guides from `lib/programs/country-guides.ts` as Home lists them. Then Home's lime band (4.1): the
+  final heading, the guide's own paragraph, "100% free for students. No credit card required.", Get
+  my matches (ink, to `/student`) and "Explore programs in Ireland" (outlined in ink). Then the footer.
+- **One final heading on every guide (owner, 18 October 2026), no exceptions:** "Ready to find your
+  match in {country}?", the country as `lib/programs/country-guides.ts` names it ("the UK", "the Czech
+  Republic"). Hong Kong's "Ready to Explore Universities in Hong Kong?", Poland's "Ready to Explore
+  Polish Universities?" and Portugal's "Start Your Journey to Portugal" change to it. Their paragraphs
+  stay their own.
+- **Every source has a name.** Australia shows six source links as bare addresses today; give each a
+  name when it migrates (the board proposes "UAC — IB applicants", "IB Schools Australasia —
+  University entrance" and "VTAC — IB students"). A table without a caption gets one: the US credit
+  table, "Example IB credit policies".
+- **Expected differences** in the before-and-after comparison, and the pull request lists them:
+  heading case and level (the question is the h2), the labels moved into "On this page", the visible
+  date, the three final headings above, "Get my matches" in place of "Get Started — It's Free",
+  Australia's source names and the US table's caption. Every other word on the page is the same.
 
 ### 4.3 — Other public pages
 
