@@ -406,6 +406,8 @@ Owner decisions — not AI work
 - [ ] Before release day, make sure Google Search Console covers the site (the January 2026 SEO plan
   left this open), and note a baseline: indexed pages, clicks and the top pages for the last three
   months. R.1 and R.2 compare against it
+- [x] Decide the CSS budget while both designs ship: **let it go over until cleanup**, up to 36 KB,
+  back to 32 KB at R.2, which checks it (18 October 2026; Definition of done 8)
 
 ---
 
@@ -464,7 +466,10 @@ animation patches the audit first proposed.
    every read it makes (database, Redis, search) against today's, and raise any new one with the
    owner first (owner, 11 October 2026).
 8. **Budget** (production, 5 October 2026: JS 171 KB, CSS 22 KB, fonts 52 KB, CLS 0): no more JS,
-   CSS at most 32 KB, fonts at most 60 KB, CLS stays 0.
+   CSS at most 32 KB, fonts at most 60 KB, CLS stays 0. **Until cleanup, CSS may reach 36 KB**
+   (owner, 18 October 2026): the one stylesheet carries both designs until R.2 deletes today's
+   styles, and it reached 31.9 KB with Home (4.1). From R.2 on, 32 KB holds again, and R.2 checks
+   it. CSS is measured gzipped, every stylesheet `/` loads.
 9. **Every OS:** Chrome on Windows, Safari on macOS and iOS, at 1440px and 390px, light, dark and
    forced colours, 200% zoom.
 10. **Tests:** Vitest for new pure helpers, plus the AGENTS.md verification commands.
@@ -2362,7 +2367,9 @@ against the baseline:
   onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages);
 - delete the switch, the preview routes and bar, both variables and the old logo files;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
-- re-run the full verification and the budget check.
+- re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
+  (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here
+  (Definition of done 8). If it is still over, find what kept it there before R.2 is done.
 
 ---
 
