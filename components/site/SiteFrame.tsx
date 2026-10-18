@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/lib/utils'
+import { CookieSlot } from './cookie-slot'
 
 interface SiteFrameProps {
   header: ReactNode
@@ -33,6 +34,8 @@ export function SiteFrame({
       >
         Skip to main content
       </a>
+      {/* The cookie banner, first in Tab order after the skip link (D4.1) */}
+      <CookieSlot />
       {header}
       <Main id="main" className="flex-1">
         {children}

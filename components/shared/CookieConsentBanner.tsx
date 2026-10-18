@@ -12,6 +12,9 @@
  *
  * Non-essential cookies (requires consent):
  * - None currently, but ready for analytics, preferences, marketing
+ *
+ * Today's design. The new design's banner is components/site/CookieBanner.tsx; both store the
+ * choice through lib/cookie-consent.ts.
  */
 
 'use client'
@@ -20,77 +23,7 @@ import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-
-// Cookie consent preferences
-export type CookieConsent = {
-  essential: boolean // Always true, required for app to function
-  analytics: boolean // Google Analytics, etc.
-  preferences: boolean // User preferences beyond essential
-  marketing: boolean // Advertising, retargeting
-  timestamp: string // When consent was given/updated
-}
-
-const CONSENT_COOKIE_NAME = 'cookie-consent'
-const _CONSENT_VERSION = '1.0' // Update when changing cookie categories
-
-// Default consent (only essential)
-const DEFAULT_CONSENT: CookieConsent = {
-  essential: true,
-  analytics: false,
-  preferences: false,
-  marketing: false,
-  timestamp: ''
-}
-
-/**
- * Get stored consent from localStorage
- */
-function getStoredConsent(): CookieConsent | null {
-  if (typeof window === 'undefined') return null
-
-  try {
-    const stored = localStorage.getItem(CONSENT_COOKIE_NAME)
-    if (stored) {
-      return JSON.parse(stored)
-    }
-  } catch {
-    // Invalid JSON, clear it
-    localStorage.removeItem(CONSENT_COOKIE_NAME)
-  }
-  return null
-}
-
-/**
- * Store consent in localStorage and cookie
- */
-function storeConsent(consent: CookieConsent): void {
-  if (typeof window === 'undefined') return
-
-  const consentWithTimestamp = {
-    ...consent,
-    timestamp: new Date().toISOString()
-  }
-
-  // Store in localStorage for easy access
-  localStorage.setItem(CONSENT_COOKIE_NAME, JSON.stringify(consentWithTimestamp))
-
-  // Also set a simple cookie for server-side checks
-  document.cookie = `${CONSENT_COOKIE_NAME}=${encodeURIComponent(JSON.stringify(consentWithTimestamp))}; path=/; max-age=31536000; SameSite=Lax`
-}
-
-/**
- * Check if user has made a consent choice
- */
-export function hasConsentChoice(): boolean {
-  return getStoredConsent() !== null
-}
-
-/**
- * Get current consent preferences
- */
-export function getConsent(): CookieConsent {
-  return getStoredConsent() || DEFAULT_CONSENT
-}
+import { ACCEPT_ALL, ESSENTIAL_ONLY, hasConsentChoice, storeConsent } from '@/lib/cookie-consent'
 
 export function CookieConsentBanner() {
   const [showBanner, setShowBanner] = useState(false)
@@ -116,24 +49,12 @@ export function CookieConsentBanner() {
   }, [isAuthPage])
 
   const handleAcceptAll = () => {
-    storeConsent({
-      essential: true,
-      analytics: true,
-      preferences: true,
-      marketing: true,
-      timestamp: ''
-    })
+    storeConsent(ACCEPT_ALL)
     setShowBanner(false)
   }
 
   const handleAcceptEssential = () => {
-    storeConsent({
-      essential: true,
-      analytics: false,
-      preferences: false,
-      marketing: false,
-      timestamp: ''
-    })
+    storeConsent(ESSENTIAL_ONLY)
     setShowBanner(false)
   }
 

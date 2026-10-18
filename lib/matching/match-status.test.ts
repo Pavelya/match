@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { MatchStatus as BadgeStatus, RequirementKind } from '@/components/ds/StatusBadge'
+import { PREVIEW_MATCHES, PREVIEW_POINTS } from '@/components/home/preview-matches'
 import { cardChips, deriveMatchStatus, type MatchChip, type MatchStatusInput } from './match-status'
 import { calculateMatch } from './scorer'
 import { calculateORGroupMatch } from './subject-matcher'
@@ -23,7 +24,11 @@ const COURSES = {
   englishLL: { id: 'eng-ll', name: 'English A: Language & Literature' },
   englishB: { id: 'eng-b', name: 'English B' },
   spanishB: { id: 'spa-b', name: 'Spanish B' },
-  frenchB: { id: 'fra-b', name: 'French B' }
+  spanishALit: { id: 'spa-lit', name: 'Spanish A: Literature' },
+  spanishALL: { id: 'spa-ll', name: 'Spanish A: Language & Literature' },
+  frenchB: { id: 'fra-b', name: 'French B' },
+  frenchALit: { id: 'fra-lit', name: 'French A: Literature' },
+  frenchALL: { id: 'fra-ll', name: 'French A: Language & Literature' }
 }
 type Course = keyof typeof COURSES
 
@@ -535,4 +540,68 @@ describe('details without the display fields', () => {
       chip('info', 'No IB minimum · holistic admission')
     ])
   })
+})
+
+describe("Home's preview (D4.1)", () => {
+  // The three programs' requirements as stored on 18 October 2026, in their stored order
+  const PREVIEW_PROGRAMS: Record<string, Program> = {
+    'Computer Science BSc (Hons)': {
+      minIBPoints: 34,
+      requires: [
+        ['mathsAA', 'HL', 6],
+        [
+          ['englishB', 'SL', 5],
+          ['englishLit', 'SL', 5],
+          ['englishLL', 'SL', 5]
+        ]
+      ]
+    },
+    'Economics, Finance and Data Science': {
+      minIBPoints: 39,
+      requires: [
+        [
+          ['mathsAA', 'HL', 7],
+          ['mathsAI', 'HL', 7]
+        ]
+      ]
+    },
+    'Computer Science, Linguistics and a Language': {
+      minIBPoints: 34,
+      requires: [
+        [
+          ['englishLit', 'SL', 4],
+          ['englishLL', 'SL', 4],
+          ['englishB', 'SL', 4]
+        ],
+        [
+          ['mathsAA', 'HL', 5],
+          ['mathsAI', 'HL', 5]
+        ],
+        [
+          ['frenchB', 'HL', 5],
+          ['frenchALit', 'HL', 5],
+          ['frenchALL', 'HL', 5],
+          ['spanishB', 'HL', 5],
+          ['spanishALit', 'HL', 5],
+          ['spanishALL', 'HL', 5]
+        ]
+      ]
+    }
+  }
+
+  it('is for the student these tests use', () => {
+    expect(PREVIEW_POINTS).toBe(STUDENT.totalIBPoints)
+  })
+
+  it.each(PREVIEW_MATCHES.map((match) => [match.name, match] as const))(
+    '%s shows what its card would',
+    (name, match) => {
+      const result = status(PREVIEW_PROGRAMS[name])
+      expect({
+        status: result.status,
+        badge: result.badge,
+        chips: cardChips(result.chips)
+      }).toEqual({ status: match.status, badge: match.badge, chips: match.chips })
+    }
+  )
 })

@@ -7,30 +7,31 @@
  * /programs/search.
  */
 
-const GUIDES: Record<string, { slug: string; name: string }> = {
-  AT: { slug: 'austria', name: 'Austria' },
-  AU: { slug: 'australia', name: 'Australia' },
-  BE: { slug: 'belgium', name: 'Belgium' },
-  CA: { slug: 'canada', name: 'Canada' },
-  CH: { slug: 'switzerland', name: 'Switzerland' },
-  CZ: { slug: 'czech-republic', name: 'the Czech Republic' },
-  DE: { slug: 'germany', name: 'Germany' },
-  DK: { slug: 'denmark', name: 'Denmark' },
-  EE: { slug: 'estonia', name: 'Estonia' },
-  ES: { slug: 'spain', name: 'Spain' },
-  FR: { slug: 'france', name: 'France' },
-  GB: { slug: 'uk', name: 'the UK' },
-  HK: { slug: 'hong-kong', name: 'Hong Kong' },
-  IE: { slug: 'ireland', name: 'Ireland' },
-  IL: { slug: 'israel', name: 'Israel' },
-  IT: { slug: 'italy', name: 'Italy' },
-  JP: { slug: 'japan', name: 'Japan' },
-  NL: { slug: 'netherlands', name: 'the Netherlands' },
-  PL: { slug: 'poland', name: 'Poland' },
-  PT: { slug: 'portugal', name: 'Portugal' },
-  SE: { slug: 'sweden', name: 'Sweden' },
-  SG: { slug: 'singapore', name: 'Singapore' },
-  US: { slug: 'usa', name: 'the USA' }
+/** `name` reads in a sentence ("Study in the UK"); `country` stands alone, as in Home's list. */
+const GUIDES: Record<string, { slug: string; name: string; country: string }> = {
+  AT: { slug: 'austria', name: 'Austria', country: 'Austria' },
+  AU: { slug: 'australia', name: 'Australia', country: 'Australia' },
+  BE: { slug: 'belgium', name: 'Belgium', country: 'Belgium' },
+  CA: { slug: 'canada', name: 'Canada', country: 'Canada' },
+  CH: { slug: 'switzerland', name: 'Switzerland', country: 'Switzerland' },
+  CZ: { slug: 'czech-republic', name: 'the Czech Republic', country: 'Czech Republic' },
+  DE: { slug: 'germany', name: 'Germany', country: 'Germany' },
+  DK: { slug: 'denmark', name: 'Denmark', country: 'Denmark' },
+  EE: { slug: 'estonia', name: 'Estonia', country: 'Estonia' },
+  ES: { slug: 'spain', name: 'Spain', country: 'Spain' },
+  FR: { slug: 'france', name: 'France', country: 'France' },
+  GB: { slug: 'uk', name: 'the UK', country: 'United Kingdom' },
+  HK: { slug: 'hong-kong', name: 'Hong Kong', country: 'Hong Kong' },
+  IE: { slug: 'ireland', name: 'Ireland', country: 'Ireland' },
+  IL: { slug: 'israel', name: 'Israel', country: 'Israel' },
+  IT: { slug: 'italy', name: 'Italy', country: 'Italy' },
+  JP: { slug: 'japan', name: 'Japan', country: 'Japan' },
+  NL: { slug: 'netherlands', name: 'the Netherlands', country: 'Netherlands' },
+  PL: { slug: 'poland', name: 'Poland', country: 'Poland' },
+  PT: { slug: 'portugal', name: 'Portugal', country: 'Portugal' },
+  SE: { slug: 'sweden', name: 'Sweden', country: 'Sweden' },
+  SG: { slug: 'singapore', name: 'Singapore', country: 'Singapore' },
+  US: { slug: 'usa', name: 'the USA', country: 'United States' }
 }
 
 export interface CountryGuide {
@@ -40,14 +41,26 @@ export interface CountryGuide {
   title: string
 }
 
+function guideHref(slug: string): string {
+  return `/study-in-${slug}-with-ib-diploma`
+}
+
 export function countryGuide(countryCode: string): CountryGuide | null {
   const guide = GUIDES[countryCode.toUpperCase()]
   if (!guide) return null
   return {
-    href: `/study-in-${guide.slug}-with-ib-diploma`,
+    href: guideHref(guide.slug),
     title: `Study in ${guide.name} with the IB Diploma`
   }
 }
+
+/**
+ * Every guide, by country name (rebranding 4.1, board "D4.1 Home"). Home lists them all and its
+ * "Universities in 23 countries" is this list's length, so neither is typed by hand or read.
+ */
+export const COUNTRY_GUIDES: readonly { country: string; href: string }[] = Object.values(GUIDES)
+  .map(({ slug, country }) => ({ country, href: guideHref(slug) }))
+  .sort((a, b) => a.country.localeCompare(b.country, 'en'))
 
 /** Every country code with a guide, for the test that each one is a page. */
 export const GUIDE_COUNTRY_CODES = Object.keys(GUIDES)

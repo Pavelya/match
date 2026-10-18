@@ -207,9 +207,10 @@ export default async function RootLayout({
         />
         <CountryFlagPolyfill />
         <ToastProvider>
-          {/* The new design's header and footer on public pages (rebranding 1.5) */}
+          {/* The new design's header and footer on public pages (rebranding 1.5), and its cookie
+              banner on every page (4.1, components/site/PublicFrame.tsx) */}
           {newUi ? <PublicChrome>{children}</PublicChrome> : children}
-          <CookieConsentBanner />
+          {!newUi && <CookieConsentBanner />}
         </ToastProvider>
       </body>
     </html>

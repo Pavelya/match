@@ -8,6 +8,7 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
+import { NewHomePage } from './NewHomePage'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -101,22 +102,30 @@ function jsonLd(logo: string) {
 }
 
 export default async function HomePage() {
+  const newUi = await showsNewUi()
   // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
-  const logo = organizationLogo(baseUrl, await showsNewUi()).url
+  const logo = organizationLogo(baseUrl, newUi).url
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <Hero />
-        <FeatureGrid />
-        <HowItWorks />
-        <TrustSection />
-        <CallToAction />
-      </main>
-      <StudentFooter />
+      {/* The new design's Home (rebranding 4.1); the root layout draws its header and footer */}
+      {newUi ? (
+        <NewHomePage />
+      ) : (
+        <>
+          <main className="flex min-h-screen flex-col">
+            <Hero />
+            <FeatureGrid />
+            <HowItWorks />
+            <TrustSection />
+            <CallToAction />
+          </main>
+          <StudentFooter />
+        </>
+      )}
     </>
   )
 }

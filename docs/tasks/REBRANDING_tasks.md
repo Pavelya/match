@@ -284,7 +284,7 @@ merges into `main`, behind the preview switch.**
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | **Done 13 October 2026.** Steps 1 and 2 in the new design, saved as drafts; focus mode from first run's mark on the page; Save without grades through first run and back, on a program or an Explore row. Step 3 is today's until 3.2 |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | **Done 14 October 2026.** One editor, `ProfileEditor`, for first run's step 3 and editing after: a row per IB group, any subject in any row, the core, the checks, and one total in the footer. Save and exit keeps a draft without a total; the IB's failing conditions read the same words everywhere (`lib/ib/diploma.ts`) |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
-| 14 | Home | 4.1 | D4.1 | medium | |
+| 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
@@ -314,7 +314,7 @@ Rows 3 and 4 can share a design session.
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Done 13 October 2026 |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | Done 14 October 2026 |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
-| 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
+| 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
@@ -370,7 +370,7 @@ Phase 3 — Profile and onboarding
 
 Phase 4 — Public pages
 
-- [ ] 4.1 Home page
+- [x] 4.1 Home page (18 October 2026)
 - [ ] 4.2 Country guides on one template
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
