@@ -31,56 +31,34 @@ export async function DELETE() {
 
     logger.info('Account deletion initiated', { userId: userId.slice(0, 8) + '...' })
 
-    // Delete in correct order to respect foreign key constraints
-    // Prisma's cascade delete should handle most of this, but being explicit
-
-    // 1. Delete student-related data first
-    const studentProfile = await prisma.studentProfile.findUnique({
-      where: { userId },
-      select: { id: true }
-    })
-
-    if (studentProfile) {
-      // Delete saved programs
-      await prisma.savedProgram.deleteMany({
-        where: { studentProfileId: studentProfile.id }
+    // Everything in one transaction, so a failure deletes nothing and the student can try again
+    // (rebranding 3.3: the dialog says "Nothing was deleted"). In order, for the foreign keys;
+    // Prisma's cascades would cover most of it, but being explicit
+    await prisma.$transaction(async (tx) => {
+      const user = await tx.user.findUnique({
+        where: { id: userId },
+        select: { email: true, studentProfile: { select: { id: true } } }
       })
+      const profileId = user?.studentProfile?.id
 
-      // Delete student courses
-      await prisma.studentCourse.deleteMany({
-        where: { studentProfileId: studentProfile.id }
-      })
+      // 1. The student's data: saved programs, courses, then the profile
+      if (profileId) {
+        await tx.savedProgram.deleteMany({ where: { studentProfileId: profileId } })
+        await tx.studentCourse.deleteMany({ where: { studentProfileId: profileId } })
+        await tx.studentProfile.delete({ where: { id: profileId } })
+      }
 
-      // Delete student profile
-      await prisma.studentProfile.delete({
-        where: { id: studentProfile.id }
-      })
-    }
+      // 2. How they sign in
+      await tx.session.deleteMany({ where: { userId } })
+      await tx.account.deleteMany({ where: { userId } })
 
-    // 2. Delete authentication-related data
-    await prisma.session.deleteMany({
-      where: { userId }
-    })
+      // 3. Sign-in links sent to their email
+      if (user?.email) {
+        await tx.verificationToken.deleteMany({ where: { identifier: user.email } })
+      }
 
-    await prisma.account.deleteMany({
-      where: { userId }
-    })
-
-    // 3. Delete verification tokens associated with user's email
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: { email: true }
-    })
-
-    if (user?.email) {
-      await prisma.verificationToken.deleteMany({
-        where: { identifier: user.email }
-      })
-    }
-
-    // 4. Finally, delete the user
-    await prisma.user.delete({
-      where: { id: userId }
+      // 4. Finally, the user
+      await tx.user.delete({ where: { id: userId } })
     })
 
     logger.info('Account deletion completed', { userId: userId.slice(0, 8) + '...' })

@@ -76,6 +76,9 @@
   --color-gap-soft: var(--gap-soft);
   --color-toast-ok: var(--toast-ok);
   --color-toast-gap: var(--toast-gap);
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-on-danger: var(--on-danger);
   /* 6 · 10 · 14 · 20 from the one --radius; rounded-full for pills and avatars */
   --radius-chip: calc(var(--radius) - 8px);
   --radius-control: calc(var(--radius) - 4px);
@@ -246,6 +249,10 @@
   --close-soft: #fbefd9;
   --gap: #b3261e;
   --gap-soft: #fbe6e4;
+  /* The danger button (D2.1, 18 October 2026): only inside a confirm dialog (D2.10) */
+  --danger: #b3261e;
+  --danger-hover: #931f19;
+  --on-danger: #ffffff;
   /* The toast takes the other theme (D2.9): its icons and focus outline are the dark theme's */
   --toast-ok: #72d69b;
   --toast-gap: #ff8e85;
@@ -300,6 +307,9 @@
     --close-soft: #33260f;
     --gap: #ff8e85;
     --gap-soft: #3a1715;
+    --danger: #ff8e85;
+    --danger-hover: #ffada6;
+    --on-danger: #0e1014;
     --toast-ok: #17723f;
     --toast-gap: #b3261e;
     --toast-ring: #2b3fd6;

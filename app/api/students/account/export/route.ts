@@ -27,12 +27,23 @@ export async function GET() {
       return rateLimitResponse
     }
 
-    // Fetch all user data
+    // Everything the export writes, and nothing more (select, not include)
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },
-      include: {
+      select: {
+        email: true,
+        name: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
         studentProfile: {
-          include: {
+          select: {
+            totalIBPoints: true,
+            tokGrade: true,
+            eeGrade: true,
+            openToAllLocations: true,
+            createdAt: true,
+            updatedAt: true,
             school: {
               select: {
                 name: true,
@@ -42,7 +53,9 @@ export async function GET() {
               }
             },
             courses: {
-              include: {
+              select: {
+                level: true,
+                grade: true,
                 ibCourse: {
                   select: {
                     name: true,
@@ -63,7 +76,8 @@ export async function GET() {
               }
             },
             savedPrograms: {
-              include: {
+              select: {
+                createdAt: true,
                 program: {
                   select: {
                     name: true,
@@ -121,7 +135,9 @@ export async function GET() {
             countries: user.studentProfile.preferredCountries.map((c) => ({
               name: c.name,
               code: c.code
-            }))
+            })),
+            // "Open to anywhere", saved by first run since rebranding 3.1, with no countries
+            openToAllLocations: user.studentProfile.openToAllLocations
           }
         : null,
       savedPrograms: user.studentProfile

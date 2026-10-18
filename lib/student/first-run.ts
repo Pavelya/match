@@ -61,8 +61,8 @@ export function keptLine(step: FirstRunStep): string | null {
 }
 
 /** "Set up your profile · Step 1 of 3 · IB Match", the page's title as the steps change */
-export function firstRunTitle(firstRun: boolean, step: FirstRunStep): string {
-  return `${firstRun ? 'Set up' : 'Update'} your profile · Step ${step} of 3 · IB Match`
+export function firstRunTitle(step: FirstRunStep): string {
+  return `Set up your profile · Step ${step} of 3 · IB Match`
 }
 
 /**

@@ -10,20 +10,29 @@
  * - Delete account (GDPR compliance)
  */
 
+import type { Metadata } from 'next'
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { unstable_cache } from 'next/cache'
 import { AccountSettingsClient } from './AccountSettingsClient'
+import { NewSettings } from './NewSettings'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
+import { showsNewUi } from '@/lib/new-ui'
+import { longDate, schoolLine } from '@/lib/student/settings'
 
-export const metadata = {
+const metadata = {
   title: 'Account Settings',
   description: 'Manage your IB Match account settings and preferences.',
   robots: {
     index: false,
     follow: false
   }
+}
+
+/** Behind sign-in and noindex in both designs; the new one names the page as its h1 does */
+export async function generateMetadata(): Promise<Metadata> {
+  return (await showsNewUi()) ? { ...metadata, title: 'Settings' } : metadata
 }
 
 /**
@@ -86,6 +95,32 @@ export default async function AccountSettingsPage() {
 
   if (!user) {
     redirect('/auth/signin')
+  }
+
+  // The new design (rebranding 3.3): the same read, its dates written on the server
+  if (await showsNewUi()) {
+    const linked = user.studentProfile?.school
+    return (
+      <NewSettings
+        email={user.email}
+        name={user.name}
+        memberSince={longDate(user.createdAt)}
+        school={
+          linked
+            ? {
+                name: linked.name,
+                logo: linked.logo,
+                line: schoolLine({
+                  city: linked.city,
+                  country: linked.country.name,
+                  linkedAt: user.studentProfile?.coordinatorAccessConsentAt ?? null,
+                  byInvitation: user.studentProfile?.linkedByInvitation ?? false
+                })
+              }
+            : null
+        }
+      />
+    )
   }
 
   // Prepare school info if linked

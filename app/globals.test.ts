@@ -82,6 +82,10 @@ const PAIRS: [string, string, number][] = [
   ['--gap', '--card', TEXT],
   ['--destructive', '--background', TEXT],
   ['--destructive', '--card', TEXT],
+  // The danger button, at rest and on hover, and the red words of the button that opens it (D2.1)
+  ['--on-danger', '--danger', TEXT],
+  ['--on-danger', '--danger-hover', TEXT],
+  ['--danger', '--card', TEXT],
   // A chosen E in TOK or the Extended Essay fills with gap (D2.4)
   ['--background', '--gap', TEXT],
   // Field edges on paper and surface, and the chosen segment's edge on its track

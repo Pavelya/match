@@ -282,7 +282,7 @@ merges into `main`, behind the preview switch.**
 | 10 | Shortlist and compare | 2.5 | D3.7, D4.10 | medium | **Done 13 October 2026.** List and Compare from one response with the fit, one read more than today (the student's subjects); up to four on desktop, two on a phone. The nav count is kept in the browser, with no read of its own |
 | 11 | First-run steps | 3.1 | D2.6, D4.3, D4.4; the D2.1 Save change | medium | **Done 13 October 2026.** Steps 1 and 2 in the new design, saved as drafts; focus mode from first run's mark on the page; Save without grades through first run and back, on a program or an Explore row. Step 3 is today's until 3.2 |
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | **Done 14 October 2026.** One editor, `ProfileEditor`, for first run's step 3 and editing after: a row per IB group, any subject in any row, the core, the checks, and one total in the footer. Save and exit keeps a draft without a total; the IB's failing conditions read the same words everywhere (`lib/ib/diploma.ts`) |
-| 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | |
+| 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | |
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
@@ -312,7 +312,7 @@ Rows 3 and 4 can share a design session.
 | 10 | `/design D3.7, D4.10`: compare table, Shortlist | Those two boards | `/build 10`: shortlist and compare (2.5) | Done 13 October 2026 |
 | 11 | `/design D2.6, D4.3, D4.4`: checkbox rows, first-run steps 1 and 2 | Those three boards, and the change board "D2.1 Save · without grades" | `/build 11`: first-run steps (3.1) | Done 13 October 2026 |
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | Done 14 October 2026 |
-| 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | |
+| 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
@@ -365,7 +365,7 @@ Phase 3 — Profile and onboarding
 
 - [x] 3.1 First-run interest and country steps (13 October 2026)
 - [x] 3.2 Subject editor (14 October 2026)
-- [ ] 3.3 Academic profile and settings
+- [x] 3.3 Academic profile and settings (18 October 2026)
 
 Phase 4 — Public pages
 
@@ -2002,6 +2002,51 @@ Settings (D4.11):
   public header): "Your account is deleted", "We've deleted your account, your subjects and grades,
   your interests and countries, and your shortlist. You can make a new account with the same email
   any time.", and Go to Home. Today they land on Home with no word.
+
+**Built 18 October 2026 (session 13).** Academic is `app/student/onboarding/Academic.tsx`, loaded
+in its own chunk through `NewOnboarding.tsx` as first run is: the summary (`components/academic/`)
+and the three screens, each at its own address (`?edit=interests`, `?edit=countries`,
+`?edit=subjects`), drawn with first run's step parts, now shared in
+`components/first-run/Steps.tsx`. Its rules and words are in `lib/student/academic.ts`. The page
+reads the profile once, as first run does, and moves between the summary and its screens with
+`history.pushState`, without a request; the summary shows what each save wrote. Save changes calls
+first run's routes: the one upsert on `PUT /api/students/profile/preferences` for interests and
+countries, and `POST /api/students/profile` for subjects and grades. With a change not saved, any
+link (the header's, the tab bar's and the footer's too) and Sign out open the dialog first; a
+reload or closing the tab gets the browser's prompt. `FirstRun.tsx` is now first run only. Settings
+is `app/student/settings/SettingsClient.tsx`, through `NewSettings.tsx`, on the page's cached read,
+with its dates written on the server. The dialog is `components/ds/ConfirmDialog.tsx`; the danger
+button is a `Button` variant on three new tokens (`--danger`, `--danger-hover`, `--on-danger`).
+After deleting, a server action signs the student out onto `/account-deleted`, which is static and
+a 404 in today's design. The delete route runs in one `prisma.$transaction`; the export selects its
+columns and includes `openToAllLocations`.
+
+Reads, from Postgres's statement log on a local copy: the Academic summary makes the profile read
+and the re-consent check, 8 statements against today's 10 (today's layout also re-reads the
+profile); opening a screen and coming back, none; Settings 3 against 5, its user read behind the
+five-minute cache; the page after deleting, none. While previewing, the reference lists and
+Settings' cache are read on each view, as the preview switch notes.
+
+Departures and hand-offs:
+
+- **The skeleton is D2.8's**, in the `line` tint; D4.11's loading frame drew the lighter `sunken`.
+- **The success toast wraps to two lines on desktop.** D2.9 caps the toast at 560px, and "Your
+  subjects and grades are saved, and your matches are updated." with See matches is wider; D4.11
+  drew it on one line. Widening it changes every toast, so that is left to the owner.
+- **The route's loading state is Academic's skeleton, for first run too**, while the server reads
+  the profile: the route can't tell before the read whether the student has grades.
+- **Today's design downloads a little more on two pages**: the lazy wrappers that keep the new
+  screens out of its chunks, 546 bytes (gzip) on `/student/onboarding` and 142 on
+  `/student/settings`. Every other page is the same, and the HTML of every page compared is the
+  same.
+- **The new design downloads more**: Academic 4.5 KB for a student with grades, first run 1.5 KB,
+  and Settings 7.8 KB, since today's Settings client stays in the page's chunk until cleanup (R.2).
+- **Found, not changed: the account menu shows a new name only after the next sign-in.** The session
+  token keeps the name it was signed in with, as today's Settings does; refreshing it is an auth
+  change, for a separate task.
+- **Lucide's `TriangleAlert` is imported as `AlertTriangle`**, the name today's pages use: the
+  other name restructured the icon's module in the chunk every page loads.
+- `AccountSettingsClient` and today's two dialogs stay for today's design until cleanup (R.2).
 
 ---
 

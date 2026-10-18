@@ -11,14 +11,14 @@ import {
   type FirstRunStep
 } from '@/lib/student/first-run'
 import { firstRunProfile } from '@/lib/student/first-run-profile'
-import { NewOnboarding } from './NewOnboarding'
+import { NewAcademic, NewOnboarding } from './NewOnboarding'
 
 /**
- * First run and the academic profile's steps in the new design (rebranding 3.1). It reads what
- * today's page reads: the student's profile, once, now a select, and the cached fields,
- * countries and IB courses. A first run opens at the first step not yet saved; a finished one,
- * reached from Academic, opens at step 1, as today. The address may carry where Save was pressed
- * and the program waiting (lib/student/first-run.ts).
+ * Academic in the new design: first run before grades (rebranding 3.1), and the summary with its
+ * three screens after (3.3). It reads what today's page reads: the student's profile, once, now a
+ * select, and the cached fields, countries and IB courses. First run opens at the first step not
+ * yet saved, and its address may carry where Save was pressed and the program waiting
+ * (lib/student/first-run.ts); the summary's carries the screen open (lib/student/academic.ts).
  */
 export async function NewOnboardingPage({
   userId,
@@ -34,8 +34,40 @@ export async function NewOnboardingPage({
     getCachedIBCourses()
   ])
 
-  const firstRun = !hasGrades(profile)
-  const step: FirstRunStep = firstRun ? firstUnsavedStep(profile) : 1
+  const fieldList = fields.map((field) => ({
+    id: field.id,
+    name: field.name,
+    description: field.description ?? ''
+  }))
+  const countryList = countries.map((country) => ({ id: country.id, name: country.name }))
+  const chosen = {
+    fields: profile?.preferredFields.map((f) => f.id) ?? [],
+    countries: profile?.preferredCountries.map((c) => c.id) ?? [],
+    anywhere: profile?.openToAllLocations ?? false,
+    tokGrade: profile?.tokGrade ?? null,
+    eeGrade: profile?.eeGrade ?? null
+  }
+
+  if (profile && hasGrades(profile)) {
+    return (
+      <NewAcademic
+        fields={fieldList}
+        countries={countryList}
+        courses={courses}
+        saved={{
+          ...chosen,
+          courseSelections: profile.courses.map((c) => ({
+            courseId: c.ibCourse.id,
+            level: c.level as 'HL' | 'SL',
+            grade: c.grade
+          })),
+          total: profile.totalIBPoints!
+        }}
+      />
+    )
+  }
+
+  const step: FirstRunStep = firstUnsavedStep(profile)
   const { returnTo, waiting } = readFirstRun({
     get: (name) => {
       const value = searchParams[name]
@@ -45,29 +77,20 @@ export async function NewOnboardingPage({
 
   return (
     <NewOnboarding
-      firstRun={firstRun}
       step={step}
-      kept={firstRun ? keptLine(step) : null}
-      fields={fields.map((field) => ({
-        id: field.id,
-        name: field.name,
-        description: field.description ?? ''
-      }))}
-      countries={countries.map((country) => ({ id: country.id, name: country.name }))}
+      kept={keptLine(step)}
+      fields={fieldList}
+      countries={countryList}
       courses={courses}
       initial={{
-        fields: profile?.preferredFields.map((f) => f.id) ?? [],
-        countries: profile?.preferredCountries.map((c) => c.id) ?? [],
-        anywhere: profile?.openToAllLocations ?? false,
+        ...chosen,
         courseSelections:
           profile?.courses.map((c) => ({
             courseId: c.ibCourse.id,
             courseName: c.ibCourse.name,
             level: c.level as 'HL' | 'SL',
             grade: c.grade
-          })) ?? [],
-        tokGrade: profile?.tokGrade ?? null,
-        eeGrade: profile?.eeGrade ?? null
+          })) ?? []
       }}
       returnTo={returnTo}
       waiting={waiting}
