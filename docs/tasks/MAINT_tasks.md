@@ -1313,11 +1313,12 @@ had no browser: every line of the table matched, with no difference. The aggrega
 a total, 154 of them six subjects (3 with two at Higher Level, 135 with three, 16 with four) and one
 not; `sl_5_to_8` and `best3_under_12` are 0 at every count, so no saved profile changes status. Both
 APIs name subjects from the cached course list (`lib/ib/grades-to-save.ts`), so they add no database
-read. A shape the forms can't produce has words of its own, seen only on the coordinator's form while
-it is incomplete and by a direct request: "Choose six subjects (you have 5).", "Choose each subject
-only once.", "Choose SL or HL for every subject.", "Choose a grade from 1 to 7 for every subject.",
-"Choose TOK and Extended Essay grades from A to E." and "Choose every subject from the list of IB
-subjects." The coordinator's form checks grades once they change, so preferences alone still save.
+read. A shape the forms can't produce has words of its own, approved by the owner on 18 October 2026,
+seen only on the coordinator's form while it is incomplete and by a direct request: "Choose six
+subjects (you have 5).", "Choose each subject only once.", "Choose SL or HL for every subject.",
+"Choose a grade from 1 to 7 for every subject.", "Choose TOK and Extended Essay grades from A to E."
+and "Choose every subject from the list of IB subjects." The coordinator's form checks grades once
+they change, so preferences alone still save.
 
 ---
 
