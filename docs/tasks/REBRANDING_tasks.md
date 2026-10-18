@@ -188,7 +188,8 @@ including the change it makes to D4.3, D4.4 and D4.5 after first run: "D2.10 Con
 Academic profile", "D4.11 Academic profile · phone", "D4.11 Settings" and "D4.11 Settings · phone".
 Build 13's gate is complete. Later that day row 18 drew Home on desktop and phone, with the cookie
 banner, and the owner approved both boards in chat with every recommendation: "D4.1 Home" and "D4.1
-Home · phone". Build 14's gate is complete. Seven tasks have no board.
+Home · phone". Build 14's gate is complete. Eight tasks have no board, D2.16 (the policy update
+banner) added by the owner the same day.
 
 ### Foundations
 
@@ -223,6 +224,7 @@ theme switch are in D1.4.
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
 | D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
 | D2.15 Bottom sheet | "D2.15 Bottom sheet" (row 12): Explore's filters on a phone, light and dark: open, a choice applied, "Only ones I qualify for" on, scrolled, no programs match, an IB points value it can't use, keyboard focus, signed out, the count not arriving, forced colours. Replaces "Phone · Filters sheet". **Decided 11 October 2026 (owner):** a choice applies at once and the button carries the count ("Show 43 programs"); closing never loses a choice; a native dialog, no drag handle; every section open in one scroll; "No programs match" disables the button; profile shortcuts "Use my fields", "Use my countries" and "Up to my 38", with no limit on how many boxes are ticked. **Changed 13 October 2026 (owner):** the no-minimum hint, as on D3.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
+| D2.16 Policy update banner | None | **No board.** "We've Updated Our Policies" (`components/shared/ReconsentBanner.tsx`) in the new design, built in 4.6: a signed-in page on desktop and phone (above the tab bar), light, dark and forced colours; the Terms, the Privacy Policy or both changed; accepting, an accept that fails (silent today), Remind me later; and with the cookie banner showing at the same time, which today's banner covers (found in build 14). Added 18 October 2026 (owner) | |
 
 ### Patterns
 
@@ -288,6 +290,7 @@ merges into `main`, behind the preview switch.**
 | 15 | Country guides | 4.2 | D4.12 | large | Late (see the coordination rule). Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
+| 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -316,8 +319,10 @@ Rows 3 and 4 can share a design session.
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Late: see the coordination rule |
+| Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Added 18 October 2026 (owner) |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
+| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -374,6 +379,8 @@ Phase 4 — Public pages
 - [ ] 4.2 Country guides on one template
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
+- [ ] 4.5 Policy and privacy pages: what the redesign covers (research)
+- [ ] 4.6 The policy update banner
 
 Phase 5 — After the whole preview
 
@@ -2190,7 +2197,9 @@ country goes into both. Do it late.
 the legal pages, sign-in, the school invitation pages, and the 404 and error pages move to the new
 design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
 
-**Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)).
+**Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)). Which pages
+count as "the legal pages" is settled first, by the research in
+[4.5](#45--policy-and-privacy-pages-what-the-redesign-covers-research).
 
 **Must-haves:** the FAQs page's structured data and its visible questions keep coming from one list
 (today both read `faqs` in `app/faqs/page.tsx`, from the CMS or `FALLBACK_FAQS`). Every page passes
@@ -2203,6 +2212,54 @@ student-facing code, so the two styling systems cannot drift apart again (audit 
 rule, not a formatting one, so it does not conflict with Prettier.
 
 **Design gate:** none; nothing on screen changes.
+
+### 4.5 — Policy and privacy pages: what the redesign covers (research)
+
+**Outcome:** One list, approved by the owner, of every page and component that shows a policy or
+asks for consent. Each is marked: redesigned in 4.3 (board D4.14), redesigned in its own task, or
+left as it is, with the reason. 4.3, D4.14 and [Start here](#start-here) are updated to match.
+Added 18 October 2026 (owner).
+
+**Design gate:** none. Research and a docs pull request only; run it before row 16's design
+session, so D4.14 is drawn with the full list.
+
+**Known so far (18 October 2026):**
+
+- `/privacy`, `/terms` and `/cookies`, the "legal pages" of 4.3 and D4.14, which has no board yet.
+  Privacy and Terms show the version published in the admin's legal content
+  (`getPublishedDocument`, `lib/legal-documents/`) as Markdown, with text in the page as a fallback.
+  All three call `auth()` to draw today's header, so `npm run build` lists them as Dynamic (ƒ) and
+  each view renders on the server. The new design's header doesn't need the session, so they could
+  be prebuilt like the other text pages: a cost question for the owner.
+- "We've Updated Our Policies", the banner on signed-in pages when the Terms or the Privacy Policy
+  has a newer version than the user accepted: its own task, 4.6 (board D2.16).
+- The consent line on student and coordinator sign-in, and on the student invitation form, which
+  link to `/terms` and `/privacy`: sign-in is D4.2 and the invitation D4.16. Confirm both cover it.
+- The cookie banner: done in 4.1.
+- The admin's legal content editor (`/admin/legal-content`): staff only, so out of scope unless the
+  owner says otherwise.
+
+**To check:** any other page, email or coordinator screen that shows policy text or asks for
+consent; whether the legal pages need more than the text-page template (a contents list, the
+version and its date, links between the three); and SEO parity for each (Definition of done 12).
+
+### 4.6 — The policy update banner
+
+**Outcome:** "We've Updated Our Policies" (`components/shared/ReconsentBanner.tsx`) in the new
+design, on every signed-in student page, and wherever else 4.5 decides. Today's amber banner, with
+raw palette classes and title case, keeps showing for today's design. Added 18 October 2026 (owner).
+
+**Design gate:** D2.16, approved ([Step 2](#step-2--design-first)).
+
+**Must-haves:**
+
+- **Same behaviour as today:** `ReconsentChecker` decides whether it shows, from the student
+  layout's existing check, so no new read. Accepting records consent through `/api/consent/accept`,
+  then the page refreshes. Remind me later, and the close button, hide it until the next full load.
+- **It never covers the cookie banner,** or sits under it: today's banner covers it (found in build
+  14). D2.16 decides the order. On a phone it sits above the tab bar, as the cookie banner does.
+- **A failed accept says so** and offers to try again; today it fails silently.
+- No emoji, real buttons and links, and the Definition of done.
 
 ---
 
