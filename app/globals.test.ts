@@ -11,7 +11,7 @@ import { describe, expect, it } from 'vitest'
 // - ink-3 is for paper and surface. On sunken in light it is 4.46:1, so no ink-3 text in wells.
 // - line-2 is 1.5 to 1.8:1, so it only decorates (chips, secondary buttons). Fields and the chosen
 //   segment use line-3, which --input points to (D2.2 and D2.4, decided 8 October 2026).
-// - Lime is the same in both themes, so text on it is always the light ink, never --foreground.
+// - Lime is the same in both themes, so text on it is always --on-lime, never --foreground.
 
 const css = readFileSync(join(__dirname, 'globals.css'), 'utf8')
 
@@ -100,7 +100,10 @@ const PAIRS: [string, string, number][] = [
   ['--background', '--foreground', TEXT],
   ['--toast-ok', '--foreground', UI],
   ['--toast-gap', '--foreground', UI],
-  ['--toast-ring', '--foreground', UI]
+  ['--toast-ring', '--foreground', UI],
+  // Home's lime band (D4.1): its words and outline, and the ink button's label
+  ['--on-lime', '--lime', TEXT],
+  ['--on-ink', '--on-lime', TEXT]
 ]
 
 describe.each([
@@ -115,9 +118,9 @@ describe.each([
 })
 
 describe('the dark theme', () => {
-  it('redefines every colour except lime', () => {
+  it('redefines every colour except lime and what sits on it', () => {
     const notRedefined = Object.keys(light).filter((name) => !(name in hexTokens(darkBlock)))
-    expect(notRedefined).toEqual(['--lime'])
+    expect(notRedefined).toEqual(['--lime', '--on-lime', '--on-ink'])
   })
 })
 

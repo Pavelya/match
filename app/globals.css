@@ -68,6 +68,8 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-ink: var(--brand-ink);
   --color-lime: var(--lime);
+  --color-on-lime: var(--on-lime);
+  --color-on-ink: var(--on-ink);
   --color-ok: var(--ok);
   --color-ok-soft: var(--ok-soft);
   --color-close: var(--close);
@@ -243,6 +245,9 @@
   --brand-soft: #e8eafb;
   --brand-ink: #1c2a99;
   --lime: #d5f36b; /* brand moments only: never status, never text */
+  /* On lime, the same in both themes (D4.1): text, edges, the focus outline and the ink button */
+  --on-lime: #14161b;
+  --on-ink: #f7f6f2; /* the ink button's label */
   --ok: #17723f;
   --ok-soft: #e2f2e7;
   --close: #94580a;
@@ -385,6 +390,41 @@
   [data-ui='next'] {
     --step-footer: 4.75rem;
   }
+}
+
+/*
+ * The cookie banner (D4.1, components/site/CookieBanner.tsx). Signed in on a phone it sits on the
+ * tab bar, and the bar stays put while it shows instead of hiding on scroll. A toast rises 12px
+ * above it: the banner measures its top's distance from the bottom into --cookie-banner.
+ */
+[data-ui='next'] body:has([data-cookie-banner]) .ds-toast-region {
+  bottom: calc(var(--cookie-banner) + 0.75rem);
+  translate: none;
+}
+
+@media (width < 48rem) {
+  [data-ui='next'] body:has([data-tab-bar]) [data-cookie-banner] {
+    bottom: var(--tab-bar-height);
+    max-height: calc(100dvh - var(--tab-bar-height) - 7rem);
+    padding-bottom: 1.25rem;
+  }
+
+  [data-ui='next'] body:has([data-cookie-banner]) [data-tab-bar] {
+    translate: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Home's highlighted phrase (D4.1): a lime bar under the letters, not a marker behind them */
+[data-ui='next'] .lime-bar {
+  background: linear-gradient(var(--lime), var(--lime)) 0 88% / 100% 0.14em no-repeat;
+  box-decoration-break: clone;
+}
+
+/* Focus moves here when a cookie choice closes the banner: the content, without an outline */
+[data-ui='next'] #main[tabindex='-1']:focus {
+  outline: none;
 }
 
 /* 768px: where the phone tab bar gives way to the header */
