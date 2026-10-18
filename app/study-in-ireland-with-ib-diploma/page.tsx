@@ -12,6 +12,9 @@
  */
 import { Metadata } from 'next'
 import { IrelandContent } from './IrelandContent'
+import { CountryGuidePage } from '@/components/guide/CountryGuidePage'
+import { showsNewUi } from '@/lib/new-ui'
+import { guide } from './guide'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { pageDates } from '@/lib/page-dates'
 
@@ -172,7 +175,8 @@ const faqSchema = {
   ]
 }
 
-export default function StudyInIrelandPage() {
+export default async function StudyInIrelandPage() {
+  const newUi = await showsNewUi()
   return (
     <>
       <script
@@ -187,10 +191,17 @@ export default function StudyInIrelandPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <IrelandContent />
-      </main>
-      <StudentFooter />
+      {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
+      {newUi ? (
+        <CountryGuidePage guide={guide} />
+      ) : (
+        <>
+          <main className="flex min-h-screen flex-col">
+            <IrelandContent />
+          </main>
+          <StudentFooter />
+        </>
+      )}
     </>
   )
 }

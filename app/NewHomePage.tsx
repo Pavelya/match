@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import { ArrowRight, Check, ChevronRight } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { ButtonLink } from '@/components/ds/ButtonLink'
-import { buttonBase } from '@/components/ds/button-variants'
+import { GuideLinks, GuidesHubLink } from '@/components/home/GuideLinks'
+import { LimeBand } from '@/components/home/LimeBand'
 import { MatchesPreview } from '@/components/home/MatchesPreview'
 import { containerClass } from '@/components/site/styles'
 import { COUNTRY_GUIDES } from '@/lib/programs/country-guides'
@@ -195,32 +196,9 @@ function Guides() {
               How universities in each country read the IB Diploma, for 2027 entry.
             </p>
           </div>
-          <Link
-            href="/ib-university-requirements"
-            className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-chip text-body font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline"
-          >
-            IB rules by country
-            <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />
-          </Link>
+          <GuidesHubLink />
         </div>
-        <ul className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-          {COUNTRY_GUIDES.map((guide) => (
-            <li key={guide.href}>
-              <Link
-                href={guide.href}
-                className="flex min-h-12 items-center justify-between gap-2 rounded-control border border-border bg-background px-3 py-3 text-body leading-5 font-medium text-foreground transition-colors duration-180 ease-standard hover:border-line-3 hover:bg-muted md:px-4"
-              >
-                <span className="min-w-0 break-words">{guide.country}</span>
-                <ChevronRight
-                  aria-hidden="true"
-                  size={16}
-                  strokeWidth={2}
-                  className="shrink-0 text-ink-3"
-                />
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <GuideLinks />
       </div>
     </section>
   )
@@ -284,57 +262,17 @@ function FounderNote() {
   )
 }
 
-/*
- * The lime band is lime in both themes, with ink words. Dark's brand button would be 2.1:1 on it,
- * so the action is an ink button, and the focus outline is ink too. In forced colours the band
- * turns to the system's background, and its transparent edges are drawn.
- */
-const onLimeButton = cn(buttonBase, 'h-13 gap-2.5 px-6 text-body-l focus-visible:outline-on-lime')
-
 function FinalBand() {
   return (
-    <section
-      aria-labelledby="home-cta"
-      className="border-y border-transparent bg-lime text-on-lime"
+    <LimeBand
+      id="home-cta"
+      heading="Ready to find your match?"
+      explore={{ href: '/programs/search', label: 'Explore programs' }}
     >
-      <div
-        className={cn(
-          container,
-          'flex flex-col gap-8 py-12 md:flex-row md:items-center md:justify-between md:gap-12 md:py-20'
-        )}
-      >
-        <div className="flex max-w-160 flex-col gap-3.5">
-          <h2 id="home-cta" className="text-display-l">
-            Ready to find your match?
-          </h2>
-          <p className="text-body-l">
-            Browse programs freely, then sign in for matches built from your IB profile, and keep
-            the ones you like on your shortlist.
-          </p>
-        </div>
-        <div className="flex shrink-0 flex-col gap-2.5 md:flex-row md:gap-3">
-          <Link
-            href="/student"
-            className={cn(
-              onLimeButton,
-              // A transparent edge, which forced colours draw
-              'border-transparent bg-on-lime font-semibold text-on-ink hover:opacity-80'
-            )}
-          >
-            Get my matches
-            <ArrowRight aria-hidden="true" size={18} strokeWidth={2} />
-          </Link>
-          <Link
-            href="/programs/search"
-            className={cn(
-              onLimeButton,
-              'border-current bg-transparent font-medium text-on-lime underline-offset-3 hover:underline'
-            )}
-          >
-            Explore programs
-          </Link>
-        </div>
-      </div>
-    </section>
+      <p className="text-body-l">
+        Browse programs freely, then sign in for matches built from your IB profile, and keep the
+        ones you like on your shortlist.
+      </p>
+    </LimeBand>
   )
 }

@@ -1,0 +1,401 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`today's guide and the new design > study-in-australia-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in australia-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in australia+} …",
+  ],
+  "body": [
+    "…applicants official sources [-https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants https://ibaustralasia.org/university-entrance-] {+uac ib applicants ib schools australasia university entrance+} do ib students…",
+    "…purposes official source [-https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants-] {+uac ib applicants+} how ib scores…",
+    "…entry in 2027 [-official sources https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants https://ibaustralasia.org/university-entrance-] {++} example conversions to…",
+    "…64.60 official sources [-https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants https://vtac.edu.au/guides/quickstart/ib-students-] {+uac ib applicants ib schools australasia+} university admission system…",
+    "…https://www.uac.edu.au/future-applicants/admission-criteria/ib-applicants https://vtac.edu.au/guides/quickstart/ib-students university [--] {+entrance vtac ib students university+} admission system in…",
+    "…criteria official source [-https://ibaustralasia.org/university-entrance-] {+ib schools australasia university+} entrance exams and…",
+    "…source https://ibaustralasia.org/university-entrance entrance [--] {+entrance+} exams and restricted…",
+    "…course official source [-example https://www.curtin.edu.au/study/applying/ib-diploma-] {+curtin university apply with an ib diploma+} language requirements for…",
+    "…required official source [-example https://www.sydney.edu.au/study/applying/how-to-apply/international-students/english-language-requirements.html-] {+the university of sydney english language requirements+} public vs private…",
+    "…english rules apply [-source https://ibaustralasia.org/university-entrance-] {++} private universities independent…",
+    "…fees usually apply [--] {+official source ib schools australasia university entrance+} required documents for…",
+    "…required official source [-example https://www.curtin.edu.au/study/applying/ib-diploma-] {+curtin university apply with an ib diploma+} application timeline for…",
+    "…calendar official sources [-https://www.uac.edu.au/key-dates https://vtac.edu.au/guides/quickstart/ib-students https://ibaustralasia.org/university-entrance-] {+uac key dates vtac ib students ib schools australasia university entrance+} frequently asked questions…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in australia+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-austria-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in austria-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in austria+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…austrian public universities [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in austria+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-belgium-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in belgium-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in belgium+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 4 october 2026 explore programs in belgium+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-canada-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in canada-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in canada+} …",
+  ],
+  "body": [
+    "…admission official sources [-https://www.univcan.ca-] {+universities canada+} public university admission…",
+    "…secondary qualification official [-sources-] {+source+} university admission policies…",
+    "…conversion table official [-sources-] {+source+} individual university ib…",
+    "…diploma widely accepted [-source https://www.univcan.ca-] {++} private universities independent…",
+    "…varies by institution [--] {+official source universities canada+} required documents for…",
+    "…some programs official [-sources-] {+source+} individual university admission…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in canada+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-czech-republic-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…your match in [--] {+the+} czech republic discover…",
+    "…field of study [-get started it's free explore programs in czech republic-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in the czech republic+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…its own applications [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in the czech republic+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-denmark-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in denmark-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in denmark+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…all university applications [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 4 october 2026 explore programs in denmark+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-estonia-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in estonia-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in estonia+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…shared dreamapply platform [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in estonia+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-france-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in france-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in france+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…their own admissions [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 8 october 2026 explore programs in france+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-germany-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in germany-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in germany+} …",
+  ],
+  "body": [
+    "…language certification required [-source kmk access to higher education includes the ib agreement-] {++} private universities independent…",
+    "…diploma requirements pdf [--] {+official source kmk access to higher education includes the ib agreement+} anabin uni-assist and…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 12 october 2026 explore programs in germany+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-hong-kong-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…ready to [-explore universities-] {+find your match+} in hong kong…",
+    "…ib diploma profile [-get started it's free explore programs in hong kong-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in hong kong+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…the non-jupas route [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in hong kong+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-ireland-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in ireland-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in ireland+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…for undergraduate admissions [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in ireland+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-israel-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in israel-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in israel+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…to each university [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in israel+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-italy-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in italy-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in italy+} …",
+  ],
+  "body": [
+    "…for every course [-source universitaly procedures for international students in italian-] {++} private universities independent…",
+    "…program-specific selection criteria [--] {+official source universitaly procedures for international students in italian+} cimea verification and…",
+    "…set earlier dates [--] {+official+} source universitaly procedures…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in italy+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-japan-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in japan-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in japan+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…own screening process [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in japan+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-netherlands-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in the netherlands-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in the netherlands+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…submitted through studielink [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in the netherlands+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-poland-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…ready to [-explore polish universities-] {+find your match in poland+} create your free…",
+    "…ib diploma results [-get started it's free explore programs in poland-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in poland+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…to each university [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in poland+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-portugal-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "… [-start your journey-] {+ready+} to portugal create…",
+    "…your journey to [--] {+find your match in+} portugal create your…",
+    "…subjects and scores [-get started it's free explore programs in portugal-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in portugal+} …",
+  ],
+  "body": [],
+  "hero": [
+    "…para estudantes internacionais [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in portugal+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-singapore-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in singapore-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in singapore+} …",
+  ],
+  "body": [
+    "…diploma results official [-primary-] {++} sources nus ib…",
+  ],
+  "hero": [
+    "…the ib diploma [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in singapore+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-spain-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in spain-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in spain+} …",
+  ],
+  "body": [
+    "…ib subject grade [--] {+to+} access grade 7.0…",
+    "…grade access grade [--] {+average ib subject grade access grade+} 7.0 10.0 6.5…",
+    "…school years count [-source unedasiss faq in spanish-] {++} option 2 pce…",
+    "…a september session [-sources-] {++} unedasiss exams in…",
+    "…dates in spanish [--] {+official source unedasiss faq in spanish+} public vs private…",
+    "…unedasiss accreditation required [-source comunidad de madrid university access with foreign studies in spanish-] {++} private universities their…",
+    "…the unedasiss accreditation [--] {+official source comunidad de madrid university access with foreign studies in spanish+} unedasiss documents required…",
+    "…only once paid [--] {+official+} source unedasiss prepare…",
+    "…until 31 july [--] {+official+} source unedasiss key…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in spain+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-sweden-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in sweden-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in sweden+} …",
+  ],
+  "body": [
+    "…admissions ib points [--] {+to+} swedish merit rating…",
+    "…swedish merit rating [--] {+ib points swedish merit rating+} 24 13.18 25…",
+  ],
+  "hero": [
+    "…all university applications [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in sweden+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-switzerland-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in switzerland-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in switzerland+} …",
+  ],
+  "body": [
+    "…met per program [-source swissuniversities.ch-] {++} private institutions also…",
+    "…official admissions info [--] {+official source swissuniversities+} required documents for…",
+  ],
+  "hero": [
+    "…the ib diploma [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in switzerland+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-uk-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…field of study [-get started it's free explore programs in the uk-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in the uk+} …",
+  ],
+  "body": [
+    "…is institution-specific official [-context-] {+source+} ucas tariff points…",
+  ],
+  "hero": [
+    "…and ib coordinators [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 25 september 2026 explore programs in the uk+} …",
+  ],
+}
+`;
+
+exports[`today's guide and the new design > study-in-usa-with-ib-diploma differ only as recorded 1`] = `
+{
+  "band": [
+    "…ib points minimum [-get started it's free explore programs in the usa-] {++} 100% free for…",
+    "…credit card required [--] {+get my matches explore programs in the usa+} …",
+  ],
+  "body": [
+    "…for 30+ total [--] {+example ib credit policies+} university ib credit…",
+  ],
+  "hero": [
+    "…recognize the ib [-last updated for the 2027 intake-] {++} ib diploma only…",
+    "…only official sources [--] {+last updated for the+} 2027 intake…",
+    "…sources 2027 intake [--] {+on 10 october 2026 explore programs in the usa+} …",
+  ],
+}
+`;

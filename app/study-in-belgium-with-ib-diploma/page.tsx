@@ -9,6 +9,9 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { BelgiumContent } from './BelgiumContent'
+import { CountryGuidePage } from '@/components/guide/CountryGuidePage'
+import { showsNewUi } from '@/lib/new-ui'
+import { guide } from './guide'
 import { pageDates } from '@/lib/page-dates'
 
 export const dynamic = 'force-static'
@@ -174,7 +177,8 @@ const faqSchema = {
   ]
 }
 
-export default function StudyInBelgiumPage() {
+export default async function StudyInBelgiumPage() {
+  const newUi = await showsNewUi()
   return (
     <>
       {/* WebPage schema */}
@@ -192,10 +196,17 @@ export default function StudyInBelgiumPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <BelgiumContent />
-      </main>
-      <StudentFooter />
+      {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
+      {newUi ? (
+        <CountryGuidePage guide={guide} />
+      ) : (
+        <>
+          <main className="flex min-h-screen flex-col">
+            <BelgiumContent />
+          </main>
+          <StudentFooter />
+        </>
+      )}
     </>
   )
 }

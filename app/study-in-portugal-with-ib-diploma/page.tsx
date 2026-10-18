@@ -11,6 +11,9 @@
  */
 import { Metadata } from 'next'
 import { PortugalContent } from './PortugalContent'
+import { CountryGuidePage } from '@/components/guide/CountryGuidePage'
+import { showsNewUi } from '@/lib/new-ui'
+import { guide } from './guide'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { pageDates } from '@/lib/page-dates'
 
@@ -182,7 +185,8 @@ const faqSchema = {
   ]
 }
 
-export default function StudyInPortugalPage() {
+export default async function StudyInPortugalPage() {
+  const newUi = await showsNewUi()
   return (
     <>
       <script
@@ -197,10 +201,17 @@ export default function StudyInPortugalPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <PortugalContent />
-      </main>
-      <StudentFooter />
+      {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
+      {newUi ? (
+        <CountryGuidePage guide={guide} />
+      ) : (
+        <>
+          <main className="flex min-h-screen flex-col">
+            <PortugalContent />
+          </main>
+          <StudentFooter />
+        </>
+      )}
     </>
   )
 }
