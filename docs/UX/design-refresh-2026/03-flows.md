@@ -145,7 +145,9 @@ render empty (audit 4.2).
   becomes "Sign in and add your grades to check these: about 2 minutes", which leads into F1
   and lands back on this program.
 - Each country guide links to Explore filtered to that country near the top as well as at the
-  bottom.
+  bottom. Approved on "D4.12 Country guide" (18 October 2026): the hero's one button and the link
+  under "On this page" near the top, the lime band at the bottom, with "More country guides" before
+  it.
 
 ## F4 · Explore → program → save → decide
 
