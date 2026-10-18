@@ -1,9 +1,9 @@
 import { getCorePoints, CORE_FAILING_MESSAGE } from '@/lib/ib/core-points'
 import {
   calculateTotalPoints,
+  checkDiploma,
   checkHigherLevelCount,
   DIPLOMA_SUBJECT_COUNT,
-  otherFailingConditions,
   type NamedDiplomaCourse
 } from '@/lib/ib/diploma'
 import type { PickerGroup } from '@/components/ds/picker-filter'
@@ -169,10 +169,13 @@ export function higherLevelLine(
   }
 }
 
+const diplomaCheck = (state: SubjectsState, courses: EditorCourse[]) =>
+  checkDiploma(chosenSubjects(state.rows, courses), state.tok, state.ee)
+
 /** The IB's other failing conditions, once everything is in (lib/ib/diploma.ts words) */
 export function ibConditions(state: SubjectsState, courses: EditorCourse[]): string[] {
   if (!isWhole(state)) return []
-  return otherFailingConditions(chosenSubjects(state.rows, courses), state.tok, state.ee)
+  return diplomaCheck(state, courses).conditions
 }
 
 /** The line under TOK and the EE: what the core is worth, or nothing when an E fails it */
@@ -289,10 +292,12 @@ export function editorFooter(
   }
 
   if (isWhole(state)) {
-    if (ibConditions(state, courses).length > 0) {
+    // No total means a reason; the Higher Level count and an E were answered above, so it is
+    // one of the conditions listed under the subjects
+    const { total } = diplomaCheck(state, courses)
+    if (total === null) {
       return reason('With these grades, the IB wouldn’t award the diploma.', { checks: true })
     }
-    const total = totalOf(state, courses)!
     const fromSubjects = sum(state.rows)
     const detail = `${fromSubjects} from subjects, ${corePointsWord(total - fromSubjects)}`
     if (!saved) return { line: { kind: 'total', total, detail }, ready: true, target: null }
