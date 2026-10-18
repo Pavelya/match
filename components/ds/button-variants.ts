@@ -35,6 +35,14 @@ export const buttonVariants = cva(
           'data-disabled:border-border data-disabled:bg-transparent data-disabled:text-ink-3',
           disabledInForcedColours
         ],
+        // Only inside a confirm dialog, for what deletes or takes away access (D2.1, D2.10). The
+        // transparent edge is drawn in forced colours, where red can't mark it: the words do.
+        danger: [
+          'border-transparent bg-danger text-body font-semibold text-on-danger',
+          'not-aria-disabled:hover:bg-danger-hover',
+          'data-disabled:bg-border data-disabled:text-ink-3',
+          disabledInForcedColours
+        ],
         // Quiet actions, usually a link ("Official page"). Links are hidden, never disabled.
         link: [
           // No border, or forced colours would draw one round the link.

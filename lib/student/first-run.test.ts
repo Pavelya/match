@@ -55,8 +55,8 @@ describe('words', () => {
   })
 
   it('titles the page by the step', () => {
-    expect(firstRunTitle(true, 1)).toBe('Set up your profile · Step 1 of 3 · IB Match')
-    expect(firstRunTitle(false, 2)).toBe('Update your profile · Step 2 of 3 · IB Match')
+    expect(firstRunTitle(1)).toBe('Set up your profile · Step 1 of 3 · IB Match')
+    expect(firstRunTitle(2)).toBe('Set up your profile · Step 2 of 3 · IB Match')
   })
 })
 

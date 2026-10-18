@@ -242,7 +242,8 @@ export interface EditorFooter {
   target: EditorTarget | null
 }
 
-function equalRows(a: SubjectsState, b: SubjectsState): boolean {
+/** The same subjects, levels, grades and core, row for row: nothing to save */
+export function sameSubjects(a: SubjectsState, b: SubjectsState): boolean {
   return (
     a.tok === b.tok &&
     a.ee === b.ee &&
@@ -301,7 +302,7 @@ export function editorFooter(
     const fromSubjects = sum(state.rows)
     const detail = `${fromSubjects} from subjects, ${corePointsWord(total - fromSubjects)}`
     if (!saved) return { line: { kind: 'total', total, detail }, ready: true, target: null }
-    if (equalRows(state, saved)) {
+    if (sameSubjects(state, saved)) {
       return {
         line: { kind: 'total', total, detail: 'No changes to save yet' },
         ready: false,
