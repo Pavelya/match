@@ -19,6 +19,22 @@ Additionally:
 - **`lib/page-dates.ts`** needs a line for the new route (§3.2); the sitemap reads it from there
 - No changes to `robots.ts`, `layout.tsx`, or `next.config.ts` are needed
 
+**Until release day, every guide has two versions (rebranding 4.2, 18 October 2026).** Beside the two
+files above, each guide has a `guide.ts`: its words as typed data (`lib/guides/types.ts`) for the new
+design, which `components/guide/CountryGuidePage.tsx` renders when the preview is on. `page.tsx` picks
+one with `showsNewUi()` and keeps the metadata and JSON-LD for both.
+
+- **An edit to a guide goes into both** `{Country}Content.tsx` and `guide.ts`, in the same words.
+  `guide.ts` writes headings in sentence case and rich text as `**bold**`, `*italic*` and
+  `[label](https://…)`.
+- **`npm test` checks it.** `lib/guides/guides.test.ts` records every way the two versions' words
+  differ, in `lib/guides/__snapshots__/guides.test.ts.snap`. An edit made to both leaves the record as
+  it is; an edit to one changes it and the test fails. Update the record (`npx vitest run lib/guides -u`)
+  only when the change it shows is meant, such as a new date in the hero.
+- **A new country** needs a `guide.ts` as well, an entry in `lib/programs/country-guides.ts` (it names
+  the country and lists the guide everywhere), and the switch in `page.tsx`, as the other 23 have.
+- Rebranding R.2 deletes `{Country}Content.tsx`; after it, `guide.ts` is the guide.
+
 ---
 
 ## 2. Research Phase — Official Source Investigation
