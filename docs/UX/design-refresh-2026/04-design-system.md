@@ -62,7 +62,9 @@ the values rather than with a token:
 - `--line-2` is 1.5 to 1.8:1, so it only decorates. A field's edge needs 3:1 (WCAG 1.4.11), so fields
   use `--line-3` (D2.2, decided 8 October 2026; added in 1.2).
 - `--lime` is the same in both themes, so text on it is always #14161B, never `--foreground` (1.1:1 in
-  dark).
+  dark). For the same reason Home's highlighted phrase sits on a lime bar under its letters, not a
+  marker behind them, and the button on the lime band is ink, since dark's brand button is 2.1:1
+  against lime (D4.1, approved 18 October 2026).
 
 ### Mapping onto the current setup
 
@@ -183,6 +185,7 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `Toast` | `components/ui/toast.tsx` (slides from the right, progress bar) | The other theme: foreground and background swapped. One at a time; bottom centre on desktop, above the tab bar on a phone; an action and a close button; 5 s for success, 10 s for failure, paused on hover or focus; one polite live region. Canvas: "D2.9 Toast". |
 | `BottomSheet` (phone) | the expandable filter `Card` in `SearchClient` | Explore's filters below 768px. A native `<dialog>` opened with `showModal`, 92% of the screen, radius 20 on top, overlay elevation and a real 1px edge; header (title, close) and footer (Clear all, the count button) fixed. Choices apply at once; the button carries the count and is aria-disabled at zero. No drag handle. 240ms slide in, 180ms out, a fade with reduced motion. Canvas: "D2.15 Bottom sheet" (approved 11 October 2026). Built in 2.3: `components/explore/FilterSheet.tsx`. |
 | `ConfirmDialog` | the shadcn `Dialog` in Settings (delete account, unlink from school) and `alert()` | A native `<dialog>` with `role="alertdialog"`: a title that asks, a sentence or a short list, an optional field, two buttons with the primary on the right. Focus starts on the safe button; Escape is Cancel; a click on the dimmed page does nothing. 480px on desktop, centred on a phone too. A danger `Button` variant (#B3261E light, #FF8E85 dark) appears only here. Working and failing stay inside it. Delete account, Unlink, and "Leave without saving?". Canvas: "D2.10 Confirm dialog" (approved 18 October 2026). Built 18 October 2026: `components/ds/ConfirmDialog.tsx`, and `danger` in `components/ds/button-variants.ts`. |
+| `CookieBanner` | `components/shared/CookieConsentBanner.tsx` (emoji title, Accept all the only filled button) | Today's three choices and storage, new words. Customize is a link-style button that opens the settings in place (four rows, no switches, only Essential used); Essential only and Accept all are secondary, at the same weight. Not modal: no focus on open, first after the skip link. Bottom right at 420px on desktop; across the bottom on a phone, on the tab bar when signed in, which stays put while it shows. Canvas: "D4.1 Home" and "D4.1 Home · phone" (approved 18 October 2026). |
 | `EmptyState` | `CompleteProfileCTA`, the full-screen blocks in `RecommendationsClient` | One flat panel in a list's place: icon tile, h2, a sentence or two, up to two buttons, an optional step list. No matches, no results, empty shortlist, failed load ("Trying again…"), profile call to action. Canvas: "D2.11 Empty and error states". |
 | `CountryFlag` (SVG, only the 22 used) | flag emoji and the Windows polyfill font | Identical on every OS; drops a font download on Windows. Optional, phase 4. |
 

@@ -153,7 +153,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 18 October 2026.** The canvas has 78 boards. The owner approved in chat "B ·
+**Where it stands, 18 October 2026.** The canvas has 80 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -186,8 +186,9 @@ with every recommendation: "D3.6 Subject editor", "D4.5 First run, step 3" and "
 page and Settings, and the owner approved all five boards in chat with every recommendation,
 including the change it makes to D4.3, D4.4 and D4.5 after first run: "D2.10 Confirm dialog", "D4.11
 Academic profile", "D4.11 Academic profile · phone", "D4.11 Settings" and "D4.11 Settings · phone".
-Build 13's gate is complete. One other task needs a screen size or states added (D4.1). Seven have
-no board.
+Build 13's gate is complete. Later that day row 18 drew Home on desktop and phone, with the cookie
+banner, and the owner approved both boards in chat with every recommendation: "D4.1 Home" and "D4.1
+Home · phone". Build 14's gate is complete. Seven tasks have no board.
 
 ### Foundations
 
@@ -240,7 +241,7 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D4.1 Home | Desktop, signed out, with a dark switch | **Phone**; the cookie banner, which stays (owner, 10 October 2026) | |
+| D4.1 Home | "D4.1 Home" and "D4.1 Home · phone" (row 18): the whole page in light and dark on both, then the cookie banner on a first visit: keyboard focus, Customize, dark, forced colours, and on a signed-in page above the tab bar. The preview holds three real programs and their stored requirements, for D3.1's student. They replace "Home (logged out)". **Decided 18 October 2026 (owner), every recommendation:** today's h1 words; a preview of three real matches, one per status, with initials tiles and no photos, `inert`; no program count, and "23 countries" from code; a lime bar under the hero phrase and a lime final band in both themes; six sections carrying every fact today's page shows; the cookie banner keeps its three choices and its storage, with Essential only and Accept all at the same weight, bottom right on desktop, across the bottom on a phone, and on the tab bar signed in. Decisions in 4.1 | Nothing | 18 October 2026 |
 | D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
 | D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
 | D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
@@ -2054,7 +2055,7 @@ Departures and hand-offs:
 
 ### 4.1 — Home page
 
-**Outcome:** The new home page (canvas board "Home"): a hero with a real product preview instead of
+**Outcome:** The new home page (canvas boards "D4.1 Home" and "D4.1 Home · phone"): a hero with a real product preview instead of
 the generic illustration, three steps, why the IB matters, country guides, the founder's note, a final
 call to action, and the footer.
 
@@ -2062,6 +2063,112 @@ call to action, and the footer.
 
 **Must-haves:** stays static. The hero image is replaced by markup, so no 575 KB PNG source. The copy
 fits the sign-in-first flow. The cookie banner stays (owner, 10 October 2026), in the new design.
+
+- **No new reads.** Home reads nothing today and reads nothing after: no database, Redis or search
+  call, and no image from Supabase. The preview's three programs are fixed in code. The banner reads
+  and writes its choice in the browser only, as today.
+- **SEO parity** (definition of done 12): `metadata` and the JSON-LD stay in `page.tsx`, shared by
+  both designs; one h1 with today's words; every fact today's page shows is still on it. The
+  JSON-LD's speakable selectors name `.hero-description`, `.feature-title` and
+  `.feature-description`, which no element has today: the hero paragraph and the four IB points get
+  those classes.
+- **The `#how-it-works` anchor stays,** on the steps section.
+
+**Decided on the boards (D4.1, every recommendation approved 18 October 2026).** Canvas row 18: "D4.1
+Home" and "D4.1 Home · phone". They replace "Home (logged out)", drawn on 6 October before the
+header, footer, logo and match card were approved.
+
+The page, top to bottom, inside the header and footer as built (1.5), in their 1240px column:
+
+- **Hero.** Desktop two columns (the words, then the 560px preview, 72px apart), 72px above and 96px
+  below; a phone one column, the preview after the words. A pill, Small, "Built by a former IB student
+  who wished this existed". The h1, Display XL (56/60, 40/44 on a phone): "Find your perfect
+  university match", today's words in sentence case, with "university match" on a lime bar under the
+  letters (0.14em tall, at 88% of the line), not a marker behind them: light letters on lime are 1.1:1
+  in dark. "Perfect" stays as today's word for SEO parity; 04-design-system §5's "no Perfect match" is
+  about match labels. Body L, `hero-description`: "Use your predicted IB grades to find university
+  programs that match your profile. IB Match understands the IB: Higher and Standard Level, TOK and the
+  Extended Essay, and how it all adds up." Two `lg` buttons (52px), full width on a phone: Get my
+  matches, primary with Lucide `ArrowRight`, to `/student` as in the header; Explore programs,
+  secondary, to `/programs/search`. Two lines with Lucide `Check` in the ok colour: "Free for
+  students, always" and "Universities in 23 countries".
+- **The preview,** a `<figure>`: a sunken panel, radius 20, 20px in (12 on a phone), headed "Your
+  matches" with "38 points predicted", holding three D3.1 cards in their phone layout, then the
+  caption "Three matches for a student with 38 points, from each program's published entry
+  requirements." The panel is `inert`: no Tab stops, and screen readers get the caption. Card names
+  are not headings, so the page's outline stays one h1 and an h2 per section. Initials tiles, no
+  photos. The three, as stored on 18 October 2026 and each checked for 2027 entry (check them at each
+  content refresh): Computer Science BSc (Hons), University of Edinburgh, UE, Meets all requirements,
+  chips "38 / 34 points", "Maths AA HL 6", "English A Lit SL 5"; Economics, Finance and Data Science,
+  Imperial College London, ICL, "Within reach · 1 point, 1 grade", chips "38 / 39 points", "Maths AA HL
+  7 · you 6"; Computer Science, Linguistics and a Language, Trinity College Dublin, TCD, "Needs Spanish
+  B HL", chips "Spanish B HL 5 or 5 others · you SL", "38 / 34 points", "English A Lit SL 4", "Maths AA
+  HL 5". Save and "Why this match" are drawn, inert.
+- **How it works,** `id="how-it-works"`, on the surface band between two hairlines. h2, Display L
+  (44/48, 32/36 on a phone): "Your matches in three steps", then "Sign in with Google or an email link,
+  then tell us three things. Each step is saved as you go." An ordered list, three columns (stacked on
+  a phone), each under a 2px ink rule with its number in Newsreader 40/44 in brand, `aria-hidden`:
+  "Choose your fields", "Pick up to five study areas, from Engineering to the Arts."; "Choose your
+  countries", "Stay close to home or look across all 23 countries. Or choose Open to anywhere."; "Add
+  your subjects and grades", "Six subjects at Higher or Standard Level, predicted or final grades, TOK
+  and the Extended Essay. We work out your total."
+- **Why the IB matters,** on paper. h2 "Built for the IB Diploma", then "Generic university search
+  tools don't understand the details of the IB. IB Match is built around them." Four points, four
+  columns (stacked on a phone), each under a 1px line-2 rule, h3 `feature-title` and paragraph
+  `feature-description`: "Higher and Standard Level aren't the same", "A Higher Level grade meets a
+  Standard Level requirement. A Standard Level grade never meets a Higher Level one, and your matches
+  follow the same rule." (`compareLevels` in `lib/matching/subject-matcher.ts`); "TOK and the Extended
+  Essay count", "Your two core grades add their points to your total, from the IB's own table, just as
+  universities read them."; "Every match shows why", "See which requirements you meet, which are within
+  reach and what's missing, subject by subject."; "Your grades, entered once", "No more checking
+  university websites one by one. Your matches are ready as soon as you finish."
+- **Country guides,** on the surface band. h2 "Country guides", then "How universities in each
+  country read the IB Diploma, for 2027 entry.", and the link "IB rules by country" with
+  `ArrowRight`, to `/ib-university-requirements`. The 23 guides as links named by country,
+  alphabetical, four to a row (two on a phone), 48px tall, paper on the band with a 1px line edge and
+  `ChevronRight`. "23" and the list come from the guides in code, never a read; no program count
+  (1,677 today, 1,628 a week earlier, so a typed number goes stale).
+- **The founder's note,** on paper; desktop the note and a 360px column of two facts, 96px apart; a
+  phone stacked. h2 "A note from the founder", a decorative “ in Newsreader, brand, `aria-hidden`;
+  today's two paragraphs, the first 20/32 in ink on desktop (Body L on a phone), the second Body L in
+  ink-2: "I built IB Match because I remember how overwhelming the university search was during my own
+  IB years. Generic search tools didn't understand that my HL Physics meant something different than
+  just "Physics". I wanted to create the tool I wished I had." and "We're still growing our database
+  and improving every day. If you don't find your perfect match yet, check back soon, or tell us which
+  universities you'd like to see added."; "Tal, IB Diploma graduate". The facts, two surface panels:
+  "Free for students", "Always: there is nothing to pay to see your matches."; "New programs added
+  regularly", "Missing a university? Tell us which one." with the link to `/contact`.
+- **The final band,** lime in both themes, text #14161B: h2 "Ready to find your match?", then
+  "Browse programs freely, then sign in for matches built from your IB profile, and keep the ones you
+  like on your shortlist." Get my matches, an ink button (#14161B, text #F7F6F2, `ArrowRight`), to
+  `/student`; Explore programs, outlined in ink, to `/programs/search`. Dark's brand button is 2.1:1
+  against lime, hence ink. In forced colours the band turns black with a white edge. Side by side on
+  desktop; stacked, full width, on a phone.
+
+The cookie banner, in the new design (today's stays for today's design):
+
+- **Same choices, same storage, new words.** Today's three choices and what each stores, the same
+  half-second wait, and still not on `/auth`. No emoji. A region named by its h2, "Cookies": "We use
+  essential cookies to sign you in and keep your account secure. You can accept all cookies or only
+  essential ones." and the link "Cookie policy" to `/cookies`. Customize, a link-style button; then
+  Essential only and Accept all, both secondary, at the same weight (today Accept all is the only
+  filled button).
+- **Customize opens the settings in place,** focus on their h2 "Cookie settings" (`tabindex="-1"`):
+  "Essential cookies can't be turned off: the site needs them to work. IB Match sets no other cookies
+  today." Four rows, no switches: Essential cookies, "Sign-in and security", "Always on"; Analytics
+  cookies, "How the site is used, to improve it", "Not used"; Preference cookies, "Remembering your
+  settings", "Not used"; Marketing cookies, "Advertising and retargeting", "Not used". Then Back (to
+  the first view, focus on Customize), Essential only and Accept all.
+- **Where it sits.** Desktop: fixed 24px from the bottom right, 420px wide, radius 16, surface, a 1px
+  line edge and the overlay elevation, 20px by 24px in; 202px tall, 439px with the settings, scrolling
+  inside below the header. A phone: across the bottom, radius 16 on top, 16px in, the three choices in
+  one row (Customize, then the two buttons sharing the rest); 196px tall, 431px with the settings,
+  scrolling inside below the header. Signed in on a phone it sits on the tab bar, and the bar stays put
+  while it shows instead of hiding on scroll (D2.14); a toast rises above both.
+- **Not modal.** It takes no focus when it appears and comes first in Tab order after the skip link.
+  A choice closes it; if focus was inside, it moves to `#main`.
+- **Motion.** After the wait it rises 8px and fades in over 240ms, and fades out in 180ms; reduced
+  motion fades only. Fixed, so CLS stays 0.
 
 ### 4.2 — Country guides on one template
 
