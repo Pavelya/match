@@ -73,6 +73,10 @@ About **30 interactions after sign-in**, down from about 50.
 - **Sign-in stays first** (decision 7, 2026-10-06). Save each step as a draft as soon as it is
   completed, so leaving mid-way loses nothing. "Save and exit" in the header makes that visible.
   It writes only the student's own profile row, the same data that is saved today at the end.
+- **Home, approved 18 October 2026** ("D4.1 Home", desktop and phone): Get my matches in the hero,
+  the header and the final band, all to sign-in, with Explore programs beside it for browsing first;
+  the steps section says sign-in comes first and that each step is saved as you go. Decisions in
+  `REBRANDING_tasks.md` 4.1.
 - One row per IB group matches how students think about their diploma ("my Group 4 is
   Physics HL") and lets the form check the rules: one subject per group, Group 6 replaceable,
   **3 or 4 at HL** (not checked today, audit 5.3).
