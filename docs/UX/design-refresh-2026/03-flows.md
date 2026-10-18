@@ -185,8 +185,11 @@ is complete. At step 3, remove the subject, re-add it through the six-step dialo
 - After saving, matches show a one-line summary of what moved, for example "2 programs now meet
   all requirements". This needs only a comparison of before and after lists, not new data.
 - **Approved 14 October 2026** (D4.5, after first run): the same editor, with "Save changes", which
-  waits for a change and then shows the total before it ("Was 38 before your changes"). Where it
-  leads, and the Academic page itself, are D4.11's.
+  waits for a change and then shows the total before it ("Was 38 before your changes"). Approved 18
+  October 2026 (D4.11): Academic is a summary, and "Edit subjects and grades" opens the editor on its
+  own, not as step 3 of three; Save changes goes back to Academic with "Your subjects and grades are
+  saved, and your matches are updated." and See matches. Leaving with a change not saved asks first
+  ("Leave without saving?", D2.10).
 
 ## F6 · Logged in, profile incomplete
 
@@ -246,6 +249,12 @@ only through the header avatar, and there is no appearance setting.
 - **The avatar opens the account menu**, in the header on desktop and phone: Settings (name, school
   connection, your data: download, delete), FAQs, Contact, Appearance (System / Light / Dark) and
   Sign out. Everything in today's Settings page is kept.
+- **Approved 18 October 2026** ("D4.11 Academic profile", "D4.11 Settings", "D2.10 Confirm
+  dialog"): Academic shows the total, the six subjects and the core, then Interests and Countries,
+  each with a button that opens that one screen, which saves with Save changes and comes back to
+  Academic. Before grades, Academic is still first run. Settings has three panels, Account, School
+  and Your data; deleting and unlinking ask first in a confirm dialog, and after deleting the
+  student lands on a page that says the account is deleted.
 - On a phone the header has Menu only when signed out, and Guides with the avatar when signed in, so
   the two menus never sit side by side.
 - The tab bar hides on scroll down and comes back on scroll up, as it does today.
