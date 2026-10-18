@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-// A coordinator's edit is held to the same diploma rules as the student's own profile,
-// and a complete profile's total comes from the core points matrix, not from the form.
+// A coordinator's edit is held to the same diploma rules as the student's own profile, and the
+// total comes from the core points matrix, never from the form. The cases in "answers as the
+// student's API does" are the same in ../../../students/profile.
 
 const { prismaMock } = vi.hoisted(() => ({
   prismaMock: {
@@ -14,6 +15,16 @@ vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'coord-user' } })) }))
 vi.mock('@/lib/rate-limit', () => ({ applyRateLimit: vi.fn(async () => null) }))
 vi.mock('@/lib/matching/cache', () => ({ invalidateStudentCache: vi.fn(async () => {}) }))
+vi.mock('@/lib/reference-data', () => ({
+  getCachedIBCourses: vi.fn(async () =>
+    Array.from({ length: 7 }, (_, i) => ({
+      id: `course-${i + 1}`,
+      name: `Subject ${i + 1}`,
+      code: `S${i + 1}`,
+      group: (i % 6) + 1
+    }))
+  )
+}))
 
 import { NextRequest } from 'next/server'
 import { PATCH } from './route'
@@ -27,6 +38,14 @@ function courses(hlCount = 3) {
     level: i < hlCount ? 'HL' : 'SL',
     grade: 6
   }))
+}
+
+/** Subjects with these Higher Level grades, then these Standard Level grades. */
+function graded(hl: number[], sl: number[]) {
+  return [
+    ...hl.map((grade) => ({ level: 'HL', grade })),
+    ...sl.map((grade) => ({ level: 'SL', grade }))
+  ].map((c, i) => ({ courseId: `course-${i + 1}`, ...c }))
 }
 
 function patch(body: Record<string, unknown>) {
@@ -128,11 +147,60 @@ describe('PATCH /api/coordinator/students/[id]', () => {
     expect(storedData()).toEqual({ tokGrade: 'A', totalIBPoints: 38 })
   })
 
-  it('keeps a sent total while the profile is incomplete', async () => {
+  // The form's "Manual override" stored a typed total over fewer than six subjects
+  it('refuses fewer than six subjects, whatever total is sent', async () => {
     const res = await patch(formBody({ courses: courses().slice(0, 4), totalIBPoints: 30 }))
 
+    expect(res.status).toBe(400)
+    expect((await res.json()).error).toBe('Choose six subjects (you have 4).')
+    expect(prismaMock.studentProfile.update).not.toHaveBeenCalled()
+  })
+
+  it('ignores a total sent on its own', async () => {
+    const res = await patch({ totalIBPoints: 30 })
+
     expect(res.status).toBe(200)
-    expect(storedData().totalIBPoints).toBe(30)
+    expect(storedData()).not.toHaveProperty('totalIBPoints')
+  })
+
+  describe('answers as the student’s API does', () => {
+    it.each([
+      ['a 1', graded([7, 1, 6], [6, 6, 6]), 'No subject can have a 1 (you have a 1 in Subject 2).'],
+      [
+        'a total under 24',
+        graded([4, 4, 4], [3, 3, 3]),
+        'Your total needs to be 24 or more (you have 23).'
+      ],
+      [
+        'four HL with 11 from the three best',
+        graded([4, 4, 3, 2], [6, 6]),
+        'Your three best Higher Level grades need 12 points or more (you have 11).'
+      ]
+    ])('refuses %s with 400, naming it', async (_, sent, reason) => {
+      const res = await patch(formBody({ courses: sent }))
+
+      expect(res.status).toBe(400)
+      expect(await res.json()).toEqual({ error: reason, reasons: [reason] })
+      expect(prismaMock.studentProfile.update).not.toHaveBeenCalled()
+    })
+
+    it('saves four HL 7 7 6 6 with SL 4 4, with its own total', async () => {
+      const res = await patch(
+        formBody({ courses: graded([7, 7, 6, 6], [4, 4]), totalIBPoints: 20 })
+      )
+
+      expect(res.status).toBe(200)
+      expect(storedData().totalIBPoints).toBe(36)
+    })
+  })
+
+  // Reached the database's unique key, and failed as a 500
+  it('refuses the same subject twice with 400', async () => {
+    const sent = courses().map((c, i) => (i === 5 ? { ...c, courseId: 'course-1' } : c))
+    const res = await patch(formBody({ courses: sent }))
+
+    expect(res.status).toBe(400)
+    expect((await res.json()).error).toBe('Choose each subject only once.')
   })
 
   it('does not check academic data on a preferences-only edit', async () => {

@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The profile API stores what matching reads, so it enforces the diploma rules itself and
-// computes the total from the core points matrix rather than trusting the client.
+// computes the total from the core points matrix rather than trusting the client. The cases in
+// "answers as the coordinator's API does" are the same in ../../coordinator/students/[id].
 
 const { prismaMock } = vi.hoisted(() => ({
   prismaMock: {
@@ -13,6 +14,16 @@ vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'user-1' } })) }))
 vi.mock('@/lib/rate-limit', () => ({ applyRateLimit: vi.fn(async () => null) }))
 vi.mock('@/lib/matching/cache', () => ({ invalidateStudentCache: vi.fn(async () => {}) }))
+vi.mock('@/lib/reference-data', () => ({
+  getCachedIBCourses: vi.fn(async () =>
+    Array.from({ length: 7 }, (_, i) => ({
+      id: `course-${i + 1}`,
+      name: `Subject ${i + 1}`,
+      code: `S${i + 1}`,
+      group: (i % 6) + 1
+    }))
+  )
+}))
 
 import { NextRequest } from 'next/server'
 import { POST } from './route'
@@ -24,6 +35,14 @@ function courseSelections(hlCount = 3) {
     level: i < hlCount ? 'HL' : 'SL',
     grade: 6
   }))
+}
+
+/** Subjects with these Higher Level grades, then these Standard Level grades. */
+function graded(hl: number[], sl: number[]) {
+  return [
+    ...hl.map((grade) => ({ level: 'HL', grade })),
+    ...sl.map((grade) => ({ level: 'SL', grade }))
+  ].map((c, i) => ({ courseId: `course-${i + 1}`, ...c }))
 }
 
 function post(body: Record<string, unknown>) {
@@ -76,6 +95,61 @@ describe('POST /api/students/profile', () => {
     const res = await post({ tokGrade: 'F' })
 
     expect(res.status).toBe(400)
+  })
+
+  describe('answers as the coordinator’s API does', () => {
+    it.each([
+      ['a 1', graded([7, 1, 6], [6, 6, 6]), 'No subject can have a 1 (you have a 1 in Subject 2).'],
+      [
+        'a total under 24',
+        graded([4, 4, 4], [3, 3, 3]),
+        'Your total needs to be 24 or more (you have 23).'
+      ],
+      [
+        'four HL with 11 from the three best',
+        graded([4, 4, 3, 2], [6, 6]),
+        'Your three best Higher Level grades need 12 points or more (you have 11).'
+      ]
+    ])('refuses %s with 400, naming it', async (_, courses, reason) => {
+      const res = await post({ courseSelections: courses })
+
+      expect(res.status).toBe(400)
+      expect(await res.json()).toEqual({ error: reason, reasons: [reason] })
+      expect(prismaMock.studentProfile.create).not.toHaveBeenCalled()
+    })
+
+    it('saves four HL 7 7 6 6 with SL 4 4, with its own total', async () => {
+      const res = await post({ courseSelections: graded([7, 7, 6, 6], [4, 4]), totalIBPoints: 20 })
+
+      expect(res.status).toBe(200)
+      expect(prismaMock.studentProfile.create.mock.calls[0][0].data.totalIBPoints).toBe(36)
+    })
+  })
+
+  it.each([
+    ['five subjects', courseSelections().slice(0, 5), 'Choose six subjects (you have 5).'],
+    [
+      'a grade of 9',
+      courseSelections().map((c, i) => (i === 0 ? { ...c, grade: 9 } : c)),
+      'Choose a grade from 1 to 7 for every subject.'
+    ],
+    // Reached the database's unique key, and failed as a 500
+    [
+      'the same subject twice',
+      courseSelections().map((c, i) => (i === 5 ? { ...c, courseId: 'course-1' } : c)),
+      'Choose each subject only once.'
+    ],
+    [
+      'a subject that is not an IB subject',
+      courseSelections().map((c, i) => (i === 5 ? { ...c, courseId: 'nope' } : c)),
+      'Choose every subject from the list of IB subjects.'
+    ]
+  ])('refuses %s with 400', async (_, courses, reason) => {
+    const res = await post({ courseSelections: courses })
+
+    expect(res.status).toBe(400)
+    expect((await res.json()).error).toBe(reason)
+    expect(prismaMock.studentProfile.create).not.toHaveBeenCalled()
   })
 
   // A client still running the old formula sends 37 for TOK B / EE C.

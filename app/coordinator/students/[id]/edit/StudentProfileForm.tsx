@@ -15,7 +15,7 @@ import { FormSection, FormDivider, FormActions } from '@/components/admin/shared
 import { BookOpen, Target, Plus, Trash2, Loader2, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { getCorePoints } from '@/lib/ib/core-points'
-import { calculateTotalPoints, getSaveBlocker } from '@/lib/ib/diploma'
+import { checkDiploma } from '@/lib/ib/diploma'
 
 interface Course {
   courseId: string
@@ -83,8 +83,6 @@ export function StudentProfileForm({
   const [courses, setCourses] = useState<Course[]>(student.courses)
   const [tokGrade, setTokGrade] = useState<string>(student.tokGrade || '')
   const [eeGrade, setEeGrade] = useState<string>(student.eeGrade || '')
-  const [manualPoints, setManualPoints] = useState<string>(student.totalIBPoints?.toString() || '')
-  const [useManualPoints, setUseManualPoints] = useState(false)
   const [selectedFields, setSelectedFields] = useState<string[]>(student.preferredFields)
   const [selectedCountries, setSelectedCountries] = useState<string[]>(student.preferredCountries)
 
@@ -102,14 +100,35 @@ export function StudentProfileForm({
     return coursePoints + (typeof corePoints === 'number' ? corePoints : 0)
   }, [enteredCourses, tokGrade, eeGrade])
 
-  // With six subjects and both core grades the total is fixed, and the API recomputes it,
-  // so a manual override only applies to an incomplete profile
-  const isTotalDerived = calculateTotalPoints(enteredCourses, tokGrade, eeGrade) !== null
-  const totalIBPoints =
-    useManualPoints && !isTotalDerived ? parseInt(manualPoints) || 0 : calculatedPoints
+  const courseNames = useMemo(
+    () =>
+      new Map(
+        Object.values(coursesByGroup).flatMap((group) => group.map((c) => [c.id, c.name] as const))
+      ),
+    [coursesByGroup]
+  )
 
-  // An E in TOK or the EE, or six subjects without 3 or 4 at HL, cannot be saved
-  const saveBlocker = getSaveBlocker(enteredCourses, tokGrade, eeGrade)
+  // Grades are sent, and checked, only once they change: preferences alone save without them
+  const academicsChanged =
+    tokGrade !== (student.tokGrade || '') ||
+    eeGrade !== (student.eeGrade || '') ||
+    courses.length !== student.courses.length ||
+    courses.some(
+      (c, i) =>
+        c.courseId !== student.courses[i].courseId ||
+        c.level !== student.courses[i].level ||
+        c.grade !== student.courses[i].grade
+    )
+
+  // The student's own rule (lib/ib/diploma.ts): six subjects, both core grades and every IB
+  // condition, or the grades can't be saved. The API works out the total from them
+  const reasons = academicsChanged
+    ? checkDiploma(
+        enteredCourses.map((c) => ({ ...c, courseName: courseNames.get(c.courseId) ?? '' })),
+        tokGrade || null,
+        eeGrade || null
+      ).reasons
+    : []
 
   // Add a course
   const addCourse = useCallback(() => {
@@ -146,7 +165,7 @@ export function StudentProfileForm({
   // Submit form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (saveBlocker) return
+    if (reasons.length > 0) return
     setIsSubmitting(true)
     setError(null)
 
@@ -155,10 +174,11 @@ export function StudentProfileForm({
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          courses: enteredCourses,
-          totalIBPoints: totalIBPoints,
-          tokGrade: tokGrade || null,
-          eeGrade: eeGrade || null,
+          ...(academicsChanged && {
+            courses: enteredCourses,
+            tokGrade: tokGrade || null,
+            eeGrade: eeGrade || null
+          }),
           preferredFields: selectedFields,
           preferredCountries: selectedCountries
         })
@@ -319,44 +339,16 @@ export function StudentProfileForm({
       <FormDivider />
 
       {/* Total IB Points */}
-      <FormSection title="Total IB Points" description="Auto-calculated or enter manually">
-        <div className="flex items-center gap-4">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 p-4 rounded-lg bg-muted/50">
-              <Target className="h-5 w-5 text-muted-foreground" />
-              <div>
-                <div className="text-2xl font-bold">{totalIBPoints}</div>
-                <div className="text-xs text-muted-foreground">
-                  {useManualPoints && !isTotalDerived ? 'Manual override' : 'Auto-calculated'}
-                </div>
-              </div>
-            </div>
+      <FormSection
+        title="Total IB Points"
+        description="Worked out from the six subjects, TOK and the Extended Essay"
+      >
+        <div className="flex items-center gap-3 p-4 rounded-lg bg-muted/50">
+          <Target className="h-5 w-5 text-muted-foreground" />
+          <div>
+            <div className="text-2xl font-bold">{calculatedPoints}</div>
+            <div className="text-xs text-muted-foreground">Auto-calculated</div>
           </div>
-
-          {!isTotalDerived && (
-            <div className="flex flex-col gap-2">
-              <label className="flex items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={useManualPoints}
-                  onChange={(e) => setUseManualPoints(e.target.checked)}
-                  className="rounded border-gray-300"
-                />
-                Override manually
-              </label>
-              {useManualPoints && (
-                <input
-                  type="number"
-                  min="0"
-                  max="45"
-                  value={manualPoints}
-                  onChange={(e) => setManualPoints(e.target.value)}
-                  className="h-10 w-24 px-3 rounded-lg border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="0-45"
-                />
-              )}
-            </div>
-          )}
         </div>
       </FormSection>
 
@@ -424,10 +416,14 @@ export function StudentProfileForm({
         )}
       </FormSection>
 
-      {saveBlocker && (
+      {reasons.length > 0 && (
         <div className="mt-6 p-4 rounded-lg bg-red-50 border border-red-200 flex items-start gap-3">
           <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-red-700">{saveBlocker}</div>
+          <ul className="space-y-1 text-sm text-red-700">
+            {reasons.map((reason) => (
+              <li key={reason}>{reason}</li>
+            ))}
+          </ul>
         </div>
       )}
 
@@ -442,7 +438,7 @@ export function StudentProfileForm({
         </button>
         <button
           type="submit"
-          disabled={isSubmitting || saveBlocker !== null}
+          disabled={isSubmitting || reasons.length > 0}
           className="inline-flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
         >
           {isSubmitting ? (

@@ -43,7 +43,7 @@ pull request, merged before the next starts.
 | any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
 | any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
-| any | One IB diploma rule for every role | 5.20 | medium | Students, coordinators and both APIs check different subsets of the IB's rule, and the points floors are wrong for four Higher Level subjects. One check, matching the IB's current regulations, wherever grades are saved. The coordinator part is in the same task; the new words were approved on 16 October 2026 |
+| any | One IB diploma rule for every role | 5.20 | medium | **Done** (18 October 2026). Students, coordinators and both APIs checked different subsets of the IB's rule, and the points floors were wrong for four Higher Level subjects. One check now, `checkDiploma` in `lib/ib/diploma.ts`, wherever grades are saved; the coordinator's typed total is gone. No saved profile changed status |
 | before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -94,7 +94,7 @@ Phase 5 — quick wins
 - [ ] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
-- [ ] 5.20 One IB diploma rule wherever grades are saved, by any role
+- [x] 5.20 One IB diploma rule wherever grades are saved, by any role — `checkDiploma`; no saved profile changed status
 
 Phase 6 — dependency majors
 
@@ -1307,6 +1307,17 @@ A direct request to either API with a 1 gets a 400 naming it.
 **Session size:** Medium: one helper, two APIs, three forms. Independent of the rebranding; the new
 editor takes the rule through the helper. If the pull request gets hard to review, land steps 1 to 3
 first, then step 4, in two pull requests under this task.
+
+**Result, 18 October 2026.** Step 1 went through a search index's copy of `ibo.org`, as that session
+had no browser: every line of the table matched, with no difference. The aggregate: 155 profiles have
+a total, 154 of them six subjects (3 with two at Higher Level, 135 with three, 16 with four) and one
+not; `sl_5_to_8` and `best3_under_12` are 0 at every count, so no saved profile changes status. Both
+APIs name subjects from the cached course list (`lib/ib/grades-to-save.ts`), so they add no database
+read. A shape the forms can't produce has words of its own, seen only on the coordinator's form while
+it is incomplete and by a direct request: "Choose six subjects (you have 5).", "Choose each subject
+only once.", "Choose SL or HL for every subject.", "Choose a grade from 1 to 7 for every subject.",
+"Choose TOK and Extended Essay grades from A to E." and "Choose every subject from the list of IB
+subjects." The coordinator's form checks grades once they change, so preferences alone still save.
 
 ---
 

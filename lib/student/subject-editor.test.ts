@@ -219,6 +219,52 @@ describe('editorFooter', () => {
     })
   })
 
+  // MAINT 5.20: with four at Higher Level the three best count, and two at Standard Level need 5
+  describe('four at Higher Level, two at Standard Level', () => {
+    const four = (hl: number[], sl: number[]): SubjectsState => ({
+      rows: [
+        row('eng-lit', 'SL', sl[0]),
+        row('spa-b', 'SL', sl[1]),
+        row('econ', 'HL', hl[0]),
+        row('phys', 'HL', hl[1]),
+        row('maa', 'HL', hl[2]),
+        row('chem', 'HL', hl[3])
+      ],
+      tok: 'B',
+      ee: 'C'
+    })
+    const refused = {
+      line: { kind: 'reason', text: 'With these grades, the IB wouldn’t award the diploma.' },
+      ready: false,
+      target: { checks: true }
+    }
+
+    it('finishes HL 7 7 6 6 with SL 4 4', () => {
+      expect(ibConditions(four([7, 7, 6, 6], [4, 4]), COURSES)).toEqual([])
+      expect(editorFooter(four([7, 7, 6, 6], [4, 4]), COURSES)).toEqual({
+        line: { kind: 'total', total: 36, detail: '34 from subjects, 2 core points' },
+        ready: true,
+        target: null
+      })
+    })
+
+    it('stops at 11 from the three best Higher Level grades', () => {
+      const state = four([4, 4, 3, 2], [6, 6])
+      expect(ibConditions(state, COURSES)).toEqual([
+        'Your three best Higher Level grades need 12 points or more (you have 11).'
+      ])
+      expect(editorFooter(state, COURSES)).toEqual(refused)
+    })
+
+    it('stops at 4 from the two Standard Level grades', () => {
+      const state = four([7, 7, 6, 6], [2, 2])
+      expect(ibConditions(state, COURSES)).toEqual([
+        'Your two Standard Level grades need 5 points or more (you have 4).'
+      ])
+      expect(editorFooter(state, COURSES)).toEqual(refused)
+    })
+  })
+
   it('after first run, waits for a change, then shows the total before it', () => {
     expect(editorFooter(READY, COURSES, READY)).toMatchObject({
       line: { kind: 'total', total: 38, detail: 'No changes to save yet' },

@@ -19,8 +19,7 @@ import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { invalidateStudentCache } from '@/lib/matching/cache'
-import { isCoreGrade } from '@/lib/ib/core-points'
-import { calculateTotalPoints, getSaveBlocker } from '@/lib/ib/diploma'
+import { checkGradesToSave } from '@/lib/ib/grades-to-save'
 
 interface RouteContext {
   params: Promise<{ id: string }>
@@ -34,6 +33,7 @@ interface CourseUpdate {
 
 interface UpdateStudentRequest {
   courses?: CourseUpdate[]
+  /** Ignored: the total is worked out from the courses and core grades */
   totalIBPoints?: number | null
   tokGrade?: string | null
   eeGrade?: string | null
@@ -205,44 +205,31 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     // Parse request body
     const data: UpdateStudentRequest = await request.json()
 
-    for (const grade of [data.tokGrade, data.eeGrade]) {
-      if (grade != null && !isCoreGrade(grade)) {
-        return NextResponse.json({ error: 'TOK and EE grades must be A to E' }, { status: 400 })
-      }
-    }
-
-    // When the request changes academic data, check the profile as it will be stored:
-    // an E in TOK or the EE, or six subjects without 3 or 4 at HL, cannot be saved
-    const changesAcademics =
-      data.courses !== undefined ||
-      data.tokGrade !== undefined ||
-      data.eeGrade !== undefined ||
-      data.totalIBPoints !== undefined
-    const courses = data.courses ?? student.courses
-    const tokGrade = data.tokGrade !== undefined ? data.tokGrade : student.tokGrade
-    const eeGrade = data.eeGrade !== undefined ? data.eeGrade : student.eeGrade
-
-    if (changesAcademics) {
-      const saveBlocker = getSaveBlocker(courses, tokGrade, eeGrade)
-      if (saveBlocker) {
-        return NextResponse.json({ error: saveBlocker }, { status: 400 })
-      }
-    }
-
     // Build update object
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updateData: any = {}
 
-    // Update scalar fields
-    if (data.totalIBPoints !== undefined) {
-      updateData.totalIBPoints = data.totalIBPoints
+    // When the request changes grades, check the profile as it will be stored with the one
+    // diploma check the student's own saves use (lib/ib/diploma.ts). The total is worked out
+    // there, never taken from the request. Preferences alone save without it
+    const changesAcademics =
+      data.courses !== undefined || data.tokGrade !== undefined || data.eeGrade !== undefined
+    if (changesAcademics) {
+      const check = await checkGradesToSave(
+        data.courses ??
+          student.courses.map((c) => ({ courseId: c.ibCourseId, level: c.level, grade: c.grade })),
+        data.tokGrade !== undefined ? data.tokGrade : student.tokGrade,
+        data.eeGrade !== undefined ? data.eeGrade : student.eeGrade
+      )
+      if (check.reasons.length > 0) {
+        return NextResponse.json(
+          { error: check.reasons[0], reasons: check.reasons },
+          { status: 400 }
+        )
+      }
+      updateData.totalIBPoints = check.total
     }
-    // Six subjects and both core grades fix the total: compute it rather than trust the
-    // client, so a stale form cannot store a total the old formula got wrong
-    const derivedTotal = changesAcademics ? calculateTotalPoints(courses, tokGrade, eeGrade) : null
-    if (derivedTotal !== null) {
-      updateData.totalIBPoints = derivedTotal
-    }
+
     if (data.tokGrade !== undefined) {
       updateData.tokGrade = data.tokGrade
     }

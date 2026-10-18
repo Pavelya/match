@@ -4,8 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { invalidateStudentCache } from '@/lib/matching/cache'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { isCoreGrade } from '@/lib/ib/core-points'
-import { calculateTotalPoints, getSaveBlocker } from '@/lib/ib/diploma'
+import { checkGradesToSave } from '@/lib/ib/grades-to-save'
 
 interface CourseSelection {
   courseId: string
@@ -48,23 +47,14 @@ export async function POST(request: NextRequest) {
     //   )
     // }
 
-    if (!data.courseSelections || data.courseSelections.length !== 6) {
-      return NextResponse.json({ error: 'Please select exactly 6 IB courses' }, { status: 400 })
+    // Grades are a diploma the IB would award, or they aren't saved (lib/ib/diploma.ts). The
+    // total is worked out there rather than taken from the client, so a stale client cannot
+    // store a total an old formula got wrong
+    const check = await checkGradesToSave(data.courseSelections, data.tokGrade, data.eeGrade)
+    if (check.reasons.length > 0) {
+      return NextResponse.json({ error: check.reasons[0], reasons: check.reasons }, { status: 400 })
     }
-
-    if (!isCoreGrade(data.tokGrade) || !isCoreGrade(data.eeGrade)) {
-      return NextResponse.json({ error: 'Please provide TOK and EE grades' }, { status: 400 })
-    }
-
-    // An E in TOK or the EE, or not 3 or 4 HL subjects: the IB awards no diploma
-    const saveBlocker = getSaveBlocker(data.courseSelections, data.tokGrade, data.eeGrade)
-    if (saveBlocker) {
-      return NextResponse.json({ error: saveBlocker }, { status: 400 })
-    }
-
-    // Computed here rather than taken from the client, so a stale client cannot store a
-    // total the old formula got wrong
-    const totalIBPoints = calculateTotalPoints(data.courseSelections, data.tokGrade, data.eeGrade)
+    const totalIBPoints = check.total
 
     const studentId = session.user.id
 
