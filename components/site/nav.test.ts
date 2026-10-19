@@ -79,6 +79,7 @@ describe('hasOwnChrome', () => {
       '/programs/search',
       '/programs/abc',
       '/universities/abc',
+      '/contact',
       '/admin/dashboard',
       '/coordinator/students',
       '/auth/signin'

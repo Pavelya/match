@@ -7,6 +7,8 @@ import { ProgramRequest } from './_components/ProgramRequest'
 import { DonationOptions } from './_components/DonationOptions'
 import { SupportCTA } from './_components/SupportCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewSupportUs } from './NewSupportUs'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -81,13 +83,22 @@ const jsonLd = {
   }
 }
 
-export default function SupportUsPage() {
+export default async function SupportUsPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {(await showsNewUi()) ? <NewSupportUs /> : <TodaysSupportUs />}
+    </>
+  )
+}
+
+/** Today's page, until release (rebranding 4.3) */
+function TodaysSupportUs() {
+  return (
+    <>
       <main className="flex min-h-screen flex-col">
         <SupportHero />
         <WhySupport />

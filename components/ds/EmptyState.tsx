@@ -18,7 +18,9 @@ const TILE = {
   /** A load that failed */
   error: 'bg-gap-soft text-gap',
   /** The profile call to action */
-  brand: 'bg-brand-soft text-brand-ink'
+  brand: 'bg-brand-soft text-brand-ink',
+  /** Something done: Contact's "Request sent" (D4.14) */
+  ok: 'bg-ok-soft text-ok'
 } as const
 
 export interface EmptyStateStep {
@@ -39,6 +41,11 @@ interface EmptyStateProps {
   actions?: ReactNode
   /** "About 2 minutes. You can change it any time." */
   meta?: ReactNode
+  /**
+   * False for a panel that is part of the page rather than a list's state, as FAQs' "Still have
+   * questions?" (D4.14): no live region then
+   */
+  live?: boolean
   className?: string
 }
 
@@ -50,11 +57,12 @@ export function EmptyState({
   steps,
   actions,
   meta,
+  live = true,
   className
 }: EmptyStateProps) {
   return (
     <div
-      role="status"
+      role={live ? 'status' : undefined}
       className={cn(
         'flex flex-col gap-2 rounded-card border border-border bg-card p-5 md:grid md:grid-cols-[44px_minmax(0,1fr)] md:items-start md:gap-x-5 md:gap-y-0 md:p-7',
         className

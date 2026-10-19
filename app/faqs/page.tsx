@@ -6,6 +6,8 @@ import { FAQAccordion } from './_components/FAQAccordion'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { pageDates } from '@/lib/page-dates'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewFaqs } from './NewFaqs'
 
 // ISR - page fetches CMS content but is cached for 1 hour
 export const revalidate = 3600
@@ -140,12 +142,37 @@ export default async function FAQPage() {
     }
   }
 
+  const structuredData = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
+  )
+
+  // The new design (rebranding 4.3, board "D4.14 Text pages"), from the same list
+  if (await showsNewUi()) {
+    return (
+      <>
+        {structuredData}
+        <NewFaqs
+          faqs={faqs}
+          updated={
+            cmsContent?.effectiveDate
+              ? new Date(cmsContent.effectiveDate).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })
+              : null
+          }
+        />
+      </>
+    )
+  }
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {structuredData}
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12 sm:py-16">
           {/* Header */}

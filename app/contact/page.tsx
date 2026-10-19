@@ -6,6 +6,8 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { ContactForm } from './_components/ContactForm'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewContact } from './NewContact'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -44,6 +46,11 @@ export default async function ContactPage() {
       select: { name: true }
     })
     userName = user?.name || null
+  }
+
+  // The new design (rebranding 4.3, board "D4.14 Text pages"); its layout draws the chrome
+  if (await showsNewUi()) {
+    return <NewContact signedIn={!!session?.user?.id} userName={userName} />
   }
 
   return (

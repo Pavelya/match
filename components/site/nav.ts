@@ -107,16 +107,17 @@ export function isInSection(link: Pick<SiteLink, 'href' | 'section'>, pathname: 
 }
 
 /**
- * Top-level paths whose layout draws its own chrome. /student, /programs and /universities read
- * the session and show the signed-in header when there is one (/universities since rebranding
- * 2.4); admin, coordinator and sign-in pages keep theirs. Every other page is public and
- * prebuilt, and the root layout gives it the signed-out header and the footer, so a new public
- * page gets them without asking.
+ * Top-level paths whose layout draws its own chrome. /student, /programs, /universities and
+ * /contact read the session and show the signed-in header when there is one (/universities since
+ * rebranding 2.4, /contact since 4.3); admin, coordinator and sign-in pages keep theirs. Every
+ * other page is public and prebuilt, and the root layout gives it the signed-out header and the
+ * footer, so a new public page gets them without asking.
  */
 const OWN_CHROME = new Set([
   'student',
   'programs',
   'universities',
+  'contact',
   'admin',
   'coordinator',
   'auth',
