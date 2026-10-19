@@ -11,10 +11,9 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { School, Check, Eye, Edit, FileText, Loader2 } from 'lucide-react'
+import { SIGN_IN_TO_ACCEPT_HREF, acceptStudentInvite } from '@/lib/auth/accept-student-invite'
 
 interface AcceptStudentInviteFormProps {
   token: string
@@ -38,10 +37,12 @@ export function AcceptStudentInviteForm({
   coordinatorName,
   logo
 }: AcceptStudentInviteFormProps) {
-  const router = useRouter()
   const [consentChecked, setConsentChecked] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<{
+    text: string
+    link?: { href: string; label: string }
+  } | null>(null)
 
   const handleAccept = async () => {
     if (!consentChecked) return
@@ -49,50 +50,33 @@ export function AcceptStudentInviteForm({
     setIsLoading(true)
     setError(null)
 
-    try {
-      // Call the API to accept the invitation and create account
-      const response = await fetch('/api/auth/accept-student-invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      })
-
-      // Handle rate limit error specifically
-      if (response.status === 429) {
-        setError('Too many attempts. Please wait a moment and try again.')
-        setIsLoading(false)
+    // The account, then the sign-in link to the invited address (MAINT 5.21 and 5.22)
+    const outcome = await acceptStudentInvite(token, email)
+    switch (outcome.kind) {
+      case 'sent':
+        // An address Auth.js decides, so through the browser rather than the router
+        window.location.href = outcome.url
         return
-      }
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        setError(data.error || 'Failed to accept invitation. Please try again.')
-        setIsLoading(false)
-        return
-      }
-
-      // Sign in with the email (magic link style - the API will handle this)
-      // For now, redirect to signin to complete the flow
-      const result = await signIn('email', {
-        email,
-        callbackUrl: '/student/onboarding',
-        redirect: false
-      })
-
-      if (result?.error) {
-        setError('Failed to sign in. Please check your email for the verification link.')
-        setIsLoading(false)
-        return
-      }
-
-      // Redirect to the verify-request page (magic link sent)
-      router.push('/auth/verify-request')
-    } catch {
-      // Handle network/rate limit errors
-      setError('Too many attempts. Please wait a moment and try again.')
-      setIsLoading(false)
+      case 'not-sent':
+        setError({
+          text: `Your account is ready, but we couldn't send the sign-in link. Sign in with ${email} to continue.`,
+          link: { href: '/auth/signin', label: 'Go to Sign In' }
+        })
+        break
+      case 'exists':
+        setError({
+          text: `You already have an IB Match account with ${email}. Sign in, and the invitation will be waiting.`,
+          link: { href: SIGN_IN_TO_ACCEPT_HREF, label: 'Sign in to accept it' }
+        })
+        break
+      case 'try-later':
+        setError({ text: 'Too many attempts. Please wait a moment and try again.' })
+        break
+      case 'failed':
+        setError({ text: outcome.message || 'Failed to accept invitation. Please try again.' })
+        break
     }
+    setIsLoading(false)
   }
 
   return (
@@ -162,7 +146,15 @@ export function AcceptStudentInviteForm({
       {/* Error Message */}
       {error && (
         <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 mb-4">
-          {error}
+          {error.text}
+          {error.link && (
+            <>
+              {' '}
+              <Link href={error.link.href} className="font-medium underline">
+                {error.link.label}
+              </Link>
+            </>
+          )}
         </div>
       )}
 

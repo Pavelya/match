@@ -11,6 +11,8 @@ import { getCachedFields, getCachedCountriesWithPrograms } from '@/lib/reference
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { RequirementsContent } from './RequirementsContent'
 import { pageDates } from '@/lib/page-dates'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewRequirementsHub } from './NewRequirementsHub'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -362,7 +364,8 @@ export default async function IBUniversityRequirementsPage() {
     }))
   }
 
-  return (
+  // Both designs share the reads, the metadata and the JSON-LD (rebranding 4.3)
+  const structuredData = (
     <>
       <script
         type="application/ld+json"
@@ -372,6 +375,42 @@ export default async function IBUniversityRequirementsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+    </>
+  )
+
+  // The new design (board "D4.13 Requirements hub"): the guides A to Z, the first twelve fields
+  if (await showsNewUi()) {
+    return (
+      <>
+        {structuredData}
+        <NewRequirementsHub
+          stats={{
+            countries: countryData.length,
+            programs: stats._count,
+            minPoints,
+            maxPoints
+          }}
+          countries={countryData
+            .filter((country) => country.guideSlug && country.guideSummary)
+            .map((country) => ({
+              name: country.name,
+              href: `/study-in-${country.guideSlug}-with-ib-diploma`,
+              summary: country.guideSummary!,
+              programCount: country.programCount,
+              minPoints: country.minPoints,
+              maxPoints: country.maxPoints
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name, 'en'))}
+          fields={fieldData.slice(0, 12)}
+          faqs={faqs}
+        />
+      </>
+    )
+  }
+
+  return (
+    <>
+      {structuredData}
 
       <main className="flex min-h-screen flex-col">
         <RequirementsContent

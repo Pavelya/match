@@ -17,9 +17,13 @@ const geistSans = Geist({
   subsets: ['latin']
 })
 
+// Today's design only: How it works' "f(x) = result" and the admin's codes. Not preloaded, so it
+// downloads only where one of them shows, and the new design, which uses the system's monospace,
+// never downloads it (rebranding 4.3, 04 §2). It goes with NoAISection.tsx at cleanup (R.2).
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
-  subsets: ['latin']
+  subsets: ['latin'],
+  preload: false
 })
 
 // The new design's display face (rebranding 1.1): Newsreader 500, the only weight its styles

@@ -303,7 +303,7 @@ merges into `main`, behind the preview switch.**
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
-| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | Gate complete 19 October 2026. Sign-in and invitations, the hub, the text and legal pages, the 404 and error pages; For schools waits for D4.17 (session 21). Includes the 10-minute sign-in link and, if still open, `MAINT_tasks.md` 5.21 to 5.23 |
+| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
@@ -336,7 +336,7 @@ Rows 3 and 4 can share a design session.
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
 | Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Done 19 October 2026, in row 16's design session: the list is on "D4.14 Legal pages", approved with it |
-| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Design approved 19 October 2026 (eight boards, row 20) |
+| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
@@ -394,8 +394,8 @@ Phase 4 — Public pages
 
 - [x] 4.1 Home page (18 October 2026)
 - [x] 4.2 Country guides on one template (18 October 2026)
-- [ ] 4.3 Other public pages
-- [ ] 4.4 Guard against raw palette classes
+- [x] 4.3 Other public pages (19 October 2026; For schools, `/for-coordinators`, follows in session 21)
+- [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [ ] 4.6 The policy update banner
 
@@ -485,8 +485,8 @@ animation patches the audit first proposed.
 8. **Budget** (production, 5 October 2026: JS 171 KB, CSS 22 KB, fonts 52 KB, CLS 0): no more JS,
    CSS at most 32 KB, fonts at most 60 KB, CLS stays 0. **Until cleanup, CSS may reach 36 KB**
    (owner, 18 October 2026): the one stylesheet carries both designs until R.2 deletes today's
-   styles, and it reached 31.9 KB with Home (4.1). From R.2 on, 32 KB holds again, and R.2 checks
-   it. CSS is measured gzipped, every stylesheet `/` loads.
+   styles, and it reached 31.9 KB with Home (4.1) and 32.9 KB with the public pages (4.3). From R.2
+   on, 32 KB holds again, and R.2 checks it. CSS is measured gzipped, every stylesheet `/` loads.
 9. **Every OS:** Chrome on Windows, Safari on macOS and iOS, at 1440px and 390px, light, dark and
    forced colours, 200% zoom.
 10. **Tests:** Vitest for new pure helpers, plus the AGENTS.md verification commands.
@@ -851,6 +851,12 @@ Departures from the boards, each small:
 **Outcome:** The matching result carries what the cards need, with no change to scores.
 
 **Design gate:** none; nothing on screen changes.
+
+**Built 19 October 2026 (build 16):** `eslint/raw-palette.mjs`, a `no-restricted-syntax` rule over
+every string in `app/`, `components/` and `lib/`, failing on a palette colour with a shade. Staff
+areas and tests are outside it, and so are today's student-facing files, listed by name in the same
+file: R.2 deletes them and the list. A new file is checked from its first line.
+`eslint/raw-palette.test.ts` lints snippets through the repo's config.
 
 **Must-haves:**
 - An additive change to `SubjectMatchDetail` (`lib/matching/types.ts`): `kind` (`met`, `grade_short`,
@@ -2433,6 +2439,42 @@ holds the full words; these are what the build must do.
 5.22 (the dead end for a student with an account), 5.23 (two h1s on /cookies) and 7.4 (bring the
 legal pages up to date).
 
+**Built 19 October 2026 (build 16),** every board state compared with its frame on a production
+build. Where it lives: `components/sign-in/` and `components/invitation/` (the cards, client ones as
+lazy islands), `components/text-page/` (the hub's and the text pages' template),
+`components/legal/LegalPage.tsx`, `components/site/` (the 404, the error screen and the bare page),
+each page's `New*.tsx` beside today's. 5.21 to 5.23 are done for both designs, with
+`lib/auth/accept-student-invite.ts` shared by both invitation cards; a student already signed in
+with the invited address goes straight to School invitations (5.22's optional step). Departures and
+what the build settled:
+
+- **Error boundaries where the board places them,** `app/error.tsx`, `app/student/error.tsx` and
+  sign-in's `app/auth/error.tsx`. Next loads an `error.tsx` with every page below it, so each one
+  costs today's visitors about 0.5 KB; /programs, /universities and /contact get the root's, which
+  draws the public header and footer round the panel.
+- **`AuthErrorBoundary` is mounted nowhere,** so the error inside sign-in is `app/auth/error.tsx` in
+  D4.2's card, with its words. The class goes at R.2.
+- **Try again calls `retry()`,** Next 16.3's stable replacement for `reset()`: it fetches the page
+  again in a transition, which is what "Trying again…" follows.
+- **`app/global-error.tsx` follows the release flag, read at build time** (`next.config.ts`,
+  `NEW_UI_RELEASED`): it replaces the root layout, so it can't ask for the preview. Until release
+  Next's own page shows, and the preview doesn't show the bare page either.
+- **The 404 decides its chrome from the route tree, not the address:** PublicFrame reads the root
+  layout's segment (`ownsChrome`), so the prebuilt 404 hydrates without a mismatch on any path, and a
+  context tells the 404 and the error panel whether a layout's chrome is round them.
+- **The tab title** is "Page not found" on every 404 and "Something went wrong" on an error from the
+  server; after an error in the browser, Next renders the page's own title again, which wins.
+- **Geist Mono is no longer preloaded,** rather than removed: today's How it works and the admin
+  still use it (their pages download it on demand), and the new design never does. It goes with
+  `NoAISection.tsx` at R.2.
+- **`/cookies` gained the hourly revalidate** of `/privacy` and `/terms`: prebuilt from release day,
+  it would otherwise never show a Cookie Policy published in the admin.
+- **Measured against `main`, today's design:** the same HTML on 25 pages but for the intended fixes
+  (one h1 on the legal fallbacks, 10 minutes on "Check your email"); the same route table, revalidate
+  times included; the emails byte for byte; fonts 23.5 KB lighter on most pages (no Geist Mono);
+  JavaScript 0.7 KB more on a plain page, up to 2.2 KB where links prefetch sign-in and the
+  invitation (the error boundaries and the islands' loaders). CSS 32.9 KB of the 36 allowed.
+
 ### 4.4 — Guard against raw palette classes
 
 **Outcome:** A lint rule fails on raw palette classes (`text-blue-600`, `bg-gray-50`, …) in
@@ -2440,6 +2482,12 @@ student-facing code, so the two styling systems cannot drift apart again (audit 
 rule, not a formatting one, so it does not conflict with Prettier.
 
 **Design gate:** none; nothing on screen changes.
+
+**Built 19 October 2026 (build 16):** `eslint/raw-palette.mjs`, a `no-restricted-syntax` rule over
+every string in `app/`, `components/` and `lib/`, failing on a palette colour with a shade. Staff
+areas and tests are outside it, and so are today's student-facing files, listed by name in the same
+file: R.2 deletes them and the list. A new file is checked from its first line.
+`eslint/raw-palette.test.ts` lints snippets through the repo's config.
 
 ### 4.5 — Policy and privacy pages: what the redesign covers (research)
 
@@ -2580,8 +2628,9 @@ behind the preview switch, like every session before release.
    checklist done. So far: #127, three FAQ answers in the new design's words (D4.14). They change
    words both designs share, so they merge on this day and no earlier.
 4. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
-   rebuilds the static pages in the new design, and emails switch too. `npm run build` now lists
-   `/privacy`, `/terms` and `/cookies` as Static (4.3).
+   rebuilds the static pages in the new design, and emails switch too, as does the bare page for a
+   failed root layout (`app/global-error.tsx` reads the flag at build time). `npm run build` now
+   lists `/privacy`, `/terms` and `/cookies` as Static, with a one-hour revalidate (4.3).
 5. Check every page logged out and logged in, light and dark, on a phone and on Windows.
 6. Run the home page, one guide and one program page through Google's Rich Results Test: the same
    items as before release, plus the breadcrumbs.
@@ -2599,7 +2648,13 @@ against the baseline:
   onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages: the 23
   `<Country>Content.tsx` files and the test in `lib/guides/guides.test.ts` that compares them with
   each `guide.ts`, keeping its checks of the data);
-- delete the switch, the preview routes and bar, both variables and the old logo files;
+- delete the switch, the preview routes and bar, both variables and the old logo files, and
+  `NEW_UI_RELEASED` in `next.config.ts` (4.3);
+- from 4.3: `NoAISection.tsx` and `Geist_Mono` in `app/layout.tsx`; the unused `AuthErrorBoundary`;
+  the `throw` that sends today's errors to Next's own page (`components/site/root-error.tsx`,
+  `layout-error.tsx`, `components/sign-in/auth-error.tsx`); the old branch of `signInDestination`;
+  the islands modules, once the pages import their cards; and `TODAYS_DESIGN` in
+  `eslint/raw-palette.mjs`, with the files it lists;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
   (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here

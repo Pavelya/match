@@ -107,16 +107,17 @@ export function isInSection(link: Pick<SiteLink, 'href' | 'section'>, pathname: 
 }
 
 /**
- * Top-level paths whose layout draws its own chrome. /student, /programs and /universities read
- * the session and show the signed-in header when there is one (/universities since rebranding
- * 2.4); admin, coordinator and sign-in pages keep theirs. Every other page is public and
- * prebuilt, and the root layout gives it the signed-out header and the footer, so a new public
- * page gets them without asking.
+ * Top-level paths whose layout draws its own chrome. /student, /programs, /universities and
+ * /contact read the session and show the signed-in header when there is one (/universities since
+ * rebranding 2.4, /contact since 4.3); admin, coordinator and sign-in pages keep theirs. Every
+ * other page is public and prebuilt, and the root layout gives it the signed-out header and the
+ * footer, so a new public page gets them without asking.
  */
 const OWN_CHROME = new Set([
   'student',
   'programs',
   'universities',
+  'contact',
   'admin',
   'coordinator',
   'auth',
@@ -124,7 +125,17 @@ const OWN_CHROME = new Set([
 ])
 
 export function hasOwnChrome(pathname: string): boolean {
-  return OWN_CHROME.has(pathname.split('/')[1] ?? '')
+  return ownsChrome(pathname.split('/')[1] ?? null)
+}
+
+/**
+ * The same, from the root layout's selected segment, as PublicFrame reads it (rebranding 4.3).
+ * The segment comes from the route tree, not the address, so the prebuilt 404 decides the same on
+ * the server and in the browser on any path: its segment is "/_not-found", which gets the public
+ * header and footer, even at /student/a-typo. Home's segment is null.
+ */
+export function ownsChrome(segment: string | null): boolean {
+  return segment !== null && OWN_CHROME.has(segment)
 }
 
 /**

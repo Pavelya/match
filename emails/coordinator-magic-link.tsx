@@ -19,6 +19,7 @@ import {
   Text
 } from '@react-email/components'
 import { EmailHeader } from '@/components/email/EmailHeader'
+import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 import { emailBrand } from '@/lib/brand/email'
 
 interface CoordinatorMagicLinkEmailProps {
@@ -43,8 +44,7 @@ export default function CoordinatorMagicLinkEmail({ url }: CoordinatorMagicLinkE
           <Text style={text}>Hello,</Text>
 
           <Text style={text}>
-            Click the button below to securely sign in to your IB Match Coordinator account. This
-            link will expire in 10 minutes.
+            {`Click the button below to securely sign in to your IB Match Coordinator account. This link will expire in ${SIGN_IN_LINK_LIFETIME}.`}
           </Text>
 
           <Section style={buttonContainer}>

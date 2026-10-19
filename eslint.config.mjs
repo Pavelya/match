@@ -3,6 +3,7 @@ import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
 import prettierConfig from 'eslint-config-prettier'
 import tseslint from '@typescript-eslint/eslint-plugin'
+import { NOT_STUDENT_FACING, TODAYS_DESIGN, rawPaletteRule } from './eslint/raw-palette.mjs'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -31,6 +32,12 @@ const eslintConfig = defineConfig([
       ],
       '@typescript-eslint/no-explicit-any': 'error'
     }
+  },
+  {
+    // No raw palette classes in student-facing code (rebranding 4.4; eslint/raw-palette.mjs)
+    files: ['app/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}', 'lib/**/*.{ts,tsx}'],
+    ignores: [...NOT_STUDENT_FACING, ...TODAYS_DESIGN],
+    rules: rawPaletteRule
   },
   {
     // Allow console in config files and scripts

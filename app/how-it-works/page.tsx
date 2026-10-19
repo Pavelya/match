@@ -10,6 +10,7 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
+import { NewHowItWorks } from './NewHowItWorks'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -138,8 +139,9 @@ function techArticleSchema(logo: string) {
 }
 
 export default async function HowItWorksPage() {
+  const newUi = await showsNewUi()
   // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
-  const logo = organizationLogo(baseUrl, await showsNewUi()).url
+  const logo = organizationLogo(baseUrl, newUi).url
   return (
     <>
       {/* WebPage schema */}
@@ -152,6 +154,15 @@ export default async function HowItWorksPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema(logo)) }}
       />
+      {newUi ? <NewHowItWorks /> : <TodaysHowItWorks />}
+    </>
+  )
+}
+
+/** Today's page, until release (rebranding 4.3) */
+function TodaysHowItWorks() {
+  return (
+    <>
       <main className="flex min-h-screen flex-col">
         <HowItWorksHero />
         <ProgramDatabase />

@@ -8,6 +8,7 @@ import { logger } from '@/lib/logger'
 import MagicLinkEmail from '@/emails/magic-link'
 import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
 import { prisma } from '@/lib/prisma'
+import { SIGN_IN_LINK_LIFETIME, SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
 
 /** How long a role claim in the JWT is trusted before being re-read. */
 const ROLE_REFRESH_MS = 5 * 60 * 1000
@@ -26,6 +27,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Resend({
       apiKey: env.RESEND_API_KEY,
       from: env.EMAIL_FROM,
+      // A link works for 10 minutes, as every text says (lib/auth/sign-in-link.ts)
+      maxAge: SIGN_IN_LINK_MAX_AGE,
       async sendVerificationRequest({ identifier: email, url, provider }) {
         try {
           // Check if this email belongs to a coordinator (existing user or pending invitation)
@@ -53,8 +56,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const html = await render(EmailTemplate({ url }))
 
           const text = isCoordinator
-            ? `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
-            : `Sign in to IB Match\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
+            ? `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in ${SIGN_IN_LINK_LIFETIME}.\n\nIf you didn't request this, you can safely ignore this email.`
+            : `Sign in to IB Match\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in ${SIGN_IN_LINK_LIFETIME}.\n\nIf you didn't request this, you can safely ignore this email.`
 
           const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',

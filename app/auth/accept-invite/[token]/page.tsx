@@ -8,6 +8,10 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { AcceptInviteForm } from '@/components/auth/AcceptInviteForm'
+import { CoordinatorInviteCard } from '@/components/invitation/islands'
+import { OutcomeCard } from '@/components/invitation/OutcomeCard'
+import { AuthPage } from '@/components/sign-in/AuthPage'
+import { showsNewUi } from '@/lib/new-ui'
 
 interface PageProps {
   params: Promise<{ token: string }>
@@ -16,10 +20,13 @@ interface PageProps {
 export default async function AcceptInvitePage({ params }: PageProps) {
   const { token } = await params
 
-  // Validate token
+  // Validate token: the invitation and its school, as today
   const invitation = await prisma.invitation.findUnique({
     where: { token },
-    include: {
+    select: {
+      email: true,
+      status: true,
+      expiresAt: true,
       school: {
         select: {
           id: true,
@@ -33,6 +40,44 @@ export default async function AcceptInvitePage({ params }: PageProps) {
       }
     }
   })
+
+  // The new design's card (rebranding 4.3, board "D4.16 School invitation"), in today's order:
+  // no such invitation, expired, accepted, cancelled (the 404)
+  if (await showsNewUi()) {
+    const outcome = !invitation
+      ? 'invalid'
+      : invitation.expiresAt < new Date()
+        ? 'expired'
+        : invitation.status === 'ACCEPTED'
+          ? 'accepted'
+          : null
+    if (!outcome && invitation?.status === 'CANCELLED') notFound()
+    return (
+      <AuthPage>
+        {outcome || !invitation ? (
+          <OutcomeCard
+            outcome={outcome ?? 'invalid'}
+            signInHref={outcome === 'accepted' ? '/auth/coordinator' : '/auth/signin'}
+            expiredText="This invitation has expired. Please contact your administrator for a new invitation."
+          />
+        ) : (
+          <CoordinatorInviteCard
+            token={token}
+            email={invitation.email}
+            school={
+              invitation.school
+                ? {
+                    name: invitation.school.name,
+                    place: `${invitation.school.city}, ${invitation.school.country.name}`,
+                    tier: invitation.school.subscriptionTier
+                  }
+                : null
+            }
+          />
+        )}
+      </AuthPage>
+    )
+  }
 
   // Token not found
   if (!invitation) {
