@@ -275,7 +275,7 @@ theme switch are in D1.4.
 | D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.17 For schools | None | **No board.** `/for-coordinators`, linked as "For schools" in the header and "For IB coordinators" in the footer on every page, in D4.14's text-page template. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. Built in 4.3, in its own pull request | |
-| D4.18 Emails | None. Their new header is on "D1.5 Logo: Lens" (row 9) | **No board.** The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails and "Account deleted". Each in a 600px desktop pane and at 390px, in a light and a dark mail app (Gmail, Outlook, Apple Mail), with images off; the real school's 56-character name, no coordinator or student name, and a long reply from support; the plain-text body beside each. Added 19 October 2026 (owner) | |
+| D4.18 Emails | None. Their new header is on "D1.5 Logo: Lens" (row 9) | **No board.** The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails, and "Account deleted" in its two versions, from Settings and by an admin (`MAINT_tasks.md` 5.24), with whether D4.11's "Your account is deleted" page mentions it. Each in a 600px desktop pane and at 390px, in a light and a dark mail app (Gmail, Outlook, Apple Mail), with images off; the real school's 56-character name, no coordinator or student name, and a long reply from support; the plain-text body beside each. Added 19 October 2026 (owner) | |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -309,7 +309,7 @@ merges into `main`, behind the preview switch.**
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
-| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3) |
+| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -2564,7 +2564,7 @@ switch (1.3). Added 19 October 2026 (owner).
 | Coordinator invitation | `emails/coordinator-invite.tsx` | `app/api/coordinator/team/invite/route.ts`, `app/api/admin/invite/route.ts` and its `resend/route.ts` | Coordinators | "You're invited to join {school} on IB Match", "Reminder: …" |
 | Support ticket received | `emails/ticket-created.tsx` | `lib/email/support-tickets.ts`, from `app/api/support/tickets/route.ts` | Whoever sent Contact or the coordinator support form | "Support Ticket {number} - We've Received Your Request" |
 | Support ticket resolved | `emails/ticket-resolved.tsx` | `lib/email/support-tickets.ts`, from `app/api/admin/support/[id]/route.ts` | The same | "Support Ticket {number} - Your Request Has Been Resolved" |
-| Account deleted | `emails/account-deleted.tsx` | `lib/email/account-emails.ts`, from `app/api/admin/students/[id]/route.ts` | A student an admin deletes | "Your IB Match Account Has Been Deleted" |
+| Account deleted | `emails/account-deleted.tsx` | `lib/email/account-emails.ts`, from `app/api/admin/students/[id]/route.ts`, and from `app/api/students/account/delete/route.ts` once `MAINT_tasks.md` 5.24 is done | A student an admin deletes, or who deletes their own account in Settings (5.24) | "Your IB Match Account Has Been Deleted" |
 
 Each template carries its own copy of the same styles: the system font stack, a #F5F5F7 page, a
 white 560px card, title-case headings at 28px bold, grey text, a centred button, and a footer with
@@ -2607,9 +2607,9 @@ plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB 
   on the web and on a phone, Outlook, and Apple Mail on iOS, light and dark. Only a real send shows
   how each app darkens them.
 
-**Found while checking, for the owner:** only an admin's deletion sends "Account deleted". A
-student who deletes their own account in Settings gets no email. Whether they should is a product
-decision, not part of this design.
+**"Account deleted" from Settings** (owner, 19 October 2026): today only an admin's deletion sends it.
+`MAINT_tasks.md` 5.24 sends it when a student deletes their own account, with words for that case.
+This task designs both versions, and does 5.24 for both designs if it is still open.
 
 ---
 

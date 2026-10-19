@@ -48,6 +48,7 @@ pull request, merged before the next starts.
 | any | Invited student sent to "Check your email" | 5.21 | small | **Done** (19 October 2026, rebranding build 16, both designs). After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
 | any | Invitation link for a student who already has an account | 5.22 | small | **Done** (19 October 2026, rebranding build 16, both designs). It was a dead end: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
 | any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
+| any | "Account deleted" email when a student deletes their own account | 5.24 | small | Only an admin's deletion sends it, and its words say an administrator did it. A student who deletes their account in Settings gets nothing. Rebranding build 22 (4.7) draws both versions and does this for both designs if it is still open |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -102,6 +103,7 @@ Phase 5 — quick wins
 - [x] 5.21 Send an invited student to "Check your email" after accepting (19 October 2026)
 - [x] 5.22 Let a student who already has an account accept an invitation (19 October 2026)
 - [x] 5.23 One h1 on the legal pages (19 October 2026)
+- [ ] 5.24 Send "Account deleted" when a student deletes their own account
 
 Phase 6 — dependency majors
 
@@ -1437,6 +1439,69 @@ localhost:3000/cookies | grep -o '<h1' | wc -l` prints 1.
 
 **Session size:** Tiny. Fold into any session. Rebranding 4.3 builds the new legal template with the
 same rule.
+
+---
+
+### 5.24 — Send "Account deleted" when a student deletes their own account
+
+**Outcome:** A student who deletes their account in Settings gets the "Account deleted" email at the
+address they signed in with, as a student an admin deletes already does, with words that say they did
+it. Added 19 October 2026 (owner).
+
+**Why:** `sendAccountDeletedEmail` (`lib/email/account-emails.ts`) is called only from the admin's
+route, `app/api/admin/students/[id]/route.ts`. The student's own route,
+`app/api/students/account/delete/route.ts`, deletes everything in one transaction and sends nothing,
+in both designs' Settings. So the student has no record of it, and nothing tells them if someone else
+did it from their signed-in browser. The template can't be sent as it is, either: it says the account
+"has been deleted by our platform administrator". Found 19 October 2026, writing rebranding 4.7.
+
+**Steps:**
+
+1. **The template says who deleted the account.** `AccountDeletedEmail` (`emails/account-deleted.tsx`)
+   takes `deletedBy: 'student' | 'admin'`; the admin's route passes `'admin'`, and its email stays byte
+   for byte as today. For the student: "This email confirms that you deleted your IB Match account in
+   Settings.", and "If you didn't do this, contact us straight away at support@ibmatch.com." in place
+   of "If you believe this was done in error…". The list of what was removed and the line about a new
+   account stay, and so does the subject. Today's look: the owner approves the words in the pull
+   request, and rebranding 4.7 redesigns both versions (D4.18).
+2. **Send it once the transaction has committed,** never inside it, so a deletion that rolls back
+   sends nothing. The transaction already reads the user's `email`; add `name: true` to that same
+   `select`, so there is no new read. Send inside `after()` from `next/server`
+   (`node_modules/next/dist/docs/01-app/03-api-reference/04-functions/after.md`): the response doesn't
+   wait for Resend, and Vercel doesn't stop the function before the send finishes.
+3. **A missing key or a failed send never fails the deletion.** The account is gone, and the dialog
+   says so. `lib/email/account-emails.ts` builds its client when the file loads, and `new Resend()`
+   throws without `RESEND_API_KEY`, so importing it into the student's route as it is would break
+   deletion wherever the key is unset. Build the client when sending (`getResendClient()` in
+   `lib/email/client.ts` already waits until it's called), and let `sendAccountDeletedEmail` log a
+   failure with the address redacted, as now.
+4. **The admin's route too:** it calls `sendAccountDeletedEmail` without waiting for it, then
+   answers, and Vercel may stop the function once the response is sent. Move that call into `after()`
+   as well.
+5. **Vitest.** In `app/api/students/account/delete/route.test.ts`, mock `@/lib/email/account-emails`
+   and `after` (run the callback at once): the send gets the address, the name and `'student'` after
+   the transaction has run; nothing is sent when the transaction throws; a failed send still answers
+   200. A render test for the template: the admin version byte for byte as on `main`, and the student
+   version with its own sentence and without the administrator's.
+
+**Must not:** send before the transaction commits, add a database read, or change what is deleted.
+The address stays in memory for the send only and out of the logs (redacted, as now).
+
+**Found while writing this, for the owner:** the email says "All your personal information has been
+permanently removed from our system", but the student's `Invitation` rows keep their address and name
+after either deletion (7.4 lists that nothing deletes invitation records). The words should be true:
+either delete those rows in the same transaction, or say what is kept. The owner decides; until then
+this task leaves the words about what was removed as they are.
+
+**Verify:** the tests. By hand, never on production data: on a throwaway local database, a student
+account at an address you own, then Delete in Settings, in today's design and in the preview. The
+email arrives once, with the student's words (one real email through Resend, with a live key and the
+owner's go-ahead). With `RESEND_API_KEY` unset, the deletion still succeeds and the log says the
+email wasn't sent.
+
+**Session size:** Small. Any session; before rebranding build 22 is best, so D4.18 draws both
+versions from approved words. Rebranding build 22 (4.7) does this task for both designs if it is
+still open.
 
 ---
 
