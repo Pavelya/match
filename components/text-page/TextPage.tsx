@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils'
  * approved 19 October 2026), built from the country guide's parts (D4.12): a hero in the 1240px
  * column, then sections on the paper divided by hairlines, each with today's label as an eyebrow
  * and today's big line as its h2, and D4.12's plain cards. No grey and white bands, no gradients,
- * no emoji. The requirements hub, How it works, FAQs, Contact and Support us share it. Server
- * components: none sends JavaScript of its own.
+ * no emoji. The requirements hub, How it works, FAQs, Contact, Support us and For schools (D4.17)
+ * share it. Server components: none sends JavaScript of its own.
  */
 
 const container = cn(containerClass, 'px-4 md:px-6')
@@ -125,12 +125,15 @@ const COLUMNS = { 3: 'lg:grid-cols-3', 4: 'lg:grid-cols-4' } as const
 export function CardGrid({
   cards,
   columns,
-  onPaper = false
+  onPaper = false,
+  textClassName
 }: {
   cards: TextCard[]
   columns: keyof typeof COLUMNS
   /** Cards on the paper, inside a section set on the surface */
   onPaper?: boolean
+  /** The speakable selector the page's JSON-LD names, as For schools' `.feature-description` */
+  textClassName?: string
 }) {
   return (
     <ul className={cn('grid gap-3 md:grid-cols-2 md:gap-4', COLUMNS[columns])}>
@@ -144,7 +147,7 @@ export function CardGrid({
         >
           {Icon && <SmallTile icon={Icon} />}
           <h3 className="text-h3">{title}</h3>
-          <p className="text-body text-muted-foreground">{text}</p>
+          <p className={cn(textClassName, 'text-body text-muted-foreground')}>{text}</p>
         </li>
       ))}
     </ul>

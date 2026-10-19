@@ -49,7 +49,6 @@ export const TODAYS_DESIGN = [
   'app/contact/page.tsx',
   'app/faqs/_components/**',
   'app/faqs/page.tsx',
-  // For schools until session 21 rebuilds it (D4.17)
   'app/for-coordinators/_components/**',
   'app/how-it-works/_components/**',
   'app/ib-university-requirements/RequirementsContent.tsx',

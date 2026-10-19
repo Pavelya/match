@@ -308,7 +308,7 @@ merges into `main`, behind the preview switch.**
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
-| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Gate complete 19 October 2026. One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read. Added 19 October 2026 (owner). After 16, before release day |
+| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
 | 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
@@ -342,7 +342,7 @@ Rows 3 and 4 can share a design session.
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
 | Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Done 19 October 2026, in row 16's design session: the list is on "D4.14 Legal pages", approved with it |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
-| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Design approved 19 October 2026 (two boards, row 21). After 16, before release day |
+| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
@@ -400,7 +400,7 @@ Phase 4 — Public pages
 
 - [x] 4.1 Home page (18 October 2026)
 - [x] 4.2 Country guides on one template (18 October 2026)
-- [x] 4.3 Other public pages (19 October 2026; For schools, `/for-coordinators`, follows in session 21)
+- [x] 4.3 Other public pages (19 October 2026; For schools, `/for-coordinators`, in session 21 the same day)
 - [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [ ] 4.6 The policy update banner
@@ -2510,6 +2510,22 @@ what the build settled:
   times included; the emails byte for byte; fonts 23.5 KB lighter on most pages (no Geist Mono);
   JavaScript 0.7 KB more on a plain page, up to 2.2 KB where links prefetch sign-in and the
   invitation (the error boundaries and the islands' loaders). CSS 32.9 KB of the 36 allowed.
+
+**Built 19 October 2026 (build 21),** For schools: every frame of both D4.17 boards compared with
+the build in the preview, on a production build. `app/for-coordinators/NewForCoordinators.tsx`
+sits beside today's components; the switch is in `page.tsx`, with the metadata and the JSON-LD
+outside it and today's `StudentFooter` in today's branch only. `CardGrid` takes a `textClassName`,
+which puts `.feature-description` on the four descriptions. What the build settled:
+
+- **The 52px button has a 17px label wherever it is called.** Primary and secondary set
+  `text-body` and the large size `text-body-l`. Through `cn()` the size won, but a page that calls
+  `buttonVariants()` itself kept both, and the stylesheet's order picked 15px. The size now sets the
+  text (`components/ds/button-variants.ts`), and a test checks that every variant and size has one
+  text size. Three buttons change, each to its approved board: For schools' call, and Support us'
+  "Support on Ko-fi" and "Open email to submit".
+- **Nothing changes for anyone else:** the same HTML on `/for-coordinators` and six other public
+  pages, the same route table with the same revalidate times, the same JavaScript and fonts, and CSS
+  34 bytes heavier, gzipped.
 
 ### 4.4 — Guard against raw palette classes
 
