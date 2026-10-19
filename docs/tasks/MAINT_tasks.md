@@ -50,6 +50,7 @@ pull request, merged before the next starts.
 | any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
 | any | "Account deleted" email when a student deletes their own account | 5.24 | small | Only an admin's deletion sends it, and its words say an administrator did it. A student who deletes their account in Settings gets nothing. Rebranding build 22 (4.7) draws both versions and does this for both designs if it is still open. Do with 5.25 |
 | any | Delete everything a student's account holds | 5.25 | small to medium | Decided 19 October 2026 (owner): "We need to delete all the info." Deleting an account leaves the student's invitations (address, name, school; 2 in production already belong to deleted accounts), their cached matches for 30 minutes and the shortlist count in their browser. One deletion for both routes. Do with 5.24 |
+| any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -106,6 +107,7 @@ Phase 5 — quick wins
 - [x] 5.23 One h1 on the legal pages (19 October 2026)
 - [ ] 5.24 Send "Account deleted" when a student deletes their own account
 - [ ] 5.25 Delete everything a student's account holds when it is deleted
+- [ ] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 
 Phase 6 — dependency majors
 
@@ -1577,6 +1579,51 @@ for that id or address, and the other student's invitation is still there.
 
 **Session size:** Small to medium. Do it in the same session as 5.24, in one pull request: the same
 two routes, the same `after()` and the same template.
+
+---
+
+### 5.26 — Send a signed-out coordinator to the coordinator sign-in, not a 404
+
+**Outcome:** A coordinator who opens `/coordinator`, or any page under it, while signed out lands on
+the coordinator sign-in, `/auth/coordinator`, signs in, and reaches their dashboard. Today they land
+on the 404.
+
+**Why:** `app/coordinator/layout.tsx` redirects a visitor with no session to
+`/auth/coordinator/signin`, and so do 13 of the pages under it, but no such route exists. The
+coordinator sign-in is `app/auth/coordinator/page.tsx`, at `/auth/coordinator`. Production, 19 October
+2026: `curl -s -o /dev/null -w '%{http_code} %{redirect_url}'` gives `307
+https://www.ibmatch.com/auth/coordinator/signin` for `/coordinator` and `/coordinator/dashboard`,
+then `404` for that address, and `200` for `/auth/coordinator`. Every other link to the coordinator
+sign-in already uses `/auth/coordinator` (the coordinator invitation cards, `app/auth/accept-invite`),
+and no public page links to the portal, so only a coordinator who types the address or keeps a
+bookmark reaches the 404. Found 19 October 2026, drawing rebranding D4.17 (For schools), whose board
+recommends a "Sign in to the coordinator portal" link to `/auth/coordinator`.
+
+**Steps:**
+
+1. Export one constant, `COORDINATOR_SIGN_IN_PATH = '/auth/coordinator'`, from
+   `lib/auth/callback-url.ts`, beside `INVITATIONS_PATH`.
+2. Use it in all 14 redirects: `grep -rln "auth/coordinator/signin" app` lists them (the layout,
+   `analytics`, `dashboard`, `settings`, `settings/subscription`, `students`, `students/invite`,
+   `students/[id]`, `students/[id]/edit`, `students/[id]/matches`, `students/[id]/matches/[programId]`,
+   `support`, `team` and `team/invite`). The pages' own checks run only after the layout's, but keep
+   them, pointing at the constant.
+3. Vitest for the layout, with `@/lib/auth/config` and `next/navigation` mocked (`redirect` throws, as
+   Next's does): with no session it redirects to `COORDINATOR_SIGN_IN_PATH` and reads no database
+   (`prisma` mocked, not called). The test also checks that `app/auth/coordinator/page.tsx` exists, so
+   the constant can't point at a missing route again.
+
+**Must not:** add a read to the layout or the sign-in page, or change where a signed-in student or
+admin is sent (`/`, as now). The coordinator sign-in keeps returning to `/coordinator/dashboard`:
+no email links deeper into the portal, so following a return path is not needed.
+
+**Verify:** the test, and `grep -rn "auth/coordinator/signin" app lib components` prints nothing.
+`npm run build`, then `npm start` (with `AUTH_TRUST_HOST=true`), then `curl -s -o /dev/null -w
+'%{redirect_url}' localhost:3000/coordinator/students` ends in `/auth/coordinator`, which answers
+200. After merging, the same `curl` on production.
+
+**Session size:** Tiny. Fold into any session. Independent of the rebranding: D4.17's link goes to
+`/auth/coordinator` directly.
 
 ---
 
