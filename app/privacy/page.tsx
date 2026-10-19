@@ -9,6 +9,7 @@ import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { MarkdownContent } from '@/components/shared/MarkdownContent'
 import { showsNewUi } from '@/lib/new-ui'
+import { LegalPage, updatedOn } from '@/components/legal/LegalPage'
 
 // ISR - page fetches CMS content and is cached for 1 hour
 export const revalidate = 3600
@@ -184,20 +185,33 @@ If you have questions about this Privacy Policy, please contact us:
 `
 
 export default async function PrivacyPolicyPage() {
-  const session = await auth()
-  const isLoggedIn = !!session
-  // The new design draws its own header and footer round this page (rebranding 1.5)
-  const newUi = await showsNewUi()
-
-  // Compute avatar values server-side
-  const avatarColor = session ? getAvatarColor(session.user?.email) : ''
-  const initial = session ? getAvatarInitial(session.user?.email, session.user?.name) : ''
-
   // Fetch content from CMS
   const cmsContent = await getPublishedDocument('PRIVACY_POLICY')
 
   // Use CMS content or fallback
   const content = cmsContent?.content || FALLBACK_CONTENT
+
+  // The new design (rebranding 4.3, board "D4.14 Legal pages"). It never asks for the session, so
+  // from release day, when it is the only design, the page is prebuilt with the hourly revalidate.
+  if (await showsNewUi()) {
+    return (
+      <LegalPage
+        kind="privacy"
+        markdown={content}
+        updated={updatedOn(cmsContent?.effectiveDate, '2025-12-09')}
+        version={cmsContent?.versionLabel ?? null}
+      />
+    )
+  }
+
+  // Today's design, until release: its header needs the session
+  const session = await auth()
+  const isLoggedIn = !!session
+
+  // Compute avatar values server-side
+  const avatarColor = session ? getAvatarColor(session.user?.email) : ''
+  const initial = session ? getAvatarInitial(session.user?.email, session.user?.name) : ''
+
   const lastUpdated = cmsContent?.effectiveDate
     ? new Date(cmsContent.effectiveDate).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -208,22 +222,20 @@ export default async function PrivacyPolicyPage() {
 
   return (
     <>
-      {!newUi && (
-        <StudentHeader
-          logo={<LegacyLogo size={48} priority />}
-          isLoggedIn={isLoggedIn}
-          user={
-            session
-              ? {
-                  image: session.user?.image,
-                  name: session.user?.name,
-                  avatarColor,
-                  initial
-                }
-              : null
-          }
-        />
-      )}
+      <StudentHeader
+        logo={<LegacyLogo size={48} priority />}
+        isLoggedIn={isLoggedIn}
+        user={
+          session
+            ? {
+                image: session.user?.image,
+                name: session.user?.name,
+                avatarColor,
+                initial
+              }
+            : null
+        }
+      />
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12">
           <h1 className="mb-2 text-3xl font-bold">Privacy Policy</h1>
@@ -239,7 +251,7 @@ export default async function PrivacyPolicyPage() {
         </div>
       </PageContainer>
       <StudentFooter />
-      {!newUi && <MobileBottomNav isLoggedIn={isLoggedIn} />}
+      <MobileBottomNav isLoggedIn={isLoggedIn} />
     </>
   )
 }
