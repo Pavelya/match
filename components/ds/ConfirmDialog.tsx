@@ -33,6 +33,12 @@ interface ConfirmDialogProps {
    * and the safe button is the primary.
    */
   danger?: boolean
+  /**
+   * The action is the next step, not a loss (accepting a school's invitation, D4.16): no warning
+   * icon, Cancel secondary on the left and the action the primary on the right. Focus still starts
+   * on Cancel.
+   */
+  affirm?: boolean
   /** What happens: a sentence, or a sentence and a short list */
   children: ReactNode
   /** A field between the text and the buttons: "Type DELETE to confirm" */
@@ -61,6 +67,7 @@ export function ConfirmDialog({
   onCancel,
   title,
   danger = false,
+  affirm = false,
   children,
   field,
   error,
@@ -107,10 +114,13 @@ export function ConfirmDialog({
   const visible = open && shown
   const size = 'h-12 w-full px-3 md:h-11 md:w-auto md:px-4.5'
 
+  // The safe button is the primary, on the right, unless the action deletes or is the next step:
+  // then the action takes the right
+  const actionLeads = danger || affirm
   const cancel = (
     <Button
       ref={safe}
-      variant={danger ? 'secondary' : 'primary'}
+      variant={actionLeads ? 'secondary' : 'primary'}
       disabled={busy}
       onClick={onCancel}
       className={size}
@@ -121,7 +131,7 @@ export function ConfirmDialog({
   const act = (
     <Button
       ref={action}
-      variant={danger ? 'danger' : 'secondary'}
+      variant={danger ? 'danger' : affirm ? 'primary' : 'secondary'}
       disabled={actionDisabled}
       loading={busy}
       loadingLabel={busyLabel}
@@ -195,8 +205,8 @@ export function ConfirmDialog({
           </p>
         )}
         <div className="grid grid-cols-2 gap-2.5 md:flex md:justify-end md:gap-2">
-          {danger ? cancel : act}
-          {danger ? act : cancel}
+          {actionLeads ? cancel : act}
+          {actionLeads ? act : cancel}
         </div>
       </div>
     </dialog>

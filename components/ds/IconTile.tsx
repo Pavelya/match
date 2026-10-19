@@ -10,7 +10,8 @@ import { cn } from '@/lib/utils'
 const TONE = {
   neutral: 'bg-muted text-muted-foreground',
   error: 'bg-gap-soft text-gap',
-  brand: 'bg-brand-soft text-brand-ink'
+  brand: 'bg-brand-soft text-brand-ink',
+  ok: 'bg-ok-soft text-ok'
 } as const
 
 export function IconTile({
