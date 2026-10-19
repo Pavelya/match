@@ -7,7 +7,8 @@ import { Button } from '@/components/ds/Button'
 import { ButtonLink } from '@/components/ds/ButtonLink'
 import { IconTile } from '@/components/ds/IconTile'
 import type { PageErrorProps } from '@/components/site/ErrorScreen'
-import { useErrorTitle } from '@/components/site/use-error-title'
+import { ERROR_TITLE } from '@/components/site/error-words'
+import { useTabTitle } from '@/components/site/use-tab-title'
 import { AuthCard, AuthPage, CardHeading } from './AuthPage'
 
 /*
@@ -20,7 +21,7 @@ export function AuthCrash({ retry }: PageErrorProps) {
   const id = useId()
   const heading = useRef<HTMLHeadingElement>(null)
 
-  useErrorTitle()
+  useTabTitle(ERROR_TITLE)
   useEffect(() => {
     heading.current?.focus()
   }, [])

@@ -12,7 +12,7 @@ import { PublicHeader } from './PublicHeader'
 import { SiteFooter } from './SiteFooter'
 import { SiteFrame } from './SiteFrame'
 import { ERROR_TEXT, ERROR_TITLE } from './error-words'
-import { useErrorTitle } from './use-error-title'
+import { useTabTitle } from './use-tab-title'
 
 /*
  * A page that failed while it rendered (rebranding 4.3, board "D4.15 404 and error pages",
@@ -55,7 +55,7 @@ function ErrorPanel({ error, retry, as: Root }: PageErrorProps & { as: 'main' | 
   const [trying, startTrying] = useTransition()
   const heading = useRef<HTMLHeadingElement>(null)
 
-  useErrorTitle()
+  useTabTitle(ERROR_TITLE)
   useEffect(() => {
     heading.current?.focus()
   }, [])
