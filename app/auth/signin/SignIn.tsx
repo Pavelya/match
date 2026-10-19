@@ -9,6 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import Link from 'next/link'
 import { Info, AlertCircle } from 'lucide-react'
 import { returnPath } from '@/lib/auth/callback-url'
+import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 
 interface SignInProps {
   logo: React.ReactNode
@@ -156,7 +157,8 @@ function SignInForm({ logo, followCallback = false }: SignInProps) {
               disabled={isLoading}
             />
             <p className="text-xs text-muted-foreground">
-              No password needed—we&apos;ll email you a secure link that expires in 10 minutes.
+              No password needed—we&apos;ll email you a secure link that expires in{' '}
+              {SIGN_IN_LINK_LIFETIME}.
             </p>
           </div>
           <Button type="submit" className="w-full" disabled={isLoading}>

@@ -19,6 +19,7 @@ import {
   Text
 } from '@react-email/components'
 import { EmailHeader } from '@/components/email/EmailHeader'
+import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 import { emailBrand } from '@/lib/brand/email'
 
 interface MagicLinkEmailProps {
@@ -43,8 +44,7 @@ export default function MagicLinkEmail({ url }: MagicLinkEmailProps) {
           <Text style={text}>Hello,</Text>
 
           <Text style={text}>
-            Click the button below to securely access IB Match. If this is your first time, your
-            account will be created automatically. This link expires in 10 minutes.
+            {`Click the button below to securely access IB Match. If this is your first time, your account will be created automatically. This link expires in ${SIGN_IN_LINK_LIFETIME}.`}
           </Text>
 
           <Section style={buttonContainer}>

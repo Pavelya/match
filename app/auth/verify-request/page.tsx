@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 
 export default function VerifyRequestPage() {
   return (
@@ -27,7 +28,7 @@ export default function VerifyRequestPage() {
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
             Click the link in the email to continue. If you&apos;re new, your account will be
-            created automatically. The link expires in 15 minutes.
+            created automatically. The link expires in {SIGN_IN_LINK_LIFETIME}.
           </p>
           <p className="text-xs text-muted-foreground">
             Don&apos;t see it? Check your spam folder. If you were invited as a coordinator and
