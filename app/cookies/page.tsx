@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 }
 
 // Hardcoded fallback content
-const FALLBACK_CONTENT = `# Cookie Policy
-
-## What Are Cookies?
+const FALLBACK_CONTENT = `## What Are Cookies?
 
 Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences and provide a better experience.
 

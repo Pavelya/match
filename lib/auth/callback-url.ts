@@ -11,3 +11,23 @@ export function returnPath(callbackUrl: string | null | undefined): string | nul
   if (/[\\\u0000-\u001f\u007f]/.test(callbackUrl)) return null
   return callbackUrl
 }
+
+/**
+ * School invitations. The new-account invitation link sends a student who already has an account
+ * here through sign-in (MAINT 5.22), so today's design follows this one return too.
+ */
+export const INVITATIONS_PATH = '/student/invitations'
+
+/**
+ * Where sign-in goes once signed in. The new design returns to the page that sent the visitor
+ * (rebranding 2.4); today's design goes to /student, except for School invitations. Deleted with
+ * today's sign-in at cleanup (R.2), when `returnPath(…) ?? '/student'` is all it needs.
+ */
+export function signInDestination(
+  callbackUrl: string | null | undefined,
+  followCallback: boolean
+): string {
+  const path = returnPath(callbackUrl)
+  if (followCallback) return path ?? '/student'
+  return path === INVITATIONS_PATH ? path : '/student'
+}

@@ -7,9 +7,11 @@
  * Part of Task 4.4: Student Invitation System
  */
 
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { AuthLogo } from '@/components/brand/AuthLogo'
+import { INVITATIONS_PATH } from '@/lib/auth/callback-url'
+import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { AcceptStudentInviteForm } from './AcceptStudentInviteForm'
 
@@ -128,6 +130,13 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
         </div>
       </div>
     )
+  }
+
+  // A student already signed in with the invited address accepts on School invitations, where the
+  // invitation is listed (MAINT 5.22). The session cookie, with no read.
+  const session = await auth()
+  if (session?.user?.email?.toLowerCase() === invitation.email.toLowerCase()) {
+    redirect(INVITATIONS_PATH)
   }
 
   return (

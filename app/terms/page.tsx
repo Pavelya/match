@@ -19,9 +19,7 @@ export const metadata: Metadata = {
 }
 
 // Hardcoded fallback content (used when CMS content is not available)
-const FALLBACK_CONTENT = `# Terms of Service
-
-## 1. Agreement to Terms
+const FALLBACK_CONTENT = `## 1. Agreement to Terms
 
 By accessing or using IB Match ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you disagree with any part of these terms, you may not access the Service.
 

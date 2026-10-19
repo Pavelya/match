@@ -8,14 +8,15 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { Info, AlertCircle } from 'lucide-react'
-import { returnPath } from '@/lib/auth/callback-url'
+import { signInDestination } from '@/lib/auth/callback-url'
 import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 
 interface SignInProps {
   logo: React.ReactNode
   /**
    * Return to the page that sent the visitor here (`callbackUrl`), as the new design's Save and
-   * "Sign in to check" expect (rebranding 2.4). Today's design keeps going to /student.
+   * "Sign in to check" expect (rebranding 2.4). Today's design keeps going to /student, except to
+   * School invitations (MAINT 5.22).
    */
   followCallback?: boolean
 }
@@ -24,7 +25,7 @@ function SignInForm({ logo, followCallback = false }: SignInProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const declineInvite = searchParams.get('declineInvite') === 'true'
-  const callbackUrl = (followCallback && returnPath(searchParams.get('callbackUrl'))) || '/student'
+  const callbackUrl = signInDestination(searchParams.get('callbackUrl'), followCallback)
 
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)

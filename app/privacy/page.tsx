@@ -19,9 +19,7 @@ export const metadata: Metadata = {
 }
 
 // Hardcoded fallback content
-const FALLBACK_CONTENT = `# Privacy Policy
-
-## 1. Introduction
+const FALLBACK_CONTENT = `## 1. Introduction
 
 IB Match ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our university program matching and guidance platform.
 
