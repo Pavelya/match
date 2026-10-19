@@ -48,7 +48,7 @@ pull request, merged before the next starts.
 | any | Invited student sent to "Check your email" | 5.21 | small | After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
 | any | Invitation link for a student who already has an account | 5.22 | small | A dead end today: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
 | any | One h1 on the legal pages | 5.23 | tiny | `/cookies` shows its title twice, as two h1s. Fold into any session |
-| before release day | Legal pages up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Research and drafts; the owner approves and publishes |
+| before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -118,7 +118,7 @@ Phase 7 — structural
 - [ ] 7.2 Collapse the 23 country landing pages: the content is one template since rebranding 4.2
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
-- [ ] 7.4 Review the legal pages and bring them up to date
+- [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 
 Owner tasks — not AI work
 
@@ -1968,11 +1968,12 @@ is its own session.
 
 ---
 
-### 7.4 — Review the legal pages and bring them up to date
+### 7.4 — Review the legal pages, and every claim the public pages make, and bring them up to date
 
 **Outcome:** The Privacy Policy, Terms of Service and Cookie Policy describe what IB Match does today,
 in the new design, with the providers it uses now and their current terms. Each has a version label
-that matches its date. The owner approves the words and publishes them.
+that matches its date. Every claim the public pages make about IB Match is true, or goes. The owner
+approves the words and publishes them.
 
 **Why:** The Terms and Privacy Policy were last published on 23 February 2026, the Cookie Policy is the
 text in code dated 26 December 2025, and the product has changed a great deal since: the redesign
@@ -1994,6 +1995,22 @@ text in code dated 26 December 2025, and the product has changed a great deal si
   days. Nothing does that: there is no scheduled job, and `scripts/cleanup-user-invitations.sql` is a
   manual script for one user. Build the deletion, or change the words.
 - **Emails.** All seven link to the Terms of Service as "Terms And Conditions".
+- **Claims on the public pages** (added by the owner, 19 October 2026). The rebranding keeps today's
+  words on its text pages (D4.14), so these reach the new design unchecked:
+  - Support us says "We're a non-profit initiative. No salaries, no fancy offices"
+    (`HowFundsAreUsed.tsx`), "Non-commercial project" and "100% goes to platform costs"
+    (`SupportHero.tsx`), while the Terms (6.2, 6.3) describe paid subscriptions for Regular schools
+    through Stripe. Check what IB Match is, legally, and what the money pays for, and say that.
+  - Support us marks the $15 tier "Most Popular" (`DonationOptions.tsx`), and gives a split of donations
+    (60% infrastructure, 20% search, 15% development, 5% growth): keep only what Ko-fi's figures or the
+    accounts support.
+  - How it works says "GDPR Compliant", "Your data is encrypted at rest and in transit"
+    (`TechStack.tsx`), and "Results in under 50 milliseconds" and "your search results update
+    instantly" (`ProgramDatabase.tsx`). Keep a claim only with evidence (the providers' encryption
+    pages, Algolia's measured latency, how the index sync works); "GDPR Compliant" is a legal
+    conclusion, so the owner decides it.
+  - How it works' "Filter system" lists countries, fields and IB points, but Explore now has Length,
+    "Only ones I qualify for" and programs with no IB minimum (rebranding 2.3).
 
 **Steps:**
 
@@ -2010,14 +2027,16 @@ text in code dated 26 December 2025, and the product has changed a great deal si
    age of digital consent each member state sets between 13 and 16; whether privacy@, legal@ and
    support@ are read; whether a lawyer reviews the drafts.
 4. **Draft** each document as a redline against the published version, with a list of what changed and
-   why. This is not legal advice; the owner decides.
+   why. For the public pages' claims, a table: the claim, where it is, the evidence found, and the
+   proposed words (or "remove"). This is not legal advice; the owner decides.
 5. **Publish, once approved.** The Terms and Privacy Policy through the admin's legal content
    (`/admin/legal-content`), each labelled with its effective date. A new published version shows "We've
    Updated Our Policies" to every signed-in user (`ReconsentChecker`), so publish after rebranding 4.6
    gives that banner its new design, or on release day, so students see it once and in the new design.
    The Cookie Policy: publish it in the admin, or change the text in code (keeping 5.23's one h1). Words
    that the redesign makes wrong change on release day, not before: today's banner has switches until
-   then.
+   then. The public pages' claims change in code, in both designs: today's components, and the new
+   design's text pages once build 16 has made them.
 
 **Must not:** publish anything the owner hasn't approved, or change a consent flow in code in the same
 pull request.
