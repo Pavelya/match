@@ -45,6 +45,10 @@ pull request, merged before the next starts.
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
 | any | One IB diploma rule for every role | 5.20 | medium | **Done** (18 October 2026). Students, coordinators and both APIs checked different subsets of the IB's rule, and the points floors were wrong for four Higher Level subjects. One check now, `checkDiploma` in `lib/ib/diploma.ts`, wherever grades are saved; the coordinator's typed total is gone. No saved profile changed status |
 | before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
+| any | Invited student sent to "Check your email" | 5.21 | small | After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
+| any | Invitation link for a student who already has an account | 5.22 | small | A dead end today: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
+| any | One h1 on the legal pages | 5.23 | tiny | `/cookies` shows its title twice, as two h1s. Fold into any session |
+| before release day | Legal pages up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -95,6 +99,9 @@ Phase 5 — quick wins
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
 - [x] 5.20 One IB diploma rule wherever grades are saved, by any role — `checkDiploma`; no saved profile changed status
+- [ ] 5.21 Send an invited student to "Check your email" after accepting
+- [ ] 5.22 Let a student who already has an account accept an invitation
+- [ ] 5.23 One h1 on the legal pages
 
 Phase 6 — dependency majors
 
@@ -111,6 +118,7 @@ Phase 7 — structural
 - [ ] 7.2 Collapse the 23 country landing pages: the content is one template since rebranding 4.2
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
+- [ ] 7.4 Review the legal pages and bring them up to date
 
 Owner tasks — not AI work
 
@@ -1323,6 +1331,101 @@ they change, so preferences alone still save.
 
 ---
 
+### 5.21 — Send an invited student to "Check your email" after accepting
+
+**Outcome:** A student who accepts a school invitation at `/auth/accept-student-invite/[token]` gets
+the sign-in link at the invited address straight away and lands on "Check your email", as the code
+intends. Today they land on the sign-in page with no word about the invitation and have to type their
+address again.
+
+**Why:** After the accept route (`app/api/auth/accept-student-invite/route.ts`) creates the account and
+links the school, `AcceptStudentInviteForm.tsx` calls `signIn('email', …)`. The provider is called
+`resend` (`lib/auth/config.ts`). next-auth 5's `signIn` (`node_modules/next-auth/react.js`) sends any
+provider it doesn't know to `/api/auth/signin?callbackUrl=…`, which redirects to `/auth/signin`, and
+the form's own `router.push('/auth/verify-request')` races that. The account and the school link are
+saved; only the next step is wrong. Found 19 October 2026, drawing rebranding D4.16.
+
+**Steps:**
+
+1. Call `signIn('resend', { email, callbackUrl: '/student/onboarding', redirect: false })`, as
+   `app/auth/signin/SignIn.tsx` does, and follow `result.url` with `window.location.href` as it does;
+   else go to `/auth/verify-request`. The email is the invitation's, from the server, as now.
+2. If the link can't be sent, the account already exists, so trying Accept again would fail with a
+   409. Say so instead: "Your account is ready, but we couldn't send the sign-in link. Sign in with
+   {email} to continue.", with a link to sign in.
+3. Vitest for the handler, with `next-auth/react` and `fetch` mocked: `signIn` gets `'resend'` and the
+   invited address; a failed send shows the message.
+
+**Must not:** change the accept route, or create an account twice.
+
+**Verify:** the test. By hand, never on production data: on a throwaway local database, an invitation
+row for an address you own, then Accept on the page. You reach "Check your email" and the link
+arrives (one real email through Resend).
+
+**Session size:** Small. Rebranding build 16 draws this step in the new card (D4.16) and does this
+task for both designs if it is still open.
+
+---
+
+### 5.22 — Let a student who already has an account accept an invitation
+
+**Outcome:** A student whose account already exists when they open the new-account link
+(`/auth/accept-student-invite/[token]`) is offered "Sign in to accept it", signs in, and lands on
+School invitations (`/student/invitations`), where the invitation is listed and can be accepted.
+
+**Why:** A coordinator who invites an address with no account sends the new-account link. If the
+student signs up on their own before opening it, Accept answers 409, "An account with this email
+already exists. Please sign in instead.", and after signing in the same link fails the same way.
+`/student/invitations` lists every pending invitation for the student's address and accepts it, but
+only the other invitation email links there. Found 19 October 2026, drawing rebranding D4.16.
+
+**Steps:**
+
+1. On the 409, show: "You already have an IB Match account with {email}. Sign in, and the invitation
+   will be waiting.", with the link "Sign in to accept it" to
+   `/auth/signin?callbackUrl=/student/invitations`.
+2. Sign-in follows `callbackUrl` only in the new design today (`followCallback`, rebranding 2.4).
+   Either let today's `SignIn.tsx` follow this one path too (still through `returnPath` in
+   `lib/auth/callback-url.ts`), or accept that today's students land on Matches until release. Decide
+   in the session; the first is a small change with a test.
+3. Optional, and no database read: the page already renders per request, so when the visitor is
+   signed in with the invited address, it can send them to `/student/invitations` at once
+   (`auth()` reads the session cookie).
+
+**Must not:** add a read of the user table to the page (the accept route already finds the account),
+or accept the invitation without the student's consent on School invitations.
+
+**Verify:** on a throwaway local database: an invitation for an address that has an account, the
+message and its link, sign in, School invitations lists it, Accept connects, and Settings shows the
+school.
+
+**Session size:** Small. Rebranding build 16 draws it in the new card (D4.16) and does this task for
+both designs if it is still open.
+
+---
+
+### 5.23 — One h1 on the legal pages
+
+**Outcome:** `/cookies` shows "Cookie Policy" once, as its one h1. `/privacy` and `/terms` do the same
+whenever they fall back to the text in code.
+
+**Why:** Each page draws its own `<h1>`, then renders its Markdown with `MarkdownContent`, and the
+fallback Markdown in code starts with its own `# Cookie Policy` (`# Privacy Policy`, `# Terms of
+Service`). No Cookie Policy is published in the admin, so production's `/cookies` has two h1s today.
+The published Privacy Policy and Terms start at "## 1.", so those pages are fine until a version is
+withdrawn. Found 19 October 2026 on rebranding "D4.14 Legal pages", which decided one h1.
+
+**Steps:** remove the first line, `# …`, from the three `FALLBACK_CONTENT` strings. The published
+documents have no such line, so nothing else changes.
+
+**Verify:** `npm run build`, `npm start` (with `AUTH_TRUST_HOST=true`), then `curl -s
+localhost:3000/cookies | grep -o '<h1' | wc -l` prints 1.
+
+**Session size:** Tiny. Fold into any session. Rebranding 4.3 builds the new legal template with the
+same rule.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -1862,6 +1965,65 @@ data. The file does not say what is left.
 is its own session.
 
 **Session size:** Small. Reading and writing, no code.
+
+---
+
+### 7.4 — Review the legal pages and bring them up to date
+
+**Outcome:** The Privacy Policy, Terms of Service and Cookie Policy describe what IB Match does today,
+in the new design, with the providers it uses now and their current terms. Each has a version label
+that matches its date. The owner approves the words and publishes them.
+
+**Why:** The Terms and Privacy Policy were last published on 23 February 2026, the Cookie Policy is the
+text in code dated 26 December 2025, and the product has changed a great deal since: the redesign
+(approved through 19 October 2026), new flows, and changes at the providers. Found on rebranding
+"D4.14 Legal pages" and its 4.5 list, 19 October 2026:
+
+- **Version labels.** Both published versions are labelled 2026-03-23 but take effect on 23 February
+  2026.
+- **Cookie Policy.** It names `next-auth.session-token`, `next-auth.csrf-token` and
+  `next-auth.callback-url`, Auth.js v4's names; v5 sets `authjs.session-token`, `authjs.csrf-token` and
+  `authjs.callback-url` (with `__Secure-` and `__Host-` prefixes over https). It says the banner's
+  Customize lets you "choose which categories to enable": today's banner has switches, but the new
+  one's Customize only informs (approved on rebranding D4.1). It leaves out the `cookie-consent` choice
+  (a cookie and a `localStorage` entry, kept a year) and `ibm-theme`, the new design's theme, in
+  `localStorage`.
+- **Privacy Policy, sub-processors.** It lists Vercel, Stripe, Resend, Algolia and Upstash, but not
+  Supabase, which holds the database and the images, or Google, which signs students in.
+- **Privacy Policy, retention.** It says expired or declined invitation records are deleted after 90
+  days. Nothing does that: there is no scheduled job, and `scripts/cleanup-user-invitations.sql` is a
+  manual script for one user. Build the deletion, or change the words.
+- **Emails.** All seven link to the Terms of Service as "Terms And Conditions".
+
+**Steps:**
+
+1. **What the product does now**, from the code: each role's data and where it goes, what the browser
+   keeps, what is deleted and when (account deletion runs in one transaction since rebranding 3.3), the
+   data export, the emails, and every consent flow (the sign-in line, the invitation's consent with "You
+   can unlink at any time in Settings.", the policy update banner).
+2. **What the providers ask for now**, from their current terms and data-processing pages, each cited
+   with the date read: Vercel, Supabase, Upstash, Algolia, Resend, Stripe and Google. Sub-processor
+   names and what they hold, regions, and the transfer mechanism each relies on (Standard Contractual
+   Clauses, the EU-US Data Privacy Framework). For Google sign-in, the Google API Services User Data
+   Policy and the privacy policy link on the OAuth consent screen. Note any change since February 2026.
+3. **Questions for the owner, not fixes:** the age line (13 and older) against GDPR Article 8, whose
+   age of digital consent each member state sets between 13 and 16; whether privacy@, legal@ and
+   support@ are read; whether a lawyer reviews the drafts.
+4. **Draft** each document as a redline against the published version, with a list of what changed and
+   why. This is not legal advice; the owner decides.
+5. **Publish, once approved.** The Terms and Privacy Policy through the admin's legal content
+   (`/admin/legal-content`), each labelled with its effective date. A new published version shows "We've
+   Updated Our Policies" to every signed-in user (`ReconsentChecker`), so publish after rebranding 4.6
+   gives that banner its new design, or on release day, so students see it once and in the new design.
+   The Cookie Policy: publish it in the admin, or change the text in code (keeping 5.23's one h1). Words
+   that the redesign makes wrong change on release day, not before: today's banner has switches until
+   then.
+
+**Must not:** publish anything the owner hasn't approved, or change a consent flow in code in the same
+pull request.
+
+**Session size:** Medium. Research and drafting in one session, then the owner. Before rebranding
+release day if possible, so the legal pages ship with correct words.
 
 ---
 
