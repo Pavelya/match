@@ -220,7 +220,7 @@ export function NewSupportUs() {
                   className="col-span-2 row-start-2 h-3 overflow-hidden rounded-[0.375rem] border border-transparent bg-border md:col-span-1 md:col-start-2 md:row-start-1"
                 >
                   <span
-                    className="block h-full rounded-[0.375rem] bg-primary forced-colors:bg-[CanvasText]"
+                    className="block h-full rounded-[0.375rem] bg-primary forced-colors:bg-[Highlight]"
                     style={{ width: `${share}%` }}
                   />
                 </span>

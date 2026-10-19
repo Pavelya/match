@@ -61,8 +61,9 @@ function programs(count: number): string {
 }
 
 const arrow = 'mt-0.5 shrink-0 text-ink-3'
+// In forced colours the cards keep their edge, and their words and arrows the text colour (D4.13)
 const cardLink =
-  'rounded-card border border-border bg-card text-foreground transition-colors duration-180 ease-standard hover:border-line-3 hover:bg-muted'
+  'rounded-card border border-border bg-card text-foreground transition-colors duration-180 ease-standard hover:border-line-3 hover:bg-muted forced-colors:text-[CanvasText] forced-colors:[&_svg]:text-[CanvasText]'
 
 export function NewRequirementsHub({ stats, countries, fields, faqs }: HubProps) {
   return (
