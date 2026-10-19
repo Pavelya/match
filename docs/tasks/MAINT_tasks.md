@@ -2008,7 +2008,8 @@ text in code dated 26 December 2025, and the product has changed a great deal si
 - **Privacy Policy, retention.** It says expired or declined invitation records are deleted after 90
   days. Nothing does that: there is no scheduled job, and `scripts/cleanup-user-invitations.sql` is a
   manual script for one user. Build the deletion, or change the words.
-- **Emails.** All seven link to the Terms of Service as "Terms And Conditions".
+- **Emails.** All seven link to the Terms of Service as "Terms And Conditions". Rebranding 4.7 names the
+  link after the page in the new design, from release day.
 - **Claims on the public pages** (added by the owner, 19 October 2026). The rebranding keeps today's
   words on its text pages (D4.14), so these reach the new design unchecked:
   - Support us says "We're a non-profit initiative. No salaries, no fancy offices"

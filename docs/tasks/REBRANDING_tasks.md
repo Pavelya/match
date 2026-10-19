@@ -202,8 +202,9 @@ requirements hub, the text and legal pages, the 404 and error pages and the scho
 list 4.5 asked for, and the owner approved all eight boards in chat with every recommendation: "D4.2
 Sign-in", "D4.13 Requirements hub", "D4.13 Requirements hub · phone", "D4.14 Text pages", "D4.14 Text
 pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Build
-16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Three tasks have
-no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October) and D4.17.
+16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Four tasks have
+no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October), D4.17 and D4.18
+(the emails, added by the owner on 19 October).
 
 ### Foundations
 
@@ -274,6 +275,7 @@ theme switch are in D1.4.
 | D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.17 For schools | None | **No board.** `/for-coordinators`, linked as "For schools" in the header and "For IB coordinators" in the footer on every page, in D4.14's text-page template. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. Built in 4.3, in its own pull request | |
+| D4.18 Emails | None. Their new header is on "D1.5 Logo: Lens" (row 9) | **No board.** The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails and "Account deleted". Each in a 600px desktop pane and at 390px, in a light and a dark mail app (Gmail, Outlook, Apple Mail), with images off; the real school's 56-character name, no coordinator or student name, and a long reply from support; the plain-text body beside each. Added 19 October 2026 (owner) | |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -307,6 +309,7 @@ merges into `main`, behind the preview switch.**
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
+| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3) |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -340,6 +343,7 @@ Rows 3 and 4 can share a design session.
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
+| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -398,6 +402,7 @@ Phase 4 — Public pages
 - [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [ ] 4.6 The policy update banner
+- [ ] 4.7 The emails
 
 Phase 5 — After the whole preview
 
@@ -2513,7 +2518,7 @@ list is on "D4.14 Legal pages" (canvas row 20). It adds no page to D4.14 beyond 
 | The FAQ about coordinators seeing a student's data | Redesigned in 4.3 | "D4.14 Text pages": today's answer |
 | Settings: the school link's date, Unlink, Download, Delete | Done in 3.3 | D4.11 |
 | The footer's Legal links | Done in 1.5 | D2.13 |
-| The seven emails' footer links | Switch at release (1.3) | Their look follows the brand; the words stay ("Terms And Conditions" for the Terms of Service: `MAINT_tasks.md` 7.4) |
+| The seven emails' footer links | Its own task, 4.7 (added 19 October 2026) | D4.18: the links named after the pages' titles. Until then they switch with the header at release (1.3) |
 | The coordinator portal's consent notice when inviting a student | Left as it is | The coordinator portal keeps today's design |
 | The admin's legal content editor | Left as it is | Staff only |
 
@@ -2540,6 +2545,71 @@ raw palette classes and title case, keeps showing for today's design. Added 18 O
   14). D2.16 decides the order. On a phone it sits above the tab bar, as the cookie banner does.
 - **A failed accept says so** and offers to try again; today it fails silently.
 - No emoji, real buttons and links, and the Definition of done.
+
+### 4.7 — The emails
+
+**Outcome:** The seven emails IB Match sends through Resend look and read like the new design, and
+switch to it on release day with the rest of the site. Today only their header and brand colour
+switch (1.3). Added 19 October 2026 (owner).
+
+**Design gate:** D4.18, approved ([Step 2](#step-2--design-first)).
+
+**What they are today** (19 October 2026):
+
+| Email | Template | Sent from | To | Subject |
+|---|---|---|---|---|
+| Sign-in link | `emails/magic-link.tsx` | `lib/auth/config.ts` | Students | "Sign in to IB Match" |
+| Coordinator sign-in link | `emails/coordinator-magic-link.tsx` | `lib/auth/config.ts` | Coordinators and admins | "Sign in to IB Match" |
+| Student invitation | `emails/student-invite.tsx` | `app/api/coordinator/students/invite/route.ts`, and `invite/resend/route.ts` for the reminder | Students, with or without an account | "You're invited to join {school} on IB Match", "{school} wants to connect with your IB Match account", "Reminder: …" |
+| Coordinator invitation | `emails/coordinator-invite.tsx` | `app/api/coordinator/team/invite/route.ts`, `app/api/admin/invite/route.ts` and its `resend/route.ts` | Coordinators | "You're invited to join {school} on IB Match", "Reminder: …" |
+| Support ticket received | `emails/ticket-created.tsx` | `lib/email/support-tickets.ts`, from `app/api/support/tickets/route.ts` | Whoever sent Contact or the coordinator support form | "Support Ticket {number} - We've Received Your Request" |
+| Support ticket resolved | `emails/ticket-resolved.tsx` | `lib/email/support-tickets.ts`, from `app/api/admin/support/[id]/route.ts` | The same | "Support Ticket {number} - Your Request Has Been Resolved" |
+| Account deleted | `emails/account-deleted.tsx` | `lib/email/account-emails.ts`, from `app/api/admin/students/[id]/route.ts` | A student an admin deletes | "Your IB Match Account Has Been Deleted" |
+
+Each template carries its own copy of the same styles: the system font stack, a #F5F5F7 page, a
+white 560px card, title-case headings at 28px bold, grey text, a centred button, and a footer with
+"© {year} IB Match. All rights reserved." and "Terms And Conditions · Privacy Policy". None has
+dark-mode styles, so each mail app darkens them its own way. Only the two sign-in emails send a
+plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB of HTML.
+
+**Must-haves:**
+
+- **One layout for all seven,** in `components/email/` beside `EmailHeader`: the page, the card, the
+  heading, text, the button, a details panel (a ticket's number, category and subject, the admin's
+  reply) and the footer. Each template keeps only its words. Colours are D1.1's tokens written as hex,
+  since mail apps don't read CSS variables.
+- **Readable in dark mail apps.** Gmail, Outlook and Apple Mail darken an email partly or fully: text
+  never sits on an image, the mark keeps its square (1.3), and the button and links keep WCAG AA in
+  each. Whether the emails carry dark colours of their own (`prefers-color-scheme`, which Apple Mail
+  reads and Gmail ignores) is D4.18's call.
+- **Words in the content style** (D4.14): sentence case in subjects, headings and buttons, no
+  exclamation marks, today's meaning. The button says what it does, as the sign-in card does, and
+  the sign-in link's lifetime still comes from `lib/auth/sign-in-link.ts`. Subjects are set in the
+  senders, so they switch with the same flag. The footer names its links after the pages' titles
+  ("Terms of Service", "Privacy Policy"); the legal words themselves are `MAINT_tasks.md` 7.4.
+- **A plain-text body for every email,** from the same words, for mail apps that show text and for
+  spam filters. The sign-in emails' hand-written ones move into the templates.
+- **Accessible:** `lang="en"`, one heading, the button a real link with its words, `alt=""` on the
+  mark beside the name, text at least 14px, and the link's address written out where an image-off
+  or plain-text reader needs it.
+- **Switches with `NEW_UI_FOR_EVERYONE` alone,** through `emailBrand()` (`lib/brand/email.ts`), as 1.3
+  does: emails reach students, so never through the owner's preview. Until release, all seven render
+  byte for byte as on `main`, subject and plain text included, and a Vitest test checks each one.
+- **No new reads.** The senders keep their queries, and the mark stays a file in `public/brand/`,
+  served by Vercel, never by Supabase.
+- Well under Gmail's 102 KB, past which it clips a message.
+
+**Checks:**
+
+- Every email in both designs in React Email's preview (`npm run email:dev`, and
+  `NEW_UI_FOR_EVERYONE=true npm run email:dev` for the new one), with screenshots beside D4.18.
+- One real send of each to the owner's own inboxes, with a live key and the owner's go-ahead: Gmail
+  on the web and on a phone, Outlook, and Apple Mail on iOS, light and dark. Only a real send shows
+  how each app darkens them.
+
+**Found while checking, for the owner:** only an admin's deletion sends "Account deleted". A
+student who deletes their own account in Settings gets no email. Whether they should is a product
+decision, not part of this design.
 
 ---
 
@@ -2628,7 +2698,7 @@ behind the preview switch, like every session before release.
    checklist done. So far: #127, three FAQ answers in the new design's words (D4.14). They change
    words both designs share, so they merge on this day and no earlier.
 4. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
-   rebuilds the static pages in the new design, and emails switch too, as does the bare page for a
+   rebuilds the static pages in the new design, and the emails switch too (1.3, 4.7), as does the bare page for a
    failed root layout (`app/global-error.tsx` reads the flag at build time). `npm run build` now
    lists `/privacy`, `/terms` and `/cookies` as Static, with a one-hour revalidate (4.3).
 5. Check every page logged out and logged in, light and dark, on a phone and on Windows.
