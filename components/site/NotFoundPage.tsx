@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { NotFoundSearch } from '@/components/detail/NotFoundPanel'
-import { NotFoundFrame } from './NotFoundFrame'
+import { NotFoundFrame } from './not-found-island'
 import { containerClass } from './styles'
 
 /*
