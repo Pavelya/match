@@ -124,7 +124,17 @@ const OWN_CHROME = new Set([
 ])
 
 export function hasOwnChrome(pathname: string): boolean {
-  return OWN_CHROME.has(pathname.split('/')[1] ?? '')
+  return ownsChrome(pathname.split('/')[1] ?? null)
+}
+
+/**
+ * The same, from the root layout's selected segment, as PublicFrame reads it (rebranding 4.3).
+ * The segment comes from the route tree, not the address, so the prebuilt 404 decides the same on
+ * the server and in the browser on any path: its segment is "/_not-found", which gets the public
+ * header and footer, even at /student/a-typo. Home's segment is null.
+ */
+export function ownsChrome(segment: string | null): boolean {
+  return segment !== null && OWN_CHROME.has(segment)
 }
 
 /**

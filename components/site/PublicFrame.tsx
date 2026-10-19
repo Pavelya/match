@@ -1,10 +1,11 @@
 'use client'
 
 import { lazy, Suspense, useSyncExternalStore, type ReactNode } from 'react'
-import { usePathname } from 'next/navigation'
+import { useSelectedLayoutSegment } from 'next/navigation'
 import { hasConsentChoice } from '@/lib/cookie-consent'
-import { hasOwnChrome } from './nav'
+import { ownsChrome } from './nav'
 import { PublicHeader } from './PublicHeader'
+import { SiteChromeContext } from './site-chrome'
 import { SiteFooter } from './SiteFooter'
 import { SiteFrame } from './SiteFrame'
 
@@ -19,18 +20,23 @@ const CookieBanner = lazy(() => import('./CookieBanner').then((m) => ({ default:
  * chrome.tsx, so only the new design downloads it.
  */
 export function PublicFrame({ children }: { children: ReactNode }) {
-  const pathname = usePathname()
+  // The segment, not the address, so the prebuilt 404 decides alike on the server and in the
+  // browser on every path (components/site/nav.ts, ownsChrome)
+  const ownChrome = ownsChrome(useSelectedLayoutSegment())
   const asksForCookies = useAsksForCookies()
   return (
     <>
-      {hasOwnChrome(pathname) ? (
-        children
-      ) : (
-        // Today's public pages bring their own <main>, so the frame's is a plain block
-        <SiteFrame header={<PublicHeader />} footer={<SiteFooter />} mainElement="div">
-          {children}
-        </SiteFrame>
-      )}
+      {/* The 404 and error pages read which chrome they are in (site-chrome.ts) */}
+      <SiteChromeContext value={ownChrome ? 'own' : 'public'}>
+        {ownChrome ? (
+          children
+        ) : (
+          // Today's public pages bring their own <main>, so the frame's is a plain block
+          <SiteFrame header={<PublicHeader />} footer={<SiteFooter />} mainElement="div">
+            {children}
+          </SiteFrame>
+        )}
+      </SiteChromeContext>
       {/* Every page, this frame or not, and it stays mounted through navigation (D4.1) */}
       {asksForCookies && (
         <Suspense fallback={null}>
