@@ -48,6 +48,8 @@ pull request, merged before the next starts.
 | any | Invited student sent to "Check your email" | 5.21 | small | **Done** (19 October 2026, rebranding build 16, both designs). After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
 | any | Invitation link for a student who already has an account | 5.22 | small | **Done** (19 October 2026, rebranding build 16, both designs). It was a dead end: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
 | any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
+| any | "Account deleted" email when a student deletes their own account | 5.24 | small | Only an admin's deletion sends it, and its words say an administrator did it. A student who deletes their account in Settings gets nothing. Rebranding build 22 (4.7) draws both versions and does this for both designs if it is still open. Do with 5.25 |
+| any | Delete everything a student's account holds | 5.25 | small to medium | Decided 19 October 2026 (owner): "We need to delete all the info." Deleting an account leaves the student's invitations (address, name, school; 2 in production already belong to deleted accounts), their cached matches for 30 minutes and the shortlist count in their browser. One deletion for both routes. Do with 5.24 |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -102,6 +104,8 @@ Phase 5 — quick wins
 - [x] 5.21 Send an invited student to "Check your email" after accepting (19 October 2026)
 - [x] 5.22 Let a student who already has an account accept an invitation (19 October 2026)
 - [x] 5.23 One h1 on the legal pages (19 October 2026)
+- [ ] 5.24 Send "Account deleted" when a student deletes their own account
+- [ ] 5.25 Delete everything a student's account holds when it is deleted
 
 Phase 6 — dependency majors
 
@@ -1440,6 +1444,142 @@ same rule.
 
 ---
 
+### 5.24 — Send "Account deleted" when a student deletes their own account
+
+**Outcome:** A student who deletes their account in Settings gets the "Account deleted" email at the
+address they signed in with, as a student an admin deletes already does, with words that say they did
+it. Added 19 October 2026 (owner).
+
+**Why:** `sendAccountDeletedEmail` (`lib/email/account-emails.ts`) is called only from the admin's
+route, `app/api/admin/students/[id]/route.ts`. The student's own route,
+`app/api/students/account/delete/route.ts`, deletes everything in one transaction and sends nothing,
+in both designs' Settings. So the student has no record of it, and nothing tells them if someone else
+did it from their signed-in browser. The template can't be sent as it is, either: it says the account
+"has been deleted by our platform administrator". Found 19 October 2026, writing rebranding 4.7.
+
+**Steps:**
+
+1. **The template says who deleted the account.** `AccountDeletedEmail` (`emails/account-deleted.tsx`)
+   takes `deletedBy: 'student' | 'admin'`; the admin's route passes `'admin'`, and its email stays byte
+   for byte as today. For the student: "This email confirms that you deleted your IB Match account in
+   Settings.", and "If you didn't do this, contact us straight away at support@ibmatch.com." in place
+   of "If you believe this was done in error…". The list of what was removed and the line about a new
+   account stay, and so does the subject. Today's look: the owner approves the words in the pull
+   request, and rebranding 4.7 redesigns both versions (D4.18).
+2. **Send it once the transaction has committed,** never inside it, so a deletion that rolls back
+   sends nothing. The transaction already reads the user's `email`; add `name: true` to that same
+   `select`, so there is no new read. Send inside `after()` from `next/server`
+   (`node_modules/next/dist/docs/01-app/03-api-reference/04-functions/after.md`): the response doesn't
+   wait for Resend, and Vercel doesn't stop the function before the send finishes.
+3. **A missing key or a failed send never fails the deletion.** The account is gone, and the dialog
+   says so. `lib/email/account-emails.ts` builds its client when the file loads, and `new Resend()`
+   throws without `RESEND_API_KEY`, so importing it into the student's route as it is would break
+   deletion wherever the key is unset. Build the client when sending (`getResendClient()` in
+   `lib/email/client.ts` already waits until it's called), and let `sendAccountDeletedEmail` log a
+   failure with the address redacted, as now.
+4. **The admin's route too:** it calls `sendAccountDeletedEmail` without waiting for it, then
+   answers, and Vercel may stop the function once the response is sent. Move that call into `after()`
+   as well.
+5. **Vitest.** In `app/api/students/account/delete/route.test.ts`, mock `@/lib/email/account-emails`
+   and `after` (run the callback at once): the send gets the address, the name and `'student'` after
+   the transaction has run; nothing is sent when the transaction throws; a failed send still answers
+   200. A render test for the template: the admin version byte for byte as on `main`, and the student
+   version with its own sentence and without the administrator's.
+
+**Must not:** send before the transaction commits, add a database read, or change what is deleted.
+The address stays in memory for the send only and out of the logs (redacted, as now).
+
+**Decided 19 October 2026 (owner):** the email says "All your personal information has been
+permanently removed from our system", but the student's `Invitation` rows outlived either
+deletion. Delete it all: 5.25 deletes the invitations, the cached matches and the browser's
+shortlist count, so the words are true. Do the two in one session.
+
+**Verify:** the tests. By hand, never on production data: on a throwaway local database, a student
+account at an address you own, then Delete in Settings, in today's design and in the preview. The
+email arrives once, with the student's words (one real email through Resend, with a live key and the
+owner's go-ahead). With `RESEND_API_KEY` unset, the deletion still succeeds and the log says the
+email wasn't sent.
+
+**Session size:** Small. Any session; before rebranding build 22 is best, so D4.18 draws both
+versions from approved words. Rebranding build 22 (4.7) does this task for both designs if it is
+still open.
+
+---
+
+### 5.25 — Delete everything a student's account holds when it is deleted
+
+**Outcome:** When a student deletes their account in Settings, or an admin deletes it, nothing about
+them is left in IB Match's database, its cache or the browser they deleted it from. So the "Account
+deleted" email's "All your personal information has been permanently removed from our system" is
+true. Decided 19 October 2026 (owner): "We need to delete all the info."
+
+**Why:** Both routes delete the user, the profile with its subjects and saved programs, sessions,
+sign-in accounts, sign-in links and support tickets: the student's route
+(`app/api/students/account/delete/route.ts`) through the schema's cascade, the admin's
+(`app/api/admin/students/[id]/route.ts`) one table at a time. Neither deletes:
+
+- **The student's invitations.** `Invitation` rows keep the address, the name the coordinator typed
+  (`studentName`), the school, the consent flag and when it was accepted. They are found by address,
+  not by user, so no cascade reaches them. Production, 19 October 2026 (an aggregate): 8 accepted
+  student invitations, 2 of them for an address that no longer has an account, both with a name. Those
+  are students who already deleted their accounts.
+- **Their cached matches.** The Matches route keeps each student's results in Upstash for 30 minutes
+  (`lib/matching/cache.ts`: keys starting `match:`, `matches:` and `matchesV10:`, then the user's id).
+  They expire, but until then they outlive the account.
+- **The shortlist count in the browser** (`shortlist-count` in `localStorage`, the new design's nav,
+  `lib/shortlist/count.ts`): the student's id and a number, left in the browser they deleted from.
+
+And the two routes have drifted: the admin's runs its deletes one at a time, outside a transaction, so
+a failure part-way leaves part of the account, and it lists support tickets where the student's route
+relies on the cascade.
+
+**Steps:**
+
+1. **One deletion for both routes:** `deleteStudentAccount(tx, userId)` in
+   `lib/account/delete-student.ts`, run inside `prisma.$transaction` by both. Its first `select` reads
+   the email and name (5.24 sends the email with them); then it deletes in the order the student's
+   route uses today, support tickets included by name rather than through the cascade.
+2. **The student's invitations, in the same transaction:** every `Invitation` with `role: 'STUDENT'`
+   for the address, any status, any school. The invite routes store the address lower-cased
+   (`normalizedEmail`) or as the account has it (an invitation to an existing account), so match it
+   without case. A coordinator's pending list loses an open invitation to that address, which is right:
+   nobody is left to accept it, and they can invite again.
+3. **The cached matches,** with `invalidateStudentCache(userId)` once the transaction has committed,
+   in the same `after()` as 5.24's email. It already catches and logs its own failures, so it never
+   fails the deletion, and every profile save already runs it, so the cost is not new.
+4. **The shortlist count:** the new design's Settings removes it once the deletion succeeds, before
+   `signOutAfterDeleting()`, through a helper beside `writeShortlistCount`. Today's design never
+   writes it.
+5. **The email's list says what went** (`emails/account-deleted.tsx`, with 5.24): add "Your link to
+   your school, and any school invitations sent to you". The owner approves the words in the pull
+   request.
+6. **The two invitations already left behind,** once, after the code is merged: a script in
+   `scripts/` counts accepted student invitations whose address no account has (an aggregate), and
+   deletes them only with `--apply`. Only accepted ones: a pending or expired invitation to an address
+   with no account may be someone who never signed up (7.4's 90 days covers those). **The delete runs
+   on production only with the owner's explicit approval, after a backup** (`AGENTS.md`).
+7. **Vitest** for `deleteStudentAccount`, with the transaction client mocked: every table, the
+   invitations by address without case and only `role: 'STUDENT'`, everything through `tx`, in order.
+   Both routes call it, the cache is cleared after the commit, and a cache failure still answers 200.
+
+**Must not:** touch another person's data (only this address's student invitations), add a read to
+any page, or write to production without the owner's approval and a backup.
+
+**Outside the database, for the Privacy Policy (7.4):** Resend's log of the emails it sent, Vercel's
+logs, and any backups Supabase keeps each last as long as their provider keeps them. This task can't
+delete them; the policy should say how long that is.
+
+**Verify:** the tests. By hand, never on production data: on a throwaway local database, a student
+with a profile, subjects, saved programs, a support ticket, an accepted invitation and a pending one
+from a second school, and another student invited by the same school. Delete the first in Settings,
+in today's design and in the preview, and again through the admin. Afterwards every table has no row
+for that id or address, and the other student's invitation is still there.
+
+**Session size:** Small to medium. Do it in the same session as 5.24, in one pull request: the same
+two routes, the same `after()` and the same template.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -2007,8 +2147,10 @@ text in code dated 26 December 2025, and the product has changed a great deal si
   Supabase, which holds the database and the images, or Google, which signs students in.
 - **Privacy Policy, retention.** It says expired or declined invitation records are deleted after 90
   days. Nothing does that: there is no scheduled job, and `scripts/cleanup-user-invitations.sql` is a
-  manual script for one user. Build the deletion, or change the words.
-- **Emails.** All seven link to the Terms of Service as "Terms And Conditions".
+  manual script for one user. Build the deletion, or change the words. (A student's own
+  invitations go when their account is deleted: 5.25. This is the 90 days for everyone else's.)
+- **Emails.** All seven link to the Terms of Service as "Terms And Conditions". Rebranding 4.7 names the
+  link after the page in the new design, from release day.
 - **Claims on the public pages** (added by the owner, 19 October 2026). The rebranding keeps today's
   words on its text pages (D4.14), so these reach the new design unchecked:
   - Support us says "We're a non-profit initiative. No salaries, no fancy offices"
