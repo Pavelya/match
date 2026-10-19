@@ -14,6 +14,13 @@ import { cn } from '@/lib/utils'
 
 const onLimeButton = cn(buttonBase, 'h-13 gap-2.5 px-6 text-body-l focus-visible:outline-on-lime')
 
+/** The band's ink button, for a page whose band does something else (Support us, D4.14) */
+export const onLimeInkButton = cn(
+  onLimeButton,
+  // A transparent edge, which forced colours draw
+  'border-transparent bg-on-lime font-semibold text-on-ink hover:opacity-80'
+)
+
 // Side by side from 768px on Home; a guide's longer Explore label needs 1024px
 const ROW = {
   md: 'md:flex-row md:items-center md:justify-between md:gap-12',
@@ -24,12 +31,23 @@ interface LimeBandProps {
   id: string
   heading: string
   children: ReactNode
-  /** The outlined second action: Explore, all of it or one country */
-  explore: { href: string; label: string }
   rowFrom?: keyof typeof ROW
 }
 
-export function LimeBand({ id, heading, children, explore, rowFrom = 'md' }: LimeBandProps) {
+type LimeBandActions =
+  /** Get my matches, then the outlined second action: Explore, all of it or one country */
+  | { explore: { href: string; label: string }; actions?: never }
+  /** Its own, as Support us' Ko-fi button (D4.14) */
+  | { actions: ReactNode; explore?: never }
+
+export function LimeBand({
+  id,
+  heading,
+  children,
+  explore,
+  actions,
+  rowFrom = 'md'
+}: LimeBandProps & LimeBandActions) {
   return (
     <section aria-labelledby={id} className="border-y border-transparent bg-lime text-on-lime">
       <div
@@ -46,28 +64,26 @@ export function LimeBand({ id, heading, children, explore, rowFrom = 'md' }: Lim
           {children}
         </div>
         <div className="flex shrink-0 flex-col gap-2.5 md:flex-row md:gap-3">
-          <Link
-            href="/student"
-            className={cn(
-              onLimeButton,
-              // A transparent edge, which forced colours draw
-              'border-transparent bg-on-lime font-semibold text-on-ink hover:opacity-80'
-            )}
-          >
-            Get my matches
-            <ArrowRight aria-hidden="true" size={18} strokeWidth={2} />
-          </Link>
-          <Link
-            href={explore.href}
-            className={cn(
-              onLimeButton,
-              // A long country name wraps on a phone rather than overflowing the button
-              'h-auto min-h-13 py-3 text-center whitespace-normal',
-              'border-current bg-transparent font-medium text-on-lime underline-offset-3 hover:underline'
-            )}
-          >
-            {explore.label}
-          </Link>
+          {actions ??
+            (explore && (
+              <>
+                <Link href="/student" className={onLimeInkButton}>
+                  Get my matches
+                  <ArrowRight aria-hidden="true" size={18} strokeWidth={2} />
+                </Link>
+                <Link
+                  href={explore.href}
+                  className={cn(
+                    onLimeButton,
+                    // A long country name wraps on a phone rather than overflowing the button
+                    'h-auto min-h-13 py-3 text-center whitespace-normal',
+                    'border-current bg-transparent font-medium text-on-lime underline-offset-3 hover:underline'
+                  )}
+                >
+                  {explore.label}
+                </Link>
+              </>
+            ))}
         </div>
       </div>
     </section>
