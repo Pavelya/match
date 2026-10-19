@@ -158,7 +158,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 19 October 2026.** The canvas has 91 boards. The owner approved in chat "B ·
+**Where it stands, 19 October 2026.** The canvas has 93 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -202,9 +202,11 @@ requirements hub, the text and legal pages, the 404 and error pages and the scho
 list 4.5 asked for, and the owner approved all eight boards in chat with every recommendation: "D4.2
 Sign-in", "D4.13 Requirements hub", "D4.13 Requirements hub · phone", "D4.14 Text pages", "D4.14 Text
 pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Build
-16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Four tasks have
-no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October), D4.17 and D4.18
-(the emails, added by the owner on 19 October).
+16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Later that day
+row 21 drew For schools on desktop and phone, and the owner approved both boards in chat with every
+recommendation: "D4.17 For schools" and "D4.17 For schools · phone". Build 21's gate is complete.
+Three tasks have no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October)
+and D4.18 (the emails, added by the owner on 19 October).
 
 ### Foundations
 
@@ -274,7 +276,7 @@ theme switch are in D1.4.
 | D4.14 Text pages | "D4.14 Text pages" and "D4.14 Text pages · phone" (row 20): How it works, FAQs, Contact (signed in and out, the form in every state, sent) and Support us, light, dark and forced colours. "D4.14 Legal pages" (row 20): Privacy whole, Terms and Cookies, desktop and phone, light, dark and forced colours, then the 4.5 list. **Decided 19 October 2026 (owner), every recommendation:** one text-page template; today's words with the content style (sentence case, no exclamation marks in headings or buttons, no "perfect"); How it works' four categories become the three statuses; FAQs collapsed, then "Still have questions?"; three FAQ answers change on release day (PR #127, label `go-live`); Contact shows the signed-in header to a signed-in student; Contact's categories are radio rows, errors on press; Support us keeps every section; one legal template with "On this page", the version and its date under the h1, links between the three, the numbered headings in Geist; one h1 on /cookies; the legal pages prebuilt in the new design; For schools added as D4.17. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
-| D4.17 For schools | None | **No board.** `/for-coordinators`, linked as "For schools" in the header and "For IB coordinators" in the footer on every page, in D4.14's text-page template. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. Built in 4.3, in its own pull request | |
+| D4.17 For schools | "D4.17 For schools" and "D4.17 For schools · phone" (row 21): `/for-coordinators` whole at 1440px and 390px, light and dark, keyboard focus on the call and on the portal link, forced colours, Menu open with For schools current, and today's illustration kept, for comparison. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. **Decided 19 October 2026 (owner), every recommendation:** D4.14's text-page template, today's words in the content style; one label for the one call, "Schedule a 15-minute call", Calendly in a new tab; the illustration goes; "Sign in to the coordinator portal" beside the call, to /auth/coordinator; headings in order ("Why partner with us?" an eyebrow, "Coordinator dashboard" an h2, today's h4 a note); the four quotes in one panel and "How IB Match helps" in plain bullets; the dashboard's features as D4.14's cards, "Early adopter benefit" the guides' note; the dashboard's words and the founder story reworded before release (`MAINT_tasks.md` 7.4); the portal's sign-in redirect fixed (5.26). Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.18 Emails | None. Their new header is on "D1.5 Logo: Lens" (row 9) | **No board.** The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails, and "Account deleted" in its two versions, from Settings and by an admin (`MAINT_tasks.md` 5.24), with whether D4.11's "Your account is deleted" page mentions it. Each in a 600px desktop pane and at 390px, in a light and a dark mail app (Gmail, Outlook, Apple Mail), with images off; the real school's 56-character name, no coordinator or student name, and a long reply from support; the plain-text body beside each. Added 19 October 2026 (owner) | |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
@@ -306,7 +308,7 @@ merges into `main`, behind the preview switch.**
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
-| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Added 19 October 2026 (owner). After 16, before release day |
+| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Gate complete 19 October 2026. One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read. Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
 | 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
@@ -340,7 +342,7 @@ Rows 3 and 4 can share a design session.
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
 | Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Done 19 October 2026, in row 16's design session: the list is on "D4.14 Legal pages", approved with it |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
-| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Added 19 October 2026 (owner). After 16, before release day |
+| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Design approved 19 October 2026 (two boards, row 21). After 16, before release day |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
@@ -2337,8 +2339,8 @@ the legal pages, sign-in, the school invitation pages, and the 404 and error pag
 design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
 
 **Design gate:** D4.2 and D4.13 to D4.16, approved 19 October 2026 ([Step 2](#step-2--design-first)).
-For schools (`/for-coordinators`) waits for D4.17 and lands in its own pull request (session 21). The
-legal pages are `/privacy`, `/terms` and `/cookies`, settled by
+For schools (`/for-coordinators`), D4.17, approved 19 October 2026, lands in its own pull request
+(session 21). The legal pages are `/privacy`, `/terms` and `/cookies`, settled by
 [4.5](#45--policy-and-privacy-pages-what-the-redesign-covers-research).
 
 **Must-haves:** the FAQs page's structured data and its visible questions keep coming from one list
@@ -2439,10 +2441,39 @@ holds the full words; these are what the build must do.
   reference: {digest}." when there is a digest; focus moves to the h1. `app/global-error.tsx`: the
   logo, the same words and Try again, light or dark from the system. `AuthErrorBoundary`: D4.2's card,
   today's words.
+- **For schools (D4.17, session 21).** Approved 19 October 2026, every recommendation; canvas row 21,
+  "D4.17 For schools" and its phone board. `/for-coordinators` on `components/text-page/`, prebuilt as
+  today (`force-static`, the hourly revalidate), with no read. The metadata and the WebPage JSON-LD stay
+  in `page.tsx`, outside the switch; the page's own `StudentFooter` stays in today's branch only, since
+  the chrome draws the footer. For schools is current in the header and "For IB coordinators" in the
+  footer, as `components/site/nav.ts` already marks them.
+  - The hero: "Partner with us" as the eyebrow; the h1 "Help your students navigate university
+    admissions with confidence", no word in blue; today's intro. Then "Schedule a 15-minute call", the
+    primary button, to today's Calendly link in a new tab with the external-link icon and "(opens in a
+    new tab)", and beside it "Sign in to the coordinator portal" to `/auth/coordinator`. No
+    illustration: `/images/landing/coordinator-hero.png` stays for today's design until R.2.
+  - "Built by former IB students who understand your challenges" (h2) with today's three paragraphs,
+    the last in ink.
+  - "Why partner with us?" as the eyebrow over today's big line, "Managing university guidance
+    shouldn't be another overwhelming task", the h2. Two columns from 1024px: "What we hear from
+    coordinators" (h3), the four quotes as blockquotes in one panel, hairlines between, a serif quote
+    mark, not in italics; "How IB Match helps" (h3), plain bullets, then the guides' note led by "We
+    need coordinator expertise to build this right."
+  - "Coordinator dashboard", the h2 (a paragraph today), with today's sentence; four cards, four to a
+    row from 1024px, with Lucide ChartColumn, Users, Upload and FileText in a sunken tile and the
+    titles in sentence case; then the note "Early adopter benefit: …".
+  - Home's lime band: "Ready to help shape IB Match?", today's paragraph and the same call.
+  - Everything but the band in an `<article>`, and the four descriptions carry `.feature-description`,
+    so the JSON-LD's speakable selectors (h1, h2, `.feature-description`, `article p`) find text; today
+    only h1 and h2 match.
+  - On a phone, one column; the call full width with the link under it.
+  - The words are today's, as on the board. Their rewording is `MAINT_tasks.md` 7.4, in both designs,
+    before release day.
 
 **Found on the boards, outside this task:** `MAINT_tasks.md` 5.21 (the invitation's sign-in provider),
 5.22 (the dead end for a student with an account), 5.23 (two h1s on /cookies) and 7.4 (bring the
-legal pages up to date).
+legal pages up to date). On D4.17: 5.26 (the portal sends a signed-out coordinator to a 404) and For
+schools' claims, added to 7.4.
 
 **Built 19 October 2026 (build 16),** every board state compared with its frame on a production
 build. Where it lives: `components/sign-in/` and `components/invitation/` (the cards, client ones as

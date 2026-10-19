@@ -2214,6 +2214,15 @@ text in code dated 26 December 2025, and the product has changed a great deal si
     conclusion, so the owner decides it.
   - How it works' "Filter system" lists countries, fields and IB points, but Explore now has Length,
     "Only ones I qualify for" and programs with no IB minimum (rebranding 2.3).
+  - For schools (`app/for-coordinators/_components/`; found on rebranding D4.17, and the owner approved
+    rewording it before release, 19 October 2026). "Coordinator Dashboard" says IB Match is "building"
+    its four features, but the portal has most of them today: school analytics, each student's profile
+    and matches, and a CSV export, the full analytics and the export on a paid or VIP plan
+    (`lib/auth/access-control.ts`). Invitations go one at a time, so "Bulk Management" claims something
+    that doesn't exist. A free school links up to 10 students, while the note offers early adopters
+    "full access to these features for free". The story says "Built by former IB students… We started
+    IB Match", where Home's founder note says "I built IB Match" and Support us "built by an IB
+    graduate": say one thing everywhere.
 
 **Steps:**
 
@@ -2239,7 +2248,7 @@ text in code dated 26 December 2025, and the product has changed a great deal si
    The Cookie Policy: publish it in the admin, or change the text in code (keeping 5.23's one h1). Words
    that the redesign makes wrong change on release day, not before: today's banner has switches until
    then. The public pages' claims change in code, in both designs: today's components, and the new
-   design's text pages once build 16 has made them.
+   design's text pages once build 16 has made them (For schools once build 21 has).
 
 **Must not:** publish anything the owner hasn't approved, or change a consent flow in code in the same
 pull request.
