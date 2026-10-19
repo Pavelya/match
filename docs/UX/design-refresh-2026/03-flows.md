@@ -238,6 +238,11 @@ back: "Your profile is saved, but Computer Science wasn't." with Try again.
 logo outside the card, use the new tokens, and add one line of context ("We'll save your matches
 and shortlist to your account"). Keep Google's button within Google's branding rules.
 
+**Approved 19 October 2026** ("D4.2 Sign-in"): the logo above one card, no site header; Continue with
+Google to Google's rules, then the email, labelled, with "Email me a sign-in link"; a link works for 10
+minutes, and every text says so; "Check your email" and the sign-in error in the same card, and the
+coordinator sign-in too. Decisions in `REBRANDING_tasks.md` 4.3.
+
 ## F8 · Profile and settings (phone tab bar)
 
 **Today:** the phone tab bar is Matches (heart) · Saved · Academic · Search. "Academic" reopens
@@ -273,4 +278,6 @@ only through the header avatar, and there is no appearance setting.
   "Saved"), Academic.
 - Onboarding order: interests → countries → grades.
 - The honesty notes about which entry year requirements were checked for.
-- School invitation flows: same flow, new look.
+- School invitation flows: same flow, new look. Approved 19 October 2026 ("D4.16 School invitation"),
+  with "You can unlink at any time in Settings." added to the consent, and two fixes to today's flow
+  (`MAINT_tasks.md` 5.21, 5.22).

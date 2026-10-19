@@ -158,7 +158,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 18 October 2026.** The canvas has 83 boards. The owner approved in chat "B ·
+**Where it stands, 19 October 2026.** The canvas has 91 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -197,8 +197,13 @@ Home · phone". Build 14's gate is complete. Then row 19 drew the country guide 
 guide whole and sections of five other guides, on desktop and phone, and the owner approved all three
 boards in chat with every recommendation, adding one rule, the same final heading on every guide:
 "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone". Build
-15's gate is complete, and the owner unlocked it the same day. Seven tasks have no board, D2.16 (the
-policy update banner) added by the owner on 18 October.
+15's gate is complete, and the owner unlocked it the same day. On 19 October row 20 drew sign-in, the
+requirements hub, the text and legal pages, the 404 and error pages and the school invitation, with the
+list 4.5 asked for, and the owner approved all eight boards in chat with every recommendation: "D4.2
+Sign-in", "D4.13 Requirements hub", "D4.13 Requirements hub · phone", "D4.14 Text pages", "D4.14 Text
+pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Build
+16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Three tasks have
+no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October) and D4.17.
 
 ### Foundations
 
@@ -253,7 +258,7 @@ theme switch are in D1.4.
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
 | D4.1 Home | "D4.1 Home" and "D4.1 Home · phone" (row 18): the whole page in light and dark on both, then the cookie banner on a first visit: keyboard focus, Customize, dark, forced colours, and on a signed-in page above the tab bar. The preview holds three real programs and their stored requirements, for D3.1's student. They replace "Home (logged out)". **Decided 18 October 2026 (owner), every recommendation:** today's h1 words; a preview of three real matches, one per status, with initials tiles and no photos, `inert`; no program count, and "23 countries" from code; a lime bar under the hero phrase and a lime final band in both themes; six sections carrying every fact today's page shows; the cookie banner keeps its three choices and its storage, with Essential only and Accept all at the same weight, bottom right on desktop, across the bottom on a phone, and on the tab bar signed in. Decisions in 4.1 | Nothing | 18 October 2026 |
-| D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
+| D4.2 Sign-in | "D4.2 Sign-in" (row 20): /auth/signin at 1440px and 390px, light and dark; the card in every state (first visit, Google focused, typing, an address it can't use, sending, not sent, too many attempts, "Create your account" from an invitation, before the script), dark and forced colours; "Check your email"; the sign-in error; the coordinator sign-in and its notice for a student's address. **Decided 19 October 2026 (owner), every recommendation:** no site header, the logo above one 440px card; today's words, with "We'll save your matches and shortlist to your account."; "Continue with Google" to Google's rules (white with a #747775 edge, #131314 with #8E918F in dark, the G on a white disc in dark), its label in Geist; the field labelled "Email", with D2.2's error when the button is pressed; "Email me a sign-in link"; **a link works for 10 minutes, set in the config, and every text says 10** (owner: "make sure all the texts are aligned"); failures in an alert in the card; the error page "We couldn't sign you in", two messages reworded; the coordinator sign-in in the same card; both consent lines word for word. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
 | D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
 | D4.5 First run, step 3: subjects | "D4.5 First run, step 3" and "D4.5 First run, step 3 · phone" (row 16): the step in light and dark on both, first visit, four subjects in, the list open, a group with no subject, ready, two at Higher Level, an E in TOK, the IB's other conditions, keyboard focus, finishing, a failed save, and after first run with and without a change; then Save without grades at step 3: opening with "Your interests and countries are saved." under the step count and the waiting line, ready, and Save and exit. They replace "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** the question "What are your subjects and grades?"; the button is Finish, and Save changes after first run, with the total before the change; desktop one 880px column, each subject on one line, the core a second panel; Save and exit keeps complete rows and the core as a draft without a total; Finish saves once. Where Save changes leads is D4.11's: back to Academic (18 October 2026). Phone: rows stack, grades at 46px; the open list's field comes up under the header. Decisions in 3.2 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 14 October 2026; opened from Academic 18 October 2026 |
@@ -264,10 +269,11 @@ theme switch are in D1.4.
 | D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
 | D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 | Nothing | 18 October 2026 |
 | D4.12 Country guide template | "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone" (row 19): Ireland's guide whole at 1440px and 390px, light and dark, then a jump from "On this page", questions open and focused, a source link, dark and forced colours; sections of the USA, Australia, Hong Kong, Belgium and the Czech Republic on the same template, and the longest title (the Netherlands). **Decided 18 October 2026 (owner), every recommendation:** the question is the h2, and the short label moves into "On this page"; "On this page" a sticky column from 1024px and a closed disclosure on a phone, with no mark for the section being read; one secondary "Explore programs in {country}" in the hero, no count; three callouts (short answer, note, caution) in place of today's coloured boxes and emoji, and plain bullets; one 720px column on the paper; the questions collapsed; "More country guides" and Home's lime band at the end; the update date shown; no flag and no breadcrumb trail. **And one rule:** every guide's final heading is "Ready to find your match in {country}?", Hong Kong, Poland and Portugal included. Decisions in 4.2 | Nothing | 18 October 2026 |
-| D4.13 Requirements hub | None | **No board.** `/ib-university-requirements`, including a country whose programs set no IB minimum (the USA) | |
-| D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
-| D4.15 404 and error pages | None | **No board** | |
-| D4.16 School invitation | None | **No board.** Same flow, new look (`03-flows.md`) | |
+| D4.13 Requirements hub | "D4.13 Requirements hub" and "D4.13 Requirements hub · phone" (row 20): the whole page at 1440px and 390px, light and dark, a card focused, a question open, forced colours, with production's figures (1,677 programs in 23 countries; the USA 286 programs with no minimum). **Decided 19 October 2026 (owner), every recommendation:** the guide template's parts, Country guides current; each section's big line is its h2, its label an eyebrow; the 23 guides as link cards, A to Z, no flags; "No IB minimum" for the USA, one number where every program asks the same ("24 IB points"); the counts read when the page is built, weekly, as today; three figures and one "Explore programs" button in the hero, "Browse Country Guides" gone; twelve field rows with the first-run icons; plain bullets and plain cards; Home's lime band. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.14 Text pages | "D4.14 Text pages" and "D4.14 Text pages · phone" (row 20): How it works, FAQs, Contact (signed in and out, the form in every state, sent) and Support us, light, dark and forced colours. "D4.14 Legal pages" (row 20): Privacy whole, Terms and Cookies, desktop and phone, light, dark and forced colours, then the 4.5 list. **Decided 19 October 2026 (owner), every recommendation:** one text-page template; today's words with the content style (sentence case, no exclamation marks in headings or buttons, no "perfect"); How it works' four categories become the three statuses; FAQs collapsed, then "Still have questions?"; three FAQ answers change on release day (PR #127, label `go-live`); Contact shows the signed-in header to a signed-in student; Contact's categories are radio rows, errors on press; Support us keeps every section; one legal template with "On this page", the version and its date under the h1, links between the three, the numbered headings in Geist; one h1 on /cookies; the legal pages prebuilt in the new design; For schools added as D4.17. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.17 For schools | None | **No board.** `/for-coordinators`, linked as "For schools" in the header and "For IB coordinators" in the footer on every page, in D4.14's text-page template. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. Built in 4.3, in its own pull request | |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -297,7 +303,8 @@ merges into `main`, behind the preview switch.**
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
-| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
+| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | Gate complete 19 October 2026. Sign-in and invitations, the hub, the text and legal pages, the 404 and error pages; For schools waits for D4.17 (session 21). Includes the 10-minute sign-in link and, if still open, `MAINT_tasks.md` 5.21 to 5.23 |
+| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
@@ -328,8 +335,9 @@ Rows 3 and 4 can share a design session.
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
-| Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Added 18 October 2026 (owner) |
-| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
+| Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Done 19 October 2026, in row 16's design session: the list is on "D4.14 Legal pages", approved with it |
+| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Design approved 19 October 2026 (eight boards, row 20) |
+| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Added 19 October 2026 (owner). After 16, before release day |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
@@ -388,7 +396,7 @@ Phase 4 — Public pages
 - [x] 4.2 Country guides on one template (18 October 2026)
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
-- [ ] 4.5 Policy and privacy pages: what the redesign covers (research)
+- [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [ ] 4.6 The policy update banner
 
 Phase 5 — After the whole preview
@@ -2317,13 +2325,113 @@ owner to confirm in the pull request:
 the legal pages, sign-in, the school invitation pages, and the 404 and error pages move to the new
 design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
 
-**Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)). Which pages
-count as "the legal pages" is settled first, by the research in
+**Design gate:** D4.2 and D4.13 to D4.16, approved 19 October 2026 ([Step 2](#step-2--design-first)).
+For schools (`/for-coordinators`) waits for D4.17 and lands in its own pull request (session 21). The
+legal pages are `/privacy`, `/terms` and `/cookies`, settled by
 [4.5](#45--policy-and-privacy-pages-what-the-redesign-covers-research).
 
 **Must-haves:** the FAQs page's structured data and its visible questions keep coming from one list
 (today both read `faqs` in `app/faqs/page.tsx`, from the CMS or `FALLBACK_FAQS`). Every page passes
 the SEO snapshot comparison (Definition of done 12).
+
+**Decided on the boards (every recommendation approved 19 October 2026).** Canvas row 20: "D4.2
+Sign-in", "D4.13 Requirements hub" and its phone board, "D4.14 Text pages" and its phone board, "D4.14
+Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Each board's numbered list
+holds the full words; these are what the build must do.
+
+- **Sign-in (D4.2).** /auth keeps its own chrome: no site header, the logo (a link Home) above one card,
+  440px, radius 20, on the paper; the cookie banner stays off /auth. "Welcome to IB Match", "Whether
+  you're new or returning, we'll get you started. We'll save your matches and shortlist to your
+  account." Continue with Google first, to Google's rules (fill, edge and text colours per theme, the
+  G unchanged and on a white disc in dark), the label in Geist 500 15px. "Or continue with email",
+  then the field labelled "Email" (D2.2: its error, "Enter an email address like name@example.com", on
+  press, never while typing), then "Email me a sign-in link" ("Sending…" while it works). Failures are
+  an alert in the card: "We couldn't send your sign-in link. Please try again." and "Too many sign-in
+  attempts. Please wait a moment and try again."; the address stays. The consent line, word for word,
+  under the button. "Create your account" (`?declineInvite=true`) puts today's words in a note. The
+  card's boxes, static, before the script. The coordinator sign-in is the same card with "IB
+  coordinator portal" above "Welcome back", its notice for a student's address and "Are you a
+  student? Sign in here".
+- **A link works for 10 minutes, and every text says so** (owner, 19 October 2026). Nothing sets it
+  today, so Auth.js's default of 24 hours applies. Set `maxAge: 10 * 60` on the Resend provider in
+  `lib/auth/config.ts`. The change reaches both designs at once, so the same pull request makes every
+  text say 10: today's `app/auth/verify-request/page.tsx` says 15; the new sign-in helper and "Check
+  your email" say 10; `emails/magic-link.tsx`, `emails/coordinator-magic-link.tsx` and the plain-text
+  bodies in `lib/auth/config.ts` already say 10. A test pins the number in one place.
+- **"Check your email" and the sign-in error.** The first is today's words in the card with a
+  brand-soft MailCheck tile. The error page: "We couldn't sign you in", today's message for each code,
+  except Verification ("The sign-in link is no longer valid. It may have expired, or been used
+  already: each link works once.") and Configuration ("Something went wrong on our side. Please try
+  again in a few minutes."); Try again, and "If it keeps happening, contact us."
+- **School invitation (D4.16).** The same flow. The new-account invitation is a 520px card: "School
+  invitation", "Join {school}", the school in a panel (no flag), "What coordinators can access" with
+  today's three lines and "You can unlink at any time in Settings.", the consent box, then "Accept and
+  create account" ("Creating your account…"). Pressed without the tick, the box says "Tick the box to
+  accept the invitation."; the button never greys out. Today's outcomes (invalid, expired, already
+  accepted, not a student invitation) in D4.2's card. A student who already has an account gets "Sign
+  in to accept it", to sign-in returning to `/student/invitations`, and after accepting the student
+  reaches "Check your email": both are `MAINT_tasks.md` 5.22 and 5.21, done here for both designs if
+  still open. School invitations: each invitation a panel with Accept invitation and Decline
+  ("Declining…", then a toast, no Undo); Accept opens D2.10's dialog ("Connect with {school}?", focus on
+  Cancel, the consent box as its field, "Connecting…", failures inside); then Settings with "You're
+  connected to {school}." None left: D2.11's panel, without "You have pending invitations". A
+  coordinator's invitation (/auth/accept-invite) is the same card; the portal stays today's.
+- **The requirements hub (D4.13).** Prebuilt as today, the same reads at build time. Country guides
+  current in the header. The hero: the eyebrow, "IB Diploma admission rules by country", the intro
+  without bold, three figures (countries, programs, the points range) and one secondary "Explore
+  programs". Sections on the paper, each with today's label as an eyebrow and today's big line as the
+  h2. The 23 guides as link cards (`.country-card`), A to Z, three to a row from 1024px: the name,
+  today's summary, "{n} programs · {min}–{max} IB points", one number when they are equal, "No IB
+  minimum" when none is set. The explainer's cards plain, its HL list in plain bullets. Twelve field
+  rows with `fieldIcon`, "{n} programs · average {x} IB points", each to Explore with the field. The
+  questions as the guides' details panel. Home's lime band, with today's paragraph.
+- **Text pages (D4.14).** One template: a hero in the 1240px column, sections on the paper divided by
+  hairlines, today's label as an eyebrow and today's big line as the h2, D4.12's cards, Home's lime band
+  where today's page ends on a call to action. Content style: sentence case, no exclamation marks in
+  headings or buttons, no "perfect" (How it works' band: "discover programs that fit you"; Support us'
+  band: "find the right university"; its community line without the emoji). "Get Started — It's Free"
+  becomes Get my matches; the "← Back to Home" links go; no emoji anywhere.
+  - How it works: "Match categories" becomes "What each status means", the three statuses in D2.7's
+    badges with the words on the board; the scoring intro says the score orders matches within each
+    group and sits under "Why this match". The No-AI eyebrow "f(x) = result" in Geist; `NoAISection.tsx`
+    and Geist Mono go (04 §2).
+  - FAQs: one panel of details (summaries `.faq-question`, answers `.faq-answer`), then "Still have
+    questions?" as D2.11's panel with Contact support and Email us. Three answers change on release
+    day, not here: draft PR #127, labelled `go-live`, is in R.1.
+  - Contact: **the signed-in header for a signed-in student.** Give `/contact` a layout of its own that
+    reads the session (the page already calls `auth()`: the JWT cookie, no database read) and draws the
+    app header when signed in and the public header otherwise, as `/universities` does since 2.4; add
+    `contact` to `OWN_CHROME` in `components/site/nav.ts` so the root layout leaves it. Only the new
+    design's branch changes. The categories are radio rows in a fieldset (two to a row from 768px);
+    errors on press beside each field ("Choose a category", today's two length messages); the counts
+    stay; "Send request" ("Sending…"); a failure in an alert; sent: "Request sent" with the ticket
+    number. Signed out: "Sign in to contact us", its Sign in returning to `/contact`.
+  - Support us: every section; the allocation as a list of bars with each share written beside it;
+    every outside link says it opens a new tab.
+- **Legal pages (D4.14 Legal pages).** One template for `/privacy`, `/terms` and `/cookies`: links
+  between the three (a nav named "Legal") above the h1; the h1 in Display L; "Last updated {date} ·
+  Version {label}" under it; "On this page" from the document's `##` headings (the guides' sticky
+  column from 1024px, a closed disclosure below); one 720px column; `##` as h2 in Geist 22/30, `###`
+  as h3; tables and quotes as D4.12's table and note; no lime band. **One h1:** drop a leading `# `
+  line from the Markdown (`MAINT_tasks.md` 5.23 does it for today's design). **Prebuilt:** the new
+  design's branch calls no `auth()`; from release day, when it is the only branch, the three are
+  prebuilt with today's one-hour revalidate, so the published document is read at most once an hour
+  per page instead of on every view. `npm run build` lists them Static from then. The words are the
+  owner's to update (`MAINT_tasks.md` 7.4).
+- **404 and error pages (D4.15).** `app/not-found.tsx`: "We can't find that page", the sentence, the
+  search (a plain form to Explore, as the program 404) and three ways on (Explore programs, Country
+  guides, Home); prebuilt with the signed-out header; on paths whose layout draws its own chrome
+  (/student, /auth, …) the page draws the public header and footer itself; title "Page not found",
+  status 404. `app/error.tsx` and `app/student/error.tsx`: one panel inside the layout's chrome,
+  "Something went wrong", "This page didn't load. Try again, or go back to Home.", Try again
+  (`reset()`, "Trying again…") and Home, and "If it keeps happening, contact us and quote this
+  reference: {digest}." when there is a digest; focus moves to the h1. `app/global-error.tsx`: the
+  logo, the same words and Try again, light or dark from the system. `AuthErrorBoundary`: D4.2's card,
+  today's words.
+
+**Found on the boards, outside this task:** `MAINT_tasks.md` 5.21 (the invitation's sign-in provider),
+5.22 (the dead end for a student with an account), 5.23 (two h1s on /cookies) and 7.4 (bring the
+legal pages up to date).
 
 ### 4.4 — Guard against raw palette classes
 
@@ -2343,25 +2451,29 @@ Added 18 October 2026 (owner).
 **Design gate:** none. Research and a docs pull request only; run it before row 16's design
 session, so D4.14 is drawn with the full list.
 
-**Known so far (18 October 2026):**
+**Done 19 October 2026,** in row 16's design session, and approved by the owner with its boards: the
+list is on "D4.14 Legal pages" (canvas row 20). It adds no page to D4.14 beyond the three legal pages.
 
-- `/privacy`, `/terms` and `/cookies`, the "legal pages" of 4.3 and D4.14, which has no board yet.
-  Privacy and Terms show the version published in the admin's legal content
-  (`getPublishedDocument`, `lib/legal-documents/`) as Markdown, with text in the page as a fallback.
-  All three call `auth()` to draw today's header, so `npm run build` lists them as Dynamic (ƒ) and
-  each view renders on the server. The new design's header doesn't need the session, so they could
-  be prebuilt like the other text pages: a cost question for the owner.
-- "We've Updated Our Policies", the banner on signed-in pages when the Terms or the Privacy Policy
-  has a newer version than the user accepted: its own task, 4.6 (board D2.16).
-- The consent line on student and coordinator sign-in, and on the student invitation form, which
-  link to `/terms` and `/privacy`: sign-in is D4.2 and the invitation D4.16. Confirm both cover it.
-- The cookie banner: done in 4.1.
-- The admin's legal content editor (`/admin/legal-content`): staff only, so out of scope unless the
-  owner says otherwise.
+| What shows a policy or asks for consent | In the redesign | Where, and how |
+|---|---|---|
+| `/privacy`, `/terms`, `/cookies` | Redesigned in 4.3 | "D4.14 Legal pages": one template, today's words, prebuilt from release day (the cost question: yes) |
+| "We've Updated Our Policies", on signed-in pages | Its own task, 4.6 | D2.16. On coordinator pages it stays today's, with the portal |
+| The consent line under student and coordinator sign-in | Redesigned in 4.3 | D4.2: the same words, under the button |
+| The student invitation's consent: the card, and the dialog on School invitations | Redesigned in 4.3 | D4.16: today's list and box, and "You can unlink at any time in Settings." |
+| A coordinator's invitation, with its Terms line | Redesigned in 4.3 | D4.16: the same card |
+| The cookie banner | Done in 4.1 | D4.1 |
+| The FAQ about coordinators seeing a student's data | Redesigned in 4.3 | "D4.14 Text pages": today's answer |
+| Settings: the school link's date, Unlink, Download, Delete | Done in 3.3 | D4.11 |
+| The footer's Legal links | Done in 1.5 | D2.13 |
+| The seven emails' footer links | Switch at release (1.3) | Their look follows the brand; the words stay ("Terms And Conditions" for the Terms of Service: `MAINT_tasks.md` 7.4) |
+| The coordinator portal's consent notice when inviting a student | Left as it is | The coordinator portal keeps today's design |
+| The admin's legal content editor | Left as it is | Staff only |
 
-**To check:** any other page, email or coordinator screen that shows policy text or asks for
-consent; whether the legal pages need more than the text-page template (a contents list, the
-version and its date, links between the three); and SEO parity for each (Definition of done 12).
+**Found while checking, for the owner** (words, not design): `MAINT_tasks.md` 7.4 collects them. The
+Cookie Policy names Auth.js v4's cookies and describes Customize as switches; the Privacy Policy's
+sub-processors leave out Supabase and Google; both published versions are labelled 2026-03-23 but take
+effect on 23 February 2026; nothing deletes invitation records after the 90 days the Privacy Policy
+promises. `/cookies` has two h1s: `MAINT_tasks.md` 5.23.
 
 ### 4.6 — The policy update banner
 
@@ -2464,13 +2576,18 @@ behind the preview switch, like every session before release.
 **Steps:**
 1. Confirm the final logo. If it is a new mark, the clearance search must be back.
 2. Confirm the owner has the Search Console baseline (owner decisions).
-3. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
-   rebuilds the static pages in the new design, and emails switch too.
-4. Check every page logged out and logged in, light and dark, on a phone and on Windows.
-5. Run the home page, one guide and one program page through Google's Rich Results Test: the same
+3. Merge every open pull request labelled `go-live`, updated with `main` and each with its own
+   checklist done. So far: #127, three FAQ answers in the new design's words (D4.14). They change
+   words both designs share, so they merge on this day and no earlier.
+4. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
+   rebuilds the static pages in the new design, and emails switch too. `npm run build` now lists
+   `/privacy`, `/terms` and `/cookies` as Static (4.3).
+5. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+6. Run the home page, one guide and one program page through Google's Rich Results Test: the same
    items as before release, plus the breadcrumbs.
 
-**Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not.
+**Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not. Revert the
+`go-live` pull requests too.
 
 ### R.2 — Cleanup
 
