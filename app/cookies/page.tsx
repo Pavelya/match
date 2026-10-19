@@ -11,6 +11,11 @@ import { MarkdownContent } from '@/components/shared/MarkdownContent'
 import { showsNewUi } from '@/lib/new-ui'
 import { LegalPage, updatedOn } from '@/components/legal/LegalPage'
 
+// Today's page renders on each request, for its header's session. The new design's is prebuilt
+// from release day: a Cookie Policy published in the admin shows within the hour, as on /privacy
+// and /terms (rebranding 4.3)
+export const revalidate = 3600
+
 export const metadata: Metadata = {
   title: 'Cookie Policy',
   description: 'Learn about how IB Match uses cookies and your privacy choices.'
