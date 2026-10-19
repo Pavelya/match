@@ -45,9 +45,9 @@ pull request, merged before the next starts.
 | any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
 | any | One IB diploma rule for every role | 5.20 | medium | **Done** (18 October 2026). Students, coordinators and both APIs checked different subsets of the IB's rule, and the points floors were wrong for four Higher Level subjects. One check now, `checkDiploma` in `lib/ib/diploma.ts`, wherever grades are saved; the coordinator's typed total is gone. No saved profile changed status |
 | before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
-| any | Invited student sent to "Check your email" | 5.21 | small | After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
-| any | Invitation link for a student who already has an account | 5.22 | small | A dead end today: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
-| any | One h1 on the legal pages | 5.23 | tiny | `/cookies` shows its title twice, as two h1s. Fold into any session |
+| any | Invited student sent to "Check your email" | 5.21 | small | **Done** (19 October 2026, rebranding build 16, both designs). After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
+| any | Invitation link for a student who already has an account | 5.22 | small | **Done** (19 October 2026, rebranding build 16, both designs). It was a dead end: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
+| any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
@@ -99,9 +99,9 @@ Phase 5 — quick wins
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
 - [x] 5.20 One IB diploma rule wherever grades are saved, by any role — `checkDiploma`; no saved profile changed status
-- [ ] 5.21 Send an invited student to "Check your email" after accepting
-- [ ] 5.22 Let a student who already has an account accept an invitation
-- [ ] 5.23 One h1 on the legal pages
+- [x] 5.21 Send an invited student to "Check your email" after accepting (19 October 2026)
+- [x] 5.22 Let a student who already has an account accept an invitation (19 October 2026)
+- [x] 5.23 One h1 on the legal pages (19 October 2026)
 
 Phase 6 — dependency majors
 
@@ -1331,7 +1331,13 @@ they change, so preferences alone still save.
 
 ---
 
-### 5.21 — Send an invited student to "Check your email" after accepting
+### 5.21 — Send an invited student to "Check your email" after accepting — **done**
+
+**Done 19 October 2026** in rebranding build 16, for both designs: both invitation cards call
+`acceptStudentInvite` (`lib/auth/accept-student-invite.ts`, tested), which signs in through `resend`
+and follows Auth.js's address to "Check your email"; a link that can't be sent says the account is
+ready and to sign in. Checked on a throwaway local database with the request answered in the browser;
+the one real email through Resend is still the owner's check.
 
 **Outcome:** A student who accepts a school invitation at `/auth/accept-student-invite/[token]` gets
 the sign-in link at the invited address straight away and lands on "Check your email", as the code
@@ -1367,7 +1373,12 @@ task for both designs if it is still open.
 
 ---
 
-### 5.22 — Let a student who already has an account accept an invitation
+### 5.22 — Let a student who already has an account accept an invitation — **done**
+
+**Done 19 October 2026** in rebranding build 16, for both designs. The 409 offers "Sign in to accept
+it" (sign-in returning to `/student/invitations`); today's sign-in follows that one return
+(`signInDestination` in `lib/auth/callback-url.ts`, tested), and a student already signed in with the
+invited address goes straight to School invitations, from the session cookie alone (step 3).
 
 **Outcome:** A student whose account already exists when they open the new-account link
 (`/auth/accept-student-invite/[token]`) is offered "Sign in to accept it", signs in, and lands on
@@ -1404,7 +1415,10 @@ both designs if it is still open.
 
 ---
 
-### 5.23 — One h1 on the legal pages
+### 5.23 — One h1 on the legal pages — **done**
+
+**Done 19 October 2026** in rebranding build 16: the three fallback texts start at their first `##`,
+and the new design's legal template drops a leading `# ` from any document.
 
 **Outcome:** `/cookies` shows "Cookie Policy" once, as its one h1. `/privacy` and `/terms` do the same
 whenever they fall back to the text in code.
