@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
 import { FileText, Info, TriangleAlert } from 'lucide-react'
+import { Callout } from '@/components/ds/Callout'
 import { isNumbersOnly, numberColumns } from '@/lib/guides/guide'
 import type { GuideBlock, GuideCard, GuideSource, GuideStep, GuideTable } from '@/lib/guides/types'
 import { cn } from '@/lib/utils'
@@ -126,34 +126,6 @@ function Answer({ block }: { block: Extract<GuideBlock, { type: 'answer' }> }) {
           <RichText text={text} />
         </p>
       ))}
-    </div>
-  )
-}
-
-function Callout({
-  icon,
-  label,
-  tone,
-  children
-}: {
-  icon: ReactNode
-  label: string
-  tone: 'note' | 'caution'
-  children: ReactNode
-}) {
-  return (
-    <div
-      role="note"
-      aria-label={label}
-      className={cn(
-        'grid grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3 rounded-card border border-transparent px-4 py-3.5 md:px-5 md:py-4',
-        tone === 'note' ? 'bg-muted' : 'bg-close-soft'
-      )}
-    >
-      <span className={cn('mt-0.5 flex', tone === 'note' ? 'text-muted-foreground' : 'text-close')}>
-        {icon}
-      </span>
-      <p className="text-body">{children}</p>
     </div>
   )
 }

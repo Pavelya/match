@@ -13,19 +13,15 @@ import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 
 interface SignInProps {
   logo: React.ReactNode
-  /**
-   * Return to the page that sent the visitor here (`callbackUrl`), as the new design's Save and
-   * "Sign in to check" expect (rebranding 2.4). Today's design keeps going to /student, except to
-   * School invitations (MAINT 5.22).
-   */
-  followCallback?: boolean
 }
 
-function SignInForm({ logo, followCallback = false }: SignInProps) {
+function SignInForm({ logo }: SignInProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const declineInvite = searchParams.get('declineInvite') === 'true'
-  const callbackUrl = signInDestination(searchParams.get('callbackUrl'), followCallback)
+  // Today's design goes to /student, except to School invitations (MAINT 5.22). The new design's
+  // card (components/sign-in) returns to the page that sent the visitor (rebranding 2.4).
+  const callbackUrl = signInDestination(searchParams.get('callbackUrl'), false)
 
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -183,7 +179,7 @@ function SignInForm({ logo, followCallback = false }: SignInProps) {
 }
 
 /** The sign-in card. `logo` comes from the server, which knows the design (rebranding 1.3). */
-export function SignIn({ logo, followCallback }: SignInProps) {
+export function SignIn({ logo }: SignInProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Suspense
@@ -199,7 +195,7 @@ export function SignIn({ logo, followCallback }: SignInProps) {
           </Card>
         }
       >
-        <SignInForm logo={logo} followCallback={followCallback} />
+        <SignInForm logo={logo} />
       </Suspense>
     </div>
   )

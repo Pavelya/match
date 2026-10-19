@@ -12,6 +12,9 @@ import { useSiteChrome } from './site-chrome'
  */
 
 const ErrorScreen = lazy(() => import('./ErrorScreen').then((m) => ({ default: m.ErrorScreen })))
+const AuthCrash = lazy(() =>
+  import('@/components/sign-in/AuthCrash').then((m) => ({ default: m.AuthCrash }))
+)
 
 /**
  * app/error.tsx. Inside the public header and footer on a public page; where the failed page's
@@ -33,6 +36,16 @@ export function LayoutError(props: PageErrorProps) {
   return (
     <Suspense fallback={null}>
       <ErrorScreen {...props} />
+    </Suspense>
+  )
+}
+
+/** app/auth/error.tsx: the error inside sign-in, in D4.2's card on the paper */
+export function AuthError(props: PageErrorProps) {
+  if (!useSiteChrome()) throw props.error
+  return (
+    <Suspense fallback={null}>
+      <AuthCrash {...props} />
     </Suspense>
   )
 }

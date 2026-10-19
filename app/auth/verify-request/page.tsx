@@ -1,8 +1,20 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+import { AuthPage } from '@/components/sign-in/AuthPage'
+import { CheckEmailCard } from '@/components/sign-in/StatusCards'
 import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
+import { showsNewUi } from '@/lib/new-ui'
 
-export default function VerifyRequestPage() {
+export default async function VerifyRequestPage() {
+  // The new design's card (rebranding 4.3, board "D4.2 Sign-in")
+  if (await showsNewUi()) {
+    return (
+      <AuthPage>
+        <CheckEmailCard />
+      </AuthPage>
+    )
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md text-center">

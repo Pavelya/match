@@ -6,11 +6,13 @@ import Link from 'next/link'
 import { AlertTriangle } from 'lucide-react'
 import { Button } from '@/components/ds/Button'
 import { ButtonLink } from '@/components/ds/ButtonLink'
+import { IconTile } from '@/components/ds/IconTile'
 import { containerClass } from './styles'
 import { PublicHeader } from './PublicHeader'
 import { SiteFooter } from './SiteFooter'
 import { SiteFrame } from './SiteFrame'
 import { ERROR_TEXT, ERROR_TITLE } from './error-words'
+import { useErrorTitle } from './use-error-title'
 
 /*
  * A page that failed while it rendered (rebranding 4.3, board "D4.15 404 and error pages",
@@ -53,27 +55,15 @@ function ErrorPanel({ error, retry, as: Root }: PageErrorProps & { as: 'main' | 
   const [trying, startTrying] = useTransition()
   const heading = useRef<HTMLHeadingElement>(null)
 
+  useErrorTitle()
   useEffect(() => {
     heading.current?.focus()
-    // The tab says what happened. A retry that works renders the page's title unchanged, so it
-    // comes back here; a navigation has already set the next page's.
-    const previous = document.title
-    const ours = `${ERROR_TITLE} | IB Match`
-    document.title = ours
-    return () => {
-      if (document.title === ours) document.title = previous
-    }
   }, [])
 
   return (
     <Root className={`${containerClass} px-4 pt-14 pb-20 md:px-6 md:pt-22 md:pb-30`}>
       <div className="flex max-w-160 flex-col gap-4">
-        <span
-          aria-hidden="true"
-          className="inline-flex size-11 items-center justify-center rounded-[0.75rem] border border-transparent bg-gap-soft text-gap"
-        >
-          <AlertTriangle size={24} strokeWidth={1.75} />
-        </span>
+        <IconTile icon={AlertTriangle} tone="error" />
         <h1 ref={heading} tabIndex={-1} className="text-h1 outline-none">
           {ERROR_TITLE}
         </h1>
