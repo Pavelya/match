@@ -64,7 +64,9 @@ land on `main` as usual. Once 4.2 has moved a country onto the new template, an 
 goes into both versions until release, so do 4.2 late. **Met 18 October 2026:** all three landed
 (France 8 October, the USA 10 October, Germany 12 October), and the open CONTENT task 5.4 changes
 program descriptions only, so the owner unlocked 4.2. The second half still holds: an edit to a
-migrated guide goes into both versions until release.
+migrated guide goes into both versions until release. Since build 15 (18 October 2026) every guide
+is migrated: its words are in the page's `guide.ts` and in `<Country>Content.tsx`, and
+`lib/guides/guides.test.ts` fails when an edit reaches only one (`docs/countries/COUNTRY-PAGE-BASELINE.md` §1).
 
 ### How the redesign reaches production: the preview switch
 
@@ -294,7 +296,7 @@ merges into `main`, behind the preview switch.**
 | 12 | Subject editor | 3.2 | D3.6, D4.5 | medium | **Done 14 October 2026.** One editor, `ProfileEditor`, for first run's step 3 and editing after: a row per IB group, any subject in any row, the core, the checks, and one total in the footer. Save and exit keeps a draft without a total; the IB's failing conditions read the same words everywhere (`lib/ib/diploma.ts`) |
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
-| 15 | Country guides | 4.2 | D4.12 | large | **Unlocked 18 October 2026 (owner):** the country-page edits the coordination rule waited for have landed. Two or three first, then the rest. This is `MAINT_tasks.md` 7.2, done once in the new design |
+| 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
@@ -325,7 +327,7 @@ Rows 3 and 4 can share a design session.
 | 12 | `/design D3.6, D4.5`: subject editor, first-run step 3 | Those two boards | `/build 12`: subject editor (3.2) | Done 14 October 2026 |
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
-| 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Design approved 18 October 2026; build unlocked |
+| 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
 | Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Added 18 October 2026 (owner) |
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
@@ -383,7 +385,7 @@ Phase 3 — Profile and onboarding
 Phase 4 — Public pages
 
 - [x] 4.1 Home page (18 October 2026)
-- [ ] 4.2 Country guides on one template
+- [x] 4.2 Country guides on one template (18 October 2026)
 - [ ] 4.3 Other public pages
 - [ ] 4.4 Guard against raw palette classes
 - [ ] 4.5 Policy and privacy pages: what the redesign covers (research)
@@ -2290,6 +2292,25 @@ Republic) and "D4.12 Country guide · phone".
   date, the three final headings above, "Get my matches" in place of "Get Started — It's Free",
   Australia's source names and the US table's caption. Every other word on the page is the same.
 
+**Built 18 October 2026 (build 15).** The template is `components/guide/CountryGuidePage.tsx`, its
+blocks `GuideBlocks.tsx` and rich text `RichText.tsx`; the types are `lib/guides/types.ts`, and each
+guide's words its page's `guide.ts`. Home's guide links and lime band moved to `components/home/`
+(`GuideLinks.tsx`, `LimeBand.tsx`), so Home and the guides share them. Found while migrating, for the
+owner to confirm in the pull request:
+
+- Spain's and Sweden's conversion tables had no caption either: "Average IB subject grade to access
+  grade" and "IB points to Swedish merit rating".
+- Besides Australia's six (three named on the board, three from the pages' own titles), Canada's
+  bare address is "Universities Canada" and "swissuniversities.ch" is "swissuniversities". A few
+  sources panels name pages without a link ("Public university admission pages"); they stay, as
+  plain text.
+- A sources line inside a card ("**Source:**" under Public universities) joins its section's
+  sources; "Example:" and "Examples:" lines stay in their card.
+- After a jump from "On this page" the browser moves focus to the section, so the next Tab continues
+  there. The board keeps focus on the link, which needs script on a prebuilt page.
+- On a phone, "Explore programs in the Netherlands" and "… in the Czech Republic" take two lines in
+  the hero button, the arrow kept with the last word.
+
 ### 4.3 — Other public pages
 
 **Outcome:** `/ib-university-requirements`, `/how-it-works`, `/faqs`, `/contact`, `/support-us`,
@@ -2458,7 +2479,9 @@ behind the preview switch, like every session before release.
 **Steps:** after about two stable weeks, once Search Console shows no fall in indexed pages or clicks
 against the baseline:
 - delete the old screens and components (`ProgramCard`, the replaced parts of `components/ui/`, the
-  onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages);
+  onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages: the 23
+  `<Country>Content.tsx` files and the test in `lib/guides/guides.test.ts` that compares them with
+  each `guide.ts`, keeping its checks of the data);
 - delete the switch, the preview routes and bar, both variables and the old logo files;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**

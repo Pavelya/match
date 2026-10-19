@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { SingaporeContent } from './SingaporeContent'
+import { CountryGuidePage } from '@/components/guide/CountryGuidePage'
+import { guide } from './guide'
 import { brand, legacyBrand } from '@/lib/brand/config'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
@@ -44,8 +46,9 @@ export const metadata: Metadata = {
 }
 
 export default async function StudyInSingaporePage() {
+  const newUi = await showsNewUi()
   // The publisher logo follows the design (rebranding 1.3); the rest of the structured data is shared
-  const publisherLogo = (await showsNewUi()) ? brand.logoSquare.src : legacyBrand.singaporeGuideLogo
+  const publisherLogo = newUi ? brand.logoSquare.src : legacyBrand.singaporeGuideLogo
   const webPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -154,10 +157,17 @@ export default async function StudyInSingaporePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <SingaporeContent />
-      </main>
-      <StudentFooter />
+      {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
+      {newUi ? (
+        <CountryGuidePage guide={guide} />
+      ) : (
+        <>
+          <main className="flex min-h-screen flex-col">
+            <SingaporeContent />
+          </main>
+          <StudentFooter />
+        </>
+      )}
     </>
   )
 }

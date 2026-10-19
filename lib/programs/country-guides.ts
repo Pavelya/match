@@ -55,6 +55,14 @@ export function countryGuide(countryCode: string): CountryGuide | null {
 }
 
 /**
+ * The country as a sentence reads it ("the Czech Republic"), for a guide's own words (rebranding
+ * 4.2): "Explore programs in the Czech Republic", "Ready to find your match in the UK?".
+ */
+export function guideCountryName(countryCode: string): string | null {
+  return GUIDES[countryCode.toUpperCase()]?.name ?? null
+}
+
+/**
  * Every guide, by country name (rebranding 4.1, board "D4.1 Home"). Home lists them all and its
  * "Universities in 23 countries" is this list's length, so neither is typed by hand or read.
  */

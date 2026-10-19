@@ -108,7 +108,8 @@ Phase 6 — dependency majors
 Phase 7 — structural
 
 - [ ] 7.1 Test coverage beyond the matching algorithm
-- [ ] 7.2 Collapse the 23 country landing pages
+- [ ] 7.2 Collapse the 23 country landing pages: the content is one template since rebranding 4.2
+  (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 
 Owner tasks — not AI work
@@ -1785,6 +1786,16 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 
 **Rebranding.** Done as `REBRANDING_tasks.md` 4.2, in the new design, so the guides are migrated once.
 The constraints below still apply there.
+
+**Where it stands, 18 October 2026.** Build 15 moved the content: one template
+(`components/guide/CountryGuidePage.tsx`) renders each guide from its typed `guide.ts`. Left: the 23
+`page.tsx` shells, each still holding its metadata and three or four JSON-LD blocks, and, until
+rebranding R.2 deletes them, today's 23 `<Country>Content.tsx`. After R.2, moving the metadata and
+JSON-LD into the guide data lets one route render every guide; that is what remains of this task. Each
+guide's `Article`, `FAQPage` and speakable blocks must come out identical, as in 4.2. A dynamic segment is
+a whole path segment, so `study-in-[country]-with-ib-diploma` is not possible: one route means a
+top-level `app/[guide]/page.tsx` with `generateStaticParams` and `dynamicParams = false`, checked first
+against every other top-level path it could catch.
 
 **Why:** 4,387 lines across 22 directories. The prose is genuinely country-specific and
 belongs in the repo, but the ~200-line page shell around it — metadata, three or four
