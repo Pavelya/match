@@ -11,6 +11,9 @@ class FakeStorage {
   setItem(key: string, value: string) {
     this.values.set(key, value)
   }
+  removeItem(key: string) {
+    this.values.delete(key)
+  }
 }
 
 let storage: FakeStorage
@@ -87,5 +90,13 @@ describe('the Shortlist count', () => {
     stop()
     writeShortlistCount('maya', 3)
     expect(listener).toHaveBeenCalledTimes(1)
+  })
+
+  it('goes from the browser with the account (MAINT 5.25)', async () => {
+    const { clearShortlistCount, readShortlistCount, writeShortlistCount } = await load()
+    writeShortlistCount('maya', 8)
+    clearShortlistCount()
+    expect(storage.values.has('shortlist-count')).toBe(false)
+    expect(readShortlistCount('maya')).toBeNull()
   })
 })

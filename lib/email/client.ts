@@ -1,7 +1,8 @@
 import { Resend } from 'resend'
 import { env } from '@/lib/env'
 
-// Singleton Resend client
+// Singleton Resend client, built on the first send: building it when this file loads would
+// throw on import wherever RESEND_API_KEY is unset (MAINT 5.24)
 let resendInstance: Resend | null = null
 
 export function getResendClient(): Resend {
@@ -15,6 +16,3 @@ export function getResendClient(): Resend {
 
   return resendInstance
 }
-
-// Export singleton instance
-export const resend = getResendClient()

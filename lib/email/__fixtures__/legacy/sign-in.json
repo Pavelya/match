@@ -1,0 +1,4 @@
+{
+  "subject": "Sign in to IB Match",
+  "text": "Sign in to IB Match\n\nClick the link below to sign in:\nhttps://www.ibmatch.com/api/auth/callback/resend?callbackUrl=https%3A%2F%2Fwww.ibmatch.com%2Fstudent&token=abc123&email=maya%40example.com\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email."
+}

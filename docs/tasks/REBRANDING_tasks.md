@@ -314,7 +314,7 @@ merges into `main`, behind the preview switch.**
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
-| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). **Gate complete 20 October 2026.** After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open, and the sentence D4.18 adds to D4.11's page after deleting |
+| 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -348,7 +348,7 @@ Rows 3 and 4 can share a design session.
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
-| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Design approved 20 October 2026; the build is next. Before release day |
+| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -407,7 +407,7 @@ Phase 4 — Public pages
 - [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [x] 4.6 The policy update banner (20 October 2026)
-- [ ] 4.7 The emails
+- [x] 4.7 The emails (20 October 2026; the real sends to the owner's inboxes still to do)
 
 Phase 5 — After the whole preview
 
@@ -2797,6 +2797,36 @@ previews and plain text included.
 **"Account deleted" from Settings** (owner, 19 October 2026): today only an admin's deletion sends it.
 `MAINT_tasks.md` 5.24 sends it when a student deletes their own account, with words for that case.
 This task designs both versions, and does 5.24 for both designs if it is still open.
+
+**Done 20 October 2026.** `components/email/`: `EmailLayout` draws an `EmailContent` (`content.ts`, the
+words as data) and `toPlainText` writes the plain text from the same object, so the two can't drift;
+`tokens.ts` holds the colours, the dark block and the phone padding, and `tokens.test.ts` measures every
+pair at 4.5:1 in both. Each template in `emails/` now exports a message builder (`signInMessage`,
+`studentInviteMessage`, …) that returns the subject, the React and the text, in today's design or the
+new one through `emailBrand()`; the senders spread it into Resend's call. Today's templates moved to
+`components/email/legacy/` and go at cleanup (R.2). `lib/email/emails.test.tsx` renders all twelve
+versions in today's design and compares them byte for byte, subject and plain text included, with
+fixtures rendered from `main` before the move (`lib/email/__fixtures__/legacy/`); the one intended
+difference is the list line 5.25 adds to "Account deleted". In the new design it checks each email's
+words, subject and inbox line against the boards, one h1, `lang`, the dark metas, nothing under 14px,
+and the size: 7–9 KB each.
+
+Choices the boards left open, made in the build:
+- **The reminder's read happens only in the new design,** so today's reminder stays as on `main`
+  until release day, including its new-account link to an existing account.
+- **A reminder to an existing account** drops "This is a new link…": its link is School invitations,
+  which a new token doesn't change. Its subject is "Reminder: {school} wants to connect with your IB
+  Match account", its inbox line the existing account's.
+- **The coordinator's reminder** reads "Reminder · IB coordinator portal" above the heading. Coordinator
+  invitations only go to addresses without an account, so it needs no read.
+- **With a coordinator's name,** an existing account reads "{name}, your IB coordinator at {school}, has
+  invited you to link your IB Match account to their school."
+- `lib/email/client.ts` no longer builds the client when it loads (5.24), so the five invite routes call
+  `getResendClient()`.
+
+Not checked here: React Email's preview, since `npm run email:dev` asks to install
+`@react-email/preview-server`, which the project doesn't have; the screenshots come from the same
+`render()` Resend uses, in Chrome. The real sends to the owner's inboxes are still to do.
 
 ---
 

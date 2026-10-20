@@ -8,6 +8,7 @@ import { ConfirmDialog } from '@/components/ds/ConfirmDialog'
 import { Input } from '@/components/ds/Input'
 import { useToast } from '@/components/ds/Toast'
 import { signOutAfterDeleting } from '@/components/site/sign-out'
+import { clearShortlistCount } from '@/lib/shortlist/count'
 import { ACCOUNT_DELETED_PATH, isDeleteWord, NAME_MAX, nameToSave } from '@/lib/student/settings'
 
 /*
@@ -199,6 +200,8 @@ export function SettingsClient(props: SettingsProps) {
       setDeleteError(DELETE_FAILED)
       return
     }
+    // The nav's count was theirs too (MAINT 5.25)
+    clearShortlistCount()
     try {
       // Signs out, then goes to the page; "Deleting…" stays until it arrives
       await signOutAfterDeleting()

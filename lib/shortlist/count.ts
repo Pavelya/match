@@ -38,6 +38,17 @@ export function writeShortlistCount(user: string, count: number): void {
   listeners.forEach((listener) => listener())
 }
 
+/** Once the account is deleted (MAINT 5.25): nothing of the student's is left in this browser */
+export function clearShortlistCount(): void {
+  written = null
+  try {
+    localStorage.removeItem(KEY)
+  } catch {
+    // Storage blocked: there was only this tab's count
+  }
+  listeners.forEach((listener) => listener())
+}
+
 /** A confirmed save (+1) or removal (-1); nothing while the count is unknown */
 export function changeShortlistCount(user: string, by: number): void {
   const count = readShortlistCount(user)

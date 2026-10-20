@@ -12,10 +12,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { resend } from '@/lib/email/client'
+import { getResendClient } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
-import CoordinatorInviteEmail from '@/emails/coordinator-invite'
+import { coordinatorInviteMessage } from '@/emails/coordinator-invite'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 const INVITATION_EXPIRY_DAYS = 7
@@ -81,15 +81,15 @@ export async function POST(request: NextRequest) {
     const inviteUrl = `${baseUrl}/auth/accept-invite/${newToken}`
 
     // Send email
-    const { error: emailError } = await resend.emails.send({
+    const { error: emailError } = await getResendClient().emails.send({
       from: env.EMAIL_FROM,
       to: invitation.email,
-      subject: `Reminder: You're invited to join ${invitation.school?.name || 'a school'} on IB Match`,
-      react: CoordinatorInviteEmail({
+      ...coordinatorInviteMessage({
         inviteUrl,
-        schoolName: invitation.school?.name || 'the school',
+        schoolName: invitation.school?.name,
         inviterName: user.name || undefined,
-        expiresInDays: INVITATION_EXPIRY_DAYS
+        expiresInDays: INVITATION_EXPIRY_DAYS,
+        reminder: true
       })
     })
 

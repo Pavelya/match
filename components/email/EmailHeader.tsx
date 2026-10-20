@@ -25,7 +25,10 @@ export function EmailHeader({ baseUrl }: { baseUrl: string }) {
           {/* The name beside it says it */}
           <Img src={`${baseUrl}${logo}`} width="40" height="40" alt="" style={mark} />
         </Column>
-        <Column style={name}>{brand.name}</Column>
+        {/* Its dark colour comes from the layout's stylesheet (4.7) */}
+        <Column className="em-ink" style={name}>
+          {brand.name}
+        </Column>
       </Row>
     </Section>
   )

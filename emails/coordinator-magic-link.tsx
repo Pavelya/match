@@ -1,165 +1,61 @@
-/**
- * Coordinator Magic Link Sign-in Email Template
- *
- * Professional email template for IB Coordinator magic link authentication.
- * Contains coordinator-relevant messaging about student management and analytics.
- */
-
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Link,
-  Preview,
-  Section,
-  Text
-} from '@react-email/components'
-import { EmailHeader } from '@/components/email/EmailHeader'
+import LegacyCoordinatorMagicLinkEmail from '@/components/email/legacy/coordinator-magic-link'
+import { designedMessage, type EmailMessage } from '@/components/email/message'
 import { SIGN_IN_LINK_LIFETIME } from '@/lib/auth/sign-in-link'
 import { emailBrand } from '@/lib/brand/email'
 
-interface CoordinatorMagicLinkEmailProps {
+/*
+ * The sign-in link for coordinators and admins (rebranding 4.7, board "D4.18 Emails", section 5):
+ * "IB coordinator portal" above the heading, as on the coordinator's sign-in card (D4.2).
+ */
+
+interface CoordinatorSignInProps {
   url: string
 }
 
-// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
-const PRIMARY_COLOR = emailBrand().color
+const SUBJECT = 'Sign in to IB Match'
 
-export default function CoordinatorMagicLinkEmail({ url }: CoordinatorMagicLinkEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
+export function coordinatorSignInMessage({ url }: CoordinatorSignInProps): EmailMessage {
+  if (!emailBrand().newUi) {
+    return {
+      subject: SUBJECT,
+      react: LegacyCoordinatorMagicLinkEmail({ url }),
+      text: `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in ${SIGN_IN_LINK_LIFETIME}.\n\nIf you didn't request this, you can safely ignore this email.`
+    }
+  }
 
-  return (
-    <Html>
-      <Head />
-      <Preview>Sign in to IB Match Coordinator Dashboard</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <EmailHeader baseUrl={baseUrl} />
-          <Heading style={h1}>Sign in to IB Match</Heading>
-
-          <Text style={text}>Hello,</Text>
-
-          <Text style={text}>
-            {`Click the button below to securely sign in to your IB Match Coordinator account. This link will expire in ${SIGN_IN_LINK_LIFETIME}.`}
-          </Text>
-
-          <Section style={buttonContainer}>
-            <Button style={button} href={url}>
-              Sign in to IB Match
-            </Button>
-          </Section>
-
-          <Text style={text}>
-            IB Match empowers you to guide your students through their university journey. Access
-            your dashboard to manage student profiles, view analytics, and help your IB students
-            find the best programs for their academic achievements.
-          </Text>
-
-          <Text style={disclaimerText}>
-            If you didn&apos;t request this link, you can safely ignore this email.
-          </Text>
-
-          <Hr style={hr} />
-
-          <Text style={footerCopyright}>
-            © {new Date().getFullYear()} IB Match. All rights reserved.
-          </Text>
-
-          <Text style={footerLinks}>
-            <Link href={`${baseUrl}/terms`} style={linkStyle}>
-              Terms And Conditions
-            </Link>
-            {' · '}
-            <Link href={`${baseUrl}/privacy`} style={linkStyle}>
-              Privacy Policy
-            </Link>
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  )
+  return designedMessage(SUBJECT, {
+    preview: `Your link to the coordinator portal works for ${SIGN_IN_LINK_LIFETIME}, and only once.`,
+    eyebrow: 'IB coordinator portal',
+    heading: 'Sign in to IB Match',
+    blocks: [
+      {
+        type: 'text',
+        content: [
+          `Use this link to sign in to the coordinator portal. It works for ${SIGN_IN_LINK_LIFETIME}, and only once.`
+        ]
+      },
+      {
+        type: 'button',
+        label: 'Sign in to the coordinator portal',
+        href: url,
+        writeOut: true,
+        plain: 'url'
+      },
+      {
+        type: 'small',
+        content: [
+          'If you didn’t ask for this link, you can ignore this email. Nobody can sign in without it.'
+        ]
+      }
+    ]
+  })
 }
 
-// Clean, professional styling matching IB Match brand
-const main = {
-  backgroundColor: '#f5f5f7',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
+/** For React Email's preview (`npm run email:dev`), in the design `NEW_UI_FOR_EVERYONE` gives */
+export default function CoordinatorMagicLinkEmail(props: CoordinatorSignInProps) {
+  return coordinatorSignInMessage(props).react
 }
 
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '40px auto',
-  padding: '40px 48px',
-  maxWidth: '560px',
-  borderRadius: '8px'
-}
-
-const h1 = {
-  color: '#222',
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0 0 32px 0',
-  padding: '0',
-  lineHeight: '32px'
-}
-
-const text = {
-  color: '#484848',
-  fontSize: '16px',
-  lineHeight: '26px',
-  margin: '16px 0'
-}
-
-const disclaimerText = {
-  color: '#767676',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '24px 0 0 0'
-}
-
-const buttonContainer = {
-  padding: '24px 0',
-  textAlign: 'center' as const
-}
-
-const button = {
-  backgroundColor: PRIMARY_COLOR,
-  borderRadius: '8px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: '600',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'inline-block',
-  padding: '14px 48px'
-}
-
-const hr = {
-  borderColor: '#e5e5e5',
-  borderTop: '1px solid #e5e5e5',
-  margin: '32px 0 24px 0'
-}
-
-const footerCopyright = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0 0 8px 0'
-}
-
-const footerLinks = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0'
-}
-
-const linkStyle = {
-  color: PRIMARY_COLOR,
-  textDecoration: 'underline'
-}
+CoordinatorMagicLinkEmail.PreviewProps = {
+  url: 'https://www.ibmatch.com/api/auth/callback/resend?callbackUrl=https%3A%2F%2Fwww.ibmatch.com%2Fcoordinator&token=9f2c4e81a07d5b36c1e8f42a9d0b7c65e3f18a2d4b6c90e7f1a3d5b8c2e4f607&email=coordinator%40school.example'
+} satisfies CoordinatorSignInProps

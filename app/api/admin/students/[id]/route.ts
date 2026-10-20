@@ -7,12 +7,14 @@
  * Follows existing patterns from admin coordinator routes.
  */
 
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { sendAccountDeletedEmail } from '@/lib/email/account-emails'
+import { deleteStudentAccount } from '@/lib/account/delete-student'
+import { invalidateStudentCache } from '@/lib/matching/cache'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -104,72 +106,23 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     // Find student user
     const student = await prisma.user.findUnique({
       where: { id, role: 'STUDENT' },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        studentProfile: { select: { id: true } }
-      }
+      select: { email: true }
     })
 
     if (!student) {
       return NextResponse.json({ error: 'Student not found' }, { status: 404 })
     }
 
-    // Capture student info before deletion for email and logging
-    const studentEmail = student.email
-    const studentName = student.name
-    const redactedEmail = studentEmail.replace(/(.{2}).*(@.*)/, '$1***$2')
+    const redactedEmail = student.email.replace(/(.{2}).*(@.*)/, '$1***$2')
 
     logger.info('Admin student deletion initiated', {
       studentId: id.slice(0, 8),
       deletedBy: session.user.id.slice(0, 8)
     })
 
-    // Delete in explicit order to respect foreign key constraints
-    // (Prisma cascade should handle most, but being explicit for safety)
-
-    if (student.studentProfile) {
-      // 1. Delete saved programs
-      await prisma.savedProgram.deleteMany({
-        where: { studentProfileId: student.studentProfile.id }
-      })
-
-      // 2. Delete student courses
-      await prisma.studentCourse.deleteMany({
-        where: { studentProfileId: student.studentProfile.id }
-      })
-
-      // 3. Delete student profile
-      await prisma.studentProfile.delete({
-        where: { id: student.studentProfile.id }
-      })
-    }
-
-    // 4. Delete support tickets
-    await prisma.supportTicket.deleteMany({
-      where: { userId: id }
-    })
-
-    // 5. Delete sessions
-    await prisma.session.deleteMany({
-      where: { userId: id }
-    })
-
-    // 6. Delete OAuth accounts
-    await prisma.account.deleteMany({
-      where: { userId: id }
-    })
-
-    // 7. Delete verification tokens by email
-    await prisma.verificationToken.deleteMany({
-      where: { identifier: studentEmail }
-    })
-
-    // 8. Delete user
-    await prisma.user.delete({
-      where: { id }
-    })
+    // The same deletion as the student's own, in one transaction, so a failure part-way leaves
+    // the whole account rather than part of it (MAINT 5.25)
+    const deleted = await prisma.$transaction((tx) => deleteStudentAccount(tx, id))
 
     logger.info('Admin student deletion completed', {
       studentId: id.slice(0, 8),
@@ -177,15 +130,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       deletedBy: session.user.id.slice(0, 8)
     })
 
-    // Send deletion confirmation email (non-blocking)
-    sendAccountDeletedEmail({
-      to: studentEmail,
-      userName: studentName || undefined
-    }).catch((emailError) => {
-      logger.error('Failed to send deletion email', {
-        error: emailError instanceof Error ? emailError.message : 'Unknown error',
-        studentId: id.slice(0, 8)
-      })
+    // After the response, which Vercel would otherwise not wait for (MAINT 5.24): "Account
+    // deleted", and the student's cached matches (5.25). Neither can fail the deletion
+    after(async () => {
+      await Promise.allSettled([
+        sendAccountDeletedEmail({
+          to: deleted.email,
+          userName: deleted.name || undefined,
+          deletedBy: 'admin'
+        }),
+        invalidateStudentCache(id)
+      ])
     })
 
     return NextResponse.json({
