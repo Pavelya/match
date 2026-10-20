@@ -52,6 +52,7 @@ pull request, merged before the next starts.
 | any | Delete everything a student's account holds | 5.25 | small to medium | Decided 19 October 2026 (owner): "We need to delete all the info." Deleting an account leaves the student's invitations (address, name, school; 2 in production already belong to deleted accounts), their cached matches for 30 minutes and the shortlist count in their browser. One deletion for both routes. Do with 5.24 |
 | any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
+| any | Returning students and social media: where it stands, and a plan | 7.5 | medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome; D plans social media (LinkedIn and the platforms students use), where IB Match has no account today. Research and a plan; nothing sent, posted, tracked or built |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -125,6 +126,7 @@ Phase 7 — structural
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
+- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
 
 Owner tasks — not AI work
 
@@ -2255,6 +2257,163 @@ pull request.
 
 **Session size:** Medium. Research and drafting in one session, then the owner. Before rebranding
 release day if possible, so the legal pages ship with correct words.
+
+---
+
+### 7.5 — Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
+
+**Outcome:** Three things, approved by the owner:
+
+1. **Where it stands:** how many students come back after their first visit, measured from what is
+   already stored, and a plain statement of what cannot be known today.
+2. **What to count from now on:** one cheap way to see returning students, chosen by the owner.
+3. **A plan to bring students back without annoying them:** a short list of options, each with its
+   value to the student, its cost, the consent it needs and its size, written as later tasks.
+4. **A social media plan:** which platforms, for which audience, posting what, at what effort, and how
+   to tell whether it works.
+
+Added 20 October 2026 (owner): "I suspect many of the students use the app as a one-time thing. One
+login, check for programs, and that's all. I don't do much for the returning students, don't even
+count them." Social media added the same day (owner): "Please also include the planning for social
+media, LinkedIn, maybe another media."
+
+**Why:** IB Match is useful more than once in a student's year. Predicted grades change, programs'
+requirements are refreshed each cycle (`CONTENT_tasks.md`), shortlists grow, and the final IB results
+come in July. A single visit leaves most of that unused. Nothing tells the owner how many students
+return:
+
+- Sessions are JWTs that last 30 days (`lib/auth/config.ts`), so the `Session` table stays empty and a
+  sign-in leaves no row.
+- Auth.js's `events.signIn` runs on every sign-in, but it writes only a new account's consent.
+- The `jwt` callback reads the student's role every 5 minutes while they are active, but stores
+  nothing.
+- There is no analytics. The cookie banner says analytics cookies are "Not used", and the owner put
+  analytics out of the redesign's scope (`REBRANDING_tasks.md`, decisions).
+- A hint, not a measure: while drawing D2.16, the 17 students who had not accepted the February
+  policies had all finished their profiles, and none had changed anything since February.
+
+- **No social presence:** IB Match has no social media account. The Organization JSON-LD in
+  `app/layout.tsx` lists none (`sameAs: []`).
+
+**When:** any time; Part A first. Anything Part C proposes that collects data or sends email also
+changes the Privacy Policy, so it waits for 7.4.
+
+**Part A — where it stands (research, read-only).**
+
+1. **What a return leaves behind.** From aggregates only (the hard rules on cost):
+   - `User.createdAt` against `StudentProfile.updatedAt`;
+   - the days of `SavedProgram.createdAt`;
+   - support tickets, and invitations accepted after sign-up.
+
+   Count students with any activity on a day other than the one they signed up, by month of sign-up.
+   Then count the days from sign-up to the last stored activity. `User.updatedAt` also moves on a
+   consent or an admin change, so check what moved it before counting it.
+2. **What cannot be seen.** A visit that changes nothing. Check what else exists without new code:
+   - Vercel's logs (retention on this plan), and whether Vercel Web Analytics is on;
+   - Search Console, which counts searches and clicks, not people;
+   - Resend's record of sign-in emails, which counts magic-link sign-ins, including repeat ones.
+3. **Write it down:** a small table by month of sign-up, a few plain sentences, and the limit of
+   what the data can say.
+
+**Part B — what to count from now on (the owner decides; recommend one).** Options to weigh:
+
+- **A last-seen date on the account,** written at most once a day per student, for example from the
+  `jwt` callback's existing role check. One tiny write per active student per day, no new read, and
+  no cookie. Returning students then become a count.
+- **A row for each sign-in,** from `events.signIn`. A JWT lasts 30 days, so this misses most visits.
+- **A cookieless analytics tool,** such as Vercel Web Analytics. It counts visits, not people, and
+  changes the Cookie Policy, the Privacy Policy and the cookie banner's "Not used" line (7.4).
+
+For each option give the cost on the free plans (Supabase writes, analytics event limits) and what
+the Privacy Policy would have to say. Never log page views or UI events into Supabase: that kind of
+data is what pushed it over the free tier before (the hard rules on cost).
+
+**Part C — bring students back, without being annoying.**
+
+1. **Moments when a return helps the student.** Check the exact dates for the 2027 intake:
+   - predicted grades;
+   - application deadlines (UCAS, the US early and regular rounds, the other countries' portals);
+   - offers;
+   - the IB results in July ("Update your grades: your matches may have changed");
+   - the yearly requirements refresh.
+2. **Reasons that come from the student's own data,** which are rarely annoying:
+   - a program on their shortlist changed its requirements;
+   - a new program fits their profile in their fields and countries;
+   - they are one point or one grade away from a program that is within reach.
+
+   Check what each needs. Deadlines per program are not stored today.
+3. **Channels.** For each, its cost and size:
+   - **Email** through Resend: check the free plan's limits. New templates follow D4.18.
+   - **In the app:** a line on Matches such as "What changed since your last visit", which needs
+     Part B's date.
+   - **The student's school:** coordinators already invite students, and could prompt them.
+   - **Not browser push:** it is intrusive, and iOS needs the site installed first.
+4. **Consent and law.**
+   - Marketing email needs an opt-in under GDPR and ePrivacy. Many students are under 18, and the
+     age a teenager can consent alone differs by EU country (13 to 16).
+   - A service email ("your shortlisted program changed") is not marketing, but still needs a way to
+     turn it off.
+   - Every email gets one-click unsubscribe.
+   - The Privacy Policy changes (7.4). Students accept the new version through the policy update
+     notice (`REBRANDING_tasks.md` 4.6).
+5. **House rules against being annoying.** Propose them for the owner:
+   - opt-in only;
+   - a monthly cap;
+   - only when something about the student's own programs changed, or a dated moment from step 1;
+   - one switch in Settings to turn it all off;
+   - no streaks, no countdowns, no "we miss you".
+6. **How success is measured:** returning students per month of sign-up, from Part B, before and
+   after.
+7. **Write the options as tasks** in this file's format (Outcome, Why, Steps, Verify), ordered by
+   value for effort, each with the consent and policy change it needs.
+
+**Part D — social media: LinkedIn and the platforms students use.**
+
+1. **Audiences, each on its own platforms:**
+   - **IB students (16–18)**, who use the matcher. Check where they talk about university choices:
+     Instagram, TikTok, YouTube, Reddit (r/IBO), Discord servers for IB students.
+   - **IB coordinators and university counsellors**, who invite whole cohorts (For schools, the
+     coordinator portal). LinkedIn is the likely place, with IB and counselling groups and events.
+   - **Parents**, if the research shows they choose or pay. Facebook groups for international-school
+     families are one place to check.
+2. **For each platform, find out:**
+   - who is there, how they talk, and what their rules say about promotion (Reddit and Discord
+     communities often ban self-promotion);
+   - the ad rules for under-18s: Meta, TikTok and Google limit targeting ads to teenagers. Organic
+     posts only, unless the owner decides otherwise;
+   - the effort a one-person team can keep up every week, and what it costs.
+3. **What to post, from what IB Match already has.** Avoid claims that need a source the site doesn't
+   have.
+   - The 23 country guides, one fact at a time ("Ireland converts IB points to CAO points like this").
+   - A program's real requirements, as on its page.
+   - Moments in the IB year from Part C.
+   - For coordinators: what the portal does for a cohort, and short demos.
+
+   Never post a student's data, a screenshot with a student's name, or a testimonial nobody gave.
+4. **The account itself:**
+   - the handle on each platform;
+   - the profile in the new design (the logo is from configuration, the final mark is still
+     provisional);
+   - links back with UTM parameters, so the site can tell visits from each platform.
+5. **How it is measured:**
+   - visits by source, if Part B's choice counts visits;
+   - sign-ups by month;
+   - coordinator calls booked from LinkedIn;
+   - Search Console for branded searches.
+6. **What the site would change:**
+   - the accounts in `sameAs` (structured data, with 7.3's plan);
+   - links in the footer, which changes D2.13, so it needs a change board (`REBRANDING_tasks.md`,
+     Step 2);
+   - share images for the guides (some pages have none: `REBRANDING_tasks.md` build 4 notes).
+7. **Write the plan as tasks:** platforms in order, a monthly rhythm the owner can keep, the first
+   month's posts as examples, and what would make the owner stop or switch platform.
+
+**Must not:** send any email, post, create accounts, add tracking, or change code, schema or
+settings. Read production with aggregates only, never whole tables. This task researches and plans;
+each change is its own session.
+
+**Session size:** Medium. Aggregates and reading, then the owner's decisions on B, C and D. Part D
+can be its own session.
 
 ---
 
