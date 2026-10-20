@@ -15,11 +15,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { resend } from '@/lib/email/client'
+import { getResendClient } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import CoordinatorInviteEmail from '@/emails/coordinator-invite'
+import { coordinatorInviteMessage } from '@/emails/coordinator-invite'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 // Token expiry: 7 days
@@ -170,11 +170,10 @@ export async function POST(request: NextRequest) {
     const inviteUrl = `${baseUrl}/auth/accept-invite/${token}`
 
     // 10. Send invitation email
-    const { error: emailError } = await resend.emails.send({
+    const { error: emailError } = await getResendClient().emails.send({
       from: env.EMAIL_FROM,
       to: normalizedEmail,
-      subject: `You're invited to join ${school.name} on IB Match`,
-      react: CoordinatorInviteEmail({
+      ...coordinatorInviteMessage({
         inviteUrl,
         schoolName: school.name,
         inviterName: coordinator.user.name || undefined,

@@ -18,11 +18,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { resend } from '@/lib/email/client'
+import { getResendClient } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import StudentInviteEmail from '@/emails/student-invite'
+import { studentInviteMessage } from '@/emails/student-invite'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 // Token expiry: 7 days
@@ -90,15 +90,15 @@ async function createLinkRequestInvitation({
   const baseUrl = env.NEXT_PUBLIC_APP_URL || env.NEXTAUTH_URL
   const inviteUrl = `${baseUrl}/student/invitations`
 
-  const { error: emailError } = await resend.emails.send({
+  const { error: emailError } = await getResendClient().emails.send({
     from: env.EMAIL_FROM,
     to: existingUser.email,
-    subject: `${school.name} wants to connect with your IB Match account`,
-    react: StudentInviteEmail({
+    ...studentInviteMessage({
       inviteUrl,
       schoolName: school.name,
       coordinatorName: coordinator.user.name || undefined,
-      expiresInDays: INVITATION_EXPIRY_DAYS
+      expiresInDays: INVITATION_EXPIRY_DAYS,
+      existingAccount: true
     })
   })
 
@@ -326,11 +326,10 @@ export async function POST(request: NextRequest) {
     const inviteUrl = `${baseUrl}/auth/accept-student-invite/${token}`
 
     // 10. Send invitation email
-    const { error: emailError } = await resend.emails.send({
+    const { error: emailError } = await getResendClient().emails.send({
       from: env.EMAIL_FROM,
       to: normalizedEmail,
-      subject: `You're invited to join ${school.name} on IB Match`,
-      react: StudentInviteEmail({
+      ...studentInviteMessage({
         inviteUrl,
         schoolName: school.name,
         coordinatorName: coordinator.user.name || undefined,

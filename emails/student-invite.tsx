@@ -1,249 +1,132 @@
-/**
- * Student Invitation Email Template
- *
- * Email sent to students when a coordinator invites them to link their account
- * to their school. Includes clear GDPR-compliant consent information.
- *
- * Styled consistently with IB Match branding using the primary blue color.
- */
-
-import {
-  Body,
-  Button,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Link,
-  Preview,
-  Section,
-  Text
-} from '@react-email/components'
-import { EmailHeader } from '@/components/email/EmailHeader'
+import LegacyStudentInviteEmail from '@/components/email/legacy/student-invite'
+import { designedMessage, type EmailMessage } from '@/components/email/message'
+import { emailBaseUrl } from '@/components/email/tokens'
 import { emailBrand } from '@/lib/brand/email'
 
-interface StudentInviteEmailProps {
+/*
+ * A coordinator's invitation to a student (rebranding 4.7, board "D4.18 Emails", sections 6–8),
+ * in three versions: an address with no account, which creates one linked to the school; an
+ * existing account, whose link goes to School invitations; and the reminder Resend sends, which
+ * is either of those with "Reminder" above the heading. The button opens the invitation, since
+ * the student consents on the page (D4.16), not in the email.
+ */
+
+interface StudentInviteProps {
   inviteUrl: string
   schoolName: string
   coordinatorName?: string
   expiresInDays: number
+  /** The address has an account already: the link is School invitations */
+  existingAccount?: boolean
+  /** Sent again by Resend */
+  reminder?: boolean
 }
 
-// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
-const PRIMARY_COLOR = emailBrand().color
+const COORDINATORS_CAN = [
+  'View your academic profile (courses, grades, TOK/EE)',
+  'View your program matches and saved programs',
+  'Help manage your academic data'
+]
 
-export default function StudentInviteEmail({
+export function studentInviteMessage({
   inviteUrl,
-  schoolName,
+  schoolName: school,
   coordinatorName,
-  expiresInDays = 7
-}: StudentInviteEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
-  const declineUrl = `${baseUrl}/auth/signin?declineInvite=true`
+  expiresInDays: days,
+  existingAccount = false,
+  reminder = false
+}: StudentInviteProps): EmailMessage {
+  if (!emailBrand().newUi) {
+    return {
+      subject: reminder
+        ? `Reminder: You're invited to join ${school} on IB Match`
+        : existingAccount
+          ? `${school} wants to connect with your IB Match account`
+          : `You're invited to join ${school} on IB Match`,
+      react: LegacyStudentInviteEmail({
+        inviteUrl,
+        schoolName: school,
+        coordinatorName,
+        expiresInDays: days
+      })
+    }
+  }
 
-  return (
-    <Html>
-      <Head />
-      <Preview>You&apos;ve been invited to join {schoolName} on IB Match</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <EmailHeader baseUrl={baseUrl} />
-          <Heading style={h1}>Join {schoolName} on IB Match</Heading>
+  const subject = existingAccount
+    ? `${reminder ? 'Reminder: ' : ''}${school} wants to connect with your IB Match account`
+    : reminder
+      ? `Reminder: you’re invited to join ${school} on IB Match`
+      : `You’re invited to join ${school} on IB Match`
+  const from = coordinatorName
+    ? `${coordinatorName}, your IB coordinator at ${school},`
+    : `Your coordinator at ${school}`
+  // An existing account's link is School invitations, which a new token doesn't change
+  const newLink =
+    reminder && !existingAccount
+      ? ' This is a new link: the one in the first email no longer works.'
+      : ''
+  const expiry = `The invitation expires in ${days} days. If you didn’t expect it, you can ignore this email.`
 
-          <Text style={text}>Hello,</Text>
-
-          <Text style={text}>
-            {coordinatorName ? `${coordinatorName}, an IB Coordinator` : 'A coordinator'} at{' '}
-            <strong>{schoolName}</strong> has invited you to link your IB Match account to their
-            school.
-          </Text>
-
-          <Section style={infoBox}>
-            <Text style={infoBoxTitle}>What this means:</Text>
-            <Text style={infoBoxText}>
-              By accepting this invitation, you agree to allow coordinators at {schoolName} to:
-            </Text>
-            <ul style={infoList}>
-              <li style={infoListItem}>View your academic profile (courses, grades, TOK/EE)</li>
-              <li style={infoListItem}>View your program matches and saved programs</li>
-              <li style={infoListItem}>Help manage your academic data</li>
-            </ul>
-          </Section>
-
-          <Section style={buttonContainer}>
-            <Button style={button} href={inviteUrl}>
-              Accept Invitation &amp; Create Account
-            </Button>
-          </Section>
-
-          <Text style={alternativeText}>
-            Want to use IB Match without linking to your school?{' '}
-            <Link href={declineUrl} style={linkStyle}>
-              Create a regular account instead
-            </Link>
-          </Text>
-
-          <Text style={disclaimerText}>
-            This invitation will expire in {expiresInDays} days. If you didn&apos;t expect this
-            invitation, you can safely ignore this email.
-          </Text>
-
-          <Hr style={hr} />
-
-          <Text style={footerDescription}>
-            IB Match helps connect IB students with university programs worldwide.
-          </Text>
-
-          <Text style={footerCopyright}>
-            © {new Date().getFullYear()} IB Match. All rights reserved.
-          </Text>
-
-          <Text style={footerLinks}>
-            <Link href={`${baseUrl}/terms`} style={footerLinkStyle}>
-              Terms And Conditions
-            </Link>
-            {' · '}
-            <Link href={`${baseUrl}/privacy`} style={footerLinkStyle}>
-              Privacy Policy
-            </Link>
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  )
+  return designedMessage(subject, {
+    preview: newLink
+      ? `A new link: the invitation expires in ${days} days.`
+      : existingAccount
+        ? `Accept or decline it in IB Match within ${days} days.`
+        : `Accept within ${days} days to create your account, linked to your school.`,
+    eyebrow: reminder ? 'Reminder · school invitation' : 'School invitation',
+    heading: existingAccount ? `Connect with ${school}` : `Join ${school} on IB Match`,
+    blocks: [
+      {
+        type: 'text',
+        content: [
+          existingAccount
+            ? `${from} has invited you to link your IB Match account to their school.${newLink}`
+            : `${from} has invited you to create an IB Match account linked to their school.${newLink}`
+        ]
+      },
+      {
+        type: 'panel',
+        title: 'What coordinators can access',
+        intro: `If you accept, coordinators at ${school} can:`,
+        list: COORDINATORS_CAN,
+        note: 'You can unlink at any time in Settings.'
+      },
+      { type: 'button', label: 'Open the invitation', href: inviteUrl, writeOut: true },
+      ...(existingAccount
+        ? [
+            {
+              type: 'small' as const,
+              content: [`You’ll sign in first if you aren’t signed in. ${expiry}`]
+            }
+          ]
+        : [
+            {
+              type: 'small' as const,
+              content: [
+                'Don’t want to link your account? ',
+                {
+                  text: 'Create a regular account instead',
+                  href: `${emailBaseUrl()}/auth/signin?declineInvite=true`
+                }
+              ]
+            },
+            { type: 'small' as const, content: [expiry] }
+          ])
+    ]
+  })
 }
 
-// Clean, professional styling matching IB Match brand
-const main = {
-  backgroundColor: '#f5f5f7',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
+/** For React Email's preview (`npm run email:dev`), in the design `NEW_UI_FOR_EVERYONE` gives */
+export default function StudentInviteEmail(props: StudentInviteProps) {
+  return studentInviteMessage(props).react
 }
 
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '40px auto',
-  padding: '40px 48px',
-  maxWidth: '560px',
-  borderRadius: '8px'
-}
-
-const h1 = {
-  color: '#222',
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0 0 32px 0',
-  padding: '0',
-  lineHeight: '32px'
-}
-
-const text = {
-  color: '#484848',
-  fontSize: '16px',
-  lineHeight: '26px',
-  margin: '16px 0'
-}
-
-const infoBox = {
-  backgroundColor: '#f0f7ff',
-  borderRadius: '8px',
-  padding: '20px 24px',
-  margin: '24px 0'
-}
-
-const infoBoxTitle = {
-  color: '#222',
-  fontSize: '15px',
-  fontWeight: '600',
-  margin: '0 0 8px 0',
-  lineHeight: '22px'
-}
-
-const infoBoxText = {
-  color: '#484848',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '0 0 12px 0'
-}
-
-const infoList = {
-  margin: '0',
-  paddingLeft: '20px'
-}
-
-const infoListItem = {
-  color: '#484848',
-  fontSize: '14px',
-  lineHeight: '24px',
-  margin: '4px 0'
-}
-
-const buttonContainer = {
-  padding: '24px 0',
-  textAlign: 'center' as const
-}
-
-const button = {
-  backgroundColor: PRIMARY_COLOR,
-  borderRadius: '8px',
-  color: '#fff',
-  fontSize: '16px',
-  fontWeight: '600',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'inline-block',
-  padding: '14px 32px'
-}
-
-const alternativeText = {
-  color: '#767676',
-  fontSize: '14px',
-  lineHeight: '22px',
-  textAlign: 'center' as const,
-  margin: '0 0 24px 0'
-}
-
-const linkStyle = {
-  color: PRIMARY_COLOR,
-  textDecoration: 'underline'
-}
-
-const disclaimerText = {
-  color: '#767676',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '24px 0 0 0'
-}
-
-const hr = {
-  borderColor: '#e5e5e5',
-  borderTop: '1px solid #e5e5e5',
-  margin: '32px 0 24px 0'
-}
-
-const footerDescription = {
-  color: '#9ca299',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '0 0 16px 0'
-}
-
-const footerCopyright = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0 0 8px 0'
-}
-
-const footerLinks = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0'
-}
-
-const footerLinkStyle = {
-  color: PRIMARY_COLOR,
-  textDecoration: 'underline'
-}
+StudentInviteEmail.PreviewProps = {
+  inviteUrl:
+    'https://www.ibmatch.com/auth/accept-student-invite/Hk3VqZ8pR2mXc7LwN5tB0yFgJ4sDa9eU6oTiK1rQvE_bW-hY',
+  // The one school in production: 56 characters
+  schoolName: 'Test School | Demo and feedback call with IB coordinator',
+  expiresInDays: 7,
+  existingAccount: false,
+  reminder: false
+} satisfies StudentInviteProps

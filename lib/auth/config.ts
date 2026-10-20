@@ -5,10 +5,10 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import { render } from '@react-email/components'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
-import MagicLinkEmail from '@/emails/magic-link'
-import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
+import { signInMessage } from '@/emails/magic-link'
+import { coordinatorSignInMessage } from '@/emails/coordinator-magic-link'
 import { prisma } from '@/lib/prisma'
-import { SIGN_IN_LINK_LIFETIME, SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
+import { SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
 
 /** How long a role claim in the JWT is trusted before being re-read. */
 const ROLE_REFRESH_MS = 5 * 60 * 1000
@@ -51,13 +51,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             existingUser?.role === 'PLATFORM_ADMIN' ||
             pendingInvitation !== null
 
-          // Choose the appropriate email template
-          const EmailTemplate = isCoordinator ? CoordinatorMagicLinkEmail : MagicLinkEmail
-          const html = await render(EmailTemplate({ url }))
-
-          const text = isCoordinator
-            ? `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in ${SIGN_IN_LINK_LIFETIME}.\n\nIf you didn't request this, you can safely ignore this email.`
-            : `Sign in to IB Match\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in ${SIGN_IN_LINK_LIFETIME}.\n\nIf you didn't request this, you can safely ignore this email.`
+          // The subject, HTML and plain text, in the design the emails are in (rebranding 4.7)
+          const { subject, react, text } = (
+            isCoordinator ? coordinatorSignInMessage : signInMessage
+          )({ url })
+          const html = await render(react)
 
           const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -68,7 +66,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             body: JSON.stringify({
               from: provider.from,
               to: email,
-              subject: 'Sign in to IB Match',
+              subject,
               html,
               text
             })

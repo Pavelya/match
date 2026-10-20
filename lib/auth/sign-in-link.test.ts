@@ -2,7 +2,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // One number for how long an emailed sign-in link works (rebranding 4.3, D4.2): the provider's
 // maxAge, both emails and both plain-text bodies all come from lib/auth/sign-in-link.ts, so a
-// change there reaches every one of them, and a change anywhere else fails here.
+// change there reaches every one of them, and a change anywhere else fails here. In both designs:
+// the emails switch on release day (rebranding 4.7).
 
 const { config, prismaMock } = vi.hoisted(() => ({
   config: { current: null as null | { providers: Record<string, unknown>[] } },
@@ -65,7 +66,10 @@ async function sentText(role: 'STUDENT' | 'COORDINATOR'): Promise<string> {
 
 describe('the sign-in link', () => {
   beforeEach(() => vi.clearAllMocks())
-  afterEach(() => vi.unstubAllGlobals())
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.unstubAllEnvs()
+  })
 
   it('works for 10 minutes', () => {
     expect(SIGN_IN_LINK_MINUTES).toBe(10)
@@ -93,6 +97,23 @@ describe('the sign-in link', () => {
     for (const role of ['STUDENT', 'COORDINATOR'] as const) {
       const text = await sentText(role)
       expect(text).toContain(`This link will expire in ${SIGN_IN_LINK_LIFETIME}.`)
+      expect(text.match(/\d+ (minutes|hours)/g)).toEqual([SIGN_IN_LINK_LIFETIME])
+    }
+  })
+
+  it('is the time the new design gives, in each email, its inbox line and its plain text', async () => {
+    vi.stubEnv('NEW_UI_FOR_EVERYONE', 'true')
+    const student = await render(MagicLinkEmail({ url: 'https://www.ibmatch.com/x' }))
+    const coordinator = await render(
+      CoordinatorMagicLinkEmail({ url: 'https://www.ibmatch.com/x' })
+    )
+    for (const html of [student, coordinator]) {
+      expect(html).toContain(`It works for ${SIGN_IN_LINK_LIFETIME}, and only once.`)
+      expect(html).toContain(`works for ${SIGN_IN_LINK_LIFETIME}, and only once.<div>`)
+    }
+    for (const role of ['STUDENT', 'COORDINATOR'] as const) {
+      const text = await sentText(role)
+      expect(text).toContain(`It works for ${SIGN_IN_LINK_LIFETIME}, and only once.`)
       expect(text.match(/\d+ (minutes|hours)/g)).toEqual([SIGN_IN_LINK_LIFETIME])
     }
   })

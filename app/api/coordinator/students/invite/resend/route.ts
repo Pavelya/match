@@ -6,7 +6,8 @@
  * Resends an invitation email for a pending student invitation.
  * - Validates coordinator session and school ownership
  * - Regenerates token and updates expiry
- * - Resends invitation email
+ * - Resends invitation email: in the new design, an existing account's version when the address
+ *   has one (rebranding 4.7)
  *
  * Part of Task 4.4: Student Invitation System
  */
@@ -15,10 +16,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { resend } from '@/lib/email/client'
+import { getResendClient } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
-import StudentInviteEmail from '@/emails/student-invite'
+import { studentInviteMessage } from '@/emails/student-invite'
+import { emailBrand } from '@/lib/brand/email'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 const INVITATION_EXPIRY_DAYS = 7
@@ -111,20 +113,34 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // 6. Build invitation URL
-    const baseUrl = env.NEXT_PUBLIC_APP_URL || env.NEXTAUTH_URL
-    const inviteUrl = `${baseUrl}/auth/accept-student-invite/${newToken}`
+    // 6. Which invitation it is (board "D4.18 Emails", decided 20 October 2026): an address with
+    // an account gets that account's email, and the link to School invitations, since the new
+    // account's link can't sign them in. One read, by a unique key, only on Resend, and only for
+    // the new design's email: today's sends the new account's to everyone until release day
+    const existingAccount =
+      emailBrand().newUi &&
+      (await prisma.user.findUnique({
+        where: { email: invitation.email },
+        select: { id: true }
+      })) !== null
 
-    // 7. Send email
-    const { error: emailError } = await resend.emails.send({
+    // 7. Build invitation URL
+    const baseUrl = env.NEXT_PUBLIC_APP_URL || env.NEXTAUTH_URL
+    const inviteUrl = existingAccount
+      ? `${baseUrl}/student/invitations`
+      : `${baseUrl}/auth/accept-student-invite/${newToken}`
+
+    // 8. Send email
+    const { error: emailError } = await getResendClient().emails.send({
       from: env.EMAIL_FROM,
       to: invitation.email,
-      subject: `Reminder: You're invited to join ${coordinator.school.name} on IB Match`,
-      react: StudentInviteEmail({
+      ...studentInviteMessage({
         inviteUrl,
         schoolName: coordinator.school.name,
         coordinatorName: coordinator.user.name || undefined,
-        expiresInDays: INVITATION_EXPIRY_DAYS
+        expiresInDays: INVITATION_EXPIRY_DAYS,
+        existingAccount,
+        reminder: true
       })
     })
 
@@ -139,7 +155,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 8. Log success
+    // 9. Log success
     const redactedEmail = invitation.email.replace(/(.{2}).*(@.*)/, '$1***$2')
     logger.info('Student invitation resent', {
       invitationId,

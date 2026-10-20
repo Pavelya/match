@@ -7,3 +7,6 @@ node_modules/
 package-lock.json
 public/
 prisma/migrations/
+
+# Emails rendered from main, compared byte for byte (lib/email/emails.test.tsx)
+lib/email/__fixtures__/

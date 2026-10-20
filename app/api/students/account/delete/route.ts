@@ -7,11 +7,14 @@
  * Permanently deletes user account and all associated data.
  */
 
-import { NextResponse } from 'next/server'
+import { NextResponse, after } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { logger } from '@/lib/logger'
+import { deleteStudentAccount } from '@/lib/account/delete-student'
+import { sendAccountDeletedEmail } from '@/lib/email/account-emails'
+import { invalidateStudentCache } from '@/lib/matching/cache'
 
 export async function DELETE() {
   try {
@@ -32,36 +35,24 @@ export async function DELETE() {
     logger.info('Account deletion initiated', { userId: userId.slice(0, 8) + '...' })
 
     // Everything in one transaction, so a failure deletes nothing and the student can try again
-    // (rebranding 3.3: the dialog says "Nothing was deleted"). In order, for the foreign keys;
-    // Prisma's cascades would cover most of it, but being explicit
-    await prisma.$transaction(async (tx) => {
-      const user = await tx.user.findUnique({
-        where: { id: userId },
-        select: { email: true, studentProfile: { select: { id: true } } }
-      })
-      const profileId = user?.studentProfile?.id
-
-      // 1. The student's data: saved programs, courses, then the profile
-      if (profileId) {
-        await tx.savedProgram.deleteMany({ where: { studentProfileId: profileId } })
-        await tx.studentCourse.deleteMany({ where: { studentProfileId: profileId } })
-        await tx.studentProfile.delete({ where: { id: profileId } })
-      }
-
-      // 2. How they sign in
-      await tx.session.deleteMany({ where: { userId } })
-      await tx.account.deleteMany({ where: { userId } })
-
-      // 3. Sign-in links sent to their email
-      if (user?.email) {
-        await tx.verificationToken.deleteMany({ where: { identifier: user.email } })
-      }
-
-      // 4. Finally, the user
-      await tx.user.delete({ where: { id: userId } })
-    })
+    // (rebranding 3.3: the dialog says "Nothing was deleted"). What it deletes: MAINT 5.25
+    const deleted = await prisma.$transaction((tx) => deleteStudentAccount(tx, userId))
 
     logger.info('Account deletion completed', { userId: userId.slice(0, 8) + '...' })
+
+    // Once it has committed, and without holding up the answer: "Account deleted" to the address
+    // they signed in with (MAINT 5.24), and their cached matches (5.25). Neither can fail the
+    // deletion; each logs its own failure
+    after(async () => {
+      await Promise.allSettled([
+        sendAccountDeletedEmail({
+          to: deleted.email,
+          userName: deleted.name || undefined,
+          deletedBy: 'student'
+        }),
+        invalidateStudentCache(userId)
+      ])
+    })
 
     return NextResponse.json({
       success: true,

@@ -48,8 +48,8 @@ pull request, merged before the next starts.
 | any | Invited student sent to "Check your email" | 5.21 | small | **Done** (19 October 2026, rebranding build 16, both designs). After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
 | any | Invitation link for a student who already has an account | 5.22 | small | **Done** (19 October 2026, rebranding build 16, both designs). It was a dead end: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
 | any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
-| any | "Account deleted" email when a student deletes their own account | 5.24 | small | Only an admin's deletion sends it, and its words say an administrator did it. A student who deletes their account in Settings gets nothing. Rebranding build 22 (4.7) draws both versions and does this for both designs if it is still open. Do with 5.25 |
-| any | Delete everything a student's account holds | 5.25 | small to medium | Decided 19 October 2026 (owner): "We need to delete all the info." Deleting an account leaves the student's invitations (address, name, school; 2 in production already belong to deleted accounts), their cached matches for 30 minutes and the shortlist count in their browser. One deletion for both routes. Do with 5.24 |
+| any | "Account deleted" email when a student deletes their own account | 5.24 | small | **Done** (20 October 2026, rebranding build 22, both designs). Only an admin's deletion sent it, and its words said an administrator did it. Now Settings sends it too, with the student's words, once the deletion commits |
+| any | Delete everything a student's account holds | 5.25 | small to medium | **Done** (20 October 2026, rebranding build 22), but for step 6: the 2 invitations already left behind wait for the owner's approval and a backup. One deletion for both routes now takes the student's invitations, their cached matches and the shortlist count in their browser |
 | any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | any | Returning students and social media: where it stands, and a plan | 7.5 | medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome; D plans social media (LinkedIn and the platforms students use), where IB Match has no account today. Research and a plan; nothing sent, posted, tracked or built |
@@ -106,8 +106,9 @@ Phase 5 — quick wins
 - [x] 5.21 Send an invited student to "Check your email" after accepting (19 October 2026)
 - [x] 5.22 Let a student who already has an account accept an invitation (19 October 2026)
 - [x] 5.23 One h1 on the legal pages (19 October 2026)
-- [ ] 5.24 Send "Account deleted" when a student deletes their own account
-- [ ] 5.25 Delete everything a student's account holds when it is deleted
+- [x] 5.24 Send "Account deleted" when a student deletes their own account (20 October 2026)
+- [x] 5.25 Delete everything a student's account holds when it is deleted (20 October 2026; step 6's
+  two old invitations wait for the owner)
 - [ ] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 
 Phase 6 — dependency majors
@@ -1508,6 +1509,14 @@ email wasn't sent.
 versions from approved words. Rebranding build 22 (4.7) does this task for both designs if it is
 still open.
 
+**Done 20 October 2026** in rebranding build 22, for both designs. `AccountDeletedEmail` takes
+`deletedBy`; the admin's version is as before but for 5.25's list line. Both routes send it inside
+`after()` once the transaction has committed, and `sendAccountDeletedEmail` builds the client when it
+sends, never throws, and logs a failure with the address redacted. `lib/email/client.ts` no longer
+builds its client when it loads, so the invite routes call `getResendClient()`. Tests: the route's,
+the admin route's, and `lib/email/emails.test.tsx` for both versions in both designs. Still to do by
+hand: the throwaway-database deletion with a real send, which needs a live key and the owner's go-ahead.
+
 ---
 
 ### 5.25 — Delete everything a student's account holds when it is deleted
@@ -1581,6 +1590,13 @@ for that id or address, and the other student's invitation is still there.
 
 **Session size:** Small to medium. Do it in the same session as 5.24, in one pull request: the same
 two routes, the same `after()` and the same template.
+
+**Done 20 October 2026** in rebranding build 22, but for step 6's `--apply`. `deleteStudentAccount` in
+`lib/account/delete-student.ts` runs inside both routes' transaction; the admin's route no longer
+deletes one table at a time. `clearShortlistCount()` beside `writeShortlistCount` runs in the new
+design's Settings before signing out. Step 6 is `scripts/delete-orphaned-student-invitations.ts`; its
+count on production, 20 October 2026, is 2, as above. The delete waits for the owner's approval and a
+backup, after merging. Not done by hand: the throwaway-database check of every table.
 
 ---
 
