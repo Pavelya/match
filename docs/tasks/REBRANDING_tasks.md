@@ -158,7 +158,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 19 October 2026.** The canvas has 93 boards. The owner approved in chat "B ·
+**Where it stands, 20 October 2026.** The canvas has 94 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -205,8 +205,9 @@ pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 Sch
 16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Later that day
 row 21 drew For schools on desktop and phone, and the owner approved both boards in chat with every
 recommendation: "D4.17 For schools" and "D4.17 For schools · phone". Build 21's gate is complete.
-Three tasks have no board: D1.6, D2.16 (the policy update banner, added by the owner on 18 October)
-and D4.18 (the emails, added by the owner on 19 October).
+On 20 October row 22 drew the policy update notice, and the owner approved the board in chat with every
+recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Two tasks have no board:
+D1.6 and D4.18 (the emails, added by the owner on 19 October).
 
 ### Foundations
 
@@ -241,7 +242,7 @@ theme switch are in D1.4.
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
 | D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
 | D2.15 Bottom sheet | "D2.15 Bottom sheet" (row 12): Explore's filters on a phone, light and dark: open, a choice applied, "Only ones I qualify for" on, scrolled, no programs match, an IB points value it can't use, keyboard focus, signed out, the count not arriving, forced colours. Replaces "Phone · Filters sheet". **Decided 11 October 2026 (owner):** a choice applies at once and the button carries the count ("Show 43 programs"); closing never loses a choice; a native dialog, no drag handle; every section open in one scroll; "No programs match" disables the button; profile shortcuts "Use my fields", "Use my countries" and "Up to my 38", with no limit on how many boxes are ticked. **Changed 13 October 2026 (owner):** the no-minimum hint, as on D3.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
-| D2.16 Policy update banner | None | **No board.** "We've Updated Our Policies" (`components/shared/ReconsentBanner.tsx`) in the new design, built in 4.6: a signed-in page on desktop and phone (above the tab bar), light, dark and forced colours; the Terms, the Privacy Policy or both changed; accepting, an accept that fails (silent today), Remind me later; and with the cookie banner showing at the same time, which today's banner covers (found in build 14). Added 18 October 2026 (owner) | |
+| D2.16 Policy update banner | "D2.16 Policy update banner" (row 22): the notice over the approved Academic page at 1440px and 390 × 844, light, dark, forced colours and keyboard focus; the cookie banner first, then the notice; accepting, a failed accept, accepted with its toast, a toast while it shows; the panel's words at 420px for the Terms, the Privacy Policy or both changed, accepting, failed and signed out meanwhile, light and dark. Added 18 October 2026 (owner). **Decided 20 October 2026 (owner), every recommendation:** one at a time, the cookie banner first; the cookie banner's place and panel, no amber and no icon; today's words in sentence case, the documents as links in the sentence, no version labels and no change notes; "I accept the updated policies" and "Remind me later", no close button; a failure said in the panel, a success in a toast; it waits on pages with the steps' footer, and stays off Explore and program pages. Decisions in 4.6 | Nothing | 20 October 2026 |
 
 ### Patterns
 
@@ -310,7 +311,7 @@ merges into `main`, behind the preview switch.**
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
-| 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
+| 20 | Policy update banner | 4.6 | D2.16 | small | Gate complete 20 October 2026. The cookie banner's panel and place, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast; it waits on first run and the editing screens. No new read. Added 18 October 2026 (owner). After 16, before release day |
 | 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
@@ -344,7 +345,7 @@ Rows 3 and 4 can share a design session.
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
-| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
+| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Design approved 20 October 2026 (one board, row 22). After 16, before release day |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
@@ -2592,6 +2593,45 @@ raw palette classes and title case, keeps showing for today's design. Added 18 O
   14). D2.16 decides the order. On a phone it sits above the tab bar, as the cookie banner does.
 - **A failed accept says so** and offers to try again; today it fails silently.
 - No emoji, real buttons and links, and the Definition of done.
+
+**Decided on the board (20 October 2026, owner, every recommendation).** Canvas row 22, "D2.16 Policy
+update banner". The coordinator portal keeps today's banner (4.5).
+
+- **One at a time, the cookie banner first.** When both are due, the cookie banner shows as on every
+  page; the notice is in the page but hidden until a cookie choice is stored (`lib/cookie-consent`, read
+  in the browser as the cookie banner does), then rises in the banner's place. They never overlap and
+  never stack.
+- **The cookie banner's place and panel** (4.1): desktop bottom right, 420px, 24px from the edges; a
+  phone across the bottom, sitting on the tab bar, which stays put while it shows instead of hiding on
+  scroll; a toast rises 12px above it (the `--cookie-banner` measure, or one shared for both). Surface,
+  1px line, the overlay shadow; no amber and no icon. Not modal, takes no focus, and sits first in Tab
+  order after the skip link, in the cookie banner's slot (`components/site/cookie-slot.tsx`). A region
+  named by its h2.
+- **The words.** h2 "We’ve updated our policies". Then today's sentence with the documents as its
+  links: "Our Terms of Service and Privacy Policy have been updated. Please review and accept to
+  continue using IB Match." With one document: "Our Terms of Service has been updated." or "Our Privacy
+  Policy has been updated.", then the same second sentence. Each link is named after its page's title,
+  opens it in a new tab as today, with the external-link icon and "(opens in a new tab)". No version
+  in the links and no icons before them; the admin's change notes are not shown.
+- **Actions, in this order:** "I accept the updated policies" (primary; 44px on desktop, full width at
+  48px on a phone), then "Remind me later" (a link-style button, under it on a phone). The close button
+  goes. Remind me later hides the notice until the next full page load, as today.
+- **Accepting:** "Accepting…", `aria-busy` and `aria-disabled`, no spinner; Remind me later is
+  unavailable until the answer comes. On success the notice fades out, focus moves to the page's
+  content if it was inside (as the cookie banner's `focusMain`), the toast says "You’ve accepted the
+  updated policies.", and the page refreshes as today. `ReconsentChecker` moves inside the signed-in
+  frame, where the toast provider is (AppFrame); no new read.
+- **A failure, in the panel** (`role="alert"`, above the actions), with the button back and focus kept
+  on it: "Your acceptance wasn’t saved. Check your connection and try again." for any error, 429
+  included; on 401, "You’ve been signed out, so your acceptance wasn’t saved. Sign in again to accept.",
+  "Sign in again" linking to sign-in with a return to the page.
+- **Where it shows:** every signed-in student page, except while a page shows the steps' footer
+  (`data-step-footer`: first run and the Academic editing screens), where it waits for the next page.
+  Not on Explore and program pages, which have no notice today: it would read the database on every
+  program view.
+- **Motion:** the cookie banner's. It rises 8px and fades in over 240ms, fades out in 180ms; reduced
+  motion keeps only the fades. After a cookie choice the banner fades out, then the notice rises. Fixed,
+  so CLS stays 0.
 
 ### 4.7 — The emails
 
