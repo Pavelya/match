@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
  */
 
 export const disclosureChevron =
-  'shrink-0 text-muted-foreground transition-transform duration-180 ease-standard group-open:rotate-180 motion-reduce:transition-none'
+  'shrink-0 text-muted-foreground transition-transform duration-180 ease-standard group-open:rotate-180'
 
 export interface PanelQuestion {
   question: string
@@ -45,7 +45,7 @@ export function QuestionsPanel({
               className={cn('mt-0.5', disclosureChevron)}
             />
           </summary>
-          <div className="flex flex-col gap-2.5 px-4 pb-4 md:pr-14 md:pb-5 md:pl-5">
+          <div className="flex flex-col gap-2.5 px-4 pb-4 group-open:disclose md:pr-14 md:pb-5 md:pl-5">
             <p className="faq-answer text-body-l">{item.answer}</p>
             {item.after}
           </div>

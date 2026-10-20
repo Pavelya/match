@@ -100,7 +100,7 @@ export function ErrorReference({ digest }: { digest?: string }) {
       If it keeps happening,{' '}
       <Link
         href="/contact"
-        className="rounded-chip font-medium text-primary underline underline-offset-2 hover:text-brand-hover"
+        className="rounded-chip font-medium text-primary underline underline-offset-2 hover:text-brand-hover pressed:text-brand-ink pressed:underline"
       >
         contact us
       </Link>

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Check, CircleAlert, ExternalLink, Info, Minus, X, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LinkPending } from '@/components/ds/LinkPending'
 import { SaveToggle } from '@/components/ds/SaveToggle'
 import { Select } from '@/components/ds/Select'
 import { LoadingRegion, Skeleton } from '@/components/ds/Skeleton'
@@ -209,9 +210,10 @@ function ColumnHead({ item, shortlist }: { item: ShortlistItem; shortlist: Short
       <span className="mt-2 flex min-w-0 flex-col pr-1.5 md:mt-3 md:pr-0">
         <Link
           href={`/programs/${item.id}`}
-          className="w-fit rounded-chip text-[0.9375rem] leading-5 font-semibold break-words text-foreground underline-offset-3 hover:underline md:text-[1.0625rem] md:leading-6"
+          className="w-fit rounded-chip text-[0.9375rem] leading-5 font-semibold break-words text-foreground underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline md:text-[1.0625rem] md:leading-6"
         >
           {item.name}
+          <LinkPending />
         </Link>
         <span className="text-small text-muted-foreground">{item.university}</span>
       </span>
@@ -365,7 +367,7 @@ function CompareValue({
           href={item.programUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-chip text-body font-semibold text-primary underline underline-offset-3 hover:text-brand-hover max-md:-my-2.5 max-md:min-h-11 max-md:leading-5 md:min-h-6"
+          className="inline-flex items-center gap-1.5 rounded-chip text-body font-semibold text-primary underline underline-offset-3 hover:text-brand-hover pressed:text-brand-ink pressed:underline max-md:-my-2.5 max-md:min-h-11 max-md:leading-5 md:min-h-6"
         >
           <span>
             Official<span className="max-md:hidden"> program</span> page

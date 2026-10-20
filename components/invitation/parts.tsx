@@ -94,14 +94,13 @@ export function ConsentBox({
     <div className="flex flex-col gap-2.5">
       <label
         className={cn(
-          'grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3 rounded-[0.75rem] border',
-          'transition-[border-color,background-color] duration-120 ease-standard motion-reduce:transition-none',
+          'press-lg grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3 rounded-[0.75rem] border',
           'has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-ring',
           refused
             ? 'border-2 border-gap bg-card px-[0.9375rem] py-[0.8125rem]'
             : checked
               ? 'border-primary bg-brand-soft px-4 py-3.5'
-              : 'border-line-2 bg-card px-4 py-3.5 hover:border-line-3'
+              : 'border-line-2 bg-card px-4 py-3.5 hover:border-line-3 active:border-line-3 active:bg-muted'
         )}
       >
         <input

@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils'
  */
 
 export const linkClass =
-  'rounded-chip font-medium text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover'
+  'rounded-chip font-medium text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline'
 
 export function RichText({ text }: { text: string }) {
   return <Nodes nodes={parseRich(text)} />

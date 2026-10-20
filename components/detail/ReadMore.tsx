@@ -27,6 +27,8 @@ export function ReadMore({ clamp, className, children }: ReadMoreProps) {
         id={id}
         className={cn(
           'max-w-[68ch] text-body-l whitespace-pre-line',
+          // The whole text fades in as it opens (D1.6)
+          open && 'disclose',
           !open && clamp.phone && 'max-md:line-clamp-8',
           !open && clamp.wide && 'md:line-clamp-8',
           className
@@ -41,7 +43,7 @@ export function ReadMore({ clamp, className, children }: ReadMoreProps) {
           aria-controls={id}
           onClick={() => setOpen((o) => !o)}
           className={cn(
-            '-mt-1 inline-flex h-11 items-center gap-1 self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline',
+            '-mt-1 inline-flex h-11 items-center gap-1 self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline',
             !clamp.phone && 'max-md:hidden',
             !clamp.wide && 'md:hidden'
           )}

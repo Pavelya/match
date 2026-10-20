@@ -17,7 +17,7 @@ export function NotFoundPanel({ title, children }: { title: string; children: Re
         <NotFoundSearch />
         <Link
           href="/programs/search"
-          className="inline-flex min-h-11 items-center self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline"
+          className="inline-flex min-h-11 items-center self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
         >
           Explore programs
         </Link>

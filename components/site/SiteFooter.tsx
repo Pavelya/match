@@ -7,7 +7,7 @@ import { containerClass } from './styles'
 
 const linkClass = [
   'self-start rounded-[0.25rem] text-body text-muted-foreground underline-offset-3 max-md:flex max-md:min-h-11 max-md:items-center',
-  'transition-colors duration-180 ease-standard hover:text-foreground hover:underline active:text-foreground active:underline active:opacity-80',
+  'transition-colors duration-180 ease-standard hover:text-foreground hover:underline pressed:text-brand-ink pressed:underline',
   'aria-[current=page]:font-semibold aria-[current=page]:text-foreground'
 ].join(' ')
 

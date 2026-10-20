@@ -62,7 +62,7 @@ export function CheckRow({
   return (
     <label
       className={cn(
-        'flex cursor-pointer items-center gap-2.5 text-[0.9375rem] leading-5',
+        'press-lg flex cursor-pointer items-center gap-2.5 text-[0.9375rem] leading-5',
         className
       )}
     >
@@ -92,7 +92,7 @@ export function Shortcut({
       type="button"
       onClick={onClick}
       className={cn(
-        '-my-2.5 -mr-2 inline-flex h-11 shrink-0 items-center rounded-chip px-2 text-[0.875rem] font-semibold text-primary underline-offset-3 hover:underline',
+        '-my-2.5 -mr-2 inline-flex h-11 shrink-0 items-center rounded-chip px-2 text-[0.875rem] font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline',
         className
       )}
     >

@@ -320,7 +320,7 @@ merges into `main`, behind the preview switch.**
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
-| 19 | Motion and feedback | 5.2 | D1.6 | medium | **Unlocked 20 October 2026** (owner): D1.6 approved, ahead of the program card review (5.1), whose rule is the same for any card. Before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
+| 19 | Motion and feedback | 5.2 | D1.6 | medium | **Done 20 October 2026.** Shared classes in `app/globals.css` (three presses, the `pressed:` variants, the stretched link, the small overlay, the disclosure fade) and one reduced-motion rule for the new design. Matches cards and Explore and Shortlist rows are whole links with Save and "Why this match" above them; a press holds while the next page loads, through `useLinkStatus` in client links only, so today's design downloads nothing new. "Updating…" on Explore, the theme switch at once. CSS 34.7 of the 36 KB allowed until cleanup |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 | 23 | Seasonal themes | 6.1 | D1.7 | small to medium | After release day. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
@@ -356,7 +356,7 @@ Rows 3 and 4 can share a design session.
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
-| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | D1.6 approved 20 October 2026; the build is unlocked, before release day |
+| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 | 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | After release day. The December season only if merged by 1 December 2026; otherwise Lunar New Year first |
@@ -421,7 +421,7 @@ Phase 4 — Public pages
 Phase 5 — After the whole preview
 
 - [ ] 5.1 The program card in every list (review)
-- [ ] 5.2 Motion and feedback in every component
+- [x] 5.2 Motion and feedback in every component (20 October 2026)
 
 Release
 
@@ -2963,6 +2963,26 @@ with Keep or Change; the build changes every row marked Change, and no other.
   tokens (`--duration-*`, `--ease-spring`, `.hover-lift`, the shimmer keyframes) belong to today's
   design and go at R.2.
 
+**Built (20 October 2026, session 19).** One pull request, every row the board marks Change:
+- **Shared classes** in `app/globals.css`, under "Motion and feedback": `press` (98%), `press-sm`
+  (96%) and `press-lg` (99%), each with the component's own darker fill through the `pressed:`
+  variant (a press, or a link whose page is loading); `link-pressed:` and `link-hover:` for a card
+  or row whose name's link (`data-stretched-link`) covers it; `overlay-sm` for menus, popovers,
+  the account and Menu panels, Save and exit's question and the scrims; `disclose` for an inline
+  disclosure's 180ms fade. Each component uses them instead of its own transition and scale.
+- **Reduced motion:** one rule for the new design limits every transition to opacity and colour,
+  so the six components' overrides went; today's design keeps its global `0.01ms` rule.
+- **The held press** is `components/ds/LinkPending.tsx`, inside the links of client components
+  only: Matches cards, Explore and Shortlist rows, the compare table's names, "Open the program
+  page", the tab bar, and every `CurrentLink` (the nav, Menu, the account panel, the footer). A
+  server page that imports it would add it to that page's download in today's design too (measured:
+  +86 B gzipped on Home, +65 B on a guide), so `ButtonLink`, `CardLink` and
+  the university page's program names press but don't hold yet. R.2 adds it to them.
+- **Not on the board's table, left as built:** the "Missing a requirement" bar on Matches, whose
+  chevron still turns in 240ms and whose cards appear without a fade; the "On this page"
+  disclosures on the guides and legal pages; the Menu and account panels' rows, which change
+  fill without shrinking. Each is a one-line change if the owner wants the rule on them.
+
 ---
 
 ## Release
@@ -3022,6 +3042,10 @@ against the baseline:
     `lib/auth/sign-in-link.test.ts` and the resend route's test, and every `NEW_UI_FOR_EVERYONE`
     stub left in them. The new design's checks stay, without the stub;
   - the "today's design" words in `components/email/message.tsx` and the `emails/` headers;
+- from 5.2: put `LinkPending` in `ButtonLink`, `CardLink` and the university page's program names,
+  so they hold their press too; delete today's reduced-motion rule in `app/globals.css` (the
+  `:root:not([data-ui='next'])` block) and today's motion tokens (`--duration-*`, `--ease-out`,
+  `--ease-in-out`, `--ease-spring`, `.hover-lift`, `.hover-scale`, the shimmer), once nothing uses them;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
   (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here

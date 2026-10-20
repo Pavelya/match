@@ -4,6 +4,7 @@ import { useId, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { ChevronDown, CircleAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LinkPending } from '@/components/ds/LinkPending'
 import type { WhyRow, WhyThisMatch as WhyData } from '@/lib/matching/match-why'
 import { REQUIREMENT_STATUS as STATUS, YOU_TEXT as YOU } from './requirement-status'
 
@@ -21,9 +22,10 @@ interface WhyThisMatchProps {
   programId: string
   programName: string
   why: WhyData
+  className?: string
 }
 
-export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchProps) {
+export function WhyThisMatch({ id, programId, programName, why, className }: WhyThisMatchProps) {
   const { note, intake, fit } = why
   const noteStatus = STATUS[note.kind]
 
@@ -34,8 +36,9 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
       aria-label={`Why this match: ${programName}`}
       className={cn(
         'grid gap-3 border-t border-border pt-3 md:grid-cols-[minmax(0,1fr)_272px] md:gap-5 md:pt-4',
-        // Opens with a 240ms fade; the height doesn't animate (only transform and opacity do)
-        'transition-opacity duration-240 ease-standard starting:opacity-0 motion-reduce:duration-240!'
+        // Fades in as it opens, 180ms (D1.6); nothing slides
+        'disclose',
+        className
       )}
     >
       <div className="flex min-w-0 flex-col gap-3">
@@ -77,7 +80,10 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
               {why.programUrl ? (
                 <>
                   on the{' '}
-                  <a href={why.programUrl} className="text-primary underline underline-offset-3">
+                  <a
+                    href={why.programUrl}
+                    className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+                  >
                     university’s page
                   </a>
                 </>
@@ -151,7 +157,7 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
           Fit orders programs within a status. It isn’t a chance of admission.{' '}
           <Link
             href="/how-it-works"
-            className="font-semibold text-primary underline-offset-3 hover:underline"
+            className="font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
           >
             How ranking works
           </Link>
@@ -160,9 +166,10 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
 
       <Link
         href={`/programs/${programId}`}
-        className="inline-flex min-h-11 items-center justify-self-start text-[0.875rem]/5 font-semibold text-primary underline-offset-3 hover:underline md:col-span-2 md:min-h-0"
+        className="inline-flex min-h-11 items-center justify-self-start text-[0.875rem]/5 font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline md:col-span-2 md:min-h-0"
       >
         Open the program page
+        <LinkPending />
       </Link>
     </div>
   )
@@ -300,7 +307,7 @@ function AllOptions({ options }: { options: NonNullable<WhyRow['options']> }) {
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         onClick={() => setOpen((o) => !o)}
-        className="-my-1.5 inline-flex h-8 items-center gap-1 self-start rounded-chip text-small font-semibold text-primary underline-offset-3 hover:underline"
+        className="-my-1.5 inline-flex h-8 items-center gap-1 self-start rounded-chip text-small font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
       >
         All {options.count} options
         <ChevronDown
@@ -313,7 +320,7 @@ function AllOptions({ options }: { options: NonNullable<WhyRow['options']> }) {
       {open && (
         <dl
           id={listId}
-          className="mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5"
+          className="disclose mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5"
         >
           {options.groups.map((group) => (
             <div key={group.label} className="flex flex-col gap-0.5">

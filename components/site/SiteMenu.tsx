@@ -10,8 +10,8 @@ import { useDisclosure } from './use-disclosure'
 
 /**
  * Menu, signed out, below 1024px: the four public links and "Get my matches" in a panel that
- * drops from the header over a scrim (D2.12). Signed in there is no Menu; the avatar opens the
- * account panel instead, so the two never sit side by side.
+ * drops from the header over a scrim (D2.12), both fading in (D1.6). Signed in there is no Menu;
+ * the avatar opens the account panel instead, so the two never sit side by side.
  */
 export function SiteMenu({ className }: { className?: string }) {
   const { open, buttonProps, panelProps } = useDisclosure()
@@ -23,18 +23,17 @@ export function SiteMenu({ className }: { className?: string }) {
         {...buttonProps}
         aria-label={open ? 'Close menu' : 'Menu'}
         className={cn(
-          'inline-flex size-11 items-center justify-center rounded-control border border-transparent text-foreground',
-          'transition-[background-color,scale] duration-180 ease-standard active:duration-120 active:bg-border motion-safe:active:scale-[0.98]',
+          'press inline-flex size-11 items-center justify-center rounded-control border border-transparent text-foreground active:bg-border',
           'aria-expanded:border-line-3 aria-expanded:bg-muted forced-colors:not-aria-expanded:border-0'
         )}
       >
         <Icon aria-hidden="true" size={22} strokeWidth={1.75} />
       </button>
-      {open && <div aria-hidden="true" className={scrimClass} />}
+      <div aria-hidden="true" hidden={!open} className={scrimClass} />
       <nav
         {...panelProps}
         aria-label="Main"
-        className="absolute inset-x-0 top-full flex flex-col border-b border-border bg-card px-2 pt-2 pb-4 shadow-overlay"
+        className="overlay-sm absolute inset-x-0 top-full flex flex-col border-b border-border bg-card px-2 pt-2 pb-4 shadow-overlay"
       >
         {PUBLIC_LINKS.map((link) => (
           <CurrentLink

@@ -60,7 +60,8 @@ function Avatar({ user }: { user: AccountUser }) {
 /**
  * The avatar and the account panel behind it ("D1.4 Account menu", D2.12): Settings, FAQs,
  * Contact, Appearance and Sign out. On desktop a 288px panel under the button; on a phone the
- * same panel drops full width from the header, with 48px rows and 44px Appearance options.
+ * same panel drops full width from the header, with 48px rows and 44px Appearance options. It
+ * and its scrim fade in and drop 4px (D1.6).
  */
 export function AccountMenu({ user, className }: { user: AccountUser; className?: string }) {
   const { open, buttonProps, panelProps } = useDisclosure()
@@ -72,20 +73,19 @@ export function AccountMenu({ user, className }: { user: AccountUser; className?
         {...buttonProps}
         aria-label="Account"
         className={cn(
-          "relative inline-flex size-11 items-center justify-center rounded-full border border-transparent text-muted-foreground md:h-9 md:w-auto md:gap-1 md:pr-2 md:pl-px md:before:absolute md:before:inset-x-0 md:before:-inset-y-1 md:before:content-['']",
-          'transition-[color,background-color,scale] duration-180 ease-standard active:duration-120',
-          'hover:bg-muted hover:text-foreground active:bg-border active:text-foreground motion-safe:active:scale-[0.98]',
+          "press relative inline-flex size-11 items-center justify-center rounded-full border border-transparent text-muted-foreground md:h-9 md:w-auto md:gap-1 md:pr-2 md:pl-px md:before:absolute md:before:inset-x-0 md:before:-inset-y-1 md:before:content-['']",
+          'hover:bg-muted hover:text-foreground active:bg-border active:text-foreground',
           'aria-expanded:border-line-3 aria-expanded:bg-muted aria-expanded:text-foreground forced-colors:not-aria-expanded:border-0'
         )}
       >
         <Avatar user={user} />
         <Chevron aria-hidden="true" size={16} className="hidden md:block" />
       </button>
-      {open && <div aria-hidden="true" className={cn(scrimClass, 'md:hidden')} />}
+      <div aria-hidden="true" hidden={!open} className={cn(scrimClass, 'md:hidden')} />
       <div
         {...panelProps}
         className={cn(
-          'absolute inset-x-0 top-full flex flex-col gap-0.5 border-b border-border bg-card px-2 pt-2 pb-3 shadow-overlay',
+          'overlay-sm absolute inset-x-0 top-full flex flex-col gap-0.5 border-b border-border bg-card px-2 pt-2 pb-3 shadow-overlay',
           'md:inset-x-auto md:top-[calc(100%+0.375rem)] md:right-4 md:w-72 md:rounded-card md:border md:pb-2'
         )}
       >

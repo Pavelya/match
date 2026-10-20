@@ -59,12 +59,11 @@ export function BottomPanel({ labelledBy, leaving, panelRef, children }: BottomP
         'fixed inset-x-0 bottom-0 z-50 flex max-h-[calc(100dvh-7rem)] flex-col gap-3.5 overflow-y-auto overscroll-contain',
         'rounded-2xl border border-border bg-card px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-foreground shadow-overlay max-md:rounded-b-none',
         'md:inset-x-auto md:right-6 md:bottom-6 md:w-105 md:gap-4 md:p-5 md:px-6',
-        // In: an 8px rise and a fade, 240ms; out: a 180ms fade. Reduced motion keeps the fades,
-        // which the important durations let through the global reduced-motion rule
-        'transition-[opacity,translate] duration-240 ease-standard motion-reduce:transition-opacity motion-reduce:duration-240!',
-        !entered &&
-          'starting:translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0',
-        leaving && 'pointer-events-none opacity-0 duration-180 motion-reduce:duration-180!'
+        // In: an 8px rise and a fade, 240ms; out: a 180ms fade. Reduced motion keeps the fades
+        // and drops the rise (globals.css, D1.6)
+        'transition-[opacity,translate] duration-240 ease-standard',
+        !entered && 'starting:translate-y-2 starting:opacity-0',
+        leaving && 'pointer-events-none opacity-0 duration-180'
       )}
     >
       {children}

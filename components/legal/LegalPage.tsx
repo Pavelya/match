@@ -181,7 +181,7 @@ function LegalMarkdown({ markdown }: { markdown: string }) {
         return (
           <Link
             href={href}
-            className="rounded-chip font-semibold text-primary underline underline-offset-3 hover:text-brand-hover"
+            className="rounded-chip font-semibold text-primary underline underline-offset-3 hover:text-brand-hover pressed:text-brand-ink pressed:underline"
           >
             {children}
           </Link>
@@ -194,7 +194,7 @@ function LegalMarkdown({ markdown }: { markdown: string }) {
       return (
         <a
           href={href}
-          className="rounded-chip font-medium text-primary underline underline-offset-3 hover:text-brand-hover"
+          className="rounded-chip font-medium text-primary underline underline-offset-3 hover:text-brand-hover pressed:text-brand-ink pressed:underline"
         >
           {children}
         </a>

@@ -215,7 +215,7 @@ function ArrowLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="rounded-chip font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline"
+      className="rounded-chip font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline pressed:text-brand-ink pressed:underline"
     >
       <LastWordWith label={label}>
         <ArrowRight

@@ -12,7 +12,10 @@ import { cn } from '@/lib/utils'
  * band turns to the system's background, and its transparent edges are drawn.
  */
 
-const onLimeButton = cn(buttonBase, 'h-13 gap-2.5 px-6 text-body-l focus-visible:outline-on-lime')
+const onLimeButton = cn(
+  buttonBase,
+  'press h-13 gap-2.5 px-6 text-body-l focus-visible:outline-on-lime'
+)
 
 /** The band's ink button, for a page whose band does something else (Support us, D4.14) */
 export const onLimeInkButton = cn(

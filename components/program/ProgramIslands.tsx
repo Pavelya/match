@@ -94,7 +94,7 @@ export function FitWorking({ score, parts, sentence }: FitWorkingProps) {
       {open && (
         <div
           id={id}
-          className="flex flex-col gap-3 rounded-[0.75rem] bg-muted p-3.5 transition-opacity duration-240 ease-standard starting:opacity-0 motion-reduce:duration-240! md:p-4"
+          className="disclose flex flex-col gap-3 rounded-[0.75rem] bg-muted p-3.5 md:p-4"
         >
           <div className="flex items-baseline justify-between">
             <span className="text-label text-muted-foreground">Fit score</span>
@@ -126,7 +126,7 @@ export function FitWorking({ score, parts, sentence }: FitWorkingProps) {
             Fit orders programs within a status. It isn’t a chance of admission.{' '}
             <Link
               href="/how-it-works"
-              className="font-semibold text-primary underline-offset-3 hover:underline"
+              className="font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
             >
               How ranking works
             </Link>

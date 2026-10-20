@@ -10,8 +10,7 @@ import { cn } from '@/lib/utils'
  * touch target and neighbours never overlap. Labels are Body (15px). No flags on country chips.
  */
 export const chipBase = cn(
-  'relative inline-flex h-9 shrink-0 items-center rounded-full border text-body font-medium whitespace-nowrap',
-  'transition-[color,background-color,border-color,scale] duration-180 ease-standard',
+  'press relative inline-flex h-9 shrink-0 items-center rounded-full border text-body font-medium whitespace-nowrap',
   "before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']"
 )
 
@@ -53,7 +52,7 @@ export function FilterChip({
           ? ['border-transparent bg-foreground text-background', highlighted]
           : expanded
             ? 'border-line-3 bg-muted font-semibold text-foreground'
-            : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted',
+            : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted pressed:border-line-3 pressed:bg-border',
         className
       )}
       {...props}
@@ -92,7 +91,7 @@ export function ToggleChip({
         'gap-2 pr-3.5 pl-[7px]',
         pressed
           ? ['border-primary bg-brand-soft font-semibold text-brand-ink', highlighted]
-          : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted',
+          : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted pressed:border-line-3 pressed:bg-border',
         className
       )}
       {...props}
@@ -133,7 +132,7 @@ export function RemovableChip({ label, className, ...props }: RemovableChipProps
       className={cn(
         chipBase,
         'gap-1.5 border-transparent bg-muted pr-2.5 pl-3.5 text-foreground',
-        'hover:border-line-3 hover:bg-border active:border-line-3 active:bg-border active:duration-120 motion-safe:active:scale-[0.98]',
+        'hover:border-line-3 hover:bg-border pressed:border-line-3 pressed:bg-border',
         className
       )}
       {...props}
@@ -155,7 +154,7 @@ export function ClearChipsButton({
       type="button"
       className={cn(
         "relative inline-flex h-9 shrink-0 items-center rounded-chip px-1.5 text-body font-medium text-primary underline underline-offset-3 before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']",
-        'transition-colors duration-180 ease-standard hover:text-brand-hover',
+        'transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink',
         className
       )}
       {...props}

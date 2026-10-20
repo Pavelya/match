@@ -105,7 +105,7 @@ export function ComparePicker({ items, columns, onChange }: ComparePickerProps) 
             button.current?.focus()
           }
         }}
-        className="fixed inset-auto m-0 flex-col overflow-hidden rounded-card border border-border bg-popover p-0 text-popover-foreground shadow-overlay open:flex"
+        className="overlay-sm fixed inset-auto m-0 flex-col overflow-hidden rounded-card border border-border bg-popover p-0 text-popover-foreground shadow-overlay open:flex"
       >
         <div className="flex min-h-0 flex-col gap-1 overflow-y-auto overscroll-contain px-4 pt-4 pb-1">
           <span className="text-body font-semibold">Compare up to four</span>

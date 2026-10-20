@@ -7,13 +7,12 @@ import { checkboxClasses } from '@/components/explore/checkbox'
  * October 2026). A real checkbox; the whole row is its label, with Explore's box at the right end.
  * Chosen shows the tick, a 1px brand edge and the brand-soft fill; the name keeps its weight, so
  * nothing reflows. Hover darkens the edge, pressed is the sunken fill, and focus is the outline
- * round the whole row. Colours change in 120ms; nothing moves. Not a client module: first run
- * renders it inside its own.
+ * round the whole row. A press is D1.6's for rows: 99% with the sunken fill. Not a client
+ * module: first run renders it inside its own.
  */
 
 const choice = [
-  'group cursor-pointer border border-border bg-card text-foreground',
-  'transition-[border-color,background-color] duration-120 ease-standard motion-reduce:transition-none',
+  'group press-lg cursor-pointer border border-border bg-card text-foreground',
   'hover:border-line-3 active:border-line-3 active:bg-muted',
   'has-checked:border-primary has-checked:bg-brand-soft has-checked:hover:border-brand-ink has-checked:active:bg-brand-soft',
   'has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-ring',
