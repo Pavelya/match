@@ -52,7 +52,7 @@ pull request, merged before the next starts.
 | any | Delete everything a student's account holds | 5.25 | small to medium | Decided 19 October 2026 (owner): "We need to delete all the info." Deleting an account leaves the student's invitations (address, name, school; 2 in production already belong to deleted accounts), their cached matches for 30 minutes and the shortlist count in their browser. One deletion for both routes. Do with 5.24 |
 | any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
-| any | Returning students: where it stands, and how to bring them back | 7.5 | small to medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome. Research and a plan; nothing sent, tracked or built |
+| any | Returning students and social media: where it stands, and a plan | 7.5 | medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome; D plans social media (LinkedIn and the platforms students use), where IB Match has no account today. Research and a plan; nothing sent, posted, tracked or built |
 | after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
 
 **Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
@@ -126,7 +126,7 @@ Phase 7 — structural
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
-- [ ] 7.5 Returning students: measure where it stands, and plan how to bring them back
+- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
 
 Owner tasks — not AI work
 
@@ -2260,7 +2260,7 @@ release day if possible, so the legal pages ship with correct words.
 
 ---
 
-### 7.5 — Returning students: measure where it stands, and plan how to bring them back
+### 7.5 — Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
 
 **Outcome:** Three things, approved by the owner:
 
@@ -2269,10 +2269,13 @@ release day if possible, so the legal pages ship with correct words.
 2. **What to count from now on:** one cheap way to see returning students, chosen by the owner.
 3. **A plan to bring students back without annoying them:** a short list of options, each with its
    value to the student, its cost, the consent it needs and its size, written as later tasks.
+4. **A social media plan:** which platforms, for which audience, posting what, at what effort, and how
+   to tell whether it works.
 
 Added 20 October 2026 (owner): "I suspect many of the students use the app as a one-time thing. One
 login, check for programs, and that's all. I don't do much for the returning students, don't even
-count them."
+count them." Social media added the same day (owner): "Please also include the planning for social
+media, LinkedIn, maybe another media."
 
 **Why:** IB Match is useful more than once in a student's year. Predicted grades change, programs'
 requirements are refreshed each cycle (`CONTENT_tasks.md`), shortlists grow, and the final IB results
@@ -2288,6 +2291,9 @@ return:
   analytics out of the redesign's scope (`REBRANDING_tasks.md`, decisions).
 - A hint, not a measure: while drawing D2.16, the 17 students who had not accepted the February
   policies had all finished their profiles, and none had changed anything since February.
+
+- **No social presence:** IB Match has no social media account. The Organization JSON-LD in
+  `app/layout.tsx` lists none (`sameAs: []`).
 
 **When:** any time; Part A first. Anything Part C proposes that collects data or sends email also
 changes the Privacy Policy, so it waits for 7.4.
@@ -2361,10 +2367,53 @@ data is what pushed it over the free tier before (the hard rules on cost).
 7. **Write the options as tasks** in this file's format (Outcome, Why, Steps, Verify), ordered by
    value for effort, each with the consent and policy change it needs.
 
-**Must not:** send any email, add tracking, or change code, schema or settings. Read production with
-aggregates only, never whole tables. This task researches and plans; each change is its own session.
+**Part D — social media: LinkedIn and the platforms students use.**
 
-**Session size:** Small to medium. Aggregates and reading, then the owner's decisions on B and C.
+1. **Audiences, each on its own platforms:**
+   - **IB students (16–18)**, who use the matcher. Check where they talk about university choices:
+     Instagram, TikTok, YouTube, Reddit (r/IBO), Discord servers for IB students.
+   - **IB coordinators and university counsellors**, who invite whole cohorts (For schools, the
+     coordinator portal). LinkedIn is the likely place, with IB and counselling groups and events.
+   - **Parents**, if the research shows they choose or pay. Facebook groups for international-school
+     families are one place to check.
+2. **For each platform, find out:**
+   - who is there, how they talk, and what their rules say about promotion (Reddit and Discord
+     communities often ban self-promotion);
+   - the ad rules for under-18s: Meta, TikTok and Google limit targeting ads to teenagers. Organic
+     posts only, unless the owner decides otherwise;
+   - the effort a one-person team can keep up every week, and what it costs.
+3. **What to post, from what IB Match already has.** Avoid claims that need a source the site doesn't
+   have.
+   - The 23 country guides, one fact at a time ("Ireland converts IB points to CAO points like this").
+   - A program's real requirements, as on its page.
+   - Moments in the IB year from Part C.
+   - For coordinators: what the portal does for a cohort, and short demos.
+
+   Never post a student's data, a screenshot with a student's name, or a testimonial nobody gave.
+4. **The account itself:**
+   - the handle on each platform;
+   - the profile in the new design (the logo is from configuration, the final mark is still
+     provisional);
+   - links back with UTM parameters, so the site can tell visits from each platform.
+5. **How it is measured:**
+   - visits by source, if Part B's choice counts visits;
+   - sign-ups by month;
+   - coordinator calls booked from LinkedIn;
+   - Search Console for branded searches.
+6. **What the site would change:**
+   - the accounts in `sameAs` (structured data, with 7.3's plan);
+   - links in the footer, which changes D2.13, so it needs a change board (`REBRANDING_tasks.md`,
+     Step 2);
+   - share images for the guides (some pages have none: `REBRANDING_tasks.md` build 4 notes).
+7. **Write the plan as tasks:** platforms in order, a monthly rhythm the owner can keep, the first
+   month's posts as examples, and what would make the owner stop or switch platform.
+
+**Must not:** send any email, post, create accounts, add tracking, or change code, schema or
+settings. Read production with aggregates only, never whole tables. This task researches and plans;
+each change is its own session.
+
+**Session size:** Medium. Aggregates and reading, then the owner's decisions on B, C and D. Part D
+can be its own session.
 
 ---
 
