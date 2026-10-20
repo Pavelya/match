@@ -2,6 +2,7 @@
 
 import { lazy, type ReactNode } from 'react'
 import type { AccountUser } from './AccountMenu'
+import type { PolicyUpdate } from './policy-notice-words'
 
 /*
  * How the layouts place the new design's chrome (rebranding 1.5). Each frame is a separate chunk
@@ -34,7 +35,11 @@ export function SignedOutChrome({ children }: { children: ReactNode }) {
   return <SignedOutFrame>{children}</SignedOutFrame>
 }
 
-/** /student, and /programs signed in */
-export function SignedInChrome({ user, children }: { user: AccountUser; children: ReactNode }) {
-  return <AppFrame user={user}>{children}</AppFrame>
+/** /student, and /programs signed in. Only /student passes `policyUpdate` (4.6). */
+export function SignedInChrome(props: {
+  user: AccountUser
+  policyUpdate?: PolicyUpdate
+  children: ReactNode
+}) {
+  return <AppFrame {...props} />
 }

@@ -311,7 +311,7 @@ merges into `main`, behind the preview switch.**
 | 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
-| 20 | Policy update banner | 4.6 | D2.16 | small | Gate complete 20 October 2026. The cookie banner's panel and place, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast; it waits on first run and the editing screens, and so does the cookie banner (a D4.1 change). No new read. Added 18 October 2026 (owner). After 16, before release day |
+| 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
@@ -345,7 +345,7 @@ Rows 3 and 4 can share a design session.
 | 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
-| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Design approved 20 October 2026 (one board, row 22). After 16, before release day |
+| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
@@ -404,7 +404,7 @@ Phase 4 — Public pages
 - [x] 4.3 Other public pages (19 October 2026; For schools, `/for-coordinators`, in session 21 the same day)
 - [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
-- [ ] 4.6 The policy update banner
+- [x] 4.6 The policy update banner (20 October 2026)
 - [ ] 4.7 The emails
 
 Phase 5 — After the whole preview
@@ -2639,6 +2639,27 @@ update banner". The coordinator portal keeps today's banner (4.5).
 - **Motion:** the cookie banner's. It rises 8px and fades in over 240ms, fades out in 180ms; reduced
   motion keeps only the fades. After a cookie choice the banner fades out, then the notice rises. Fixed,
   so CLS stays 0.
+
+**Built 20 October 2026 (build 20).** Every state on "D2.16 Policy update banner" compared with the
+build in the preview, on a production build, at 1440px and 390px, light, dark and forced colours.
+What the build settled:
+
+- **The check moved, not the component.** The student layout's new-design branch calls
+  `checkConsentStatus` itself (the same three reads `ReconsentChecker` made) and passes
+  `policyUpdate` through `SignedInChrome` to `AppFrame`, which lazy-loads
+  `components/site/PolicyNotice.tsx` inside its toast provider only when there is one: the other
+  students download nothing. `ReconsentChecker` stays for today's design and the coordinator portal.
+  `/programs` passes nothing, so no notice there.
+- **One panel for both.** `components/site/bottom-panel.tsx` holds what the cookie banner had: the
+  place, the entrance and exit, the slot after the skip link, `focusMain`, and the measure for the
+  toast, now `--bottom-panel` on `[data-bottom-panel]` (`app/globals.css`), and
+  `useStepFooterShown`, which both use to wait while `[data-step-footer]` is in the page.
+- **The cookie choice is announced by the new banner** (`lib/cookie-choice.ts`), not by
+  `lib/cookie-consent.ts`, which today's banner imports: putting it there added 68 B to every page
+  in today's design. The notice reads a stored choice, or the cookie where localStorage is blocked.
+- **Accepting keeps the brand fill** with "Accepting…", as D2.1's `Button` does everywhere; the board
+  drew it greyed. In forced colours, Remind me later is drawn as a button, as the cookie banner's
+  Customize is.
 
 ### 4.7 — The emails
 
