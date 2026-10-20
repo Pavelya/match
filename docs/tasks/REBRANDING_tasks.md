@@ -158,7 +158,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 20 October 2026.** The canvas has 94 boards. The owner approved in chat "B ·
+**Where it stands, 20 October 2026.** The canvas has 97 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -206,8 +206,10 @@ pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 Sch
 row 21 drew For schools on desktop and phone, and the owner approved both boards in chat with every
 recommendation: "D4.17 For schools" and "D4.17 For schools · phone". Build 21's gate is complete.
 On 20 October row 22 drew the policy update notice, and the owner approved the board in chat with every
-recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Two tasks have no board:
-D1.6 and D4.18 (the emails, added by the owner on 19 October).
+recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Later that day row 23 drew the
+seven emails, and the owner approved all three boards in chat with every recommendation, including the
+sentence it adds to D4.11's page after deleting: "D4.18 Emails", "D4.18 Emails · support and account"
+and "D4.18 Emails · phone". Build 22's gate is complete. One task has no board: D1.6.
 
 ### Foundations
 
@@ -271,14 +273,14 @@ theme switch are in D1.4.
 | D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the link to first run with "Add your grades first. We’ll save it when you finish." under it, and the panel's "Add your grades" comes back to the program, without `?save=1` ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 12 October 2026; Save before grades 13 October 2026 |
 | D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
 | D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
-| D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 | Nothing | 18 October 2026 |
+| D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 **Changed 20 October 2026 (owner), approving D4.18:** the page after deleting adds "We’re also emailing you a confirmation." after what was deleted, built in 4.7 | Nothing | 18 October 2026 |
 | D4.12 Country guide template | "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone" (row 19): Ireland's guide whole at 1440px and 390px, light and dark, then a jump from "On this page", questions open and focused, a source link, dark and forced colours; sections of the USA, Australia, Hong Kong, Belgium and the Czech Republic on the same template, and the longest title (the Netherlands). **Decided 18 October 2026 (owner), every recommendation:** the question is the h2, and the short label moves into "On this page"; "On this page" a sticky column from 1024px and a closed disclosure on a phone, with no mark for the section being read; one secondary "Explore programs in {country}" in the hero, no count; three callouts (short answer, note, caution) in place of today's coloured boxes and emoji, and plain bullets; one 720px column on the paper; the questions collapsed; "More country guides" and Home's lime band at the end; the update date shown; no flag and no breadcrumb trail. **And one rule:** every guide's final heading is "Ready to find your match in {country}?", Hong Kong, Poland and Portugal included. Decisions in 4.2 | Nothing | 18 October 2026 |
 | D4.13 Requirements hub | "D4.13 Requirements hub" and "D4.13 Requirements hub · phone" (row 20): the whole page at 1440px and 390px, light and dark, a card focused, a question open, forced colours, with production's figures (1,677 programs in 23 countries; the USA 286 programs with no minimum). **Decided 19 October 2026 (owner), every recommendation:** the guide template's parts, Country guides current; each section's big line is its h2, its label an eyebrow; the 23 guides as link cards, A to Z, no flags; "No IB minimum" for the USA, one number where every program asks the same ("24 IB points"); the counts read when the page is built, weekly, as today; three figures and one "Explore programs" button in the hero, "Browse Country Guides" gone; twelve field rows with the first-run icons; plain bullets and plain cards; Home's lime band. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.14 Text pages | "D4.14 Text pages" and "D4.14 Text pages · phone" (row 20): How it works, FAQs, Contact (signed in and out, the form in every state, sent) and Support us, light, dark and forced colours. "D4.14 Legal pages" (row 20): Privacy whole, Terms and Cookies, desktop and phone, light, dark and forced colours, then the 4.5 list. **Decided 19 October 2026 (owner), every recommendation:** one text-page template; today's words with the content style (sentence case, no exclamation marks in headings or buttons, no "perfect"); How it works' four categories become the three statuses; FAQs collapsed, then "Still have questions?"; three FAQ answers change on release day (PR #127, label `go-live`); Contact shows the signed-in header to a signed-in student; Contact's categories are radio rows, errors on press; Support us keeps every section; one legal template with "On this page", the version and its date under the h1, links between the three, the numbered headings in Geist; one h1 on /cookies; the legal pages prebuilt in the new design; For schools added as D4.17. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.17 For schools | "D4.17 For schools" and "D4.17 For schools · phone" (row 21): `/for-coordinators` whole at 1440px and 390px, light and dark, keyboard focus on the call and on the portal link, forced colours, Menu open with For schools current, and today's illustration kept, for comparison. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. **Decided 19 October 2026 (owner), every recommendation:** D4.14's text-page template, today's words in the content style; one label for the one call, "Schedule a 15-minute call", Calendly in a new tab; the illustration goes; "Sign in to the coordinator portal" beside the call, to /auth/coordinator; headings in order ("Why partner with us?" an eyebrow, "Coordinator dashboard" an h2, today's h4 a note); the four quotes in one panel and "How IB Match helps" in plain bullets; the dashboard's features as D4.14's cards, "Early adopter benefit" the guides' note; the dashboard's words and the founder story reworded before release (`MAINT_tasks.md` 7.4); the portal's sign-in redirect fixed (5.26). Decisions in 4.3 | Nothing | 19 October 2026 |
-| D4.18 Emails | None. Their new header is on "D1.5 Logo: Lens" (row 9) | **No board.** The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails, and "Account deleted" in its two versions, from Settings and by an admin (`MAINT_tasks.md` 5.24), with whether D4.11's "Your account is deleted" page mentions it. Each in a 600px desktop pane and at 390px, in a light and a dark mail app (Gmail, Outlook, Apple Mail), with images off; the real school's 56-character name, no coordinator or student name, and a long reply from support; the plain-text body beside each. Added 19 October 2026 (owner) | |
+| D4.18 Emails | "D4.18 Emails", "D4.18 Emails · support and account" and "D4.18 Emails · phone" (row 23). Their header is on "D1.5 Logo: Lens" (row 9) | The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails, and "Account deleted" in its two versions, from Settings and by an admin (`MAINT_tasks.md` 5.24). Each at 600px and 390px, light as sent, in the emails' own dark colours, and as Gmail and Outlook invert them (simulated), with images off; the real school's 56-character name, no coordinator or student name, a long reply from support; the plain text and the inbox line beside each. Added 19 October 2026 (owner). **Decided 20 October 2026 (owner), every recommendation:** the emails carry dark colours of their own (`prefers-color-scheme`), and the light version is drawn to survive a partial and a full invert; one layout, left-aligned, the footer under the card; no "Hello," line; the sign-in and invitation links written out under the button; words in the content style, with buttons that say what they do ("Open the invitation" for every invitation); an existing account gets its own invitation; the reminder picks its version, with one read when a coordinator presses Resend; a plain-text body for every email; Contact's ticket category labels; D4.11's "Your account is deleted" page mentions the email. Decisions in 4.7 | 20 October 2026 |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -312,7 +314,7 @@ merges into `main`, behind the preview switch.**
 | 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
-| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open |
+| 22 | Emails | 4.7 | D4.18 | small to medium | Added 19 October 2026 (owner). **Gate complete 20 October 2026.** After 16, before release day: today only the emails' header and brand colour switch at release (1.3). Includes `MAINT_tasks.md` 5.24 if it is still open, and the sentence D4.18 adds to D4.11's page after deleting |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -346,7 +348,7 @@ Rows 3 and 4 can share a design session.
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
-| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The emails board | `/build 22`: the emails (4.7) | Added 19 October 2026 (owner). After 16, before release day |
+| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Design approved 20 October 2026; the build is next. Before release day |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -2695,8 +2697,8 @@ plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB 
   since mail apps don't read CSS variables.
 - **Readable in dark mail apps.** Gmail, Outlook and Apple Mail darken an email partly or fully: text
   never sits on an image, the mark keeps its square (1.3), and the button and links keep WCAG AA in
-  each. Whether the emails carry dark colours of their own (`prefers-color-scheme`, which Apple Mail
-  reads and Gmail ignores) is D4.18's call.
+  each. They carry dark colours of their own (`prefers-color-scheme`, which Apple Mail reads and Gmail
+  ignores), decided on D4.18 (below).
 - **Words in the content style** (D4.14): sentence case in subjects, headings and buttons, no
   exclamation marks, today's meaning. The button says what it does, as the sign-in card does, and
   the sign-in link's lifetime still comes from `lib/auth/sign-in-link.ts`. Subjects are set in the
@@ -2710,8 +2712,9 @@ plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB 
 - **Switches with `NEW_UI_FOR_EVERYONE` alone,** through `emailBrand()` (`lib/brand/email.ts`), as 1.3
   does: emails reach students, so never through the owner's preview. Until release, all seven render
   byte for byte as on `main`, subject and plain text included, and a Vitest test checks each one.
-- **No new reads.** The senders keep their queries, and the mark stays a file in `public/brand/`,
-  served by Vercel, never by Supabase.
+- **No new reads,** but one: the senders keep their queries, and the mark stays a file in
+  `public/brand/`, served by Vercel, never by Supabase. The one is the reminder's, decided on D4.18: the
+  user by the invitation's address, one row by a unique key, only when someone presses Resend.
 - Well under Gmail's 102 KB, past which it clips a message.
 
 **Checks:**
@@ -2721,6 +2724,75 @@ plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB 
 - One real send of each to the owner's own inboxes, with a live key and the owner's go-ahead: Gmail
   on the web and on a phone, Outlook, and Apple Mail on iOS, light and dark. Only a real send shows
   how each app darkens them.
+
+**Decided on the boards (20 October 2026, owner, every recommendation).** Canvas row 23: "D4.18
+Emails" (the decisions, the layout's spec, the sign-in email in each mail app, the inbox, then the sign-in
+and invitation emails), "D4.18 Emails · support and account" (the ticket and account emails, and the
+change to D4.11) and "D4.18 Emails · phone". The words on the boards are the words to build, subjects,
+previews and plain text included.
+
+- **Dark colours of their own.** Each email declares `<meta name="color-scheme" content="light dark">`
+  and `<meta name="supported-color-schemes" content="light dark">`, and a `prefers-color-scheme: dark`
+  block in its head swaps D1.1's dark tokens in by class (`!important`, since the light ones are inline):
+  paper #0E1014, card #161920 with a #2A2F3A edge, panel #1D2129, text #F1F0EB / #BBBFC9 / #9095A2, the
+  button #8E9BFF with #0B0E2B text, links #8E9BFF. Apple Mail and Outlook for Mac use them. Gmail and
+  Outlook.com ignore them and invert the light version, which is drawn to hold up both ways: the button
+  is a solid colour with its label in text, links are underlined, and the mark keeps its square.
+- **The layout,** in `components/email/`, as the spec table on "D4.18 Emails" (section 1): the paper
+  around a centred 560px column, 24px above and 20px at the sides (12px on a phone); the card #FFFFFF
+  with a 1px #E3E1D9 edge, 16px corners and 40px inside (24px on a phone; classic Outlook draws it
+  square); the header as built (1.3); an optional line above the heading, 14/20 600 #464B57 ("IB
+  coordinator portal", "School invitation", "Reminder · school invitation"); the one h1, 26/32 600, which
+  wraps a 56-character school, never cuts it; text 16/26 #464B57; small print 14/22 #686D79; the button
+  #2B3FD6 with white 16/24 600, 12px × 24px, 10px corners, left-aligned; the details panel #EFEEE8, 12px
+  corners, 20px × 24px, a 16px title and 15px rows or list; the footer under the card on the paper, 14/22
+  #686D79: "IB Match connects IB students with university programs worldwide.", "Terms of Service ·
+  Privacy Policy" and "© {year} IB Match. All rights reserved." Nothing under 14px.
+- **No "Hello," line,** in any email: the heading opens it. `userName` goes unused.
+- **The link written out** under the button in the sign-in and invitation emails: "Button not working?
+  Paste this link into your browser:", then the address, `word-break: break-all`.
+- **The words, email by email** (each board shows them whole):
+  - Sign-in: subject "Sign in to IB Match"; h1 "Sign in to IB Match"; "Use this link to sign in. It works
+    for 10 minutes, and only once. If it’s your first time, we’ll create your account."; button "Sign in
+    to IB Match"; "If you didn’t ask for this link, you can ignore this email. Nobody can sign in without
+    it." The coordinator's adds "IB coordinator portal" above its h1, "to the coordinator portal" in its
+    sentence, and the button "Sign in to the coordinator portal". The time comes from
+    `lib/auth/sign-in-link.ts`.
+  - Student invitation, a new account: "School invitation" above "Join {school} on IB Match"; "Your
+    coordinator at {school} has invited you to create an IB Match account linked to their school."
+    (with a name: "{name}, your IB coordinator at {school}, has invited you…"); the panel "What
+    coordinators can access" with D4.16's list and "You can unlink at any time in Settings."; button
+    "Open the invitation"; "Don’t want to link your account? Create a regular account instead"; "The
+    invitation expires in 7 days. If you didn’t expect it, you can ignore this email."
+  - Student invitation, an existing account: subject "{school} wants to connect with your IB Match
+    account"; h1 "Connect with {school}"; the link to `/student/invitations`; no "Create a regular
+    account instead"; "You’ll sign in first if you aren’t signed in." before the expiry line.
+  - The reminder: "Reminder · school invitation" above the heading, subject "Reminder: you’re invited
+    to join {school} on IB Match", and "This is a new link: the one in the first email no longer works."
+    **It picks its version:** the resend route reads the user by the invitation's address (one row, by a
+    unique key, only when a coordinator presses Resend) and sends the existing account's email and link
+    when there is one. The coordinator's reminder works the same way, with its own words.
+  - Coordinator invitation: "IB coordinator portal" above "Join {school} on IB Match"; "You’ve been
+    invited to join {school} as an IB coordinator on IB Match." (with a name: "{name} has invited you
+    to join…", fixing today's "You have been invited you"); the second paragraph in sentence case;
+    "Open the invitation"; the expiry line.
+  - Ticket received: subject "Support ticket {number}: we’ve received your request"; h1 "We’ve received
+    your request"; the panel "Ticket {number}" with Category and Subject rows, the category in Contact's
+    labels ("Matching question", "Data & privacy", "General inquiry"…). Resolved: subject "Support ticket
+    {number}: your request is resolved"; h1 "Your request is resolved"; the ticket panel, then "Our
+    reply" in a second panel, its line breaks kept (`pre-wrap`) and never cut; "If this doesn’t fully
+    answer your question, send us a new request from Contact."
+  - Account deleted: subject "Your IB Match account has been deleted"; h1 "Your account is deleted"; "An
+    IB Match administrator has deleted your account." or, from Settings, 5.24's "This email confirms that
+    you deleted your IB Match account in Settings."; the panel "What was deleted" (your account and how
+    you signed in; your subjects and grades; your interests, countries and shortlist; your support
+    tickets; your link to your school, and any school invitations sent to you, true once
+    `MAINT_tasks.md` 5.25 is done); then "If you think this was a mistake…" or "If you didn’t do this,
+    contact us straight away at support@ibmatch.com."; "You can make a new account with the same email
+    any time."
+- **A preview line for each,** as drawn in the inbox section, through `<Preview>`.
+- **D4.11's page after deleting** adds "We’re also emailing you a confirmation." after what was deleted,
+  in the new design only.
 
 **"Account deleted" from Settings** (owner, 19 October 2026): today only an admin's deletion sends it.
 `MAINT_tasks.md` 5.24 sends it when a student deletes their own account, with words for that case.
