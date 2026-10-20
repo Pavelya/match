@@ -73,7 +73,7 @@ export function FitPanel({
       <FitWorking score={why.fit.score} parts={why.fit.parts} sentence={why.fit.sentence} />
       <Link
         href={academicHref}
-        className="self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline"
+        className="self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
       >
         Edit your grades
       </Link>

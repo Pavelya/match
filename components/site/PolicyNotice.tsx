@@ -104,7 +104,7 @@ export function PolicyNotice({ update }: { update: PolicyUpdate }) {
                 href={document.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-chip font-semibold whitespace-nowrap text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover"
+                className="rounded-chip font-semibold whitespace-nowrap text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline"
               >
                 {document.title}
                 <span className="sr-only"> (opens in a new tab)</span>

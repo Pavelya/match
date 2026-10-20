@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LinkPending } from '@/components/ds/LinkPending'
 import { SaveToggle } from '@/components/ds/SaveToggle'
 import { Skeleton, SkeletonLine } from '@/components/ds/Skeleton'
 import { RequirementChip, RequirementChipList, StatusBadge } from '@/components/ds/StatusBadge'
@@ -16,8 +17,12 @@ import { WhyThisMatch } from './WhyThisMatch'
  * phone", approved 10 October 2026). Status first: the badge, then a chip per requirement with
  * the student's own grade, problems first and met ones collapsing into "+N met". The fit score
  * stays inside "Why this match". Names wrap in full, never cut. The title is the card's only
- * link; Tab goes title, Save, "Why this match". Replaces ProgramCard on Matches.
+ * link, stretched over the whole card (D1.6), with Save, "Why this match" and its panel above it;
+ * Tab goes title, Save, "Why this match". Replaces ProgramCard on Matches.
  */
+
+/** Above the name's stretched link, with targets of their own */
+const above = 'relative z-[1]'
 
 interface MatchCardProps {
   match: MatchItem
@@ -31,7 +36,14 @@ export function MatchCard({ match, saved, saving, onToggleSave }: MatchCardProps
   const panelId = `why-${match.id}`
 
   return (
-    <article className="flex flex-col gap-3 rounded-card border border-border bg-card p-4 text-card-foreground shadow-raised md:gap-3.5 md:px-5 md:py-[18px]">
+    <article
+      className={cn(
+        'press-lg relative flex flex-col gap-3 rounded-card border border-border bg-card p-4 text-card-foreground shadow-raised md:gap-3.5 md:px-5 md:py-[18px]',
+        // D1.6: the link cards' hover (D2.8), and their press, held while the program loads
+        'link-hover:border-line-3 link-hover:shadow-raised-hover',
+        'link-pressed:border-line-3 link-pressed:bg-muted link-pressed:shadow-none'
+      )}
+    >
       <div className="grid grid-cols-[48px_minmax(0,1fr)_44px] items-center gap-3 md:grid-cols-[56px_minmax(0,1fr)_44px] md:gap-3.5">
         <UniversityThumb image={match.image} initials={match.initials} />
         <div className="flex min-w-0 flex-col">
@@ -39,9 +51,11 @@ export function MatchCard({ match, saved, saving, onToggleSave }: MatchCardProps
             <Link
               id={`match-${match.id}`}
               href={`/programs/${match.id}`}
+              data-stretched-link=""
               className="rounded-chip text-foreground underline-offset-3 hover:underline"
             >
               {match.name}
+              <LinkPending />
             </Link>
           </h3>
           <span className="text-small font-normal break-words text-muted-foreground">
@@ -54,6 +68,7 @@ export function MatchCard({ match, saved, saving, onToggleSave }: MatchCardProps
           saving={saving}
           onToggle={onToggleSave}
           programName={`${match.name}, ${match.university}`}
+          className={above}
         />
       </div>
 
@@ -81,20 +96,29 @@ export function MatchCard({ match, saved, saving, onToggleSave }: MatchCardProps
           aria-expanded={open}
           aria-controls={open ? panelId : undefined}
           onClick={() => setOpen((o) => !o)}
-          className="-mt-1.5 -mb-2.5 inline-flex h-11 items-center gap-1 justify-self-start rounded-chip px-0.5 text-[0.875rem] font-semibold text-primary underline-offset-3 [grid-area:why] hover:underline md:-my-2 md:justify-self-end md:text-small"
+          className={cn(
+            above,
+            '-mt-1.5 -mb-2.5 inline-flex h-11 items-center gap-1 justify-self-start rounded-chip px-0.5 text-[0.875rem] font-semibold text-primary underline-offset-3 [grid-area:why] hover:underline pressed:text-brand-ink pressed:underline md:-my-2 md:justify-self-end md:text-small'
+          )}
         >
           Why this match
           <ChevronDown
             aria-hidden="true"
             size={14}
             strokeWidth={2.2}
-            className={cn('transition-transform duration-240 ease-standard', open && 'rotate-180')}
+            className={cn('transition-transform duration-180 ease-standard', open && 'rotate-180')}
           />
         </button>
       </div>
 
       {open && (
-        <WhyThisMatch id={panelId} programId={match.id} programName={match.name} why={match.why} />
+        <WhyThisMatch
+          id={panelId}
+          programId={match.id}
+          programName={match.name}
+          why={match.why}
+          className={above}
+        />
       )}
     </article>
   )

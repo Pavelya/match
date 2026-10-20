@@ -92,7 +92,8 @@ export function FilterSheet({
       className={cn(
         'fixed inset-x-0 top-auto bottom-0 m-0 h-[92dvh] max-h-none w-full max-w-none flex-col overflow-hidden rounded-t-sheet border border-b-0 border-border bg-card p-0 text-card-foreground shadow-overlay open:flex',
         'backdrop:bg-[rgb(20_22_27/0.42)] backdrop:transition-opacity dark:backdrop:bg-black/60',
-        'ease-standard motion-safe:transition-transform motion-reduce:transition-opacity',
+        // Reduced motion fades it in place (globals.css, D1.6)
+        'transition-[opacity,translate] ease-standard',
         visible
           ? 'duration-240 backdrop:opacity-100 motion-safe:translate-y-0'
           : 'duration-180 backdrop:opacity-0 motion-safe:translate-y-full motion-reduce:opacity-0'
@@ -128,7 +129,9 @@ export function FilterSheet({
           onClick={() => canClear && onClearAll()}
           className={cn(
             'inline-flex h-12 items-center rounded-control px-3 text-body font-medium underline-offset-3',
-            canClear ? 'text-primary underline' : 'text-ink-3'
+            canClear
+              ? 'text-primary underline pressed:text-brand-ink pressed:underline'
+              : 'text-ink-3'
           )}
         >
           Clear all
@@ -174,7 +177,7 @@ export function FiltersButton({
         'gap-1.5 pr-3.5 pl-3',
         applied
           ? ['border-transparent bg-foreground text-background', highlighted]
-          : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted'
+          : 'border-line-2 bg-card text-foreground hover:border-line-3 hover:bg-muted pressed:border-line-3 pressed:bg-border'
       )}
     >
       <ListFilter aria-hidden="true" size={16} strokeWidth={2} className="shrink-0" />

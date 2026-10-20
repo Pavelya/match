@@ -38,16 +38,17 @@ export function Card({ elevation = 'flat', as: Tag = 'div', className, ...props 
 
 /**
  * A card that goes to one place is one link ("Similar programs you meet"). Hover darkens the edge
- * and deepens the shadow, with no lift; a press goes to 99%. Put its name in CardTitle.
+ * and deepens the shadow, with no lift; a press goes to 99%. Put its name in CardTitle. Server
+ * pages render it, so it doesn't hold its press while a page loads: LinkPending would join every
+ * page's download in today's design too (R.2 adds it).
  */
 export function CardLink({ className, ...props }: ComponentProps<typeof Link>) {
   return (
     <Link
       className={cn(
-        'group/card flex flex-col gap-1.5 rounded-card border border-border bg-card p-4 text-card-foreground shadow-raised',
-        'transition-[border-color,box-shadow,background-color,scale] duration-180 ease-standard',
+        'group/card press-lg flex flex-col gap-1.5 rounded-card border border-border bg-card p-4 text-card-foreground shadow-raised',
         'hover:border-line-3 hover:shadow-raised-hover',
-        'active:border-line-3 active:bg-muted active:shadow-none active:duration-120 motion-safe:active:scale-[0.99]',
+        'pressed:border-line-3 pressed:bg-muted pressed:shadow-none',
         className
       )}
       {...props}

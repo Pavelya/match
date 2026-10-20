@@ -164,12 +164,11 @@ export function ContactForm({ userName }: { userName: string | null }) {
               <label
                 key={option.value}
                 className={cn(
-                  'grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3 rounded-[0.75rem] border px-3.5 py-3',
-                  'transition-[border-color,background-color] duration-120 ease-standard motion-reduce:transition-none',
+                  'press-lg grid cursor-pointer grid-cols-[1.25rem_minmax(0,1fr)] items-start gap-x-3 rounded-[0.75rem] border px-3.5 py-3',
                   'has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-ring',
                   category === option.value
                     ? 'border-primary bg-brand-soft'
-                    : 'border-line-2 bg-card hover:border-line-3'
+                    : 'border-line-2 bg-card hover:border-line-3 active:border-line-3 active:bg-muted'
                 )}
               >
                 <input

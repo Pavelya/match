@@ -164,12 +164,11 @@ export function ConfirmDialog({
       className={cn(
         'm-auto h-fit max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] max-w-120 overflow-y-auto overscroll-contain rounded-[1rem] border border-border bg-card p-5 text-card-foreground shadow-overlay md:p-6',
         'backdrop:bg-[rgb(20_22_27/0.42)] backdrop:transition-opacity dark:backdrop:bg-black/60',
-        // Reduced motion keeps the fade, which the important durations let through the global
-        // reduced-motion rule, and drops the rise
-        'transition-[opacity,translate] ease-standard motion-reduce:transition-opacity',
+        // Reduced motion keeps the fade and drops the rise (globals.css, D1.6)
+        'transition-[opacity,translate] ease-standard',
         visible
-          ? 'translate-y-0 opacity-100 duration-240 backdrop:opacity-100 backdrop:duration-240 motion-reduce:duration-240!'
-          : 'opacity-0 duration-180 backdrop:opacity-0 backdrop:duration-180 motion-safe:translate-y-2 motion-reduce:duration-180!'
+          ? 'translate-y-0 opacity-100 duration-240 backdrop:opacity-100 backdrop:duration-240'
+          : 'opacity-0 duration-180 backdrop:opacity-0 backdrop:duration-180 motion-safe:translate-y-2'
       )}
     >
       <div className="flex flex-col gap-4.5 md:gap-5">

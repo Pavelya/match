@@ -217,7 +217,10 @@ export function SubjectPicker({
                 </span>
                 <span className="text-body text-muted-foreground">
                   IB Match lists {total} Diploma subjects. If yours is missing, tell us on the{' '}
-                  <Link href="/contact" className="text-primary underline underline-offset-3">
+                  <Link
+                    href="/contact"
+                    className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+                  >
                     Contact page
                   </Link>
                   .

@@ -35,7 +35,7 @@ export function GuidesHubLink() {
   return (
     <Link
       href="/ib-university-requirements"
-      className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-chip text-body font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline"
+      className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-chip text-body font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline pressed:text-brand-ink pressed:underline"
     >
       IB rules by country
       <ArrowRight aria-hidden="true" size={16} strokeWidth={2} />

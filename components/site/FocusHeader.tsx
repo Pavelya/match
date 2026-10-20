@@ -29,7 +29,9 @@ export function FocusHeader() {
   const plan = useExitPlan()
   const router = useRouter()
   const [saving, setSaving] = useState(false)
+  // The program the question names. Kept once it closes, so the question fades out whole (D1.6)
   const [asking, setAsking] = useState<Waiting | null>(null)
+  const [asked, setAsked] = useState(0)
   const dialog = useRef<HTMLDialogElement>(null)
   const button = useRef<HTMLButtonElement>(null)
 
@@ -38,10 +40,10 @@ export function FocusHeader() {
   // Opening, the dialog would focus its first control; staying costs nothing, so Keep going
   // takes focus instead
   useEffect(() => {
-    if (!asking || dialog.current?.open) return
+    if (!asked || dialog.current?.open) return
     dialog.current?.showModal()
     keepGoing.current?.focus()
-  }, [asking])
+  }, [asked])
 
   async function saveAndExit() {
     if (saving) return
@@ -50,8 +52,10 @@ export function FocusHeader() {
     const saved = current ? await current.save() : true
     setSaving(false)
     if (!saved) return
-    if (current?.waiting) setAsking(current.waiting)
-    else router.push(HOME)
+    if (current?.waiting) {
+      setAsking(current.waiting)
+      setAsked((n) => n + 1)
+    } else router.push(HOME)
   }
 
   return (
@@ -64,9 +68,8 @@ export function FocusHeader() {
           aria-busy={saving || undefined}
           onClick={() => void saveAndExit()}
           className={cn(
-            'grid h-11 shrink-0 items-center rounded-control border border-transparent px-3 text-body font-medium text-foreground md:h-9',
-            'transition-[background-color,scale] duration-180 ease-standard active:duration-120',
-            'hover:bg-muted active:bg-border motion-safe:active:scale-[0.98]'
+            'press grid h-11 shrink-0 items-center rounded-control border border-transparent px-3 text-body font-medium text-foreground md:h-9',
+            'hover:bg-muted active:bg-border'
           )}
         >
           {/* Both labels share one cell, so "Saving…" keeps the button's width (D2.1) */}
@@ -80,10 +83,7 @@ export function FocusHeader() {
       <dialog
         ref={dialog}
         aria-labelledby="first-run-exit-title"
-        onClose={() => {
-          setAsking(null)
-          button.current?.focus()
-        }}
+        onClose={() => button.current?.focus()}
         // A click on the backdrop lands on the dialog itself: it closes, as Keep going does
         onClick={(event) => {
           if (event.target === event.currentTarget) event.currentTarget.close()
@@ -93,7 +93,8 @@ export function FocusHeader() {
           // The scrim starts under the header, which stays clear (D4.3, phone)
           'backdrop:top-14 backdrop:bg-[rgb(20_22_27/0.42)] dark:backdrop:bg-black/60',
           'md:top-18 md:right-6 md:left-auto md:w-95 md:rounded-[0.875rem] md:border md:p-5 md:backdrop:bg-transparent',
-          'transition-opacity duration-120 ease-standard starting:opacity-0'
+          // A small overlay (D1.6): a fade and a 4px drop, 180ms in and 120 out
+          'overlay-sm'
         )}
       >
         {asking && (

@@ -459,13 +459,19 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
             onClearAll={() => reset(clearAll)}
             afterLastRef={countRef}
           >
+            {/* While a change loads, after 300ms, "Updating…" takes the count's place (D1.6); a
+                screen reader has the list's busy state, and hears the new count */}
             <span
               ref={countRef}
               tabIndex={-1}
               role="status"
-              className="mr-2 text-body tabular-nums max-md:mb-1 max-md:basis-full"
+              data-updating={phase === 'busy' || undefined}
+              className="explore-count mr-2 grid text-body tabular-nums *:[grid-area:1/1] max-md:mb-1 max-md:basis-full"
             >
-              <strong className="font-semibold">{figure}</strong> {rest}
+              <span>
+                <strong className="font-semibold">{figure}</strong> {rest}
+              </span>
+              <span aria-hidden="true">Updating…</span>
             </span>
           </RemovableChipGroup>
           <div className="flex justify-end md:hidden">
@@ -490,7 +496,10 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
             <>
               {' '}
               If it keeps happening,{' '}
-              <Link href="/contact" className="text-primary underline underline-offset-3">
+              <Link
+                href="/contact"
+                className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+              >
                 contact us
               </Link>
               .

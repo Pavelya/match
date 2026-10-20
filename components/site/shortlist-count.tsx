@@ -59,7 +59,7 @@ export function ShortlistCount() {
   )
   if (!count) return null
   return (
-    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full border border-transparent bg-border px-1.5 text-[0.75rem] leading-4 font-semibold text-foreground tabular-nums group-active:bg-muted">
+    <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full border border-transparent bg-border px-1.5 text-[0.75rem] leading-4 font-semibold text-foreground tabular-nums group-pressed:bg-muted">
       <span className="sr-only">, </span>
       {count}
       <span className="sr-only">{count === 1 ? ' program' : ' programs'}</span>

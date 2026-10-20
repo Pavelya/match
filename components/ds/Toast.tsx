@@ -124,7 +124,7 @@ function ToastMessage({
 
   const { action } = toast
   const actionClass =
-    'inline-flex h-11 shrink-0 items-center rounded-[0.5rem] px-3 text-body font-semibold whitespace-nowrap text-background underline underline-offset-3 transition-[background-color,scale] duration-120 ease-standard hover:bg-background/12 active:bg-background/20 motion-safe:active:scale-98 dark:hover:bg-background/8 dark:active:bg-background/14 forced-colors:text-[ButtonText]'
+    'press inline-flex h-11 shrink-0 items-center rounded-[0.5rem] px-3 text-body font-semibold whitespace-nowrap text-background underline underline-offset-3 hover:bg-background/12 pressed:bg-background/20 dark:hover:bg-background/8 dark:pressed:bg-background/14 forced-colors:text-[ButtonText]'
 
   return (
     <div
@@ -133,11 +133,10 @@ function ToastMessage({
         '[--ring:var(--toast-ring)]',
         'pointer-events-auto grid w-full max-w-140 grid-cols-[20px_minmax(0,1fr)_44px] items-start gap-x-3 rounded-[0.75rem] border border-transparent bg-foreground py-1 pr-1 pb-1.5 pl-4 text-body text-background shadow-overlay',
         'md:flex md:w-auto md:min-h-14 md:items-center md:py-1.5 md:pr-1.5',
-        // In: a fade and an 8px rise, 180ms; out: a 120ms fade. Reduced motion keeps the fades,
-        // which the important durations let through the global reduced-motion rule
+        // In: a fade and an 8px rise, 180ms; out: a 120ms fade. Reduced motion keeps the fades
+        // and drops the rise (globals.css, D1.6)
         'transition-[opacity,translate] duration-180 ease-standard starting:translate-y-2 starting:opacity-0',
-        'motion-reduce:transition-opacity motion-reduce:duration-180! motion-reduce:starting:translate-y-0',
-        leaving && 'opacity-0 duration-120 motion-reduce:duration-120!'
+        leaving && 'opacity-0 duration-120'
       )}
       onMouseEnter={() => {
         hovered.current = true
@@ -171,7 +170,7 @@ function ToastMessage({
         type="button"
         aria-label="Dismiss"
         onClick={onDismiss}
-        className="col-start-3 row-start-1 inline-flex size-11 shrink-0 items-center justify-center rounded-[0.5rem] text-background transition-[background-color] duration-120 hover:bg-background/12 dark:hover:bg-background/8 forced-colors:text-[ButtonText] md:order-last"
+        className="press col-start-3 row-start-1 inline-flex size-11 shrink-0 items-center justify-center rounded-[0.5rem] text-background hover:bg-background/12 pressed:bg-background/20 dark:hover:bg-background/8 dark:pressed:bg-background/14 forced-colors:text-[ButtonText] md:order-last"
       >
         <X aria-hidden="true" size={18} strokeWidth={2} />
       </button>

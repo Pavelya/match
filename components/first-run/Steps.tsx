@@ -168,7 +168,7 @@ export function CountriesChoice({
               <button
                 type="button"
                 onClick={() => setFilter('')}
-                className="-ml-1 h-11 rounded-chip px-1 text-body font-semibold text-primary underline underline-offset-3"
+                className="-ml-1 h-11 rounded-chip px-1 text-body font-semibold text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
               >
                 Clear filter
               </button>

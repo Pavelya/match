@@ -37,13 +37,26 @@ class FakeElement {
 
 let storage: FakeStorage
 let root: FakeElement
+let frames: FrameRequestCallback[]
+
+/** Draws the next frame: runs the callbacks requested before it */
+function nextFrame() {
+  const callbacks = frames
+  frames = []
+  for (const callback of callbacks) callback(0)
+}
 
 beforeEach(() => {
   storage = new FakeStorage()
   root = new FakeElement()
+  frames = []
   vi.stubGlobal('localStorage', storage)
   vi.stubGlobal('document', { documentElement: root })
   vi.stubGlobal('window', new EventTarget())
+  vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) => {
+    frames.push(callback)
+    return frames.length
+  })
 })
 
 afterEach(() => {
@@ -146,6 +159,17 @@ describe('saveThemeChoice', () => {
     })
     saveThemeChoice('dark')
     expect(root.getAttribute('data-theme')).toBe('dark')
+  })
+
+  it('turns transitions off until the new colours have been drawn once (D1.6)', () => {
+    saveThemeChoice('dark')
+    expect(root.getAttribute('data-theme-switching')).toBe('')
+
+    nextFrame()
+    expect(root.getAttribute('data-theme-switching')).toBe('')
+
+    nextFrame()
+    expect(root.getAttribute('data-theme-switching')).toBeNull()
   })
 
   it('tells every subscriber on the page', () => {

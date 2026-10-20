@@ -42,13 +42,28 @@ export function applyThemeChoice(choice: ThemeChoice): void {
   else root.setAttribute('data-theme', choice)
 }
 
+/**
+ * Applies a change of theme with every transition off until it has been drawn, so all the colours
+ * change at once (D1.6), rather than the parts with a colour fade lagging 180ms behind the rest.
+ * app/globals.css turns transitions off while `data-theme-switching` is on `<html>`.
+ */
+function applyAtOnce(choice: ThemeChoice): void {
+  const root = document.documentElement
+  root.setAttribute('data-theme-switching', '')
+  applyThemeChoice(choice)
+  // One frame is drawn in the new colours with transitions off; the next turns them back on
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => root.removeAttribute('data-theme-switching'))
+  )
+}
+
 export function saveThemeChoice(choice: ThemeChoice): void {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, choice)
   } catch {
     // Still applied for this page view; it just won't be remembered.
   }
-  applyThemeChoice(choice)
+  applyAtOnce(choice)
   window.dispatchEvent(new Event(CHANGE_EVENT))
 }
 
@@ -59,7 +74,7 @@ export function saveThemeChoice(choice: ThemeChoice): void {
 export function subscribeToThemeChoice(onChange: () => void): () => void {
   const onStorage = (event: StorageEvent) => {
     if (event.key !== THEME_STORAGE_KEY && event.key !== null) return
-    applyThemeChoice(readThemeChoice())
+    applyAtOnce(readThemeChoice())
     onChange()
   }
   window.addEventListener('storage', onStorage)

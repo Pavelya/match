@@ -103,7 +103,7 @@ function ProgramRow({ program, campus }: { program: ListedProgram; campus: strin
     <li className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-3 border-t border-border px-3.5 py-2.5 first:border-t-0 md:grid-cols-[minmax(0,1fr)_210px_72px_96px] md:items-center md:gap-x-4 md:px-5 md:py-3">
       <Link
         href={`/programs/${program.id}`}
-        className="rounded-chip text-body font-semibold break-words text-foreground underline-offset-3 hover:underline md:col-start-1 md:row-start-1"
+        className="rounded-chip text-body font-semibold break-words text-foreground underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline md:col-start-1 md:row-start-1"
       >
         {program.name}
       </Link>

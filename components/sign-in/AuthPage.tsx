@@ -89,11 +89,11 @@ export function AuthAlert({ children }: { children: ReactNode }) {
 
 /** A link inside small text: "contact us", "Terms of Service" */
 export const inlineLinkClass =
-  'rounded-chip font-medium text-primary underline underline-offset-2 transition-colors duration-180 ease-standard hover:text-brand-hover'
+  'rounded-chip font-medium text-primary underline underline-offset-2 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline'
 
 /** A link that stands on its own: "Didn't receive the email? Try again", "Sign in here" */
 export const textLinkClass =
-  'rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover'
+  'rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline'
 
 /** The consent line, word for word under the button (4.5's check of D4.2) */
 export function ConsentLine({ verb = 'continuing' }: { verb?: 'continuing' | 'accepting' }) {
