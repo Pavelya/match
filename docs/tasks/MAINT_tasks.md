@@ -50,6 +50,7 @@ pull request, merged before the next starts.
 | any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
 | any | "Account deleted" email when a student deletes their own account | 5.24 | small | **Done** (20 October 2026, rebranding build 22, both designs). Only an admin's deletion sent it, and its words said an administrator did it. Now Settings sends it too, with the student's words, once the deletion commits |
 | any | Delete everything a student's account holds | 5.25 | small to medium | **Done** (20 October 2026, rebranding build 22), but for step 6: the 2 invitations already left behind wait for the owner's approval and a backup. One deletion for both routes now takes the student's invitations, their cached matches and the shortlist count in their browser |
+| before release day | Explore's "Most relevant" is only "Highest minimum" | 5.27 | small to medium | With nothing typed, Explore's default order puts the highest IB minimum first, with or without "Only ones I qualify for", whatever the student's fields and countries. Proposed: a "Best fit" order for students with grades, as on Matches. Needs a change board first (it reverses D3.5's "no Best fit"). Found by the owner, 20 October 2026 |
 | any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
 | before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
 | any | Returning students and social media: where it stands, and a plan | 7.5 | medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome; D plans social media (LinkedIn and the platforms students use), where IB Match has no account today. Research and a plan; nothing sent, posted, tracked or built |
@@ -110,6 +111,7 @@ Phase 5 — quick wins
 - [x] 5.25 Delete everything a student's account holds when it is deleted (20 October 2026; step 6's
   two old invitations wait for the owner)
 - [ ] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
+- [ ] 5.27 Order Explore by the student's fit, not by the highest minimum
 
 Phase 6 — dependency majors
 
@@ -1642,6 +1644,88 @@ no email links deeper into the portal, so following a return path is not needed.
 
 **Session size:** Tiny. Fold into any session. Independent of the rebranding: D4.17's link goes to
 `/auth/coordinator` directly.
+
+### 5.27 — Order Explore by the student's fit, not by the highest minimum
+
+**Outcome:** A signed-in student with grades who opens Explore sees the programs in their own fields
+and countries first. The order is the same one Matches calls "Best fit", and the sort menu names it
+honestly. Whether "Only ones I qualify for" is on or off, the order means something to the student.
+
+**Why (owner, 20 October 2026):** on the new Explore, with "Only ones I qualify for" on and the sort
+on "Most relevant", the list runs from the highest IB minimum down. The owner expected their
+countries and fields first, then the rest. The code does what was built, but "Most relevant" names
+something it isn't:
+
+- The search index (`programs_production`, settings read 20 October 2026) ranks by how well the
+  typed words match, then by `customRanking: desc(minimumIBPoints)` and nothing else. With nothing
+  typed, every program ties on the words, so "Most relevant" is exactly "Highest minimum first", the
+  third option in the same menu. That holds signed out too.
+- `searchExplore` (`lib/explore/search.ts`) keeps the search's order for "Most relevant", with the
+  switch on as well. The switch only removes programs; it never reorders them.
+- Explore's fit ignores field and country on purpose: `programFit` (`lib/explore/fit.ts`) passes
+  `NO_PREFERENCE` for both, because they don't decide the status. The page's read, `exploreViewer`
+  (`lib/explore/student.ts`), already has the student's fields and countries, for the "Use my
+  fields" and "Use my countries" shortcuts. But the student it hands the search, and the one the
+  filter API reads with `exploreStudent`, have empty lists of both.
+- D3.5 (approved 11 October 2026) chose the sorts "Most relevant", "Lowest" and "Highest", with no
+  "Best fit". That suited a list for every visitor, but not a student with grades.
+
+**What good practice says:** "relevance" means relevance to what was typed. With nothing typed, a
+list should either say what its default order really is ("Highest minimum first") or rank for the
+person, as a "Recommended for you" order does. Matches already has that ranking, `compareBestFit` in
+`lib/matching/match-groups.ts`:
+- the fit score comes first: academic 60%, country 30%, field 10%;
+- then the minimum closest to the student's total;
+- then programs with no minimum, then names A–Z.
+
+With "Only ones I qualify for" on, every program left meets the academic part. The score then
+separates them by country and field: the student's country and field first, their country in
+another field next, then another country in their field, then the rest. Within each of those tiers,
+"closest to your total" runs from the student's own total down, since every minimum left is at or
+under it. So the points order the owner asked about is top-down, starting at the student's own total
+rather than at 45. With the switch off, programs out of reach mix in at the same score, so the first
+step decides whether the status should come first, as Matches' groups do.
+
+**Steps:**
+
+1. **Design first** (rebranding gates): a change board for D3.5's sort menu and D4.7's list, "D3.5
+   Sort · best fit". It draws the menu for a student with grades and for everyone else, the order with
+   the switch on and off, the summary line, and the phone sheet. Questions for the board:
+   - Should "Best fit" be the default for a student with grades, while "Most relevant" stays for
+     typed searches and for anyone without grades?
+   - Should the label read "Best fit", as on Matches?
+   - Signed out with nothing typed, should the default say what it is, such as "Highest minimum
+     first", or keep its name?
+   - With the switch off, should the status come first ("Meets all", then "Within reach", then the
+     rest), or the score alone?
+2. **Build:** give the search the student's fields and countries. On the page they come from
+   `exploreViewer`'s read; in `app/api/programs/explore/route.ts`, add the two relations to
+   `exploreStudent`'s `select` (the same query, no new one). Give
+   `programFit` a variant that scores field and country the way the matcher does. Sort the full list
+   with `compareBestFit`, through the same path the points sorts and the switch take (`everyMatch`,
+   then cut the window). Add `best` to `ExploreSort` and the URL (`?sort=best`), and keep today's
+   links working.
+3. **Vitest:**
+   - with the switch on, the order is "my country and field", then "my country", then "my field",
+     then the rest, each tier closest to the student's total first;
+   - "Most relevant" with words typed keeps the search's order;
+   - a signed-out visitor's menu has no "Best fit".
+
+**Must not:** add a database query (the API route's existing query only selects two more relations),
+read the programs cache, or change Matches' order. Before building, measure what "Best fit"
+costs in search requests. It needs every match: one search of 1,000, then a browse past it, so two
+to three requests per list where "Most relevant" with nothing typed makes one (Algolia's free plan
+allows 10,000 a month). If that is too many, the index's `optionalFilters` can lift the student's
+fields and countries in a single search, but check first that the plan includes it. Either way,
+raise the count with the owner first (Definition of done 7 in `REBRANDING_tasks.md`).
+
+**Verify:** the tests. In the preview, signed in with grades: with nothing typed and the switch on,
+the first rows are in the student's countries and fields, starting at their own total. The URL
+keeps the sort through a reload and Back. Signed out, the order and the menu are as the board
+decides.
+
+**Session size:** Small to medium: a change board, then one build session. Before release day,
+because the new Explore shows the misleading order to every student. Independent of 5.26.
 
 ---
 
