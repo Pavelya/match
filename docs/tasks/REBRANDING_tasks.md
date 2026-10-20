@@ -209,7 +209,10 @@ On 20 October row 22 drew the policy update notice, and the owner approved the b
 recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Later that day row 23 drew the
 seven emails, and the owner approved all three boards in chat with every recommendation, including the
 sentence it adds to D4.11's page after deleting: "D4.18 Emails", "D4.18 Emails · support and account"
-and "D4.18 Emails · phone". Build 22's gate is complete. Two tasks have no board: D1.6, and D1.7, seasonal themes, added on 20
+and "D4.18 Emails · phone". Build 22's gate is complete. Later that day row 24 drew the one rule set for
+motion and feedback, from a review of every built component, and the owner approved it in chat with every
+recommendation: "D1.6 Motion and feedback". Build 19's gate is complete, and the owner unlocked it the same
+day, ahead of the program card review (5.1). One task has no board: D1.7, seasonal themes, added on 20
 October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)).
 
 ### Foundations
@@ -218,10 +221,10 @@ October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedul
 |---|---|---|---|
 | D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
-| D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
+| D1.3 Space, radius, elevation, motion, icons | "B · Foundations". **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the list-to-program view transition and the tab-switch transitions leave the system, and "only transform and opacity" means only they move things, while colours, edges and shadows may fade in 180ms | Nothing | 8 October 2026; the D1.6 change 20 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
-| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (5.2), before release day: go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable, and one rule for decorative motion, which seasonal themes follow after release (6.1, D1.7): none, or one entrance under 5 seconds that never repeats | |
+| D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
 | D1.7 Seasonal themes | None | **Added 20 October 2026 (owner), for after release** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). "D1.7 Seasonal themes": the four slots (the header's logo, Home's hero, the lime band on Home and the guides, the 404) at 390px and 1440px, light, dark, forced colours (hidden) and reduced motion, signed in and signed out, and the fullest phone header at 320px; then the first season on every slot. Decide on the board: the seasons and their windows (the list in 6.2), where the accessory sits beside the mark, and whether Home's hero gets D1.6's one entrance or stays still. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | |
 
 ### Components
@@ -252,9 +255,9 @@ theme switch are in D1.4.
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 | Nothing | 10 October 2026 |
+| D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the whole card opens the program, through the name's link, with Save, "Why this match" and its panel above it; built in 5.2 | Nothing | 10 October 2026; the whole card 20 October 2026 |
 | D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the icon link to first run named "Save … : add your grades first" ("D2.1 Save · without grades", row 15), not a toggle; built in 3.1 | Nothing | 11 October 2026; Save before grades 13 October 2026 |
+| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the icon link to first run named "Save … : add your grades first" ("D2.1 Save · without grades", row 15), not a toggle; built in 3.1. **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the whole row opens the program, with Save above it, and on desktop the row takes a muted tint on hover, in place of "no hover on the whole row"; Shortlist's rows follow; built in 5.2 | Nothing | 11 October 2026; Save before grades 13 October 2026; the whole row 20 October 2026 |
 | D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
 | D3.5 Filter toolbar | "D3.5 Filter toolbar" (row 12): the desktop toolbar with each chip's menu open (Field, Country, IB points, Length), light and dark; no programs match; an IB points value it can't use; "Only ones I qualify for" on; signed out; signed in before adding grades; the toolbar at 900px. Phones use the sheet (D2.15). **Decided 11 October 2026 (owner), every recommendation:** a choice applies at once, as in the sheet; menus are popovers holding a labelled dialog, not ARIA menus; no count beside each option; "Include programs with no IB minimum", ticked by default; Length 3 years, 4 years, 5 years or more; Sort: Most relevant, Lowest points needed, Highest points needed; signed out or without grades, a link in the switch's place. The profile shortcuts read "Use my fields", "Use my countries" and "Up to my 38", as on the sheet. **Changed 13 October 2026 (owner):** the hint under "Include programs with no IB minimum" reads "Mostly US universities, which admit on the whole application", in place of "All 12 US universities admit without one", since two German universities now set no minimum too (`CONTENT_tasks.md` 7); built in 2.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
 | D3.6 Subject editor | "D3.6 Subject editor" (row 16): a subject row at the desktop column's 880px and a phone's 358px in every state (empty, focus, the list open, filtered, a subject in another row, no match, the longest name, a second science in Group 6's row, a second Language A, a 1), TOK and the Extended Essay, the diploma checks under the subjects, and the footer in 14 states, light, dark and forced colours. It replaces the subject rows on "Academic profile" and "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** any subject in any row, the last "Group 6 · The arts, or another subject"; edit in place, keeping level and grade, with no defaults; one total, in the footer, "So far" until whole; each check where it applies and again in the footer as what Finish needs; the IB's other failing conditions still stop Finish, reworded in the helper; Lucide Lightbulb and Notebook pen; on a phone only "Mathematics: Applications and Interpretation" ends in an ellipsis. Decisions in 3.2 | Nothing | 14 October 2026 |
@@ -317,7 +320,7 @@ merges into `main`, behind the preview switch.**
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
-| 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
+| 19 | Motion and feedback | 5.2 | D1.6 | medium | **Unlocked 20 October 2026** (owner): D1.6 approved, ahead of the program card review (5.1), whose rule is the same for any card. Before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 | 23 | Seasonal themes | 6.1 | D1.7 | small to medium | After release day. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
@@ -353,7 +356,7 @@ Rows 3 and 4 can share a design session.
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
-| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
+| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | D1.6 approved 20 October 2026; the build is unlocked, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 | 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | After release day. The December season only if merged by 1 December 2026; otherwise Lunar New Year first |
@@ -492,8 +495,8 @@ animation patches the audit first proposed.
 3. **Focus:** a visible outline that survives Windows High Contrast (forced colours). Never only a
    box-shadow ring (audit 6.5).
 4. **No emoji in interface chrome**; Lucide icons, per `docs/UX/icons-reference.md` (audit 2.7).
-5. **No infinite animations.** Only transform and opacity; reduced motion swaps movement for a fade
-   (audit 6.7).
+5. **No infinite animations.** Only transform and opacity move things; colours, edges and shadows may
+   fade (D1.6). Reduced motion swaps movement for a fade (audit 6.7).
 6. **Static pages stay static.** The 23 `study-in-*` guides, `/` and `/ib-university-requirements` are
    prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `showsNewUi()` (0.1) is
    the one exception: Draft Mode keeps them static. `npm run build` must still list them `○ (Static)`.
@@ -2887,8 +2890,9 @@ with a grey fill, while Matches cards and Explore rows give no response at all. 
 and "How the fit is worked out" fade in, and chevrons turn. The list-to-program view transition
 D1.3 describes was never built. The owner wants one standard, chosen after looking at every screen.
 
-**When:** session 19, after session 16 and the program card review (5.1), before release day. Built
-behind the preview switch, like every session before release.
+**When:** session 19, before release day. Built behind the preview switch, like every session before
+release. **Unlocked 20 October 2026 (owner),** ahead of the program card review (5.1): the card's tap
+rule is the same for A, B or C, so if 5.1 later changes the card, the new card keeps this rule.
 
 **Design gate:** D1.6, approved ([Step 2](#step-2--design-first)).
 
@@ -2913,6 +2917,51 @@ behind the preview switch, like every session before release.
 - **The build:** apply the approved rules to every component in one pull request, through shared
   classes or tokens rather than each component's own, so later work follows them by default.
   Screenshots beside the board, as in every build.
+
+**Decided on the board (20 October 2026, owner, every recommendation).** Canvas row 24, "D1.6 Motion
+and feedback". The board's table "Every built screen today, and what changes" lists each component
+with Keep or Change; the build changes every row marked Change, and no other.
+
+- **The whole card or row is the link** on Matches (`MatchCard`), Explore (`ResultRow`) and
+  Shortlist's rows. The name's `<Link>` stays the only link and is stretched over the card in CSS
+  (an `::after` covering it); Save, "Why this match" and the opened panel sit above it with their own
+  targets. Tab order and the accessible name don't change. Desktop hover: the card takes the link
+  cards' edge and shadow from D2.8, a row a muted tint, and the name underlines. Focus stays on the
+  name.
+- **Press, on everything tappable, 120ms:** 96% for targets under 64px wide (the tab bar's pill), 98%
+  for controls (buttons, chips, Save, segmented buttons, menu buttons, toast actions), 99% for cards
+  and rows (match cards, Explore and Shortlist rows, link cards, checkbox rows and tiles, Contact's
+  and the invitation's choice rows), each with its one-step-darker fill. Text links turn brand-ink and
+  underline, with no shrink. `-webkit-tap-highlight-color: transparent` in the new design. Check
+  `:active` on a real iPhone.
+- **Opening a page holds the pressed look** until the next page arrives, on cards, rows, names, the
+  tab bar and the nav, through Next.js' `useLinkStatus` (read
+  `node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-link-status.md` first) in a
+  small client component inside each link. It must not shift the layout. No spinner, no progress bar,
+  no `loading.tsx`. This is the only new JavaScript, a few hundred bytes.
+- **Small overlays** (the account menu, Menu's panel, the filter menus, "Choose programs", Save and
+  exit's question, and their scrims): fade in and drop 4px, 180ms; fade out, 120ms, with
+  `@starting-style` and `transition-behavior: allow-discrete` for the popovers. A browser without them
+  shows and hides them at once. **Large overlays, the sheet, the toast and the tab bar** keep what they
+  do.
+- **Inline disclosures** ("Why this match", "How the fit is worked out", Read more, the guides' and
+  Explore's questions, requirement groups): the content fades in over 180ms and the chevron turns in
+  180ms; nothing slides open; closing is instant.
+- **Reduced motion:** one rule for the new design, in place of today's global `0.01ms` and the six
+  components' overrides: no scale, translate or rotate transitions; opacity and colour transitions keep
+  their times. Presses keep their fill.
+- **Explore:** while a filter change loads, after 300ms, the count reads "Updating…"; the rows stay at
+  full strength.
+- **The theme switch** changes every colour at once: transitions are off for the frame it applies.
+- **Loading** stays still skeletons, and content replaces them without a fade. Jumps to a section
+  stay instant.
+- **No view transitions:** the list-to-program morph and the tab switches leave the system (D1.3,
+  `04-design-system.md` §3).
+- **Decorative motion, for 6.1 only:** one entrance on Home's hero, a fade and an 8px rise over
+  480ms, once per page load, and none with reduced motion. Nothing is built for it here.
+- **Budget:** CSS under 1 KB more, gzipped; JS only the link-status component. Today's unused motion
+  tokens (`--duration-*`, `--ease-spring`, `.hover-lift`, the shimmer keyframes) belong to today's
+  design and go at R.2.
 
 ---
 
