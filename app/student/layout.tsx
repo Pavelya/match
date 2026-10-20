@@ -8,6 +8,7 @@ import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { ReconsentChecker } from '@/components/shared/ReconsentChecker'
 import { SignedInChrome } from '@/components/site/chrome'
+import { checkConsentStatus } from '@/lib/legal-documents'
 import { showsNewUi } from '@/lib/new-ui'
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
@@ -21,21 +22,26 @@ export default async function StudentLayout({ children }: { children: React.Reac
   // student their own name and email. First run's focus mode comes with 3.1, whose step drafts its
   // "Save and exit" needs, so until then first run shows the normal chrome.
   if (await showsNewUi()) {
+    // The policy update notice (4.6): ReconsentChecker's check, made here so the notice can sit
+    // inside the chrome with its toasts. The same three reads, on every student page, as today.
+    const consent = session.user?.id ? await checkConsentStatus(session.user.id) : null
+    const policyUpdate =
+      consent && (consent.termsNeedsReconsent || consent.privacyNeedsReconsent)
+        ? { terms: consent.termsNeedsReconsent, privacy: consent.privacyNeedsReconsent }
+        : undefined
     return (
-      <>
-        <SignedInChrome
-          user={{
-            id: session.user?.id ?? '',
-            name: session.user?.name ?? null,
-            email: session.user?.email ?? null,
-            image: session.user?.image ?? null,
-            initial: getAvatarInitial(session.user?.email, session.user?.name)
-          }}
-        >
-          {children}
-        </SignedInChrome>
-        <ReconsentChecker />
-      </>
+      <SignedInChrome
+        user={{
+          id: session.user?.id ?? '',
+          name: session.user?.name ?? null,
+          email: session.user?.email ?? null,
+          image: session.user?.image ?? null,
+          initial: getAvatarInitial(session.user?.email, session.user?.name)
+        }}
+        policyUpdate={policyUpdate}
+      >
+        {children}
+      </SignedInChrome>
     )
   }
 

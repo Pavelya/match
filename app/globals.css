@@ -393,23 +393,24 @@
 }
 
 /*
- * The cookie banner (D4.1, components/site/CookieBanner.tsx). Signed in on a phone it sits on the
- * tab bar, and the bar stays put while it shows instead of hiding on scroll. A toast rises 12px
- * above it: the banner measures its top's distance from the bottom into --cookie-banner.
+ * The cookie banner (D4.1) and the policy update notice (D2.16), one at a time in one panel
+ * (components/site/bottom-panel.tsx). Signed in on a phone it sits on the tab bar, and the bar
+ * stays put while it shows instead of hiding on scroll. A toast rises 12px above it: the panel
+ * measures its top's distance from the bottom into --bottom-panel.
  */
-[data-ui='next'] body:has([data-cookie-banner]) .ds-toast-region {
-  bottom: calc(var(--cookie-banner) + 0.75rem);
+[data-ui='next'] body:has([data-bottom-panel]) .ds-toast-region {
+  bottom: calc(var(--bottom-panel) + 0.75rem);
   translate: none;
 }
 
 @media (width < 48rem) {
-  [data-ui='next'] body:has([data-tab-bar]) [data-cookie-banner] {
+  [data-ui='next'] body:has([data-tab-bar]) [data-bottom-panel] {
     bottom: var(--tab-bar-height);
     max-height: calc(100dvh - var(--tab-bar-height) - 7rem);
     padding-bottom: 1.25rem;
   }
 
-  [data-ui='next'] body:has([data-cookie-banner]) [data-tab-bar] {
+  [data-ui='next'] body:has([data-bottom-panel]) [data-tab-bar] {
     translate: none;
     opacity: 1;
     pointer-events: auto;
