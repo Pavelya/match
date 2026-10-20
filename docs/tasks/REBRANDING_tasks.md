@@ -2942,6 +2942,23 @@ against the baseline:
   `layout-error.tsx`, `components/sign-in/auth-error.tsx`); the old branch of `signInDestination`;
   the islands modules, once the pages import their cards; and `TODAYS_DESIGN` in
   `eslint/raw-palette.mjs`, with the files it lists;
+- from 4.7, today's emails (added 20 October 2026, owner):
+  - the seven old templates in `components/email/legacy/`;
+  - in each builder in `emails/`, the `if (!emailBrand().newUi)` branch with its old subject and,
+    in the two sign-in builders, the old hand-written plain text;
+  - `emailBrand()` (`lib/brand/email.ts` and its test): the builders and `EmailHeader` read `brand`
+    straight from `lib/brand/config.ts`; `EmailHeader` loses its centred 60px logo, and
+    `legacyBrand.emailLogo` and `public/logo-email.png` go with the old logo files;
+  - in the student reminder (`app/api/coordinator/students/invite/resend/route.ts`), the
+    `emailBrand().newUi &&` before its read: the read stays, for every reminder;
+  - `userName` on the ticket and "Account deleted" builders and their senders: only today's
+    "Hello {name}," uses it. The "Account deleted" builder keeps `deletedBy`, since both versions
+    stay;
+  - in the tests: `lib/email/__fixtures__/legacy/` and its line in `.prettierignore`, the "until
+    release day" block of `lib/email/emails.test.tsx`, the today's-design cases in
+    `lib/auth/sign-in-link.test.ts` and the resend route's test, and every `NEW_UI_FOR_EVERYONE`
+    stub left in them. The new design's checks stay, without the stub;
+  - the "today's design" words in `components/email/message.tsx` and the `emails/` headers;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
   (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here
