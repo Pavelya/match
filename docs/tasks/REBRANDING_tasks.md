@@ -209,7 +209,8 @@ On 20 October row 22 drew the policy update notice, and the owner approved the b
 recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Later that day row 23 drew the
 seven emails, and the owner approved all three boards in chat with every recommendation, including the
 sentence it adds to D4.11's page after deleting: "D4.18 Emails", "D4.18 Emails · support and account"
-and "D4.18 Emails · phone". Build 22's gate is complete. One task has no board: D1.6.
+and "D4.18 Emails · phone". Build 22's gate is complete. Two tasks have no board: D1.6, and D1.7, seasonal themes, added on 20
+October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)).
 
 ### Foundations
 
@@ -220,7 +221,8 @@ and "D4.18 Emails · phone". Build 22's gate is complete. One task has no board:
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
-| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (5.2), before release day: go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable | |
+| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (5.2), before release day: go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable, and one rule for decorative motion, which seasonal themes follow after release (6.1, D1.7): none, or one entrance under 5 seconds that never repeats | |
+| D1.7 Seasonal themes | None | **Added 20 October 2026 (owner), for after release** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). "D1.7 Seasonal themes": the four slots (the header's logo, Home's hero, the lime band on Home and the guides, the 404) at 390px and 1440px, light, dark, forced colours (hidden) and reduced motion, signed in and signed out, and the fullest phone header at 320px; then the first season on every slot. Decide on the board: the seasons and their windows (the list in 6.2), where the accessory sits beside the mark, and whether Home's hero gets D1.6's one entrance or stays still. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | |
 
 ### Components
 
@@ -318,6 +320,8 @@ merges into `main`, behind the preview switch.**
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
+| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | After release day. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
+| 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
 
@@ -352,6 +356,8 @@ Rows 3 and 4 can share a design session.
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
 | 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
+| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | After release day. The December season only if merged by 1 December 2026; otherwise Lunar New Year first |
+| 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
 
@@ -418,6 +424,11 @@ Release
 
 - [ ] R.1 Release day
 - [ ] R.2 Cleanup
+
+Phase 6 — After release
+
+- [ ] 6.1 Seasonal themes: the slots, the schedule and the first season
+- [ ] 6.2 Each further season
 
 Owner decisions — not AI work
 
@@ -2893,7 +2904,10 @@ behind the preview switch, like every session before release.
     card through the name's link, with Save and "Why this match" above it. If 5.1 changed the card,
     review the card it chose;
   - hover on desktop only, and never the only sign that something is a link;
-  - the list-to-program view transition in D1.3: build it, or drop it from the system.
+  - the list-to-program view transition in D1.3: build it, or drop it from the system;
+  - decorative motion, which the seasonal themes after release follow (6.1): none at all, or one
+    entrance on Home's hero, transform and opacity, under 5 seconds and never repeating, and none
+    with reduced motion. Nothing here is built for them in 5.2.
 - **Keep the Definition of done:** only transform and opacity, no infinite animations, a fade with
   reduced motion, and no more JavaScript than the rules need.
 - **The build:** apply the approved rules to every component in one pull request, through shared
@@ -2963,6 +2977,128 @@ against the baseline:
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
   (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here
   (Definition of done 8). If it is still over, find what kept it there before R.2 is done.
+
+---
+
+## Phase 6 — After release
+
+### 6.1 — Seasonal themes: the slots, the schedule and the first season
+
+**Outcome:** For a few days around a holiday, four fixed places in the design wear that holiday's
+decoration. An admin page turns each season on or off and sets its dates, with no code change and no
+deploy. Outside a season every page renders as before. Added 20 October 2026 (owner).
+
+**Why it is this small** (research, 20 October 2026). The students are making a decision that
+matters, often under deadline, so decoration stays where people arrive and browse, and away from where
+they work or are asked to trust the site. A falling-snow layer was considered and left out: it is an
+infinite animation (Definition of done 5), WCAG 2.2.2 (Pause, Stop, Hide) would then require a pause
+control, it drains phone batteries, and it sits over the content.
+
+**When:** after release day (R.1), so it never delays release. It touches only the new design's files,
+so it can run before or after cleanup (R.2). The first season is the December one if this is merged by
+1 December 2026. Otherwise Lunar New Year goes first.
+
+**Design gate:** D1.7, approved ([Step 2](#step-2--design-first)), and D1.6's rule for decorative motion.
+
+**Must-haves:**
+
+- **Four slots, and nowhere else:**
+  - beside the mark in the header, public and signed in, desktop and phone. The mark and the name never
+    change, since the mark still waits on its clearance search (R.1);
+  - Home's hero, around the lime bar under the hero phrase (`app/NewHomePage.tsx`);
+  - the lime band that ends Home and every guide (`components/home/LimeBand.tsx`);
+  - the 404 (`components/site/NotFoundPage.tsx`).
+
+  Each slot is an empty `aria-hidden` element placed absolutely inside a box that already exists, so
+  it never moves the layout (CLS stays 0) and never takes a tap (`pointer-events: none`). It never
+  covers text or a control, at 320px, 390px or 1440px.
+- **Never touched:** match cards, Explore and Shortlist rows, status badges and requirement chips
+  (their colours carry meaning), forms, first run and its focus mode, the subject editor, Academic,
+  Settings, sign-in and invitations (a sign-in page that suddenly looks different invites doubt), the
+  legal pages, the cookie and policy panels, toasts, dialogs, the error page, emails, the favicon and
+  the share image, the tab bar, and the coordinator and admin areas. No token changes, so the contrast
+  that `app/globals.test.ts` checks stays.
+- **Decoration only, no words.** No greeting, so there is nothing to translate or to word for every
+  faith, and nothing for SEO parity (Definition of done 12) to explain. The art is drawn from Lucide
+  icons, already a dependency (`snowflake`, `sparkles`, `moon-star`, `lamp`, `ghost` and others), and
+  the design's tokens, in light and dark. It is hidden in forced colours.
+- **Motion** follows D1.6's rule for decorative motion: at most one entrance on Home's hero, transform
+  and opacity, under 5 seconds and never repeated, and nothing with reduced motion. Everything else
+  stays still.
+- **The schedule is data; the art is code.**
+  - A `SeasonalTheme` table, added in one migration applied with `prisma migrate deploy`. It has `key`
+    (unique, naming a season built in code), `enabled`, `startsOn` and `endsOn` (dates, both inclusive)
+    and `updatedAt`. There is no free text and no upload, so nothing an admin types reaches a page.
+  - `/admin/seasonal-themes` uses today's admin style, since staff areas keep today's design (4.5). It
+    saves through a route under `app/api/admin/`, as the other admin pages do, and only the admin role
+    can use it. It lists every season built in code with its switch, its dates and a Preview link, plus
+    one "All seasonal decorations off" switch for a day when decoration would be wrong. It refuses a
+    window longer than 21 days, an end before the start, and two seasons that overlap.
+  - Saving calls `revalidateTag('seasonal-themes', { expire: 0 })`, as
+    `app/api/admin/cache/invalidate` does. Each prebuilt page then renders again on its next visit,
+    with the new schedule.
+- **The browser picks the season, so static pages stay static.**
+  - The root layout reads the schedule through `unstable_cache`, tagged `seasonal-themes`, with no time
+    limit, as `lib/reference-data.ts` does. It reads only for the new design, uses `select`, and skips
+    seasons that are over.
+  - It writes the schedule into a small inline head script, next to `THEME_SCRIPT`. Before first paint
+    the script compares it with the visitor's local date and sets `data-season` on `<html>`.
+  - A season therefore starts and ends on time in the visitor's own time zone, without any page
+    rendering again. Pages render again only when the admin changes the schedule.
+  - A failed read means no season. It never fails a page or the build.
+  - This is the feature's one new read (Definition of done 7, raised with the owner on 20 October
+    2026). It is one small query each time the cache fills, which is after a save or when the cache is
+    cleared, never per visit. Redis and search are not read.
+- **Nothing is downloaded outside a season.** Each season's styles are a stylesheet of their own in
+  `public/seasons/`, next to its SVGs. The head script adds that stylesheet only while the season is on.
+  The site's stylesheet gains only the slot rules, under 0.3 KB gzipped. No JavaScript bundle grows,
+  and the head script stays under 600 bytes.
+- **Preview any season on any day** with `?season={key}` on any page. Only the head script reads it, in
+  the browser, so pages stay static. It works before a season is scheduled, and in design QA.
+- Vitest covers the helper that picks the season and the admin route's checks, with `@/lib/prisma`
+  mocked. Cases for the helper: an inclusive end, overlaps, the visitor's midnight, an empty or broken
+  schedule, the preview parameter, and everything switched off.
+
+**Verify:**
+
+- `npm run build` lists the same pages as Static, with the same revalidate times.
+- With no season on:
+  - against `main`, the HTML of `/`, a guide and Matches differs only by the head script;
+  - the gzipped CSS differs only by the slot rules, and the JS does not change;
+  - nothing in `public/seasons/` is downloaded.
+- With `?season=` set to the first season:
+  - check every slot at 320px, 390px and 1440px, in light, dark, forced colours (hidden) and reduced
+    motion;
+  - CLS stays 0, and nothing covers a link or a button;
+  - Lighthouse reports the same LCP element as before.
+- On production:
+  1. Schedule a test window that includes today.
+  2. Open Home and a guide; each shows the season by its second visit at the latest.
+  3. Switch everything off and check that the season is gone.
+
+### 6.2 — Each further season
+
+**Outcome:** One more season that the admin can schedule every year. Each one adds a board, one
+stylesheet with its SVGs, and a key in the code's list of seasons. The slots, the admin page and the
+schedule stay as 6.1 built them.
+
+**Design gate:** that season's board, "D1.7 Season · {name}", approved.
+
+**The seasons recommended for D1.7** (owner decides on the board). The list is short and balanced
+across traditions. A site for IB students in many countries shows either a fair set of holidays or
+none, never one faith's holidays alone. The dates are from the research and must be checked each year:
+three of these seasons follow lunar calendars, so the admin enters their dates each year.
+
+| Season | Key | Next date | Suggested window | Notes |
+|---|---|---|---|---|
+| Winter holidays and New Year | `winter` | Hanukkah 4–12 December 2026, Christmas, 1 January | 14 December to 1 January | The widest reach, so the first season. One generic season with lights and stars and no religious symbols. Snow is not its only motif, because December is summer in Australia |
+| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides |
+| Eid al-Fitr | `eid-al-fitr` | Around 9 March 2027, set by the moon sighting | 3 days from the announced date | Large IB communities in the Gulf and Türkiye |
+| Diwali | `diwali` | 8 November 2026, too soon for 6.1. Late October or November each year | 3 to 5 days | A large IB community in India |
+| Halloween | `halloween` | 31 October | 25 to 31 October | Optional. Secular and playful, but it falls on the eve of US Early Decision (1 November), when students are under the most pressure |
+
+**No season during the IB's May exams.** No season runs around results days either (early July and
+early January): those days are for a message students can use, not decoration.
 
 ---
 
