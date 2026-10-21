@@ -43,7 +43,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | Order | Task | Who | Why before the rebranding |
 |---|---|---|---|
 | P1 | ~~Enable branch protection on `main`~~ **Done 7 October 2026** (`MAINT_tasks.md`, owner tasks) | Owner, minutes | The rebranding is 15+ pull requests, and merging `main` deploys. Today a red CI can still be merged |
-| P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens in the preview. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
+| P2 | ~~Choose the logo mark~~ **Done: Lens, chosen provisionally on 7 October 2026 and confirmed as the final mark on 21 October 2026 (owner).** The clearance search on it is still to commission (owner decisions) | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
 | P3 | ~~`MAINT_tasks.md` 5.14: delete unused components~~ **Done 7 October 2026** | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | ~~`MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix)~~ **Done 7 October 2026**, data fix applied | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
@@ -214,6 +214,8 @@ motion and feedback, from a review of every built component, and the owner appro
 recommendation: "D1.6 Motion and feedback". Build 19's gate is complete, and the owner unlocked it the same
 day, ahead of the program card review (5.1). One task has no board: D1.7, seasonal themes, added on 20
 October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)).
+On 21 October 2026 the owner moved it ahead of release day, to test in the preview, with winter as the
+first season, and confirmed Lens as the final mark.
 
 ### Foundations
 
@@ -223,9 +225,9 @@ October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedul
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
 | D1.3 Space, radius, elevation, motion, icons | "B · Foundations". **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the list-to-program view transition and the tab-switch transitions leave the system, and "only transform and opacity" means only they move things, while colours, edges and shadows may fade in 180ms | Nothing | 8 October 2026; the D1.6 change 20 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
-| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
+| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark. **Confirmed 21 October 2026 (owner):** Lens is the final mark | Nothing | 9 October 2026 |
 | D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
-| D1.7 Seasonal themes | None | **Added 20 October 2026 (owner), for after release** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). "D1.7 Seasonal themes": the four slots (the header's logo, Home's hero, the lime band on Home and the guides, the 404) at 390px and 1440px, light, dark, forced colours (hidden) and reduced motion, signed in and signed out, and the fullest phone header at 320px; then the first season on every slot. Decide on the board: the seasons and their windows (the list in 6.2), where the accessory sits beside the mark, and whether Home's hero gets D1.6's one entrance or stays still. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | |
+| D1.7 Seasonal themes | None | **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). "D1.7 Seasonal themes": the four slots (the header's logo, Home's hero, the lime band on Home and the guides, the 404) at 390px and 1440px, light, dark, forced colours (hidden) and reduced motion, signed in and signed out, and the fullest phone header at 320px; then the first season on every slot. Decide on the board: the seasons and their windows (the list in 6.2), where the accessory sits beside the mark, and whether Home's hero gets D1.6's one entrance or stays still. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | |
 
 ### Components
 
@@ -304,7 +306,7 @@ merges into `main`, behind the preview switch.**
 | 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | **Done 9 October 2026.** Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
 | 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
-| 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
+| 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, from `lib/brand/config.ts` and seven files in `public/brand/`; confirmed as the final mark on 21 October 2026. Its clearance search is needed before release day |
 | 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
@@ -321,9 +323,9 @@ merges into `main`, behind the preview switch.**
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | **Done 20 October 2026.** Shared classes in `app/globals.css` (three presses, the `pressed:` variants, the stretched link, the small overlay, the disclosure fade) and one reduced-motion rule for the new design. Matches cards and Explore and Shortlist rows are whole links with Save and "Why this match" above them; a press holds while the next page loads, through `useLinkStatus` in client links only, so today's design downloads nothing new. "Updating…" on Explore, the theme switch at once. CSS 34.7 of the 36 KB allowed until cleanup |
+| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | Before release day, in the preview (owner, 21 October 2026); winter first. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
-| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | After release day. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -357,9 +359,9 @@ Rows 3 and 4 can share a design session.
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
-| 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
+| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | Before release day, tested in the preview (owner, 21 October 2026). Winter first, if merged by 1 December 2026; otherwise Lunar New Year |
+| 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
-| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | After release day. The December season only if merged by 1 December 2026; otherwise Lunar New Year first |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -423,23 +425,24 @@ Phase 5 — After the whole preview
 - [ ] 5.1 The program card in every list (review)
 - [x] 5.2 Motion and feedback in every component (20 October 2026)
 
+Phase 6 — Seasonal themes
+
+- [ ] 6.1 Seasonal themes: the slots, the schedule and the first season
+- [ ] 6.2 Each further season
+
 Release
 
 - [ ] R.1 Release day
 - [ ] R.2 Cleanup
 
-Phase 6 — After release
-
-- [ ] 6.1 Seasonal themes: the slots, the schedule and the first season
-- [ ] 6.2 Each further season
-
 Owner decisions — not AI work
 
 - [x] Choose the logo mark: **Lens, provisionally** (7 October 2026). Final decision after seeing all
   screens in the preview
+- [x] Confirm the final mark: **Lens** (21 October 2026)
 - [x] Choose how the redesign reaches production: **a preview switch on `main`** (7–8 October 2026)
-- [ ] Before release day, confirm the final mark. If it is a new mark (Lens or another), commission
-  a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
+- [ ] Before release day, commission a trademark clearance search on Lens: EUIPO and USPTO,
+  figurative marks, Nice classes 41 and 42
 - [x] Set the preview key in Vercel and bookmark the link (S2, 8 October 2026)
 - [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
@@ -473,7 +476,7 @@ Owner decisions — not AI work
 | Direction | B, "Ultramarine" |
 | Colour | Brand #2B3FD6 on paper #F7F6F2; lime #D5F36B for brand moments only |
 | Type | Newsreader for display (22px and up), Geist for UI; Geist Mono dropped |
-| Logo | **Lens, provisionally** (7 October 2026); the final decision comes after seeing all screens. A new mark needs a clearance search before release. **Loaded from configuration, never hard-coded** |
+| Logo | **Lens**, chosen provisionally on 7 October 2026 and confirmed as the final mark on 21 October 2026. It needs a clearance search before release. **Loaded from configuration, never hard-coded** |
 | Where the work lives | **On `main`, behind a preview switch** (7–8 October 2026): the owner sees the new design through a secret link, everyone else sees today's site. Release is one variable and a redeploy |
 | Match score | Status first; the percentage only inside "Why this match" |
 | Dark mode | Follows the OS by default, with a toggle in the account menu behind the avatar (desktop and phone, since 9 October 2026) and in the footer |
@@ -664,8 +667,8 @@ rather than #FFFFFF.
 
 ### 1.3 — Brand configuration and the new logo
 
-**Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance"). The
-final mark is decided before release day, and swapping it must be a change to the config and
+**Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance";
+confirmed as the final mark on 21 October 2026). Swapping it must still be a change to the config and
 asset files only.
 
 **Outcome:** One module (`lib/brand/config.ts`, `04-design-system.md` §8) names every brand asset,
@@ -2909,7 +2912,7 @@ rule is the same for A, B or C, so if 5.1 later changes the card, the new card k
     review the card it chose;
   - hover on desktop only, and never the only sign that something is a link;
   - the list-to-program view transition in D1.3: build it, or drop it from the system;
-  - decorative motion, which the seasonal themes after release follow (6.1): none at all, or one
+  - decorative motion, which the seasonal themes follow (6.1): none at all, or one
     entrance on Home's hero, transform and opacity, under 5 seconds and never repeating, and none
     with reduced motion. Nothing here is built for them in 5.2.
 - **Keep the Definition of done:** only transform and opacity, no infinite animations, a fade with
@@ -2992,7 +2995,7 @@ with Keep or Change; the build changes every row marked Change, and no other.
 **Outcome:** Everyone sees the new design, in one deploy.
 
 **Steps:**
-1. Confirm the final logo. If it is a new mark, the clearance search must be back.
+1. The final logo is Lens (confirmed 21 October 2026, owner); its clearance search must be back.
 2. Confirm the owner has the Search Console baseline (owner decisions).
 3. Merge every open pull request labelled `go-live`, updated with `main` and each with its own
    checklist done. So far: #127, three FAQ answers in the new design's words (D4.14). They change
@@ -3002,6 +3005,8 @@ with Keep or Change; the build changes every row marked Change, and no other.
    failed root layout (`app/global-error.tsx` reads the flag at build time). `npm run build` now
    lists `/privacy`, `/terms` and `/cookies` as Static, with a one-hour revalidate (4.3).
 5. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+   Open `/admin/seasonal-themes` (6.1): a season scheduled across release day shows to everyone from
+   this redeploy, so check its slots with the rest, or switch it off.
 6. Run the home page, one guide and one program page through Google's Rich Results Test: the same
    items as before release, plus the breadcrumbs.
 
@@ -3053,7 +3058,7 @@ against the baseline:
 
 ---
 
-## Phase 6 — After release
+## Phase 6 — Seasonal themes
 
 ### 6.1 — Seasonal themes: the slots, the schedule and the first season
 
@@ -3067,8 +3072,11 @@ they work or are asked to trust the site. A falling-snow layer was considered an
 infinite animation (Definition of done 5), WCAG 2.2.2 (Pause, Stop, Hide) would then require a pause
 control, it drains phone batteries, and it sits over the content.
 
-**When:** after release day (R.1), so it never delays release. It touches only the new design's files,
-so it can run before or after cleanup (R.2). The first season is the December one if this is merged by
+**When:** before release day (R.1), behind the preview switch, so the owner tests it in the preview
+first (owner, 21 October 2026; first planned for after release). It touches only the new design's
+files and the admin area, so it never delays release: if it is not merged by then, release goes ahead
+without it. Until release only the preview shows a season; from release day, whatever is scheduled
+shows to everyone. The first season is winter (owner, 21 October 2026), if this is merged by
 1 December 2026. Otherwise Lunar New Year goes first.
 
 **Design gate:** D1.7, approved ([Step 2](#step-2--design-first)), and D1.6's rule for decorative motion.
@@ -3135,7 +3143,9 @@ so it can run before or after cleanup (R.2). The first season is the December on
 **Verify:**
 
 - `npm run build` lists the same pages as Static, with the same revalidate times.
-- With no season on:
+- Without the preview, the HTML of `/`, a guide and Matches is the same as on `main`: today's design
+  reads no schedule and writes no script.
+- In the preview, with no season on:
   - against `main`, the HTML of `/`, a guide and Matches differs only by the head script;
   - the gzipped CSS differs only by the slot rules, and the JS does not change;
   - nothing in `public/seasons/` is downloaded.
@@ -3144,7 +3154,7 @@ so it can run before or after cleanup (R.2). The first season is the December on
     motion;
   - CLS stays 0, and nothing covers a link or a button;
   - Lighthouse reports the same LCP element as before.
-- On production:
+- On production, through the preview link (before release, only the preview shows a season):
   1. Schedule a test window that includes today.
   2. Open Home and a guide; each shows the season by its second visit at the latest.
   3. Switch everything off and check that the season is gone.
