@@ -28,7 +28,7 @@ the others fall.
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
-| 6 | Sample-seed leftovers | 5.9 | small | After 5.6 | Deletes Algolia records: the owner approves the list and the JSON backup comes first. Students never see the orphans |
+| 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
 | 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
 | 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.8, 5.10, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.10, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -76,7 +76,7 @@ Phase 5 — quick wins
 - [x] 5.6 Make the Algolia status script read every record
 - [x] 5.7 Show each option's level and grade in mixed subject groups
 - [x] 5.8 Use the IB core points matrix for TOK and the Extended Essay — data fix applied 7 October 2026: 20 totals, each +1
-- [ ] 5.9 Remove what the December 2025 sample seed left behind
+- [x] 5.9 Remove what the December 2025 sample seed left behind (22 October 2026)
 - [x] 5.10 Give the older university images a one-year cache (22 October 2026)
 - [ ] 5.11 Send school logos to Storage, as university logos already go
 - [x] 5.12 Show every match, not only the top 10 — up to 50
@@ -627,6 +627,30 @@ but `scripts/sync-universities-algolia.ts` only upserts, so nothing removes them
 exists. Never delete the Toronto row: its 40 real programs and their 5 student saves (4 October 2026) hang off it.
 
 **Session size:** Small.
+
+**Done 22 October 2026.** `find-algolia-orphans.ts` checks both indexes in one run (`--index
+programs|universities` for one), reads every record with `browseObjects`, and with `--delete` saves
+the orphans' full records to `scripts/backups/` before deleting them. `sync-universities-algolia.ts`
+now deletes every record whose id has no `University` row after it saves, and prints the count.
+
+The inventory on 22 October 2026: 104 universities, and Toronto is still the only row from before
+2026, with 40 programs and 7 student saves. No program predates 2026. `programs_production` had
+1,677 records for 1,677 programs and no orphans. `universities_production` had 108 records: the same
+four sample universities as on 4 October. `git log -i --grep=seed` found no other sample data. The
+January 2026 "seed scripts" commits added real universities' programs, and the orphan check covers
+whatever they wrote.
+
+The owner approved the list. The four records were saved to
+`scripts/backups/algolia-orphans-universities_production-2026-10-22T11-23-18-765Z.json` and
+deleted. Afterwards the sync ran (104 saved, 0 removed, 104 entries) and the orphan script reported
+none in either index. Toronto's row, programs and saves were unchanged; its program and university
+pages load in production, and a program search finds its programs. No database row was deleted, so
+no Supabase backup was needed.
+
+The owner chose to **keep** the "test" accounts: they are a demo set-up for coordinator calls, not
+seed leftovers. They are the school "Test School | Demo and feedback call with IB coordinator",
+with 6 students and 1 coordinator, and the user "Test IB Coordinator" (a coordinator), both created
+30 January 2026. The one user from before 2026 is the platform admin.
 
 ---
 
