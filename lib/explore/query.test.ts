@@ -3,6 +3,7 @@ import {
   EMPTY_QUERY,
   MAX_SHOWN,
   appliedChips,
+  bestFitLine,
   catalogueSummary,
   chosenCount,
   clearAll,
@@ -18,6 +19,8 @@ import {
   readPoints,
   removeChip,
   showLabel,
+  shownSort,
+  sortMenu,
   type ExploreQuery
 } from './query'
 
@@ -66,7 +69,7 @@ describe('readExplore', () => {
 
   it('ignores what it cannot use', () => {
     const { query, shown } = read(
-      'fields=nope,1=1&countries=x&minPoints=12&maxPoints=52&length=2,9&sort=best&shown=abc'
+      'fields=nope,1=1&countries=x&minPoints=12&maxPoints=52&length=2,9&sort=fit&shown=abc'
     )
     expect(query).toEqual(EMPTY_QUERY)
     expect(shown).toBe(20)
@@ -92,6 +95,68 @@ describe('readExplore', () => {
       sort: 'high'
     }
     expect(readExplore(exploreParams(query, 40))).toEqual({ query, shown: 40 })
+  })
+})
+
+describe('the sort (D3.5 Sort · best fit)', () => {
+  const shown = (search: string, bestFit: boolean) => shownSort(read(search).query, bestFit)
+
+  it('opens on Best fit with grades and nothing typed, and Most relevant once words are typed', () => {
+    expect(shown('', true)).toBe('best')
+    expect(shown('q=economics', true)).toBe('relevant')
+    // Clearing the words brings Best fit back
+    expect(shown('q=', true)).toBe('best')
+  })
+
+  it('opens on Highest points needed signed out or before grades, with nothing typed', () => {
+    expect(shown('', false)).toBe('high')
+    expect(shown('q=economics', false)).toBe('relevant')
+  })
+
+  it('keeps a picked sort, words or not', () => {
+    expect(shown('sort=best&q=economics', true)).toBe('best')
+    expect(shown('sort=low', true)).toBe('low')
+    expect(shown('sort=low&q=economics', false)).toBe('low')
+  })
+
+  it('opens with the default when the menu does not offer the picked sort', () => {
+    // A shared link with Best fit, signed out, before grades or with the switch off
+    expect(shown('sort=best', false)).toBe('high')
+    expect(shown('sort=best&q=economics', false)).toBe('relevant')
+    // Today's links: "Most relevant" with nothing typed was the highest minimum first
+    expect(shown('sort=relevant', false)).toBe('high')
+    expect(shown('sort=relevant', true)).toBe('high')
+    expect(shown('sort=relevant&q=law', true)).toBe('relevant')
+  })
+
+  it('offers each visitor the board’s menu, the default first', () => {
+    expect(sortMenu('', true)).toEqual(['best', 'low', 'high'])
+    expect(sortMenu('law', true)).toEqual(['relevant', 'best', 'low', 'high'])
+    expect(sortMenu('', false)).toEqual(['high', 'low'])
+    expect(sortMenu('law', false)).toEqual(['relevant', 'low', 'high'])
+  })
+
+  it('writes a picked sort in the URL, never the default', () => {
+    expect(exploreHref(EMPTY_QUERY)).toBe('/programs/search')
+    expect(exploreHref({ ...EMPTY_QUERY, sort: 'best' })).toBe('/programs/search?sort=best')
+    expect(read('sort=best').query.sort).toBe('best')
+  })
+
+  it('says what Best fit puts first, under the count', () => {
+    const viewer = { fields: [CS], countries: [CA, UK], total: 38 }
+    expect(bestFitLine(viewer, 'full', false)).toBe(
+      'Your countries and fields come first; in each, the ones you meet, closest to your 38.'
+    )
+    // Open to anywhere: every country is theirs
+    expect(bestFitLine({ ...viewer, countries: [] }, 'full', false)).toBe(
+      'Your fields come first; in each, the ones you meet, closest to your 38.'
+    )
+    // The fallback's one search lifts the tiers and says nothing more…
+    expect(bestFitLine(viewer, 'lifted', false)).toBe('Your countries and fields come first.')
+    // …unless the switch is on, which reads the whole list in the full order anyway
+    expect(bestFitLine(viewer, 'lifted', true)).toBe(
+      'Your countries and fields come first; in each, the ones you meet, closest to your 38.'
+    )
   })
 })
 

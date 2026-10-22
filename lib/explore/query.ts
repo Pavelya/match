@@ -11,14 +11,67 @@
 
 import { LENGTHS, isLengthYears, type LengthYears } from '@/lib/programs/duration'
 import { inProse } from '@/lib/programs/country-prose'
+import type { BestFitMode, ExploreViewer } from './types'
 
-export type ExploreSort = 'relevant' | 'low' | 'high'
+export type ExploreSort = 'relevant' | 'best' | 'low' | 'high'
 
-export const SORTS: readonly { value: ExploreSort; label: string }[] = [
-  { value: 'relevant', label: 'Most relevant' },
-  { value: 'low', label: 'Lowest points needed' },
-  { value: 'high', label: 'Highest points needed' }
-]
+export const SORT_LABELS: Record<ExploreSort, string> = {
+  relevant: 'Most relevant',
+  best: 'Best fit',
+  low: 'Lowest points needed',
+  high: 'Highest points needed'
+}
+
+/**
+ * The sorts on offer, the default first (board "D3.5 Sort · best fit", approved 22 October
+ * 2026). Best fit needs grades to fit against. With nothing typed, "Most relevant" leaves the
+ * menu: without words the search ranks by the highest minimum alone, so it would be "Highest
+ * points needed" under another name.
+ */
+export function sortMenu(q: string, bestFit: boolean): ExploreSort[] {
+  if (q === '') return bestFit ? ['best', 'low', 'high'] : ['high', 'low']
+  return bestFit ? ['relevant', 'best', 'low', 'high'] : ['relevant', 'low', 'high']
+}
+
+/**
+ * The order a list is shown in: the sort the student picked, while the menu offers it, else the
+ * visitor's default. So typing words makes "Most relevant" the default and clearing them brings
+ * Best fit back, while a picked sort stays. Today's `?sort=relevant` with nothing typed is
+ * "Highest points needed", the order it always gave.
+ */
+export function shownSort(query: Pick<ExploreQuery, 'q' | 'sort'>, bestFit: boolean): ExploreSort {
+  const menu = sortMenu(query.q, bestFit)
+  if (query.sort && menu.includes(query.sort)) return query.sort
+  if (query.sort === 'relevant') return 'high'
+  return menu[0]
+}
+
+/**
+ * The line under the count while the list is in Best fit, and Sort's description: "Your
+ * countries and fields come first; in each, the ones you meet, closest to your 38." Open to
+ * anywhere, every country is the student's, so their fields alone come first. The fallback
+ * switch's one search (`lifted`) only lifts the countries and fields, so its line says only
+ * that; with "Only ones I qualify for" on, the whole list is read anyway, in the full order.
+ */
+export function bestFitLine(
+  viewer: Pick<ExploreViewer, 'fields' | 'countries' | 'total'>,
+  mode: Exclude<BestFitMode, 'off'>,
+  qualify: boolean
+): string | null {
+  const yours =
+    viewer.countries.length > 0 && viewer.fields.length > 0
+      ? 'Your countries and fields'
+      : viewer.countries.length > 0
+        ? 'Your countries'
+        : viewer.fields.length > 0
+          ? 'Your fields'
+          : null
+  if (mode === 'lifted' && !qualify) return yours ? `${yours} come first.` : null
+  const closest = viewer.total !== null ? `, closest to your ${viewer.total}` : ''
+  return yours
+    ? `${yours} come first; in each, the ones you meet${closest}.`
+    : `The ones you meet come first${closest}.`
+}
 
 export interface ExploreQuery {
   /** What was typed, trimmed */
@@ -35,7 +88,8 @@ export interface ExploreQuery {
   lengths: LengthYears[]
   /** Only ones I qualify for: every requirement met, worked out on the server */
   qualify: boolean
-  sort: ExploreSort
+  /** The sort the student picked; null is the visitor's default, never written to the URL */
+  sort: ExploreSort | null
 }
 
 export const EMPTY_QUERY: ExploreQuery = {
@@ -47,7 +101,7 @@ export const EMPTY_QUERY: ExploreQuery = {
   noMin: true,
   lengths: [],
   qualify: false,
-  sort: 'relevant'
+  sort: null
 }
 
 /** The first rows, and what "Show 20 more" adds */
@@ -91,7 +145,7 @@ export function readExplore(params: ParamsLike): { query: ExploreQuery; shown: n
   let to = points('maxPoints')
   if (from !== null && to !== null && from > to) [from, to] = [to, from]
   const lengths = (params.get('length') ?? '').split(',').map(Number).filter(isLengthYears)
-  const sort = SORTS.find((s) => s.value === params.get('sort'))?.value ?? 'relevant'
+  const sort = (Object.keys(SORT_LABELS) as ExploreSort[]).find((s) => s === params.get('sort'))
   const shown = Number(params.get('shown'))
   return {
     query: {
@@ -103,7 +157,7 @@ export function readExplore(params: ParamsLike): { query: ExploreQuery; shown: n
       noMin: params.get('noMin') !== '0',
       lengths: LENGTHS.map((l) => l.years).filter((years) => lengths.includes(years)),
       qualify: params.get('qualify') === '1',
-      sort
+      sort: sort ?? null
     },
     shown: Number.isInteger(shown)
       ? Math.min(MAX_SHOWN, Math.max(PAGE_SIZE, Math.ceil(shown / PAGE_SIZE) * PAGE_SIZE))
@@ -122,7 +176,7 @@ export function exploreParams(query: ExploreQuery, shown = PAGE_SIZE): URLSearch
   if (!query.noMin) params.set('noMin', '0')
   if (query.lengths.length > 0) params.set('length', query.lengths.join(','))
   if (query.qualify) params.set('qualify', '1')
-  if (query.sort !== 'relevant') params.set('sort', query.sort)
+  if (query.sort !== null) params.set('sort', query.sort)
   if (shown > PAGE_SIZE) params.set('shown', String(shown))
   return params
 }

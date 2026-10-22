@@ -32,6 +32,12 @@ export interface ExploreResponse {
   fits?: Record<string, ExploreFit>
 }
 
+/**
+ * How Best fit reads its list (EXPLORE_BEST_FIT, MAINT_tasks.md 5.27): the full order, or one
+ * search lifting the student's countries and fields. "off" offers no Best fit at all.
+ */
+export type BestFitMode = 'full' | 'lifted' | 'off'
+
 /** Who is looking, as far as the page needs: one narrow read when signed in, none signed out */
 export interface ExploreViewer {
   signedIn: boolean
@@ -44,6 +50,8 @@ export interface ExploreViewer {
   countries: string[]
   /** The shortlist, so Save shows "Saved" from the first paint */
   savedIds: string[]
+  /** How Best fit is offered: with grades, unless the switch is off; null when it isn't */
+  bestFit: Exclude<BestFitMode, 'off'> | null
 }
 
 export const SIGNED_OUT: ExploreViewer = {
@@ -52,5 +60,6 @@ export const SIGNED_OUT: ExploreViewer = {
   total: null,
   fields: [],
   countries: [],
-  savedIds: []
+  savedIds: [],
+  bestFit: null
 }
