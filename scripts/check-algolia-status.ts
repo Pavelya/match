@@ -1,5 +1,9 @@
 /**
  * Check Algolia index status and compare with database
+ *
+ * Reads every record with `browseObjects`, which follows the cursor. A single `browse` stops at
+ * 1,000, which once listed 279 programs as missing that were in the index (MAINT 5.6).
+ * Read-only: writes nothing to the database or Algolia.
  */
 import 'dotenv/config'
 import { prisma } from '@/lib/prisma-standalone'
@@ -40,23 +44,28 @@ async function checkAlgoliaStatus() {
     select: { id: true, name: true, university: { select: { name: true } } }
   })
 
-  // Browse all records in Algolia
+  // Browse all records in Algolia, page by page
   const algoliaIds = new Set<string>()
 
-  // Use browse to get all records
-  const browseResponse = await client.browse({
+  await client.browseObjects({
     indexName,
     browseParams: {
       attributesToRetrieve: ['objectID'],
       hitsPerPage: 1000
+    },
+    aggregator: (response) => {
+      for (const hit of response.hits) {
+        algoliaIds.add(hit.objectID)
+      }
     }
   })
 
-  for (const hit of browseResponse.hits) {
-    algoliaIds.add((hit as { objectID: string }).objectID)
-  }
-
   console.log('Algolia IDs found:', algoliaIds.size)
+
+  // A paging bug shows up here rather than as a list of false "missing" programs
+  if (idx && algoliaIds.size !== idx.entries) {
+    console.log(`⚠️  Read ${algoliaIds.size} records but the index reports ${idx.entries} entries`)
+  }
 
   // Find missing
   const missing = dbPrograms.filter((p) => !algoliaIds.has(p.id))

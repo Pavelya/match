@@ -22,7 +22,7 @@ the others fall.
 
 | Order | Session | Tasks | Size | When | Why here |
 |---|---|---|---|---|---|
-| 1 | Small cleanups | 5.6 | tiny | Now | 5.26, the live 404, and 5.17, the university pages in the sitemap, were done on 22 October, before the Search Console baseline. 5.6 is tiny and touches no database |
+| 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
 | 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Design first: `/design D3.5 Sort · best fit`, then `/build 25` (`REBRANDING_tasks.md`, run order). Raise the extra Algolia requests with the owner before building |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.17, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.8, 5.12–5.14, 5.17, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -73,7 +73,7 @@ Phase 5 — quick wins
 - [x] 5.3 Remove the redundant Cache-Control on Next's own static assets
 - [x] 5.4 Set `trustHost` explicitly in the auth config
 - [x] 5.5 Restore the University of Manchester image — re-sourced and uploaded by the owner, 5 October 2026
-- [ ] 5.6 Make the Algolia status script read every record
+- [x] 5.6 Make the Algolia status script read every record
 - [x] 5.7 Show each option's level and grade in mixed subject groups
 - [x] 5.8 Use the IB core points matrix for TOK and the Extended Essay — data fix applied 7 October 2026: 20 totals, each +1
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
@@ -414,6 +414,12 @@ only, and writes nothing. Selecting `id` and names for every program is a few hu
 keep the `select`, never `include`.
 
 **Session size:** Tiny. Fold into any session.
+
+**Done 22 October 2026.** `check-algolia-status.ts` reads with `browseObjects` and warns when the
+records it read differ from the index's `entries`. Step 3 was left out: `find-algolia-orphans.ts`
+stays the check for the other direction, since 5.9 and `docs/admin/maintenance-tools-guide.md` use
+it. Run on 22 October 2026: 1,677 programs in the database, 1,677 entries and 1,677 IDs read, "All
+programs are in Algolia".
 
 ---
 
