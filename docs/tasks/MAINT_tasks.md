@@ -15,52 +15,36 @@ quota.
 
 ## Start here
 
-**Eleven sessions, in this order.** Each one is a fresh AI session, one branch, one
-pull request, merged before the next starts.
+**The open work, in order** (reviewed 22 October 2026 against `REBRANDING_tasks.md`, the code on
+`main` and the open pull requests). Each numbered row is a fresh AI session, one branch, one pull
+request, merged before the next starts. The rows marked "—" are rebranding steps that decide where
+the others fall.
 
-| # | Session | Tasks | Size | Why these are together |
-|---|---|---|---|---|
-| 1 | Small cleanups | 5.2, 5.3, 5.4 | short | Three tiny changes, none touch the database, and one verification pass covers all three |
-| 2 | Client-side navigation | 5.1 | short | Needs a judgement call at each call site, and sign-in has to be clicked through by hand |
-| 3 | Prisma 7 | 6.1 | medium | **Done.** Closed all advisories, but needed an `overrides` block as well as the upgrade |
-| 4 | Stripe 22 | 6.2 | medium | **Done.** Money path. Alone, so a failure points at one thing |
-| 5 | Minor and patch batch | 6.4 | short | **Done.** Alone, so a regression is attributable to this batch |
-| 6 | lucide-react 1.x | 6.3 | medium | **Done.** 171 files, but no source change was needed — the risk was 13 redesigned glyphs |
-| 7 | TypeScript 7 | 6.5 | small | **Done.** No source change: 0 errors. The work was the packaging — TS 7 ships no JavaScript API |
-| 8 | Pick a test framework, test access control | 7.1, part 1 | medium | **Done.** Vitest 5. 33 tests over the subscription gate, and both suites now run in CI |
-| 9, 10 | More tests | 7.1, rest | medium each | One area per session: webhook, then API routes |
-| 11+ | Country pages | 7.2 | large | Migrate two or three, prove the pattern, then the rest |
-| any | Manchester's image | 5.5 | tiny | Blocked on Supabase Storage. Fold into whichever session comes after it is unrestricted |
-| any | Algolia status script | 5.6 | tiny | A script bug that reports false "missing" programs. Fold into any session |
-| any | Mixed subject groups | 5.7 | small | **Done** (7 October 2026). Students saw the wrong level and grade in 436 subject groups (332 programs), and "English B or English B" where one course is listed at two levels. The helper is `lib/programs/requirement-groups.ts` |
-| any | TOK and EE core points | 5.8 | small | **Done** (7 October 2026), data fix included. Onboarding undercounts TOK/EE points for several grade combinations and the coordinator form overcounts; 20 stored student totals are one point low, which feeds matching. An E in TOK or the EE is to block saving (owner). Includes a data fix the owner approves |
-| any | Older images' one-hour cache | 5.10 | tiny | 56 stored university images still tell every cache to drop them after an hour. One script, no database write. Fold into any session |
-| any | School logos to Storage | 5.11 | small | No harm yet: one school, no logo. But the admin school routes store an uploaded logo as base64, and every coordinator dashboard load would then carry it. Copy the university routes' rule |
-| any | No hidden matches | 5.12 | small | **Done** (7 October 2026). The matches page found 14 and showed 10, with no way to see the rest. It now shows up to 50; profiles have 63 matches at the median |
-| any | 3 or 4 Higher Level subjects | 5.13 | small | **Done** (7 October 2026). The diploma check accepts two HL subjects. Same files as 5.8: do them together |
-| any | Unused components | 5.14 | tiny | **Done** (7 October 2026). Five components with no importers, two of them linking to routes that do not exist |
-| any | How a missing HL level scores | 5.15 | decided | **No change for now** (owner, 7 October 2026). The status groups handle it; the whole matching math is revisited later |
-| any | Field of study suggested in the admin forms | 5.16 | small | `CONTENT_tasks.md` 8.1 gave each discipline one field; the refresh tool warns on a mismatch, but the admin forms and bulk upload do not. Make the rule the default there. Add the campus city input (8.2) in the same session |
-| any | University pages in the sitemap | 5.17 | tiny | The university pages are public, indexable and carry structured data, but `app/sitemap.ts` lists none of them. One small query per build. Fold into any session |
-| any | One course counted for two requirements | 5.18 | medium | The matcher lets one course meet two requirements, so programs that need two different subjects (Trinity Medicine, Manchester MBChB, UCL Psychology) show "Meets all requirements" to students who have only one. Others may rightly let a course count twice (the Swiss universities). Sort the 53 programs first; the owner decides the model. With the matching review (5.15), after rebranding build 6–7 |
-| any | One IB diploma rule for every role | 5.20 | medium | **Done** (18 October 2026). Students, coordinators and both APIs checked different subsets of the IB's rule, and the points floors were wrong for four Higher Level subjects. One check now, `checkDiploma` in `lib/ib/diploma.ts`, wherever grades are saved; the coordinator's typed total is gone. No saved profile changed status |
-| before release day | Programs cache read on every Matches load | 5.19 | small | **Done** (12 October 2026). Every Matches load, and every profile save, downloaded the whole 3 MB programs cache from Upstash, whose free plan allows 10 GB a month: about 3,300 reads. Each server instance now keeps it for five minutes. The owner compares Upstash bandwidth for a week after merging |
-| any | Invited student sent to "Check your email" | 5.21 | small | **Done** (19 October 2026, rebranding build 16, both designs). After accepting a school invitation, the form asks Auth.js for a provider called `email`, which doesn't exist (it is `resend`), so the student lands on sign-in with no word about the invitation. Found on rebranding D4.16; build 16 needs it too |
-| any | Invitation link for a student who already has an account | 5.22 | small | **Done** (19 October 2026, rebranding build 16, both designs). It was a dead end: "An account with this email already exists", and the same link fails again once signed in. Found on rebranding D4.16 |
-| any | One h1 on the legal pages | 5.23 | tiny | **Done** (19 October 2026, rebranding build 16). `/cookies` showed its title twice, as two h1s |
-| any | "Account deleted" email when a student deletes their own account | 5.24 | small | **Done** (20 October 2026, rebranding build 22, both designs). Only an admin's deletion sent it, and its words said an administrator did it. Now Settings sends it too, with the student's words, once the deletion commits |
-| any | Delete everything a student's account holds | 5.25 | small to medium | **Done** (20 October 2026, rebranding build 22), but for step 6: the 2 invitations already left behind wait for the owner's approval and a backup. One deletion for both routes now takes the student's invitations, their cached matches and the shortlist count in their browser |
-| before release day | Explore's "Most relevant" is only "Highest minimum" | 5.27 | small to medium | With nothing typed, Explore's default order puts the highest IB minimum first, with or without "Only ones I qualify for", whatever the student's fields and countries. Proposed: a "Best fit" order for students with grades, as on Matches. Needs a change board first (it reverses D3.5's "no Best fit"). Found by the owner, 20 October 2026 |
-| any | Coordinator portal sends signed-out visitors to a 404 | 5.26 | tiny | `/coordinator` and every page under it redirect a signed-out visitor to `/auth/coordinator/signin`, which doesn't exist; the sign-in is `/auth/coordinator`. Seen on production 19 October 2026. One constant, 14 files. Found on rebranding D4.17. Fold into any session |
-| before release day | Legal pages and public claims up to date | 7.4 | medium | Last published February 2026: wrong cookie names, two missing sub-processors, version labels that don't match their dates, a retention promise nothing keeps, and the product has changed since. Also the claims on Support us and How it works ("non-profit", "Most popular", "GDPR Compliant", "under 50 milliseconds"). Research and drafts; the owner approves and publishes |
-| any | Returning students and social media: where it stands, and a plan | 7.5 | medium | Added 20 October 2026 (owner). Nothing counts students who come back, and the owner suspects most use IB Match once. Part A measures it from what is already stored; B proposes what to count from now on; C plans ways to bring students back that they would welcome; D plans social media (LinkedIn and the platforms students use), where IB Match has no account today. Research and a plan; nothing sent, posted, tracked or built |
-| after the rebranding | SEO and AI search plan | 7.3 | small | The January 2026 plan is half done and out of date. Turn it into current, ordered tasks once the new design is live. Planning only |
+| Order | Session | Tasks | Size | When | Why here |
+|---|---|---|---|---|---|
+| 1 | Small cleanups | 5.26, 5.6; 5.17 too if the Search Console baseline is not taken yet | tiny | Now | 5.26 is a live 404 on production. All are tiny, none touch the database, and one verification pass covers them. 5.17 adds about 65 URLs to the sitemap, which would blur the baseline that release day compares against, so it goes in before the baseline or after R.2 |
+| 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Design first: `/design D3.5 Sort · best fit`, then `/build 25` (`REBRANDING_tasks.md`, run order). Raise the extra Algolia requests with the owner before building |
+| 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
+| — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
+| 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
+| 5 | Older images' cache | 5.10 | tiny | Any time | One script re-uploads 56 objects to their own paths; no database write |
+| 6 | Sample-seed leftovers | 5.9 | small | After 5.6 | Deletes Algolia records: the owner approves the list and the JSON backup comes first. Students never see the orphans |
+| 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
+| 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
+| — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
+| 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline. 5.17 here if it wasn't in session 1 |
+| 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
+| 12 | Country page shells | 7.2, the rest | medium | After R.2 | One route for the 23 guides, once R.2 deletes the `<Country>Content.tsx` files |
+| 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
+| 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 
-**Before the rebranding** (`REBRANDING_tasks.md`, step 1): 5.14, 5.8, 5.13, 5.12 and 5.7 are done.
-Branch protection is on (7 October 2026).
+**For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
+check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
+first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
+search and the Search Console baseline.
 
-Sessions 1 and 2 are the cheapest and safest — good places to start.
-Session 3 is the most valuable.
+**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.19–5.25 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
 
@@ -1006,6 +990,9 @@ date. Then `node_modules/next/dist/docs/` on `sitemap.ts`.
 `SELECT count(*) FROM "University" u WHERE EXISTS (SELECT 1 FROM "AcademicProgram" p WHERE
 p."universityId" = u.id)` returns. That query is an aggregate, so it is safe on production.
 
+**When:** before the owner takes the Search Console baseline for rebranding release day, or after
+R.2. The new URLs would raise the indexed-page count that R.1 and R.2 compare against the baseline.
+
 **Session size:** Tiny. Independent of the rebranding.
 
 ---
@@ -1689,7 +1676,8 @@ step decides whether the status should come first, as Matches' groups do.
 **Steps:**
 
 1. **Design first** (rebranding gates): a change board for D3.5's sort menu and D4.7's list, "D3.5
-   Sort · best fit". It draws the menu for a student with grades and for everyone else, the order with
+   Sort · best fit". It is listed in `REBRANDING_tasks.md` (Step 2, Patterns), with the build as
+   session 25 in its run order: `/design D3.5 Sort · best fit`, then `/build 25`. It draws the menu for a student with grades and for everyone else, the order with
    the switch on and off, the summary line, and the phone sheet. Questions for the board:
    - Should "Best fit" be the default for a student with grades, while "Most relevant" stays for
      typed searches and for anyone without grades?
@@ -2166,7 +2154,7 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 - the Stripe webhook (session 9)
 - API routes and rate limiting (session 10)
 - converting the 20 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
-- branch protection, so the Tests job actually blocks a merge (owner task 1)
+- ~~branch protection, so the Tests job actually blocks a merge (owner task 1)~~ done 7 October 2026
 
 **What changed:**
 - `package.json` and `package-lock.json`: `vitest`, `vite` and their dependencies, plus
@@ -2492,8 +2480,8 @@ data is what pushed it over the free tier before (the hard rules on cost).
    Never post a student's data, a screenshot with a student's name, or a testimonial nobody gave.
 4. **The account itself:**
    - the handle on each platform;
-   - the profile in the new design (the logo is from configuration, the final mark is still
-     provisional);
+   - the profile in the new design (the logo is from configuration; Lens was confirmed as the final
+     mark on 21 October 2026, and its clearance search is still open);
    - links back with UTM parameters, so the site can tell visits from each platform.
 5. **How it is measured:**
    - visits by source, if Part B's choice counts visits;
@@ -2553,3 +2541,5 @@ Not AI work, but they gate real value.
 5. **Compare Upstash bandwidth per day** for the week before and the week after 5.19 merges (the
    Upstash console, Usage tab). From 1 to 11 October 2026 it was about 0.1 GB a day, much of it
    rebranding QA. If it does not fall, or Matches still dominates, do 5.19's step 3.
+6. **Approve deleting the two invitations 5.25 left behind**, after a Supabase backup:
+   `scripts/delete-orphaned-student-invitations.ts --apply` (5.25, step 6).
