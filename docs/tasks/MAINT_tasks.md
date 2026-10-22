@@ -1707,7 +1707,33 @@ step decides whether the status should come first, as Matches' groups do.
    uses no ranking), then cut the window. Add `best` to `ExploreSort` and `?sort=best`; the default
    is not written to the URL and depends on the visitor (below). Keep today's `?sort=relevant` links
    working.
-3. **Vitest:**
+3. **A fallback switch** (owner, 22 October 2026), so that Best fit can be made cheaper if it eats
+   the search quota, by changing a setting rather than the code. One server-only variable in
+   `lib/env.ts`, `EXPLORE_BEST_FIT`, `full`, `lifted` or `off`; unset means `full`. Changing it in
+   Vercel and redeploying takes a couple of minutes.
+   - `full`: as approved. One or two requests a list.
+   - `lifted`: one search, today's single-request path, with the index's `optionalFilters` lifting the
+     student's countries (`countryId:…<score=2>`) and fields (`fieldOfStudyId:…<score=1>`), so the
+     tiers come first and inside each the search's own order, the highest minimum first, with the
+     statuses mixed. The line under the count reads "Your countries and fields come first." and says
+     nothing about status or the total. With "Only ones I qualify for" on, the full read happens
+     anyway, so the approved order applies there at no extra cost.
+   - `off`: no Best fit anywhere. Every visitor gets the signed-out menus and default, "Highest points
+     needed" with nothing typed. One request a list.
+   - A link with `?sort=best` opens with the visitor's default when the position doesn't offer it,
+     and nothing breaks. Before reaching for `lifted`, the cheaper fix is to keep Best fit's full
+     list on the server for a few minutes, shared between students and "Show 20 more", keyed by what
+     was typed and the filters (never by student). Measure the list's size first: Next.js' data cache
+     takes at most 2 MB an entry.
+4. **A usage check** (owner, 22 October 2026): `scripts/algolia-usage.ts`, read-only, run with
+   `npx tsx`. It reads Algolia's usage API, `GET
+   https://usage.algolia.com/1/usage/total_search_requests?startDate=…&endDate=…&granularity=daily`
+   with the `X-Algolia-Application-Id` and `X-Algolia-API-Key` headers (the admin key from `.env`;
+   the `/2/` path answers 404), and prints this calendar month's requests against the free plan's
+   10,000, the last 30 days, and this month's pace to its end: "6,200 of 10,000 this month (62%),
+   on pace for 8,900". No database, no write, one request to the usage API. Add it to the README's
+   scripts.
+5. **Vitest:**
    - with the switch on, the order is "my country and field", then "my country", then "my field",
      then the rest, each tier closest to the student's total first, and equals `compareBestFit`;
    - with the switch off, inside a tier the ones met come first, then within reach, then missing;
@@ -1715,7 +1741,11 @@ step decides whether the status should come first, as Matches' groups do.
      points needed signed out or before grades with nothing typed; a picked sort survives typing;
    - "Most relevant" with words typed keeps the search's order;
    - a signed-out visitor's menu has no "Best fit", and with nothing typed no "Most relevant";
-   - Best fit over more than 1,000 programs makes two requests, and none of them a search.
+   - Best fit over more than 1,000 programs makes two requests, and none of them a search;
+   - `EXPLORE_BEST_FIT=lifted` makes one search, with the two `optionalFilters` groups and its own
+     line; `off` gives every visitor the signed-out menus; unset is `full`; `?sort=best` falls back
+     to the default when the position doesn't offer it;
+   - the usage script's sums and pace, from a mocked response.
 
 **Decided on the board (22 October 2026, owner, every recommendation).** Canvas row 25.
 
@@ -1743,17 +1773,23 @@ step decides whether the status should come first, as Matches' groups do.
   fewer match, two past that, and the same again for each "Show 20 more". The switch's own full read
   drops from three to two the same way. 3,208 requests from 22 September to 20 October 2026, about a
   third of the free plan's 10,000 a month; about 5,000 to 6,600 a month after release at most.
-  `optionalFilters` (included in the plan, tested 22 October 2026) is not used: it lifts the tiers
-  but keeps the highest minimum first inside them.
+  `optionalFilters` (included in the plan, tested 22 October 2026) is used only by the fallback
+  switch's `lifted` position: it lifts the tiers but keeps the highest minimum first inside them.
+- **A fallback switch and a usage check** (owner, in chat, after approving): `EXPLORE_BEST_FIT`
+  (`full`, `lifted`, `off`) and `scripts/algolia-usage.ts`, steps 3 and 4. Check the usage each
+  week after release; at about 8,000 on pace, keep the list on the server first, then `lifted`.
 
 **Must not:** add a database query (the API route's existing query only selects two more relations),
 read the programs cache, or change Matches' order. Make no more search requests than the board
-approved: one or two per list for Best fit, one for every other sort with the switch off.
+approved: one or two per list for Best fit (one in `lifted`), one for every other sort with the switch
+off.
 
 **Verify:** the tests. In the preview, signed in with grades: with nothing typed and the switch on,
 the first rows are in the student's countries and fields, starting at their own total. The URL
 keeps the sort through a reload and Back. Signed out, the order and the menu are as the board
-decides.
+decides. In the preview, each position of `EXPLORE_BEST_FIT` once: `lifted` opens on the student's
+countries and fields with one request in the log, `off` on Highest points needed. The usage script
+prints this month's figure.
 
 **Session size:** Small to medium: a change board (approved 22 October 2026), then one build session. Before release day,
 because the new Explore shows the misleading order to every student. Independent of 5.26.
