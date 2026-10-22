@@ -11,6 +11,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import { CoordinatorSidebar } from '@/components/coordinator/CoordinatorSidebar'
@@ -26,7 +27,7 @@ export default async function CoordinatorLayout({ children }: { children: React.
 
   // Redirect to sign-in if not authenticated
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Verify user is a coordinator and get their school

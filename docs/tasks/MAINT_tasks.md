@@ -22,7 +22,7 @@ the others fall.
 
 | Order | Session | Tasks | Size | When | Why here |
 |---|---|---|---|---|---|
-| 1 | Small cleanups | 5.26, 5.6; 5.17 too if the Search Console baseline is not taken yet | tiny | Now | 5.26 is a live 404 on production. All are tiny, none touch the database, and one verification pass covers them. 5.17 adds about 65 URLs to the sitemap, which would blur the baseline that release day compares against, so it goes in before the baseline or after R.2 |
+| 1 | Small cleanups | 5.6; 5.17 too if the Search Console baseline is not taken yet | tiny | Now | 5.26, the live 404, went first on its own (22 October). Both are tiny, neither touches the database, and one verification pass covers them. 5.17 adds about 65 URLs to the sitemap, which would blur the baseline that release day compares against, so it goes in before the baseline or after R.2 |
 | 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Design first: `/design D3.5 Sort · best fit`, then `/build 25` (`REBRANDING_tasks.md`, run order). Raise the extra Algolia requests with the owner before building |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.19–5.25 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -94,7 +94,7 @@ Phase 5 — quick wins
 - [x] 5.24 Send "Account deleted" when a student deletes their own account (20 October 2026)
 - [x] 5.25 Delete everything a student's account holds when it is deleted (20 October 2026; step 6's
   two old invitations wait for the owner)
-- [ ] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
+- [x] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 - [ ] 5.27 Order Explore by the student's fit, not by the highest minimum
 
 Phase 6 — dependency majors
@@ -1631,6 +1631,12 @@ no email links deeper into the portal, so following a return path is not needed.
 
 **Session size:** Tiny. Fold into any session. Independent of the rebranding: D4.17's link goes to
 `/auth/coordinator` directly.
+
+**Done 22 October 2026**, on its own. `COORDINATOR_SIGN_IN_PATH` in `lib/auth/callback-url.ts` is used
+by all 14 redirects; the test is `app/coordinator/layout.test.ts`, and it also checks that a signed-in
+student is still sent to `/`. Locally, after `npm run build` and `npm start`: `/coordinator`,
+`/coordinator/dashboard` and `/coordinator/students` answer `307` to `/auth/coordinator`, which answers
+200. The same `curl` on production waits for the merge.
 
 ### 5.27 — Order Explore by the student's fit, not by the highest minimum
 

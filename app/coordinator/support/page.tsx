@@ -11,13 +11,14 @@ import { SupportTicketForm } from './_components/SupportTicketForm'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 
 export default async function CoordinatorSupportPage() {
   // Get session and verify coordinator
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Fetch coordinator info with school
