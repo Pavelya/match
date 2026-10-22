@@ -99,7 +99,8 @@ npx tsx scripts/manual-algolia-sync.ts
 ```bash
 npx tsx scripts/sync-universities-algolia.ts
 ```
-**Purpose:** Syncs all universities to the universities_production Algolia index.
+**Purpose:** Syncs all universities to the universities_production Algolia index, then deletes
+every record whose id has no University row and prints how many it removed.
 
 **Use when:** After adding or updating universities.
 
@@ -123,10 +124,14 @@ npx tsx scripts/configure-algolia-settings.ts
 # Check for orphan records
 npx tsx scripts/find-algolia-orphans.ts
 
-# Delete orphan records
+# One index only (programs or universities)
+npx tsx scripts/find-algolia-orphans.ts --index universities
+
+# Delete orphan records (saves their JSON to scripts/backups/ first)
 npx tsx scripts/find-algolia-orphans.ts --delete
 ```
-**Purpose:** Finds records in Algolia that no longer exist in the database.
+**Purpose:** Finds records in Algolia that no longer exist in the database, in both
+programs_production and universities_production.
 
 **Use when:** 
 - After deleting programs
