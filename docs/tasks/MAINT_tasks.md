@@ -26,7 +26,7 @@ the others fall.
 | 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
-| 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
+| 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
 | 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
 | 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.10, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -78,7 +78,7 @@ Phase 5 — quick wins
 - [x] 5.8 Use the IB core points matrix for TOK and the Extended Essay — data fix applied 7 October 2026: 20 totals, each +1
 - [x] 5.9 Remove what the December 2025 sample seed left behind (22 October 2026)
 - [x] 5.10 Give the older university images a one-year cache (22 October 2026)
-- [ ] 5.11 Send school logos to Storage, as university logos already go
+- [x] 5.11 Send school logos to Storage, as university logos already go (22 October 2026)
 - [x] 5.12 Show every match, not only the top 10 — up to 50
 - [x] 5.13 Require 3 or 4 Higher Level subjects
 - [x] 5.14 Delete unused student-side components
@@ -774,6 +774,20 @@ universities. Switching the whole-row reads above to `select` is not needed once
 URLs. Leave them unless the file is open anyway.
 
 **Session size:** Small.
+
+**Done 22 October 2026.** `POST /api/admin/schools` and `PATCH /api/admin/schools/[id]` (the task
+said PUT; the route is PATCH) upload a base64 logo with `uploadUniversityImage`. They use the key
+`temp-<timestamp>-school-logo` on create and `school-<id>-logo` on update, and store the URL. A
+failed upload returns 502 and writes nothing. A URL is stored trimmed, an empty logo clears it, and
+an unchanged logo is not uploaded again. Each route uploads only after its other checks pass, so a
+refused request leaves no stray object in Storage. The edit route's existence check now `select`s
+`id` and `logo` rather than reading the whole row. `IBSchool.logo`'s schema comment matches
+`University.logo`; it is a comment, so there is no migration. There are 11 Vitest cases in a
+`route.test.ts` next to each route.
+
+Step 4: production had 1 school and no logo at all (`count(*) FILTER (WHERE logo LIKE 'data:%')` =
+0), so nothing needed migrating. The live upload check in **Verify** was not done: the only school
+is the coordinator demo set-up, and it is the owner's call whether to give it a logo.
 
 ---
 
