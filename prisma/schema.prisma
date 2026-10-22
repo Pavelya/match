@@ -201,7 +201,7 @@ model IBSchool {
   stripeSubscriptionId String? @unique
 
   studentCount Int?
-  logo         String? @db.Text // Base64 encoded image data (max ~500KB)
+  logo         String? @db.Text // Public Supabase Storage URL. Never base64: see app/api/admin/schools
   websiteUrl   String? // School website URL
   email        String?
   phone        String?

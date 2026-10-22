@@ -12,6 +12,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
 
 export async function GET() {
   try {
@@ -119,6 +120,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'A school with this name already exists' }, { status: 409 })
     }
 
+    // Handle logo - base64 is uploaded to Supabase Storage and stored as its URL,
+    // as university logos are (MAINT 5.11). The coordinator dashboard and the
+    // Stripe webhook read the whole school row, so an inline logo would move with
+    // every one of those reads. The school has no id yet, hence the temp key.
+    let logoToSave: string | null = null
+    if (logo && typeof logo === 'string' && logo.length > 0) {
+      if (isBase64Image(logo)) {
+        try {
+          logoToSave = await uploadUniversityImage(logo, `temp-${Date.now()}-school-logo`)
+          logger.info('Uploaded school logo to Supabase', { logoUrl: logoToSave })
+        } catch (uploadError) {
+          logger.error('Supabase logo upload failed; refusing to store inline base64', {
+            error: uploadError instanceof Error ? uploadError.message : String(uploadError)
+          })
+          return NextResponse.json(
+            { error: 'Logo upload failed. The school was not created. Please try again.' },
+            { status: 502 }
+          )
+        }
+      } else {
+        // Assume it's already a URL
+        logoToSave = logo.trim()
+      }
+    }
+
     // Create the school
     // VIP schools: ACTIVE status (full access free)
     // REGULAR schools: INACTIVE status (freemium until they subscribe)
@@ -129,7 +155,7 @@ export async function POST(request: Request) {
         city: city.trim(),
         subscriptionTier,
         subscriptionStatus: subscriptionTier === 'VIP' ? 'ACTIVE' : 'INACTIVE',
-        logo: logo || null,
+        logo: logoToSave,
         websiteUrl: websiteUrl?.trim() || null,
         email: email?.trim() || null,
         phone: phone?.trim() || null,
