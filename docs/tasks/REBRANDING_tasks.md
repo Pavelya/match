@@ -3224,9 +3224,9 @@ Both are decided; kept here for the reasoning.
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |
 | 5.14 | `MAINT_tasks.md` | Delete unused components. Independent |
 | 5.15 | `MAINT_tasks.md` | How a level gap scores. Decided 7 October 2026: no change now; revisit with the whole matching math later |
-| 5.17 | `MAINT_tasks.md` | University pages in the sitemap. Independent, but before the Search Console baseline or after R.2, so it doesn't blur the comparison |
+| 5.17 | `MAINT_tasks.md` | University pages in the sitemap. Done 22 October 2026, before the Search Console baseline, so the baseline already counts them |
 | 5.18 | `MAINT_tasks.md` | One course counted for two requirements. The chip copy needs a board; with the matching review |
-| 5.26 | `MAINT_tasks.md` | The coordinator portal sends a signed-out visitor to a 404. Found on D4.17. Independent; any time |
+| 5.26 | `MAINT_tasks.md` | The coordinator portal sent a signed-out visitor to a 404. Found on D4.17. Done 22 October 2026 |
 | 5.27 | `MAINT_tasks.md` | Explore's best fit. The board D3.5 Sort · best fit, then session 25, before release day |
 | 6.6 | `MAINT_tasks.md` | The `prisma-client` generator. After R.2, which deletes many of the 53 files it touches |
 | 7.2 | `MAINT_tasks.md` | Country pages collapse. The content is one template since 4.2; the 23 page shells wait for R.2 |

@@ -18,6 +18,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import {
@@ -79,7 +80,7 @@ export default async function CoordinatorAnalyticsPage() {
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school

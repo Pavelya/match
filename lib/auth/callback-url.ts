@@ -19,6 +19,12 @@ export function returnPath(callbackUrl: string | null | undefined): string | nul
 export const INVITATIONS_PATH = '/student/invitations'
 
 /**
+ * The coordinator sign-in, `app/auth/coordinator/page.tsx`. The coordinator portal sends a visitor
+ * with no session here (MAINT 5.26: it used to send them to a route that didn't exist, a 404).
+ */
+export const COORDINATOR_SIGN_IN_PATH = '/auth/coordinator'
+
+/**
  * Where sign-in goes once signed in. The new design returns to the page that sent the visitor
  * (rebranding 2.4); today's design goes to /student, except for School invitations. Deleted with
  * today's sign-in at cleanup (R.2), when `returnPath(…) ?? '/student'` is all it needs.
