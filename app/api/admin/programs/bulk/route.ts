@@ -34,6 +34,7 @@ interface BulkProgramInput {
   duration: string
   minIBPoints?: number | null
   programUrl?: string | null
+  campusCity?: string | null
   courseRequirements?: ParsedRequirement[]
 }
 
@@ -197,6 +198,9 @@ export async function POST(request: Request) {
                 duration: program.duration.trim(),
                 minIBPoints: program.minIBPoints ?? null,
                 programUrl: program.programUrl?.trim() || null,
+                // Empty means the university's city
+                campusCity:
+                  typeof program.campusCity === 'string' ? program.campusCity.trim() || null : null,
                 courseRequirements:
                   program.courseRequirements && program.courseRequirements.length > 0
                     ? {

@@ -28,14 +28,18 @@ import {
   CheckCircle2,
   Link2,
   Unlink,
-  CalendarCheck
+  CalendarCheck,
+  MapPin
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DEGREE_TYPE_GROUPS, canonicalDegreeType, isDegreeType } from '@/lib/programs/degree-types'
+import { suggestField } from '@/lib/programs/fields-of-study'
+import { FieldOfStudyHint } from './FieldOfStudyHint'
 
 interface University {
   id: string
   name: string
+  city: string
   country: { flagEmoji: string; name: string }
 }
 
@@ -71,6 +75,7 @@ interface Program {
   minIBPoints: number | null
   programUrl: string | null
   requirementsEntryYear: number | null
+  campusCity: string | null
   courseRequirements: {
     id: string
     ibCourseId: string
@@ -126,8 +131,16 @@ export function ProgramEditForm({
     duration: program.duration,
     minIBPoints: program.minIBPoints?.toString() || '',
     programUrl: program.programUrl || '',
-    requirementsEntryYear: program.requirementsEntryYear?.toString() ?? ''
+    requirementsEntryYear: program.requirementsEntryYear?.toString() ?? '',
+    campusCity: program.campusCity ?? ''
   })
+
+  // Never changes the stored field: the hint only says when the rule disagrees (MAINT 5.16)
+  const suggestion = suggestField(formData.name, program.id)
+  const suggestedFieldId = suggestion
+    ? (fieldsOfStudy.find((f) => f.name === suggestion.field)?.id ?? null)
+    : null
+  const universityCity = universities.find((u) => u.id === formData.universityId)?.city
 
   const [requirements, setRequirements] = useState<CourseRequirement[]>(
     program.courseRequirements.map((r) => ({
@@ -375,6 +388,13 @@ export function ProgramEditForm({
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             </div>
+            <FieldOfStudyHint
+              suggestion={suggestion}
+              suggestedId={suggestedFieldId}
+              selectedId={formData.fieldOfStudyId}
+              picked
+              onPick={(fieldOfStudyId) => setFormData({ ...formData, fieldOfStudyId })}
+            />
           </div>
 
           <div>
@@ -492,6 +512,27 @@ export function ProgramEditForm({
             <p className="text-xs text-muted-foreground mt-1">
               The intake the points and subjects were checked for on the university&apos;s site
               (2027 for September 2027 entry). Students see it on the program page.
+            </p>
+          </div>
+
+          <div>
+            <label htmlFor="campusCity" className="block text-sm font-medium text-foreground mb-1">
+              Campus city
+            </label>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                id="campusCity"
+                type="text"
+                value={formData.campusCity}
+                onChange={(e) => setFormData({ ...formData, campusCity: e.target.value })}
+                className="w-full pl-10 pr-4 py-2.5 border rounded-lg bg-background"
+                placeholder={universityCity ?? "The university's city"}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Only when the program is taught away from the university&apos;s city (UBC&apos;s
+              Okanagan programs: Kelowna). Leave empty otherwise.
             </p>
           </div>
         </div>

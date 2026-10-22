@@ -46,7 +46,8 @@ export async function POST(request: Request) {
       minIBPoints,
       programUrl,
       courseRequirements,
-      requirementsEntryYear
+      requirementsEntryYear,
+      campusCity
     } = body
 
     // Validate required fields
@@ -86,6 +87,10 @@ export async function POST(request: Request) {
     const entryYear = parseEntryYear(requirementsEntryYear ?? null)
     if ('error' in entryYear) {
       return NextResponse.json({ error: entryYear.error }, { status: 400 })
+    }
+
+    if (campusCity != null && typeof campusCity !== 'string') {
+      return NextResponse.json({ error: 'Invalid campus city' }, { status: 400 })
     }
 
     // Verify university exists
@@ -132,6 +137,8 @@ export async function POST(request: Request) {
         duration: duration.trim(),
         minIBPoints: minIBPoints ? parseInt(minIBPoints, 10) : null,
         programUrl: programUrl?.trim() || null,
+        // Where it is taught when that is not the university's city; empty means the university's
+        campusCity: campusCity?.trim() || null,
         // Entered now; checked for an intake only if the form says which
         requirementsUpdatedAt: new Date(),
         requirementsEntryYear: entryYear.year,

@@ -560,6 +560,31 @@ export function homeOf(name: string): Home | null {
   return null
 }
 
+/** The field the rule gives a program, and why (MAINT 5.16). */
+export interface FieldSuggestion {
+  field: FieldName
+  /** The disciplines the name was read as ("Mathematics + Economics"), or the special case. */
+  reason: string
+  /** Set when the owner keeps this program in `KEPT`; `reason` is then the owner's. */
+  kept: boolean
+}
+
+/**
+ * What the admin program forms and the bulk upload suggest for a program's field: the `KEPT`
+ * field for a kept program, otherwise its name's home. Null when the name names no discipline.
+ */
+export function suggestField(name: string, programId?: string): FieldSuggestion | null {
+  const owner = programId ? KEPT[programId] : undefined
+  if (owner) return { field: owner.field, reason: owner.why, kept: true }
+  const home = homeOf(name)
+  if (!home) return null
+  return {
+    field: home.field,
+    reason: home.rule ?? home.named.map((d) => d.name).join(' + '),
+    kept: false
+  }
+}
+
 /**
  * The same discipline as a Postgres regular expression, for `name ~* pattern`. `\m` and `\M`
  * are Postgres's start and end of a word.

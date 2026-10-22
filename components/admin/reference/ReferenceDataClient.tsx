@@ -269,7 +269,13 @@ export function ReferenceDataClient() {
       {/* Action Bar */}
       <div className="flex justify-between items-center mb-4">
         <p className="text-sm text-muted-foreground">
-          {activeTab === 'fields' && 'Manage fields of study for program categorization.'}
+          {activeTab === 'fields' && (
+            <>
+              Names and descriptions come from <code>lib/programs/fields-of-study.ts</code>; the
+              descriptions are written with <code>field-inventory.ts --apply</code>. A name changed
+              here no longer matches the rule, and shows up as drift in the inventory.
+            </>
+          )}
           {activeTab === 'countries' && 'Manage countries for location preferences.'}
           {activeTab === 'courses' && 'Manage IB curriculum courses.'}
         </p>
@@ -385,13 +391,19 @@ export function ReferenceDataClient() {
                 </p>
               </FormField>
               <FormField label="Description">
+                {/* Read-only (MAINT 5.16): students read it in onboarding, and the rule owns it */}
                 <input
                   type="text"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  placeholder="e.g., Engineering, Technology, Design"
+                  readOnly
+                  className="w-full px-3 py-2 border rounded-lg bg-muted text-muted-foreground"
+                  placeholder="Set in lib/programs/fields-of-study.ts"
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Edit <code>FIELD_DESCRIPTIONS</code> in{' '}
+                  <code>lib/programs/fields-of-study.ts</code>, then run{' '}
+                  <code>npx tsx scripts/programs/field-inventory.ts --apply</code>.
+                </p>
               </FormField>
             </>
           )}
