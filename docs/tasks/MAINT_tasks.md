@@ -23,7 +23,7 @@ the others fall.
 | Order | Session | Tasks | Size | When | Why here |
 |---|---|---|---|---|---|
 | 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
-| 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Board D3.5 Sort · best fit approved 22 October 2026, with the extra search requests (one or two a list): `/build 25` is unlocked (`REBRANDING_tasks.md`, run order) |
+| 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.8, 5.12–5.14, 5.17, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.8, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -95,7 +95,7 @@ Phase 5 — quick wins
 - [x] 5.25 Delete everything a student's account holds when it is deleted (20 October 2026; step 6's
   two old invitations wait for the owner)
 - [x] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
-- [ ] 5.27 Order Explore by the student's fit, not by the highest minimum
+- [x] 5.27 Order Explore by the student's fit, not by the highest minimum (22 October 2026)
 
 Phase 6 — dependency majors
 
@@ -1651,6 +1651,21 @@ student is still sent to `/`. Locally, after `npm run build` and `npm start`: `/
 200. The same `curl` on production waits for the merge.
 
 ### 5.27 — Order Explore by the student's fit, not by the highest minimum
+
+**Done 22 October 2026** (rebranding session 25, behind the preview). The order is
+`lib/explore/best-fit.ts` (`fitTier`, `compareExploreBestFit`, `bestFitOrder`; `liftedOrder` and
+`liftingFilters` for the fallback); the sorts, their menus and the line under the count are in
+`lib/explore/query.ts` (`sortMenu`, `shownSort`, `bestFitLine`); `searchExplore` reads Best fit's
+list with `browseObjects` alone. `ExploreQuery.sort` is now the picked sort or null, the visitor's
+default, which is never written to the URL. With nothing typed, "Highest points needed" is served
+by the one search, as "Most relevant" was, so signed out the cost and the rows are today's. The
+fields and countries come in `exploreStudent`'s select and `exploreViewer`'s read, with no new
+query. Checked against the board's 1,677 rows for the D3.1 student: LSE's Accounting and Finance at
+row 158, Cambridge's Economics 176, UCD's Actuarial 187, Imperial's Biomaterials 189, and with the
+switch on the same order as Matches' `compareBestFit` for all 1,341. In the preview, each
+`EXPLORE_BEST_FIT` position once: `lifted` opens on UCD's 42, as the board said `optionalFilters`
+would, `off` on Highest points needed. The usage script's first run: 2,423 of 10,000 this month
+(24%), on pace for 3,500; 3,238 in the last 30 days.
 
 **Outcome:** A signed-in student with grades who opens Explore sees the programs in their own fields
 and countries first. The order is the same one Matches calls "Best fit", and the sort menu names it
