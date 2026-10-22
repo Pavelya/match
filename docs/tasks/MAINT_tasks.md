@@ -29,7 +29,7 @@ the others fall.
 | 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
 | 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
-| 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
+| 7 | Admin forms | 5.16 | small | Done, 22 October 2026 | The admin forms and bulk upload suggest the field the rule gives, and take a campus city |
 | 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
 | 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -83,7 +83,7 @@ Phase 5 — quick wins
 - [x] 5.13 Require 3 or 4 Higher Level subjects
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
-- [ ] 5.16 Suggest the field of study in the admin program forms
+- [x] 5.16 Suggest the field of study in the admin program forms (22 October 2026)
 - [x] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
@@ -1014,6 +1014,42 @@ would find it.
 - `tsc`, ESLint, Prettier, Vitest and the build pass.
 
 **Session size:** Small.
+
+**Done 22 October 2026.** `suggestField(name, programId?)` sits next to the rule in
+`lib/programs/fields-of-study.ts`, with Vitest cases. One component,
+`components/admin/programs/FieldOfStudyHint.tsx`, writes the line under the field select on both
+forms:
+
+- **New form:** the name pre-selects the suggested field until the admin picks one. The line reads
+  "Suggested from the name: Business & Economics (Economics)". After a pick, typing never changes
+  the field, and a different field shows the rule's field, with the reason, as a link that selects
+  it. The step 6 help text sits under it.
+- **Edit form:** the stored field never changes on its own, and the line shows only when the
+  selection differs. A `KEPT` program moved out of its kept field says "The owner keeps this program
+  under Media: …".
+- **Bulk upload:** a row whose field disagrees gets a warning (`warnings`, `warningRows` and
+  `formatWarnings` in `lib/bulk-upload/csv-parser.ts`) in an amber box and status icon. The row
+  still uploads. A row with an unknown field is already an error, so it gets no warning.
+- **Reference data** (`/admin/reference-data`): the Fields of Study tab says where the names and
+  descriptions come from. The owner chose to make the description **read-only** in the modal; its
+  note says to edit `FIELD_DESCRIPTIONS` and run `field-inventory.ts --apply`. Names stay editable.
+- **Campus city:** an optional input on both forms, with the selected university's city as its
+  placeholder, and an optional `campus_city` column in bulk upload and its template. The create,
+  update and bulk routes trim it and store null for empty; the update route also refuses a value
+  that is not text. Both form pages add `city` to the university query they already ran. That is one
+  column, not a new read.
+
+The rule reaches no student bundle: only admin components and the bulk-upload parser import it.
+Checked in `npm run dev` with every non-GET request blocked, so nothing was saved:
+
+- "Economics" selects Business & Economics, and "Mathematics and Computer Science" selects Natural
+  Sciences. Social Sciences for "Economics" shows the line, and a name typed after a pick leaves the
+  field alone.
+- Bocconi's Economics shows no line, and neither does Charles University's "Sustainability in
+  Marketing and Media Communication" in Media (`KEPT`).
+- A CSV row "Economics" under Social Sciences is flagged, and the file stays valid ("Import 3
+  Programs").
+- The UBC placeholder reads Vancouver.
 
 ---
 

@@ -32,6 +32,7 @@ export default async function ProgramEditPage({ params }: PageProps) {
         minIBPoints: true,
         programUrl: true,
         requirementsEntryYear: true,
+        campusCity: true,
         courseRequirements: {
           select: {
             id: true,
@@ -49,6 +50,8 @@ export default async function ProgramEditPage({ params }: PageProps) {
       select: {
         id: true,
         name: true,
+        // The campus city input's placeholder
+        city: true,
         country: { select: { flagEmoji: true, name: true } }
       }
     }),

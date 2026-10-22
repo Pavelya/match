@@ -34,14 +34,18 @@ import {
   ChevronDown,
   Link2,
   Unlink,
-  CalendarCheck
+  CalendarCheck,
+  MapPin
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { DEGREE_TYPE_GROUPS } from '@/lib/programs/degree-types'
+import { suggestField } from '@/lib/programs/fields-of-study'
+import { FieldOfStudyHint } from './FieldOfStudyHint'
 
 interface University {
   id: string
   name: string
+  city: string
   country: {
     flagEmoji: string
     name: string
@@ -110,8 +114,29 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
     duration: '',
     minIBPoints: '',
     programUrl: '',
-    requirementsEntryYear: ''
+    requirementsEntryYear: '',
+    campusCity: ''
   })
+
+  // The field follows the fields-of-study rule until the admin picks one (MAINT 5.16)
+  const [fieldPicked, setFieldPicked] = useState(false)
+  const suggestion = suggestField(formData.name)
+  const suggestedFieldId = suggestion
+    ? (fieldsOfStudy.find((f) => f.name === suggestion.field)?.id ?? null)
+    : null
+  const universityCity = universities.find((u) => u.id === formData.universityId)?.city
+
+  function changeName(name: string) {
+    if (fieldPicked) {
+      setFormData({ ...formData, name })
+      return
+    }
+    const suggested = suggestField(name)
+    const fieldOfStudyId = suggested
+      ? (fieldsOfStudy.find((f) => f.name === suggested.field)?.id ?? '')
+      : ''
+    setFormData({ ...formData, name, fieldOfStudyId })
+  }
 
   // Course requirements state
   const [requirements, setRequirements] = useState<CourseRequirement[]>([])
@@ -303,7 +328,7 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
               id="name"
               type="text"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) => changeName(e.target.value)}
               className="w-full px-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
               placeholder="e.g., Computer Science"
               required
@@ -364,7 +389,10 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
               <select
                 id="fieldOfStudy"
                 value={formData.fieldOfStudyId}
-                onChange={(e) => setFormData({ ...formData, fieldOfStudyId: e.target.value })}
+                onChange={(e) => {
+                  setFieldPicked(true)
+                  setFormData({ ...formData, fieldOfStudyId: e.target.value })
+                }}
                 className="w-full pl-10 pr-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none"
                 required
               >
@@ -377,6 +405,16 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
               </select>
               <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
             </div>
+            <FieldOfStudyHint
+              suggestion={suggestion}
+              suggestedId={suggestedFieldId}
+              selectedId={formData.fieldOfStudyId}
+              picked={fieldPicked}
+              onPick={(fieldOfStudyId) => {
+                setFieldPicked(true)
+                setFormData({ ...formData, fieldOfStudyId })
+              }}
+            />
           </div>
 
           {/* Degree Type */}
@@ -487,6 +525,28 @@ export function ProgramForm({ universities, fieldsOfStudy, ibCourses }: ProgramF
             <p className="text-xs text-muted-foreground mt-1">
               The intake the points and subjects were checked for on the university&apos;s site
               (2027 for September 2027 entry). Students see it on the program page.
+            </p>
+          </div>
+
+          {/* Campus city */}
+          <div>
+            <label htmlFor="campusCity" className="block text-sm font-medium text-foreground mb-1">
+              Campus city
+            </label>
+            <div className="relative">
+              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                id="campusCity"
+                type="text"
+                value={formData.campusCity}
+                onChange={(e) => setFormData({ ...formData, campusCity: e.target.value })}
+                className="w-full pl-10 pr-4 py-2.5 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                placeholder={universityCity ?? "The university's city"}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Only when the program is taught away from the university&apos;s city (UBC&apos;s
+              Okanagan programs: Kelowna). Leave empty otherwise.
             </p>
           </div>
         </div>

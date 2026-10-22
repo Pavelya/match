@@ -7,7 +7,8 @@ import {
   findDisciplines,
   findOutliers,
   homeOf,
-  postgresPattern
+  postgresPattern,
+  suggestField
 } from './fields-of-study'
 
 const fieldOf = (name: string) => homeOf(name)?.field ?? null
@@ -180,5 +181,39 @@ describe('findOutliers', () => {
     })
     const { outliers } = findOutliers([at('k', 'Sustainability in Marketing', 'Law')], kept)
     expect(outliers).toMatchObject([{ id: 'k', kind: 'kept', home: 'Media', reason: 'marketing' }])
+  })
+})
+
+describe('suggestField', () => {
+  it("suggests the name's home and the disciplines it read", () => {
+    expect(suggestField('Economics')).toEqual({
+      field: 'Business & Economics',
+      reason: 'Economics',
+      kept: false
+    })
+    expect(suggestField('Mathematics and Computer Science')).toEqual({
+      field: 'Natural Sciences',
+      reason: 'Mathematics + Computer Science',
+      kept: false
+    })
+  })
+
+  it('names the special case that decided', () => {
+    expect(suggestField('Philosophy, Politics and Economics')).toMatchObject({
+      field: 'Social Sciences',
+      reason: 'Philosophy, Politics and Economics is Social Sciences'
+    })
+  })
+
+  it("suggests the owner's field for a kept program, and the rule's for any other id", () => {
+    const [id, kept] = Object.entries(KEPT)[0]
+    const name = kept.name.split(' — ')[1]
+    expect(suggestField(name, id)).toEqual({ field: kept.field, reason: kept.why, kept: true })
+    expect(suggestField(name, 'not-kept')?.kept).toBe(false)
+  })
+
+  it('says nothing about a name with no discipline', () => {
+    expect(suggestField('Innovation and Technology')).toBeNull()
+    expect(suggestField('')).toBeNull()
   })
 })

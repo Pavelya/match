@@ -127,7 +127,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       minIBPoints,
       programUrl,
       courseRequirements,
-      requirementsEntryYear
+      requirementsEntryYear,
+      campusCity
     } = body
 
     // Build update object
@@ -222,6 +223,14 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.programUrl = programUrl?.trim() || null
     }
 
+    // Where it is taught when that is not the university's city; empty means the university's
+    if (campusCity !== undefined) {
+      if (campusCity !== null && typeof campusCity !== 'string') {
+        return NextResponse.json({ error: 'Invalid campus city' }, { status: 400 })
+      }
+      updateData.campusCity = campusCity?.trim() || null
+    }
+
     // Date the requirements when they or the entry year change. The form sends every
     // field on each save, so a presence check would re-date them on any edit.
     const stamp = requirementsStamp(existingProgram, {
@@ -278,6 +287,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         duration: true,
         minIBPoints: true,
         programUrl: true,
+        campusCity: true,
         requirementsVerified: true,
         requirementsUpdatedAt: true,
         requirementsEntryYear: true,

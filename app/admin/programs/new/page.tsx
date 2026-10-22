@@ -16,6 +16,8 @@ export default async function NewProgramPage() {
       select: {
         id: true,
         name: true,
+        // The campus city input's placeholder
+        city: true,
         country: {
           select: { flagEmoji: true, name: true }
         }
