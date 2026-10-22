@@ -4,12 +4,14 @@
  * Generates a sitemap.xml including:
  * - Static pages (home, search, signin)
  * - Dynamic program detail pages from database
+ * - University pages that list at least one program
  *
  * This helps search engines discover all indexable content.
  *
  * `lastModified` is only ever a real date: the content date from `lib/page-dates.ts`,
- * or the newest program for search. Pages with no known date leave it out. Never use
- * `new Date()` here; it would tell crawlers every page changed at the last build.
+ * the newest program for search, or for a university the later of its own and its newest
+ * program's. Pages with no known date leave it out. Never use `new Date()` here; it would
+ * tell crawlers every page changed at the last build.
  */
 
 import { MetadataRoute } from 'next'
@@ -21,6 +23,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Get all programs for dynamic routes
   const programs = await prisma.academicProgram.findMany({
+    select: { id: true, universityId: true, updatedAt: true }
+  })
+
+  // A university page lists its programs, so one with none is left out
+  const universities = await prisma.university.findMany({
+    where: { programs: { some: {} } },
     select: { id: true, updatedAt: true }
   })
 
@@ -30,6 +38,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'weekly',
     priority: 0.8
   }))
+
+  // The page shows its programs, so it changes when any of them does
+  const newestProgramByUniversity = new Map<string, Date>()
+  for (const program of programs) {
+    const newest = newestProgramByUniversity.get(program.universityId)
+    if (!newest || program.updatedAt > newest) {
+      newestProgramByUniversity.set(program.universityId, program.updatedAt)
+    }
+  }
+
+  const universityUrls: MetadataRoute.Sitemap = universities.map((university) => {
+    const newestProgram = newestProgramByUniversity.get(university.id)
+    return {
+      url: `${baseUrl}/universities/${university.id}`,
+      lastModified:
+        newestProgram && newestProgram > university.updatedAt
+          ? newestProgram
+          : university.updatedAt,
+      changeFrequency: 'monthly',
+      priority: 0.7
+    }
+  })
 
   const datedPage = (
     path: DatedPage,
@@ -96,6 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 0.3
     },
-    ...programUrls
+    ...programUrls,
+    ...universityUrls
   ]
 }

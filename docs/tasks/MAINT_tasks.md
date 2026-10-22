@@ -22,7 +22,7 @@ the others fall.
 
 | Order | Session | Tasks | Size | When | Why here |
 |---|---|---|---|---|---|
-| 1 | Small cleanups | 5.6; 5.17 too if the Search Console baseline is not taken yet | tiny | Now | 5.26, the live 404, went first on its own (22 October). Both are tiny, neither touches the database, and one verification pass covers them. 5.17 adds about 65 URLs to the sitemap, which would blur the baseline that release day compares against, so it goes in before the baseline or after R.2 |
+| 1 | Small cleanups | 5.6 | tiny | Now | 5.26, the live 404, and 5.17, the university pages in the sitemap, were done on 22 October, before the Search Console baseline. 5.6 is tiny and touches no database |
 | 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Design first: `/design D3.5 Sort · best fit`, then `/build 25` (`REBRANDING_tasks.md`, run order). Raise the extra Algolia requests with the owner before building |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
@@ -32,7 +32,7 @@ the others fall.
 | 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
 | 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
-| 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline. 5.17 here if it wasn't in session 1 |
+| 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
 | 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
 | 12 | Country page shells | 7.2, the rest | medium | After R.2 | One route for the 23 guides, once R.2 deletes the `<Country>Content.tsx` files |
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.5, 5.7, 5.8, 5.12–5.14, 5.17, 5.19–5.26 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -84,7 +84,7 @@ Phase 5 — quick wins
 - [x] 5.14 Delete unused student-side components
 - [x] 5.15 Decide how a missing HL level should score — decided 7 October 2026: no change now; revisit with the whole matching math later
 - [ ] 5.16 Suggest the field of study in the admin program forms
-- [ ] 5.17 List the university pages in the sitemap
+- [x] 5.17 List the university pages in the sitemap
 - [ ] 5.18 Count a course once when a program needs different subjects
 - [x] 5.19 Read the programs cache once per server, not on every Matches load — five minutes per instance; Upstash bandwidth to compare after merging
 - [x] 5.20 One IB diploma rule wherever grades are saved, by any role — `checkDiploma`; no saved profile changed status
@@ -994,6 +994,12 @@ p."universityId" = u.id)` returns. That query is an aggregate, so it is safe on 
 R.2. The new URLs would raise the indexed-page count that R.1 and R.2 compare against the baseline.
 
 **Session size:** Tiny. Independent of the rebranding.
+
+**Done 22 October 2026**, with 5.26 and before the Search Console baseline. `app/sitemap.ts` lists
+each university with programs at priority 0.7; the test is `app/sitemap.test.ts`. The sitemap is
+prerendered, so the new query runs once per build, not per request. Production, 22 October 2026: the
+count query returns 104, and the built `/sitemap.xml` lists 104 university URLs (1,816 in all), more
+than the 65 estimated above.
 
 ---
 
