@@ -27,7 +27,7 @@ the others fall.
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
-| 5 | Older images' cache | 5.10 | tiny | Any time | One script re-uploads 56 objects to their own paths; no database write |
+| 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
 | 6 | Sample-seed leftovers | 5.9 | small | After 5.6 | Deletes Algolia records: the owner approves the list and the JSON backup comes first. Students never see the orphans |
 | 7 | Admin forms | 5.16 | small | Before the next content session that adds programs | Keeps the fields-of-study rule and the campus city from drifting |
 | 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
@@ -43,7 +43,7 @@ check Supabase egress (owner task 2); approve deleting 5.25's two old invitation
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.8, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.8, 5.10, 5.12–5.14, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -77,7 +77,7 @@ Phase 5 — quick wins
 - [x] 5.7 Show each option's level and grade in mixed subject groups
 - [x] 5.8 Use the IB core points matrix for TOK and the Extended Essay — data fix applied 7 October 2026: 20 totals, each +1
 - [ ] 5.9 Remove what the December 2025 sample seed left behind
-- [ ] 5.10 Give the older university images a one-year cache
+- [x] 5.10 Give the older university images a one-year cache (22 October 2026)
 - [ ] 5.11 Send school logos to Storage, as university logos already go
 - [x] 5.12 Show every match, not only the top 10 — up to 50
 - [x] 5.13 Require 3 or 4 Higher Level subjects
@@ -678,6 +678,22 @@ for every program. Never delete an object here. Do not run this while someone is
 in `/admin/universities`.
 
 **Session size:** Tiny.
+
+**Done 22 October 2026.** `scripts/fix-image-cache-control.ts` is a dry run by default; `--apply`
+re-uploads, `--only <path>` limits it to one object, and the downloaded bytes go to
+`--backup-dir` (default `scripts/backups/image-cache-control/`, git-ignored) before each upload.
+After applying, it reads the bucket's metadata back and checks the header, size and mimetype.
+Production had moved since 5 October: the rows pointed at 104 objects, 50 already on a year and
+**54** on `max-age=3600` (14.0 MB). One went first (UCL's image), then the other 53. Afterwards
+the dry run listed 0, the 104 `University` URLs were byte-for-byte the same, every served size
+matched its backup, and a university page, a program page's `og:image` and the optimizer still
+served the image.
+
+One correction to **Verify**: a query string does **not** skip Supabase's CDN. `?v=check` came
+back `cf-cache-status: HIT` with the old header and January's `last-modified`, and so did the
+authenticated endpoint. The CDN holds its copy until the old one-hour header runs out. Check the
+metadata `list()` returns, which the script reads, then the public URL an hour later. Here it
+took minutes: by 12:57 all 104 public URLs served `public, max-age=31536000`.
 
 ---
 
