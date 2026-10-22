@@ -46,6 +46,11 @@ const envSchema = z.object({
   // The secret in /api/preview?key=..., which turns the new design on for one browser.
   NEW_UI_PREVIEW_KEY: z.string().min(32).optional(),
 
+  // Explore's Best fit (MAINT_tasks.md 5.27), a fallback if it eats the search quota. "full" (or
+  // unset) reads the whole list, one or two requests; "lifted" is one search that lifts the
+  // student's countries and fields; "off" gives every visitor the signed-out sorts.
+  EXPLORE_BEST_FIT: z.enum(['full', 'lifted', 'off']).optional(),
+
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
 })

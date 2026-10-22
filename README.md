@@ -49,6 +49,7 @@ correctly anywhere without `AUTH_TRUST_HOST`.
 | `npm run format` | `prettier --write .` |
 | `npm test` | Vitest, once. `npm run test:watch` re-runs on save |
 | `npm run email:dev` | Preview the React Email templates |
+| `npx tsx scripts/algolia-usage.ts` | Algolia search requests this month against the free plan's 10,000, the last 30 days and the month's pace. Read-only, one request; run it weekly after release (MAINT 5.27) |
 
 CI runs type-check, lint, `prettier --check`, both test suites and a production build on
 every pull request.

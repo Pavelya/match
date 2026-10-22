@@ -20,8 +20,9 @@ import { LENGTHS } from '@/lib/programs/duration'
 import {
   PAGE_SIZE,
   POINTS,
-  SORTS,
+  SORT_LABELS,
   appliedChips,
+  bestFitLine,
   chosenCount,
   clearAll,
   clearFilter,
@@ -37,7 +38,9 @@ import {
   readExplore,
   removeChip,
   SAVE_PARAM,
+  shownSort,
   signInTo,
+  sortMenu,
   type ExploreQuery,
   type ExploreSort
 } from '@/lib/explore/query'
@@ -53,6 +56,10 @@ import { VIA_FIRST_RUN, VIA_PARAM, firstRunHref } from '@/lib/student/first-run'
  * keeps the rows until new ones arrive: the list is busy, with no skeleton flash. The first
  * rows come in the server HTML for everyone, with the fit when the student has grades; later
  * rows come with theirs. Replaces SearchClient, which today's design keeps until release.
+ *
+ * Sort opens on the visitor's default (board "D3.5 Sort · best fit", approved 22 October 2026):
+ * Best fit for a student with grades, "Most relevant" once words are typed, otherwise "Highest
+ * points needed". Only a picked sort goes in the URL.
  */
 
 export interface ExploreInitial {
@@ -83,6 +90,9 @@ interface List {
 
 /** A pause after typing or ticking before the list asks again, as today's page waits */
 const SETTLE_MS = 300
+
+/** Best fit's line under the count, which both Sort selects point to */
+const LINE_ID = 'explore-order'
 
 const LENGTH_OPTIONS: Option[] = LENGTHS.map((l) => ({ id: String(l.years), name: l.label }))
 const ACADEMIC = APP_PLACES.academic.href
@@ -274,6 +284,19 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
 
   const shortcuts = shortcutsFor(viewer, apply)
 
+  // Best fit for a student with grades (D3.5 Sort · best fit); its line says what the order is
+  const sort = shownSort(query, viewer.bestFit !== null)
+  const line =
+    sort === 'best' && viewer.bestFit ? bestFitLine(viewer, viewer.bestFit, query.qualify) : null
+  const sortSelect = (
+    <SortSelect
+      sort={sort}
+      options={sortMenu(query.q, viewer.bestFit !== null)}
+      describedBy={line ? LINE_ID : undefined}
+      onChange={(picked) => apply((q) => ({ ...q, sort: picked }))}
+    />
+  )
+
   const sections = {
     fields: (tall: boolean) => (
       <Choices
@@ -435,9 +458,7 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
         </FilterMenu>
         {qualify('toolbar')}
         {/* Between 768 and 1023px, Sort takes its own line, still at the right */}
-        <div className="ml-auto flex justify-end max-lg:w-full">
-          <SortSelect sort={query.sort} onChange={(sort) => apply((q) => ({ ...q, sort }))} />
-        </div>
+        <div className="ml-auto flex justify-end max-lg:w-full">{sortSelect}</div>
       </div>
 
       {/* A phone: one Filters button, opening the sheet, and the switch beside it (D4.7) */}
@@ -474,9 +495,13 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
               <span aria-hidden="true">Updating…</span>
             </span>
           </RemovableChipGroup>
-          <div className="flex justify-end md:hidden">
-            <SortSelect sort={query.sort} onChange={(sort) => apply((q) => ({ ...q, sort }))} />
-          </div>
+          <div className="flex justify-end md:hidden">{sortSelect}</div>
+          {/* Under the count on desktop, under Sort on a phone; Sort's description */}
+          {line && (
+            <p id={LINE_ID} className="text-body text-muted-foreground md:-mt-1.5">
+              {line}
+            </p>
+          )}
         </div>
       )}
 
@@ -662,23 +687,29 @@ function shortcutsFor(
   }
 }
 
+/** The sorts on offer to this visitor (D3.5 Sort · best fit); a pick goes in the URL */
 function SortSelect({
   sort,
+  options,
+  describedBy,
   onChange
 }: {
   sort: ExploreSort
+  options: ExploreSort[]
+  describedBy?: string
   onChange: (sort: ExploreSort) => void
 }) {
   return (
     <Select
       label="Sort"
       value={sort}
+      aria-describedby={describedBy}
       onChange={(event) => onChange(event.target.value as ExploreSort)}
       className="flex-row items-center gap-2.5 [&>div]:w-55 [&>label]:text-muted-foreground"
     >
-      {SORTS.map((s) => (
-        <option key={s.value} value={s.value}>
-          {s.label}
+      {options.map((value) => (
+        <option key={value} value={value}>
+          {SORT_LABELS[value]}
         </option>
       ))}
     </Select>
