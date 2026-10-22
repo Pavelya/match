@@ -23,7 +23,7 @@ the others fall.
 | Order | Session | Tasks | Size | When | Why here |
 |---|---|---|---|---|---|
 | 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
-| 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Design first: `/design D3.5 Sort · best fit`, then `/build 25` (`REBRANDING_tasks.md`, run order). Raise the extra Algolia requests with the owner before building |
+| 2 | Explore's best fit | 5.27 | small to medium | Before release day | The new Explore shows every student "Most relevant", which with nothing typed is "Highest minimum first". Board D3.5 Sort · best fit approved 22 October 2026, with the extra search requests (one or two a list): `/build 25` is unlocked (`REBRANDING_tasks.md`, run order) |
 | 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | After release, or earlier | Nothing is wrong yet: one school, no logo. Until it merges, don't upload a school logo in `/admin/schools` |
@@ -1693,44 +1693,69 @@ step decides whether the status should come first, as Matches' groups do.
 
 **Steps:**
 
-1. **Design first** (rebranding gates): a change board for D3.5's sort menu and D4.7's list, "D3.5
-   Sort · best fit". It is listed in `REBRANDING_tasks.md` (Step 2, Patterns), with the build as
-   session 25 in its run order: `/design D3.5 Sort · best fit`, then `/build 25`. It draws the menu for a student with grades and for everyone else, the order with
-   the switch on and off, the summary line, and the phone sheet. Questions for the board:
-   - Should "Best fit" be the default for a student with grades, while "Most relevant" stays for
-     typed searches and for anyone without grades?
-   - Should the label read "Best fit", as on Matches?
-   - Signed out with nothing typed, should the default say what it is, such as "Highest minimum
-     first", or keep its name?
-   - With the switch off, should the status come first ("Meets all", then "Within reach", then the
-     rest), or the score alone?
-2. **Build:** give the search the student's fields and countries. On the page they come from
-   `exploreViewer`'s read; in `app/api/programs/explore/route.ts`, add the two relations to
-   `exploreStudent`'s `select` (the same query, no new one). Give
-   `programFit` a variant that scores field and country the way the matcher does. Sort the full list
-   with `compareBestFit`, through the same path the points sorts and the switch take (`everyMatch`,
-   then cut the window). Add `best` to `ExploreSort` and the URL (`?sort=best`), and keep today's
-   links working.
+1. **Design first** (rebranding gates): done. "D3.5 Sort · best fit", canvas row 25, approved
+   22 October 2026 (owner, every recommendation). Decisions below.
+2. **Build** (session 25, `/build 25`): give the search the student's fields and countries. On the
+   page they come from `exploreViewer`'s read; in `app/api/programs/explore/route.ts`, add the two
+   relations to `exploreStudent`'s `select` (the same query, no new one). Give `programFit` a variant
+   that also says whether the program is in the student's countries and fields, the way the matcher
+   does (`calculateLocationMatch`, `calculateFieldMatch`; "Open to anywhere" counts every country).
+   Order with the board's comparison: tier (countries and fields, countries, fields, the rest), then
+   status (meets, close, gap), then the minimum closest to the total, then no minimum, then
+   university and program A–Z. With the switch on this is `compareBestFit`'s order; test that it
+   stays so. Read the full list for Best fit with `browseObjects` alone (no first search: Best fit
+   uses no ranking), then cut the window. Add `best` to `ExploreSort` and `?sort=best`; the default
+   is not written to the URL and depends on the visitor (below). Keep today's `?sort=relevant` links
+   working.
 3. **Vitest:**
    - with the switch on, the order is "my country and field", then "my country", then "my field",
-     then the rest, each tier closest to the student's total first;
+     then the rest, each tier closest to the student's total first, and equals `compareBestFit`;
+   - with the switch off, inside a tier the ones met come first, then within reach, then missing;
+   - the default sort: Best fit with grades and nothing typed, Most relevant with words typed, Highest
+     points needed signed out or before grades with nothing typed; a picked sort survives typing;
    - "Most relevant" with words typed keeps the search's order;
-   - a signed-out visitor's menu has no "Best fit".
+   - a signed-out visitor's menu has no "Best fit", and with nothing typed no "Most relevant";
+   - Best fit over more than 1,000 programs makes two requests, and none of them a search.
+
+**Decided on the board (22 October 2026, owner, every recommendation).** Canvas row 25.
+
+- **"Best fit" is the default for a student with grades** when nothing is typed. Typing words makes
+  "Most relevant" the default; clearing them brings Best fit back. A sort the student picks stays,
+  words or not, in the URL. Signed out and before grades there is no Best fit.
+- **The label is "Best fit", as on Matches,** and the order is Matches': with the switch on, Explore
+  opens on Matches' first cards (LSE and UCL at 38, then Trinity and UBC at 37 for the D3.1 student).
+- **The default says what it is.** With nothing typed, "Most relevant" leaves the menu, since it is
+  "Highest points needed" under another name. Signed out or before grades the select reads "Highest
+  points needed": the same rows as today, at one request. Menus: with grades and nothing typed, Best
+  fit, Lowest, Highest; with grades and words, Most relevant, Best fit, Lowest, Highest; otherwise
+  Highest and Lowest with nothing typed, and Most relevant, Lowest, Highest with words.
+- **With the switch off: the student's countries and fields first, then in each the ones they meet,
+  within reach, then the rest,** each closest to their total. Status first would put LSE's
+  Accounting and Finance (1 point short) at row 1,342; the score alone at row 834, behind a program
+  4 points short; this order at row 158.
+- **The switch stays off by default** (owner, in chat): on, it would hide 336 programs, the 21
+  within reach in the student's own countries and fields among them, and not fix the order.
+- **One line under the count** for Best fit only: "Your countries and fields come first; in each, the
+  ones you meet, closest to your 38." ("Your fields come first; …" when open to anywhere). It is
+  Sort's `aria-describedby`. No group headings in the list.
+- **The phone sheet doesn't change:** Sort stays on the page under the count (D4.7).
+- **Search requests, approved:** the full order, read with browse: one request when 1,000 programs or
+  fewer match, two past that, and the same again for each "Show 20 more". The switch's own full read
+  drops from three to two the same way. 3,208 requests from 22 September to 20 October 2026, about a
+  third of the free plan's 10,000 a month; about 5,000 to 6,600 a month after release at most.
+  `optionalFilters` (included in the plan, tested 22 October 2026) is not used: it lifts the tiers
+  but keeps the highest minimum first inside them.
 
 **Must not:** add a database query (the API route's existing query only selects two more relations),
-read the programs cache, or change Matches' order. Before building, measure what "Best fit"
-costs in search requests. It needs every match: one search of 1,000, then a browse past it, so two
-to three requests per list where "Most relevant" with nothing typed makes one (Algolia's free plan
-allows 10,000 a month). If that is too many, the index's `optionalFilters` can lift the student's
-fields and countries in a single search, but check first that the plan includes it. Either way,
-raise the count with the owner first (Definition of done 7 in `REBRANDING_tasks.md`).
+read the programs cache, or change Matches' order. Make no more search requests than the board
+approved: one or two per list for Best fit, one for every other sort with the switch off.
 
 **Verify:** the tests. In the preview, signed in with grades: with nothing typed and the switch on,
 the first rows are in the student's countries and fields, starting at their own total. The URL
 keeps the sort through a reload and Back. Signed out, the order and the menu are as the board
 decides.
 
-**Session size:** Small to medium: a change board, then one build session. Before release day,
+**Session size:** Small to medium: a change board (approved 22 October 2026), then one build session. Before release day,
 because the new Explore shows the misleading order to every student. Independent of 5.26.
 
 ---
