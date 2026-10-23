@@ -2544,10 +2544,12 @@ not real; a lawyer reviews the Privacy Policy and Terms; the University Agent pr
 invitation deletion, "GDPR Compliant", "non-profit", "non-commercial" and the donation claims (the whole "where your
 support goes" section, since no donations exist) all go; the three documents are published together on release day.
 
-**Still needed before publishing:** the lawyer's review, and eight dashboard checks the screenshots did not cover (Model
-Training off on Vercel, function and Upstash regions, Upstash plan and analytics, Resend tracking off, the Google
-consent screen's privacy link, Ko-fi's fee option, and whether a Cookie Policy or FAQ is already published). **Next:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull requests),
-then publishing in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
+**Still needed before publishing:** the lawyer's review; one clarification (the owner says a Cookie Policy or FAQ is
+published in `/admin/legal-content`, but the live pages show the text in the code); and one small code change first:
+Upstash's rate-limit analytics keep user IDs, and probably IP addresses, with no expiry (the owner's Data Browser shows
+a record from 30 August), so they are to be switched off and purged. The owner's dashboards settled every other
+check. **Next:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull
+requests), then publishing in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
 coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
 policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
 coordinator portal says "Upgrade to VIP" for a plan that is a subscription.

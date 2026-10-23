@@ -62,7 +62,7 @@ recommendation made in the first version of this page and answered the rest.
 | Is **Pavel also an IB graduate**? (For schools says "former IB students… we lived through the IB experience ourselves") | Singular: "started by an IB graduate", as only Tal is known to be one |
 | Have coordinators actually **given feedback**? (For schools says "Based on coordinator feedback, we're building…") | Drop "Based on coordinator feedback" (`claims.md` C9) |
 
-**Owner checks** (facts from your dashboards that the screenshots did not show: "Still open" below, 8 items).
+**Owner checks:** all answered except one clarification ("Checks" below).
 
 **Lawyer:** read the three drafts with [`lawyer-brief.md`](./lawyer-brief.md); settle every `[LAWYER: …]` note.
 
@@ -71,44 +71,42 @@ recommendation made in the first version of this page and answered the rest.
 | Task | What | Needs |
 |---|---|---|
 | **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | Nothing: ready to start |
-| **B. Small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
+| **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | Your go-ahead for the delete |
+| **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
-**Before publishing** (not before the pull request): the lawyer's review, the eight checks, and the `[LAWYER: …]`
-and remaining `[OWNER: …]` notes settled (one is left in the Privacy draft: the Vercel and Upstash regions).
+**Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled; task B1
+done, which settles the last `[OWNER: …]` note (the Privacy draft's abuse-protection line); and the one
+clarification below.
 
 **This pull request** (docs only, nothing published): the branch merges cleanly with `main`, touches no code, and
 Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you say so.
 
 ## Checks only the owner can make
 
-**Answered from your screenshots and files on 23 October 2026.** Five of the original eleven checks were settled by
-them, and the others in part:
+**Answered from your screenshots and files on 23 October 2026**, in two rounds:
 
 | Check | What you showed | Result | Effect |
 |---|---|---|---|
 | Supabase | Project overview | **Free plan, Central EU (Frankfurt), Nano, "No backups"** | The Privacy draft says the database is in Frankfurt and that no backups are kept |
 | Vercel plan | Add-Ons page | **Pro** ("12 months viewable history" is Pro's; Hobby has one month). Speed Insights Plus, Observability Plus and Web Analytics Plus are **off** | The Hobby problem does not arise; the DPA applies; runtime logs last one day. The Plus add-ons being off says nothing about the free base Web Analytics; that none runs is from the live site, which loads no Vercel script |
+| Vercel Model Training | Your answer | **Off** | Closed |
+| Vercel function region | Your answer | **Frankfurt (`fra1`, `eu-central-1`)** | Privacy 11 |
+| Upstash | Settings and Data Browser | **Free Tier, AWS, Frankfurt (`eu-central-1`), primary region only. "Encryption at Rest — Upgrade plan" is unticked, so Redis is not encrypted at rest** | Privacy 11 and 7; "encrypted at rest" is claimed only of the database (`claims.md` H2) |
+| Upstash rate-limit analytics | Data Browser: `ratelimit:api:events:1788084000000`, a sorted set, **TTL: No**, holding `{"identifier":"<a user ID>","success":true}` | **They never expire**: that key is from 30 August 2026. The `api` limiter stores user IDs. The `search` and `auth` limiters are keyed by IP address, so their records would hold IP addresses (no such key was in the screenshot) | Finding F10 and task B1 |
 | Algolia | Applications and Analytics pages | **Build plan, Europe (FR), 1.78K records; Search Analytics on** (366 searches, "258 users", no events) | Search words sit in Algolia's logs for 90 days in France; the "users" are Vercel's server addresses, since no `userToken` or visitor IP is sent |
-| Resend | Settings → Usage | **Free plan**, 6 of 3,000 emails this month; Marketing: 0 of 1,000 contacts; a Documents tab | 30-day log confirmed; no marketing audience, matching "we send no marketing email". The signed DPA you attached is generic |
-| Google scopes | Scope list | `userinfo.email`, `userinfo.profile`, `openid`: all non-sensitive | Limited Use rules do not bind IB Match |
+| Resend | Settings → Usage, and your answer | **Free plan**, 6 of 3,000 emails this month; Marketing: 0 of 1,000 contacts; **open and click tracking off** | 30-day log confirmed; no marketing audience; no email tracking; sign-in links are not rewritten |
+| Google | Scope list, and your answer | Scopes `userinfo.email`, `userinfo.profile`, `openid` (non-sensitive); consent screen's privacy link is `https://www.ibmatch.com/privacy`; app in production; homepage not only a login page | Limited Use rules do not bind IB Match; Google's requirements are met |
+| Ko-fi | Payment settings | Account type: creator. **Payments go to a personal PayPal account; Stripe is not connected.** A $5 "coffee" tip, monthly tips active | Supports "run by an individual"; the fee option was not shown and no longer matters, since the money claims are removed |
 | DPF register | The participant list | Vercel, Stripe, Upstash **Active**; **Resend "Active - Re-certification under Review"**; Algolia, Supabase and Ko-fi not on it | The draft names the SCCs first, so it stays right either way |
 | DPF appeal | The Court's order | C-703/25 P pending; Microsoft admitted | Wording unchanged |
-| Ko-fi | Account type | Creator | Ko-fi's tax clause applies to you |
 | Published Terms and Privacy | The admin's view | Matches the live pages used as the baseline | No change |
 
-**Still open** (none of the screenshots showed these screens; where to find each):
-
-| # | Check | Where | Why it matters |
-|---|---|---|---|
-| 1 | **Model Training is off** | Vercel → Team Settings → "Model Training" (or the team's data preferences) | The Terms say it is an opt-in on paid Pro, but Vercel's privacy notice (changed since February) says Hobby and Pro teams' de-identified data may go to AI partners "subject to your data preferences in your team settings" |
-| 2 | **Vercel function region** | Vercel → project → Settings → Functions. The `x-vercel-id` read `iad1::fra1`, so probably Frankfurt | Privacy 11 |
-| 3 | **Upstash: region, plan, Prod Pack** | Upstash console → the database → Details. Prod Pack (+$200/month) is what gives encryption at rest | Privacy 11; "encrypted at rest" is true of the Supabase database, and of Redis only with Prod Pack |
-| 4 | **Upstash rate-limit analytics** | Upstash data browser: keys under `@upstash/ratelimit` and `ratelimit:`. `lib/rate-limit.ts` sets `analytics: true` | If IP addresses stay there with no expiry, the Privacy Policy must say so, or the flag goes (a code change) |
-| 5 | **Resend open and click tracking are off** | Resend → Domains → `ibmatch.com` → tracking options | Resend's DPA (Exhibit A): tracking "could include IP address, location, operating system, browser, device, email client"; click tracking rewrites sign-in links |
-| 6 | **Google consent screen** | Google Cloud Console → Google Auth Platform → Branding / Audience: privacy policy link is `https://www.ibmatch.com/privacy`, publishing status "In production" | Google requires the link to match the homepage's |
-| 7 | **Ko-fi fee option and payout account** | Ko-fi → Settings → Payment | Free (0% on one-off tips) or Standard (5% on everything) |
-| 8 | **Is a Cookie Policy or FAQ already published?** | `/admin/legal-content` (the live pages show the code text for both) | Decides whether publishing replaces something |
+**One clarification:** you answered "Yes" to whether a Cookie Policy or FAQ is already published in `/admin/legal-content`.
+The live pages say neither is: `/cookies` shows no "Version" label and the hard-coded date "December 26, 2025", and
+`/faqs` shows no "Last updated" line, whereas `/privacy` and `/terms` show "Version 2026-03-23". So both pages are
+showing the text in the code. **Do you mean there is a draft or an unpublished version in the admin?** If so, tell me
+what it says, since publishing mine would replace it.
 
 Also: subscribe to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
@@ -143,6 +141,11 @@ flow in this pull request and nothing may reach production before approval.
 - **F9. Algolia's Search Analytics is on and keeps search words for 90 days** (and the server's address, not visitors'). That is
   fine and now in the Privacy draft; if you would rather keep none, send `analytics: false` on the search call
   (`lib/algolia/search.ts`, a small code change). The Explore count query already does.
+- **F10. Upstash rate-limit analytics keep user IDs and IP addresses forever.** `lib/rate-limit.ts` creates every limiter
+  with `analytics: true`; the records are sorted sets named `ratelimit:<limiter>:events:<hour>` with no expiry (your
+  Data Browser screenshot, one dated 30 August 2026), and nothing in the code reads them. They also outlive an account
+  deletion: a deleted student's ID stays in them. This contradicts the Privacy draft's "short time" and a deletion
+  promise, so task B1 (turn it off, purge it) comes before publication.
 
 ## How to publish (step 5)
 

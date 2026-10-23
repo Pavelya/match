@@ -27,7 +27,7 @@ The data we collect depends on your role on the platform:
 ### Information Collected Automatically
 
 - **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in logs for about one day. We use it to run the site, fix errors and stop abuse.
-- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache.
+- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache for a short time. [OWNER: true only after README task B1 (turn Upstash rate-limit analytics off and delete its old records); until then the cache keeps account IDs and IP addresses with no expiry.]
 - **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results. Algolia keeps its search logs for 90 days, in France, and uses them for search statistics. We send it our server's address, not yours, and nothing that names you. The words are also written to our own server log without your name or account.
 - **No tracking**: IB Match does not use analytics, advertising or tracking tools, and does not follow what you do from page to page. If that changes, we will update this policy first and ask for your consent where the law requires it.
 - **In your browser**: IB Match stores a few small items in your browser. They are listed in our [Cookie Policy](/cookies).
@@ -182,7 +182,7 @@ Each provider publishes its own list of sub-processors. Our providers are bound 
 
 ## 11. International Data Transfers
 
-Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
+Your information may be processed in countries other than your own. Our database, our cache and our website's server functions are in Frankfurt, Germany, and our search index is in France. Pages are delivered through our hosting provider's global network, so traffic can pass through other countries, including the United States. Our email provider, Resend, stores all its data in the United States. Our providers are mostly United States companies (our database provider's contracting company is in Singapore), and their staff and sub-processors can reach data from there for support and operations. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
 
 ## 12. Children's Privacy
 

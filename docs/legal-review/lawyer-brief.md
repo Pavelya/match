@@ -55,7 +55,8 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
    Framework "where a provider is certified" (its appeal, C-703/25 P, is pending; Resend's certification shows "Re-certification under
    Review"). Resend stores everything in the USA; Supabase's contracting company is in Singapore. Do you want a transfer
    impact assessment, and is the UK addendum wording enough?
-8. **Retention** (Privacy 8). No backups are kept; invitation records stay while the school exists; sign-in links expire in 10
+8. **Retention** (Privacy 8). The cache provider's rate-limit analytics currently keep user IDs and IP addresses with no
+   expiry; the owner will switch that off and purge it before publication. No backups are kept; invitation records stay while the school exists; sign-in links expire in 10
    minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
    Is "kept while the school's account exists" an acceptable retention rule for invitation records?
 9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice and a
