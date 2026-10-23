@@ -12,7 +12,8 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 | `providers.md` | Step 2. Vercel, Supabase, Upstash, Algolia, Resend, Stripe, Google and Ko-fi, read from their own pages on 23 October 2026 |
 | `privacy-policy.redline.md`, `terms-of-service.redline.md`, `cookie-policy.redline.md` | Step 4. For each: what changed and why, then the diff against the published words |
 | `privacy-policy.proposed.md`, `terms-of-service.proposed.md`, `cookie-policy.proposed.md` | The proposed text, ready to paste into `/admin/legal-content` once the `[OWNER …]` notes are settled |
-| `claims.md` | Step 4. Every claim on Support us, How it works, For schools, Home and FAQs: the evidence and proposed words |
+| `claims.md` | Step 4. Every claim on Support us, How it works, For schools, Home and FAQs: the evidence, the decision and the proposed words |
+| `lawyer-brief.md` | What the lawyer should read, and the twelve questions the drafts leave to them |
 
 ## Three limits
 
@@ -27,81 +28,57 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 3. **Only the owner knows some facts:** who IB Match is, what the accounts say, which plans and regions the
    providers are on. The drafts mark each with `[OWNER Qn: …]`. None may remain when a document is published.
 
-## Questions for the owner (step 3)
+## Decisions settled on 23 October 2026 (step 3)
 
-Each has a recommendation. Answer them in this order; the first four unblock the drafts.
+**The facts the owner gave:** IB Match has no registered company; it is a hobby project run by an individual; it has
+received **no donations** so far and **has paying customers** (schools); `support@ibmatch.com` is the mailbox that is
+read; a lawyer will check the Privacy Policy and Terms. The owner accepted every recommendation made in the first
+version of this page.
 
-**Q1. Who runs IB Match, legally?** A person, or a registered organisation? The Privacy Policy must name its
-controller and the Terms need a named party, a governing law and a place for disputes (the published Terms say
-"the laws of the applicable jurisdiction", which names no law). The same answer decides whether Support us may
-say "non-profit", whether donations are tax-deductible, and who is paid by Ko-fi, whose terms (13 July 2026) say
-the page's owner "is solely responsible for determining, withholding, collecting, reporting, and remitting any
-taxes". *Recommendation:* name the
-person or entity that actually holds the Ko-fi, Stripe and provider accounts, even if it is you, and say plainly
-what it is. Do not call it a non-profit unless it is registered as one.
+| | Decision | What it did to the drafts |
+|---|---|---|
+| **Q1** | The operator is an **individual**, not a company | Both drafts now say "run by [name], an individual in [country]. It is not a registered company". "Non-profit" and "non-commercial" go (schools pay). Terms 6.5 says donations are not tax-deductible, because IB Match is not a registered charity. **Name, country and address are still needed (below)** |
+| **Q2** | **A: 16 and older** | Privacy 12 and Terms 3 say 16; Option B is gone |
+| **Q3** | **`support@` is the address kept** | Every contact point in the drafts is `support@ibmatch.com`, or the Contact page's Data & privacy request. `privacy@`, `legal@`, `universities@` and `admin@` leave the drafts and the public pages (`claims.md` M6) |
+| **Q4** | **A lawyer reviews** | The points for the lawyer are tagged `[LAWYER: …]` in the drafts and listed in [`lawyer-brief.md`](./lawyer-brief.md) |
+| **Q5** | Remove the University Agent promises | Done in both drafts |
+| **Q6** | Change the invitation-record words, do not build a deletion | Done in Privacy 8 |
+| **Q7** | Coordinator and school deletion stays "ask us" | Done in Privacy 8 and 9 |
+| **Q8** | Remove "GDPR Compliant" | `claims.md` H1 |
+| **Q9** | One story everywhere | **Who** is still missing (below) |
+| **Q10** | Remove the money claims | **Wider than proposed:** with no donations received, the whole "Where your support goes" section goes, not only the percentages (`claims.md` S1 to S7, K1) |
+| **Q11** | The dashboards answered most of it | See "Checks" |
+| **Q12** | Publish all three on release day; label and effective date are the day | Unchanged |
 
-**Q2. The age line.** Today: 13 and older (Terms 3, Privacy 12). GDPR Article 8 lets each member state set the age
-for a child's consent anywhere from 13 to 16, and IB Match has no age check (no date of birth is asked).
-*Recommendation:* Option A in the draft, 16 and older. Diploma students are usually 16 to 19, and 16 is at or above
-every figure in the one country table found (`providers.md`, a commercial compilation of 15 October 2026: 13 in nine
-countries, 14 in six, 15 in three, 16 in nine). Option B keeps 13 and asks a parent's permission where the law needs
-it, which the site cannot check. Leaving 13 as it is would be wrong in any country with a higher age. A lawyer or
-the national authority should confirm the table.
+## Action list: what is left, and who does it
 
-**Q3. Which mailboxes are read?** `privacy@` (Privacy 9 and 14, Cookie Policy; the draft promises a reply within one
-month, the legal limit), `legal@` (Terms 6.4 and 16), `support@` (Organization JSON-LD, emails' sender),
-`universities@` (Support us) and `admin@` (Support us' program suggestion). Also "we typically respond within
-24–48 hours" on Contact, the forms and the ticket email. *Recommendation:* publish only addresses someone reads,
-fewer is better (`privacy@` and `support@`), and keep the 24–48-hour line only if it is what happens.
+**Answers I need from the owner** (each blocks the item shown):
 
-**Q4. Will a lawyer review the drafts?** *Recommendation:* yes, the Privacy Policy and Terms, before they are
-published. The points to ask about are marked: the legal bases (Privacy 3); the paragraph that makes a school the
-controller and IB Match its processor when the student created the account and agreed to the link themselves
-(Privacy 10); the transfers wording (Privacy 11); the limitation of liability (Terms 12); the governing law
-(Terms 15). The Cookie Policy is the least risky of the three.
+| # | Question | Blocks |
+|---|---|---|
+| 1 | **Your name as it should appear** in the Privacy Policy and Terms, the **country** whose law governs and whose courts hear disputes, and whether to give a **postal address** (the lawyer decides if one is required) | Privacy 1, Terms 1 and 15 |
+| 2 | **Q9: who built IB Match?** One person? Is it "Tal" as the founder note says, and is Tal the person named in answer 1? | The founder wording on five pages |
+| 3 | **"Free forever"** (`claims.md` S8): keep it, or "free for students; we have no plans to charge them"? My lean is the second | Support us, Home, Terms 6.1 |
+| 4 | **Is the early adopter program still open** (C6)? | For schools |
+| 5 | **Are the four coordinator quotes real** (C7)? | For schools |
+| 6 | **Is "we usually reply in 24–48 hours" true** (M3)? | Contact, forms, ticket email |
+| 7 | Do `privacy@` and `legal@` forward to the `support@` inbox? If yes they could stay; if not the drafts keep `support@` only | Optional |
 
-**Q5. The university agent role.** Terms 2, 5.3, 6.1 and 14, and Privacy 3, 4.2 and 10 promise agent accounts,
-program management and anonymised statistics. None exists: no sign-up, no dashboard, no feature (`product-today.md`
-§1). *Recommendation:* the drafts remove them and say no university sees student data. Restore a section, with
-the policy updated first, when the role ships.
+**Owner checks** (facts from your dashboards: the "Still open" list below, 8 items).
 
-**Q6. Invitation records.** The Privacy Policy says expired or declined ones are deleted after 90 days. Nothing
-does that (no cron, no job), and "decline" only sets `CANCELLED`. *Recommendation:* change the words now (the
-draft does: kept while the school exists, and a student's own are deleted with their account). If you want the
-shorter promise because it is better data minimisation, it is a small separate task (a scheduled delete); restore
-the old sentence only after it ships.
+**Lawyer:** read the three drafts with [`lawyer-brief.md`](./lawyer-brief.md); settle every `[LAWYER: …]` note.
 
-**Q7. Deleting a coordinator or a school.** The policy and Terms say coordinators "request deletion through the
-platform". The portal's button is a placeholder ("Data Deletion Coming Soon… Contact support"), and an admin's
-delete of a coordinator who has sent invitations is restricted by a foreign key (finding F2). *Recommendation:*
-the draft says "ask us through a Data & privacy request or privacy@"; build the self-serve request only if
-schools ask for it.
+**Me, once 1 to 6 are answered** (separate sessions, each its own pull request):
 
-**Q8. "GDPR Compliant".** A legal conclusion on How it works. *Recommendation:* remove it. The drafts fix the gaps a
-reader of the policy would find (no controller named, missing sub-processors, a retention promise nothing keeps,
-no legal bases), but only a lawyer or regulator concludes "compliant". Replace with statements a student can check:
-"Your data is never sold. Download or delete it any time in Settings."
+| Task | What | Needs |
+|---|---|---|
+| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`, `support@` in place of the other mailboxes, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | Answers 2 to 6 |
+| **B. Small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
+| **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
-**Q9. One founder story.** Five different sentences say who built IB Match: "an IB graduate", "a former IB
-student", "I built IB Match… Tal", "former IB students… we", "students helping students" (`claims.md` S9, C8).
-*Recommendation:* if it is one person, say "IB Match was built by Tal, an IB Diploma graduate" on every page and
-keep "I" in the founder note; if it is a team, change the founder note instead.
-
-**Q10. Money.** Support us says non-profit, non-commercial, "100% goes to platform costs", a 60/20/15/5 split,
-"Most Popular" and what $5, $15 and $50 buy (`claims.md` S1 to S7). *Recommendation:* remove the percentages, the
-badge and the "covers…" lines; keep "free for students" and "donations help pay for hosting, the database, search
-and email". The dashboards you sent show Supabase on Free, Algolia on Build and Resend on Free, so "$5 covers a week of
-email" and "$15 covers a month of search" are not true today. Restore figures only from the real accounts, with the
-year they cover.
-
-**Q11. Facts only your dashboards show.** Mostly answered; see "Checks" below for what is still open.
-
-**Q12. When to publish.** A new Terms or Privacy Policy version shows "We've updated our policies" to **every
-signed-in user the moment it is published**; choosing a later effective date only changes the date shown. The new
-design's notice is built (rebranding 4.6, done 20 October). *Recommendation:* publish both on release day, after the
-new design is live, so each student sees the notice once and in the new design; use the publishing day as both the
-label and the effective date. Publish the Cookie Policy at the same time (it needs no notice). The public pages'
-wording changes in code in the same window (below).
+**This pull request** (docs only, nothing published): the branch is 5 commits ahead of `main` and 0 behind, merges
+cleanly, touches no code, and Prettier ignores Markdown, so CI is unaffected. The `[OWNER …]` and `[LAWYER …]` notes
+are expected in drafts. It can be opened as soon as you say so.
 
 ## Checks only the owner can make
 
@@ -175,8 +152,8 @@ flow in this pull request and nothing may reach production before approval.
 
 ## How to publish (step 5)
 
-1. Answer Q1 to Q10, tell me or a session, and have the lawyer read the three drafts. Settle every `[OWNER …]`.
-   Check: `grep -n "\[OWNER" docs/legal-review/*.proposed.md` returns nothing.
+1. Answer the open questions above, and have the lawyer read the three drafts. Settle every `[OWNER …]` and `[LAWYER …]` note.
+   Check: `grep -n "\[OWNER\|\[LAWYER" docs/legal-review/*.proposed.md` returns nothing.
 2. Fill in the regions, plans and entity in the drafts; keep the structure and the numbered `##` headings.
 3. In `/admin/legal-content`, for each of Terms, Privacy and Cookie Policy: create the version from the proposed
    text, give it the publishing day as its label (`YYYY-MM-DD`), publish with "effective now". Terms and Privacy

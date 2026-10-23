@@ -2530,21 +2530,28 @@ pull request.
 **Session size:** Medium. Research and drafting in one session, then the owner. Before rebranding
 release day if possible, so the legal pages ship with correct words.
 
-**Status, 23 October 2026: steps 1 to 4 drafted; step 5 waits for the owner.** Everything is in
-[`docs/legal-review/`](../legal-review/README.md): the questions for the owner (Q1 to Q12) and the checks
-only the owner can make, the data map, the provider notes, a redline and a pasteable draft for each of the
-three documents, and the claims table. Nothing is published and no code changed. The providers' own pages were
-read on 23 October 2026 (a few could not be: `providers.md` lists them), and the published Terms and Privacy
-Policy were read from the live pages, not the database. The owner then supplied dashboard screenshots and files
-(Vercel is on Pro; Supabase Free in Frankfurt with no backups; Algolia Build in France with analytics on; Resend
-Free) which settled most of the owner checks: those still open are in the README. The provider pages changed the
-drafts too: Upstash's encryption at rest needs its Prod Pack, and the free plans contradict the Support us page's
-"covers a week of email" and "a month of search". Found on the way, for the owner and
-for later tasks: today's cookie banner has no switches either (so "Customize … choose which categories" is
-wrong now, not only after release); nothing lets a coordinator who has sent invitations be deleted by the
-admin button; a student who joins by invitation is shown the policy-update notice at once; and the
-University Agent role the Terms and Privacy Policy describe has no feature (details in the README's "Found while
-checking").
+**Status, 23 October 2026: steps 1 to 4 drafted and the owner's decisions applied; step 5 (publishing) waits on a few
+answers, the lawyer and release day.** Everything is in [`docs/legal-review/`](../legal-review/README.md): the
+decisions and the action list, the data map, the provider notes (read from the providers' own pages, with the
+owner's dashboard screenshots and files), a redline and a pasteable draft for each of the three documents, the
+claims table, and a brief for the lawyer. Nothing is published and no code changed.
+
+**Decided by the owner (23 October 2026):** IB Match is a hobby project run by an individual, with no registered
+company, no donations so far and paying customers (schools); age 16 and older; `support@ibmatch.com` is the one
+address kept; a lawyer reviews the Privacy Policy and Terms; the University Agent promises, the unkept 90-day
+invitation deletion, "GDPR Compliant", "non-profit", "non-commercial" and the donation claims (the whole "where your
+support goes" section, since no donations exist) all go; the three documents are published together on release day.
+
+**Still needed from the owner:** their name as it should appear, the governing country and whether to give a postal
+address; who built IB Match (one person?); whether "free forever" stays; whether the early adopter program is open;
+whether the coordinator quotes are real; whether the 24–48-hour reply time is true; and eight dashboard checks
+(Model Training off on Vercel, function and Upstash regions, Upstash plan and analytics, Resend tracking off, the Google
+consent screen's privacy link, Ko-fi's fee option, and whether a Cookie Policy or FAQ is already published). **After
+that:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull requests),
+then publishing in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
+coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
+policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
+coordinator portal says "Upgrade to VIP" for a plan that is a subscription.
 
 ---
 

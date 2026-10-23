@@ -8,7 +8,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 ## What changed, and why
 
 1. **Version and date.** Label the new version with the day it is published (`YYYY-MM-DD`) and give it that day as its effective date. The published one is labelled `2026-03-23` but takes effect on 23 February 2026. The banner compares the label exactly, so a new, unused label is what makes every signed-in user see "We've updated our policies" once.
-2. **1. Introduction.** Names who runs IB Match (Q1: GDPR Article 13(1)(a) requires it). Drops "By using IB Match, you agree to the collection and use of information": using a site is not consent, and the Terms already bind users.
+2. **1. Introduction.** Says who runs IB Match: an individual, not a registered company, reachable at `support@ibmatch.com` (decided 23 October 2026: GDPR Article 13(1)(a) requires the controller to be identified; the name, country and whether a postal address is needed are still to fill in). Drops "By using IB Match, you agree to the collection and use of information": using a site is not consent, and the Terms already bind users.
 3. **2. Information we collect.** Adds what the code stores and the policy left out: the Google name, email and picture link; the school link and its agreement date; support requests; invitation details including the student name a coordinator may enter; the accepted policy versions. Drops "avatar image (optional)": nobody can upload one; a Google sign-in brings a picture link. Adds the 10-minute sign-in link and what Google is asked for (`openid profile email`, seen in the live redirect) and that its tokens are stored (`Account` table). Says what the Google data is used for, because Google's API Services User Data Policy (page read 23 October 2026) requires a privacy policy that "thoroughly disclose[s] the manner in which your application accesses, uses, stores, or shares Google user data" and limits use to the practices disclosed.
 4. **2. Collected automatically.** Replaces "Usage Data: pages visited, features used, search queries / Device Information / Log Data" with what actually happens: the hosting provider's short-lived logs, abuse counters keyed by IP address or account, search words sent to Algolia (which keeps its search logs 90 days in France, with our server's address, not the visitor's; Search Analytics is on, per the owner's screenshot) and written to the server log without an account, and **no analytics, advertising or tracking**. Hosting logs last about a day (Vercel Pro, Observability Plus off). There is no analytics code and the Content-Security-Policy allows no third-party script. When 7.5 adds a last-seen date or an analytics tool, this section and the Cookie Policy change first.
 5. **2. Payment.** Says what Stripe receives (the school's name and email, and the card details entered at Stripe).
@@ -19,12 +19,12 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 10. **6. Cookies and tracking.** Replaces "Remembering your preferences" with what is remembered (cookie choice, theme, shortlist count) and points to the Cookie Policy for the list.
 11. **7. Data security.** Adds encryption at rest in the database (Supabase's AES-256), says there are no passwords, and a breach sentence. "Structured logging and monitoring" becomes "Logging to detect errors and abuse".
 12. **8. Data retention.** Rewritten from the code: what a student's deletion removes (`lib/account/delete-student.ts`, in one transaction); coordinators and schools are deleted by an administrator on request (the portal's button is a placeholder); **invitation records**: the 90-day deletion does not exist, so the words change (Q6); logs (Vercel one day, Algolia 90 days) and the email provider's 30-day log (Resend Free plan); backups (the Supabase Free project has none, so the draft says so); payment records. Drops "anonymized aggregate data may be retained": the code keeps none.
-13. **9. Your rights.** Says where a student does each thing in Settings, what the download contains (account, profile, preferences, saved programs) and that the rest is by request, and "we reply within one month" (the legal limit; Q3 asks that someone reads privacy@). Adds the right to complain to a data protection authority. "Withdraw consent for non-essential data processing" becomes "consent you have given" (the consents are the school link and the cookie choice).
+13. **9. Your rights.** Says where a student does each thing in Settings, what the download contains (account, profile, preferences, saved programs) and that the rest is by request, and "we reply within one month" (the legal limit), to `support@ibmatch.com` or a Data & privacy request on the Contact page (decided: `privacy@` is not kept). Adds the right to complain to a data protection authority. "Withdraw consent for non-essential data processing" becomes "consent you have given" (the consents are the school link and the cookie choice).
 14. **10. Roles and sub-processors.** Removes "Platform analytics". Adds **Supabase** (the database and the images: it holds nearly everything) and **Google**. Corrects **Upstash** ("Session data": sessions are JWTs and are not in Redis; it holds abuse counters and 30-minute match results), **Vercel** (not "all platform data": it carries traffic and logs), **Algolia** (also receives search words) and **Resend**. "Contractually bound" is limited to "bound by data processing terms", flagged: Vercel's DPA covers Pro and Enterprise plans only (`providers.md`). Stripe's row notes it also acts for its own fraud and legal duties (its DPA, 28 September 2026). The school-as-controller paragraph is flagged for a lawyer (Q4).
 15. **11. International transfers.** Names the mechanisms (SCCs, UK addendum, the DPF where a provider is certified), the United States and Singapore (Supabase's contracting company is Singapore-based, and Resend stores everything in the US), and gives the regions known from the owner's dashboards (database in Frankfurt, search in France), leaving Vercel's and Upstash's open. The DPF is second because its appeal is pending, and two providers (Supabase, Algolia) use the SCCs alone (`providers.md`).
-16. **12. Children's privacy.** The age line (Q2): two options in the draft, to be reduced to one.
+16. **12. Children's privacy.** The age line: 16 and older (decided 23 October 2026, Option A).
 17. **13. Changes.** Says what users will see: the notice at sign-in, and a new version and date.
-18. **14. Contact.** Adds the right to complain.
+18. **14. Contact.** `support@ibmatch.com` is the one address (decided); adds the right to complain.
 
 ## The redline
 
@@ -40,7 +40,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -By using IB Match, you agree to the collection and use of information in accordance with this policy.
 +IB Match ("we," "our," or "us") helps students in the International Baccalaureate (IB) community find university programs, and helps IB schools guide their students. This Privacy Policy explains what personal data we collect, why we collect it, who we share it with, how long we keep it, and the choices you have.
 +
-+[OWNER Q1: Say who runs IB Match and give a contact address, for example "IB Match is run by <name or organisation>, <postal address>." GDPR Article 13 requires the policy to name the controller.]
++IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
 +
 +This policy applies to everyone who uses IB Match: students, IB coordinators and the administrators who run the platform. Your use of IB Match is also governed by our [Terms of Service](/terms).
  
@@ -111,7 +111,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +- **Legitimate interests**: to keep IB Match secure, prevent abuse, fix errors, answer support requests and improve the service.
 +- **Legal obligation**: to keep the records the law requires, such as payment records for school subscriptions.
 +
-+[OWNER Q4: have a lawyer check this section before publishing.]
++[LAWYER: check this section.]
  
 @@ -47,3 +67,3 @@
  
@@ -151,7 +151,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +### 4.2. Universities
 +
-+No university has access to any student's personal data. [OWNER Q5: IB Match has no university agent accounts or dashboards today. This text replaces the previous section on university agent access. If agent features are planned, this section comes back when they ship, and this policy is updated first.]
++No university has access to any student's personal data.
  
 @@ -77,3 +92,3 @@
  
@@ -212,9 +212,9 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -You may request deletion of your data at any time.
 +- **Active accounts**: we keep your data for as long as your account is active or as needed to provide the service.
 +- **Students deleting their account**: in Settings, "Delete account" permanently removes your saved programs, grades and profile, your support requests, your sign-in records and sign-in links, and any school invitations sent to your email address, then your account. We send you an email to confirm. It happens in one step: if it fails, nothing is deleted.
-+- **Coordinators and schools**: ask us to delete a coordinator account, or your school's data, through a Data & privacy request on the Contact page or at privacy@ibmatch.com. An administrator carries it out.
++- **Coordinators and schools**: ask us to delete a coordinator account, or your school's data, through a Data & privacy request on the Contact page or at support@ibmatch.com. An administrator carries it out.
 +- **Support requests**: kept while your account exists, and deleted with it.
-+- **Invitation records**: kept while the school's account exists, so a coordinator can see the status of their invitations. Invitations addressed to a student are deleted when that student deletes their account. [OWNER Q6: this replaces "expired or declined invitation records are deleted after 90 days", which nothing did. If you would rather keep the 90-day promise, build the deletion first and restore the old sentence.]
++- **Invitation records**: kept while the school's account exists, so a coordinator can see the status of their invitations. Invitations addressed to a student are deleted when that student deletes their account.
 +- **Sign-in links**: a link expires after 10 minutes.
 +- **Logs and email records**: our hosting provider's logs are kept for about a day, and our search provider's for 90 days (see Section 2). Our email provider keeps a log of the emails it sends, including the recipient's address and the message, for 30 days.
 +- **Backups**: we keep no backups of the database at present. If that changes, deleted data could remain in a backup until it expires, and this policy will say for how long.
@@ -238,7 +238,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +**For coordinators**: write to us to access, correct, export or delete your data, or your school's.
 +
-+To exercise your rights, contact us at privacy@ibmatch.com. We reply within one month.
++To exercise your rights, send a Data & privacy request from the Contact page, or write to support@ibmatch.com. We reply within one month.
  
 @@ -142,3 +160,2 @@
  - Operation of the matching algorithm and recommendations
@@ -247,7 +247,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -147,3 +164,3 @@
  
 -When coordinators manage student data on behalf of their school, the **school is the data controller** and IB Match acts as a **data processor**. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform).
-+When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [OWNER Q4: have a lawyer check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
++When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [LAWYER: check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
  
 @@ -151,13 +168,15 @@
  
@@ -279,29 +279,28 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -165,3 +184,3 @@
  
 -Your information may be transferred to and processed in countries other than your own (including the United States, where our infrastructure providers operate). Where required, we ensure appropriate safeguards are in place, including Standard Contractual Clauses (SCCs) for transfers outside the EU/EEA.
-+Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
++Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at support@ibmatch.com.
  
-@@ -169,3 +188,7 @@
+@@ -169,3 +188,3 @@
  
 -The Service is intended for users **13 years and older**, consistent with the age of IB students. We do not knowingly collect information from children under 13. If we become aware that we have collected data from a child under 13, we will take steps to delete that information.
-+[OWNER Q2: choose one of these and delete the other.]
-+
-+**Option A.** IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
-+
-+**Option B.** IB Match is for students aged 13 and older. In some countries the age at which you can agree to the use of your data online is higher than 13, up to 16. If that applies to you, you need a parent or guardian's permission to use IB Match. We do not knowingly collect information from children under 13. If we learn that we have, we will delete it.
++IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
  
-@@ -173,3 +196,3 @@
+@@ -173,3 +192,3 @@
  
 -We may update this Privacy Policy from time to time. We will notify you of significant changes via email or through the Service. The "Last updated" date at the top of this page indicates when the latest revision was made.
 +We may update this Privacy Policy from time to time. When we make a significant change, we will ask you to accept the new version the next time you sign in, and the version and date at the top of this page will change.
  
-@@ -177,3 +200,3 @@
+@@ -177,6 +196,6 @@
  
 -If you have questions about this Privacy Policy or wish to exercise your data rights, please contact us:
-+If you have questions about this Privacy Policy or want to exercise your data rights, please contact us:
- 
-@@ -181,2 +204,2 @@
- 
+-
+-- **Email:** [privacy@ibmatch.com](mailto:privacy@ibmatch.com)
+-
 -For GDPR-specific inquiries, you may also contact the relevant data protection authority in your jurisdiction.
++If you have questions about this Privacy Policy or want to exercise your data rights, please contact us:
++
++- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com), or a Data & privacy request from the Contact page
++
 +You can also complain to the data protection authority in your country.
 ```

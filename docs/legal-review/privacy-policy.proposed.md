@@ -2,7 +2,7 @@
 
 IB Match ("we," "our," or "us") helps students in the International Baccalaureate (IB) community find university programs, and helps IB schools guide their students. This Privacy Policy explains what personal data we collect, why we collect it, who we share it with, how long we keep it, and the choices you have.
 
-[OWNER Q1: Say who runs IB Match and give a contact address, for example "IB Match is run by <name or organisation>, <postal address>." GDPR Article 13 requires the policy to name the controller.]
+IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
 
 This policy applies to everyone who uses IB Match: students, IB coordinators and the administrators who run the platform. Your use of IB Match is also governed by our [Terms of Service](/terms).
 
@@ -61,7 +61,7 @@ If you are in the European Economic Area or the United Kingdom, we rely on these
 - **Legitimate interests**: to keep IB Match secure, prevent abuse, fix errors, answer support requests and improve the service.
 - **Legal obligation**: to keep the records the law requires, such as payment records for school subscriptions.
 
-[OWNER Q4: have a lawyer check this section before publishing.]
+[LAWYER: check this section.]
 
 ## 4. Data Sharing Between Roles
 
@@ -86,7 +86,7 @@ IB Coordinators at a school can view the academic data of students who are linke
 
 ### 4.2. Universities
 
-No university has access to any student's personal data. [OWNER Q5: IB Match has no university agent accounts or dashboards today. This text replaces the previous section on university agent access. If agent features are planned, this section comes back when they ship, and this policy is updated first.]
+No university has access to any student's personal data.
 
 ### 4.3. Administrator Access
 
@@ -123,9 +123,9 @@ No system is perfectly secure. If a breach affects your personal data, we will t
 
 - **Active accounts**: we keep your data for as long as your account is active or as needed to provide the service.
 - **Students deleting their account**: in Settings, "Delete account" permanently removes your saved programs, grades and profile, your support requests, your sign-in records and sign-in links, and any school invitations sent to your email address, then your account. We send you an email to confirm. It happens in one step: if it fails, nothing is deleted.
-- **Coordinators and schools**: ask us to delete a coordinator account, or your school's data, through a Data & privacy request on the Contact page or at privacy@ibmatch.com. An administrator carries it out.
+- **Coordinators and schools**: ask us to delete a coordinator account, or your school's data, through a Data & privacy request on the Contact page or at support@ibmatch.com. An administrator carries it out.
 - **Support requests**: kept while your account exists, and deleted with it.
-- **Invitation records**: kept while the school's account exists, so a coordinator can see the status of their invitations. Invitations addressed to a student are deleted when that student deletes their account. [OWNER Q6: this replaces "expired or declined invitation records are deleted after 90 days", which nothing did. If you would rather keep the 90-day promise, build the deletion first and restore the old sentence.]
+- **Invitation records**: kept while the school's account exists, so a coordinator can see the status of their invitations. Invitations addressed to a student are deleted when that student deletes their account.
 - **Sign-in links**: a link expires after 10 minutes.
 - **Logs and email records**: our hosting provider's logs are kept for about a day, and our search provider's for 90 days (see Section 2). Our email provider keeps a log of the emails it sends, including the recipient's address and the message, for 30 days.
 - **Backups**: we keep no backups of the database at present. If that changes, deleted data could remain in a backup until it expires, and this policy will say for how long.
@@ -148,7 +148,7 @@ Depending on your jurisdiction (including under GDPR), you have the right to:
 
 **For coordinators**: write to us to access, correct, export or delete your data, or your school's.
 
-To exercise your rights, contact us at privacy@ibmatch.com. We reply within one month.
+To exercise your rights, send a Data & privacy request from the Contact page, or write to support@ibmatch.com. We reply within one month.
 
 ## 10. Data Processing Roles (GDPR)
 
@@ -162,7 +162,7 @@ IB Match acts as the **data controller** for:
 
 ### IB Match as Data Processor
 
-When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [OWNER Q4: have a lawyer check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
+When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [LAWYER: check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
 
 ### Sub-Processors
 
@@ -182,15 +182,11 @@ Each provider publishes its own list of sub-processors. Our providers are bound 
 
 ## 11. International Data Transfers
 
-Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
+Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at support@ibmatch.com.
 
 ## 12. Children's Privacy
 
-[OWNER Q2: choose one of these and delete the other.]
-
-**Option A.** IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
-
-**Option B.** IB Match is for students aged 13 and older. In some countries the age at which you can agree to the use of your data online is higher than 13, up to 16. If that applies to you, you need a parent or guardian's permission to use IB Match. We do not knowingly collect information from children under 13. If we learn that we have, we will delete it.
+IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
 
 ## 13. Changes to This Policy
 
@@ -200,6 +196,6 @@ We may update this Privacy Policy from time to time. When we make a significant 
 
 If you have questions about this Privacy Policy or want to exercise your data rights, please contact us:
 
-- **Email:** [privacy@ibmatch.com](mailto:privacy@ibmatch.com)
+- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com), or a Data & privacy request from the Contact page
 
 You can also complain to the data protection authority in your country.

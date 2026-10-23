@@ -4,7 +4,7 @@ By accessing or using **IB Match** ("the Service"), you agree to be bound by the
 
 These Terms apply to all visitors, users, and others who access or use the Service, regardless of their role on the platform.
 
-[OWNER Q1: Say who runs the Service, for example "IB Match is run by <name or organisation>, <postal address>." These Terms need a named party on the other side.]
+IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
 
 ## 2. Description of Service
 
@@ -20,7 +20,7 @@ These Terms apply to all visitors, users, and others who access or use the Servi
 
 By using the Service, you represent and warrant that:
 
-- You are at least [OWNER Q2: 16 / 13] years of age
+- You are at least 16 years of age
 - You are capable of forming a binding contract
 - You will provide accurate and complete information
 - You will maintain the security of your account credentials
@@ -75,7 +75,7 @@ IB Coordinators are school representatives who guide students through university
 
 ### 5.3. Universities
 
-Universities do not have accounts that can see students or their data. Program information comes from universities' published pages, and IB Match staff maintain it. [OWNER Q5: this replaces the previous section on University Agents, a role with no features in the Service today. If agent features are planned, restore a section when they ship.]
+Universities do not have accounts that can see students or their data. Program information comes from universities' published pages, and IB Match staff maintain it.
 
 ### 5.4. Platform Administrators
 
@@ -103,11 +103,11 @@ IB Schools have one of two access levels:
 
 ### 6.4. Refunds
 
-Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
+Refund requests are handled on a case-by-case basis. Please contact us at support@ibmatch.com for refund inquiries.
 
 ### 6.5. Donations
 
-The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity. Ko-fi's terms make the page's owner responsible for any tax on what it receives.]
+The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. IB Match is not a registered charity, so donations are not tax-deductible.
 
 ## 7. Acceptable Use
 
@@ -153,7 +153,7 @@ We do not warrant that:
 
 This limitation applies to all users regardless of role, including but not limited to any losses arising from reliance on match scores, program information, or analytics provided by the platform.
 
-[OWNER Q4: this section is unchanged from the published Terms. A lawyer should say whether it holds in the places you serve; in many countries a limit like this cannot cover consumers or some kinds of loss.]
+[LAWYER: this section is unchanged from the published Terms. A lawyer should say whether it holds in the places you serve; in many countries a limit like this cannot cover consumers or some kinds of loss.]
 
 ## 13. Changes to Terms
 
@@ -167,10 +167,10 @@ For IB Coordinators, termination of access does not automatically delete the ass
 
 ## 15. Governing Law
 
-[OWNER Q1 and Q4: the published text says "the laws of the applicable jurisdiction", which does not name any law. Name the country or state whose law governs and where disputes are heard, for example "These Terms are governed by the laws of <place>, and the courts of <place> have jurisdiction." Add that nothing here limits rights you have under the mandatory consumer law of the country where you live.]
+These Terms are governed by the laws of [OWNER Q1: country] and the courts of [OWNER Q1: place] have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
 
 ## 16. Contact
 
 If you have any questions about these Terms, please contact us:
 
-- **Email:** [legal@ibmatch.com](mailto:legal@ibmatch.com)
+- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)

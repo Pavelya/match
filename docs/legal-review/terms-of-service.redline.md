@@ -8,9 +8,9 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 ## What changed, and why
 
 1. **Version and date.** As for the Privacy Policy: label and effective date are the day it is published.
-2. **1. Agreement.** Names who runs the Service (Q1): a contract needs a named party.
+2. **1. Agreement.** Says who runs the Service: an individual, not a registered company, at `support@ibmatch.com` (a contract needs a named party; the name and country are still to fill in).
 3. **2. Description.** Removes "For University Agents": program listing management, anonymised match analytics and recruitment insights. None of that exists (`product-today.md` §1). Keeps the "Important" disclaimer.
-4. **3. Eligibility.** The age line (Q2), the same choice as in the Privacy Policy.
+4. **3. Eligibility.** Age 16 (decided), as in the Privacy Policy.
 5. **4.1 Account creation.** Says how coordinators really arrive (IB Match invites a school's first coordinator; coordinators at a school with full access invite the rest), that students can also join by a school's invitation, and that administrators are IB Match staff. The agent line goes (no invitation route exists for agents).
 6. **4.3 (new) Deleting your account.** The published Terms say how we may end your access but not how you leave.
 7. **5.1 Students.** Linking "by accepting its invitation": there is no other way.
@@ -18,11 +18,11 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 9. **5.3 University Agents** becomes "Universities": no accounts that see students; IB Match staff maintain program information (Q5).
 10. **6.1 Free access.** Removes "University Agents: core features are free": there are none.
 11. **6.2 School access levels.** Adds the number (10 students on a free plan) and names editing students' data as a premium feature, as the portal does. "Bulk export" becomes "export": it exports the student list, once.
-12. **6.5 (new) Donations.** The Support us page links to Ko-fi; this says donations are voluntary gifts to IB Match, that Ko-fi provides the page and "is not a party to any Donation" (its terms, 13 July 2026), and that they buy no access (Q1: tax treatment).
+12. **6.5 (new) Donations.** The Support us page links to Ko-fi; this says donations are voluntary gifts to IB Match, that Ko-fi provides the page and "is not a party to any Donation" (its terms, 13 July 2026), that they buy no access, and that donations are not tax-deductible because IB Match is not a registered charity.
 13. **9. User content.** Drops "program listings" (the agents' content).
 14. **13. Changes.** Says what users will see when a version changes.
 15. **14. Termination.** Drops University Agents.
-16. **15. Governing law.** Flagged: "the laws of the applicable jurisdiction" names no law (Q1, Q4).
+16. **15. Governing law.** "The laws of the applicable jurisdiction" names no law: the draft has the structure and the country and place to fill in (owner), flagged for the lawyer. **6.4 and 16.** Refunds and the contact address move from `legal@` to `support@` (decided).
 17. **12. Limitation of liability.** Unchanged, and flagged for a lawyer (Q4).
 
 ## The redline
@@ -33,7 +33,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -5,2 +5,4 @@
  These Terms apply to all visitors, users, and others who access or use the Service, regardless of their role on the platform.
 +
-+[OWNER Q1: Say who runs the Service, for example "IB Match is run by <name or organisation>, <postal address>." These Terms need a named party on the other side.]
++IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
  
 @@ -12,3 +14,2 @@
  - **For IB Coordinators**: School-level student management tools, analytics dashboards, student progress tracking, and university guidance support for IB schools.
@@ -42,7 +42,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -21,3 +22,3 @@
  
 -- You are at least **13 years of age**
-+- You are at least [OWNER Q2: 16 / 13] years of age
++- You are at least 16 years of age
  - You are capable of forming a binding contract
 @@ -30,4 +31,5 @@
  
@@ -85,7 +85,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -- **Data Access**: Agents may view only **anonymized, aggregate statistics** about student matches with their programs. Agents do not have access to individual student identities or personal data.
 -- **Invitation Rights**: Agents may invite other agents to their university's workspace.
 -- **Data Deletion**: Agents may submit a request for deletion of their university and its programs from the platform. Such requests are subject to review by Platform Administrators.
-+Universities do not have accounts that can see students or their data. Program information comes from universities' published pages, and IB Match staff maintain it. [OWNER Q5: this replaces the previous section on University Agents, a role with no features in the Service today. If agent features are planned, restore a section when they ship.]
++Universities do not have accounts that can see students or their data. Program information comes from universities' published pages, and IB Match staff maintain it.
  
 @@ -88,3 +88,2 @@
  - **IB Students**: The Service is always free for students.
@@ -96,12 +96,14 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -- **Regular Schools**: A freemium model applies. Coordinators at Regular schools can see and use basic features for free. Premium features (unlimited student invitations, advanced analytics, bulk export, additional coordinator invitations) are visible but locked behind a paid subscription upgrade.
 +- **Regular Schools**: A freemium model applies. Coordinators at Regular schools can see and use basic features for free, including linking up to 10 students. Premium features (linking more than 10 students, editing students' academic data, advanced analytics, export, additional coordinator invitations) are visible but locked behind a paid subscription upgrade.
  
-@@ -107,2 +106,6 @@
- Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
+@@ -106,3 +105,7 @@
+ 
+-Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
++Refund requests are handled on a case-by-case basis. Please contact us at support@ibmatch.com for refund inquiries.
 +
 +### 6.5. Donations
 +
-+The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity. Ko-fi's terms make the page's owner responsible for any tax on what it receives.]
++The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. IB Match is not a registered charity, so donations are not tax-deductible.
  
 @@ -127,3 +130,3 @@
  
@@ -110,7 +112,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
  
 @@ -152,5 +155,7 @@
  
-+[OWNER Q4: this section is unchanged from the published Terms. A lawyer should say whether it holds in the places you serve; in many countries a limit like this cannot cover consumers or some kinds of loss.]
++[LAWYER: this section is unchanged from the published Terms. A lawyer should say whether it holds in the places you serve; in many countries a limit like this cannot cover consumers or some kinds of loss.]
 +
  ## 13. Changes to Terms
  
@@ -125,6 +127,10 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -164,3 +169,3 @@
  
 -These Terms shall be governed by and construed in accordance with the laws of the applicable jurisdiction, without regard to its conflict of law provisions.
-+[OWNER Q1 and Q4: the published text says "the laws of the applicable jurisdiction", which does not name any law. Name the country or state whose law governs and where disputes are heard, for example "These Terms are governed by the laws of <place>, and the courts of <place> have jurisdiction." Add that nothing here limits rights you have under the mandatory consumer law of the country where you live.]
++These Terms are governed by the laws of [OWNER Q1: country] and the courts of [OWNER Q1: place] have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
  
+@@ -170,2 +175,2 @@
+ 
+-- **Email:** [legal@ibmatch.com](mailto:legal@ibmatch.com)
++- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)
 ```
