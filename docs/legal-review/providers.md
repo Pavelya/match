@@ -3,9 +3,11 @@
 MAINT 7.4, step 2. Each page below was fetched and read as text on **23 October 2026**; "page dated" is the date the
 page itself shows.
 
-**What could still not be read:** Vercel's sub-processor list (`security.vercel.com`, blocked to scripted
-requests), Ko-fi's help pages and pricing (blocked), the Algolia GDPR FAQ (blocked), the Upstash trust center and the
-Data Privacy Framework list (both need a browser). Those rows say so. The Article 8 table is a secondary source.
+**What could still not be read** (some pages needed a headless browser; those were read that way): Vercel's
+sub-processor list (`security.vercel.com` answers scripted requests and the browser with a bot check), the Data
+Privacy Framework register (`dataprivacyframework.gov/list`: its search returned "no results" even for Stripe
+and Vercel, so nothing was confirmed from it), and the Court of Justice's record of Case C-703/25 P. The Article 8
+table is a secondary source. Those rows say so.
 
 ## Read this first: the Vercel plan decides three things
 
@@ -70,9 +72,10 @@ earlier text: no earlier versions were available to read.
   the court's register): the General Court dismissed the challenge (Latombe v Commission) on 3 September 2025;
   Latombe appealed on 31 October 2025 (Case C-703/25 P); Microsoft was admitted as an intervener on 4 June 2026; no
   ruling or hearing date was reported. The providers' own pages say Vercel, Resend, Stripe and Upstash use or are
-  certified under the DPF; Supabase and Algolia rely on the SCCs alone. **The draft Privacy Policy names the SCCs
-  first and the DPF only "where a provider is certified", so a ruling would not make it wrong.** Confirm each
-  certification on `dataprivacyframework.gov/list` (a page that needs a browser).
+  certified under the DPF (Upstash's trust center lists it under Compliance); Supabase and Algolia rely on the
+  SCCs alone. **The draft Privacy Policy names the SCCs
+  first and the DPF only "where a provider is certified", so a ruling would not make it wrong.** The register itself could not
+  be searched from here: confirm each certification on `dataprivacyframework.gov/list` in a normal browser.
 
 ## The age of digital consent (GDPR Article 8)
 
@@ -99,10 +102,13 @@ figure here.
   shall automatically be deducted from the relevant transaction by one of our third-party payment providers", at the
   rates "listed from time to time on our site"; and the creator "is solely responsible for determining, withholding,
   collecting, reporting, and remitting any taxes (including but not limited to income tax, VAT, GST…)". The
-  percentages were on Ko-fi pages that blocked scripted requests; the only source for them is a search summary
-  (0% on one-time tips for the free tier, 5% on memberships and monthly tips, PayPal or Stripe fees on top, about
-  3% + $0.30). Open Ko-fi's pricing page to confirm. This is the evidence behind the "100% goes to platform costs"
-  row in `claims.md`.
+  rates, from Ko-fi's help page "Does Ko-fi take a fee?" and its pricing page (read in a browser): on the Free
+  option, 0% on one-off tips and 5% on monthly tips, memberships, commissions and shop sales; on Standard, 5% on
+  everything; "New creators now start with all of Ko-fi unlocked from day one" (the 5% mode) unless they opt out;
+  "Normal payment processor fees also apply on top" (typically around 3% + $0.30). This is the evidence behind
+  the "100% goes to platform costs" row in `claims.md`. **IB Match's own Ko-fi page** (`ko-fi.com/ibmatch`) says
+  "non-commercial passion project", "Over 1K programs from more than 40 universities", "Next milestone: the rollout
+  of the module for the IB coordinators" and "100% free, forever": see row K1 in `claims.md`.
 - **Calendly** (the coordinator feedback call). Third party; the Cookie Policy draft says so.
 
 ## Pages read
@@ -119,4 +125,5 @@ All fetched 23 October 2026: `vercel.com/legal/dpa`, `/legal/privacy-policy`, `/
 `developers.google.com/terms/api-services-user-data-policy`, `support.google.com/cloud/answer/13806988`, `/13807376`,
 and Google's OAuth policy-compliance page; `more.ko-fi.com/terms`; `gdprlocal.com/digital-age-of-consent-under-the-gdpr/`.
 Read from the live site: `https://www.ibmatch.com/` and `/api/auth/*` response headers, 22–23 October 2026.
-Search summaries only: the DPF appeal, and Ko-fi's percentages.
+Read in a headless browser: Ko-fi's help, pricing and IB Match pages, the Algolia GDPR FAQ (its terms were revised
+12 January 2026), the Upstash trust center. Search summaries only: the DPF appeal.

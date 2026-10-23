@@ -17,10 +17,10 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 ## Three limits
 
 1. **A few provider pages could not be read.** The first pass of step 2 was blocked by the environment's network
-   policy; once it was widened, nearly every provider page was read directly (`providers.md`, "Pages read"). Still
-   unread: Vercel's sub-processor list, Ko-fi's pricing and help pages, Algolia's GDPR FAQ, the Upstash trust center
-   and the Data Privacy Framework list. The Article 8 age table is a secondary source and the DPF appeal comes
-   from search summaries.
+   policy; once it was widened, nearly every provider page was read directly, some in a headless browser
+   (`providers.md`, "Pages read"). Still unread: Vercel's sub-processor list, the Data Privacy Framework register
+   and the Court's record of the DPF appeal. The Article 8 age table is a secondary source and the DPF appeal
+   comes from search summaries.
 2. **The published Terms and Privacy Policy are in the production database, which was not queried** (no `.env`
    here). They were read from the live pages on 23 October 2026. The text matches `docs/templates/legal/`,
    which is the baseline for the redlines. The Cookie Policy is the text in `app/cookies/page.tsx`.
@@ -124,7 +124,8 @@ wording changes in code in the same window (below).
    improving its products; the Privacy Policy draft says so in its table.
 8. **Google Cloud Console.** OAuth consent screen: the privacy policy link is `https://www.ibmatch.com/privacy`, the
    app is "In production", and the homepage is not only a login page.
-9. **Ko-fi.** Which of your PayPal or Stripe accounts it pays into, and the fee on your page.
+9. **Ko-fi.** Which of your PayPal or Stripe accounts it pays into, and whether the page is on the Free option (0% on
+   one-off tips) or Standard (5% on everything). Your Ko-fi page's own text carries the claims in `claims.md` K1.
 10. **The DPF list** (`dataprivacyframework.gov/list`, which needs a browser) for Vercel, Resend, Stripe and Upstash,
     whose own pages say they use it. Supabase and Algolia rely on the SCCs alone.
 11. **Subscribe** to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
