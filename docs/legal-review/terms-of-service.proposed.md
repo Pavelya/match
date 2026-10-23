@@ -4,7 +4,7 @@ By accessing or using **IB Match** ("the Service"), you agree to be bound by the
 
 These Terms apply to all visitors, users, and others who access or use the Service, regardless of their role on the platform.
 
-IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
+IB Match is run by Pavel Yampolsky, an individual in Poland. It is not a registered company. You can reach it at support@ibmatch.com. [LAWYER: say whether a postal address must also be given.]
 
 ## 2. Description of Service
 
@@ -85,7 +85,7 @@ Platform Administrators are internal team members responsible for operating and 
 
 ### 6.1. Free Access
 
-- **IB Students**: The Service is always free for students.
+- **IB Students**: The Service is free for students.
 
 ### 6.2. School Access Levels
 
@@ -103,7 +103,7 @@ IB Schools have one of two access levels:
 
 ### 6.4. Refunds
 
-Refund requests are handled on a case-by-case basis. Please contact us at support@ibmatch.com for refund inquiries.
+Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
 
 ### 6.5. Donations
 
@@ -167,10 +167,10 @@ For IB Coordinators, termination of access does not automatically delete the ass
 
 ## 15. Governing Law
 
-These Terms are governed by the laws of [OWNER Q1: country] and the courts of [OWNER Q1: place] have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
+These Terms are governed by the laws of Poland and the courts of Poland have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
 
 ## 16. Contact
 
 If you have any questions about these Terms, please contact us:
 
-- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)
+- **Email:** [legal@ibmatch.com](mailto:legal@ibmatch.com)

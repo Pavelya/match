@@ -8,7 +8,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 ## What changed, and why
 
 1. **Version and date.** As for the Privacy Policy: label and effective date are the day it is published.
-2. **1. Agreement.** Says who runs the Service: an individual, not a registered company, at `support@ibmatch.com` (a contract needs a named party; the name and country are still to fill in).
+2. **1. Agreement.** Says who runs the Service: Pavel Yampolsky, an individual in Poland, not a registered company, at `support@ibmatch.com` (a contract needs a named party).
 3. **2. Description.** Removes "For University Agents": program listing management, anonymised match analytics and recruitment insights. None of that exists (`product-today.md` §1). Keeps the "Important" disclaimer.
 4. **3. Eligibility.** Age 16 (decided), as in the Privacy Policy.
 5. **4.1 Account creation.** Says how coordinators really arrive (IB Match invites a school's first coordinator; coordinators at a school with full access invite the rest), that students can also join by a school's invitation, and that administrators are IB Match staff. The agent line goes (no invitation route exists for agents).
@@ -16,13 +16,13 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 7. **5.1 Students.** Linking "by accepting its invitation": there is no other way.
 8. **5.2 Coordinators.** Editing student data "where the school's access level allows" (it is full access only); inviting other coordinators "where the school's access level allows". Deleting data is a request, as in the portal's placeholder.
 9. **5.3 University Agents** becomes "Universities": no accounts that see students; IB Match staff maintain program information (Q5).
-10. **6.1 Free access.** Removes "University Agents: core features are free": there are none.
+10. **6.1 Free access.** Removes "University Agents: core features are free": there are none. "Always free" becomes "free for students" (decided: "we have no plans to charge them" instead of "forever").
 11. **6.2 School access levels.** Adds the number (10 students on a free plan) and names editing students' data as a premium feature, as the portal does. "Bulk export" becomes "export": it exports the student list, once.
 12. **6.5 (new) Donations.** The Support us page links to Ko-fi; this says donations are voluntary gifts to IB Match, that Ko-fi provides the page and "is not a party to any Donation" (its terms, 13 July 2026), that they buy no access, and that donations are not tax-deductible because IB Match is not a registered charity.
 13. **9. User content.** Drops "program listings" (the agents' content).
 14. **13. Changes.** Says what users will see when a version changes.
 15. **14. Termination.** Drops University Agents.
-16. **15. Governing law.** "The laws of the applicable jurisdiction" names no law: the draft has the structure and the country and place to fill in (owner), flagged for the lawyer. **6.4 and 16.** Refunds and the contact address move from `legal@` to `support@` (decided).
+16. **15. Governing law.** "The laws of the applicable jurisdiction" names no law: the draft says the laws and courts of Poland, the operator's country, flagged for the lawyer. **6.4 and 16.** Refunds and the contact address keep `legal@` (it forwards to `support@`).
 17. **12. Limitation of liability.** Unchanged, and flagged for a lawyer (Q4).
 
 ## The redline
@@ -33,7 +33,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -5,2 +5,4 @@
  These Terms apply to all visitors, users, and others who access or use the Service, regardless of their role on the platform.
 +
-+IB Match is run by [OWNER Q1: your name as it should appear], an individual in [OWNER Q1: country]. It is not a registered company. You can reach it at support@ibmatch.com. [OWNER Q1 / LAWYER: say whether a postal address must also be given.]
++IB Match is run by Pavel Yampolsky, an individual in Poland. It is not a registered company. You can reach it at support@ibmatch.com. [LAWYER: say whether a postal address must also be given.]
  
 @@ -12,3 +14,2 @@
  - **For IB Coordinators**: School-level student management tools, analytics dashboards, student progress tracking, and university guidance support for IB schools.
@@ -87,19 +87,19 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -- **Data Deletion**: Agents may submit a request for deletion of their university and its programs from the platform. Such requests are subject to review by Platform Administrators.
 +Universities do not have accounts that can see students or their data. Program information comes from universities' published pages, and IB Match staff maintain it.
  
-@@ -88,3 +88,2 @@
- - **IB Students**: The Service is always free for students.
+@@ -87,4 +87,3 @@
+ 
+-- **IB Students**: The Service is always free for students.
 -- **University Agents**: Core features are free for university agents.
++- **IB Students**: The Service is free for students.
  
 @@ -95,3 +94,3 @@
  - **VIP Schools**: Schools admitted to our early adopter program receive full, unrestricted access to all coordinator features at no cost. All coordinators at a VIP school inherit this full access.
 -- **Regular Schools**: A freemium model applies. Coordinators at Regular schools can see and use basic features for free. Premium features (unlimited student invitations, advanced analytics, bulk export, additional coordinator invitations) are visible but locked behind a paid subscription upgrade.
 +- **Regular Schools**: A freemium model applies. Coordinators at Regular schools can see and use basic features for free, including linking up to 10 students. Premium features (linking more than 10 students, editing students' academic data, advanced analytics, export, additional coordinator invitations) are visible but locked behind a paid subscription upgrade.
  
-@@ -106,3 +105,7 @@
- 
--Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
-+Refund requests are handled on a case-by-case basis. Please contact us at support@ibmatch.com for refund inquiries.
+@@ -107,2 +106,6 @@
+ Refund requests are handled on a case-by-case basis. Please contact us at legal@ibmatch.com for refund inquiries.
 +
 +### 6.5. Donations
 +
@@ -127,10 +127,6 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 @@ -164,3 +169,3 @@
  
 -These Terms shall be governed by and construed in accordance with the laws of the applicable jurisdiction, without regard to its conflict of law provisions.
-+These Terms are governed by the laws of [OWNER Q1: country] and the courts of [OWNER Q1: place] have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
++These Terms are governed by the laws of Poland and the courts of Poland have jurisdiction, without limiting any rights you have under the mandatory consumer law of the country where you live. [LAWYER: the published text said "the laws of the applicable jurisdiction", which names no law; confirm the choice and the wording.]
  
-@@ -170,2 +175,2 @@
- 
--- **Email:** [legal@ibmatch.com](mailto:legal@ibmatch.com)
-+- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)
 ```

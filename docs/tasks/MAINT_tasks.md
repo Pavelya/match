@@ -2536,18 +2536,17 @@ decisions and the action list, the data map, the provider notes (read from the p
 owner's dashboard screenshots and files), a redline and a pasteable draft for each of the three documents, the
 claims table, and a brief for the lawyer. Nothing is published and no code changed.
 
-**Decided by the owner (23 October 2026):** IB Match is a hobby project run by an individual, with no registered
-company, no donations so far and paying customers (schools); age 16 and older; `support@ibmatch.com` is the one
-address kept; a lawyer reviews the Privacy Policy and Terms; the University Agent promises, the unkept 90-day
+**Decided by the owner (23 October 2026):** IB Match is a hobby project run by Pavel Yampolsky, an individual in Poland,
+with no registered company, no donations so far and paying customers (schools); Tal is the founder and it was built
+together; age 16 and older; `support@` is read and `privacy@` and `legal@` forward to it; free "forever" becomes "free
+for students; we have no plans to charge them"; the early adopter program is open; the four coordinator quotes are
+not real; a lawyer reviews the Privacy Policy and Terms; the University Agent promises, the unkept 90-day
 invitation deletion, "GDPR Compliant", "non-profit", "non-commercial" and the donation claims (the whole "where your
 support goes" section, since no donations exist) all go; the three documents are published together on release day.
 
-**Still needed from the owner:** their name as it should appear, the governing country and whether to give a postal
-address; who built IB Match (one person?); whether "free forever" stays; whether the early adopter program is open;
-whether the coordinator quotes are real; whether the 24–48-hour reply time is true; and eight dashboard checks
-(Model Training off on Vercel, function and Upstash regions, Upstash plan and analytics, Resend tracking off, the Google
-consent screen's privacy link, Ko-fi's fee option, and whether a Cookie Policy or FAQ is already published). **After
-that:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull requests),
+**Still needed before publishing:** the lawyer's review, and eight dashboard checks the screenshots did not cover (Model
+Training off on Vercel, function and Upstash regions, Upstash plan and analytics, Resend tracking off, the Google
+consent screen's privacy link, Ko-fi's fee option, and whether a Cookie Policy or FAQ is already published). **Next:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull requests),
 then publishing in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
 coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
 policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the

@@ -67,7 +67,7 @@ If you block the essential cookies above, you will not be able to sign in. Check
 
 If you have questions about our use of cookies, please contact us at:
 
-- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)
+- **Email:** [privacy@ibmatch.com](mailto:privacy@ibmatch.com)
 
 ## Updates to This Policy
 

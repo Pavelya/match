@@ -30,93 +30,87 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 
 ## Decisions settled on 23 October 2026 (step 3)
 
-**The facts the owner gave:** IB Match has no registered company; it is a hobby project run by an individual; it has
-received **no donations** so far and **has paying customers** (schools); `support@ibmatch.com` is the mailbox that is
-read; a lawyer will check the Privacy Policy and Terms. The owner accepted every recommendation made in the first
-version of this page.
+**The facts the owner gave:** IB Match has no registered company; it is a hobby project run by **Pavel Yampolsky, an
+individual in Poland**; it has received **no donations** so far and **has paying customers** (schools); Tal is the
+founder and it was built together with Pavel; a lawyer will check the Privacy Policy and Terms. The owner accepted every
+recommendation made in the first version of this page and answered the rest.
 
 | | Decision | What it did to the drafts |
 |---|---|---|
-| **Q1** | The operator is an **individual**, not a company | Both drafts now say "run by [name], an individual in [country]. It is not a registered company". "Non-profit" and "non-commercial" go (schools pay). Terms 6.5 says donations are not tax-deductible, because IB Match is not a registered charity. **Name, country and address are still needed (below)** |
-| **Q2** | **A: 16 and older** | Privacy 12 and Terms 3 say 16; Option B is gone |
-| **Q3** | **`support@` is the address kept** | Every contact point in the drafts is `support@ibmatch.com`, or the Contact page's Data & privacy request. `privacy@`, `legal@`, `universities@` and `admin@` leave the drafts and the public pages (`claims.md` M6) |
-| **Q4** | **A lawyer reviews** | The points for the lawyer are tagged `[LAWYER: …]` in the drafts and listed in [`lawyer-brief.md`](./lawyer-brief.md) |
-| **Q5** | Remove the University Agent promises | Done in both drafts |
-| **Q6** | Change the invitation-record words, do not build a deletion | Done in Privacy 8 |
-| **Q7** | Coordinator and school deletion stays "ask us" | Done in Privacy 8 and 9 |
+| **Q1** | The operator is **Pavel Yampolsky, an individual in Poland**; no registered company. Only the name and country were given: no postal address | Both drafts say "run by Pavel Yampolsky, an individual in Poland. It is not a registered company", reachable at `support@`. Terms 15: the laws and courts of **Poland**. "Non-profit" and "non-commercial" go (schools pay). Terms 6.5: donations are not tax-deductible. Whether a postal address is required is the lawyer's call |
+| **Q2** | **A: 16 and older** | Privacy 12 and Terms 3 |
+| **Q3** | `support@` is read; **`privacy@` and `legal@` forward to it**; "reply in 24–48 hours" is true | Privacy and the Cookie Policy keep `privacy@`; Terms keep `legal@`; the 24–48-hour line stays. `universities@` and `admin@` become `support@` (`claims.md` M6) |
+| **Q4** | **A lawyer reviews** | `[LAWYER: …]` notes in the drafts and [`lawyer-brief.md`](./lawyer-brief.md) |
+| **Q5** | Remove the University Agent promises | Both drafts |
+| **Q6** | Change the invitation-record words, do not build a deletion | Privacy 8 |
+| **Q7** | Coordinator and school deletion stays "ask us" | Privacy 8 and 9 |
 | **Q8** | Remove "GDPR Compliant" | `claims.md` H1 |
-| **Q9** | One story everywhere | **Who** is still missing (below) |
-| **Q10** | Remove the money claims | **Wider than proposed:** with no donations received, the whole "Where your support goes" section goes, not only the percentages (`claims.md` S1 to S7, K1) |
+| **Q9** | **Tal is the founder; built together with Pavel** | One sentence everywhere: "started by Tal, an IB Diploma graduate, and built together with Pavel" (`claims.md` S9) |
+| **Q10** | Remove the money claims | Wider than proposed: with no donations received, the whole "Where your support goes" section goes (`claims.md` S1 to S7, K1) |
 | **Q11** | The dashboards answered most of it | See "Checks" |
 | **Q12** | Publish all three on release day; label and effective date are the day | Unchanged |
+| S8 | **"Free for students. We have no plans to charge them."** instead of "forever" and "always" | Terms 6.1 and seven places in code (`claims.md` S8) |
+| C6 | The early adopter program is **open** | Keep, reworded (`claims.md` C6) |
+| C7 | The four coordinator quotes are **not real** | Remove them (`claims.md` C7, C9) |
 
 ## Action list: what is left, and who does it
 
-**Answers I need from the owner** (each blocks the item shown):
+**Nothing blocks the pull request or the drafts any more.** Two optional confirmations, each with a default I will use:
 
-| # | Question | Blocks |
-|---|---|---|
-| 1 | **Your name as it should appear** in the Privacy Policy and Terms, the **country** whose law governs and whose courts hear disputes, and whether to give a **postal address** (the lawyer decides if one is required) | Privacy 1, Terms 1 and 15 |
-| 2 | **Q9: who built IB Match?** One person? Is it "Tal" as the founder note says, and is Tal the person named in answer 1? | The founder wording on five pages |
-| 3 | **"Free forever"** (`claims.md` S8): keep it, or "free for students; we have no plans to charge them"? My lean is the second | Support us, Home, Terms 6.1 |
-| 4 | **Is the early adopter program still open** (C6)? | For schools |
-| 5 | **Are the four coordinator quotes real** (C7)? | For schools |
-| 6 | **Is "we usually reply in 24–48 hours" true** (M3)? | Contact, forms, ticket email |
-| 7 | Do `privacy@` and `legal@` forward to the `support@` inbox? If yes they could stay; if not the drafts keep `support@` only | Optional |
+| Question | Default if you do not answer |
+|---|---|
+| Is **Pavel also an IB graduate**? (For schools says "former IB students… we lived through the IB experience ourselves") | Singular: "started by an IB graduate", as only Tal is known to be one |
+| Have coordinators actually **given feedback**? (For schools says "Based on coordinator feedback, we're building…") | Drop "Based on coordinator feedback" (`claims.md` C9) |
 
-**Owner checks** (facts from your dashboards: the "Still open" list below, 8 items).
+**Owner checks** (facts from your dashboards that the screenshots did not show: "Still open" below, 8 items).
 
 **Lawyer:** read the three drafts with [`lawyer-brief.md`](./lawyer-brief.md); settle every `[LAWYER: …]` note.
 
-**Me, once 1 to 6 are answered** (separate sessions, each its own pull request):
+**Me, in separate sessions** (each its own pull request):
 
 | Task | What | Needs |
 |---|---|---|
-| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`, `support@` in place of the other mailboxes, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | Answers 2 to 6 |
+| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | Nothing: ready to start |
 | **B. Small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
-**This pull request** (docs only, nothing published): the branch is 5 commits ahead of `main` and 0 behind, merges
-cleanly, touches no code, and Prettier ignores Markdown, so CI is unaffected. The `[OWNER …]` and `[LAWYER …]` notes
-are expected in drafts. It can be opened as soon as you say so.
+**Before publishing** (not before the pull request): the lawyer's review, the eight checks, and the `[LAWYER: …]`
+and remaining `[OWNER: …]` notes settled (one is left in the Privacy draft: the Vercel and Upstash regions).
+
+**This pull request** (docs only, nothing published): the branch merges cleanly with `main`, touches no code, and
+Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you say so.
 
 ## Checks only the owner can make
 
-**Answered on 23 October 2026** (screenshots and files from you), and what each changed:
+**Answered from your screenshots and files on 23 October 2026.** Five of the original eleven checks were settled by
+them, and the others in part:
 
-| Check | Result | Effect |
-|---|---|---|
-| Supabase | **Free plan, Central EU (Frankfurt), Nano, no backups** | The Privacy draft says the database is in Frankfurt and that no backups are kept |
-| Vercel plan | **Pro** (the Add-Ons page's "12 months viewable history" is Pro's; Hobby has one month). Speed Insights Plus, Observability Plus and Web Analytics Plus are off | The Hobby problem does not arise; the DPA applies; runtime logs last one day; no Vercel analytics |
-| Algolia | **Build plan, Europe (FR), 1.78K records; Search Analytics on** (366 searches, "258 users", no events) | Search words sit in Algolia's logs for 90 days in France; the "users" are Vercel's server addresses, since no `userToken` or visitor IP is sent |
-| Resend | **Free plan**, 6 of 3,000 emails this month; countersigned DPA (generic, customer block blank) | 30-day log confirmed; the Privacy draft's placeholder is gone |
-| Google scopes | `userinfo.email`, `userinfo.profile`, `openid`: all non-sensitive | Limited Use rules do not bind IB Match |
-| DPF register | Vercel, Stripe, Upstash **Active**; **Resend "Active - Re-certification under Review"**; Algolia, Supabase and Ko-fi not on it | The draft names the SCCs first, so it stays right either way |
-| DPF appeal | Order of 4 June 2026 (C-703/25 P): appeal pending; Microsoft admitted as intervener | Wording unchanged |
-| Ko-fi | Account type: creator | Ko-fi's tax clause applies to you (Q1) |
-| Published Terms and Privacy | The text matches the live pages used as the baseline | No change |
+| Check | What you showed | Result | Effect |
+|---|---|---|---|
+| Supabase | Project overview | **Free plan, Central EU (Frankfurt), Nano, "No backups"** | The Privacy draft says the database is in Frankfurt and that no backups are kept |
+| Vercel plan | Add-Ons page | **Pro** ("12 months viewable history" is Pro's; Hobby has one month). Speed Insights Plus, Observability Plus and Web Analytics Plus are **off** | The Hobby problem does not arise; the DPA applies; runtime logs last one day. The Plus add-ons being off says nothing about the free base Web Analytics; that none runs is from the live site, which loads no Vercel script |
+| Algolia | Applications and Analytics pages | **Build plan, Europe (FR), 1.78K records; Search Analytics on** (366 searches, "258 users", no events) | Search words sit in Algolia's logs for 90 days in France; the "users" are Vercel's server addresses, since no `userToken` or visitor IP is sent |
+| Resend | Settings → Usage | **Free plan**, 6 of 3,000 emails this month; Marketing: 0 of 1,000 contacts; a Documents tab | 30-day log confirmed; no marketing audience, matching "we send no marketing email". The signed DPA you attached is generic |
+| Google scopes | Scope list | `userinfo.email`, `userinfo.profile`, `openid`: all non-sensitive | Limited Use rules do not bind IB Match |
+| DPF register | The participant list | Vercel, Stripe, Upstash **Active**; **Resend "Active - Re-certification under Review"**; Algolia, Supabase and Ko-fi not on it | The draft names the SCCs first, so it stays right either way |
+| DPF appeal | The Court's order | C-703/25 P pending; Microsoft admitted | Wording unchanged |
+| Ko-fi | Account type | Creator | Ko-fi's tax clause applies to you |
+| Published Terms and Privacy | The admin's view | Matches the live pages used as the baseline | No change |
 
-**Still open:**
+**Still open** (none of the screenshots showed these screens; where to find each):
 
-1. **Vercel → Team Settings: Model Training is off.** The Terms say it is an opt-in on a paid Pro plan, but Vercel's privacy notice
-   (changed since February) says that for "Hobby and Pro plan users, subject to your data preferences in your team settings" it
-   may share de-identified information with AI partners, and lists a Team Preferences "Opt-out of Model Training". Check it is off.
-2. **Vercel function region** (Settings → Functions; the `x-vercel-id` read `iad1::fra1`, so probably Frankfurt) and
-   **Upstash: region, plan and Prod Pack** (+$200/month, which is what gives Redis encryption at rest; without it, say
-   "encrypted at rest" only of the Supabase database). Neither was in the screenshots.
-3. **Upstash rate-limit analytics.** `lib/rate-limit.ts` creates each limiter with `analytics: true`. In the Upstash data
-   browser, look at the keys under `@upstash/ratelimit` and `ratelimit:`: if they keep IP addresses with no expiry, the
-   Privacy Policy has to say so or the flag goes (a code change).
-4. **Resend → Domains → `ibmatch.com`: open tracking and click tracking are off.** Resend's DPA (Exhibit A) says a customer
-   "has the option to enable open/link tracking… which could include IP address, location, operating system, browser,
-   device, email client". If either is on, the Privacy Policy has to say so, and click tracking rewrites sign-in links.
-5. **Google Cloud Console, OAuth consent screen:** the privacy policy link is `https://www.ibmatch.com/privacy` and the
-   app is "In production". The scopes were shown; those two things were not.
-6. **Ko-fi:** which PayPal or Stripe account it pays into, and whether the page is on the Free option (0% on one-off tips)
-   or Standard (5% on everything). The page's own text carries the claims in `claims.md` K1.
-7. **Production database / `/admin/legal-content`:** whether a Cookie Policy or FAQ document is already published
-   there (the live pages show the code text for both).
-8. **Subscribe** to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
+| # | Check | Where | Why it matters |
+|---|---|---|---|
+| 1 | **Model Training is off** | Vercel → Team Settings → "Model Training" (or the team's data preferences) | The Terms say it is an opt-in on paid Pro, but Vercel's privacy notice (changed since February) says Hobby and Pro teams' de-identified data may go to AI partners "subject to your data preferences in your team settings" |
+| 2 | **Vercel function region** | Vercel → project → Settings → Functions. The `x-vercel-id` read `iad1::fra1`, so probably Frankfurt | Privacy 11 |
+| 3 | **Upstash: region, plan, Prod Pack** | Upstash console → the database → Details. Prod Pack (+$200/month) is what gives encryption at rest | Privacy 11; "encrypted at rest" is true of the Supabase database, and of Redis only with Prod Pack |
+| 4 | **Upstash rate-limit analytics** | Upstash data browser: keys under `@upstash/ratelimit` and `ratelimit:`. `lib/rate-limit.ts` sets `analytics: true` | If IP addresses stay there with no expiry, the Privacy Policy must say so, or the flag goes (a code change) |
+| 5 | **Resend open and click tracking are off** | Resend → Domains → `ibmatch.com` → tracking options | Resend's DPA (Exhibit A): tracking "could include IP address, location, operating system, browser, device, email client"; click tracking rewrites sign-in links |
+| 6 | **Google consent screen** | Google Cloud Console → Google Auth Platform → Branding / Audience: privacy policy link is `https://www.ibmatch.com/privacy`, publishing status "In production" | Google requires the link to match the homepage's |
+| 7 | **Ko-fi fee option and payout account** | Ko-fi → Settings → Payment | Free (0% on one-off tips) or Standard (5% on everything) |
+| 8 | **Is a Cookie Policy or FAQ already published?** | `/admin/legal-content` (the live pages show the code text for both) | Decides whether publishing replaces something |
+
+Also: subscribe to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
 ## Found while checking (not in the 7.4 list)
 

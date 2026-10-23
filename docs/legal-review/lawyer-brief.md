@@ -6,12 +6,14 @@ words, prepared with an AI assistant's research; they are not legal advice, and 
 ## The business in one paragraph
 
 IB Match (`www.ibmatch.com`) matches International Baccalaureate Diploma students (usually 16 to 19) with university
-programs in 23 countries. It is **free for students** and **run by one individual with no registered company**. Schools
+programs in 23 countries. It is **free for students** and **run by Pavel Yampolsky, an individual in Poland, with no
+registered company**; Tal, the founder, built it together with him. Schools
 can pay a subscription (through Stripe) for extra coordinator features, and there **are paying customers**. A school's
 coordinators can see a student's profile only after that student accepts an invitation. No donation has been received
 (a Ko-fi page exists). Students sign up themselves (email link or Google); coordinators are invited; there is no
 advertising and no analytics. Data is held with Supabase (Frankfurt), Vercel, Upstash, Algolia (France), Resend (USA)
-and Stripe. Visitors and users are worldwide. The owner uses `support@ibmatch.com` as the only contact address.
+and Stripe. Visitors and users are worldwide. `support@ibmatch.com` is the mailbox that is read; `privacy@` and
+`legal@` forward to it.
 
 ## Read first
 
@@ -26,13 +28,16 @@ and Stripe. Visitors and users are worldwide. The owner uses `support@ibmatch.co
 
 Each is tagged `[LAWYER: …]` in the drafts where it arises.
 
-1. **The operator.** An individual running a service with paying business customers and no company. Is that sole
-   trader position acceptable, and should it change (personal liability)? What must the Privacy Policy and Terms say
-   to identify the operator, and is a postal address required (GDPR Article 13(1)(a), and any e-commerce or
-   consumer-information duty), or is a name and `support@` enough? (Privacy 1, Terms 1.)
-2. **Governing law and courts** (Terms 15). The published Terms name "the laws of the applicable jurisdiction". Which
-   law and forum, given the operator's country and worldwide users? Does the carve-out for mandatory consumer law
-   read correctly? Are schools consumers or businesses, and students?
+1. **The operator.** A private individual in Poland, running a service with paying school customers and no
+   registered company. Is that position acceptable under Polish law (registered or unregistered business activity,
+   VAT), and should it change (personal liability)? Tal built the service together with the operator but is not named:
+   does that make a partnership, or change who the controller and the contracting party are? What must the Privacy
+   Policy and Terms say to identify the operator, and is a postal address required (GDPR Article 13(1)(a), and any
+   e-commerce or consumer-information duty), or are a name and `support@` enough? The supervisory authority would be
+   Poland's UODO. (Privacy 1, Terms 1.)
+2. **Governing law and courts** (Terms 15). The published Terms name "the laws of the applicable jurisdiction"; the draft
+   now says the laws and courts of Poland, the operator's country. Is that right for worldwide users, does the carve-out
+   for mandatory consumer law read correctly, and are schools consumers or businesses, and students?
 3. **Controller and processor** (Privacy 10). The draft keeps the published position: IB Match is the controller for
    accounts and matching, and a processor when a school's coordinators manage a linked student's data. A student
    creates the account and agrees to the link; is IB Match really a processor there, a joint controller, or the
@@ -67,5 +72,5 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
 
 ## Not for you
 
-Wording the owner has already settled (no University Agent role; the age; `support@` as the one address) and the
-code changes listed in the README's action list.
+Wording the owner has already settled (no University Agent role; the age; "free for students" in place of "forever"; the
+money claims) and the code changes listed in the README's action list.

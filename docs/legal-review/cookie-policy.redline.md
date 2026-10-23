@@ -14,7 +14,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 5. **The three optional categories** (analytics, preference, marketing: each "Currently not used") become one paragraph that promises to list any such cookie here first and ask before setting it.
 6. **Other companies.** New: no third-party scripts or fonts load (CSP; the live pages); Google's pages and picture, Stripe's checkout, and the Ko-fi and Calendly links have their own policies.
 7. **"You can change your preferences at any time by clearing your browser cookies."** Now: clear this site's cookies and stored data (the choice also lives in `localStorage`).
-8. **Contact.** The email address is `support@ibmatch.com` (decided).
+8. **Contact.** The email address is `privacy@ibmatch.com` (it forwards to `support@`).
 9. **Date and version.** Publish with the Terms and the Privacy Policy on release day. The Cookie Policy does not trigger the update banner: `ReconsentChecker` reads the Terms and the Privacy Policy only. Keep one h1 (5.23); the draft has none because the page supplies it.
 
 ## The redline
@@ -104,7 +104,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
  If you have questions about our use of cookies, please contact us at:
 -- Email: privacy@ibmatch.com
 +
-+- **Email:** [support@ibmatch.com](mailto:support@ibmatch.com)
++- **Email:** [privacy@ibmatch.com](mailto:privacy@ibmatch.com)
  
 @@ -56,2 +73,2 @@
  
