@@ -121,7 +121,9 @@ wording changes in code in the same window (below).
 
 **Still open:**
 
-1. **Vercel → Team Settings: Model Training is off.** On Pro it is an opt-in, so it should be; check it.
+1. **Vercel → Team Settings: Model Training is off.** The Terms say it is an opt-in on a paid Pro plan, but Vercel's privacy notice
+   (changed since February) says that for "Hobby and Pro plan users, subject to your data preferences in your team settings" it
+   may share de-identified information with AI partners, and lists a Team Preferences "Opt-out of Model Training". Check it is off.
 2. **Vercel function region** (Settings → Functions; the `x-vercel-id` read `iad1::fra1`, so probably Frankfurt) and
    **Upstash: region, plan and Prod Pack** (+$200/month, which is what gives Redis encryption at rest; without it, say
    "encrypted at rest" only of the Supabase database). Neither was in the screenshots.

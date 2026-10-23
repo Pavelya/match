@@ -48,10 +48,34 @@ server addresses, not people, and a visitor's search words sit in Algolia's logs
 AI vendors (Anthropic and OpenAI among them) appear in Resend's, Supabase's and Algolia's lists. IB Match uses none of
 those providers' AI features, as far as the code shows; Resend's reason for listing them is not stated on the page.
 
-Changes since February 2026 that were found: Vercel's DPA (March), Privacy Notice (June) and Terms (October);
-Supabase's sub-processor list (June, October); Resend's list (August); Ko-fi's terms (July); Stripe's DPA
-(September). Algolia's DPA and list are unchanged since January. None of these changes was compared with its
-earlier text: no earlier versions were available to read.
+## What changed since February 2026
+
+The Wayback Machine's snapshots could not be fetched from this session (its content host resets the connection, though its
+index answered), so this compares the earlier versions that providers publish themselves, and the dates on the
+pages. Read on 23 October 2026.
+
+| Provider | Since February 2026 | What it means for IB Match |
+|---|---|---|
+| **Vercel DPA** | Page last updated 17 March 2026, effective **31 March 2026**, and it "applies to… Customers who are on Enterprise and Pro plans". An older DPA, an undated PDF at `assets.vercel.com` that is probably the one before, supplements "the Vercel Enterprise Services Order Form and Enterprise Terms and Conditions" and lets a customer retrieve or delete data for 90 days after termination; the new one says deletion "within a commercially reasonable timeframe" | **Probably new for Pro customers: from 31 March 2026 the DPA reaches a Pro plan.** Before that, IB Match may have had no DPA with Vercel. The PDF is undated, so this is an inference |
+| **Vercel privacy notice** | Three versions: 23 April 2024 (the one in force in February), 17 March 2026, 1 June 2026 (current). The 2024 → March 2026 changes, from the two PDFs: Vercel says it is a controller except "when we process information at the direction of our Customer as their data processor subject to our Data Processing Addendum"; it adds AI product information; **"For Hobby and Pro plan users, subject to your data preferences in your team settings, we may disclose de-identified information… to AI business partners for their product improvement and development, including training and improving AI and machine learning models"**, with a Team Preferences option to "Opt-out of Model Training"; it reworks the rights section (adds a right to complain), sets a minimum age of 16, and adds a US-state disclosure table including sharing for advertising. The 1 June 2026 changes were not isolated (PDF against web text is too noisy) | The Model Training setting applies to Pro too, so the open check on Vercel's Team Settings stands (`README.md`). Vercel's rows in the Privacy draft do not change |
+| **Vercel Terms** | Page dated 19 October 2026. No earlier version was readable | The Hobby and trial-Pro Model Training clause and Hobby's non-commercial rule are as described above; when they appeared is unknown |
+| **Vercel sub-processors** | Owner's CSV, with a "Created At" column: **one addition since February, SpaceX ("generative AI services"), 21 August 2026**; the others are dated June 2025 to January 2026 (Cerebras, Baseten and Raindrop.ai on 28 January 2026) | A sub-processor that IB Match does not use features of. Nothing to change in the draft |
+| **Supabase sub-processors** | Lists dated 1 June 2026 and 12 October 2026 are the earliest available. June → October: **removed** Atlassian (status page), Fly.io (hosting), PandaDoc; **added** Supabase Pte. Ltd. (Singapore, "support services in marketplace related activities") | Supports naming Singapore in the transfers paragraph. The list before June was not available. No earlier DPA was readable |
+| **Resend** | DPA: the current page says "Last update: December 31st, 2025" and the owner's signed copy says "Updated on 12/31/2025", and the two texts match except for layout: **no change**. Sub-processors list: 27 August 2026; no earlier version readable | None |
+| **Stripe** | DPA dated 28 September 2026 (the PDF is named for it); the earlier text was not readable. The Data Transfers Addendum is dated 18 November 2025, so **unchanged since before February** | The roles clause is what the Privacy draft relies on; if the controller list changed, the draft's one sentence on it is still true of the current text |
+| **Algolia** | DPA and sub-processors both 12 January 2026; the GDPR FAQ says its Terms were revised that day: **unchanged since before February** | None |
+| **Google** | API Services User Data Policy dated 15 February 2024: **unchanged** | None |
+| **Ko-fi** | Terms dated 13 July 2026; the earlier text was not readable | The tax clause is as quoted above; when it appeared is unknown |
+| **Upstash** | DPA and sub-processor PDFs are undated | Not comparable |
+
+**To finish this comparison,** the earlier versions that matter are on the Wayback Machine, which this session cannot
+reach. Open these in a normal browser and save each as text or PDF (the first two matter most):
+
+- Vercel DPA: `https://web.archive.org/web/20260214074622/https://vercel.com/legal/dpa`
+- Vercel Terms: `https://web.archive.org/web/20260216013606/https://vercel.com/legal/terms`
+- Stripe DPA: `https://web.archive.org/web/20260215181928/https://stripe.com/legal/dpa`
+- Ko-fi terms: `https://web.archive.org/web/20260218013806/https://more.ko-fi.com/terms`
+- Resend sub-processors: `https://web.archive.org/web/20260113023425/https://resend.com/legal/subprocessors`
 
 ## Google sign-in
 
