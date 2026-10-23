@@ -2697,8 +2697,9 @@ support goes" section, since no donations exist) all go; the three documents are
 **Still needed before publishing:** the lawyer's review, and one small code change first:
 Upstash's rate-limit analytics keep user IDs, and probably IP addresses, with no expiry (the owner's Data Browser shows
 a record from 30 August), so they are to be switched off and purged. The owner's dashboards settled every other
-check. **Next:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull
-requests), then publishing in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
+check. **Next:** the public pages' wording in code, both designs (done: #157 for the visible words and #158 for titles,
+descriptions and structured data, which may merge before release day), the rate-limit change (#156), then publishing
+in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
 coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
 policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
 coordinator portal says "Upgrade to VIP" for a plan that is a subscription.
