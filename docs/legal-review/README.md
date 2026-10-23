@@ -16,11 +16,11 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 
 ## Three limits
 
-1. **A few provider pages could not be read.** The first pass of step 2 was blocked by the environment's network
-   policy; once it was widened, nearly every provider page was read directly, some in a headless browser
-   (`providers.md`, "Pages read"). Still unread: Vercel's sub-processor list, the Data Privacy Framework register
-   and the Court's record of the DPF appeal. The Article 8 age table is a secondary source and the DPF appeal
-   comes from search summaries.
+1. **Provider pages.** The first pass of step 2 was blocked by the environment's network policy. Once it was widened, nearly
+   every page was read directly, some in a headless browser; the owner then supplied what no outsider can open:
+   dashboard screenshots, the DPF participant list, the Court's order in the DPF appeal, Resend's signed DPA and a
+   sub-processor export (`providers.md`). Still unread: anything in the DPF appeal after 4 June 2026, and an official
+   Article 8 age table (the one used is a commercial compilation).
 2. **The published Terms and Privacy Policy are in the production database, which was not queried** (no `.env`
    here). They were read from the live pages on 23 October 2026. The text matches `docs/templates/legal/`,
    which is the baseline for the redlines. The Cookie Policy is the text in `app/cookies/page.tsx`.
@@ -90,9 +90,11 @@ keep "I" in the founder note; if it is a team, change the founder note instead.
 **Q10. Money.** Support us says non-profit, non-commercial, "100% goes to platform costs", a 60/20/15/5 split,
 "Most Popular" and what $5, $15 and $50 buy (`claims.md` S1 to S7). *Recommendation:* remove the percentages, the
 badge and the "covers…" lines; keep "free for students" and "donations help pay for hosting, the database, search
-and email". Restore figures only from the real accounts, with the year they cover.
+and email". The dashboards you sent show Supabase on Free, Algolia on Build and Resend on Free, so "$5 covers a week of
+email" and "$15 covers a month of search" are not true today. Restore figures only from the real accounts, with the
+year they cover.
 
-**Q11. Facts only your dashboards show.** See "Checks" below.
+**Q11. Facts only your dashboards show.** Mostly answered; see "Checks" below for what is still open.
 
 **Q12. When to publish.** A new Terms or Privacy Policy version shows "We've updated our policies" to **every
 signed-in user the moment it is published**; choosing a later effective date only changes the date shown. The new
@@ -103,32 +105,39 @@ wording changes in code in the same window (below).
 
 ## Checks only the owner can make
 
-1. **Supabase.** Project region (Settings → Infrastructure); plan: Supabase keeps daily backups only for paid
-   projects, so a free project has none; subscribe to the sub-processor notices (its list changed on 1 June and
-   12 October 2026).
-2. **Vercel: the plan matters most.** Its Terms (19 October 2026) allow the Hobby plan only for "personal or
-   non-commercial use", and may use a Hobby project's content for AI model training; its DPA covers Pro and
-   Enterprise only (`providers.md`, "the Vercel plan decides three things"). Check the plan (Settings → Billing), and
-   on Pro that Model Training is off. Then: function region (the `x-vercel-id` read `iad1::fra1`, so probably
-   Frankfurt); that Web Analytics and Speed Insights are off; log retention (1 hour Hobby, 1 day Pro).
-3. **Upstash.** Region and plan. Whether the database has Prod Pack (+$200/month), which is what gives it encryption
-   at rest; without it, say "encrypted at rest" only of the Supabase database. Its sub-processor notices are a subscription.
-4. **Upstash rate-limit analytics.** `lib/rate-limit.ts` creates each limiter with `analytics: true`. In the
-   Upstash data browser, look at the keys under `@upstash/ratelimit` and `ratelimit:`: if they keep IP addresses
-   with no expiry, the Privacy Policy has to say so or the flag goes (a code change).
-5. **Algolia.** Cluster region; whether Search Analytics is on; the DPA.
-6. **Resend.** Plan (Resend keeps 30 days of email and log data on Free, Pro and Scale); the signed DPA is on its
-   Documents page after login; the sending region. All Resend account data is in the US, under the SCCs and its DPF
-   participation.
-7. **Stripe.** Its DPA (dated 28 September 2026) makes Stripe an independent controller for fraud, legal duties and
-   improving its products; the Privacy Policy draft says so in its table.
-8. **Google Cloud Console.** OAuth consent screen: the privacy policy link is `https://www.ibmatch.com/privacy`, the
-   app is "In production", and the homepage is not only a login page.
-9. **Ko-fi.** Which of your PayPal or Stripe accounts it pays into, and whether the page is on the Free option (0% on
-   one-off tips) or Standard (5% on everything). Your Ko-fi page's own text carries the claims in `claims.md` K1.
-10. **The DPF list** (`dataprivacyframework.gov/list`, which needs a browser) for Vercel, Resend, Stripe and Upstash,
-    whose own pages say they use it. Supabase and Algolia rely on the SCCs alone.
-11. **Subscribe** to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
+**Answered on 23 October 2026** (screenshots and files from you), and what each changed:
+
+| Check | Result | Effect |
+|---|---|---|
+| Supabase | **Free plan, Central EU (Frankfurt), Nano, no backups** | The Privacy draft says the database is in Frankfurt and that no backups are kept |
+| Vercel plan | **Pro** (the Add-Ons page's "12 months viewable history" is Pro's; Hobby has one month). Speed Insights Plus, Observability Plus and Web Analytics Plus are off | The Hobby problem does not arise; the DPA applies; runtime logs last one day; no Vercel analytics |
+| Algolia | **Build plan, Europe (FR), 1.78K records; Search Analytics on** (366 searches, "258 users", no events) | Search words sit in Algolia's logs for 90 days in France; the "users" are Vercel's server addresses, since no `userToken` or visitor IP is sent |
+| Resend | **Free plan**, 6 of 3,000 emails this month; countersigned DPA (generic, customer block blank) | 30-day log confirmed; the Privacy draft's placeholder is gone |
+| Google scopes | `userinfo.email`, `userinfo.profile`, `openid`: all non-sensitive | Limited Use rules do not bind IB Match |
+| DPF register | Vercel, Stripe, Upstash **Active**; **Resend "Active - Re-certification under Review"**; Algolia, Supabase and Ko-fi not on it | The draft names the SCCs first, so it stays right either way |
+| DPF appeal | Order of 4 June 2026 (C-703/25 P): appeal pending; Microsoft admitted as intervener | Wording unchanged |
+| Ko-fi | Account type: creator | Ko-fi's tax clause applies to you (Q1) |
+| Published Terms and Privacy | The text matches the live pages used as the baseline | No change |
+
+**Still open:**
+
+1. **Vercel → Team Settings: Model Training is off.** On Pro it is an opt-in, so it should be; check it.
+2. **Vercel function region** (Settings → Functions; the `x-vercel-id` read `iad1::fra1`, so probably Frankfurt) and
+   **Upstash: region, plan and Prod Pack** (+$200/month, which is what gives Redis encryption at rest; without it, say
+   "encrypted at rest" only of the Supabase database). Neither was in the screenshots.
+3. **Upstash rate-limit analytics.** `lib/rate-limit.ts` creates each limiter with `analytics: true`. In the Upstash data
+   browser, look at the keys under `@upstash/ratelimit` and `ratelimit:`: if they keep IP addresses with no expiry, the
+   Privacy Policy has to say so or the flag goes (a code change).
+4. **Resend → Domains → `ibmatch.com`: open tracking and click tracking are off.** Resend's DPA (Exhibit A) says a customer
+   "has the option to enable open/link tracking… which could include IP address, location, operating system, browser,
+   device, email client". If either is on, the Privacy Policy has to say so, and click tracking rewrites sign-in links.
+5. **Google Cloud Console, OAuth consent screen:** the privacy policy link is `https://www.ibmatch.com/privacy` and the
+   app is "In production". The scopes were shown; those two things were not.
+6. **Ko-fi:** which PayPal or Stripe account it pays into, and whether the page is on the Free option (0% on one-off tips)
+   or Standard (5% on everything). The page's own text carries the claims in `claims.md` K1.
+7. **Production database / `/admin/legal-content`:** whether a Cookie Policy or FAQ document is already published
+   there (the live pages show the code text for both).
+8. **Subscribe** to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
 ## Found while checking (not in the 7.4 list)
 
@@ -158,9 +167,9 @@ flow in this pull request and nothing may reach production before approval.
   time (M3). M2 belongs in go-live pull request #127.
 - **F8. `docs/product/DOC_3_technical-architecture.md` is out of date** (it names Vercel Postgres, Vercel Blob and
   Vercel Analytics). Not read by users; worth a line the next time it is touched.
-- **F9. If the app is on Vercel's Hobby plan,** it is outside that plan's terms (commercial use through school
-  subscriptions), has no DPA, and the project's content may be used for AI training by default (`providers.md`).
-  Not knowable from the repo: check the plan (Q11, check 2).
+- **F9. Algolia's Search Analytics is on and keeps search words for 90 days** (and the server's address, not visitors'). That is
+  fine and now in the Privacy draft; if you would rather keep none, send `analytics: false` on the search call
+  (`lib/algolia/search.ts`, a small code change). The Explore count query already does.
 
 ## How to publish (step 5)
 

@@ -2535,9 +2535,11 @@ release day if possible, so the legal pages ship with correct words.
 only the owner can make, the data map, the provider notes, a redline and a pasteable draft for each of the
 three documents, and the claims table. Nothing is published and no code changed. The providers' own pages were
 read on 23 October 2026 (a few could not be: `providers.md` lists them), and the published Terms and Privacy
-Policy were read from the live pages, not the database. The provider pages changed the drafts: Vercel's DPA covers
-only its Pro and Enterprise plans, and its Hobby plan is non-commercial only (so the owner must check the plan);
-Upstash's encryption at rest needs its Prod Pack. Found on the way, for the owner and
+Policy were read from the live pages, not the database. The owner then supplied dashboard screenshots and files
+(Vercel is on Pro; Supabase Free in Frankfurt with no backups; Algolia Build in France with analytics on; Resend
+Free) which settled most of the owner checks: those still open are in the README. The provider pages changed the
+drafts too: Upstash's encryption at rest needs its Prod Pack, and the free plans contradict the Support us page's
+"covers a week of email" and "a month of search". Found on the way, for the owner and
 for later tasks: today's cookie banner has no switches either (so "Customize … choose which categories" is
 wrong now, not only after release); nothing lets a coordinator who has sent invitations be deleted by the
 admin button; a student who joins by invitation is shown the policy-update notice at once; and the

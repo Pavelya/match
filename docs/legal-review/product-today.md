@@ -20,7 +20,7 @@ Every line says where it comes from, so the drafts can be checked against it.
 | Sign-in link tokens | Everyone | `VerificationToken` | Nobody | Used, or expired after 10 minutes (`lib/auth/sign-in-link.ts`) |
 | Cached match results | Student | Upstash Redis, key `matches:{studentId}:…`, 30-minute TTL (`lib/matching/cache.ts`) | The app | Expires; cleared on account deletion |
 | Rate-limit counters | Visitor (IP) or account (ID) | Upstash Redis, `ratelimit:*`, with `analytics: true` (`lib/rate-limit.ts`) | The app | Window ends; the analytics records' retention is not in the code (see `README.md`, owner check 6) |
-| Search words | Visitor | Sent to Algolia; written to the server log by `logger.info('program_search', { query … })` (`lib/algolia/search.ts`) and `explore_search` (`lib/explore/search.ts`), with no user ID | Vercel log viewer | Log retention (the Vercel plan's) |
+| Search words | Visitor | Sent to Algolia, whose Search API logs keep them 90 days in its France cluster with **our server's address, not the visitor's** (no `userToken`, no forwarded IP) and whose Search Analytics is on; written to the server log by `logger.info('program_search', { query … })` (`lib/algolia/search.ts`) and `explore_search` (`lib/explore/search.ts`), with no user ID | Vercel log viewer | Log retention (the Vercel plan's) |
 
 **No analytics anywhere.** No analytics package is a dependency, the Content-Security-Policy allows
 scripts only from `'self'` and `connect-src 'self'` (`next.config.ts`; the live headers match), and the live home

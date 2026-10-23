@@ -26,9 +26,9 @@ The data we collect depends on your role on the platform:
 
 ### Information Collected Automatically
 
-- **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in short-lived logs [OWNER: confirm how long. Vercel's documented log retention is 1 hour on its Hobby plan, 1 day on Pro and 3 days on Enterprise, with longer periods on paid add-ons]. We use it to run the site, fix errors and stop abuse.
+- **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in logs for about one day. We use it to run the site, fix errors and stop abuse.
 - **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache.
-- **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results, and are written to our server log without your name or account.
+- **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results. Algolia keeps its search logs for 90 days, in France, and uses them for search statistics. We send it our server's address, not yours, and nothing that names you. The words are also written to our own server log without your name or account.
 - **No tracking**: IB Match does not use analytics, advertising or tracking tools, and does not follow what you do from page to page. If that changes, we will update this policy first and ask for your consent where the law requires it.
 - **In your browser**: IB Match stores a few small items in your browser. They are listed in our [Cookie Policy](/cookies).
 
@@ -127,8 +127,8 @@ No system is perfectly secure. If a breach affects your personal data, we will t
 - **Support requests**: kept while your account exists, and deleted with it.
 - **Invitation records**: kept while the school's account exists, so a coordinator can see the status of their invitations. Invitations addressed to a student are deleted when that student deletes their account. [OWNER Q6: this replaces "expired or declined invitation records are deleted after 90 days", which nothing did. If you would rather keep the 90-day promise, build the deletion first and restore the old sentence.]
 - **Sign-in links**: a link expires after 10 minutes.
-- **Logs and email records**: our hosting provider's logs are kept for a short time (see Section 2). Our email provider keeps a log of the emails it sends, including the recipient's address and the message, for about 30 days [OWNER: confirm on your Resend plan].
-- **Backups**: deleted data can remain in our database provider's backups until they expire [OWNER: confirm whether your Supabase plan keeps backups, and for how long].
+- **Logs and email records**: our hosting provider's logs are kept for about a day, and our search provider's for 90 days (see Section 2). Our email provider keeps a log of the emails it sends, including the recipient's address and the message, for 30 days.
+- **Backups**: we keep no backups of the database at present. If that changes, deleted data could remain in a backup until it expires, and this policy will say for how long.
 - **Payment records**: Stripe keeps payment records for as long as the law requires.
 
 ## 9. Your Rights
@@ -170,19 +170,19 @@ We use the following service providers to operate the platform:
 
 | Provider                  | Purpose                                     | Data processed                                                                                                                                    |
 | ------------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Supabase**              | Database and file storage                   | All account, profile, invitation and support data. Stored files are university images and school logos, with no personal data                     |
+| **Supabase**              | Database and file storage (Frankfurt, Germany) | All account, profile, invitation and support data. Stored files are university images and school logos, with no personal data                  |
 | **Vercel**                | Hosting and delivery                        | All traffic to and from the platform, and short-lived server logs, including IP addresses                                                         |
 | **Upstash (Redis)**       | Caching and abuse protection                | Request counters by IP address or account, and cached match results for 30 minutes                                                                |
-| **Algolia**               | Program search                              | Program data, and the search words visitors type (not linked to an account). No student profile data                                              |
+| **Algolia**               | Program search (France)                     | Program data, and the search words visitors type (not linked to an account), for 90 days. No student profile data                                 |
 | **Resend**                | Email delivery                              | Email addresses and the content of the emails we send                                                                                             |
 | **Stripe**                | Payment processing (schools only)           | School name, school email and payment details. Stripe also uses payment data for its own fraud-prevention and legal duties, under its own privacy policy |
 | **Google**                | Sign in with Google (if you choose it)      | Your Google account details. Google is independent of us and has its own privacy policy                                                           |
 
-Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure. [OWNER Q11: true only if every account is on a plan the provider's data processing terms cover. Vercel's cover Pro and Enterprise plans, not Hobby: see `providers.md`.]
+Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure.
 
 ## 11. International Data Transfers
 
-Your information may be processed in countries other than your own, including the United States and Singapore [OWNER: list the regions of your Supabase, Vercel, Upstash and Algolia accounts. Resend stores all its account data in the United States, and Supabase's contracting company is in Singapore, with support from the United States]. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
+Your information may be processed in countries other than your own. Our database is in Frankfurt, Germany, and our search index is in France. Our email provider, Resend, stores all its data in the United States, and our hosting and cache providers process data in the United States [OWNER: confirm the regions of your Vercel functions and Upstash database]. Our database provider's contracting company is in Singapore, with support from the United States. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
 
 ## 12. Children's Privacy
 
