@@ -20,20 +20,19 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 export const metadata: Metadata = {
   title: 'Support Us - Help Keep IB Match Free',
   description:
-    'IB Match is a non-commercial project committed to helping IB students find their perfect university match. Your support helps cover infrastructure costs and keeps the platform free for all students.',
+    'IB Match is an independent project that helps IB students find their perfect university match. It is free for students; your support helps pay for hosting, the database, search and email.',
   keywords: [
     'support IB Match',
     'donate to IB Match',
     'help IB students',
     'education donation',
-    'non-profit education',
     'IB university matching support',
     'sponsor IB Match'
   ],
   openGraph: {
     title: 'Support Us | IB Match',
     description:
-      'Help us keep IB Match free for all students. Your donation supports infrastructure, development, and growth.',
+      'Help us keep IB Match free for all students. Your donation helps pay for hosting, the database, search and email.',
     type: 'website',
     url: `${baseUrl}/support-us`,
     siteName: 'IB Match'
@@ -54,7 +53,7 @@ const jsonLd = {
   '@type': 'WebPage',
   name: 'Support IB Match',
   description:
-    'Donation page for IB Match - a non-commercial project helping IB students find university programs.',
+    'Donation page for IB Match - an independent project helping IB students find university programs.',
   url: `${baseUrl}/support-us`,
   isPartOf: {
     '@type': 'WebSite',
@@ -66,8 +65,7 @@ const jsonLd = {
     name: 'IB Match',
     description:
       'A community-powered platform connecting IB Diploma students with university programs worldwide.',
-    url: baseUrl,
-    nonprofitStatus: 'NonprofitType'
+    url: baseUrl
   },
   potentialAction: {
     '@type': 'DonateAction',
