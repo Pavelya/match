@@ -2533,9 +2533,11 @@ release day if possible, so the legal pages ship with correct words.
 **Status, 23 October 2026: steps 1 to 4 drafted; step 5 waits for the owner.** Everything is in
 [`docs/legal-review/`](../legal-review/README.md): the questions for the owner (Q1 to Q12) and the checks
 only the owner can make, the data map, the provider notes, a redline and a pasteable draft for each of the
-three documents, and the claims table. Nothing is published and no code changed. Two limits: the providers'
-sites were blocked in the session, so step 2 rests on search-result summaries and says so; and the published
-Terms and Privacy Policy were read from the live pages, not the database. Found on the way, for the owner and
+three documents, and the claims table. Nothing is published and no code changed. The providers' own pages were
+read on 23 October 2026 (a few could not be: `providers.md` lists them), and the published Terms and Privacy
+Policy were read from the live pages, not the database. The provider pages changed the drafts: Vercel's DPA covers
+only its Pro and Enterprise plans, and its Hobby plan is non-commercial only (so the owner must check the plan);
+Upstash's encryption at rest needs its Prod Pack. Found on the way, for the owner and
 for later tasks: today's cookie banner has no switches either (so "Customize … choose which categories" is
 wrong now, not only after release); nothing lets a coordinator who has sent invitations be deleted by the
 admin button; a student who joins by invitation is shown the policy-update notice at once; and the

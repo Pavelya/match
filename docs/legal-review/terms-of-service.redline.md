@@ -18,7 +18,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 9. **5.3 University Agents** becomes "Universities": no accounts that see students; IB Match staff maintain program information (Q5).
 10. **6.1 Free access.** Removes "University Agents: core features are free": there are none.
 11. **6.2 School access levels.** Adds the number (10 students on a free plan) and names editing students' data as a premium feature, as the portal does. "Bulk export" becomes "export": it exports the student list, once.
-12. **6.5 (new) Donations.** The Support us page links to Ko-fi; this says donations are voluntary, handled by Ko-fi and buy no access (Q1: tax treatment).
+12. **6.5 (new) Donations.** The Support us page links to Ko-fi; this says donations are voluntary gifts to IB Match, that Ko-fi provides the page and "is not a party to any Donation" (its terms, 13 July 2026), and that they buy no access (Q1: tax treatment).
 13. **9. User content.** Drops "program listings" (the agents' content).
 14. **13. Changes.** Says what users will see when a version changes.
 15. **14. Termination.** Drops University Agents.
@@ -101,7 +101,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +### 6.5. Donations
 +
-+The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary. They are handled by Ko-fi under its own terms and privacy policy, and they do not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity.]
++The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity. Ko-fi's terms make the page's owner responsible for any tax on what it receives.]
  
 @@ -127,3 +130,3 @@
  

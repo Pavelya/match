@@ -22,7 +22,7 @@ The data we collect depends on your role on the platform:
 ### Information We Receive When You Sign In
 
 - **Sign-in link**: when you ask for a sign-in link, we email it to you. It works for 10 minutes.
-- **Google**: we ask Google only for your name, email address and profile picture. We store the sign-in details Google returns (such as tokens) with your account, and we do not use them to read anything else in your Google account.
+- **Google**: we ask Google only for your name, email address and profile picture. We store the sign-in details Google returns (such as tokens) with your account. We use your Google details only to sign you in and to create and show your account. We do not use them to read anything else in your Google account, to advertise to you, or to share them with anyone except the providers listed in Section 10.
 
 ### Information Collected Automatically
 
@@ -175,14 +175,14 @@ We use the following service providers to operate the platform:
 | **Upstash (Redis)**       | Caching and abuse protection                | Request counters by IP address or account, and cached match results for 30 minutes                                                                |
 | **Algolia**               | Program search                              | Program data, and the search words visitors type (not linked to an account). No student profile data                                              |
 | **Resend**                | Email delivery                              | Email addresses and the content of the emails we send                                                                                             |
-| **Stripe**                | Payment processing (schools only)           | School name, school email and payment details                                                                                                     |
+| **Stripe**                | Payment processing (schools only)           | School name, school email and payment details. Stripe also uses payment data for its own fraud-prevention and legal duties, under its own privacy policy |
 | **Google**                | Sign in with Google (if you choose it)      | Your Google account details. Google is independent of us and has its own privacy policy                                                           |
 
-Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure.
+Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure. [OWNER Q11: true only if every account is on a plan the provider's data processing terms cover. Vercel's cover Pro and Enterprise plans, not Hobby: see `providers.md`.]
 
 ## 11. International Data Transfers
 
-Your information may be processed in countries other than your own, including the United States [OWNER: list the regions of your Supabase, Vercel, Upstash and Algolia accounts. Resend's documentation says it stores all account data in the United States]. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
+Your information may be processed in countries other than your own, including the United States and Singapore [OWNER: list the regions of your Supabase, Vercel, Upstash and Algolia accounts. Resend stores all its account data in the United States, and Supabase's contracting company is in Singapore, with support from the United States]. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
 
 ## 12. Children's Privacy
 

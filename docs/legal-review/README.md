@@ -9,16 +9,18 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 |---|---|
 | `README.md` | This page: the questions, the checks only the owner can make, what else was found, and how to publish |
 | `product-today.md` | Step 1. What IB Match does with data today, from the code and the live site |
-| `providers.md` | Step 2. Vercel, Supabase, Upstash, Algolia, Resend, Stripe and Google, and how far this session could read them |
+| `providers.md` | Step 2. Vercel, Supabase, Upstash, Algolia, Resend, Stripe, Google and Ko-fi, read from their own pages on 23 October 2026 |
 | `privacy-policy.redline.md`, `terms-of-service.redline.md`, `cookie-policy.redline.md` | Step 4. For each: what changed and why, then the diff against the published words |
 | `privacy-policy.proposed.md`, `terms-of-service.proposed.md`, `cookie-policy.proposed.md` | The proposed text, ready to paste into `/admin/legal-content` once the `[OWNER …]` notes are settled |
 | `claims.md` | Step 4. Every claim on Support us, How it works, For schools, Home and FAQs: the evidence and proposed words |
 
 ## Three limits
 
-1. **The providers' own pages could not be read.** This session's network policy blocked their sites. Step 2 is
-   built from search-result summaries and is marked as such. The "Open and check" column in `providers.md` is
-   what to read yourself.
+1. **A few provider pages could not be read.** The first pass of step 2 was blocked by the environment's network
+   policy; once it was widened, nearly every provider page was read directly (`providers.md`, "Pages read"). Still
+   unread: Vercel's sub-processor list, Ko-fi's pricing and help pages, Algolia's GDPR FAQ, the Upstash trust center
+   and the Data Privacy Framework list. The Article 8 age table is a secondary source and the DPF appeal comes
+   from search summaries.
 2. **The published Terms and Privacy Policy are in the production database, which was not queried** (no `.env`
    here). They were read from the live pages on 23 October 2026. The text matches `docs/templates/legal/`,
    which is the baseline for the redlines. The Cookie Policy is the text in `app/cookies/page.tsx`.
@@ -32,16 +34,19 @@ Each has a recommendation. Answer them in this order; the first four unblock the
 **Q1. Who runs IB Match, legally?** A person, or a registered organisation? The Privacy Policy must name its
 controller and the Terms need a named party, a governing law and a place for disputes (the published Terms say
 "the laws of the applicable jurisdiction", which names no law). The same answer decides whether Support us may
-say "non-profit", whether donations are tax-deductible, and who is paid by Ko-fi. *Recommendation:* name the
+say "non-profit", whether donations are tax-deductible, and who is paid by Ko-fi, whose terms (13 July 2026) say
+the page's owner "is solely responsible for determining, withholding, collecting, reporting, and remitting any
+taxes". *Recommendation:* name the
 person or entity that actually holds the Ko-fi, Stripe and provider accounts, even if it is you, and say plainly
 what it is. Do not call it a non-profit unless it is registered as one.
 
 **Q2. The age line.** Today: 13 and older (Terms 3, Privacy 12). GDPR Article 8 lets each member state set the age
 for a child's consent anywhere from 13 to 16, and IB Match has no age check (no date of birth is asked).
 *Recommendation:* Option A in the draft, 16 and older. Diploma students are usually 16 to 19, and 16 is at or above
-every member state's age. Option B keeps 13 and asks a parent's permission where the law needs it, which the site
-cannot check. Leaving 13 as it is would be wrong in any country with a higher age. A lawyer or the national
-authority should confirm (`providers.md` explains why no country table is copied).
+every figure in the one country table found (`providers.md`, a commercial compilation of 15 October 2026: 13 in nine
+countries, 14 in six, 15 in three, 16 in nine). Option B keeps 13 and asks a parent's permission where the law needs
+it, which the site cannot check. Leaving 13 as it is would be wrong in any country with a higher age. A lawyer or
+the national authority should confirm the table.
 
 **Q3. Which mailboxes are read?** `privacy@` (Privacy 9 and 14, Cookie Policy; the draft promises a reply within one
 month, the legal limit), `legal@` (Terms 6.4 and 16), `support@` (Organization JSON-LD, emails' sender),
@@ -98,23 +103,31 @@ wording changes in code in the same window (below).
 
 ## Checks only the owner can make
 
-1. **Supabase.** Project region (Settings → Infrastructure); plan, and whether it keeps backups and for how long;
-   that the DPA is accepted (Dashboard → Legal documents).
-2. **Vercel.** Plan (log retention is 1 hour on Hobby, 1 day on Pro); function region (the `x-vercel-id` read
-   `iad1::fra1`, so probably Frankfurt); that Web Analytics and Speed Insights are off; the DPA.
-3. **Upstash.** Region and plan. Whether the database has encryption at rest (a Prod Pack or Enterprise feature).
+1. **Supabase.** Project region (Settings → Infrastructure); plan: Supabase keeps daily backups only for paid
+   projects, so a free project has none; subscribe to the sub-processor notices (its list changed on 1 June and
+   12 October 2026).
+2. **Vercel: the plan matters most.** Its Terms (19 October 2026) allow the Hobby plan only for "personal or
+   non-commercial use", and may use a Hobby project's content for AI model training; its DPA covers Pro and
+   Enterprise only (`providers.md`, "the Vercel plan decides three things"). Check the plan (Settings → Billing), and
+   on Pro that Model Training is off. Then: function region (the `x-vercel-id` read `iad1::fra1`, so probably
+   Frankfurt); that Web Analytics and Speed Insights are off; log retention (1 hour Hobby, 1 day Pro).
+3. **Upstash.** Region and plan. Whether the database has Prod Pack (+$200/month), which is what gives it encryption
+   at rest; without it, say "encrypted at rest" only of the Supabase database. Its sub-processor notices are a subscription.
 4. **Upstash rate-limit analytics.** `lib/rate-limit.ts` creates each limiter with `analytics: true`. In the
    Upstash data browser, look at the keys under `@upstash/ratelimit` and `ratelimit:`: if they keep IP addresses
    with no expiry, the Privacy Policy has to say so or the flag goes (a code change).
 5. **Algolia.** Cluster region; whether Search Analytics is on; the DPA.
-6. **Resend.** Plan (Resend keeps 30 days of email and log data on Free, Pro and Scale); the DPA; the sending region.
-   All Resend account data is in the US.
-7. **Stripe.** The DPA in your dashboard's settings.
+6. **Resend.** Plan (Resend keeps 30 days of email and log data on Free, Pro and Scale); the signed DPA is on its
+   Documents page after login; the sending region. All Resend account data is in the US, under the SCCs and its DPF
+   participation.
+7. **Stripe.** Its DPA (dated 28 September 2026) makes Stripe an independent controller for fraud, legal duties and
+   improving its products; the Privacy Policy draft says so in its table.
 8. **Google Cloud Console.** OAuth consent screen: the privacy policy link is `https://www.ibmatch.com/privacy`, the
    app is "In production", and the homepage is not only a login page.
 9. **Ko-fi.** Which of your PayPal or Stripe accounts it pays into, and the fee on your page.
-10. **The DPF list** (`dataprivacyframework.gov/list`) for each provider the Privacy Policy would name.
-11. **Subscribe** to each provider's sub-processor notices.
+10. **The DPF list** (`dataprivacyframework.gov/list`, which needs a browser) for Vercel, Resend, Stripe and Upstash,
+    whose own pages say they use it. Supabase and Algolia rely on the SCCs alone.
+11. **Subscribe** to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
 ## Found while checking (not in the 7.4 list)
 
@@ -144,6 +157,9 @@ flow in this pull request and nothing may reach production before approval.
   time (M3). M2 belongs in go-live pull request #127.
 - **F8. `docs/product/DOC_3_technical-architecture.md` is out of date** (it names Vercel Postgres, Vercel Blob and
   Vercel Analytics). Not read by users; worth a line the next time it is touched.
+- **F9. If the app is on Vercel's Hobby plan,** it is outside that plan's terms (commercial use through school
+  subscriptions), has no DPA, and the project's content may be used for AI training by default (`providers.md`).
+  Not knowable from the repo: check the plan (Q11, check 2).
 
 ## How to publish (step 5)
 

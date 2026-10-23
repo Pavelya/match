@@ -107,7 +107,7 @@ Refund requests are handled on a case-by-case basis. Please contact us at legal@
 
 ### 6.5. Donations
 
-The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary. They are handled by Ko-fi under its own terms and privacy policy, and they do not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity.]
+The Support us page links to Ko-fi, where anyone can give to IB Match. Donations are voluntary gifts to IB Match. Ko-fi provides the payment page under its own terms and privacy policy and is not a party to the donation. A donation does not buy any feature or access. [OWNER Q1: say whether donations are tax-deductible. They usually are not, unless IB Match is a registered charity. Ko-fi's terms make the page's owner responsible for any tax on what it receives.]
 
 ## 7. Acceptable Use
 

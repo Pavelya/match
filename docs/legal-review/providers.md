@@ -1,84 +1,122 @@
 # What the providers ask for now
 
-MAINT 7.4, step 2. Read on **23 October 2026**.
+MAINT 7.4, step 2. Each page below was fetched and read as text on **23 October 2026**; "page dated" is the date the
+page itself shows.
 
-**How this was read, and what it is worth.** This session's network policy blocks `vercel.com`, `supabase.com`,
-`resend.com`, `stripe.com`, `developers.google.com` and the other providers' sites, so the pages could not be
-opened. Everything below comes from **search-result summaries** of the providers' own pages (the URLs are the
-pages the summaries came from) and from the live ibmatch.com, which was read directly. Treat each line as a
-pointer to check, not as a quotation. The "Open and check" column is what to read yourself before the drafts
-rely on it. Where a summary said it could not confirm something, this says so.
+**What could still not be read:** Vercel's sub-processor list (`security.vercel.com`, blocked to scripted
+requests), Ko-fi's help pages and pricing (blocked), the Algolia GDPR FAQ (blocked), the Upstash trust center and the
+Data Privacy Framework list (both need a browser). Those rows say so. The Article 8 table is a secondary source.
 
-Change since February 2026: not established for any provider. The summaries carry the pages' own dates only
-loosely, and no provider's change log was readable. Subscribe to each provider's sub-processor notices
-(Supabase, Resend and Stripe offer it; see below) and open each DPA's "last updated" line.
+## Read this first: the Vercel plan decides three things
+
+Vercel's pages, read directly:
+
+- **Terms of Service** (page dated 19 October 2026): "You shall only use the Services under a Hobby plan for your
+  personal or non-commercial use." IB Match charges schools through Stripe, so the Hobby plan is not for it.
+- **Terms of Service:** "if you are on a Hobby plan or trial Pro plan, you agree that we may use Your Content to train
+  our artificial intelligence ('AI') and machine learning models, and we may share Your Content with third parties
+  for the purpose of developing and improving their products… If you are on a paid Pro plan, Model Training is not
+  enabled by default and you may opt in." Whether "Your Content" reaches the traffic and data that runs through
+  the app, as opposed to the code, is a question for Vercel's support or a lawyer.
+- **Data Processing Addendum** (last updated 17 March 2026, effective 31 March 2026): it applies "to Vercel's
+  Processing of Personal Data as a Processor under the Agreement for Customers who are on Enterprise and Pro plans".
+  A Hobby project has no DPA, so the Privacy Policy could not say its hosting provider is bound by data
+  processing terms.
+
+**Check the plan (Vercel → Settings → Billing).** If it is Pro, also check that Model Training is off
+(Team Settings). If it is Hobby, the plan needs to change before the Privacy Policy is published, and that is a
+decision for the owner, not a wording fix.
 
 ## The table
 
-| Provider | Role for IB Match | What it holds | Region | Transfer mechanism (per the summary) | Open and check |
-|---|---|---|---|---|---|
-| **Supabase** | Database and file storage | Every table in `product-today.md` §1; university images and school logos (no personal data) | Not in the repo. Supabase says a project has one primary region and that "Europe" includes London and Zurich, which are not in the EU | EU SCCs (2021/914) in the DPA, Module 2; Supabase's transfer FAQ says data moves to the US and Singapore under them. Its DPA and a 2025 transfer impact assessment are public | Your project's region (Settings → Infrastructure). The sub-processor list: `supabase.com/legal/customer-resources/subprocessor-list`. Whether your plan keeps backups, and for how long: the policy draft says "deleted data can remain in backups" |
-| **Vercel** | Hosting, delivery, serverless functions, logs | All traffic in transit; runtime logs. No database | `x-vercel-id: iad1::fra1::…` on a 22 October 2026 response of `/` suggests the function runs in Frankfurt (`fra1`) behind an edge node in Virginia. Confirm in Project → Settings → Functions | EU SCCs (2021/914) and the UK IDTA in the DPA; its privacy notice says it complies with the EU-US DPF, UK Extension and Swiss-US DPF. An older privacy-policy PDF still names Privacy Shield and is out of date | The DPA (`vercel.com/legal/dpa`) and the sub-processor list (the summary found two URLs: `security.vercel.com` and `vercel.com/legal/subprocessors`; one is stale). Your plan, because log retention depends on it |
-| **Upstash** | Redis cache and rate limiting | Match cache (30 minutes), rate-limit counters by IP address or account ID, the programs cache (no personal data) | Not in the repo. Upstash lets a database be placed in one region | The trust center lists the DPF; the summary found no SCC wording | The DPA and sub-processors PDF (`trust.upstash.com`), and the database's region. **Encryption at rest is a Prod Pack feature ($200/month per paid database) or Enterprise, per Upstash's documentation; no summary says the free or pay-as-you-go plan has it.** TLS is always on |
-| **Algolia** | Program search | Program records (no student data); search words from visitors, which its sub-processor Datadog may see in log management | Not in the repo. Algolia lets an application choose a cluster region | EU SCCs where the EU GDPR applies and the UK Addendum where the UK GDPR does; contracting party is Algolia SAS for subscribers in Europe, Algolia, Inc. otherwise | The DPA (`algolia.com/policies/data-processing-addendum`) and sub-processors (`algolia.com/subprocessors`). Your application's region and whether Search Analytics is on. Algolia gives subscribers ten business days to object to a new sub-processor |
-| **Resend** | Email delivery | Recipient addresses and the content of all seven emails; a log of each send | **All account data is stored in the United States, whichever sending region is chosen**, per Resend's documentation | EU SCCs, Modules 2 and 3, and the UK Addendum, in a DPA that is pre-signed for every account. The summaries did not mention the DPF | Your plan: Resend's pages give 30 days of email and log data for Free, Pro and Scale, flexible for Enterprise, backups 7 days, deletion 90 days after termination. Notice of a new sub-processor is 14 days. Its list includes Supabase, Vercel, Stripe and AWS |
-| **Stripe** | Payments for Regular schools | School name, school email, Stripe customer and subscription IDs; card details entered at Stripe | Not in the repo | EU SCCs (Modules 1, 2 and as applicable 3) in a Data Transfers Addendum; the DPF appears in Stripe's supplier terms, and the summary could not find the operative DPF clause in the user DPA | The DPA (`stripe.com/legal/dpa`). **Stripe is a processor for payment processing and an independent controller for some uses (fraud prevention, legal duties); the Privacy Policy draft says so only by pointing to Stripe.** Stripe gives 30 days' notice of a sub-processor |
-| **Google** | "Continue with Google" | Nothing of ours. IB Match receives name, email and picture link; Google sees that a person signed in to IB Match | Not applicable | Google is an independent controller of its own account data | See below |
+| Provider | Role for IB Match | What it holds | Where | Transfer mechanism | Notice of change | Page dated |
+|---|---|---|---|---|---|---|
+| **Supabase** | Database and file storage | Every table in `product-today.md` §1; university images and school logos | The AWS region chosen when the project was created: "your PostgreSQL database, as well as Auth service and Storage objects are hosted in that region, alongside backups". Not guaranteed never to leave it: account information, usage information and logs, content delivery and support access are processed elsewhere. The contracting company is Supabase Pte. Ltd. (Singapore), with Supabase, Inc. (US) for support | EU SCCs (2021/914), Module Two (controller to processor), incorporated in the DPA; "acceptance of the Agreement shall have the same effect as signing the SCCs". Its FAQ names the US and Singapore as destinations. **No DPF** | 30 days' notice of a new sub-processor if you subscribe at `supabase.com/legal/customer-resources/subprocessor-list`. Lists dated **1 June 2026** and **12 October 2026** (read; includes AWS, Cloudflare, Google, Upstash, Vercel, Sentry, OpenAI) | DPA incorporated by the Terms; security page: "All customer data is encrypted at rest with AES-256 and in transit via TLS"; "All paid customer databases are backed up every day" (so a free project has no backup) |
+| **Vercel** | Hosting, delivery, serverless functions, logs | All traffic in transit; request and runtime logs (its privacy notice: "End User IP address, location information derived from IP address"). No database | Primary processing in the US; the `x-vercel-id` of `/` on 22 October read `iad1::fra1`, so probably functions in Frankfurt (confirm in Settings → Functions) | 2021 EU SCCs (Irish law) and the UK IDTA in the DPA. Privacy Notice (dated 1 June 2026): complies with the EU-US DPF, the UK Extension and the Swiss-US DPF | Notice only if you email `privacy@vercel.com` to subscribe; list at `security.vercel.com` (unread) | DPA 17 March 2026 (**after** February); Privacy Notice 1 June 2026; Terms 19 October 2026 |
+| **Upstash** | Redis cache and rate limiting | Match cache (30 minutes), rate-limit counters by IP address or account ID, the programs cache | The database's region, chosen when created (not in the repo) | DPA: Upstash Inc. "will use the Data Privacy Framework to lawfully receive European Data in the United States", with the SCCs incorporated if the DPF does not cover the transfer or is invalidated | A subscription page; five days to object. Sub-processors PDF read: AWS, Google, Stripe, Vercel, Auth0, GitHub and others | DPA and sub-processor PDFs undated. **Encryption at rest is a Prod Pack feature (+$200/month per database) or Enterprise**; TLS is always on; SOC 2 for Pro and Enterprise support plans |
+| **Algolia** | Program search | Program records; the search words visitors type, with the visitor's IP address as seen by Algolia's sub-processors Datadog (log management: "indexing operations, end-user queries, end-user IP addresses") and Cloudflare (IP address) | The application's cluster region (not in the repo). Attachment 3 of the DPA keeps EEA, UK and Swiss subscribers' end-user data inside those regions only if the subscriber keeps its services there and end users do not use some features from outside, so it cannot be assumed for a site read worldwide | EU SCCs (2021/914, French law) and the UK Addendum. **No DPF** in the DPA or privacy policy. Algolia SAS is the contracting party for subscribers in Europe | Notice by email or dashboard; **ten business days** to object. Deletes on a rolling 90 days after termination | DPA and sub-processors page both **12 January 2026**: no change since February |
+| **Resend** | Email delivery | Recipient addresses and the content of all seven emails; delivery logs | **All stored in the United States** ("message content, delivery logs, webhook payloads, and account records"), whatever sending region is chosen | EU SCCs Modules Two and Three and the UK Addendum in a DPA "pre-signed by Resend and fully executed once you sign up"; the page also says it participates in the EU-US DPF ("The SCCs stand on their own") | 14 days, deemed accepted without objection. List dated **27 August 2026** (read; includes AWS, Anthropic, Datadog, Google) | "email and log data is retained for 30 days on Free, Pro, and Scale plans"; backups 7 days; deleted within 90 days of account termination |
+| **Stripe** | Payments for Regular schools | School name, school email, Stripe customer and subscription IDs; card details entered at Stripe | Not in the repo | EU SCCs (Modules 1, 2 and as applicable 3) in the Data Transfers Addendum (dated 18 November 2025); "Stripe, LLC is self-certified under the Data Privacy Framework" | 30 days' notice if you subscribe at the sub-processors list | DPA dated **28 September 2026** (after February). Roles: processor for the service; "independent Data Controller" for third-party banks, fraud prevention, financial loss, legal and AML duties, and improving its products |
+| **Google** | "Continue with Google" | Nothing of ours. IB Match receives name, email and picture link | Not applicable | Independent controller of its own account data | Not applicable | See below |
+
+AI vendors (Anthropic and OpenAI among them) appear in Resend's, Supabase's and Algolia's lists. IB Match uses none of
+those providers' AI features, as far as the code shows; Resend's reason for listing them is not stated on the page.
+
+Changes since February 2026 that were found: Vercel's DPA (March), Privacy Notice (June) and Terms (October);
+Supabase's sub-processor list (June, October); Resend's list (August); Ko-fi's terms (July); Stripe's DPA
+(September). Algolia's DPA and list are unchanged since January. None of these changes was compared with its
+earlier text: no earlier versions were available to read.
 
 ## Google sign-in
 
 - The live redirect asks for `scope=openid profile email`, nothing else (observed 23 October 2026).
-- Google's **API Services User Data Policy** has "Limited Use" rules for data from **sensitive and restricted** scopes. `openid`, `email` and `profile` are Google's default sign-in scopes and are not described as either, so the
-  Limited Use rules should not bind IB Match. The summary said this is an inference, not a quotation: read
-  `developers.google.com/terms/api-services-user-data-policy` to confirm. The Privacy Policy draft says what
-  IB Match asks for and receives either way, which is what Google's verification expects to find.
-- **OAuth consent screen** (Google Cloud Console → Google Auth Platform): Google's help pages say the app
-  homepage must link to the privacy policy, the consent screen's privacy policy link must be on the same
-  domain and match, and changing the app name, logo, homepage or privacy link on a verified app means
-  brand verification again. `/privacy` stays at the same address, so nothing needs re-verifying. **Check
-  that the consent screen's privacy link is `https://www.ibmatch.com/privacy`, that the app is "In
-  production", and that the homepage is not just a login page.**
-- A Google Cloud project in "Testing" status makes refresh tokens expire after 7 days, except where the only
-  scopes are name, email and profile. Not relevant to IB Match.
+- **API Services User Data Policy** (page dated 15 February 2024). Its "Limited Use" rules sit under "Additional
+  Requirements for Specific API Scopes" and apply to "Sensitive and Restricted Scopes"; `openid`, `email` and
+  `profile` are Google's sign-in scopes, so they should not bind IB Match. **The policy's general rules bind every
+  app that uses Google API Services**, though: "You must publish a privacy policy that fully documents how your application
+  interacts with user data. You must list the privacy policy URL in your OAuth client configuration"; the policy and
+  in-product notices "must thoroughly disclose the manner in which your application accesses, uses, stores, or shares
+  Google user data"; and "Your use of Google user data must be limited to the practices explicitly disclosed in your
+  published privacy policy". The draft Privacy Policy now says what is received, that the tokens are stored, and what
+  the data is used for.
+- **Consent screen** (Google's help pages, read): the app homepage must "include a link to your privacy policy (this link
+  should match the link you added on your consent screen configuration)", be "visible to users without requiring them to
+  log-in", and sit on a domain you own and have verified; the privacy policy must be an HTML page on that domain.
+  `/privacy` stays at the same address. **Check the consent screen's privacy link is `https://www.ibmatch.com/privacy`.**
 
 ## Transfers outside the EU
 
-- **The EU-US Data Privacy Framework** remains in force. The General Court dismissed the challenge
-  (Latombe v Commission) on 3 September 2025; Latombe appealed on 31 October 2025 (Case C-703/25 P); on
-  4 June 2026 the President admitted Microsoft as an intervener; one source reports it still pending in
-  October 2026. These are law-firm and commentary pages, not the court's register. **The draft Privacy
-  Policy therefore names the Standard Contractual Clauses first and the DPF only "where a provider is
-  certified", so a ruling would not make it wrong.**
-- Only Vercel's DPF certification, and an Upstash trust-center entry listing the DPF, appeared in the
-  summaries. Check each provider on `dataprivacyframework.gov/list` before the policy says more.
+- **The EU-US Data Privacy Framework** remains in force. From secondary sources (law-firm and commentary pages, not
+  the court's register): the General Court dismissed the challenge (Latombe v Commission) on 3 September 2025;
+  Latombe appealed on 31 October 2025 (Case C-703/25 P); Microsoft was admitted as an intervener on 4 June 2026; no
+  ruling or hearing date was reported. The providers' own pages say Vercel, Resend, Stripe and Upstash use or are
+  certified under the DPF; Supabase and Algolia rely on the SCCs alone. **The draft Privacy Policy names the SCCs
+  first and the DPF only "where a provider is certified", so a ruling would not make it wrong.** Confirm each
+  certification on `dataprivacyframework.gov/list` (a page that needs a browser).
 
 ## The age of digital consent (GDPR Article 8)
 
-Article 8 sets 16 and lets each member state choose between 13 and 16 where a service relies on a child's
-consent. The searches confirmed Ireland (13) and Portugal (13) and no complete table. **No table is copied
-here, because none was readable and a wrong one is worse than none.** Ask the lawyer (Q2 in `README.md`) or
-use the data-protection authority of each country you serve. IB Diploma students are usually 16 to 19, so
-Option A in the draft (16 and older) sits above every member state's age.
+Article 8 sets 16 and lets each member state choose between 13 and 16 where a service relies on a child's consent.
+The only table found is a commercial compilation (GDPR Local, "updated on October 15, 2026", read 23 October 2026,
+citing each national law). **It is not an official source, other compilations disagree on Belgium, Czechia and
+Germany, and it should be checked with the national authorities or the lawyer before anything relies on it:**
+
+| Age | Where (per that compilation) |
+|---|---|
+| 13 | Belgium, Denmark, Estonia, Finland, Latvia, Malta, Portugal, Sweden, and the UK (outside the EU) |
+| 14 | Austria, Bulgaria, Cyprus, Italy, Lithuania, Spain |
+| 15 | Czech Republic, France, Greece. (Slovenia: the compilation cites only a proposed 15 under an old law; treat as unconfirmed) |
+| 16 | Croatia, Germany, Hungary, Ireland, Luxembourg, Netherlands, Poland, Romania, Slovakia |
+
+The highest age anywhere in it is 16 (Ireland's 16 is from section 31 of its Data Protection Act 2018, as the compilation
+cites it). IB Diploma students are usually 16 to 19, so Option A in the draft (16 and older) is at or above every
+figure here.
 
 ## Not processors, but linked from the public pages
 
-- **Ko-fi** (donations). Ko-fi's help pages: no Ko-fi fee on one-time tips on the free tier, 5% on
-  memberships, shop sales and monthly tips; PayPal or Stripe fees are charged on top, usually about
-  3% plus $0.30. Payments go straight to the creator's own PayPal or Stripe account. The pages read were
-  years old, so check the current pricing page. This is the evidence behind the "100% goes to platform
-  costs" row in `claims.md`.
+- **Ko-fi** (donations). Terms page dated 13 July 2026, read: "Ko-fi is not a party to any Donation solicited by a Creator.
+  You agree that any purchases or Donations you make on our site are with Creators"; "applicable transaction fees…
+  shall automatically be deducted from the relevant transaction by one of our third-party payment providers", at the
+  rates "listed from time to time on our site"; and the creator "is solely responsible for determining, withholding,
+  collecting, reporting, and remitting any taxes (including but not limited to income tax, VAT, GST…)". The
+  percentages were on Ko-fi pages that blocked scripted requests; the only source for them is a search summary
+  (0% on one-time tips for the free tier, 5% on memberships and monthly tips, PayPal or Stripe fees on top, about
+  3% + $0.30). Open Ko-fi's pricing page to confirm. This is the evidence behind the "100% goes to platform costs"
+  row in `claims.md`.
 - **Calendly** (the coordinator feedback call). Third party; the Cookie Policy draft says so.
 
-## Sources
+## Pages read
 
-Search summaries of these pages, 23 October 2026: `vercel.com/legal/dpa`, `vercel.com/docs/logs/runtime`
-(log retention: 1 hour Hobby, 1 day Pro, 3 days Enterprise, 30 days with Observability Plus; whether
-logs hold client IP addresses was not confirmed), `supabase.com/legal/customer-resources/data-processing-addendum`,
-`supabase.com/legal/privacy-resources/data-residency-and-transfers-faq`, `supabase.com/security`
-(AES-256 at rest, TLS in transit, daily backups for paid plans, per-project keys), `supabase.com/regions`,
-`upstash.com/docs/redis/features/security`, `upstash.com/docs/redis/overall/enterprise`,
-`trust.upstash.com`, `algolia.com/policies/data-processing-addendum`, `algolia.com/policies/infrastructure-and-sub-processors`,
-`resend.com/security/gdpr`, `resend.com/legal/dpa`, `resend.com/docs/dashboard/domains/regions`, `stripe.com/legal/dpa`,
-`stripe.com/legal/dta`, `stripe.com/legal/privacy-center`, `developers.google.com/terms/api-services-user-data-policy`,
-`support.google.com/cloud/answer/13806988`, `help.ko-fi.com/hc/en-us/articles/360002506494-Does-Ko-fi-take-a-fee`.
-Read directly: `https://www.ibmatch.com/` and `/api/auth/*` response headers, 22–23 October 2026.
+All fetched 23 October 2026: `vercel.com/legal/dpa`, `/legal/privacy-policy`, `/legal/terms`, `/docs/logs/runtime`,
+`/security`, `/docs/security/compliance`; `supabase.com/legal/customer-resources/data-processing-addendum`,
+`/legal/customer-resources/subprocessor-list` and its October 2026 PDF,
+`/legal/privacy-resources/data-residency-and-transfers-faq`, `/security`, `/docs/guides/platform/regions`;
+`upstash.com/docs/redis/features/security`, `/docs/common/help/compliance`, `/docs/redis/overall/enterprise`,
+`/pricing/redis`, and the DPA and sub-processor PDFs under `/static/trust/`;
+`algolia.com/policies/data-processing-addendum`, `/policies/infrastructure-and-sub-processors`, `/policies/privacy`;
+`resend.com/legal/dpa`, `/security/gdpr`, `/legal/subprocessors`, `/docs/dashboard/domains/regions`;
+`stripe.com/legal/dpa`, `/legal/dta`, `/legal/service-providers`;
+`developers.google.com/terms/api-services-user-data-policy`, `support.google.com/cloud/answer/13806988`, `/13807376`,
+and Google's OAuth policy-compliance page; `more.ko-fi.com/terms`; `gdprlocal.com/digital-age-of-consent-under-the-gdpr/`.
+Read from the live site: `https://www.ibmatch.com/` and `/api/auth/*` response headers, 22–23 October 2026.
+Search summaries only: the DPF appeal, and Ko-fi's percentages.
