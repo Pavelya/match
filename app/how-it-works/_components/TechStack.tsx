@@ -8,27 +8,27 @@ const technologies = [
   },
   {
     name: 'PostgreSQL',
-    description: 'Enterprise-grade database trusted by companies like Instagram and Spotify.',
+    description: 'A widely used open-source database.',
     icon: Database
   },
   {
     name: 'Algolia Search',
-    description: 'Industry-leading search infrastructure — the same tech behind Stripe and Slack.',
+    description: 'Powered by Algolia, a widely used search service.',
     icon: Server
   },
   {
     name: 'Redis Caching',
-    description: 'In-memory data store for instant results. Your matches load in milliseconds.',
+    description: 'Matches are cached, so coming back is quick.',
     icon: Zap
   },
   {
-    name: 'Global Edge Network',
-    description: 'Deployed worldwide for low latency. Fast access wherever you are.',
+    name: 'Hosting',
+    description: 'Hosted in Europe (Frankfurt), with pages delivered through a global network.',
     icon: Globe
   },
   {
-    name: 'GDPR Compliant',
-    description: 'Privacy-first design. Your data is encrypted, protected, and never sold.',
+    name: 'Your data',
+    description: 'Your data is never sold. Download or delete it any time in Settings.',
     icon: Shield
   }
 ]
@@ -40,11 +40,11 @@ export function TechStack() {
         <div className="mx-auto max-w-2xl lg:text-center mb-16">
           <h2 className="text-base font-semibold leading-7 text-blue-600">Technology Stack</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Built with Industry-Leading Tools
+            Built with Widely Used Tools
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            We use the same technologies trusted by the world&apos;s best companies. This means
-            fast, reliable, and secure experiences for every student.
+            We build on widely used services and open-source tools, so pages stay quick and reliable
+            for every student.
           </p>
         </div>
 
@@ -70,7 +70,9 @@ export function TechStack() {
         <div className="mt-12 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-green-50 px-4 py-2 text-sm text-green-700">
             <Lock className="h-4 w-4" />
-            <span>Your data is encrypted at rest and in transit</span>
+            <span>
+              Your account and profile are stored encrypted, and every connection uses HTTPS
+            </span>
           </div>
         </div>
       </div>

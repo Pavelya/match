@@ -1,23 +1,19 @@
-import Link from 'next/link'
 import {
-  ArrowDown,
   ArrowRight,
   CalendarClock,
   Coffee,
   ExternalLink,
   Heart,
-  Info,
   Mail,
   Search,
   Server,
   Zap,
   type LucideIcon
 } from 'lucide-react'
-import { Callout } from '@/components/ds/Callout'
 import { buttonVariants } from '@/components/ds/button-variants'
 import { ExternalAnchor } from '@/components/guide/RichText'
 import { LimeBand, onLimeInkButton } from '@/components/home/LimeBand'
-import { inlineLinkClass, textLinkClass } from '@/components/sign-in/AuthPage'
+import { inlineLinkClass } from '@/components/sign-in/AuthPage'
 import { ProgramSuggestion } from '@/components/support/islands'
 import { CardGrid, SmallTile, TextHero, TextSection } from '@/components/text-page/TextPage'
 import { cn } from '@/lib/utils'
@@ -25,10 +21,12 @@ import { cn } from '@/lib/utils'
 /*
  * Support us in the new design (rebranding 4.3, boards "D4.14 Text pages" and "… · phone",
  * approved 19 October 2026): every section of today's page, in its words with the content style
- * applied (sentence case, no exclamation marks, no emoji, no "perfect"). The allocation is a list
- * of bars in one colour with each share written beside it, so it reads without colour. Ko-fi,
- * Calendly and every outside link say they open a new tab. Prebuilt; the metadata and JSON-LD
- * stay in page.tsx.
+ * applied (sentence case, no exclamation marks, no emoji, no "perfect"). Ko-fi, Calendly and every
+ * outside link say they open a new tab. Prebuilt; the metadata and JSON-LD stay in page.tsx.
+ *
+ * Wording settled in the legal review (docs/legal-review/claims.md, MAINT 7.4): no "where your
+ * support goes" split, "covers…" lines, "most popular" tier, "non-profit", "non-commercial",
+ * "forever" or "100%", because none of them was true or checkable.
  */
 
 const KOFI = 'https://ko-fi.com/ibmatch'
@@ -37,13 +35,6 @@ const KOFI = 'https://ko-fi.com/ibmatch'
 function NewTab() {
   return <span className="sr-only"> (opens in a new tab)</span>
 }
-
-const ALLOCATION = [
-  { name: 'Infrastructure', text: 'Hosting, databases, CDN', share: 60 },
-  { name: 'Search & APIs', text: 'Algolia, matching engine', share: 20 },
-  { name: 'Development', text: 'Features, improvements', share: 15 },
-  { name: 'Growth', text: 'Outreach, new universities', share: 5 }
-]
 
 const AUDIENCES: {
   title: string
@@ -74,20 +65,15 @@ const AUDIENCES: {
     icon: Mail,
     text: 'Invest in the next generation of students. Partner with us or sponsor development to help students discover your programs.',
     cta: 'Contact us for partnerships',
-    href: 'mailto:universities@ibmatch.com',
+    href: 'mailto:support@ibmatch.com',
     external: false
   }
 ]
 
 const TIERS = [
-  { amount: '$5', label: 'Buy us a coffee', impact: 'Covers 1 week of email service' },
-  {
-    amount: '$15',
-    label: 'Show your love',
-    impact: 'Covers 1 month of search API',
-    featured: true
-  },
-  { amount: '$50', label: 'Fuel our growth', impact: 'Helps add 10 new university programs' }
+  { amount: '$5', label: 'Buy us a coffee' },
+  { amount: '$15', label: 'Show your love' },
+  { amount: '$50', label: 'Fuel our growth' }
 ]
 
 const card =
@@ -100,39 +86,27 @@ export function NewSupportUs() {
         <TextHero
           eyebrow="Community-powered project"
           title="Help us keep IB Match free for all students"
-          intro="IB Match was built by an IB graduate who wished this tool existed. We’re committed to keeping it free for students — forever. Your support helps us cover infrastructure costs and continue improving the platform."
-          ticks={['100% goes to platform costs', 'Non-commercial project']}
+          intro="IB Match was started by Tal, an IB Diploma graduate, and is built together with Pavel. It is free for students, and we have no plans to charge them. Your support helps pay for hosting, the database, search and email."
+          ticks={['Free for students', 'An independent project']}
           actions={
-            <>
-              <a
-                href={KOFI}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonVariants({ size: 'lg', className: 'max-md:w-full' })}
-              >
-                Support on Ko-fi
-                <NewTab />
-                <ExternalLink aria-hidden="true" size={18} strokeWidth={2} />
-              </a>
-              <Link
-                href="#how-funds-are-used"
-                className={cn(
-                  textLinkClass,
-                  'inline-flex min-h-11 items-center gap-1.5 self-start no-underline hover:underline'
-                )}
-              >
-                See how funds are used
-                <ArrowDown aria-hidden="true" size={16} strokeWidth={2} />
-              </Link>
-            </>
+            <a
+              href={KOFI}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ size: 'lg', className: 'max-md:w-full' })}
+            >
+              Support on Ko-fi
+              <NewTab />
+              <ExternalLink aria-hidden="true" size={18} strokeWidth={2} />
+            </a>
           }
         />
 
         <TextSection
           id="why"
           eyebrow="Why support us?"
-          title="A non-commercial project with real costs"
-          intro="IB Match is built with love, not profit motives. We don’t show ads, sell your data, or charge students. But running a platform that serves students worldwide comes with real expenses."
+          title="An independent project with real costs"
+          intro="We don’t show ads, sell your data, or charge students. Schools can subscribe to extra coordinator features. Running a platform that serves students worldwide still comes with real expenses."
         >
           <CardGrid
             columns={4}
@@ -145,7 +119,7 @@ export function NewSupportUs() {
               {
                 icon: Search,
                 title: 'Search & matching',
-                text: 'Our matching algorithm and search APIs require ongoing investment to deliver instant results for students.'
+                text: 'Our matching algorithm and search APIs require ongoing investment to give students fast results.'
               },
               {
                 icon: Zap,
@@ -197,52 +171,6 @@ export function NewSupportUs() {
         </TextSection>
 
         <TextSection
-          id="how-funds-are-used"
-          eyebrow="Transparency"
-          title="Where your support goes"
-          intro="We believe in complete transparency. Here’s how donations are allocated to keep IB Match running and growing."
-        >
-          <ul
-            aria-label="Where donations go"
-            className="max-w-210 rounded-card border border-border bg-card"
-          >
-            {ALLOCATION.map(({ name, text, share }) => (
-              <li
-                key={name}
-                className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 px-5 py-3.5 not-first:border-t not-first:border-border md:grid-cols-[12.5rem_minmax(0,1fr)_3.5rem]"
-              >
-                <span className="flex flex-col">
-                  <span className="text-[0.9375rem] leading-[1.375rem] font-semibold">{name}</span>
-                  <span className="text-small font-normal text-muted-foreground">{text}</span>
-                </span>
-                <span
-                  aria-hidden="true"
-                  className="col-span-2 row-start-2 h-3 overflow-hidden rounded-[0.375rem] border border-transparent bg-border md:col-span-1 md:col-start-2 md:row-start-1"
-                >
-                  <span
-                    className="block h-full rounded-[0.375rem] bg-primary forced-colors:bg-[Highlight]"
-                    style={{ width: `${share}%` }}
-                  />
-                </span>
-                <span className="text-right text-[1.0625rem] leading-6 font-semibold tabular-nums md:col-start-3">
-                  {share}%
-                </span>
-              </li>
-            ))}
-          </ul>
-          <Callout
-            icon={<Info size={20} strokeWidth={2} aria-hidden="true" />}
-            label="Note"
-            tone="note"
-            className="max-w-210"
-          >
-            <strong className="font-semibold">Our commitment:</strong> We’re a non-profit
-            initiative. No salaries, no fancy offices — just students helping students. Every
-            donation goes directly to keeping the platform alive and free.
-          </Callout>
-        </TextSection>
-
-        <TextSection
           id="suggest"
           eyebrow="Help us grow"
           title="Suggest a program"
@@ -259,27 +187,21 @@ export function NewSupportUs() {
           id="give"
           eyebrow="Make a difference"
           title="Choose your level of support"
-          intro="Every contribution, no matter the size, helps us maintain and improve IB Match for students around the world."
+          intro="Donations help pay for hosting, the database, search and email. Every amount helps."
         >
           <ul className="grid gap-3 md:grid-cols-3 md:gap-4">
-            {TIERS.map(({ amount, label, impact, featured }) => (
+            {TIERS.map(({ amount, label }) => (
               <li key={amount}>
                 <a
                   href={KOFI}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={cn(card, 'gap-1.5', featured ? 'border-primary' : 'border-border')}
+                  className={cn(card, 'gap-1.5 border-border')}
                 >
-                  {featured && (
-                    <span className="inline-flex min-h-6 items-center self-start rounded-chip border border-transparent bg-brand-soft px-2 text-[0.75rem] leading-[1.125rem] font-semibold text-brand-ink">
-                      Most popular
-                    </span>
-                  )}
                   <span className="font-[family-name:var(--font-newsreader)] text-[2.125rem] leading-10 font-medium tabular-nums">
                     {amount}
                   </span>
                   <span className="text-h3">{label}</span>
-                  <span className="text-body text-muted-foreground">{impact}</span>
                   <NewTab />
                 </a>
               </li>
@@ -300,8 +222,8 @@ export function NewSupportUs() {
           </div>
           <p className="text-body text-muted-foreground">
             For sponsorship or partnership inquiries, contact us at{' '}
-            <a href="mailto:universities@ibmatch.com" className={inlineLinkClass}>
-              universities@ibmatch.com
+            <a href="mailto:support@ibmatch.com" className={inlineLinkClass}>
+              support@ibmatch.com
             </a>
             .
           </p>

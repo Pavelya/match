@@ -8,9 +8,9 @@ const features = [
     icon: Database
   },
   {
-    name: 'Blazing Fast Search',
+    name: 'Fast Search',
     description:
-      'Powered by Algolia, the same search infrastructure used by Stripe, Slack, and Medium. Results in under 50 milliseconds.',
+      'Powered by Algolia, a widely used search service. Search answers in a fraction of a second.',
     icon: Search
   },
   {
@@ -20,9 +20,9 @@ const features = [
     icon: Zap
   },
   {
-    name: 'Real-Time Sync',
+    name: 'Kept Up to Date',
     description:
-      'When we add new programs or update requirements, your search results update instantly.',
+      'When we add new programs or update requirements, search picks them up shortly afterwards.',
     icon: RefreshCw
   }
 ]
@@ -34,11 +34,12 @@ export function ProgramDatabase() {
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-blue-600">Program Database</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            1,000+ Programs, Instant Results
+            1,000+ Programs, Quick Results
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             We maintain a growing database of university programs from around the world, each with
-            detailed IB-specific admission requirements. Search through them all in milliseconds.
+            detailed IB-specific admission requirements. Search through them all in a fraction of a
+            second.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

@@ -1,11 +1,4 @@
-import { CheckCircle2, MessageSquareQuote } from 'lucide-react'
-
-const quotes = [
-  'With 60-80 students in our IB cohort, individual university guidance is challenging.',
-  'Students need help understanding how their IB grades translate to university admissions.',
-  "I'm balancing academic guidance with increasing mental health support needs.",
-  "Most university tools don't understand IB requirements—students get confused."
-]
+import { CheckCircle2 } from 'lucide-react'
 
 const benefits = [
   'Empowers students to self-serve university research using IB-specific criteria',
@@ -25,25 +18,7 @@ export function CoordinatorFeatures() {
           </p>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* What We Hear (Quotes) */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              What We Hear from Coordinators
-            </h3>
-            <div className="grid gap-4">
-              {quotes.map((quote, idx) => (
-                <div
-                  key={idx}
-                  className="relative rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-sm transition-all hover:shadow-md"
-                >
-                  <MessageSquareQuote className="absolute top-6 left-6 h-6 w-6 text-blue-200" />
-                  <p className="pl-10 text-gray-700 italic">&ldquo;{quote}&rdquo;</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className="mx-auto max-w-3xl">
           {/* How IB Match Helps (Checklist) */}
           <div className="flex flex-col justify-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-8">How IB Match Helps</h3>
