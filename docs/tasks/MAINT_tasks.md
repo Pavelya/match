@@ -1933,6 +1933,8 @@ until this is fixed.
    `programs:all:v3` or the match cache.
 3. The owner runs the dry run, reads the counts, and only then runs `--apply`. This task does not run it.
 
+   Steps 1 and 2 are pull request #156 (`fix/rate-limit-analytics-off`); the purge has not been run.
+
 **Must not:** run the purge against production without the owner approving the dry-run output; change a limit, a window or
 an identifier.
 

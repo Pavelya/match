@@ -70,8 +70,8 @@ recommendation made in the first version of this page and answered the rest.
 
 | Task | What | Needs |
 |---|---|---|
-| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | Nothing: ready to start |
-| **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | Your go-ahead for the delete |
+| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | **Done: draft pull request [#157](https://github.com/Pavelya/match/pull/157)** (label `go-live`); its "Before merging" list is the release-day checklist |
+| **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done: pull request [#156](https://github.com/Pavelya/match/pull/156).** Your go-ahead: merge it, run the dry run (`npx tsx scripts/purge-ratelimit-analytics.ts`), read the counts, then `--apply`. The script has not been run |
 | **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
@@ -104,7 +104,7 @@ Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you 
 **Resolved:** the Cookie Policy and the FAQ are **not** published in `/admin/legal-content`: both pages show the text in
 the code (the owner confirmed). So publishing the new Cookie Policy in the admin replaces nothing: the page reads the
 published document first and falls back to the code. The FAQ is not a legal document; its one change (`claims.md`
-M2) goes in go-live pull request #127 or the public-pages pull request.
+M2) is in the public-pages pull request, [#157](https://github.com/Pavelya/match/pull/157).
 
 Also: subscribe to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
