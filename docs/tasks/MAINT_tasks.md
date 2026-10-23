@@ -24,7 +24,7 @@ the others fall.
 |---|---|---|---|---|---|
 | 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
 | 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
-| 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
+| 3 | Legal pages and public claims | 7.4 | medium | Drafts done 23 October 2026 (`docs/legal-review/`); the owner's answers next; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
@@ -37,6 +37,7 @@ the others fall.
 | 12 | Country page shells | 7.2, the rest | medium | After R.2 | One route for the 23 guides, once R.2 deletes the `<Country>Content.tsx` files |
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
+| 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
@@ -96,6 +97,12 @@ Phase 5 — quick wins
   two old invitations wait for the owner)
 - [x] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 - [x] 5.27 Order Explore by the student's fit, not by the highest minimum (22 October 2026)
+- [ ] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4)
+- [ ] 5.29 Let an admin delete a coordinator who has sent invitations
+- [ ] 5.30 Store the published policy versions when someone accepts an invitation
+- [ ] 5.31 Put the consent records, support tickets and invitations in the data export
+- [ ] 5.32 Redact the address in the support-ticket email logs
+- [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
 
 Phase 6 — dependency majors
 
@@ -1901,6 +1908,149 @@ because the new Explore shows the misleading order to every student. Independent
 
 ---
 
+### 5.28 — Stop the rate limiters keeping account IDs and IP addresses forever
+
+**Outcome:** The rate limiters keep a counter for the length of their window and nothing else. No record of who
+was limited, or when, outlives its window, and the records already there are gone.
+
+**Why:** Found 23 October 2026 by the owner's screenshot of Upstash's Data Browser while checking the legal pages
+(7.4). `lib/rate-limit.ts` builds all seven limiters with `analytics: true`. Each request then adds an
+entry to a sorted set named `ratelimit:<limiter>:events:<hour>`, `{"identifier": …, "success": true}`, and those sets
+have **no TTL**: one on screen is from 30 August 2026, with a user ID in it. The `profile`, `matches`, `invite` and
+`support` limiters, and `api` on most routes, are keyed by account ID; `search`, `auth`, and `api` on the public
+legal-documents route, by IP address (`getClientIp`). Nothing reads the
+records: the Upstash console's analytics view is the only consumer. They also outlive an account deletion
+(5.25): a deleted student's ID stays in them. The Privacy Policy (7.4) cannot say the counters are kept "for a short time"
+until this is fixed.
+
+**Steps:**
+
+1. In `lib/rate-limit.ts`, `analytics: false` in all seven limiters. A Vitest test mocks `@upstash/ratelimit` and
+   `@/lib/redis/client` and fails if any limiter is created with `analytics: true`, so it cannot come back.
+2. `scripts/purge-ratelimit-analytics.ts`: `SCAN`s for `ratelimit:*:events:*` only, checks each key's type is `zset`,
+   and prints how many there are per limiter, the oldest and newest hour, and no identifiers. **A dry run by default**;
+   `--apply` deletes with `UNLINK`, in batches. It never touches `ratelimit:<limiter>:<window>` (the live counters),
+   `programs:all:v3` or the match cache.
+3. The owner runs the dry run, reads the counts, and only then runs `--apply`. This task does not run it.
+
+   Steps 1 and 2 are pull request #156 (`fix/rate-limit-analytics-off`); the purge has not been run.
+
+**Must not:** run the purge against production without the owner approving the dry-run output; change a limit, a window or
+an identifier.
+
+**Verify:** the test; `npx tsc --noEmit`, `npx eslint .`, `npx prettier --check .`. After the purge, Upstash's Data
+Browser shows no `ratelimit:*:events:*` key and the app still limits (a 429 after the sixth request in 10 seconds
+to an `auth` route).
+
+**Session size:** Tiny. **Before the new Privacy Policy is published.**
+
+---
+
+### 5.29 — Let an admin delete a coordinator who has sent invitations
+
+**Outcome:** The admin's "delete coordinator" works for a coordinator who has invited anyone, and removes what the
+Privacy Policy says it removes.
+
+**Why:** Found 23 October 2026 (7.4). `Invitation.invitedBy` has no `onDelete` (`prisma/schema.prisma`, the `invitedBy`
+relation), so Prisma restricts the delete, and `app/api/admin/coordinators/[id]/route.ts` calls `prisma.user.delete` alone:
+a coordinator who has sent any invitation cannot be deleted from the admin. `scripts/cleanup-user-invitations.sql`
+is the manual workaround. Read from the schema and the route; not run against production. The Privacy Policy
+tells coordinators to ask for deletion, so it has to work.
+
+**Steps:** one `prisma.$transaction`, as `deleteStudentAccount` is (`lib/account/delete-student.ts`): delete the
+invitations the coordinator sent, and the one addressed to them (matched without case), which are what the cascade does
+not reach, then the user; the profile, support tickets, sessions and sign-in rows cascade. A Vitest test with a mocked
+transaction, as `delete-student.test.ts` does, for a coordinator with invitations.
+
+**Must not:** delete the school, or the students linked to it (the school's own delete still refuses while it has
+students).
+
+**Verify:** the test and the usual checks; on a throwaway database, delete a coordinator who has an invitation.
+
+**Session size:** Small.
+
+---
+
+### 5.30 — Store the published policy versions when someone accepts an invitation
+
+**Outcome:** A student or coordinator who joins by invitation is recorded as having accepted the versions of the Terms and
+Privacy Policy that are published, so the "We've updated our policies" notice does not appear on their first visit.
+
+**Why:** Found 23 October 2026 (7.4). Both invitation routes store a constant that was never a published label:
+`'2025-12-14'` in `app/api/auth/accept-student-invite/route.ts` and `'2025-12-09'` in
+`app/api/auth/accept-invite/route.ts`. `checkConsentStatus` compares labels exactly (`lib/legal-documents/consent.ts`),
+so the invited person sees the notice at once, minutes after agreeing on the invitation. `app/api/students/consent/route.ts`,
+which would store `'2025-12-09'` too, is called by nothing.
+
+**Steps:** use `getCurrentVersionLabels()` for `termsVersion` and `privacyPolicyVersion` in both routes. The
+coordinator-access consent version (`'2025-12-14'` in two routes) is a separate record of what the invitation's box said:
+keep it. Delete `app/api/students/consent/route.ts`. Tests for both routes.
+
+**Must not:** change what either invitation page says or asks, or the sign-in consent line. **A consent flow, so
+its own pull request, not the one that publishes the legal pages.**
+
+**Verify:** the tests; accept an invitation on a throwaway database and confirm no notice follows.
+
+**Session size:** Small.
+
+---
+
+### 5.31 — Put the consent records, support tickets and invitations in the data export
+
+**Outcome:** "Download your data" returns everything the account holds about the student, which is what the Privacy
+Policy will say it does.
+
+**Why:** Found 23 October 2026 (7.4). `app/api/students/account/export/route.ts` returns the account, profile,
+preferences and saved programs. It leaves out the accepted policy versions and dates, the school link's consent, the
+student's support tickets and any invitation sent to their address.
+
+**Steps:** add three blocks to the export with `select`, not `include`: `consent` (the four `User` fields and the
+`StudentProfile` coordinator-access fields), `supportTickets` (number, category, subject, message, reply, dates) and
+`invitations` (school, status, dates). Raise `exportVersion` to `'1.1'`. Extend `route.test.ts`.
+
+**Must not:** add a field that holds another person's data, or read the whole of a table.
+
+**Verify:** the test; the download from a throwaway account.
+
+**Session size:** Small. After it, the Privacy Policy's sentence about what the download contains is shortened.
+
+---
+
+### 5.32 — Redact the address in the support-ticket email logs
+
+**Outcome:** The support-ticket emails log the recipient the way the account emails do: `ab***@example.com`.
+
+**Why:** Found 23 October 2026 (7.4). `lib/email/support-tickets.ts` passes `to: params.to` to the logger in the success
+and failure branches of both senders; `lib/email/account-emails.ts` redacts it. The logs last a day on the current Vercel
+plan, so this is consistency, not an incident.
+
+**Steps:** one shared `redactEmailAddress` in `lib/email/`, used by both files; a test.
+
+**Verify:** the test and the usual checks.
+
+**Session size:** Tiny. Fold into any session.
+
+---
+
+### 5.33 — Stop telling a coordinator to "upgrade to VIP"
+
+**Outcome:** The portal says what a school can do: subscribe. VIP is an early-adopter plan IB Match grants, not one a
+coordinator can buy (Terms 6.2).
+
+**Why:** Found 23 October 2026 (7.4). "Upgrade to VIP" appears in `app/coordinator/students/page.tsx` (three places),
+`app/coordinator/dashboard/page.tsx`, `app/coordinator/students/[id]/page.tsx`, and in two API error messages
+(`app/api/coordinator/students/[id]/route.ts`, `…/matches/route.ts`), and as the default label of
+`components/admin/shared/UpgradePromptBanner.tsx`. The paid route is the subscription page.
+
+**Steps:** "Subscribe to …" wording, linking to `/coordinator/settings/subscription` where a link already exists; keep the
+text of the API errors honest ("Subscribe to edit student data"). The portal keeps today's design: change words only.
+
+**Verify:** `grep -rn "pgrade to VIP" app components` prints nothing; the usual checks.
+
+**Session size:** Tiny. Fold into any session.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -2529,6 +2679,30 @@ pull request.
 
 **Session size:** Medium. Research and drafting in one session, then the owner. Before rebranding
 release day if possible, so the legal pages ship with correct words.
+
+**Status, 23 October 2026: steps 1 to 4 drafted and the owner's decisions applied; step 5 (publishing) waits on a few
+answers, the lawyer and release day.** Everything is in [`docs/legal-review/`](../legal-review/README.md): the
+decisions and the action list, the data map, the provider notes (read from the providers' own pages, with the
+owner's dashboard screenshots and files), a redline and a pasteable draft for each of the three documents, the
+claims table, and a brief for the lawyer. Nothing is published and no code changed.
+
+**Decided by the owner (23 October 2026):** IB Match is a hobby project run by Pavel Yampolsky, an individual in Poland,
+with no registered company, no donations so far and paying customers (schools); Tal is the founder and it was built
+together; age 16 and older; `support@` is read and `privacy@` and `legal@` forward to it; free "forever" becomes "free
+for students; we have no plans to charge them"; the early adopter program is open; the four coordinator quotes are
+not real; a lawyer reviews the Privacy Policy and Terms; the University Agent promises, the unkept 90-day
+invitation deletion, "GDPR Compliant", "non-profit", "non-commercial" and the donation claims (the whole "where your
+support goes" section, since no donations exist) all go; the three documents are published together on release day.
+
+**Still needed before publishing:** the lawyer's review, and one small code change first:
+Upstash's rate-limit analytics keep user IDs, and probably IP addresses, with no expiry (the owner's Data Browser shows
+a record from 30 August), so they are to be switched off and purged. The owner's dashboards settled every other
+check. **Next:** the public pages' wording in code, both designs (done: #157 for the visible words and #158 for titles,
+descriptions and structured data, which may merge before release day), the rate-limit change (#156), then publishing
+in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
+coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
+policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
+coordinator portal says "Upgrade to VIP" for a plan that is a subscription.
 
 ---
 
