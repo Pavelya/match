@@ -22,12 +22,12 @@ interface PageDates {
 }
 
 export const PAGE_DATES = {
-  '/': { published: '2025-12-23', modified: '2025-12-23' },
-  '/for-coordinators': { published: '2025-12-23', modified: '2025-12-23' },
+  '/': { published: '2025-12-23', modified: '2026-10-23' },
+  '/for-coordinators': { published: '2025-12-23', modified: '2026-10-23' },
   // The fallback text. When a FAQ document is published in the CMS, the page uses
   // that document's date instead.
-  '/faqs': { published: '2025-12-23', modified: '2025-12-23' },
-  '/how-it-works': { published: '2026-01-14', modified: '2026-09-25' },
+  '/faqs': { published: '2025-12-23', modified: '2026-10-23' },
+  '/how-it-works': { published: '2026-01-14', modified: '2026-10-23' },
   '/ib-university-requirements': { published: '2026-01-29', modified: '2026-10-10' },
 
   // Country pages. `COUNTRY-PAGE-BASELINE.md` §3.2 asks every new one to add a line.

@@ -7,15 +7,11 @@ import { describe, expect, it, vi } from 'vitest'
  * stay off, in today's components and in the new design's pages. Each one was a claim the code
  * could not support: "non-profit" and "non-commercial" (schools pay), "100% goes to platform
  * costs", the "where your support goes" split, "most popular", "forever", "GDPR compliant", other
- * companies' names, and the mailboxes nobody reads.
+ * companies' names, and the mailboxes nobody reads. The titles, descriptions and structured data
+ * are checked in app/public-seo-claims.test.tsx.
  */
 
-vi.mock('@/lib/new-ui', () => ({ showsNewUi: vi.fn(async () => false) }))
 vi.mock('@/components/support/islands', () => ({ ProgramSuggestion: () => null }))
-vi.mock('@/components/layout/StudentFooter', () => ({ StudentFooter: () => null }))
-vi.mock('@/lib/brand/metadata', () => ({
-  organizationLogo: vi.fn(async () => 'https://example.test/logo.png')
-}))
 
 import { CoordinatorCTA } from './for-coordinators/_components/CoordinatorCTA'
 import { CoordinatorDashboard } from './for-coordinators/_components/CoordinatorDashboard'
@@ -33,8 +29,6 @@ import { SupportHero } from './support-us/_components/SupportHero'
 import { WhoCanSupport } from './support-us/_components/WhoCanSupport'
 import { WhySupport } from './support-us/_components/WhySupport'
 import { NewSupportUs } from './support-us/NewSupportUs'
-import { metadata as supportMetadata } from './support-us/page'
-import SupportUsPage from './support-us/page'
 
 const RETIRED: [string, RegExp][] = [
   ['"non-profit"', /non-?profit/i],
@@ -109,15 +103,6 @@ describe('Support us', () => {
     for (const Component of [DonationOptions, NewSupportUs]) {
       expect(html(Component)).toContain('hosting, the database, search and email')
     }
-  })
-
-  it('does not tell search engines it is a non-profit', async () => {
-    const keywords = (supportMetadata.keywords as string[]).join(' ')
-    expect(keywords).not.toMatch(/non-?profit/i)
-    expect(String(supportMetadata.description)).not.toMatch(/non-?commercial/i)
-
-    const page = renderToStaticMarkup(await SupportUsPage())
-    expect(page).not.toMatch(/nonprofitStatus|NonprofitType|non-?commercial/i)
   })
 })
 
