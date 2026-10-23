@@ -4,6 +4,11 @@
  * Provides configurable rate limiting for API endpoints using Upstash Rate Limit.
  * Uses Redis-backed sliding window algorithm for accurate, distributed rate limiting.
  *
+ * Analytics are off on purpose (MAINT 5.28). With `analytics: true` the library adds a record of
+ * every request, `{"identifier": <account ID or IP address>, "success": …}`, to a sorted set named
+ * `ratelimit:<limiter>:events:<hour>` that never expires, and nothing reads it. A limiter keeps only
+ * its counter, for the length of its window.
+ *
  * Rate Limit Tiers:
  * - AUTH: Strict limits for authentication endpoints (5 req/10s)
  * - API: Standard limits for authenticated API endpoints (20 req/min)
@@ -25,7 +30,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(5, '10 s'),
     prefix: 'ratelimit:auth',
-    analytics: true
+    analytics: false
   }),
 
   // Profile endpoints: 10 requests per minute per user
@@ -34,7 +39,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(10, '1 m'),
     prefix: 'ratelimit:profile',
-    analytics: true
+    analytics: false
   }),
 
   // Matches endpoints: 20 requests per minute per user
@@ -43,7 +48,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(20, '1 m'),
     prefix: 'ratelimit:matches',
-    analytics: true
+    analytics: false
   }),
 
   // Search endpoints: 30 requests per minute per IP
@@ -52,7 +57,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(30, '1 m'),
     prefix: 'ratelimit:search',
-    analytics: true
+    analytics: false
   }),
 
   // General API: 60 requests per minute per user
@@ -61,7 +66,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(60, '1 m'),
     prefix: 'ratelimit:api',
-    analytics: true
+    analytics: false
   }),
 
   // Invitations: 60 per hour per user
@@ -72,7 +77,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(60, '1 h'),
     prefix: 'ratelimit:invite',
-    analytics: true
+    analytics: false
   }),
 
   // Support tickets: 5 requests per hour per user
@@ -81,7 +86,7 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(5, '1 h'),
     prefix: 'ratelimit:support',
-    analytics: true
+    analytics: false
   })
 }
 
