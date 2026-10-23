@@ -70,7 +70,7 @@ recommendation made in the first version of this page and answered the rest.
 
 | Task | What | Needs |
 |---|---|---|
-| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Merged on release day with the `go-live` pull requests | **Done: draft pull request [#157](https://github.com/Pavelya/match/pull/157)** (label `go-live`); its "Before merging" list is the release-day checklist |
+| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Code, not a published document, so it can merge **before** release day (`REBRANDING_tasks.md` says the rewording is "in both designs, before release day") | **Done: [#157](https://github.com/Pavelya/match/pull/157)** (the visible words, both designs) and **[#158](https://github.com/Pavelya/match/pull/158)** (titles, descriptions and structured data, split out because the rebranding Definition of done 12 asks for a separate pull request). Your look at three layout changes in the new design is on #157's list |
 | **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done: pull request [#156](https://github.com/Pavelya/match/pull/156).** Your go-ahead: merge it, run the dry run (`npx tsx scripts/purge-ratelimit-analytics.ts`), read the counts, then `--apply`. The script has not been run |
 | **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
@@ -133,7 +133,7 @@ flow in this pull request and nothing may reach production before approval.
   something a school cannot buy (`claims.md` P1).
 - **F7. Pages the owner listed but that also carry claims** (`claims.md`): the home page's "The only university
   matching platform…" (M1), the FAQ's "Your data is never shared without your consent" (M2) and Contact's response
-  time (M3). M2 belongs in go-live pull request #127.
+  time (M3). M2 is in [#157](https://github.com/Pavelya/match/pull/157), not in go-live pull request #127.
 - **F8. `docs/product/DOC_3_technical-architecture.md` is out of date** (it names Vercel Postgres, Vercel Blob and
   Vercel Analytics). Not read by users; worth a line the next time it is touched.
 - **F9. Algolia's Search Analytics is on and keeps search words for 90 days** (and the server's address, not visitors'). That is
@@ -157,7 +157,8 @@ flow in this pull request and nothing may reach production before approval.
 4. After publishing, update `docs/templates/legal/*.md` to the published text, and `FALLBACK_CONTENT` in
    `app/cookies/page.tsx`, `app/privacy/page.tsx` and `app/terms/page.tsx` in the same change, so a missing CMS row
    never shows an old document.
-5. The public pages' wording (`claims.md`), as one reviewed pull request that edits both designs' files, merged at
-   the same time as release day's other `go-live` changes; `npm run build` and the SEO snapshot (`scripts/seo-snapshot.ts`)
-   show whether titles and descriptions moved, and 7.3 should hear if they did.
+5. The public pages' wording (`claims.md`): the visible words as one reviewed pull request that edits both designs' files
+   ([#157](https://github.com/Pavelya/match/pull/157)), and titles, descriptions and structured data as another
+   ([#158](https://github.com/Pavelya/match/pull/158)), with the SEO snapshot (`scripts/seo-snapshot.ts`). Neither needs to
+   wait for release day; 7.3 should hear that the descriptions moved.
 6. The emails' "Terms And Conditions" link is renamed by rebranding 4.7 from release day. Nothing to do here.
