@@ -8,11 +8,13 @@
  *
  *   (no option)   Dry run. Lists, per limiter, how many sets there are, how many identifiers they
  *                 hold and the oldest and newest hour. It prints no identifier and deletes nothing.
- *   --apply       Deletes those sets (UNLINK, in batches of 100), then counts what is left.
+ *   --apply       Deletes those sets (UNLINK, in batches of 100), then scans again and repeats until
+ *                 none are left, and prints how many rounds that took.
  *
- * Only keys named exactly `ratelimit:<letters>:events:<13 digits>` that are sorted sets are touched.
- * The live counters, `programs:all:v3`, and the match cache are never read for their contents or
- * deleted. Deleting is permanent: read the dry run first.
+ * It lists every key's name (never a value) and compares that with DBSIZE; a warning means the
+ * scan stopped early. Only keys named exactly `ratelimit:<letters>:events:<13 digits>` that are
+ * sorted sets are touched. The live counters, `programs:all:v3`, and the match cache are never read
+ * for their contents or deleted. Deleting is permanent: read the dry run first.
  *
  * Reads UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN from .env, which is the production
  * database. Run with:
@@ -22,20 +24,17 @@
 
 import 'dotenv/config'
 import { Redis } from '@upstash/redis'
-import { formatReport, purgeRateLimitAnalytics, type PurgeOps } from './lib/ratelimit-purge'
+import {
+  formatReport,
+  purgeRateLimitAnalytics,
+  scanAllKeys,
+  type PurgeOps
+} from './lib/ratelimit-purge'
 
 function opsFor(redis: Redis): PurgeOps {
   return {
-    async scan() {
-      const keys: string[] = []
-      let cursor = 0
-      do {
-        const [next, batch] = await redis.scan(cursor, { match: 'ratelimit:*', count: 500 })
-        cursor = Number(next)
-        keys.push(...batch)
-      } while (cursor !== 0)
-      return keys
-    },
+    scan: () => scanAllKeys((cursor) => redis.scan(cursor, { count: 1000 })),
+    dbsize: () => redis.dbsize(),
     async types(keys) {
       const pipeline = redis.pipeline()
       for (const key of keys) pipeline.type(key)
