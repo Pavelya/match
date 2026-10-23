@@ -24,7 +24,7 @@ the others fall.
 |---|---|---|---|---|---|
 | 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
 | 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
-| 3 | Legal pages and public claims | 7.4 | medium | Start now; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
+| 3 | Legal pages and public claims | 7.4 | medium | Drafts done 23 October 2026 (`docs/legal-review/`); the owner's answers next; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
@@ -2529,6 +2529,18 @@ pull request.
 
 **Session size:** Medium. Research and drafting in one session, then the owner. Before rebranding
 release day if possible, so the legal pages ship with correct words.
+
+**Status, 23 October 2026: steps 1 to 4 drafted; step 5 waits for the owner.** Everything is in
+[`docs/legal-review/`](../legal-review/README.md): the questions for the owner (Q1 to Q12) and the checks
+only the owner can make, the data map, the provider notes, a redline and a pasteable draft for each of the
+three documents, and the claims table. Nothing is published and no code changed. Two limits: the providers'
+sites were blocked in the session, so step 2 rests on search-result summaries and says so; and the published
+Terms and Privacy Policy were read from the live pages, not the database. Found on the way, for the owner and
+for later tasks: today's cookie banner has no switches either (so "Customize … choose which categories" is
+wrong now, not only after release); nothing lets a coordinator who has sent invitations be deleted by the
+admin button; a student who joins by invitation is shown the policy-update notice at once; and the
+University Agent role the Terms and Privacy Policy describe has no feature (details in the README's "Found while
+checking").
 
 ---
 
