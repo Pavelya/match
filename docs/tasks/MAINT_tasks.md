@@ -2544,8 +2544,7 @@ not real; a lawyer reviews the Privacy Policy and Terms; the University Agent pr
 invitation deletion, "GDPR Compliant", "non-profit", "non-commercial" and the donation claims (the whole "where your
 support goes" section, since no donations exist) all go; the three documents are published together on release day.
 
-**Still needed before publishing:** the lawyer's review; one clarification (the owner says a Cookie Policy or FAQ is
-published in `/admin/legal-content`, but the live pages show the text in the code); and one small code change first:
+**Still needed before publishing:** the lawyer's review, and one small code change first:
 Upstash's rate-limit analytics keep user IDs, and probably IP addresses, with no expiry (the owner's Data Browser shows
 a record from 30 August), so they are to be switched off and purged. The owner's dashboards settled every other
 check. **Next:** the public pages' wording in code, both designs (its own session, merged with the `go-live` pull

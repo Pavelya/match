@@ -62,7 +62,7 @@ recommendation made in the first version of this page and answered the rest.
 | Is **Pavel also an IB graduate**? (For schools says "former IB students… we lived through the IB experience ourselves") | Singular: "started by an IB graduate", as only Tal is known to be one |
 | Have coordinators actually **given feedback**? (For schools says "Based on coordinator feedback, we're building…") | Drop "Based on coordinator feedback" (`claims.md` C9) |
 
-**Owner checks:** all answered except one clarification ("Checks" below).
+**Owner checks:** all answered ("Checks" below).
 
 **Lawyer:** read the three drafts with [`lawyer-brief.md`](./lawyer-brief.md); settle every `[LAWYER: …]` note.
 
@@ -76,8 +76,7 @@ recommendation made in the first version of this page and answered the rest.
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
 **Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled; task B1
-done, which settles the last `[OWNER: …]` note (the Privacy draft's abuse-protection line); and the one
-clarification below.
+done, which settles the last `[OWNER: …]` note (the Privacy draft's abuse-protection line).
 
 **This pull request** (docs only, nothing published): the branch merges cleanly with `main`, touches no code, and
 Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you say so.
@@ -102,11 +101,10 @@ Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you 
 | DPF appeal | The Court's order | C-703/25 P pending; Microsoft admitted | Wording unchanged |
 | Published Terms and Privacy | The admin's view | Matches the live pages used as the baseline | No change |
 
-**One clarification:** you answered "Yes" to whether a Cookie Policy or FAQ is already published in `/admin/legal-content`.
-The live pages say neither is: `/cookies` shows no "Version" label and the hard-coded date "December 26, 2025", and
-`/faqs` shows no "Last updated" line, whereas `/privacy` and `/terms` show "Version 2026-03-23". So both pages are
-showing the text in the code. **Do you mean there is a draft or an unpublished version in the admin?** If so, tell me
-what it says, since publishing mine would replace it.
+**Resolved:** the Cookie Policy and the FAQ are **not** published in `/admin/legal-content`: both pages show the text in
+the code (the owner confirmed). So publishing the new Cookie Policy in the admin replaces nothing: the page reads the
+published document first and falls back to the code. The FAQ is not a legal document; its one change (`claims.md`
+M2) goes in go-live pull request #127 or the public-pages pull request.
 
 Also: subscribe to each provider's sub-processor notices (Supabase, Stripe, Upstash and Vercel offer it).
 
