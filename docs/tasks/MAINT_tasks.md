@@ -24,7 +24,7 @@ the others fall.
 |---|---|---|---|---|---|
 | 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
 | 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
-| 3 | Legal pages and public claims | 7.4 | medium | Drafts done 23 October 2026 (`docs/legal-review/`); the owner's answers next; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
+| 3 | Legal pages and public claims | 7.4 | medium | Drafts done 23 October 2026 (`docs/legal-review/`), the owner's answers in, 5.28 done; the lawyer's review next; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
 | — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
 | 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
@@ -97,7 +97,7 @@ Phase 5 — quick wins
   two old invitations wait for the owner)
 - [x] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 - [x] 5.27 Order Explore by the student's fit, not by the highest minimum (22 October 2026)
-- [ ] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4)
+- [x] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4) — #156, #159; purged, none left on 24 October 2026
 - [ ] 5.29 Let an admin delete a coordinator who has sent invitations
 - [ ] 5.30 Store the published policy versions when someone accepts an invitation
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
@@ -1933,7 +1933,11 @@ until this is fixed.
    `programs:all:v3` or the match cache.
 3. The owner runs the dry run, reads the counts, and only then runs `--apply`. This task does not run it.
 
-   Steps 1 and 2 are pull request #156 (`fix/rate-limit-analytics-off`); the purge has not been run.
+   Steps 1 and 2 are pull request #156 (`fix/rate-limit-analytics-off`); #159 fixed the script's paging.
+
+**Done, 24 October 2026.** Both merged, and the owner applied the purge. The dry run that day found no
+`ratelimit:*:events:*` key and one key in the whole database. The 429 check on production was not run (it means
+sending sign-in requests to the live site); the limits themselves did not change.
 
 **Must not:** run the purge against production without the owner approving the dry-run output; change a limit, a window or
 an identifier.
@@ -2699,7 +2703,16 @@ Upstash's rate-limit analytics keep user IDs, and probably IP addresses, with no
 a record from 30 August), so they are to be switched off and purged. The owner's dashboards settled every other
 check. **Next:** the public pages' wording in code, both designs (done: #157 for the visible words and #158 for titles,
 descriptions and structured data, which may merge before release day), the rate-limit change (#156), then publishing
-in `/admin/legal-content`. Found on the way and left for later sessions: admin deletion of a
+in `/admin/legal-content`.
+
+**Status, 24 October 2026: everything that can be done before the lawyer and release day is done.** #157 and #158 were
+cross-checked in the new design (1440px and 390px, light and dark) and four leftover words fixed on #157; both are green
+and merge cleanly together. The three drafts were rendered in the new design's legal template: headings are now in
+sentence case, and the Cookie Policy's tables are lists so they read on a phone (`docs/legal-review/README.md`, "Checked
+in the new design"). 5.28 is done, so no `[OWNER]` note is left in the drafts. **What remains:** the owner merges #157
+and #158 and edits the Ko-fi page; the lawyer settles the seven `[LAWYER]` notes; on release day the owner publishes
+the three documents in `/admin/legal-content` (README, "How to publish"); then task C, the templates and code fallbacks
+updated to the published text. Found on the way and left for later sessions: admin deletion of a
 coordinator who has sent invitations is blocked by a foreign key; a student who joins by invitation is shown the
 policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
 coordinator portal says "Upgrade to VIP" for a plan that is a subscription.

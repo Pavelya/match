@@ -70,16 +70,40 @@ recommendation made in the first version of this page and answered the rest.
 
 | Task | What | Needs |
 |---|---|---|
-| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Code, not a published document, so it can merge **before** release day (`REBRANDING_tasks.md` says the rewording is "in both designs, before release day") | **Done: [#157](https://github.com/Pavelya/match/pull/157)** (the visible words, both designs) and **[#158](https://github.com/Pavelya/match/pull/158)** (titles, descriptions and structured data, split out because the rebranding Definition of done 12 asks for a separate pull request). Your look at three layout changes in the new design is on #157's list |
-| **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done: pull request [#156](https://github.com/Pavelya/match/pull/156).** Your go-ahead: merge it, run the dry run (`npx tsx scripts/purge-ratelimit-analytics.ts`), read the counts, then `--apply`. The script has not been run |
+| **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Code, not a published document, so it can merge **before** release day (`REBRANDING_tasks.md` says the rewording is "in both designs, before release day") | **Done: [#157](https://github.com/Pavelya/match/pull/157)** (the visible words, both designs) and **[#158](https://github.com/Pavelya/match/pull/158)** (titles, descriptions and structured data, split out because the rebranding Definition of done 12 asks for a separate pull request). Cross-checked in the new design on 24 October 2026 (see "Checked in the new design" below); both are green and merge cleanly together |
+| **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done:** [#156](https://github.com/Pavelya/match/pull/156) and [#159](https://github.com/Pavelya/match/pull/159) (the script's paging), both merged, and the purge applied by you. The dry run on 24 October 2026 found no analytics records and one key in the whole database. The Privacy draft now says the counters "expire within about two hours" (sliding windows of up to an hour; the library expires a key after twice its window) |
 | **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
-**Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled; task B1
-done, which settles the last `[OWNER: …]` note (the Privacy draft's abuse-protection line).
+**Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled. Task B1 is
+done, so no `[OWNER: …]` note is left (24 October 2026).
 
 **This pull request** (docs only, nothing published): the branch merges cleanly with `main`, touches no code, and
 Prettier ignores Markdown, so CI is unaffected. It can be opened as soon as you say so.
+
+## Checked in the new design (24 October 2026)
+
+**The drafts in the legal template.** Each proposed document was rendered through `components/legal/LegalPage.tsx` (a
+temporary page, not committed) at 1440px and 390px, light and dark. Tables, bold lead-ins, links, "On this page" and
+the numbered headings all render, with no sideways scroll on the page. Two changes came out of it:
+
+- **Headings in sentence case** in all three drafts, the new design's content style (the board kept today's Title Case
+  because it showed today's words). The section links don't change: they are made from the lowercased words, and
+  nothing links to a section.
+- **The Cookie Policy's two tables are lists.** At 390px the template keeps a code name whole, so
+  `__Secure-authjs.pkce.code_verifier` took most of the width and the third column (how long each cookie lasts) sat
+  off-screen with nothing to show it was there. Each cookie is now a bullet, its name in bold; the prefixes are
+  said once above the list. The Privacy Policy's sub-processor table fits a phone as it is (the approved board's
+  pattern), so it stays a table.
+
+**The public pages, #157 and #158.** Support us, How it works, For schools and Home in the new design at 1440px and
+390px, light and dark; nothing scrolls sideways. The three layout changes #157 lists look right: Support us without
+the allocation section, the badge and the "covers…" lines (the tier cards are amount and label); How it works'
+filters as six cards in three columns (one column on a phone); For schools' "Why partner with us?" in one column.
+Fixed on #157: today's home page still said "Instant Results" (now "Quick Results"), "lightning-fast" went from the
+Next.js card, the Algolia card stopped repeating its title, and For schools' note no longer says "early adopter"
+twice ("**Early adopter schools** get full access at no cost. Any school can link up to 10 students for free.").
+Its test now also covers Home in both designs and the sign-up prompt.
 
 ## Checks only the owner can make
 

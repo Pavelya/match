@@ -25,6 +25,8 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 16. **15. Governing law.** "The laws of the applicable jurisdiction" names no law: the draft says the laws and courts of Poland, the operator's country, flagged for the lawyer. **6.4 and 16.** Refunds and the contact address keep `legal@` (it forwards to `support@`).
 17. **12. Limitation of liability.** Unchanged, and flagged for a lawyer (Q4).
 
+**Headings (24 October 2026):** in sentence case, the new design's content style, so the legal pages read like the rest of the site. The section links do not change (they are made from the lowercased words). The diff below shows the headings as first drafted; only their case differs.
+
 ## The redline
 
 ```diff

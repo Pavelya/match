@@ -7,7 +7,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 
 ## What changed, and why
 
-1. **The cookie names.** The published policy names `next-auth.session-token`, `next-auth.csrf-token` and `next-auth.callback-url`, which are Auth.js v4's. The live site sets `__Host-authjs.csrf-token`, `__Secure-authjs.callback-url` and, when Google sign-in starts, `__Secure-authjs.pkce.code_verifier` (15 minutes), and after sign-in `__Secure-authjs.session-token` (30 days). A table now gives each name, what it does and how long it lasts.
+1. **The cookie names.** The published policy names `next-auth.session-token`, `next-auth.csrf-token` and `next-auth.callback-url`, which are Auth.js v4's. The live site sets `__Host-authjs.csrf-token`, `__Secure-authjs.callback-url` and, when Google sign-in starts, `__Secure-authjs.pkce.code_verifier` (15 minutes), and after sign-in `__Secure-authjs.session-token` (30 days). A list now gives each name, what it does and how long it lasts.
 2. **When they are set.** The csrf and callback cookies are set on a visitor's first page, before any sign-in (seen in the live `Set-Cookie` headers on `/`). The old text implied login.
 3. **What the policy left out.** The `cookie-consent` choice (a cookie, one year, and the same name in `localStorage`) and the new design's `ibm-theme` and `shortlist-count` in `localStorage`. The Privacy Policy says "remembering your preferences" and this is what it means.
 4. **"Customize: choose which categories to enable".** Not true of either banner: today's Customize shows four static rows ("Not currently used") and has no switches (`components/shared/CookieConsentBanner.tsx`), and the new one's only informs (approved on rebranding D4.1). The new text says what the three buttons do and that both choices leave the same cookies today.
@@ -16,6 +16,10 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 7. **"You can change your preferences at any time by clearing your browser cookies."** Now: clear this site's cookies and stored data (the choice also lives in `localStorage`).
 8. **Contact.** The email address is `privacy@ibmatch.com` (it forwards to `support@`).
 9. **Date and version.** Publish with the Terms and the Privacy Policy on release day. The Cookie Policy does not trigger the update banner: `ReconsentChecker` reads the Terms and the Privacy Policy only. Keep one h1 (5.23); the draft has none because the page supplies it.
+
+**Headings (24 October 2026):** in sentence case, the new design's content style, so the legal pages read like the rest of the site. The section links do not change (they are made from the lowercased words). The diff below shows the headings as first drafted; only their case differs.
+
+**Cookies as lists (24 October 2026):** the two cookie tables are now lists, each name in bold. Rendered in the new design's legal template at 390px, the template keeps a code name whole, so `authjs.pkce.code_verifier` took most of the width and the third column (how long each cookie lasts) sat off-screen with nothing to show it was there. The `__Secure-` and `__Host-` prefixes are now said once, above the list. The facts are the same.
 
 ## The redline
 
@@ -42,19 +46,17 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -- **Session Cookies** (`next-auth.session-token`): Keep you logged in while using the app
 -- **CSRF Protection** (`next-auth.csrf-token`): Protect against cross-site request forgery attacks
 -- **Callback URL** (`next-auth.callback-url`): Remember where to redirect you after login
-+These are needed for the site to work and cannot be turned off. On the site's secure address they carry a `__Secure-` or `__Host-` prefix.
++These are needed for the site to work and cannot be turned off. On the site's secure address, the `authjs` cookies' names start with `__Secure-`, except `authjs.csrf-token`, which starts with `__Host-`.
  
 -### Analytics Cookies (Optional)
-+| Name                                  | What it does                                                    | How long it lasts                                   |
-+| ------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
-+| `__Secure-authjs.session-token`       | Keeps you signed in                                             | 30 days, set only after you sign in                  |
-+| `__Host-authjs.csrf-token`            | Protects sign-in and sign-out against forged requests           | Until you close your browser                         |
-+| `__Secure-authjs.callback-url`        | Remembers the page to return to after you sign in               | Until you close your browser                         |
-+| `__Secure-authjs.pkce.code_verifier`  | Completes "Continue with Google" safely                         | 15 minutes, set only when you start a Google sign-in |
-+| `cookie-consent`                      | Remembers your choice in the cookie banner, so it asks only once | 1 year                                              |
++- **`authjs.session-token`**: keeps you signed in. Set only after you sign in; lasts 30 days.
++- **`authjs.csrf-token`**: protects sign-in and sign-out against forged requests. Lasts until you close your browser.
++- **`authjs.callback-url`**: remembers the page to return to after you sign in. Lasts until you close your browser.
++- **`authjs.pkce.code_verifier`**: completes "Continue with Google" safely. Set only when you start a Google sign-in; lasts 15 minutes.
++- **`cookie-consent`**: remembers your choice in the cookie banner, so it asks only once. Lasts 1 year.
  
 -Currently, we do not use analytics cookies. If we add them in the future, they would help us understand how visitors use our site to improve the experience.
-+The last cookie's choice is also kept in your browser's local storage under the same name.
++The `cookie-consent` choice is also kept in your browser's local storage, under the same name.
  
 -### Preference Cookies (Optional)
 +### Choices Stored in Local Storage
@@ -63,10 +65,8 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +These stay on your device and are never sent to us. They have no expiry.
  
 -### Marketing Cookies (Optional)
-+| Name                | What it does                                                                                                   |
-+| ------------------- | -------------------------------------------------------------------------------------------------------------- |
-+| `ibm-theme`         | Remembers your light or dark choice, only if you pick one yourself. Otherwise the site follows your device     |
-+| `shortlist-count`   | The number beside Shortlist in the menu, for the signed-in student it belongs to. It is removed when you delete your account |
++- **`ibm-theme`**: remembers your light or dark choice, only if you pick one yourself. Otherwise the site follows your device.
++- **`shortlist-count`**: the number beside Shortlist in the menu, for the signed-in student it belongs to. It is removed when you delete your account.
  
 -Currently not used. These would be used for advertising and retargeting purposes.
 +### Analytics, Preference and Marketing Cookies
