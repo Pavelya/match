@@ -10,7 +10,7 @@ const reasons = [
   {
     name: 'Search & Matching',
     description:
-      'Our matching algorithm and search APIs require ongoing investment to deliver instant results for students.',
+      'Our matching algorithm and search APIs require ongoing investment to give students fast results.',
     icon: Search
   },
   {
@@ -34,12 +34,12 @@ export function WhySupport() {
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-blue-600">Why Support Us?</h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            A Non-Commercial Project with Real Costs
+            An Independent Project with Real Costs
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            IB Match is built with love, not profit motives. We don&apos;t show ads, sell your data,
-            or charge students. But running a platform that serves students worldwide comes with
-            real expenses.
+            We don&apos;t show ads, sell your data, or charge students. Schools can subscribe to
+            extra coordinator features. Running a platform that serves students worldwide still
+            comes with real expenses.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

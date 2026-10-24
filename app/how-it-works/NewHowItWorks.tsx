@@ -1,4 +1,4 @@
-import { BookOpen, Funnel, Globe, GraduationCap, Lock } from 'lucide-react'
+import { BadgeCheck, BookOpen, Clock, Funnel, Globe, GraduationCap, Lock } from 'lucide-react'
 import { StatusBadge, type MatchStatus } from '@/components/ds/StatusBadge'
 import { LimeBand } from '@/components/home/LimeBand'
 import { CardGrid, PlainList, TextHero, TextSection } from '@/components/text-page/TextPage'
@@ -60,14 +60,14 @@ export function NewHowItWorks() {
           eyebrow="Under the hood"
           title="Built smart, engineered for IB"
           intro="Curious how we match you with university programs? Here’s a peek behind the curtain at the technology that powers your personalized recommendations."
-          ticks={['Fast, accurate matching', 'Transparent algorithm', 'Privacy-first design']}
+          ticks={['Fast, accurate matching', 'Transparent algorithm', 'Your data is never sold']}
         />
 
         <TextSection
           id="database"
           eyebrow="Program database"
-          title="1,000+ programs, instant results"
-          intro="We maintain a growing database of university programs from around the world, each with detailed IB-specific admission requirements. Search through them all in milliseconds."
+          title="1,000+ programs, quick results"
+          intro="We maintain a growing database of university programs from around the world, each with detailed IB-specific admission requirements. Search through them all in a fraction of a second."
         >
           <CardGrid
             columns={4}
@@ -77,16 +77,16 @@ export function NewHowItWorks() {
                 text: 'Each program lists its IB requirements in the same format — minimum points, required subjects, and grade thresholds — so programs are easy to compare.'
               },
               {
-                title: 'Blazing fast search',
-                text: 'Powered by Algolia, the same search infrastructure used by Stripe, Slack, and Medium. Results in under 50 milliseconds.'
+                title: 'Fast search',
+                text: 'Powered by Algolia, a widely used search service. Search answers in a fraction of a second.'
               },
               {
                 title: 'Typo tolerance',
                 text: 'Misspell “psychology” as “psycology”? No problem. Our search understands what you mean and finds the right programs.'
               },
               {
-                title: 'Real-time sync',
-                text: 'When we add new programs or update requirements, your search results update instantly.'
+                title: 'Kept up to date',
+                text: 'When we add new programs or update requirements, search picks them up shortly afterwards.'
               }
             ]}
           />
@@ -160,7 +160,7 @@ export function NewHowItWorks() {
           intro="Not sure where to start? Use our filters to narrow down programs by location, field of study, and IB requirements. The more specific you are, the better your matches."
         >
           <CardGrid
-            columns={4}
+            columns={3}
             cards={[
               {
                 icon: Globe,
@@ -178,6 +178,16 @@ export function NewHowItWorks() {
                 text: 'Filter by minimum IB points required. Find programs that match your predicted or final scores.'
               },
               {
+                icon: Clock,
+                title: 'Length',
+                text: 'Choose how many years you want to study, from a short degree to a long one.'
+              },
+              {
+                icon: BadgeCheck,
+                title: 'Only the ones you qualify for',
+                text: 'With your grades saved, show only the programs where you meet every requirement.'
+              },
+              {
                 icon: Funnel,
                 title: 'Smart combinations',
                 text: 'All filters work together. Study Medicine in Canada? Engineering in the UK? Just select and search.'
@@ -189,41 +199,41 @@ export function NewHowItWorks() {
         <TextSection
           id="stack"
           eyebrow="Technology stack"
-          title="Built with industry-leading tools"
-          intro="We use the same technologies trusted by the world’s best companies. This means fast, reliable, and secure experiences for every student."
+          title="Built with widely used tools"
+          intro="We build on widely used services and open-source tools, so pages stay quick and reliable for every student."
         >
           <CardGrid
             columns={3}
             cards={[
               {
                 title: 'Next.js 16',
-                text: 'Modern React framework for lightning-fast page loads and smooth navigation.'
+                text: 'Modern React framework for fast page loads and smooth navigation.'
               },
               {
                 title: 'PostgreSQL',
-                text: 'Enterprise-grade database trusted by companies like Instagram and Spotify.'
+                text: 'A widely used open-source database.'
               },
               {
                 title: 'Algolia Search',
-                text: 'Industry-leading search infrastructure — the same tech behind Stripe and Slack.'
+                text: 'A widely used hosted search service that forgives typos.'
               },
               {
                 title: 'Redis Caching',
-                text: 'In-memory data store for instant results. Your matches load in milliseconds.'
+                text: 'Matches are cached, so coming back is quick.'
               },
               {
-                title: 'Global Edge Network',
-                text: 'Deployed worldwide for low latency. Fast access wherever you are.'
+                title: 'Hosting',
+                text: 'Hosted in Europe (Frankfurt), with pages delivered through a global network.'
               },
               {
-                title: 'GDPR Compliant',
-                text: 'Privacy-first design. Your data is encrypted, protected, and never sold.'
+                title: 'Your data',
+                text: 'Your data is never sold. Download or delete it any time in Settings.'
               }
             ]}
           />
           <p className="flex items-center gap-2.5 text-body text-muted-foreground">
             <Lock aria-hidden="true" size={18} strokeWidth={1.75} className="shrink-0" />
-            Your data is encrypted at rest and in transit
+            Your account and profile are stored encrypted, and every connection uses HTTPS
           </p>
         </TextSection>
 

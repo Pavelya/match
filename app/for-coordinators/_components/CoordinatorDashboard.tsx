@@ -1,24 +1,25 @@
-import { BarChart3, Users, Upload, FileText } from 'lucide-react'
+import { BarChart3, Users, Mail, FileText } from 'lucide-react'
 
 const features = [
   {
     name: 'School-level Analytics',
-    description: 'Understand student university interests and trends at a glance.',
+    description:
+      'Understand student university interests and trends at a glance. Advanced analytics are on paid and VIP plans.',
     icon: BarChart3
   },
   {
-    name: 'Student Progress Tracking',
-    description: 'Monitor university searching and application planning progress.',
+    name: 'Student Overview',
+    description: "See each linked student's profile, matches and saved programs.",
     icon: Users
   },
   {
-    name: 'Bulk Management',
-    description: 'Easily manage student invitations and accounts in bulk.',
-    icon: Upload
+    name: 'Student Invitations',
+    description: "Invite students by email and see who hasn't accepted yet.",
+    icon: Mail
   },
   {
     name: 'Data Export',
-    description: 'Export data for your existing guidance workflows.',
+    description: 'Export your student list as a CSV (paid or VIP plan).',
     icon: FileText
   }
 ]
@@ -32,8 +33,8 @@ export function CoordinatorDashboard() {
             Coordinator Dashboard
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-300">
-            Based on coordinator feedback, we&apos;re building school management features to help
-            you work more efficiently.
+            The coordinator portal gives you a view of your school&apos;s students and what
+            they&apos;re exploring.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
@@ -53,8 +54,8 @@ export function CoordinatorDashboard() {
           <div className="mt-16 text-center">
             <div className="inline-block rounded-xl bg-blue-500/10 px-6 py-4 border border-blue-500/20">
               <p className="text-sm text-blue-200">
-                <strong>Early Adopter Benefit:</strong> Get full access to these features for free
-                and help shape their development.
+                <strong>Early adopter schools</strong> get full access at no cost. Any school can
+                link up to 10 students for free.
               </p>
             </div>
           </div>

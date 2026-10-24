@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { SupportHero } from './_components/SupportHero'
 import { WhySupport } from './_components/WhySupport'
 import { WhoCanSupport } from './_components/WhoCanSupport'
-import { HowFundsAreUsed } from './_components/HowFundsAreUsed'
 import { ProgramRequest } from './_components/ProgramRequest'
 import { DonationOptions } from './_components/DonationOptions'
 import { SupportCTA } from './_components/SupportCTA'
@@ -103,7 +102,6 @@ function TodaysSupportUs() {
         <SupportHero />
         <WhySupport />
         <WhoCanSupport />
-        <HowFundsAreUsed />
         <ProgramRequest />
         <DonationOptions />
         <SupportCTA />

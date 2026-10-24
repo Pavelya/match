@@ -15,7 +15,7 @@ export function TrustSection() {
 
             <div className="space-y-4 text-base leading-7 text-gray-600">
               <p>
-                I built IB Match because I remember how overwhelming the university search was
+                I started IB Match because I remember how overwhelming the university search was
                 during my own IB years. Generic search tools didn&apos;t understand that my HL
                 Physics meant something different than just &quot;Physics&quot;. I wanted to create
                 the tool I wished I had.
@@ -38,7 +38,7 @@ export function TrustSection() {
             </div>
             <div className="rounded-xl bg-gray-50 p-6">
               <p className="text-2xl font-bold text-gray-900">100% Free</p>
-              <p className="mt-1 text-sm text-gray-600">Always free for students</p>
+              <p className="mt-1 text-sm text-gray-600">We have no plans to charge students</p>
             </div>
           </div>
         </div>

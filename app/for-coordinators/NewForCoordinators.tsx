@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, ChartColumn, ExternalLink, FileText, Info, Upload, Users } from 'lucide-react'
+import { ArrowRight, ChartColumn, ExternalLink, FileText, Info, Mail, Users } from 'lucide-react'
 import { Callout } from '@/components/ds/Callout'
 import { buttonVariants } from '@/components/ds/button-variants'
 import { LimeBand, onLimeInkButton } from '@/components/home/LimeBand'
@@ -23,13 +23,6 @@ const CALL = 'Schedule a 15-minute call'
 function NewTab() {
   return <span className="sr-only"> (opens in a new tab)</span>
 }
-
-const QUOTES = [
-  'With 60–80 students in our IB cohort, individual university guidance is challenging.',
-  'Students need help understanding how their IB grades translate to university admissions.',
-  'I’m balancing academic guidance with increasing mental health support needs.',
-  'Most university tools don’t understand IB requirements—students get confused.'
-]
 
 const BENEFITS = [
   'Empowers students to self-serve university research using IB-specific criteria',
@@ -72,21 +65,25 @@ export function NewForCoordinators() {
           }
         />
 
-        <TextSection id="story" title="Built by former IB students who understand your challenges">
+        <TextSection
+          id="story"
+          title="Started by a former IB student who understands your challenges"
+        >
           <div className="flex max-w-180 flex-col gap-5 text-body-l">
             <p className="text-muted-foreground">
-              We started IB Match because we lived through the IB experience ourselves—the stress of
-              predicting grades, the confusion of translating IB scores to university requirements,
-              and the overwhelming task of finding the right programs.
+              IB Match was started by Tal, an IB Diploma graduate who lived through the IB
+              experience: the stress of predicting grades, the confusion of translating IB scores to
+              university requirements, and the overwhelming task of finding the right programs. It
+              is built together with Pavel.
             </p>
             <p className="text-muted-foreground">
-              Now, as we build this platform, we understand both sides: the student stress and your
-              coordinator workload. Whether you’re managing 25 or 80 IB students, providing quality
-              individual university guidance is time-intensive work.
+              Now, as we build this platform, we keep both sides in mind: the student stress and
+              your coordinator workload. Whether you’re managing 25 or 80 IB students, providing
+              quality individual university guidance is time-intensive work.
             </p>
             <p className="font-medium">
-              That’s why we’re building IB Match with coordinators as partners, not just users. Your
-              expertise shapes every feature we develop.
+              That’s why we want to build IB Match with coordinators as partners, not just users.
+              We’re looking for coordinators who will tell us what would help.
             </p>
           </div>
         </TextSection>
@@ -96,30 +93,8 @@ export function NewForCoordinators() {
           eyebrow="Why partner with us?"
           title="Managing university guidance shouldn’t be another overwhelming task"
         >
-          <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-x-16">
-            <div className="flex min-w-0 flex-col gap-4">
-              <h3 className="text-h3">What we hear from coordinators</h3>
-              <ul className="rounded-card border border-border bg-card">
-                {QUOTES.map((quote) => (
-                  <li
-                    key={quote}
-                    className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-x-3 p-4 not-first:border-t not-first:border-border md:px-6 md:py-5"
-                  >
-                    {/* A serif mark in place of today's icon; the blockquote says what it is */}
-                    <span
-                      aria-hidden="true"
-                      className="h-7 font-[family-name:var(--font-newsreader)] text-[2.75rem] leading-11 font-medium text-primary"
-                    >
-                      “
-                    </span>
-                    <blockquote>
-                      <p className="text-body-l">{quote}</p>
-                    </blockquote>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex min-w-0 flex-col gap-4">
+          <div className="grid items-start gap-8">
+            <div className="flex max-w-180 min-w-0 flex-col gap-4">
               <h3 className="text-h3">How IB Match helps</h3>
               <PlainList items={BENEFITS} large />
               <div className="pt-2">
@@ -142,7 +117,7 @@ export function NewForCoordinators() {
         <TextSection
           id="dashboard"
           title="Coordinator dashboard"
-          intro="Based on coordinator feedback, we’re building school management features to help you work more efficiently."
+          intro="The coordinator portal gives you a view of your school’s students and what they’re exploring."
         >
           <CardGrid
             columns={4}
@@ -151,22 +126,22 @@ export function NewForCoordinators() {
               {
                 icon: ChartColumn,
                 title: 'School-level analytics',
-                text: 'Understand student university interests and trends at a glance.'
+                text: 'Understand student university interests and trends at a glance. Advanced analytics are on paid and VIP plans.'
               },
               {
                 icon: Users,
-                title: 'Student progress tracking',
-                text: 'Monitor university searching and application planning progress.'
+                title: 'Student overview',
+                text: 'See each linked student’s profile, matches and saved programs.'
               },
               {
-                icon: Upload,
-                title: 'Bulk management',
-                text: 'Easily manage student invitations and accounts in bulk.'
+                icon: Mail,
+                title: 'Student invitations',
+                text: 'Invite students by email and see who hasn’t accepted yet.'
               },
               {
                 icon: FileText,
                 title: 'Data export',
-                text: 'Export data for your existing guidance workflows.'
+                text: 'Export your student list as a CSV (paid or VIP plan).'
               }
             ]}
           />
@@ -176,8 +151,8 @@ export function NewForCoordinators() {
             tone="note"
             className="max-w-210"
           >
-            <strong className="font-semibold">Early adopter benefit:</strong> Get full access to
-            these features for free and help shape their development.
+            <strong className="font-semibold">Early adopter schools</strong> get full access at no
+            cost. Any school can link up to 10 students for free.
           </Callout>
         </TextSection>
       </article>

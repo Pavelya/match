@@ -32,7 +32,7 @@ const audiences = [
     cta: 'Contact us for partnerships →',
     color: 'bg-purple-50 border-purple-100 hover:border-purple-200',
     iconColor: 'text-purple-600',
-    href: 'mailto:universities@ibmatch.com',
+    href: 'mailto:support@ibmatch.com',
     external: false
   }
 ]

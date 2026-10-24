@@ -26,7 +26,7 @@ ${details || '[Please add any additional details about the program]'}
 
 Thank you for considering this request!`
   )
-  return `mailto:admin@ibmatch.com?subject=${subject}&body=${body}`
+  return `mailto:support@ibmatch.com?subject=${subject}&body=${body}`
 }
 
 export function ProgramSuggestion() {
