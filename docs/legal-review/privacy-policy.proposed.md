@@ -6,9 +6,9 @@ IB Match is run by Pavel Yampolsky, an individual in Poland. It is not a registe
 
 This policy applies to everyone who uses IB Match: students, IB coordinators and the administrators who run the platform. Your use of IB Match is also governed by our [Terms of Service](/terms).
 
-## 2. Information We Collect
+## 2. Information we collect
 
-### Information You Provide
+### Information you provide
 
 The data we collect depends on your role on the platform:
 
@@ -19,24 +19,24 @@ The data we collect depends on your role on the platform:
 - **Support requests**: what you write to us, the category you choose, and our reply.
 - **Your agreement to our policies**: which version of the Terms of Service and Privacy Policy you accepted, and when.
 
-### Information We Receive When You Sign In
+### Information we receive when you sign in
 
 - **Sign-in link**: when you ask for a sign-in link, we email it to you. It works for 10 minutes.
 - **Google**: we ask Google only for your name, email address and profile picture. We store the sign-in details Google returns (such as tokens) with your account. We use your Google details only to sign you in and to create and show your account. We do not use them to read anything else in your Google account, to advertise to you, or to share them with anyone except the providers listed in Section 10.
 
-### Information Collected Automatically
+### Information collected automatically
 
 - **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in logs for about one day. We use it to run the site, fix errors and stop abuse.
-- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache for a short time. [OWNER: true only after README task B1 (turn Upstash rate-limit analytics off and delete its old records); until then the cache keeps account IDs and IP addresses with no expiry.]
+- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache and expire within about two hours.
 - **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results. Algolia keeps its search logs for 90 days, in France, and uses them for search statistics. We send it our server's address, not yours, and nothing that names you. The words are also written to our own server log without your name or account.
 - **No tracking**: IB Match does not use analytics, advertising or tracking tools, and does not follow what you do from page to page. If that changes, we will update this policy first and ask for your consent where the law requires it.
 - **In your browser**: IB Match stores a few small items in your browser. They are listed in our [Cookie Policy](/cookies).
 
-### Payment Information
+### Payment information
 
 Students never pay. For schools with paid subscriptions, payments are processed by Stripe. Stripe receives the school's name and email address and the payment details entered at Stripe's checkout. We never see card numbers. We keep only Stripe's customer and subscription identifiers and the subscription's status.
 
-## 3. How We Use Your Information
+## 3. How we use your information
 
 We use your information to:
 
@@ -52,7 +52,7 @@ We use your information to:
 
 We do not sell your personal data, and we do not use it for advertising.
 
-### Why We May Use It (Legal Bases)
+### Why we may use it (legal bases)
 
 If you are in the European Economic Area or the United Kingdom, we rely on these legal bases:
 
@@ -63,11 +63,11 @@ If you are in the European Economic Area or the United Kingdom, we rely on these
 
 [LAWYER: check this section.]
 
-## 4. Data Sharing Between Roles
+## 4. Data sharing between roles
 
 We do not sell your personal information. The following describes how data is shared between roles on the platform:
 
-### 4.1. Coordinator Access to Student Data
+### 4.1. Coordinator access to student data
 
 IB Coordinators at a school can view the academic data of students who are linked to their school and, where the school's plan allows it, edit it. Specifically, coordinators may access:
 
@@ -88,11 +88,11 @@ IB Coordinators at a school can view the academic data of students who are linke
 
 No university has access to any student's personal data.
 
-### 4.3. Administrator Access
+### 4.3. Administrator access
 
 Platform administrators have access to all platform data for operations, support and compliance.
 
-## 5. External Data Sharing
+## 5. External data sharing
 
 We share information with third parties only in the following circumstances:
 
@@ -102,11 +102,11 @@ We share information with third parties only in the following circumstances:
 
 We do not share personal data with advertisers.
 
-## 6. Cookies and Tracking
+## 6. Cookies and tracking
 
 IB Match sets only the cookies it needs to sign you in and keep your account secure, and remembers your cookie choice, your light or dark setting and your shortlist count in your browser. It sets no analytics, advertising or tracking cookies. For the list and the lifetimes, see our [Cookie Policy](/cookies).
 
-## 7. Data Security
+## 7. Data security
 
 We take steps to protect your information, including:
 
@@ -119,7 +119,7 @@ We take steps to protect your information, including:
 
 No system is perfectly secure. If a breach affects your personal data, we will tell you and the authorities as the law requires.
 
-## 8. Data Retention
+## 8. Data retention
 
 - **Active accounts**: we keep your data for as long as your account is active or as needed to provide the service.
 - **Students deleting their account**: in Settings, "Delete account" permanently removes your saved programs, grades and profile, your support requests, your sign-in records and sign-in links, and any school invitations sent to your email address, then your account. We send you an email to confirm. It happens in one step: if it fails, nothing is deleted.
@@ -131,7 +131,7 @@ No system is perfectly secure. If a breach affects your personal data, we will t
 - **Backups**: we keep no backups of the database at present. If that changes, deleted data could remain in a backup until it expires, and this policy will say for how long.
 - **Payment records**: Stripe keeps payment records for as long as the law requires.
 
-## 9. Your Rights
+## 9. Your rights
 
 Depending on your jurisdiction (including under GDPR), you have the right to:
 
@@ -150,9 +150,9 @@ Depending on your jurisdiction (including under GDPR), you have the right to:
 
 To exercise your rights, write to privacy@ibmatch.com or send a Data & privacy request from the Contact page. We reply within one month.
 
-## 10. Data Processing Roles (GDPR)
+## 10. Data processing roles (GDPR)
 
-### IB Match as Data Controller
+### IB Match as data controller
 
 IB Match acts as the **data controller** for:
 
@@ -160,11 +160,11 @@ IB Match acts as the **data controller** for:
 - Operation of the matching algorithm and recommendations
 - Direct communications with users
 
-### IB Match as Data Processor
+### IB Match as data processor
 
 When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [LAWYER: check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
 
-### Sub-Processors
+### Sub-processors
 
 We use the following service providers to operate the platform:
 
@@ -180,19 +180,19 @@ We use the following service providers to operate the platform:
 
 Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure.
 
-## 11. International Data Transfers
+## 11. International data transfers
 
 Your information may be processed in countries other than your own. Our database, our cache and our website's server functions are in Frankfurt, Germany, and our search index is in France. Pages are delivered through our hosting provider's global network, so traffic can pass through other countries, including the United States. Our email provider, Resend, stores all its data in the United States. Our providers are mostly United States companies (our database provider's contracting company is in Singapore), and their staff and sub-processors can reach data from there for support and operations. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
 
-## 12. Children's Privacy
+## 12. Children's privacy
 
 IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
 
-## 13. Changes to This Policy
+## 13. Changes to this policy
 
 We may update this Privacy Policy from time to time. When we make a significant change, we will ask you to accept the new version the next time you sign in, and the version and date at the top of this page will change.
 
-## 14. Contact Us
+## 14. Contact us
 
 If you have questions about this Privacy Policy or want to exercise your data rights, please contact us:
 

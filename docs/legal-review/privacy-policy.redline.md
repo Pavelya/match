@@ -26,6 +26,8 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 17. **13. Changes.** Says what users will see: the notice at sign-in, and a new version and date.
 18. **14. Contact.** `privacy@ibmatch.com` is kept (it forwards to `support@`); adds the right to complain, naming Poland's UODO.
 
+**Headings (24 October 2026):** in sentence case, the new design's content style, so the legal pages read like the rest of the site. The section links do not change (they are made from the lowercased words). The diff below shows the headings as first drafted; only their case differs.
+
 ## The redline
 
 ```diff
@@ -69,7 +71,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -- **Device Information**: Browser type, device type, operating system
 -- **Log Data**: IP address, access times, referring URLs
 +- **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in logs for about one day. We use it to run the site, fix errors and stop abuse.
-+- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache for a short time. [OWNER: true only after README task B1 (turn Upstash rate-limit analytics off and delete its old records); until then the cache keeps account IDs and IP addresses with no expiry.]
++- **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache and expire within about two hours.
 +- **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results. Algolia keeps its search logs for 90 days, in France, and uses them for search statistics. We send it our server's address, not yours, and nothing that names you. The words are also written to our own server log without your name or account.
 +- **No tracking**: IB Match does not use analytics, advertising or tracking tools, and does not follow what you do from page to page. If that changes, we will update this policy first and ask for your consent where the law requires it.
 +- **In your browser**: IB Match stores a few small items in your browser. They are listed in our [Cookie Policy](/cookies).
