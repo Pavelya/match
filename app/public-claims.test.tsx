@@ -13,6 +13,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 vi.mock('@/components/support/islands', () => ({ ProgramSuggestion: () => null }))
 
+import { SignUpCTA } from '@/components/student/SignUpCTA'
 import { CoordinatorCTA } from './for-coordinators/_components/CoordinatorCTA'
 import { CoordinatorDashboard } from './for-coordinators/_components/CoordinatorDashboard'
 import { CoordinatorFeatures } from './for-coordinators/_components/CoordinatorFeatures'
@@ -28,6 +29,10 @@ import { SupportCTA } from './support-us/_components/SupportCTA'
 import { SupportHero } from './support-us/_components/SupportHero'
 import { WhoCanSupport } from './support-us/_components/WhoCanSupport'
 import { WhySupport } from './support-us/_components/WhySupport'
+import { FeatureGrid } from './landing/students/_components/FeatureGrid'
+import { Hero } from './landing/students/_components/Hero'
+import { TrustSection } from './landing/students/_components/TrustSection'
+import { NewHomePage } from './NewHomePage'
 import { NewSupportUs } from './support-us/NewSupportUs'
 
 const RETIRED: [string, RegExp][] = [
@@ -46,6 +51,7 @@ const RETIRED: [string, RegExp][] = [
   ],
   ['a "covers…" donation line', /covers 1 (week|month)|helps add 10 new/i],
   ['a latency figure', /under 50 milliseconds|in milliseconds|load in milliseconds/i],
+  ['"instant" or "lightning-fast"', /instant|lightning|blazing/i],
   ['"bulk management"', /bulk management/i],
   [
     'the invented coordinator quotes',
@@ -75,7 +81,12 @@ const PAGES: [string, ComponentType][] = [
   ['CoordinatorFeatures', CoordinatorFeatures],
   ['CoordinatorStory', CoordinatorStory],
   ['CoordinatorCTA', CoordinatorCTA],
-  ['NewForCoordinators', NewForCoordinators]
+  ['NewForCoordinators', NewForCoordinators],
+  ['Hero', Hero],
+  ['FeatureGrid', FeatureGrid],
+  ['TrustSection', TrustSection],
+  ['NewHomePage', NewHomePage],
+  ['SignUpCTA', () => createElement(SignUpCTA, { programId: 'p1' })]
 ]
 
 describe.each(PAGES)('%s', (_name, Component) => {
@@ -102,6 +113,17 @@ describe('Support us', () => {
   it('says what donations pay for, with no split', () => {
     for (const Component of [DonationOptions, NewSupportUs]) {
       expect(html(Component)).toContain('hosting, the database, search and email')
+    }
+  })
+})
+
+describe('Home', () => {
+  it('says the founder started it, in both designs', () => {
+    for (const Component of [Hero, NewHomePage]) {
+      expect(html(Component)).toContain('Started by a former IB student')
+    }
+    for (const Component of [TrustSection, NewHomePage]) {
+      expect(html(Component)).toContain('I started IB Match')
     }
   })
 })

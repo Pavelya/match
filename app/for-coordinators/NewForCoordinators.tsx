@@ -151,8 +151,8 @@ export function NewForCoordinators() {
             tone="note"
             className="max-w-210"
           >
-            <strong className="font-semibold">Early adopter benefit:</strong> Early adopter schools
-            get full access at no cost. Any school can link up to 10 students for free.
+            <strong className="font-semibold">Early adopter schools</strong> get full access at no
+            cost. Any school can link up to 10 students for free.
           </Callout>
         </TextSection>
       </article>

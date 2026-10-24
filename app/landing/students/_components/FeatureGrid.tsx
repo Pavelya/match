@@ -20,7 +20,7 @@ const features = [
     icon: Target
   },
   {
-    name: 'Instant Results',
+    name: 'Quick Results',
     description:
       'No more scouring websites. Enter your grades once and get matched with suitable programs in seconds.',
     icon: Zap

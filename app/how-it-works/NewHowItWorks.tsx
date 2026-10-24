@@ -207,7 +207,7 @@ export function NewHowItWorks() {
             cards={[
               {
                 title: 'Next.js 16',
-                text: 'Modern React framework for lightning-fast page loads and smooth navigation.'
+                text: 'Modern React framework for fast page loads and smooth navigation.'
               },
               {
                 title: 'PostgreSQL',
@@ -215,7 +215,7 @@ export function NewHowItWorks() {
               },
               {
                 title: 'Algolia Search',
-                text: 'Powered by Algolia, a widely used search service.'
+                text: 'A widely used hosted search service that forgives typos.'
               },
               {
                 title: 'Redis Caching',

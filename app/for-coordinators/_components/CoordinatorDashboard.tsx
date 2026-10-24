@@ -54,8 +54,8 @@ export function CoordinatorDashboard() {
           <div className="mt-16 text-center">
             <div className="inline-block rounded-xl bg-blue-500/10 px-6 py-4 border border-blue-500/20">
               <p className="text-sm text-blue-200">
-                <strong>Early Adopter Benefit:</strong> Early adopter schools get full access at no
-                cost. Any school can link up to 10 students for free.
+                <strong>Early adopter schools</strong> get full access at no cost. Any school can
+                link up to 10 students for free.
               </p>
             </div>
           </div>

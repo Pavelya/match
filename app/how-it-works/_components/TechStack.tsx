@@ -3,7 +3,7 @@ import { Server, Shield, Zap, Globe, Database, Lock } from 'lucide-react'
 const technologies = [
   {
     name: 'Next.js 16',
-    description: 'Modern React framework for lightning-fast page loads and smooth navigation.',
+    description: 'Modern React framework for fast page loads and smooth navigation.',
     icon: Zap
   },
   {
@@ -13,7 +13,7 @@ const technologies = [
   },
   {
     name: 'Algolia Search',
-    description: 'Powered by Algolia, a widely used search service.',
+    description: 'A widely used hosted search service that forgives typos.',
     icon: Server
   },
   {
