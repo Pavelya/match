@@ -41,7 +41,8 @@ interface LegalPageProps {
 export function LegalPage({ kind, markdown, updated, version }: LegalPageProps) {
   const { opening, sections } = legalSections(markdown)
   return (
-    <main>
+    // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+    <main data-quiet="">
       <div className={cn(container, 'pt-6 md:pt-12')}>
         <header className="flex flex-col gap-4 pb-6 md:gap-5 md:pb-8">
           <nav aria-label="Legal" className="flex flex-wrap gap-2">

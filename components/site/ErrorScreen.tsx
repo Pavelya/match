@@ -61,7 +61,8 @@ function ErrorPanel({ error, retry, as: Root }: PageErrorProps & { as: 'main' | 
   }, [])
 
   return (
-    <Root className={`${containerClass} px-4 pt-14 pb-20 md:px-6 md:pt-22 md:pb-30`}>
+    // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+    <Root data-quiet="" className={`${containerClass} px-4 pt-14 pb-20 md:px-6 md:pt-22 md:pb-30`}>
       <div className="flex max-w-160 flex-col gap-4">
         <IconTile icon={AlertTriangle} tone="error" />
         <h1 ref={heading} tabIndex={-1} className="text-h1 outline-none">

@@ -33,6 +33,7 @@ import {
   Ticket,
   FileText,
   Upload,
+  Sparkles,
   type LucideIcon
 } from 'lucide-react'
 
@@ -61,7 +62,8 @@ const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: '/admin/agents', label: 'University Agents', icon: Handshake },
   { href: '/admin/reference-data', label: 'Reference Data', icon: Database },
   { href: '/admin/support', label: 'Support Tickets', icon: Ticket },
-  { href: '/admin/legal-content', label: 'Legal Content', icon: FileText }
+  { href: '/admin/legal-content', label: 'Legal Content', icon: FileText },
+  { href: '/admin/seasonal-themes', label: 'Seasonal Themes', icon: Sparkles }
 ]
 
 export function AdminSidebar({ user, mark }: AdminSidebarProps) {

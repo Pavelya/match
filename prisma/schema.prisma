@@ -610,3 +610,16 @@ enum DocumentStatus {
   PUBLISHED
   ARCHIVED
 }
+
+// When each seasonal decoration shows (rebranding 6.1, board "D1.7 Seasonal themes"). The art is
+// code: `key` names a season built in lib/seasons/seasons.ts, and there is no free text, so nothing
+// an admin types reaches a page. One more row, key "all-off", is the "All seasonal decorations off"
+// switch, with no dates. Dates are calendar days, both inclusive, compared with each visitor's own
+// date in the browser. Written only by /admin/seasonal-themes.
+model SeasonalTheme {
+  key       String    @id
+  enabled   Boolean   @default(false)
+  startsOn  DateTime? @db.Date
+  endsOn    DateTime? @db.Date
+  updatedAt DateTime  @updatedAt
+}

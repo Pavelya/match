@@ -566,6 +566,91 @@
   box-decoration-break: clone;
 }
 
+/*
+ * Seasonal themes' four slots (rebranding 6.1, board "D1.7 Seasonal themes"): beside the mark,
+ * under "match" in Home's hero, in the lime band on Home and the guides, and on the 404. Each is
+ * empty and placed inside a box the page already has, so it never moves the layout or takes a
+ * tap. A season's own stylesheet (public/seasons/{key}/season.css) shows them and draws in them.
+ * The hero's bulbs get the one entrance D1.6 allows; every other slot is still.
+ */
+[data-season-slot] {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  background: no-repeat top / contain;
+}
+
+[data-season-slot='mark'] {
+  top: 9px;
+  left: calc(100% + 8px);
+  width: 20px;
+  height: 20px;
+}
+
+/* Hanging from the lime bar's lower edge (.lime-bar), as wide as the word */
+[data-season-slot='hero'] {
+  inset: calc(88% + 0.017em) 0 auto;
+  height: 0.33em;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: season-in 480ms var(--ease-standard) both;
+  }
+}
+
+@keyframes season-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+[data-season-slot='band'],
+[data-season-slot='404'] {
+  top: 8px;
+  right: 1rem;
+  width: 150px;
+  height: 27px;
+}
+
+[data-season-slot='404'] {
+  top: 12px;
+}
+
+@media (width >= 48rem) {
+  [data-season-slot='band'],
+  [data-season-slot='404'] {
+    top: 1rem;
+    right: 1.5rem;
+    width: 220px;
+    height: 40px;
+  }
+}
+
+@media (width >= 80rem) {
+  [data-season-slot='404'] {
+    top: 3.5rem;
+    width: 440px;
+    height: 200px;
+  }
+}
+
+/* Where the header hides the name for room (signed in, 768 to 1023px), and on the quiet pages */
+@media (48rem <= width < 64rem) {
+  [data-app-chrome] [data-season-slot='mark'] {
+    display: none !important;
+  }
+}
+
+body:has([data-quiet]) [data-season-slot='mark'] {
+  display: none !important;
+}
+
+@media (forced-colors: active), print {
+  [data-season-slot] {
+    display: none !important;
+  }
+}
+
 /* Focus moves here when a cookie choice closes the banner: the content, without an outline */
 [data-ui='next'] #main[tabindex='-1']:focus {
   outline: none;

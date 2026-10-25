@@ -4,6 +4,7 @@ import { ButtonLink } from '@/components/ds/ButtonLink'
 import { GuideLinks, GuidesHubLink } from '@/components/home/GuideLinks'
 import { LimeBand } from '@/components/home/LimeBand'
 import { MatchesPreview } from '@/components/home/MatchesPreview'
+import { SeasonSlot } from '@/components/site/SeasonSlot'
 import { containerClass } from '@/components/site/styles'
 import { COUNTRY_GUIDES } from '@/lib/programs/country-guides'
 import { cn } from '@/lib/utils'
@@ -86,8 +87,15 @@ function Hero() {
         <h1 className="text-display-xl">
           Find your perfect{' '}
           {/* A lime bar under the letters, not a marker behind them: light letters on lime
-              are 1.1:1 in dark (04-design-system.md §1) */}
-          <span className="lime-bar">university match</span>
+              are 1.1:1 in dark (04-design-system.md §1). In season, bulbs hang from the bar
+              under "match" (D1.7), so the word has a span of its own. */}
+          <span className="lime-bar">
+            university{' '}
+            <span className="relative">
+              match
+              <SeasonSlot slot="hero" />
+            </span>
+          </span>
         </h1>
         <p className="hero-description max-w-xl text-body-l text-muted-foreground">
           Use your predicted IB grades to find university programs that match your profile. IB Match
@@ -267,6 +275,7 @@ function FinalBand() {
     <LimeBand
       id="home-cta"
       heading="Ready to find your match?"
+      season
       explore={{ href: '/programs/search', label: 'Explore programs' }}
     >
       <p className="text-body-l">

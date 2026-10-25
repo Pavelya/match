@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { NotFoundSearch } from '@/components/detail/NotFoundPanel'
 import { NotFoundFrame } from './not-found-island'
+import { SeasonSlot } from './SeasonSlot'
 import { containerClass } from './styles'
 
 /*
@@ -21,7 +22,9 @@ const WAYS_ON = [
 export function NotFoundPage() {
   return (
     <NotFoundFrame>
-      <main className={`${containerClass} px-4 pt-14 pb-20 md:px-6 md:pt-22 md:pb-30`}>
+      {/* relative: the season's slot (D1.7), in the top padding or, from 1280px, right of the words */}
+      <main className={`${containerClass} relative px-4 pt-14 pb-20 md:px-6 md:pt-22 md:pb-30`}>
+        <SeasonSlot slot="404" />
         <div className="flex max-w-160 flex-col gap-4">
           <h1 className="text-h1">We can’t find that page</h1>
           <p className="text-body-l text-muted-foreground">
