@@ -164,7 +164,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 20 October 2026.** The canvas has 97 boards. The owner approved in chat "B ·
+**Where it stands, 25 October 2026.** The canvas has 100 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -218,13 +218,15 @@ sentence it adds to D4.11's page after deleting: "D4.18 Emails", "D4.18 Emails �
 and "D4.18 Emails · phone". Build 22's gate is complete. Later that day row 24 drew the one rule set for
 motion and feedback, from a review of every built component, and the owner approved it in chat with every
 recommendation: "D1.6 Motion and feedback". Build 19's gate is complete, and the owner unlocked it the same
-day, ahead of the program card review (5.1). One task has no board: D1.7, seasonal themes, added on 20
+day, ahead of the program card review (5.1). D1.7, seasonal themes, was added on 20
 October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)).
 On 21 October 2026 the owner moved it ahead of release day, to test in the preview, with winter as the
 first season, and confirmed Lens as the final mark. On 22 October 2026 row 25 drew Explore's sort for
 a student with grades, for `MAINT_tasks.md` 5.27, and the owner approved it in chat with every
 recommendation, including the search requests it costs: "D3.5 Sort · best fit". Build 25's gate is
-complete.
+complete. On 25 October 2026 row 26 drew the four seasonal slots and winter in each, and the owner
+approved the board in chat with every recommendation: "D1.7 Seasonal themes". Build 23's gate is
+complete, and the owner unlocked it the same day.
 
 ### Foundations
 
@@ -236,7 +238,7 @@ complete.
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark. **Confirmed 21 October 2026 (owner):** Lens is the final mark | Nothing | 9 October 2026 |
 | D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
-| D1.7 Seasonal themes | None | **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). "D1.7 Seasonal themes": the four slots (the header's logo, Home's hero, the lime band on Home and the guides, the 404) at 390px and 1440px, light, dark, forced colours (hidden) and reduced motion, signed in and signed out, and the fullest phone header at 320px; then the first season on every slot. Decide on the board: the seasons and their windows (the list in 6.2), where the accessory sits beside the mark, and whether Home's hero gets D1.6's one entrance or stays still. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | |
+| D1.7 Seasonal themes | "D1.7 Seasonal themes" (row 26, interactive): the four slots empty and then winter in each, at 1440px, 390px and 320px, light and dark, signed in and signed out, forced colours (hidden) and reduced motion, with the fullest phone header (signed in, 320px) measured; the seasons and their windows; the hero's entrance, playable; what each slot allows. **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). **Decided 25 October 2026 (owner), every recommendation:** winter, Lunar New Year, Eid al-Fitr and Diwali, and no Halloween; winter is bulbs and sparkles, with no snowflake, tree or religious symbol; the header's accessory after the name, never on the mark, hidden from 768 to 1023px signed in and on the quiet pages; the hero's bulbs hang from the lime bar under "match" and get D1.6's one entrance; the band's string on Home and the guides only; the 404's large drawing from 1280px; a light and a dark drawing per slot. Decisions in 6.1. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | Nothing | 25 October 2026 |
 
 ### Components
 
@@ -333,7 +335,7 @@ merges into `main`, behind the preview switch.**
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | **Done 20 October 2026.** Shared classes in `app/globals.css` (three presses, the `pressed:` variants, the stretched link, the small overlay, the disclosure fade) and one reduced-motion rule for the new design. Matches cards and Explore and Shortlist rows are whole links with Save and "Why this match" above them; a press holds while the next page loads, through `useLinkStatus` in client links only, so today's design downloads nothing new. "Updating…" on Explore, the theme switch at once. CSS 34.7 of the 36 KB allowed until cleanup |
-| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | Before release day, in the preview (owner, 21 October 2026); winter first. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
+| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | **Unlocked 25 October 2026** (D1.7 approved). Before release day, in the preview (owner, 21 October 2026); winter first. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
 | 25 | Explore best fit | `MAINT_tasks.md` 5.27 | D3.5 Sort · best fit | small to medium | **Done 22 October 2026.** A student with grades opens Explore on Best fit, Matches' order with the switch on, with one line under the count; words typed make "Most relevant" the default, and a picked sort stays in the URL. Signed out or before grades, "Highest points needed", named, at one request as before. Best fit browses the list (one or two requests); `EXPLORE_BEST_FIT` (`full`, `lifted`, `off`) can make it cheaper without a code change, and `scripts/algolia-usage.ts` prints the month's requests |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -370,7 +372,7 @@ Rows 3 and 4 can share a design session.
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
-| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | Before release day, tested in the preview (owner, 21 October 2026). Winter first, if merged by 1 December 2026; otherwise Lunar New Year |
+| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | D1.7 approved 25 October 2026; build 23 unlocked. Before release day, tested in the preview (owner, 21 October 2026). Winter first, if merged by 1 December 2026; otherwise Lunar New Year |
 | 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -3103,13 +3105,18 @@ shows to everyone. The first season is winter (owner, 21 October 2026), if this 
 - **Four slots, and nowhere else:**
   - beside the mark in the header, public and signed in, desktop and phone. The mark and the name never
     change, since the mark still waits on its clearance search (R.1);
-  - Home's hero, around the lime bar under the hero phrase (`app/NewHomePage.tsx`);
-  - the lime band that ends Home and every guide (`components/home/LimeBand.tsx`);
+  - Home's hero, hanging from the lime bar under "match" (`app/NewHomePage.tsx`); the word gets a span
+    of its own, with no visible change;
+  - the lime band that ends Home and every guide (`components/home/LimeBand.tsx`), and only those: For
+    schools, How it works, the requirements hub and Support us keep a plain band;
   - the 404 (`components/site/NotFoundPage.tsx`).
 
   Each slot is an empty `aria-hidden` element placed absolutely inside a box that already exists, so
   it never moves the layout (CLS stays 0) and never takes a tap (`pointer-events: none`). It never
   covers text or a control, at 320px, 390px or 1440px.
+- **The header's accessory stays off the quiet pages:** sign-in, the invitations, Academic, Settings,
+  the legal pages and the error page carry a mark, as first run does for focus mode, and the slot
+  hides there. First run's focus header has no slot.
 - **Never touched:** match cards, Explore and Shortlist rows, status badges and requirement chips
   (their colours carry meaning), forms, first run and its focus mode, the subject editor, Academic,
   Settings, sign-in and invitations (a sign-in page that suddenly looks different invites doubt), the
@@ -3119,7 +3126,7 @@ shows to everyone. The first season is winter (owner, 21 October 2026), if this 
 - **Decoration only, no words.** No greeting, so there is nothing to translate or to word for every
   faith, and nothing for SEO parity (Definition of done 12) to explain. The art is drawn from Lucide
   icons, already a dependency (`snowflake`, `sparkles`, `moon-star`, `lamp`, `ghost` and others), and
-  the design's tokens, in light and dark. It is hidden in forced colours.
+  the design's tokens, in light and dark. It is hidden in forced colours and in print.
 - **Motion** follows D1.6's rule for decorative motion: at most one entrance on Home's hero, transform
   and opacity, under 5 seconds and never repeated, and nothing with reduced motion. Everything else
   stays still.
@@ -3157,6 +3164,34 @@ shows to everyone. The first season is winter (owner, 21 October 2026), if this 
   mocked. Cases for the helper: an inclusive end, overlaps, the visitor's midnight, an empty or broken
   schedule, the preview parameter, and everything switched off.
 
+**Decided on the board (D1.7, every recommendation approved 25 October 2026; canvas row 26):**
+
+- **Seasons:** winter, Lunar New Year, Eid al-Fitr and Diwali, with the windows in 6.2. Halloween is
+  left out: it falls on the eve of US Early Decision, and in 2027 Diwali (29 October) lands in its
+  window.
+- **Winter** is a string of small bulbs and four-point sparkles (Lucide `sparkle`; the bulbs and their
+  wire are circles and a curve), in ultramarine and lime in light, lime and #8E9BFF in dark. No
+  snowflake (December is summer in Australia), no tree, no gift, no religious symbol.
+- **Beside the mark:** a pair of sparkles, 15px and 9px, in a 20 × 20 box inside the logo's link, 8px
+  after the name, its top 9px into the 44px link. Never on the mark. Hidden from 768 to 1023px signed
+  in, where the header hides the name. At 320px signed in (measured with Geist) the name ends at 121px
+  and Guides' box starts at 161px, so the pair (129–149px) leaves 12px; signed out has 73px.
+- **Home's hero:** five bulbs hang from the lime bar's lower edge, as wide as "match" and 0.33em deep
+  (about 156 × 19 on desktop, 111 × 13 on a phone), 11px above the paragraph at every width. Never
+  wider than the word, so never off the page (sparkles after the word would stick out between about
+  928px and 992px). They get D1.6's one entrance: a fade and an 8px rise over 480ms on the standard
+  curve, once per page load, none with reduced motion. Every other slot is still.
+- **The lime band:** a string of six bulbs in the band's top padding, its right end on the content's
+  edge: 220 × 40, 16px from the top, from 768px; 150 × 27, 8px from the top, below. Ultramarine and
+  white bulbs on an ink wire in both themes, since the band is lime in both. 13px above the heading
+  on a phone; 24px or more from the buttons on desktop.
+- **The 404:** from 1280px, a 440 × 200 drawing (a longer string with sparkles under it) right of the
+  words, 56px from the top, 112px clear of them at 1440px. Below 1280px, the band's small string in the
+  top padding (220 × 40 from 768px, 150 × 27 below), 17px above the heading on a phone.
+- **Files:** each slot has a light and a dark drawing; the season's stylesheet points at the one for
+  the theme in use, following the Appearance setting, so the browser fetches only that one, and only
+  in season.
+
 **Verify:**
 
 - `npm run build` lists the same pages as Static, with the same revalidate times.
@@ -3184,21 +3219,25 @@ schedule stay as 6.1 built them.
 
 **Design gate:** that season's board, "D1.7 Season · {name}", approved.
 
-**The seasons recommended for D1.7** (owner decides on the board). The list is short and balanced
-across traditions. A site for IB students in many countries shows either a fair set of holidays or
-none, never one faith's holidays alone. The dates are from the research and must be checked each year:
-three of these seasons follow lunar calendars, so the admin enters their dates each year.
+**The seasons, decided on D1.7** (owner, 25 October 2026). The list is short and balanced across
+traditions. A site for IB students in many countries shows either a fair set of holidays or none,
+never one faith's holidays alone. The dates were checked on 25 October 2026 and must be checked each
+year: three of these seasons follow lunar calendars, so the admin enters their dates each year.
 
-| Season | Key | Next date | Suggested window | Notes |
+| Season | Key | Next date | Window | Notes |
 |---|---|---|---|---|
-| Winter holidays and New Year | `winter` | Hanukkah 4–12 December 2026, Christmas, 1 January | 14 December to 1 January | The widest reach, so the first season. One generic season with lights and stars and no religious symbols. Snow is not its only motif, because December is summer in Australia |
-| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides |
-| Eid al-Fitr | `eid-al-fitr` | Around 9 March 2027, set by the moon sighting | 3 days from the announced date | Large IB communities in the Gulf and Türkiye |
-| Diwali | `diwali` | 8 November 2026, too soon for 6.1. Late October or November each year | 3 to 5 days | A large IB community in India |
-| Halloween | `halloween` | 31 October | 25 to 31 October | Optional. Secular and playful, but it falls on the eve of US Early Decision (1 November), when students are under the most pressure |
+| Winter holidays and New Year | `winter` | Hanukkah 4–12 December 2026, Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season, drawn on D1.7. One generic season with lights and stars and no religious symbols, and no snow, because December is summer in Australia. Hanukkah falls before the window in 2026 and inside it in 2027 |
+| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026 |
+| Eid al-Fitr | `eid-al-fitr` | 9 or 10 March 2027, set by the moon sighting | 3 days from the announced date | Large IB communities in the Gulf and Türkiye |
+| Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon for 6.1) | 27 to 31 October 2027 (5 days) | A large IB community in India |
 
-**No season during the IB's May exams.** No season runs around results days either (early July and
-early January): those days are for a message students can use, not decoration.
+**Halloween is not a season** (D1.7): it falls on the eve of US Early Decision (1 November), when
+students are under the most pressure, and in 2027 its window would overlap Diwali.
+
+**No season during the IB's May exams** (about 23 April to 19 May 2027). No season runs around results
+days either (early July and early January): those days are for a message students can use, not
+decoration. Eid al-Adha is not a season for that reason: in 2027 it falls inside the May exams (about
+16 May).
 
 ---
 
