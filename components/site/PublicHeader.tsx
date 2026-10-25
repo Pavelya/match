@@ -17,7 +17,7 @@ export function PublicHeader() {
   return (
     <header className={headerClass}>
       <div className={cn(headerRowClass, 'lg:gap-7')}>
-        <SiteLogo href="/" label="IB Match home" className="mr-auto lg:mr-0" />
+        <SiteLogo href="/" label="IB Match home" season className="mr-auto lg:mr-0" />
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {PUBLIC_LINKS.map((link) => (
             <CurrentLink

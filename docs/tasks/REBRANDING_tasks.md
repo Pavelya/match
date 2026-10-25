@@ -335,7 +335,7 @@ merges into `main`, behind the preview switch.**
 | 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
 | 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
 | 19 | Motion and feedback | 5.2 | D1.6 | medium | **Done 20 October 2026.** Shared classes in `app/globals.css` (three presses, the `pressed:` variants, the stretched link, the small overlay, the disclosure fade) and one reduced-motion rule for the new design. Matches cards and Explore and Shortlist rows are whole links with Save and "Why this match" above them; a press holds while the next page loads, through `useLinkStatus` in client links only, so today's design downloads nothing new. "Updating…" on Explore, the theme switch at once. CSS 34.7 of the 36 KB allowed until cleanup |
-| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | **Unlocked 25 October 2026** (D1.7 approved). Before release day, in the preview (owner, 21 October 2026); winter first. Four decoration slots, a schedule the admin sets with no deploy, and the first season. No read per visit, and nothing downloaded outside a season |
+| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | **Done 25 October 2026.** Four slots (beside the mark, Home's hero, the band on Home and the guides, the 404), the `SeasonalTheme` table (migration applied), `/admin/seasonal-themes`, and winter in `public/seasons/winter/`. The browser picks the season from a head script, so static pages stay static; one cached read of the schedule after each save, never per visit. Outside a season nothing is downloaded: CSS +0.26 KB gzipped, no JS. `?season=winter` previews it on any day. Winter shows from 14 December if the admin schedules it |
 | 25 | Explore best fit | `MAINT_tasks.md` 5.27 | D3.5 Sort · best fit | small to medium | **Done 22 October 2026.** A student with grades opens Explore on Best fit, Matches' order with the switch on, with one line under the count; words typed make "Most relevant" the default, and a picked sort stays in the URL. Signed out or before grades, "Highest points needed", named, at one request as before. Best fit browses the list (one or two requests); `EXPLORE_BEST_FIT` (`full`, `lifted`, `off`) can make it cheaper without a code change, and `scripts/algolia-usage.ts` prints the month's requests |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
@@ -372,7 +372,7 @@ Rows 3 and 4 can share a design session.
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
 | 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
-| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | D1.7 approved 25 October 2026; build 23 unlocked. Before release day, tested in the preview (owner, 21 October 2026). Winter first, if merged by 1 December 2026; otherwise Lunar New Year |
+| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | Done 25 October 2026. Winter first: the owner schedules 14 December to 1 January at `/admin/seasonal-themes` and checks it through the preview link (6.1, Verify) |
 | 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
@@ -441,7 +441,7 @@ Phase 5 — After the whole preview
 
 Phase 6 — Seasonal themes
 
-- [ ] 6.1 Seasonal themes: the slots, the schedule and the first season
+- [x] 6.1 Seasonal themes: the slots, the schedule and the first season (25 October 2026)
 - [ ] 6.2 Each further season
 
 Release
@@ -3191,6 +3191,33 @@ shows to everyone. The first season is winter (owner, 21 October 2026), if this 
 - **Files:** each slot has a light and a dark drawing; the season's stylesheet points at the one for
   the theme in use, following the Appearance setting, so the browser fetches only that one, and only
   in season.
+
+**Built (25 October 2026, session 23).** One pull request:
+- **Data:** `SeasonalTheme` (`key` as the id, `enabled`, `startsOn`, `endsOn`, `updatedAt`; dates
+  nullable, so a season can be off without dates), migration `20261025120000_add_seasonal_theme`,
+  applied with `prisma migrate deploy`. The "All seasonal decorations off" switch is one more row,
+  key `all-off`, with no dates.
+- **Code:** `lib/seasons/` holds the seasons built in code (`seasons.ts`, today only `winter`), the
+  admin checks (`rules.ts`), the helper that picks the season and the head script it must agree
+  with (`pick.ts`; a test runs the script against the helper), and the root layout's cached read
+  (`schedule.ts`). The slots are `components/site/SeasonSlot.tsx`, placed in `SiteLogo` (the public
+  and signed-in headers only), `app/NewHomePage.tsx`, `LimeBand` (`season`, on Home and the guides)
+  and `NotFoundPage`; their geometry, the hero's entrance and the hiding rules are in
+  `app/globals.css`. Quiet pages carry `data-quiet`: Academic, Settings, School invitations, the
+  legal pages and the error page; sign-in and the invitation pages under `/auth` have no header slot.
+- **Admin:** `/admin/seasonal-themes` (today's admin style, in the sidebar) saves through `PUT
+  /api/admin/seasonal-themes`, which checks the role and the rules, writes every row in one
+  transaction and calls `revalidateTag('seasonal-themes', { expire: 0 })`.
+- **Winter:** `public/seasons/winter/season.css` and nine drawings (a light and a dark per slot, the
+  404's small and large, and one band drawing, which is lime in both themes).
+- **Measured:** the same Static pages and revalidate times; without the preview the prebuilt HTML of
+  `/`, a guide and the 404 is the same as on `main`, and every page's JS too; the site's CSS +259 B
+  gzipped (34.6 of the 36 KB allowed). The head script is 475 bytes, 511 with winter scheduled. In
+  season, Home downloads the stylesheet and three drawings, 1.6 KB gzipped. Draft Mode skips the
+  cache, so the preview reads the schedule on each of the owner's views; nobody else's do.
+- **Left as built:** the hero's entrance plays again when a student comes back to Home through a link
+  in the site, since that is a new page. The drawings are fetched once the season's stylesheet has
+  arrived, so on a first visit the bulbs may be partway through their fade when they appear.
 
 **Verify:**
 

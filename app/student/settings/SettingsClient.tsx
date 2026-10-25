@@ -217,7 +217,11 @@ export function SettingsClient(props: SettingsProps) {
   })
 
   return (
-    <div className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-5 md:px-6 md:pt-10 md:pb-24">
+    // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+    <div
+      data-quiet=""
+      className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-5 md:px-6 md:pt-10 md:pb-24"
+    >
       <div className="flex flex-col gap-1.5">
         <h1 className="text-h1">Settings</h1>
         <p className="text-body text-muted-foreground md:text-body-l">

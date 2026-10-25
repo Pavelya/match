@@ -123,7 +123,11 @@ export function InvitationsList({ invitations }: { invitations: PendingInvitatio
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-220 flex-col gap-6 px-4 pt-7 pb-10 md:px-6 md:pt-12 md:pb-24 lg:px-0">
+    // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+    <div
+      data-quiet=""
+      className="mx-auto flex w-full max-w-220 flex-col gap-6 px-4 pt-7 pb-10 md:px-6 md:pt-12 md:pb-24 lg:px-0"
+    >
       <div className="flex flex-col gap-2">
         <h1 className="text-h1">School invitations</h1>
         {invitations.length > 0 && (

@@ -1,0 +1,73 @@
+/*
+ * Winter holidays and New Year (rebranding 6.1, board "D1.7 Seasonal themes", approved 25 October
+ * 2026): small bulbs and four-point sparkles (Lucide's sparkle), with no snowflake, tree, gift or
+ * religious symbol. The head script adds this file only while the season is on, so nobody
+ * downloads it otherwise. It fills the four slots app/globals.css places; each slot has a light
+ * and a dark drawing, and the browser fetches only the one for the theme in use. The band is lime
+ * in both themes, so it has one.
+ */
+
+[data-season='winter'] [data-season-slot] {
+  display: block;
+}
+
+[data-season='winter'] [data-season-slot='mark'] {
+  background-image: url('mark-light.svg');
+}
+
+[data-season='winter'] [data-season-slot='hero'] {
+  background-image: url('hero-light.svg');
+}
+
+[data-season='winter'] [data-season-slot='band'] {
+  background-image: url('band.svg');
+}
+
+[data-season='winter'] [data-season-slot='404'] {
+  background-image: url('string-light.svg');
+}
+
+@media (width >= 80rem) {
+  [data-season='winter'] [data-season-slot='404'] {
+    background-image: url('404-light.svg');
+  }
+}
+
+/* Dark: chosen in Appearance, or the OS's while Appearance follows it */
+[data-season='winter'][data-theme='dark'] [data-season-slot='mark'] {
+  background-image: url('mark-dark.svg');
+}
+
+[data-season='winter'][data-theme='dark'] [data-season-slot='hero'] {
+  background-image: url('hero-dark.svg');
+}
+
+[data-season='winter'][data-theme='dark'] [data-season-slot='404'] {
+  background-image: url('string-dark.svg');
+}
+
+@media (width >= 80rem) {
+  [data-season='winter'][data-theme='dark'] [data-season-slot='404'] {
+    background-image: url('404-dark.svg');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='mark'] {
+    background-image: url('mark-dark.svg');
+  }
+
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='hero'] {
+    background-image: url('hero-dark.svg');
+  }
+
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('string-dark.svg');
+  }
+}
+
+@media (prefers-color-scheme: dark) and (width >= 80rem) {
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('404-dark.svg');
+  }
+}
