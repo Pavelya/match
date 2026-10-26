@@ -166,7 +166,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 26 October 2026.** The canvas has 101 boards. The owner approved in chat "B ·
+**Where it stands, 26 October 2026.** The canvas has 102 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -235,7 +235,10 @@ Christmas instead, and for the band's decoration on every page with the band. Th
 "D1.7 Season · Christmas", and build 26 (6.3); what went wrong and what changes for every season
 board is in 6.1. Row 27 drew three Christmas directions on whole pages at real size the same day,
 and on 26 October 2026 the owner chose direction A, the tree. Its final approval is build 26's Vercel
-preview, with `?season=winter`.
+preview, with `?season=winter`. The same day row 28 drew the second season, "D1.7 Season · Lunar New
+Year", three directions on whole pages, and the owner chose direction A, lanterns. Its final approval
+is build 27's Vercel preview, with `?season=lunar-new-year`. The canvas has grown too heavy to open on
+the owner's laptop, so that board is also a page of its own (6.4).
 
 ### Foundations
 
@@ -249,6 +252,7 @@ preview, with `?season=winter`.
 | D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
 | D1.7 Seasonal themes | "D1.7 Seasonal themes" (row 26, interactive): the four slots empty and then winter in each, at 1440px, 390px and 320px, light and dark, signed in and signed out, forced colours (hidden) and reduced motion, with the fullest phone header (signed in, 320px) measured; the seasons and their windows; the hero's entrance, playable; what each slot allows. **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). **Decided 25 October 2026 (owner), every recommendation:** winter, Lunar New Year, Eid al-Fitr and Diwali, and no Halloween; winter is bulbs and sparkles, with no snowflake, tree or religious symbol; the header's accessory after the name, never on the mark, hidden from 768 to 1023px signed in and on the quiet pages; the hero's bulbs hang from the lime bar under "match" and get D1.6's one entrance; the band's string on Home and the guides only; the 404's large drawing from 1280px; a light and a dark drawing per slot. Decisions in 6.1. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | Nothing | 25 October 2026. **Winter's art not kept** after the owner saw it in the preview the same day (6.1, Reviewed in the preview); the slots, the schedule and the other seasons stand |
 | D1.7 Season · Christmas | "D1.7 Season · Christmas" (row 27, interactive), a change board; "D1.7 Seasonal themes" stays as approved for the slots, the schedule and the other seasons. **Added 25 October 2026 (owner).** Three directions, A · Tree, B · Holly and C · Snow, drawn into the ten page types a slot reaches, captured whole from `main` at 1440px and 390px in light and dark (real programs, 76 real matches), each scrolled at real size; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against winter. **Direction chosen 26 October 2026 (owner): A, the tree,** with the recommendations drawn for it: the tree after the name; baubles under "match"; the band's drawing on all six pages with the band, its slot 330 × 60 from 768px; the 404's tree with a rolled-away bauble; a season-only pine green and berry red. Decisions in 6.3 | Nothing | Direction A chosen 26 October 2026. Approved in build 26's Vercel preview with `?season=winter`, before it merges |
+| D1.7 Season · Lunar New Year | "D1.7 Season · Lunar New Year" (row 28, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Lanterns, B · Blossom and C · Firecrackers, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the Hong Kong and Singapore guides captured from `main` on 26 October 2026 and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Christmas. Also on its own page, since the canvas no longer opens on the owner's laptop: https://claude.ai/artifact/HPYaCCUnSRRz16vEaU4ZZX (private to the owner). **Direction chosen 26 October 2026 (owner): A, lanterns,** with the recommendations drawn for it: one lantern after the name; five lanterns under "match"; four lanterns on a cord in the band, on all six pages with the band; the 404's string with one lantern fallen to the floor; a season-only lantern red and gold; no slot changes. Decisions in 6.4 | Nothing | Direction A chosen 26 October 2026. Approved in build 27's Vercel preview with `?season=lunar-new-year`, before it merges |
 
 ### Components
 
@@ -350,6 +354,7 @@ merges into `main`, behind the preview switch.**
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 | 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year. **Built 26 October 2026**: the tree's nine drawings, the band's slot on all six pages, 330 × 60 from 768px; waits on the owner's look in the pull request's preview |
+| 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -388,6 +393,7 @@ Rows 3 and 4 can share a design session.
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 | 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
+| 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Build by 27 January 2027 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -456,6 +462,7 @@ Phase 6 — Seasonal themes
 - [x] 6.1 Seasonal themes: the slots, the schedule and the first season (25 October 2026)
 - [ ] 6.2 Each further season
 - [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
+- [ ] 6.4 Lunar New Year
 
 Release
 
@@ -3314,7 +3321,7 @@ year: three of these seasons follow lunar calendars, so the admin enters their d
 | Season | Key | Next date | Window | Notes |
 |---|---|---|---|---|
 | Christmas and New Year | `winter` | Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season. Drawn on D1.7 as generic lights and stars; **redrawn as plainly Christmas in 6.3** (owner, 25 October 2026), snow allowed: a decorated tree, chosen on "D1.7 Season · Christmas" on 26 October 2026. The key stays `winter`, so the table and the schedule don't change |
-| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026 |
+| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026. Drawn on "D1.7 Season · Lunar New Year" (row 28): **red lanterns, chosen 26 October 2026** (owner); 6.4 |
 | Eid al-Fitr | `eid-al-fitr` | 9 or 10 March 2027, set by the moon sighting | 3 days from the announced date | Large IB communities in the Gulf and Türkiye |
 | Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon for 6.1) | 27 to 31 October 2027 (5 days) | A large IB community in India |
 
@@ -3413,6 +3420,70 @@ preview with `?season=winter` before it merges:
   season's stylesheet now asks for every drawing with `?v=` and the first 8 hex digits of its
   SHA-256, and `lib/seasons/art.test.ts` fails when a drawing changes without its version. A
   redraw in a later season does the same.
+
+### 6.4 — Lunar New Year
+
+**Outcome:** For ten days around Lunar New Year the site plainly says so, alike on every landing
+page. The second season after Christmas, and the first one 6.2 adds as a new key.
+
+**When:** before 3 February 2027, when the window opens (the new year falls on 6 February). Merge by
+27 January 2027, so there is a week to schedule it and look at it in the preview. Release day never
+waits for it.
+
+**Design gate:** "D1.7 Season · Lunar New Year" ([Step 2](#step-2--design-first)): a direction chosen
+on the board, then approved in this build's Vercel preview with `?season=lunar-new-year`, before it
+merges.
+
+**Must-haves:**
+- A new season in code: `public/seasons/lunar-new-year/` with `season.css` and the nine drawings, and
+  a line in `SEASONS` in `lib/seasons/seasons.ts`: key `lunar-new-year`, name "Lunar New Year" (never
+  "Chinese New Year"). Its usual window changes every year, since the festival follows the lunar
+  calendar; the admin enters the dates each year (6.2).
+- `season.css` has winter's shape, under `[data-season='lunar-new-year']`, and asks for every drawing
+  with `?v=` and the first 8 hex digits of its SHA-256, which `lib/seasons/art.test.ts` checks.
+- No slot changes: every drawing fits the slots as build 26 left them, so `app/globals.css` and the
+  components are untouched.
+- Everything else in 6.1 holds: no words; nothing moves but the hero's one entrance; nothing
+  downloaded outside the season; the mark never changes; hidden in forced colours and print.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them, including the Hong Kong and Singapore guides.
+
+**Decided on the board ("D1.7 Season · Lunar New Year", canvas row 28; direction A, lanterns, chosen
+by the owner on 26 October 2026).** The drawings are in the board's files on the canvas
+(`project/lny/a/`) and on its standalone page,
+https://claude.ai/artifact/HPYaCCUnSRRz16vEaU4ZZX (private to the owner, `lny/a/`). The build copies
+them, then the owner judges them in the preview.
+
+- **The header:** one round red lantern with gold caps, ribs and a tassel, on a short cord from the
+  top of the 20 × 20 slot after the name, never on the mark. Hidden as before from 768 to 1023px
+  signed in and on the quiet pages; at 320px signed in it takes 129 to 149px, 12px clear of Guides.
+  It passes the recognition check alone, so it is fine as the only decoration on Explore, Matches,
+  Shortlist and the program and university pages.
+- **Home's hero:** five lanterns on cords of different lengths from the lime bar under "match", the
+  middle one largest, in the hero's slot (the word's width, 0.33em deep, 11px above the paragraph),
+  with D1.6's one entrance. On a phone they are 7px wide and read beside the header's lantern, not
+  alone (weak on the check, as Christmas's baubles were).
+- **The lime band, on all six pages with it:** four lanterns on a sagging ink cord at the slot's
+  right end, one drawing, as the band is lime in both themes: 330 × 60 from 768px, 150 × 27 below.
+- **The 404:** from 1280px, a string of lanterns with one missing, its hook empty and its cord
+  snapped, and that lantern on its side on the floor, in the 440 × 200 slot. Below 1280px, the
+  band's lanterns on paper, at the band's sizes.
+- **Colours:** a lantern red and a gold, each with a light and a dark shade (light red #CF2A1D, ribs
+  #8C1A12, gold #E3A21A; dark red #FF6552, ribs #B5301F, gold #F4C04A; on the band, the light ones
+  with an ink cord and the tassels' gold edge #8A5A00), used only in the season's drawings: never
+  for text and never as tokens, so `app/globals.test.ts` is untouched. Cords are #858277 in light
+  and #9095A2 in dark, as Christmas's threads.
+- **Not used:** the year's animal (the goat in 2027; it changes every year), the character 福 or any
+  writing, a red envelope on its own (mail), gold coins or ingots (money), a dragon or lion dance,
+  fireworks bursts (they read as sparkles). Korea's Seollal has no red lanterns; the lantern is the
+  sign shared by the Chinese and Vietnamese new year and recognised internationally, and the name
+  stays "Lunar New Year".
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` in
+  `public/seasons/lunar-new-year/`. In season, gzipped: Home about 2.5 KB, a guide or a text page
+  1.8, a page with only the header 1.2, the 404 at 1440px 2.0 (Christmas as built: 2.6, 2.0, 1.1,
+  2.0).
+
 ---
 
 ## Open questions
