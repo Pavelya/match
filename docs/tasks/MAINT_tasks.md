@@ -30,7 +30,8 @@ the others fall.
 | 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
 | 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
 | 7 | Admin forms | 5.16 | small | Done, 22 October 2026 | The admin forms and bulk upload suggest the field the rule gives, and take a campus city |
-| 8, 9 | More tests | 7.1: the Stripe webhook, then API routes and rate limits | medium each | Any time | Money first. Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
+| 8 | More tests: the Stripe webhook | 7.1 Part 2 | medium | Done, 26 October 2026 | 42 tests; the route unchanged. Found 5.34 |
+| 9 | More tests: API routes and rate limits | 7.1 | medium | Any time | Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
 | 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
 | 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
@@ -38,13 +39,14 @@ the others fall.
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 | 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
+| 16 | Late Stripe events | 5.34 | small | **Before the first REGULAR school subscribes**; none has a Stripe customer on 26 October 2026 | A late or duplicate-subscription event can re-activate a cancelled school or cancel a paying one. Money logic, so alone. A failed renewal (`past_due`) keeps access until Stripe gives up (owner, 26 October), once the Dashboard's failed-payment action is confirmed |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 part 1;
+**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 parts 1 and 2;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -103,6 +105,7 @@ Phase 5 — quick wins
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
+- [ ] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — before the first school subscribes
 
 Phase 6 — dependency majors
 
@@ -2055,6 +2058,68 @@ text of the API errors honest ("Subscribe to edit student data"). The portal kee
 
 ---
 
+### 5.34 — Let a late Stripe event never change a school's subscription
+
+**Outcome:** A school's subscription status follows its current Stripe subscription as it is
+now, whatever order the events arrive in.
+
+**Why:** Found 26 October 2026 while testing the webhook (7.1 Part 2). In
+`app/api/webhooks/stripe/route.ts`, `handleSubscriptionUpdate` and `handleSubscriptionDeleted`
+write the status in the event's snapshot, and find the school by the subscription's `schoolId`
+without checking that the event's subscription is the one stored in `stripeSubscriptionId`.
+Stripe does not deliver events in order, and retries a failed delivery for up to three days —
+the route answers 500 on a failed write, as it should. Two ways that goes wrong:
+
+1. **A cancelled school gets full access back.** An `updated` event with status `active` fails
+   once (a database blip). The school cancels; `deleted` arrives and sets `CANCELLED`. Stripe's
+   retry of the old `updated` then sets `ACTIVE`, and nothing ever corrects it, because a
+   deleted subscription sends no more events.
+2. **A paying school loses access.** `create-checkout` refuses only a school that is already
+   `ACTIVE`, so two checkouts opened before either completes (two tabs) make two subscriptions.
+   When the school cancels the extra one, its `deleted` event sets the school `CANCELLED` while
+   the other is still billing. Its `updated` events also overwrite `stripeSubscriptionId`.
+
+No school is exposed today: on 26 October 2026 no school has a Stripe customer. **Fix it before
+the first REGULAR school subscribes.**
+
+**Steps:**
+- In both subscription handlers, read the subscription's current state with
+  `getStripe().subscriptions.retrieve(id)` and act on that, not on the snapshot. That is
+  Stripe's advice for ordering, and it costs one Stripe API call per event — no database,
+  Redis or Algolia read.
+- Act only on the school's current subscription: when the school already stores a different
+  `stripeSubscriptionId` and that one is still live, ignore the event. Decide in the session
+  what `created` should do when it arrives before `checkout.session.completed`, which sets the
+  ID; the tests in `route.test.ts` show the order of lookups today.
+- Give the school lookups `select: { id: true, stripeSubscriptionId: true }`; today they read
+  the whole row (Standing context: prefer `select`).
+- Extend `app/api/webhooks/stripe/route.test.ts` with both scenarios above, failing first. Mock
+  `subscriptions.retrieve` on the client `getStripe()` returns; keep the signing real.
+
+**Decided by the owner, 26 October 2026: a failed renewal keeps access until Stripe gives up.**
+Today `past_due` means `INACTIVE` at once, so a school whose renewal payment fails loses its paid
+features that minute while Stripe is still retrying the card. In this session, map `past_due` to
+`ACTIVE`; `unpaid`, `canceled` and the rest stay `INACTIVE`. Change the `past_due` row of the
+status table in `route.test.ts` with it.
+
+**This depends on a Stripe setting — check it first.** In the Stripe Dashboard's settings for
+failed subscription payments (under Billing → Revenue recovery → Retries when this was written),
+the action when all retries for a payment fail must be **cancel the
+subscription** or **mark the subscription as unpaid**. If it is "leave the subscription past-due",
+Stripe never gives up, and a school that stopped paying keeps full access forever. The session
+cannot see the Dashboard: ask the owner to confirm the setting, record it here, and do not merge
+the `past_due` change until they have.
+
+**Must not:** change the signature checks, or answer 200 to a failed write.
+
+**Verify:** the new tests fail on today's route and pass after; `npm test`; the usual checks. A
+real run needs Stripe test mode and `stripe listen` against a throwaway database, never
+production.
+
+**Session size:** Small. A change to money logic, so its own pull request.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -2489,7 +2554,7 @@ name it does not recognise. The union type makes that branch unreachable. A test
 have recorded failing open as intended behaviour, so it is noted here instead.
 
 **Remaining for 7.1:**
-- the Stripe webhook (session 9)
+- ~~the Stripe webhook (session 9)~~ done 26 October 2026, Part 2 below
 - API routes and rate limiting (session 10)
 - converting the 20 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
 - ~~branch protection, so the Tests job actually blocks a merge (owner task 1)~~ done 7 October 2026
@@ -2509,6 +2574,65 @@ have recorded failing open as intended behaviour, so it is noted here instead.
   clean.
 - `npm audit` still reports 0 vulnerabilities.
 - The four deliberate breaks above all fail.
+
+#### Part 2 — the Stripe webhook — **done** (session 9, 26 October 2026)
+
+**Outcome:** `app/api/webhooks/stripe/route.test.ts` holds 42 tests for
+`app/api/webhooks/stripe/route.ts`. The route itself is unchanged.
+
+**How the tests work.** Every request is signed by the Stripe SDK's own
+`webhooks.generateTestHeaderString`, so the route's real `constructEvent` checks it; nothing
+about verification is mocked. Only `@/lib/prisma`, `@/lib/logger` and `next/headers` are
+replaced — the route reads the signature through `headers()`, which needs a request scope.
+`NODE_ENV` is stubbed to `production`, so every state-machine test goes through the same gate
+a live event does. `STRIPE_SECRET_KEY` is a fake: signing is local, and nothing calls Stripe.
+
+**What the tests pin down:**
+
+- **In production, only an event Stripe signed is acted on.** A body changed after signing, a
+  different secret, a signature older than Stripe's five-minute tolerance and a missing header
+  are each refused with 400 and write nothing. A missing `STRIPE_WEBHOOK_SECRET` refuses
+  everything with 500. Outside production an unsigned event is accepted when no secret is set
+  (local testing with the Stripe CLI), but a bad signature is still refused when one is.
+- **`checkout.session.completed`** sets the school in the session's metadata to `ACTIVE` with
+  its customer and subscription IDs. With no `schoolId` it writes nothing and answers 200, so
+  Stripe does not retry an event that can never succeed. Delivered twice, it writes the same.
+- **`customer.subscription.created` and `.updated`**: `active` and `trialing` are `ACTIVE`;
+  every other Stripe status — `past_due`, `unpaid`, `canceled`, `incomplete`,
+  `incomplete_expired`, `paused` — and any status Stripe adds later is `INACTIVE`. Each case
+  also checks the access level it grants through `getCoordinatorAccess`.
+- **`customer.subscription.deleted`** sets `CANCELLED`, which ends full access.
+- **Finding the school**, in both subscription handlers: the subscription's `schoolId`, then the
+  stored subscription ID, then the customer ID; with no match, nothing is written and the
+  answer is 200.
+- **An event the route does not handle** (`invoice.paid`) reads and writes nothing.
+- **A failed write answers 500** on all three events, so Stripe delivers the event again.
+
+Part 1's exhaustive-`Record` trick does not work here: `Stripe.Subscription.Status` ends in
+`| OtherString`, so the compiler cannot list its members. The status table therefore ends with
+an invented status, which pins that an unknown one fails closed.
+
+**Proved to fail.** Four deliberate breaks to the route, each reverted:
+
+| Break | Result |
+|---|---|
+| The body parsed without `constructEvent` | 4 tests fail: changed body, other secret, stale signature, bad signature outside production |
+| `past_due` counted as paid | 2 tests fail |
+| A failed write answers 200 | 3 tests fail |
+| The customer-ID fallback dropped | 2 tests fail |
+
+**Found, not fixed: filed as 5.34.** The subscription handlers write the status in the event's
+snapshot, and do not check that the event's subscription is the school's current one. Stripe
+neither orders events nor stops retrying a failed one for three days, so a late event can
+re-activate a cancelled school, or cancel a school that is still paying. A test would have
+recorded either as intended, so they are written up in 5.34 instead. **No school is exposed
+today:** on 26 October 2026 production has one school, VIP and `ACTIVE`, and no school has a
+Stripe customer or subscription ID (aggregate counts only).
+
+**What changed:** `app/api/webhooks/stripe/route.test.ts`, new; this file.
+
+**Verified:** `npm test` and the matching suite pass; type-check, `eslint . --max-warnings 0`,
+`prettier --check .` and `npm run build` are clean; the four breaks above all fail.
 
 ---
 
