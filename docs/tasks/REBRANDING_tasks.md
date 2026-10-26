@@ -349,7 +349,7 @@ merges into `main`, behind the preview switch.**
 | 25 | Explore best fit | `MAINT_tasks.md` 5.27 | D3.5 Sort · best fit | small to medium | **Done 22 October 2026.** A student with grades opens Explore on Best fit, Matches' order with the switch on, with one line under the count; words typed make "Most relevant" the default, and a picked sort stays in the URL. Signed out or before grades, "Highest points needed", named, at one request as before. Best fit browses the list (one or two requests); `EXPLORE_BEST_FIT` (`full`, `lifted`, `off`) can make it cheaper without a code change, and `scripts/algolia-usage.ts` prints the month's requests |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
-| 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year |
+| 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year. **Built 26 October 2026**: the tree's nine drawings, the band's slot on all six pages, 330 × 60 from 768px; waits on the owner's look in the pull request's preview |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -387,7 +387,7 @@ Rows 3 and 4 can share a design session.
 | 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
-| 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Build before 10 December 2026 |
+| 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -455,7 +455,7 @@ Phase 6 — Seasonal themes
 
 - [x] 6.1 Seasonal themes: the slots, the schedule and the first season (25 October 2026)
 - [ ] 6.2 Each further season
-- [ ] 6.3 Christmas: winter redrawn
+- [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
 
 Release
 
@@ -3385,6 +3385,27 @@ owner on 26 October 2026).** The drawings are in `D17SeasonChristmas.dc.html`'s 
   `public/seasons/winter/`; `season.css` keeps its shape. In season, gzipped: Home about 2.5 KB
   (winter 1.6), a guide or a text page 2.0, a page with only the header 1.0, the 404 at 1440px 1.9.
   The site's stylesheet changes only by the band's new size.
+
+**Built (26 October 2026, session 26).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=winter` before it merges:
+- **Art:** the nine drawings from the board's `project/xmas/a/` replace winter's in
+  `public/seasons/winter/`, byte for byte; `season.css` keeps its shape, with a new header comment.
+  The season's name in `lib/seasons/seasons.ts` is "Christmas and New Year"; the key stays `winter`.
+- **Slots:** `LimeBand` always renders its slot and the `season` prop is gone, so the band's drawing
+  shows on all six pages with the band. In `app/globals.css` the band's slot, and the 404's below
+  1280px, are 330 × 60 at 12px from the top from 768px (220 × 40 at 16px before); nothing else
+  moved.
+- **Measured** (`next dev` with the new design, headless Chrome): every slot's box is the board's
+  (header 215, 19 at 1440px and 129, 15 at 390px; band 330 × 60 at 1010 from 768px; 404 900, 121); the
+  band 8px above its heading at 768px and 13px on a phone; the tree 12px clear of Guides at 320px
+  signed in; hidden in forced colours, signed in at 900px and on Settings; the hero still with
+  reduced motion. `npm run build` lists the same 38 Static pages as `main`; without the preview the
+  prebuilt HTML of `/`, a guide, the 404, How it works and Support us is the same as `main`'s once
+  build ids are normalised. The site's CSS +1 B gzipped (34.6 of 36 KB); the only JS change is the
+  admin chunk's season name. In season, gzipped: Home 2.6 KB, a guide or text page 2.0, header only
+  1.1, the 404 at 1440px 2.0.
+- **QA:** whole pages, every page type with a slot, 1440px and 390px, light and dark:
+  https://claude.ai/artifact/2s2gfx6ZC4mz83UCadvH49 (private to the owner).
 ---
 
 ## Open questions

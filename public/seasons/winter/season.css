@@ -1,10 +1,11 @@
 /*
- * Winter holidays and New Year (rebranding 6.1, board "D1.7 Seasonal themes", approved 25 October
- * 2026): small bulbs and four-point sparkles (Lucide's sparkle), with no snowflake, tree, gift or
- * religious symbol. The head script adds this file only while the season is on, so nobody
- * downloads it otherwise. It fills the four slots app/globals.css places; each slot has a light
- * and a dark drawing, and the browser fetches only the one for the theme in use. The band is lime
- * in both themes, so it has one.
+ * Christmas and New Year (rebranding 6.3, board "D1.7 Season · Christmas", direction A, the tree,
+ * chosen 26 October 2026; it replaces 6.1's bulbs and sparkles, and keeps the key `winter`): a
+ * decorated tree after the name, baubles under "match", trees and gifts on the lime band, and on
+ * the 404 a tree with one bauble rolled away. The head script adds this file only while the season
+ * is on, so nobody downloads it otherwise. It fills the four slots app/globals.css places; each
+ * slot has a light and a dark drawing, and the browser fetches only the one for the theme in use.
+ * The band is lime in both themes, so it has one.
  */
 
 [data-season='winter'] [data-season-slot] {

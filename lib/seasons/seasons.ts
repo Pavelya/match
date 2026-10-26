@@ -1,9 +1,9 @@
 /**
  * Seasonal themes (rebranding 6.1, board "D1.7 Seasonal themes", approved 25 October 2026). For a
  * few days around a holiday, four fixed places in the new design wear a small drawing: beside the
- * mark in the header, under "match" in Home's hero, in the lime band that ends Home and every
- * guide, and on the 404. The art is code (a stylesheet and its drawings in `public/seasons/{key}/`);
- * the schedule is data, set at /admin/seasonal-themes with no deploy.
+ * mark in the header, under "match" in Home's hero, in the lime band (on all six pages with it,
+ * since 6.3), and on the 404. The art is code (a stylesheet and its drawings in
+ * `public/seasons/{key}/`); the schedule is data, set at /admin/seasonal-themes with no deploy.
  *
  * A plain module, shared by the admin page, its route and the root layout.
  */
@@ -14,8 +14,9 @@
  */
 export const SEASONS = [
   {
+    // Redrawn as plainly Christmas in 6.3; the key stays, so the stored schedule still names it
     key: 'winter',
-    name: 'Winter holidays and New Year',
+    name: 'Christmas and New Year',
     usualWindow: '14 December to 1 January'
   }
 ] as const
