@@ -3267,7 +3267,8 @@ more > we give the user one month > then we delete their data completely … som
 easily send these emails, could be bulk … the purge of accounts in the admin. Generally I want this
 process to be automated as much as we can … IF the account did make a login AFTER we sent a
 notification within the month, then it can stay for another 6 months … add the analytics, how many
-silent accounts we've got on the main dashboard, or how many active accounts."
+silent accounts we've got on the main dashboard, or how many active accounts." The same day the owner
+corrected the 12 months to 6: "12 months was a mistake."
 
 **Why:** Keeping a student's grades and plans forever, after they have stopped using IB Match, is data
 the service no longer needs. The draft Privacy Policy says data is kept "for as long as your account is
@@ -3298,16 +3299,15 @@ active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing
 
 **Decide first (the owner).** Recommended answers are in bold:
 
-1. **The times.** One reading of the request: **silent after 6 months without activity (a label in the
-   admin, nothing sent); the notice after 12 months; deleted 30 days after the notice unless the student
-   is active again.** Activity after the notice clears it, and the clock starts again from that day. So
-   the student is silent again 6 months later and gets a notice 12 months later. The alternative is a
-   notice at 6 months, but the email would then have to say 6. Note that 6 months catches the normal
-   gap between the first and second year of the Diploma, the students 7.5 wants back.
+1. **The times. Decided 26 October 2026 (owner): 6 months throughout**.
+   After 6 months without activity a student is silent and due the notice. They are deleted 30 days
+   after the notice, unless they are active again in that time. Activity after the notice clears it,
+   and the clock starts again from that day, so the student is silent and due a notice again 6 months
+   later.
 2. **Whose accounts.** **Students only.** Coordinators are tied to a school and its subscription, and are
    deleted on request (5.29). Admins and agents never.
 3. **Where the clock starts** for the accounts that exist before the date is stored. Either (a) the day
-   Part A ships, so the first notice goes out a year later; or (b) **the latest change on the account or
+   Part A ships, so the first notice goes out six months later; or (b) **the latest change on the account or
    its profile**, which is older than their real last visit for some students. With (b), the email says
    "no activity on your account since <date>", which is true of what is stored. The one-month warning
    protects anyone who still cares.
@@ -3319,7 +3319,7 @@ active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing
    is the to-do number, linking to the list.
 
 **Part 0 — the Privacy Policy (before the lawyer's review of 7.4).** Add the rule to section 8 of
-`docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 12 months, a warning email,
+`docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 6 months, a warning email,
 then deletion a month later unless the student comes back. One sentence now saves a second
 publication. Nothing is sent or deleted until the policy that says so is published (release day).
 
@@ -3349,10 +3349,9 @@ publication. Nothing is sent or deleted until the policy that says so is publish
 
 It has a plain-text body, as every email does.
 
-**Part D — the admin page.** `/admin/students/inactive`, or a tab of `/admin/students`, with four counts
+**Part D — the admin page.** `/admin/students/inactive`, or a tab of `/admin/students`, with three counts
 and lists:
-- silent;
-- due a notice;
+- silent, not yet notified (due a notice);
 - notified, with the days left;
 - due for deletion.
 
@@ -3392,7 +3391,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 - Run `prisma migrate dev` or `prisma db push`.
 
 **Verify:**
-- Vitest for the rule function: every state, the edges at 6 and 12 months and at 30 days, and activity
+- Vitest for the rule function: every state, the edges at 6 months and at 30 days, and activity
   after the notice.
 - Vitest for the `jwt` write: once a day, and that it clears the notice.
 - The two buttons' and the cron route's gates.
