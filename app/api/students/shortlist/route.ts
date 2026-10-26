@@ -84,6 +84,7 @@ export async function GET() {
                     minGrade: true,
                     isCritical: true,
                     orGroupId: true,
+                    ownCourse: true,
                     ibCourse: { select: { id: true, name: true } }
                   }
                 }
