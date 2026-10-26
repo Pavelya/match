@@ -56,9 +56,10 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
    Review"). Resend stores everything in the USA; Supabase's contracting company is in Singapore. Do you want a transfer
    impact assessment, and is the UK addendum wording enough?
 8. **Retention** (Privacy 8). The cache provider's rate-limit analytics currently keep user IDs and IP addresses with no
-   expiry; the owner will switch that off and purge it before publication. No backups are kept; invitation records stay while the school exists; sign-in links expire in 10
-   minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
-   Is "kept while the school's account exists" an acceptable retention rule for invitation records?
+   expiry; the owner will switch that off and purge it before publication. No backups are kept; an invitation is deleted with the account of its sender or of the person it was
+   sent to, and any left for a school with the school; sign-in links expire in 10 minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
+   Is that an acceptable retention rule for invitation records? A pending invitation to a student who never signs
+   up (their name and email, entered by a coordinator) stays until the coordinator who sent it is deleted.
 9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice and a
    shortlist count. Are those exempt under ePrivacy Article 5(3)? Both banner buttons ("Accept all", "Essential only")
    leave the same cookies today: is that acceptable, or should the banner change?

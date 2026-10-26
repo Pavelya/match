@@ -14,7 +14,7 @@ Every line says where it comes from, so the drafts can be checked against it.
 | Shortlist | Student | `SavedProgram` | Same | Account deleted |
 | School link, consent date and version | Student | `StudentProfile.schoolId`, `coordinatorAccessConsentAt`, `...Version`, `linkedByInvitation` | Same | Unlink clears the link and the consent; account deletion removes it |
 | Accepted Terms and Privacy versions and dates | Everyone | `User.termsVersion`, `termsAcceptedAt`, `privacyPolicyVersion`, `privacyAcceptedAt` | The person; admins | Account deleted |
-| Invitations: sender, invitee email, student name, role, status, dates | Coordinators and invited students | `Invitation` | Sender's school; admins | **Not deleted by anything except a student's own account deletion** (see 4) |
+| Invitations: sender, invitee email, student name, role, status, dates | Coordinators and invited students | `Invitation` | Sender's school; admins | With the sender's account, or the invited student's or coordinator's account (see 4). Not with the school: see 4 |
 | Support tickets: category, subject, message, reply | Anyone signed in | `SupportTicket` | The person; admins | Account deleted |
 | School name, city, email, phone, logo, Stripe customer and subscription IDs | School | `IBSchool` | Coordinators of that school; admins | School deleted by an admin, only once it has no coordinators or students |
 | Sign-in link tokens | Everyone | `VerificationToken` | Nobody | Used, or expired after 10 minutes (`lib/auth/sign-in-link.ts`) |
@@ -83,14 +83,22 @@ matches. An admin deleting a student runs the same function (`app/api/admin/stud
 **Not covered by the above:**
 
 - **Coordinators.** The portal's "Request Data Deletion" page is a placeholder ("Data Deletion Coming
-  Soon… Contact support", `app/coordinator/settings/delete-request/page.tsx`). The admin's delete button
-  (`app/api/admin/coordinators/[id]/route.ts`) calls `prisma.user.delete`; `Invitation.invitedBy` has no
-  `onDelete`, so Prisma restricts the delete while that coordinator has sent any invitation, which is why
-  `scripts/cleanup-user-invitations.sql` exists. This has not been run against production. A school
-  can only be deleted once it has no coordinators and no students (`app/api/admin/schools/[id]/route.ts`).
+  Soon… Contact support", `app/coordinator/settings/delete-request/page.tsx`). An admin deletes a
+  coordinator from the admin (`app/api/admin/coordinators/[id]/route.ts`). *Updated 26 October 2026
+  (MAINT 5.29):* this was blocked for any coordinator who had sent an invitation (`Invitation.invitedBy`
+  has no `onDelete`). It now runs `deleteCoordinatorAccount` (`lib/account/delete-coordinator.ts`) in one
+  transaction: every invitation they sent, in any status; every `COORDINATOR` invitation sent to their
+  address; sign-in link tokens for their address; then the `User`, which cascades to the coordinator
+  profile, support tickets, sessions and `Account` rows. The school and its students' links stay. A
+  school can only be deleted once it has no coordinators and no students (`app/api/admin/schools/[id]/route.ts`).
 - **Invitation records.** Nothing deletes them on a schedule: there is no Vercel cron and no job in the
   repo, and "decline" sets `CANCELLED` (`app/api/students/invitations/decline/route.ts`). The Privacy
-  Policy's "deleted after 90 days" is not true.
+  Policy's "deleted after 90 days" is not true. An invitation goes with its sender's account (5.29), or
+  with the account of the student (5.25) or coordinator (5.29) it was sent to. A pending invitation to
+  someone who never signs up stays until its sender is deleted. Deleting a school sets `schoolId` to null
+  on the invitations left (`ON DELETE SET NULL`); by then its coordinators are gone, so what is left is
+  what an admin sent to a would-be coordinator who never accepted. Those stay with no school until MAINT
+  5.39 deletes them with the school.
 - **Backups, logs, email logs.** Not under the app's control: see `providers.md`.
 
 **The data export** (Settings → Download your data → `GET /api/students/account/export`) returns

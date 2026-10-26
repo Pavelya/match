@@ -72,7 +72,7 @@ recommendation made in the first version of this page and answered the rest.
 |---|---|---|
 | **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Code, not a published document, so it can merge **before** release day (`REBRANDING_tasks.md` says the rewording is "in both designs, before release day") | **Done: [#157](https://github.com/Pavelya/match/pull/157)** (the visible words, both designs) and **[#158](https://github.com/Pavelya/match/pull/158)** (titles, descriptions and structured data, split out because the rebranding Definition of done 12 asks for a separate pull request). Cross-checked in the new design on 24 October 2026 (see "Checked in the new design" below); both are green and merge cleanly together |
 | **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done:** [#156](https://github.com/Pavelya/match/pull/156) and [#159](https://github.com/Pavelya/match/pull/159) (the script's paging), both merged, and the purge applied by you. The dry run on 24 October 2026 found no analytics records and one key in the whole database. The Privacy draft now says the counters "expire within about two hours" (sliding windows of up to an hour; the library expires a key after twice its window) |
-| **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2); the invitation consent version (F3); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
+| **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2, done in 5.29); a school's leftover invitations (F11, 5.39, before publishing); the invitation consent version (F3, done in 5.30); the export's missing parts (F4); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing, except 5.39, which Privacy 8 relies on |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
 **Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled. Task B1 is
@@ -144,7 +144,11 @@ flow in this pull request and nothing may reach production before approval.
   release day is simplest.
 - **F2. A coordinator who has invited anyone cannot be deleted by the admin button.** `Invitation.invitedBy` has no
   `onDelete`, so Prisma restricts it (`prisma/schema.prisma:447`). Read from the schema and the route; not run
-  against production. `scripts/cleanup-user-invitations.sql` is the manual workaround.
+  against production. `scripts/cleanup-user-invitations.sql` is the manual workaround. **Fixed by MAINT 5.29
+  ([#176](https://github.com/Pavelya/match/pull/176)):** the admin deletes the coordinator, the invitations they
+  sent and any sent to them in one transaction. Privacy 8 now says what that removes, and that invitations go
+  with their sender's or invitee's account rather than "while the school's account exists". Its last clause,
+  that a school's leftover invitations are deleted with it, is true once MAINT 5.39 is done (F11).
 - **F3. Students who join by invitation are shown "We've updated our policies" at once.** The invitation stores
   `'2025-12-14'` as their Terms and Privacy version, which is never a published label (`accept-student-invite/route.ts`,
   `students/invitations/accept/route.ts`). `/api/students/consent`, which would store `'2025-12-09'`, is called
@@ -168,6 +172,11 @@ flow in this pull request and nothing may reach production before approval.
   Data Browser screenshot, one dated 30 August 2026), and nothing in the code reads them. They also outlive an account
   deletion: a deleted student's ID stays in them. This contradicts the Privacy draft's "short time" and a deletion
   promise, so task B1 (turn it off, purge it) comes before publication.
+- **F11. Deleting a school keeps the invitations left for it** (found 26 October 2026, in 5.29).
+  `Invitation.schoolId` is `ON DELETE SET NULL`, so they stay with no school. A school can be deleted only once
+  its coordinators are, which deletes their invitations, so what is left is what an admin sent to a would-be
+  coordinator who never accepted. MAINT 5.39 deletes them with the school, **before publication**: Privacy 8
+  says so.
 
 ## How to publish (step 5)
 
