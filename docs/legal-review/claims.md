@@ -84,4 +84,4 @@ marked **Decided** are settled; the rest keep their original proposal, which the
 
 | # | Claim | Where | Evidence found | Verdict and proposed words |
 |---|---|---|---|---|
-| P1 | "Upgrade to VIP for unlimited student management", "reached the free plan limit of 10 students. Upgrade to VIP to invite more." | `app/coordinator/students/page.tsx:118`, `:172` | The Terms say VIP is an early-adopter tier IB Match grants; the paid route is a subscription (`create-checkout`). A coordinator cannot "upgrade to VIP" | **Reword** to "Subscribe for unlimited student management." A later small change; not part of this one |
+| P1 | "Upgrade to VIP for unlimited student management", "reached the free plan limit of 10 students. Upgrade to VIP to invite more." | `app/coordinator/students/page.tsx:118`, `:172` | The Terms say VIP is an early-adopter tier IB Match grants; the paid route is a subscription (`create-checkout`). A coordinator cannot "upgrade to VIP" | **Reword** to "Subscribe for unlimited student management." Done in MAINT 5.33, with every other "Upgrade to VIP" in the portal |

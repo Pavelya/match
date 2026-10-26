@@ -34,7 +34,7 @@ export function CoordinatorHero() {
                 className="inline-flex items-center justify-center rounded-full bg-blue-600 px-8 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200 hover:-translate-y-0.5"
               >
                 <Calendar className="mr-2 h-4 w-4" />
-                Schedule a 15-min feedback call
+                Schedule a 30-min feedback call
               </Link>
             </div>
           </div>

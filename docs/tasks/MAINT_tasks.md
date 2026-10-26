@@ -55,9 +55,10 @@ deletes today's design.
 | Invited people's policy versions | 5.30 | 26 October 2026 | Both invitation routes store the published Terms and Privacy labels, so no notice follows; the coordinator-access version stays. The unused `/api/students/consent` deleted |
 | Admin deletes a coordinator with invitations | 5.29 | 26 October 2026 | `deleteCoordinatorAccount` in one transaction: the invitations they sent and the one sent to them, sign-in links, then the user. The school and its students stay |
 | The whole data export | 5.31 | 26 October 2026 | The download adds the consent records, the student's support tickets and the invitations sent to their address, naming no one else (version 1.1). Privacy 9's draft sentence shortened |
+| Three tiny fixes | 5.32, 5.33, 5.38 | 26 October 2026 | The ticket emails log `ab***@example.com`; the coordinator portal says "Subscribe", never "Upgrade to VIP"; For schools offers a 30-minute call in both designs |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.29–5.31, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -67,13 +68,12 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request |
-| 2 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 3 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 4 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 5 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 6 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 7 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 2 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 3 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 4 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 5 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 6 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -149,14 +149,14 @@ Phase 5 — quick wins
 - [x] 5.29 Let an admin delete a coordinator who has sent invitations — 26 October 2026
 - [x] 5.30 Store the published policy versions when someone accepts an invitation — 26 October 2026
 - [x] 5.31 Put the consent records, support tickets and invitations in the data export — 26 October 2026
-- [ ] 5.32 Redact the address in the support-ticket email logs
-- [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
+- [x] 5.32 Redact the address in the support-ticket email logs — 26 October 2026
+- [x] 5.33 Stop telling a coordinator to "upgrade to VIP" — 26 October 2026
 - [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
 - [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
 - [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
 - [x] 5.37 Close the database's public API: Row Level Security is off on every table — 26 October 2026
   (the Advisor's list and Vercel's old key wait for the owner)
-- [ ] 5.38 Say "30-minute call" on For schools: the call is 30 minutes
+- [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
 
 Phase 6 — dependency majors
 
@@ -2114,7 +2114,7 @@ request; `docs/legal-review/README.md` (F4) and `product-today.md` say so.
 
 ---
 
-### 5.32 — Redact the address in the support-ticket email logs
+### 5.32 — Redact the address in the support-ticket email logs — **done**
 
 **Outcome:** The support-ticket emails log the recipient the way the account emails do: `ab***@example.com`.
 
@@ -2128,9 +2128,14 @@ plan, so this is consistency, not an incident.
 
 **Session size:** Tiny. Fold into any session.
 
+**Done 26 October 2026.** `lib/email/redact.ts` keeps two characters and the domain, and one fewer for a local part of
+one or two characters, so a whole address is never logged (the old regex in `account-emails.ts` logged `a@x.com`
+whole). Both senders in `support-tickets.ts` and `account-emails.ts` use it. `redact.test.ts` checks the function and
+what the three senders log on success and failure. `docs/legal-review/README.md` (F5) says so.
+
 ---
 
-### 5.33 — Stop telling a coordinator to "upgrade to VIP"
+### 5.33 — Stop telling a coordinator to "upgrade to VIP" — **done**
 
 **Outcome:** The portal says what a school can do: subscribe. VIP is an early-adopter plan IB Match grants, not one a
 coordinator can buy (Terms 6.2).
@@ -2146,6 +2151,15 @@ text of the API errors honest ("Subscribe to edit student data"). The portal kee
 **Verify:** `grep -rn "pgrade to VIP" app components` prints nothing; the usual checks.
 
 **Session size:** Tiny. Fold into any session.
+
+**Done 26 October 2026.** Words only. The banner's default button is "Subscribe", and its subtle variant says
+"{feature} needs a subscription" with a "Subscribe" link (it said "requires VIP" and "Upgrade"). The dashboard's
+locked quick action says "With a subscription" (it said "VIP Feature"). The students list, the student page and the
+two API errors say "Subscribe …". The students list's limit message showed a literal `&apos;` (a JS string, not JSX
+text); it now says "You've". "VIP" stays where it names the plan a school has (settings, the subscription page, the
+admin). `claims.md` P1 and `docs/legal-review/README.md` F6 say so. Left as it was: the subtle banner names its
+feature and then "needs a subscription", which reads oddly for "3 student invites remaining"; its description is not
+shown in that variant. A wording change there needs the banner's layout, so it waits for the portal's redesign.
 
 ---
 
@@ -2459,7 +2473,7 @@ closed.
 
 ---
 
-### 5.38 — Say "30-minute call" on For schools: the call is 30 minutes
+### 5.38 — Say "30-minute call" on For schools: the call is 30 minutes — **done**
 
 **Outcome:** Every button that offers the coordinator call says 30 minutes, the length of the
 Calendly event, in both designs.
@@ -2488,6 +2502,12 @@ layout doesn't change.
 designs; the usual checks.
 
 **Session size:** Tiny. Fold into any session.
+
+**Done 26 October 2026.** The new design's `CALL` and `CoordinatorCTA.tsx` say "Schedule a 30-minute call". Today's
+hero says "Schedule a 30-min feedback call", not "30-minute": at 390px "30-minute feedback call" wrapped the pill to
+two lines (76px tall, 52 before), and "30-min" is the old label's length, so the hero looks as it did. Measured with
+`npm start` at 390px and 1440px: every call button one line, no horizontal scroll; at 360px both of today's buttons
+wrap, as they did on `main`. `REBRANDING_tasks.md` D4.17 and build 21 record the new label.
 
 ---
 

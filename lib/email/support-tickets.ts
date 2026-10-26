@@ -8,6 +8,7 @@
 import { TicketCategory } from '@prisma/client'
 import { logger } from '@/lib/logger'
 import { getResendClient } from '@/lib/email/client'
+import { redactEmailAddress } from '@/lib/email/redact'
 import { ticketCreatedMessage } from '@/emails/ticket-created'
 import { ticketResolvedMessage } from '@/emails/ticket-resolved'
 
@@ -43,7 +44,7 @@ export async function sendTicketCreatedEmail(params: {
       logger.error('Failed to send ticket created email', {
         error: error.message,
         ticketNumber: params.ticketNumber,
-        to: params.to
+        to: redactEmailAddress(params.to)
       })
       return false
     }
@@ -51,7 +52,7 @@ export async function sendTicketCreatedEmail(params: {
     logger.info('Ticket created email sent', {
       emailId: data?.id,
       ticketNumber: params.ticketNumber,
-      to: params.to
+      to: redactEmailAddress(params.to)
     })
     return true
   } catch (error) {
@@ -94,7 +95,7 @@ export async function sendTicketResolvedEmail(params: {
       logger.error('Failed to send ticket resolved email', {
         error: error.message,
         ticketNumber: params.ticketNumber,
-        to: params.to
+        to: redactEmailAddress(params.to)
       })
       return false
     }
@@ -102,7 +103,7 @@ export async function sendTicketResolvedEmail(params: {
     logger.info('Ticket resolved email sent', {
       emailId: data?.id,
       ticketNumber: params.ticketNumber,
-      to: params.to
+      to: redactEmailAddress(params.to)
     })
     return true
   } catch (error) {

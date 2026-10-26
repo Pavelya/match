@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils'
  */
 
 const CALENDLY = 'https://calendly.com/ibmatch/feedback-call-with-ib-coordinator'
-const CALL = 'Schedule a 15-minute call'
+const CALL = 'Schedule a 30-minute call'
 
 /** Said to a screen reader after an outside link's words */
 function NewTab() {

@@ -533,9 +533,7 @@ export default async function StudentDetailPage({ params }: PageProps) {
             ) : (
               <div className="text-center py-6">
                 <LineChart className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">
-                  Upgrade to VIP to view student matches
-                </p>
+                <p className="text-sm text-muted-foreground">Subscribe to view student matches</p>
               </div>
             )}
           </InfoCard>

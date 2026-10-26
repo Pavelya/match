@@ -20,7 +20,7 @@ export function CoordinatorCTA() {
               className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-base font-semibold text-blue-600 shadow-sm hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition-all duration-200 hover:-translate-y-0.5"
             >
               <Calendar className="mr-2 h-4 w-4" />
-              Schedule a 15-minute call
+              Schedule a 30-minute call
             </Link>
           </div>
         </div>

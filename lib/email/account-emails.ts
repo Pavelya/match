@@ -7,6 +7,7 @@
 
 import { logger } from '@/lib/logger'
 import { getResendClient } from '@/lib/email/client'
+import { redactEmailAddress } from '@/lib/email/redact'
 import { accountDeletedMessage } from '@/emails/account-deleted'
 
 // Email sender configuration
@@ -25,7 +26,7 @@ export async function sendAccountDeletedEmail(params: {
   userName?: string
   deletedBy: 'student' | 'admin'
 }): Promise<boolean> {
-  const to = params.to.replace(/(.{2}).*(@.*)/, '$1***$2') // Redact email
+  const to = redactEmailAddress(params.to)
   try {
     const { data, error } = await getResendClient().emails.send({
       from: FROM_EMAIL,

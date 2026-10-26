@@ -2,7 +2,7 @@
  * Coordinator Subscription Management Page
  *
  * Shows subscription status and allows:
- * - Upgrading to VIP (create checkout session)
+ * - Subscribing (create checkout session)
  * - Managing subscription (Stripe Portal)
  * - Viewing subscription details
  */
