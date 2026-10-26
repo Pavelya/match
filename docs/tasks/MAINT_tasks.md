@@ -71,7 +71,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | One course for two requirements | 5.18, steps 2 to 5 | change medium | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Step 2 decided 26 October: one column on the requirement, not the program. Next: step 3, the matcher; the chip copy needs an approved board before any program is flagged |
+| 1 | One course for two requirements | 5.18, steps 4 and 5 | board, then small; data | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Step 2 decided 26 October: one column on the requirement. Step 3 done 26 October: the column (applied) and the matcher, no score changed. Next: step 4, rebranding row 28 (a change board, then its build), then step 5 sets the flags on 18 programs, with the refresh tooling taught the field first |
 | 2 | "Two of" rules stored as one | 5.39 | medium, content | After 5.18 step 3 has merged. About 47 programs at McGill, Alberta, Waterloo and five others get their second requirement |
 | 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
@@ -1274,6 +1274,35 @@ The 10 October count overstated the change: most of the 1,159 pairs were in prog
 result is right (Lausanne 615, Edinburgh 134, Basel 38, NTU 24, Western 3). Re-run it in step 3 with
 the flags set. The query only sees programs that list a course twice, so about 47 more store a "two
 of" rule as one requirement: new task 5.39.
+
+**Step 3 done, 26 October 2026.** `ProgramCourseRequirement.ownCourse`, false by default, through
+`20261026150000_add_requirement_own_course` (one `ADD COLUMN`, the whole `migrate diff`), applied with
+`migrate deploy` the same day: 6,186 rows, none set; Row Level Security still on.
+
+- **The matcher.** `lib/matching/own-course.ts`: when a program has two or more marked requirements,
+  `evaluateAllRequirements` gives them different courses. Every assignment is tried (a handful of
+  requirements, six or so courses). The best meets the most, then has the highest scores, then meets
+  the most demanding requirements, so what is left is the easier subject (Trinity Medicine with
+  Biology HL 6 alone asks for "HL 5 in another", not "HL 6"). Then it keeps each on the course it
+  uses alone. A marked requirement left with no course is `NO_MATCH`, `not_taken`, with
+  `courseUsedElsewhere` naming the student's course that went to another requirement. One marked
+  requirement on its own changes nothing. Unmarked requirements are checked as before, and may share.
+- **Where the flag travels.** The programs cache and the search records carry `ownCourse: true` only
+  where it is set, so neither grows today. Explore's fit reads it from the record (`lib/explore/fit.ts`),
+  so Explore and Matches agree. The admin edit form has no control for it but keeps it, and the edit,
+  create and copy routes save it. A change to it re-dates the requirements like any other.
+- **Not yet:** the refresh tooling (`scripts/programs/refresh.ts`, `requirements-diff.ts`) deletes and
+  re-creates rows without the field. Teach it `ownCourse` in step 5, before it sets the first flag, or
+  a later refresh would clear it.
+- **Proof.** `scripts/score-fingerprint.ts` (new, checked in; the 2.1 copy had not survived): 72,060
+  results, every score, status, reason, category and adjustment, including programs that list a course
+  twice. Byte-identical before and after (sha256 `9ca39e46…`). `lib/matching/own-course.test.ts`: the
+  task's cases (Manchester MBChB: Biology HL 6 alone is not met, with Chemistry HL 6 it is; Lausanne Law:
+  Maths AA HL meets both maths requirements) and Trinity Medicine, Trinity's strands, UCL Psychology and
+  an arrangement that taking the first fit would miss. Turning the assignment off fails 8 tests.
+- **Step 4** is rebranding row 28: the change board "D2.7 Chip · a second subject", then its build.
+  Until then a requirement left without a course reads as "not taken", so no program is flagged
+  before that build.
 
 ---
 

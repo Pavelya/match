@@ -4,6 +4,21 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-26] - Requirements that need a course of their own (MAINT 5.18)
+
+### Added
+
+- **`ProgramCourseRequirement.ownCourse`**, false by default. Within a program, the requirements
+  that have it are each met by a different course ("HL 6 in one of Biology, Chemistry or Physics and
+  HL 5 in another"); the others may share a course, as before. `lib/matching/own-course.ts` tries
+  every assignment and keeps the one that meets the most, then scores highest, then meets the most
+  demanding requirements, then keeps each on the course it uses alone. A marked requirement left
+  without a course is not met and names the course used elsewhere (`courseUsedElsewhere`).
+- **No score changed:** no program has the flag yet, and `scripts/score-fingerprint.ts` is
+  byte-identical before and after. Which programs need it: `docs/matching/5.18-shared-courses.md`.
+
+---
+
 ## [2026-01-27] - OR-Group Subject Display Fix
 
 ### Fixed
