@@ -77,6 +77,8 @@ traffic. Storage was restricted and every university image broke.
 **Merging `main` deploys to production.** Work on a branch, open a pull request, let CI
 pass, and let the user merge. Never commit to `main`. The user merges between sessions, so
 start every change from a new branch off `origin/main` and check the branch before committing.
+Finishing a task from `docs/tasks/MAINT_tasks.md` includes moving it to "1. Done" there, in the same
+pull request (the rule is at the top of its "Start here").
 
 Verification — all free, and nothing reaches a third party except the build:
 
