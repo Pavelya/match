@@ -166,7 +166,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 25 October 2026.** The canvas has 100 boards. The owner approved in chat "B ·
+**Where it stands, 26 October 2026.** The canvas has 101 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -233,7 +233,9 @@ the preview at real size winter's art did not work: the sparkles beside the name
 sign, and on the pages with no other slot they were the only decoration. The owner asked for plainly
 Christmas instead, and for the band's decoration on every page with the band. That is a change board,
 "D1.7 Season · Christmas", and build 26 (6.3); what went wrong and what changes for every season
-board is in 6.1.
+board is in 6.1. Row 27 drew three Christmas directions on whole pages at real size the same day,
+and on 26 October 2026 the owner chose direction A, the tree. Its final approval is build 26's Vercel
+preview, with `?season=winter`.
 
 ### Foundations
 
@@ -246,7 +248,7 @@ board is in 6.1.
 | D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark. **Confirmed 21 October 2026 (owner):** Lens is the final mark | Nothing | 9 October 2026 |
 | D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
 | D1.7 Seasonal themes | "D1.7 Seasonal themes" (row 26, interactive): the four slots empty and then winter in each, at 1440px, 390px and 320px, light and dark, signed in and signed out, forced colours (hidden) and reduced motion, with the fullest phone header (signed in, 320px) measured; the seasons and their windows; the hero's entrance, playable; what each slot allows. **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). **Decided 25 October 2026 (owner), every recommendation:** winter, Lunar New Year, Eid al-Fitr and Diwali, and no Halloween; winter is bulbs and sparkles, with no snowflake, tree or religious symbol; the header's accessory after the name, never on the mark, hidden from 768 to 1023px signed in and on the quiet pages; the hero's bulbs hang from the lime bar under "match" and get D1.6's one entrance; the band's string on Home and the guides only; the 404's large drawing from 1280px; a light and a dark drawing per slot. Decisions in 6.1. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | Nothing | 25 October 2026. **Winter's art not kept** after the owner saw it in the preview the same day (6.1, Reviewed in the preview); the slots, the schedule and the other seasons stand |
-| D1.7 Season · Christmas | Nothing yet. **Added 25 October 2026 (owner)**, a change board in a new row; "D1.7 Seasonal themes" stays as approved | Winter, plainly Christmas and New Year (6.3). Two or three directions, each drawn as **whole pages at real size**, 1440px and 390px, light and dark: Home, a guide, How it works, For schools, the requirements hub, Support us, Explore, Matches, a program page and the 404, so every page type a slot reaches is seen, including the ones where only the header's slot shows. Cases to settle: the motif (snow and snowflakes, a tree, baubles, holly, a garland are all allowed now; no nativity or other religious scene; snow is fine though December is summer in Australia, owner); the header's slot, which must name Christmas on its own at 20 × 20, or move (a static snow edge on the header's lower border would be a new slot), or go; what hangs under "match" on Home; the band on all six pages with it, Support us' Ko-fi band included; the 404. Each drawing passes the recognition check in 6.1. Forced colours, reduced motion and the cost table as on D1.7. The owner picks a direction on the board, and approves it in build 26's preview | |
+| D1.7 Season · Christmas | "D1.7 Season · Christmas" (row 27, interactive), a change board; "D1.7 Seasonal themes" stays as approved for the slots, the schedule and the other seasons. **Added 25 October 2026 (owner).** Three directions, A · Tree, B · Holly and C · Snow, drawn into the ten page types a slot reaches, captured whole from `main` at 1440px and 390px in light and dark (real programs, 76 real matches), each scrolled at real size; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against winter. **Direction chosen 26 October 2026 (owner): A, the tree,** with the recommendations drawn for it: the tree after the name; baubles under "match"; the band's drawing on all six pages with the band, its slot 330 × 60 from 768px; the 404's tree with a rolled-away bauble; a season-only pine green and berry red. Decisions in 6.3 | Nothing | Direction A chosen 26 October 2026. Approved in build 26's Vercel preview with `?season=winter`, before it merges |
 
 ### Components
 
@@ -347,7 +349,7 @@ merges into `main`, behind the preview switch.**
 | 25 | Explore best fit | `MAINT_tasks.md` 5.27 | D3.5 Sort · best fit | small to medium | **Done 22 October 2026.** A student with grades opens Explore on Best fit, Matches' order with the switch on, with one line under the count; words typed make "Most relevant" the default, and a picked sort stays in the URL. Signed out or before grades, "Highest points needed", named, at one request as before. Best fit browses the list (one or two requests); `EXPLORE_BEST_FIT` (`full`, `lifted`, `off`) can make it cheaper without a code change, and `scripts/algolia-usage.ts` prints the month's requests |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
-| 26 | Christmas | 6.3 | D1.7 Season · Christmas: a direction chosen on the board, approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. Merge by 10 December 2026, or winter stays off this year |
+| 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -385,7 +387,7 @@ Rows 3 and 4 can share a design session.
 | 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
-| 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board, then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Added 25 October 2026. Before 10 December 2026 |
+| 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Build before 10 December 2026 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -3310,7 +3312,7 @@ year: three of these seasons follow lunar calendars, so the admin enters their d
 
 | Season | Key | Next date | Window | Notes |
 |---|---|---|---|---|
-| Christmas and New Year | `winter` | Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season. Drawn on D1.7 as generic lights and stars; **redrawn as plainly Christmas in 6.3** (owner, 25 October 2026), snow allowed. The key stays `winter`, so the table and the schedule don't change |
+| Christmas and New Year | `winter` | Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season. Drawn on D1.7 as generic lights and stars; **redrawn as plainly Christmas in 6.3** (owner, 25 October 2026), snow allowed: a decorated tree, chosen on "D1.7 Season · Christmas" on 26 October 2026. The key stays `winter`, so the table and the schedule don't change |
 | Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026 |
 | Eid al-Fitr | `eid-al-fitr` | 9 or 10 March 2027, set by the moon sighting | 3 days from the announced date | Large IB communities in the Gulf and Türkiye |
 | Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon for 6.1) | 27 to 31 October 2027 (5 days) | A large IB community in India |
@@ -3349,6 +3351,40 @@ the board, then approved in this build's Vercel preview with `?season=winter`, b
   never changes while its clearance search is open.
 - QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
   pull request's Vercel preview shows them.
+
+**Decided on the board ("D1.7 Season · Christmas", canvas row 27; direction A, the tree, chosen by the
+owner on 26 October 2026).** The drawings are in `D17SeasonChristmas.dc.html`'s files on the canvas
+(`project/xmas/a/`); the build copies them, then the owner judges them in the preview.
+
+- **The header:** a decorated tree, a star on top and four baubles, in winter's 20 × 20 slot after
+  the name (top 9px in the 44px link, 8px after the name), never on the mark. Hidden as before from
+  768 to 1023px signed in and on the quiet pages. At 320px signed in it takes 129 to 149px, 12px
+  clear of Guides. It passes the recognition check alone, so it is fine as the only decoration on
+  Explore, Matches, Shortlist and the program and university pages.
+- **Home's hero:** five baubles with caps and hooks on threads from the lime bar under "match", in
+  winter's slot (the word's width, 0.33em deep, 11px above the paragraph), in berry red, ultramarine
+  and pine, the dark shades in dark, and D1.6's one entrance. Nothing may stand
+  after the word: at 600px it ends 1px from the column's edge, and at 844px 3px from it (measured at
+  every width from 320 to 1440px). On a phone the baubles are 7px and read beside the header's tree.
+- **The lime band, on all six pages with it** (Home, the 23 guides, How it works, For schools, the
+  requirements hub and Support us' Ko-fi band): three decorated trees and two gifts at the slot's
+  right end, one drawing, as the band is lime in both themes. LimeBand always renders its slot, and
+  `season` goes. **The slot grows from 768px to 330 × 60**, 12px from the top, its right end on the
+  content's edge, 8px above the heading's line; below 768px it stays 150 × 27, 8px from the top. The
+  same drawing serves both sizes (drawn at 220 × 40, shown 1.5×).
+- **The 404:** from 1280px, a decorated tree with a garland, two gifts and one bauble rolled away on
+  the floor, in the 440 × 200 slot. Below 1280px, the band's trees on paper, at the band's new sizes.
+- **Colours:** a pine green and a berry red, each with a light and a dark shade (light #1F6E43 and
+  #C62B3B; dark #4FB27A and #FF6B74; on the band, the light ones), beside ultramarine and lime, used
+  only in the season's drawings: never for text and never as tokens, so `app/globals.test.ts` is
+  untouched. The trunk is #7B4B2A (dark #A8774F).
+- **Not used:** sparkles, a star or a gift on its own, a bell, snowflakes drawn as six strokes, any
+  figure, any nativity scene. No words; nothing moves but the hero's entrance.
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` replace winter's in
+  `public/seasons/winter/`; `season.css` keeps its shape. In season, gzipped: Home about 2.5 KB
+  (winter 1.6), a guide or a text page 2.0, a page with only the header 1.0, the 404 at 1440px 1.9.
+  The site's stylesheet changes only by the band's new size.
 ---
 
 ## Open questions
