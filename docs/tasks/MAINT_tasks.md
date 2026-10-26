@@ -53,9 +53,10 @@ deletes today's design.
 | Late Stripe events | 5.34 | 26 October 2026 | The webhook writes what Stripe says now, for the school's current subscription only |
 | The database's public API | 5.37 | 26 October 2026 | Data API off; Row Level Security on all 24 tables, the API roles' grants revoked, new tables closed by an event trigger that CI checks. The Advisor's list and Vercel's old key wait for the owner |
 | Invited people's policy versions | 5.30 | 26 October 2026 | Both invitation routes store the published Terms and Privacy labels, so no notice follows; the coordinator-access version stays. The unused `/api/students/consent` deleted |
+| Admin deletes a coordinator with invitations | 5.29 | 26 October 2026 | `deleteCoordinatorAccount` in one transaction: the invitations they sent and the one sent to them, sign-in links, then the user. The school and its students stay |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.30, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.29, 5.30, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -65,15 +66,14 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
-| 2 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 3 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 1 or 2 |
-| 4 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 5 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 6 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 7 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 8 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 9 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
+| 2 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 1 |
+| 3 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 4 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 5 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 6 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 7 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 8 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -146,7 +146,7 @@ Phase 5 — quick wins
 - [x] 5.26 Send a signed-out coordinator to the coordinator sign-in, not a 404
 - [x] 5.27 Order Explore by the student's fit, not by the highest minimum (22 October 2026)
 - [x] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4) — #156, #159; purged, none left on 24 October 2026
-- [ ] 5.29 Let an admin delete a coordinator who has sent invitations
+- [x] 5.29 Let an admin delete a coordinator who has sent invitations — 26 October 2026
 - [x] 5.30 Store the published policy versions when someone accepts an invitation — 26 October 2026
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
 - [ ] 5.32 Redact the address in the support-ticket email logs
@@ -2006,7 +2006,7 @@ to an `auth` route).
 
 ---
 
-### 5.29 — Let an admin delete a coordinator who has sent invitations
+### 5.29 — Let an admin delete a coordinator who has sent invitations — **done**
 
 **Outcome:** The admin's "delete coordinator" works for a coordinator who has invited anyone, and removes what the
 Privacy Policy says it removes.
@@ -2028,6 +2028,21 @@ students).
 **Verify:** the test and the usual checks; on a throwaway database, delete a coordinator who has an invitation.
 
 **Session size:** Small.
+
+**Done 26 October 2026.** `deleteCoordinatorAccount(tx, userId)` (`lib/account/delete-coordinator.ts`) deletes, in
+order, every invitation the coordinator sent (students and coordinators, any status), the `COORDINATOR` invitation
+sent to their address (matched without case), the sign-in links for their address, then the user; the profile,
+support tickets, sessions and accounts cascade. `DELETE /api/admin/coordinators/[id]` runs it in one
+`prisma.$transaction`. Nothing touches the school or its students. Vitest: `delete-coordinator.test.ts`, and a
+`route.test.ts` for the handler that fails on the old route. On a throwaway local Postgres, a coordinator with an
+admin's invitation, three of their own (an accepted student, a pending student, a coordinator) and a ticket, session,
+account and sign-in link: the old `user.delete` failed with P2003 on `Invitation_invitedById_fkey`; the new one
+deleted all of it, and the school, the linked student, the other coordinator and that coordinator's invitation
+stayed. The school's other coordinators no longer see the deleted coordinator's invitations, so the Privacy Policy
+draft's section 8 (`docs/legal-review/`) was reworded the same day: what a coordinator's deletion removes, and an
+invitation goes with its sender's or invitee's account, not "while the school's account exists". An admin's unaccepted coordinator invitation
+outlives its school (`ON DELETE SET NULL`); decided the same day (owner): kept, and the draft says so.
+`scripts/cleanup-user-invitations.sql` is no longer needed for this, and was left in place.
 
 ---
 
