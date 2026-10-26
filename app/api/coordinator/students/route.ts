@@ -45,6 +45,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const schoolId = coordinator.school.id
 
     // Parse query parameters

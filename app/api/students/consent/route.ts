@@ -91,6 +91,9 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
+
     // Fetch user consent status
     const user = await prisma.user.findUnique({
       where: { id: session.user.id },

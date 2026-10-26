@@ -11,7 +11,8 @@ import type { SubscriptionStatus } from '@prisma/client'
  * Statuses a school keeps full access through. `past_due` is in on purpose: a failed renewal
  * keeps access while Stripe retries the card, until Stripe gives up and the subscription becomes
  * `unpaid` or `canceled` (decided by the owner, 26 October 2026). That relies on Stripe's
- * failed-payment action being "cancel" or "mark unpaid", never "leave past-due".
+ * failed-payment action being "cancel" or "mark unpaid", never "leave past-due": the owner
+ * confirmed it is "cancel the subscription" the same day. Change that setting, change this.
  */
 const PAID = new Set(['active', 'trialing', 'past_due'])
 

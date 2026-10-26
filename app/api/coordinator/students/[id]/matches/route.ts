@@ -57,6 +57,14 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const access = getCoordinatorAccess(coordinator.school)
 
     // Check if coordinator has full access (VIP or subscribed)

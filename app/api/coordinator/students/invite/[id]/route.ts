@@ -153,6 +153,14 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       )
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const invitation = await prisma.invitation.findUnique({
       where: { id: invitationId },
       select: {

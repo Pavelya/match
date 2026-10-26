@@ -32,7 +32,7 @@ the others fall.
 | 7 | Admin forms | 5.16 | small | Done, 22 October 2026 | The admin forms and bulk upload suggest the field the rule gives, and take a campus city |
 | 8 | More tests: the Stripe webhook | 7.1 Part 2 | medium | Done, 26 October 2026 | 42 tests; the route unchanged. Found 5.34 |
 | 9 | More tests: API routes and rate limits | 7.1 Part 3 | medium | Done, 26 October 2026 | 462 tests; every route's gate checked by kind, new routes included automatically. Found 5.35 and 5.36. Moving the `.verify.ts` scripts to Vitest is Part 4, a session of its own |
-| 9a | Revoked coordinators | 5.36 | small | **Next** | A coordinator whose access an admin revoked can still list and edit the school's students, and open the billing portal, through the API. Security, so alone |
+| 9a | Revoked coordinators, and six rate limits | 5.36 with 5.35 | small | Done, 26 October 2026 | A revoked coordinator is refused by all 10 handlers that let them through; the six signed-in handlers have limiters. One pull request: both are gates on the same routes, proved by one test file |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
 | 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
 | 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
@@ -40,15 +40,15 @@ the others fall.
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 | 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
-| 16 | Late Stripe events | 5.34 | small | Done 26 October 2026; **merge once the owner confirms Stripe's failed-payment action** | The webhook writes what Stripe says now, only for the school's current subscription; checkout refuses a second live subscription; a failed renewal keeps access until Stripe gives up |
-| 17 | Rate limits on six handlers | 5.35 | tiny | Any time; fold into any session | Each needs a session and reads only its caller's rows. One Upstash command per call |
+| 16 | Late Stripe events | 5.34 | small | Done 26 October 2026 | The webhook writes what Stripe says now, only for the school's current subscription; checkout refuses a second live subscription; a failed renewal keeps access until Stripe gives up |
+| 17 | Rate limits on six handlers | 5.35 | tiny | Done with 5.36, row 9a | — |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 parts 1 to 3;
+**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 5.35, 5.36, 6.1–6.5 and 7.1 parts 1 to 3;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -107,9 +107,9 @@ Phase 5 — quick wins
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
-- [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026; merges after the owner's Stripe Dashboard check
-- [ ] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3)
-- [ ] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — next
+- [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
+- [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
+- [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
 
 Phase 6 — dependency majors
 
@@ -2125,9 +2125,11 @@ production.
 
 **Session size:** Small. A change to money logic, so its own pull request.
 
-**Done 26 October 2026.** **Before merging, the owner confirms in the Stripe Dashboard that the
-action when all retries fail is "cancel the subscription" or "mark the subscription as unpaid",
-and records the answer here.**
+**Done 26 October 2026.** **Stripe setting confirmed by the owner, 26 October 2026: when all
+retries for a payment fail, Stripe cancels the subscription.** So `past_due` ends in `canceled`,
+which the webhook writes as `CANCELLED`. If that setting is ever changed to "leave the
+subscription past-due", `past_due` must come out of `PAID` in `lib/stripe/subscription-status.ts`
+the same day.
 
 - **One path for every event.** `checkout.session.completed` and `customer.subscription.created`,
   `.updated` and `.deleted` all end in `applySubscription` in `app/api/webhooks/stripe/route.ts`.
@@ -2159,7 +2161,7 @@ removed (3 tests), `past_due` taken out of the paid statuses (3), the checkout g
 
 ---
 
-### 5.35 — Give the last six signed-in handlers a rate limit
+### 5.35 — Give the last six signed-in handlers a rate limit — **done**
 
 **Outcome:** Every handler that needs a session has a limiter, so
 `NOT_RATE_LIMITED` in `app/api/route-gates.test.ts` keeps only the three handlers that have none
@@ -2181,9 +2183,14 @@ list, an admin edit.
 
 **Session size:** Tiny. Fold into any session.
 
+**Done 26 October 2026, in the same pull request as 5.36.** `applyRateLimit('api', …)` after the
+session check in all six, on the `api` limiter (60 a minute), as their neighbours use. Four of the
+six are reads; the other two are admin edits. `NOT_RATE_LIMITED` now
+holds only the preview pair and the Stripe webhook.
+
 ---
 
-### 5.36 — Refuse a revoked coordinator in every coordinator API route
+### 5.36 — Refuse a revoked coordinator in every coordinator API route — **done**
 
 **Outcome:** When an admin revokes a coordinator's access, every coordinator API route refuses
 them, as the coordinator pages already do.
@@ -2220,6 +2227,19 @@ profile row each route already reads.
 coordinator and call `/api/coordinator/students` with their session: 403.
 
 **Session size:** Small. A change to security checks, so its own pull request.
+
+**Done 26 October 2026.** All 10 handlers refuse `!coordinator.isActive` with 403 straight after
+the profile check, with the message the invitation routes already used. Every lookup used a
+top-level `include`, so `isActive` was already in the row: no query changed and nothing new is
+read. `REVOCATION_NOT_CHECKED` is gone, so `route-gates.test.ts` now requires every coordinator
+and subscription handler to refuse a revoked coordinator — removing the check from one route fails
+it. The subscription routes no longer read the request at all: `successUrl`, `cancelUrl` and
+`returnUrl` are always built from `NEXT_PUBLIC_APP_URL`, and both handlers take no argument.
+
+Three older test fixtures built a coordinator profile without `isActive` and were refused once the
+check landed; they now say `isActive: true`. The two subscription tests gained a revoked case each.
+No coordinator page changes: `app/coordinator/layout.tsx` already refused a revoked coordinator, so
+no page of theirs calls these routes.
 
 ---
 

@@ -187,6 +187,9 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
+
     // Fetch user's tickets
     const tickets = await prisma.supportTicket.findMany({
       where: { userId: session.user.id },
