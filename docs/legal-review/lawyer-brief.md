@@ -57,7 +57,7 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
    impact assessment, and is the UK addendum wording enough?
 8. **Retention** (Privacy 8). The cache provider's rate-limit analytics currently keep user IDs and IP addresses with no
    expiry; the owner will switch that off and purge it before publication. No backups are kept; an invitation is deleted with the account of its sender or of the person it was
-   sent to, and any left for a school with the school; sign-in links expire in 10 minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
+   sent to; an invitation IB Match sent to a would-be coordinator who never accepted outlives the school; sign-in links expire in 10 minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
    Is that an acceptable retention rule for invitation records? A pending invitation to a student who never signs
    up (their name and email, entered by a coordinator) stays until the coordinator who sent it is deleted.
 9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice and a

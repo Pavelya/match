@@ -67,7 +67,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
 | 1 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 2 | Four tiny fixes | 5.32, 5.33, 5.38, 5.39 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs; a school's leftover invitations deleted with it (the Privacy Policy draft says so, so before release day). One pull request, or fold into row 1 |
+| 2 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 1 |
 | 3 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
 | 4 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
 | 5 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
@@ -157,7 +157,6 @@ Phase 5 — quick wins
 - [x] 5.37 Close the database's public API: Row Level Security is off on every table — 26 October 2026
   (the Advisor's list and Vercel's old key wait for the owner)
 - [ ] 5.38 Say "30-minute call" on For schools: the call is 30 minutes
-- [ ] 5.39 Delete a school's leftover invitations when the school is deleted (from 5.29)
 
 Phase 6 — dependency majors
 
@@ -2041,8 +2040,8 @@ account and sign-in link: the old `user.delete` failed with P2003 on `Invitation
 deleted all of it, and the school, the linked student, the other coordinator and that coordinator's invitation
 stayed. The school's other coordinators no longer see the deleted coordinator's invitations, so the Privacy Policy
 draft's section 8 (`docs/legal-review/`) was reworded the same day: what a coordinator's deletion removes, and an
-invitation goes with its sender's or invitee's account, not "while the school's account exists". Its last clause, a
-school's leftover invitations deleted with it, is 5.39.
+invitation goes with its sender's or invitee's account, not "while the school's account exists". An admin's unaccepted coordinator invitation
+outlives its school (`ON DELETE SET NULL`); decided the same day (owner): kept, and the draft says so.
 `scripts/cleanup-user-invitations.sql` is no longer needed for this, and was left in place.
 
 ---
@@ -2476,33 +2475,6 @@ layout doesn't change.
 designs; the usual checks.
 
 **Session size:** Tiny. Fold into any session.
-
----
-
-### 5.39 — Delete a school's leftover invitations when the school is deleted
-
-**Outcome:** When an admin deletes a school, no invitation for it is left behind, which is what the Privacy Policy
-draft's section 8 says (`docs/legal-review/privacy-policy.proposed.md`, "any invitation still held for it is deleted
-with it").
-
-**Why:** Found 26 October 2026, writing the policy words for 5.29 (`docs/legal-review/README.md` F11).
-`Invitation.schoolId` is `ON DELETE SET NULL` (`prisma/migrations/20260828000000_baseline_invitations_support_legal_cms`),
-so deleting a school keeps its invitations with no school. The school's delete refuses while it has coordinators, and
-deleting a coordinator deletes the invitations they sent (5.29), so what is left is what an admin sent to a would-be
-coordinator who never accepted: an email address and a role, kept for ever.
-
-**Steps:** in `DELETE /api/admin/schools/[id]`, after the coordinator and student checks, one `prisma.$transaction`:
-`invitation.deleteMany({ where: { schoolId: id } })`, then the school's delete. A Vitest test for the route, with the
-transaction mocked: the invitations go before the school, and nothing is deleted when the school still has
-coordinators or students.
-
-**Must not:** change the checks that refuse a school with coordinators or students, or touch invitations of another
-school.
-
-**Verify:** the test and the usual checks; on a throwaway database, delete a school that has an admin's pending
-invitation and see the invitation go.
-
-**Session size:** Tiny. **Before the new Privacy Policy is published.**
 
 ---
 

@@ -97,8 +97,8 @@ matches. An admin deleting a student runs the same function (`app/api/admin/stud
   with the account of the student (5.25) or coordinator (5.29) it was sent to. A pending invitation to
   someone who never signs up stays until its sender is deleted. Deleting a school sets `schoolId` to null
   on the invitations left (`ON DELETE SET NULL`); by then its coordinators are gone, so what is left is
-  what an admin sent to a would-be coordinator who never accepted. Those stay with no school until MAINT
-  5.39 deletes them with the school.
+  what an admin sent to a would-be coordinator who never accepted. Those stay with no school (decided 26
+  October 2026: kept; Privacy 8 says so).
 - **Backups, logs, email logs.** Not under the app's control: see `providers.md`.
 
 **The data export** (Settings → Download your data → `GET /api/students/account/export`) returns
