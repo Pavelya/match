@@ -5,7 +5,7 @@
  * used throughout the application.
  */
 
-import { UserRole } from '@prisma/client'
+import { UserRole } from '@/app/generated/prisma/enums'
 import 'next-auth'
 import 'next-auth/jwt'
 

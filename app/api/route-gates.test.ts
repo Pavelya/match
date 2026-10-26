@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { NextRequest } from 'next/server'
-import type { UserRole } from '@prisma/client'
+import type { UserRole } from '@/app/generated/prisma/enums'
 
 // Every API route checks its caller inline: there is no shared role helper (MAINT 7.1 Part 1). This
 // file loads every `route.ts` under app/api, so a route added later is covered without being

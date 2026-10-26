@@ -16,7 +16,7 @@
  * Run with: npx tsx scripts/programs/seed-stgallen-programs.ts
  */
 
-import { CourseLevel } from '@prisma/client'
+import { CourseLevel } from '@/app/generated/prisma/enums'
 import { prisma } from '@/lib/prisma-standalone'
 
 interface RequirementDef {

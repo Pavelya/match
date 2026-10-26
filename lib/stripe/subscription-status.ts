@@ -5,7 +5,7 @@
  * only place that turns a school's status into access.
  */
 
-import type { SubscriptionStatus } from '@prisma/client'
+import type { SubscriptionStatus } from '@/app/generated/prisma/enums'
 
 /**
  * Statuses a school keeps full access through. `past_due` is in on purpose: a failed renewal

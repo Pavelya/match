@@ -26,7 +26,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { LegalDocumentType, DocumentStatus } from '@prisma/client'
+import { LegalDocumentType, DocumentStatus } from '@/app/generated/prisma/enums'
 import { DOCUMENT_TYPE_LABELS } from '@/lib/legal-documents/types'
 import { PublishConfirmModal } from './PublishConfirmModal'
 import { MarkdownHelpButton } from './MarkdownHelpButton'

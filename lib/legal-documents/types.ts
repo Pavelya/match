@@ -4,7 +4,7 @@
  * TypeScript interfaces for legal document versioning system.
  */
 
-import { LegalDocumentType, DocumentStatus } from '@prisma/client'
+import { LegalDocumentType, DocumentStatus } from '@/app/generated/prisma/enums'
 
 // Re-export Prisma enums for convenience
 export { LegalDocumentType, DocumentStatus }

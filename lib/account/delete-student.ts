@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 
 /**
  * Deletes everything a student's account holds, for both ways an account is deleted: the student

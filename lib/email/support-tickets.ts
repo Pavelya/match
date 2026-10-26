@@ -5,7 +5,7 @@
  * Includes ticket creation confirmation and resolution notification emails.
  */
 
-import { TicketCategory } from '@prisma/client'
+import { TicketCategory } from '@/app/generated/prisma/enums'
 import { logger } from '@/lib/logger'
 import { getResendClient } from '@/lib/email/client'
 import { redactEmailAddress } from '@/lib/email/redact'

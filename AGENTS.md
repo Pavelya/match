@@ -64,6 +64,9 @@ traffic. Storage was restricted and every university image broke.
   `npx tsx scripts/run-all-tests.ts` — not Vitest files, so don't rename them `.test.ts`.
 - **Import `prisma` from `@/lib/prisma`.** Never `new PrismaClient()` — the shared
   client is pooled and carries the Algolia sync extensions.
+- **Prisma types and enums come from `@/app/generated/prisma/client`**, or `/enums` for
+  enums alone, which client components must use. Never `@prisma/client`: it is no
+  longer generated (MAINT 6.6).
 - **Use `logger` from `@/lib/logger`.** `no-console` is an error outside scripts.
 - **Two TypeScript packages, on purpose.** `typescript` is an alias for
   `@typescript/typescript6` (the 6.0 JavaScript API, which typescript-eslint needs) and

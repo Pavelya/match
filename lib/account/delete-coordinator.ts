@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 
 /**
  * Deletes a coordinator's account for the admin's delete button (MAINT 5.29). Run it inside

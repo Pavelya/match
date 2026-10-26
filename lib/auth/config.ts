@@ -13,8 +13,13 @@ import { SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
 /** How long a role claim in the JWT is trusted before being re-read. */
 const ROLE_REFRESH_MS = 5 * 60 * 1000
 
+// The adapter types its argument as the `PrismaClient` from `@prisma/client`, which the
+// `prisma-client` generator no longer fills (the client is in app/generated/prisma). It only
+// calls the model delegates (`prisma.user`, `prisma.session`, …), which are the same.
+type AdapterClient = Parameters<typeof PrismaAdapter>[0]
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as unknown as AdapterClient),
   // Auth.js v5 does not read host trust from NEXTAUTH_URL (that is the v4
   // name); it auto-trusts only in development and on Vercel, so a production
   // build served anywhere else returned 500 on every /api/auth/* route unless

@@ -11,7 +11,7 @@
  */
 
 import 'dotenv/config'
-import { CourseLevel } from '@prisma/client'
+import { CourseLevel } from '@/app/generated/prisma/enums'
 import { prisma } from '@/lib/prisma-standalone'
 
 interface RequirementDef {

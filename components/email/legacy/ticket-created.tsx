@@ -21,7 +21,7 @@ import {
 } from '@react-email/components'
 import { EmailHeader } from '@/components/email/EmailHeader'
 import { emailBrand } from '@/lib/brand/email'
-import { TicketCategory } from '@prisma/client'
+import { TicketCategory } from '@/app/generated/prisma/enums'
 
 interface TicketCreatedEmailProps {
   ticketNumber: string

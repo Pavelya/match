@@ -21,7 +21,7 @@
  *   npx tsx scripts/programs/field-inventory.ts --apply    # and write the descriptions
  */
 
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 import { prisma } from '@/lib/prisma-standalone'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
 import { clearAllMatchCache } from '@/lib/matching/cache'

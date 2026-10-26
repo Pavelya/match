@@ -9,7 +9,7 @@
  * Uses Prisma Client Extensions (modern approach replacing deprecated middleware)
  */
 
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 import {
   syncProgramToAlgolia,
   deleteProgramFromAlgolia,

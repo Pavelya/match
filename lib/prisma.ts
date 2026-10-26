@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@/app/generated/prisma/client'
 import { createPrismaAdapter } from '@/lib/prisma-adapter'
 import { algoliaExtension } from '@/lib/algolia/middleware'
 import { referenceDataSyncExtension } from '@/lib/algolia/reference-sync-extension'

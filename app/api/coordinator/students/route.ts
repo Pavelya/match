@@ -18,7 +18,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 
 // GET: List students for coordinator's school
 export async function GET(request: NextRequest) {

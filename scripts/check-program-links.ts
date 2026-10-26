@@ -22,7 +22,7 @@
  *   npx tsx scripts/check-program-links.ts --country "United Kingdom"
  */
 
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 import { prisma } from '@/lib/prisma-standalone'
 import { currentEntryYear } from '@/lib/programs/entry-year'
 import {

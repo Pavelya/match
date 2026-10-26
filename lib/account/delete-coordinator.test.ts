@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 import { deleteCoordinatorAccount } from './delete-coordinator'
 
 // The admin deletes a coordinator who has sent invitations (MAINT 5.29): the invitations they

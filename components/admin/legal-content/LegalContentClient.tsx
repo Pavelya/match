@@ -10,7 +10,7 @@
 import { useState, useEffect } from 'react'
 import { LegalDocumentCard, LegalDocumentCardProps } from './LegalDocumentCard'
 import { DOCUMENT_TYPE_LABELS } from '@/lib/legal-documents/types'
-import { LegalDocumentType } from '@prisma/client'
+import { LegalDocumentType } from '@/app/generated/prisma/enums'
 
 interface LegalDocumentSummary {
   id: string

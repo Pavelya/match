@@ -6,7 +6,7 @@
  * data stays current.
  */
 
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 import { syncProgramToAlgolia } from '@/lib/algolia/sync'
 import { logger } from '@/lib/logger'
 
