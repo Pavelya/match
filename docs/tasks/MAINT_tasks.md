@@ -71,13 +71,15 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 2 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 3 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 4 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | One course for two requirements | 5.18, steps 2 to 5 | change medium | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Waits on the owner's choice of where the rule is stored (recommended: one column on the requirement, not the program); the chip copy needs an approved board before code |
+| 2 | "Two of" rules stored as one | 5.39 | medium, content | After 5.18 step 3 has merged. About 47 programs at McGill, Alberta, Waterloo and five others get their second requirement |
+| 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 5 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
-wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
+wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3). 5.18 step 2:
+where the "needs its own course" rule is stored.
 
 ### 3. Wait for release day (R.1) or cleanup (R.2)
 
@@ -158,6 +160,7 @@ Phase 5 — quick wins
 - [x] 5.37 Close the database's public API: Row Level Security is off on every table — 26 October 2026
   (the Advisor's list and Vercel's old key wait for the owner)
 - [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
+- [ ] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1)
 
 Phase 6 — dependency majors
 
@@ -1239,6 +1242,38 @@ the flagged programs drop out and the rest are unchanged.
 
 **Session size:** Research small (step 1). The change medium. Best done with the matching review
 (5.15), after rebranding build 6–7, which changes `lib/matching/match-status.ts`.
+
+**Step 1 done, 26 October 2026.** The record, with every program's link and what its page says, is
+`docs/matching/5.18-shared-courses.md`. The 53 are 51: TUM's two were rewritten in CONTENT 7 Part B1
+and no longer list a course twice. Each was read on its official page on 26 October (UCL from the
+Internet Archive copy of 11 October, because ucl.ac.uk answers scripts with 403; Trinity's 2027 rules
+from its prospectus, read 29 September, and its course pages).
+
+- **Different subjects, wrong today (4):** Manchester MBChB Medicine, UCL BSc Psychology, Trinity
+  Medicine and Dental Science.
+- **"Two of" stored as one requirement (14):** Trinity's 13 science strands (TR060, TR061) and
+  Physiotherapy. They are too lenient today, the opposite of the bug: one science is enough. Each needs
+  its second requirement added, then both marked.
+- **One course may count twice, right today (33):** Lausanne 15 and Basel (the Swiss rule's HL is a
+  level on one of the six subjects); Edinburgh 12 (every shared course is "if not at HL", which settles
+  the table's "Unclear"); NTU 2 (SL Physics "only applicable to applicants who have not read Higher
+  Level Physics"); Western (Chemistry is one of Ontario's "two of", not a third subject, unlike the
+  table's guess); Manchester MPharm and Trinity Pharmacy.
+
+**Step 2, recommended: the rule goes on the requirement, not on the program.** A program-wide boolean
+refuses students the universities accept. At Trinity Medicine, Biology HL 6, Chemistry HL 5 and Maths
+SL 5 without Physics fail, because Maths must meet both the physics-or-maths requirement and the
+minimum maths row. In the Trinity strands, once kind B is stored, Maths HL 5 is both the maths
+requirement and one of the two HLs. Instead: one boolean on `ProgramCourseRequirement`, off by default,
+the same on every row of a group. Marked requirements in a program each need a different course;
+unmarked ones may use any course, as today. Step 3's matching runs over the marked requirements only.
+A program with none marked takes today's path, so the fingerprint stays byte-identical. No program
+found needs two separate sets. Leave the field out of the programs cache when it is false.
+
+The 10 October count overstated the change: most of the 1,159 pairs were in programs where today's
+result is right (Lausanne 615, Edinburgh 134, Basel 38, NTU 24, Western 3). Re-run it in step 3 with
+the flags set. The query only sees programs that list a course twice, so about 47 more store a "two
+of" rule as one requirement: new task 5.39.
 
 ---
 
@@ -2509,6 +2544,53 @@ hero says "Schedule a 30-min feedback call", not "30-minute": at 390px "30-minut
 two lines (76px tall, 52 before), and "30-min" is the old label's length, so the hero looks as it did. Measured with
 `npm start` at 390px and 1440px: every call button one line, no horizontal scroll; at 360px both of today's buttons
 wrap, as they did on `main`. `REBRANDING_tasks.md` D4.17 and build 21 record the new label.
+
+---
+
+### 5.39 — Store the "two of" rules the matcher could not hold
+
+**Outcome:** A program that asks for two subjects from a list ("two of Biology, Chemistry or Physics")
+stores two requirements, each needing a course of its own. Today one is stored and one science
+meets it.
+
+**Why:** Found in 5.18 step 1 (26 October 2026, `docs/matching/5.18-shared-courses.md`). The content
+refreshes stored one requirement where the page says "two of", because the matcher let one course meet
+both, and each program's notes say so ("the model cannot hold 'two of'"). Trinity's 14 programs of this
+kind are in 5.18 itself. These are the rest, found in the notes of `scripts/programs/2027/`:
+
+- McGill, 13: Arts and Science, Biochemistry, Biology, Bioresource Engineering, Chemistry, Computer
+  Science, Dietetics and Human Nutrition, Environmental Science, Food Science, Kinesiology,
+  Mathematics, Nursing, Physics.
+- Alberta, 15: Astrophysics, Biochemistry and its Honors, Computing Science - Software Practice
+  (Honors), Computing Science (Honors), Ecology, Evolution and Environmental Biology (Honors), Geology,
+  Immunology and Infection, Mathematics and Economics (Honors), Mathematics and Finance (Honors),
+  Mathematics-Physics, Molecular, Cellular and Developmental Biology and its Honors, Pharmacology
+  (Honors), Statistics.
+- Waterloo, 12: Biochemistry, Biology, Biomedical Sciences, Chemistry, Earth Sciences, Environmental
+  Sciences, Honours Science, Kinesiology, Materials and Nanosciences, Medicinal Chemistry, Physics,
+  Physics and Astronomy.
+- Trinity Physical Sciences and Physics (Physical Sciences); Imperial Geology; NUS Nursing; Leiden
+  Science for Sustainable Societies; Lund Physics; Cambridge Natural Sciences.
+
+**Read first:** 5.18 and its record; the program's notes in its data file; the content refresh workflow
+(`scripts/programs/refresh.ts`, `docs/tasks/CONTENT_tasks.md`).
+
+**Steps:**
+
+1. For each program, read the official page again and confirm the "two of" rule, and whether a course
+   in it may also meet another requirement (Alberta's note says Maths AA already serves as Math 31).
+2. In the data file, add the second requirement and mark the pair as needing their own courses, with
+   the field 5.18 step 3 adds. Correct each note that says the model cannot hold it.
+3. Dry run, then the owner approves the write; a backup comes first, as for every refresh. Clear the
+   match cache.
+
+**Must not:** start before 5.18 step 3 has merged; change any program outside the list without
+reading its page.
+
+**Verify:** the refresh dry run lists only these programs; `npm test`; a profile with one science from
+the list no longer meets the requirement, and one with two does.
+
+**Session size:** Medium, content. Depends on 5.18 steps 2 and 3.
 
 ---
 
