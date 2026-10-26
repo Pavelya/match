@@ -3,7 +3,7 @@
  *
  * GET /api/admin/coordinators/[id] - Get coordinator details
  * PATCH /api/admin/coordinators/[id] - Update coordinator
- * DELETE /api/admin/coordinators/[id] - Delete coordinator and user account
+ * DELETE /api/admin/coordinators/[id] - Delete coordinator, user account and their invitations
  *
  * Part of Task 3.3: Coordinator Invitation System
  */
@@ -13,6 +13,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { deleteCoordinatorAccount } from '@/lib/account/delete-coordinator'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -158,24 +159,21 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     // Find coordinator
     const coordinator = await prisma.coordinatorProfile.findUnique({
       where: { id },
-      select: {
-        id: true,
-        userId: true,
-        user: { select: { email: true } }
-      }
+      select: { userId: true }
     })
 
     if (!coordinator) {
       return NextResponse.json({ error: 'Coordinator not found' }, { status: 404 })
     }
 
-    // Delete user (cascade deletes CoordinatorProfile, Sessions, Accounts)
-    await prisma.user.delete({
-      where: { id: coordinator.userId }
-    })
+    // The invitations they sent and the one sent to them, then the user, in one transaction:
+    // the invitations they sent would otherwise block the delete (MAINT 5.29)
+    const deleted = await prisma.$transaction((tx) =>
+      deleteCoordinatorAccount(tx, coordinator.userId)
+    )
 
     // Redact email for logging
-    const redactedEmail = coordinator.user.email.replace(/(.{2}).*(@.*)/, '$1***$2')
+    const redactedEmail = deleted.email.replace(/(.{2}).*(@.*)/, '$1***$2')
 
     logger.info('Coordinator account deleted', {
       coordinatorId: id,
