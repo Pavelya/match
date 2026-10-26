@@ -18,6 +18,12 @@ export const SEASONS = [
     key: 'winter',
     name: 'Christmas and New Year',
     usualWindow: '14 December to 1 January'
+  },
+  {
+    // 6.4: the new year follows the moon, so the admin enters the days each year
+    key: 'lunar-new-year',
+    name: 'Lunar New Year',
+    usualWindow: 'three days before the new year to six days after (3 to 12 February in 2027)'
   }
 ] as const
 
