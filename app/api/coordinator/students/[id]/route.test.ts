@@ -97,6 +97,7 @@ beforeEach(() => {
   vi.clearAllMocks()
   prismaMock.coordinatorProfile.findFirst.mockResolvedValue({
     id: 'coord-1',
+    isActive: true,
     school: { id: 'school-1', subscriptionTier: 'VIP', subscriptionStatus: 'ACTIVE' }
   })
   prismaMock.studentProfile.findUnique.mockResolvedValue(STORED_STUDENT)

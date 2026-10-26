@@ -14,7 +14,7 @@ import { createPortalSession } from '@/lib/stripe/server'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const session = await auth()
 
@@ -46,6 +46,14 @@ export async function POST(req: Request) {
       )
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const school = coordinator.school
 
     // VIP schools don't have a Stripe subscription
@@ -61,10 +69,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No subscription found for this school' }, { status: 400 })
     }
 
-    // Parse request body for return URL
-    const body = await req.json().catch(() => ({}))
+    // Always our own page: Stripe sends the browser wherever this says (MAINT 5.36)
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const returnUrl = body.returnUrl || `${baseUrl}/coordinator/settings/subscription`
+    const returnUrl = `${baseUrl}/coordinator/settings/subscription`
 
     // Create portal session
     const portalUrl = await createPortalSession({

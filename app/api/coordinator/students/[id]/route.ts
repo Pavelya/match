@@ -72,6 +72,14 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     // Fetch student
     const student = await prisma.studentProfile.findUnique({
       where: { id },
@@ -156,6 +164,14 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
     if (!coordinator?.school) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
+    }
+
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
     }
 
     const access = getCoordinatorAccess(coordinator.school)

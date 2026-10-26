@@ -9,7 +9,7 @@ import type { UserRole } from '@prisma/client'
 // - an anonymous caller gets 401 from every route not in PUBLIC;
 // - every admin route refuses every other role, and a deleted account, with 403;
 // - every coordinator and subscription route refuses a caller with no coordinator profile, and one
-//   whose access an admin revoked, except the routes in REVOCATION_NOT_CHECKED;
+//   whose access an admin revoked (MAINT 5.36);
 // - every handler not in NOT_RATE_LIMITED answers 429 when its limiter says no.
 //
 // A refusal must come before the work: the route may make the gate's own lookup and nothing else.
@@ -117,30 +117,8 @@ const PUBLIC: Record<string, string> = {
 const NOT_RATE_LIMITED: Record<string, string> = {
   'GET preview': 'a wrong key is a 404 that does nothing',
   'POST preview/exit': 'only turns Draft Mode off',
-  'POST webhooks/stripe': 'only Stripe can sign a request; limiting it would drop real events',
-  // Gaps, filed as MAINT 5.35. Each needs a signed-in caller.
-  'PATCH admin/legal-documents/[type]/versions/[id]': 'MAINT 5.35',
-  'DELETE admin/legal-documents/[type]/versions/[id]': 'MAINT 5.35',
-  'GET coordinator/students/invite': 'MAINT 5.35',
-  'GET coordinator/team/invite': 'MAINT 5.35',
-  'GET students/consent': 'MAINT 5.35',
-  'GET support/tickets': 'MAINT 5.35'
+  'POST webhooks/stripe': 'only Stripe can sign a request; limiting it would drop real events'
 }
-
-/** Coordinator handlers that ignore a revoked profile (`isActive: false`). Gaps, filed as MAINT
- * 5.36: the coordinator layout refuses a revoked coordinator, but these answer the same session. */
-const REVOCATION_NOT_CHECKED = [
-  'GET coordinator/analytics',
-  'GET coordinator/students',
-  'GET coordinator/students/[id]',
-  'PATCH coordinator/students/[id]',
-  'GET coordinator/students/[id]/matches',
-  'GET coordinator/students/invite/[id]',
-  'GET coordinator/students/invite',
-  'GET coordinator/team/invite',
-  'POST subscriptions/create-checkout',
-  'POST subscriptions/create-portal'
-]
 
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const
 const PARAMS = { id: 'id-1', type: 'TERMS', programId: 'program-1', nextauth: ['session'] }
@@ -201,7 +179,6 @@ describe('the lists', () => {
     const named = new Set(handlers.map((h) => `${h.method} ${h.path}`))
     expect(Object.keys(PUBLIC).filter((path) => !paths.has(path))).toEqual([])
     expect(Object.keys(NOT_RATE_LIMITED).filter((key) => !named.has(key))).toEqual([])
-    expect(REVOCATION_NOT_CHECKED.filter((key) => !named.has(key))).toEqual([])
   })
 })
 
@@ -260,9 +237,7 @@ describe('a coordinator or subscription route', () => {
 
 describe('a coordinator whose access an admin revoked', () => {
   const coordinator = handlers.filter(
-    (h) =>
-      (h.path.startsWith('coordinator/') || h.path.startsWith('subscriptions/')) &&
-      !REVOCATION_NOT_CHECKED.includes(`${h.method} ${h.path}`)
+    (h) => h.path.startsWith('coordinator/') || h.path.startsWith('subscriptions/')
   )
 
   it.each(rows(coordinator))('%s → 403, after the profile lookup only', async (_name, h) => {

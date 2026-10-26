@@ -95,6 +95,9 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: error || 'Unauthorized' }, { status })
     }
 
+    const rateLimited = await applyRateLimit('api', userId)
+    if (rateLimited) return rateLimited
+
     // Validate document type
     if (!SLUG_TO_DOCUMENT_TYPE[typeSlug]) {
       return NextResponse.json({ error: 'Invalid document type' }, { status: 400 })
@@ -140,6 +143,9 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     if (error || !userId) {
       return NextResponse.json({ error: error || 'Unauthorized' }, { status })
     }
+
+    const rateLimited = await applyRateLimit('api', userId)
+    if (rateLimited) return rateLimited
 
     // Validate document type
     if (!SLUG_TO_DOCUMENT_TYPE[typeSlug]) {
