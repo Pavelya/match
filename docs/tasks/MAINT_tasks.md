@@ -31,7 +31,8 @@ the others fall.
 | 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
 | 7 | Admin forms | 5.16 | small | Done, 22 October 2026 | The admin forms and bulk upload suggest the field the rule gives, and take a campus city |
 | 8 | More tests: the Stripe webhook | 7.1 Part 2 | medium | Done, 26 October 2026 | 42 tests; the route unchanged. Found 5.34 |
-| 9 | More tests: API routes and rate limits | 7.1 | medium | Any time | Moving the 19 `.verify.ts` scripts to Vitest is a later session of its own |
+| 9 | More tests: API routes and rate limits | 7.1 Part 3 | medium | Done, 26 October 2026 | 462 tests; every route's gate checked by kind, new routes included automatically. Found 5.35 and 5.36. Moving the `.verify.ts` scripts to Vitest is Part 4, a session of its own |
+| 9a | Revoked coordinators | 5.36 | small | **Next** | A coordinator whose access an admin revoked can still list and edit the school's students, and open the billing portal, through the API. Security, so alone |
 | — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
 | 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
 | 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
@@ -40,13 +41,14 @@ the others fall.
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 | 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
 | 16 | Late Stripe events | 5.34 | small | **Before the first REGULAR school subscribes**; none has a Stripe customer on 26 October 2026 | A late or duplicate-subscription event can re-activate a cancelled school or cancel a paying one. Money logic, so alone. A failed renewal (`past_due`) keeps access until Stripe gives up (owner, 26 October), once the Dashboard's failed-payment action is confirmed |
+| 17 | Rate limits on six handlers | 5.35 | tiny | Any time; fold into any session | Each needs a session and reads only its caller's rows. One Upstash command per call |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
 first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
 search and the Search Console baseline.
 
-**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 parts 1 and 2;
+**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 6.1–6.5 and 7.1 parts 1 to 3;
 5.15 decided, no change for now. Each section below records what was done.
 
 ### Rules for grouping
@@ -106,6 +108,8 @@ Phase 5 — quick wins
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
 - [ ] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — before the first school subscribes
+- [ ] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3)
+- [ ] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — next
 
 Phase 6 — dependency majors
 
@@ -2091,6 +2095,9 @@ the first REGULAR school subscribes.**
   `stripeSubscriptionId` and that one is still live, ignore the event. Decide in the session
   what `created` should do when it arrives before `checkout.session.completed`, which sets the
   ID; the tests in `route.test.ts` show the order of lookups today.
+- Stop the second subscription arising at all: `create-checkout` can refuse while the customer
+  already has a live subscription. `getCustomerSubscriptionStatus` in `lib/stripe/server.ts`
+  makes that check and is called by nothing today. One Stripe API call per checkout.
 - Give the school lookups `select: { id: true, stripeSubscriptionId: true }`; today they read
   the whole row (Standing context: prefer `select`).
 - Extend `app/api/webhooks/stripe/route.test.ts` with both scenarios above, failing first. Mock
@@ -2117,6 +2124,70 @@ real run needs Stripe test mode and `stripe listen` against a throwaway database
 production.
 
 **Session size:** Small. A change to money logic, so its own pull request.
+
+---
+
+### 5.35 — Give the last six signed-in handlers a rate limit
+
+**Outcome:** Every handler that needs a session has a limiter, so
+`NOT_RATE_LIMITED` in `app/api/route-gates.test.ts` keeps only the three handlers that have none
+by design.
+
+**Why:** Found 26 October 2026 (7.1 Part 3). These six have no `applyRateLimit`: PATCH and DELETE
+`admin/legal-documents/[type]/versions/[id]` (the GET beside them has one), and the GETs of
+`coordinator/students/invite`, `coordinator/team/invite`, `students/consent` and
+`support/tickets`. Each needs a session and reads only its caller's own rows, so this is
+consistency, not an incident.
+
+**Steps:** `applyRateLimit('api', session.user.id)` straight after the session check in each,
+as their neighbours do; delete the six entries from `NOT_RATE_LIMITED`.
+
+**Load:** one Upstash command per call to these six. All six are low-traffic: a page load, a
+list, an admin edit.
+
+**Verify:** `route-gates.test.ts` passes with the entries gone; the usual checks.
+
+**Session size:** Tiny. Fold into any session.
+
+---
+
+### 5.36 — Refuse a revoked coordinator in every coordinator API route
+
+**Outcome:** When an admin revokes a coordinator's access, every coordinator API route refuses
+them, as the coordinator pages already do.
+
+**Why:** Found 26 October 2026 (7.1 Part 3). `PATCH /api/admin/coordinators/[id]/access` sets
+`CoordinatorProfile.isActive` to `false`. `app/coordinator/layout.tsx` refuses such a coordinator,
+and so do the four invitation write routes, but these 10 handlers never read `isActive`:
+
+- `GET coordinator/students`, `GET` and `PATCH coordinator/students/[id]`,
+  `GET coordinator/students/[id]/matches` — the school's students, their grades, and editing them
+- `GET coordinator/analytics`
+- `GET coordinator/students/invite`, `GET coordinator/students/invite/[id]`,
+  `GET coordinator/team/invite`
+- `POST subscriptions/create-checkout` and `POST subscriptions/create-portal` — the billing portal
+  can cancel the school's subscription or change its card
+
+Sessions are JWTs that last 30 days and renew on use, and revoking does not end them. A coordinator
+who left the school, and whose access was revoked for that reason, can still call these with the
+session they have.
+
+**Steps:**
+- Refuse `!coordinator.isActive` with 403, straight after the profile lookup, in all 10 —
+  the same check and message as `coordinator/students/invite/[id]` DELETE. The profile lookups
+  that use `select` need `isActive` added.
+- Empty `REVOCATION_NOT_CHECKED` in `app/api/route-gates.test.ts`, then delete it.
+- While in the two subscription routes: drop the `successUrl`, `cancelUrl` and `returnUrl` the
+  routes take from the request body. Nothing sends them, and Stripe redirects the browser to
+  whatever they say. Always use the built URLs.
+
+**Must not:** change what an active coordinator can do, or add a read: `isActive` comes from the
+profile row each route already reads.
+
+**Verify:** `route-gates.test.ts` with the list gone; on a throwaway database, revoke a
+coordinator and call `/api/coordinator/students` with their session: 403.
+
+**Session size:** Small. A change to security checks, so its own pull request.
 
 ---
 
@@ -2487,15 +2558,15 @@ broken assertion is introduced.
 **Session size:** Large. Split across sessions — framework decision first, then one
 area per session.
 
-#### Part 1 — framework and access control — **done** (session 8)
+#### Part 1 — framework and access control — **done**
 
 **Outcome:** Vitest 5.0.0 is the test framework, chosen by the owner.
 `lib/auth/access-control.test.ts` holds 33 tests, and CI has a new **Tests** job that
 runs them and the 20-file matching suite. Until this session CI ran neither suite.
 
 **Why Vitest.** It compiles TypeScript through Vite's own transform and never loads the
-compiler API, so the TS 7 / TS 6 two-package layout from 6.5 does not affect it. Sessions
-9 and 10 need module mocking for Prisma and `auth()`: `vi.mock` does that out of the box,
+compiler API, so the TS 7 / TS 6 two-package layout from 6.5 does not affect it. Parts
+2 and 3 need module mocking for Prisma and `auth()`: `vi.mock` does that out of the box,
 `node:test` needs an experimental flag on Node 22, and Jest needs a TypeScript transform
 plus ESM workarounds for next-auth v5. Next documents it in
 `node_modules/next/dist/docs/01-app/02-guides/testing/vitest.md`.
@@ -2538,7 +2609,7 @@ plus ESM workarounds for next-auth v5. Next documents it in
 | A wrong expected value in an assertion | 1 test fails; `npm test` exits 1 |
 | A status dropped from the expectation table | `tsc` fails with TS2741 |
 
-**Read before sessions 9 and 10: role-based access control has no shared helper.**
+**Read before Parts 2 and 3: role-based access control has no shared helper.**
 `lib/auth/access-control.ts` handles subscription gating only; it knows nothing about
 roles. Role checks are written inline: `app/` has 49 `role !== 'PLATFORM_ADMIN'`
 comparisons, each after an `auth()` call and a database re-read of the role. The layouts
@@ -2546,7 +2617,7 @@ work the same way — `app/admin/layout.tsx` requires `PLATFORM_ADMIN`,
 `app/coordinator/layout.tsx` requires `COORDINATOR`, and `app/student/layout.tsx` requires
 only a session. `proxy.ts` enforces nothing beyond "signed in" for `/student/*`. Role
 checks can therefore be tested only through the routes, with `@/lib/auth/config` and
-`@/lib/prisma` mocked, which is what session 10 should do. A shared `requireRole` helper
+`@/lib/prisma` mocked, which is what Part 3 should do. A shared `requireRole` helper
 would make that cheaper, but it rewrites dozens of security checks and deserves its own PR.
 
 **Deliberately not tested:** `isFeatureLocked` returns `false` (unlocked) for a feature
@@ -2554,9 +2625,9 @@ name it does not recognise. The union type makes that branch unreachable. A test
 have recorded failing open as intended behaviour, so it is noted here instead.
 
 **Remaining for 7.1:**
-- ~~the Stripe webhook (session 9)~~ done 26 October 2026, Part 2 below
-- API routes and rate limiting (session 10)
-- converting the 20 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
+- ~~Part 2, the Stripe webhook~~ done 26 October 2026, Part 2 below
+- ~~Part 3, API routes and rate limiting~~ done 26 October 2026, Part 3 below
+- Part 4, converting the 19 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
 - ~~branch protection, so the Tests job actually blocks a merge (owner task 1)~~ done 7 October 2026
 
 **What changed:**
@@ -2575,7 +2646,7 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 - `npm audit` still reports 0 vulnerabilities.
 - The four deliberate breaks above all fail.
 
-#### Part 2 — the Stripe webhook — **done** (session 9, 26 October 2026)
+#### Part 2 — the Stripe webhook — **done** (26 October 2026)
 
 **Outcome:** `app/api/webhooks/stripe/route.test.ts` holds 42 tests for
 `app/api/webhooks/stripe/route.ts`. The route itself is unchanged.
@@ -2633,6 +2704,85 @@ Stripe customer or subscription ID (aggregate counts only).
 
 **Verified:** `npm test` and the matching suite pass; type-check, `eslint . --max-warnings 0`,
 `prettier --check .` and `npm run build` are clean; the four breaks above all fail.
+
+#### Part 3 — API routes and rate limiting — **done** (26 October 2026)
+
+**Outcome:** 462 new tests; no route changed. Before this, 22 of the 69 API routes had tests,
+each written for its own task, and none checked the gates across routes.
+
+**`app/api/route-gates.test.ts` — every route, by kind (418 tests).** It loads every
+`route.ts` under `app/api` with `import.meta.glob`, so **a route added later is covered without
+being listed**. Prisma and Redis are replaced by Proxies that record every call, so a refusal is
+checked to come before the work: the route may make its gate's own lookup and nothing else.
+
+- **An anonymous caller gets 401 from every route not in `PUBLIC`**, before any read. `PUBLIC`
+  names 10 routes, each with what stands in for a session (an invitation token, the preview
+  key, the Stripe signature, or a public page).
+- **Every admin route refuses** a student, a coordinator, a university agent and a session whose
+  account was deleted, with 403, after the role lookup only. That is 52 handlers × 4 callers.
+- **Every coordinator and subscription route refuses a caller with no coordinator profile** —
+  a student, or an admin — after the profile lookup only.
+- **Every coordinator route refuses a coordinator whose access an admin revoked**, except the 10
+  handlers in `REVOCATION_NOT_CHECKED` — a real gap, filed as 5.36.
+- **Every handler answers 429 when its limiter says no**, having written nothing, except those in
+  `NOT_RATE_LIMITED`: the preview pair and the Stripe webhook by design, and six handlers that
+  need a session but have no limiter — filed as 5.35.
+- The three lists are checked to name only routes that exist, so they cannot go stale.
+
+**`app/api/coordinator/cross-school.test.ts` (16 tests).** A coordinator of `school-1` asks for a
+student or invitation of `school-2` through each of the six handlers that take an ID: 403, with
+nothing written, no email sent, no matching run and no data in the answer. The same request for a
+record of their own school answers 200, so the refusal is known to come from the school check.
+The four list reads (students, analytics, both invitation lists) filter by the coordinator's own
+school, whatever the query says. Creating an invitation needs no test of its own: both create
+routes take the school only from the coordinator's profile.
+
+**The subscription routes (13 tests).** `create-checkout`: only the coordinator's own school; a
+VIP or already-active school, a missing product and a product with no price are each refused
+before a Stripe customer is created; a new customer is stored on the school, a stored one is
+reused; a cancelled school can subscribe again; Stripe's error message never reaches the
+caller. `create-portal`: only the school's own Stripe customer; VIP and a school with no customer
+are refused before Stripe.
+
+**`app/api/auth/check-role/route.test.ts` (7 tests).** The coordinator sign-in's pre-check, the
+one public route that reads accounts: an unknown address, a coordinator, an agent and an admin
+get the same answer, it reads only the role, and it is limited by IP before any read.
+
+**`lib/rate-limit.test.ts` (8 more).** The real `applyRateLimit`: `null` under the limit; over
+it, 429 with `Retry-After` rounded up and the `X-RateLimit-*` headers; the log keeps only the
+first eight characters of the account ID or address; an Upstash failure lets the request through
+(deliberate, so an outage does not take the site down). `getClientIp`'s order of headers.
+
+**Proved to fail.** Six deliberate breaks, each reverted:
+
+| Break | Result |
+|---|---|
+| The admin check dropped from one admin route | 4 tests fail, one per caller |
+| The school check dropped from a coordinator's view of a student's matches | 1 test fails |
+| The limiter dropped from saved programs | 2 tests fail |
+| A new route added with no sign-in check, and not listed anywhere | 2 tests fail: 401 and 429 |
+| Checkout let an already-active school pay again | 1 test fails |
+| `check-role` told an unknown address apart from a known one | 2 tests fail |
+
+**Found, not fixed:**
+
+- **5.36 — a coordinator whose access was revoked can still use the API.** The coordinator
+  layout refuses them, but 10 handlers never read `isActive`: the student list, a student's
+  details and edits, their matches, analytics, both invitation lists, one invitation, and both
+  subscription routes — the billing portal can cancel the school's subscription. Sessions are
+  30-day JWTs renewed on use, and revoking does not end them. Security, so its own PR, next.
+- **5.35 — six handlers with no rate limit.** All need a session. Tiny.
+- **Unused redirect overrides.** `create-checkout` takes `successUrl` and `cancelUrl`, and
+  `create-portal` takes `returnUrl`, from the request body, and Stripe sends the browser there.
+  The client sends neither, and a cross-site POST does not carry the `SameSite=Lax` session
+  cookie, so it is not exploitable today. Folded into 5.36, which edits both routes.
+- `getCustomerSubscriptionStatus` in `lib/stripe/server.ts` is never called. 5.34 can use it to
+  refuse a second checkout while the customer already has a live subscription.
+
+**What changed:** `app/api/route-gates.test.ts`, `app/api/coordinator/cross-school.test.ts`,
+`app/api/auth/check-role/route.test.ts`, `app/api/subscriptions/create-checkout/route.test.ts`
+and `app/api/subscriptions/create-portal/route.test.ts`, all new; `lib/rate-limit.test.ts`; this
+file.
 
 ---
 
