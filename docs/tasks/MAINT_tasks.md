@@ -20,6 +20,17 @@ requests. The work is in three groups: what is done, what can be done now, befor
 released and cleaned up, and what has to wait for that. Each row in groups 2 and 3 is a fresh AI
 session, one branch, one pull request, merged before the next starts.
 
+**When a task is finished** (owner's rule, 26 October 2026), the session that finishes it updates this
+section in the same pull request:
+
+- move its row from group 2 or 3 to the end of group 1, with the date and one line on what it did. A
+  task finished only in part keeps a row in its group for what is left;
+- add its number to "All done tasks";
+- tick it in [The full list](#the-full-list) and mark its section heading **done**, as the others are.
+
+Groups 2 and 3 then hold only open work. A finding from a session becomes a new task and a row in group
+2 or 3, not a note in group 1.
+
 **Where the rebranding stands.** Release day (`REBRANDING_tasks.md` R.1) waits on the owner: Lens's
 clearance search and the Search Console baseline. The program card review (its 5.1) goes before it if
 it is ready. Cleanup (R.2) comes about two weeks after release, once Search Console shows no fall, and
