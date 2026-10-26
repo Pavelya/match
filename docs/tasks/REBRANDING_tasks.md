@@ -3295,8 +3295,9 @@ until 6.3 replaces its art.
 ### 6.2 — Each further season
 
 **Outcome:** One more season that the admin can schedule every year. Each one adds a board, one
-stylesheet with its SVGs, and a key in the code's list of seasons. The slots, the admin page and the
-schedule stay as 6.1 built them.
+stylesheet with its SVGs, and a key in the code's list of seasons. The stylesheet asks for each SVG
+with `?v=` and the start of its SHA-256, as `lib/seasons/art.test.ts` checks, since drawings are
+cached for a year. The slots, the admin page and the schedule stay as 6.1 built them.
 
 **Design gate:** that season's board, "D1.7 Season · {name}": a direction chosen on the board, then
 approved in the build's Vercel preview before it merges. Every season board follows 6.1's "What
@@ -3406,6 +3407,12 @@ preview with `?season=winter` before it merges:
   1.1, the 404 at 1440px 2.0.
 - **QA:** whole pages, every page type with a slot, 1440px and 390px, light and dark:
   https://claude.ai/artifact/2s2gfx6ZC4mz83UCadvH49 (private to the owner).
+- **After the merge (26 October 2026):** the preview still showed winter's art. `next.config.ts`
+  serves every `.svg` for a year as immutable, and the tree kept winter's file names, so a browser
+  that had seen winter kept its drawings (`season.css` itself is revalidated, so it arrived). Each
+  season's stylesheet now asks for every drawing with `?v=` and the first 8 hex digits of its
+  SHA-256, and `lib/seasons/art.test.ts` fails when a drawing changes without its version. A
+  redraw in a later season does the same.
 ---
 
 ## Open questions
