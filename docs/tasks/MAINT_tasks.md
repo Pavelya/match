@@ -52,9 +52,10 @@ deletes today's design.
 | Revoked coordinators and six rate limits | 5.36, 5.35 | 26 October 2026 | A revoked coordinator is refused by all 10 handlers; six signed-in handlers have limiters |
 | Late Stripe events | 5.34 | 26 October 2026 | The webhook writes what Stripe says now, for the school's current subscription only |
 | The database's public API | 5.37 | 26 October 2026 | Data API off; Row Level Security on all 24 tables, the API roles' grants revoked, new tables closed by an event trigger that CI checks. The Advisor's list and Vercel's old key wait for the owner |
+| Invited people's policy versions | 5.30 | 26 October 2026 | Both invitation routes store the published Terms and Privacy labels, so no notice follows; the coordinator-access version stays. The unused `/api/students/consent` deleted |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.30, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -64,16 +65,15 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
-| 2 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
-| 3 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 4 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 2 or 3 |
-| 5 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 6 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 9 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 10 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
+| 2 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
+| 3 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 1 or 2 |
+| 4 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 5 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 6 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 7 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 8 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 9 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -147,7 +147,7 @@ Phase 5 — quick wins
 - [x] 5.27 Order Explore by the student's fit, not by the highest minimum (22 October 2026)
 - [x] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4) — #156, #159; purged, none left on 24 October 2026
 - [ ] 5.29 Let an admin delete a coordinator who has sent invitations
-- [ ] 5.30 Store the published policy versions when someone accepts an invitation
+- [x] 5.30 Store the published policy versions when someone accepts an invitation — 26 October 2026
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
@@ -2031,7 +2031,7 @@ students).
 
 ---
 
-### 5.30 — Store the published policy versions when someone accepts an invitation
+### 5.30 — Store the published policy versions when someone accepts an invitation — **done**
 
 **Outcome:** A student or coordinator who joins by invitation is recorded as having accepted the versions of the Terms and
 Privacy Policy that are published, so the "We've updated our policies" notice does not appear on their first visit.
@@ -2052,6 +2052,16 @@ its own pull request, not the one that publishes the legal pages.**
 **Verify:** the tests; accept an invitation on a throwaway database and confirm no notice follows.
 
 **Session size:** Small.
+
+**Done 26 October 2026.** `accept-student-invite` and `accept-invite` read `getCurrentVersionLabels()` after the
+invitation passes its checks (two small reads of `LegalDocument`, only on an accepted invitation) and store those labels
+with the time. When nothing is published they store the time and no label, and the notice appears once a version is
+published, as for an account made at sign-in. The coordinator-access version `'2025-12-14'` is unchanged in both student routes. Neither page's
+words changed. `app/api/students/consent/route.ts` is deleted. Each route has a `route.test.ts` that runs the real
+`checkConsentStatus` on what was stored; the label tests fail on the old routes. On a throwaway local Postgres, with
+both documents published, a student and a coordinator each accepted an invitation and `checkConsentStatus` showed no
+notice for either. `docs/legal-review/product-today.md` and the review's README (F3) still describe the old behaviour
+as the 23 October finding; they were left as written.
 
 ---
 
