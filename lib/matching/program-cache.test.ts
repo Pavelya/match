@@ -148,6 +148,28 @@ describe('getCachedPrograms', () => {
     expect(redisMock.set).toHaveBeenCalledWith('programs:all:v3', [ROW], expect.anything())
   })
 
+  it('keeps ownCourse only where it is set, so the key grows by nothing elsewhere', async () => {
+    const { getCachedPrograms } = await load()
+    redisMock.get.mockResolvedValue(null)
+    const requirement = (id: string, ownCourse: boolean) => ({
+      id,
+      requiredLevel: 'HL',
+      minGrade: 6,
+      isCritical: true,
+      orGroupId: 'g1',
+      ownCourse,
+      ibCourse: { id, name: id, code: id, group: 4 }
+    })
+    prismaMock.academicProgram.findMany.mockResolvedValue([
+      { ...ROW, courseRequirements: [requirement('bio', true), requirement('chem', false)] }
+    ])
+
+    const [program] = await getCachedPrograms()
+
+    expect(program.courseRequirements[0].ownCourse).toBe(true)
+    expect('ownCourse' in program.courseRequirements[1]).toBe(false)
+  })
+
   it('does not read the database twice when filling Redis fails', async () => {
     const { getCachedPrograms } = await load()
     redisMock.get.mockResolvedValue(null)

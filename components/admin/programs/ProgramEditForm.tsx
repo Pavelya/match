@@ -62,6 +62,8 @@ interface CourseRequirement {
   minGrade: number
   isCritical: boolean
   orGroupId: string | null
+  /** Needs a course of its own (MAINT 5.18). The form has no control for it, so it keeps it. */
+  ownCourse: boolean
 }
 
 interface Program {
@@ -83,6 +85,7 @@ interface Program {
     minGrade: number
     isCritical: boolean
     orGroupId: string | null
+    ownCourse: boolean
   }[]
 }
 
@@ -149,7 +152,8 @@ export function ProgramEditForm({
       requiredLevel: r.requiredLevel as 'HL' | 'SL',
       minGrade: r.minGrade,
       isCritical: r.isCritical,
-      orGroupId: r.orGroupId
+      orGroupId: r.orGroupId,
+      ownCourse: r.ownCourse
     }))
   )
 
@@ -178,7 +182,8 @@ export function ProgramEditForm({
         requiredLevel: 'HL',
         minGrade: 5,
         isCritical: false,
-        orGroupId: null
+        orGroupId: null,
+        ownCourse: false
       }
     ])
   }
@@ -194,7 +199,9 @@ export function ProgramEditForm({
       requiredLevel: 'HL',
       minGrade: 5,
       isCritical: existingReq.isCritical,
-      orGroupId
+      orGroupId,
+      // Every row of a group carries the same value
+      ownCourse: existingReq.ownCourse
     }
     setRequirements([...updatedRequirements, newReq])
   }
@@ -270,7 +277,8 @@ export function ProgramEditForm({
             requiredLevel: r.requiredLevel,
             minGrade: r.minGrade,
             isCritical: r.isCritical,
-            orGroupId: r.orGroupId
+            orGroupId: r.orGroupId,
+            ownCourse: r.ownCourse
           }))
         })
       })

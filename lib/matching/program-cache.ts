@@ -100,6 +100,8 @@ export interface CachedProgram {
     minGrade: number
     isCritical: boolean
     orGroupId: string | null
+    /** Needs a course of its own (MAINT 5.18); present only when true, to keep the key small */
+    ownCourse?: true
   }>
 }
 
@@ -149,6 +151,7 @@ async function fetchProgramsFromDB() {
           minGrade: true,
           isCritical: true,
           orGroupId: true,
+          ownCourse: true,
           ibCourse: {
             select: { id: true, name: true, code: true, group: true }
           }
@@ -253,7 +256,8 @@ function optimizeForCache(
       requiredLevel: cr.requiredLevel,
       minGrade: cr.minGrade,
       isCritical: cr.isCritical,
-      orGroupId: cr.orGroupId
+      orGroupId: cr.orGroupId,
+      ...(cr.ownCourse && { ownCourse: true as const })
     }))
   }))
 

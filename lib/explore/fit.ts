@@ -38,6 +38,7 @@ export interface FitRecord {
     minimumGrade: number
     isCritical: boolean
     orGroupId?: string | null
+    ownCourse?: boolean
   }[]
 }
 
@@ -63,7 +64,8 @@ export function fitProgram(record: FitRecord): FitProgram {
         requiredLevel: req.level,
         minGrade: req.minimumGrade,
         isCritical: req.isCritical,
-        orGroupId: req.orGroupId ?? null
+        orGroupId: req.orGroupId ?? null,
+        ownCourse: req.ownCourse
       }))
     })
   }

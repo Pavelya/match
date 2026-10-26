@@ -57,6 +57,8 @@ interface AlgoliaProgramRecord {
      * from these records (rebranding 2.3), so it never reads the programs cache.
      */
     orGroupId: string | null
+    /** Needs a course of its own (MAINT 5.18); present only when true */
+    ownCourse?: true
   }>
   isActive: boolean
   createdAt: number
@@ -115,6 +117,7 @@ async function syncToAlgolia() {
             minGrade: true,
             isCritical: true,
             orGroupId: true,
+            ownCourse: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }
@@ -169,7 +172,8 @@ async function syncToAlgolia() {
         level: req.requiredLevel,
         minimumGrade: req.minGrade,
         isCritical: req.isCritical,
-        orGroupId: req.orGroupId
+        orGroupId: req.orGroupId,
+        ...(req.ownCourse && { ownCourse: true as const })
       })),
 
       isActive: true,

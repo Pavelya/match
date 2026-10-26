@@ -106,7 +106,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
-            orGroupId: true
+            orGroupId: true,
+            ownCourse: true
           }
         }
       }
@@ -258,13 +259,15 @@ export async function PATCH(request: Request, { params }: RouteParams) {
               minGrade: number
               isCritical?: boolean
               orGroupId?: string
+              ownCourse?: boolean
             }) => ({
               programId: id,
               ibCourseId: req.ibCourseId,
               requiredLevel: req.requiredLevel,
               minGrade: req.minGrade,
               isCritical: req.isCritical || false,
-              orGroupId: req.orGroupId || null
+              orGroupId: req.orGroupId || null,
+              ownCourse: req.ownCourse === true
             })
           )
         })

@@ -76,6 +76,8 @@ export interface AlgoliaProgramRecord {
      * from these records (rebranding 2.3), so it never reads the programs cache.
      */
     orGroupId: string | null
+    /** Needs a course of its own (MAINT 5.18); present only when true */
+    ownCourse?: true
   }>
 
   // Metadata
@@ -128,6 +130,7 @@ export async function transformProgramToAlgolia(
             minGrade: true,
             isCritical: true,
             orGroupId: true,
+            ownCourse: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }
@@ -191,7 +194,8 @@ export async function transformProgramToAlgolia(
         level: req.requiredLevel,
         minimumGrade: req.minGrade,
         isCritical: req.isCritical,
-        orGroupId: req.orGroupId
+        orGroupId: req.orGroupId,
+        ...(req.ownCourse && { ownCourse: true as const })
       })),
 
       // Metadata
