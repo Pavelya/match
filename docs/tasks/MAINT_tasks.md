@@ -72,6 +72,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 | 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
 | 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 9 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 10 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -159,6 +160,7 @@ Phase 6 — dependency majors
 - [x] 6.4 The minor and patch batch
 - [x] 6.5 TypeScript 5.9 → 7
 - [ ] 6.6 Move to the `prisma-client` generator
+- [ ] 6.7 npm 12: find out what it changes here, and decide whether to move
 
 Phase 7 — structural
 
@@ -203,7 +205,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Only 6.6 (the `prisma-client` generator) is left in phase 6 |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Left in phase 6: 6.6 (the `prisma-client` generator) and 6.7 (whether to move to npm 12) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -2386,6 +2388,71 @@ also generates into `node_modules`, which is the thing Prisma 7 moved away from.
 is), and watch for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack. Three
 `'use client'` components in `components/admin/legal-content/` import enums: they take them from the
 generated enums file, not the client, or server code reaches the browser bundle.
+
+---
+
+### 6.7 — npm 12: find out what it changes here, and decide whether to move
+
+**Outcome:** A short written answer with a recommendation, approved by the owner: whether to move to
+npm 12, when, and on which machines. Local, CI and Vercel run the npm version that answer chooses, and
+installs are proved to work on it.
+
+Added 26 October 2026 (owner), after `npm install` printed "New major version of npm available!
+11.0.0 -> 12.2.1": "Need to investigate what's the impact, if we should upgrade or not."
+
+**Why:** npm 12 (July 2026) is a security release that changes what an install does. Read the npm/cli
+v12.0.0 release notes and the GitHub changelog before trusting any of this; the summaries
+online disagree on details:
+
+- **Dependencies' install scripts no longer run** unless the project allows them, in a new
+  `allowScripts` field managed with `npm approve-scripts` and `npm deny-scripts`.
+- **Dependencies from remote URLs and Git are refused** unless allowed (`--allow-remote`,
+  `--allow-git`).
+- `npm-shrinkwrap.json` is gone, and `npm view --json` changes shape.
+
+**What it would touch here** (read 26 October 2026):
+
+- **Five dependencies have install scripts** (`package-lock.json`, `hasInstallScript`): `prisma` and
+  `@prisma/engines` (production), `esbuild` (twice; one copy is under `react-email`), `unrs-resolver`
+  and `fsevents` (macOS only, optional). On npm 12, each has to be approved or shown not to need its
+  script. Prisma's is the one that matters: the build needs the engine and the generated client.
+- **The project's own scripts:** `postinstall` runs `prisma generate` and `prepare` runs `husky`.
+  Check that npm 12 still runs a project's own scripts; the summaries speak only of dependencies'.
+- **No Git or URL dependencies** in the lockfile, and no `.npmrc`.
+- **The three machines already differ.** Locally, npm 11.0.0 on Node 22.12. In CI,
+  `actions/setup-node` with `node-version: 22`, so the npm that ships with Node 22, which is npm 10.
+  Vercel's npm comes from its own build image: read it from a build log. `package.json` pins only
+  `"node": ">=22.0.0"`, with no `packageManager` or `engines.npm`.
+- **npm follows Node.** npm 12 is expected to ship with Node 24 and 26 at most, not 22, so CI and
+  Vercel move only when the Node version does. Node 22 leaves long-term support in April 2027, so the
+  real question may be Node 22 → 24 (which brings npm 11), with npm 12 as a later step.
+
+**Steps:**
+
+1. Read the release notes and record the changes that apply, with the source and date.
+2. On a copy of the repo with npm 12, run `npm ci`, then the full verification. Record which install
+   scripts were skipped and what broke, then the `allowScripts` list that fixes it. Run nothing that
+   writes to the database: the build's prerender only reads.
+3. Find Vercel's npm and Node versions from a recent build log, and what each would need to change
+   (the project's Node version setting, or `engines`).
+4. Recommend one of these, with the reasons:
+   - stay on npm 11 locally and change nothing;
+   - move local npm only;
+   - pin one npm for all three (`packageManager` or `engines.npm`);
+   - fold npm into a Node 24 move, written as its own task.
+
+   Bring the local npm up to date within 11 either way, since 11.0.0 is the first release of that
+   major.
+5. If the owner approves a move: one pull request with nothing else in it (rule 1). It holds
+   `allowScripts`, any pin, and the CI change, and a preview deployment proves Vercel installs and builds.
+
+**Must not:** change the Node version in the same pull request as npm; add `allowScripts` entries
+for packages that turn out not to need their script; run `npm audit fix --force`.
+
+**Verify:** `npm ci` from a clean `node_modules`, then the usual checks and both test suites, on the
+chosen npm; CI green; a Vercel preview built with it.
+
+**Session size:** Small for the investigation (steps 1 to 4). The move, if approved, small.
 
 ---
 
