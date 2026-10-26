@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 import { deleteStudentAccount } from './delete-student'
 
 // One deletion for both routes (MAINT 5.25): every table that holds the student, through the

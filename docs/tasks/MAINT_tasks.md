@@ -56,9 +56,10 @@ deletes today's design.
 | Admin deletes a coordinator with invitations | 5.29 | 26 October 2026 | `deleteCoordinatorAccount` in one transaction: the invitations they sent and the one sent to them, sign-in links, then the user. The school and its students stay |
 | The whole data export | 5.31 | 26 October 2026 | The download adds the consent records, the student's support tickets and the invitations sent to their address, naming no one else (version 1.1). Privacy 9's draft sentence shortened |
 | Three tiny fixes | 5.32, 5.33, 5.38 | 26 October 2026 | The ticket emails log `ab***@example.com`; the coordinator portal says "Subscribe", never "Upgrade to VIP"; For schools offers a 30-minute call in both designs |
+| `prisma-client` generator | 6.6 | 26 October 2026 | The client is generated into `app/generated/prisma` (gitignored); 59 files import from its `client` or `enums`, none from `@prisma/client`. The browser gets the enums only |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -68,12 +69,11 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 2 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 3 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 4 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 5 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 6 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 2 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 5 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -165,7 +165,7 @@ Phase 6 — dependency majors
 - [x] 6.3 lucide-react 0.x → 1.x
 - [x] 6.4 The minor and patch batch
 - [x] 6.5 TypeScript 5.9 → 7
-- [ ] 6.6 Move to the `prisma-client` generator
+- [x] 6.6 Move to the `prisma-client` generator
 - [ ] 6.7 npm 12: find out what it changes here, and decide whether to move
 
 Phase 7 — structural
@@ -211,7 +211,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Left in phase 6: 6.6 (the `prisma-client` generator) and 6.7 (whether to move to npm 12) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. Left in phase 6: 6.7 (whether to move to npm 12) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -2597,7 +2597,7 @@ session — see 6.6.
 
 ---
 
-### 6.6 — Move to the `prisma-client` generator
+### 6.6 — Move to the `prisma-client` generator — **done**
 
 **Outcome:** the schema uses `provider = "prisma-client"` with an explicit `output`, and
 no code imports from `@prisma/client`.
@@ -2613,6 +2613,31 @@ also generates into `node_modules`, which is the thing Prisma 7 moved away from.
 is), and watch for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack. Three
 `'use client'` components in `components/admin/legal-content/` import enums: they take them from the
 generated enums file, not the client, or server code reaches the browser bundle.
+
+**Done 26 October 2026.** `prisma/schema.prisma` uses `provider = "prisma-client"` with
+`output = "../app/generated/prisma"`, which `.gitignore` already listed; `postinstall` still runs
+`prisma generate`, so a fresh install, CI and Vercel write it before anything else runs. ESLint and Prettier
+ignore it. 59 files changed import: those that need only enums take them from
+`@/app/generated/prisma/enums` (the three legal-content client components, the emails, the seed scripts,
+`types/next-auth.d.ts`); those that need `PrismaClient` or the `Prisma` namespace from
+`@/app/generated/prisma/client`. No code imports `@prisma/client`; the package stays as a dependency because
+the generated client loads its runtime from `@prisma/client/runtime/client`.
+
+One cast: `@auth/prisma-adapter` 2.11.3 (the latest) types its argument as `@prisma/client`'s
+`PrismaClient`, which is no longer generated, so `lib/auth/config.ts` casts the client to the adapter's
+parameter type. The adapter only calls the model delegates and reads `error.code`, so nothing changes at
+runtime.
+
+The generated client sets `__dirname` from `import.meta.url`; `tsx` runs it in the scripts' CommonJS
+mode without trouble.
+
+**Verified:** `rm -rf node_modules app/generated && npm ci` generated the client with no
+`node_modules/.prisma`; type-check, lint, `prettier --check`, both test suites (2212 Vitest, 20/20
+matching) and `npm run build`, whose prerender of `app/ib-university-requirements` read production through
+the new client. No browser chunk holds the Prisma runtime, only the enum values. `next dev` (Turbopack)
+served `/`, `/api/auth/session` and `/admin/legal-content` with no resolution error. The extended client from
+`@/lib/prisma`, against an unreachable database, threw the generated
+`Prisma.PrismaClientKnownRequestError`.
 
 ---
 

@@ -1,4 +1,4 @@
-import type { CourseLevel } from '@prisma/client'
+import type { CourseLevel } from '@/app/generated/prisma/enums'
 
 /**
  * Pure helpers for comparing a program's stored subject requirements with a target, and

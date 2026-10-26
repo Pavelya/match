@@ -15,7 +15,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { getDocument, SLUG_TO_DOCUMENT_TYPE, DOCUMENT_TYPE_LABELS } from '@/lib/legal-documents'
-import { LegalDocumentType } from '@prisma/client'
+import { LegalDocumentType } from '@/app/generated/prisma/enums'
 
 interface RouteParams {
   params: Promise<{ type: string }>

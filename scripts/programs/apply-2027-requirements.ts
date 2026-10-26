@@ -27,7 +27,7 @@
 import { randomUUID } from 'node:crypto'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 import { prisma } from '@/lib/prisma-standalone'
 import { syncProgramsBatch } from '@/lib/algolia/sync'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'

@@ -6,7 +6,7 @@
  */
 
 import { prisma } from '@/lib/prisma'
-import { LegalDocumentType, Prisma } from '@prisma/client'
+import { LegalDocumentType, Prisma } from '@/app/generated/prisma/client'
 import {
   LegalDocumentSummary,
   LegalDocumentDetail,

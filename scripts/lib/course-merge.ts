@@ -1,4 +1,4 @@
-import type { CourseLevel } from '@prisma/client'
+import type { CourseLevel } from '@/app/generated/prisma/enums'
 
 /**
  * Pure planning for scripts/merge-ib-courses.ts: given every row that points at either

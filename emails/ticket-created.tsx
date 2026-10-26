@@ -1,4 +1,4 @@
-import type { TicketCategory } from '@prisma/client'
+import type { TicketCategory } from '@/app/generated/prisma/enums'
 import LegacyTicketCreatedEmail from '@/components/email/legacy/ticket-created'
 import { designedMessage, type EmailMessage } from '@/components/email/message'
 import { emailBrand } from '@/lib/brand/email'
