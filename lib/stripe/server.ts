@@ -8,6 +8,7 @@
  */
 
 import Stripe from 'stripe'
+import { isLive } from './subscription-status'
 
 let stripeClient: Stripe | null = null
 
@@ -127,27 +128,30 @@ export async function createPortalSession({
 }
 
 /**
- * Get subscription status for a customer
+ * A subscription's status at Stripe now, or null when Stripe has no such subscription.
+ *
+ * The webhook acts on this, never on the status in an event: Stripe does not deliver events in
+ * order, and retries a failed one for up to three days (MAINT 5.34).
  */
-export async function getCustomerSubscriptionStatus(customerId: string): Promise<{
-  hasActiveSubscription: boolean
-  subscriptionId?: string
-  status?: string
-}> {
+export async function getSubscriptionStatus(subscriptionId: string): Promise<string | null> {
+  try {
+    const subscription = await getStripe().subscriptions.retrieve(subscriptionId)
+    return subscription.status
+  } catch (error) {
+    if ((error as { code?: string }).code === 'resource_missing') return null
+    throw error
+  }
+}
+
+/**
+ * Whether a customer already has a subscription that is, or may again be, billed. Checkout refuses
+ * such a school, so it cannot end up paying for two (MAINT 5.34).
+ */
+export async function hasLiveSubscription(customerId: string): Promise<boolean> {
   const subscriptions = await getStripe().subscriptions.list({
     customer: customerId,
-    status: 'active',
-    limit: 1
+    status: 'all',
+    limit: 10
   })
-
-  if (subscriptions.data.length === 0) {
-    return { hasActiveSubscription: false }
-  }
-
-  const subscription = subscriptions.data[0]
-  return {
-    hasActiveSubscription: true,
-    subscriptionId: subscription.id,
-    status: subscription.status
-  }
+  return subscriptions.data.some((subscription) => isLive(subscription.status))
 }
