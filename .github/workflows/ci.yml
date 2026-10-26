@@ -124,5 +124,13 @@ jobs:
       - name: Build the database from migrations
         run: npx prisma migrate deploy
 
+      # Every table in `public` starts with Row Level Security on, through the event trigger in
+      # migration 20261026120000 (MAINT 5.37). A later migration that turns it off fails here.
+      - name: Every table has Row Level Security
+        run: |
+          off=$(psql "$DIRECT_URL" --tuples-only --no-align --command "SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p') AND NOT c.relrowsecurity")
+          echo "Tables without Row Level Security: $off"
+          test "$off" = 0
+
       - name: Build
         run: npm run build
