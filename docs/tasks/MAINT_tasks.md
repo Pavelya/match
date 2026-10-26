@@ -71,15 +71,14 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | One course for two requirements | 5.18, steps 2 to 5 | change medium | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Waits on the owner's choice of where the rule is stored (recommended: one column on the requirement, not the program); the chip copy needs an approved board before code |
+| 1 | One course for two requirements | 5.18, steps 2 to 5 | change medium | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Step 2 decided 26 October: one column on the requirement, not the program. Next: step 3, the matcher; the chip copy needs an approved board before any program is flagged |
 | 2 | "Two of" rules stored as one | 5.39 | medium, content | After 5.18 step 3 has merged. About 47 programs at McGill, Alberta, Waterloo and five others get their second requirement |
 | 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
 | 5 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
-wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3). 5.18 step 2:
-where the "needs its own course" rule is stored.
+wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
 
 ### 3. Wait for release day (R.1) or cleanup (R.2)
 
@@ -1269,6 +1268,7 @@ the same on every row of a group. Marked requirements in a program each need a d
 unmarked ones may use any course, as today. Step 3's matching runs over the marked requirements only.
 A program with none marked takes today's path, so the fingerprint stays byte-identical. No program
 found needs two separate sets. Leave the field out of the programs cache when it is false.
+**Decided by the owner, 26 October 2026: the requirement column, as recommended.**
 
 The 10 October count overstated the change: most of the 1,159 pairs were in programs where today's
 result is right (Lausanne 615, Edinburgh 134, Basel 38, NTU 24, Western 3). Re-run it in step 3 with
