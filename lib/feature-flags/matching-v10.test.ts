@@ -94,6 +94,36 @@ describe('rollout', () => {
   })
 })
 
+describe('MATCHING_V10_FULL', () => {
+  // Production's `.env` sets it, with no individual flag
+  it('Full: on by itself turns every flag on', () => {
+    vi.stubEnv('MATCHING_V10_FULL', 'true')
+
+    for (const flag of MATCHING_V10_FLAGS) {
+      expect(isFeatureEnabled(flag, { userId: 'test-user-123' }), flag).toBe(true)
+    }
+    expect(getEnabledV10Features().length).toBe(MATCHING_V10_FLAGS.length - 1)
+  })
+
+  it('Full: overrides a flag set to false', () => {
+    vi.stubEnv('MATCHING_V10_FULL', 'true')
+    vi.stubEnv('MATCHING_V10_FIT_QUALITY', 'false')
+
+    expect(isFeatureEnabled('MATCHING_V10_FIT_QUALITY')).toBe(true)
+  })
+
+  it('Full at 0% rollout: every flag off, even one set on its own', () => {
+    vi.stubEnv('MATCHING_V10_FULL', 'true')
+    vi.stubEnv('MATCHING_V10_FULL_ROLLOUT', '0')
+    vi.stubEnv('MATCHING_V10_FIT_QUALITY', 'true')
+
+    for (const flag of MATCHING_V10_FLAGS) {
+      expect(isFeatureEnabled(flag, { userId: 'test-user-123' }), flag).toBe(false)
+    }
+    expect(isAnyV10FeatureEnabled()).toBe(false)
+  })
+})
+
 describe('flag list', () => {
   it('Flag list: includes FIT_QUALITY, SELECTIVITY and FULL', () => {
     expect(MATCHING_V10_FLAGS).toContain('MATCHING_V10_FIT_QUALITY')

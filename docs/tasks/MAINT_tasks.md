@@ -58,9 +58,10 @@ deletes today's design.
 | Three tiny fixes | 5.32, 5.33, 5.38 | 26 October 2026 | The ticket emails log `ab***@example.com`; the coordinator portal says "Subscribe", never "Upgrade to VIP"; For schools offers a 30-minute call in both designs |
 | `prisma-client` generator | 6.6 | 26 October 2026 | The client is generated into `app/generated/prisma` (gitignored); 59 files import from its `client` or `enums`, none from `@prisma/client`. The browser gets the enums only |
 | The matching scripts to Vitest | 7.1 Part 4 | 26 October 2026 | 21 scripts became 329 Vitest tests; one suite, and CI now sees a failure in the 12 scripts that exited 0 regardless. 7.1 is done. Found 7.7 |
+| Three gaps in the matching tests | 7.7 | 26 October 2026 | 24 new tests and one corrected: the Redis match cache (`lib/matching/cache.test.ts`, new), both 0.25 floors in the subject matcher, and `MATCHING_V10_FULL` overriding the other flags. No score changed |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, and 7.1. Each section below records what
+which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -70,11 +71,10 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Three gaps in the matching tests | 7.7 | small | From 7.1 Part 4: the Redis match cache, the subject matcher's 0.25 floors, `MATCHING_V10_FULL`. Before 5.18, which changes the subject matcher |
-| 2 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 5 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 2 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 3 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 4 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -178,7 +178,7 @@ Phase 7 — structural
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
-- [ ] 7.7 Close three gaps in the matching tests (from 7.1 Part 4)
+- [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
 
 Owner tasks — not AI work
 
@@ -3788,7 +3788,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 
 ---
 
-### 7.7 — Close three gaps in the matching tests
+### 7.7 — Close three gaps in the matching tests — **done**
 
 **Outcome:** Tests for the Redis match cache, for both 0.25 floors in the subject matcher, and for
 `MATCHING_V10_FULL` overriding the other flags. No change to how anything scores.
@@ -3823,6 +3823,34 @@ break to any of these fails no test:
 `npm test` and the usual checks.
 
 **Session size:** Small.
+
+**Done 26 October 2026.** 24 new tests and one corrected, and no change outside the three test files:
+
+- **`lib/matching/cache.test.ts`, new, 20 tests.** Redis is mocked as a `Map` of JSON strings, with a
+  `scan` that pages 100 keys a call as Redis does. The scorer and the optimised matcher are the real
+  ones, wrapped in spies, so a test sees whether a result was computed or read. Each of the three
+  reads (single, batch, V10) is checked for a miss that computes and stores for 30 minutes, a hit that
+  computes nothing, and different weights giving different keys; single and batch also for a Redis
+  error falling back to computing. The V10 read is checked with `MATCHING_V10_FULL` on (the optimised
+  matcher) and off (the V9 scorer, still enhanced). `invalidateStudentCache` removes all three kinds of
+  key for `student-1` and none for `student-10`, follows the SCAN cursor past the first page, makes the
+  next read compute again, and logs a Redis error rather than throwing. `invalidateProgramCache`,
+  `clearAllMatchCache` and `getCacheStats` have one test each.
+- **`subject-matcher.test.ts`.** The test named "Grade shortfall: minimum floor of 0.25" is now a 1
+  against a required 7, and scores exactly 0.25; it was 3 short, which scores 0.45. A new test, SL 1
+  for HL 7, reaches the level-mismatch floor: the shortfall's own floor gives 0.25, the 0.7 penalty
+  0.175, and the floor 0.25.
+- **`matching-v10.test.ts`.** `MATCHING_V10_FULL=true` alone turns every flag on; it overrides a flag
+  set to `false`; with `MATCHING_V10_FULL_ROLLOUT=0` every flag is off, even one set to `true` on its
+  own. That last case is how the code behaves now, and the test records it.
+
+**Verified:** each break fails at least one new test, and passes again when restored. The grade-shortfall floor at
+0.2: 1 test fails. The level-mismatch floor at 0.2: 1 fails. The `MATCHING_V10_FULL` check dropped: 3
+fail. The delete in `invalidateStudentCache` skipped: 3 fail. Beyond the task's list: SCAN reading one page only: 1 fails;
+the weights hash leaving out one weight: 6 fail; the V10 read never storing: 6 fail;
+`invalidateStudentCache` missing the V10 keys: 2 fail. `npm test`, type-check, `eslint . --max-warnings
+0`, `prettier --check .` and `npm run build` are clean. No Redis, database or network was reached by
+the tests.
 
 ---
 

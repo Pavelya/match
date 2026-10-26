@@ -225,16 +225,10 @@ describe('scores', () => {
   })
 
   it('Grade shortfall: minimum floor of 0.25', () => {
-    const req: SubjectRequirement = {
-      courseId: 'econ',
-      courseName: 'Economics',
-      level: 'SL',
-      minimumGrade: 7,
-      isCritical: false
-    }
-    // Student has Economics SL 4, requirement is 7 (3 points below)
-    const result = calculateSubjectMatch(req, studentCourses)
-    expect(result.score).toBeGreaterThan(0.24) // At least minimum
+    // A 1 against a required 7: the formula gives 0, so the floor decides. This test used to be
+    // 3 points short, which scores 0.45 and never reached the floor
+    const result = calculateSubjectMatch(req('econ', 'SL', 7), [took('econ', 'SL', 1)])
+    expect(result.score).toBe(0.25)
     expect(result.status).toBe('PARTIAL_MATCH')
   })
 
@@ -266,6 +260,15 @@ describe('scores', () => {
     const result = calculateSubjectMatch(req, studentCourses)
     expect(result.score).toBeCloseTo(0.25, 1) // Should be around minimum
     expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('Level mismatch: minimum floor of 0.25', () => {
+    // SL 1 for HL 7: the shortfall's own floor gives 0.25 and the level penalty takes it to 0.175,
+    // so the level-mismatch floor decides
+    const result = calculateSubjectMatch(req('econ', 'HL', 7), [took('econ', 'SL', 1)])
+    expect(result.score).toBe(0.25)
+    expect(result.status).toBe('PARTIAL_MATCH')
+    expect(result.kind).toBe('level_short')
   })
 
   // === Test 5: OR-Group Requirements ===
