@@ -19,17 +19,14 @@ import { POST } from './route'
 function coordinatorOf(school: Record<string, unknown>) {
   prismaMock.coordinatorProfile.findFirst.mockResolvedValue({
     id: 'coordinator-1',
+    isActive: true,
     school: { id: 'school-1', subscriptionTier: 'REGULAR', stripeCustomerId: 'cus_1', ...school }
   })
 }
 
+// The route reads nothing from the request: its redirect URLs are always our own (MAINT 5.36).
 function post() {
-  return POST(
-    new Request('http://localhost/api/subscriptions/create-portal', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' }
-    })
-  )
+  return POST()
 }
 
 beforeEach(() => {
@@ -64,6 +61,19 @@ describe('POST /api/subscriptions/create-portal', () => {
     const res = await post()
 
     expect(res.status).toBe(400)
+    expect(createPortalSession).not.toHaveBeenCalled()
+  })
+
+  it('refuses a coordinator whose access was revoked with 403, before Stripe', async () => {
+    prismaMock.coordinatorProfile.findFirst.mockResolvedValue({
+      id: 'coordinator-1',
+      isActive: false,
+      school: { id: 'school-1', subscriptionTier: 'REGULAR', stripeCustomerId: 'cus_1' }
+    })
+
+    const res = await post()
+
+    expect(res.status).toBe(403)
     expect(createPortalSession).not.toHaveBeenCalled()
   })
 

@@ -239,6 +239,9 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
+
     const coordinator = await prisma.coordinatorProfile.findFirst({
       where: { userId: session.user.id },
       include: {
@@ -252,6 +255,14 @@ export async function GET() {
       return NextResponse.json(
         { error: 'Coordinator profile or school not found' },
         { status: 404 }
+      )
+    }
+
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
       )
     }
 

@@ -14,7 +14,7 @@ import { getStripe, getOrCreateStripeCustomer, createCheckoutSession } from '@/l
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const session = await auth()
 
@@ -46,6 +46,14 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { error: 'Coordinator profile not found or not linked to a school' },
         { status: 404 }
+      )
+    }
+
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
       )
     }
 
@@ -110,12 +118,10 @@ export async function POST(req: Request) {
       })
     }
 
-    // Parse request body for URLs
-    const body = await req.json().catch(() => ({}))
+    // Always our own pages: Stripe sends the browser wherever these say (MAINT 5.36)
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const successUrl =
-      body.successUrl || `${baseUrl}/coordinator/settings/subscription?success=true`
-    const cancelUrl = body.cancelUrl || `${baseUrl}/coordinator/settings/subscription?canceled=true`
+    const successUrl = `${baseUrl}/coordinator/settings/subscription?success=true`
+    const cancelUrl = `${baseUrl}/coordinator/settings/subscription?canceled=true`
 
     // Create checkout session
     const checkoutUrl = await createCheckoutSession({

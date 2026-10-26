@@ -42,17 +42,13 @@ function school(overrides: Record<string, unknown> = {}) {
 
 function coordinatorOf(schoolRow: Record<string, unknown> | null) {
   prismaMock.coordinatorProfile.findFirst.mockResolvedValue(
-    schoolRow ? { id: 'coordinator-1', school: schoolRow } : null
+    schoolRow ? { id: 'coordinator-1', isActive: true, school: schoolRow } : null
   )
 }
 
+// The route reads nothing from the request: its redirect URLs are always our own (MAINT 5.36).
 function post() {
-  return POST(
-    new Request('http://localhost/api/subscriptions/create-checkout', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' }
-    })
-  )
+  return POST()
 }
 
 function expectNoStripeCall() {
@@ -140,6 +136,19 @@ describe('POST /api/subscriptions/create-checkout', () => {
     expect(res.status).toBe(400)
     expectNoStripeCall()
     expect(prismaMock.iBSchool.update).not.toHaveBeenCalled()
+  })
+
+  it('refuses a coordinator whose access was revoked with 403, before Stripe', async () => {
+    prismaMock.coordinatorProfile.findFirst.mockResolvedValue({
+      id: 'coordinator-1',
+      isActive: false,
+      school: school()
+    })
+
+    const res = await post()
+
+    expect(res.status).toBe(403)
+    expectNoStripeCall()
   })
 
   it('refuses with 500, before Stripe, when no product is configured', async () => {

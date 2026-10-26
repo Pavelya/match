@@ -56,6 +56,14 @@ export async function GET() {
       return NextResponse.json({ error: 'School not found' }, { status: 404 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const school = coordinator.school
     const access = getCoordinatorAccess(school)
 
