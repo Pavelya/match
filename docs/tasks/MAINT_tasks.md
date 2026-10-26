@@ -1303,6 +1303,11 @@ of" rule as one requirement: new task 5.39.
 - **Step 4** is rebranding row 28: the change board "D2.7 Chip · a second subject", then its build.
   Until then a requirement left without a course reads as "not taken", so no program is flagged
   before that build.
+- **Decided by the owner, 26 October 2026: step 5 runs as soon as build 28 has merged, before
+  release day.** Until release, today's design shows a flagged program's score and status right but
+  its requirement lines can be muddled (`ProgramCard` checks some rows on its own, and an unmet group
+  reads "None of the OR options met"). 18 programs out of more than a thousand, for the days left
+  before the new design goes to everyone, is accepted. Then 5.39.
 
 ---
 
