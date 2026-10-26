@@ -568,10 +568,10 @@
 
 /*
  * Seasonal themes' four slots (rebranding 6.1, board "D1.7 Seasonal themes"): beside the mark,
- * under "match" in Home's hero, in the lime band on Home and the guides, and on the 404. Each is
- * empty and placed inside a box the page already has, so it never moves the layout or takes a
- * tap. A season's own stylesheet (public/seasons/{key}/season.css) shows them and draws in them.
- * The hero's bulbs get the one entrance D1.6 allows; every other slot is still.
+ * under "match" in Home's hero, in the lime band on every page with it (6.3), and on the 404.
+ * Each is empty and placed inside a box the page already has, so it never moves the layout or
+ * takes a tap. A season's own stylesheet (public/seasons/{key}/season.css) shows them and draws
+ * in them. The hero's drawing gets the one entrance D1.6 allows; every other slot is still.
  */
 [data-season-slot] {
   display: none;
@@ -616,13 +616,15 @@
   top: 12px;
 }
 
+/* 330 × 60 from 768px ("D1.7 Season · Christmas"): 8px above the band's heading, at 220 × 40 a
+   drawing was lost on a wide band */
 @media (width >= 48rem) {
   [data-season-slot='band'],
   [data-season-slot='404'] {
-    top: 1rem;
+    top: 12px;
     right: 1.5rem;
-    width: 220px;
-    height: 40px;
+    width: 330px;
+    height: 60px;
   }
 }
 

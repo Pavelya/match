@@ -10,9 +10,9 @@ import { cn } from '@/lib/utils'
  * The lime band that ends Home (rebranding 4.1, board "D4.1 Home") and every country guide (4.2,
  * "D4.12 Country guide"). Lime in both themes, with ink words. Dark's brand button would be 2.1:1
  * on it, so the action is an ink button, and the focus outline is ink too. In forced colours the
- * band turns to the system's background, and its transparent edges are drawn. On Home and the
- * guides, and only there, it holds a season's slot (D1.7): For schools, How it works, the
- * requirements hub and Support us keep a plain band.
+ * band turns to the system's background, and its transparent edges are drawn. It holds a season's
+ * slot (D1.7) wherever it shows: a decoration on a shared component shows on every page with it
+ * (owner, 25 October 2026; "D1.7 Season · Christmas").
  */
 
 const onLimeButton = cn(
@@ -38,8 +38,6 @@ interface LimeBandProps {
   heading: string
   children: ReactNode
   rowFrom?: keyof typeof ROW
-  /** The season's slot in the top padding: Home and the guides only */
-  season?: boolean
 }
 
 type LimeBandActions =
@@ -54,20 +52,19 @@ export function LimeBand({
   children,
   explore,
   actions,
-  rowFrom = 'md',
-  season = false
+  rowFrom = 'md'
 }: LimeBandProps & LimeBandActions) {
   return (
     <section aria-labelledby={id} className="border-y border-transparent bg-lime text-on-lime">
+      {/* relative: the season's slot, in the top padding */}
       <div
         className={cn(
           containerClass,
-          'flex flex-col gap-8 px-4 py-12 md:px-6 md:py-20',
-          ROW[rowFrom],
-          season && 'relative'
+          'relative flex flex-col gap-8 px-4 py-12 md:px-6 md:py-20',
+          ROW[rowFrom]
         )}
       >
-        {season && <SeasonSlot slot="band" />}
+        <SeasonSlot slot="band" />
         <div className="flex max-w-160 flex-col gap-3.5">
           <h2 id={id} className="text-display-l">
             {heading}

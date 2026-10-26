@@ -87,7 +87,7 @@ function Hero() {
         <h1 className="text-display-xl">
           Find your perfect{' '}
           {/* A lime bar under the letters, not a marker behind them: light letters on lime
-              are 1.1:1 in dark (04-design-system.md §1). In season, bulbs hang from the bar
+              are 1.1:1 in dark (04-design-system.md §1). In season, a drawing hangs from the bar
               under "match" (D1.7), so the word has a span of its own. */}
           <span className="lime-bar">
             university{' '}
@@ -275,7 +275,6 @@ function FinalBand() {
     <LimeBand
       id="home-cta"
       heading="Ready to find your match?"
-      season
       explore={{ href: '/programs/search', label: 'Explore programs' }}
     >
       <p className="text-body-l">

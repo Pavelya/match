@@ -130,7 +130,6 @@ export function CountryGuidePage({ guide }: { guide: CountryGuide }) {
         heading={`Ready to find your match in ${name}?`}
         explore={explore}
         rowFrom="lg"
-        season
       >
         <p className="text-body-l">
           <RichText text={guide.closing} />
