@@ -71,6 +71,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 | 6 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
 | 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
 | 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 9 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -82,6 +83,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: what to count, ways back, social media | 7.5 Parts B to D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
+| R.1 | Inactive accounts: the notice, the admin page and the daily job | 7.6 Parts C to E | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
@@ -166,6 +168,7 @@ Phase 7 — structural
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
+- [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 
 Owner tasks — not AI work
 
@@ -3146,6 +3149,9 @@ changes the Privacy Policy, so it waits for 7.4.
 
 **Part B — what to count from now on (the owner decides; recommend one).** Options to weigh:
 
+**26 October 2026:** 7.6 builds the first option, a last-active date, for deleting inactive accounts.
+If the owner keeps that choice, Part B only decides what to count from it.
+
 - **A last-seen date on the account,** written at most once a day per student, for example from the
   `jwt` callback's existing role check. One tiny write per active student per day, no new read, and
   no cookie. Returning students then become a count.
@@ -3243,6 +3249,163 @@ each change is its own session.
 
 **Session size:** Medium. Aggregates and reading, then the owner's decisions on B, C and D. Part D
 can be its own session.
+
+---
+
+### 7.6 — Inactive accounts: mark them silent, warn them, then delete them
+
+**Outcome:** The admin sees when each account was last active, which ones are silent, and how many
+students are active, on the main dashboard. A student who stays away long enough gets one email
+warning that the account will be deleted in a month. If they don't come back in that month, the
+account and everything it holds is deleted. All of this runs from one admin page, and then on its own
+every day once the owner trusts it. A student who comes back at any point keeps the account, and the
+clock starts again.
+
+Added 26 October 2026 (owner): "So any account that didn't make a login during 6 months will be marked
+as silent in the admin … a new mail template … saying that there is no activity for 12 last months or
+more > we give the user one month > then we delete their data completely … something for the admin to
+easily send these emails, could be bulk … the purge of accounts in the admin. Generally I want this
+process to be automated as much as we can … IF the account did make a login AFTER we sent a
+notification within the month, then it can stay for another 6 months … add the analytics, how many
+silent accounts we've got on the main dashboard, or how many active accounts."
+
+**Why:** Keeping a student's grades and plans forever, after they have stopped using IB Match, is data
+the service no longer needs. The draft Privacy Policy says data is kept "for as long as your account is
+active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing defines or enforces
+"active". On 26 October 2026, 73 of the 199 student accounts were created more than six months ago, and
+71 have not changed since then (counts only).
+
+**What exists today, and what does not:**
+
+- **No date of last use is stored.** Sessions are JWTs that last 30 days (`lib/auth/config.ts`), so the
+  `Session` table is empty (one row in production) and a sign-in leaves no row. `events.signIn` writes
+  only a new account's consent. `User.updatedAt` changes only when the user row changes, not when the
+  student visits. A student who opens the app every week on a valid token never "signs in". So "login"
+  here has to mean **last active**, not last sign-in.
+- **The `jwt` callback already re-reads the role** from the database every 5 minutes for an active
+  user (`ROLE_REFRESH_MS`). That read can carry the date, and write it at most once a day, which is the
+  first option in 7.5 Part B. This task builds it, so 7.5 Part B's choice is made here.
+- **Deleting a student is solved:** `deleteStudentAccount` (`lib/account/delete-student.ts`, 5.25)
+  deletes everything in one transaction, and 5.24 sends "Account deleted". Deleting a coordinator is
+  blocked by a foreign key until 5.29.
+- **No scheduled job exists.** There is no `vercel.json` and no cron route. The Vercel plan is Pro
+  (`docs/legal-review/providers.md`), so a daily cron is available.
+- **Email:** Resend's Free plan, 3,000 emails a month (`providers.md`) and, by Resend's pricing page, 100
+  a day. Sign-in links and invitations share that daily allowance, so a first batch of about 70 notices
+  has to be spread over several days. Check the limits before building.
+- **The admin:** `/admin/dashboard` counts users by role; `/admin/students` lists every student, newest
+  first. The admin keeps today's design.
+
+**Decide first (the owner).** Recommended answers are in bold:
+
+1. **The times.** One reading of the request: **silent after 6 months without activity (a label in the
+   admin, nothing sent); the notice after 12 months; deleted 30 days after the notice unless the student
+   is active again.** Activity after the notice clears it, and the clock starts again from that day. So
+   the student is silent again 6 months later and gets a notice 12 months later. The alternative is a
+   notice at 6 months, but the email would then have to say 6. Note that 6 months catches the normal
+   gap between the first and second year of the Diploma, the students 7.5 wants back.
+2. **Whose accounts.** **Students only.** Coordinators are tied to a school and its subscription, and are
+   deleted on request (5.29). Admins and agents never.
+3. **Where the clock starts** for the accounts that exist before the date is stored. Either (a) the day
+   Part A ships, so the first notice goes out a year later; or (b) **the latest change on the account or
+   its profile**, which is older than their real last visit for some students. With (b), the email says
+   "no activity on your account since <date>", which is true of what is stored. The one-month warning
+   protects anyone who still cares.
+4. **Manual or automatic.** **Both, in that order:** the admin page's buttons first; the daily job
+   behind a switch, turned on after one manual round has gone well.
+5. **After the deletion,** **no second email.** The student ignored the first, and the address may no
+   longer work. Or send 5.24's "Account deleted".
+6. **The dashboard.** **Both numbers:** "Active students, last 30 days" is the health number; "Silent"
+   is the to-do number, linking to the list.
+
+**Part 0 — the Privacy Policy (before the lawyer's review of 7.4).** Add the rule to section 8 of
+`docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 12 months, a warning email,
+then deletion a month later unless the student comes back. One sentence now saves a second
+publication. Nothing is sent or deleted until the policy that says so is published (release day).
+
+**Part A — the date of last activity.**
+
+1. `lastActiveAt DateTime?` on `User`; an additive migration, applied with `prisma migrate deploy`.
+2. Written on sign-in, and in the `jwt` callback's existing periodic read when the stored date is older
+   than a day: the read selects the date with the role, so no new read, and at most one write per active
+   student per day.
+3. The backfill from decision 3 is a production data change: the owner approves it, and a backup comes
+   first.
+
+**Part B — the admin and the dashboard.**
+
+1. A "Last active" column on `/admin/students` and on the student's own page, and a "Silent" label;
+   a filter for silent students.
+2. On `/admin/dashboard`, the two counts from decision 6, each a `count()` with a date condition.
+
+**Part C — the notice email (a design gate first).** It is a new email, so it is added as a case on the
+"D4.18 Emails" boards and approved before any code (`REBRANDING_tasks.md`, Step 2). It is built in
+`emails/` on D4.18's layout, in the new design only, since nothing is sent before release day. It says:
+- the date of the last activity;
+- the date of deletion;
+- what is deleted (as 5.25 lists it);
+- one button, to sign in and keep the account;
+- that they can download their data or delete the account now, from Settings.
+
+It has a plain-text body, as every email does.
+
+**Part D — the admin page.** `/admin/students/inactive`, or a tab of `/admin/students`, with four counts
+and lists:
+- silent;
+- due a notice;
+- notified, with the days left;
+- due for deletion.
+
+Two buttons, each confirming with the number of accounts first:
+
+- **Send notices.** Up to a daily cap under Resend's limit, through Resend's batch sending. A notice is
+  recorded only when Resend accepts it: `inactivityNoticeSentAt DateTime?` on `User`, in the same
+  migration as Part A.
+- **Delete due accounts.** Each one in its own transaction, through `deleteStudentAccount`; a failure
+  stops at that account. Then the match cache is cleared as the existing deletes do.
+
+A student is due for deletion when the notice is 30 days old or older, and `lastActiveAt` is not later
+than the notice. Part A's daily write clears `inactivityNoticeSentAt` when a notified student is active
+again. Put the rule in one pure function with its tests, and use it in the page, both buttons and Part E.
+
+**Part E — the daily job.** A Vercel cron calls one route, `/api/cron/inactive-accounts`, once a day.
+Read the current Vercel and `node_modules/next/dist/docs/` pages first. The route refuses anything
+without `CRON_SECRET`, and does what the two buttons do, with the same caps. It runs only when
+`INACTIVE_ACCOUNTS_AUTO` is on (decision 4). It logs counts, never addresses (5.32). The route-gates test
+(7.1 Part 3) picks up the new route; give it a gate kind for the cron secret.
+
+**Also check, the owner may have missed these:**
+
+- A student linked to a school: their coordinator loses them from the school's list. Say so in the
+  email if the owner wants the school told.
+- Accounts that never finished sign-up (no profile) follow the same rule.
+- Supabase's free project keeps no backups (`docs/legal-review/README.md`), so a deletion is final. The
+  admin's confirm step has to say so.
+- Every date in UTC, and days counted whole.
+
+**Must not:**
+
+- Send or delete anything before the Privacy Policy that describes it is published.
+- Touch coordinators, admins, agents or schools.
+- Store a row per visit, or write more than once a day per student (the hard rules on cost).
+- Read whole tables: select ids, addresses and dates only, and count with `count()`.
+- Run `prisma migrate dev` or `prisma db push`.
+
+**Verify:**
+- Vitest for the rule function: every state, the edges at 6 and 12 months and at 30 days, and activity
+  after the notice.
+- Vitest for the `jwt` write: once a day, and that it clears the notice.
+- The two buttons' and the cron route's gates.
+- The email's fixture and plain text.
+- On a throwaway local Postgres, with dates set back, one account through each state and the final
+  deletion.
+- The usual checks.
+
+**Session size:** Large. Split into sessions:
+- the decisions and Part 0;
+- Parts A and B;
+- Part C's board, a design session;
+- Parts C to E in code.
 
 ---
 
