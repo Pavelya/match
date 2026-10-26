@@ -67,7 +67,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 | 2 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
 | 3 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
 | 4 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 5 | Two tiny legal-review fixes | 5.32, 5.33 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design). One pull request, or fold into row 2 or 3 |
+| 5 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 3 or 4 |
 | 6 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
 | 7 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
 | 8 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
@@ -153,6 +153,7 @@ Phase 5 — quick wins
 - [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
 - [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
 - [ ] 5.37 Close the database's public API: Row Level Security is off on every table
+- [ ] 5.38 Say "30-minute call" on For schools: the call is 30 minutes
 
 Phase 6 — dependency majors
 
@@ -2364,6 +2365,38 @@ rows:
 
 **Session size:** Small. Step 1 takes the owner a minute and closes the hole; the rest makes it stay
 closed.
+
+---
+
+### 5.38 — Say "30-minute call" on For schools: the call is 30 minutes
+
+**Outcome:** Every button that offers the coordinator call says 30 minutes, the length of the
+Calendly event, in both designs.
+
+Added 26 October 2026 (owner): "We have a CTA with '…15 mins…' on https://www.ibmatch.com/for-coordinators
+… The actual timeslot is 30 mins. Need to find all these CTAs and fix the time to be 30 mins."
+
+**Where.** Searched 26 October 2026 across `app`, `components`, `lib` and `emails`. Three labels, all on
+`/for-coordinators`:
+
+- `app/for-coordinators/NewForCoordinators.tsx`: `CALL = 'Schedule a 15-minute call'`, used by the
+  hero's button and the closing panel's (the new design, D4.17);
+- `app/for-coordinators/_components/CoordinatorHero.tsx`: "Schedule a 15-min feedback call" (today's
+  design);
+- `app/for-coordinators/_components/CoordinatorCTA.tsx`: "Schedule a 15-minute call" (today's design).
+
+No other page, metadata, structured data or email mentions the call's length. The Calendly link
+(`calendly.com/ibmatch/feedback-call-with-ib-coordinator`) has no length in it.
+
+**Steps:** "15-minute" becomes "30-minute" in the new design and in `CoordinatorCTA.tsx`. "15-min
+feedback call" becomes "30-minute feedback call" in `CoordinatorHero.tsx`. Update the words recorded
+for D4.17 in `REBRANDING_tasks.md` (build 21, the hero) to match. Words only; the approved board's
+layout doesn't change.
+
+**Verify:** `git grep -n -i -E "15[ -]?min" -- app components` prints nothing; the page in both
+designs; the usual checks.
+
+**Session size:** Tiny. Fold into any session.
 
 ---
 
