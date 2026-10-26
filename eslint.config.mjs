@@ -47,11 +47,9 @@ const eslintConfig = defineConfig([
     }
   },
   {
-    // Allow console and unused vars in verification test files
-    files: ['**/*.verify.ts'],
+    // The V10 flag helpers are named `use…` but are not React hooks
+    files: ['lib/feature-flags/matching-v10.test.ts'],
     rules: {
-      'no-console': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
       'react-hooks/rules-of-hooks': 'off'
     }
   },

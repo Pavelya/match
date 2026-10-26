@@ -57,9 +57,10 @@ deletes today's design.
 | The whole data export | 5.31 | 26 October 2026 | The download adds the consent records, the student's support tickets and the invitations sent to their address, naming no one else (version 1.1). Privacy 9's draft sentence shortened |
 | Three tiny fixes | 5.32, 5.33, 5.38 | 26 October 2026 | The ticket emails log `ab***@example.com`; the coordinator portal says "Subscribe", never "Upgrade to VIP"; For schools offers a 30-minute call in both designs |
 | `prisma-client` generator | 6.6 | 26 October 2026 | The client is generated into `app/generated/prisma` (gitignored); 59 files import from its `client` or `enums`, none from `@prisma/client`. The browser gets the enums only |
+| The matching scripts to Vitest | 7.1 Part 4 | 26 October 2026 | 21 scripts became 329 Vitest tests; one suite, and CI now sees a failure in the 12 scripts that exited 0 regardless. 7.1 is done. Found 7.7 |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, and 7.1. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -69,7 +70,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 1 | Three gaps in the matching tests | 7.7 | small | From 7.1 Part 4: the Redis match cache, the subject matcher's 0.25 floors, `MATCHING_V10_FULL`. Before 5.18, which changes the subject matcher |
 | 2 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
 | 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
@@ -170,13 +171,14 @@ Phase 6 — dependency majors
 
 Phase 7 — structural
 
-- [ ] 7.1 Test coverage beyond the matching algorithm
+- [x] 7.1 Test coverage beyond the matching algorithm (26 October 2026)
 - [ ] 7.2 Collapse the 23 country landing pages: the content is one template since rebranding 4.2
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
+- [ ] 7.7 Close three gaps in the matching tests (from 7.1 Part 4)
 
 Owner tasks — not AI work
 
@@ -207,7 +209,7 @@ documentation and has been correct every time it was consulted.
 | Vulnerabilities | **0** — session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
-| Tests | Vitest 5 (`npm test`), covering `lib/auth/access-control.ts` so far, plus the 20-file matching suite. Session 8 added both to CI; before that CI ran neither |
+| Tests | Vitest 5 (`npm test`), the only suite since 7.1 Part 4 moved the matching algorithm's scripts into it (26 October 2026). Session 8 added tests to CI; before that CI ran none |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
@@ -270,8 +272,7 @@ npx eslint .                     # must be 0 errors
 npx prettier --check .           # must be clean
 npm run build                    # must exit 0
 npm audit                        # compare against the baseline in the task
-npm test                         # Vitest: every *.test.ts file
-npx tsx scripts/run-all-tests.ts # matching algorithm suite (20 files)
+npm test                         # Vitest: every *.test.ts file, the matching algorithm's too
 ```
 
 `npm run dev` and `npm start` both work with no extra variables. Auth.js v5 auto-trusts
@@ -1000,10 +1001,10 @@ affects which programs are recommended at all.
 1. Research only: list two or three options, with the rankings each produces for the table above
    and a few more real profiles. Use local runs of `calculateMatch`; no database writes.
 2. The owner decides.
-3. Implement, extend the `.verify.ts` suite, follow the rollback plan, and clear the match cache
-   (`clearAllMatchCache`).
+3. Implement, extend the matching tests (`lib/matching/*.test.ts`), follow the rollback plan, and
+   clear the match cache (`clearAllMatchCache`).
 
-**Verify:** `npx tsx scripts/run-all-tests.ts` passes with the new cases. The table above re-run shows the
+**Verify:** `npm test` passes with the new cases. The table above re-run shows the
 agreed order.
 
 **Session size:** Research small; the change small to medium.
@@ -1231,7 +1232,7 @@ program means, so the fix needs one more fact per program, not just a different 
   after.
 - Run `prisma migrate dev` or `prisma db push` (standing context).
 
-**Verify:** `npx tsx scripts/run-all-tests.ts` passes with new cases. Manchester MBChB: Biology HL 6
+**Verify:** `npm test` passes with new cases in `lib/matching/subject-matcher.test.ts`. Manchester MBChB: Biology HL 6
 alone is not met; Biology HL 6 with Chemistry HL 6 is met. Lausanne Law: Maths AA HL alone still meets
 both its maths requirements. `npm test` covers the assignment helper. Re-running the count above,
 the flagged programs drop out and the rest are unchanged.
@@ -2943,7 +2944,7 @@ than anywhere else.
 
 Projects, not maintenance. Each deserves its own planning.
 
-### 7.1 — Test coverage beyond the matching algorithm
+### 7.1 — Test coverage beyond the matching algorithm — **done**
 
 **Outcome:** A real test runner, and coverage of the paths where a regression costs
 money or leaks data.
@@ -3043,7 +3044,7 @@ have recorded failing open as intended behaviour, so it is noted here instead.
 **Remaining for 7.1:**
 - ~~Part 2, the Stripe webhook~~ done 26 October 2026, Part 2 below
 - ~~Part 3, API routes and rate limiting~~ done 26 October 2026, Part 3 below
-- Part 4, converting the 19 `.verify.ts` scripts to Vitest — mechanical, and a session of its own
+- ~~Part 4, converting the 19 `.verify.ts` scripts to Vitest~~ done 26 October 2026, Part 4 below
 - ~~branch protection, so the Tests job actually blocks a merge (owner task 1)~~ done 7 October 2026
 
 **What changed:**
@@ -3199,6 +3200,68 @@ first eight characters of the account ID or address; an Upstash failure lets the
 `app/api/auth/check-role/route.test.ts`, `app/api/subscriptions/create-checkout/route.test.ts`
 and `app/api/subscriptions/create-portal/route.test.ts`, all new; `lib/rate-limit.test.ts`; this
 file.
+
+#### Part 4 — the matching scripts to Vitest — **done** (26 October 2026)
+
+**Outcome:** One test suite. The matching algorithm's 20 standalone scripts, and a 21st that nothing
+ran (`lib/feature-flags/matching-v10.verify.ts`), are Vitest files next to the code: 19 new
+`*.test.ts` files, 13 tests added to the existing `lib/matching/subject-matcher.test.ts`, 329 tests
+in all. `scripts/run-all-tests.ts` and CI's "Matching algorithm tests" step are gone; the Tests job
+runs `npm test` alone, under the same name, so branch protection is unchanged.
+
+**Why it mattered more than it looked.** 12 of the 20 scripts in CI recorded a failed check, printed
+❌ and still exited 0. Only the exit code reached CI, so a regression in categorisation, confidence,
+fit quality, selectivity, the penalties, the program index, the optimised matcher or five other
+modules left CI green. On 26 October 2026 every check passed, so nothing was hiding; it simply could
+not have been seen.
+
+**How the conversion was done.** Each old check is a Vitest `it` (or one row of an `it.each`) with
+the same name, or an `expect` inside one that groups a section. Values are computed as the scripts
+did, and stateful modules (the metrics store, the global caches) run in the same order. The six
+scripts that already had a Jest-style `test`/`expect` kept their bodies unchanged. Differences:
+
+- **`toBeCloseTo` is stricter.** The scripts' own version allowed a difference of up to 10^-p;
+  Vitest's allows less than half that. All 14 such checks (academic matcher, penalties, scorer,
+  subject matcher) pass under Vitest's.
+- **Ranges keep their slack.** Where a script allowed ±0.001 around a range (confidence, unified
+  penalties) or `Math.abs(…) < 0.001` (fit quality), the test does the same, not `toBeCloseTo`.
+- **Fit quality's six categories are checked for the first time.** The script printed them without
+  counting them.
+- **The V10 flags start from a clean environment.** Production's `.env` sets `MATCHING_V10_FULL`, so
+  the "all disabled by default" checks passed only because `tsx` does not load `.env`. The test now
+  clears all 14 flag variables before each case, and passes with the flag set in the shell.
+- **Its "consistent hashing" check now hashes.** It passed `forceEnable`, which returns before any
+  hashing. It now sets a 50% rollout and checks that each user gets the same answer five times.
+- **`cache.verify.ts` is deleted, not converted.** It printed a description of `lib/matching/cache.ts`
+  and asserted nothing. That module, the Redis match cache, has no tests: filed as 7.7.
+- `lib/feature-flags/matching-v10.test.ts` keeps ESLint's `react-hooks/rules-of-hooks` off, as the
+  scripts had it: the flag helpers are named `use…` but are not hooks. The `*.verify.ts` override is
+  gone.
+
+**Proved to fail.** Five deliberate breaks, each reverted:
+
+| Break | Result | The old suite |
+|---|---|---|
+| Tier 1 starts at 41 points, not 40 | 1 test fails | stayed green (the script exited 0) |
+| The SAFETY threshold 0.92 → 0.93 | 1 test fails | stayed green |
+| A critical subject 1 grade short scores 0.80, not 0.85 | 3 tests fail | failed |
+| The tiered fallback never widens past tier 1 | 3 tests fail | stayed green |
+| `MATCHING_V10_FULL` no longer overrides the other flags | **nothing fails** | nothing failed: filed as 7.7 |
+
+**Found, not fixed: filed as 7.7.** Beside the two above, the test named "Grade shortfall: minimum
+floor of 0.25" never reaches the floor: 3 grades short of a 7 scores 0.45. Lowering either 0.25 floor
+in `subject-matcher.ts` fails nothing.
+
+**What changed:** the 21 scripts and `scripts/run-all-tests.ts`, deleted; 19 `*.test.ts` files, new (six of them renamed from their scripts);
+`lib/matching/subject-matcher.test.ts`; `.github/workflows/ci.yml`, `vitest.config.mts`,
+`eslint.config.mjs`, `eslint/raw-palette.mjs`; `AGENTS.md`, `README.md`,
+`docs/admin/maintenance-tools-guide.md`, and this file (the standing context, and the Verify lines of
+5.15 and 5.18, which named the old runner). Finished task records that mention the matching suite are
+left as written.
+
+**Verified:** `npm test` passes, 131 files and 2,541 tests, also with an empty environment as CI runs
+it; type-check, `eslint . --max-warnings 0`, `prettier --check .` and `npm run build` are clean; the
+four breaks above that should fail, fail.
 
 ---
 
@@ -3722,6 +3785,44 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 - Parts A and B;
 - Part C's board, a design session;
 - Parts C to E in code.
+
+---
+
+### 7.7 — Close three gaps in the matching tests
+
+**Outcome:** Tests for the Redis match cache, for both 0.25 floors in the subject matcher, and for
+`MATCHING_V10_FULL` overriding the other flags. No change to how anything scores.
+
+**Why:** Found 26 October 2026 while moving the matching scripts to Vitest (7.1 Part 4). A deliberate
+break to any of these fails no test:
+
+- **`lib/matching/cache.ts` has no tests.** It caches match results in Redis, and five API routes call
+  `invalidateStudentCache` after a student's grades or preferences change. A missed invalidation shows
+  a student matches for grades they no longer have. Its only "test" printed a description.
+- **Neither 0.25 floor in `lib/matching/subject-matcher.ts` is reached.** The grade-shortfall floor
+  (`calculateGradeShortfallScore`) and the level-mismatch floor both clamp at 0.25; the test named
+  "minimum floor of 0.25" is 3 grades short of a 7, which scores 0.45.
+- **`MATCHING_V10_FULL` overriding each flag** (`isFeatureEnabled` in `lib/feature-flags/matching-v10.ts`)
+  is untested, and production's `.env` sets that flag.
+
+**Steps:**
+1. `lib/matching/cache.test.ts`: mock `@/lib/redis` (or whatever `cache.ts` imports for its client)
+   with a `Map`. A miss computes and stores; a hit returns the stored result without computing;
+   different weights are different keys; `invalidateStudentCache` removes that student's keys and no
+   one else's; a Redis error falls back to computing. Read `cache.ts` first; it is 495 lines and has
+   a V10 path too.
+2. In `subject-matcher.test.ts`: a grade shortfall large enough to hit the floor (for example a 1
+   against a required 7), and an SL course far below an HL requirement, each scoring exactly 0.25.
+3. In `matching-v10.test.ts`: with `MATCHING_V10_FULL=true` and no other flag, every flag is on; with
+   `MATCHING_V10_FULL_ROLLOUT=0`, none is.
+
+**Must not:** connect to Redis or the database; change any score.
+
+**Verify:** each new test fails when the line it covers is broken (lower a floor to 0.2; drop the
+`MATCHING_V10_FULL` check; skip the delete in `invalidateStudentCache`), and passes when restored.
+`npm test` and the usual checks.
+
+**Session size:** Small.
 
 ---
 

@@ -1,61 +1,6 @@
-/**
- * Manual test verification for Penalties and Caps
- * Run with: npx tsx lib/matching/penalties.verify.ts
- */
-
+import { expect, test } from 'vitest'
 import { applyPenaltiesAndCaps } from './penalties'
 import type { AcademicMatchScore, WeightConfig } from './types'
-
-let passed = 0
-let failed = 0
-
-function test(description: string, fn: () => void) {
-  try {
-    fn()
-    console.log(`✅ ${description}`)
-    passed++
-  } catch (error) {
-    console.log(`❌ ${description}`)
-    console.log(`   ${error instanceof Error ? error.message : error}`)
-    failed++
-  }
-}
-
-function expect(value: unknown) {
-  return {
-    toBe(expected: unknown) {
-      if (value !== expected) {
-        throw new Error(`Expected ${expected} but got ${value}`)
-      }
-    },
-    toBeCloseTo(expected: number, precision = 2) {
-      const actual = value as number
-      const diff = Math.abs(actual - expected)
-      const tolerance = Math.pow(10, -precision)
-      if (diff > tolerance) {
-        throw new Error(`Expected ${expected} but got ${actual} (diff: ${diff})`)
-      }
-    },
-    toBeGreaterThan(expected: number) {
-      if ((value as number) <= expected) {
-        throw new Error(`Expected > ${expected} but got ${value}`)
-      }
-    },
-    toBeLessThan(expected: number) {
-      if ((value as number) >= expected) {
-        throw new Error(`Expected < ${expected} but got ${value}`)
-      }
-    },
-    toContain(substring: string) {
-      const str = value as string
-      if (!str.includes(substring)) {
-        throw new Error(`Expected "${str}" to contain "${substring}"`)
-      }
-    }
-  }
-}
-
-console.log('\n🧪 Penalties and Caps Verification Tests\n')
 
 const defaultWeights: WeightConfig = {
   academic: 0.6,
@@ -64,7 +9,6 @@ const defaultWeights: WeightConfig = {
 }
 
 // === Test 1: Missing Critical Subject Cap ===
-console.log('Test Group 1: Missing Critical Subject Cap\n')
 
 test('Missing critical subject → cap at 0.45', () => {
   const academicMatch: AcademicMatchScore = {
@@ -98,7 +42,6 @@ test('Missing critical subject → cap at 0.45', () => {
 })
 
 // === Test 2: Missing Non-Critical Subject Cap ===
-console.log('\nTest Group 2: Missing Non-Critical Subject Cap\n')
 
 test('Missing non-critical subject → cap at 0.70', () => {
   const academicMatch: AcademicMatchScore = {
@@ -131,7 +74,6 @@ test('Missing non-critical subject → cap at 0.70', () => {
 })
 
 // === Test 3: Critical Near-Miss Cap ===
-console.log('\nTest Group 3: Critical Near-Miss Cap\n')
 
 test('Critical subject near-miss → cap at 0.80', () => {
   const academicMatch: AcademicMatchScore = {
@@ -164,7 +106,6 @@ test('Critical subject near-miss → cap at 0.80', () => {
 })
 
 // === Test 4: Points Shortfall Cap ===
-console.log('\nTest Group 4: Points Shortfall Cap\n')
 
 test('Points not met → cap at 0.90', () => {
   const academicMatch: AcademicMatchScore = {
@@ -197,7 +138,6 @@ test('Points not met → cap at 0.90', () => {
 })
 
 // === Test 5: Multiple Requirements Penalty ===
-console.log('\nTest Group 5: Multiple Requirements Penalty\n')
 
 test('Multiple missing/low requirements → adjustment factor applied', () => {
   const academicMatch: AcademicMatchScore = {
@@ -265,7 +205,6 @@ test('Multiple missing/low requirements → adjustment factor applied', () => {
 })
 
 // === Test 6: Non-Academic Floor ===
-console.log('\nTest Group 6: Non-Academic Floor\n')
 
 test('Low academic but good location/field → floor applied', () => {
   const academicMatch: AcademicMatchScore = {
@@ -287,7 +226,6 @@ test('Low academic but good location/field → floor applied', () => {
 })
 
 // === Test 7: Minimum Score Guarantee ===
-console.log('\nTest Group 7: Minimum Score Guarantee\n')
 
 test('Meets points but very low score → floor at 0.15', () => {
   const academicMatch: AcademicMatchScore = {
@@ -307,7 +245,6 @@ test('Meets points but very low score → floor at 0.15', () => {
 })
 
 // === Test 8: No Penalties Case ===
-console.log('\nTest Group 8: No Penalties - Perfect Match\n')
 
 test('Perfect match → no adjustments', () => {
   const academicMatch: AcademicMatchScore = {
@@ -337,14 +274,3 @@ test('Perfect match → no adjustments', () => {
   expect(result.finalScore).toBe(0.95)
   expect(result.reasons.length).toBe(0)
 })
-
-// Summary
-console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`)
-
-if (failed === 0) {
-  console.log('🎉 All tests passed!\n')
-  process.exit(0)
-} else {
-  console.log('❌ Some tests failed\n')
-  process.exit(1)
-}

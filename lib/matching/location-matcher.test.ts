@@ -1,36 +1,5 @@
-/**
- * Manual test verification for Location Match (L_M)
- * Run with: npx tsx lib/matching/location-matcher.verify.ts
- */
-
+import { expect, test } from 'vitest'
 import { calculateLocationMatch } from './location-matcher'
-
-let passed = 0
-let failed = 0
-
-function test(description: string, fn: () => void) {
-  try {
-    fn()
-    console.log(`✅ ${description}`)
-    passed++
-  } catch (error) {
-    console.log(`❌ ${description}`)
-    console.log(`   ${error instanceof Error ? error.message : error}`)
-    failed++
-  }
-}
-
-function expect(value: unknown) {
-  return {
-    toBe(expected: unknown) {
-      if (value !== expected) {
-        throw new Error(`Expected ${expected} but got ${value}`)
-      }
-    }
-  }
-}
-
-console.log('\n🧪 Location Match (L_M) Verification Tests\n')
 
 // Test 1: Preferred Country
 test('Preferred country: program country in student preferences → score 1.0', () => {
@@ -106,14 +75,3 @@ test('Edge case: many preferences with match', () => {
   expect(result.score).toBe(1.0)
   expect(result.isMatch).toBe(true)
 })
-
-// Summary
-console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`)
-
-if (failed === 0) {
-  console.log('🎉 All tests passed!\n')
-  process.exit(0)
-} else {
-  console.log('❌ Some tests failed\n')
-  process.exit(1)
-}

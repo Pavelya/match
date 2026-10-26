@@ -51,8 +51,8 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
 
-    # Neither suite connects to a database or any external service. These are
-    # the same placeholders the checks job needs for `prisma generate`.
+    # The tests connect to no database or external service. These are the same
+    # placeholders the checks job needs for `prisma generate`.
     env:
       DATABASE_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
       DIRECT_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
@@ -70,11 +70,6 @@ jobs:
 
       - name: Unit tests
         run: npm test
-
-      # Runs even when the unit tests fail, so one red run reports both suites.
-      - name: Matching algorithm tests
-        if: ${{ !cancelled() }}
-        run: npx tsx scripts/run-all-tests.ts
 
   build:
     name: Production build
