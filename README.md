@@ -63,24 +63,22 @@ needed. Installing plain `typescript@7` over the alias makes `npm run lint` fail
 
 ## Testing
 
-Two suites, both run in CI:
+One suite, run in CI:
 
 ```bash
-npm test                          # Vitest: every *.test.ts file
-npx tsx scripts/run-all-tests.ts  # matching algorithm: lib/matching/*.verify.ts
+npm test            # Vitest: every *.test.ts file
+npm run test:watch  # the same, re-run on every save
 ```
 
-**New tests use Vitest.** Put them next to the code they cover as `*.test.ts` —
-`lib/auth/access-control.test.ts` is the first. Import `describe`/`it`/`expect` from
-`vitest`; globals are off. The `@/` alias resolves as it does in the app.
+Put tests next to the code they cover as `*.test.ts`. Import `describe`/`it`/`expect`
+from `vitest`; globals are off. The `@/` alias resolves as it does in the app.
 
 Tests must never reach the production database that `.env` points at. Mock the client
 with `vi.mock('@/lib/prisma')`, or run against a local Postgres built with
 `prisma migrate deploy`, the way the CI build job does.
 
-The matching algorithm predates Vitest. Its 20 `*.verify.ts` files are standalone
-scripts — each exits non-zero on failure — and `scripts/run-all-tests.ts` runs them.
-They are not Vitest files, so `npm test` does not pick them up.
+The matching algorithm's tests (`lib/matching/*.test.ts`) were standalone `*.verify.ts`
+scripts run by `scripts/run-all-tests.ts` until 7.1 Part 4 moved them into Vitest.
 
 ## Database
 

@@ -58,10 +58,9 @@ traffic. Storage was restricted and every university image broke.
 - **Prettier owns formatting; ESLint owns code quality.** Do not add stylistic rules to
   `eslint.config.mjs` — that conflict once produced 670 errors that could not be fixed,
   because the two tools kept reverting each other.
-- **New tests are Vitest: `*.test.ts` next to the code, run by `npm test`.** Mock
-  `@/lib/prisma` rather than reaching the database. The older matching suite,
-  `lib/matching/*.verify.ts`, is standalone scripts run by
-  `npx tsx scripts/run-all-tests.ts` — not Vitest files, so don't rename them `.test.ts`.
+- **Tests are Vitest: `*.test.ts` next to the code, run by `npm test`.** Mock
+  `@/lib/prisma` rather than reaching the database. The matching algorithm's tests are
+  Vitest too, since 7.1 Part 4; there is no second suite.
 - **Import `prisma` from `@/lib/prisma`.** Never `new PrismaClient()` — the shared
   client is pooled and carries the Algolia sync extensions.
 - **Prisma types and enums come from `@/app/generated/prisma/client`**, or `/enums` for
@@ -90,7 +89,7 @@ Verification — all free, and nothing reaches a third party except the build:
 
 ```bash
 npx tsc --noEmit && npx eslint . && npx prettier --check . && npm run build
-npm test && npx tsx scripts/run-all-tests.ts
+npm test
 ```
 
 ## Where to look

@@ -1,10 +1,17 @@
 import { describe, expect, it } from 'vitest'
 import { calculateORGroupMatch, calculateSubjectMatch } from './subject-matcher'
-import type { CourseLevel, IBGrade, StudentCourse, SubjectRequirement } from './types'
+import type {
+  CourseLevel,
+  IBGrade,
+  ORGroupRequirement,
+  StudentCourse,
+  SubjectRequirement
+} from './types'
 
 /*
  * The display fields the subject matcher adds for the new cards (rebranding 2.1): `kind`,
- * `gradeGap`, `studentLevel` and `studentGrade`. Scores are covered by subject-matcher.verify.ts.
+ * `gradeGap`, `studentLevel` and `studentGrade`; then the scores, from the matching suite's old
+ * subject-matcher.verify.ts.
  */
 
 const req = (
@@ -100,5 +107,233 @@ describe('calculateORGroupMatch display fields', () => {
     const detail = calculateORGroupMatch(group, [took('bio', 'HL', 7)])
     expect(detail).toMatchObject({ status: 'NO_MATCH', kind: 'not_taken' })
     expect(detail.studentGrade).toBeUndefined()
+  })
+})
+
+describe('scores', () => {
+  // The student every score below is for
+  const studentCourses: StudentCourse[] = [
+    { courseId: 'bio', courseName: 'Biology', level: 'HL', grade: 7 },
+    { courseId: 'chem', courseName: 'Chemistry', level: 'HL', grade: 6 },
+    { courseId: 'math', courseName: 'Math', level: 'HL', grade: 5 },
+    { courseId: 'eng', courseName: 'English', level: 'SL', grade: 7 },
+    { courseId: 'spa', courseName: 'Spanish', level: 'SL', grade: 6 },
+    { courseId: 'econ', courseName: 'Economics', level: 'SL', grade: 4 }
+  ]
+
+  // === Test 1: Full Matches ===
+
+  it('Full match: exact level and grade met', () => {
+    const req: SubjectRequirement = {
+      courseId: 'bio',
+      courseName: 'Biology',
+      level: 'HL',
+      minimumGrade: 6,
+      isCritical: true
+    }
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(1.0)
+    expect(result.status).toBe('FULL_MATCH')
+  })
+
+  it('Full match: student grade exceeds requirement', () => {
+    const req: SubjectRequirement = {
+      courseId: 'bio',
+      courseName: 'Biology',
+      level: 'HL',
+      minimumGrade: 5,
+      isCritical: false
+    }
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(1.0)
+    expect(result.status).toBe('FULL_MATCH')
+  })
+
+  it('Full match: HL student for SL requirement', () => {
+    const req: SubjectRequirement = {
+      courseId: 'eng',
+      courseName: 'English',
+      level: 'SL',
+      minimumGrade: 6,
+      isCritical: false
+    }
+    // Student has English SL 7, which meets SL 6
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(1.0)
+    expect(result.status).toBe('FULL_MATCH')
+  })
+
+  // === Test 2: No Match (Subject Not Taken) ===
+
+  it('No match: student did not take physics', () => {
+    const req: SubjectRequirement = {
+      courseId: 'phys',
+      courseName: 'Physics',
+      level: 'HL',
+      minimumGrade: 6,
+      isCritical: true
+    }
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(0.0)
+    expect(result.status).toBe('NO_MATCH')
+  })
+
+  // === Test 3: Grade Shortfall (Same Level) ===
+
+  it('Grade shortfall: critical subject, 1 point below → 0.85', () => {
+    const req: SubjectRequirement = {
+      courseId: 'math',
+      courseName: 'Math',
+      level: 'HL',
+      minimumGrade: 6,
+      isCritical: true
+    }
+    // Student has Math HL 5, requirement is 6
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(0.85)
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('Grade shortfall: non-critical subject, 1 point below → ~0.78', () => {
+    const req: SubjectRequirement = {
+      courseId: 'spa',
+      courseName: 'Spanish',
+      level: 'SL',
+      minimumGrade: 7,
+      isCritical: false
+    }
+    // Student has Spanish SL 6, requirement is 7
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBe(0.78)
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('Grade shortfall: 2 points below → proportional score', () => {
+    const req: SubjectRequirement = {
+      courseId: 'econ',
+      courseName: 'Economics',
+      level: 'SL',
+      minimumGrade: 7,
+      isCritical: false
+    }
+    // Student has Economics SL 4, requirement is 7 (3 points below)
+    // This tests larger gap scores
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBeGreaterThan(0.25) // At least minimum
+    expect(result.score).toBeLessThan(0.78) // Less than 1-point shortfall
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('Grade shortfall: minimum floor of 0.25', () => {
+    const req: SubjectRequirement = {
+      courseId: 'econ',
+      courseName: 'Economics',
+      level: 'SL',
+      minimumGrade: 7,
+      isCritical: false
+    }
+    // Student has Economics SL 4, requirement is 7 (3 points below)
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBeGreaterThan(0.24) // At least minimum
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  // === Test 4: Level Mismatch (SL for HL) ===
+
+  it('Level mismatch: SL 7 for HL 6 requirement → ~0.80', () => {
+    const req: SubjectRequirement = {
+      courseId: 'eng',
+      courseName: 'English',
+      level: 'HL',
+      minimumGrade: 6,
+      isCritical: false
+    }
+    // Student has English SL 7, requirement is HL 6
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBeCloseTo(0.8, 1)
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('Level mismatch: SL 4 for HL 6 → low partial score', () => {
+    const req: SubjectRequirement = {
+      courseId: 'econ',
+      courseName: 'Economics',
+      level: 'HL',
+      minimumGrade: 6,
+      isCritical: false
+    }
+    // Student has Economics SL 4, requirement is HL 6
+    const result = calculateSubjectMatch(req, studentCourses)
+    expect(result.score).toBeCloseTo(0.25, 1) // Should be around minimum
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  // === Test 5: OR-Group Requirements ===
+
+  it('OR-group: one option fully met → score 1.0', () => {
+    const orGroup: ORGroupRequirement = {
+      options: [
+        { courseId: 'phys', courseName: 'Physics', level: 'HL', minimumGrade: 6, isCritical: true },
+        {
+          courseId: 'chem',
+          courseName: 'Chemistry',
+          level: 'HL',
+          minimumGrade: 6,
+          isCritical: true
+        }
+      ],
+      isCritical: true
+    }
+    // Student has Chemistry HL 6, which fully meets one option
+    const result = calculateORGroupMatch(orGroup, studentCourses)
+    expect(result.score).toBe(1.0)
+    expect(result.status).toBe('FULL_MATCH')
+  })
+
+  it('OR-group: best partial match taken', () => {
+    const orGroup: ORGroupRequirement = {
+      options: [
+        {
+          courseId: 'phys',
+          courseName: 'Physics',
+          level: 'HL',
+          minimumGrade: 6,
+          isCritical: false
+        },
+        { courseId: 'math', courseName: 'Math', level: 'HL', minimumGrade: 6, isCritical: true }
+      ],
+      isCritical: true
+    }
+    // Student has Math HL 5 (1 below), no Physics
+    // Should take Math's partial score (0.85 for critical 1-below)
+    const result = calculateORGroupMatch(orGroup, studentCourses)
+    expect(result.score).toBe(0.85)
+    expect(result.status).toBe('PARTIAL_MATCH')
+  })
+
+  it('OR-group: no options met → score 0.0', () => {
+    const orGroup: ORGroupRequirement = {
+      options: [
+        {
+          courseId: 'phys',
+          courseName: 'Physics',
+          level: 'HL',
+          minimumGrade: 6,
+          isCritical: false
+        },
+        {
+          courseId: 'cs',
+          courseName: 'Computer Science',
+          level: 'HL',
+          minimumGrade: 6,
+          isCritical: false
+        }
+      ],
+      isCritical: false
+    }
+    // Student took neither Physics nor CS
+    const result = calculateORGroupMatch(orGroup, studentCourses)
+    expect(result.score).toBe(0.0)
+    expect(result.status).toBe('NO_MATCH')
   })
 })

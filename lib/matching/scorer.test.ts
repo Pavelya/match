@@ -1,65 +1,6 @@
-/**
- * Manual test verification for Overall Score Calculation
- * Run with: npx tsx lib/matching/scorer.verify.ts
- */
-
+import { expect, test } from 'vitest'
 import { calculateMatch, calculateMatches } from './scorer'
 import type { StudentProfile, ProgramRequirements, MatchInput } from './types'
-
-let passed = 0
-let failed = 0
-
-function test(description: string, fn: () => void) {
-  try {
-    fn()
-    console.log(`✅ ${description}`)
-    passed++
-  } catch (error) {
-    console.log(`❌ ${description}`)
-    console.log(`   ${error instanceof Error ? error.message : error}`)
-    failed++
-  }
-}
-
-function expect(value: unknown) {
-  return {
-    toBe(expected: unknown) {
-      if (value !== expected) {
-        throw new Error(`Expected ${expected} but got ${value}`)
-      }
-    },
-    toBeCloseTo(expected: number, precision = 2) {
-      const actual = value as number
-      const diff = Math.abs(actual - expected)
-      const tolerance = Math.pow(10, -precision)
-      if (diff > tolerance) {
-        throw new Error(`Expected ${expected} but got ${actual} (diff: ${diff})`)
-      }
-    },
-    toBeGreaterThan(expected: number) {
-      if ((value as number) <= expected) {
-        throw new Error(`Expected > ${expected} but got ${value}`)
-      }
-    },
-    toBeLessThan(expected: number) {
-      if ((value as number) >= expected) {
-        throw new Error(`Expected < ${expected} but got ${value}`)
-      }
-    },
-    toBeGreaterThanOrEqual(expected: number) {
-      if ((value as number) < expected) {
-        throw new Error(`Expected >= ${expected} but got ${value}`)
-      }
-    },
-    toBeLessThanOrEqual(expected: number) {
-      if ((value as number) > expected) {
-        throw new Error(`Expected <= ${expected} but got ${value}`)
-      }
-    }
-  }
-}
-
-console.log('\n🧪 Overall Score Calculation Verification Tests\n')
 
 // === Test Data ===
 
@@ -127,7 +68,6 @@ const wrongFieldProgram: ProgramRequirements = {
 }
 
 // === Test 1: Perfect Match ===
-console.log('Test Group 1: Perfect Match\n')
 
 test('Perfect match → high score close to 1.0', () => {
   const input: MatchInput = {
@@ -147,7 +87,6 @@ test('Perfect match → high score close to 1.0', () => {
 })
 
 // === Test 2: Near Miss on Points ===
-console.log('\nTest Group 2: Near Miss\n')
 
 test('Near miss on points → capped at 0.90', () => {
   const input: MatchInput = {
@@ -165,7 +104,6 @@ test('Near miss on points → capped at 0.90', () => {
 })
 
 // === Test 3: Wrong Field ===
-console.log('\nTest Group 3: Wrong Field\n')
 
 test('Wrong field → lower score due to field mismatch', () => {
   const input: MatchInput = {
@@ -185,7 +123,6 @@ test('Wrong field → lower score due to field mismatch', () => {
 })
 
 // === Test 4: Weight Adjustments ===
-console.log('\nTest Group 4: Weight Adjustments\n')
 
 test('Academic-focused mode → weights academic heavily', () => {
   const input: MatchInput = {
@@ -222,7 +159,6 @@ test('No location preference → redistribute weights', () => {
 })
 
 // === Test 5: Batch Processing ===
-console.log('\nTest Group 5: Batch Processing\n')
 
 test('Batch processing → sorted by score descending', () => {
   const programs = [wrongFieldProgram, nearMissProgram, perfectMatchProgram]
@@ -247,7 +183,6 @@ test('Batch processing → all programs evaluated', () => {
 })
 
 // === Test 6: Score Range ===
-console.log('\nTest Group 6: Score Boundaries\n')
 
 test('All scores → between 0 and 1', () => {
   const programs = [perfectMatchProgram, nearMissProgram, wrongFieldProgram]
@@ -259,14 +194,3 @@ test('All scores → between 0 and 1', () => {
     expect(result.overallScore).toBeLessThanOrEqual(1)
   })
 })
-
-// Summary
-console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`)
-
-if (failed === 0) {
-  console.log('🎉 All tests passed!\n')
-  process.exit(0)
-} else {
-  console.log('❌ Some tests failed\n')
-  process.exit(1)
-}

@@ -1,55 +1,6 @@
-/**
- * Manual test verification for Academic Match (G_M)
- * Run with: npx tsx lib/matching/academic-matcher.verify.ts
- */
-
+import { expect, test } from 'vitest'
 import { calculateAcademicMatch } from './academic-matcher'
 import type { StudentProfile, ProgramRequirements } from './types'
-
-let passed = 0
-let failed = 0
-
-function test(description: string, fn: () => void) {
-  try {
-    fn()
-    console.log(`✅ ${description}`)
-    passed++
-  } catch (error) {
-    console.log(`❌ ${description}`)
-    console.log(`   ${error instanceof Error ? error.message : error}`)
-    failed++
-  }
-}
-
-function expect(value: unknown) {
-  return {
-    toBe(expected: unknown) {
-      if (value !== expected) {
-        throw new Error(`Expected ${expected} but got ${value}`)
-      }
-    },
-    toBeCloseTo(expected: number, precision = 2) {
-      const actual = value as number
-      const diff = Math.abs(actual - expected)
-      const tolerance = Math.pow(10, -precision)
-      if (diff > tolerance) {
-        throw new Error(`Expected ${expected} but got ${actual} (diff: ${diff})`)
-      }
-    },
-    toBeGreaterThan(expected: number) {
-      if ((value as number) <= expected) {
-        throw new Error(`Expected > ${expected} but got ${value}`)
-      }
-    },
-    toBeLessThan(expected: number) {
-      if ((value as number) >= expected) {
-        throw new Error(`Expected < ${expected} but got ${value}`)
-      }
-    }
-  }
-}
-
-console.log('\n🧪 Academic Match (G_M) Verification Tests\n')
 
 // Test Student Profile
 const strongStudent: StudentProfile = {
@@ -82,7 +33,6 @@ const weakerStudent: StudentProfile = {
 }
 
 // === Test 1: Points-Only Programs ===
-console.log('Test Group 1: Points-Only Programs\n')
 
 test('Points-only: student meets requirement → score 1.0', () => {
   const program: ProgramRequirements = {
@@ -145,7 +95,6 @@ test('Points-only: large deficit → proportional score above 0.30', () => {
 })
 
 // === Test 2: Subjects-Only Programs ===
-console.log('\nTest Group 2: Subjects-Only Programs\n')
 
 test('Subjects-only: all requirements met → score 1.0', () => {
   const program: ProgramRequirements = {
@@ -195,7 +144,6 @@ test('Subjects-only: partial match → proportional score', () => {
 })
 
 // === Test 3: Full Requirements Programs ===
-console.log('\nTest Group 3: Full Requirements Programs\n')
 
 test('Full requirements: meets both points and subjects → score 1.0', () => {
   const program: ProgramRequirements = {
@@ -270,14 +218,3 @@ test('Full requirements: meets points but not all subjects → lower score', () 
   expect(result.subjectsMatchScore).toBe(0.5)
   expect(result.missingCriticalCount).toBe(1)
 })
-
-// Summary
-console.log(`\n📊 Results: ${passed} passed, ${failed} failed\n`)
-
-if (failed === 0) {
-  console.log('🎉 All tests passed!\n')
-  process.exit(0)
-} else {
-  console.log('❌ Some tests failed\n')
-  process.exit(1)
-}

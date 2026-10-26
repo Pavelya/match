@@ -36,8 +36,7 @@ export const NOT_STUDENT_FACING = [
   'app/coordinator/**',
   'components/admin/**',
   'components/coordinator/**',
-  '**/*.test.{ts,tsx}',
-  '**/*.verify.ts'
+  '**/*.test.{ts,tsx}'
 ]
 
 /** Today's design, deleted at cleanup (R.2). Nothing is added to this list. */
