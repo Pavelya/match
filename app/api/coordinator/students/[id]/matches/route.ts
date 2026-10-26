@@ -69,7 +69,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
     // Check if coordinator has full access (VIP or subscribed)
     if (!access.hasFullAccess) {
-      return NextResponse.json({ error: 'Upgrade to VIP to view student matches' }, { status: 403 })
+      return NextResponse.json({ error: 'Subscribe to view student matches' }, { status: 403 })
     }
 
     // Fetch student with profile data

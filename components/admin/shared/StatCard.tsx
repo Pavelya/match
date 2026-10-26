@@ -52,7 +52,7 @@ export interface StatCardProps {
    * When true, shows a lock overlay and optional upgrade message
    */
   locked?: boolean
-  /** Message to show when locked (e.g., "Upgrade to VIP") */
+  /** Message to show when locked (e.g., "Subscribe to unlock") */
   lockedMessage?: string
   /** Additional CSS classes */
   className?: string

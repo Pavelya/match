@@ -115,7 +115,7 @@ export default async function CoordinatorStudentsPage() {
         {!access.hasFullAccess && (
           <UpgradePromptBanner
             feature="Unlimited Students"
-            description="Free plan is limited to 10 students. Upgrade to VIP for unlimited student management."
+            description="Free plan is limited to 10 students. Subscribe for unlimited student management."
             variant="subtle"
             className="mb-6"
           />
@@ -168,8 +168,8 @@ export default async function CoordinatorStudentsPage() {
             }
             description={
               remainingInvites > 0
-                ? 'Upgrade to VIP for unlimited students, advanced analytics, and more.'
-                : 'You&apos;ve reached the free plan limit of 10 students. Upgrade to VIP to invite more.'
+                ? 'Subscribe for unlimited students, advanced analytics, and more.'
+                : "You've reached the free plan limit of 10 students. Subscribe to invite more."
             }
             variant={remainingInvites > 3 ? 'subtle' : 'inline'}
             className="mb-6"

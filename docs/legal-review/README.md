@@ -72,7 +72,7 @@ recommendation made in the first version of this page and answered the rest.
 |---|---|---|
 | **A. The public pages' words, in code, both designs** | Every **Decided** row in `claims.md`: the Support us section and claims, the founder wording, "free for students", the coordinator quotes, `universities@` and `admin@`, and the structured data (`nonprofitStatus`, "non-profit education") on Support us. Code, not a published document, so it can merge **before** release day (`REBRANDING_tasks.md` says the rewording is "in both designs, before release day") | **Done: [#157](https://github.com/Pavelya/match/pull/157)** (the visible words, both designs) and **[#158](https://github.com/Pavelya/match/pull/158)** (titles, descriptions and structured data, split out because the rebranding Definition of done 12 asks for a separate pull request). Cross-checked in the new design on 24 October 2026 (see "Checked in the new design" below); both are green and merge cleanly together |
 | **B1. Rate-limit analytics off and purged (before publishing)** | `analytics: true` becomes `false` in the seven limiters of `lib/rate-limit.ts`, and the existing `ratelimit:*:events:*` records are deleted from Upstash. Your Data Browser shows them never expire and hold user IDs (and, by the same mechanism, IP addresses). Nothing in the code reads them. The delete is a one-off script with a dry run, which you approve before it touches production | **Done:** [#156](https://github.com/Pavelya/match/pull/156) and [#159](https://github.com/Pavelya/match/pull/159) (the script's paging), both merged, and the purge applied by you. The dry run on 24 October 2026 found no analytics records and one key in the whole database. The Privacy draft now says the counters "expire within about two hours" (sliding windows of up to an hour; the library expires a key after twice its window) |
-| **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2, done in 5.29); a school's leftover invitations (F11, decided: kept); the invitation consent version (F3, done in 5.30); the export's missing parts (F4, done in 5.31); the unredacted address in a log (F5); "Upgrade to VIP" (F6); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
+| **B. Other small fixes found on the way** (none in this pull request) | Admin deletion of a coordinator who has sent invitations (F2, done in 5.29); a school's leftover invitations (F11, decided: kept); the invitation consent version (F3, done in 5.30); the export's missing parts (F4, done in 5.31); the unredacted address in a log (F5, done in 5.32); "Upgrade to VIP" (F6, done in 5.33); `analytics: false` on Algolia search if wanted (F9) | Nothing; independent of publishing |
 | **C. After publication** | `docs/templates/legal/*.md` and the three fallbacks in code updated to the published text | Publication |
 
 **Before publishing** (not before the pull request): the lawyer's review and the `[LAWYER: …]` notes settled. Task B1 is
@@ -158,9 +158,11 @@ flow in this pull request and nothing may reach production before approval.
   address, with nothing about the people who resolved or sent them. Privacy 9 now says the download holds all of
   it, and no longer offers the rest by request.
 - **F5. `lib/email/support-tickets.ts` logs the recipient's address unredacted** on each send; the account emails
-  redact it. Logs are short-lived, so this is a consistency fix for a later cleanup, not a policy problem.
+  redact it. Logs are short-lived, so this is a consistency fix for a later cleanup, not a policy problem. **Fixed by
+  MAINT 5.32:** both files log `ab***@example.com` through one `redactEmailAddress`.
 - **F6. In the coordinator portal,** "Upgrade to VIP" (`app/coordinator/students/page.tsx:118`, `:172`) offers
-  something a school cannot buy (`claims.md` P1).
+  something a school cannot buy (`claims.md` P1). **Fixed by MAINT 5.33:** the portal and its two API errors say
+  "Subscribe", words only.
 - **F7. Pages the owner listed but that also carry claims** (`claims.md`): the home page's "The only university
   matching platform…" (M1), the FAQ's "Your data is never shared without your consent" (M2) and Contact's response
   time (M3). M2 is in [#157](https://github.com/Pavelya/match/pull/157), not in go-live pull request #127.

@@ -178,10 +178,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
     // Check if coordinator can edit student data
     if (!access.canEditStudentData) {
-      return NextResponse.json(
-        { error: 'Upgrade to VIP or subscribe to edit student data' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Subscribe to edit student data' }, { status: 403 })
     }
 
     // Fetch student
