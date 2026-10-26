@@ -39,7 +39,7 @@ the others fall.
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 | 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
-| 16 | Late Stripe events | 5.34 | small | **Before the first REGULAR school subscribes**; none has a Stripe customer on 26 October 2026 | A late or duplicate-subscription event can re-activate a cancelled school or cancel a paying one. Money logic, so alone. The owner decides how `past_due` is treated |
+| 16 | Late Stripe events | 5.34 | small | **Before the first REGULAR school subscribes**; none has a Stripe customer on 26 October 2026 | A late or duplicate-subscription event can re-activate a cancelled school or cancel a paying one. Money logic, so alone. A failed renewal (`past_due`) keeps access until Stripe gives up (owner, 26 October), once the Dashboard's failed-payment action is confirmed |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
@@ -2096,11 +2096,19 @@ the first REGULAR school subscribes.**
 - Extend `app/api/webhooks/stripe/route.test.ts` with both scenarios above, failing first. Mock
   `subscriptions.retrieve` on the client `getStripe()` returns; keep the signing real.
 
-**Owner's decision, in the same session:** today `past_due` means `INACTIVE` at once — a school
-whose renewal payment fails loses its paid features that minute, while Stripe keeps retrying
-the card. The alternative is to keep `past_due` as `ACTIVE` until Stripe gives up and the
-subscription becomes `unpaid` or `canceled`, as the Billing settings decide. The status table in
-`route.test.ts` pins today's answer; change it with the decision.
+**Decided by the owner, 26 October 2026: a failed renewal keeps access until Stripe gives up.**
+Today `past_due` means `INACTIVE` at once, so a school whose renewal payment fails loses its paid
+features that minute while Stripe is still retrying the card. In this session, map `past_due` to
+`ACTIVE`; `unpaid`, `canceled` and the rest stay `INACTIVE`. Change the `past_due` row of the
+status table in `route.test.ts` with it.
+
+**This depends on a Stripe setting — check it first.** In the Stripe Dashboard's settings for
+failed subscription payments (under Billing → Revenue recovery → Retries when this was written),
+the action when all retries for a payment fail must be **cancel the
+subscription** or **mark the subscription as unpaid**. If it is "leave the subscription past-due",
+Stripe never gives up, and a school that stopped paying keeps full access forever. The session
+cannot see the Dashboard: ask the owner to confirm the setting, record it here, and do not merge
+the `past_due` change until they have.
 
 **Must not:** change the signature checks, or answer 200 to a failed write.
 
