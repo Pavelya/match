@@ -51,29 +51,29 @@ deletes today's design.
 | Tests: API routes and rate limits | 7.1 Part 3 | 26 October 2026 | 462 tests; every route's gate checked by kind. Found 5.35 and 5.36 |
 | Revoked coordinators and six rate limits | 5.36, 5.35 | 26 October 2026 | A revoked coordinator is refused by all 10 handlers; six signed-in handlers have limiters |
 | Late Stripe events | 5.34 | 26 October 2026 | The webhook writes what Stripe says now, for the school's current subscription only |
+| The database's public API | 5.37 | 26 October 2026 | Data API off; Row Level Security on all 24 tables, the API roles' grants revoked, new tables closed by an event trigger that CI checks. The Advisor's list and Vercel's old key wait for the owner |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.34–5.36, 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
 
-None of these depends on the rebranding. The order is a suggestion: the security fix first, then the legal-review fixes,
+None of these depends on the rebranding. The order is a suggestion: the legal-review fixes first,
 because the new Privacy Policy, published on release day, describes what they make true.
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | The database's public API | 5.37 | small | **First, a security fix.** Every table can be read and changed through Supabase's Data API by anyone with the project's public key. The owner can close it in a minute in the dashboard (step 1); the migration keeps it closed |
-| 2 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
-| 3 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
-| 4 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 5 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 3 or 4 |
-| 6 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 7 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 8 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 9 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 10 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 11 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
+| 2 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
+| 3 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
+| 4 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 2 or 3 |
+| 5 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 6 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 9 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 10 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -88,7 +88,9 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | Inactive accounts: the notice, the admin page and the daily job | 7.6 Parts C to E | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
-**For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
+**For the owner, now:** 5.37's last steps: export the Security Advisor's list for a session to answer,
+turn off sign-ups to Supabase Auth, delete `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel, check for a
+publishable key, and upload one image in the admin; compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
 first (owner task 6); the lawyer's review of 7.4's drafts. For the rebranding: one real send of each
 email (build 22), Lens's clearance search and the Search Console baseline.
@@ -152,7 +154,8 @@ Phase 5 — quick wins
 - [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
 - [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
 - [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
-- [ ] 5.37 Close the database's public API: Row Level Security is off on every table
+- [x] 5.37 Close the database's public API: Row Level Security is off on every table — 26 October 2026
+  (the Advisor's list and Vercel's old key wait for the owner)
 - [ ] 5.38 Say "30-minute call" on For schools: the call is 30 minutes
 
 Phase 6 — dependency majors
@@ -2289,7 +2292,7 @@ no page of theirs calls these routes.
 
 ---
 
-### 5.37 — Close the database's public API: Row Level Security is off on every table
+### 5.37 — Close the database's public API: Row Level Security is off on every table — **done**
 
 **Outcome:** Supabase's Security Advisor shows no "RLS Disabled in Public" errors. The `anon` and
 `authenticated` roles can't read or change any table, through the Data API or any other way. The app
@@ -2365,6 +2368,56 @@ rows:
 
 **Session size:** Small. Step 1 takes the owner a minute and closes the hole; the rest makes it stay
 closed.
+
+**Done 26 October 2026.**
+
+- **Step 1 (owner).** The Data API is off. The zero-row request now answers 503 (`PGRST002`) every
+  time, even with the service key; so does `/graphql/v1`. `/storage/v1` still answers 200.
+- **Step 2.** Migration `20261026120000_enable_row_level_security`, applied with `prisma migrate
+  deploy`:
+  - Row Level Security is on for all 24 tables, `_prisma_migrations` included, with no policies and
+    no `FORCE`.
+  - `anon` and `authenticated` have no privilege on any table. `public` has no sequences or
+    functions; the revokes cover them anyway.
+  - `postgres`'s default privileges in `public` no longer grant them anything. `supabase_admin`'s
+    defaults still do. They belong to Supabase, `postgres` can't change them, and `supabase_admin`
+    creates nothing in `public`.
+  - The grants are in a `DO` block that checks each role exists, so CI's plain Postgres runs it.
+- **Step 3: an event trigger, not a counting script.** `enable_rls_on_new_tables` turns Row Level
+  Security on for every table created in `public`.
+  - It works unattended; a script only works if a session remembers to run it.
+  - `postgres` may create it through `supabase_privileged_role`. That was checked on production in a
+    rolled-back transaction first: a new table came out with Row Level Security on, and nothing was
+    left behind.
+  - It isn't `SECURITY DEFINER`, and `PUBLIC` can't execute it.
+  - CI's build job now counts tables without Row Level Security after `migrate deploy` and fails on
+    any. That catches a later migration that turns it off, which the trigger can't.
+- **Checked on a throwaway local Postgres, twice.**
+  - Plain, as CI: 24 of 24 tables have Row Level Security, and `migrate diff` against the schema
+    prints "No difference detected". Prisma's schema doesn't model Row Level Security, grants or
+    event triggers.
+  - With Supabase's roles and default grants recreated: every grant and default gone. A `SELECT` as
+    `anon` is refused. New tables in `public` (`CREATE TABLE` and `CREATE TABLE AS`) start with Row
+    Level Security on, and other schemas are untouched.
+- **Checked on production after the apply.**
+  - In the catalog: 24 of 24 tables have Row Level Security, none `FORCE`d, and no `anon` or
+    `authenticated` privilege is left.
+  - Through `lib/prisma-standalone`: 201 users, 1,677 programs and 104 universities counted.
+  - `/`, `/ib-university-requirements` and `/api/auth/session` answer 200.
+- **Step 4, the rest of the Security Advisor: waits for the owner's list.**
+  - Expected now: `rls_enabled_no_policy` once per table, at INFO level. That is the intent: no
+    policy means every role but the owner is refused, so accept it.
+  - Checked in the catalog, so they shouldn't appear:
+    - `function_search_path_mutable`: the one function sets `search_path`;
+    - `extension_in_public`: no extension lives in `public`;
+    - `security_definer_view` and `materialized_view_in_api`: `public` holds only tables and indexes.
+  - The Auth findings (leaked-password protection, OTP expiry, MFA) are about Supabase Auth, which is
+    unused here: sign-in is Auth.js. Turn off its sign-ups and accept them.
+- **Step 5.** `NEXT_PUBLIC_SUPABASE_ANON_KEY` is gone from `lib/env.ts` and `.env.example`. The schema
+  strips unknown keys, so the variable left in Vercel or in a local `.env` is harmless. Deleting it in
+  Vercel and checking the dashboard for a publishable key wait for the owner.
+- **Still for the owner:** an admin image upload (Storage), plus sign-in, Matches and Saved on the live
+  site. Nothing in the app reads through the Data API, so none should change.
 
 ---
 

@@ -32,6 +32,9 @@ development database, so every Prisma command run here hits production.
   without one. App code imports `prisma` from `@/lib/prisma`; scripts and the seeder
   import it from `@/lib/prisma-standalone`.
 - Destructive SQL needs the user's explicit approval, and a backup taken first.
+- **Every table has Row Level Security on and no policies**, and an event trigger turns it on for new
+  tables (MAINT 5.37). The app connects as the owner, so it is unaffected. Never disable it or grant
+  anything to `anon` or `authenticated`. Supabase's Data API is off.
 
 ## Cost — Supabase is on a 5 GB free tier
 
