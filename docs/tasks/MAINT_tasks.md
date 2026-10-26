@@ -58,19 +58,22 @@ was done.
 
 ### 2. Can be done now — before release day and cleanup
 
-None of these depends on the rebranding. The order is a suggestion: the legal-review fixes first,
+None of these depends on the rebranding. The order is a suggestion: the security fix first, then the legal-review fixes,
 because the new Privacy Policy, published on release day, describes what they make true.
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
-| 2 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
-| 3 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 4 | Two tiny legal-review fixes | 5.32, 5.33 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design). One pull request, or fold into row 2 or 3 |
-| 5 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 6 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 1 | The database's public API | 5.37 | small | **First, a security fix.** Every table can be read and changed through Supabase's Data API by anyone with the project's public key. The owner can close it in a minute in the dashboard (step 1); the migration keeps it closed |
+| 2 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
+| 3 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
+| 4 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
+| 5 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 3 or 4 |
+| 6 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 7 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 8 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 9 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 10 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 11 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -82,6 +85,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: what to count, ways back, social media | 7.5 Parts B to D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
+| R.1 | Inactive accounts: the notice, the admin page and the daily job | 7.6 Parts C to E | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
@@ -148,6 +152,8 @@ Phase 5 — quick wins
 - [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
 - [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
 - [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
+- [ ] 5.37 Close the database's public API: Row Level Security is off on every table
+- [ ] 5.38 Say "30-minute call" on For schools: the call is 30 minutes
 
 Phase 6 — dependency majors
 
@@ -157,6 +163,7 @@ Phase 6 — dependency majors
 - [x] 6.4 The minor and patch batch
 - [x] 6.5 TypeScript 5.9 → 7
 - [ ] 6.6 Move to the `prisma-client` generator
+- [ ] 6.7 npm 12: find out what it changes here, and decide whether to move
 
 Phase 7 — structural
 
@@ -166,6 +173,7 @@ Phase 7 — structural
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
+- [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 
 Owner tasks — not AI work
 
@@ -200,7 +208,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Only 6.6 (the `prisma-client` generator) is left in phase 6 |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. Left in phase 6: 6.6 (the `prisma-client` generator) and 6.7 (whether to move to npm 12) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -2281,6 +2289,117 @@ no page of theirs calls these routes.
 
 ---
 
+### 5.37 — Close the database's public API: Row Level Security is off on every table
+
+**Outcome:** Supabase's Security Advisor shows no "RLS Disabled in Public" errors. The `anon` and
+`authenticated` roles can't read or change any table, through the Data API or any other way. The app
+works exactly as before.
+
+Added 26 October 2026 (owner): Supabase emailed "Action required: security vulnerabilities detected in
+your projects", "mostly about RLS Disabled in Public. Need to check if I can ignore it." **It can't be
+ignored.** It is not open today, but one leaked key would open it.
+
+**Why.** Checked 26 October 2026, with catalog queries and one Data API request that asked for zero
+rows:
+
+- **All 24 tables in `public` have Row Level Security off, and no policies.**
+- **`anon` and `authenticated` hold `SELECT`, `INSERT`, `UPDATE` and `DELETE` on all 24.** These are
+  Supabase's default grants on `public`.
+- **The Data API is on and serves `public`.** With the service key, `/rest/v1/User?select=id&limit=0`
+  answers 200.
+- So **whoever holds the project's `anon` (or publishable) key can read, change and delete every
+  table** over HTTPS. That includes:
+  - every address;
+  - `Account`, which holds Google's sign-in tokens;
+  - `VerificationToken`, the sign-in links;
+  - every profile and its grades.
+
+  Supabase treats that key as public, meant to be put in browsers.
+- **What keeps it closed today is luck, not design.** `NEXT_PUBLIC_SUPABASE_ANON_KEY` is declared in
+  `lib/env.ts` and nothing uses it. Git history shows no use either, so no bundle ever carried it. The
+  value in `.env` is not valid (the API answers "Invalid API key"). A key in a bundle, a screenshot or a
+  leaked `.env` would open the database.
+- **The app doesn't need the Data API.**
+  - Prisma connects as `postgres`, which owns all 24 tables and has `BYPASSRLS`, so turning Row Level
+    Security on changes nothing for the app.
+  - `supabase-js` is used only for Storage, with the service-role key (`lib/supabase/storage.ts`), and
+    Storage is a separate API.
+
+**Steps:**
+
+1. **The owner, at once, in the Supabase dashboard:** turn the Data API off, or take `public` out of
+   its exposed schemas. Then the zero-row request above answers with an error, not 200. Check that an
+   admin image upload still works (Storage).
+2. **A migration** (`prisma migrate deploy` only):
+   - `ENABLE ROW LEVEL SECURITY` on all 24 tables, with no policies, so `anon` and `authenticated` are
+     refused and the owner role is unaffected;
+   - `REVOKE ALL` on the tables, sequences and functions in `public` from `anon` and `authenticated`;
+   - `ALTER DEFAULT PRIVILEGES` so new tables don't get those grants again.
+
+   CI's throwaway Postgres has no `anon` or `authenticated` role. Wrap the grants in a `DO` block that
+   checks the roles exist, or CI fails.
+3. **Keep new tables closed.** Either an event trigger that turns Row Level Security on for every new
+   table in `public`, as Supabase's docs suggest (check that `postgres` may create one), or a script
+   that counts tables without it, run in each migration session. Recommend one.
+4. **Read the rest of the Security Advisor.** The owner pastes the list, or exports it. Give each
+   finding a fix or a reason to accept it. Supabase Auth is unused here (sign-in is Auth.js), so sign-ups
+   to it can be turned off.
+5. **Remove the unused key:** `NEXT_PUBLIC_SUPABASE_ANON_KEY` from `lib/env.ts`, `.env.example` and
+   Vercel's variables. Check the dashboard for a publishable key, and where it is used.
+
+**Must not:**
+
+- Change the Storage buckets or their policies; the images are public on purpose.
+- Use `FORCE ROW LEVEL SECURITY`.
+- Run `prisma migrate dev` or `prisma db push`.
+- Read rows to test: count, or ask for zero rows.
+
+**Verify:**
+
+- In the catalog, no table in `public` without Row Level Security, and no `anon` or `authenticated`
+  privilege on any.
+- The zero-row request is refused.
+- Sign-in, Matches, Saved, an admin edit and an image upload all work.
+- CI is green, so the migration runs on plain Postgres.
+- The Security Advisor no longer shows the error.
+
+**Session size:** Small. Step 1 takes the owner a minute and closes the hole; the rest makes it stay
+closed.
+
+---
+
+### 5.38 — Say "30-minute call" on For schools: the call is 30 minutes
+
+**Outcome:** Every button that offers the coordinator call says 30 minutes, the length of the
+Calendly event, in both designs.
+
+Added 26 October 2026 (owner): "We have a CTA with '…15 mins…' on https://www.ibmatch.com/for-coordinators
+… The actual timeslot is 30 mins. Need to find all these CTAs and fix the time to be 30 mins."
+
+**Where.** Searched 26 October 2026 across `app`, `components`, `lib` and `emails`. Three labels, all on
+`/for-coordinators`:
+
+- `app/for-coordinators/NewForCoordinators.tsx`: `CALL = 'Schedule a 15-minute call'`, used by the
+  hero's button and the closing panel's (the new design, D4.17);
+- `app/for-coordinators/_components/CoordinatorHero.tsx`: "Schedule a 15-min feedback call" (today's
+  design);
+- `app/for-coordinators/_components/CoordinatorCTA.tsx`: "Schedule a 15-minute call" (today's design).
+
+No other page, metadata, structured data or email mentions the call's length. The Calendly link
+(`calendly.com/ibmatch/feedback-call-with-ib-coordinator`) has no length in it.
+
+**Steps:** "15-minute" becomes "30-minute" in the new design and in `CoordinatorCTA.tsx`. "15-min
+feedback call" becomes "30-minute feedback call" in `CoordinatorHero.tsx`. Update the words recorded
+for D4.17 in `REBRANDING_tasks.md` (build 21, the hero) to match. Words only; the approved board's
+layout doesn't change.
+
+**Verify:** `git grep -n -i -E "15[ -]?min" -- app components` prints nothing; the page in both
+designs; the usual checks.
+
+**Session size:** Tiny. Fold into any session.
+
+---
+
 ## Phase 6 — Dependency majors
 
 One major per session. Sequential — do not batch them, because when something breaks
@@ -2383,6 +2502,71 @@ also generates into `node_modules`, which is the thing Prisma 7 moved away from.
 is), and watch for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack. Three
 `'use client'` components in `components/admin/legal-content/` import enums: they take them from the
 generated enums file, not the client, or server code reaches the browser bundle.
+
+---
+
+### 6.7 — npm 12: find out what it changes here, and decide whether to move
+
+**Outcome:** A short written answer with a recommendation, approved by the owner: whether to move to
+npm 12, when, and on which machines. Local, CI and Vercel run the npm version that answer chooses, and
+installs are proved to work on it.
+
+Added 26 October 2026 (owner), after `npm install` printed "New major version of npm available!
+11.0.0 -> 12.2.1": "Need to investigate what's the impact, if we should upgrade or not."
+
+**Why:** npm 12 (July 2026) is a security release that changes what an install does. Read the npm/cli
+v12.0.0 release notes and the GitHub changelog before trusting any of this; the summaries
+online disagree on details:
+
+- **Dependencies' install scripts no longer run** unless the project allows them, in a new
+  `allowScripts` field managed with `npm approve-scripts` and `npm deny-scripts`.
+- **Dependencies from remote URLs and Git are refused** unless allowed (`--allow-remote`,
+  `--allow-git`).
+- `npm-shrinkwrap.json` is gone, and `npm view --json` changes shape.
+
+**What it would touch here** (read 26 October 2026):
+
+- **Five dependencies have install scripts** (`package-lock.json`, `hasInstallScript`): `prisma` and
+  `@prisma/engines` (production), `esbuild` (twice; one copy is under `react-email`), `unrs-resolver`
+  and `fsevents` (macOS only, optional). On npm 12, each has to be approved or shown not to need its
+  script. Prisma's is the one that matters: the build needs the engine and the generated client.
+- **The project's own scripts:** `postinstall` runs `prisma generate` and `prepare` runs `husky`.
+  Check that npm 12 still runs a project's own scripts; the summaries speak only of dependencies'.
+- **No Git or URL dependencies** in the lockfile, and no `.npmrc`.
+- **The three machines already differ.** Locally, npm 11.0.0 on Node 22.12. In CI,
+  `actions/setup-node` with `node-version: 22`, so the npm that ships with Node 22, which is npm 10.
+  Vercel's npm comes from its own build image: read it from a build log. `package.json` pins only
+  `"node": ">=22.0.0"`, with no `packageManager` or `engines.npm`.
+- **npm follows Node.** npm 12 is expected to ship with Node 24 and 26 at most, not 22, so CI and
+  Vercel move only when the Node version does. Node 22 leaves long-term support in April 2027, so the
+  real question may be Node 22 → 24 (which brings npm 11), with npm 12 as a later step.
+
+**Steps:**
+
+1. Read the release notes and record the changes that apply, with the source and date.
+2. On a copy of the repo with npm 12, run `npm ci`, then the full verification. Record which install
+   scripts were skipped and what broke, then the `allowScripts` list that fixes it. Run nothing that
+   writes to the database: the build's prerender only reads.
+3. Find Vercel's npm and Node versions from a recent build log, and what each would need to change
+   (the project's Node version setting, or `engines`).
+4. Recommend one of these, with the reasons:
+   - stay on npm 11 locally and change nothing;
+   - move local npm only;
+   - pin one npm for all three (`packageManager` or `engines.npm`);
+   - fold npm into a Node 24 move, written as its own task.
+
+   Bring the local npm up to date within 11 either way, since 11.0.0 is the first release of that
+   major.
+5. If the owner approves a move: one pull request with nothing else in it (rule 1). It holds
+   `allowScripts`, any pin, and the CI change, and a preview deployment proves Vercel installs and builds.
+
+**Must not:** change the Node version in the same pull request as npm; add `allowScripts` entries
+for packages that turn out not to need their script; run `npm audit fix --force`.
+
+**Verify:** `npm ci` from a clean `node_modules`, then the usual checks and both test suites, on the
+chosen npm; CI green; a Vercel preview built with it.
+
+**Session size:** Small for the investigation (steps 1 to 4). The move, if approved, small.
 
 ---
 
@@ -3146,6 +3330,9 @@ changes the Privacy Policy, so it waits for 7.4.
 
 **Part B — what to count from now on (the owner decides; recommend one).** Options to weigh:
 
+**26 October 2026:** 7.6 builds the first option, a last-active date, for deleting inactive accounts.
+If the owner keeps that choice, Part B only decides what to count from it.
+
 - **A last-seen date on the account,** written at most once a day per student, for example from the
   `jwt` callback's existing role check. One tiny write per active student per day, no new read, and
   no cookie. Returning students then become a count.
@@ -3243,6 +3430,162 @@ each change is its own session.
 
 **Session size:** Medium. Aggregates and reading, then the owner's decisions on B, C and D. Part D
 can be its own session.
+
+---
+
+### 7.6 — Inactive accounts: mark them silent, warn them, then delete them
+
+**Outcome:** The admin sees when each account was last active, which ones are silent, and how many
+students are active, on the main dashboard. A student who stays away long enough gets one email
+warning that the account will be deleted in a month. If they don't come back in that month, the
+account and everything it holds is deleted. All of this runs from one admin page, and then on its own
+every day once the owner trusts it. A student who comes back at any point keeps the account, and the
+clock starts again.
+
+Added 26 October 2026 (owner): "So any account that didn't make a login during 6 months will be marked
+as silent in the admin … a new mail template … saying that there is no activity for 12 last months or
+more > we give the user one month > then we delete their data completely … something for the admin to
+easily send these emails, could be bulk … the purge of accounts in the admin. Generally I want this
+process to be automated as much as we can … IF the account did make a login AFTER we sent a
+notification within the month, then it can stay for another 6 months … add the analytics, how many
+silent accounts we've got on the main dashboard, or how many active accounts." The same day the owner
+corrected the 12 months to 6: "12 months was a mistake."
+
+**Why:** Keeping a student's grades and plans forever, after they have stopped using IB Match, is data
+the service no longer needs. The draft Privacy Policy says data is kept "for as long as your account is
+active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing defines or enforces
+"active". On 26 October 2026, 73 of the 199 student accounts were created more than six months ago, and
+71 have not changed since then (counts only).
+
+**What exists today, and what does not:**
+
+- **No date of last use is stored.** Sessions are JWTs that last 30 days (`lib/auth/config.ts`), so the
+  `Session` table is empty (one row in production) and a sign-in leaves no row. `events.signIn` writes
+  only a new account's consent. `User.updatedAt` changes only when the user row changes, not when the
+  student visits. A student who opens the app every week on a valid token never "signs in". So "login"
+  here has to mean **last active**, not last sign-in.
+- **The `jwt` callback already re-reads the role** from the database every 5 minutes for an active
+  user (`ROLE_REFRESH_MS`). That read can carry the date, and write it at most once a day, which is the
+  first option in 7.5 Part B. This task builds it, so 7.5 Part B's choice is made here.
+- **Deleting a student is solved:** `deleteStudentAccount` (`lib/account/delete-student.ts`, 5.25)
+  deletes everything in one transaction, and 5.24 sends "Account deleted". Deleting a coordinator is
+  blocked by a foreign key until 5.29.
+- **No scheduled job exists.** There is no `vercel.json` and no cron route. The Vercel plan is Pro
+  (`docs/legal-review/providers.md`), so a daily cron is available.
+- **Email:** Resend's Free plan, 3,000 emails a month (`providers.md`) and, by Resend's pricing page, 100
+  a day. Sign-in links and invitations share that daily allowance, so a first batch of about 70 notices
+  has to be spread over several days. Check the limits before building.
+- **The admin:** `/admin/dashboard` counts users by role; `/admin/students` lists every student, newest
+  first. The admin keeps today's design.
+
+**Decide first (the owner).** Recommended answers are in bold:
+
+1. **The times. Decided 26 October 2026 (owner): 6 months throughout**.
+   After 6 months without activity a student is silent and due the notice. They are deleted 30 days
+   after the notice, unless they are active again in that time. Activity after the notice clears it,
+   and the clock starts again from that day, so the student is silent and due a notice again 6 months
+   later.
+2. **Whose accounts.** **Students only.** Coordinators are tied to a school and its subscription, and are
+   deleted on request (5.29). Admins and agents never.
+3. **Where the clock starts** for the accounts that exist before the date is stored. Either (a) the day
+   Part A ships, so the first notice goes out six months later; or (b) **the latest change on the account or
+   its profile**, which is older than their real last visit for some students. With (b), the email says
+   "no activity on your account since <date>", which is true of what is stored. The one-month warning
+   protects anyone who still cares.
+4. **Manual or automatic.** **Both, in that order:** the admin page's buttons first; the daily job
+   behind a switch, turned on after one manual round has gone well.
+5. **After the deletion,** **no second email.** The student ignored the first, and the address may no
+   longer work. Or send 5.24's "Account deleted".
+6. **The dashboard.** **Both numbers:** "Active students, last 30 days" is the health number; "Silent"
+   is the to-do number, linking to the list.
+
+**Part 0 — the Privacy Policy (before the lawyer's review of 7.4).** Add the rule to section 8 of
+`docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 6 months, a warning email,
+then deletion a month later unless the student comes back. One sentence now saves a second
+publication. Nothing is sent or deleted until the policy that says so is published (release day).
+
+**Part A — the date of last activity.**
+
+1. `lastActiveAt DateTime?` on `User`; an additive migration, applied with `prisma migrate deploy`.
+2. Written on sign-in, and in the `jwt` callback's existing periodic read when the stored date is older
+   than a day: the read selects the date with the role, so no new read, and at most one write per active
+   student per day.
+3. The backfill from decision 3 is a production data change: the owner approves it, and a backup comes
+   first.
+
+**Part B — the admin and the dashboard.**
+
+1. A "Last active" column on `/admin/students` and on the student's own page, and a "Silent" label;
+   a filter for silent students.
+2. On `/admin/dashboard`, the two counts from decision 6, each a `count()` with a date condition.
+
+**Part C — the notice email (a design gate first).** It is a new email, so it is added as a case on the
+"D4.18 Emails" boards and approved before any code (`REBRANDING_tasks.md`, Step 2). It is built in
+`emails/` on D4.18's layout, in the new design only, since nothing is sent before release day. It says:
+- the date of the last activity;
+- the date of deletion;
+- what is deleted (as 5.25 lists it);
+- one button, to sign in and keep the account;
+- that they can download their data or delete the account now, from Settings.
+
+It has a plain-text body, as every email does.
+
+**Part D — the admin page.** `/admin/students/inactive`, or a tab of `/admin/students`, with three counts
+and lists:
+- silent, not yet notified (due a notice);
+- notified, with the days left;
+- due for deletion.
+
+Two buttons, each confirming with the number of accounts first:
+
+- **Send notices.** Up to a daily cap under Resend's limit, through Resend's batch sending. A notice is
+  recorded only when Resend accepts it: `inactivityNoticeSentAt DateTime?` on `User`, in the same
+  migration as Part A.
+- **Delete due accounts.** Each one in its own transaction, through `deleteStudentAccount`; a failure
+  stops at that account. Then the match cache is cleared as the existing deletes do.
+
+A student is due for deletion when the notice is 30 days old or older, and `lastActiveAt` is not later
+than the notice. Part A's daily write clears `inactivityNoticeSentAt` when a notified student is active
+again. Put the rule in one pure function with its tests, and use it in the page, both buttons and Part E.
+
+**Part E — the daily job.** A Vercel cron calls one route, `/api/cron/inactive-accounts`, once a day.
+Read the current Vercel and `node_modules/next/dist/docs/` pages first. The route refuses anything
+without `CRON_SECRET`, and does what the two buttons do, with the same caps. It runs only when
+`INACTIVE_ACCOUNTS_AUTO` is on (decision 4). It logs counts, never addresses (5.32). The route-gates test
+(7.1 Part 3) picks up the new route; give it a gate kind for the cron secret.
+
+**Also check, the owner may have missed these:**
+
+- A student linked to a school: their coordinator loses them from the school's list. Say so in the
+  email if the owner wants the school told.
+- Accounts that never finished sign-up (no profile) follow the same rule.
+- Supabase's free project keeps no backups (`docs/legal-review/README.md`), so a deletion is final. The
+  admin's confirm step has to say so.
+- Every date in UTC, and days counted whole.
+
+**Must not:**
+
+- Send or delete anything before the Privacy Policy that describes it is published.
+- Touch coordinators, admins, agents or schools.
+- Store a row per visit, or write more than once a day per student (the hard rules on cost).
+- Read whole tables: select ids, addresses and dates only, and count with `count()`.
+- Run `prisma migrate dev` or `prisma db push`.
+
+**Verify:**
+- Vitest for the rule function: every state, the edges at 6 months and at 30 days, and activity
+  after the notice.
+- Vitest for the `jwt` write: once a day, and that it clears the notice.
+- The two buttons' and the cron route's gates.
+- The email's fixture and plain text.
+- On a throwaway local Postgres, with dates set back, one account through each state and the final
+  deletion.
+- The usual checks.
+
+**Session size:** Large. Split into sessions:
+- the decisions and Part 0;
+- Parts A and B;
+- Part C's board, a design session;
+- Parts C to E in code.
 
 ---
 
