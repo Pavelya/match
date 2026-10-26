@@ -15,41 +15,68 @@ quota.
 
 ## Start here
 
-**The open work, in order** (reviewed 22 October 2026 against `REBRANDING_tasks.md`, the code on
-`main` and the open pull requests). Each numbered row is a fresh AI session, one branch, one pull
-request, merged before the next starts. The rows marked "—" are rebranding steps that decide where
-the others fall.
+**Reviewed 26 October 2026** against `REBRANDING_tasks.md`, the code on `main` and the open pull
+requests. The work is in three groups: what is done, what can be done now, before the rebranding is
+released and cleaned up, and what has to wait for that. Each row in groups 2 and 3 is a fresh AI
+session, one branch, one pull request, merged before the next starts.
 
-| Order | Session | Tasks | Size | When | Why here |
-|---|---|---|---|---|---|
-| 1 | Small cleanups | 5.26, 5.17, 5.6 | tiny | Done, 22 October 2026 | 5.26 and 5.17 in one pull request, before the Search Console baseline; 5.6 in the next |
-| 2 | Explore's best fit | 5.27 | small to medium | Done, 22 October 2026 | Session 25 of `REBRANDING_tasks.md`: Best fit for a student with grades, Highest points needed named for everyone else, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
-| 3 | Legal pages and public claims | 7.4 | medium | Drafts done 23 October 2026 (`docs/legal-review/`), the owner's answers in, 5.28 done; the lawyer's review next; publish on release day | Research and drafts; the owner's review is the slow part. The new words go live with the new design |
-| — | Rebranding release day | `REBRANDING_tasks.md` R.1 | — | When its gates are met | Waits on Lens's clearance search and the Search Console baseline. Seasonal themes (build 23) and the program card review (5.1) go before it if they are ready |
-| 4 | School logos to Storage | 5.11 | small | Done, 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502; no school had a logo |
-| 5 | Older images' cache | 5.10 | tiny | Done, 22 October 2026 | `scripts/fix-image-cache-control.ts` re-uploaded 54 objects to their own paths; no database write |
-| 6 | Sample-seed leftovers | 5.9 | small | Done, 22 October 2026 | The four sample universities left in `universities_production` deleted after a JSON backup; the sync now removes records with no row |
-| 7 | Admin forms | 5.16 | small | Done, 22 October 2026 | The admin forms and bulk upload suggest the field the rule gives, and take a campus city |
-| 8 | More tests: the Stripe webhook | 7.1 Part 2 | medium | Done, 26 October 2026 | 42 tests; the route unchanged. Found 5.34 |
-| 9 | More tests: API routes and rate limits | 7.1 Part 3 | medium | Done, 26 October 2026 | 462 tests; every route's gate checked by kind, new routes included automatically. Found 5.35 and 5.36. Moving the `.verify.ts` scripts to Vitest is Part 4, a session of its own |
-| 9a | Revoked coordinators, and six rate limits | 5.36 with 5.35 | small | Done, 26 October 2026 | A revoked coordinator is refused by all 10 handlers that let them through; the six signed-in handlers have limiters. One pull request: both are gates on the same routes, proved by one test file |
-| — | Rebranding cleanup | `REBRANDING_tasks.md` R.2 | — | About two weeks after release | Deletes today's design; 6.6 and 7.2 wait for it |
-| 10 | SEO and AI search plan | 7.3 | small | After release day | Planning only, from the Search Console baseline |
-| 11 | `prisma-client` generator | 6.6 | medium | After R.2 | 53 files import `@prisma/client`: do it once R.2 has deleted the old ones, and alone (rule 1) |
-| 12 | Country page shells | 7.2, the rest | medium | After R.2 | One route for the 23 guides, once R.2 deletes the `<Country>Content.tsx` files |
-| 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
-| 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
-| 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
-| 16 | Late Stripe events | 5.34 | small | Done 26 October 2026 | The webhook writes what Stripe says now, only for the school's current subscription; checkout refuses a second live subscription; a failed renewal keeps access until Stripe gives up |
-| 17 | Rate limits on six handlers | 5.35 | tiny | Done with 5.36, row 9a | — |
+**Where the rebranding stands.** Release day (`REBRANDING_tasks.md` R.1) waits on the owner: Lens's
+clearance search and the Search Console baseline. The program card review (its 5.1) goes before it if
+it is ready. Cleanup (R.2) comes about two weeks after release, once Search Console shows no fall, and
+deletes today's design.
+
+### 1. Done — no need to return to these
+
+| Session | Tasks | Done | What it did |
+|---|---|---|---|
+| Small cleanups | 5.26, 5.17, 5.6 | 22 October 2026 | Coordinator sign-in instead of a 404; university pages in the sitemap; the Algolia status script reads every record |
+| Explore's best fit | 5.27 | 22 October 2026 | Rebranding session 25: Best fit for a student with grades, the `EXPLORE_BEST_FIT` switch and `scripts/algolia-usage.ts`. Check the usage weekly after release |
+| School logos to Storage | 5.11 | 22 October 2026 | Both admin school routes upload a base64 logo to Storage or refuse with 502 |
+| Older images' cache | 5.10 | 22 October 2026 | 54 objects re-uploaded with a one-year cache; no database write |
+| Sample-seed leftovers | 5.9 | 22 October 2026 | Four sample universities deleted after a JSON backup; the sync removes records with no row |
+| Admin forms | 5.16 | 22 October 2026 | The forms suggest the field of study and take a campus city |
+| Rate-limiter retention | 5.28 | 24 October 2026 | The limiters keep no account IDs or addresses; the old ones purged (#156, #159) |
+| Tests: the Stripe webhook | 7.1 Part 2 | 26 October 2026 | 42 tests, the route unchanged. Found 5.34 |
+| Tests: API routes and rate limits | 7.1 Part 3 | 26 October 2026 | 462 tests; every route's gate checked by kind. Found 5.35 and 5.36 |
+| Revoked coordinators and six rate limits | 5.36, 5.35 | 26 October 2026 | A revoked coordinator is refused by all 10 handlers; six signed-in handlers have limiters |
+| Late Stripe events | 5.34 | 26 October 2026 | The webhook writes what Stripe says now, for the school's current subscription only |
+
+**All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
+which waits for the owner), 5.34–5.36, 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+was done.
+
+### 2. Can be done now — before release day and cleanup
+
+None of these depends on the rebranding. The order is a suggestion: the legal-review fixes first,
+because the new Privacy Policy, published on release day, describes what they make true.
+
+| Order | Session | Tasks | Size | Notes |
+|---|---|---|---|---|
+| 1 | Invited people's policy versions | 5.30 | small | A consent flow, so a pull request of its own |
+| 2 | Admin deletes a coordinator with invitations | 5.29 | small | The Privacy Policy tells coordinators to ask for deletion, so it has to work |
+| 3 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
+| 4 | Two tiny legal-review fixes | 5.32, 5.33 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design). One pull request, or fold into row 2 or 3 |
+| 5 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 6 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 7 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 8 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+
+**Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
+wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
+
+### 3. Wait for release day (R.1) or cleanup (R.2)
+
+| After | Session | Tasks | Size | Why it waits |
+|---|---|---|---|---|
+| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
+| R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
+| R.1 and 7.4 published | Returning students: what to count, ways back, social media | 7.5 Parts B to D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
+| R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
-first (owner task 6). For the rebranding: one real send of each email (build 22), Lens's clearance
-search and the Search Console baseline.
-
-**Done:** 5.1–5.14, 5.16, 5.17, 5.19–5.27 (5.25 but for its step 6), 5.35, 5.36, 6.1–6.5 and 7.1 parts 1 to 3;
-5.15 decided, no change for now. Each section below records what was done.
+first (owner task 6); the lawyer's review of 7.4's drafts. For the rebranding: one real send of each
+email (build 22), Lens's clearance search and the Search Console baseline.
 
 ### Rules for grouping
 
@@ -58,7 +85,7 @@ search and the Search Console baseline.
 2. **Never mix a risky change with cleanups.** Anything that might need reverting
    deserves a pull request with nothing else in it.
 3. **Group only changes that are individually trivial** and share one verification
-   pass. That is why session 1 works and nothing else is batched.
+   pass. That is why the small cleanups were one session and little else is batched.
 4. **Stop when the pull request gets hard to review**, not when the task list is empty.
 
 ### What this costs
@@ -2337,8 +2364,14 @@ no code imports from `@prisma/client`.
 **Why:** `prisma-client-js` is deprecated and Prisma has said it will be removed. It
 also generates into `node_modules`, which is the thing Prisma 7 moved away from.
 
-**Size:** ~60 files, mechanical. Check the generated directory is gitignored, and watch
-for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack.
+**When:** any time, alone, and not in the week of release day. Checked 26 October 2026: 58 files import
+`@prisma/client`, and rebranding R.2 deletes only 2 of them (`components/email/legacy/ticket-created.tsx` and
+`ticket-resolved.tsx`), so it does not need to wait for cleanup.
+
+**Size:** 58 files, mechanical. Check the generated directory is gitignored (`/app/generated/prisma` already
+is), and watch for the known `.prisma/client/default` resolution issue on Next 16 + Turbopack. Three
+`'use client'` components in `components/admin/legal-content/` import enums: they take them from the
+generated enums file, not the client, or server code reaches the browser bundle.
 
 ---
 
