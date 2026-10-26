@@ -1,0 +1,75 @@
+/*
+ * Lunar New Year (rebranding 6.4, board "D1.7 Season · Lunar New Year", direction A, lanterns,
+ * chosen 26 October 2026): one red lantern after the name, five under "match", four on a cord in
+ * the lime band, and on the 404 a string with one lantern fallen to the floor. The head script adds
+ * this file only while the season is on, so nobody downloads it otherwise. It fills the four slots
+ * app/globals.css places; each slot has a light and a dark drawing, and the browser fetches only
+ * the one for the theme in use. The band is lime in both themes, so it has one. Each drawing is
+ * asked for with `?v=` and the start of its SHA-256, since drawings are cached for a year as
+ * immutable (lib/seasons/art.test.ts).
+ */
+
+[data-season='lunar-new-year'] [data-season-slot] {
+  display: block;
+}
+
+[data-season='lunar-new-year'] [data-season-slot='mark'] {
+  background-image: url('mark-light.svg?v=5266ff50');
+}
+
+[data-season='lunar-new-year'] [data-season-slot='hero'] {
+  background-image: url('hero-light.svg?v=46c062ed');
+}
+
+[data-season='lunar-new-year'] [data-season-slot='band'] {
+  background-image: url('band.svg?v=69e766ca');
+}
+
+[data-season='lunar-new-year'] [data-season-slot='404'] {
+  background-image: url('string-light.svg?v=2c818a00');
+}
+
+@media (width >= 80rem) {
+  [data-season='lunar-new-year'] [data-season-slot='404'] {
+    background-image: url('404-light.svg?v=4a9494e5');
+  }
+}
+
+/* Dark: chosen in Appearance, or the OS's while Appearance follows it */
+[data-season='lunar-new-year'][data-theme='dark'] [data-season-slot='mark'] {
+  background-image: url('mark-dark.svg?v=39a96678');
+}
+
+[data-season='lunar-new-year'][data-theme='dark'] [data-season-slot='hero'] {
+  background-image: url('hero-dark.svg?v=08ead098');
+}
+
+[data-season='lunar-new-year'][data-theme='dark'] [data-season-slot='404'] {
+  background-image: url('string-dark.svg?v=f2dcad80');
+}
+
+@media (width >= 80rem) {
+  [data-season='lunar-new-year'][data-theme='dark'] [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=62aeea6a');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-season='lunar-new-year']:not([data-theme='light']) [data-season-slot='mark'] {
+    background-image: url('mark-dark.svg?v=39a96678');
+  }
+
+  [data-season='lunar-new-year']:not([data-theme='light']) [data-season-slot='hero'] {
+    background-image: url('hero-dark.svg?v=08ead098');
+  }
+
+  [data-season='lunar-new-year']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('string-dark.svg?v=f2dcad80');
+  }
+}
+
+@media (prefers-color-scheme: dark) and (width >= 80rem) {
+  [data-season='lunar-new-year']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=62aeea6a');
+  }
+}

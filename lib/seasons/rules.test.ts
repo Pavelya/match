@@ -42,10 +42,9 @@ describe('checkSchedule', () => {
   })
 
   it('refuses two seasons switched on whose days overlap, and not when one is off', () => {
-    // A second copy stands in for the next season built in code
-    const other = { ...winter({ startsOn: '2027-01-01', endsOn: '2027-01-05' }) }
+    const other = winter({ key: 'lunar-new-year', startsOn: '2027-01-01', endsOn: '2027-01-05' })
     const both = [winter(), other]
-    expect(checkSchedule(both).winter).toMatch(/overlap/)
+    expect(checkSchedule(both).winter).toMatch(/overlap Lunar New Year/)
     expect(checkSchedule([winter(), { ...other, enabled: false }])).toEqual({})
     expect(checkSchedule([winter(), { ...other, startsOn: '2027-01-02' }])).toEqual({})
   })
@@ -54,7 +53,10 @@ describe('checkSchedule', () => {
 describe('parseScheduleInput', () => {
   const body = {
     allOff: false,
-    seasons: [{ key: 'winter', enabled: true, startsOn: '2026-12-14', endsOn: '2027-01-01' }]
+    seasons: [
+      { key: 'winter', enabled: true, startsOn: '2026-12-14', endsOn: '2027-01-01' },
+      { key: 'lunar-new-year', enabled: false, startsOn: null, endsOn: null }
+    ]
   }
 
   it('reads every season built in code and the switch', () => {
@@ -64,15 +66,20 @@ describe('parseScheduleInput', () => {
   it('reads an empty date as none', () => {
     const input = parseScheduleInput({
       allOff: true,
-      seasons: [{ key: 'winter', enabled: false, startsOn: '', endsOn: null }]
+      seasons: [
+        { key: 'winter', enabled: false, startsOn: '', endsOn: null },
+        { key: 'lunar-new-year', enabled: false, startsOn: null, endsOn: '' }
+      ]
     })
     expect(input?.seasons[0]).toMatchObject({ startsOn: null, endsOn: null })
+    expect(input?.seasons[1]).toMatchObject({ startsOn: null, endsOn: null })
   })
 
   it('refuses anything else', () => {
     expect(parseScheduleInput(null)).toBeNull()
     expect(parseScheduleInput({ ...body, allOff: 'no' })).toBeNull()
     expect(parseScheduleInput({ ...body, seasons: [] })).toBeNull()
+    expect(parseScheduleInput({ ...body, seasons: [body.seasons[0]] })).toBeNull()
     expect(
       parseScheduleInput({ ...body, seasons: [{ ...body.seasons[0], key: 'halloween' }] })
     ).toBeNull()

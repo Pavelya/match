@@ -354,7 +354,7 @@ merges into `main`, behind the preview switch.**
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 | 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year. **Built 26 October 2026**: the tree's nine drawings, the band's slot on all six pages, 330 × 60 from 768px; waits on the owner's look in the pull request's preview |
-| 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February |
+| 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February. **Built 26 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; waits on the owner's look in the pull request's preview |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -393,7 +393,7 @@ Rows 3 and 4 can share a design session.
 | 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 | 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
-| 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Build by 27 January 2027 |
+| 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges, by 27 January 2027 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -462,7 +462,7 @@ Phase 6 — Seasonal themes
 - [x] 6.1 Seasonal themes: the slots, the schedule and the first season (25 October 2026)
 - [ ] 6.2 Each further season
 - [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
-- [ ] 6.4 Lunar New Year
+- [x] 6.4 Lunar New Year (26 October 2026; merged once the owner approves it in the preview)
 
 Release
 
@@ -3483,6 +3483,33 @@ them, then the owner judges them in the preview.
   `public/seasons/lunar-new-year/`. In season, gzipped: Home about 2.5 KB, a guide or a text page
   1.8, a page with only the header 1.2, the 404 at 1440px 2.0 (Christmas as built: 2.6, 2.0, 1.1,
   2.0).
+
+**Built (26 October 2026, session 27).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=lunar-new-year` before it merges:
+- **Art:** the nine drawings from the board's `lny/a/` in `public/seasons/lunar-new-year/`, byte for
+  byte, and `season.css` in winter's shape under `[data-season='lunar-new-year']`, each drawing asked
+  for with `?v=` and its SHA-256's first 8 hex digits. `SEASONS` gains `lunar-new-year`, "Lunar New
+  Year", with the usual window written as "three days before the new year to six days after (3 to 12
+  February in 2027)", which the admin page shows. The admin page lists it; its schedule needs no
+  migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  both seasons (the route refuses a body without every season built in code), the overlap check uses
+  the real second season, and the head script is checked against the helper for the new key.
+- **Measured** (`next dev` with the new design, headless Chrome): every slot's box and position is
+  build 26's (header 215, 19 at 1440px and 129, 15 at 390px; band 330 × 60 at 1010 from 768px; 404
+  440 × 200); the band 8px above its heading at 768px and 13px on a phone; the lantern 12px clear of
+  Guides at 320px signed in; hidden in forced colours, signed in at 900px and on the legal pages; the
+  hero still with reduced motion; CLS under 0.0001 on every public page. `npm run build` lists the
+  same Static pages and revalidate times; no prerendered HTML names the season, and the only JS
+  change is the admin chunk. The head script stays under 600 bytes with both seasons scheduled. In
+  season, gzipped: Home 2.4 KB, a guide or text page 1.8, header only 1.2, the 404 at 1440px 2.0
+  (Christmas, measured the same way: 2.7, 2.2, 1.3, 2.2).
+- **Left as drawn:** the band's two middle lanterns' tassels run 1.9 units past the drawing's
+  40-unit height, so their tips are cut by about 3px at 330 × 60, as on the board. The board's
+  notes name a gold edge #8A5A00 for the band's tassels; the chosen drawing has none.
+- **QA:** whole pages, every page type with a slot including the Hong Kong and Singapore guides,
+  1440px and 390px, light and dark: https://claude.ai/artifact/NFfNDjQtE5FKcig3UpSmiS (private to the
+  owner).
 
 ---
 
