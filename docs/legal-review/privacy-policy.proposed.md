@@ -144,7 +144,7 @@ Depending on your jurisdiction (including under GDPR), you have the right to:
 - **Restrict** processing under certain circumstances
 - **Complain** to your data protection authority
 
-**For students**: in Settings you can download your data (your account, academic profile, preferences and saved programs, as a file), delete your account, and unlink from a school without deleting your account. For anything the download does not include, such as your support requests, write to us.
+**For students**: in Settings you can download all your data as a file, delete your account, and unlink from a school without deleting your account.
 
 **For coordinators**: write to us to access, correct, export or delete your data, or your school's.
 

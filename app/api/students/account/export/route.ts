@@ -36,12 +36,34 @@ export async function GET() {
         role: true,
         createdAt: true,
         updatedAt: true,
+        termsVersion: true,
+        termsAcceptedAt: true,
+        privacyPolicyVersion: true,
+        privacyAcceptedAt: true,
+        // Not who resolved a ticket: that is another person's data
+        supportTickets: {
+          select: {
+            ticketNumber: true,
+            category: true,
+            status: true,
+            subject: true,
+            message: true,
+            adminResponse: true,
+            createdAt: true,
+            updatedAt: true,
+            resolvedAt: true
+          },
+          orderBy: { createdAt: 'asc' }
+        },
         studentProfile: {
           select: {
             totalIBPoints: true,
             tokGrade: true,
             eeGrade: true,
             openToAllLocations: true,
+            linkedByInvitation: true,
+            coordinatorAccessConsentAt: true,
+            coordinatorAccessConsentVersion: true,
             createdAt: true,
             updatedAt: true,
             school: {
@@ -97,16 +119,44 @@ export async function GET() {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
+    // School invitations sent to their address, matched as deleting the account matches them
+    // (lib/account/delete-student.ts). Not who sent one, or the link's token
+    const invitations = await prisma.invitation.findMany({
+      where: { role: 'STUDENT', email: { equals: user.email, mode: 'insensitive' } },
+      select: {
+        status: true,
+        createdAt: true,
+        expiresAt: true,
+        acceptedAt: true,
+        school: { select: { name: true } }
+      },
+      orderBy: { createdAt: 'asc' }
+    })
+
     // Format data for export
     const exportData = {
       exportDate: new Date().toISOString(),
-      exportVersion: '1.0',
+      exportVersion: '1.1',
       account: {
         email: user.email,
         name: user.name,
         role: user.role,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt
+      },
+      consent: {
+        termsVersion: user.termsVersion,
+        termsAcceptedAt: user.termsAcceptedAt,
+        privacyPolicyVersion: user.privacyPolicyVersion,
+        privacyAcceptedAt: user.privacyAcceptedAt,
+        // What the student agreed to when a school invitation linked them
+        coordinatorAccess: user.studentProfile
+          ? {
+              linkedByInvitation: user.studentProfile.linkedByInvitation,
+              consentedAt: user.studentProfile.coordinatorAccessConsentAt,
+              consentVersion: user.studentProfile.coordinatorAccessConsentVersion
+            }
+          : null
       },
       academicProfile: user.studentProfile
         ? {
@@ -146,7 +196,25 @@ export async function GET() {
             universityName: sp.program.university.name,
             savedAt: sp.createdAt
           }))
-        : []
+        : [],
+      supportTickets: user.supportTickets.map((t) => ({
+        ticketNumber: t.ticketNumber,
+        category: t.category,
+        status: t.status,
+        subject: t.subject,
+        message: t.message,
+        reply: t.adminResponse,
+        createdAt: t.createdAt,
+        updatedAt: t.updatedAt,
+        resolvedAt: t.resolvedAt
+      })),
+      invitations: invitations.map((i) => ({
+        school: i.school?.name ?? null,
+        status: i.status,
+        sentAt: i.createdAt,
+        expiresAt: i.expiresAt,
+        acceptedAt: i.acceptedAt
+      }))
     }
 
     return NextResponse.json(exportData)
