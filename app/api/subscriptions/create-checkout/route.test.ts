@@ -4,17 +4,22 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 // subscribed, a VIP or already-active school never reaches Stripe, and the session carries the
 // school's ID, which the webhook uses to activate it (MAINT 7.1 Part 3; the webhook is Part 2).
 
-const { prismaMock, stripeMock, getOrCreateStripeCustomer, createCheckoutSession } = vi.hoisted(
-  () => ({
-    prismaMock: {
-      coordinatorProfile: { findFirst: vi.fn() },
-      iBSchool: { update: vi.fn() }
-    },
-    stripeMock: { prices: { list: vi.fn() } },
-    getOrCreateStripeCustomer: vi.fn(),
-    createCheckoutSession: vi.fn()
-  })
-)
+const {
+  prismaMock,
+  stripeMock,
+  getOrCreateStripeCustomer,
+  createCheckoutSession,
+  hasLiveSubscription
+} = vi.hoisted(() => ({
+  prismaMock: {
+    coordinatorProfile: { findFirst: vi.fn() },
+    iBSchool: { update: vi.fn() }
+  },
+  stripeMock: { prices: { list: vi.fn() } },
+  getOrCreateStripeCustomer: vi.fn(),
+  createCheckoutSession: vi.fn(),
+  hasLiveSubscription: vi.fn()
+}))
 
 vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'coord-user' } })) }))
@@ -23,7 +28,8 @@ vi.mock('@/lib/logger', () => ({ logger: { info: vi.fn(), warn: vi.fn(), error: 
 vi.mock('@/lib/stripe/server', () => ({
   getStripe: () => stripeMock,
   getOrCreateStripeCustomer,
-  createCheckoutSession
+  createCheckoutSession,
+  hasLiveSubscription
 }))
 
 import { POST } from './route'
@@ -65,6 +71,7 @@ beforeEach(() => {
   stripeMock.prices.list.mockResolvedValue({ data: [{ id: 'price_1' }] })
   getOrCreateStripeCustomer.mockResolvedValue('cus_new')
   createCheckoutSession.mockResolvedValue('https://checkout.stripe.com/c/pay/cs_1')
+  hasLiveSubscription.mockResolvedValue(false)
 })
 
 afterEach(() => {
@@ -177,5 +184,23 @@ describe('POST /api/subscriptions/create-checkout', () => {
 
     expect(res.status).toBe(500)
     expect(await res.json()).toEqual({ error: 'Failed to create checkout session' })
+  })
+
+  // MAINT 5.34: two checkouts in two tabs would make two subscriptions
+  it('refuses with 409, before a checkout, while the customer has a live subscription', async () => {
+    coordinatorOf(school({ subscriptionStatus: 'CANCELLED', stripeCustomerId: 'cus_stored' }))
+    hasLiveSubscription.mockResolvedValue(true)
+
+    const res = await post()
+
+    expect(res.status).toBe(409)
+    expect(hasLiveSubscription).toHaveBeenCalledWith('cus_stored')
+    expect(createCheckoutSession).not.toHaveBeenCalled()
+  })
+
+  it('asks Stripe nothing about subscriptions for a school with no customer yet', async () => {
+    await post()
+
+    expect(hasLiveSubscription).not.toHaveBeenCalled()
   })
 })

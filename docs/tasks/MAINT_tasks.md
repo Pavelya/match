@@ -40,7 +40,7 @@ the others fall.
 | 13 | One course for two requirements | 5.18 | research small, change medium | Research any time; the change with the matching review | Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science. The owner chooses the model; the chip copy needs a board |
 | 14 | Returning students and social media | 7.5 | medium | Part A any time; B to D after 7.4 is published | Research and a plan. Anything that emails or tracks changes the Privacy Policy |
 | 15 | Small fixes from the legal review | 5.28 to 5.33 | tiny to small | **5.28 before the new Privacy Policy is published**; the rest any time | 5.28 stops the rate limiters keeping IDs and addresses forever. 5.30 changes a consent flow, so it goes alone |
-| 16 | Late Stripe events | 5.34 | small | **Before the first REGULAR school subscribes**; none has a Stripe customer on 26 October 2026 | A late or duplicate-subscription event can re-activate a cancelled school or cancel a paying one. Money logic, so alone. A failed renewal (`past_due`) keeps access until Stripe gives up (owner, 26 October), once the Dashboard's failed-payment action is confirmed |
+| 16 | Late Stripe events | 5.34 | small | Done 26 October 2026 | The webhook writes what Stripe says now, only for the school's current subscription; checkout refuses a second live subscription; a failed renewal keeps access until Stripe gives up |
 | 17 | Rate limits on six handlers | 5.35 | tiny | Done with 5.36, row 9a | — |
 
 **For the owner, now:** compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
@@ -107,7 +107,7 @@ Phase 5 — quick wins
 - [ ] 5.31 Put the consent records, support tickets and invitations in the data export
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
-- [ ] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — before the first school subscribes
+- [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
 - [x] 5.35 Give the last six signed-in handlers a rate limit (from 7.1 Part 3) — 26 October 2026, with 5.36
 - [x] 5.36 Refuse a revoked coordinator in every coordinator API route (from 7.1 Part 3) — 26 October 2026
 
@@ -2062,7 +2062,7 @@ text of the API errors honest ("Subscribe to edit student data"). The portal kee
 
 ---
 
-### 5.34 — Let a late Stripe event never change a school's subscription
+### 5.34 — Let a late Stripe event never change a school's subscription — **done**
 
 **Outcome:** A school's subscription status follows its current Stripe subscription as it is
 now, whatever order the events arrive in.
@@ -2124,6 +2124,40 @@ real run needs Stripe test mode and `stripe listen` against a throwaway database
 production.
 
 **Session size:** Small. A change to money logic, so its own pull request.
+
+**Done 26 October 2026.** **Stripe setting confirmed by the owner, 26 October 2026: when all
+retries for a payment fail, Stripe cancels the subscription.** So `past_due` ends in `canceled`,
+which the webhook writes as `CANCELLED`. If that setting is ever changed to "leave the
+subscription past-due", `past_due` must come out of `PAID` in `lib/stripe/subscription-status.ts`
+the same day.
+
+- **One path for every event.** `checkout.session.completed` and `customer.subscription.created`,
+  `.updated` and `.deleted` all end in `applySubscription` in `app/api/webhooks/stripe/route.ts`.
+  It asks Stripe for the subscription's status now (`getSubscriptionStatus` in
+  `lib/stripe/server.ts`) and writes that; the status inside the event is never read. One Stripe
+  API call per event, and a second only when the school stores a different subscription.
+- **Only the school's current subscription.** When the school stores a different subscription
+  and Stripe says that one is still live (`active`, `trialing`, `past_due`, `unpaid` or `paused`),
+  the event is ignored with 200 — a late event for an old subscription, or a second one opened in
+  another tab. Once the stored one has ended, or Stripe no longer has it, the event's subscription
+  takes its place. That answers the open question about `created`: arriving before its checkout,
+  it is adopted when the school has no live subscription, and ignored when it has.
+- **The status rules** are in `lib/stripe/subscription-status.ts`: `active`, `trialing` and
+  `past_due` give `ACTIVE` (the owner's decision); `canceled` gives `CANCELLED`, from whichever
+  event reports it, where an `updated` saying `canceled` used to give `INACTIVE`; everything else,
+  including a status Stripe adds later, gives `INACTIVE`. Access is the same for both.
+- **Checkout refuses a school whose Stripe customer has a live subscription**, with 409, before a
+  checkout is created (`hasLiveSubscription`, which replaced the unused
+  `getCustomerSubscriptionStatus`). One Stripe call per checkout, only for a returning customer.
+- **Lookups** read `select: { id: true, stripeSubscriptionId: true }`. A checkout for a school
+  that does not exist, or for a subscription Stripe does not have, now answers 200 with nothing
+  written, instead of failing on every retry for three days.
+
+**Tests.** `app/api/webhooks/stripe/route.test.ts` (69) mocks only `subscriptions.retrieve`; the
+signing stays real. Both scenarios above were written first and failed on the old route — 46 of
+69 failed — then passed. `lib/stripe/server.test.ts` (8) covers the two Stripe reads; the
+checkout test gained the 409. Three deliberate breaks each failed: the current-subscription guard
+removed (3 tests), `past_due` taken out of the paid statuses (3), the checkout guard removed (1).
 
 ---
 

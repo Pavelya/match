@@ -10,7 +10,12 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { getStripe, getOrCreateStripeCustomer, createCheckoutSession } from '@/lib/stripe/server'
+import {
+  getStripe,
+  getOrCreateStripeCustomer,
+  createCheckoutSession,
+  hasLiveSubscription
+} from '@/lib/stripe/server'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 
@@ -69,6 +74,15 @@ export async function POST() {
       return NextResponse.json(
         { error: 'School already has an active subscription' },
         { status: 400 }
+      )
+    }
+
+    // Nor one whose Stripe customer still has a live subscription: a second checkout opened in
+    // another tab would bill the school twice (MAINT 5.34). Only a returning customer can have one.
+    if (school.stripeCustomerId && (await hasLiveSubscription(school.stripeCustomerId))) {
+      return NextResponse.json(
+        { error: 'School already has a subscription. Manage it from the billing portal.' },
+        { status: 409 }
       )
     }
 
