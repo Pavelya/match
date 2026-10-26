@@ -54,9 +54,10 @@ deletes today's design.
 | The database's public API | 5.37 | 26 October 2026 | Data API off; Row Level Security on all 24 tables, the API roles' grants revoked, new tables closed by an event trigger that CI checks. The Advisor's list and Vercel's old key wait for the owner |
 | Invited people's policy versions | 5.30 | 26 October 2026 | Both invitation routes store the published Terms and Privacy labels, so no notice follows; the coordinator-access version stays. The unused `/api/students/consent` deleted |
 | Admin deletes a coordinator with invitations | 5.29 | 26 October 2026 | `deleteCoordinatorAccount` in one transaction: the invitations they sent and the one sent to them, sign-in links, then the user. The school and its students stay |
+| The whole data export | 5.31 | 26 October 2026 | The download adds the consent records, the student's support tickets and the invitations sent to their address, naming no one else (version 1.1). Privacy 9's draft sentence shortened |
 
 **All done tasks:** 5.1–5.17 (5.15 decided: no change for now), 5.19–5.28 (5.25 but for its step 6,
-which waits for the owner), 5.29, 5.30, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
+which waits for the owner), 5.29–5.31, 5.34–5.37 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.5, and 7.1 Parts 1 to 3. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -66,14 +67,13 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | The whole data export | 5.31 | small | After it, the Privacy Policy's sentence about the download is shortened |
-| 2 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request, or fold into row 1 |
-| 3 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
-| 4 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
-| 5 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
-| 6 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 7 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 8 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Three tiny fixes | 5.32, 5.33, 5.38 | tiny | Redact the address in the support-ticket logs; "Subscribe" instead of "Upgrade to VIP" (words only, the portal keeps today's design); "30-minute call" on For schools, both designs. One pull request |
+| 2 | `prisma-client` generator | 6.6 | medium | Alone (rule 1), and not in the week of release day: if it breaks, every page breaks. R.2 deletes only 2 of the 58 files that import `@prisma/client`, so waiting for it saves nothing |
+| 3 | The `.verify.ts` scripts to Vitest | 7.1 Part 4 | medium | Mechanical; a session of its own |
+| 4 | One course for two requirements | 5.18 | research small, change medium | Research first (step 1); the owner chooses how to store the rule; the chip copy needs an approved board before code. Trinity Medicine and Manchester MBChB show "Meets all requirements" with one science |
+| 5 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 6 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 7 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -148,7 +148,7 @@ Phase 5 — quick wins
 - [x] 5.28 Stop the rate limiters keeping account IDs and IP addresses forever (from the legal review, 7.4) — #156, #159; purged, none left on 24 October 2026
 - [x] 5.29 Let an admin delete a coordinator who has sent invitations — 26 October 2026
 - [x] 5.30 Store the published policy versions when someone accepts an invitation — 26 October 2026
-- [ ] 5.31 Put the consent records, support tickets and invitations in the data export
+- [x] 5.31 Put the consent records, support tickets and invitations in the data export — 26 October 2026
 - [ ] 5.32 Redact the address in the support-ticket email logs
 - [ ] 5.33 Stop telling a coordinator to "upgrade to VIP"
 - [x] 5.34 Let a late Stripe event never change a school's subscription (from 7.1 Part 2) — 26 October 2026
@@ -2080,7 +2080,7 @@ as the 23 October finding; they were left as written.
 
 ---
 
-### 5.31 — Put the consent records, support tickets and invitations in the data export
+### 5.31 — Put the consent records, support tickets and invitations in the data export — **done**
 
 **Outcome:** "Download your data" returns everything the account holds about the student, which is what the Privacy
 Policy will say it does.
@@ -2098,6 +2098,19 @@ student's support tickets and any invitation sent to their address.
 **Verify:** the test; the download from a throwaway account.
 
 **Session size:** Small. After it, the Privacy Policy's sentence about what the download contains is shortened.
+
+**Done 26 October 2026.** `exportVersion` is `'1.1'`. `consent` holds the four `User` fields and, under
+`coordinatorAccess`, `linkedByInvitation` and the consent's date and version (null with no profile).
+`supportTickets` comes from the same `User` query: number, category, status, subject, message, the reply and three
+dates, but not who resolved it. `invitations` is one more `findMany`, with the filter `lib/account/delete-student.ts` deletes
+by (`role: 'STUDENT'`, the address case-insensitively), so the export shows what deleting the account removes. The
+case-insensitive match cannot use the `email` index, so Postgres scans the small `Invitation` table, but only the
+student's rows leave the database. It returns school name, status and the sent, expiry and accepted dates, never the sender, the
+token or the address. Six new tests in `route.test.ts` fail on the old route. On a throwaway local Postgres, the
+download from `next dev` held a mixed-case invitation and left out a coordinator invitation to the same address,
+another student's invitation and another user's ticket. The Privacy Policy draft (`privacy-policy.proposed.md` and
+its redline, section 9) now says "download all your data as a file" and no longer offers support requests by
+request; `docs/legal-review/README.md` (F4) and `product-today.md` say so.
 
 ---
 

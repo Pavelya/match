@@ -102,8 +102,10 @@ matches. An admin deleting a student runs the same function (`app/api/admin/stud
 - **Backups, logs, email logs.** Not under the app's control: see `providers.md`.
 
 **The data export** (Settings → Download your data → `GET /api/students/account/export`) returns
-account, academic profile, preferences and saved programs as JSON. It leaves out the consent records,
-support tickets and invitations. Coordinators have no export of their own data.
+account, academic profile, preferences and saved programs as JSON, and since MAINT 5.31 the consent
+records (policy versions and dates, the school link's consent), the student's support tickets with their replies,
+and the school invitations sent to their address. It names no other person: not who resolved a ticket or sent an
+invitation. Coordinators have no export of their own data.
 
 ## 5. Emails
 
