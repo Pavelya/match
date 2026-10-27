@@ -78,7 +78,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | medium | Moved from group 3 on 27 October 2026 (owner): built now, used on release day. The board "D4.18 Emails · inactivity notice" (row 30) waits for the owner's approval; the build starts after it. Both buttons stay off behind `INACTIVE_ACCOUNTS_ENABLED` until the Privacy Policy that sets the rule is published. Part E, the daily job, only when the owner asks, after a manual round |
+| 1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | medium | Moved from group 3 on 27 October 2026 (owner): built now, used on release day. The board "D4.18 Emails · inactivity notice" (row 30) was approved on 27 October 2026, every recommendation. Both buttons stay off behind `INACTIVE_ACCOUNTS_ENABLED` until the Privacy Policy that sets the rule is published. Part E, the daily job, only when the owner asks, after a manual round |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -4067,7 +4067,8 @@ its own dark colours, inverted partly and fully, with images off, a student link
 text and the inbox line. Six decisions for the owner, each with a recommendation: the subject and heading
 name the date; the button opens the sign-in page, with no token in the email; a linked student sees the
 school named in the list; one email for every silent student; the date is the notice plus 30 whole days
-in UTC; "Inactive account" above the heading. Waits for approval.
+in UTC; "Inactive account" above the heading. **Approved 27 October 2026 (owner), every
+recommendation.** The board's words are the words to build, subject, preview and plain text included.
 
 **Part D — the admin page.** Built before release day (owner, 27 October 2026), with both buttons off
 until `INACTIVE_ACCOUNTS_ENABLED` is on: with it off, the page shows the lists, and the buttons are
@@ -4126,7 +4127,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 **Session size:** Large. Split into sessions:
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
 - ~~Part A~~ and ~~Part B~~ done 27 October 2026;
-- Part C's board, a design session (drawn 27 October 2026, awaiting approval);
+- ~~Part C's board~~ approved 27 October 2026;
 - Parts C and D in code, the buttons behind `INACTIVE_ACCOUNTS_ENABLED`, off;
 - Part E, only when the owner asks for it.
 
