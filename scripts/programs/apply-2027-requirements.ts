@@ -9,8 +9,8 @@
  * set, as the admin form does), and the stamps `requirementsVerified = true`,
  * `requirementsUpdatedAt = checkedOn` and `requirementsEntryYear` (the year the source
  * names, else the file's `undatedEntryYear`). It finishes by syncing the written programs to
- * Algolia and invalidating the programs cache, which the standalone Prisma client does not
- * do on its own.
+ * Algolia and clearing the programs cache and cached matches, which the standalone Prisma
+ * client does not do on its own.
  *
  * Rows with a `hold` are skipped: the owner has not confirmed them yet. Clear the `hold`
  * in the data file once they have.
@@ -31,6 +31,7 @@ import type { Prisma } from '@/app/generated/prisma/client'
 import { prisma } from '@/lib/prisma-standalone'
 import { syncProgramsBatch } from '@/lib/algolia/sync'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
+import { clearAllMatchCache } from '@/lib/matching/cache'
 import {
   assignGroupIds,
   diffProgram,
@@ -171,6 +172,7 @@ async function loadCurrent(ids: string[]) {
           requiredLevel: true,
           minGrade: true,
           isCritical: true,
+          ownCourse: true,
           ibCourse: { select: { code: true } }
         }
       }
@@ -183,7 +185,8 @@ async function loadCurrent(ids: string[]) {
         level: r.requiredLevel,
         grade: r.minGrade,
         critical: r.isCritical,
-        group: r.orGroupId
+        group: r.orGroupId,
+        ...(r.ownCourse && { ownCourse: true })
       }))
       return [
         p.id,
@@ -352,6 +355,7 @@ async function main() {
               requiredLevel: r.level,
               minGrade: r.grade,
               isCritical: r.critical,
+              ownCourse: r.ownCourse === true,
               orGroupId: r.orGroupId
             }))
           })
@@ -374,7 +378,8 @@ async function main() {
       : `⚠️  Algolia sync failed for ${failed}; run npx tsx scripts/sync-to-algolia-standalone.ts`
   )
   await invalidateProgramsCache()
-  console.log('🗑️  Programs cache invalidated.\n')
+  await clearAllMatchCache()
+  console.log('🗑️  Programs cache and cached matches cleared.\n')
 
   if (written.length < toWrite.length) process.exitCode = 1
 }

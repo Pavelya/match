@@ -299,7 +299,20 @@ const refresh: RefreshFile = {
             { course: 'PHYS', level: 'SL', grade: 4 },
             { course: 'PHYS', level: 'HL', grade: 3 }
           ],
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'SL', grade: 4 },
+            { course: 'BIO', level: 'HL', grade: 3 },
+            { course: 'CHEM', level: 'SL', grade: 4 },
+            { course: 'CHEM', level: 'HL', grade: 3 },
+            { course: 'PHYS', level: 'SL', grade: 4 },
+            { course: 'PHYS', level: 'HL', grade: 3 }
+          ],
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -310,7 +323,7 @@ const refresh: RefreshFile = {
         'https://www.antagning.se/sv/betyg-och-behorighet/international-baccalaureate/ib-examen-2021-och-framat/rakna-ut-ditt-meritvarde/'
       ],
       notes:
-        "Content 4.8: the study page shows Autumn 2027 (start 30 August 2027). Entry requirements: general requirements plus either Biology 1, Physics 1a or 1b1+1b2, Chemistry 1 and Mathematics 4, or Mathematics 4 and two of Biology 2, Physics 2 and Chemistry 2. UHR's IB page (universityadmissions.se, updated 1 October 2026; it names no intake) translates the Swedish courses: English 6 = English B SL or any English A, at 4 (a test can replace it, so English is stored not critical); Mathematics 2a/2b/2c = any IB maths at 3 (Maths AI SL 3 is Mathematics 2a); Mathematics 3b/3c = Maths AA SL 3, Maths AI SL 4 or Maths AI HL 3; Mathematics 4 = Maths AA SL 4, or Maths AA or AI HL 3; Physics, Chemistry and Biology 2 = the subject at SL 4 or HL 3; Civics (Social Studies) 1b = the IB Diploma itself. With the IB the second route is the easier: Maths 4 and two of Biology, Chemistry and Physics (each SL 4 or HL 3). The model holds one OR group, so one science is stored and the second is in this note. Selection: in the early international round, entirely on the secondary school GPA (the converted IB total); in the national round, GPA 66% and the Swedish aptitude test 34%. Degree of Bachelor of Science with major in Physical Geography and Ecosystem Science. The IB Diploma meets the general entry requirements; selection converts the IB total to the Swedish 10-20 scale from 24 points (13.18) up, and no higher minimum is published, so 24, the Diploma minimum, is stored (was 30, which no Lund page gives)."
+        'Content 4.8: the study page shows Autumn 2027 (start 30 August 2027). Entry requirements: general requirements plus either Biology 1, Physics 1a or 1b1+1b2, Chemistry 1 and Mathematics 4, or Mathematics 4 and two of Biology 2, Physics 2 and Chemistry 2. UHR\'s IB page (universityadmissions.se, updated 1 October 2026; it names no intake) translates the Swedish courses: English 6 = English B SL or any English A, at 4 (a test can replace it, so English is stored not critical); Mathematics 2a/2b/2c = any IB maths at 3 (Maths AI SL 3 is Mathematics 2a); Mathematics 3b/3c = Maths AA SL 3, Maths AI SL 4 or Maths AI HL 3; Mathematics 4 = Maths AA SL 4, or Maths AA or AI HL 3; Physics, Chemistry and Biology 2 = the subject at SL 4 or HL 3; Civics (Social Studies) 1b = the IB Diploma itself. With the IB the second route is the easier: Maths 4 and two of Biology, Chemistry and Physics (each SL 4 or HL 3). Stored as two groups of the three, each needing a course of its own. Selection: in the early international round, entirely on the secondary school GPA (the converted IB total); in the national round, GPA 66% and the Swedish aptitude test 34%. Degree of Bachelor of Science with major in Physical Geography and Ecosystem Science. The IB Diploma meets the general entry requirements; selection converts the IB total to the Swedish 10-20 scale from 24 points (13.18) up, and no higher minimum is published, so 24, the Diploma minimum, is stored (was 30, which no Lund page gives). MAINT 5.39 (27 October 2026): the study page, re-read (Autumn 2027), still says "Mathematics 4 … together with two of the courses Biology 2/Biology level 2, Physics 2/Physics level 2 and Chemistry 2/Chemistry level 2"; the second group added and both marked.'
     }
   ]
 }

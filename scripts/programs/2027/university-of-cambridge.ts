@@ -306,7 +306,14 @@ const update: UniversityUpdate = {
       minIBPoints: 41,
       requirements: [
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'HL',
+          grade: 6,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'HL', grade: 6, critical: true, ownCourse: true }
       ],
       sources: [
         'https://www.undergraduate.study.cam.ac.uk/courses/natural-sciences-ba-hons-msci',
@@ -314,7 +321,7 @@ const update: UniversityUpdate = {
       ],
       sourceYear: 2027,
       notes:
-        'Maths plus two of Biology, Chemistry, Physics; the model can express one. AA is expected for Physical, AI considered for Biological.'
+        'Maths plus two of Biology, Chemistry, Physics, stored as two groups, each needing a course of its own. AA is expected for Physical, AI considered for Biological. MAINT 5.39 (27 October 2026): the course page, re-read ("for entry in 2027"), still asks for "Mathematics" and "2 other science or mathematics subjects (Biology, Chemistry, Physics …)" at Higher Level; the second group added and both marked.'
     },
     {
       id: 'cmlhsg049000cjp04l5dp54yc',
