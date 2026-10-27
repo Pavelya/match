@@ -10,7 +10,7 @@ import { EMAIL_CSS, EMAIL_FONT, EMAIL_LIGHT as c, emailBaseUrl } from './tokens'
  * the line above the heading, the one h1, then the blocks, and the footer under the card. Left-
  * aligned, as the site's cards are. Tables for the structure, so classic Outlook keeps it.
  */
-export function EmailLayout({ content }: { content: EmailContent }) {
+export function EmailLayout({ content, newUi }: { content: EmailContent; newUi?: boolean }) {
   const baseUrl = emailBaseUrl()
 
   return (
@@ -30,7 +30,7 @@ export function EmailLayout({ content }: { content: EmailContent }) {
                   <tbody>
                     <tr>
                       <td className="em-card" style={card}>
-                        <EmailHeader baseUrl={baseUrl} />
+                        <EmailHeader baseUrl={baseUrl} newUi={newUi} />
                         {content.eyebrow && (
                           <p className="em-text" style={eyebrow}>
                             {content.eyebrow}
@@ -98,7 +98,7 @@ function Block({ block }: { block: EmailBlock }) {
           </div>
           {block.writeOut && (
             <p className="em-muted" style={writtenOut}>
-              Button not working? Paste this link into your browser:
+              {block.writeOutLabel ?? 'Button not working? Paste this link into your browser:'}
               <br />
               <a href={block.href} className="em-link" style={{ ...link, wordBreak: 'break-all' }}>
                 {block.href}

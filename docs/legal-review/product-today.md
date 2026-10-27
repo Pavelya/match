@@ -119,6 +119,11 @@ coordinator invitation, ticket created, ticket resolved, account deleted (`email
 "Privacy Policy", and switches in at release (rebranding 4.7). `lib/email/support-tickets.ts` logs the
 recipient's address unredacted on a send; `lib/email/account-emails.ts` redacts it.
 
+An eighth, the inactivity notice (`emails/inactivity-notice.tsx`, MAINT 7.6 Part C), is built but
+not sent: the admin's "Send notices" (`/admin/students/inactive`) works only once
+`INACTIVE_ACCOUNTS_ENABLED` is on, after the Privacy Policy that sets the rule is published. It is
+the only email an inactive student gets; deleting their account 30 days later sends none.
+
 ## 6. What a school's coordinators see and do
 
 A linked student's name, email, academic profile, matches and saved programs

@@ -4,6 +4,9 @@ import { describe, expect, it } from 'vitest'
 
 import {
   activeStudentsWhere,
+  daysLeft,
+  deletionDate,
+  inactivityState,
   isSilent,
   lastSeen,
   monthsBefore,
@@ -72,5 +75,62 @@ describe('the count conditions', () => {
       role: 'STUDENT',
       lastActiveAt: { gt: at('2026-09-27T12:00:00.000Z') }
     })
+  })
+})
+
+describe('inactivityState', () => {
+  const created = at('2025-06-01T00:00:00.000Z')
+  const state = (lastActiveAt: Date | null, notice: Date | null, when = now) =>
+    inactivityState({ lastActiveAt, createdAt: created, inactivityNoticeSentAt: notice }, when)
+
+  it('is active when seen within 6 months, and due a notice from exactly 6 months', () => {
+    expect(state(new Date(silentCutoff(now).getTime() + 1), null)).toBe('active')
+    expect(state(silentCutoff(now), null)).toBe('due-notice')
+  })
+
+  it('counts an account with no date from the day it was made', () => {
+    expect(state(null, null)).toBe('due-notice')
+  })
+
+  it('is notified through the 29th day after the notice, and due for deletion from the 30th', () => {
+    const notice = at('2026-11-17T09:30:00.000Z')
+    const seen = at('2026-01-30T12:00:00.000Z')
+    expect(state(seen, notice, at('2026-11-17T09:31:00.000Z'))).toBe('notified')
+    expect(state(seen, notice, at('2026-12-16T23:59:59.999Z'))).toBe('notified')
+    expect(state(seen, notice, at('2026-12-17T00:00:00.000Z'))).toBe('due-deletion')
+    expect(state(seen, notice, at('2027-02-01T00:00:00.000Z'))).toBe('due-deletion')
+  })
+
+  it('keeps a student who came back after the notice, even if the notice was not cleared', () => {
+    const notice = at('2026-11-17T09:30:00.000Z')
+    const later = at('2026-12-20T00:00:00.000Z')
+    expect(state(at('2026-11-20T10:00:00.000Z'), notice, later)).toBe('active')
+    // The same second as the notice is not coming back
+    expect(state(notice, notice, later)).toBe('due-deletion')
+  })
+
+  it('needs a fresh 6 months before another notice', () => {
+    // Came back on 20 November, cleared; silent again only from 20 May
+    expect(state(at('2026-11-20T10:00:00.000Z'), null, at('2027-05-19T10:00:00.000Z'))).toBe(
+      'active'
+    )
+    expect(state(at('2026-11-20T10:00:00.000Z'), null, at('2027-05-20T10:00:00.000Z'))).toBe(
+      'due-notice'
+    )
+  })
+})
+
+describe('the deletion date', () => {
+  it('is the notice day plus 30 whole days, at midnight UTC', () => {
+    expect(deletionDate(at('2026-11-17T23:59:00.000Z'))).toEqual(at('2026-12-17T00:00:00.000Z'))
+    expect(deletionDate(at('2026-11-17T00:00:00.000Z'))).toEqual(at('2026-12-17T00:00:00.000Z'))
+  })
+
+  it('counts the days left in whole UTC days, never below 0', () => {
+    const notice = at('2026-11-17T09:30:00.000Z')
+    expect(daysLeft(notice, at('2026-11-17T22:00:00.000Z'))).toBe(30)
+    expect(daysLeft(notice, at('2026-12-16T01:00:00.000Z'))).toBe(1)
+    expect(daysLeft(notice, at('2026-12-17T01:00:00.000Z'))).toBe(0)
+    expect(daysLeft(notice, at('2027-01-17T01:00:00.000Z'))).toBe(0)
   })
 })

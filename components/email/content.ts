@@ -16,7 +16,15 @@ export type EmailBlock =
    * The one button, with its link written out under it where `writeOut` says so (the sign-in and
    * invitation emails). Plain text gives "Label:" and the link, or the link alone (`plain: 'url'`)
    */
-  | { type: 'button'; label: string; href: string; writeOut?: boolean; plain?: 'url' }
+  | {
+      type: 'button'
+      label: string
+      href: string
+      writeOut?: boolean
+      /** The line above the written-out link, when it isn't "Button not working? Paste this…" */
+      writeOutLabel?: string
+      plain?: 'url'
+    }
   /** The details panel: what coordinators can access, a ticket, the reply, what was deleted */
   | {
       type: 'panel'
