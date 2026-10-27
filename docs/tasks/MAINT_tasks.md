@@ -3079,7 +3079,11 @@ university page and `/auth/signin` with 200, an unknown path with 404, and `/api
 `/student/matches`, `/coordinator/dashboard` and `/admin` redirected signed-out visitors to sign-in.
 The optimizer returned a university image from Supabase Storage as WebP, and refused a local SVG with
 400. (`/student/matches` redirects to `localhost:3000` locally because of `NEXTAUTH_URL` in `.env`;
-16.3.4 does the same.)
+16.3.4 does the same.) CI green; the Vercel preview built with Next.js 16.4.3, 125 pages, in 57 s.
+
+**Still to check by hand:** the preview's pages, which sit behind Vercel's deployment protection: `/`,
+Explore with university images, sign-in and one coordinator page. `vercel curl` could reach them, but it
+may create a protection-bypass secret in the project settings, so it was not used.
 
 ---
 
