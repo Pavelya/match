@@ -75,6 +75,7 @@ export async function GET() {
                 minGrade: true,
                 isCritical: true,
                 orGroupId: true,
+                ownCourse: true,
                 ibCourse: {
                   select: { id: true, name: true, code: true, group: true }
                 }
@@ -121,7 +122,8 @@ export async function GET() {
         requiredLevel: cr.requiredLevel,
         minGrade: cr.minGrade,
         isCritical: cr.isCritical,
-        orGroupId: cr.orGroupId
+        orGroupId: cr.orGroupId,
+        ...(cr.ownCourse && { ownCourse: true })
       })),
       savedAt: sp.createdAt
     }))

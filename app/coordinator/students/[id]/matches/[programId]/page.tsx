@@ -130,6 +130,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
           minGrade: true,
           isCritical: true,
           orGroupId: true,
+          ownCourse: true,
           ibCourse: {
             select: { id: true, name: true, code: true, group: true }
           }

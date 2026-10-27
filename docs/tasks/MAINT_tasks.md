@@ -1303,6 +1303,21 @@ of" rule as one requirement: new task 5.39.
 - **Step 4** is rebranding row 28: the change board "D2.7 Chip · a second subject", then its build.
   Until then a requirement left without a course reads as "not taken", so no program is flagged
   before that build.
+
+**Step 4 done, 26 October 2026.** The board was approved with every recommendation and built (rebranding
+row 28; design QA https://claude.ai/artifact/2HLKLrfHzGDjf5ttqzcM7T). `requirementFacts`
+(`lib/matching/match-status.ts`) judges a program's requirements together, so the chip, the badge, "Why
+this match", the checklist and the compare table share one rule. The build found a gap in step 3: four
+queries fed the matcher without `ownCourse` and would have ignored the flag (the Shortlist,
+`/api/programs/[id]/match`, saved programs and a coordinator's view of a student's program). Each selects
+it now: one column more, no new read. `lib/matching/second-subject.test.ts` holds the board's cases; the
+fingerprint is still byte-identical.
+
+**Step 5, what is left:** teach `scripts/programs/refresh.ts` and `requirements-diff.ts` the field; then
+in the data files mark the HL 6 and HL 5 groups of Trinity Medicine and Dental Science and both groups of
+Manchester MBChB and UCL BSc Psychology, and give Trinity's 13 science strands and Physiotherapy their
+second HL 5 group, both marked. Dry run, the owner's approval, a backup, the write (which re-syncs the
+search records), then `clearAllMatchCache`.
 - **Decided by the owner, 26 October 2026: step 5 runs as soon as build 28 has merged, before
   release day.** Until release, today's design shows a flagged program's score and status right but
   its requirement lines can be muddled (`ProgramCard` checks some rows on its own, and an unmet group

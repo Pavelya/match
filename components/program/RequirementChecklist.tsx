@@ -199,6 +199,7 @@ function RequirementName({
       {children}
       {graded && row.reason && <span className={cn(sub, STATUS[row.kind].text)}>{row.reason}</span>}
       {row.detail && <span className={cn(sub, 'text-muted-foreground')}>{row.detail}</span>}
+      {row.own && <span className="text-[0.8125rem]/[1.1875rem] font-medium">{row.own}</span>}
       {row.options && (
         <details className="group mt-0.5">
           <summary className="flex min-h-8 w-fit cursor-pointer list-none items-center gap-1 rounded-chip text-small font-semibold text-primary [&::-webkit-details-marker]:hidden">

@@ -13,7 +13,7 @@ import type { MatchResult } from './types'
 import {
   CLOSE_POINTS,
   formatRate,
-  subjectFacts,
+  requirementFacts,
   type CardStatus,
   type ChipKind,
   type SubjectFacts
@@ -47,6 +47,11 @@ export interface WhyRow {
   reason?: string
   /** The other courses that count, or the admit rate: "or Maths AI at HL 7" */
   detail?: string
+  /**
+   * Signed out, a requirement that needs a course of its own (MAINT 5.18): "A different subject
+   * from the HL 6 one", in ink, so two rows don't look as if one course meets both
+   */
+  own?: string
   /** A group of more than eight courses, listed by level and grade behind "All N options" */
   options?: { count: number; groups: { label: string; courses: string }[] }
 }
@@ -107,7 +112,7 @@ export interface WhyInput {
 
 export function whyThisMatch(input: WhyInput): WhyThisMatch {
   const { academicMatch } = input.result
-  const facts = academicMatch.subjectMatches.map(subjectFacts)
+  const facts = requirementFacts(academicMatch.subjectMatches)
   const subjects = facts.map((f) => ({ facts: f, row: subjectRow(f) }))
   const order: ChipKind[] = ['gap', 'close', 'met', 'info']
   subjects.sort((a, b) => order.indexOf(a.row.kind) - order.indexOf(b.row.kind))
@@ -207,8 +212,15 @@ function subjectRow(facts: SubjectFacts): WhyRow {
     }
   }
 
-  // Not taken: the requirement is named by its courses, or counted when there are many
-  return { ...namedByCourses(group, courseCount), kind: 'gap', reason: reason(facts) }
+  // Not taken: the requirement is named by its courses, or counted when there are many. Taken
+  // but counted for another requirement, it names the courses left and has no "You" (5.18)
+  const named = namedByCourses(group, courseCount)
+  return {
+    ...named,
+    kind: 'gap',
+    reason: reason(facts),
+    ...(facts.usedElsewhere && { you: '–' })
+  }
 }
 
 /** A requirement named by the courses it accepts, or counted past eight, with nobody's grades */
@@ -274,18 +286,30 @@ export function requirementRows(input: RequirementsInput): WhyRow[] {
       { kind: 'info', type: 'none', name: 'Named subjects', needed: 'None', you: null }
     ]
   }
+  const own = groups.filter((group) => group.rows.some((row) => row.ownCourse))
   return [
     points,
-    ...groups.map((group) =>
-      namedByCourses(
+    ...groups.map((group) => {
+      const row = namedByCourses(
         group,
         group.options.reduce((n, o) => n + o.courses.length, 0)
       )
-    )
+      const others = own.filter((g) => g !== group)
+      if (!own.includes(group) || others.length === 0) return row
+      return { ...row, own: differentFrom(group, others) }
+    })
   ]
 }
 
-function reason({ kind, gradeGap }: SubjectFacts): string | undefined {
+/** "A different subject from the HL 6 one", "… from the other HL 6 one" (D2.7 a second subject) */
+function differentFrom(group: RequirementGroup, others: RequirementGroup[]): string {
+  if (others.length > 1) return `A different subject from each of the other ${others.length}`
+  const levels = (g: RequirementGroup) => formatLevelGrades(unionLevelGrades(g.options))
+  const theirs = levels(others[0])
+  return `A different subject from the ${theirs === levels(group) ? 'other ' : ''}${theirs} one`
+}
+
+function reason({ kind, gradeGap, usedElsewhere }: SubjectFacts): string | undefined {
   switch (kind) {
     case 'met':
       return undefined
@@ -295,6 +319,10 @@ function reason({ kind, gradeGap }: SubjectFacts): string | undefined {
     case 'level_short':
       return 'SL where HL is needed'
     case 'not_taken':
+      if (usedElsewhere) {
+        const other = usedElsewhere.sameNeed ? 'other ' : ''
+        return `Your ${usedElsewhere.name} counts once, for the ${other}${usedElsewhere.usedFor} requirement`
+      }
       return 'Not in your diploma'
   }
 }
@@ -368,6 +396,14 @@ function note(input: WhyInput, facts: SubjectFacts[]): WhyThisMatch['note'] {
 
   // Better grades can't fix a subject that isn't taken, or one taken at SL
   const blockers = facts.filter((f) => f.kind === 'not_taken' || f.kind === 'level_short')
+  // A course that counts for another requirement, alone: say what the other one needs (5.18)
+  const [only] = blockers
+  if (blockers.length === 1 && only.usedElsewhere) {
+    return {
+      kind: 'gap',
+      text: `${only.usedElsewhere.name} counts once, so the other requirement needs ${describeOptions(only.group.options)}. Better grades alone won’t meet it.`
+    }
+  }
   if (blockers.length > 0) {
     const what =
       blockers.length > 2
@@ -396,6 +432,9 @@ function note(input: WhyInput, facts: SubjectFacts[]): WhyThisMatch['note'] {
 
 /** "German B isn't in your diploma", "your Chemistry is SL where HL is needed" */
 function blocker(f: SubjectFacts): string {
+  if (f.usedElsewhere) {
+    return `your ${f.usedElsewhere.name} counts once, and the other requirement needs ${describeOptions(f.group.options)}`
+  }
   if (f.kind === 'level_short' && f.option) {
     return `your ${f.option.courses[0].name} is SL where HL is needed`
   }

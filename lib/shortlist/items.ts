@@ -38,6 +38,8 @@ export interface SavedProgramRow {
     minGrade: number
     isCritical: boolean
     orGroupId: string | null
+    /** Needs a course of its own (MAINT 5.18) */
+    ownCourse?: boolean
     ibCourse: { id: string; name: string }
   }[]
 }
