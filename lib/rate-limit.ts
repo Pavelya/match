@@ -56,7 +56,7 @@ export const rateLimiters = {
     analytics: false
   }),
 
-  // Search endpoints: 30 requests per minute per IP
+  // Search endpoints: 30 requests per minute per account, or per IP for today's search
   // Protects Algolia quota and prevents scraping
   search: new Ratelimit({
     redis,
@@ -91,6 +91,16 @@ export const rateLimiters = {
     redis,
     limiter: Ratelimit.slidingWindow(5, '1 h'),
     prefix: 'ratelimit:support',
+    analytics: false
+  }),
+
+  // Explore signed out: 120 per minute per IP (SEC-11)
+  // A class that hasn't signed in yet shares one school address; signed in, each student counts
+  // against their own account (`search`)
+  searchIp: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(120, '1 m'),
+    prefix: 'ratelimit:searchip',
     analytics: false
   }),
 

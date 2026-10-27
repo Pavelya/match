@@ -24,12 +24,8 @@ heading **done**. A finding from a session becomes a new task and a row here, no
 
 ### Before release day
 
-SEC-1, SEC-2 and SEC-3 were merged on 27 October 2026 (#204, #205, #206). SEC-11 was found later
-the same day.
-
-| Order | Task | Priority | Size | Who |
-|---|---|---|---|---|
-| 4 | [SEC-11 — Count Explore and search per account, so a classroom can browse together](#sec-11--count-explore-and-search-per-account-so-a-classroom-can-browse-together) | P1 | small | session |
+All done: SEC-1, SEC-2, SEC-3 and SEC-11 were merged on 27 October 2026 (#204, #205, #206, #211).
+What is left before release is the owner's checklist, SEC-4.
 
 ### On release day (R.1)
 
@@ -62,6 +58,7 @@ the same day.
 | [SEC-6 Part A](#part-a--the-account-is-gone-the-session-ends--done-209) | 27 October 2026 | The `jwt` callback's work moved to `lib/auth/session-token.ts`: when the re-read finds no account, it returns null and Auth.js clears the cookie, so a deleted account is signed out within 5 minutes instead of carrying on as a student (#209). Part B waits for the owner |
 | [SEC-6 Part B](#part-b--sign-out-everywhere-owner-decides-whether-to-build-it--not-built) | 27 October 2026 | Not built, the owner's decision: Part A covers deleted accounts, and a mailbox that signs back in is SEC-10's matter. Revisit if a lost device or a shared computer ever needs it |
 | [SEC-7 step 3](#during-a-flood) | 27 October 2026 | The runbook "During a flood", the edge rule to set, and Attack Mode as Vercel describes it (#210). Steps 1 and 2 are the owner's, in the dashboards |
+| [SEC-11](#sec-11--count-explore-and-search-per-account-so-a-classroom-can-browse-together--done) | 27 October 2026 | Explore counts a signed-in student against their account (`search`, 30 a minute) and a signed-out visitor against their address (`searchIp`, 120 a minute) (#211). Today's `/api/programs/search` is unchanged: it is cached at the edge and goes at R.2 |
 
 ### Priorities
 
@@ -697,7 +694,12 @@ record.
 
 ---
 
-## SEC-11 — Count Explore and search per account, so a classroom can browse together
+## SEC-11 — Count Explore and search per account, so a classroom can browse together — **done**
+
+**Done 27 October 2026 (#211), for Explore.** Today's `/api/programs/search` was left as it is: Vercel
+caches its answers for a minute (`s-maxage=60`, `next.config.ts`), so a class searching the same words
+is mostly served from the cache, and reading the session there could put a refreshed session cookie
+on a response the CDN keeps. It goes at R.2, when Explore is the only search.
 
 **Priority:** P1, before release · **Size:** small · **Branch:** `fix/sec-11-search-limits` · Found
 27 October 2026, while writing SEC-7
