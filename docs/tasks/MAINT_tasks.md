@@ -67,6 +67,7 @@ deletes today's design.
 | Inactive accounts: the last-active date | 7.6 Part A | 27 October 2026 | `User.lastActiveAt`, written by the `jwt` callback's role read at most once a day, clearing `inactivityNoticeSentAt` (#193; migration applied). Backfilled for all 201 students from their latest stored change: 69 silent, 37 active in the last 30 days |
 | Inactive accounts: the admin and the dashboard | 7.6 Part B | 27 October 2026 | "Last active" and a "Silent" label on `/admin/students` and the student's page, a Silent filter, and two `count()`s on the dashboard (37 active in 30 days, 69 silent). The rule is `lib/account/inactivity.ts`, for Part D to extend |
 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | 27 October 2026 | The notice (`emails/inactivity-notice.tsx`, board row 30) and `/admin/students/inactive` with Send notices (50 a day, one Resend batch, recorded on acceptance) and Delete due accounts (25 a press, re-checked in each transaction). Both off behind `INACTIVE_ACCOUNTS_ENABLED` until the policy is published. Part E only when the owner asks |
+| npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. No npm 12 now; Node 24 everywhere first (6.10), approved by the owner with `strict-allow-scripts`. Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -79,7 +80,10 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Next.js security patch | 6.8 | small | **First, and soon.** `next` 16.3.4 has three critical remote-code-execution advisories, fixed in 16.4.1. Alone in its pull request (rule 1) |
+| 2 | The other eleven advisories | 6.9 | small | After 6.8, which may move `sharp`. `npm audit fix`, never `--force` |
+| 3 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
+| 4 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -173,7 +177,11 @@ Phase 6 — dependency majors
 - [x] 6.4 The minor and patch batch
 - [x] 6.5 TypeScript 5.9 → 7
 - [x] 6.6 Move to the `prisma-client` generator
-- [ ] 6.7 npm 12: find out what it changes here, and decide whether to move
+- [ ] 6.7 npm 12: find out what it changes here, and decide whether to move — steps 1–4 done 27 October
+  2026, approved by the owner; step 5 waits for 6.10
+- [ ] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7)
+- [ ] 6.9 The other eleven advisories (from 6.7)
+- [ ] 6.10 Node 24 on all three machines (from 6.7)
 
 Phase 7 — structural
 
@@ -212,14 +220,14 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | **0** — session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
+| Vulnerabilities | **12 on 27 October 2026** (1 critical, `next`; 7 high; 4 moderate), published since 6.4 left 0: 6.8 and 6.9. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
 | Tests | Vitest 5 (`npm test`), the only suite since 7.1 Part 4 moved the matching algorithm's scripts into it (26 October 2026). Session 8 added tests to CI; before that CI ran none |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. Left in phase 6: 6.7 (whether to move to npm 12) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.8 and 6.9 (advisories), 6.10 (Node 24) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -2832,7 +2840,7 @@ served `/`, `/api/auth/session` and `/admin/legal-content` with no resolution er
 
 ---
 
-### 6.7 — npm 12: find out what it changes here, and decide whether to move
+### 6.7 — npm 12: find out what it changes here, and decide whether to move — **steps 1–4 done, waiting for the owner**
 
 **Outcome:** A short written answer with a recommendation, approved by the owner: whether to move to
 npm 12, when, and on which machines. Local, CI and Vercel run the npm version that answer chooses, and
@@ -2846,7 +2854,8 @@ v12.0.0 release notes and the GitHub changelog before trusting any of this; the 
 online disagree on details:
 
 - **Dependencies' install scripts no longer run** unless the project allows them, in a new
-  `allowScripts` field managed with `npm approve-scripts` and `npm deny-scripts`.
+  `allowScripts` field managed with `npm install-scripts approve` and `npm install-scripts deny`
+  (`approve-scripts` and `deny-scripts` are their old names, kept as aliases).
 - **Dependencies from remote URLs and Git are refused** unless allowed (`--allow-remote`,
   `--allow-git`).
 - `npm-shrinkwrap.json` is gone, and `npm view --json` changes shape.
@@ -2894,6 +2903,209 @@ for packages that turn out not to need their script; run `npm audit fix --force`
 chosen npm; CI green; a Vercel preview built with it.
 
 **Session size:** Small for the investigation (steps 1 to 4). The move, if approved, small.
+
+**Steps 1–4 done 27 October 2026; the owner approved every recommendation the same day**,
+`strict-allow-scripts` included. The answer: **do not move to npm 12 now.** Fold npm into a move to Node 24 on all three machines (6.10), then write the `allowScripts`
+list on npm 11 (step 5, below), so that npm 12 changes nothing here when a Node release brings it.
+The local npm is on 11.21.1, the latest 11, since this session.
+
+**What npm 12 changes here.** Sources: the npm/cli release notes for v12.0.0 (8 July 2026) and for
+every release from v12.0.0-pre.0.0 to v12.2.1 (15 October 2026, the latest), read 27 October 2026,
+and npm 12.2.1's own `npm help install-scripts` and config docs.
+
+- **It needs Node `^22.22.2 || ^24.15.0 || >=26.0.0`.** The local Node, 22.12.0, is below that, and
+  npm 12 warns that it does not support it.
+- **Dependencies' install scripts are blocked** unless `allowScripts` in `package.json` covers them.
+  The project's own `postinstall` (`prisma generate`) and `prepare` (`husky`) still run. npm 12 prints
+  `npm notice run …` before each script, `npx` included, on stderr, so a redirected stdout is unchanged.
+- **npm 11 has had the same machinery since 11.16 (27 May 2026), as a warning:** it lists the
+  scripts `allowScripts` does not cover and runs them, and it already skips a package denied with
+  `false`. Vercel's log prints that list today. `strict-allow-scripts=true` in `.npmrc` makes an
+  uncovered script fail the install, on 11 and 12 alike.
+- **`allow-git` and `allow-remote` default to `none`.** No effect: the lockfile has no Git or URL
+  dependency.
+- **Unknown CLI flags and abbreviated flags throw.** Unknown env configs still only warn. Vercel's
+  build sets `npm_config_cache_dir`, which npm 11 warns about in every build log; npm 12.2.1, tried
+  with the same variable, warns too ("This will error in a future major version of npm"). So Vercel's
+  install would not break on 12, but may on 13.
+- `npm-shrinkwrap.json`, `npm shrinkwrap`, `npm adduser` and `npm star` are gone, `npm view --json`
+  always returns an array, and `npm pkg` no longer forces JSON. Nothing in the repo uses any of them.
+
+**The trial.** A clone in a scratch directory, on Node 24.22.1 and npm 12.2.1, with `.env` copied
+in for the build's read-only prerender.
+
+- `npm ci` with no `allowScripts`: exit 0, 902 packages, `prisma generate` and `husky` ran, and six
+  packages' scripts were blocked: `@prisma/engines` (postinstall), `prisma` (preinstall), `esbuild`
+  0.28.2 and `react-email`'s 0.25.12 (postinstall), `unrs-resolver` (postinstall) and `fsevents`
+  (macOS only).
+- **Everything passed with all six blocked:** type-check, lint, `prettier --check`, 139 test files
+  with 2662 tests, `npm run build` (125 pages), `tsx`, and both copies of esbuild transforming
+  TypeScript.
+- **Why none needs its script.** `@prisma/engines` downloads the schema engine, which the Prisma CLI
+  also fetches by itself when it is missing: with the binary deleted, `prisma migrate diff
+  --from-empty` downloaded it again and printed the SQL, so CI's `prisma migrate deploy` is safe.
+  `prisma`'s preinstall only checks the Node version. esbuild's `install.js` checks the platform
+  binary, which arrives as the optional dependency `@esbuild/<platform>`. `unrs-resolver`'s
+  `napi-postinstall … check` downloads the native binding only when its optional dependency is
+  missing, and it is not. `fsevents` ships `fsevents.node` prebuilt and has no `binding.gyp`.
+- **So `allowScripts` approves nothing; it holds five denials.** `npm install-scripts deny --all`
+  writes four and skips `fsevents`, which needs `npm install-scripts deny fsevents` by name:
+
+  ```json
+  "allowScripts": {
+    "esbuild": false,
+    "prisma": false,
+    "unrs-resolver": false,
+    "@prisma/engines": false,
+    "fsevents": false
+  }
+  ```
+
+  With it, `npm ci` on npm 12 prints no warning and `npm install-scripts ls` reports "No packages with
+  unreviewed install scripts". npm 11.21.1 on Node 22.12 honours it: the five are skipped and the
+  project's `postinstall` runs. npm 10.9.9 ignores the field and installs as before. `npm install` on
+  npm 12 left `package-lock.json` unchanged.
+
+**The three machines, 27 October 2026:**
+
+| | Node | npm | Read from |
+|---|---|---|---|
+| Local | 22.12.0 | 11.0.0, now 11.21.1 | `node -v`, `npm -v` |
+| CI | 22.23.3 | 10.9.9 | `actions/setup-node` with `node-version: 22`; run 40505549174 |
+| Vercel | 24.x | 11, at least 11.19 | The project's Node.js setting is 24.x (`vercel project inspect match`), and `"node": ">=22.0.0"` maps to the latest 24.x. The build log prints no npm version, but its `npm warn install-scripts … not yet covered by allowScripts` wording is 11.19 or later. Vercel's package-manager docs list npm 10 for Node 22 and have no row for Node 24 |
+
+What that shows:
+
+- **Production builds and runs on Node 24; CI tests on Node 22.** Each pull request is checked on a
+  different Node and npm from the one that deploys it.
+- **The local Node is too old for one dependency.** `eslint-visitor-keys` 5.0.1 asks for
+  `^22.13.0`, so every local install prints `EBADENGINE`.
+- **`"node": ">=22.0.0"` lets Vercel move production to a new major by itself** when it offers one,
+  and every build log warns about it. Node 26 becomes long-term support on 28 October 2026.
+- **No Node release ships npm 12.** Node 26.12.1 (21 October 2026) ships npm 11.20.0, Node 24.22.1
+  ships 11.19.1, Node 22.23.4 ships 10.9.9. Vercel takes npm from its Node image; any other npm there
+  needs Corepack (`ENABLE_EXPERIMENTAL_COREPACK=1` and a `packageManager` field), which Vercel calls
+  experimental.
+
+**Why this recommendation, of the four:**
+
+- *Stay on npm 11 and change nothing* leaves the Node 22/24 split in place.
+- *Move local npm only* is not possible on the local Node 22.12, and would leave the laptop the only
+  machine installing differently from CI and Vercel.
+- *Pin one npm for all three* needs experimental Corepack on Vercel, takes CI and Vercel off the npm
+  their Node ships, and buys nothing that npm 11 with the list (and, if wanted, `strict-allow-scripts`)
+  does not already give.
+- *Fold npm into a Node 24 move* puts all three on Node 24 and npm 11.19 or later, the version
+  production already runs, with npm 12's machinery in warning mode. Chosen. It is 6.10.
+
+npm 12 then needs no pull request of its own: it arrives with whichever Node release first ships it,
+in that Node move, and the list makes it a no-op. Nothing is pinned.
+
+**Also found: 12 advisories on `main`, one critical.** `npm audit` reports 4 moderate, 7 high and
+1 critical with npm 11 as well; npm 12 did not cause them. The critical one is `next` 16.3.4: several
+advisories, among them unauthenticated remote code execution, fixed after 16.4.0. That is 6.8, first
+in the order; the other eleven are 6.9.
+
+**What is left — step 5, approved, after 6.10** (on npm 10, CI would ignore the field and prove
+nothing): one pull request with nothing else in it, holding the five denials above and
+`strict-allow-scripts=true` in a new `.npmrc`, both approved by the owner on 27 October 2026. On
+npm 11 an uncovered script still runs; with strict on, a new dependency's script fails CI before merge,
+so it never reaches production unreviewed. Approving one is `npm install-scripts approve <pkg>` in that
+dependency's own pull request. **Verify:** `npm ci` from a clean `node_modules` with no
+`install-scripts` warning, the usual checks and `npm test`, CI green, and a Vercel preview whose log has
+no `install-scripts` warning.
+
+---
+
+### 6.8 — Next.js 16.3.4 → 16.4.3: the critical advisories
+
+**Outcome:** `next` and `eslint-config-next` on 16.4.3 (or the latest 16.4 patch), and `npm audit`
+no longer lists `next`.
+
+**Why:** found by 6.7 on 27 October 2026. `next` 16.3.4 is inside the ranges of eleven advisories,
+three of them critical remote code execution: in Image Optimization when SVG files are used
+(GHSA-2464-fhr4-w9xw), in `use cache` functions returning typed arrays (GHSA-673q-mjm6-r5xr) and in
+`next/og` `ImageResponse` (GHSA-vcvr-r3jv-pc5j); also server-side request forgery in Image Optimization
+(GHSA-cjq9-62q9-8jv4), denial of service through Server Actions (GHSA-p3m5-59mp-jv5r) and five cache and
+disclosure issues. All are fixed by 16.4.1; 16.4.3 is the latest. The site uses Image Optimization
+(`images.remotePatterns` in `next.config.ts`) and one Server Actions file; no `use cache` or `next/og`
+was found. Which of them reach this site was not assessed; the patch is due either way.
+
+**Steps:** read the 16.4 release notes and `node_modules/next/dist/docs/` for anything that changed;
+`npm install next@16.4.3 eslint-config-next@16.4.3`; nothing else in the pull request (rule 1).
+
+**Must not:** fold in 6.9's packages; `npm audit fix --force`.
+
+**Verify:** the usual checks and `npm test`; `npm audit` without `next`; a Vercel preview where `/`,
+Explore with university images, sign-in and one coordinator page work.
+
+**Session size:** small. First in the order: it is the one advisory in a production path that is
+critical.
+
+---
+
+### 6.9 — The other eleven advisories
+
+**Outcome:** `npm audit` at 0 again, as 6.4 left it.
+
+**Why:** found by 6.7 on 27 October 2026, with `next` (6.8):
+
+| Package | Severity | Installed | Comes from | Fixed in |
+|---|---|---|---|---|
+| `zod` | high | 4.5.4 | direct | 4.6.6 |
+| `sharp` | high | 0.35.4 | `next` | 0.35.5 (6.8 may move it) |
+| `vite` | high | 8.3.0 | direct, dev | 8.3.3 |
+| `brace-expansion` | high | 1.1.18, 5.0.9 | several; `overrides` pins `@1` to `^1.1.18` | 1.1.21, 5.0.12 |
+| `engine.io` | high | 6.6.9 | `react-email` → `socket.io`, dev | 6.6.10 |
+| `fast-uri` | high | 3.1.6 | `ajv` (react-email, prisma) | 3.1.9 |
+| `source-map-js` | high | 1.2.1 | `@tailwindcss/node` | 1.2.2 |
+| `vitest`, `@vitest/mocker` | moderate | 5.0.0 | direct, dev | 5.0.3 (5.0.5 latest) |
+| `postcss-selector-parser` | moderate | 6.0.10 | `@tailwindcss/typography` 0.5.20 | 6.1.5 |
+| `@tailwindcss/typography` | moderate | 0.5.20 | direct | npm offers a *downgrade* to 0.5.4; read the advisory first |
+
+**Steps:** after 6.8, so `sharp` is seen through the new `next`. `npm audit fix` without `--force`,
+then targeted `npm update <pkg>` for transitive pins that already satisfy their range (6.4's
+`@humanfs/node` lesson). The `brace-expansion@1` override in `package.json` may need raising. For
+`@tailwindcss/typography`, find out whether the latest still pins `postcss-selector-parser` 6.0.x; if
+so, an `overrides` entry or a recorded exception, never the downgrade.
+
+**Must not:** `npm audit fix --force`; any major version change.
+
+**Verify:** `npm audit` at 0 or every exception written down; the usual checks and `npm test`, which
+is the `zod` and `vitest` check; a Vercel preview.
+
+**Session size:** small.
+
+---
+
+### 6.10 — Node 24 on all three machines
+
+**Outcome:** local, CI and Vercel all build on Node 24 and the npm it ships (11.19 or later), and
+`package.json` names Node 24 so Vercel cannot move to a new major by itself.
+
+**Why:** found by 6.7 on 27 October 2026. Vercel builds and runs production on Node 24.x; CI tests on
+Node 22.23.3 with npm 10.9.9; the laptop has Node 22.12.0, too old for `eslint-visitor-keys` 5.0.1
+(`^22.13.0`). `"node": ">=22.0.0"` lets Vercel pick up Node 26, long-term support from 28 October 2026,
+without a pull request. Node 22 leaves support on 30 April 2027. This is 6.7's chosen route to npm 12.
+
+**Steps:**
+
+1. `package.json`: `"engines": { "node": "24.x" }`. Vercel's docs map that to the latest 24.x. Keep
+   the project's Node.js setting at 24.x.
+2. `.nvmrc`: `24`. CI: `node-version-file: .nvmrc` in all three `actions/setup-node` steps, so CI
+   reads the same file the laptop does.
+3. Local, the owner: install Node 24 LTS (24.22.1 on 20 October 2026), which brings npm 11.19.1; or
+   keep `npm install -g npm@11` current on top.
+4. `npm ci` and the full verification on Node 24; CI green; a Vercel preview whose log no longer warns
+   about `engines`.
+
+**Must not:** change npm or `allowScripts` in the same pull request (6.7 step 5 follows it); move to
+Node 26.
+
+**Verify:** CI's setup-node step prints Node 24 and npm 11; the Vercel preview builds; `npm ci` locally
+on Node 24 has no `EBADENGINE`.
+
+**Session size:** small.
 
 ---
 
