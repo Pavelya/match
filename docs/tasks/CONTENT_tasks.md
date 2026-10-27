@@ -164,7 +164,7 @@ Owner tasks — not AI work
 - [ ] Re-check NTU and NUS once their 2027 lists appear (4.5): NTU's IB subject PDF is still the 2026 window's (the 2027
   window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026. **NTU done
   27 October 2026:** its PDF now covers the AY2027-28 window and every stored rule holds, so its 40 programs are stamped 2027
-  (4.5, "Re-check"). NUS's 20 wait for its AY2027-28 window (last year's opened in mid-December)
+  (4.5, "Re-check"), applied the same day. NUS's 20 wait for its AY2027-28 window (last year's opened in mid-December)
 - [x] Open Melbourne's 14 course pages in a browser (4.7): `study.unimelb.edu.au` refuses curl, urllib and WebFetch, PDFs
   included. The owner checked all 14 by hand on 30 September 2026: the stored values hold for 2027. Stamped 2027 the same day
 - [x] Sydney's maths prerequisite applies to the IB only when taken in Australia (4.7): removed from all 11 courses at the owner's
@@ -2270,7 +2270,7 @@ Backup: `scripts/backups/refresh/2026-09-30T06-14-49-544Z.json`.
   - Public pages: HKU Social Sciences shows 35 points and "checked for 2027 entry"; NUS Bachelor of Computing in Business
     Artificial Intelligence Systems shows its new name, 40 and "Checked for 2026 entry"; HKUST BBA in Marketing shows 36.
 
-#### Re-check, 27 October 2026 — NTU stamped 2027 (owner task); NUS still waits
+#### Re-check, 27 October 2026 — NTU stamped 2027 (owner task), applied the same day; NUS still waits
 
 NTU's "Minimum Subject Requirements for Students with International Baccalaureate Diploma" (`.../msr/emsr_ib.pdf`, last modified
 23 October 2026) now covers the AY2027-28 window, 15 October 2026 to 19 March 2027 ("Information is correct as at October 2026").
@@ -2284,6 +2284,9 @@ grade profile"; the stored points stay unverified, as in 4.5.
 - **Written:** `scripts/programs/2027/nanyang-technological-university.ts`, `checkedOn` 2026-10-27, all 40 `checkedFor` 2027, and
   each note says so. The dry run shows 40 "stamp only" (2026 → 2027), no requirement change and no warning.
 - **Links:** the link checker finds all 40 NTU URLs OK.
+- **Owner-approved and applied on 27 October 2026.** The tool wrote 40 of 40 programs (stamps only) and synced all 40 to Algolia
+  (0 failed), then cleared the programs cache and cached matches. Backup: `scripts/backups/refresh/2026-10-27T20-49-32-635Z.json`.
+  A second dry run finds all 40 up to date, and Aerospace Engineering's public page says "Requirements checked for 2027".
 - **Not stored, new in the PDF** (coverage, not this re-check): twelve programmes marked NEW. Three are Art History double majors
   (with Chinese, History, Philosophy). The others are Biological Sciences with Chemistry, Environmental Earth Systems Science or
   Mathematical Sciences; Chemistry with Environmental Earth Systems Science or Mathematical Sciences; Applied Physics with Biological
