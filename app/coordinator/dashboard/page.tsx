@@ -35,8 +35,10 @@ import {
 } from '@/components/admin/shared'
 import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorDashboardPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

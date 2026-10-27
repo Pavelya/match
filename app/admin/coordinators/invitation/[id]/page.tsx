@@ -13,12 +13,14 @@ import { cn } from '@/lib/utils'
 import { CoordinatorStatusBadge } from '@/components/admin/coordinators/CoordinatorStatusBadge'
 import { ResendInviteButton } from '@/components/admin/coordinators/ResendInviteButton'
 import { DeleteInvitationButton } from '@/components/admin/coordinators/DeleteInvitationButton'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function InvitationDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const invitation = await prisma.invitation.findUnique({

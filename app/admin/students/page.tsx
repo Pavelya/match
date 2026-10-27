@@ -14,12 +14,14 @@ import { Users } from 'lucide-react'
 import { PageContainer, PageHeader, TableEmptyState } from '@/components/admin/shared'
 import { StudentsListClient } from '@/components/admin/students/StudentsListClient'
 import { isSilent } from '@/lib/account/inactivity'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   searchParams: Promise<{ filter?: string }>
 }
 
 export default async function StudentsPage({ searchParams }: PageProps) {
+  await requireAdmin()
   // The dashboard's "Silent" count links here with ?filter=silent
   const { filter } = await searchParams
 

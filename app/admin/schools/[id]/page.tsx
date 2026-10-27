@@ -34,12 +34,14 @@ import {
   QuickStat,
   Breadcrumbs
 } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function SchoolDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const school = await prisma.iBSchool.findUnique({

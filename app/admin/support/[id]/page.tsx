@@ -8,12 +8,14 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PageContainer } from '@/components/admin/shared'
 import { TicketDetailClient } from '@/components/admin/support/TicketDetailClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function AdminSupportTicketPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   // Fetch ticket with all details

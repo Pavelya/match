@@ -29,12 +29,14 @@ import {
   InfoCard,
   Breadcrumbs
 } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function ProgramDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const program = await prisma.academicProgram.findUnique({

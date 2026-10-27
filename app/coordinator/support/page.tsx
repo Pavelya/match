@@ -12,8 +12,10 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { redirect } from 'next/navigation'
 import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorSupportPage() {
+  await requireCoordinator()
   // Get session and verify coordinator
   const session = await auth()
 

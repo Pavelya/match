@@ -7,8 +7,10 @@
 
 import { PageContainer, PageHeader, InfoCard } from '@/components/admin/shared'
 import { Shield, AlertTriangle } from 'lucide-react'
+import { requireCoordinator } from '@/lib/auth/guards'
 
-export default function DeleteRequestPage() {
+export default async function DeleteRequestPage() {
+  await requireCoordinator()
   return (
     <PageContainer maxWidth="3xl">
       <PageHeader

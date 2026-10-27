@@ -12,8 +12,10 @@ import { prisma } from '@/lib/prisma'
 import { Handshake, Users } from 'lucide-react'
 import { PageContainer, PageHeader, TableEmptyState } from '@/components/admin/shared'
 import { AgentsListClient } from '@/components/admin/agents/AgentsListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function AgentsPage() {
+  await requireAdmin()
   // Fetch all agents with their profiles
   const agents = await prisma.universityAgentProfile.findMany({
     include: {

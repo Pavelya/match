@@ -6,17 +6,34 @@
  * Features:
  * - Adds request ID to all responses for tracing
  * - Protects /student/* routes (requires authentication)
+ * - Keeps /admin/* and /coordinator/* to their roles (SEC-1)
  * - Runs before every request to matched routes
+ *
+ * The role here is the token's, which can be a few minutes old (ROLE_REFRESH_MS in
+ * lib/auth/config.ts). It turns away the obvious cases before anything renders; each admin and
+ * coordinator page still checks the database itself (lib/auth/guards.ts).
  */
 
 import { auth } from '@/lib/auth/config'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { NextResponse } from 'next/server'
+
+/** The role each area needs, and where a visitor with no session signs in */
+const ROLE_AREAS = [
+  { prefix: '/admin', role: 'PLATFORM_ADMIN', signIn: '/auth/signin' },
+  { prefix: '/coordinator', role: 'COORDINATOR', signIn: COORDINATOR_SIGN_IN_PATH }
+] as const
+
+function inArea(pathname: string, prefix: string): boolean {
+  return pathname === prefix || pathname.startsWith(`${prefix}/`)
+}
 
 /**
  * Auth middleware wrapper
  * - Adds request ID for tracing
  * - Redirects logged-in users from auth pages to role-appropriate dashboards
  * - Protects /student/* routes (requires authentication)
+ * - Sends a visitor without the role away from /admin/* and /coordinator/*
  */
 export default auth((req) => {
   const { pathname } = req.nextUrl
@@ -51,6 +68,17 @@ export default auth((req) => {
 
     const redirectUrl = new URL(redirectTo, req.url)
     const redirectResponse = NextResponse.redirect(redirectUrl)
+    redirectResponse.headers.set('x-request-id', requestId)
+    return redirectResponse
+  }
+
+  // Admin and coordinator areas: signed out to that area's sign-in, the wrong role to the home page,
+  // where their layouts send them too
+  const area = ROLE_AREAS.find(({ prefix }) => inArea(pathname, prefix))
+  if (area && req.auth?.user?.role !== area.role) {
+    const redirectResponse = NextResponse.redirect(
+      new URL(req.auth?.user ? '/' : area.signIn, req.url)
+    )
     redirectResponse.headers.set('x-request-id', requestId)
     return redirectResponse
   }

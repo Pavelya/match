@@ -11,8 +11,10 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { PageContainer, PageHeader, InfoCard, InfoRow } from '@/components/admin/shared'
 import { Settings, CreditCard, School, Shield, ArrowRight } from 'lucide-react'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorSettingsPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

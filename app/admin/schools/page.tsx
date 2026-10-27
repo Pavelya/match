@@ -14,8 +14,10 @@ import { prisma } from '@/lib/prisma'
 import { Plus, GraduationCap } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { SchoolsListClient } from '@/components/admin/schools/SchoolsListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function SchoolsPage() {
+  await requireAdmin()
   const schools = await prisma.iBSchool.findMany({
     orderBy: { name: 'asc' },
     include: {

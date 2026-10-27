@@ -7,8 +7,10 @@
 import { prisma } from '@/lib/prisma'
 import { UniversityForm } from '@/components/admin/universities/UniversityForm'
 import { FormPageLayout } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function NewUniversityPage() {
+  await requireAdmin()
   // Fetch countries for the selector
   const countries = await prisma.country.findMany({
     orderBy: { name: 'asc' },

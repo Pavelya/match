@@ -15,12 +15,14 @@ import { prisma } from '@/lib/prisma'
 import { UserPlus, UserCog } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { CoordinatorsListClient } from '@/components/admin/coordinators/CoordinatorsListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   searchParams: Promise<{ status?: string; schoolId?: string }>
 }
 
 export default async function CoordinatorsPage({ searchParams }: PageProps) {
+  await requireAdmin()
   const { status, schoolId } = await searchParams
 
   // Fetch coordinators

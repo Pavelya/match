@@ -23,12 +23,14 @@ import type { MatchResult } from '@/lib/matching/types'
 import { requirementsCheck } from '@/lib/programs/entry-year'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string; programId: string }>
 }
 
 export default async function CoordinatorProgramDetailPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id: studentId, programId } = await params
 
   const session = await auth()

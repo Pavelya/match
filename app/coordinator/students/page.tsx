@@ -23,8 +23,10 @@ import { Users, UserPlus } from 'lucide-react'
 import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
 import { StudentsClient } from './StudentsClient'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorStudentsPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

@@ -11,8 +11,10 @@ import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { SeasonalThemesClient } from '@/components/admin/seasonal-themes/SeasonalThemesClient'
 import { prisma } from '@/lib/prisma'
 import { ALL_OFF_KEY, SEASONS, dayOf } from '@/lib/seasons/seasons'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function AdminSeasonalThemesPage() {
+  await requireAdmin()
   // The admin layout has checked the role. A season without a row is off, with no dates.
   const rows = await prisma.seasonalTheme.findMany({
     select: { key: true, enabled: true, startsOn: true, endsOn: true }

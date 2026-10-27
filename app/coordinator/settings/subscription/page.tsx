@@ -15,6 +15,7 @@ import { PageContainer, PageHeader, InfoCard } from '@/components/admin/shared'
 import { CreditCard, Check, AlertCircle, CheckCircle } from 'lucide-react'
 import { getCoordinatorAccess, FREEMIUM_MAX_STUDENTS } from '@/lib/auth/access-control'
 import { SubscriptionActions } from './SubscriptionActions'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface SearchParams {
   success?: string
@@ -26,6 +27,7 @@ export default async function CoordinatorSubscriptionPage({
 }: {
   searchParams: Promise<SearchParams>
 }) {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

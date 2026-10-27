@@ -46,6 +46,7 @@ import { transformStudent, transformPrograms } from '@/lib/matching/transformers
 import type { PrismaStudentWithRelations } from '@/lib/matching/transformers'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 import { cn } from '@/lib/utils'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 // Simple horizontal bar component for visualization
 function HorizontalBar({
@@ -77,6 +78,7 @@ function HorizontalBar({
 }
 
 export default async function CoordinatorAnalyticsPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
