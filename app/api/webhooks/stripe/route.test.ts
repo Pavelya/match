@@ -23,6 +23,8 @@ const { prismaMock, requestHeaders, stripeNow, stored } = vi.hoisted(() => ({
   stored: { id: null as string | null }
 }))
 
+// Next's marker module, which only resolves inside a Next build
+vi.mock('server-only', () => ({}))
 vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/logger', () => ({ logger: { info: vi.fn(), warn: vi.fn(), error: vi.fn() } }))
 // The route reads the signature through `headers()`, which needs a request scope.

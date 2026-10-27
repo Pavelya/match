@@ -1,3 +1,6 @@
+// Server only: `server-only` fails the build if a client file imports it, so the API key can never
+// be bundled for the browser (SEC-8)
+import 'server-only'
 import { Resend } from 'resend'
 import { env } from '@/lib/env'
 
