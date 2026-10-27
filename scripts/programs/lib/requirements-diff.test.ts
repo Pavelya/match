@@ -104,6 +104,20 @@ describe('defsFromRows', () => {
   it('returns nothing for no requirements', () => {
     expect(defsFromRows([])).toEqual([])
   })
+
+  it('keeps a requirement that needs a course of its own, and writes nothing for one that does not', () => {
+    // MAINT 5.18: Trinity Medicine's two science groups.
+    const rows = [
+      { ...row('BIO', 6, 'a'), ownCourse: true },
+      { ...row('CHEM', 6, 'a'), ownCourse: true },
+      { ...row('BIO', 5, 'b'), ownCourse: true },
+      { ...row('CHEM', 5, 'b'), ownCourse: true },
+      { ...row('MATH-AA', 4), level: 'SL' as const }
+    ]
+    const defs = defsFromRows(rows)
+    expect(defs.map((d) => d.ownCourse)).toEqual([true, true, undefined])
+    expect(sameRequirements(rows, rowsFromDefs(defs))).toBe(true)
+  })
 })
 
 describe('sameRequirements', () => {
@@ -127,6 +141,23 @@ describe('sameRequirements', () => {
     const mixed = [row('BIO', 6, 'g', true), row('PHYS', 6, 'g', false)]
     const allCritical = [row('BIO', 6, 'g', true), row('PHYS', 6, 'g', true)]
     expect(sameRequirements(mixed, allCritical)).toBe(true)
+  })
+
+  it('notices a requirement newly needing a course of its own, on any option of its group', () => {
+    const shared = [
+      row('BIO', 6, 'a'),
+      row('CHEM', 6, 'a'),
+      row('BIO', 5, 'b'),
+      row('CHEM', 5, 'b')
+    ]
+    const own = rowsFromDefs([
+      { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, ownCourse: true },
+      { courses: ['BIO', 'CHEM'], level: 'HL', grade: 5, ownCourse: true }
+    ])
+    expect(sameRequirements(shared, own)).toBe(false)
+    expect(own.every((r) => r.ownCourse === true)).toBe(true)
+    const oneOption = shared.map((r, i) => (i % 2 === 0 ? { ...r, ownCourse: true } : r))
+    expect(sameRequirements(oneOption, own)).toBe(true)
   })
 
   it('notices a grade, level or critical change', () => {
@@ -166,6 +197,17 @@ describe('formatRequirements', () => {
   it('writes mixed-grade OR groups option by option and marks non-critical groups', () => {
     const rows = [row('CHEM', 7, 'g', false), row('PHYS', 5, 'g', false), row('CS', 5, null, false)]
     expect(formatRequirements(rows)).toBe('(CHEM HL7 or PHYS HL5) (nc); CS HL5 (nc)')
+  })
+
+  it('marks a requirement that needs a course of its own', () => {
+    const rows = rowsFromDefs([
+      { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, ownCourse: true },
+      { courses: ['PHYS'], level: 'HL', grade: 5, critical: false, ownCourse: true },
+      { courses: ['MATH-AA'], level: 'HL', grade: 5 }
+    ])
+    expect(formatRequirements(rows)).toBe(
+      '(BIO or CHEM) HL6 (own); PHYS HL5 (nc) (own); MATH-AA HL5'
+    )
   })
 })
 

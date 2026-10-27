@@ -71,7 +71,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | One course for two requirements | 5.18, steps 4 and 5 | board, then small; data | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Step 2 decided 26 October: one column on the requirement. Step 3 done 26 October: the column (applied) and the matcher, no score changed. Next: step 4, rebranding row 28 (a change board, then its build), then step 5 sets the flags on 18 programs, with the refresh tooling taught the field first |
+| 1 | One course for two requirements | 5.18, steps 4 and 5 | board, then small; data | Step 1 done 26 October 2026 (`docs/matching/5.18-shared-courses.md`): of 51 programs, 4 are wrong today, 14 store "two of" once, 33 are right. Step 2 decided 26 October: one column on the requirement. Step 3 done 26 October: the column (applied) and the matcher, no score changed. Step 4 done 26 October (rebranding build 28). Step 5 prepared 27 October: the refresh tooling knows the field, the dry run changes 18 programs; the write waits for the owner |
 | 2 | "Two of" rules stored as one | 5.39 | medium, content | After 5.18 step 3 has merged. About 47 programs at McGill, Alberta, Waterloo and five others get their second requirement |
 | 3 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 4 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
@@ -1323,6 +1323,22 @@ search records), then `clearAllMatchCache`.
   its requirement lines can be muddled (`ProgramCard` checks some rows on its own, and an unmet group
   reads "None of the OR options met"). 18 programs out of more than a thousand, for the days left
   before the new design goes to everyone, is accepted. Then 5.39.
+
+**Step 5 prepared, 27 October 2026: dry run done, the write waits for the owner.**
+- **The refresh tooling knows the field.** A data file marks a requirement `ownCourse: true`;
+  `requirements-diff.ts` compares, exports and prints it (`(own)` in the dry run), and `refresh.ts` reads it
+  from the database, writes it, and backs it up, so a restore puts it back. A refresh no longer clears it.
+  A file that marks only one requirement of a program is refused: on its own the flag changes nothing.
+- **The data files.** Trinity Medicine and Dental Science: the HL 6 and HL 5 groups marked, the
+  physics-or-maths group not. Manchester MBChB and UCL BSc Psychology: both groups marked. Trinity's 13
+  science strands and Physiotherapy: the second HL 5 group added, both marked; the maths row is not, so Maths
+  may be one of the two HLs as well. Each note that said the model could not hold the rule is corrected.
+- **The dry run** (`npx tsx scripts/programs/refresh.ts trinity-college-dublin the-university-of-manchester
+  university-college-london`): 18 changes, subjects only, and the other 132 programs of the three files up to
+  date. The stamps don't move: the rules are the ones read for 2027 entry in September (CONTENT 4.1, 4.6),
+  re-read on 26 October for step 1.
+- **Next:** the owner approves; `--apply` backs up the 18 programs, writes them, re-syncs their search
+  records and clears the programs cache and the cached matches.
 
 ---
 
