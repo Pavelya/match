@@ -60,9 +60,10 @@ deletes today's design.
 | The matching scripts to Vitest | 7.1 Part 4 | 26 October 2026 | 21 scripts became 329 Vitest tests; one suite, and CI now sees a failure in the 12 scripts that exited 0 regardless. 7.1 is done. Found 7.7 |
 | Three gaps in the matching tests | 7.7 | 26 October 2026 | 24 new tests and one corrected: the Redis match cache (`lib/matching/cache.test.ts`, new), both 0.25 floors in the subject matcher, and `MATCHING_V10_FULL` overriding the other flags. No score changed |
 | One course for two requirements | 5.18 | 27 October 2026 | `ProgramCourseRequirement.ownCourse` and the matcher that gives marked requirements different courses (#185), rebranding build 28 (#186), and the flags on 18 programs at Trinity, Manchester and UCL (#187). Scores of unflagged programs unchanged. Found 5.39 |
+| "Two of" rules stored as one | 5.39 | 27 October 2026 | 47 programs at McGill, Alberta, Waterloo, Trinity, Imperial, NUS, Leiden, Lund and Cambridge re-read and given their second requirement, both needing a course of their own (#188). Alberta counts Maths AA as Math 31 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.38 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -72,10 +73,9 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | "Two of" rules stored as one | 5.39 | medium, content | Steps 1 and 2 done 27 October 2026: 47 programs re-read and prepared, dry run done; the write waits for the owner |
-| 2 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 3 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 4 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
+| 2 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 3 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -159,7 +159,7 @@ Phase 5 — quick wins
 - [x] 5.37 Close the database's public API: Row Level Security is off on every table — 26 October 2026
   (the Advisor's list and Vercel's old key wait for the owner)
 - [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
-- [ ] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1)
+- [x] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1) — 27 October 2026; 47 programs
 
 Phase 6 — dependency majors
 
@@ -2618,7 +2618,7 @@ wrap, as they did on `main`. `REBRANDING_tasks.md` D4.17 and build 21 record the
 
 ---
 
-### 5.39 — Store the "two of" rules the matcher could not hold
+### 5.39 — Store the "two of" rules the matcher could not hold — **done**
 
 **Outcome:** A program that asks for two subjects from a list ("two of Biology, Chemistry or Physics")
 stores two requirements, each needing a course of its own. Today one is stored and one science
@@ -2663,7 +2663,7 @@ the list no longer meets the requirement, and one with two does.
 
 **Session size:** Medium, content. Depends on 5.18 steps 2 and 3.
 
-**Steps 1 and 2 done, 27 October 2026: 47 programs, dry run done, the write waits for the owner.**
+**Done, 27 October 2026: 47 programs.** Approved by the owner and written the same day.
 Each university's page was re-read on 27 October; every one still states the "two of" rule.
 
 | University | Programs | Re-read | What it says |
@@ -2688,8 +2688,13 @@ Each university's page was re-read on 27 October; every one still states the "tw
 - **Checked with the matcher** on each program's requirements from its data file: a student with two
   different subjects from the list meets them, and the same student without the second does not, in all 32
   programs outside Alberta. At Alberta, Maths AA with one science meets them, as the equivalents table reads.
-- **Next:** the owner approves; then the two `--apply` runs (each backs up first, re-syncs the search
-  records and clears the caches).
+- **Alberta, decided by the owner:** Maths AA stays in the list, so Maths AA and one science meet it.
+- **The write** (27 October): `apply-2027-requirements.ts --only university-of-cambridge --apply` (backup
+  `scripts/programs/2027/backups/2026-10-27T07-48-10-179Z.json`) and `refresh.ts` over the eight files
+  (backup `scripts/backups/refresh/2026-10-27T07-48-14-617Z.json`), both git-ignored: 47 of 47 written,
+  47 search records synced, the programs cache and the cached matches cleared. Checked after: both dry runs
+  find nothing to change; in production 65 programs (5.18's 18 and these 47) have `ownCourse`, in 130
+  groups, each program with two, and no group marked on some options only.
 
 ---
 

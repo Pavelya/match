@@ -4,6 +4,19 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-27] - "Two of" rules stored as two requirements (MAINT 5.39)
+
+### Changed
+
+- **47 more programs need two different subjects from a list**: McGill 13, Alberta 15, Waterloo 12,
+  Trinity Physical Sciences and Physics, Imperial Geology, NUS Nursing, Leiden Science for Sustainable
+  Societies (one HL and one SL), Lund Physical Geography and Ecosystem Science, Cambridge Natural Sciences.
+  Each "two of" was stored once, so one subject met it; it is now two requirements marked `ownCourse`.
+  At Alberta, Maths AA counts as Math 31, one of the list. `apply-2027-requirements.ts` now writes
+  `ownCourse` too. Every other program's score is unchanged.
+
+---
+
 ## [2026-10-27] - The first programs flagged (MAINT 5.18 step 5)
 
 ### Changed
