@@ -67,7 +67,7 @@ deletes today's design.
 | Inactive accounts: the last-active date | 7.6 Part A | 27 October 2026 | `User.lastActiveAt`, written by the `jwt` callback's role read at most once a day, clearing `inactivityNoticeSentAt` (#193; migration applied). Backfilled for all 201 students from their latest stored change: 69 silent, 37 active in the last 30 days |
 | Inactive accounts: the admin and the dashboard | 7.6 Part B | 27 October 2026 | "Last active" and a "Silent" label on `/admin/students` and the student's page, a Silent filter, and two `count()`s on the dashboard (37 active in 30 days, 69 silent). The rule is `lib/account/inactivity.ts`, for Part D to extend |
 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | 27 October 2026 | The notice (`emails/inactivity-notice.tsx`, board row 30) and `/admin/students/inactive` with Send notices (50 a day, one Resend batch, recorded on acceptance) and Delete due accounts (25 a press, re-checked in each transaction). Both off behind `INACTIVE_ACCOUNTS_ENABLED` until the policy is published. Part E only when the owner asks |
-| npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. Recommended: no npm 12 now; Node 24 everywhere first (6.10). Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
+| npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. No npm 12 now; Node 24 everywhere first (6.10), approved by the owner with `strict-allow-scripts`. Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -82,10 +82,10 @@ because the new Privacy Policy, published on release day, describes what they ma
 |---|---|---|---|---|
 | 1 | Next.js security patch | 6.8 | small | **First, and soon.** `next` 16.3.4 has three critical remote-code-execution advisories, fixed in 16.4.1. Alone in its pull request (rule 1) |
 | 2 | The other eleven advisories | 6.9 | small | After 6.8, which may move `sharp`. `npm audit fix`, never `--force` |
-| 3 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Waits for the owner's approval of 6.7's answer |
-| 4 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals; the owner chooses `strict-allow-scripts` |
+| 3 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
+| 4 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
 
-**Waiting on the owner, not a session:** approving 6.7's answer (rows 3 and 4 follow it). 7.4's three legal drafts are done (`docs/legal-review/`) and
+**Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
 
 ### 3. Wait for release day (R.1) or cleanup (R.2)
@@ -178,7 +178,7 @@ Phase 6 — dependency majors
 - [x] 6.5 TypeScript 5.9 → 7
 - [x] 6.6 Move to the `prisma-client` generator
 - [ ] 6.7 npm 12: find out what it changes here, and decide whether to move — steps 1–4 done 27 October
-  2026; step 5 waits for the owner and 6.10
+  2026, approved by the owner; step 5 waits for 6.10
 - [ ] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7)
 - [ ] 6.9 The other eleven advisories (from 6.7)
 - [ ] 6.10 Node 24 on all three machines (from 6.7)
@@ -2904,8 +2904,8 @@ chosen npm; CI green; a Vercel preview built with it.
 
 **Session size:** Small for the investigation (steps 1 to 4). The move, if approved, small.
 
-**Steps 1–4 done 27 October 2026.** The answer, for the owner to approve: **do not move to npm 12
-now.** Fold npm into a move to Node 24 on all three machines (6.10), then write the `allowScripts`
+**Steps 1–4 done 27 October 2026; the owner approved every recommendation the same day**,
+`strict-allow-scripts` included. The answer: **do not move to npm 12 now.** Fold npm into a move to Node 24 on all three machines (6.10), then write the `allowScripts`
 list on npm 11 (step 5, below), so that npm 12 changes nothing here when a Node release brings it.
 The local npm is on 11.21.1, the latest 11, since this session.
 
@@ -3006,11 +3006,12 @@ in that Node move, and the list makes it a no-op. Nothing is pinned.
 advisories, among them unauthenticated remote code execution, fixed after 16.4.0. That is 6.8, first
 in the order; the other eleven are 6.9.
 
-**What is left — step 5, if the owner approves, after 6.10** (on npm 10, CI would ignore the field and
-prove nothing): one pull request with nothing else in it, holding the five denials above. The owner
-also chooses whether to add `strict-allow-scripts=true` in a new `.npmrc`. Recommended: on npm 11 an
-uncovered script still runs, and with it a new dependency's script fails CI before merge, so it never
-reaches production unreviewed. **Verify:** `npm ci` from a clean `node_modules` with no
+**What is left — step 5, approved, after 6.10** (on npm 10, CI would ignore the field and prove
+nothing): one pull request with nothing else in it, holding the five denials above and
+`strict-allow-scripts=true` in a new `.npmrc`, both approved by the owner on 27 October 2026. On
+npm 11 an uncovered script still runs; with strict on, a new dependency's script fails CI before merge,
+so it never reaches production unreviewed. Approving one is `npm install-scripts approve <pkg>` in that
+dependency's own pull request. **Verify:** `npm ci` from a clean `node_modules` with no
 `install-scripts` warning, the usual checks and `npm test`, CI green, and a Vercel preview whose log has
 no `install-scripts` warning.
 
