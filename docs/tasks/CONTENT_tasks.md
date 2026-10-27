@@ -264,7 +264,8 @@ Owner tasks — not AI work
   2026: remove the seed data**, as `MAINT_tasks.md` 5.9, which also checks for anything else the sample seed left
 - [ ] Re-check the 28 programs 5.1 stamped 2026 when their 2027 rules appear: Aarhus (6), SDU (11, uniTEST 2027 details from mid-October),
   DTU, ITU, WU Vienna's BBE (2027/28 procedure in mid-November 2026), Klagenfurt (6) and Antwerp (2, 2027-2028 applications open
-  4 November 2026)
+  4 November 2026). **SDU done 27 October 2026:** its programme pages describe the 2027 round (uniTEST 17-18 April 2027) with the
+  same requirements, so all 12 are stamped 2027 and 8 moved addresses are updated (5.1, "Re-check")
 - [ ] Decide about the University of Tokyo's two PEAK programs (4.8b): PEAK's admissions page says "The Admission for September
   2026 Enrollment will be the last student recruitment for the PEAK". Both are reported as discontinued and left unwritten;
   deleting them leaves Japan with no program in search (phase 5.2)
@@ -638,6 +639,13 @@ not precision.
   to `vub.be/en/all-study-programmes-vub/...` (the programme pages did not) and its equivalence PDF lists the IB Diploma; Antwerp's
   `.../admission/academic-bachelor/admission-requirements/` has an IB row and the English-test exemption. NVAO decision URLs change: the
   Urban Sustainability Studies one moved from `bachelor-of-science-...` to `bachelor-of-arts-science-...`; EQAR's report pages are stable.
+- **Found in the SDU re-check (27 October 2026):** SDU's programme pages are a script-rendered app. The HTML embeds each tab as JSON
+  (`"Slug":"adgangskrav","Content":"…"`), but a programme taught in several cities leaves it empty. The tab then comes from
+  `/api/sdu/studyprogramme/localMenu?p=<page id>&lang=en&s=&t=<type id>&l=<city id>`, with the ids in the page's own JSON:
+  bachelor is type `bc9f0374-…`, Sønderborg city `81279941-…`, Vejle `9ccf892b-…`. Economics and Business Administration answers only
+  with `t` empty. The old `<slug>/adgangskrav` addresses redirect to `<new slug>#/adgangskrav`, and `europaeiske_studier/adgangskrav`
+  is a soft 404 ("Siden eksisterer ikke"). The Admission tab's statistics table (required GPA, admission GPA, quota split, places,
+  admitted) carries no year.
 
 - **Found in 5.2:** Waseda's HTML pages answer curl, but every PDF under `waseda.jp/.../assets/uploads/` is a Cloudflare challenge to curl and
   WebFetch (403); the Internet Archive holds some (`id_` bodies are gzip). Each school's admissions page carries the next September's
@@ -2712,6 +2720,25 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
     checked for 2027 entry"; Aarhus University's page lists its six programmes (no image yet).
   - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
     pages were read on 4 October.
+
+#### Re-check, 27 October 2026 — SDU stamped 2027 (owner task)
+
+SDU rebuilt its programme pages. The stored addresses redirect, eight of them to new slugs: `artificial-intelligence`,
+`computer-science`, `european-studies`, `ha`, `innovation-and-business`, `market-management-anthropology` and one
+`software-engineering` page for both cities. Each page's Admission tab now describes the **2027 round**: apply by 15 March, then
+uniTEST on 17-18 April 2027 in Odense or 20-25 April online. Every programme's subject requirements are as stored. Economics and
+Business Administration's social-sciences group adds International Economy B, which IB Economics, already stored, covers. The
+general uniTEST page still says "We are currently planning uniTEST 2027. More information will be available on this page from
+december"; the programme pages already give the dates.
+
+- **Written:** `scripts/programs/2027/university-of-southern-denmark.ts`, `checkedOn` 2026-10-27, all 12 checked for 2027 (11 move
+  from 2026). The eight new `programUrl`s use the page SDU redirects to, with the city's tab (`#/Vejle/uddannelsen`) where one page
+  serves two cities. Sources point at each Admission tab, and each note gives this year's admission statistics.
+- **"How competitive" paragraphs:** the four with a figure hold. AI is 7.6 at 80/20, European Studies 8.2 at 60/40, Economics and
+  Business Administration 8.3 at 65/35, and Market and Management Anthropology 8.7 at 75/25. Computer Science's page now reads
+  "First enrolment in 2026" where 5.1 read 7.8, so its paragraph keeps the 4 October figure, noted, until the next round's appears.
+  Mechatronics' page shows no quota 1 GPA minimum, and every qualified applicant was admitted there anyway; noted.
+- **Dry run:** 8 changes (the URL, with the stamps) and 4 stamp only; no requirement change and no warning.
 
 #### Status, 6 October 2026 — 5.2 done (session 21); applied the same day
 
