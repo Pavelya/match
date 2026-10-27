@@ -137,6 +137,7 @@ const PROGRAM_SELECT = {
       requiredLevel: true,
       minGrade: true,
       isCritical: true,
+      ownCourse: true,
       ibCourse: { select: { code: true } }
     },
     orderBy: { id: 'asc' }
@@ -162,7 +163,8 @@ async function loadStored(where: Prisma.AcademicProgramWhereInput): Promise<Stor
         level: r.requiredLevel,
         grade: r.minGrade,
         critical: r.isCritical,
-        group: r.orGroupId
+        group: r.orGroupId,
+        ...(r.ownCourse && { ownCourse: true })
       }))
     },
     stamps: {
@@ -324,6 +326,7 @@ function requirementRows(rows: RequirementRow[], ref: Reference) {
     requiredLevel: r.level,
     minGrade: r.grade,
     isCritical: r.critical,
+    ownCourse: r.ownCourse === true,
     orGroupId: r.orGroupId
   }))
 }

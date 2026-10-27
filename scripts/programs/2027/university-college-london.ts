@@ -552,13 +552,15 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
           level: 'HL',
           grade: 6,
-          critical: true
+          critical: true,
+          ownCourse: true
         },
         {
           courses: ['BIO', 'CHEM', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
           level: 'HL',
           grade: 6,
-          critical: true
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -567,7 +569,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260519040700/https://www.ucl.ac.uk/study/prospective-students/undergraduate/courses/psychology-bsc'
       ],
       notes:
-        'Checked for 2027 entry: the course page says "Course starts: September 2027". ucl.ac.uk blocks scripted requests, so it was read from the Internet Archive copy of 19 May 2026; the owner may want to confirm in a browser. Course pages moved from /prospective-students/undergraduate/degrees/ to /study/prospective-students/undergraduate/courses/. 39 points with 7 and 6 in two subjects from Biology, Chemistry, Mathematics, Physics or Psychology at HL. Stored as two groups at 6, both required, so both critical (the second was not); the model cannot stop one subject counting for both, or say "one of them 7". Mathematics AA or AI. UCL also asks for 19 points across three HL subjects with no HL score below 5, which the model cannot hold. Contextual offer: 36 (17 at HL).'
+        'Checked for 2027 entry: the course page says "Course starts: September 2027". ucl.ac.uk blocks scripted requests, so it was read from the Internet Archive copy of 19 May 2026; the owner may want to confirm in a browser. Course pages moved from /prospective-students/undergraduate/degrees/ to /study/prospective-students/undergraduate/courses/. 39 points with 7 and 6 in two subjects from Biology, Chemistry, Mathematics, Physics or Psychology at HL. Stored as two groups at 6, both required, so both critical (the second was not); each needs a course of its own (MAINT 5.18); the model cannot say "one of them 7". Mathematics AA or AI. UCL also asks for 19 points across three HL subjects with no HL score below 5, which the model cannot hold. Contextual offer: 36 (17 at HL). MAINT 5.18 (27 October 2026): both groups marked as needing a course of their own, so the 7 and 6 are two different subjects. One subject at HL 6 met both before.'
     },
     // Stored: checked for 2026 entry on 2026-01-15.
     {

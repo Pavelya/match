@@ -1442,12 +1442,13 @@ const refresh: RefreshFile = {
       programUrl:
         'https://www.manchester.ac.uk/study/undergraduate/courses/2027/01428/mbchb-medicine/',
       requirements: [
-        { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, critical: true },
+        { courses: ['BIO', 'CHEM'], level: 'HL', grade: 6, critical: true, ownCourse: true },
         {
           courses: ['BIO', 'CHEM', 'MATH-AA', 'MATH-AI', 'PHYS', 'PSYCH'],
           level: 'HL',
           grade: 6,
-          critical: true
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -1456,7 +1457,7 @@ const refresh: RefreshFile = {
         'https://www.manchester.ac.uk/study/undergraduate/courses/2027/01428/mbchb-medicine/'
       ],
       notes:
-        'Checked for 2027 entry (the course page says "Year of entry: 2027"). 36 points with 666 at HL, which must include Chemistry or Biology plus another science (Chemistry, Biology, Physics, Psychology or Mathematics) and one further subject. The second science is required, so now critical (the model cannot stop one course meeting both rows). Mathematics and English Language in the Diploma, or at GCSE grade 6. UCAT required. Manchester publishes a typical offer, not a minimum; the typical offer is stored, as before. The HL profile cannot be held by the model.'
+        'Checked for 2027 entry (the course page says "Year of entry: 2027"). 36 points with 666 at HL, which must include Chemistry or Biology plus another science (Chemistry, Biology, Physics, Psychology or Mathematics) and one further subject. The second science is required, so now critical (and each needs a course of its own, MAINT 5.18). Mathematics and English Language in the Diploma, or at GCSE grade 6. UCAT required. Manchester publishes a typical offer, not a minimum; the typical offer is stored, as before. The HL profile cannot be held by the model. MAINT 5.18 (27 October 2026): both groups marked as needing a course of their own, so Biology or Chemistry and another science are two different subjects. One Biology HL 6 met both before.'
     },
     // Stored: checked for 2026 entry on 2026-01-15.
     {
