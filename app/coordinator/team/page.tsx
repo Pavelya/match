@@ -15,8 +15,10 @@ import Link from 'next/link'
 import { PageContainer, PageHeader, InfoCard, TableEmptyState } from '@/components/admin/shared'
 import { UserCog, UserPlus, Mail, Clock, CheckCircle2 } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorTeamPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

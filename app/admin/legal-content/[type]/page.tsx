@@ -13,12 +13,14 @@ import { FileText } from 'lucide-react'
 import { FormPageLayout } from '@/components/admin/shared'
 import { DocumentEditorClient } from '@/components/admin/legal-content'
 import { SLUG_TO_DOCUMENT_TYPE, DOCUMENT_TYPE_LABELS } from '@/lib/legal-documents'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ type: string }>
 }
 
 export default async function LegalDocumentEditorPage({ params }: PageProps) {
+  await requireAdmin()
   const { type: slug } = await params
 
   // Validate document type

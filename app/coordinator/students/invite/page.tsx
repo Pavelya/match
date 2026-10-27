@@ -17,8 +17,10 @@ import {
   FREEMIUM_MAX_STUDENTS
 } from '@/lib/auth/access-control'
 import { InviteStudentForm } from './InviteStudentForm'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function InviteStudentPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

@@ -34,12 +34,14 @@ import {
 import { StudentDetailActions } from '@/components/admin/students/StudentDetailActions'
 import { SilentLabel } from '@/components/admin/students/SilentLabel'
 import { isSilent } from '@/lib/account/inactivity'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function StudentDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   // id can be either userId or profileId, try both

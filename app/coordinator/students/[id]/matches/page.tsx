@@ -17,12 +17,14 @@ import { prisma } from '@/lib/prisma'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { PageContainer, Breadcrumbs } from '@/components/admin/shared'
 import { StudentMatchesClient } from './StudentMatchesClient'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function StudentMatchesPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id } = await params
 
   const session = await auth()

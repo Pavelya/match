@@ -6,7 +6,9 @@
  */
 
 import { redirect } from 'next/navigation'
+import { requireCoordinator } from '@/lib/auth/guards'
 
-export default function CoordinatorRootPage() {
+export default async function CoordinatorRootPage() {
+  await requireCoordinator()
   redirect('/coordinator/dashboard')
 }

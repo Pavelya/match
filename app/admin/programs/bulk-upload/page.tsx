@@ -8,8 +8,10 @@ import { prisma } from '@/lib/prisma'
 import { BulkUploadForm } from '@/components/admin/programs/BulkUploadForm'
 import { FormPageLayout } from '@/components/admin/shared'
 import { Upload } from 'lucide-react'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function BulkUploadPage() {
+  await requireAdmin()
   // Fetch all reference data needed for validation and display
   const [universities, fieldsOfStudy, ibCourses] = await Promise.all([
     prisma.university.findMany({

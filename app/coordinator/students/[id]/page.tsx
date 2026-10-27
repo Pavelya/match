@@ -48,12 +48,14 @@ import {
 } from 'lucide-react'
 import { getAvatarColor } from '@/lib/avatar-utils'
 import { cn } from '@/lib/utils'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function StudentDetailPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id } = await params
 
   const session = await auth()

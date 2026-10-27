@@ -20,8 +20,10 @@ import {
 import { UserCog } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { InviteCoordinatorForm } from './InviteCoordinatorForm'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function InviteCoordinatorPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {

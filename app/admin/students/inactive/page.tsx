@@ -22,8 +22,10 @@ import {
   type InactiveStudent
 } from '@/lib/account/inactive-accounts'
 import { daysLeft, deletionDate, lastSeen } from '@/lib/account/inactivity'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function InactiveAccountsPage() {
+  await requireAdmin()
   const now = new Date()
   const [lists, sentToday] = await Promise.all([listInactiveStudents(now), noticesSentToday(now)])
   const enabled = inactiveAccountsEnabled()

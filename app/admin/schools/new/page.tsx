@@ -7,8 +7,10 @@
 import { prisma } from '@/lib/prisma'
 import { SchoolForm } from '@/components/admin/schools/SchoolForm'
 import { FormPageLayout } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function NewSchoolPage() {
+  await requireAdmin()
   // Fetch countries for the selector
   const countries = await prisma.country.findMany({
     orderBy: { name: 'asc' },

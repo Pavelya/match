@@ -14,6 +14,7 @@ const { authMock, prismaMock, redirectMock } = vi.hoisted(() => ({
   })
 }))
 
+vi.mock('server-only', () => ({}))
 vi.mock('@/lib/auth/config', () => ({ auth: authMock }))
 vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('next/navigation', () => ({ redirect: redirectMock }))

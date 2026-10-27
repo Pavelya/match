@@ -8,12 +8,14 @@
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { CoordinatorInviteForm } from '@/components/admin/schools/CoordinatorInviteForm'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function InviteCoordinatorPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   // Fetch school data for context display

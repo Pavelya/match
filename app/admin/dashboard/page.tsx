@@ -17,8 +17,10 @@ import {
 import { PageContainer, PageHeader, StatCard, InfoCard } from '@/components/admin/shared'
 import { FadeIn } from '@/components/ui/fade-in'
 import { activeStudentsWhere, silentStudentsWhere } from '@/lib/account/inactivity'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function AdminDashboardPage() {
+  await requireAdmin()
   // Fetch basic stats for the dashboard
   const now = new Date()
   const [

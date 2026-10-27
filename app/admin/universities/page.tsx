@@ -14,8 +14,10 @@ import { prisma } from '@/lib/prisma'
 import { Plus, Building2 } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { UniversitiesListClient } from '@/components/admin/universities/UniversitiesListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function UniversitiesPage() {
+  await requireAdmin()
   const universities = await prisma.university.findMany({
     orderBy: { name: 'asc' },
     include: {

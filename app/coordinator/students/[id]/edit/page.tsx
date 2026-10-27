@@ -23,12 +23,14 @@ import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { PageContainer, FormPageLayout, Breadcrumbs } from '@/components/admin/shared'
 import { User } from 'lucide-react'
 import { StudentProfileForm } from './StudentProfileForm'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function EditStudentPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id } = await params
 
   const session = await auth()

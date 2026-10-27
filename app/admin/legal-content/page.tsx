@@ -11,8 +11,10 @@
 import { FileText } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { LegalContentClient } from '@/components/admin/legal-content'
+import { requireAdmin } from '@/lib/auth/guards'
 
-export default function AdminLegalContentPage() {
+export default async function AdminLegalContentPage() {
+  await requireAdmin()
   return (
     <PageContainer>
       <PageHeader

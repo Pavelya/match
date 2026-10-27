@@ -8,12 +8,14 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { SchoolEditForm } from '@/components/admin/schools/SchoolEditForm'
 import { FormPageLayout } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function SchoolEditPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const [school, countries] = await Promise.all([
