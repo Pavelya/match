@@ -24,8 +24,12 @@ const MAX_OFFSET = 10_000
 
 export async function GET(request: NextRequest) {
   try {
-    // 30 a minute for each address, as the search has
-    const limited = await applyRateLimit('search', getClientIp(request.headers))
+    // Signed in, 30 a minute for the account; signed out, 120 a minute for the address (SEC-11). A
+    // school's students share one address, so counting a class's searches together refused them
+    const session = await auth()
+    const limited = session?.user?.id
+      ? await applyRateLimit('search', session.user.id)
+      : await applyRateLimit('searchIp', getClientIp(request.headers))
     if (limited) return limited
 
     const params = request.nextUrl.searchParams
@@ -34,7 +38,6 @@ export async function GET(request: NextRequest) {
     // `limit`, not `length`: that is the Length filter's parameter
     const length = whole(params.get('limit'), PAGE_SIZE, 1, MAX_SHOWN)
 
-    const session = await auth()
     // Read fresh each time, so a change to the academic profile shows at once. The switch needs
     // grades; without them the list is the one without it.
     const student = session?.user?.id ? await exploreStudent(session.user.id) : null

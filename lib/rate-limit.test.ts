@@ -33,8 +33,8 @@ describe('rate limiters', () => {
   it('builds every limiter with analytics off', async () => {
     const { rateLimiters } = await import('./rate-limit')
 
-    expect(Object.keys(rateLimiters)).toHaveLength(11)
-    expect(created).toHaveLength(11)
+    expect(Object.keys(rateLimiters)).toHaveLength(12)
+    expect(created).toHaveLength(12)
     for (const config of created) {
       expect(config.analytics, `${String(config.prefix)} keeps request records`).toBe(false)
     }
@@ -155,6 +155,15 @@ describe('the sign-in limits (SEC-2)', () => {
     expect(windows['ratelimit:authcallback']).toEqual({ tokens: 60, window: '1 m' })
     // The rest of /api/auth is as strict as before
     expect(windows['ratelimit:auth']).toEqual({ tokens: 5, window: '10 s' })
+  })
+
+  // SEC-11: Explore counts per account when signed in, and loosely per address when not
+  it('gives searches 30 a minute per account, and a looser 120 per address', async () => {
+    await import('./rate-limit')
+    const windows = Object.fromEntries(created.map((config) => [config.prefix, config.limiter]))
+
+    expect(windows['ratelimit:search']).toEqual({ tokens: 30, window: '1 m' })
+    expect(windows['ratelimit:searchip']).toEqual({ tokens: 120, window: '1 m' })
   })
 })
 

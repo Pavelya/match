@@ -31,7 +31,8 @@ vi.mock('@/lib/algolia/client', () => ({
   getAlgoliaClient: () => ({ searchSingleIndex: searchMock, browseObjects: browseMock })
 }))
 
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { applyRateLimit } from '@/lib/rate-limit'
 import { bestFitOrder, fitTier } from '@/lib/explore/best-fit'
 import { EMPTY_QUERY, exploreListUrl } from '@/lib/explore/query'
 import { transformStudent } from '@/lib/matching/transformers'
@@ -316,5 +317,30 @@ describe('GET /api/programs/explore', () => {
     searchMock.mockRejectedValue(new Error('unreachable'))
     const response = await GET(request(''))
     expect(response.status).toBe(500)
+  })
+})
+
+// SEC-11: a school's students share one address, so a signed-in student's searches count against
+// their own account; signed out, against the address, with a looser limit
+describe('GET /api/programs/explore: the limit', () => {
+  it('counts a signed-in student against their account', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    await get('q=science')
+    expect(applyRateLimit).toHaveBeenCalledExactlyOnceWith('search', 'user-1')
+  })
+
+  it('counts a signed-out visitor against their address, on the looser limiter', async () => {
+    await get('q=science')
+    expect(applyRateLimit).toHaveBeenCalledExactlyOnceWith('searchIp', '127.0.0.1')
+  })
+
+  it('searches nothing once refused', async () => {
+    vi.mocked(applyRateLimit).mockResolvedValueOnce(
+      NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    )
+    const response = await GET(request('q=science'))
+    expect(response.status).toBe(429)
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(browseMock).not.toHaveBeenCalled()
   })
 })
