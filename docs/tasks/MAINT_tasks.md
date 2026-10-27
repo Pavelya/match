@@ -61,6 +61,7 @@ deletes today's design.
 | Three gaps in the matching tests | 7.7 | 26 October 2026 | 24 new tests and one corrected: the Redis match cache (`lib/matching/cache.test.ts`, new), both 0.25 floors in the subject matcher, and `MATCHING_V10_FULL` overriding the other flags. No score changed |
 | One course for two requirements | 5.18 | 27 October 2026 | `ProgramCourseRequirement.ownCourse` and the matcher that gives marked requirements different courses (#185), rebranding build 28 (#186), and the flags on 18 programs at Trinity, Manchester and UCL (#187). Scores of unflagged programs unchanged. Found 5.39 |
 | "Two of" rules stored as one | 5.39 | 27 October 2026 | 47 programs at McGill, Alberta, Waterloo, Trinity, Imperial, NUS, Leiden, Lund and Cambridge re-read and given their second requirement, both needing a course of their own (#188). Alberta counts Maths AA as Math 31 |
+| Returning students: where it stands | 7.5 Part A | 27 October 2026 | From stored dates only: 24 of 199 students (12%) left a trace on a day after signing up, 4 on more than one. A floor: Google sign-ins and visits that change nothing leave none. Parts B to D wait (group 3) |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -73,9 +74,8 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
-| 2 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
-| 3 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -178,7 +178,7 @@ Phase 7 — structural
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
-- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
+- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Part A done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
 
@@ -3712,6 +3712,88 @@ changes the Privacy Policy, so it waits for 7.4.
    - Resend's record of sign-in emails, which counts magic-link sign-ins, including repeat ones.
 3. **Write it down:** a small table by month of sign-up, a few plain sentences, and the limit of
    what the data can say.
+
+#### Part A — where it stands — **done** (27 October 2026)
+
+Counted with aggregates only, in a read-only transaction on `DIRECT_URL`; no table was read whole and
+no address was printed.
+
+**What counts as a return:** any stored date on a UTC day after the day of sign-up. The dates are:
+
+- `User.emailVerified`, which Auth.js rewrites on **every** magic-link sign-in, not only the first
+  (`@auth/core`, `lib/actions/callback/handle-login.js`). So it is the date of the last email sign-in.
+  A Google sign-in writes nothing to an existing account;
+- `termsAcceptedAt` and `privacyAcceptedAt`, which move when a student accepts a new policy version;
+- `StudentProfile.createdAt` and `updatedAt`, a profile made or saved;
+- `SavedProgram.createdAt`, `SupportTicket.createdAt`, and `Invitation.acceptedAt` for the student's
+  address;
+- `User.updatedAt`, only when none of the dates above explains it (within 5 seconds). That leaves a
+  name change, and it applies to one student.
+
+Left out: the 20 profiles that 5.8's fix rewrote on 7 October 2026 between 13:08:42 and 13:08:43 UTC,
+the only batch write among the dates; and two accounts whose address looks like the owner's or a test
+account (both January, both "returned").
+
+**Students by month of sign-up, 27 October 2026** (199 accounts):
+
+| Signed up | Students | With a profile | Returned on a later day | Of those, last trace after: 1–7 days | 8–30 | 31–90 | over 90 |
+|---|---|---|---|---|---|---|---|
+| January 2026 | 7 | 7 | 3 (43%) | 1 | 1 | 0 | 1 |
+| February | 25 | 23 | 5 (20%) | 2 | 1 | 1 | 1 |
+| March | 25 | 18 | 3 (12%) | 2 | 0 | 0 | 1 |
+| April | 15 | 10 | 0 | 0 | 0 | 0 | 0 |
+| May | 19 | 15 | 2 (11%) | 1 | 0 | 0 | 1 |
+| June | 17 | 15 | 2 (12%) | 0 | 0 | 2 | 0 |
+| July | 9 | 8 | 0 | 0 | 0 | 0 | 0 |
+| August | 23 | 22 | 3 (13%) | 1 | 1 | 1 | 0 |
+| September | 33 | 20 | 4 (12%) | 2 | 2 | 0 | 0 |
+| October (to the 26th) | 26 | 20 | 2 (8%) | 2 | 0 | 0 | 0 |
+| **All** | **199** | **158** | **24 (12%)** | **11** | **5** | **4** | **4** |
+
+**In plain words:**
+
+- The owner's suspicion holds. 175 of 199 students left traces on the day they signed up and on no
+  other day. 24 (12%) left one on a later day, and only 4 on more than one later day.
+- Most of those returns are soon after sign-up: 11 of the 24 last left a trace within a week. Only 4
+  students show anything more than 90 days after signing up.
+- 41 students (21%) never finished a profile. One of them came back on a later day, and still did not
+  finish it.
+- What the 24 did on a later day: saved their profile (16), saved a program (11), signed in by email
+  link (4), made their profile (4), accepted the new policies (3). In the last 30 days 7 students
+  returned; in the last 90 days, 15.
+- January's 43% rests on 7 accounts, all made on 30 January, the day the first coordinator account was
+  made, so it is probably testing more than students.
+
+**The limit of what the data can say.** These counts are a **floor**, not a measure:
+
+- A visit that changes nothing leaves nothing. 158 of the 201 student accounts sign in with Google,
+  which stores nothing on a repeat sign-in, and a session lasts 30 days, so a student who comes back
+  on the same device within a month does not sign in at all. A student who reopens Matches and leaves
+  is invisible.
+- A deleted account takes its history with it (5.25).
+- A coordinator's edit also moves `StudentProfile.updatedAt`. Only 6 students are linked to a school,
+  and at most one of the 24 returns could be a coordinator's edit.
+- Recent months have had less time to return, and with 9 to 33 students a month, one student moves a
+  month's figure by 3 to 11 points.
+
+**What else exists, without new code (step 2):**
+
+- **Vercel:** Web Analytics is not collecting: there is no `@vercel/analytics` package and no
+  `/_vercel/insights` script. Runtime logs on Pro are kept for **1 day** (30 days only with the paid
+  Observability Plus, by Vercel's Runtime Logs page), so there is no history to count from.
+- **Search Console** counts Google searches and clicks to the site. It cannot tell a new visitor from
+  a returning one, or a student from anyone else. It is the baseline for release day, not a measure of
+  returns.
+- **Resend** keeps sent-email logs for **30 days** on every plan (its pricing page). The repo's
+  `RESEND_API_KEY` is send-only (`GET /emails` answers `restricted_api_key`), so only the owner can look,
+  in the dashboard. It would show repeat magic-link sign-ins, but only for the 43 students who use email
+  links, only for the last 30 days, and only once their 30-day session has run out. Not worth building
+  on.
+
+**For Part B:** nothing stored today sees a Google student who comes back, and that is most students.
+A last-active date on the account is the only option that would, and 7.6 Part A builds it. Part B then
+only decides what to count from it: returning students per month of sign-up, as in the table above,
+from the same starting point.
 
 **Part B — what to count from now on (the owner decides; recommend one).** Options to weigh:
 
