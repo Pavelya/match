@@ -5,6 +5,7 @@
  * - Stats summary row
  * - Search and filter capabilities
  * - Student name, email, school, profile status
+ * - When each was last active, and which are silent (MAINT 7.6)
  * - View profile action
  */
 
@@ -12,16 +13,32 @@ import { prisma } from '@/lib/prisma'
 import { Users } from 'lucide-react'
 import { PageContainer, PageHeader, TableEmptyState } from '@/components/admin/shared'
 import { StudentsListClient } from '@/components/admin/students/StudentsListClient'
+import { isSilent } from '@/lib/account/inactivity'
 
-export default async function StudentsPage() {
+interface PageProps {
+  searchParams: Promise<{ filter?: string }>
+}
+
+export default async function StudentsPage({ searchParams }: PageProps) {
+  // The dashboard's "Silent" count links here with ?filter=silent
+  const { filter } = await searchParams
+
   // Fetch all students with their profiles
   const students = await prisma.user.findMany({
     where: {
       role: 'STUDENT'
     },
-    include: {
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      image: true,
+      createdAt: true,
+      lastActiveAt: true,
       studentProfile: {
-        include: {
+        select: {
+          id: true,
+          totalIBPoints: true,
           school: {
             select: {
               id: true,
@@ -42,12 +59,15 @@ export default async function StudentsPage() {
   })
 
   // Format data for client component
+  const now = new Date()
   const formattedStudents = students.map((student) => ({
     id: student.id,
     email: student.email,
     name: student.name,
     image: student.image,
     createdAt: student.createdAt.toISOString(),
+    lastActiveAt: student.lastActiveAt?.toISOString() ?? null,
+    isSilent: isSilent(student, now),
     hasProfile: !!student.studentProfile,
     profile: student.studentProfile
       ? {
@@ -65,7 +85,8 @@ export default async function StudentsPage() {
     total: formattedStudents.length,
     withProfile: formattedStudents.filter((s) => s.hasProfile).length,
     withoutProfile: formattedStudents.filter((s) => !s.hasProfile).length,
-    withSchool: formattedStudents.filter((s) => s.profile?.school).length
+    withSchool: formattedStudents.filter((s) => s.profile?.school).length,
+    silent: formattedStudents.filter((s) => s.isSilent).length
   }
 
   return (
@@ -83,7 +104,11 @@ export default async function StudentsPage() {
           description="Students will appear here once they sign up."
         />
       ) : (
-        <StudentsListClient students={formattedStudents} stats={stats} />
+        <StudentsListClient
+          students={formattedStudents}
+          stats={stats}
+          initialFilter={filter === 'silent' ? 'silent' : null}
+        />
       )}
     </PageContainer>
   )
