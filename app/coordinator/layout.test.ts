@@ -36,11 +36,13 @@ describe('coordinator layout', () => {
     expect(prismaMock.user.findUnique).not.toHaveBeenCalled()
   })
 
-  it('still sends a signed-in student to the home page', async () => {
+  it('sends a signed-in student to their Matches (SEC-5)', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     prismaMock.user.findUnique.mockResolvedValue({ id: 'user-1', role: 'STUDENT' })
 
-    await expect(CoordinatorLayout({ children: null })).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(CoordinatorLayout({ children: null })).rejects.toThrow(
+      /^NEXT_REDIRECT \/student\/matches$/
+    )
   })
 
   it('points at a route that exists', () => {

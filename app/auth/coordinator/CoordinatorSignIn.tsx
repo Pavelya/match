@@ -3,8 +3,9 @@
  *
  * Dedicated sign-in page for IB Coordinators.
  * - Magic link only (no Google OAuth)
- * - Validates that email belongs to a coordinator
- * - Redirects students to student sign-in with friendly message
+ * - Every address gets the same outcome, the link and "Check your email", so the page says nothing
+ *   about which addresses have accounts (SEC-5). The email is the student's or the coordinator's by
+ *   role (lib/auth/config.ts), and a student who signs in here lands on their own Matches (proxy.ts)
  *
  * Part of Task 3.3: Coordinator Invitation System
  */
@@ -26,41 +27,13 @@ export function CoordinatorSignIn({ logo }: { logo: React.ReactNode }) {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [isStudentEmail, setIsStudentEmail] = useState(false)
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
-    setIsStudentEmail(false)
 
     try {
-      // First, check if this email belongs to a coordinator
-      const checkRes = await fetch('/api/auth/check-role', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim().toLowerCase() })
-      })
-
-      const checkData = await checkRes.json()
-
-      if (checkRes.status === 429) {
-        setError('Too many sign-in attempts. Please wait a moment and try again.')
-        setIsLoading(false)
-        return
-      }
-
-      if (checkRes.ok && checkData.isStudent) {
-        // Student address - point them at the student sign-in instead
-        setIsStudentEmail(true)
-        setIsLoading(false)
-        return
-      }
-
-      // Everyone else continues to the magic link. The check deliberately does
-      // not reveal whether an account exists, so an address with no account
-      // gets the same "check your email" outcome as a coordinator.
-
       // Proceed with magic link sign-in
       const result = await signIn('resend', {
         email: email.trim().toLowerCase(),
@@ -101,32 +74,8 @@ export function CoordinatorSignIn({ logo }: { logo: React.ReactNode }) {
           <CardDescription>Sign in to manage your school and students</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {/* Student email redirect notice */}
-          {isStudentEmail && (
-            <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-              <div className="flex items-start gap-3">
-                <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-blue-800 mb-1">
-                    This looks like a student account
-                  </p>
-                  <p className="text-sm text-blue-700 mb-3">
-                    The email you entered is registered as a student account. Please use the student
-                    sign-in page instead.
-                  </p>
-                  <Link
-                    href="/auth/signin"
-                    className="inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800 underline"
-                  >
-                    Go to Student Sign In →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Error display */}
-          {error && !isStudentEmail && (
+          {error && (
             <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive flex items-start gap-2 text-sm">
               <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
               <span>{error}</span>
@@ -134,38 +83,21 @@ export function CoordinatorSignIn({ logo }: { logo: React.ReactNode }) {
           )}
 
           {/* Magic Link Form */}
-          {!isStudentEmail && (
-            <form onSubmit={handleMagicLink} className="space-y-4">
-              <div className="space-y-2">
-                <Input
-                  type="email"
-                  placeholder="coordinator@school.edu"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? 'Sending...' : 'Send magic link'}
-              </Button>
-            </form>
-          )}
-
-          {/* Reset form if student email */}
-          {isStudentEmail && (
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={() => {
-                setIsStudentEmail(false)
-                setEmail('')
-              }}
-            >
-              Try a different email
+          <form onSubmit={handleMagicLink} className="space-y-4">
+            <div className="space-y-2">
+              <Input
+                type="email"
+                placeholder="coordinator@school.edu"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+            </div>
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Sending...' : 'Send magic link'}
             </Button>
-          )}
+          </form>
 
           <p className="text-center text-xs text-muted-foreground">
             By continuing, you agree to our{' '}

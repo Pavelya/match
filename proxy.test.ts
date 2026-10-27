@@ -37,12 +37,14 @@ describe('proxy: admin and coordinator areas', () => {
     }
   )
 
-  it.each(['STUDENT', 'COORDINATOR', 'UNIVERSITY_AGENT'] as const)(
-    'sends a %s from /admin/students home',
-    (role) => {
-      expect(redirectsTo(visit('/admin/students', role))).toBe('/')
-    }
-  )
+  // SEC-5: each to their own start page; a university agent has none yet
+  it.each([
+    ['STUDENT', '/student/matches'],
+    ['COORDINATOR', '/coordinator/dashboard'],
+    ['UNIVERSITY_AGENT', '/']
+  ] as const)('sends a %s from /admin/students to %s', (role, start) => {
+    expect(redirectsTo(visit('/admin/students', role))).toBe(start)
+  })
 
   it('lets an admin through to /admin', () => {
     const response = visit('/admin/students', 'PLATFORM_ADMIN')
@@ -57,12 +59,18 @@ describe('proxy: admin and coordinator areas', () => {
     }
   )
 
-  it.each(['STUDENT', 'PLATFORM_ADMIN', 'UNIVERSITY_AGENT'] as const)(
-    'sends a %s from /coordinator/students home',
-    (role) => {
-      expect(redirectsTo(visit('/coordinator/students', role))).toBe('/')
-    }
-  )
+  // SEC-5: a student who signed in through the coordinator page lands on Matches
+  it.each([
+    ['STUDENT', '/student/matches'],
+    ['PLATFORM_ADMIN', '/admin/dashboard'],
+    ['UNIVERSITY_AGENT', '/']
+  ] as const)('sends a %s from /coordinator/students to %s', (role, start) => {
+    expect(redirectsTo(visit('/coordinator/students', role))).toBe(start)
+  })
+
+  it('sends a student from the coordinator sign-in link’s destination to Matches', () => {
+    expect(redirectsTo(visit('/coordinator/dashboard', 'STUDENT'))).toBe('/student/matches')
+  })
 
   it('lets a coordinator through to /coordinator', () => {
     expect(redirectsTo(visit('/coordinator/students', 'COORDINATOR'))).toBeNull()

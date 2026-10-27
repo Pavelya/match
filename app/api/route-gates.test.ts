@@ -104,7 +104,6 @@ const PUBLIC: Record<string, string> = {
   'auth/[...nextauth]': 'Auth.js itself',
   'auth/accept-invite': 'the invitation token is the credential',
   'auth/accept-student-invite': 'the invitation token is the credential',
-  'auth/check-role': 'the coordinator sign-in asks before there is a session; see its own test',
   'legal-documents/[type]': 'the published Terms and Privacy Policy',
   preview: 'the preview key is the credential',
   'preview/exit': 'only turns Draft Mode off',

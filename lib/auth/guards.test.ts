@@ -21,7 +21,13 @@ vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('next/navigation', () => ({ redirect: redirectMock, notFound: notFoundMock }))
 
 import { COORDINATOR_SIGN_IN_PATH } from './callback-url'
+
 import { readCoordinator, requireAdmin, requireCoordinator } from './guards'
+
+/** Next's redirect to exactly this path, not one that only starts with it */
+function redirectTo(path: string): RegExp {
+  return new RegExp(`^NEXT_REDIRECT ${path.replace(/[/.]/g, '\\$&')}$`)
+}
 
 const school = {
   id: 'school-1',
@@ -50,11 +56,15 @@ describe('requireAdmin', () => {
   it('sends a visitor with no session to sign-in, without reading the database', async () => {
     authMock.mockResolvedValue(null)
 
-    await expect(requireAdmin()).rejects.toThrow('NEXT_REDIRECT /auth/signin')
+    await expect(requireAdmin()).rejects.toThrow(redirectTo('/auth/signin'))
     expect(prismaMock.user.findUnique).not.toHaveBeenCalled()
   })
 
-  it.each(['STUDENT', 'COORDINATOR', 'UNIVERSITY_AGENT'])('sends a %s home', async (role) => {
+  it.each([
+    ['STUDENT', '/student/matches'],
+    ['COORDINATOR', '/coordinator/dashboard'],
+    ['UNIVERSITY_AGENT', '/']
+  ])('sends a %s to %s, their own start page (SEC-5)', async (role, start) => {
     authMock.mockResolvedValue({ user: { id: 'user-1', role: 'PLATFORM_ADMIN' } })
     prismaMock.user.findUnique.mockResolvedValue({
       id: 'user-1',
@@ -64,14 +74,14 @@ describe('requireAdmin', () => {
       image: null
     })
 
-    await expect(requireAdmin()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireAdmin()).rejects.toThrow(redirectTo(start))
   })
 
   it('sends home a session whose account no longer exists', async () => {
     authMock.mockResolvedValue({ user: { id: 'gone', role: 'PLATFORM_ADMIN' } })
     prismaMock.user.findUnique.mockResolvedValue(null)
 
-    await expect(requireAdmin()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireAdmin()).rejects.toThrow(redirectTo('/'))
   })
 
   it("trusts the database's role over the token's", async () => {
@@ -85,7 +95,7 @@ describe('requireAdmin', () => {
       image: null
     })
 
-    await expect(requireAdmin()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireAdmin()).rejects.toThrow(redirectTo('/student/matches'))
     expect(prismaMock.user.findUnique).toHaveBeenCalledWith(
       expect.objectContaining({ where: { id: 'user-1' } })
     )
@@ -117,27 +127,31 @@ describe('readCoordinator and requireCoordinator', () => {
   it('sends a visitor with no session to the coordinator sign-in, without reading the database', async () => {
     authMock.mockResolvedValue(null)
 
-    await expect(requireCoordinator()).rejects.toThrow(`NEXT_REDIRECT ${COORDINATOR_SIGN_IN_PATH}`)
+    await expect(requireCoordinator()).rejects.toThrow(redirectTo(COORDINATOR_SIGN_IN_PATH))
     expect(prismaMock.user.findUnique).not.toHaveBeenCalled()
   })
 
-  it.each(['STUDENT', 'PLATFORM_ADMIN', 'UNIVERSITY_AGENT'])('sends a %s home', async (role) => {
+  it.each([
+    ['STUDENT', '/student/matches'],
+    ['PLATFORM_ADMIN', '/admin/dashboard'],
+    ['UNIVERSITY_AGENT', '/']
+  ])('sends a %s to %s, their own start page (SEC-5)', async (role, start) => {
     authMock.mockResolvedValue({ user: { id: 'user-1', role: 'COORDINATOR' } })
     prismaMock.user.findUnique.mockResolvedValue(coordinatorRow({ role }))
 
-    await expect(requireCoordinator()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireCoordinator()).rejects.toThrow(redirectTo(start))
   })
 
   it('sends home a coordinator with no profile or no school', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     prismaMock.user.findUnique.mockResolvedValue(coordinatorRow({ school: null }))
-    await expect(requireCoordinator()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireCoordinator()).rejects.toThrow(redirectTo('/'))
 
     prismaMock.user.findUnique.mockResolvedValue({
       ...coordinatorRow(),
       coordinatorProfile: { isActive: true, school: null }
     })
-    await expect(requireCoordinator()).rejects.toThrow('NEXT_REDIRECT /')
+    await expect(requireCoordinator()).rejects.toThrow(redirectTo('/'))
   })
 
   it('refuses a revoked coordinator with a 404', async () => {
