@@ -78,7 +78,8 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | medium | Moved from group 3 on 27 October 2026 (owner): built now, used on release day. The board "D4.18 Emails · inactivity notice" (row 30) waits for the owner's approval; the build starts after it. Both buttons stay off behind `INACTIVE_ACCOUNTS_ENABLED` until the Privacy Policy that sets the rule is published. Part E, the daily job, only when the owner asks, after a manual round |
+| 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -90,7 +91,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
-| R.1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only. Part E, the daily job, only when the owner asks, after a manual round |
+| R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
 **For the owner, now:** 5.37's last steps: export the Security Advisor's list for a session to answer,
@@ -4060,8 +4061,18 @@ link. It says:
 
 It has a plain-text body, as every email does.
 
-**Part D — the admin page.** `/admin/students/inactive`, or a tab of `/admin/students`, with three counts
-and lists:
+**The board, drawn 27 October 2026:** "D4.18 Emails · inactivity notice" (canvas row 30, and a page of its
+own, https://claude.ai/artifact/Beec6HeoqVw5tW7aiCFAcD). The email at 600px and 390px, light as sent, in
+its own dark colours, inverted partly and fully, with images off, a student linked to a school, the plain
+text and the inbox line. Six decisions for the owner, each with a recommendation: the subject and heading
+name the date; the button opens the sign-in page, with no token in the email; a linked student sees the
+school named in the list; one email for every silent student; the date is the notice plus 30 whole days
+in UTC; "Inactive account" above the heading. Waits for approval.
+
+**Part D — the admin page.** Built before release day (owner, 27 October 2026), with both buttons off
+until `INACTIVE_ACCOUNTS_ENABLED` is on: with it off, the page shows the lists, and the buttons are
+disabled and say why. It is turned on only once the Privacy Policy that sets the rule is published.
+`/admin/students/inactive`, or a tab of `/admin/students`, with three counts and lists:
 - silent, not yet notified (due a notice);
 - notified, with the days left;
 - due for deletion.
@@ -4115,8 +4126,8 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 **Session size:** Large. Split into sessions:
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
 - ~~Part A~~ and ~~Part B~~ done 27 October 2026;
-- Part C's board, a design session;
-- Parts C and D in code;
+- Part C's board, a design session (drawn 27 October 2026, awaiting approval);
+- Parts C and D in code, the buttons behind `INACTIVE_ACCOUNTS_ENABLED`, off;
 - Part E, only when the owner asks for it.
 
 ---
