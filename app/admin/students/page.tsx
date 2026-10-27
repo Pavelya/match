@@ -95,6 +95,9 @@ export default async function StudentsPage({ searchParams }: PageProps) {
         title="Students"
         icon={Users}
         description="View and manage student accounts and profiles."
+        actions={[
+          { label: 'Inactive accounts', href: '/admin/students/inactive', variant: 'secondary' }
+        ]}
       />
 
       {formattedStudents.length === 0 ? (

@@ -66,6 +66,7 @@ deletes today's design.
 | Inactive accounts: the policy line | 7.6 Part 0 | 27 October 2026 | The Privacy Policy draft (7.4) and its redline say it: 6 months unused, one warning email, deletion 30 days later unless the student comes back. Also the last-active date (section 2) and the warning among the emails (section 3); one more line for the lawyer under question 8 |
 | Inactive accounts: the last-active date | 7.6 Part A | 27 October 2026 | `User.lastActiveAt`, written by the `jwt` callback's role read at most once a day, clearing `inactivityNoticeSentAt` (#193; migration applied). Backfilled for all 201 students from their latest stored change: 69 silent, 37 active in the last 30 days |
 | Inactive accounts: the admin and the dashboard | 7.6 Part B | 27 October 2026 | "Last active" and a "Silent" label on `/admin/students` and the student's page, a Silent filter, and two `count()`s on the dashboard (37 active in 30 days, 69 silent). The rule is `lib/account/inactivity.ts`, for Part D to extend |
+| Inactive accounts: the notice and the admin page | 7.6 Parts C and D | 27 October 2026 | The notice (`emails/inactivity-notice.tsx`, board row 30) and `/admin/students/inactive` with Send notices (50 a day, one Resend batch, recorded on acceptance) and Delete due accounts (25 a press, re-checked in each transaction). Both off behind `INACTIVE_ACCOUNTS_ENABLED` until the policy is published. Part E only when the owner asks |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -78,8 +79,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | medium | Moved from group 3 on 27 October 2026 (owner): built now, used on release day. The board "D4.18 Emails · inactivity notice" (row 30) was approved on 27 October 2026, every recommendation. Both buttons stay off behind `INACTIVE_ACCOUNTS_ENABLED` until the Privacy Policy that sets the rule is published. Part E, the daily job, only when the owner asks, after a manual round |
-| 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -4070,6 +4070,30 @@ school named in the list; one email for every silent student; the date is the no
 in UTC; "Inactive account" above the heading. **Approved 27 October 2026 (owner), every
 recommendation.** The board's words are the words to build, subject, preview and plain text included.
 
+**Parts C and D built 27 October 2026.** The email is `emails/inactivity-notice.tsx`, in the board's
+words, with the new header whatever `NEW_UI_FOR_EVERYONE` says, since it has no version in today's
+design (`designedMessage(…, { newUi: true })`; the seven others still switch on release day, byte for
+byte). The page is `/admin/students/inactive`, linked from Students: three counts and lists, the
+notified with the deletion date and days left. The rule's states are `inactivityState` in
+`lib/account/inactivity.ts`: due a notice, notified, due for deletion from the 30th whole UTC day, and
+a date later than the notice counts as coming back even if the notice wasn't cleared.
+`lib/account/inactive-accounts.ts` reads the students again for each press, never a list the browser
+sent:
+- **Send notices:** up to 50 a day (`NOTICES_PER_DAY`, counted from midnight UTC), in one Resend
+  batch, which is accepted whole or not at all; `inactivityNoticeSentAt` is set only after, and only
+  on students still without one.
+- **Delete due accounts:** up to 25 a press, each in its own transaction that checks the state again
+  before `deleteStudentAccount`, then clears the match cache. A failure stops there and says how many
+  went. No email.
+- **The switch:** both routes refuse with 409 after the admin check until `INACTIVE_ACCOUNTS_ENABLED`
+  is `true`; the page says why its buttons are off. In `.env.example`, off.
+
+Checked on a throwaway local Postgres through `next dev`, with one student in each state: off, both
+buttons 409; a notified student signing in had the notice cleared by Part A's write; on, a refused
+Resend batch (a dead key) recorded nothing, and Delete removed the one due account with its profile
+and ticket and kept the rest. Not checked: a real send. That is release day's first round, to the
+owner's own address first if wanted.
+
 **Part D — the admin page.** Built before release day (owner, 27 October 2026), with both buttons off
 until `INACTIVE_ACCOUNTS_ENABLED` is on: with it off, the page shows the lists, and the buttons are
 disabled and say why. It is turned on only once the Privacy Policy that sets the rule is published.
@@ -4128,7 +4152,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
 - ~~Part A~~ and ~~Part B~~ done 27 October 2026;
 - ~~Part C's board~~ approved 27 October 2026;
-- Parts C and D in code, the buttons behind `INACTIVE_ACCOUNTS_ENABLED`, off;
+- ~~Parts C and D in code~~ done 27 October 2026, the buttons behind `INACTIVE_ACCOUNTS_ENABLED`, off;
 - Part E, only when the owner asks for it.
 
 ---

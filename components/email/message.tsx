@@ -15,7 +15,19 @@ export interface EmailMessage {
   text?: string
 }
 
-/** A message in the new design: the layout and the plain text from the same words */
-export function designedMessage(subject: string, content: EmailContent): EmailMessage {
-  return { subject, react: <EmailLayout content={content} />, text: toPlainText(content) }
+/**
+ * A message in the new design: the layout and the plain text from the same words. `newUi` pins
+ * the header to the new design for an email that has no version in today's (the inactivity
+ * notice); the others follow `NEW_UI_FOR_EVERYONE` as their templates do.
+ */
+export function designedMessage(
+  subject: string,
+  content: EmailContent,
+  options: { newUi?: boolean } = {}
+): EmailMessage {
+  return {
+    subject,
+    react: <EmailLayout content={content} newUi={options.newUi} />,
+    text: toPlainText(content)
+  }
 }

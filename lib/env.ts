@@ -50,6 +50,11 @@ const envSchema = z.object({
   // student's countries and fields; "off" gives every visitor the signed-out sorts.
   EXPLORE_BEST_FIT: z.enum(['full', 'lifted', 'off']).optional(),
 
+  // Inactive accounts (MAINT_tasks.md 7.6 Part D): "true" lets the admin send the inactivity
+  // notices and delete the accounts due. Off until the Privacy Policy that sets the rule is
+  // published (release day); with it off, the admin's page lists them and its buttons say why not.
+  INACTIVE_ACCOUNTS_ENABLED: z.enum(['true', 'false']).optional(),
+
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
 })
