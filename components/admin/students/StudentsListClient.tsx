@@ -8,7 +8,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { GraduationCap, Users, School, CheckCircle2, XCircle } from 'lucide-react'
+import { GraduationCap, Users, School, CheckCircle2, XCircle, Moon } from 'lucide-react'
 import { StatCard, SearchFilterBar, FilterChip } from '@/components/admin/shared'
 import { StudentsTable } from './StudentsTable'
 
@@ -32,6 +32,8 @@ interface Student {
   name: string | null
   image: string | null
   createdAt: string
+  lastActiveAt: string | null
+  isSilent: boolean
   hasProfile: boolean
   profile: StudentProfile | null
 }
@@ -43,12 +45,18 @@ interface StudentsListClientProps {
     withProfile: number
     withoutProfile: number
     withSchool: number
+    silent: number
   }
+  initialFilter?: string | null
 }
 
-export function StudentsListClient({ students, stats }: StudentsListClientProps) {
+export function StudentsListClient({
+  students,
+  stats,
+  initialFilter = null
+}: StudentsListClientProps) {
   const [search, setSearch] = useState('')
-  const [profileFilter, setProfileFilter] = useState<string | null>(null)
+  const [profileFilter, setProfileFilter] = useState<string | null>(initialFilter)
 
   // Filter students
   const filteredStudents = useMemo(() => {
@@ -66,6 +74,7 @@ export function StudentsListClient({ students, stats }: StudentsListClientProps)
       if (profileFilter === 'with_profile' && !student.hasProfile) return false
       if (profileFilter === 'without_profile' && student.hasProfile) return false
       if (profileFilter === 'with_school' && !student.profile?.school) return false
+      if (profileFilter === 'silent' && !student.isSilent) return false
 
       return true
     })
@@ -140,6 +149,13 @@ export function StudentsListClient({ students, stats }: StudentsListClientProps)
           icon={School}
           isActive={profileFilter === 'with_school'}
           onClick={() => setProfileFilter('with_school')}
+        />
+        <FilterChip
+          label={`Silent (${stats.silent})`}
+          icon={Moon}
+          isActive={profileFilter === 'silent'}
+          onClick={() => setProfileFilter('silent')}
+          variant="warning"
         />
       </SearchFilterBar>
 

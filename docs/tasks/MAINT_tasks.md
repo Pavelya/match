@@ -65,6 +65,7 @@ deletes today's design.
 | Returning students: what to count | 7.5 Part B | 27 October 2026 | The owner chose the last-active date, which 7.6 Part A builds; returns are counted from it by month of sign-up. Other analytics may come later |
 | Inactive accounts: the policy line | 7.6 Part 0 | 27 October 2026 | The Privacy Policy draft (7.4) and its redline say it: 6 months unused, one warning email, deletion 30 days later unless the student comes back. Also the last-active date (section 2) and the warning among the emails (section 3); one more line for the lawyer under question 8 |
 | Inactive accounts: the last-active date | 7.6 Part A | 27 October 2026 | `User.lastActiveAt`, written by the `jwt` callback's role read at most once a day, clearing `inactivityNoticeSentAt` (#193; migration applied). Backfilled for all 201 students from their latest stored change: 69 silent, 37 active in the last 30 days |
+| Inactive accounts: the admin and the dashboard | 7.6 Part B | 27 October 2026 | "Last active" and a "Silent" label on `/admin/students` and the student's page, a Silent filter, and two `count()`s on the dashboard (37 active in 30 days, 69 silent). The rule is `lib/account/inactivity.ts`, for Part D to extend |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -77,8 +78,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the admin and the dashboard | 7.6 Part B | medium | Part A is done (27 October 2026): every student has a last-active date. Part B shows it, and the two dashboard counts |
-| 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
+| 1 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -4026,6 +4026,24 @@ change these lines with it.
    a filter for silent students.
 2. On `/admin/dashboard`, the two counts from decision 6, each a `count()` with a date condition.
 
+**Done 27 October 2026.**
+- `lib/account/inactivity.ts`: silent is 6 calendar months (UTC) since `lastActiveAt` or, with no date,
+  since the account was made, so an invitation whose link was never used follows the same rule.
+  Students only. `isSilent` for pages, `silentStudentsWhere` and `activeStudentsWhere` for `count()`.
+  Part D adds the notice states here. Tested at the edges, across a year, and on the 31st (which
+  falls back to the month's last day, as Postgres's `interval '6 months'` does).
+- `/admin/students`: a "Last active" column ("Never" with no date), the "Silent" label under it, and a
+  "Silent (n)" filter, opened by `?filter=silent`. The page selects instead of including. Dates in UTC.
+- The student's page: "Last active" in Account info and the label beside "Profile Complete".
+- `/admin/dashboard`: "Active students, last 30 days" and "Silent students, 6 months", the second
+  linking to the filtered list. The rule's `count()`s gave 37 and 69 on production, the same as the
+  backfill's SQL. Until real visits replace the backfilled dates, "active" means changed something
+  in the last 30 days, so it reads low at first.
+- Checked on a throwaway local Postgres with an admin and six students at each stage, through
+  `next dev`: both counts 2 and 2 as expected, the filter shows 2 of 6, and the admin's own date was
+  written by the `jwt` callback (Part A end to end). At 390px the admin already scrolls sideways on
+  `main` (438px); not changed here.
+
 **Part C — the notice email (a design gate first).** It is a new email, so it is added as a case on the
 "D4.18 Emails" boards and approved before any code (`REBRANDING_tasks.md`, Step 2). It is built in
 `emails/` on D4.18's layout, in the new design only, since nothing is sent before release day. It is the
@@ -4096,7 +4114,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 
 **Session size:** Large. Split into sessions:
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
-- ~~Part A~~ done 27 October 2026; Part B;
+- ~~Part A~~ and ~~Part B~~ done 27 October 2026;
 - Part C's board, a design session;
 - Parts C and D in code;
 - Part E, only when the owner asks for it.

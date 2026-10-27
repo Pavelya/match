@@ -10,13 +10,17 @@ import {
   Briefcase,
   Plus,
   ArrowRight,
-  LayoutDashboard
+  LayoutDashboard,
+  Activity,
+  Moon
 } from 'lucide-react'
 import { PageContainer, PageHeader, StatCard, InfoCard } from '@/components/admin/shared'
 import { FadeIn } from '@/components/ui/fade-in'
+import { activeStudentsWhere, silentStudentsWhere } from '@/lib/account/inactivity'
 
 export default async function AdminDashboardPage() {
   // Fetch basic stats for the dashboard
+  const now = new Date()
   const [
     userCount,
     programCount,
@@ -24,7 +28,9 @@ export default async function AdminDashboardPage() {
     schoolCount,
     studentCount,
     coordinatorCount,
-    agentCount
+    agentCount,
+    activeStudentCount,
+    silentStudentCount
   ] = await Promise.all([
     prisma.user.count(),
     prisma.academicProgram.count(),
@@ -32,7 +38,10 @@ export default async function AdminDashboardPage() {
     prisma.iBSchool.count(),
     prisma.user.count({ where: { role: 'STUDENT' } }),
     prisma.user.count({ where: { role: 'COORDINATOR' } }),
-    prisma.user.count({ where: { role: 'UNIVERSITY_AGENT' } })
+    prisma.user.count({ where: { role: 'UNIVERSITY_AGENT' } }),
+    // MAINT 7.6: the health number and the to-do number (lib/account/inactivity.ts)
+    prisma.user.count({ where: activeStudentsWhere(now) }),
+    prisma.user.count({ where: silentStudentsWhere(now) })
   ])
 
   return (
@@ -85,7 +94,7 @@ export default async function AdminDashboardPage() {
 
       {/* Secondary Stats Row - User Breakdown */}
       <FadeIn direction="up" delay={200} duration={400}>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
           <StatCard title="Students" value={studentCount} icon={Users} href="/admin/students" />
           <StatCard
             title="Coordinators"
@@ -94,6 +103,22 @@ export default async function AdminDashboardPage() {
             href="/admin/coordinators"
           />
           <StatCard title="Agents" value={agentCount} icon={Briefcase} href="/admin/agents" />
+        </div>
+        {/* Student activity: seen signed in within 30 days, and silent for 6 months */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <StatCard
+            title="Active students, last 30 days"
+            value={activeStudentCount}
+            icon={Activity}
+            iconColor="green"
+          />
+          <StatCard
+            title="Silent students, 6 months"
+            value={silentStudentCount}
+            icon={Moon}
+            href="/admin/students?filter=silent"
+            iconColor="amber"
+          />
         </div>
       </FadeIn>
 

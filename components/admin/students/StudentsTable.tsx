@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { User, School, Crown, CheckCircle2, XCircle, ExternalLink, Trash2 } from 'lucide-react'
 import { DataTable, type Column } from '@/components/admin/shared'
 import { DeleteStudentDialog } from './DeleteStudentDialog'
+import { SilentLabel } from './SilentLabel'
 
 interface StudentSchool {
   id: string
@@ -33,12 +34,23 @@ interface Student {
   name: string | null
   image: string | null
   createdAt: string
+  lastActiveAt: string | null
+  isSilent: boolean
   hasProfile: boolean
   profile: StudentProfile | null
 }
 
 interface StudentsTableProps {
   students: Student[]
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC'
+  })
 }
 
 const columns: Column<Student>[] = [
@@ -123,13 +135,19 @@ const columns: Column<Student>[] = [
     key: 'createdAt',
     header: 'Joined',
     render: (student) => (
-      <span className="text-sm text-muted-foreground">
-        {new Date(student.createdAt).toLocaleDateString('en-GB', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric'
-        })}
-      </span>
+      <span className="text-sm text-muted-foreground">{formatDate(student.createdAt)}</span>
+    )
+  },
+  {
+    key: 'lastActiveAt',
+    header: 'Last active',
+    render: (student) => (
+      <div className="flex flex-col items-start gap-1">
+        <span className="text-sm text-muted-foreground">
+          {student.lastActiveAt ? formatDate(student.lastActiveAt) : 'Never'}
+        </span>
+        {student.isSilent && <SilentLabel />}
+      </div>
     )
   },
   {
