@@ -1,5 +1,11 @@
 # IB Match Platform - Security Audit Report
 
+> **History.** The current list is `docs/tasks/SEC_tasks.md`, from the audit of 27 October 2026. Of
+> this report: DATA-01/INT-01 (the Stripe webhook secret) were fixed; DATA-03 by MAINT 5.37 (Row Level
+> Security); INFRA-01 (headers) and COMP-01 to COMP-03 (export, deletion, cookies) were done;
+> DATA-04 (an audit trail) was decided against for now (SEC-10), and DATA-02 (encrypting grades) too
+> (SEC_tasks.md, "Considered, not doing now"). INT-02 (rotating the API keys) was not taken up.
+
 **Date:** January 13, 2026  
 **Auditor:** Automated Security Review  
 **Application Version:** Production Readiness Assessment  

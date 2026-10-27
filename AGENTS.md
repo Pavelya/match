@@ -76,6 +76,9 @@ traffic. Storage was restricted and every university image broke.
   Keep them static; dynamic rendering costs both latency and money.
 - `npm start` needs `AUTH_TRUST_HOST=true` outside Vercel, or every `/api/auth/*` route
   returns 500 with `UntrustedHost`. Auth.js v5 auto-trusts only in dev and on Vercel.
+- **Every admin and coordinator page calls `requireAdmin()` or `requireCoordinator()` first**
+  (`lib/auth/guards.ts`). A layout's check does not cover the pages under it; Next renders a page
+  alongside its layout. `app/page-guards.test.ts` fails for a page without one (SEC-1).
 
 ## Workflow
 
@@ -84,6 +87,9 @@ pass, and let the user merge. Never commit to `main`. The user merges between se
 start every change from a new branch off `origin/main` and check the branch before committing.
 Finishing a task from `docs/tasks/MAINT_tasks.md` includes moving it to "1. Done" there, in the same
 pull request (the rule is at the top of its "Start here").
+
+**The repository is public.** A commit, pull request or doc that describes an unfixed vulnerability
+publishes it. Fix first, in neutral words; write the finding up once the fix is deployed.
 
 Verification — all free, and nothing reaches a third party except the build:
 

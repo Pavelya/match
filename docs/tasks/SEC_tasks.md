@@ -27,24 +27,18 @@ heading **done**. A finding from a session becomes a new task and a row here, no
 All done: SEC-1, SEC-2, SEC-3 and SEC-11 were merged on 27 October 2026 (#204, #205, #206, #211).
 What is left before release is the owner's checklist, SEC-4.
 
-### On release day (R.1)
+### Left for the owner
 
-| Task | Priority | Size | Who |
-|---|---|---|---|
-| [SEC-4 — Release-day security checklist](#sec-4--release-day-security-checklist) | P1 | small | owner |
+Every session task is done or decided (27 October 2026). What is left is in dashboards and settings:
 
-### After release — within a few weeks
-
-| Order | Task | Priority | Size | Who |
-|---|---|---|---|---|
-| 6 | [SEC-7 — Limits at the edge, and usage alerts](#sec-7--limits-at-the-edge-and-usage-alerts): steps 1 and 2 | P2 | small | owner; the runbook is written |
-
-### When convenient
-
-| Order | Task | Priority | Size | Who |
-|---|---|---|---|---|
-| 8 | [SEC-9 — CI permissions and the dependency watch](#sec-9--ci-permissions-and-the-dependency-watch--done): step 4, the settings | P3 | small | owner |
-| 9 | [SEC-10 — Admin accounts and an audit trail](#sec-10--admin-accounts-and-an-audit-trail) | P3 | owner decision first | owner, then maybe a session |
+| When | Task | What |
+|---|---|---|
+| Release day | [SEC-4](#sec-4--release-day-security-checklist) | The checklist: delete `NEW_UI_PREVIEW_KEY`, previews protected, production variables, headers |
+| Any time | [SEC-7](#sec-7--limits-at-the-edge-and-usage-alerts), steps 1 and 2 | One rate-limit rule on `/api/` in Vercel (Log first), and usage alerts |
+| Any time | [SEC-8](#sec-8--small-hardening-batch--done) | The image bucket's allowed types and 2 MB limit in Supabase |
+| Any time | [SEC-9](#sec-9--ci-permissions-and-the-dependency-watch--done), step 4 | Settings → Code security (Dependabot alerts and security updates, secret scanning with push protection); run "Dependency audit" once |
+| [SEC-10](#sec-10--admin-accounts-and-an-audit-trail--decided-not-now) | 27 October 2026 | Decided, not built: one admin account, signing in by email link, so no Google-only rule; no audit trail for now. The owner turns on 2-step verification on the mailbox at GoDaddy |
+| Any time | [SEC-10](#sec-10--admin-accounts-and-an-audit-trail--decided-not-now), item 1 | 2-step verification on the admin mailbox, at GoDaddy |
 
 ### Done
 
@@ -680,7 +674,16 @@ none.
 
 ---
 
-## SEC-10 — Admin accounts and an audit trail
+## SEC-10 — Admin accounts and an audit trail — decided, not now
+
+**Decided 27 October 2026 (owner).** There is one admin account, and it signs in by email link, not
+Google. So:
+
+1. **2-step verification:** yes. The owner turns it on for the mailbox, at GoDaddy. No code.
+2. **Google-only sign-in for admins:** no. The admin doesn't use Google, and the mailbox's 2-step
+   verification protects the email link the same way.
+3. **The audit trail:** not now. Revisit when there is a second admin, or the first time an
+   admin action has to be traced.
 
 **Priority:** P3 · **Who:** owner decision first; then perhaps a session,
 `feat/sec-10-admin-audit`
