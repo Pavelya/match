@@ -70,9 +70,10 @@ deletes today's design.
 | npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. No npm 12 now; Node 24 everywhere first (6.10), approved by the owner with `strict-allow-scripts`. Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
 | Next.js security patch | 6.8 | 27 October 2026 | `next` 16.3.4 → 16.4.3, which closes three critical remote-code-execution advisories, and `sharp` with it; `npm audit` 12 → 10, none critical. `eslint-config-next` stays on 16.3.4. Found 6.11 |
 | The other advisories | 6.9 | 27 October 2026 | `npm audit` 10 → 0: `npm audit fix` for eight packages, lockfile only, and an override moving typography's `postcss-selector-parser` to 6.1.5, with byte-identical CSS. `zod`, `vite` and `vitest` floors raised |
+| Node 24 on all three machines | 6.10 | 27 October 2026 | `engines` `24.x`, `.nvmrc` `24`, and CI reads `.nvmrc`, so CI tests on the Node and npm 11 that production runs. The matcher's fingerprint is identical on Node 22 and 24. The laptop moves when the owner installs Node 24 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8, 6.9, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8–6.10, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -82,8 +83,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
-| 2 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
+| 1 | npm 12: the `allowScripts` list | 6.7, step 5 | small | CI reads the field since 6.10. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -99,7 +99,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 | R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
-**For the owner, now:** 5.37's last steps: export the Security Advisor's list for a session to answer,
+**For the owner, now:** install Node 24 LTS on the laptop (6.10); then `node -v` prints 24 and `npm ci` has no `EBADENGINE`. 5.37's last steps: export the Security Advisor's list for a session to answer,
 turn off sign-ups to Supabase Auth, delete `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel, check for a
 publishable key, and upload one image in the admin; compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
@@ -182,7 +182,7 @@ Phase 6 — dependency majors
   2026, approved by the owner; step 5 waits for 6.10
 - [x] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7) — 27 October 2026
 - [x] 6.9 The other advisories (from 6.7) — 27 October 2026
-- [ ] 6.10 Node 24 on all three machines (from 6.7)
+- [x] 6.10 Node 24 on all three machines (from 6.7) — 27 October 2026; the laptop waits for the owner
 - [ ] 6.11 `eslint-config-next` 16.4 and the React Compiler lint rules (from 6.8), after R.2
 
 Phase 7 — structural
@@ -229,7 +229,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8) and the advisories (6.9). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.10 (Node 24), 6.11 (`eslint-config-next` 16.4, after R.2) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8), the advisories (6.9) and Node 24 everywhere (6.10). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.11 (`eslint-config-next` 16.4, after R.2) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -3149,7 +3149,7 @@ on vitest 5.0.5, and `npm run build` (125 pages), whose prerender read productio
 
 ---
 
-### 6.10 — Node 24 on all three machines
+### 6.10 — Node 24 on all three machines — **done**
 
 **Outcome:** local, CI and Vercel all build on Node 24 and the npm it ships (11.19 or later), and
 `package.json` names Node 24 so Vercel cannot move to a new major by itself.
@@ -3177,6 +3177,30 @@ Node 26.
 on Node 24 has no `EBADENGINE`.
 
 **Session size:** small.
+
+**Done 27 October 2026.** `package.json` (and the lockfile's root entry) says `"node": "24.x"`, `.nvmrc`
+says `24`, and the three `actions/setup-node` steps read `node-version-file: .nvmrc` in place of
+`node-version: 22`. The README says Node 24. Vercel's project setting stays 24.x.
+
+- **Only the lockfile's `engines` line changed.** `npm install --package-lock-only` on npm 11.21.1 also
+  wrote six entries bundled inside `@tailwindcss/oxide-wasm32-wasi`, an optional package no machine
+  here installs. They are that npm's lockfile format, not Node, so they were left out.
+- **`@types/node` stays on `^22`.** Node 22's types are a subset of 24's, so nothing breaks; moving
+  them is an upgrade of its own (rule 1), worth doing only when code wants a Node 24 API.
+- **The scores do not depend on Node.** `scripts/score-fingerprint.ts` gave the same 72,060 lines
+  (sha256 `9ca39e46…`) on Node 22.12 and 24.22.1.
+
+**Verified** on Node 24.22.1 with its npm 11.19.1, the pair CI now gets: `npm ci` from a clean
+`node_modules` with no `EBADENGINE` (Node 22.12 printed one for `eslint-visitor-keys`), type-check,
+lint at `--max-warnings 0`, `prettier --check`, 139 test files and 2662 tests, and `npm run build`
+(125 pages), whose prerender read production. CI green: setup-node printed "Resolved .nvmrc as 24",
+then Node 24.21.0 and npm 11.19.0 (the runner's cached 24; it takes a newer one when the image updates).
+The Vercel preview built, and its log no longer has the `Detected "engines"` warning, which every
+build had printed three times.
+
+**The owner's part:** install Node 24 LTS on the laptop (24.22.1 on 20 October 2026, with npm 11.19.1;
+`npm install -g npm@11` raises it to the latest 11). Until then the laptop is on Node 22.12, which still
+installs and builds, with the `EBADENGINE` warning and now one for the project's own `engines` too.
 
 ---
 

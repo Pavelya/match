@@ -21,7 +21,7 @@ buy a subscription for full coordinator access or run on a limited freemium tier
 
 ## Getting started
 
-Requires **Node 22+** (see `.nvmrc`).
+Requires **Node 24** (see `.nvmrc`), the version Vercel builds and runs on.
 
 ```bash
 cp .env.example .env      # then fill in the values
