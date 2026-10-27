@@ -33,8 +33,8 @@ describe('rate limiters', () => {
   it('builds every limiter with analytics off', async () => {
     const { rateLimiters } = await import('./rate-limit')
 
-    expect(Object.keys(rateLimiters)).toHaveLength(7)
-    expect(created).toHaveLength(7)
+    expect(Object.keys(rateLimiters)).toHaveLength(11)
+    expect(created).toHaveLength(11)
     for (const config of created) {
       expect(config.analytics, `${String(config.prefix)} keeps request records`).toBe(false)
     }
@@ -108,6 +108,53 @@ describe('applyRateLimit', () => {
 
     expect(await applyRateLimit('api', 'user-123456789')).toBeNull()
     expect(logger.error).toHaveBeenCalledOnce()
+  })
+
+  // SEC-2: a limiter on sign-in emails must not stop limiting when Redis does
+  it('answers 503 when Redis fails and the limiter fails closed', async () => {
+    const { applyRateLimit } = await import('./rate-limit')
+    limit.mockRejectedValue(new Error('fetch failed'))
+
+    const res = await applyRateLimit('signInAddress', 'a'.repeat(64), { failClosed: true })
+
+    expect(res?.status).toBe(503)
+    expect(res?.headers.get('Retry-After')).toBe('60')
+    expect(await res?.json()).toEqual({
+      error: 'Service unavailable',
+      message: 'Please try again in a few minutes.',
+      retryAfter: 60
+    })
+    expect(logger.error.mock.calls[0][1]).toMatchObject({ failClosed: true })
+  })
+
+  it('still answers 429, not 503, when a closed limiter says no', async () => {
+    const { applyRateLimit } = await import('./rate-limit')
+    limit.mockResolvedValue({ success: false, limit: 3, remaining: 0, reset: NOW + 60_000 })
+
+    const res = await applyRateLimit('signInAddress', 'a'.repeat(64), { failClosed: true })
+
+    expect(res?.status).toBe(429)
+  })
+
+  it('lets a request under the limit through when the limiter fails closed', async () => {
+    const { applyRateLimit } = await import('./rate-limit')
+    limit.mockResolvedValue({ success: true, limit: 3, remaining: 2, reset: NOW + 60_000 })
+
+    expect(await applyRateLimit('signInIp', '203.0.113.1', { failClosed: true })).toBeNull()
+  })
+})
+
+describe('the sign-in limits (SEC-2)', () => {
+  it('limits sign-in emails per address, per day and per IP, and callbacks loosely', async () => {
+    await import('./rate-limit')
+    const windows = Object.fromEntries(created.map((config) => [config.prefix, config.limiter]))
+
+    expect(windows['ratelimit:signinaddress']).toEqual({ tokens: 3, window: '15 m' })
+    expect(windows['ratelimit:signinaddressday']).toEqual({ tokens: 10, window: '1 d' })
+    expect(windows['ratelimit:signinip']).toEqual({ tokens: 60, window: '1 h' })
+    expect(windows['ratelimit:authcallback']).toEqual({ tokens: 60, window: '1 m' })
+    // The rest of /api/auth is as strict as before
+    expect(windows['ratelimit:auth']).toEqual({ tokens: 5, window: '10 s' })
   })
 })
 
