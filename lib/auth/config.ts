@@ -9,6 +9,7 @@ import { signInMessage } from '@/emails/magic-link'
 import { coordinatorSignInMessage } from '@/emails/coordinator-magic-link'
 import { prisma } from '@/lib/prisma'
 import { SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
+import { readRoleAndMarkActive } from './last-active'
 
 /** How long a role claim in the JWT is trusted before being re-read. */
 const ROLE_REFRESH_MS = 5 * 60 * 1000
@@ -110,13 +111,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      // On initial sign-in, fetch and attach role to the token
+      // On initial sign-in, fetch and attach role to the token, and record the day (MAINT 7.6)
       if (user?.id) {
-        const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { role: true }
-        })
-        token.role = dbUser?.role || 'STUDENT'
+        token.role = (await readRoleAndMarkActive(user.id)) || 'STUDENT'
         token.roleCheckedAt = Date.now()
         return token
       }
@@ -124,14 +121,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Re-read the role periodically. Previously it was read only at sign-in,
       // so demoting an admin or deactivating a coordinator had no effect until
       // their token expired - up to 30 days. Falling back to STUDENT means a
-      // deleted account loses its privileges rather than keeping them.
+      // deleted account loses its privileges rather than keeping them. The same read records the
+      // day the user was active, written at most once a day (lib/auth/last-active.ts).
       const lastChecked = token.roleCheckedAt ?? 0
       if (token.sub && Date.now() - lastChecked > ROLE_REFRESH_MS) {
-        const dbUser = await prisma.user.findUnique({
-          where: { id: token.sub },
-          select: { role: true }
-        })
-        token.role = dbUser?.role || 'STUDENT'
+        token.role = (await readRoleAndMarkActive(token.sub)) || 'STUDENT'
         token.roleCheckedAt = Date.now()
       }
 

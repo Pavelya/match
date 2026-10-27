@@ -15,6 +15,7 @@ Every line says where it comes from, so the drafts can be checked against it.
 | School link, consent date and version | Student | `StudentProfile.schoolId`, `coordinatorAccessConsentAt`, `...Version`, `linkedByInvitation` | Same | Unlink clears the link and the consent; account deletion removes it |
 | Accepted Terms and Privacy versions and dates | Everyone | `User.termsVersion`, `termsAcceptedAt`, `privacyPolicyVersion`, `privacyAcceptedAt` | The person; admins | Account deleted |
 | Invitations: sender, invitee email, student name, role, status, dates | Coordinators and invited students | `Invitation` | Sender's school; admins | With the sender's account, or the invited student's or coordinator's account (see 4). Not with the school: see 4 |
+| The day last seen signed in, and when an inactivity notice was sent (MAINT 7.6) | Everyone signed in; notices to students only | `User.lastActiveAt`, written by the `jwt` callback at most once a day; `User.inactivityNoticeSentAt`, cleared by that write (`lib/auth/last-active.ts`) | The person (the export); admins | Account deleted |
 | Support tickets: category, subject, message, reply | Anyone signed in | `SupportTicket` | The person; admins | Account deleted |
 | School name, city, email, phone, logo, Stripe customer and subscription IDs | School | `IBSchool` | Coordinators of that school; admins | School deleted by an admin, only once it has no coordinators or students |
 | Sign-in link tokens | Everyone | `VerificationToken` | Nobody | Used, or expired after 10 minutes (`lib/auth/sign-in-link.ts`) |
@@ -104,7 +105,8 @@ matches. An admin deleting a student runs the same function (`app/api/admin/stud
 **The data export** (Settings → Download your data → `GET /api/students/account/export`) returns
 account, academic profile, preferences and saved programs as JSON, and since MAINT 5.31 the consent
 records (policy versions and dates, the school link's consent), the student's support tickets with their replies,
-and the school invitations sent to their address. It names no other person: not who resolved a ticket or sent an
+and the school invitations sent to their address; since MAINT 7.6 (version 1.2), the day last active and any
+inactivity notice. It names no other person: not who resolved a ticket or sent an
 invitation. Coordinators have no export of their own data.
 
 ## 5. Emails
