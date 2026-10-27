@@ -162,7 +162,9 @@ Owner tasks — not AI work
 - [ ] Keep or delete HKUST's Business with Extended Major (3.4, 4.5): the rename is confirmed (AI / Creative Arts and
   Digital Humanities / Sustainability), but students choose it in Year 2, not at admission. Left unwritten
 - [ ] Re-check NTU and NUS once their 2027 lists appear (4.5): NTU's IB subject PDF is still the 2026 window's (the 2027
-  window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026
+  window opens 15 October 2026) and NUS's IB prerequisites are dated December 2025, so all 60 are stamped 2026. **NTU done
+  27 October 2026:** its PDF now covers the AY2027-28 window and every stored rule holds, so its 40 programs are stamped 2027
+  (4.5, "Re-check"). NUS's 20 wait for its AY2027-28 window (last year's opened in mid-December)
 - [x] Open Melbourne's 14 course pages in a browser (4.7): `study.unimelb.edu.au` refuses curl, urllib and WebFetch, PDFs
   included. The owner checked all 14 by hand on 30 September 2026: the stored values hold for 2027. Stamped 2027 the same day
 - [x] Sydney's maths prerequisite applies to the IB only when taken in Australia (4.7): removed from all 11 courses at the owner's
@@ -2267,6 +2269,26 @@ Backup: `scripts/backups/refresh/2026-09-30T06-14-49-544Z.json`.
     certificate chain, as in 3.4) and one redirect, the unwritten extended major; 0 broken or year-pinned.
   - Public pages: HKU Social Sciences shows 35 points and "checked for 2027 entry"; NUS Bachelor of Computing in Business
     Artificial Intelligence Systems shows its new name, 40 and "Checked for 2026 entry"; HKUST BBA in Marketing shows 36.
+
+#### Re-check, 27 October 2026 — NTU stamped 2027 (owner task); NUS still waits
+
+NTU's "Minimum Subject Requirements for Students with International Baccalaureate Diploma" (`.../msr/emsr_ib.pdf`, last modified
+23 October 2026) now covers the AY2027-28 window, 15 October 2026 to 19 March 2027 ("Information is correct as at October 2026").
+Each of the 40 stored programmes has the same rule as in the February 2026 PDF that 4.5 read. The five rules that also come from a
+programme page were re-read and hold. EEE and IEM ask for SL Physics from applicants without HL Physics, Physics / Applied
+Physics for Physics and Mathematics at HL, and Sport Science for Mathematics at SL. Art and Education asks for HL Art, or any HL
+subject with a strong portfolio, and an interview. NTU's IB page still bars May 2027 candidates from Art and Education, as from
+Medicine. The IB page's words on points changed to "As our IB applicant numbers are limited, we are unable to provide a meaningful
+grade profile"; the stored points stay unverified, as in 4.5.
+
+- **Written:** `scripts/programs/2027/nanyang-technological-university.ts`, `checkedOn` 2026-10-27, all 40 `checkedFor` 2027, and
+  each note says so. The dry run shows 40 "stamp only" (2026 → 2027), no requirement change and no warning.
+- **Links:** the link checker finds all 40 NTU URLs OK.
+- **Not stored, new in the PDF** (coverage, not this re-check): twelve programmes marked NEW. Three are Art History double majors
+  (with Chinese, History, Philosophy). The others are Biological Sciences with Chemistry, Environmental Earth Systems Science or
+  Mathematical Sciences; Chemistry with Environmental Earth Systems Science or Mathematical Sciences; Applied Physics with Biological
+  Sciences, Chemistry or Environmental Earth Systems Science; and Environmental Earth Systems Science with Mathematical Sciences.
+- **NUS** waits: its AY2027-28 window and prerequisite PDFs are not out (last year's window opened in mid-December).
 
 ### 4.6 — Netherlands and Ireland
 
