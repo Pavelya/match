@@ -72,7 +72,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | "Two of" rules stored as one | 5.39 | medium, content | 5.18 is done. About 47 programs at McGill, Alberta, Waterloo and five others get their second requirement |
+| 1 | "Two of" rules stored as one | 5.39 | medium, content | Steps 1 and 2 done 27 October 2026: 47 programs re-read and prepared, dry run done; the write waits for the owner |
 | 2 | Returning students: where it stands | 7.5 Part A | small | Research, read-only. Parts B to D wait (group 3) |
 | 3 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
 | 4 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
@@ -2662,6 +2662,34 @@ reading its page.
 the list no longer meets the requirement, and one with two does.
 
 **Session size:** Medium, content. Depends on 5.18 steps 2 and 3.
+
+**Steps 1 and 2 done, 27 October 2026: 47 programs, dry run done, the write waits for the owner.**
+Each university's page was re-read on 27 October; every one still states the "two of" rule.
+
+| University | Programs | Re-read | What it says |
+|---|---|---|---|
+| McGill | 13 | [IB page](https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib) | "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level". Maths is not one of the two. The Faculty of Science's Physical group is now "Physical, Earth, Math and Computer Sciences Group" (same grades), and an "Earth, Geographic, and Climate Sciences Group" is new for Fall 2027 (grades "TBD") |
+| Alberta | 15 | [Admission to Science](https://www.ualberta.ca/en/science/programs/bachelor-of-science/admission-to-science/index.html), [IB equivalents](https://www.ualberta.ca/en/admissions/how-to-apply/ib-students/ib-high-school-course-equivalencies.html) | "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)". Maths AA (HL/SL) is "Math 30-1/Math 31", so Maths AA is one of the list and may also be the maths row. IB Computer Science is "Science 30-level", not CTS. The programme pages' requirement tabs load by script, and the calendar answers scripts with an empty page |
+| Waterloo | 12 | the six IB admission pages (Life, Physical, Biomedical, Environmental Sciences, Honours Science, Kinesiology) | "Two of Biology, Chemistry, or Physics" |
+| Trinity | 2 (Physical Sciences, Physics) | 2027 prospectus, alert list | TR063 "will still require two science subjects at … International Baccalaureate HL5". Maths is not in the list. The course pages show no IB line |
+| Imperial | Geology | [course page](https://www.imperial.ac.uk/study/courses/undergraduate/geology-msci/) | "grade 6 in two of the following subjects at higher level" |
+| NUS | Nursing | IB prerequisites PDF ("Information accurate as of December 2025") | "Any two passes in HL Biology, HL Chemistry, HL Computer Science, HL MAA, or HL Physics" |
+| Leiden | Science for Sustainable Societies | "Specific diploma requirements for science and medical programmes 2027-2028" (read through WebFetch: the site serves scripts a bot check) | "+ 1 HL and 1 SL subject" from Biology, Chemistry, Physics, Economics, Geography, ESS. Stored as the HL 4 group and the same list at SL 4 |
+| Lund | Physical Geography and Ecosystem Science (the task's "Lund Physics": Physics itself stores three separate rows and is right) | [study page](https://www.lunduniversity.lu.se/study/sciences-physical-geography-and-ecosystem-science-NGNAT-INES), Autumn 2027 | "Mathematics 4 … together with two of the courses Biology 2 …, Physics 2 … and Chemistry 2" |
+| Cambridge | Natural Sciences | [course page](https://www.undergraduate.study.cam.ac.uk/courses/natural-sciences-ba-hons-msci), "for entry in 2027" | "Mathematics" and "2 other science or mathematics subjects (Biology, Chemistry, Physics …)" at HL |
+
+- **The data files.** Each program's group is stored twice and both copies are marked `ownCourse`; the
+  notes are corrected and dated. Maths rows are never marked, so where the list includes maths (Alberta,
+  NUS, Imperial) Maths may also count for the maths requirement.
+- **Cambridge** is in the content 1.2 file, which `apply-2027-requirements.ts` writes. That script now reads
+  and writes `ownCourse` too, and clears the cached matches as `refresh.ts` does.
+- **Dry run:** `refresh.ts` over the eight refresh files gives 46 changes, and `apply-2027-requirements.ts
+  --only university-of-cambridge` gives 1. All are subject changes; no stamps move.
+- **Checked with the matcher** on each program's requirements from its data file: a student with two
+  different subjects from the list meets them, and the same student without the second does not, in all 32
+  programs outside Alberta. At Alberta, Maths AA with one science meets them, as the equivalents table reads.
+- **Next:** the owner approves; then the two `--apply` runs (each backs up first, re-syncs the search
+  records and clears the caches).
 
 ---
 

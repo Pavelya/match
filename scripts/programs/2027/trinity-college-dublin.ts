@@ -1830,7 +1830,20 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 4, critical: false },
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'], level: 'HL', grade: 5, critical: true }
+        {
+          courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'],
+          level: 'HL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'],
+          level: 'HL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2027,
       sources: [
@@ -1840,7 +1853,7 @@ const refresh: RefreshFile = {
         'https://www2.cao.ie/points/l8.php'
       ],
       notes:
-        'Content 4.6: Physical Sciences (B.Sc., common entry to Physics, Physics and Astrophysics, and Nanoscience). The prospectus alert list, for 2027 admission: mathematics rises from "International Baccalaureate SL 5 to Leaving Cert H3, A-Level B or International Baccalaureate HL6", and the two science subjects stay at "International Baccalaureate HL5" but agricultural science is no longer accepted: "Physics, Applied Mathematics, Chemistry, Biology, Physics with Chemistry, Geography and Computer Science". Stored: Maths AA or AI HL 6 and Physics, Chemistry, Biology, Geography or Computer Science HL 5, both critical (they were not critical). The model cannot hold "two of"; it is in these notes. TR063, CAO points 521 in 2025. Trinity\'s Undergraduate Prospectus 2027 (dated 23 September 2026; "Admission Requirements 2027", "Course Requirements 2027", with an International Baccalaureate column) gives the subject requirements; the course page gives the same for 2026 entry. Minimum entry with the IB (Trinity\'s undergraduate admission requirements page): "3 subjects at grade 5 at Higher Level and 3 subjects at grade 4 at Standard Level, to include English, mathematics and another language", in one sitting. Where the course asks for no more maths, that minimum is stored as Maths AA or AI SL 4, critical; the language other than English, which every Diploma includes, is not stored. English: the prospectus accepts "English A1, A2 or B: SL4 if presenting IB through English, HL5 if presenting through French or Spanish" as proof of English, stored not critical (English A or B SL 4), as 3.4 stored UCD\'s. Trinity publishes no IB points total for 2027: EU applicants are ranked on CAO points, to which the IB converts (30 = 420, 36 = 496, 42 = 566, 45 = 600), and non-EU applicants are assessed individually. The stored 34 is kept, unverified. Checked for 2027. Stored before: Biology or Chemistry or Computer Science or Physics HL 5; Maths AA or Maths AI HL 6; English A Literature or English A Language and Literature SL 4. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives CAO\'s round 1 2026 points for TR063 (545), converted on Trinity\'s indicative IB points equivalence (24 = 360, 27 = 389, 30 = 420, 36 = 496, 42 = 566, 45 = 600, interpolated between them; 25 more for HL Mathematics at 4 or better); update it at each refresh.'
+        'Content 4.6: Physical Sciences (B.Sc., common entry to Physics, Physics and Astrophysics, and Nanoscience). The prospectus alert list, for 2027 admission: mathematics rises from "International Baccalaureate SL 5 to Leaving Cert H3, A-Level B or International Baccalaureate HL6", and the two science subjects stay at "International Baccalaureate HL5" but agricultural science is no longer accepted: "Physics, Applied Mathematics, Chemistry, Biology, Physics with Chemistry, Geography and Computer Science". Stored: Maths AA or AI HL 6 and Physics, Chemistry, Biology, Geography or Computer Science HL 5, both critical (they were not critical). The two sciences are stored as two such groups, each needing a course of its own. TR063, CAO points 521 in 2025. Trinity\'s Undergraduate Prospectus 2027 (dated 23 September 2026; "Admission Requirements 2027", "Course Requirements 2027", with an International Baccalaureate column) gives the subject requirements; the course page gives the same for 2026 entry. Minimum entry with the IB (Trinity\'s undergraduate admission requirements page): "3 subjects at grade 5 at Higher Level and 3 subjects at grade 4 at Standard Level, to include English, mathematics and another language", in one sitting. Where the course asks for no more maths, that minimum is stored as Maths AA or AI SL 4, critical; the language other than English, which every Diploma includes, is not stored. English: the prospectus accepts "English A1, A2 or B: SL4 if presenting IB through English, HL5 if presenting through French or Spanish" as proof of English, stored not critical (English A or B SL 4), as 3.4 stored UCD\'s. Trinity publishes no IB points total for 2027: EU applicants are ranked on CAO points, to which the IB converts (30 = 420, 36 = 496, 42 = 566, 45 = 600), and non-EU applicants are assessed individually. The stored 34 is kept, unverified. Checked for 2027. Stored before: Biology or Chemistry or Computer Science or Physics HL 5; Maths AA or Maths AI HL 6; English A Literature or English A Language and Literature SL 4. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives CAO\'s round 1 2026 points for TR063 (545), converted on Trinity\'s indicative IB points equivalence (24 = 360, 27 = 389, 30 = 420, 36 = 496, 42 = 566, 45 = 600, interpolated between them; 25 more for HL Mathematics at 4 or better); update it at each refresh. MAINT 5.39 (27 October 2026): the 2027 prospectus, re-read, still says TR063 "will still require two science subjects at … International Baccalaureate HL5"; the second group added and both marked. Maths is not in the list, so it is not one of the two.'
     },
     // Stored: checked for 2026 entry on 2026-01-19.
     {
@@ -1857,7 +1870,20 @@ const refresh: RefreshFile = {
       requirements: [
         { courses: ['ENG-LIT', 'ENG-LL', 'ENG-B'], level: 'SL', grade: 4, critical: false },
         { courses: ['MATH-AA', 'MATH-AI'], level: 'HL', grade: 6, critical: true },
-        { courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'], level: 'HL', grade: 5, critical: true }
+        {
+          courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'],
+          level: 'HL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['PHYS', 'CHEM', 'BIO', 'GEOG', 'CS'],
+          level: 'HL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2027,
       sources: [
@@ -1867,7 +1893,7 @@ const refresh: RefreshFile = {
         'https://www2.cao.ie/points/l8.php'
       ],
       notes:
-        'Content 4.6: Physics is a strand of Physical Sciences (B.Sc.), chosen after entry. The prospectus alert list, for 2027 admission: mathematics rises to "International Baccalaureate HL6", and the two sciences stay at "International Baccalaureate HL5" from "Physics, Applied Mathematics, Chemistry, Biology, Physics with Chemistry, Geography and Computer Science". Stored: Maths AA or AI HL 6 and Physics, Chemistry, Biology, Geography or Computer Science HL 5, both critical (they were not critical). The model cannot hold "two of"; it is in these notes. TR063 Physical Sciences, CAO points 521 in 2025. Trinity\'s Undergraduate Prospectus 2027 (dated 23 September 2026; "Admission Requirements 2027", "Course Requirements 2027", with an International Baccalaureate column) gives the subject requirements; the course page gives the same for 2026 entry. Minimum entry with the IB (Trinity\'s undergraduate admission requirements page): "3 subjects at grade 5 at Higher Level and 3 subjects at grade 4 at Standard Level, to include English, mathematics and another language", in one sitting. Where the course asks for no more maths, that minimum is stored as Maths AA or AI SL 4, critical; the language other than English, which every Diploma includes, is not stored. English: the prospectus accepts "English A1, A2 or B: SL4 if presenting IB through English, HL5 if presenting through French or Spanish" as proof of English, stored not critical (English A or B SL 4), as 3.4 stored UCD\'s. Trinity publishes no IB points total for 2027: EU applicants are ranked on CAO points, to which the IB converts (30 = 420, 36 = 496, 42 = 566, 45 = 600), and non-EU applicants are assessed individually. The stored 34 is kept, unverified. Checked for 2027. Stored before: Biology or Chemistry or Computer Science or Physics HL 5; Maths AA or Maths AI HL 6; English A Literature or English A Language and Literature SL 4. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives CAO\'s round 1 2026 points for TR063 (545), converted on Trinity\'s indicative IB points equivalence (24 = 360, 27 = 389, 30 = 420, 36 = 496, 42 = 566, 45 = 600, interpolated between them; 25 more for HL Mathematics at 4 or better); update it at each refresh.'
+        'Content 4.6: Physics is a strand of Physical Sciences (B.Sc.), chosen after entry. The prospectus alert list, for 2027 admission: mathematics rises to "International Baccalaureate HL6", and the two sciences stay at "International Baccalaureate HL5" from "Physics, Applied Mathematics, Chemistry, Biology, Physics with Chemistry, Geography and Computer Science". Stored: Maths AA or AI HL 6 and Physics, Chemistry, Biology, Geography or Computer Science HL 5, both critical (they were not critical). The two sciences are stored as two such groups, each needing a course of its own. TR063 Physical Sciences, CAO points 521 in 2025. Trinity\'s Undergraduate Prospectus 2027 (dated 23 September 2026; "Admission Requirements 2027", "Course Requirements 2027", with an International Baccalaureate column) gives the subject requirements; the course page gives the same for 2026 entry. Minimum entry with the IB (Trinity\'s undergraduate admission requirements page): "3 subjects at grade 5 at Higher Level and 3 subjects at grade 4 at Standard Level, to include English, mathematics and another language", in one sitting. Where the course asks for no more maths, that minimum is stored as Maths AA or AI SL 4, critical; the language other than English, which every Diploma includes, is not stored. English: the prospectus accepts "English A1, A2 or B: SL4 if presenting IB through English, HL5 if presenting through French or Spanish" as proof of English, stored not critical (English A or B SL 4), as 3.4 stored UCD\'s. Trinity publishes no IB points total for 2027: EU applicants are ranked on CAO points, to which the IB converts (30 = 420, 36 = 496, 42 = 566, 45 = 600), and non-EU applicants are assessed individually. The stored 34 is kept, unverified. Checked for 2027. Stored before: Biology or Chemistry or Computer Science or Physics HL 5; Maths AA or Maths AI HL 6; English A Literature or English A Language and Literature SL 4. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives CAO\'s round 1 2026 points for TR063 (545), converted on Trinity\'s indicative IB points equivalence (24 = 360, 27 = 389, 30 = 420, 36 = 496, 42 = 566, 45 = 600, interpolated between them; 25 more for HL Mathematics at 4 or better); update it at each refresh. MAINT 5.39 (27 October 2026): the 2027 prospectus, re-read, still says TR063 "will still require two science subjects at … International Baccalaureate HL5"; the second group added and both marked. Maths is not in the list, so it is not one of the two.'
     },
     // Stored: checked for 2026 entry on 2026-01-19. Degree stored as "Bachelor of Science in Physiotherapy".
     {

@@ -894,7 +894,15 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS'],
           level: 'HL',
           grade: 6,
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'GEOG', 'MATH-AA', 'MATH-AI', 'PHYS'],
+          level: 'HL',
+          grade: 6,
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -903,7 +911,7 @@ const refresh: RefreshFile = {
         'https://www.imperial.ac.uk/study/courses/undergraduate/geology-msci/'
       ],
       notes:
-        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in two of Biology, Chemistry, Geography, Geology, Mathematics and Physics at HL. The model holds one of them, not two; Geography added. Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test.'
+        'Checked for 2027 entry (the course page gives a start date of October 2027). Minimum 38 points with 6 in two of Biology, Chemistry, Geography, Geology, Mathematics and Physics at HL. Stored as two groups of them, each needing a course of its own; Geography added. Mathematics AA or AI accepted at HL, no preference. Typical offer 39. No admissions test. MAINT 5.39 (27 October 2026): the course page, re-read, still says "grade 6 in two of the following subjects at higher level"; the second group added and both marked. Geology has no IB course.'
     },
     // Stored: checked for 2026 entry on 2026-01-22. Degree stored as "MSci".
     {
