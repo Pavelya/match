@@ -366,6 +366,10 @@ model ProgramCourseRequirement {
   requiredLevel CourseLevel // HL, SL
   minGrade      Int // 1-7
   isCritical    Boolean     @default(false)
+  // Needs a course of its own (MAINT 5.18): the program's requirements that have it are each
+  // met by a different course ("two of Biology, Chemistry, Physics"); the others may share one.
+  // The same on every row of an OR group.
+  ownCourse     Boolean     @default(false)
 
   @@index([programId])
   @@index([ibCourseId])

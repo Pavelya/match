@@ -40,7 +40,8 @@ export default async function ProgramEditPage({ params }: PageProps) {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
-            orGroupId: true
+            orGroupId: true,
+            ownCourse: true
           }
         }
       }

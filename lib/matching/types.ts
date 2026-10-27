@@ -35,12 +35,19 @@ export interface SubjectRequirement {
   level: CourseLevel
   minimumGrade: IBGrade
   isCritical: boolean // e.g., required Math, Physics for Engineering
+  /**
+   * Needs a course of its own (MAINT 5.18): the program's requirements that have it are each
+   * met by a different course. Absent means false: the requirement may share a course.
+   */
+  ownCourse?: boolean
 }
 
 /** OR-group requirement (e.g., "Physics HL 5 OR Chemistry HL 5") */
 export interface ORGroupRequirement {
   options: SubjectRequirement[]
   isCritical: boolean
+  /** As on SubjectRequirement: set when any option has it, and every row of a group should */
+  ownCourse?: boolean
 }
 
 // ============================================
@@ -156,6 +163,12 @@ export interface SubjectMatchDetail {
   matchedCourseId?: string
   /** Human-readable name of the matched course (for display) */
   matchedCourseName?: string
+  /**
+   * The student's course that would meet this requirement, used for another one that needs a
+   * course of its own (MAINT 5.18). Set only when the requirement is then left with none, so
+   * it is not met although the student took a subject for it.
+   */
+  courseUsedElsewhere?: { courseId: string; courseName: string }
 }
 
 /** Academic match score (G_M) */

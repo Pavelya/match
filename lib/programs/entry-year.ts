@@ -59,6 +59,7 @@ export interface RequirementInput {
   minGrade: number
   isCritical?: boolean
   orGroupId?: string | null
+  ownCourse?: boolean
 }
 
 /**
@@ -69,7 +70,7 @@ function requirementsKey(rows: RequirementInput[]): string {
   const groups = new Map<string, string[]>()
   const standalone: string[] = []
   for (const row of rows) {
-    const option = `${row.ibCourseId} ${row.requiredLevel}${row.minGrade}${row.isCritical ? '' : ' nc'}`
+    const option = `${row.ibCourseId} ${row.requiredLevel}${row.minGrade}${row.isCritical ? '' : ' nc'}${row.ownCourse ? ' own' : ''}`
     if (!row.orGroupId) {
       standalone.push(option)
       continue

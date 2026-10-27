@@ -158,4 +158,51 @@ describe('programFit', () => {
     expect(fitProgram(record).requirements).toEqual(transformProgram(p))
     expect(programFit(STUDENT, fitProgram(record))).toEqual(fit(p))
   })
+
+  it('gives each requirement that needs its own course a different one, as Matches does', () => {
+    // Two sciences from Maths and Physics, each needing its own course (MAINT 5.18)
+    const science = (ownCourse?: true) => [
+      {
+        ...requirement('maths-aa', 'Mathematics: Analysis and Approaches', 'HL', 6, 'a'),
+        ownCourse
+      },
+      { ...requirement('physics', 'Physics', 'HL', 6, 'a'), ownCourse },
+      {
+        ...requirement('maths-aa', 'Mathematics: Analysis and Approaches', 'HL', 6, 'b'),
+        ownCourse
+      },
+      { ...requirement('physics', 'Physics', 'HL', 6, 'b'), ownCourse }
+    ]
+    const record = (ownCourse?: true) => ({
+      objectID: 'p',
+      programName: 'Physics',
+      universityName: 'University',
+      minimumIBPoints: 36,
+      requiredCourses: science(ownCourse).map((r) => ({
+        courseId: r.ibCourse.id,
+        courseName: r.ibCourse.name,
+        level: r.requiredLevel,
+        minimumGrade: r.minGrade,
+        isCritical: r.isCritical,
+        orGroupId: r.orGroupId,
+        ...(ownCourse && { ownCourse })
+      }))
+    })
+    // The student has both, so both are met either way; without Maths, only when unmarked
+    const physicsOnly = {
+      ...STUDENT,
+      courses: STUDENT.courses.filter((c) => c.courseId !== 'maths-aa')
+    }
+    expect(programFit(STUDENT, fitProgram(record(true))).status).toBe('meets')
+    expect(programFit(physicsOnly, fitProgram(record())).status).toBe('meets')
+    expect(programFit(physicsOnly, fitProgram(record(true))).status).not.toBe('meets')
+    expect(programFit(physicsOnly, fitProgram(record(true)))).toEqual(
+      programFit(physicsOnly, {
+        requirements: transformProgram(
+          program({ minIBPoints: 36, courseRequirements: science(true) })
+        ),
+        minIBPoints: 36
+      })
+    )
+  })
 })

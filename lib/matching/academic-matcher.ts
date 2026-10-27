@@ -19,6 +19,7 @@ import type {
   SubjectMatchDetail
 } from './types'
 import { calculateSubjectMatch, calculateORGroupMatch } from './subject-matcher'
+import { assignOwnCourses, type Requirement } from './own-course'
 
 /**
  * Calculate academic match score (G_M)
@@ -167,6 +168,19 @@ function evaluateAllRequirements(
   // Evaluate OR-group requirements
   for (const orGroup of program.orGroupRequirements) {
     matches.push(calculateORGroupMatch(orGroup, student.courses))
+  }
+
+  // Requirements that need a course of their own get different ones (MAINT 5.18). A program
+  // without any is left exactly as above.
+  const requirements: Requirement[] = [...program.requiredSubjects, ...program.orGroupRequirements]
+  const own = requirements.flatMap((r, i) => (r.ownCourse ? [i] : []))
+  if (own.length > 1) {
+    const assigned = assignOwnCourses(
+      own.map((i) => requirements[i]),
+      student.courses,
+      own.map((i) => matches[i])
+    )
+    own.forEach((i, k) => (matches[i] = assigned[k]))
   }
 
   return matches

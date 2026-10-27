@@ -152,12 +152,14 @@ export async function POST(request: Request) {
                   minGrade: number
                   isCritical?: boolean
                   orGroupId?: string
+                  ownCourse?: boolean
                 }) => ({
                   ibCourseId: req.ibCourseId,
                   requiredLevel: req.requiredLevel,
                   minGrade: req.minGrade,
                   isCritical: req.isCritical || false,
-                  orGroupId: req.orGroupId || null
+                  orGroupId: req.orGroupId || null,
+                  ownCourse: req.ownCourse === true
                 })
               )
             }

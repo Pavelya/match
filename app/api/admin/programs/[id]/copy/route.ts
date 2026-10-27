@@ -134,7 +134,8 @@ export async function POST(request: Request, { params }: RouteParams) {
                 requiredLevel: req.requiredLevel,
                 minGrade: req.minGrade,
                 isCritical: req.isCritical,
-                orGroupId: req.orGroupId ? orGroupMapping.get(req.orGroupId)! : null
+                orGroupId: req.orGroupId ? orGroupMapping.get(req.orGroupId)! : null,
+                ownCourse: req.ownCourse
               }))
             }
           : undefined

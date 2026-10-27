@@ -319,6 +319,8 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | `NO_MATCH`, not taken | × Biology HL 5 · not taken | gap |
 | Either/or of three or more courses, the student's short of it | × Spanish B HL 5 or 5 others · you SL | gap |
 | Either/or, none taken | × French B or Spanish B HL 5 · not taken; three or more: × French B HL 6 or 11 others · not taken | gap |
+| Needs a course of its own, and the student's went to another requirement (`courseUsedElsewhere`, MAINT 5.18): the courses left | × Chemistry or Physics HL 5 · Biology counts once; three or more: × Biology HL 5 or 5 others · Maths AA counts once | gap |
+| Needs a course of its own, short of it: the count leaves out the course used for the other requirement | – Chemistry HL 6 or 4 others · you 5 | close |
 | No IB minimum (`minIBPoints` null: US, holistic; content 6) and no admit rate | • No IB minimum · holistic admission | info |
 | No IB minimum, and the university reports an admit rate (`University.admitRate`, the overall rate; first among the notes) | • No IB minimum · admits 4.6% | info |
 | No named subjects (`POINTS_ONLY`) | • No named subjects | info |
@@ -340,7 +342,12 @@ in "Why this match".
 most one subject is close, whether or not points are close. **Missing a requirement** otherwise. Badge copy is specific:
 "Within reach · 1 point short", "Within reach · 1 grade short", "Within reach · 1 point, 1 grade",
 "Needs German B HL", "Needs Biology HL and Chemistry HL", "Needs a 7 in Maths AA", "Needs 6 more points",
-and for a long group with no course taken, "Needs French B or 11 others at HL".
+and for a long group with no course taken, "Needs French B or 11 others at HL". A requirement whose course went to another
+(MAINT 5.18) names the courses left: "Needs Chemistry or Physics HL", "Needs Biology or 5 others at HL". In "Why this match"
+and the checklist its row says where the course went ("Your Biology counts once, for the HL 6 requirement", or "for the other
+HL 6 requirement"), and the note: "Biology counts once, so the other requirement needs Chemistry or Physics at HL 5. Better
+grades alone won't meet it." "Or …" lines leave out a course the student uses for the other requirement. Signed out, each
+such row says "A different subject from the HL 6 one". Approved on "D2.7 Chip · a second subject" (owner, 26 October 2026).
 
 **Lists**: grouped by status (the "Missing a requirement" group is collapsed by default, unless it is
 the only group), then sorted by `overallScore` within each group. Ties, which are common, go to the
