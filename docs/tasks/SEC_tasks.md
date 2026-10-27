@@ -37,7 +37,7 @@ before release is the owner's checklist, SEC-4.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 5 | [SEC-6 — End a session when its account is deleted](#sec-6--end-a-session-when-its-account-is-deleted) | P2 | small (Part A), medium (Part B) | session |
+| 5 | [SEC-6 — End a session when its account is deleted](#sec-6--end-a-session-when-its-account-is-deleted), Part B only: sign out everywhere | P2 | medium | owner decides, then a session |
 | 6 | [SEC-7 — Limits at the edge, and usage alerts](#sec-7--limits-at-the-edge-and-usage-alerts) | P2 | small | owner, then a short session |
 
 ### When convenient
@@ -56,6 +56,7 @@ before release is the owner's checklist, SEC-4.
 | [SEC-2](#sec-2--limit-sign-in-emails-per-address-and-let-a-classroom-sign-in--done) | 27 October 2026 | A sign-in email meets `signInIp` (60 an hour) and `signInAddress` (3 per 15 minutes, 10 a day), keyed by an HMAC of the address and failing closed; callbacks get `authCallback` (60 a minute per IP) (#205). The cards' existing "wait a moment" covers a refusal |
 | [SEC-3](#sec-3--escape-the-structured-data-on-program-pages--done) | 27 October 2026 | The 32 pages that wrote JSON-LD with `JSON.stringify` use `serializeJsonLd`, byte for byte the same where the data has no `<`; the local ESLint rule `local/no-unescaped-inline-json` (`eslint/inline-json.mjs`) refuses the pattern (#206) |
 | [SEC-5](#sec-5--give-the-same-answer-for-every-email-address--done) | 27 October 2026 | `/api/auth/check-role` deleted; both coordinator sign-ins send the link to every address, without the student notice (owner's choice; D4.2 noted). A signed-in user in an area that isn't theirs goes to their own start page (`startPageFor`), so a student who signed in there lands on Matches. The invite route says "This address can't be invited" without naming the account |
+| [SEC-6 Part A](#part-a--the-account-is-gone-the-session-ends--done-209) | 27 October 2026 | The `jwt` callback's work moved to `lib/auth/session-token.ts`: when the re-read finds no account, it returns null and Auth.js clears the cookie, so a deleted account is signed out within 5 minutes instead of carrying on as a student (#209). Part B waits for the owner |
 
 ### Priorities
 
@@ -171,7 +172,8 @@ school's students through the pages. 5.36 closed the API routes only.
 - `node_modules/next/dist/docs/01-app/02-guides/authentication.md`: "Layouts and auth checks",
   "Creating a Data Access Layer", and the proxy section
 - `app/admin/layout.tsx`, `app/coordinator/layout.tsx`, `app/coordinator/layout.test.ts`
-- `proxy.ts`, `lib/auth/config.ts` (the `jwt` callback and `ROLE_REFRESH_MS`), `lib/auth/callback-url.ts`
+- `proxy.ts`, `lib/auth/config.ts` (the `jwt` callback; since SEC-6 its work and `ROLE_REFRESH_MS` are in
+  `lib/auth/session-token.ts`), `lib/auth/callback-url.ts`
 - Two pages of each kind: `app/admin/students/page.tsx`, `app/admin/support/[id]/page.tsx`,
   `app/coordinator/students/page.tsx`, `app/coordinator/students/[id]/page.tsx`
 
@@ -482,7 +484,7 @@ foreign key. That is mostly noise, but a deleted account shouldn't be signed in 
 Sessions are JWTs, so none can be revoked. A coordinator's cookie on a lost school laptop can only be
 cut off by revoking the coordinator or changing their role.
 
-### Part A — the account is gone, the session ends
+### Part A — the account is gone, the session ends — **done** (#209)
 
 1. In the `jwt` callback, when `readRoleAndMarkActive` returns null, end the session. Check in
    `node_modules/@auth/core` how this version ends one: returning `null` from `jwt` clears the cookie
