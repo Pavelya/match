@@ -3193,7 +3193,10 @@ says `24`, and the three `actions/setup-node` steps read `node-version-file: .nv
 **Verified** on Node 24.22.1 with its npm 11.19.1, the pair CI now gets: `npm ci` from a clean
 `node_modules` with no `EBADENGINE` (Node 22.12 printed one for `eslint-visitor-keys`), type-check,
 lint at `--max-warnings 0`, `prettier --check`, 139 test files and 2662 tests, and `npm run build`
-(125 pages), whose prerender read production.
+(125 pages), whose prerender read production. CI green: setup-node printed "Resolved .nvmrc as 24",
+then Node 24.21.0 and npm 11.19.0 (the runner's cached 24; it takes a newer one when the image updates).
+The Vercel preview built, and its log no longer has the `Detected "engines"` warning, which every
+build had printed three times.
 
 **The owner's part:** install Node 24 LTS on the laptop (24.22.1 on 20 October 2026, with npm 11.19.1;
 `npm install -g npm@11` raises it to the latest 11). Until then the laptop is on Node 22.12, which still
