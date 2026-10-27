@@ -266,12 +266,10 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // User exists but isn't a student (could be coordinator or other role)
+      // User exists but isn't a student (could be coordinator or other role). The answer doesn't
+      // say which kind of account it is (SEC-5)
       if (existingUser.role !== 'STUDENT') {
-        return NextResponse.json(
-          { error: 'This email is already registered with a different account type' },
-          { status: 409 }
-        )
+        return NextResponse.json({ error: "This address can't be invited" }, { status: 409 })
       }
 
       // User exists, is a student, but has no school linked - create link request invitation

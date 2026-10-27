@@ -15,7 +15,7 @@
  */
 
 import { auth } from '@/lib/auth/config'
-import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
+import { COORDINATOR_SIGN_IN_PATH, startPageFor } from '@/lib/auth/callback-url'
 import { NextResponse } from 'next/server'
 
 /** The role each area needs, and where a visitor with no session signs in */
@@ -55,16 +55,7 @@ export default auth((req) => {
 
   // Redirect logged-in users from auth sign-in pages to their dashboard
   if (isAuthSignInPage && !isSpecialAuthFlow && req.auth?.user) {
-    const role = req.auth.user.role
-    let redirectTo = '/student/matches' // Default for students
-
-    if (role === 'COORDINATOR') {
-      redirectTo = '/coordinator/dashboard'
-    } else if (role === 'PLATFORM_ADMIN') {
-      redirectTo = '/admin/dashboard'
-    } else if (role === 'UNIVERSITY_AGENT') {
-      redirectTo = '/' // Placeholder until agent dashboard exists
-    }
+    const redirectTo = startPageFor(req.auth.user.role)
 
     const redirectUrl = new URL(redirectTo, req.url)
     const redirectResponse = NextResponse.redirect(redirectUrl)
@@ -72,12 +63,12 @@ export default auth((req) => {
     return redirectResponse
   }
 
-  // Admin and coordinator areas: signed out to that area's sign-in, the wrong role to the home page,
-  // where their layouts send them too
+  // Admin and coordinator areas: signed out to that area's sign-in, the wrong role to their own start
+  // page (SEC-5), as the pages' own checks do (lib/auth/guards.ts)
   const area = ROLE_AREAS.find(({ prefix }) => inArea(pathname, prefix))
   if (area && req.auth?.user?.role !== area.role) {
     const redirectResponse = NextResponse.redirect(
-      new URL(req.auth?.user ? '/' : area.signIn, req.url)
+      new URL(req.auth?.user ? startPageFor(req.auth.user.role) : area.signIn, req.url)
     )
     redirectResponse.headers.set('x-request-id', requestId)
     return redirectResponse

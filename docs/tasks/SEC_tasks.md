@@ -37,7 +37,6 @@ before release is the owner's checklist, SEC-4.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 4 | [SEC-5 — Give the same answer for every email address](#sec-5--give-the-same-answer-for-every-email-address) | P2 | small | session, after the owner approves the words |
 | 5 | [SEC-6 — End a session when its account is deleted](#sec-6--end-a-session-when-its-account-is-deleted) | P2 | small (Part A), medium (Part B) | session |
 | 6 | [SEC-7 — Limits at the edge, and usage alerts](#sec-7--limits-at-the-edge-and-usage-alerts) | P2 | small | owner, then a short session |
 
@@ -56,6 +55,7 @@ before release is the owner's checklist, SEC-4.
 | [SEC-1](#sec-1--check-access-on-every-admin-and-coordinator-page-not-only-in-the-layout--done) | 27 October 2026 | Every admin and coordinator page checks access first (`lib/auth/guards.ts`), and the proxy turns away the wrong role from both areas (#204). `app/page-guards.test.ts` fails for a page without its check |
 | [SEC-2](#sec-2--limit-sign-in-emails-per-address-and-let-a-classroom-sign-in--done) | 27 October 2026 | A sign-in email meets `signInIp` (60 an hour) and `signInAddress` (3 per 15 minutes, 10 a day), keyed by an HMAC of the address and failing closed; callbacks get `authCallback` (60 a minute per IP) (#205). The cards' existing "wait a moment" covers a refusal |
 | [SEC-3](#sec-3--escape-the-structured-data-on-program-pages--done) | 27 October 2026 | The 32 pages that wrote JSON-LD with `JSON.stringify` use `serializeJsonLd`, byte for byte the same where the data has no `<`; the local ESLint rule `local/no-unescaped-inline-json` (`eslint/inline-json.mjs`) refuses the pattern (#206) |
+| [SEC-5](#sec-5--give-the-same-answer-for-every-email-address--done) | 27 October 2026 | `/api/auth/check-role` deleted; both coordinator sign-ins send the link to every address, without the student notice (owner's choice; D4.2 noted). A signed-in user in an area that isn't theirs goes to their own start page (`startPageFor`), so a student who signed in there lands on Matches. The invite route says "This address can't be invited" without naming the account |
 
 ### Priorities
 
@@ -419,7 +419,7 @@ as before, and admin pages that answer a signed-out request with nothing.
 
 ---
 
-## SEC-5 — Give the same answer for every email address
+## SEC-5 — Give the same answer for every email address — **done**
 
 **Priority:** P2 · **Size:** small · **Branch:** `fix/sec-5-account-existence` · **Waits for:** the
 owner's yes on the words in step 2
@@ -524,9 +524,9 @@ nearly spent.
 
 ### Steps
 
-1. **Owner, Vercel Firewall:** a per-IP rate-limit rule for `/api/auth/signin/*`, `/api/programs/*`
-   and `/api/auth/check-role` (until SEC-5 deletes it), within what the plan includes. Learn where
-   "Attack Challenge Mode" is switched on.
+1. **Owner, Vercel Firewall:** a per-IP rate-limit rule for `/api/auth/signin/*` and
+   `/api/programs/*`, within what the plan includes. Learn where "Attack Challenge Mode" is switched
+   on.
 2. **Owner, alerts:** Upstash (daily commands), Algolia (searches; `scripts/algolia-usage.ts` reads
    it), Resend (sends per day), Supabase (egress), Vercel (usage). Use email alerts where the plan has
    them, or a weekly look otherwise.

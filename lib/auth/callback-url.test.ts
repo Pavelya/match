@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { INVITATIONS_PATH, returnPath, signInDestination } from './callback-url'
+import { INVITATIONS_PATH, returnPath, signInDestination, startPageFor } from './callback-url'
 
 describe('returnPath', () => {
   it('keeps a path on this site, with its query', () => {
@@ -44,5 +44,19 @@ describe('signInDestination', () => {
     expect(signInDestination('/programs/abc?save=1', false)).toBe('/student')
     expect(signInDestination('/student/invitations/../settings', false)).toBe('/student')
     expect(signInDestination(null, false)).toBe('/student')
+  })
+})
+
+// SEC-5: where each role starts, from sign-in or from an area that isn't theirs
+describe('startPageFor', () => {
+  it.each([
+    ['STUDENT', '/student/matches'],
+    ['COORDINATOR', '/coordinator/dashboard'],
+    ['PLATFORM_ADMIN', '/admin/dashboard'],
+    ['UNIVERSITY_AGENT', '/'],
+    [null, '/'],
+    [undefined, '/']
+  ])('sends %s to %s', (role, start) => {
+    expect(startPageFor(role)).toBe(start)
   })
 })

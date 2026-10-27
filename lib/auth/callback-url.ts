@@ -37,3 +37,22 @@ export function signInDestination(
   if (followCallback) return path ?? '/student'
   return path === INVITATIONS_PATH ? path : '/student'
 }
+
+/**
+ * Where each role starts once signed in: where sign-in sends them, and where they go from an area
+ * that isn't theirs (SEC-5). A student who signs in through the coordinator page, whose link
+ * returns to /coordinator/dashboard, lands on Matches rather than the home page.
+ */
+export function startPageFor(role: string | null | undefined): string {
+  switch (role) {
+    case 'STUDENT':
+      return '/student/matches'
+    case 'COORDINATOR':
+      return '/coordinator/dashboard'
+    case 'PLATFORM_ADMIN':
+      return '/admin/dashboard'
+    default:
+      // A university agent has no area yet, and an unknown role none at all
+      return '/'
+  }
+}

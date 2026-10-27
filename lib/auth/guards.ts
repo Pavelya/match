@@ -4,7 +4,7 @@ import { notFound, redirect } from 'next/navigation'
 import type { SubscriptionStatus, SubscriptionTier } from '@/app/generated/prisma/enums'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { COORDINATOR_SIGN_IN_PATH } from './callback-url'
+import { COORDINATOR_SIGN_IN_PATH, startPageFor } from './callback-url'
 
 /**
  * Access checks for the admin and coordinator pages (SEC-1).
@@ -27,7 +27,10 @@ export interface AdminUser {
   image: string | null
 }
 
-/** Signed in as `PLATFORM_ADMIN`, or redirected: to sign-in without a session, home otherwise. */
+/**
+ * Signed in as `PLATFORM_ADMIN`, or redirected: to sign-in without a session, otherwise to the
+ * role's own start page (SEC-5), or home for an account that no longer exists.
+ */
 export const requireAdmin = cache(async (): Promise<AdminUser> => {
   const session = await auth()
   if (!session?.user?.id) {
@@ -39,7 +42,7 @@ export const requireAdmin = cache(async (): Promise<AdminUser> => {
     select: { id: true, role: true, email: true, name: true, image: true }
   })
   if (user?.role !== 'PLATFORM_ADMIN') {
-    redirect('/')
+    redirect(startPageFor(user?.role))
   }
 
   return { id: user.id, email: user.email, name: user.name, image: user.image }
@@ -63,7 +66,8 @@ export interface CoordinatorUser {
 
 /**
  * Signed in as a `COORDINATOR` with a school, or redirected: to the coordinator sign-in without a
- * session (MAINT 5.26), home otherwise. A revoked coordinator is returned with `isActive: false`,
+ * session (MAINT 5.26), another role to its own start page (SEC-5), and a coordinator with no school
+ * (or an account that no longer exists) home. A revoked coordinator is returned with `isActive: false`,
  * for the layout's "Access revoked" screen. Pages call `requireCoordinator` instead.
  */
 export const readCoordinator = cache(async (): Promise<CoordinatorUser> => {
@@ -90,7 +94,10 @@ export const readCoordinator = cache(async (): Promise<CoordinatorUser> => {
       }
     }
   })
-  if (user?.role !== 'COORDINATOR' || !user.coordinatorProfile?.school) {
+  if (user?.role !== 'COORDINATOR') {
+    redirect(startPageFor(user?.role))
+  }
+  if (!user.coordinatorProfile?.school) {
     redirect('/')
   }
 
