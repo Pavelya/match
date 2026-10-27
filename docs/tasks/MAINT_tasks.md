@@ -75,7 +75,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A builds the last-active date chosen in 7.5 Part B |
+| 1 | Inactive accounts: the policy line, the last-active date, the admin and the dashboard | 7.6 Part 0, Parts A and B | small, then medium | The decisions are made (27 October 2026). Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A builds the last-active date chosen in 7.5 Part B |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -88,7 +88,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
-| R.1 | Inactive accounts: the notice, the admin page and the daily job | 7.6 Parts C to E | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only |
+| R.1 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only. Part E, the daily job, only when the owner asks, after a manual round |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
 **For the owner, now:** 5.37's last steps: export the Security Advisor's list for a session to answer,
@@ -3955,26 +3955,30 @@ active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing
 - **The admin:** `/admin/dashboard` counts users by role; `/admin/students` lists every student, newest
   first. The admin keeps today's design.
 
-**Decide first (the owner).** Recommended answers are in bold:
+**Decide first (the owner).** All six are decided: the first on 26 October 2026, the rest on
+27 October 2026 (owner), each as recommended except the fourth, which starts with the manual half only.
 
 1. **The times. Decided 26 October 2026 (owner): 6 months throughout**.
    After 6 months without activity a student is silent and due the notice. They are deleted 30 days
    after the notice, unless they are active again in that time. Activity after the notice clears it,
    and the clock starts again from that day, so the student is silent and due a notice again 6 months
    later.
-2. **Whose accounts.** **Students only.** Coordinators are tied to a school and its subscription, and are
-   deleted on request (5.29). Admins and agents never.
-3. **Where the clock starts** for the accounts that exist before the date is stored. Either (a) the day
-   Part A ships, so the first notice goes out six months later; or (b) **the latest change on the account or
-   its profile**, which is older than their real last visit for some students. With (b), the email says
-   "no activity on your account since <date>", which is true of what is stored. The one-month warning
-   protects anyone who still cares.
-4. **Manual or automatic.** **Both, in that order:** the admin page's buttons first; the daily job
-   behind a switch, turned on after one manual round has gone well.
-5. **After the deletion,** **no second email.** The student ignored the first, and the address may no
-   longer work. Or send 5.24's "Account deleted".
-6. **The dashboard.** **Both numbers:** "Active students, last 30 days" is the health number; "Silent"
-   is the to-do number, linking to the list.
+2. **Whose accounts. Decided: students only.** Coordinators are tied to a school and its subscription,
+   and are deleted on request (5.29). Admins and agents never.
+3. **Where the clock starts** for the accounts that exist before the date is stored. **Decided: the
+   latest stored change on the account or its profile**, not the day Part A ships. It is older than
+   their real last visit for some students, so the email says "no activity on your account since
+   <date>", which is true of what is stored, and the one-month warning protects anyone who still cares.
+   Take the latest of the dates 7.5 Part A counted from (`emailVerified`, the policy acceptances, the
+   profile's dates, saved programs, support tickets, accepted invitations, `User.updatedAt`), and leave
+   out the 20 profiles 5.8's fix rewrote on 7 October 2026 at 13:08:42–43 UTC, or they would all look
+   active that day.
+4. **Manual or automatic. Decided: manual for now.** The admin page's buttons only (Part D). The daily
+   job (Part E) is not built until the owner asks for it, after a manual round has gone well.
+5. **After the deletion. Decided: no second email.** The student ignored the first, and the address may
+   no longer work. So the notice has to be complete on its own: Part C lists what it says.
+6. **The dashboard. Decided: both numbers.** "Active students, last 30 days" is the health number;
+   "Silent" is the to-do number, linking to the list.
 
 **Part 0 — the Privacy Policy (before the lawyer's review of 7.4).** Add the rule to section 8 of
 `docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 6 months, a warning email,
@@ -3998,12 +4002,17 @@ publication. Nothing is sent or deleted until the policy that says so is publish
 
 **Part C — the notice email (a design gate first).** It is a new email, so it is added as a case on the
 "D4.18 Emails" boards and approved before any code (`REBRANDING_tasks.md`, Step 2). It is built in
-`emails/` on D4.18's layout, in the new design only, since nothing is sent before release day. It says:
+`emails/` on D4.18's layout, in the new design only, since nothing is sent before release day. It is the
+only email the student gets (decision 5), so it must be clear on its own, with every explanation and
+link. It says:
+- why it was sent: no activity on the account for 6 months;
 - the date of the last activity;
 - the date of deletion;
-- what is deleted (as 5.25 lists it);
-- one button, to sign in and keep the account;
-- that they can download their data or delete the account now, from Settings.
+- what is deleted (as 5.25 lists it), and that the deletion is final: nothing can be restored;
+- that no further email follows;
+- one button, to sign in and keep the account, and that signing in once is enough;
+- that they can download their data or delete the account now, from Settings, with links;
+- a link to the Privacy Policy section that sets the rule, and how to contact support.
 
 It has a plain-text body, as every email does.
 
@@ -4025,7 +4034,8 @@ A student is due for deletion when the notice is 30 days old or older, and `last
 than the notice. Part A's daily write clears `inactivityNoticeSentAt` when a notified student is active
 again. Put the rule in one pure function with its tests, and use it in the page, both buttons and Part E.
 
-**Part E — the daily job.** A Vercel cron calls one route, `/api/cron/inactive-accounts`, once a day.
+**Part E — the daily job. Not now (decision 4):** built only when the owner asks, after a manual round.
+A Vercel cron calls one route, `/api/cron/inactive-accounts`, once a day.
 Read the current Vercel and `node_modules/next/dist/docs/` pages first. The route refuses anything
 without `CRON_SECRET`, and does what the two buttons do, with the same caps. It runs only when
 `INACTIVE_ACCOUNTS_AUTO` is on (decision 4). It logs counts, never addresses (5.32). The route-gates test
@@ -4059,10 +4069,11 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 - The usual checks.
 
 **Session size:** Large. Split into sessions:
-- the decisions and Part 0;
+- ~~the decisions~~ made 27 October 2026; Part 0;
 - Parts A and B;
 - Part C's board, a design session;
-- Parts C to E in code.
+- Parts C and D in code;
+- Part E, only when the owner asks for it.
 
 ---
 
