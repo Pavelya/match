@@ -209,32 +209,9 @@ const refresh: RefreshFile = {
       notes:
         'Content 4.8: the page now shows Autumn 2027 (LNU-F3537, Växjö, 30 August 2027 - 9 June 2030). Entry requirements: general entry requirements and Mathematics 3c. UHR\'s IB page (universityadmissions.se, updated 1 October 2026; it names no intake) translates the Swedish courses: English 6 = English B SL or any English A, at 4 (a test can replace it, so English is stored not critical); Mathematics 2a/2b/2c = any IB maths at 3 (Maths AI SL 3 is Mathematics 2a); Mathematics 3b/3c = Maths AA SL 3, Maths AI SL 4 or Maths AI HL 3; Mathematics 4 = Maths AA SL 4, or Maths AA or AI HL 3; Physics, Chemistry and Biology 2 = the subject at SL 4 or HL 3; Civics (Social Studies) 1b = the IB Diploma itself. The stored Maths AA SL 4 only is widened. Selection: 60% grades, 40% aptitude test (upper secondary grades and the Swedish aptitude test). Bachelor of Science with specialization in Network Security, main field Computer Science. The IB Diploma meets the general entry requirements; selection converts the IB total to the Swedish 10-20 scale from 24 points (13.18) up, and no higher minimum is published, so 24, the Diploma minimum, is stored. lnu.se answers scripts with a Cloudflare 403; the pages were read with WebFetch. Content 5.4 Part A (27 October 2026): the description\'s last paragraph, "How competitive", gives the 2026 cut-offs: second round LNU-G0593 (the English-taught occasion, per lnu.se/program/natverkssakerhet/vaxjo-engelska-ht/2026/; G0594 is the Swedish and English one), BI 17.61 (HP 0.95); first round LNU-F3131, BI 12.90. IB applicants with only the Diploma compete in group BI (antagning.se, "Du prövas i betygsurvalet", 29 September 2026); the IB total converts on antagning.se\'s table (24 = 13.18, 43-45 = 20.00) and up to 2.5 merit points are added for languages and mathematics (antagning.se, "Meritpoäng"), so each figure is given without merit points and with all 2.5. Statistics from UHR (uhr.se antagningsstatistik, term HT26; the first round is IKHT26, the second HT2026, read at its final selection, urval 2). Update it at each refresh.'
     },
-    // Stored: not checked for any intake.
-    {
-      id: 'cmm7gtmsk0012i204x8i9567p',
-      status: 'discontinued',
-      name: 'Peace and Development Programme',
-      description:
-        'The Peace and Development Programme provides you with comprehensive knowledge within the areas of conflict transformation, peacebuilding, development work and international development cooperation. You also gain knowledge about the connection to human rights and security issues. By combining theory with experiences from practice abroad, you will be able to work in a wide range of organisations, both in Sweden and abroad. The language of teaching is English, and the programme offers cross-cultural perspectives and experiences.',
-      field: 'Social Sciences',
-      degree: 'Bachelor of Science',
-      duration: '3 years',
-      minIBPoints: 24,
-      programUrl:
-        'https://lnu.se/en/programme/peace-and-development-programme/vaxjo-international-autumn/',
-      requirements: [
-        { courses: ['ENG-B', 'ENG-LIT', 'ENG-LL'], level: 'SL', grade: 4, critical: false }
-      ],
-      checkedFor: 2026,
-      sources: [
-        'https://www.universityadmissions.se/en/apply-to-bachelors/provide-application-documents-bachelors/ib-studies/for-ib-diplomas-2021-and-later/',
-        'https://lnu.se/en/programme/peace-and-development-programme/vaxjo-international-autumn/',
-        'https://www.antagning.se/sv/betyg-och-behorighet/international-baccalaureate/ib-examen-2021-och-framat/rakna-ut-ditt-meritvarde/',
-        'https://www.uhr.se/studier-och-antagning/antagningsstatistik/'
-      ],
-      notes:
-        'Content 4.8: no Autumn 2027 occasion yet. The page still shows only Autumn 2026 (LNU-F3305, Växjö, 31 August 2026 - 3 June 2029) while eight of LNU\'s other English bachelor\'s in this batch show 2027, and no 2027 successor is linked, so it is checked for 2026; re-check when the autumn 2027 round opens on 16 October 2026. Entry requirements: general entry requirements plus Civics 1b or 1a2 and English 6. UHR\'s IB page (universityadmissions.se, updated 1 October 2026; it names no intake) translates the Swedish courses: English 6 = English B SL or any English A, at 4 (a test can replace it, so English is stored not critical); Mathematics 2a/2b/2c = any IB maths at 3 (Maths AI SL 3 is Mathematics 2a); Mathematics 3b/3c = Maths AA SL 3, Maths AI SL 4 or Maths AI HL 3; Mathematics 4 = Maths AA SL 4, or Maths AA or AI HL 3; Physics, Chemistry and Biology 2 = the subject at SL 4 or HL 3; Civics (Social Studies) 1b = the IB Diploma itself. Checked, no other subject required. Selection: 60% grades, 40% aptitude test (upper secondary grades and the Swedish aptitude test). Bachelor of Science in Peace and Development Studies; field corrected from Environmental Studies. The IB Diploma meets the general entry requirements; selection converts the IB total to the Swedish 10-20 scale from 24 points (13.18) up, and no higher minimum is published, so 24, the Diploma minimum, is stored. lnu.se answers scripts with a Cloudflare 403; the pages were read with WebFetch. Content 5.4 Part A (27 October 2026): examined, no "How competitive" paragraph: in 2026 the first round (LNU-F3305) took 16.72 in group BI (31 points, or 26 with all 2.5 merit points), and the second round (LNU-G0575) admitted every qualified applicant at its final selection. Re-checked 27 October 2026, with the autumn 2027 round open since 16 October: this programUrl now returns 404, and the Swedish page for the English-taught occasion (lnu.se/program/freds-och-utvecklingsprogrammet/vaxjo-engelska-ht/) shows only Höst 2026 (LNU-G0575) with no 2027 occasion. Its "similar programmes" link a new English-taught bachelor\'s for autumn 2027, Internationellt samarbete och globala utmaningar (Kalmar). Owner, 27 October 2026: discontinued, so its status is discontinued (reported, never written or deleted by the refresh tool).'
-    },
+    // Peace and Development Programme: no autumn 2027 intake (its page returns 404; LNU lists Internationellt samarbete och
+    // globala utmaningar, Kalmar, for 2027). Discontinued, and deleted at the owner's request on 27 October 2026, with its
+    // 3 requirement rows. Nobody had saved it.
     // Stored: not checked for any intake.
     {
       id: 'cmm7guso1001ci204nkcn2wir',

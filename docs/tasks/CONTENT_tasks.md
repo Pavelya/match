@@ -138,6 +138,8 @@ Owner tasks — not AI work
   4.7: Sydney Bachelor of Commerce and Bachelor of Advanced Studies (Sydney discontinues every combined Bachelor of Advanced
   Studies from 1 January 2027; the last intake was Semester 2, 2026), deleted at the owner's request on 30 September 2026;
   nobody had saved it
+  5.4 Part A: Linnaeus Peace and Development (no autumn 2027 intake, page 404), deleted at the owner's request on 27 October 2026;
+  nobody had saved it
 - [x] Decide about four programs no school leaver can enter with the IB (4.6): Philosophy of a Specific Discipline at
   Groningen and at Erasmus (entry after a first year of another bachelor's) and Trinity Dental Hygiene and Dental Nursing
   (two-year diplomas, not degrees). Deleted at the owner's request, 29 September 2026
@@ -184,11 +186,11 @@ Owner tasks — not AI work
   Lund's three still show only Autumn 2026 (their arts and music rounds are separate), so re-check when Lund publishes them. Linnaeus
   Peace and Development has no autumn 2027 occasion although the round is open: its stored page returns 404, and the Swedish page
   for the English-taught occasion shows only Höst 2026. Linnaeus now lists a new English-taught bachelor's for autumn 2027,
-  Internationellt samarbete och globala utmaningar (Kalmar). **Owner, 27 October 2026: discontinued.** Its data-file status is
-  `discontinued`, so the refresh tool reports it and never writes it; nobody has saved it. Lund's three are the next item
+  Internationellt samarbete och globala utmaningar (Kalmar). **Owner, 27 October 2026: discontinued**, and deleted the same day at the owner's request (two items below). Lund's three are the next item
 - [ ] Re-check Lund Fine Arts, Folk- and World Music and Music Individual Programme when Lund publishes its autumn 2027 arts and
   music admission rounds (5.4 Part A, 27 October 2026: the study pages still show only Autumn 2026), so they are stamped 2026
-- [ ] Delete Linnaeus Peace and Development, or keep it as discontinued (5.4 Part A): nobody has saved it; it has 3 requirement rows
+- [x] Delete Linnaeus Peace and Development, or keep it as discontinued (5.4 Part A): nobody has saved it; it has 3 requirement rows.
+  **Deleted at the owner's request, 27 October 2026**
 - [x] Approve 5.4 Part A's dry run: 16 Swedish programs in 4 files get a "How competitive" paragraph, descriptions only, no stamp
   changes (status, 5.4). Approved and applied, 27 October 2026
 - [x] Jönköping's Graphic Design and Web Development (5.4 Part A) was offered only in the first round in 2026, where Jönköping splits
@@ -3096,8 +3098,12 @@ are selected on the work: the paragraph says so, with no figure (step 2).
 **Re-checks from 4.8a** (step 3). Lund Fine Arts, Folk- and World Music and Music Individual Programme still show only Autumn 2026;
 Lund's arts and music programmes have admission rounds of their own (KONST1HT26, MUSIKHT26 in 2026), not yet published for 2027.
 They stay stamped 2026. Linnaeus Peace and Development has no autumn 2027 occasion, though the round opened on 16 October. Its stored
-page returns 404, and the Swedish page for the English-taught occasion shows only Höst 2026. It stays stamped 2026. **Owner, 27 October
-2026: discontinued**; its data-file status is `discontinued`, so the tool reports it and never writes it.
+page returns 404, and the Swedish page for the English-taught occasion shows only Höst 2026. **Owner, 27 October 2026: discontinued,
+and deleted.**
+  - **Peace and Development deleted** at the owner's request the same day. The program and its 3 requirement rows went in one
+    transaction (nobody had saved it), then it was removed from Algolia (its record now 404s) and the caches were cleared. Its public
+    page returns 404. Backup: `scripts/backups/refresh/deleted-2026-10-27T20-39-26-274Z.json`. Its data-file entry is a comment, and
+    the Linnaeus dry run reports 9 programs up to date.
 
 **Owner-approved and applied on 27 October 2026.** The tool wrote 16 of 16 programs (Lund 9, Jönköping 4, Linnaeus 2, Karlstad 1)
 and synced all 16 to Algolia (0 failed), then cleared the programs cache and cached matches. Backups:
