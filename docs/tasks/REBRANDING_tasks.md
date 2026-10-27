@@ -3040,8 +3040,8 @@ with Keep or Change; the build changes every row marked Change, and no other.
 
 **Outcome:** Everyone sees the new design, in one deploy.
 
-**Before step 1:** SEC-1, SEC-2 and SEC-3 in `docs/tasks/SEC_tasks.md` are merged, and the owner runs
-SEC-4's checklist alongside steps 4 and 5 (added 27 October 2026, security audit).
+**Before step 1:** SEC-1, SEC-2, SEC-3 and SEC-11 in `docs/tasks/SEC_tasks.md` are merged, and the
+owner runs SEC-4's checklist alongside steps 4 and 5 (added 27 October 2026, security audit).
 
 **Steps:**
 1. The final logo is Lens (confirmed 21 October 2026, owner); its clearance search must be back.
