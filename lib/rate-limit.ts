@@ -13,6 +13,11 @@
  * - AUTH: Strict limits for authentication endpoints (5 req/10s)
  * - API: Standard limits for authenticated API endpoints (20 req/min)
  * - SEARCH: Higher limits for search endpoints (30 req/min)
+ * - SIGN-IN EMAILS: per address and per IP, failing closed (SEC-2)
+ *
+ * A limiter that can't reach Redis lets the request through, so an Upstash outage doesn't take the
+ * site down. The sign-in email limiters are the exception: with no limit, anyone could spend the
+ * day's email quota, so they refuse instead (`failClosed`).
  */
 
 import { Ratelimit } from '@upstash/ratelimit'
@@ -87,6 +92,42 @@ export const rateLimiters = {
     limiter: Ratelimit.slidingWindow(5, '1 h'),
     prefix: 'ratelimit:support',
     analytics: false
+  }),
+
+  // Sign-in callbacks: 60 per minute per IP (SEC-2)
+  // The return from Google or from a sign-in link. A school's students share one IP, so a class
+  // signing in together must get through; each callback needs a token or state only its own
+  // sign-in has, so it is no way to guess anything.
+  authCallback: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(60, '1 m'),
+    prefix: 'ratelimit:authcallback',
+    analytics: false
+  }),
+
+  // Sign-in emails to one address: 3 per 15 minutes, and 10 per day (SEC-2)
+  // Keyed by a keyed hash of the address (lib/auth/sign-in-limits.ts), never the address. Every
+  // email spends the day's Resend quota, shared with invitations and account emails.
+  signInAddress: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(3, '15 m'),
+    prefix: 'ratelimit:signinaddress',
+    analytics: false
+  }),
+  signInAddressDay: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(10, '1 d'),
+    prefix: 'ratelimit:signinaddressday',
+    analytics: false
+  }),
+
+  // Sign-in emails from one IP: 60 per hour (SEC-2)
+  // Loose enough for a classroom asking for links together; stops a single machine
+  signInIp: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(60, '1 h'),
+    prefix: 'ratelimit:signinip',
+    analytics: false
   })
 }
 
@@ -101,6 +142,13 @@ export interface RateLimitResult {
   remaining: number
   reset: number
   headers: Record<string, string>
+  /** True when Redis couldn't answer and the limiter fails closed */
+  unavailable?: boolean
+}
+
+export interface RateLimitOptions {
+  /** Refuse when Redis can't answer, instead of letting the request through */
+  failClosed?: boolean
 }
 
 /**
@@ -108,11 +156,13 @@ export interface RateLimitResult {
  *
  * @param type - The type of rate limiter to use
  * @param identifier - Unique identifier (IP address or user ID)
+ * @param options - `failClosed` to refuse when Redis can't answer
  * @returns Rate limit result with success status and headers
  */
 export async function checkRateLimit(
   type: RateLimitType,
-  identifier: string
+  identifier: string,
+  options: RateLimitOptions = {}
 ): Promise<RateLimitResult> {
   const limiter = rateLimiters[type]
 
@@ -147,8 +197,13 @@ export async function checkRateLimit(
     logger.error('Rate limit check failed', {
       error: error instanceof Error ? error.message : 'Unknown error',
       type,
-      identifier: identifier.slice(0, 8) + '...'
+      identifier: identifier.slice(0, 8) + '...',
+      failClosed: options.failClosed === true
     })
+
+    if (options.failClosed) {
+      return { success: false, limit: 0, remaining: 0, reset: 0, headers: {}, unavailable: true }
+    }
 
     return {
       success: true, // Fail open
@@ -184,6 +239,21 @@ export function rateLimitResponse(result: RateLimitResult): NextResponse {
 }
 
 /**
+ * The answer when a limiter that fails closed can't reach Redis (503). The same JSON shape as a
+ * 429, so the sign-in cards show their "wait a moment and try again".
+ */
+export function rateLimitUnavailableResponse(): NextResponse {
+  return NextResponse.json(
+    {
+      error: 'Service unavailable',
+      message: 'Please try again in a few minutes.',
+      retryAfter: 60
+    },
+    { status: 503, headers: { 'Retry-After': '60' } }
+  )
+}
+
+/**
  * Get client IP address from request headers
  * Handles various proxy configurations (Vercel, Cloudflare, etc.)
  *
@@ -214,14 +284,19 @@ export function getClientIp(headers: Headers): string {
  *
  * @param type - Rate limiter type
  * @param identifier - Unique identifier (IP or user ID)
- * @returns null if allowed, NextResponse if rate limited
+ * @param options - `failClosed` to answer 503 when Redis can't answer
+ * @returns null if allowed, NextResponse if rate limited or (failing closed) unavailable
  */
 export async function applyRateLimit(
   type: RateLimitType,
-  identifier: string
+  identifier: string,
+  options: RateLimitOptions = {}
 ): Promise<NextResponse | null> {
-  const result = await checkRateLimit(type, identifier)
+  const result = await checkRateLimit(type, identifier, options)
 
+  if (result.unavailable) {
+    return rateLimitUnavailableResponse()
+  }
   if (!result.success) {
     return rateLimitResponse(result)
   }
