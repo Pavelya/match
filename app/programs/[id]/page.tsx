@@ -295,7 +295,7 @@ export default async function ProgramDetailPage({ params, searchParams }: PagePr
   const jsonLdScript = (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(programJsonLd(program)) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(programJsonLd(program)) }}
     />
   )
 

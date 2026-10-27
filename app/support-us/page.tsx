@@ -8,6 +8,7 @@ import { SupportCTA } from './_components/SupportCTA'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { showsNewUi } from '@/lib/new-ui'
 import { NewSupportUs } from './NewSupportUs'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -85,7 +86,7 @@ export default async function SupportUsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       {(await showsNewUi()) ? <NewSupportUs /> : <TodaysSupportUs />}
     </>

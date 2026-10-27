@@ -4,6 +4,7 @@ import nextTs from 'eslint-config-next/typescript'
 import prettierConfig from 'eslint-config-prettier'
 import tseslint from '@typescript-eslint/eslint-plugin'
 import { NOT_STUDENT_FACING, TODAYS_DESIGN, rawPaletteRule } from './eslint/raw-palette.mjs'
+import { inlineJsonPlugin } from './eslint/inline-json.mjs'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -32,6 +33,11 @@ const eslintConfig = defineConfig([
       ],
       '@typescript-eslint/no-explicit-any': 'error'
     }
+  },
+  {
+    // No bare JSON.stringify written into a page as HTML (SEC-3; eslint/inline-json.mjs)
+    plugins: { local: inlineJsonPlugin },
+    rules: { 'local/no-unescaped-inline-json': 'error' }
   },
   {
     // No raw palette classes in student-facing code (rebranding 4.4; eslint/raw-palette.mjs)

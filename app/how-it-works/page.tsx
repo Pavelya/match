@@ -11,6 +11,7 @@ import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 import { NewHowItWorks } from './NewHowItWorks'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -147,12 +148,12 @@ export default async function HowItWorksPage() {
       {/* WebPage schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageSchema) }}
       />
       {/* TechArticle schema for E-E-A-T */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(techArticleSchema(logo)) }}
       />
       {newUi ? <NewHowItWorks /> : <TodaysHowItWorks />}
     </>

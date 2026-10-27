@@ -6,6 +6,7 @@ import { guide } from './guide'
 import { brand, legacyBrand } from '@/lib/brand/config'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
+import { serializeJsonLd } from '@/lib/utils'
 
 export const dynamic = 'force-static'
 export const revalidate = 604800 // 7 days
@@ -147,15 +148,15 @@ export default async function StudyInSingaporePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(articleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqSchema) }}
       />
       {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
       {newUi ? (

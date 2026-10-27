@@ -18,6 +18,7 @@ import { showsNewUi } from '@/lib/new-ui'
 import { guide } from './guide'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { pageDates } from '@/lib/page-dates'
+import { serializeJsonLd } from '@/lib/utils'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -182,15 +183,15 @@ export default async function StudyInCzechRepublicPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(educationalArticleSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(educationalArticleSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqSchema) }}
       />
       {/* The new design's guide (rebranding 4.2); the root layout draws its header and footer */}
       {newUi ? (

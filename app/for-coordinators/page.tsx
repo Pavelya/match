@@ -9,6 +9,7 @@ import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 import { NewForCoordinators } from './NewForCoordinators'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -93,7 +94,7 @@ export default async function CoordinatorLandingPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd(logo)) }}
       />
       {newUi ? <NewForCoordinators /> : <TodaysForCoordinators />}
     </>
