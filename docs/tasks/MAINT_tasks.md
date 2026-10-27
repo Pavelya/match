@@ -69,9 +69,10 @@ deletes today's design.
 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | 27 October 2026 | The notice (`emails/inactivity-notice.tsx`, board row 30) and `/admin/students/inactive` with Send notices (50 a day, one Resend batch, recorded on acceptance) and Delete due accounts (25 a press, re-checked in each transaction). Both off behind `INACTIVE_ACCOUNTS_ENABLED` until the policy is published. Part E only when the owner asks |
 | npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. No npm 12 now; Node 24 everywhere first (6.10), approved by the owner with `strict-allow-scripts`. Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
 | Next.js security patch | 6.8 | 27 October 2026 | `next` 16.3.4 → 16.4.3, which closes three critical remote-code-execution advisories, and `sharp` with it; `npm audit` 12 → 10, none critical. `eslint-config-next` stays on 16.3.4. Found 6.11 |
+| The other advisories | 6.9 | 27 October 2026 | `npm audit` 10 → 0: `npm audit fix` for eight packages, lockfile only, and an override moving typography's `postcss-selector-parser` to 6.1.5, with byte-identical CSS. `zod`, `vite` and `vitest` floors raised |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8, 6.9, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -81,9 +82,8 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | The other advisories | 6.9 | small | Ten left after 6.8, 6 high. `npm audit fix`, never `--force` |
-| 2 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
-| 3 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
+| 1 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
+| 2 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -181,7 +181,7 @@ Phase 6 — dependency majors
 - [ ] 6.7 npm 12: find out what it changes here, and decide whether to move — steps 1–4 done 27 October
   2026, approved by the owner; step 5 waits for 6.10
 - [x] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7) — 27 October 2026
-- [ ] 6.9 The other advisories (from 6.7)
+- [x] 6.9 The other advisories (from 6.7) — 27 October 2026
 - [ ] 6.10 Node 24 on all three machines (from 6.7)
 - [ ] 6.11 `eslint-config-next` 16.4 and the React Compiler lint rules (from 6.8), after R.2
 
@@ -222,14 +222,14 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | **10 on 27 October 2026** (6 high, 4 moderate), left for 6.9 after 6.8 closed `next`'s critical ones and `sharp`; all published since 6.4 left 0. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
+| Vulnerabilities | **0** again since 6.9 (27 October 2026). 12 had been published since 6.4 left 0: 6.8 closed `next`'s critical ones and `sharp`, 6.9 the other ten. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
 | Tests | Vitest 5 (`npm test`), the only suite since 7.1 Part 4 moved the matching algorithm's scripts into it (26 October 2026). Session 8 added tests to CI; before that CI ran none |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.9 (advisories), 6.10 (Node 24), 6.11 (`eslint-config-next` 16.4, after R.2) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8) and the advisories (6.9). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.10 (Node 24), 6.11 (`eslint-config-next` 16.4, after R.2) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -3087,7 +3087,7 @@ may create a protection-bypass secret in the project settings, so it was not use
 
 ---
 
-### 6.9 — The other advisories
+### 6.9 — The other advisories — **done**
 
 **Outcome:** `npm audit` at 0 again, as 6.4 left it.
 
@@ -3118,6 +3118,34 @@ so, an `overrides` entry or a recorded exception, never the downgrade.
 is the `zod` and `vitest` check; a Vercel preview.
 
 **Session size:** small.
+
+**Done 27 October 2026.** `npm audit`: 10 → **0**, no exceptions.
+
+- **`npm audit fix`** (no `--force`) moved the lockfile only and cleared eight packages: `zod` 4.6.7,
+  `vite` 8.3.5, `vitest` and `@vitest/*` 5.0.5, `brace-expansion` 1.1.21 and 5.0.12, `engine.io` 6.6.11,
+  `fast-uri` 3.1.9 and `source-map-js` 1.2.2. With them, `rolldown` 1.2.15 (vite's bundler) and a few of
+  vitest's own dependencies. `obug` 2 → 3 and `why-is-node-running` 2 → 3 are majors, but transitive:
+  vitest 5.0.5's own ranges ask for them.
+- **`postcss-selector-parser`, the one npm could not fix.** `@tailwindcss/typography` 0.5.20, the
+  latest, pins it to exactly 6.0.10, and npm's only offer was a downgrade to 0.5.4. The advisory
+  (GHSA-rj75-hqrm-r3gf) is CPU exhaustion on hostile selectors, and here the parser only ever reads our
+  own CSS at build time. A nested override, `"@tailwindcss/typography": { "postcss-selector-parser":
+  "^6.1.5" }`, moves it within the same major. `app/globals.css`, compiled through
+  `@tailwindcss/postcss` with each version, came out byte-identical (249,413 bytes, the 42 `.prose`
+  rules). Remove the override once typography's own dependency reaches 6.1.5.
+- **`package.json` floors raised to the verified versions**, as 6.4 did: `zod` `^4.6.7`, `vite`
+  `^8.3.5`, `vitest` `^5.0.5`, and the `brace-expansion@1` override `^1.1.21`.
+- **zod 4.6 builds errors lazily**, so error maps run on the first read of `result.error`. Nothing here
+  sets one (no `z.config()` or locale), and only three files import zod: the two support-ticket routes
+  and `lib/env.ts`. The ticket schemas, copied into a script and run on 4.5.4 and 4.6.7 against eight
+  payloads (valid, wrong types, too short, too long, missing, `null`, the `RESOLVED` refine), gave
+  identical data and issues. `lib/env.ts` runs in every build.
+
+**Verified:** type-check, lint at `--max-warnings 0`, `prettier --check`, 139 test files and 2662 tests
+on vitest 5.0.5, and `npm run build` (125 pages), whose prerender read production.
+
+**Not checked:** `engine.io` belongs to react-email's preview server, which does not run here:
+`npm run email:dev` asks to install `@react-email/preview-server`, on `main` too. Dev-only either way.
 
 ---
 
