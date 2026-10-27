@@ -26,6 +26,8 @@ beforeEach(() => {
     role: 'STUDENT',
     createdAt: created,
     updatedAt: created,
+    lastActiveAt: accepted,
+    inactivityNoticeSentAt: null,
     termsVersion: '2026-10-20',
     termsAcceptedAt: created,
     privacyPolicyVersion: '2026-10-20',
@@ -93,10 +95,24 @@ describe('GET /api/students/account/export', () => {
     expect(query.select.studentProfile.select.openToAllLocations).toBe(true)
   })
 
-  it('is version 1.1', async () => {
+  it('is version 1.2', async () => {
     const data = await (await GET()).json()
 
-    expect(data.exportVersion).toBe('1.1')
+    expect(data.exportVersion).toBe('1.2')
+  })
+
+  it('holds the day last active and the inactivity notice (MAINT 7.6)', async () => {
+    const data = await (await GET()).json()
+
+    expect(data.account).toEqual({
+      email: 'maya@example.com',
+      name: 'Maya',
+      role: 'STUDENT',
+      createdAt: created.toISOString(),
+      updatedAt: created.toISOString(),
+      lastActiveAt: accepted.toISOString(),
+      inactivityNoticeSentAt: null
+    })
   })
 
   it('holds the accepted policy versions and the school link consent', async () => {

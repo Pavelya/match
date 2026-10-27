@@ -76,7 +76,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the last-active date, the admin and the dashboard | 7.6 Parts A and B | medium | The decisions are made (27 October 2026) and Part 0 is done. Part A builds the last-active date chosen in 7.5 Part B |
+| 1 | Inactive accounts: the admin and the dashboard | 7.6 Part B, and Part A's backfill | medium | Part A is built and its migration applied (27 October 2026). Its backfill waits for the owner's approval of `--apply`; Part B can be built before it, but its counts mean little until it runs |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -4000,6 +4000,23 @@ change these lines with it.
 3. The backfill from decision 3 is a production data change: the owner approves it, and a backup comes
    first.
 
+**Built 27 October 2026; the backfill waits for the owner.**
+- Migration `20261027120000_add_user_last_active` adds `lastActiveAt` and `inactivityNoticeSentAt`
+  (Part D's column, in the same migration as planned). Applied to production with `prisma migrate
+  deploy` the same day, before the code merged, because the `jwt` callback selects the column.
+- `lib/auth/last-active.ts`: `readRoleAndMarkActive` is the `jwt` callback's role read, on sign-in and
+  every 5 minutes, now selecting the date too. When the date is empty or a day old it writes it and
+  clears `inactivityNoticeSentAt`, through a conditional `updateMany`, so two requests reading the same
+  old date write once. A failed write is logged and never fails the request. It runs for every role,
+  as the Privacy draft says; only students are ever notified or deleted.
+- The data export (version 1.2) holds both dates, so the policy's "all your data" stays true.
+- `scripts/backfill-last-active.ts`: decision 3 for students with no date, in one raw `UPDATE` (so
+  `User.updatedAt` keeps its meaning), skipping any date the `jwt` callback already wrote. It writes the ids it
+  fills to `scripts/backups/last-active/` first. Dry run on 27 October 2026: 201 students, none with a
+  date; 69 last changed 6 months ago or more (silent), 37 in the last 30 days; oldest 30 January 2026;
+  no two students share a second, so no batch write is left in the dates. **`--apply` waits for the
+  owner's approval.**
+
 **Part B — the admin and the dashboard.**
 
 1. A "Last active" column on `/admin/students` and on the student's own page, and a "Silent" label;
@@ -4076,7 +4093,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 
 **Session size:** Large. Split into sessions:
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
-- Parts A and B;
+- Part A built 27 October 2026 (backfill waits for the owner); Part B;
 - Part C's board, a design session;
 - Parts C and D in code;
 - Part E, only when the owner asks for it.

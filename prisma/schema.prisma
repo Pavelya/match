@@ -29,6 +29,12 @@ model User {
   privacyAcceptedAt    DateTime? // When user accepted privacy policy
   privacyPolicyVersion String?   // Version of privacy policy accepted
 
+  // Inactive accounts (MAINT 7.6). The last day the user was seen signed in, written at most once a
+  // day by the jwt callback (lib/auth/last-active.ts); and when the inactivity notice was sent,
+  // cleared by that same write when the user comes back
+  lastActiveAt           DateTime?
+  inactivityNoticeSentAt DateTime?
+
   // Role-specific relations
   studentProfile     StudentProfile?
   coordinatorProfile CoordinatorProfile?

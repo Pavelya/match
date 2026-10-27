@@ -36,6 +36,8 @@ export async function GET() {
         role: true,
         createdAt: true,
         updatedAt: true,
+        lastActiveAt: true,
+        inactivityNoticeSentAt: true,
         termsVersion: true,
         termsAcceptedAt: true,
         privacyPolicyVersion: true,
@@ -136,13 +138,16 @@ export async function GET() {
     // Format data for export
     const exportData = {
       exportDate: new Date().toISOString(),
-      exportVersion: '1.1',
+      exportVersion: '1.2',
       account: {
         email: user.email,
         name: user.name,
         role: user.role,
         createdAt: user.createdAt,
-        updatedAt: user.updatedAt
+        updatedAt: user.updatedAt,
+        // MAINT 7.6: the day last seen signed in, and when an inactivity notice was sent
+        lastActiveAt: user.lastActiveAt,
+        inactivityNoticeSentAt: user.inactivityNoticeSentAt
       },
       consent: {
         termsVersion: user.termsVersion,
