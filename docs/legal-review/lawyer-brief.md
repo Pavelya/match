@@ -60,6 +60,9 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
    sent to; an invitation IB Match sent to a would-be coordinator who never accepted outlives the school; sign-in links expire in 10 minutes; the hosting provider's logs last a day, Algolia's search logs 90 days and Resend's email log 30 days.
    Is that an acceptable retention rule for invitation records? A pending invitation to a student who never signs
    up (their name and email, entered by a coordinator) stays until the coordinator who sent it is deleted.
+   Added 27 October 2026 (MAINT 7.6): a student account unused for 6 months gets one warning email, and is deleted
+   30 days later unless the student uses it again; no email follows the deletion. Is one email enough notice, and
+   should the Terms (14, Termination) say it too?
 9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice and a
    shortlist count. Are those exempt under ePrivacy Article 5(3)? Both banner buttons ("Accept all", "Essential only")
    leave the same cookies today: is that acceptable, or should the banner change?

@@ -63,6 +63,7 @@ deletes today's design.
 | "Two of" rules stored as one | 5.39 | 27 October 2026 | 47 programs at McGill, Alberta, Waterloo, Trinity, Imperial, NUS, Leiden, Lund and Cambridge re-read and given their second requirement, both needing a course of their own (#188). Alberta counts Maths AA as Math 31 |
 | Returning students: where it stands | 7.5 Part A | 27 October 2026 | From stored dates only: 24 of 199 students (12%) left a trace on a day after signing up, 4 on more than one. A floor: Google sign-ins and visits that change nothing leave none. Parts C and D wait (group 3) |
 | Returning students: what to count | 7.5 Part B | 27 October 2026 | The owner chose the last-active date, which 7.6 Part A builds; returns are counted from it by month of sign-up. Other analytics may come later |
+| Inactive accounts: the policy line | 7.6 Part 0 | 27 October 2026 | The Privacy Policy draft (7.4) and its redline say it: 6 months unused, one warning email, deletion 30 days later unless the student comes back. Also the last-active date (section 2) and the warning among the emails (section 3); one more line for the lawyer under question 8 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -75,7 +76,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the policy line, the last-active date, the admin and the dashboard | 7.6 Part 0, Parts A and B | small, then medium | The decisions are made (27 October 2026). Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A builds the last-active date chosen in 7.5 Part B |
+| 1 | Inactive accounts: the last-active date, the admin and the dashboard | 7.6 Parts A and B | medium | The decisions are made (27 October 2026) and Part 0 is done. Part A builds the last-active date chosen in 7.5 Part B |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -3980,10 +3981,15 @@ active" (`docs/legal-review/privacy-policy.proposed.md`, section 8), and nothing
 6. **The dashboard. Decided: both numbers.** "Active students, last 30 days" is the health number;
    "Silent" is the to-do number, linking to the list.
 
-**Part 0 — the Privacy Policy (before the lawyer's review of 7.4).** Add the rule to section 8 of
+**Part 0 — the Privacy Policy (before the lawyer's review of 7.4). Done 27 October 2026.** Add the rule to section 8 of
 `docs/legal-review/privacy-policy.proposed.md` and its redline: inactive for 6 months, a warning email,
 then deletion a month later unless the student comes back. One sentence now saves a second
 publication. Nothing is sent or deleted until the policy that says so is published (release day).
+Done: section 8 has an "Inactive student accounts" line; section 2 names the last-active date Part A stores
+(at most once a day, for finding inactive accounts and counting active students); section 3 lists the warning
+among the emails. The redline's change list and diff match, and `lawyer-brief.md` question 8 asks whether one
+email is enough notice and whether Terms 14 should say it too. If Part A or C changes what is stored or sent,
+change these lines with it.
 
 **Part A — the date of last activity.**
 
@@ -4069,7 +4075,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 - The usual checks.
 
 **Session size:** Large. Split into sessions:
-- ~~the decisions~~ made 27 October 2026; Part 0;
+- ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
 - Parts A and B;
 - Part C's board, a design session;
 - Parts C and D in code;
