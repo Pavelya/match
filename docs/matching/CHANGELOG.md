@@ -4,6 +4,19 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-27] - The first programs flagged (MAINT 5.18 step 5)
+
+### Changed
+
+- **18 programs need different subjects for their marked requirements.** Trinity Medicine and Dental
+  Science (HL 6 and HL 5 in two of Biology, Chemistry, Physics), Manchester MBChB Medicine and UCL BSc
+  Psychology (both science groups); Trinity's 13 science strands and Physiotherapy gained their second
+  HL 5 group, both marked, so "two of" needs two subjects, not one. Written with
+  `scripts/programs/refresh.ts`, which now reads, writes and backs up `ownCourse`. Every other program's
+  score is unchanged.
+
+---
+
 ## [2026-10-26] - Requirements that need a course of their own (MAINT 5.18)
 
 ### Added
