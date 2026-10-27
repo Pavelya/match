@@ -71,19 +71,18 @@ deletes today's design.
 | Next.js security patch | 6.8 | 27 October 2026 | `next` 16.3.4 → 16.4.3, which closes three critical remote-code-execution advisories, and `sharp` with it; `npm audit` 12 → 10, none critical. `eslint-config-next` stays on 16.3.4. Found 6.11 |
 | The other advisories | 6.9 | 27 October 2026 | `npm audit` 10 → 0: `npm audit fix` for eight packages, lockfile only, and an override moving typography's `postcss-selector-parser` to 6.1.5, with byte-identical CSS. `zod`, `vite` and `vitest` floors raised |
 | Node 24 on all three machines | 6.10 | 27 October 2026 | `engines` `24.x`, `.nvmrc` `24`, and CI reads `.nvmrc`, so CI tests on the Node and npm 11 that production runs. The matcher's fingerprint is identical on Node 22 and 24. The laptop moves when the owner installs Node 24 |
+| npm 12: the `allowScripts` list | 6.7, step 5 | 27 October 2026 | `allowScripts` denies the five dependency install scripts, none needed, and `.npmrc` sets `strict-allow-scripts=true`: an unreviewed script fails `npm ci`, so CI catches it before merge. npm 12 will change nothing here. 6.7 is done |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8–6.10, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
 
-None of these depends on the rebranding. The order is a suggestion: the legal-review fixes first,
-because the new Privacy Policy, published on release day, describes what they make true.
+Tasks here do not depend on the rebranding.
 
-| Order | Session | Tasks | Size | Notes |
-|---|---|---|---|---|
-| 1 | npm 12: the `allowScripts` list | 6.7, step 5 | small | CI reads the field since 6.10. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
+None at the moment: every task that can run before release day is done (27 October 2026). The next
+sessions are in group 3, and a new finding gets a row here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -178,8 +177,8 @@ Phase 6 — dependency majors
 - [x] 6.4 The minor and patch batch
 - [x] 6.5 TypeScript 5.9 → 7
 - [x] 6.6 Move to the `prisma-client` generator
-- [ ] 6.7 npm 12: find out what it changes here, and decide whether to move — steps 1–4 done 27 October
-  2026, approved by the owner; step 5 waits for 6.10
+- [x] 6.7 npm 12: find out what it changes here, and decide whether to move — 27 October 2026: no
+  npm 12 for now; Node 24 everywhere (6.10), and the `allowScripts` list with strict on
 - [x] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7) — 27 October 2026
 - [x] 6.9 The other advisories (from 6.7) — 27 October 2026
 - [x] 6.10 Node 24 on all three machines (from 6.7) — 27 October 2026; the laptop waits for the owner
@@ -229,7 +228,7 @@ documentation and has been correct every time it was consulted.
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8), the advisories (6.9) and Node 24 everywhere (6.10). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.11 (`eslint-config-next` 16.4, after R.2) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8), the advisories (6.9) and Node 24 everywhere (6.10). npm 12's `allowScripts` list (6.7). Left in phase 6: 6.11 (`eslint-config-next` 16.4, after R.2) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -2842,7 +2841,7 @@ served `/`, `/api/auth/session` and `/admin/legal-content` with no resolution er
 
 ---
 
-### 6.7 — npm 12: find out what it changes here, and decide whether to move — **steps 1–4 done, waiting for the owner**
+### 6.7 — npm 12: find out what it changes here, and decide whether to move — **done**
 
 **Outcome:** A short written answer with a recommendation, approved by the owner: whether to move to
 npm 12, when, and on which machines. Local, CI and Vercel run the npm version that answer chooses, and
@@ -3016,6 +3015,26 @@ so it never reaches production unreviewed. Approving one is `npm install-scripts
 dependency's own pull request. **Verify:** `npm ci` from a clean `node_modules` with no
 `install-scripts` warning, the usual checks and `npm test`, CI green, and a Vercel preview whose log has
 no `install-scripts` warning.
+
+**Step 5 done 27 October 2026.** `package.json` gained `allowScripts` with the five denials, written by
+`npm install-scripts deny --all` and `npm install-scripts deny fsevents`. A new `.npmrc` holds
+`strict-allow-scripts=true`, with a comment on what to do when it fires. `npm install-scripts ls` reports
+"No packages with unreviewed install scripts".
+
+- **The install.** `npm ci` from a clean `node_modules`, on the laptop (Node 22.12, npm 11.21.1) and on
+  Node 24.22.1 with npm 11.19.1 (CI's and Vercel's pair): exit 0, no `install-scripts` warning, the
+  project's `postinstall` (`prisma generate`) and `prepare` (`husky`) ran, `.husky/_` written. The Prisma
+  schema engine was still there, fetched by the CLI, and `prisma migrate diff --from-empty` printed all
+  23 tables.
+- **The break.** With `esbuild` taken off the list, `npm ci` failed with "--strict-allow-scripts: 2
+  package(s) have install scripts not covered by allowScripts", naming both copies. Only `package.json`
+  was restored afterwards.
+- **One-off `npx` inside the repo.** Strict reaches those too: `npx -y esbuild@0.24.2` failed and
+  suggested `--allow-scripts=<pkg>`. `npx -y vercel@latest` and `npx -y shadcn@latest`, the one-offs the
+  docs use, have no install script and ran. The `.npmrc` comment says so.
+
+**Verified** on Node 24.22.1: type-check, lint at `--max-warnings 0`, `prettier --check`, 139 test files
+and 2662 tests, `tsx`, and `npm run build` (125 pages), whose prerender read production.
 
 ---
 
