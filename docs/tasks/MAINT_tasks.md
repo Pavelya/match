@@ -3034,7 +3034,9 @@ no `install-scripts` warning.
   docs use, have no install script and ran. The `.npmrc` comment says so.
 
 **Verified** on Node 24.22.1: type-check, lint at `--max-warnings 0`, `prettier --check`, 139 test files
-and 2662 tests, `tsx`, and `npm run build` (125 pages), whose prerender read production.
+and 2662 tests, `tsx`, and `npm run build` (125 pages), whose prerender read production. CI green, and
+the Vercel preview built: neither log has an `install-scripts` line any more, where both had listed the
+five on every install. Vercel's own `Unknown env config "cache-dir"` warning is unrelated and stays.
 
 ---
 
