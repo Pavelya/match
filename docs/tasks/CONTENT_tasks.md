@@ -179,17 +179,23 @@ Owner tasks — not AI work
   "International Tourism, Hospitality and Event Management Programme" and "The Economics Programme" → "Bachelor's Programme in
   Economics and Data Analysis" (each new page reuses the stored description; neither says it replaces the old), and AGH
   "Electronics and Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027). Approved with the dry run and applied, 2 October 2026
-- [ ] Re-check after 16 October 2026, when the Swedish autumn 2027 round opens (4.8a): Linnaeus Peace and Development, and Lund
+- [x] Re-check after 16 October 2026, when the Swedish autumn 2027 round opens (4.8a): Linnaeus Peace and Development, and Lund
   Fine Arts and both Music programmes, show only Autumn 2026, so they are stamped 2026. **Re-checked 27 October 2026 (5.4 Part A):**
   Lund's three still show only Autumn 2026 (their arts and music rounds are separate), so re-check when Lund publishes them. Linnaeus
   Peace and Development has no autumn 2027 occasion although the round is open: its stored page returns 404, and the Swedish page
   for the English-taught occasion shows only Höst 2026. Linnaeus now lists a new English-taught bachelor's for autumn 2027,
-  Internationellt samarbete och globala utmaningar (Kalmar). Decide whether it is discontinued
+  Internationellt samarbete och globala utmaningar (Kalmar). **Owner, 27 October 2026: discontinued.** Its data-file status is
+  `discontinued`, so the refresh tool reports it and never writes it; nobody has saved it. Lund's three are the next item
+- [ ] Re-check Lund Fine Arts, Folk- and World Music and Music Individual Programme when Lund publishes its autumn 2027 arts and
+  music admission rounds (5.4 Part A, 27 October 2026: the study pages still show only Autumn 2026), so they are stamped 2026
+- [ ] Delete Linnaeus Peace and Development, or keep it as discontinued (5.4 Part A): nobody has saved it; it has 3 requirement rows
 - [x] Approve 5.4 Part A's dry run: 16 Swedish programs in 4 files get a "How competitive" paragraph, descriptions only, no stamp
   changes (status, 5.4). Approved and applied, 27 October 2026
-- [ ] Jönköping's Graphic Design and Web Development (5.4 Part A) was offered only in the first round in 2026, where Jönköping splits
+- [x] Jönköping's Graphic Design and Web Development (5.4 Part A) was offered only in the first round in 2026, where Jönköping splits
   places into groups ABI (21.21, 3 admitted) and BBI (17.08, 15 admitted) and defines neither on its pages. Say which group
-  EU/EEA applicants are in, or leave it without a paragraph
+  EU/EEA applicants are in, or leave it without a paragraph. **Owner, 27 October 2026: leave it without a paragraph**
+- [x] Four Linnaeus programs under 3 points above 24 once merit points count (5.4 Part A): International Business, Economics and Data
+  Analysis, Software Technology, Peace and Development. **Owner, 27 October 2026: no paragraph**
 - [ ] Re-check Italy and Portugal when the 2027/28 calls appear (4.8a): Bologna (12), Sapienza (8), Católica (7) and ISEG (4) are
   stamped 2026; only Padua's joint degree with Bologna has published 2027/2028
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -3083,15 +3089,15 @@ are selected on the work: the paragraph says so, with no figure (step 2).
   Bachelor's Programme in Economics and Data Analysis (15.82 second round: 29, or 25; first round every qualified applicant),
   Software Technology (first round 15.47: 28, or 24; the English second-round occasion LNU-G0596 admitted every qualified applicant)
   and Peace and Development (first round 16.72: 31, or 26; second round every qualified applicant). Without merit points
-  these are 4 to 7 points above 24, so a paragraph is the owner's call.
+  these are 4 to 7 points above 24. **Owner, 27 October 2026: no paragraph.**
 - **Groups not defined:** Jönköping Graphic Design and Web Development, offered only in the first round (ABI 21.21, BBI 17.08).
-  Owner question.
+  **Owner, 27 October 2026: leave it without a paragraph.**
 
 **Re-checks from 4.8a** (step 3). Lund Fine Arts, Folk- and World Music and Music Individual Programme still show only Autumn 2026;
 Lund's arts and music programmes have admission rounds of their own (KONST1HT26, MUSIKHT26 in 2026), not yet published for 2027.
 They stay stamped 2026. Linnaeus Peace and Development has no autumn 2027 occasion, though the round opened on 16 October. Its stored
-page returns 404, and the Swedish page for the English-taught occasion shows only Höst 2026. It stays stamped 2026, and whether
-it is discontinued is the owner's call (owner tasks).
+page returns 404, and the Swedish page for the English-taught occasion shows only Höst 2026. It stays stamped 2026. **Owner, 27 October
+2026: discontinued**; its data-file status is `discontinued`, so the tool reports it and never writes it.
 
 **Owner-approved and applied on 27 October 2026.** The tool wrote 16 of 16 programs (Lund 9, Jönköping 4, Linnaeus 2, Karlstad 1)
 and synced all 16 to Algolia (0 failed), then cleared the programs cache and cached matches. Backups:
