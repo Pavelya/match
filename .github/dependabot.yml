@@ -1,0 +1,21 @@
+# Dependabot (SEC-9): security updates only. `open-pull-requests-limit: 0` turns version updates
+# off, so no routine upgrade pull requests arrive; a security update still opens one, one package
+# per pull request, which keeps MAINT's rule of never two dependency upgrades in one change.
+# Security updates also need "Dependabot security updates" on in the repository's settings
+# (Settings → Code security), which is the owner's.
+#
+# A security update to an npm package with an install script `allowScripts` hasn't reviewed fails
+# `npm ci` in CI (`strict-allow-scripts`, MAINT 6.7): review the script in that pull request.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0

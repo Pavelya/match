@@ -1,0 +1,30 @@
+name: Dependency audit
+
+# Once a week, and by hand: `npm audit` against the advisories published since the lockfile last
+# changed (SEC-9). Not on pull requests, so a newly published advisory doesn't block unrelated
+# work. A failed run emails the owner, and is the signal to run a session like MAINT 6.9.
+
+on:
+  schedule:
+    # Mondays, 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      # The lockfile is enough: nothing is installed, so no install script runs
+      - name: Audit for high and critical advisories
+        run: npm audit --audit-level=high

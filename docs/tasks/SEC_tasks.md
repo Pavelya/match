@@ -43,7 +43,7 @@ What is left before release is the owner's checklist, SEC-4.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 8 | [SEC-9 — CI permissions and the dependency watch](#sec-9--ci-permissions-and-the-dependency-watch) | P3 | small | session, then owner settings |
+| 8 | [SEC-9 — CI permissions and the dependency watch](#sec-9--ci-permissions-and-the-dependency-watch--done): step 4, the settings | P3 | small | owner |
 | 9 | [SEC-10 — Admin accounts and an audit trail](#sec-10--admin-accounts-and-an-audit-trail) | P3 | owner decision first | owner, then maybe a session |
 
 ### Done
@@ -59,6 +59,7 @@ What is left before release is the owner's checklist, SEC-4.
 | [SEC-7 step 3](#during-a-flood) | 27 October 2026 | The runbook "During a flood", the edge rule to set, and Attack Mode as Vercel describes it (#210). Steps 1 and 2 are the owner's, in the dashboards |
 | [SEC-11](#sec-11--count-explore-and-search-per-account-so-a-classroom-can-browse-together--done) | 27 October 2026 | Explore counts a signed-in student against their account (`search`, 30 a minute) and a signed-out visitor against their address (`searchIp`, 120 a minute) (#211). Today's `/api/programs/search` is unchanged: it is cached at the edge and goes at R.2 |
 | [SEC-8](#sec-8--small-hardening-batch--done) | 27 October 2026 | `server-only` on the Stripe and Resend clients (the other five are imported by scripts); `/api/admin/cache/invalidate` answers POST only; uploads only JPEG, PNG, WebP or AVIF by their bytes, as claimed, up to 2 MB; the unused `NEXT_PUBLIC_ALGOLIA_SEARCH_KEY` dropped (#212). The owner's part: the buckets' allowed types and size in Supabase, and the key deleted in Vercel |
+| [SEC-9](#sec-9--ci-permissions-and-the-dependency-watch--done) | 27 October 2026 | CI's token reads only (`permissions: contents: read`); `.github/dependabot.yml` for npm and Actions, security updates only; `.github/workflows/audit.yml` runs `npm audit --audit-level=high` every Monday and by hand (#213). The owner turns on the repository's settings |
 
 ### Priorities
 
@@ -648,7 +649,14 @@ Vercel.
 
 ---
 
-## SEC-9 — CI permissions and the dependency watch
+## SEC-9 — CI permissions and the dependency watch — **done**
+
+**Done 27 October 2026 (#213), but for step 4.** `open-pull-requests-limit: 0` turns Dependabot's
+version updates off; security updates have their own fixed limit of 10, which that setting doesn't
+touch (GitHub's options reference). No custom labels: Dependabot creates its own. **Still the
+owner's (step 4):** Settings → Code security, with Dependabot alerts and Dependabot security updates on,
+and secret scanning with push protection, both free on a public repository. Then Actions →
+"Dependency audit" → Run workflow, once, to see it pass.
 
 **Priority:** P3 · **Size:** small · **Branch:** `ci/sec-9-permissions-and-watch`
 

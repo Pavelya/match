@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+# The jobs only read the code: no job writes to the repository, its pull requests or its packages,
+# so the token GitHub hands them can't either (SEC-9).
+permissions:
+  contents: read
+
 # A newer push to the same branch cancels the previous run.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
