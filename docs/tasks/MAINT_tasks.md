@@ -64,6 +64,7 @@ deletes today's design.
 | Returning students: where it stands | 7.5 Part A | 27 October 2026 | From stored dates only: 24 of 199 students (12%) left a trace on a day after signing up, 4 on more than one. A floor: Google sign-ins and visits that change nothing leave none. Parts C and D wait (group 3) |
 | Returning students: what to count | 7.5 Part B | 27 October 2026 | The owner chose the last-active date, which 7.6 Part A builds; returns are counted from it by month of sign-up. Other analytics may come later |
 | Inactive accounts: the policy line | 7.6 Part 0 | 27 October 2026 | The Privacy Policy draft (7.4) and its redline say it: 6 months unused, one warning email, deletion 30 days later unless the student comes back. Also the last-active date (section 2) and the warning among the emails (section 3); one more line for the lawyer under question 8 |
+| Inactive accounts: the last-active date | 7.6 Part A | 27 October 2026 | `User.lastActiveAt`, written by the `jwt` callback's role read at most once a day, clearing `inactivityNoticeSentAt` (#193; migration applied). Backfilled for all 201 students from their latest stored change: 69 silent, 37 active in the last 30 days |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -76,7 +77,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the admin and the dashboard | 7.6 Part B, and Part A's backfill | medium | Part A is built and its migration applied (27 October 2026). Its backfill waits for the owner's approval of `--apply`; Part B can be built before it, but its counts mean little until it runs |
+| 1 | Inactive accounts: the admin and the dashboard | 7.6 Part B | medium | Part A is done (27 October 2026): every student has a last-active date. Part B shows it, and the two dashboard counts |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -4000,7 +4001,7 @@ change these lines with it.
 3. The backfill from decision 3 is a production data change: the owner approves it, and a backup comes
    first.
 
-**Built 27 October 2026; the backfill waits for the owner.**
+**Done 27 October 2026** (#193, and the backfill).
 - Migration `20261027120000_add_user_last_active` adds `lastActiveAt` and `inactivityNoticeSentAt`
   (Part D's column, in the same migration as planned). Applied to production with `prisma migrate
   deploy` the same day, before the code merged, because the `jwt` callback selects the column.
@@ -4014,8 +4015,10 @@ change these lines with it.
   `User.updatedAt` keeps its meaning), skipping any date the `jwt` callback already wrote. It writes the ids it
   fills to `scripts/backups/last-active/` first. Dry run on 27 October 2026: 201 students, none with a
   date; 69 last changed 6 months ago or more (silent), 37 in the last 30 days; oldest 30 January 2026;
-  no two students share a second, so no batch write is left in the dates. **`--apply` waits for the
-  owner's approval.**
+  no two students share a second, so no batch write is left in the dates. **Applied the same day with
+  the owner's approval:** 201 filled, backup `scripts/backups/last-active/2026-10-27T09-54-25-265Z.json`.
+  Checked after: 201 of 201 students have a date, 69 silent, 37 in the last 30 days, no notices, and
+  no `User.updatedAt` moved. The coordinator and the admin have no date until they next sign in.
 
 **Part B — the admin and the dashboard.**
 
@@ -4093,7 +4096,7 @@ without `CRON_SECRET`, and does what the two buttons do, with the same caps. It 
 
 **Session size:** Large. Split into sessions:
 - ~~the decisions~~ made 27 October 2026; ~~Part 0~~ done 27 October 2026;
-- Part A built 27 October 2026 (backfill waits for the owner); Part B;
+- ~~Part A~~ done 27 October 2026; Part B;
 - Part C's board, a design session;
 - Parts C and D in code;
 - Part E, only when the owner asks for it.
