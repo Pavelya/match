@@ -13,6 +13,7 @@ import { RequirementsContent } from './RequirementsContent'
 import { pageDates } from '@/lib/page-dates'
 import { showsNewUi } from '@/lib/new-ui'
 import { NewRequirementsHub } from './NewRequirementsHub'
+import { serializeJsonLd } from '@/lib/utils'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -369,11 +370,11 @@ export default async function IBUniversityRequirementsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqSchema) }}
       />
     </>
   )

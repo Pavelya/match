@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cn } from './utils'
+import { cn, serializeJsonLd } from './utils'
 
 // The type styles are sizes, so they must survive next to a text colour and replace each other.
 
@@ -28,5 +28,31 @@ describe('cn with the new design tokens', () => {
   it('still treats the new colours as colours', () => {
     expect(cn('text-ok', 'text-gap')).toBe('text-gap')
     expect(cn('bg-ok-soft', 'bg-gap-soft')).toBe('bg-gap-soft')
+  })
+})
+
+// SEC-3: structured data is written into a <script>, so no value may end it early
+describe('serializeJsonLd', () => {
+  const hostile = {
+    name: '</script><script>alert(1)</script>',
+    description: 'Under <30 points? <!-- not a comment -->',
+    nested: [{ city: '</SCRIPT >' }]
+  }
+
+  it('leaves no "<" in the output, so nothing can close the tag or open a comment', () => {
+    const out = serializeJsonLd(hostile)
+    expect(out).not.toContain('<')
+    expect(out.toLowerCase()).not.toContain('</script')
+  })
+
+  it('parses back to exactly what JSON.stringify gives, so the structured data is unchanged', () => {
+    expect(JSON.parse(serializeJsonLd(hostile))).toEqual(hostile)
+    const program = {
+      '@context': 'https://schema.org',
+      '@type': 'EducationalOccupationalProgram',
+      name: 'Économie & Gestion',
+      timeToComplete: 'P3Y'
+    }
+    expect(JSON.parse(serializeJsonLd(program))).toEqual(JSON.parse(JSON.stringify(program)))
   })
 })

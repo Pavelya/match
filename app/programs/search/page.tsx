@@ -16,6 +16,7 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { EXPLORE_QUESTIONS } from '@/lib/explore/questions'
 import { showsNewUi } from '@/lib/new-ui'
 import { NewExplorePage } from './NewExplorePage'
+import { serializeJsonLd } from '@/lib/utils'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 
@@ -99,7 +100,7 @@ const faqSchema = {
 const faqScript = (
   <script
     type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    dangerouslySetInnerHTML={{ __html: serializeJsonLd(faqSchema) }}
   />
 )
 

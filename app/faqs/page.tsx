@@ -8,6 +8,7 @@ import { getPublishedDocument } from '@/lib/legal-documents'
 import { pageDates } from '@/lib/page-dates'
 import { showsNewUi } from '@/lib/new-ui'
 import { NewFaqs } from './NewFaqs'
+import { serializeJsonLd } from '@/lib/utils'
 
 // ISR - page fetches CMS content but is cached for 1 hour
 export const revalidate = 3600
@@ -145,7 +146,7 @@ export default async function FAQPage() {
   const structuredData = (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
     />
   )
 

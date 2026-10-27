@@ -9,6 +9,7 @@ import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 import { NewHomePage } from './NewHomePage'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -109,7 +110,7 @@ export default async function HomePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd(logo)) }}
       />
       {/* The new design's Home (rebranding 4.1); the root layout draws its header and footer */}
       {newUi ? (

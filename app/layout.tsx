@@ -12,7 +12,7 @@ import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
 import { seasonScript } from '@/lib/seasons/pick'
 import { seasonSchedule } from '@/lib/seasons/schedule'
 import { THEME_SCRIPT } from '@/lib/theme'
-import { cn } from '@/lib/utils'
+import { cn, serializeJsonLd } from '@/lib/utils'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -213,7 +213,7 @@ export default async function RootLayout({
         {/* Centralized Organization schema for AI search engines */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationSchema) }}
         />
         <CountryFlagPolyfill />
         <ToastProvider>
