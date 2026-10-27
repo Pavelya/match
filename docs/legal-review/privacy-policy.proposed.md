@@ -28,6 +28,7 @@ The data we collect depends on your role on the platform:
 
 - **Technical data**: whenever you use IB Match, our hosting provider receives your IP address, your browser and device type, the page you asked for and the time. It keeps this in logs for about one day. We use it to run the site, fix errors and stop abuse.
 - **Abuse protection**: we count requests from each IP address (before you sign in) or account (after) to stop automated abuse. The counters are kept in a cache and expire within about two hours.
+- **Last activity**: when you use IB Match while signed in, we record the date, at most once a day. We use it to find inactive accounts (see Section 8) and to count how many students use IB Match.
 - **Search words**: the words you type into program search are sent to our search provider, Algolia, to find results. Algolia keeps its search logs for 90 days, in France, and uses them for search statistics. We send it our server's address, not yours, and nothing that names you. The words are also written to our own server log without your name or account.
 - **No tracking**: IB Match does not use analytics, advertising or tracking tools, and does not follow what you do from page to page. If that changes, we will update this policy first and ask for your consent where the law requires it.
 - **In your browser**: IB Match stores a few small items in your browser. They are listed in our [Cookie Policy](/cookies).
@@ -43,7 +44,7 @@ We use your information to:
 - Create your account and sign you in
 - Provide personalized program recommendations (students)
 - Let coordinators guide the students linked to their school, and see their school's statistics
-- Send the emails the service needs: sign-in links, invitations, replies to your support requests, and a confirmation when an account is deleted. We send no marketing email.
+- Send the emails the service needs: sign-in links, invitations, replies to your support requests, a warning before an inactive account is deleted, and a confirmation when an account is deleted. We send no marketing email.
 - Respond to your support requests
 - Process school subscription payments
 - Keep IB Match running and secure, fix errors and prevent misuse
@@ -123,6 +124,7 @@ No system is perfectly secure. If a breach affects your personal data, we will t
 
 - **Active accounts**: we keep your data for as long as your account is active or as needed to provide the service.
 - **Students deleting their account**: in Settings, "Delete account" permanently removes your saved programs, grades and profile, your support requests, your sign-in records and sign-in links, and any school invitations sent to your email address, then your account. We send you an email to confirm. It happens in one step: if it fails, nothing is deleted.
+- **Inactive student accounts**: if you have not used IB Match while signed in to your student account for 6 months, we email you that the account will be deleted in 30 days. If you use it again within those 30 days, we keep it, and the 6 months start again. If you do not, we permanently delete the account and everything listed above, and send no further email.
 - **Coordinators and schools**: ask us to delete a coordinator account, or your school's data, through a Data & privacy request on the Contact page or at privacy@ibmatch.com. An administrator carries it out. Deleting a coordinator account permanently removes your profile, your support requests, your sign-in records and sign-in links, the invitations you sent and any coordinator invitation sent to your email address, then your account. It happens in one step: if it fails, nothing is deleted. Your school stays, and so do the students' links to it.
 - **Support requests**: kept while your account exists, and deleted with it.
 - **Invitation records**: kept so a school's coordinators can see the status of the invitations they send. An invitation is deleted with the account of the coordinator who sent it or, sooner, with the account of the student or coordinator it was sent to. A school can be deleted only once it has no coordinators. If we invited someone to be a school's coordinator and they never accepted, that invitation is kept after the school is deleted.
