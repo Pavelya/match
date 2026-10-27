@@ -43,7 +43,6 @@ What is left before release is the owner's checklist, SEC-4.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 7 | [SEC-8 — Small hardening batch](#sec-8--small-hardening-batch) | P3 | small | session |
 | 8 | [SEC-9 — CI permissions and the dependency watch](#sec-9--ci-permissions-and-the-dependency-watch) | P3 | small | session, then owner settings |
 | 9 | [SEC-10 — Admin accounts and an audit trail](#sec-10--admin-accounts-and-an-audit-trail) | P3 | owner decision first | owner, then maybe a session |
 
@@ -59,6 +58,7 @@ What is left before release is the owner's checklist, SEC-4.
 | [SEC-6 Part B](#part-b--sign-out-everywhere-owner-decides-whether-to-build-it--not-built) | 27 October 2026 | Not built, the owner's decision: Part A covers deleted accounts, and a mailbox that signs back in is SEC-10's matter. Revisit if a lost device or a shared computer ever needs it |
 | [SEC-7 step 3](#during-a-flood) | 27 October 2026 | The runbook "During a flood", the edge rule to set, and Attack Mode as Vercel describes it (#210). Steps 1 and 2 are the owner's, in the dashboards |
 | [SEC-11](#sec-11--count-explore-and-search-per-account-so-a-classroom-can-browse-together--done) | 27 October 2026 | Explore counts a signed-in student against their account (`search`, 30 a minute) and a signed-out visitor against their address (`searchIp`, 120 a minute) (#211). Today's `/api/programs/search` is unchanged: it is cached at the edge and goes at R.2 |
+| [SEC-8](#sec-8--small-hardening-batch--done) | 27 October 2026 | `server-only` on the Stripe and Resend clients (the other five are imported by scripts); `/api/admin/cache/invalidate` answers POST only; uploads only JPEG, PNG, WebP or AVIF by their bytes, as claimed, up to 2 MB; the unused `NEXT_PUBLIC_ALGOLIA_SEARCH_KEY` dropped (#212). The owner's part: the buckets' allowed types and size in Supabase, and the key deleted in Vercel |
 
 ### Priorities
 
@@ -601,7 +601,16 @@ cliff. Release day and a school's onboarding session are both real growth.
 
 ---
 
-## SEC-8 — Small hardening batch
+## SEC-8 — Small hardening batch — **done**
+
+**Done 27 October 2026 (#212).** Item 1 went on two modules, not seven: `lib/stripe/server.ts` and
+`lib/email/client.ts`. The other five (`lib/env.ts`, `lib/prisma.ts`, `lib/redis/client.ts`,
+`lib/algolia/client.ts`, `lib/supabase/client.ts`) are imported by 10 to 14 of the scripts run by
+`tsx`, where `server-only` doesn't resolve; `lib/server-only-modules.test.ts` keeps the list and says
+why. Item 3 checked production first (one aggregate): all 104 stored images are JPEG or WebP, so the
+allowlist refuses nothing in use, and the cap is the bucket's own 2 MB. **Still the owner's:** the
+buckets' allowed types and size limit in Supabase, and deleting `NEXT_PUBLIC_ALGOLIA_SEARCH_KEY` in
+Vercel.
 
 **Priority:** P3 · **Size:** small: four trivial changes, one verification pass ·
 **Branch:** `chore/sec-8-hardening`

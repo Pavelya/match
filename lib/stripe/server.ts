@@ -4,9 +4,11 @@
  * Server-side Stripe SDK initialization.
  * Use this for creating checkout sessions, managing subscriptions, etc.
  *
- * Note: This file should only be imported in server components/API routes.
+ * Server only: `server-only` fails the build if a client file imports it, so the secret key can
+ * never be bundled for the browser (SEC-8).
  */
 
+import 'server-only'
 import Stripe from 'stripe'
 import { isLive } from './subscription-status'
 

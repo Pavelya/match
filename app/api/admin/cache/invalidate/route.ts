@@ -16,12 +16,10 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 
+// POST only (SEC-8). A GET that changes something can be triggered by a link on another site: the
+// session cookie is SameSite=Lax, which browsers still send on a top-level GET, so any page could
+// make a signed-in admin flush every reference cache, which then refills from the database.
 export async function POST() {
-  return invalidateCache()
-}
-
-// Also support GET for easy browser access
-export async function GET() {
   return invalidateCache()
 }
 

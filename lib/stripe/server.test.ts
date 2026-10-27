@@ -4,6 +4,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 // a school cannot pay twice; the webhook reads a subscription's status now, and treats one Stripe
 // does not have as gone rather than failing forever.
 
+// Next's marker module, which only resolves inside a Next build
+vi.mock('server-only', () => ({}))
+
 import { getStripe, getSubscriptionStatus, hasLiveSubscription } from './server'
 
 beforeEach(() => {
