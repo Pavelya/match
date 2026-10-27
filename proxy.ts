@@ -10,7 +10,7 @@
  * - Runs before every request to matched routes
  *
  * The role here is the token's, which can be a few minutes old (ROLE_REFRESH_MS in
- * lib/auth/config.ts). It turns away the obvious cases before anything renders; each admin and
+ * lib/auth/session-token.ts). It turns away the obvious cases before anything renders; each admin and
  * coordinator page still checks the database itself (lib/auth/guards.ts).
  */
 
