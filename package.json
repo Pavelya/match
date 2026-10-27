@@ -86,5 +86,12 @@
     "@tailwindcss/typography": {
       "postcss-selector-parser": "^6.1.5"
     }
+  },
+  "allowScripts": {
+    "esbuild": false,
+    "prisma": false,
+    "unrs-resolver": false,
+    "@prisma/engines": false,
+    "fsevents": false
   }
 }
