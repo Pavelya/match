@@ -68,9 +68,10 @@ deletes today's design.
 | Inactive accounts: the admin and the dashboard | 7.6 Part B | 27 October 2026 | "Last active" and a "Silent" label on `/admin/students` and the student's page, a Silent filter, and two `count()`s on the dashboard (37 active in 30 days, 69 silent). The rule is `lib/account/inactivity.ts`, for Part D to extend |
 | Inactive accounts: the notice and the admin page | 7.6 Parts C and D | 27 October 2026 | The notice (`emails/inactivity-notice.tsx`, board row 30) and `/admin/students/inactive` with Send notices (50 a day, one Resend batch, recorded on acceptance) and Delete due accounts (25 a press, re-checked in each transaction). Both off behind `INACTIVE_ACCOUNTS_ENABLED` until the policy is published. Part E only when the owner asks |
 | npm 12: the impact | 6.7, steps 1–4 | 27 October 2026 | npm 12 tried on a clone: every check passes with all six dependency install scripts blocked, so `allowScripts` is five denials. No npm 12 now; Node 24 everywhere first (6.10), approved by the owner with `strict-allow-scripts`. Local npm on 11.21.1. Found 6.8, 6.9 and 6.10 |
+| Next.js security patch | 6.8 | 27 October 2026 | `next` 16.3.4 → 16.4.3, which closes three critical remote-code-execution advisories, and `sharp` with it; `npm audit` 12 → 10, none critical. `eslint-config-next` stays on 16.3.4. Found 6.11 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 6.8, 7.1 and 7.7. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -80,10 +81,9 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Next.js security patch | 6.8 | small | **First, and soon.** `next` 16.3.4 has three critical remote-code-execution advisories, fixed in 16.4.1. Alone in its pull request (rule 1) |
-| 2 | The other eleven advisories | 6.9 | small | After 6.8, which may move `sharp`. `npm audit fix`, never `--force` |
-| 3 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
-| 4 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
+| 1 | The other advisories | 6.9 | small | Ten left after 6.8, 6 high. `npm audit fix`, never `--force` |
+| 2 | Node 24 on all three machines | 6.10 | small | 6.7's chosen route to npm 12: production already runs Node 24, CI tests on 22. Approved by the owner, 27 October 2026 |
+| 3 | npm 12: the `allowScripts` list | 6.7, step 5 | small | After 6.10, so CI's npm reads the field. Five denials, no approvals, and `strict-allow-scripts=true`; approved 27 October 2026 |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -97,6 +97,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
+| R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
 **For the owner, now:** 5.37's last steps: export the Security Advisor's list for a session to answer,
 turn off sign-ups to Supabase Auth, delete `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel, check for a
@@ -179,9 +180,10 @@ Phase 6 — dependency majors
 - [x] 6.6 Move to the `prisma-client` generator
 - [ ] 6.7 npm 12: find out what it changes here, and decide whether to move — steps 1–4 done 27 October
   2026, approved by the owner; step 5 waits for 6.10
-- [ ] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7)
-- [ ] 6.9 The other eleven advisories (from 6.7)
+- [x] 6.8 Next.js 16.3.4 → 16.4.3: the critical advisories (from 6.7) — 27 October 2026
+- [ ] 6.9 The other advisories (from 6.7)
 - [ ] 6.10 Node 24 on all three machines (from 6.7)
+- [ ] 6.11 `eslint-config-next` 16.4 and the React Compiler lint rules (from 6.8), after R.2
 
 Phase 7 — structural
 
@@ -220,14 +222,14 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | **12 on 27 October 2026** (1 critical, `next`; 7 high; 4 moderate), published since 6.4 left 0: 6.8 and 6.9. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
+| Vulnerabilities | **10 on 27 October 2026** (6 high, 4 moderate), left for 6.9 after 6.8 closed `next`'s critical ones and `sharp`; all published since 6.4 left 0. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
 | Tests | Vitest 5 (`npm test`), the only suite since 7.1 Part 4 moved the matching algorithm's scripts into it (26 October 2026). Session 8 added tests to CI; before that CI ran none |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.8 and 6.9 (advisories), 6.10 (Node 24) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8). Left in phase 6: 6.7 step 5 (npm 12's `allowScripts`), 6.9 (advisories), 6.10 (Node 24), 6.11 (`eslint-config-next` 16.4, after R.2) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -3017,10 +3019,10 @@ no `install-scripts` warning.
 
 ---
 
-### 6.8 — Next.js 16.3.4 → 16.4.3: the critical advisories
+### 6.8 — Next.js 16.3.4 → 16.4.3: the critical advisories — **done**
 
-**Outcome:** `next` and `eslint-config-next` on 16.4.3 (or the latest 16.4 patch), and `npm audit`
-no longer lists `next`.
+**Outcome:** `next` on 16.4.3 (or the latest 16.4 patch), and `npm audit` no longer lists `next`.
+`eslint-config-next` stays on 16.3.4: see "Done" below and 6.11.
 
 **Why:** found by 6.7 on 27 October 2026. `next` 16.3.4 is inside the ranges of eleven advisories,
 three of them critical remote code execution: in Image Optimization when SVG files are used
@@ -3042,18 +3044,59 @@ Explore with university images, sign-in and one coordinator page work.
 **Session size:** small. First in the order: it is the one advisory in a production path that is
 critical.
 
+**Done 27 October 2026.** `npm install next@16.4.3`, nothing else. The lockfile moved only `next`,
+`@next/env`, the eight `@next/swc-*` binaries and `sharp` 0.35.4 → 0.35.5 with its `@img/*` packages, so
+`sharp` left 6.9 too. `npm audit`: 12 → 10 (4 moderate, 6 high, no critical).
+
+**`eslint-config-next` stays on 16.3.4.** 16.4.3 brings `eslint-plugin-react-hooks` 7.0.1 → 7.1.1, whose
+React Compiler rules find 19 errors in 14 client components that 7.0.1 passed with the same rules on:
+14 `set-state-in-effect`, 3 `static-components`, 2 `refs`. Fixing those is UI work and does not belong in
+a security patch (rule 2), so that bump is 6.11. `eslint-config-next` 16.3.4 has no peer on `next`, and
+lint is clean against 16.4.3. (Installing 16.3.4 back over 16.4.3 kept the plugin on 7.1.1, since 16.3.4's
+range allows it; this pull request starts again from `main`'s lockfile.)
+
+**What 16.4 changes here** (16.4.0–16.4.3 release notes and the 16.4 announcement, 6 October 2026, and
+`node_modules/next/dist/docs/`):
+
+- 16.4.1 is the security release; 16.4.2 and 16.4.3 are backported fixes. There is no 16.3 patch after
+  16.3.8, and three of the advisories cover 16.3.8 too, so 16.4 is the only way out.
+- React 19.3 is bundled for the App Router. The `react` and `react-dom` packages stay on 19.2.8.
+- Turbopack production builds now use export mangling and shorter CSS Module class names. Measured
+  against a 16.3.4 build of the same code: client JavaScript 3.55 MB → 3.47 MB in total, the main
+  stylesheet unchanged at 33.4 KB gzipped, and the same 125 pages with the same static and dynamic
+  split.
+- "Re-enable AVIF" changes nothing: `images.formats` still defaults to `['image/webp']`, and
+  `next.config.ts` does not set it.
+- `experimental.agentUpgrade` is new and defaults to `'security'`. During `next dev` and `next build`
+  it checks for advisories against the installed version and reminds; it upgrades nothing. Left on.
+  When a coding agent runs the command, the first reminder stops it once, and a prompt retry continues.
+- Cache Components is now recommended for every app and becomes the default in 17. Not adopted here.
+
+**Verified:** type-check, lint at `--max-warnings 0`, `prettier --check`, 139 test files and 2662 tests,
+and `npm run build`, whose prerender read production. `next start` served `/`, `/how-it-works`,
+`/for-coordinators`, a country guide, `/faqs`, `/contact`, `/ib-university-requirements`, Explore, a
+university page and `/auth/signin` with 200, an unknown path with 404, and `/api/auth/session`.
+`/student/matches`, `/coordinator/dashboard` and `/admin` redirected signed-out visitors to sign-in.
+The optimizer returned a university image from Supabase Storage as WebP, and refused a local SVG with
+400. (`/student/matches` redirects to `localhost:3000` locally because of `NEXTAUTH_URL` in `.env`;
+16.3.4 does the same.) CI green; the Vercel preview built with Next.js 16.4.3, 125 pages, in 57 s.
+
+**Still to check by hand:** the preview's pages, which sit behind Vercel's deployment protection: `/`,
+Explore with university images, sign-in and one coordinator page. `vercel curl` could reach them, but it
+may create a protection-bypass secret in the project settings, so it was not used.
+
 ---
 
-### 6.9 — The other eleven advisories
+### 6.9 — The other advisories
 
 **Outcome:** `npm audit` at 0 again, as 6.4 left it.
 
-**Why:** found by 6.7 on 27 October 2026, with `next` (6.8):
+**Why:** found by 6.7 on 27 October 2026, with `next` (6.8). 6.8 also closed `sharp` (0.35.5, with
+the new `next`); ten remain:
 
 | Package | Severity | Installed | Comes from | Fixed in |
 |---|---|---|---|---|
 | `zod` | high | 4.5.4 | direct | 4.6.6 |
-| `sharp` | high | 0.35.4 | `next` | 0.35.5 (6.8 may move it) |
 | `vite` | high | 8.3.0 | direct, dev | 8.3.3 |
 | `brace-expansion` | high | 1.1.18, 5.0.9 | several; `overrides` pins `@1` to `^1.1.18` | 1.1.21, 5.0.12 |
 | `engine.io` | high | 6.6.9 | `react-email` → `socket.io`, dev | 6.6.10 |
@@ -3063,7 +3106,7 @@ critical.
 | `postcss-selector-parser` | moderate | 6.0.10 | `@tailwindcss/typography` 0.5.20 | 6.1.5 |
 | `@tailwindcss/typography` | moderate | 0.5.20 | direct | npm offers a *downgrade* to 0.5.4; read the advisory first |
 
-**Steps:** after 6.8, so `sharp` is seen through the new `next`. `npm audit fix` without `--force`,
+**Steps:** `npm audit fix` without `--force`,
 then targeted `npm update <pkg>` for transitive pins that already satisfy their range (6.4's
 `@humanfs/node` lesson). The `brace-expansion@1` override in `package.json` may need raising. For
 `@tailwindcss/typography`, find out whether the latest still pins `postcss-selector-parser` 6.0.x; if
@@ -3106,6 +3149,40 @@ Node 26.
 on Node 24 has no `EBADENGINE`.
 
 **Session size:** small.
+
+---
+
+### 6.11 — `eslint-config-next` 16.4 and the React Compiler lint rules
+
+**Outcome:** `eslint-config-next` matches `next`'s 16.4 line, `eslint-plugin-react-hooks` is on 7.1 or
+later, and lint is clean at `--max-warnings 0` with no new `eslint-disable`.
+
+**Why:** found by 6.8 on 27 October 2026. `eslint-config-next` 16.4.3 brings `eslint-plugin-react-hooks`
+7.1.1, whose rules (on in 7.0.1 too) now find 19 errors that 7.0.1 did not:
+
+| Rule | Errors | Files |
+|---|---|---|
+| `set-state-in-effect` | 14 | `StudentMatchesClient`, `ProgramDetailClient`, `ExploreClient`, `SearchClient`, `MatchesClient`, `RecommendationsClient`, `SavedProgramsClient`, `ShortlistClient`, `DocumentEditorClient`, `SearchFilterBar`, `SupportTicketsListClient`, `ProgramCard` |
+| `static-components` | 3 | `app/coordinator/students/StudentsClient.tsx` |
+| `refs` | 2 | `ExploreClient`, `components/contact/ContactForm.tsx` |
+
+Most are a `useEffect` that copies a prop into state, such as `setSaved(isSaved)` in `ProgramCard`.
+These cost an extra render rather than giving a wrong result, so the task can wait.
+
+**When:** after R.2. Cleanup deletes today's design, and with it some of these files: count the errors
+again then, and fix only what is left.
+
+**Steps:** `npm install eslint-config-next@<next's version>`; run `npx eslint .`; fix each case the way
+React's "You might not need an effect" says (derive during render, a `key` to reset, or an event
+handler); never `eslint-disable`.
+
+**Must not:** change a component's behaviour; combine with another upgrade (rule 1).
+
+**Verify:** lint at `--max-warnings 0`, the usual checks and `npm test`; each changed screen in a
+Vercel preview: Save on a card, Matches, Explore, the Shortlist, the coordinator's students, the
+legal-content editor, support tickets and the contact form.
+
+**Session size:** small to medium, depending on what R.2 leaves.
 
 ---
 
