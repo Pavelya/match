@@ -24,8 +24,12 @@ heading **done**. A finding from a session becomes a new task and a row here, no
 
 ### Before release day
 
-All done: SEC-1, SEC-2 and SEC-3 were merged on 27 October 2026 (#204, #205, #206). What is left
-before release is the owner's checklist, SEC-4.
+SEC-1, SEC-2 and SEC-3 were merged on 27 October 2026 (#204, #205, #206). SEC-11 was found later
+the same day.
+
+| Order | Task | Priority | Size | Who |
+|---|---|---|---|---|
+| 4 | [SEC-11 — Count Explore and search per account, so a classroom can browse together](#sec-11--count-explore-and-search-per-account-so-a-classroom-can-browse-together) | P1 | small | session |
 
 ### On release day (R.1)
 
@@ -37,8 +41,7 @@ before release is the owner's checklist, SEC-4.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 5 | [SEC-6 — End a session when its account is deleted](#sec-6--end-a-session-when-its-account-is-deleted), Part B only: sign out everywhere | P2 | medium | owner decides, then a session |
-| 6 | [SEC-7 — Limits at the edge, and usage alerts](#sec-7--limits-at-the-edge-and-usage-alerts) | P2 | small | owner, then a short session |
+| 6 | [SEC-7 — Limits at the edge, and usage alerts](#sec-7--limits-at-the-edge-and-usage-alerts): steps 1 and 2 | P2 | small | owner; the runbook is written |
 
 ### When convenient
 
@@ -57,6 +60,8 @@ before release is the owner's checklist, SEC-4.
 | [SEC-3](#sec-3--escape-the-structured-data-on-program-pages--done) | 27 October 2026 | The 32 pages that wrote JSON-LD with `JSON.stringify` use `serializeJsonLd`, byte for byte the same where the data has no `<`; the local ESLint rule `local/no-unescaped-inline-json` (`eslint/inline-json.mjs`) refuses the pattern (#206) |
 | [SEC-5](#sec-5--give-the-same-answer-for-every-email-address--done) | 27 October 2026 | `/api/auth/check-role` deleted; both coordinator sign-ins send the link to every address, without the student notice (owner's choice; D4.2 noted). A signed-in user in an area that isn't theirs goes to their own start page (`startPageFor`), so a student who signed in there lands on Matches. The invite route says "This address can't be invited" without naming the account |
 | [SEC-6 Part A](#part-a--the-account-is-gone-the-session-ends--done-209) | 27 October 2026 | The `jwt` callback's work moved to `lib/auth/session-token.ts`: when the re-read finds no account, it returns null and Auth.js clears the cookie, so a deleted account is signed out within 5 minutes instead of carrying on as a student (#209). Part B waits for the owner |
+| [SEC-6 Part B](#part-b--sign-out-everywhere-owner-decides-whether-to-build-it--not-built) | 27 October 2026 | Not built, the owner's decision: Part A covers deleted accounts, and a mailbox that signs back in is SEC-10's matter. Revisit if a lost device or a shared computer ever needs it |
+| [SEC-7 step 3](#during-a-flood) | 27 October 2026 | The runbook "During a flood", the edge rule to set, and Attack Mode as Vercel describes it (#210). Steps 1 and 2 are the owner's, in the dashboards |
 
 ### Priorities
 
@@ -78,7 +83,7 @@ preview switch, which goes to everyone on release day.
 
 ### What was found
 
-As found on 27 October 2026. SEC-1 to SEC-3 were fixed the same day ([Done](#done)); the line numbers
+As found on 27 October 2026. SEC-1 to SEC-3 were fixed the same day ([Done](#done)), and SEC-11 was found later that day; the line numbers
 are those of `22aab89`.
 
 | Task | Finding | Where |
@@ -93,6 +98,7 @@ are those of `22aab89`.
 | SEC-8 | No `server-only` guard on the modules that hold secrets; a GET that flushes caches; uploads stored with whatever content type the data URL claims; an unused `NEXT_PUBLIC_` key in the schema | see the task |
 | SEC-9 | CI's token has the repository's default permissions; nothing watches for new advisories between sessions | `.github/workflows/ci.yml` |
 | SEC-10 | Every student's data is behind admin accounts that have one factor, the mailbox. Admin actions leave no record beyond Vercel's short log retention | `lib/auth/config.ts` |
+| SEC-11 | Explore and search count 30 requests a minute per IP, even signed in, so a class on one school network is refused (found while writing SEC-7) | `app/api/programs/explore/route.ts:28`, `app/api/programs/search/route.ts:23` |
 
 ### What was checked and holds
 
@@ -395,7 +401,7 @@ pull request. `REBRANDING_tasks.md` R.1 points here.
 
 ### Before setting `NEW_UI_FOR_EVERYONE`
 
-1. SEC-1, SEC-2 and SEC-3 are merged.
+1. SEC-1, SEC-2, SEC-3 and SEC-11 are merged.
 2. `npm audit` on the release commit says 0 vulnerabilities. If not, run a session first, as in 6.9.
 3. **Vercel → Settings → Deployment Protection:** preview deployments are protected (Vercel
    Authentication, or the plan's equivalent). Previews run this code against the production database,
@@ -466,7 +472,7 @@ less per coordinator sign-in.
 
 ---
 
-## SEC-6 — End a session when its account is deleted
+## SEC-6 — End a session when its account is deleted — **done** (Part A; Part B not built)
 
 **Priority:** P2, before 7.6's first deletions · **Size:** Part A small, Part B medium ·
 **Branch:** `fix/sec-6-session-end` (Part A), `feat/sec-6-sign-out-everywhere` (Part B)
@@ -492,7 +498,11 @@ cut off by revoking the coordinator or changing their role.
 2. Tests in `lib/auth/config` (or a callback extracted to be testable): no user → the session ends; a
    user → as today.
 
-### Part B — sign out everywhere (owner decides whether to build it)
+### Part B — sign out everywhere (owner decides whether to build it) — not built
+
+**Decided 27 October 2026 (owner): not built.** Part A covers deleted accounts on every device; the
+rest would help with a lost device or a shared computer, rarely needed at today's numbers.
+
 
 1. `User.sessionsValidAfter DateTime?`, through a migration file and `prisma migrate deploy`. Selected
    in the same `findUnique` the callback already makes, so there is no new read. A token issued
@@ -509,8 +519,8 @@ person's sessions can be ended. **Load:** none. The read exists already.
 
 ## SEC-7 — Limits at the edge, and usage alerts
 
-**Priority:** P2 · **Size:** small · **Who:** owner in the dashboards, then a short session for the
-runbook · **Branch:** `docs/sec-7-flood-runbook`
+**Priority:** P2 · **Size:** small · **Who:** owner in the dashboards (steps 1 and 2); the runbook
+(step 3) is written · **Branch:** `docs/sec-7-flood-runbook`
 
 **Goal:** a flood is stopped before it reaches the app's quotas, and the owner hears about it before
 a service runs out.
@@ -519,25 +529,78 @@ a service runs out.
 
 Every limit lives in Upstash, and all but the sign-in email limits fail open (`lib/rate-limit.ts`;
 SEC-2 made those fail closed). Each limited request costs Redis commands, so a flood spends
-Upstash's quota, and then the other limits switch off. The caches switch
-off with them, which sends the reads to Supabase, where the 5 GB egress cap is what broke the images
-before, and to Algolia. Nothing in front of the app counts requests. And no alert says that a quota is
-nearly spent.
+Upstash's quota, and then the other limits switch off. The caches switch off with them, which sends
+the reads to Supabase, where the 5 GB egress cap is what broke the images before, and to Algolia.
+Nothing in front of the app counts requests. And no alert says that a quota is nearly spent.
 
 ### Steps
 
-1. **Owner, Vercel Firewall:** a per-IP rate-limit rule for `/api/auth/signin/*` and
-   `/api/programs/*`, within what the plan includes. Learn where "Attack Challenge Mode" is switched
-   on.
-2. **Owner, alerts:** Upstash (daily commands), Algolia (searches; `scripts/algolia-usage.ts` reads
-   it), Resend (sends per day), Supabase (egress), Vercel (usage). Use email alerts where the plan has
-   them, or a weekly look otherwise.
-3. **Session:** a "During a flood" section in this file: what to switch on (Attack Challenge Mode,
-   `EXPLORE_BEST_FIT=off`), what to check first (Vercel's top paths and IPs, Resend's dashboard), and
-   how to switch back.
+1. **Owner, one rate-limit rule in Vercel** (Firewall → Configure → + New Rule). Rate limiting is on
+   every plan: Hobby allows one rule (of its three custom rules), Pro 40, with a fixed window of 10
+   seconds to 10 minutes, counted per IP (or JA4 digest), and per region. Hobby includes 1,000,000
+   allowed requests; Pro is billed by use, shown in the pricing dialog the first time. Vercel's page:
+   https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting.
+   - **If:** Request Path starts with `/api/`.
+   - **Then:** Rate Limit, fixed window, **60 seconds, 300 requests**, keyed by **IP**.
+   - **Action:** **Log** first, for a week. Then look at the rule's traffic on the Firewall overview,
+     and switch it to **Default (429)** if no normal IP comes near 300.
+   - **Why 300 and not less:** the app already limits each IP and account, more tightly (`auth` 5
+     per 10 seconds, search 30 a minute, see SEC-11). The edge rule is there to stop a flood before
+     the app counts it in Upstash, and must never refuse a school network before the app would.
+     `/api/auth/session` and the Stripe webhook are under `/api/` too, and come nowhere near 300 a
+     minute from one IP.
+2. **Owner, usage alerts:** wherever each service offers an email alert, set one at about 80% of the
+   free allowance; otherwise look at its usage page weekly.
+   - **Resend:** sends per day, of 100.
+   - **Upstash:** commands per day.
+   - **Algolia:** searches per month (`npx tsx scripts/algolia-usage.ts` reads them too).
+   - **Supabase:** egress per month, of 5 GB.
+   - **Vercel:** usage, and Spend Management if the plan has it.
+3. **The runbook:** [During a flood](#during-a-flood), below. Written 27 October 2026.
 
-**Expected outcome:** edge rules on the expensive paths, an alert on each quota, and a one-page
+**Expected outcome:** one edge rule on `/api/`, an alert (or a weekly look) for each quota, and the
 runbook. **Load:** none in the app.
+
+### During a flood
+
+**What it looks like:** a usage alert; the site slow; Resend near 100 sends before noon; Upstash or
+Algolia usage jumping. Real growth looks different: many IPs, ordinary pages, a curve rather than a
+cliff. Release day and a school's onboarding session are both real growth.
+
+**Look first (five minutes):**
+
+1. **Vercel → the project → Firewall**, the overview: requests by path, IP and JA4 digest. A flood is
+   usually one path, and a few IPs or one JA4 digest, at a rate no person reaches.
+2. **Resend:** sends today. **Upstash:** commands today. **Algolia:** searches today.
+
+**Then the smallest step that stops it:**
+
+1. **A few IPs, or one JA4 digest:** Firewall → a custom rule, **Deny** where the IP (or JA4 digest)
+   is that one. Remove the rule once it has stopped.
+2. **One path:** tighten the edge rule from step 1 above for a while, or add a narrower one if the
+   plan allows a second.
+3. **Algolia being spent:** set `EXPLORE_BEST_FIT=off` in Vercel's Production environment and
+   redeploy. Explore then gives everyone the signed-out sorts, one search per request.
+4. **Many IPs, and the site struggling: Attack Mode.** Firewall → Bot Management → Attack Mode →
+   Enable. What it does (https://vercel.com/docs/vercel-firewall/attack-mode):
+   - every visitor's browser passes a short JavaScript challenge before the page loads;
+   - verified bots go straight through, search engines (no harm to Search Console) and webhook
+     providers such as Stripe among them, as do the project's own functions and cron jobs;
+   - a script that can't run JavaScript, and isn't a verified bot, is stopped at the edge;
+   - what it blocks is free and doesn't count towards any usage;
+   - it can stay on for hours or days, but Vercel recommends it for an attack, not as a setting.
+5. **Never "Pause System Mitigations"**, next to it in the Danger Zone: it turns Vercel's own DDoS
+   protection off.
+
+**Afterwards:**
+
+- Attack Mode off, `EXPLORE_BEST_FIT` back as it was, and any Deny rule removed once it has done
+  its job.
+- Stripe → Developers → Webhooks: any failed deliveries. Stripe retries for three days, and the
+  webhook asks Stripe for the current state anyway (5.34), so a late one is harmless.
+- Resend: bounces and complaints from the flood, which hurt the sending domain. If the day's 100
+  were spent, email sign-in returns at midnight UTC; Google sign-in worked throughout.
+- A line in this file: the date, what it was, and what stopped it.
 
 ---
 
@@ -631,6 +694,45 @@ record.
    path. If yes, a session builds it, with a test per mutating admin route that a row is written.
 
 **Expected outcome:** a recorded decision on each of the three, and the work it asks for.
+
+---
+
+## SEC-11 — Count Explore and search per account, so a classroom can browse together
+
+**Priority:** P1, before release · **Size:** small · **Branch:** `fix/sec-11-search-limits` · Found
+27 October 2026, while writing SEC-7
+
+**Goal:** a class browsing Explore together on one school network isn't refused, and one person
+still can't spend the search quota.
+
+### The finding
+
+Explore and the program search share the `search` limiter, 30 requests a minute, keyed by IP even
+for a signed-in student (`app/api/programs/explore/route.ts:28`, `app/api/programs/search/route.ts:23`).
+A school's students share one public IP, and Explore asks again on each filter and sort change, so a
+class exploring together runs out within seconds and gets 429s. It is the classroom problem SEC-2
+fixed for sign-in, on the screen they use next. It protects Algolia's quota, so the fix must not
+simply loosen it.
+
+### Steps
+
+1. A signed-in request counts against the **account** (`search`, 30 a minute, keyed by the user id),
+   as the other signed-in routes do. A signed-out request still counts against the **IP**, with its
+   own looser limiter, for example `searchIp`, 120 a minute, so a class that hasn't signed in yet can
+   look too. Explore already reads the session; the search route reads it too (no database read
+   unless the role is due, `lib/auth/session-token.ts`).
+2. `lib/rate-limit.test.ts`: the new limiter's window and prefix (`ratelimit:[a-z]+`); the count of
+   limiters.
+
+### Tests
+
+- Each route: signed in → `search` with the user id; signed out → `searchIp` with the IP; a refusal
+  is a 429 with nothing read from Algolia.
+- `app/api/route-gates.test.ts` still passes: both routes stay public.
+- Break check: key a signed-in request by IP again, and a test fails.
+
+**Expected outcome:** 30 students on one IP, signed in, each get their own 30 a minute; signed out,
+they share 120. **Load:** none in the database; Algolia's use per person is unchanged.
 
 ---
 
