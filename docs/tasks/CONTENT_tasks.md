@@ -30,7 +30,7 @@ here, and this refresh does more production writes than any work before it.
 | 10 | Refresh tool and link checker | 3.3 | medium | **Done.** 26 September 2026 |
 | 11 | Broken and renamed programs | 3.4 | medium | **Done.** 27 September 2026. Four discontinued programs deleted at the owner's request |
 | 12–19 | Program refresh | 4.1–4.8 | large each | The core of the goal. **UK sessions by mid-December**. 4.1–4.4 and 4.6 done 29 September 2026, 4.5 and 4.7 on 30 September: eight UCL programs, two discontinued Manchester programs, five Alberta programs closed to school leavers, four discontinued Western programs, and HKUST's Business extended majors left for the owner; 4.6's and 4.7's owner decisions are applied. 4.8 is split in two: 4.8a (Italy, Sweden, Poland, Portugal) done and applied 2 October 2026; 4.8b (the seven thin countries) done and applied 3 October 2026, with Tokyo's two PEAK programs, which took their last students in September 2026, left for the owner. Phase 4 is complete |
-| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); Part A (Sweden) after 16 October 2026 |
+| 20–23 | Thin countries, France, competitiveness | 5.1–5.4 | large each | Landing pages promise more than search delivers. 5.3 adds France, which has no coverage at all; 5.4 tells students how competitive Sweden's and other ranked programs are. **5.1 done** and applied 4 October 2026: Austria 4 universities (14 programs), Belgium 3 (10), Denmark 5 (26); images and France left for the owner. **5.2 done** and applied 6 October 2026: 10 universities and 62 programs (Japan 23, Estonia 10, Czech Republic 18, Israel 11); images for the owner. **5.3 done** and applied 8 October 2026: France, 11 universities (7 public, 4 private) and 20 programs, and its landing page; images for the owner. **5.4 Part B done** and applied 9 October 2026: 171 "How competitive" paragraphs (Ireland, Catalonia, McGill, Western, Edinburgh, Imperial, AGH, Gdańsk); **Part A** (Sweden) researched 27 October 2026: 16 paragraphs in 4 files, dry run awaiting the owner's approval |
 | 22–24 | USA | 6 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 9 October 2026 (session 24): `content-2027/usa-model-decision.md`. **Owner, 10 October 2026: all as recommended**, no IB minimum for US programs and 11 universities. **Part B1** (session 25): the code for a null minimum, Georgia Tech's data file and the USA page, **applied 10 October 2026** (Georgia Tech's 44 majors set no IB minimum; its graduate Aerospace Engineering (MS) deleted). **Part B2** (session 26): 11 universities and 242 programs, **applied 10 October 2026**, with their admit rates. Phase 6 is complete; images and re-checks are for the owner |
 | 25–27 | Germany | 7 | research, then build | Standalone. Needs an owner decision halfway. **Part A done** 12 October 2026 (session 27): `content-2027/germany-model-decision.md`. Recommended: the KMK floor (24) with rows for maths HL, the KMK science and social science, and German where a university accepts an IB course; TUM's 36/38 are field templates from a January 2026 seeding guide. **Owner, 12 October 2026: all nine as recommended.** **Part B1** (session 28): TUM's file under the model, SIT for the two Singapore joint degrees, and the Germany page; **applied 12 October 2026**: TUM's 39 programs at 24, 4 of them new, and SIT with the two joint degrees. Geodesy and Geoinformation (closed) deleted at the owner's request. **Part B2** (session 29): six English-taught universities and 46 programs, **applied 12 October 2026**. Phase 7 is complete; images are for the owner |
 | any | Design-audit data fixes | 8.1–8.3 | small to medium each | **Done.** From the student design audit (6 October 2026). **8.1** applied 7 October 2026: one home per discipline, 135 programs re-filed, new field descriptions. **8.2 and 8.3** applied the same day: a campus city on 50 programs and one city per university; 66 image credits moved out of descriptions into a caption |
@@ -102,7 +102,8 @@ Phase 5 — Coverage
 - [x] 5.2 Japan, Estonia, Czech Republic, Israel — applied 6 October 2026: 10 universities, 62 programs; images for the owner
 - [x] 5.3 France — applied 8 October 2026: 11 universities, 20 programs, and `/study-in-france-with-ib-diploma`; images for the owner
 - [ ] 5.4 How competitive — Sweden's 29 programs, then every other stored program that ranks applicants. Part B applied
-  9 October 2026: 171 paragraphs in 10 files; Part A (Sweden) after 16 October 2026
+  9 October 2026: 171 paragraphs in 10 files; Part A (Sweden) dry run 27 October 2026: 16 paragraphs in 4 files, awaiting the
+  owner's approval
 
 Phase 6 — USA
 
@@ -180,7 +181,16 @@ Owner tasks — not AI work
   Economics and Data Analysis" (each new page reuses the stored description; neither says it replaces the old), and AGH
   "Electronics and Telecommunications" → "Computer Science for Embedded Systems" (same syllabus programme, renamed from 2026/2027). Approved with the dry run and applied, 2 October 2026
 - [ ] Re-check after 16 October 2026, when the Swedish autumn 2027 round opens (4.8a): Linnaeus Peace and Development, and Lund
-  Fine Arts and both Music programmes, show only Autumn 2026, so they are stamped 2026
+  Fine Arts and both Music programmes, show only Autumn 2026, so they are stamped 2026. **Re-checked 27 October 2026 (5.4 Part A):**
+  Lund's three still show only Autumn 2026 (their arts and music rounds are separate), so re-check when Lund publishes them. Linnaeus
+  Peace and Development has no autumn 2027 occasion although the round is open: its stored page returns 404, and the Swedish page
+  for the English-taught occasion shows only Höst 2026. Linnaeus now lists a new English-taught bachelor's for autumn 2027,
+  Internationellt samarbete och globala utmaningar (Kalmar). Decide whether it is discontinued
+- [ ] Approve 5.4 Part A's dry run: 16 Swedish programs in 4 files get a "How competitive" paragraph, descriptions only, no stamp
+  changes (status, 5.4)
+- [ ] Jönköping's Graphic Design and Web Development (5.4 Part A) was offered only in the first round in 2026, where Jönköping splits
+  places into groups ABI (21.21, 3 admitted) and BBI (17.08, 15 admitted) and defines neither on its pages. Say which group
+  EU/EEA applicants are in, or leave it without a paragraph
 - [ ] Re-check Italy and Portugal when the 2027/28 calls appear (4.8a): Bologna (12), Sapienza (8), Católica (7) and ISEG (4) are
   stamped 2026; only Padua's joint degree with Bologna has published 2027/2028
 - [ ] Open eight UCL course pages in a browser (4.1): History, Scandinavian Studies, Civil
@@ -654,6 +664,18 @@ not precision.
   that pypdf extracts. The University of Gdańsk's IB scores are § 10 of Resolution 30/26 and its pages show only the previous round's
   threshold. McGill's IB page answered curl. Edinburgh explains its IB ranges on `.../entry-requirements/understanding/standard`.
   DGES's placement results (`dges.gov.pt/coloc/2026`) are a JavaScript app.
+
+- **Found in 5.4 Part A:** UHR's admission statistics (`uhr.se/studier-och-antagning/antagningsstatistik/`) load from a JSON API that
+  answers curl: `https://www.uhr.se/api/antagningsstatistik/searchTotal?searchfor=&searchterm=HT26&searchkategori=&pagesize=100&tillfalle=urv2&page=1&larosaten=LU,LNU,HJ,KAU,HDA&utbildningstyp=program`
+  (`tillfalle` is required; `urvalsgrupper` and `larosaten` list the codes; Dalarna is `HDA`). Each row has the round
+  (`antagningsomgångId`: `IKHT26` is the first, international round, `HT2026` the second, national one; arts and music have their own,
+  such as `MUSIKHT26`) and `urval1`/`urval2` with each group's lowest admitted value: `*` every qualified applicant admitted, `-`
+  nobody admitted. antagning.se's IB pages answer curl: IB holders with only the Diploma compete in group BI
+  (`.../ib-examen-2021-och-framat/du-provas-i-betygsurvalet/`), and merit points for languages and maths, up to 2.5, are on
+  `.../meritpoang/`. Cut-offs above 20.00 therefore need merit points. Jönköping and Karlstad split first-round places into groups `ABI`
+  and `BBI`, Dalarna into `BIBEF` and `BIAVG`; none defines them on its pages (Jönköping's admission regulations allow separate groups
+  for fee-paying students). Linnaeus offers some programmes in the second round twice, once in English (`/program/<slug>/vaxjo-engelska-ht/`)
+  and once in Swedish and English; the Swedish pages give the application code. The API cannot tell them apart.
 
 - **Found in 7 (Part A):**
   - **TUM.** `tum.de` answers curl. Each programme page's "Key Data" gives the admission category (Unrestricted, Aptitude
@@ -3006,6 +3028,75 @@ decisions the same day: keep UCD's paragraphs on Trinity's scale; no paragraph f
   Edinburgh Computer Science and Imperial Aeronautical Engineering; AGH Computer Science and Gdańsk International Business.
 - `tsc`, ESLint, Prettier, Vitest (478 tests) and the matching suite pass. `npm run build` was not run: only data files and
   docs changed.
+
+#### Status, 27 October 2026 — Part A done (session 23, Part A); the owner approves the dry run
+
+**16 of the 29 Swedish programs get a paragraph**, in 4 data files (Lund 9, Jönköping 4, Linnaeus 2, Karlstad 1). Descriptions,
+notes and sources only, and each file keeps its `checkedOn`, so nothing is re-stamped. The dry run shows 16 changes, each
+"Description: rewritten", with no stamp change and no fields-of-study warning. The other 13 get a note giving the figures and the
+reason for no paragraph (notes and sources are not stored, so the dry run counts them up to date). Sources were read on 27 October 2026.
+
+**How IB holders are ranked** (step 1). An applicant with only the IB Diploma competes in group BI, the grades group
+(antagning.se, "Du prövas i betygsurvalet", updated 29 September 2026). The IB total converts on antagning.se's table
+(24 = 13.18, 35 = 18.57, 43–45 = 20.00), and up to 2.5 merit points are added for languages and mathematics. English A, or English B
+HL, gives 1.0, another language 1.5, and maths up to 1.5 by course and the programme's maths requirement. The merit rating therefore runs from 10 to 22.5. A cut-off
+above 20.00 cannot be reached on points alone, and below that the IB total needed depends on the applicant's merit points. Each
+paragraph gives both: the points with no merit points, and with all 2.5. Many Diploma combinations earn all 2.5, for example English A plus any
+Language B. The Swedish Scholastic Aptitude Test (högskoleprovet) is a separate group of the second round, in Swedish. Each paragraph names it in one sentence.
+
+**Which round** (step 2). UHR's autumn 2026 statistics (`uhr.se/studier-och-antagning/antagningsstatistik/`, term HT26) give each
+group's lowest admitted merit rating per round. The paragraphs lead with the **second (national) round**, read at its final selection (urval 2). The Sweden
+guide sends students finishing the IB to that round, and University Admissions advises them against the first. Where the
+first, international round has a single BI group (Lund, Linnaeus), its figure follows, "for applicants who already hold the
+Diploma". Jönköping and Karlstad split first-round places into groups ABI and BBI that neither defines, so their paragraphs leave
+the first round out and the notes keep its figures.
+
+**The rule as applied.** As in Part B: a paragraph where admission ranks applicants and the second-round cut-off is **3 or more
+IB points above the stored 24 even with all 2.5 merit points**, or beyond the IB total alone. Portfolio and audition programmes
+are selected on the work: the paragraph says so, with no figure (step 2).
+
+| Program | Second round, BI (urval 2) | IB points: none / all 2.5 merit points | First round, BI |
+|---|---|---|---|
+| Lund Development Studies | 20.54 (LU-80411) | — / 34 | 19.92: 43 / 32 |
+| Lund Economy and Society | 21.38 (LU-80421) | — / 36 | 19.68: 40 / 32 |
+| Lund International Business | 21.98 (LU-80417) | — / 39 | 20.78: — / 35 |
+| Lund Mathematics | 21.88 (LU-80235) | — / 38 | 21.06: — / 35 |
+| Lund Physics | 22.29 (LU-80221) | — / 41 | 20.32: — / 33 |
+| Lund Physical Geography and Ecosystem Science | 18.07 (LU-80233) | 34 / 28 | 19.36: 38 / 31 |
+| Lund Fine Arts | work samples and interview | no figure | — |
+| Lund Folk- and World Music, Music Individual Programme | audition | no figure | — |
+| Jönköping International Economics | 18.33 (HJ-52103) | 35 / 29 | groups ABI/BBI, notes only |
+| Jönköping International Management | 17.70 (HJ-52101) | 33 / 27 | as above |
+| Jönköping International Marketing | 17.26 (HJ-52102) | 32 / 27 | as above |
+| Jönköping Sustainable Supply Chain Management | 19.57 (HJ-52567) | 40 / 31 | as above |
+| Karlstad Artificial Intelligence | campus 18.15 (KAU-80733), distance 20.93 (KAU-80732) | 34 / 28; — / 35 | groups ABI/BBI, notes only |
+| Linnaeus Network Security | 17.61 (LNU-G0593, the English occasion) | 33 / 27 | 12.90: any Diploma |
+| Linnaeus Visual Communication +Change | portfolio score | no figure | every qualified applicant |
+
+**Examined, no paragraph, and why:**
+
+- **Every qualified applicant admitted, in both rounds:** Karlstad Global Perspectives on Gender, Human Rights and Social Justice;
+  Jönköping Prosthetics and Orthotics; Linnaeus Applied Mathematics, Design + Change, International Tourism, Hospitality and Event
+  Management, Media and Entrepreneurship. Dalarna International Tourism Management also, in group BIBEF; the second round's
+  BIAVG admitted one applicant at 15.98 (25 points with all 2.5 merit points).
+- **Audition as a prerequisite, everyone who passed admitted:** Karlstad Bachelor Programme in Music (KAU-80639).
+- **Under 3 points above 24 once merit points count:** Linnaeus International Business (15.91 second round, 16.07 first: 29, or 25),
+  Bachelor's Programme in Economics and Data Analysis (15.82 second round: 29, or 25; first round every qualified applicant),
+  Software Technology (first round 15.47: 28, or 24; the English second-round occasion LNU-G0596 admitted every qualified applicant)
+  and Peace and Development (first round 16.72: 31, or 26; second round every qualified applicant). Without merit points
+  these are 4 to 7 points above 24, so a paragraph is the owner's call.
+- **Groups not defined:** Jönköping Graphic Design and Web Development, offered only in the first round (ABI 21.21, BBI 17.08).
+  Owner question.
+
+**Re-checks from 4.8a** (step 3). Lund Fine Arts, Folk- and World Music and Music Individual Programme still show only Autumn 2026;
+Lund's arts and music programmes have admission rounds of their own (KONST1HT26, MUSIKHT26 in 2026), not yet published for 2027.
+They stay stamped 2026. Linnaeus Peace and Development has no autumn 2027 occasion, though the round opened on 16 October. Its stored
+page returns 404, and the Swedish page for the English-taught occasion shows only Höst 2026. It stays stamped 2026, and whether
+it is discontinued is the owner's call (owner tasks).
+
+**Verify** (before apply).
+- Dry runs: Lund 9, Jönköping 4, Linnaeus 2, Karlstad 1 change; Dalarna up to date. Each change is "Description: rewritten" only.
+- `tsc`, ESLint, Prettier and Vitest (2,818 tests) pass. `npm run build` was not run: only data files and docs changed.
 
 ---
 
