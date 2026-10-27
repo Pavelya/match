@@ -81,11 +81,9 @@ was done.
 
 Tasks here do not depend on the rebranding.
 
-**Security, from the audit of 27 October 2026:** the tasks are in `docs/tasks/SEC_tasks.md`, run in
-the order of its Start here. SEC-1, SEC-2 and SEC-3 are done (#204, #205, #206); SEC-4 is the
-owner's release-day checklist; SEC-5 and SEC-6 are done too (#208, #209; SEC-6 Part B not built). SEC-11, found
-later the same day, is done too (#211), and so are SEC-8 and SEC-9 (#212, #213); SEC-7's dashboards are the owner's; the rest
-can run any time. Every other MAINT task that can run before release day is done (27
+**Security, from the audit of 27 October 2026:** `docs/tasks/SEC_tasks.md`. Every session task is
+done or decided (#204–#213); what is left is the owner's, in its "Left for the owner" (SEC-4 on
+release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day is done (27
 October 2026); the next MAINT sessions are in group 3, and a new finding gets a row here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
