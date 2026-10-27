@@ -24,11 +24,10 @@ heading **done**. A finding from a session becomes a new task and a row here, no
 
 ### Before release day — start now
 
-SEC-1 is done (27 October 2026, #204). Next is SEC-2.
+SEC-1 and SEC-2 are done (27 October 2026, #204 and #205). Next is SEC-3.
 
 | Order | Task | Priority | Size | Who |
 |---|---|---|---|---|
-| 2 | [SEC-2 — Limit sign-in emails per address, and let a classroom sign in](#sec-2--limit-sign-in-emails-per-address-and-let-a-classroom-sign-in) | P1 | medium | session |
 | 3 | [SEC-3 — Escape the structured data on program pages](#sec-3--escape-the-structured-data-on-program-pages) | P1 | small | session |
 
 ### On release day (R.1)
@@ -58,6 +57,7 @@ SEC-1 is done (27 October 2026, #204). Next is SEC-2.
 | Task | Done | What it did |
 |---|---|---|
 | [SEC-1](#sec-1--check-access-on-every-admin-and-coordinator-page-not-only-in-the-layout--done) | 27 October 2026 | Every admin and coordinator page checks access first (`lib/auth/guards.ts`), and the proxy turns away the wrong role from both areas (#204). `app/page-guards.test.ts` fails for a page without its check |
+| [SEC-2](#sec-2--limit-sign-in-emails-per-address-and-let-a-classroom-sign-in--done) | 27 October 2026 | A sign-in email meets `signInIp` (60 an hour) and `signInAddress` (3 per 15 minutes, 10 a day), keyed by an HMAC of the address and failing closed; callbacks get `authCallback` (60 a minute per IP) (#205). The cards' existing "wait a moment" covers a refusal |
 
 ### Priorities
 
@@ -254,7 +254,7 @@ students' names, addresses and grades, and many students are minors.
 
 ---
 
-## SEC-2 — Limit sign-in emails per address, and let a classroom sign in
+## SEC-2 — Limit sign-in emails per address, and let a classroom sign in — **done**
 
 **Priority:** P1, before release · **Size:** medium · **Branch:** `fix/sec-2-sign-in-limits`
 
