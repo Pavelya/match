@@ -100,5 +100,6 @@ npm test
   sessions in code, and how each kind of session runs
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning
   behind each choice
+- `docs/tasks/SEC_tasks.md` — security tasks from the audit of 27 October 2026, in priority order
 - `docs/security/security-audit-report-2026-01.md` — security audit history
 - `README.md` — setup, scripts, and database notes
