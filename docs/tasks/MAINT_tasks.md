@@ -61,7 +61,8 @@ deletes today's design.
 | Three gaps in the matching tests | 7.7 | 26 October 2026 | 24 new tests and one corrected: the Redis match cache (`lib/matching/cache.test.ts`, new), both 0.25 floors in the subject matcher, and `MATCHING_V10_FULL` overriding the other flags. No score changed |
 | One course for two requirements | 5.18 | 27 October 2026 | `ProgramCourseRequirement.ownCourse` and the matcher that gives marked requirements different courses (#185), rebranding build 28 (#186), and the flags on 18 programs at Trinity, Manchester and UCL (#187). Scores of unflagged programs unchanged. Found 5.39 |
 | "Two of" rules stored as one | 5.39 | 27 October 2026 | 47 programs at McGill, Alberta, Waterloo, Trinity, Imperial, NUS, Leiden, Lund and Cambridge re-read and given their second requirement, both needing a course of their own (#188). Alberta counts Maths AA as Math 31 |
-| Returning students: where it stands | 7.5 Part A | 27 October 2026 | From stored dates only: 24 of 199 students (12%) left a trace on a day after signing up, 4 on more than one. A floor: Google sign-ins and visits that change nothing leave none. Parts B to D wait (group 3) |
+| Returning students: where it stands | 7.5 Part A | 27 October 2026 | From stored dates only: 24 of 199 students (12%) left a trace on a day after signing up, 4 on more than one. A floor: Google sign-ins and visits that change nothing leave none. Parts C and D wait (group 3) |
+| Returning students: what to count | 7.5 Part B | 27 October 2026 | The owner chose the last-active date, which 7.6 Part A builds; returns are counted from it by month of sign-up. Other analytics may come later |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.6, 7.1 and 7.7. Each section below records what
@@ -74,7 +75,7 @@ because the new Privacy Policy, published on release day, describes what they ma
 
 | Order | Session | Tasks | Size | Notes |
 |---|---|---|---|---|
-| 1 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A also answers 7.5 Part B |
+| 1 | Inactive accounts: the decisions, the policy line, the last-active date, the admin and the dashboard | 7.6 decisions, Part 0, Parts A and B | small, then medium | Part 0 goes into the 7.4 drafts before the lawyer reviews them. Part A builds the last-active date chosen in 7.5 Part B |
 | 2 | npm 12: the impact, and whether to move | 6.7 | small | Investigation and a recommendation first. A move, if approved, is a pull request of its own, never with another upgrade (rule 1) |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
@@ -86,7 +87,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 |---|---|---|---|---|
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
-| R.1 and 7.4 published | Returning students: what to count, ways back, social media | 7.5 Parts B to D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
+| R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the notice, the admin page and the daily job | 7.6 Parts C to E | board, then medium | Nothing is sent or deleted until the Privacy Policy published on release day says so. The email is new, so it needs a D4.18 board first, and it is built in the new design only |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 
@@ -178,7 +179,7 @@ Phase 7 — structural
   (18 October 2026); the 23 page shells are left, for after R.2
 - [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
-- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Part A done 27 October 2026
+- [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Parts A and B done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
 
@@ -3799,6 +3800,15 @@ from the same starting point.
 
 **26 October 2026:** 7.6 builds the first option, a last-active date, for deleting inactive accounts.
 If the owner keeps that choice, Part B only decides what to count from it.
+
+**Decided 27 October 2026 (owner): the last-active date.** 7.6 Part A builds it. It is the day a
+signed-in student was last seen on any page, because `proxy.ts` checks the session on every page
+request and the `jwt` callback's periodic read is where the date is written. It keeps the last day
+only, so it says whether and when a student came back, not how often; visitors who are not signed in,
+coordinators and admins are not counted. More analytics may be added later as a layer of its own (the
+third option, with its policy changes); not now. What to count from the date: returning students per
+month of sign-up, as in Part A's table, and 7.6's "Active students, last 30 days". Part C step 6
+measures with these.
 
 - **A last-seen date on the account,** written at most once a day per student, for example from the
   `jwt` callback's existing role check. One tiny write per active student per day, no new read, and
