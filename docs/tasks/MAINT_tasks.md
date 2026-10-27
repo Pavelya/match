@@ -82,8 +82,8 @@ was done.
 Tasks here do not depend on the rebranding.
 
 **Security, from the audit of 27 October 2026:** the tasks are in `docs/tasks/SEC_tasks.md`, run in
-the order of its Start here. SEC-1 and SEC-2 are done (#204, #205); SEC-3 must be merged before
-release day. Every other MAINT task that can run before release day is done (27
+the order of its Start here. SEC-1, SEC-2 and SEC-3 are done (#204, #205, #206); SEC-4 is the
+owner's release-day checklist, and SEC-5 onwards come after release. Every other MAINT task that can run before release day is done (27
 October 2026); the next MAINT sessions are in group 3, and a new finding gets a row here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and

@@ -22,13 +22,10 @@ merging deploys to production.
 request: move its row to [Done](#done), with the date and one line on what it did, and mark its
 heading **done**. A finding from a session becomes a new task and a row here, not a note.
 
-### Before release day — start now
+### Before release day
 
-SEC-1 and SEC-2 are done (27 October 2026, #204 and #205). Next is SEC-3.
-
-| Order | Task | Priority | Size | Who |
-|---|---|---|---|---|
-| 3 | [SEC-3 — Escape the structured data on program pages](#sec-3--escape-the-structured-data-on-program-pages) | P1 | small | session |
+All done: SEC-1, SEC-2 and SEC-3 were merged on 27 October 2026 (#204, #205, #206). What is left
+before release is the owner's checklist, SEC-4.
 
 ### On release day (R.1)
 
@@ -58,6 +55,7 @@ SEC-1 and SEC-2 are done (27 October 2026, #204 and #205). Next is SEC-3.
 |---|---|---|
 | [SEC-1](#sec-1--check-access-on-every-admin-and-coordinator-page-not-only-in-the-layout--done) | 27 October 2026 | Every admin and coordinator page checks access first (`lib/auth/guards.ts`), and the proxy turns away the wrong role from both areas (#204). `app/page-guards.test.ts` fails for a page without its check |
 | [SEC-2](#sec-2--limit-sign-in-emails-per-address-and-let-a-classroom-sign-in--done) | 27 October 2026 | A sign-in email meets `signInIp` (60 an hour) and `signInAddress` (3 per 15 minutes, 10 a day), keyed by an HMAC of the address and failing closed; callbacks get `authCallback` (60 a minute per IP) (#205). The cards' existing "wait a moment" covers a refusal |
+| [SEC-3](#sec-3--escape-the-structured-data-on-program-pages--done) | 27 October 2026 | The 32 pages that wrote JSON-LD with `JSON.stringify` use `serializeJsonLd`, byte for byte the same where the data has no `<`; the local ESLint rule `local/no-unescaped-inline-json` (`eslint/inline-json.mjs`) refuses the pattern (#206) |
 
 ### Priorities
 
@@ -79,6 +77,9 @@ preview switch, which goes to everyone on release day.
 
 ### What was found
 
+As found on 27 October 2026. SEC-1 to SEC-3 were fixed the same day ([Done](#done)); the line numbers
+are those of `22aab89`.
+
 | Task | Finding | Where |
 |---|---|---|
 | SEC-1 | The 30 admin pages check nothing themselves. The layout's `redirect()` does not stop a page from rendering, so the page's data is sent in the body of the redirect, to anyone. The 15 coordinator pages don't check a revoked coordinator, so one still reads their school's students | `app/admin/layout.tsx:11-26`, `app/coordinator/layout.tsx:70`, `proxy.ts` |
@@ -87,7 +88,7 @@ preview switch, which goes to everyone on release day.
 | SEC-4 | The preview key outlives its purpose at release, and preview deployments run against the production database | `lib/new-ui.ts`, Vercel settings |
 | SEC-5 | `/api/auth/check-role` tells anyone whether an address has a student account | `app/api/auth/check-role/route.ts:39` |
 | SEC-6 | A deleted account's session keeps working as a student for up to 30 days, and no session can be revoked | `lib/auth/config.ts:128` |
-| SEC-7 | Every limit lives in Upstash and fails open, and nothing counts requests before the app | `lib/rate-limit.ts:154` |
+| SEC-7 | Every limit but the sign-in email ones (SEC-2) lives in Upstash and fails open, and nothing counts requests before the app | `lib/rate-limit.ts` |
 | SEC-8 | No `server-only` guard on the modules that hold secrets; a GET that flushes caches; uploads stored with whatever content type the data URL claims; an unused `NEXT_PUBLIC_` key in the schema | see the task |
 | SEC-9 | CI's token has the repository's default permissions; nothing watches for new advisories between sessions | `.github/workflows/ci.yml` |
 | SEC-10 | Every student's data is behind admin accounts that have one factor, the mailbox. Admin actions leave no record beyond Vercel's short log retention | `lib/auth/config.ts` |
@@ -335,7 +336,7 @@ outage stops sign-in emails instead of unlimiting them.
 
 ---
 
-## SEC-3 — Escape the structured data on program pages
+## SEC-3 — Escape the structured data on program pages — **done**
 
 **Priority:** P1, before release · **Size:** small · **Branch:** `fix/sec-3-json-ld`
 
@@ -514,8 +515,9 @@ a service runs out.
 
 ### The finding
 
-Every limit lives in Upstash and fails open (`lib/rate-limit.ts:154`). Each limited request costs
-Redis commands, so a flood spends Upstash's quota, and then the limits switch off. The caches switch
+Every limit lives in Upstash, and all but the sign-in email limits fail open (`lib/rate-limit.ts`;
+SEC-2 made those fail closed). Each limited request costs Redis commands, so a flood spends
+Upstash's quota, and then the other limits switch off. The caches switch
 off with them, which sends the reads to Supabase, where the 5 GB egress cap is what broke the images
 before, and to Algolia. Nothing in front of the app counts requests. And no alert says that a quota is
 nearly spent.
