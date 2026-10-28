@@ -8,7 +8,7 @@
  * Official sources used:
  * - cao.ie (Central Applications Office — centralized application system)
  * - educationinireland.com (official government portal for international students)
- * - hea.ie (Higher Education Authority — Free Fees Initiative)
+ * - citizensinformation.ie (fees for third-level education, Budget 2027's student contribution)
  */
 import { Metadata } from 'next'
 import { IrelandContent } from './IrelandContent'
@@ -170,7 +170,7 @@ const faqSchema = {
       name: 'Is higher education in Ireland free for IB students?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,500 a year. That is the rate for 2026/27; the 2027/28 rate had not been announced when this page was updated. Non-EU/EEA students pay full tuition fees set by each institution. Source: HEA — Free Fees Initiative.'
+        text: 'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,350 a year, after Budget 2027 cut it permanently by €150. Non-EU/EEA students pay full tuition fees set by each institution. Source: Citizens Information — Fees for third-level education.'
       }
     }
   ]
