@@ -30,8 +30,8 @@ export const guide: CountryGuide = {
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         },
         {
           label: 'CAO — Applicant Scoring',
@@ -58,8 +58,8 @@ export const guide: CountryGuide = {
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         }
       ]
     },
@@ -82,8 +82,8 @@ export const guide: CountryGuide = {
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         },
         {
           label: 'CAO — Applicant Scoring',
@@ -121,13 +121,13 @@ export const guide: CountryGuide = {
               ['24', '350']
             ]
           },
-          note: 'Source: CAO Entry Requirements for EU/EFTA/UK Applicants, 2026-entry edition (Table 2). CAO had not published the 2027-entry edition by 25 September 2026, and its 2027 handbook still links to this one. The HL Mathematics bonus is added on top, to a maximum of 625. These figures are indicative — always consult the official document for the complete table.'
+          note: 'Source: CAO Entry Requirements for EU/EFTA/UK Applicants, 2026-entry edition (Table 2). CAO had not published the 2027-entry edition by 28 October 2026: its site already links a 2027 file that is not online yet. The HL Mathematics bonus is added on top, to a maximum of 625. These figures are indicative — always consult the official document for the complete table.'
         }
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         }
       ]
     },
@@ -187,8 +187,8 @@ export const guide: CountryGuide = {
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         },
         {
           label: 'CAO Handbook 2027',
@@ -259,8 +259,8 @@ export const guide: CountryGuide = {
       ],
       sources: [
         {
-          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (latest edition)',
-          href: 'https://www.cao.ie/euefta'
+          label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants (2026-entry edition)',
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         },
         {
           label: 'CAO Handbook 2027',
@@ -334,7 +334,7 @@ export const guide: CountryGuide = {
           'Yes. The IB Diploma is accepted as equivalent to the Irish Leaving Certificate for admission to Level 6, 7, and 8 courses (Higher Certificates, Ordinary Degrees, and Honours Degrees). IB scores are converted to CAO points using an official conversion table.',
         source: {
           label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants',
-          href: 'https://www.cao.ie/euefta'
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         }
       },
       {
@@ -343,7 +343,7 @@ export const guide: CountryGuide = {
           'IB scores are converted to the Irish Points Scale (IPS) using an official conversion table published in the CAO Entry Requirements document. The conversion is based on statistical alignment of IB and Leaving Certificate results. Additionally, 25 bonus points are awarded for IB Higher Level Mathematics at grade 4 or above.',
         source: {
           label: 'CAO — Entry Requirements for EU/EFTA/UK Applicants',
-          href: 'https://www.cao.ie/euefta'
+          href: 'https://www2.cao.ie/downloads/documents/2026/Guidelines-EU-EFTA-UK-2026.pdf'
         }
       },
       {
@@ -367,10 +367,10 @@ export const guide: CountryGuide = {
       {
         question: 'Is higher education in Ireland free for IB students?',
         answer:
-          'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,500 a year. That is the rate for 2026/27; the 2027/28 rate had not been announced when this page was updated. Non-EU/EEA students pay full tuition fees set by each institution.',
+          'It depends on your nationality and residence. EU/EEA/Swiss/UK nationals who have lived in the EU/EEA, Switzerland, or the UK for at least three of the five years before their course starts are eligible for the Free Fees Initiative: the State pays their tuition, and they pay a student contribution of up to €2,350 a year, after Budget 2027 cut it permanently by €150. Non-EU/EEA students pay full tuition fees set by each institution.',
         source: {
-          label: 'HEA — Free Fees Initiative',
-          href: 'https://hea.ie/funding-governance-performance/funding/student-finance/course-fees/'
+          label: 'Citizens Information — Fees for third-level education',
+          href: 'https://www.citizensinformation.ie/en/education/third-level-education/fees-and-supports-for-third-level-education/fees/'
         }
       }
     ],

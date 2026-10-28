@@ -41,7 +41,7 @@ export const PAGE_DATES = {
   '/study-in-france-with-ib-diploma': { published: '2026-10-08', modified: '2026-10-08' },
   '/study-in-germany-with-ib-diploma': { published: '2026-02-03', modified: '2026-10-12' },
   '/study-in-hong-kong-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
-  '/study-in-ireland-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
+  '/study-in-ireland-with-ib-diploma': { published: '2026-02-25', modified: '2026-10-28' },
   '/study-in-israel-with-ib-diploma': { published: '2026-02-26', modified: '2026-09-25' },
   '/study-in-italy-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-japan-with-ib-diploma': { published: '2026-02-26', modified: '2026-09-25' },

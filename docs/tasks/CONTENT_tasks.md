@@ -1067,7 +1067,8 @@ Known issues:
   that table was wrong**: it did not match CAO's (45 points is 600, not 625; 24 is 350, not 360). The
   English thresholds were wrong too. The fees answer now says €2,500 is the 2026/27 rate; the
   unsourced €9,900–€34,000 range is gone. **Recheck the 2027/28 student contribution after the
-  October 2026 Budget**, and swap in the 2027 guide when CAO publishes it.
+  October 2026 Budget**, and swap in the 2027 guide when CAO publishes it. **Contribution done 28 October
+  2026 (Ireland re-check below); the 2027 guide is still to come.**
 - **Canada.** The page gave only month ranges and cited "university admission calendars" without a
   link. It now gives the September 2027 entry dates of UBC, U of T and McGill (15 January 2027 at all
   three), linked.
@@ -1108,6 +1109,22 @@ Known issues:
   `grep -rn "2026 intake"` over the seven directories finds nothing. The build lists all seven
   routes as static with a one-week revalidate. The rendered titles all end in "(2027)", and the
   JSON-LD dates read modified 2026-09-25.
+
+#### Re-check, 28 October 2026 — Ireland: the student contribution and CAO's links
+
+- **Student contribution €2,350.** Budget 2027 (6 October 2026) cut it permanently by €150, from €2,500. Citizens Information's
+  fees page says so, and students who paid for 2026-2027 get €150 back. The Department's press release of 7 October 2026 confirms the
+  permanent cut; its "from September 2027" applies to the new grants for households with several students, not to the cut. The fees
+  answer now gives €2,350 and cites Citizens Information instead of the HEA page, which still says €2,500 for 2025/26.
+- **CAO's 2027 EU/EFTA guide is not online.** `cao.ie/euefta` and CAO's IB page now point at
+  `www2.cao.ie/downloads/documents/2027/Guidelines-EU-EFTA-UK-2027.pdf`, which returns 404, so the page's eight links were broken.
+  They now link the 2026-entry edition (`.../2026/Guidelines-EU-EFTA-UK-2026.pdf`, which answers and holds the conversion table the
+  page uses), labelled "2026-entry edition", and the table's note says the 2027 edition is not out yet. **Swap in the 2027 edition
+  when CAO uploads it**, and check its IB table against the page's.
+- **Both designs.** The same words are in `IrelandContent.tsx`, `guide.ts` and the FAQ structured data in `page.tsx`. The guide
+  snapshot changes only by the new design's "last updated" date, and `lib/page-dates.ts` moves Ireland to 28 October 2026.
+- **Verify.** `tsc`, ESLint, Prettier, Vitest (2,818 tests) and `npm run build` pass. The built page shows €2,350 three times and
+  €2,500 nowhere, has no `cao.ie/euefta` link left, and its eight CAO links point at the 2026 PDF; both new link targets answer 200.
 
 ### 2.2 — Western and Northern Europe
 
