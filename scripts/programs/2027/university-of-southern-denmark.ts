@@ -22,9 +22,10 @@ const UFSN =
 const CBS_MAPPING =
   'https://www.cbs.dk/en/study-programmes/bachelor-programmes/application-and-admission'
 
-const sources = (slug: string, ...extra: string[]) => [
-  `${BASE}/${slug}/adgangskrav`,
-  `${BASE}/${slug}`,
+// Re-check, 27 October 2026: SDU moved its programme pages; the admission rules are the page's
+// "Admission" tab (`#/adgangskrav`, or `#/<city>/adgangskrav` where a programme runs in two cities).
+const sources = (admission: string, ...extra: string[]) => [
+  `${BASE}/${admission}`,
   IB_PAGE,
   UFSN,
   ...extra
@@ -75,7 +76,7 @@ const SOCIAL_STUDIES_B: AnyRequirementDef = {
 const refresh: RefreshFile = {
   university: 'University of Southern Denmark',
   entryYear: 2027,
-  checkedOn: '2026-10-04',
+  checkedOn: '2026-10-27',
   programs: [
     {
       id: 'cmutgqcfk0029lj7m6owptdf4',
@@ -89,11 +90,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Location Vejle"
       campusCity: 'Vejle',
       minIBPoints: 24,
-      programUrl: `${BASE}/artificial-intelligence-vejle`,
+      programUrl: `${BASE}/artificial-intelligence`,
       requirements: [ENGLISH_B, MATHS_A],
-      checkedFor: 2026,
-      sources: sources('artificial-intelligence-vejle'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 80% in quota 1; the required GPA was 7.6 (32 IB points on the 2026 table) and 66 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Artificial Intelligence. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
+      checkedFor: 2027,
+      sources: sources('artificial-intelligence#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 80% in quota 1; the required GPA was 7.6 (32 IB points on the 2026 table) and 66 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Artificial Intelligence. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh. Re-check, 27 October 2026: SDU moved the programme to a new page, whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, admission GPA 7.6, quotas 80/20, 30 expected places, 66 admitted; the "How competitive" paragraph holds.`
     },
     {
       id: 'cmutgqck2002flj7m962fieyf',
@@ -107,11 +108,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Location Vejle"
       campusCity: 'Vejle',
       minIBPoints: 24,
-      programUrl: `${BASE}/computer-science-vejle`,
+      programUrl: `${BASE}/computer-science`,
       requirements: [ENGLISH_B, MATHS_A],
-      checkedFor: 2026,
-      sources: sources('computer-science-vejle'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: the required GPA was 7.8 (33 IB points on the 2026 table) and 88 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Computer Science. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
+      checkedFor: 2027,
+      sources: sources('computer-science#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: the required GPA was 7.8 (33 IB points on the 2026 table) and 88 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Computer Science. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh. Re-check, 27 October 2026: SDU moved the programme to a new page, whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics now read "First enrolment in 2026" for the admission GPA, the quota split and the number admitted (required GPA 7.0, 30 expected places), so the 2026 figure in the "How competitive" paragraph, read on 4 October 2026, is no longer on the page; kept until the next round's figure appears.`
     },
     {
       id: 'cmutgqcqk002llj7m6m00aiwd',
@@ -127,9 +128,9 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: `${BASE}/electronics`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
-      checkedFor: 2026,
-      sources: sources('electronics'),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 60% in quota 1; every qualified applicant was admitted (24). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Electronics, not stored.`
+      checkedFor: 2027,
+      sources: sources('electronics#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 60% in quota 1; every qualified applicant was admitted (24). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Electronics, not stored. Re-check, 27 October 2026: the programme page's Admission tab (now loaded by script) describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, "All applicants accepted", no quota split shown, 40 expected places, 30 admitted.`
     },
     {
       id: 'cmutgqcuy002slj7mj39m3vl4',
@@ -143,11 +144,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Location Sønderborg"
       campusCity: 'Sønderborg',
       minIBPoints: 24,
-      programUrl: `${BASE}/europaeiske_studier`,
+      programUrl: `${BASE}/european-studies`,
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
-      checkedFor: 2026,
-      sources: sources('europaeiske_studier', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 45 expected places, 60% in quota 1; the required GPA was 8.2 (34 IB points on the 2026 table) and 76 were admitted. ${NO_YEAR} BSc in European Studies. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
+      checkedFor: 2027,
+      sources: sources('european-studies#/adgangskrav', CBS_MAPPING),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 45 expected places, 60% in quota 1; the required GPA was 8.2 (34 IB points on the 2026 table) and 76 were admitted. ${NO_YEAR} BSc in European Studies. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh. Re-check, 27 October 2026: SDU moved the programme to a new page, whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, admission GPA 8.2, quotas 60/40, 45 expected places, 76 admitted; the "How competitive" paragraph holds.`
     },
     {
       id: 'cmutgqczd0034lj7mmh2tnufd',
@@ -161,11 +162,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Location Sønderborg"
       campusCity: 'Sønderborg',
       minIBPoints: 24,
-      programUrl: `${BASE}/ha-soenderborg`,
+      programUrl: `${BASE}/ha#/S%C3%B8nderborg/uddannelsen`,
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
       checkedFor: 2027,
-      sources: sources('ha-soenderborg', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas, Contemporary History or International Economy B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} The page states that for applicants from 2027 onwards the quota 1 GPA minimum rises from 6.0 to 7.0, which takes 31 IB points on ufsn.dk's 2026 table (6.0 took 28); quota 2 places go to the best scores in SDU's entrance test, with no GPA minimum, so the published minimum is the Diploma, 24. 2026: 65 expected places, 65% in quota 1; the required GPA was 8.3 (34 IB points on the 2026 table) and 103 were admitted. Stamped 2027: the page gives the 2027 rule. Apply through optagelse.dk by 15 March, 12:00 noon. BSc in Economics and Business Administration. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
+      sources: sources('ha#/S%C3%B8nderborg/adgangskrav', CBS_MAPPING),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas, Contemporary History or International Economy B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} The page states that for applicants from 2027 onwards the quota 1 GPA minimum rises from 6.0 to 7.0, which takes 31 IB points on ufsn.dk's 2026 table (6.0 took 28); quota 2 places go to the best scores in SDU's entrance test, with no GPA minimum, so the published minimum is the Diploma, 24. 2026: 65 expected places, 65% in quota 1; the required GPA was 8.3 (34 IB points on the 2026 table) and 103 were admitted. Stamped 2027: the page gives the 2027 rule. Apply through optagelse.dk by 15 March, 12:00 noon. BSc in Economics and Business Administration. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh. Re-check, 27 October 2026: SDU moved the programme to a new page (the Sønderborg tab of the Economics and Business Administration page), whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its social-sciences group now also names International Economy B, which IB Economics, already in the stored group, covers. Its admission statistics: required GPA 7.0, admission GPA 8.3, quotas 65/35, 65 expected places, 103 admitted; the "How competitive" paragraph holds.`
     },
     {
       id: 'cmutgqd5u003glj7mvohbtrsq',
@@ -179,11 +180,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Location Campus: Sønderborg"
       campusCity: 'Sønderborg',
       minIBPoints: 24,
-      programUrl: `${BASE}/innovation_and_business`,
+      programUrl: `${BASE}/innovation-and-business`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
-      checkedFor: 2026,
-      sources: sources('innovation_and_business'),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 65 expected places, 60% in quota 1; every qualified applicant was admitted (58). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science).`
+      checkedFor: 2027,
+      sources: sources('innovation-and-business#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 65 expected places, 60% in quota 1; every qualified applicant was admitted (58). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). Re-check, 27 October 2026: SDU moved the programme to a new page, whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, every qualified applicant accepted, quotas 60/40, 65 expected places, 58 admitted.`
     },
     {
       id: 'cmutgqda7003nlj7miicb01q3',
@@ -199,9 +200,9 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: `${BASE}/interactive-technology-engineering`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
-      checkedFor: 2026,
-      sources: sources('interactive-technology-engineering'),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 30 expected places, 60% in quota 1; the programme started in 2026 and the page gives no 2026 intake figures. ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science).`
+      checkedFor: 2027,
+      sources: sources('interactive-technology-engineering#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 30 expected places, 60% in quota 1; the programme started in 2026 and the page gives no 2026 intake figures. ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). Re-check, 27 October 2026: the programme page's Admission tab (now loaded by script) describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, every qualified applicant accepted, quotas 60/40, 30 expected places, 47 admitted.`
     },
     {
       id: 'cmutgqdeg003ulj7ma2jlggc8',
@@ -213,11 +214,11 @@ const refresh: RefreshFile = {
       degree: 'Bachelor of Science',
       duration: '3 years',
       minIBPoints: 24,
-      programUrl: `${BASE}/market_management_anthropology`,
+      programUrl: `${BASE}/market-management-anthropology`,
       requirements: [ENGLISH_B, MATHS_B, SOCIAL_STUDIES_B],
-      checkedFor: 2026,
-      sources: sources('market_management_anthropology', CBS_MAPPING),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 40 expected places, 75% in quota 1; the required GPA was 8.7 (35 IB points on the 2026 table) and 48 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Market and Management Anthropology. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh.`
+      checkedFor: 2027,
+      sources: sources('market-management-anthropology#/adgangskrav', CBS_MAPPING),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics B, and History, Social Sciences, History of Ideas or Contemporary History B, all conditions, so critical. ${IB_RULE} ${SOCIAL_GROUP} ${QUOTA_7} 2026: 40 expected places, 75% in quota 1; the required GPA was 8.7 (35 IB points on the 2026 table) and 48 were admitted. ${NO_YEAR} Bachelor of Science (BSc) in Market and Management Anthropology. The description's last paragraph, "How competitive", gives the 2026 quota 1 cut-off for students (content 5.1 follow-up, 4 October 2026); update it at each refresh. Re-check, 27 October 2026: SDU moved the programme to a new page, whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, admission GPA 8.7, quotas 75/25, 40 expected places, 48 admitted; the "How competitive" paragraph holds.`
     },
     {
       id: 'cmutgqdlt0046lj7me3q0ecrt',
@@ -238,9 +239,9 @@ const refresh: RefreshFile = {
         PHYSICS_B,
         { courses: ['CHEM'], level: 'SL', grade: 3, critical: true }
       ],
-      checkedFor: 2026,
-      sources: sources('mechanical-engineering'),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and one of Physics B with Chemistry C, Physics B with Biotechnology A, or Geoscience A with Chemistry C, all conditions, so critical. For the IB that is Physics SL and Chemistry SL, as the IB has no geoscience or biotechnology course; stored so. ${IB_RULE} ${QUOTA_7} 2026: 65 expected places, 65% in quota 1; every qualified applicant was admitted (86). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Mechanical Engineering, not stored.`
+      checkedFor: 2027,
+      sources: sources('mechanical-engineering#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and one of Physics B with Chemistry C, Physics B with Biotechnology A, or Geoscience A with Chemistry C, all conditions, so critical. For the IB that is Physics SL and Chemistry SL, as the IB has no geoscience or biotechnology course; stored so. ${IB_RULE} ${QUOTA_7} 2026: 65 expected places, 65% in quota 1; every qualified applicant was admitted (86). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Mechanical Engineering, not stored. Re-check, 27 October 2026: the programme page's Admission tab (now loaded by script) describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, every qualified applicant accepted, quotas 50/50, 50 expected places.`
     },
     {
       id: 'cmutgqdq1004elj7mwy0g0mq0',
@@ -256,9 +257,9 @@ const refresh: RefreshFile = {
       minIBPoints: 24,
       programUrl: `${BASE}/mechatronics`,
       requirements: [ENGLISH_B, MATHS_A, PHYSICS_B],
-      checkedFor: 2026,
-      sources: sources('mechatronics'),
-      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 100 expected places, 65% in quota 1; every qualified applicant was admitted (98). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Mechatronics, not stored.`
+      checkedFor: 2027,
+      sources: sources('mechatronics#/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B, Mathematics A, and Physics B or Geoscience A, all conditions, so critical. ${PHYSICS_NOTE} ${IB_RULE} ${QUOTA_7} 2026: 100 expected places, 65% in quota 1; every qualified applicant was admitted (98). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science); SDU also offers a Bachelor of Engineering in Mechatronics, not stored. Re-check, 27 October 2026: the programme page's Admission tab (now loaded by script) describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics give no quota 1 GPA minimum ("All qualified applicants accepted" in its place), every qualified applicant accepted, quotas 65/35, 100 expected places, 98 admitted.`
     },
     {
       id: 'cmutgqduf004llj7mby8crxz3',
@@ -272,11 +273,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Software Engineering BSc in Engineering / Vejle"
       campusCity: 'Vejle',
       minIBPoints: 24,
-      programUrl: `${BASE}/software-engineering-vejle`,
+      programUrl: `${BASE}/software-engineering#/Vejle/uddannelsen`,
       requirements: [ENGLISH_B, MATHS_A],
-      checkedFor: 2026,
-      sources: sources('software-engineering-vejle'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 60% in quota 1; every qualified applicant was admitted (18). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). The same programme is taught in Sønderborg (stored separately).`
+      checkedFor: 2027,
+      sources: sources('software-engineering#/Vejle/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 30 expected places, 60% in quota 1; every qualified applicant was admitted (18). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). The same programme is taught in Sønderborg (stored separately). Re-check, 27 October 2026: SDU moved the programme to a new page (the Vejle tab of one Software Engineering page), whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, every qualified applicant accepted, quotas 60/40, 30 expected places, 18 admitted.`
     },
     {
       id: 'cmutgqe0k004rlj7mufuhln83',
@@ -290,11 +291,11 @@ const refresh: RefreshFile = {
       // Campus, 7 October 2026: program page: "Software Engineering BSc in Engineering / Sønderborg"
       campusCity: 'Sønderborg',
       minIBPoints: 24,
-      programUrl: `${BASE}/softwareengineering-sb`,
+      programUrl: `${BASE}/software-engineering#/S%C3%B8nderborg/uddannelsen`,
       requirements: [ENGLISH_B, MATHS_A],
-      checkedFor: 2026,
-      sources: sources('softwareengineering-sb'),
-      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 120 expected places, 60% in quota 1; every qualified applicant was admitted (44). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). The same programme is taught in Vejle (stored separately).`
+      checkedFor: 2027,
+      sources: sources('software-engineering#/S%C3%B8nderborg/adgangskrav'),
+      notes: `Content 5.1: new. Specific requirements: English B and Mathematics A, both conditions, so critical. ${IB_RULE} ${QUOTA_7} 2026: 120 expected places, 60% in quota 1; every qualified applicant was admitted (44). ${NO_YEAR} BSc in Engineering (stored as Bachelor of Science). The same programme is taught in Vejle (stored separately). Re-check, 27 October 2026: SDU moved the programme to a new page (the Sønderborg tab of one Software Engineering page), whose Admission tab describes the 2027 round (apply by 15 March; uniTEST on 17-18 April 2027) with the same subject requirements, so checked for 2027. Its admission statistics: required GPA 7.0, every qualified applicant accepted, quotas 60/40, 120 expected places, 44 admitted.`
     }
   ]
 }
