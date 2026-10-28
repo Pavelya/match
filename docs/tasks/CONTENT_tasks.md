@@ -265,7 +265,7 @@ Owner tasks — not AI work
 - [ ] Re-check the 28 programs 5.1 stamped 2026 when their 2027 rules appear: Aarhus (6), SDU (11, uniTEST 2027 details from mid-October),
   DTU, ITU, WU Vienna's BBE (2027/28 procedure in mid-November 2026), Klagenfurt (6) and Antwerp (2, 2027-2028 applications open
   4 November 2026). **SDU done 27 October 2026:** its programme pages describe the 2027 round (uniTEST 17-18 April 2027) with the
-  same requirements, so all 12 are stamped 2027 and 8 moved addresses are updated (5.1, "Re-check")
+  same requirements, so all 12 are stamped 2027 and 8 moved addresses are updated (5.1, "Re-check"); applied 28 October 2026
 - [ ] Decide about the University of Tokyo's two PEAK programs (4.8b): PEAK's admissions page says "The Admission for September
   2026 Enrollment will be the last student recruitment for the PEAK". Both are reported as discontinued and left unwritten;
   deleting them leaves Japan with no program in search (phase 5.2)
@@ -2721,7 +2721,7 @@ Data files (new): `scripts/programs/2027/new-universities.ts` (the universities)
   - CBS's file keeps `checkedOn` 2026-10-03, so its five stored programmes were not re-stamped; the new one carries that date although its
     pages were read on 4 October.
 
-#### Re-check, 27 October 2026 — SDU stamped 2027 (owner task)
+#### Re-check, 27 October 2026 — SDU stamped 2027 (owner task); applied 28 October 2026
 
 SDU rebuilt its programme pages. The stored addresses redirect, eight of them to new slugs: `artificial-intelligence`,
 `computer-science`, `european-studies`, `ha`, `innovation-and-business`, `market-management-anthropology` and one
@@ -2739,6 +2739,11 @@ december"; the programme pages already give the dates.
   "First enrolment in 2026" where 5.1 read 7.8, so its paragraph keeps the 4 October figure, noted, until the next round's appears.
   Mechatronics' page shows no quota 1 GPA minimum, and every qualified applicant was admitted there anyway; noted.
 - **Dry run:** 8 changes (the URL, with the stamps) and 4 stamp only; no requirement change and no warning.
+- **Owner-approved and applied on 28 October 2026** (PR #217 merged first). The tool wrote 12 of 12 programs and synced all 12 to
+  Algolia (0 failed), then cleared the programs cache and cached matches. Backup:
+  `scripts/backups/refresh/2026-10-28T06-41-53-719Z.json`. A second dry run finds all 12 up to date, the link checker finds all 12
+  URLs OK (none redirected), and Software Engineering (Vejle)'s public page says "Requirements checked for 2027" and links its
+  Vejle tab.
 
 #### Status, 6 October 2026 — 5.2 done (session 21); applied the same day
 
