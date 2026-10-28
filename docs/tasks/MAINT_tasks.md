@@ -83,8 +83,12 @@ Tasks here do not depend on the rebranding.
 
 **Security, from the audit of 27 October 2026:** `docs/tasks/SEC_tasks.md`. Every session task is
 done or decided (#204–#213); what is left is the owner's, in its "Left for the owner" (SEC-4 on
-release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day is done (27
-October 2026); the next MAINT sessions are in group 3, and a new finding gets a row here.
+release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
+October 2026; a new finding gets a row here.
+
+| Session | Tasks | Size | Why now |
+|---|---|---|---|
+| Matches' points window, in words | 5.40 | small | The owner picks the words in chat first. The new Matches page reads as every program the student qualifies for, but scores only those with a minimum near their total; Explore's switch finds more. Words only, no change to the matcher or its load. Before release day |
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -170,6 +174,7 @@ Phase 5 — quick wins
   (the Advisor's list and Vercel's old key wait for the owner)
 - [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
 - [x] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1) — 27 October 2026; 47 programs
+- [ ] 5.40 Say on Matches that it lists programs near the student's total, and where the rest are — words only, before release day
 
 Phase 6 — dependency majors
 
@@ -2710,6 +2715,134 @@ Each university's page was re-read on 27 October; every one still states the "tw
   47 search records synced, the programs cache and the cached matches cleared. Checked after: both dry runs
   find nothing to change; in production 65 programs (5.18's 18 and these 47) have `ownCourse`, in 130
   groups, each program with two, and no group marked on some options only.
+
+---
+
+### 5.40 — Say on Matches that it lists programs near the student's total, and where the rest are
+
+**Outcome:** A student who reads the new Matches page knows it holds the programs in their fields and
+countries whose minimum is near their total, not every program they qualify for, and has one link to
+the ones it leaves out. Words only: the matcher, its cache and every score stay as they are.
+
+**Why (owner, 28 October 2026):** with 36 points, three fields and six countries, Matches shows 2
+programs under "Meets all requirements". Explore, filtered to the same fields and countries with "Only
+ones I qualify for" on, shows 8. Both are right, and nothing on Matches says why they differ:
+
+- **Matches scores only a window of the catalogue.** `getCachedMatchesV10` (`lib/matching/cache.ts`)
+  calls `calculateOptimizedMatches` with `pointsMargin: 10`. Tier 1 of `filterWithFallback`
+  (`lib/matching/optimized-matcher.ts`) keeps the programs in the student's fields **and** countries
+  **and** whose minimum is within ±10 of their total, in 5-point buckets (`filterByPointsRange`,
+  `lib/matching/program-index.ts`); a program with no minimum is always kept. For 36 that is minimums
+  25 to 49; for 38 the same; for 40, 30 to 54. The matcher widens only when fewer than 10 are left
+  (tier 2: ±20 in the same fields and countries; tiers 3–6 drop a preference, which the summary
+  already says, `WIDENED_SUMMARY`). The owner's 8 included École polytechnique's two programs at 24,
+  12 points under 36, so they were never scored.
+- **Explore applies no window.** `searchExplore` (`lib/explore/search.ts`) reads every program the
+  filters match and keeps those whose `programFit` status is "meets".
+- **The window was built for speed, not as a product rule.** The spec presents the program index as a
+  candidate filter, "5000 → ~200 programs", "25x reduction" (`docs/matching/DOC_2_matching-algo X.md`,
+  ProgramIndex; `ibmatch-algorithm-improvement-spec.md`, `getCandidates`). The algorithm handles an
+  over-qualified student in the score (fit quality and the selectivity tiers), not by leaving programs
+  out. And a low IB minimum is often a pass mark (24), not a sign the program is easy to enter.
+- **The page reads as complete.** The summary says "40 programs in your fields and countries, grouped
+  by how close you are", and the Meets group "Every requirement met. The minimum closest to your 36
+  comes first." Only the last line of the list says "near your total" (D4.6, rebranding 2.2).
+- **The upper end matters only for low totals.** The IB maximum is 45, so from 36 up nothing is left
+  out above. A 30 keeps minimums up to 44, a 28 up to 39; what the upper end drops is 10 or more points
+  out of reach, which would sit under "Missing a requirement" anyway.
+
+**Why words, not the window (owner, 28 October 2026: "no impact on consuming the tools or performance;
+if we can't secure the current performance and usage, do the texts only").** Removing the window's
+lower end cannot be load-neutral. Every result the matcher returns is stored whole in Upstash under
+`matchesV10:…` (`redis.set(cacheKey, results)` in `getCachedMatchesV10`, about 3 KB a result, no cap,
+30-minute TTL), read back on each Matches load within that time, and sent to the page with no cap
+(`app/api/students/matches/list/route.ts`, D4.6: group before any cap). Each program the lower end
+adds grows the Redis write, every Redis read, the response and the matcher's CPU, by an amount that
+depends on the student. So the window stays, and the page says what it is. See "Not doing" below.
+
+**Steps:**
+
+1. **The owner picks the words** (rebranding gates: the wording is D4.6's, decided in 2.2; a words-only
+   change is approved in chat and recorded as D4.17's was for 5.38). Recommended, with the D4.6 student's
+   figures:
+   - **Summary.** Desktop: "40 programs in your fields and countries near your 36, grouped by how close
+     you are." Phone: "40 programs in your 3 fields and 6 countries near your 36, grouped by how close
+     you are." With neither fields nor countries: "40 programs near your 36, grouped by how close you
+     are." `WIDENED_SUMMARY` stays.
+   - **The Meets group's line**, in every sort, after today's sentences: "Ones with a much lower minimum
+     are on Explore." with "Explore" a link. Desktop with Best fit: "Every requirement met. The minimum
+     closest to your 36 comes first. Ones with a much lower minimum are on Explore." Phone: "Every
+     requirement met. Closest to your total first. Ones with a much lower minimum are on Explore."
+   - **The link** opens Explore with the student's fields, countries and "Only ones I qualify for" on,
+     and no sort, so Best fit is the default: the list the owner compared. "Open to anywhere" leaves
+     `countries` out, "every field" leaves `fields` out.
+   - **The list's last line** stays: it already says "near your total".
+   - Alternative, strictly no new link: the same words without the link ("…are on Explore, with Only
+     ones I qualify for on."). Record the choice in `REBRANDING_tasks.md` 2.2's "Decided on the boards"
+     (the Groups bullet) as "Changed <date> (owner, `MAINT_tasks.md` 5.40): words only".
+2. **Build.**
+   - `summaryText` (`lib/matching/match-groups.ts`) takes the student's total and says "near your N".
+     `Summary` in `app/student/matches/MatchesClient.tsx` passes `list.profile.total`.
+   - Move the Meets line out of `GroupHeading` into a pure helper beside `summaryText`, say
+     `meetsLine(total, order)`, returning `{ desktop, phone }`, so it can be tested without rendering.
+     The link is drawn by `GroupHeading` with the same classes as the last line's Explore link.
+   - The link's href is built **on the server**, in `profileSummary` (`lib/matching/match-list.ts`),
+     with `exploreHref({ ...EMPTY_QUERY, fields, countries, qualify: true })` from
+     `lib/explore/query.ts`, and sent as one string on `MatchesProfile` (say `qualifyHref`). The route's
+     profile query already selects each field's and country's `id`; widen `ListedProfile` to keep them.
+     Building it on the server keeps `lib/explore/query.ts` out of the Matches chunk.
+   - A comment on `filterByPointsRange` naming 5.40: Matches' words say "near your total" because of
+     this window, so a change to the window changes the words.
+3. **Tests (Vitest, next to the code):**
+   - `lib/matching/match-groups.test.ts`, `summaryText`: desktop and phone (counted) with several fields
+     and countries; one field and one country; fields only; countries only; neither ("40 programs near
+     your 36"); one program ("1 program … near your 36"). Update the five existing cases.
+   - The same file, `meetsLine`: Best fit desktop and phone with the total in it; Lowest points needed
+     and Country (no "closest" sentence, the Explore sentence still there); the total is the student's,
+     not a constant.
+   - `lib/matching/match-list.test.ts`, `profileSummary`'s `qualifyHref`: fields, countries and
+     `qualify=1`, no `sort`, no `shown`; read back with `readExplore` it gives the same ids, `qualify:
+     true`, `sort: null`. Open to anywhere: no `countries`. Every field: no `fields`. Ids in the order
+     the profile lists them.
+   - `lib/matching/optimized-matcher.test.ts`, a new describe "points window (Matches' "near your
+     total", 5.40)", with more than 50 programs so the index is used and at least 10 in tier 1: for 36,
+     a program at 25 in the student's field and country is scored and one at 24 is not; one with no
+     minimum is; `fallbackTierUsed` is 1. For 40, 30 is scored and 29 is not. For 30, 44 is scored and
+     45 is not. It pins what the words describe, so changing the window fails here first.
+   - `app/api/students/matches/list/route.test.ts`, load-neutral: `findUnique` is called once with the
+     same `select` as today (compare the object); `redis.get` once and `redis.set` at most once, as
+     today; no other module is called (Algolia not imported). The response's `profile.qualifyHref` is a
+     path under `/programs/search` and the body grows by less than 1 KB for the fixture's profile
+     (`JSON.stringify` length before and after the field).
+   - The matcher untouched: `scripts/score-fingerprint.ts` before and after, `cmp` identical.
+4. **Docs:** 2.2's Groups bullet in `REBRANDING_tasks.md` (step 1), and this task's row moved to group 1.
+
+**Must not:** change `pointsMargin`, the tiers, the index or any score; add a database query, a Redis
+call, an Algolia request or a field to the cached `matchesV10` value; import `lib/explore/*` into
+`MatchesClient.tsx`; touch today's Matches page (`RecommendationsClient`), which goes at R.2.
+
+**Load:** none on the server. The response grows by one href, about 0.3 KB for nine ids, next to about
+40 cards. A click on the new link costs what Explore costs: with the switch on, Best fit's one browse
+request when 1,000 programs or fewer match (5.27), against two for the unfiltered Explore the last
+line already links to. `scripts/algolia-usage.ts` weekly after release covers it, as 5.27 says.
+
+**Verify:** the tests and the standing verification commands. In the preview, signed in as a student
+with grades whose fields and countries hold a program more than 10 under their total: the summary and
+the Meets line say "near your N"; the link opens Explore with the same fields, countries and the switch
+on, in Best fit, and that list's first rows are Matches' Meets cards, with the lower-minimum programs
+after them. Phone width too (CDP `setDeviceMetricsOverride`). A widened list still says
+`WIDENED_SUMMARY`.
+
+**Not doing: remove the window's lower end** so Matches' Meets group equals Explore's switch. Better
+for the student (the programs it adds are ones they qualify for, ranked last by the order already), but
+each one adds about 3 KB to the Upstash write and read and to the response, and matcher CPU, so it fails
+the owner's condition. If the owner ever accepts that cost, measure first, with aggregates only: per
+student, the programs in their fields and countries under the window's floor, against today's result
+count; then the change is `filterByPointsRange` keeping every bucket from 0 to the upper end, a
+fingerprint diff, and the cached matches cleared.
+
+**Session size:** Small: the owner's words in chat, then one build session. Before release day, since
+the new Matches page is what every student sees then. Independent of other open tasks.
 
 ---
 

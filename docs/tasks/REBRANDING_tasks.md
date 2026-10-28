@@ -62,7 +62,8 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 fit (the board D3.5 Sort · best fit and session 25 here); 7.4: the legal documents, drafted before and
 published on release day, and the public pages' wording, which is code (#157 and the SEO pull request #158) and
 may merge before it; and 5.26, a production bug that can go any
-time. The order of all the open MAINT work is in that file's "Start here".
+time. Added 28 October 2026: 5.40, Matches' summary and Meets line saying "near your total", words
+only, picked by the owner in chat. The order of all the open MAINT work is in that file's "Start here".
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
