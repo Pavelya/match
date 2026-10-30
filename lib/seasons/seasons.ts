@@ -24,6 +24,13 @@ export const SEASONS = [
     key: 'lunar-new-year',
     name: 'Lunar New Year',
     usualWindow: 'three days before the new year to six days after (3 to 12 February in 2027)'
+  },
+  {
+    // 6.5: the first day follows the moon sighting, so the window starts on the expected day and
+    // covers the first three days from either start; the admin enters the days each year
+    key: 'eid-al-fitr',
+    name: 'Eid al-Fitr',
+    usualWindow: 'the expected first day and the three days after it (9 to 12 March in 2027)'
   }
 ] as const
 

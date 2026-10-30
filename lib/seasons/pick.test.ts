@@ -4,6 +4,7 @@ import { SEASON_KEYS, localDay, type SeasonWindow } from './seasons'
 
 const WINTER: SeasonWindow = ['winter', '2026-12-14', '2027-01-01']
 const LUNAR: SeasonWindow = ['lunar-new-year', '2027-02-03', '2027-02-12']
+const EID: SeasonWindow = ['eid-al-fitr', '2027-03-09', '2027-03-12']
 
 function row(key: string, enabled: boolean, startsOn?: string, endsOn?: string): SeasonRow {
   return {
@@ -127,7 +128,11 @@ describe('the head script', () => {
     [[null, WINTER], new Date(2026, 11, 20), ''],
     [[WINTER, LUNAR], new Date(2027, 1, 6), ''],
     [[WINTER, LUNAR], new Date(2027, 0, 20), ''],
-    [[WINTER], new Date(2026, 11, 20), '?season=lunar-new-year']
+    [[WINTER], new Date(2026, 11, 20), '?season=lunar-new-year'],
+    [[WINTER, LUNAR, EID], new Date(2027, 2, 9), ''],
+    [[WINTER, LUNAR, EID], new Date(2027, 2, 12, 23, 59), ''],
+    [[WINTER, LUNAR, EID], new Date(2027, 2, 13, 0, 0), ''],
+    [[WINTER], new Date(2026, 11, 20), '?season=eid-al-fitr']
   ]
 
   it.each(cases)('agrees with pickSeason (%j, %s, %s)', (schedule, now, search) => {
@@ -144,6 +149,9 @@ describe('the head script', () => {
     expect(runScript([WINTER], new Date(2026, 10, 20)).links).toEqual([])
     expect(runScript([WINTER, LUNAR], new Date(2027, 1, 3)).links).toEqual([
       { rel: 'stylesheet', href: '/seasons/lunar-new-year/season.css' }
+    ])
+    expect(runScript([WINTER, LUNAR, EID], new Date(2027, 2, 9)).links).toEqual([
+      { rel: 'stylesheet', href: '/seasons/eid-al-fitr/season.css' }
     ])
   })
 
