@@ -244,8 +244,9 @@ third season, "D1.7 Season · Eid al-Fitr", three directions on whole pages, and
 direction A, crescent and lanterns, with every recommendation. Its final approval is build 29's Vercel
 preview, with `?season=eid-al-fitr`; the board is also a page of its own (6.5). On 30 October 2026
 row 32 drew the fourth season, "D1.7 Season · Diwali", three directions on whole pages, and the owner
-chose direction A, diyas and marigolds. Its final approval is build 31's Vercel preview, with
-`?season=diwali`; the board is also a page of its own (6.6).
+chose direction A, diyas and marigolds, with every recommendation, the window included. Its final
+approval is build 31's Vercel preview, with `?season=diwali`; the board is also a page of its own
+(6.6).
 
 ### Foundations
 
