@@ -74,6 +74,14 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
     would remove or qualify?
 12. **Subscriptions** (Terms 6). Refunds, cancellation, and what is said about "VIP" early adopter schools. VAT and
     income tax are for a tax adviser, not covered here.
+13. **Profiling** (Privacy 3, "How matching works"). Added 30 October 2026 (MAINT 7.8). IB Match scores the subjects,
+    levels, grades, total points and chosen fields and countries of people who may be 16 or 17, by fixed rules: no model
+    is trained and nothing is learned from other students. The result is a list and a fit score, shown to the student
+    and to the coordinators of a linked school on a paid or VIP plan. It is cached for 30 minutes and not stored in the
+    database, it triggers no email or other action, and no university sees it. Is this profiling under GDPR Article
+    4(4)? The draft's position is that nothing is decided, so Article 22 does not apply: is that right? Do recitals 60
+    and 71 call for different words because the students may be minors? The Terms (2, 11) already call scores
+    estimates that guarantee nothing.
 
 ## Not for you
 
