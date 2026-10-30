@@ -29,9 +29,9 @@ always where you are.
 
 | Step | Status | Paste this | What it does | What you do | Usage |
 |---|---|---|---|---|---|
-| 1 | **Next** | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
-| 2 | Waiting | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
-| 3 | Waiting | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
+| 1 | Done, 30 October 2026 (#223) | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
+| 2 | Done, 30 October 2026 (#226) | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
+| 3 | **Next** | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
 | 4 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
@@ -142,9 +142,10 @@ deletes today's design.
 | The other advisories | 6.9 | 27 October 2026 | `npm audit` 10 → 0: `npm audit fix` for eight packages, lockfile only, and an override moving typography's `postcss-selector-parser` to 6.1.5, with byte-identical CSS. `zod`, `vite` and `vitest` floors raised |
 | Node 24 on all three machines | 6.10 | 27 October 2026 | `engines` `24.x`, `.nvmrc` `24`, and CI reads `.nvmrc`, so CI tests on the Node and npm 11 that production runs. The matcher's fingerprint is identical on Node 22 and 24. The laptop moves when the owner installs Node 24 |
 | npm 12: the `allowScripts` list | 6.7, step 5 | 27 October 2026 | `allowScripts` denies the five dependency install scripts, none needed, and `.npmrc` sets `strict-allow-scripts=true`: an unreviewed script fails `npm ci`, so CI catches it before merge. npm 12 will change nothing here. 6.7 is done |
+| Matching in the Privacy Policy draft | 7.8 | 30 October 2026 | "How matching works" in section 3 of the draft and its redline, each statement checked against the code, and question 13 for the lawyer. Nothing published |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1 and 7.7. Each section below records what
+which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -156,7 +157,7 @@ done or decided (#204–#213); what is left is the owner's, in its "Left for the
 release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
 October 2026; a new finding gets a row here.
 
-The matching tasks 5.40–5.45 and 7.8 run in the order at the top of this section, not from here.
+The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -275,7 +276,7 @@ Phase 7 — structural
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Parts A and B done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
-- [ ] 7.8 Say in the Privacy Policy that matching is a calculation, not a decision (from 7.4 and 5.40)
+- [x] 7.8 Say in the Privacy Policy that matching is a calculation, not a decision (from 7.4 and 5.40) — 30 October 2026
 
 Owner tasks — not AI work
 
@@ -4507,6 +4508,11 @@ coordinator who has sent invitations is blocked by a foreign key; a student who 
 policy-update notice at once; the data export is partial; today's cookie banner has no switches either; and the
 coordinator portal says "Upgrade to VIP" for a plan that is a subscription.
 
+**Status, 30 October 2026: the Privacy Policy draft has changed since 24 October 2026.** 5.29 and 5.31 corrected what
+it says about deletion and the export, 7.6 Part 0 added the inactive-accounts rule, and 7.8 added "How matching works"
+to section 3 with one more `[LAWYER]` note and question 13 in the brief. A copy from before this date is out of date:
+the lawyer should read `docs/legal-review/` as it is now.
+
 ---
 
 ### 7.5 — Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones
@@ -5070,7 +5076,7 @@ the tests.
 
 ---
 
-### 7.8 — Say in the Privacy Policy that matching is a calculation, not a decision
+### 7.8 — Say in the Privacy Policy that matching is a calculation, not a decision — **done**
 
 **Outcome:** The Privacy Policy draft says plainly how a student's data becomes a match, and that it
 decides nothing about them. The lawyer has the question in the same review.
@@ -5109,6 +5115,26 @@ change. No `[LAWYER: …]` tag may remain when it is published (7.4 step 5). Pub
 **Load:** none. Docs only.
 
 **Session size:** Tiny. First in the matching order, so it reaches the lawyer with the rest.
+
+**Done (30 October 2026):** the paragraph is in the draft and its redline, with question 13 in
+`lawyer-brief.md`, the cache row in `product-today.md` and 7.4's status. Nothing is published, and the
+Terms, the Cookie Policy and every consent flow are unchanged.
+
+**Checked against the code, and four changes to the words in step 1:**
+
+| Statement | What the code does | Words used |
+|---|---|---|
+| Subjects, grades, total points | `subject-matcher.ts` also compares each course's level. TOK and EE reach the score only through the total | Adds "levels" |
+| Fields and countries against "published requirements" | They are compared with the program's own field and country, which are not requirements (`field-matcher.ts`, `location-matcher.ts`) | "your chosen fields and countries with its field and country" |
+| "each program's" | Matches scores only the candidates, the point 5.45 corrects on How it works | "a program's" |
+| Shown to "your school's coordinators" | Only with full access, a paid or VIP plan, and the student's consent (`hasFullAccess`, `hasConsent`); a free school sees no matches or score distribution | "if you have linked to a school and its plan allows it" |
+| Fixed rules, not artificial intelligence | True: no language-model dependency, constant weights, and `calculateMatch` reads one student and one program | Kept |
+| No decision; universities do not see it | True: no database table holds a result, no email or other action follows one, and no route shows one to a university or an agent | Kept |
+
+**Verified:** `npx prettier --check docs/legal-review` passes. The redline, applied to the published baseline,
+gives the draft exactly, leaving aside heading case, table padding and blank lines. The
+only new lines in its diff are this paragraph; the hunks after it moved down two lines. With this note the drafts
+hold the seven `[LAWYER]` notes group 2 counts; it was six before.
 
 ---
 

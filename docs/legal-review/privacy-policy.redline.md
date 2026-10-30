@@ -12,7 +12,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 3. **2. Information we collect.** Adds what the code stores and the policy left out: the Google name, email and picture link; the school link and its agreement date; support requests; invitation details including the student name a coordinator may enter; the accepted policy versions. Drops "avatar image (optional)": nobody can upload one; a Google sign-in brings a picture link. Adds the 10-minute sign-in link and what Google is asked for (`openid profile email`, seen in the live redirect) and that its tokens are stored (`Account` table). Says what the Google data is used for, because Google's API Services User Data Policy (page read 23 October 2026) requires a privacy policy that "thoroughly disclose[s] the manner in which your application accesses, uses, stores, or shares Google user data" and limits use to the practices disclosed.
 4. **2. Collected automatically.** Replaces "Usage Data: pages visited, features used, search queries / Device Information / Log Data" with what actually happens: the hosting provider's short-lived logs, abuse counters keyed by IP address or account, search words sent to Algolia (which keeps its search logs 90 days in France, with our server's address, not the visitor's; Search Analytics is on, per the owner's screenshot) and written to the server log without an account, and **no analytics, advertising or tracking**. Hosting logs last about a day (Vercel Pro, Observability Plus off). There is no analytics code and the Content-Security-Policy allows no third-party script. Adds the **last-active date** (MAINT 7.6 Part A, chosen in 7.5 Part B on 27 October 2026): one date on the account, written at most once a day while a signed-in user uses the site, for finding inactive accounts and counting active students; it is stored in the database, not the browser, so the Cookie Policy does not change. If an analytics tool is ever added, this section and the Cookie Policy change first.
 5. **2. Payment.** Says what Stripe receives (the school's name and email, and the card details entered at Stripe).
-6. **3. How we use your information.** Removes "Improve our matching algorithms", "Analyze usage patterns" and "Provide program analytics and recruitment insights (university agents)": none happens. Adds the emails the service sends, including the warning before an inactive account is deleted (MAINT 7.6), and that none is marketing. Adds **legal bases** (new sub-heading, for a lawyer to check: Q4).
+6. **3. How we use your information.** Removes "Improve our matching algorithms", "Analyze usage patterns" and "Provide program analytics and recruitment insights (university agents)": none happens. Adds the emails the service sends, including the warning before an inactive account is deleted (MAINT 7.6), and that none is marketing. Adds **legal bases** (new sub-heading, for a lawyer to check: Q4). Adds **How matching works** (MAINT 7.8, 30 October 2026): what matching compares, who sees the result and that it decides nothing, each checked against `lib/matching/` and the coordinator routes. Whether that is profiling is the lawyer's question 13.
 7. **4.1 Coordinator access.** Adds how a student links (only by accepting an invitation) and that editing needs a plan with full access (`canEditStudentData` is full access only).
 8. **4.2 University agents** becomes "Universities": no university has access to any student data. The agent role has no sign-up, no dashboard and no feature in the code, so the published promises about agent statistics describe nothing (Q5).
 9. **5. External sharing.** Points at Section 10 for the list; says nothing goes to advertisers.
@@ -82,7 +82,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -For schools with paid subscriptions, payments are processed by **Stripe**. We do not store credit card numbers or full payment details. We retain only Stripe customer and subscription identifiers to manage your subscription.
 +Students never pay. For schools with paid subscriptions, payments are processed by Stripe. Stripe receives the school's name and email address and the payment details entered at Stripe's checkout. We never see card numbers. We keep only Stripe's customer and subscription identifiers and the subscription's status.
  
-@@ -34,12 +43,24 @@
+@@ -34,12 +43,26 @@
  
 +- Create your account and sign you in
  - Provide personalized program recommendations (students)
@@ -103,6 +103,8 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +- Improve IB Match, using your feedback and support requests
 +- Enforce our Terms of Service and meet our legal obligations
 +
++**How matching works.** We compare your subjects, levels, grades and total points with a program's published requirements, and your chosen fields and countries with its field and country, using fixed rules, not artificial intelligence. The result is shown to you and, if you have linked to a school and its plan allows it, to that school's coordinators. It is guidance only: it makes no decision about you, and universities do not see it. [LAWYER: is this profiling under Article 4(4), and does it need saying differently because students may be 16 or 17?]
++
 +We do not sell your personal data, and we do not use it for advertising.
 +
 +### Why We May Use It (Legal Bases)
@@ -116,17 +118,17 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +[LAWYER: check this section.]
  
-@@ -47,3 +68,3 @@
+@@ -47,3 +70,3 @@
  
 -**We do not sell your personal information.** The following describes how data is shared between different user roles within the platform:
 +We do not sell your personal information. The following describes how data is shared between roles on the platform:
  
-@@ -51,3 +72,3 @@
+@@ -51,3 +74,3 @@
  
 -IB Coordinators at a school can view and, where appropriate, edit academic data for **students who are linked to their school**. Specifically, coordinators may access:
 +IB Coordinators at a school can view the academic data of students who are linked to their school and, where the school's plan allows it, edit it. Specifically, coordinators may access:
  
-@@ -58,18 +79,13 @@
+@@ -58,18 +81,13 @@
  
 -**Purpose limitation**: This access is strictly for providing university application guidance within the school context.
 -
@@ -156,12 +158,12 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +No university has access to any student's personal data.
  
-@@ -77,3 +93,3 @@
+@@ -77,3 +95,3 @@
  
 -Platform Administrators have access to all platform data for operational, support, and compliance purposes.
 +Platform administrators have access to all platform data for operations, support and compliance.
  
-@@ -81,7 +97,9 @@
+@@ -81,7 +99,9 @@
  
 -We may share information with third parties only in the following circumstances:
 -
@@ -176,7 +178,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +We do not share personal data with advertisers.
  
-@@ -89,9 +107,3 @@
+@@ -89,9 +109,3 @@
  
 -We use essential cookies for:
 -
@@ -187,7 +189,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -For details, see our [Cookie Policy](/cookies).
 +IB Match sets only the cookies it needs to sign you in and keep your account secure, and remembers your cookie choice, your light or dark setting and your shortlist count in your browser. It sets no analytics, advertising or tracking cookies. For the list and the lifetimes, see our [Cookie Policy](/cookies).
  
-@@ -99,9 +111,12 @@
+@@ -99,9 +113,12 @@
  
 -We implement appropriate security measures to protect your information, including:
 +We take steps to protect your information, including:
@@ -205,7 +207,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +No system is perfectly secure. If a breach affects your personal data, we will tell you and the authorities as the law requires.
  
-@@ -109,8 +124,12 @@
+@@ -109,8 +126,12 @@
  
 -- **Active accounts**: We retain your data for as long as your account is active or as needed to provide services.
 -- **Deleted accounts**: Upon account deletion, personal data is removed. Anonymized aggregate data (e.g., platform-wide statistics) may be retained.
@@ -224,7 +226,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +- **Backups**: we keep no backups of the database at present. If that changes, deleted data could remain in a backup until it expires, and this policy will say for how long.
 +- **Payment records**: Stripe keeps payment records for as long as the law requires.
  
-@@ -124,11 +143,12 @@
+@@ -124,11 +145,12 @@
  - **Export** your data in a portable format
 -- **Withdraw** consent for non-essential data processing
 +- **Withdraw** consent you have given
@@ -244,16 +246,16 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +To exercise your rights, write to privacy@ibmatch.com or send a Data & privacy request from the Contact page. We reply within one month.
  
-@@ -142,3 +162,2 @@
+@@ -142,3 +164,2 @@
  - Operation of the matching algorithm and recommendations
 -- Platform analytics and service improvement
  - Direct communications with users
-@@ -147,3 +166,3 @@
+@@ -147,3 +168,3 @@
  
 -When coordinators manage student data on behalf of their school, the **school is the data controller** and IB Match acts as a **data processor**. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform).
 +When coordinators manage student data on behalf of their school, the school is the data controller and IB Match acts as a data processor. In this context, IB Match processes student data solely on the school's instructions (as expressed through coordinator actions on the platform). [LAWYER: check this paragraph. A student creates the account and agrees to the link themselves, so IB Match may also be a controller of that data.]
  
-@@ -151,13 +170,15 @@
+@@ -151,13 +172,15 @@
  
 -We use the following third-party service providers to operate the platform:
 -
@@ -280,22 +282,22 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +
 +Each provider publishes its own list of sub-processors. Our providers are bound by data processing terms to process data only as instructed and to keep it secure.
  
-@@ -165,3 +186,3 @@
+@@ -165,3 +188,3 @@
  
 -Your information may be transferred to and processed in countries other than your own (including the United States, where our infrastructure providers operate). Where required, we ensure appropriate safeguards are in place, including Standard Contractual Clauses (SCCs) for transfers outside the EU/EEA.
 +Your information may be processed in countries other than your own. Our database, our cache and our website's server functions are in Frankfurt, Germany, and our search index is in France. Pages are delivered through our hosting provider's global network, so traffic can pass through other countries, including the United States. Our email provider, Resend, stores all its data in the United States. Our providers are mostly United States companies (our database provider's contracting company is in Singapore), and their staff and sub-processors can reach data from there for support and operations. When personal data leaves the EEA or the UK, our providers rely on the Standard Contractual Clauses (and the UK addendum), and, where a provider is certified, on the EU-US Data Privacy Framework. You can ask us for details of these safeguards at privacy@ibmatch.com.
  
-@@ -169,3 +190,3 @@
+@@ -169,3 +192,3 @@
  
 -The Service is intended for users **13 years and older**, consistent with the age of IB students. We do not knowingly collect information from children under 13. If we become aware that we have collected data from a child under 13, we will take steps to delete that information.
 +IB Match is for students of the IB Diploma Programme, who are usually 16 to 19. You must be at least 16 to use it. We do not knowingly collect information from anyone under 16. If we learn that we have, we will delete it.
  
-@@ -173,3 +194,3 @@
+@@ -173,3 +196,3 @@
  
 -We may update this Privacy Policy from time to time. We will notify you of significant changes via email or through the Service. The "Last updated" date at the top of this page indicates when the latest revision was made.
 +We may update this Privacy Policy from time to time. When we make a significant change, we will ask you to accept the new version the next time you sign in, and the version and date at the top of this page will change.
  
-@@ -177,6 +198,6 @@
+@@ -177,6 +200,6 @@
  
 -If you have questions about this Privacy Policy or wish to exercise your data rights, please contact us:
 -

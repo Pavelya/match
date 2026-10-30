@@ -13,7 +13,7 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 | `privacy-policy.redline.md`, `terms-of-service.redline.md`, `cookie-policy.redline.md` | Step 4. For each: what changed and why, then the diff against the published words |
 | `privacy-policy.proposed.md`, `terms-of-service.proposed.md`, `cookie-policy.proposed.md` | The proposed text, ready to paste into `/admin/legal-content` once the `[OWNER …]` notes are settled |
 | `claims.md` | Step 4. Every claim on Support us, How it works, For schools, Home and FAQs: the evidence, the decision and the proposed words |
-| `lawyer-brief.md` | What the lawyer should read, and the twelve questions the drafts leave to them |
+| `lawyer-brief.md` | What the lawyer should read, and the thirteen questions the drafts leave to them |
 
 ## Three limits
 

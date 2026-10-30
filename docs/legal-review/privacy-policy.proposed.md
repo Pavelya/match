@@ -51,6 +51,8 @@ We use your information to:
 - Improve IB Match, using your feedback and support requests
 - Enforce our Terms of Service and meet our legal obligations
 
+**How matching works.** We compare your subjects, levels, grades and total points with a program's published requirements, and your chosen fields and countries with its field and country, using fixed rules, not artificial intelligence. The result is shown to you and, if you have linked to a school and its plan allows it, to that school's coordinators. It is guidance only: it makes no decision about you, and universities do not see it. [LAWYER: is this profiling under Article 4(4), and does it need saying differently because students may be 16 or 17?]
+
 We do not sell your personal data, and we do not use it for advertising.
 
 ### Why we may use it (legal bases)
