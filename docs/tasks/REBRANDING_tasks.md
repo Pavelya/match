@@ -371,7 +371,7 @@ merges into `main`, behind the preview switch.**
 | 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February. **Built 26 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; waits on the owner's look in the pull request's preview |
 | 29 | Eid al-Fitr | 6.5 | D1.7 Season · Eid al-Fitr: direction A, crescent and lanterns, chosen 28 October 2026; approved in this build's preview | small | **Unlocked 28 October 2026:** the crescent and lanterns, drawn in 6.5's "Decided on the board". A new season under the key `eid-al-fitr`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 1 March 2027, a week before the window opens on 9 March. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter to stay under 600 bytes with a third key; waits on the owner's look in the pull request's preview |
 | 30 | No IB minimum and field weight | `MAINT_tasks.md` 5.43 Part B | D3.1 No IB minimum | small to medium | **Not started.** In `MAINT_tasks.md`'s matching order, after 5.43 Part A and 5.45. Builds what the board decides, with "How it works", "Why this match" and the France guide in the same pull request. Should land before release, but does not hold it up |
-| 31 | Diwali | 6.6 | D1.7 Season · Diwali: direction A, diyas and marigolds, chosen 30 October 2026; approved in this build's preview | small | **Unlocked 30 October 2026:** the diyas and marigolds, drawn in 6.6's "Decided on the board". A new season under the key `diwali`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes, but the head script needs 27 bytes saved or a higher limit. Merge by 20 October 2027, a week before the window opens on 27 October |
+| 31 | Diwali | 6.6 | D1.7 Season · Diwali: direction A, diyas and marigolds, chosen 30 October 2026; approved in this build's preview | small | **Unlocked 30 October 2026:** the diyas and marigolds, drawn in 6.6's "Decided on the board". A new season under the key `diwali`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes, but the head script needs 27 bytes saved or a higher limit. Merge by 20 October 2027, a week before the window opens on 27 October. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter again, 595 bytes with all four scheduled, so the limit stays; waits on the owner's look in the pull request's preview |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -414,7 +414,7 @@ Rows 3 and 4 can share a design session.
 | 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
 | 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges, by 27 January 2027 |
 | 29 | `/design D1.7 Season · Eid al-Fitr`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, crescent and lanterns, 28 October 2026), then **the build's Vercel preview with `?season=eid-al-fitr`**, before it merges | `/build 29`: Eid al-Fitr (6.5) | Design done 28 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 1 March 2027 |
-| 31 | `/design D1.7 Season · Diwali`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, diyas and marigolds, 30 October 2026), then **the build's Vercel preview with `?season=diwali`**, before it merges | `/build 31`: Diwali (6.6) | Design done 30 October 2026. Build by 20 October 2027 |
+| 31 | `/design D1.7 Season · Diwali`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, diyas and marigolds, 30 October 2026), then **the build's Vercel preview with `?season=diwali`**, before it merges | `/build 31`: Diwali (6.6) | Design done 30 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 20 October 2027 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -485,7 +485,7 @@ Phase 6 — Seasonal themes
 - [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
 - [x] 6.4 Lunar New Year (26 October 2026; merged once the owner approves it in the preview)
 - [x] 6.5 Eid al-Fitr (30 October 2026; merged once the owner approves it in the preview)
-- [ ] 6.6 Diwali
+- [x] 6.6 Diwali (30 October 2026; merged once the owner approves it in the preview)
 
 Release
 
@@ -3714,6 +3714,38 @@ copies them, then the owner judges them in the preview.
   `public/seasons/diwali/`. In season, gzipped: Home about 2.9 KB, a guide or a text page 2.1, a page
   with only the header 1.2, the 404 at 1440px 2.6 (Eid al-Fitr's drawings, measured the same way: 2.7,
   2.0, 1.3, 2.2).
+
+**Built (30 October 2026, session 31).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=diwali` before it merges:
+- **Art:** the nine drawings from the board's `diwali/a/` in `public/seasons/diwali/`, byte for byte
+  (each checked against the board's SHA-256), and `season.css` in winter's shape under
+  `[data-season='diwali']`, each drawing asked for with `?v=` and its SHA-256's first 8 hex digits.
+  `SEASONS` gains `diwali`, "Diwali", with the usual window written as "the five days from Dhanteras
+  to Bhai Dooj (27 to 31 October in 2027)", which the admin page shows. The admin page lists it; its
+  schedule needs no migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  all four seasons, and the head script is checked against the helper for the new key.
+- **The head script (`lib/seasons/pick.ts`):** the fourth key took it to 626 bytes with every season
+  scheduled, as 6.5 expected, so it was written shorter with the same behaviour and the limit stays:
+  no function around it, since `try` scopes its `let`; the two lists written where they are used;
+  `find` for `some`; one helper to pad the month and the day. It is 595 bytes with all four scheduled
+  and 435 with none. The fake page in its tests did not change. In Chrome it adds no name to `window`
+  and picks the visitor's own date at UTC+14, UTC−12, Kolkata and Prague. **A fifth season adds about
+  45 bytes**, so it needs the limit raised or more saved; no further season is planned.
+- **Measured** (`next start` with the preview, headless Chrome): every slot's box is build 29's; the
+  band 8px above its heading at 768px and 13px on a phone; the drawing 129 to 149px at 320px signed
+  in, Guides from 162px; at 1440px signed in its ink ends 4.2px before the Matches pill; hidden in
+  forced colours, in print, signed in at 900px and on the legal pages; the hero still with reduced
+  motion and its one 0.48s entrance otherwise; CLS 0 on every public page, and Matches' 0.046 is the
+  same with no season. Against a build of `main`, `npm run build` lists the same pages, Static pages
+  and revalidate times; no prerendered HTML names the season, the CSS is the same, and the only JS
+  change is the admin chunk. Winter and Lunar New Year still load. In season, gzipped: Home 2.9 KB,
+  a guide or text page 2.1, header only 1.2, the 404 at 1440px 2.6, as the board said.
+- **QA:** whole pages, every page type with a slot including the UK and Singapore guides, 1440px and
+  390px, light and dark: https://claude.ai/artifact/82acjDANMnXZfxD8MbBkMs (private to the owner).
+  Chrome on macOS only; Safari, iOS and Windows are for the owner's look in the preview. The admin
+  page was not opened, since it needs an admin session: it lists seasons from `SEASONS`, and its
+  route's tests pass.
 
 ---
 
