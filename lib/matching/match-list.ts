@@ -129,9 +129,9 @@ export function matchItems(
 
 /**
  * True when the list reaches beyond the student's fields and countries. The matcher widens its
- * search only when fewer than ten programs in them are near the student's total (tier 3 and
- * up, optimized-matcher.ts), and every widened tier adds programs outside them; tiers 1 and 2
- * never do. So the results say it, and the shared match cache keeps its shape.
+ * search only when fewer than ten programs in them are at or under the top of its points window
+ * (tier 3 and up, optimized-matcher.ts), and every widened tier adds programs outside them; tiers
+ * 1 and 2 never do. So the results say it, and the shared match cache keeps its shape.
  */
 export function isWidened(results: Pick<MatchResult, 'fieldMatch' | 'locationMatch'>[]): boolean {
   return results.some(

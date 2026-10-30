@@ -8,7 +8,7 @@
  * - No Preferences: Student has no field preferences → 0.5
  * - Mismatch: Program field not in student's preferences → 0.0
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type { FieldMatchScore } from './types'

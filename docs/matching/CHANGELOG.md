@@ -4,6 +4,29 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-30] - Matches keeps every program a student qualifies for (MAINT 5.40)
+
+### Changed
+
+- **The points window has no lower end.** `filterByPointsRange` keeps every bucket from 0 up to the top
+  of the window, in every tier, so a program far under the student's total is scored. A student on 36
+  used to lose minimums under 25, which is why Matches found 2 where Explore found 8. "Meets all
+  requirements" now holds the same programs as Explore with the same fields and countries and "Only
+  ones I qualify for" on. `pointsMargin` now means how far above the total a minimum may be.
+- **No score moved.** `score-fingerprint.ts` is byte-identical apart from its `optimized` lines, where
+  18 of 60 students gain programs (257 in all), none lose one and none changes score.
+- **Fewer students widen.** A student with enough programs under their total now stays in a lower tier.
+  One who fell from tier 1 to tier 2 for lack of programs near their total no longer sees minimums more
+  than about 10 over it, all of them gaps.
+- **The list's last line** says "apart from those far above your total", not "near your total".
+
+### Testing
+
+- `lib/matching/worked-examples.test.ts` holds XI's worked examples to the code, row by row.
+- `lib/explore/fit.test.ts` holds Matches to Explore for totals from 24 to 45.
+
+---
+
 ## [2026-10-30] - Version XI of the algorithm document
 
 ### Documentation

@@ -37,7 +37,7 @@ export interface OptimizedMatcherConfig {
   useIndex?: boolean
   /** Use memoization cache (default: true) */
   useCache?: boolean
-  /** Points margin for filtering (default: 10) */
+  /** How far above the total a minimum may be (default: 10) */
   pointsMargin?: number
   /** Maximum cache size (default: 5000) */
   maxCacheSize?: number
@@ -77,11 +77,13 @@ export type FallbackTier = 1 | 2 | 3 | 4 | 5 | 6
 /**
  * Fallback tier descriptions (for reference):
  * 1: All filters applied (field + country + points)
- * 2: Relaxed points margin (±20 instead of ±10)
+ * 2: Relaxed points margin (+20 instead of +10)
  * 3: Removed country filter, kept field + points
  * 4: Removed field filter, kept country + points
- * 5: Only points filter with wide margin (±30)
+ * 5: Only points filter with wide margin (+30)
  * 6: No filtering (all programs considered)
+ *
+ * The margin is how far above the student's total a minimum may be. No tier has a lower end.
  */
 
 // ============================================
@@ -228,16 +230,19 @@ interface FallbackFilterResult {
  *
  * Progressively relaxes filters when fewer than MINIMUM_CANDIDATES are found:
  * - Tier 1: All filters (field + country + points with default margin)
- * - Tier 2: Relax points margin (±20 instead of ±10)
+ * - Tier 2: Relax points margin (+20 instead of +10)
  * - Tier 3: Remove country filter, keep field + points
  * - Tier 4: Remove field filter, keep country + points
- * - Tier 5: Only points filter with wide margin (±30)
+ * - Tier 5: Only points filter with wide margin (+30)
  * - Tier 6: No filtering (all programs)
+ *
+ * The points filter only limits how far above the total a minimum may be (filterByPointsRange,
+ * program-index.ts), so every tier keeps every program under it that the other filters keep.
  *
  * @param index - Pre-built program index
  * @param programs - All programs array (for fallback access)
  * @param student - Student profile with preferences
- * @param pointsMargin - Base points margin
+ * @param pointsMargin - Base points margin, above the total
  * @param includeOpenFields - Whether to include when student is open to all fields
  * @param includeOpenLocations - Whether to include when student is open to all locations
  * @returns Candidates array and the tier that was used
@@ -274,7 +279,7 @@ function filterWithFallback(
     return { candidates: tier1Candidates, tierUsed: 1 }
   }
 
-  // Tier 2: Relax points margin (±20 instead of ±10)
+  // Tier 2: Relax points margin (+20 instead of +10)
   const tier2Criteria: FilterCriteria = {
     ...tier1Criteria,
     pointsMargin: 20
@@ -318,7 +323,7 @@ function filterWithFallback(
     }
   }
 
-  // Tier 5: Only points filter with wide margin (±30)
+  // Tier 5: Only points filter with wide margin (+30)
   const tier5Criteria: FilterCriteria = {
     studentPoints: student.totalIBPoints,
     pointsMargin: 30,

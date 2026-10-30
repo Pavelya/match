@@ -56,7 +56,7 @@ export type MatchesResponse =
       matches: MatchItem[]
       /**
        * The list goes beyond the student's fields and countries: the matcher found fewer than
-       * ten programs in them near their total and widened its search.
+       * ten programs in them, apart from those far above their total, and widened its search.
        */
       widened: boolean
       /** The student's shortlist, so each Save starts in the right state */
@@ -145,6 +145,13 @@ export function summaryText(
 
 export const WIDENED_SUMMARY =
   'Few programs fit your fields and countries, so this list also includes others near your total.'
+
+/** The list's last line before the sentence on Explore. A widened list is not every program. */
+export function listEndText(widened: boolean): string {
+  return widened
+    ? ''
+    : 'That’s every program in your fields and countries, apart from those far above your total. '
+}
 
 function byName(a: MatchItem, b: MatchItem): number {
   return a.university.localeCompare(b.university, 'en') || a.name.localeCompare(b.name, 'en')

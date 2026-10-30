@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { deriveMatchStatus } from '@/lib/matching/match-status'
+import { calculateOptimizedMatches } from '@/lib/matching/optimized-matcher'
 import type { CachedProgram } from '@/lib/matching/program-cache'
 import { calculateMatch } from '@/lib/matching/scorer'
 import { transformProgram, transformStudent } from '@/lib/matching/transformers'
+import type { StudentProfile } from '@/lib/matching/types'
 import { fitProgram, programFit } from './fit'
 
 // The D3.1 student, 38 points, with no preferences: Explore lists programs outside them anyway
@@ -204,5 +206,129 @@ describe('programFit', () => {
         minIBPoints: 36
       })
     )
+  })
+})
+
+describe('Matches agrees with "Only ones I qualify for" (5.40)', () => {
+  const maths = requirement('maths-aa', 'Mathematics: Analysis and Approaches', 'HL', 6)
+  const physics = requirement('physics', 'Physics', 'HL', 6)
+  const chemistry = requirement('chem', 'Chemistry', 'HL', 5)
+  const orGroup = (id: string) => [
+    { ...maths, orGroupId: id },
+    { ...physics, orGroupId: id }
+  ]
+
+  // In turn: nothing, a subject they have, either/or, two needing their own course, one they lack
+  const REQUIREMENTS = [
+    [],
+    [maths],
+    [chemistry, physics].map((r) => ({ ...r, orGroupId: 'science' })),
+    [...orGroup('a'), ...orGroup('b')].map((r) => ({ ...r, ownCourse: true as const })),
+    [chemistry]
+  ]
+  const FIELDS = ['cs', 'law', 'arts']
+  const COUNTRIES = ['ca', 'uk', 'nl', 'fr']
+
+  function place(fieldId: string, countryId: string): Partial<CachedProgram> {
+    const { university, fieldOfStudy } = program()
+    return {
+      fieldOfStudyId: fieldId,
+      fieldOfStudy: { ...fieldOfStudy, id: fieldId },
+      university: { ...university, country: { ...university.country, id: countryId } }
+    }
+  }
+
+  // Minimums of 24 to 45 and none, across every field, country and kind of requirement
+  const CATALOGUE = Array.from({ length: 132 }, (_, i) =>
+    program({
+      id: `p-${i}`,
+      minIBPoints: i % 7 === 0 ? null : 24 + (i % 22),
+      courseRequirements: REQUIREMENTS[i % REQUIREMENTS.length],
+      ...place(FIELDS[i % FIELDS.length], COUNTRIES[i % COUNTRIES.length])
+    })
+  )
+
+  function student(total: number, fields: string[], countries: string[]): StudentProfile {
+    return {
+      ...STUDENT,
+      totalIBPoints: total,
+      interestedFields: fields,
+      preferredCountries: countries
+    }
+  }
+
+  /** The ids Matches gives "meets", as getCachedMatchesV10 calls it, and the tier it used */
+  function matchesMeets(s: StudentProfile, programs: CachedProgram[]) {
+    const byId = new Map(programs.map((p) => [p.id, p]))
+    const { results, stats } = calculateOptimizedMatches(s, programs.map(transformProgram), {
+      useIndex: true,
+      useCache: true,
+      pointsMargin: 10
+    })
+    const meets = results.filter((result) => {
+      const p = byId.get(result.programId)!
+      return (
+        deriveMatchStatus({
+          result,
+          studentPoints: s.totalIBPoints,
+          minIBPoints: p.minIBPoints,
+          fieldName: p.fieldOfStudy.name,
+          countryName: p.university.country.name,
+          requirementsEntryYear: p.requirementsEntryYear
+        }).status === 'meets'
+      )
+    })
+    return { meets: meets.map((r) => byId.get(r.programId)!), tier: stats.fallbackTierUsed }
+  }
+
+  /** The student's fields and countries, as Explore's two filters keep them */
+  const inPreferences = (s: StudentProfile) => (p: CachedProgram) =>
+    s.interestedFields.includes(p.fieldOfStudyId) &&
+    s.preferredCountries.includes(p.university.country.id)
+
+  const exploreMeets = (s: StudentProfile, programs: CachedProgram[]) =>
+    programs
+      .filter(inPreferences(s))
+      .filter(
+        (p) =>
+          programFit(s, { requirements: transformProgram(p), minIBPoints: p.minIBPoints })
+            .status === 'meets'
+      )
+
+  const ids = (programs: CachedProgram[]) => programs.map((p) => p.id).sort()
+
+  it.each([24, 30, 35, 36, 38, 45])('finds the same programs for a total of %i', (total) => {
+    const s = student(total, ['cs', 'law'], ['ca', 'uk'])
+
+    const { meets, tier } = matchesMeets(s, CATALOGUE)
+    const explore = exploreMeets(s, CATALOGUE)
+
+    expect(tier).toBe(1)
+    expect(explore.length).toBeGreaterThan(0)
+    expect(ids(meets.filter(inPreferences(s)))).toEqual(ids(explore))
+    // Holds at 24 and up, so from 35 this is a program the old window dropped
+    expect(explore.some((p) => p.minIBPoints === 24)).toBe(true)
+  })
+
+  it('a widened list holds everything Explore finds, and more', () => {
+    // Too few in this field and country for tier 2, enough in the field for tier 3
+    const rare = Array.from({ length: 12 }, (_, i) =>
+      program({
+        id: `rare-${i}`,
+        minIBPoints: 24 + i,
+        courseRequirements: [],
+        ...place('medicine', i < 3 ? 'ie' : COUNTRIES[i % COUNTRIES.length])
+      })
+    )
+    const programs = [...CATALOGUE, ...rare]
+    const s = student(38, ['medicine'], ['ie'])
+
+    const { meets, tier } = matchesMeets(s, programs)
+    const explore = ids(exploreMeets(s, programs))
+
+    expect(tier).toBe(3)
+    expect(explore).toHaveLength(3)
+    expect(ids(meets)).toEqual(expect.arrayContaining(explore))
+    expect(meets.length).toBeGreaterThan(explore.length)
   })
 })

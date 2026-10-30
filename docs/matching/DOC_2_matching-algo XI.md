@@ -4,7 +4,10 @@
 **Supersedes:** Version X as the baseline  
 **Date:** 30 October 2026  
 **Status:** Master (owner, 30 October 2026). Describes production, written from the code on `main`; no
-score changed to issue it.
+score changed to issue it.  
+**Updated:** 30 October 2026, MAINT 5.40: the points window lost its lower end, so more programs are
+scored and no score moved. Still XI: the order in `MAINT_tasks.md` gives XI.1 to the first change to a
+score, MAINT 5.43.
 
 ---
 
@@ -65,36 +68,41 @@ and it is not a chance of admission.
 programs, `filterWithFallback` narrows the catalogue before anything is scored. It tries each tier in
 turn and stops at the first with at least 10 programs (`MINIMUM_CANDIDATES`).
 
-| Tier | Fields  | Countries | Points  |
-| ---- | ------- | --------- | ------- |
-| 1    | theirs  | theirs    | ±10     |
-| 2    | theirs  | theirs    | ±20     |
-| 3    | theirs  | any       | ±20     |
-| 4    | any     | theirs    | ±20     |
-| 5    | any     | any       | ±30     |
-| 6    | any     | any       | none    |
+| Tier | Fields  | Countries | Points                  |
+| ---- | ------- | --------- | ----------------------- |
+| 1    | theirs  | theirs    | up to 10 over the total |
+| 2    | theirs  | theirs    | up to 20 over           |
+| 3    | theirs  | any       | up to 20 over           |
+| 4    | any     | theirs    | up to 20 over           |
+| 5    | any     | any       | up to 30 over           |
+| 6    | any     | any       | none                    |
 
 An empty list of fields or countries filters nothing. Tiers 3 and 4 run only when the student has a
 list to drop. From tier 3 up the list reaches past the student's preferences, and the page says so
 (`isWidened`, `WIDENED_SUMMARY`).
 
-**The points window** (`filterByPointsRange`, `lib/matching/program-index.ts`) works in 5-point buckets,
-each rounded down. A program with no minimum is always in bucket 0 and always kept. So:
+**The points window** (`filterByPointsRange`, `lib/matching/program-index.ts`) has a top and no lower
+end, in every tier (MAINT 5.40). It works in 5-point buckets, each rounded down, and keeps every bucket
+from 0 up to the one holding the total plus the margin. A program with no minimum is in bucket 0, so it
+is always kept. So:
 
-| Total | Tier 1 keeps minimums |
-| ----- | --------------------- |
-| 28    | 15 to 39              |
-| 30    | 20 to 44              |
-| 36    | 25 to 49              |
-| 38    | 25 to 49              |
-| 40    | 30 to 54              |
+| Total | Tier 1 keeps minimums up to |
+| ----- | --------------------------- |
+| 28    | 39                          |
+| 30    | 44                          |
+| 36    | 49                          |
+| 38    | 49                          |
+| 40    | 54                          |
 
-Under 35 the floor is below the IB's 24, so it removes nothing. From 35 it removes programs the
-student meets: this is why Explore's "Only ones I qualify for" can find more than Matches. MAINT 5.40
-removes the lower end; this section changes with it.
+So every program in the student's fields and countries that they meet is scored, and "Meets all
+requirements" holds the same programs as Explore with those filters and "Only ones I qualify for" on
+(`lib/explore/fit.test.ts`). A program far under the total is not hidden: it sits lower in its group
+(see [Order](#order)).
 
-The window is a speed measure from the Version X spec, not a product rule about programs being too
-easy. Nothing else in the algorithm treats a low minimum as a worse fit.
+The top of the window is a cost measure, not a rule about programs being out of reach: a minimum more
+than 10 over is a gap either way, and leaving it out keeps the list and its cost down. Nothing in the
+algorithm treats a low minimum as a worse fit. A low minimum is often the 24 diploma pass mark, not a
+sign that a program is easy to enter.
 
 ---
 
@@ -244,8 +252,8 @@ at once.
 ## Cost
 
 Every result is stored whole in Upstash and sent to the page with no cap, so the candidate count is what
-a Matches load costs. Measured 30 October 2026 on 163 profiles with grades and 1,676 programs: 68
-results at the median, 121 on average, 666 at most. A result is about 2 KB stored, 3 KB in the older
+a Matches load costs. Measured 30 October 2026 on 163 profiles with grades and 1,676 programs: 74
+results at the median, 133 on average, 789 at most (68, 121 and 666 before MAINT 5.40). A result is about 2 KB stored, 3 KB in the older
 figures, and a card about 1.4 KB in the response. The catalogue itself is the 3 MB `programs:all:v3`,
 kept in memory per server instance for five minutes (MAINT 5.19).
 
@@ -293,7 +301,7 @@ is, and the order already puts the closest first.
 ```
 # Candidates (optimized-matcher.ts, program-index.ts)
 MINIMUM_CANDIDATES = 10
-pointsMargin = 10, then 20, then 30
+pointsMargin = 10, then 20, then 30, over the total; no lower end
 bucket size = 5
 index used above 50 programs
 

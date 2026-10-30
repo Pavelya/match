@@ -7,7 +7,7 @@
  * - Multiple deficiencies
  * - Non-academic score floor
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type { MatchAdjustments, AcademicMatchScore, WeightConfig } from './types'

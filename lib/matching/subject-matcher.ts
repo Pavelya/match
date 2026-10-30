@@ -9,7 +9,7 @@
  * - Level mismatches (HL vs SL differences)
  * - OR-group requirements (Physics OR Chemistry)
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type {
