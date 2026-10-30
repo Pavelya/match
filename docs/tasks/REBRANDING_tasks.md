@@ -167,7 +167,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 28 October 2026.** The canvas has 105 boards. The owner approved in chat "B ·
+**Where it stands, 30 October 2026.** The canvas has 106 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -242,7 +242,10 @@ is build 27's Vercel preview, with `?season=lunar-new-year`. The canvas has grow
 the owner's laptop, so that board is also a page of its own (6.4). On 28 October 2026 row 31 drew the
 third season, "D1.7 Season · Eid al-Fitr", three directions on whole pages, and the owner chose
 direction A, crescent and lanterns, with every recommendation. Its final approval is build 29's Vercel
-preview, with `?season=eid-al-fitr`; the board is also a page of its own (6.5).
+preview, with `?season=eid-al-fitr`; the board is also a page of its own (6.5). On 30 October 2026
+row 32 drew the fourth season, "D1.7 Season · Diwali", three directions on whole pages, and the owner
+chose direction A, diyas and marigolds. Its final approval is build 31's Vercel preview, with
+`?season=diwali`; the board is also a page of its own (6.6).
 
 ### Foundations
 
@@ -258,6 +261,7 @@ preview, with `?season=eid-al-fitr`; the board is also a page of its own (6.5).
 | D1.7 Season · Christmas | "D1.7 Season · Christmas" (row 27, interactive), a change board; "D1.7 Seasonal themes" stays as approved for the slots, the schedule and the other seasons. **Added 25 October 2026 (owner).** Three directions, A · Tree, B · Holly and C · Snow, drawn into the ten page types a slot reaches, captured whole from `main` at 1440px and 390px in light and dark (real programs, 76 real matches), each scrolled at real size; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against winter. **Direction chosen 26 October 2026 (owner): A, the tree,** with the recommendations drawn for it: the tree after the name; baubles under "match"; the band's drawing on all six pages with the band, its slot 330 × 60 from 768px; the 404's tree with a rolled-away bauble; a season-only pine green and berry red. Decisions in 6.3 | Nothing | Direction A chosen 26 October 2026. Approved in build 26's Vercel preview with `?season=winter`, before it merges |
 | D1.7 Season · Lunar New Year | "D1.7 Season · Lunar New Year" (row 28, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Lanterns, B · Blossom and C · Firecrackers, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the Hong Kong and Singapore guides captured from `main` on 26 October 2026 and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Christmas. Also on its own page, since the canvas no longer opens on the owner's laptop: https://claude.ai/artifact/HPYaCCUnSRRz16vEaU4ZZX (private to the owner). **Direction chosen 26 October 2026 (owner): A, lanterns,** with the recommendations drawn for it: one lantern after the name; five lanterns under "match"; four lanterns on a cord in the band, on all six pages with the band; the 404's string with one lantern fallen to the floor; a season-only lantern red and gold; no slot changes. Decisions in 6.4 | Nothing | Direction A chosen 26 October 2026. Approved in build 27's Vercel preview with `?season=lunar-new-year`, before it merges |
 | D1.7 Season · Eid al-Fitr | "D1.7 Season · Eid al-Fitr" (row 31, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Crescent and lanterns, B · Lanterns and C · Crescent and stars, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the UK and USA guides captured from `main` on 28 October 2026 (no guide is for the Gulf or Türkiye) and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Lunar New Year. Also on its own page: https://claude.ai/artifact/H4skLCkeKepKQnVX3LvH4p (private to the owner). **Direction chosen 28 October 2026 (owner): A, crescent and lanterns, with every recommendation:** a crescent with a lit lantern hanging from its upper horn after the name; lanterns and crescents in turn under "match"; a crescent and three lanterns in the band, on all six pages with the band; the 404's string with one lantern fallen to the floor; a season-only gold and green; the crescent never alone and no star and crescent; the window 9 to 12 March 2027; no slot changes. Decisions in 6.5 | Nothing | Direction A chosen 28 October 2026. Approved in build 29's Vercel preview with `?season=eid-al-fitr`, before it merges |
+| D1.7 Season · Diwali | "D1.7 Season · Diwali" (row 32, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Diyas and marigolds, B · Rangoli and C · Marigolds, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the UK guide captured from `main` on 28 October 2026 and the Singapore guide on 26 October 2026 (no guide is for India) and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Eid al-Fitr. Also on its own page: https://claude.ai/artifact/C1i3C7zQVhpJYQJqKGvZLb (private to the owner). **Direction chosen 30 October 2026 (owner): A, diyas and marigolds,** with the recommendations drawn for it: one lit diya after the name, 15.8px wide; five lit diyas standing under "match"; four lit diyas on a marigold garland in the band, on all six pages with the band; the 404's toran with one strand short, its marigold on the floor, and every lamp lit; a season-only clay, flame, marigold and leaf green; no flame without its bowl; no slot changes. Decisions in 6.6 | Nothing | Direction A chosen 30 October 2026. Approved in build 31's Vercel preview with `?season=diwali`, before it merges |
 
 ### Components
 
@@ -366,6 +370,7 @@ merges into `main`, behind the preview switch.**
 | 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February. **Built 26 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; waits on the owner's look in the pull request's preview |
 | 29 | Eid al-Fitr | 6.5 | D1.7 Season · Eid al-Fitr: direction A, crescent and lanterns, chosen 28 October 2026; approved in this build's preview | small | **Unlocked 28 October 2026:** the crescent and lanterns, drawn in 6.5's "Decided on the board". A new season under the key `eid-al-fitr`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 1 March 2027, a week before the window opens on 9 March. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter to stay under 600 bytes with a third key; waits on the owner's look in the pull request's preview |
 | 30 | No IB minimum and field weight | `MAINT_tasks.md` 5.43 Part B | D3.1 No IB minimum | small to medium | **Not started.** In `MAINT_tasks.md`'s matching order, after 5.43 Part A and 5.45. Builds what the board decides, with "How it works", "Why this match" and the France guide in the same pull request. Should land before release, but does not hold it up |
+| 31 | Diwali | 6.6 | D1.7 Season · Diwali: direction A, diyas and marigolds, chosen 30 October 2026; approved in this build's preview | small | **Unlocked 30 October 2026:** the diyas and marigolds, drawn in 6.6's "Decided on the board". A new season under the key `diwali`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes, but the head script needs 27 bytes saved or a higher limit. Merge by 20 October 2027, a week before the window opens on 27 October |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -408,6 +413,7 @@ Rows 3 and 4 can share a design session.
 | 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
 | 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges, by 27 January 2027 |
 | 29 | `/design D1.7 Season · Eid al-Fitr`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, crescent and lanterns, 28 October 2026), then **the build's Vercel preview with `?season=eid-al-fitr`**, before it merges | `/build 29`: Eid al-Fitr (6.5) | Design done 28 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 1 March 2027 |
+| 31 | `/design D1.7 Season · Diwali`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, diyas and marigolds, 30 October 2026), then **the build's Vercel preview with `?season=diwali`**, before it merges | `/build 31`: Diwali (6.6) | Design done 30 October 2026. Build by 20 October 2027 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -478,6 +484,7 @@ Phase 6 — Seasonal themes
 - [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
 - [x] 6.4 Lunar New Year (26 October 2026; merged once the owner approves it in the preview)
 - [x] 6.5 Eid al-Fitr (30 October 2026; merged once the owner approves it in the preview)
+- [ ] 6.6 Diwali
 
 Release
 
@@ -3347,7 +3354,7 @@ year: three of these seasons follow lunar calendars, so the admin enters their d
 | Christmas and New Year | `winter` | Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season. Drawn on D1.7 as generic lights and stars; **redrawn as plainly Christmas in 6.3** (owner, 25 October 2026), snow allowed: a decorated tree, chosen on "D1.7 Season · Christmas" on 26 October 2026. The key stays `winter`, so the table and the schedule don't change |
 | Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026. Drawn on "D1.7 Season · Lunar New Year" (row 28): **red lanterns, chosen 26 October 2026** (owner); 6.4 |
 | Eid al-Fitr | `eid-al-fitr` | 9 or 10 March 2027, set by the moon sighting | 9 to 12 March 2027 (4 days), scheduled ahead: it covers the first three days from either start, so nobody changes the schedule the night before (owner, 28 October 2026) | Large IB communities in the Gulf and Türkiye. Drawn on "D1.7 Season · Eid al-Fitr" (row 31): **a crescent and lanterns, chosen 28 October 2026** (owner); 6.5 |
-| Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon for 6.1) | 27 to 31 October 2027 (5 days) | A large IB community in India |
+| Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon: a season shows to everyone only after R.1) | 27 to 31 October 2027 (5 days, Dhanteras to Bhai Dooj; checked 30 October 2026) | A large IB community in India. Drawn on "D1.7 Season · Diwali" (row 32): **diyas and marigolds, chosen 30 October 2026** (owner); 6.6 |
 
 **Halloween is not a season** (D1.7): it falls on the eve of US Early Decision (1 November), when
 students are under the most pressure, and in 2027 its window would overlap Diwali.
@@ -3355,7 +3362,10 @@ students are under the most pressure, and in 2027 its window would overlap Diwal
 **No season during the IB's May exams** (about 23 April to 19 May 2027). No season runs around results
 days either (early July and early January): those days are for a message students can use, not
 decoration. Eid al-Adha is not a season for that reason: in 2027 it falls inside the May exams (about
-16 May).
+16 May). **The November session is allowed** (board "D1.7 Season · Diwali", 30 October 2026): it is
+the smaller one, and Diwali, which cannot move, falls inside it (23 October to 13 November in 2026).
+Diwali's window also ends on the eve of US Early Decision, the reason Halloween is left out; it stays
+for the five days, since the slots keep away from the pages where students work.
 
 
 ### 6.3 — Christmas: winter redrawn
@@ -3632,6 +3642,77 @@ preview with `?season=eid-al-fitr` before it merges:
   light and dark: https://claude.ai/artifact/4QYQuDgvo71PJ5xJzw2XRQ (private to the owner). Chrome on
   macOS only; Safari, iOS and Windows are for the owner's look in the preview. The admin page was not
   opened, since it needs an admin session: it lists seasons from `SEASONS`, and its route's tests pass.
+
+### 6.6 — Diwali
+
+**Outcome:** For the five days of Diwali the site plainly says so, alike on every landing page. The
+fourth season after Christmas, Lunar New Year and Eid al-Fitr.
+
+**When:** before 27 October 2027, when the window opens. Merge by 20 October 2027, so there is a week
+to schedule it and look at it in the preview. Release day never waits for it, and there is no hurry:
+8 November 2026 cannot be met, since before release day only the preview shows a season.
+
+**Design gate:** "D1.7 Season · Diwali" ([Step 2](#step-2--design-first)): a direction chosen on the
+board, then approved in this build's Vercel preview with `?season=diwali`, before it merges.
+
+**Must-haves:**
+- A new season in code: `public/seasons/diwali/` with `season.css` and the nine drawings, and a line
+  in `SEASONS` in `lib/seasons/seasons.ts`: key `diwali`, name "Diwali", which only the admin page
+  shows. The date follows the lunar calendar, so the admin enters it each year (6.2); the usual window
+  is the five days from Dhanteras to Bhai Dooj.
+- `season.css` has winter's shape, under `[data-season='diwali']`, and asks for every drawing with
+  `?v=` and the first 8 hex digits of its SHA-256, which `lib/seasons/art.test.ts` checks.
+- No slot changes: every drawing fits the slots as build 26 left them, so `app/globals.css` and the
+  components are untouched.
+- **The head script stays under 600 bytes, or the owner raises the limit.** The fourth key takes it
+  to about 626 with every season scheduled (6.5, Built), so it needs 27 bytes saved with the same
+  behaviour; the test that runs it against the helper must still pass.
+- Everything else in 6.1 holds: no words; nothing moves but the hero's one entrance; nothing
+  downloaded outside the season; the mark never changes; hidden in forced colours and print.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them, including the UK and Singapore guides.
+
+**Decided on the board ("D1.7 Season · Diwali", canvas row 32; direction A, diyas and marigolds, chosen
+by the owner on 30 October 2026).** The drawings are in the board's files on the canvas
+(`project/diwali/a/`) and on its standalone page,
+https://claude.ai/artifact/C1i3C7zQVhpJYQJqKGvZLb (private to the owner, `diwali/a/`). The build
+copies them, then the owner judges them in the preview.
+
+- **The header:** one lit clay diya, 15.8px wide, against the left edge of the 20 × 20 slot after the
+  name, never on the mark. It is narrower than the slot because signed in at 1440px the Matches pill
+  starts exactly where the slot ends: this leaves about 4px. Hidden as before from 768 to 1023px
+  signed in and on the quiet pages; at 320px signed in it stays inside 129 to 149px, 12px clear of
+  Guides. It passes the recognition check alone, so it is fine as the only decoration on Explore,
+  Matches, Shortlist and the program and university pages.
+- **The flame never appears without its bowl.** A flame alone means a streak, or something "hot".
+- **Home's hero:** five lit diyas, the middle one largest, in the hero's slot (the word's width, 0.33em
+  deep, 11px above the paragraph), with D1.6's one entrance. They stand under the lime bar rather than
+  hang from it, since a diya is set down, never hung. On a phone each is about 12px wide and reads
+  without the header's help, unlike the three heroes before it.
+- **The lime band, on all six pages with it:** four lit diyas standing on a marigold garland laid
+  flat, at the slot's right end, one drawing, as the band is lime in both themes: 330 × 60 from 768px,
+  150 × 27 below.
+- **The 404:** from 1280px, a toran with one strand short, its thread loose and its marigold on the
+  floor under it, above four lit diyas, in the 440 × 200 slot. Below 1280px, the band's drawing on
+  paper, at the band's sizes. **Every lamp stays lit:** a lamp knocked over or gone out is the wrong
+  picture for the festival of lights, so what has gone astray is a flower.
+- **Colours:** a clay, a flame with a lighter core, a marigold and a mango-leaf green, each with a
+  light and a dark shade (light clay #A9481C, flame #EE8A06, core #FFD65C, marigold #E8820C, leaf
+  #2F7D4A; dark clay #D2703A, flame #FFA62B, core #FFE48F, marigold #FFA53A, leaf #4FB27A; on the band,
+  clay #8F3A14, flame #E25A00, marigold #E0650A), used only in the season's drawings: never for text and
+  never as tokens, so `app/globals.test.ts` is untouched. The orange is near the "Within reach" amber
+  (`--close`), so it only ever fills a flame or a flower, never a plain dot, a bar or a chip. Threads
+  are #858277 in light and #9095A2 in dark.
+- **Not used:** Lakshmi, Ganesh, Rama or any other figure, and Lakshmi's footprints; the Om; the
+  swastika, a holy sign in Hinduism and Jainism that reads as a hate symbol to much of the world;
+  "Happy Diwali" or any other writing; fireworks and sparklers (sparkles mean AI, and firecrackers are
+  restricted in parts of India); the akash kandil, a third lantern after Lunar New Year and Eid, and
+  regional; sweets and gold coins. The flames do not flicker.
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` in
+  `public/seasons/diwali/`. In season, gzipped: Home about 2.9 KB, a guide or a text page 2.1, a page
+  with only the header 1.2, the 404 at 1440px 2.6 (Eid al-Fitr's drawings, measured the same way: 2.7,
+  2.0, 1.3, 2.2).
 
 ---
 
