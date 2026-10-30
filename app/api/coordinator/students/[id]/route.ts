@@ -296,23 +296,6 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       .then(() => logger.info('Student cache invalidated after coordinator update', { userId }))
       .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, userId }))
 
-    // Trigger match precompute in background
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const internalKey = process.env.INTERNAL_API_KEY
-
-    if (internalKey) {
-      fetch(`${appUrl}/api/students/matches/precompute`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-internal-key': internalKey
-        },
-        body: JSON.stringify({ studentId: userId })
-      }).catch((err) => {
-        logger.warn('Failed to trigger matches precompute', { error: err.message })
-      })
-    }
-
     return NextResponse.json({
       success: true,
       studentId: updatedStudent.id

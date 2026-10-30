@@ -32,8 +32,8 @@ always where you are.
 | 1 | Done, 30 October 2026 (#223) | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
 | 2 | Done, 30 October 2026 (#226) | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
 | 3 | Done, 30 October 2026 (#227) | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
-| 4 | **Next** | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
-| 5 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
+| 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
+| 5 | **Next** | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
@@ -145,9 +145,10 @@ deletes today's design.
 | npm 12: the `allowScripts` list | 6.7, step 5 | 27 October 2026 | `allowScripts` denies the five dependency install scripts, none needed, and `.npmrc` sets `strict-allow-scripts=true`: an unreviewed script fails `npm ci`, so CI catches it before merge. npm 12 will change nothing here. 6.7 is done |
 | Matching in the Privacy Policy draft | 7.8 | 30 October 2026 | "How matching works" in section 3 of the draft and its redline, each statement checked against the code, and question 13 for the lawyer. Nothing published |
 | Matches keeps every program a student qualifies for | 5.40 | 30 October 2026 | The points window has no lower end, so "Meets all requirements" holds what Explore's switch holds: 8 on the owner's account, not 2. No score moved. `worked-examples.test.ts` holds XI's examples to the code |
+| Stop precomputing a list nobody reads | 5.42 | 30 October 2026 | The route, its two callers, `searchCandidatePrograms`, `isAlgoliaAvailable` and `INTERNAL_API_KEY` are gone. A save costs one Algolia search, one programs read and one Redis write less. Found 5.46 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -158,6 +159,10 @@ Tasks here do not depend on the rebranding.
 done or decided (#204–#213); what is left is the owner's, in its "Left for the owner" (SEC-4 on
 release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
 October 2026; a new finding gets a row here.
+
+| Session | Tasks | Size | What it is |
+|---|---|---|---|
+| A save clears the list before answering | 5.46 | small | Three save routes clear the cached list without waiting for it, so a save may not show on Matches at once. Unproven: from reading the code. Independent of the matching order |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
@@ -248,10 +253,11 @@ Phase 5 — quick wins
 - [x] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1) — 27 October 2026; 47 programs
 - [x] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged — 30 October 2026
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
-- [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
+- [x] 5.42 Stop precomputing a match list nobody reads (from 5.40) — 30 October 2026
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI)
 - [ ] 5.44 Show coordinators the list the student sees (from 5.40)
 - [ ] 5.45 Correct what the public pages say about matching (from 5.40)
+- [ ] 5.46 Clear the cached list before a save answers (from 5.42)
 
 Phase 6 — dependency majors
 
@@ -2978,7 +2984,7 @@ in the order at the top of this file. Update XI so that it no longer lists these
 
 ---
 
-### 5.42 — Stop precomputing a match list nobody reads
+### 5.42 — Stop precomputing a match list nobody reads — **done**
 
 **Outcome:** Saving a profile no longer runs an Algolia search, a programs read and a Redis write for a
 value that is thrown away.
@@ -3003,6 +3009,13 @@ since the V10 key was added.
 
 **Verify:** `npm test`. In the preview, a saved profile shows on Matches at once. The Algolia usage
 script's figure falls by the saves, or stays flat.
+
+**Done (30 October 2026, #228).** Step 1 held: the value was reachable only from the coordinator pages, for a
+student with no fields or countries, and they compute the same list on a miss. Step 3 found no test that
+covered it, because the calls ran only with `INTERNAL_API_KEY` set; both routes' tests now hold that a save
+clears the list and calls no other route. `isAlgoliaAvailable` and the 300-candidate limit went with
+`searchCandidatePrograms`. Algolia stood at 3,215 of 10,000 for October, on pace for 3,300, on the day of
+the change. The owner removes `INTERNAL_API_KEY` from Vercel and from `.env`.
 
 **Session size:** Small. Independent.
 
@@ -3130,9 +3143,9 @@ repeats that for up to 50 students, so up to about 135 MB on a cold cache for on
 
 **Steps:**
 
-1. Check the callers with grep, since 5.42 changes them. On 30 October 2026, after 5.42 the callers of
-   `getCachedMatches` are the three below and `app/api/coordinator/analytics/route.ts`, which nothing
-   calls; `getCachedMatch` has no caller outside its tests.
+1. Check the callers with grep. On 30 October 2026, after 5.42 the callers of `getCachedMatches` are the
+   three below, `app/api/coordinator/analytics/route.ts`, which nothing calls, and `scripts/perf-test.ts`,
+   which step 5's deletion breaks; `getCachedMatch` has no caller outside its tests.
 2. A pure helper in `lib/matching/match-list.ts`, say `rankedResults(results, programs, total)`: the
    results in the order the student's page shows them, by status as `GROUPS` lists them, then
    `compareBestFit`. Results whose program has gone are left out, as in `matchItems`.
@@ -3216,6 +3229,32 @@ words. The pages stay static.
 **Load:** none. Words on prebuilt pages.
 
 **Session size:** Tiny. After 5.43 Part A.
+
+---
+
+### 5.46 — Clear the cached list before a save answers
+
+**Outcome:** Once a save has answered, Matches cannot read the list from before it.
+
+**Why (found 30 October 2026, in 5.42):** three routes start `invalidateStudentCache` and answer without
+waiting for it: `app/api/students/profile/route.ts`, `app/api/students/profile/preferences/route.ts` and
+`app/api/coordinator/students/[id]/route.ts`. Vercel can freeze a function once it has answered, so the clear
+may stall until something wakes it, and the student's next load can read the old list for up to 30 minutes.
+Even when it runs, a page that opens straight after the save races it. The two account-deletion routes
+already use `after()`. This comes from reading the code: nobody has seen it happen, and no log was checked.
+
+**Steps:**
+
+1. In a preview, change a grade and open Matches at once, several times, to see whether it happens.
+2. `await invalidateStudentCache(...)` in the three routes. It catches its own errors, so a Redis outage
+   cannot fail a save. `after()` is not enough here: it runs after the answer, so the race stays.
+
+**Must not:** add a read of any service: the same commands run, only earlier.
+
+**Verify:** `npm test`, with a route test per route that holds the answer back until the clear finishes.
+A save takes a few tens of milliseconds longer: one scan and one delete after 5.44.
+
+**Session size:** Small. Independent. After 5.44, whose `invalidateStudentCache` runs one scan, not three.
 
 ---
 

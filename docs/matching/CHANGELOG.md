@@ -4,6 +4,25 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-30] - A save no longer precomputes a list (MAINT 5.42)
+
+### Removed
+
+- **`POST /api/students/matches/precompute`**, the two calls to it from a profile save and a coordinator
+  edit, `searchCandidatePrograms`, `isAlgoliaAvailable` and `INTERNAL_API_KEY`. The route stored its list
+  under `matches:…`, with the count of an Algolia search, while Matches reads `matchesV10:…`. Only the
+  coordinator pages could reach it, for a student with no fields or countries, and they compute the same
+  list on a miss.
+- **No score, list or order moved.** `invalidateStudentCache` still runs on a save, so Matches computes
+  on the next load, as it did. Each save now costs one Algolia search, one programs read, one profile read,
+  one rate-limit count and one Redis write less.
+
+### Testing
+
+- Both routes' tests hold that a save clears the student's cached matches and calls no other route.
+
+---
+
 ## [2026-10-30] - Matches keeps every program a student qualifies for (MAINT 5.40)
 
 ### Changed
