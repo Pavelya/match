@@ -363,7 +363,7 @@ merges into `main`, behind the preview switch.**
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
 | 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year. **Built 26 October 2026**: the tree's nine drawings, the band's slot on all six pages, 330 × 60 from 768px; waits on the owner's look in the pull request's preview |
 | 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February. **Built 26 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; waits on the owner's look in the pull request's preview |
-| 29 | Eid al-Fitr | 6.5 | D1.7 Season · Eid al-Fitr: direction A, crescent and lanterns, chosen 28 October 2026; approved in this build's preview | small | **Unlocked 28 October 2026:** the crescent and lanterns, drawn in 6.5's "Decided on the board". A new season under the key `eid-al-fitr`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 1 March 2027, a week before the window opens on 9 March |
+| 29 | Eid al-Fitr | 6.5 | D1.7 Season · Eid al-Fitr: direction A, crescent and lanterns, chosen 28 October 2026; approved in this build's preview | small | **Unlocked 28 October 2026:** the crescent and lanterns, drawn in 6.5's "Decided on the board". A new season under the key `eid-al-fitr`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 1 March 2027, a week before the window opens on 9 March. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter to stay under 600 bytes with a third key; waits on the owner's look in the pull request's preview |
 | 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
@@ -404,7 +404,7 @@ Rows 3 and 4 can share a design session.
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
 | 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
 | 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges, by 27 January 2027 |
-| 29 | `/design D1.7 Season · Eid al-Fitr`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, crescent and lanterns, 28 October 2026), then **the build's Vercel preview with `?season=eid-al-fitr`**, before it merges | `/build 29`: Eid al-Fitr (6.5) | Design done 28 October 2026. Build by 1 March 2027 |
+| 29 | `/design D1.7 Season · Eid al-Fitr`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, crescent and lanterns, 28 October 2026), then **the build's Vercel preview with `?season=eid-al-fitr`**, before it merges | `/build 29`: Eid al-Fitr (6.5) | Design done 28 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 1 March 2027 |
 | 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
@@ -474,7 +474,7 @@ Phase 6 — Seasonal themes
 - [ ] 6.2 Each further season
 - [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
 - [x] 6.4 Lunar New Year (26 October 2026; merged once the owner approves it in the preview)
-- [ ] 6.5 Eid al-Fitr
+- [x] 6.5 Eid al-Fitr (30 October 2026; merged once the owner approves it in the preview)
 
 Release
 
@@ -3593,6 +3593,39 @@ them, then the owner judges them in the preview.
   `public/seasons/eid-al-fitr/`. In season, gzipped: Home about 2.7 KB, a guide or a text page 2.0, a
   page with only the header 1.3, the 404 at 1440px 2.2 (Lunar New Year's drawings, measured the same
   way: 2.4, 1.7, 1.1, 1.9).
+
+**Built (30 October 2026, session 29).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=eid-al-fitr` before it merges:
+- **Art:** the nine drawings from the board's `eid/a/` in `public/seasons/eid-al-fitr/`, byte for byte
+  (each checked against the board's SHA-256), and `season.css` in winter's shape under
+  `[data-season='eid-al-fitr']`, each drawing asked for with `?v=` and its SHA-256's first 8 hex
+  digits. `SEASONS` gains `eid-al-fitr`, "Eid al-Fitr", with the usual window written as "the expected
+  first day and the three days after it (9 to 12 March in 2027)", which the admin page shows. The
+  admin page lists it; its schedule needs no migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  all three seasons, and the head script is checked against the helper for the new key.
+- **The head script (`lib/seasons/pick.ts`):** the third key took it to 629 bytes with every season
+  scheduled, over 6.1's 600, so it was written shorter with the same behaviour (arrow functions,
+  `includes`, `some`, one name for `document`; Next's browser targets all have them). It is 580 bytes
+  with all three scheduled and 457 with none. **Diwali's key will take it to about 626**, so that
+  build has to find 27 bytes more or ask the owner to raise the limit.
+- **Measured** (`next start` with the preview, headless Chrome): every slot's box and position is
+  build 27's; the band 8px above its heading at 768px and 13px on a phone; the drawing 129 to 149px
+  at 320px signed in, Guides from 162px; at 1440px signed in its ink ends 4.5px before the Matches
+  pill; hidden in forced colours, in print, signed in at 900px and on the legal pages; the hero still
+  with reduced motion; CLS 0 on every public page, and Matches' 0.046 is the same with no season.
+  Against a build of `main`, `npm run build` lists the same pages, Static pages and revalidate times;
+  no prerendered HTML names the season, and the only JS change is the admin chunk. Winter and Lunar
+  New Year still load. In season, gzipped: Home 2.7 KB, a guide or text page 2.0, header only 1.2, the
+  404 at 1440px 2.2, as the board said.
+- **Left as drawn:** the band's cords start 12px below its top edge (8px on a phone), where the slot
+  starts, although the notes above say they hang from the edge. The board placed the drawing in the
+  same box, and the slots don't change for a season. Below 1280px, the 404's cords hang from nothing
+  on paper, for the same reason.
+- **QA:** whole pages, every page type with a slot including the UK and USA guides, 1440px and 390px,
+  light and dark: https://claude.ai/artifact/4QYQuDgvo71PJ5xJzw2XRQ (private to the owner). Chrome on
+  macOS only; Safari, iOS and Windows are for the owner's look in the preview. The admin page was not
+  opened, since it needs an admin session: it lists seasons from `SEASONS`, and its route's tests pass.
 
 ---
 

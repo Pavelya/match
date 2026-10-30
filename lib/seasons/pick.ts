@@ -77,5 +77,5 @@ function inline(value: unknown): string {
  * and adds `/seasons/{key}/season.css`, so outside a season nothing is downloaded.
  */
 export function seasonScript(schedule: readonly SeasonWindow[]): string {
-  return `(function(){try{var s=${inline(schedule)},k=${inline(SEASON_KEYS)},n=new Date(),t=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2)+'-'+('0'+n.getDate()).slice(-2),c=new URLSearchParams(location.search).get('season'),i,l;if(k.indexOf(c)<0)c=null;for(i=0;!c&&i<s.length;i++)if(s[i][1]<=t&&t<=s[i][2])c=s[i][0];if(c){document.documentElement.setAttribute('data-season',c);l=document.createElement('link');l.rel='stylesheet';l.href='/seasons/'+c+'/season.css';document.head.appendChild(l)}}catch(e){}})()`
+  return `(()=>{try{var s=${inline(schedule)},k=${inline(SEASON_KEYS)},n=new Date(),t=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2)+'-'+('0'+n.getDate()).slice(-2),c=new URLSearchParams(location.search).get('season'),d=document,l;c=k.includes(c)&&c;c||s.some(w=>w[1]<=t&&t<=w[2]&&(c=w[0]));if(c){d.documentElement.setAttribute('data-season',c);l=d.createElement('link');l.rel='stylesheet';l.href='/seasons/'+c+'/season.css';d.head.appendChild(l)}}catch{}})()`
 }
