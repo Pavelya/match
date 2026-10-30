@@ -277,7 +277,7 @@ pages. MAINT 5.43 takes them up.
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------- |
 | More points short can score higher: the factor is 0.8 up to 3 short, then $1 - d/m$      | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 8 short 0.88 | Fix            |
 | Being open lowers the number: no fields gives F_M 0.5 with its weight kept               | A perfect match reads 95% with no fields, 93% with no fields or countries   | Fix            |
-| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone                | 301 of 1,676 programs, 280 in the US; a student on 24 and on 45 both get 1.00 | Owner decision |
+| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Owner decision |
 | Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
 
 Separately, coordinators see a different list from the student's: the second row of "Where each path

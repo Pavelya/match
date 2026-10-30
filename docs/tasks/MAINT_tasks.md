@@ -29,19 +29,33 @@ always where you are.
 
 | Step | Status | Paste this | What it does | What you do | Usage |
 |---|---|---|---|---|---|
-| 1 | **Next** | Nothing: no session | Version XI, this table and tasks 5.40–5.44 reach `main` (#223) | Merge #223. Give the step 2 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
-| 2 | Waiting | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
-| 3 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
-| 4 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
-| 5 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
-| 6 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
-| 7 | Waiting | `/build 30` | Builds what you decided, with "How it works" and "Why this match" changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
-| 8 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
+| 1 | **Next** | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
+| 2 | Waiting | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
+| 3 | Waiting | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
+| 4 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
+| 5 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
+| 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
+| 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
+| 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
+| 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
 
-**Where release day falls.** Steps 1–5 go before release day (R.1). Steps 6 and 7 should, but do not hold
-it up: if the board is not approved by then, they follow it. Step 8 waits for cleanup (R.2), because
+**Where release day falls.** Steps 1–7 go before release day (R.1). Steps 8 and 9 should, but do not hold
+it up: if the board is not approved by then, they follow it. Step 10 waits for cleanup (R.2), because
 today's route still sends the labels it removes. Release and cleanup themselves are in
 `REBRANDING_tasks.md`, and nothing else in that file changes for this work.
+
+**Terms, policies and public pages: checked 30 October 2026 against steps 1–10.**
+
+| Page or document | Change needed | Why |
+|---|---|---|
+| Terms of Service | None | "Estimates", "do not guarantee admission" and section 11 already cover every step |
+| Privacy Policy | One paragraph, step 2 | It says nothing about matching being a calculation. Not caused by this work: no step adds or moves data, and its coordinator list and 30-minute cache stay true |
+| Cookie Policy | None | No step stores anything new in a browser |
+| Invitation consent box | None, and no new consent | It already lists "your program matches and saved programs", so step 5 shows coordinators nothing new |
+| How it works, FAQ | Words, step 7. Then step 9, if the weights or statuses change | "Every program gets a fit score" and "Fast, accurate matching" say too much; the FAQ leaves out what coordinators see |
+| Home, For schools, requirements hub, other guides | None | Their words stay true, and a test holds Home's preview to the matcher |
+| France guide | Step 9, if the board moves its programs | It says IB Match shows 24 where no minimum is published |
 
 **You are finished when:**
 
@@ -49,9 +63,10 @@ today's route still sends the labels it removes. Release and cleanup themselves 
 - `lib/matching/worked-examples.test.ts` passes, so XI's examples are what the code does;
 - one path scores students' lists: `getCachedMatchesV10` for Matches and coordinators;
 - nothing imports Version X's scoring, or you decided to keep it and XI says what it does;
+- How it works, the FAQ and the Privacy Policy draft say what the matcher does;
 - the usage below is under every stop line.
 
-**The free-tier guard.** Together these steps should lower usage: steps 3, 4 and 8 remove more than step 2
+**The free-tier guard.** Together these steps should lower usage: steps 4, 5 and 10 remove more than step 3
 adds. No step may add a read of any service; each task's "Must not" says so. If a stop line below is
 crossed, finish the pull request in hand, start no new step, and find the cause first.
 
@@ -63,7 +78,7 @@ crossed, finish the pull request in hand, start no new step, and find the cause 
 | Algolia requests | 10,000 | On pace for 8,000 | `npx tsx scripts/algolia-usage.ts` (a session can run it) |
 | Supabase egress | 5 GB | 4 GB | Supabase dashboard (you) |
 
-Look at these a week after steps 2 and 4, the two that move Upstash most. The last Upstash figures on
+Look at these a week after steps 3 and 5, the two that move Upstash most. The last Upstash figures on
 record are 1 GB and 6.1K commands for 1–11 October 2026, before 5.19.
 
 ---
@@ -141,7 +156,7 @@ done or decided (#204–#213); what is left is the owner's, in its "Left for the
 release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
 October 2026; a new finding gets a row here.
 
-The matching tasks 5.40–5.44 run in the order at the top of this section, not from here.
+The matching tasks 5.40–5.45 and 7.8 run in the order at the top of this section, not from here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -150,11 +165,11 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 
 | After | Session | Tasks | Size | Why it waits |
 |---|---|---|---|---|
-| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
+| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents, with 7.8's paragraph, in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
-| R.2 | Version X's unused scoring | 5.41 | small | Step 8 in the matching order at the top of this section |
+| R.2 | Version X's unused scoring | 5.41 | small | The last step in the matching order at the top of this section |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 | R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
@@ -233,6 +248,7 @@ Phase 5 — quick wins
 - [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI)
 - [ ] 5.44 Show coordinators the list the student sees (from 5.40)
+- [ ] 5.45 Correct what the public pages say about matching (from 5.40)
 
 Phase 6 — dependency majors
 
@@ -259,6 +275,7 @@ Phase 7 — structural
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Parts A and B done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
+- [ ] 7.8 Say in the Privacy Policy that matching is a calculation, not a decision (from 7.4 and 5.40)
 
 Owner tasks — not AI work
 
@@ -2933,7 +2950,7 @@ program does not ask for.
 **Verify:** the fingerprint: identical for deletions, every difference explained for adoptions. `npm
 test`.
 
-**Session size:** Research small; the change small for deletions, medium for adoptions. After R.2: step 8
+**Session size:** Research small; the change small for deletions, medium for adoptions. After R.2: the last step
 in the order at the top of this file. Update XI so that it no longer lists these modules.
 
 ---
@@ -2985,7 +3002,7 @@ should differ, with counts from the catalogue.
 |---|---|---|---|
 | 1 | **More points short can score higher.** In `calculateFullRequirementsMatch` the factor is 0.8 for 1 to 3 short, then $1 - d/m$ from 4, which starts above 0.8 | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 7 short 0.895, 8 short 0.88. A program 5 short shows a higher fit than one 1 short | Bug |
 | 2 | **Being open lowers the number.** No fields listed gives F_M 0.5, though no countries gives L_M 1.0 with its weight removed | A perfect match reads 95% with no fields, 93% with no fields or countries, 100% with both listed. The order inside the list does not change | Bug |
-| 3 | **"Meets" can mean no bar at all.** A program with no minimum and no subjects scores 1.0 and "meets" for anyone | 301 of 1,676 programs, 280 of them in the US, and 241 of the 286 US programs are at universities admitting under 20%. A student on 24 and on 45 both get 1.00. Another 357 have the diploma pass mark, 24, as their minimum. Their chip and last place in the order soften it, but they count in the heading | Owner |
+| 3 | **"Meets" can mean no bar at all.** A program with no minimum and no subjects scores 1.0 and "meets" for anyone with a Diploma | 301 of 1,676 programs, 280 of them in the US, and 241 of the 286 US programs are at universities admitting under 20%. A student on 24 and on 45 both get 1.00. Another 174 have a minimum of 24, the Diploma itself, and no subjects: Netherlands 45, Italy 29, Czechia 21, Japan 15, Austria 14 and others. In France that 24 is a stand-in ("Where no minimum is published, IB Match shows 24 points"). So up to 475, 28% of the catalogue. Their chip and low place in the order soften it, but they count in the heading | Owner |
 | 4 | **Field counts for a third of country.** $w_F=0.1$, $w_L=0.3$ | Wrong field in their country 0.90; right field elsewhere 0.70. Law at home ranks above Medicine abroad for a student who chose Medicine, once a list reaches outside their preferences (29 of 163 today) and on Explore's Best fit | Owner |
 
 **Checked and fine, so no change:** with the critical flag, on 83% of requirement rows (5,397 of 6,474), a
@@ -2995,7 +3012,7 @@ On unflagged rows it runs from 0.40 to 0.69, which is not worth a rule of its ow
 costs nothing, and that stays: the order puts the closest minimum first, and penalising a low minimum
 would push down programs like École polytechnique, whose real bar is far above it.
 
-**Part A: the two fixes** (step 5 in the order table). No board: statuses and screens do not change.
+**Part A: the two fixes.** No board: statuses and screens do not change.
 
 1. **Fix 1.** One curve that falls with each point and does not depend on the program's minimum. Starting
    proposal, $\max(0.5,\ 0.85 - 0.03(d-1))$, which gives with subjects met: 1 short 0.90, 2 short 0.892, 3
@@ -3006,7 +3023,7 @@ would push down programs like École polytechnique, whose real bar is far above 
    match reads 100%.
 3. **Docs:** in `DOC_2_matching-algo XI.md`, move both out of "Known problems", state the new rules and
    take the version to XI.1. Update `lib/matching/worked-examples.test.ts`' cases to match, a dated
-   `CHANGELOG.md` entry, and step 5 in the order table.
+   `CHANGELOG.md` entry, and this step in the order table.
 4. **After merging, once:** clear the cached matches, since scores changed. `clearAllMatchCache` from a
    `npx tsx` one-liner; the session gives the owner the command. It costs one recompute per student at
    their next load, and old values expire in 30 minutes anyway, so this only makes it immediate.
@@ -3024,14 +3041,15 @@ would push down programs like École polytechnique, whose real bar is far above 
 - The fingerprint's scores move, by design. Each fix is its own commit, and the pull request explains
   every kind of difference.
 
-**Part B: the two decisions** (steps 6 and 7). A change board, then build session 30 in
+**Part B: the two decisions.** A change board, then build session 30 in
 `REBRANDING_tasks.md`.
 
 5. **The owner decides finding 3.** Options: a group of its own, "No IB minimum", beside the three, for
    programs with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended:
    its own group. "Meets all requirements" stays true for everything in it. It reverses "The status stays
-   Meets all requirements" (D2.7 change, D3.1), so it needs the board. A 24 minimum is treated
-   differently, recommended: those programs state a rule, and many name subjects.
+   Meets all requirements" (D2.7 change, D3.1), so it needs the board. Recommended: the 174 at 24 with no
+   subjects go with them, since any Diploma meets them, and the group's name fits both. The 183 at 24
+   that name subjects stay in Meets: those subjects are a real bar.
 6. **The owner decides finding 4.** Options: leave it; equal weights, $w_L=w_F=0.2$; or field above
    country, $w_L=0.1$, $w_F=0.3$. Recommended: decide with the real lists under each on the board. It
    changes 5.27's tier order, and Explore's Best fit must stay equal to Matches'.
@@ -3042,7 +3060,9 @@ would push down programs like École polytechnique, whose real bar is far above 
      (`app/how-it-works/NewHowItWorks.tsx`, `app/how-it-works/_components/MatchingEngine.tsx`);
    - "Why this match" (`lib/matching/match-why.ts`);
    - any other public page that states them: `git grep` for "60%" and the status names;
-   - XI, to XI.2, with the worked examples test; `CHANGELOG.md`; step 7 in the order table.
+   - the France guide's "IB Match shows 24 points", if its programs move, in both `guide.ts` and
+     `FranceContent.tsx`; `docs/legal-review/claims.md`'s H12 if the weights change;
+   - XI, to XI.2, with the worked examples test; `CHANGELOG.md`; this step in the order table.
    Then clear the cached matches once, as in Part A.
 
 **Tests for Part B:** as the board decides, at least: the group's membership on Matches equals Explore's
@@ -3104,7 +3124,7 @@ repeats that for up to 50 students, so up to about 135 MB on a cold cache for on
    `clearAllMatchCache`, and `invalidateProgramCache` with its one call in
    `app/api/admin/programs/[id]/route.ts`: it only clears `match:` keys, which nothing writes by then. Old
    `matches:` values expire within 30 minutes.
-6. Docs: "Where each path runs" and "Known problems" in XI, a dated `CHANGELOG.md` entry, and step 4
+6. Docs: "Where each path runs" and "Known problems" in XI, a dated `CHANGELOG.md` entry, and this step
    in the order table.
 
 **Tests (Vitest, next to the code):**
@@ -3135,6 +3155,44 @@ shows the same chart. Saving the student's profile shows on both at once.
 
 **Session size:** Small. After 5.42, and independent of the rebranding: the coordinator portal keeps its
 design.
+
+---
+
+### 5.45 — Correct what the public pages say about matching
+
+**Outcome:** How it works and the FAQ say only what the matcher does.
+
+**Why (found 30 October 2026, checking the public pages against Version XI):**
+
+| Where | Today | Problem | Recommended |
+|---|---|---|---|
+| How it works, both designs (`NewHowItWorks.tsx`, `_components/MatchingEngine.tsx`) | "Every program gets a fit score from 0 to 100%" ("a compatibility score" in today's) | Only the programs on a student's list are scored | "Every match gets a fit score from 0 to 100%" |
+| How it works, both designs (`NewHowItWorks.tsx`, `_components/HowItWorksHero.tsx`) | "Fast, accurate matching" | The Terms disclaim accurate scores, section 11, and programs' data can be out of date | "Fast matching from published requirements" |
+| `app/how-it-works/page.tsx`, the structured data's `articleBody` | Three factors named IB Points Compatibility, Subject Match and Preference Alignment | Not the three on the page | Academic match, Location match and Field match, as the page has them |
+| `app/faqs/page.tsx`, "Can coordinators at my school see my information?" | "can view your academic profile" | Coordinators also see matches and saved programs, as the consent box, Settings and the Privacy Policy say | "can view your academic profile, matches and saved programs" |
+
+**Steps:**
+
+1. The owner approves the words in the pull request: words only, as for 5.38. Record it on D4.14 in
+   `REBRANDING_tasks.md`.
+2. Change each in both designs where it appears.
+3. Add a row for each to `docs/legal-review/claims.md`, and a line to `lawyer-brief.md`'s question 11 if
+   the lawyer has not answered yet.
+4. Bump `/how-it-works` in `lib/page-dates.ts`. Leave `/faqs` to #127, which sets it on release day. #127
+   changes three other FAQ answers, so the two do not meet.
+
+**Tests:** `app/public-claims.test.tsx`: "Every program gets" and "accurate matching" are refused.
+`app/public-seo-claims.test.tsx`: the structured data names the page's three factors. The FAQ answer names
+matches and saved programs.
+
+**Must not:** change a score, a weight or any page's layout; touch the 23 guides.
+
+**Verify:** the tests and the standing verification commands. Both designs of How it works read the new
+words. The pages stay static.
+
+**Load:** none. Words on prebuilt pages.
+
+**Session size:** Tiny. After 5.43 Part A.
 
 ---
 
@@ -5009,6 +5067,48 @@ the weights hash leaving out one weight: 6 fail; the V10 read never storing: 6 f
 `invalidateStudentCache` missing the V10 keys: 2 fail. `npm test`, type-check, `eslint . --max-warnings
 0`, `prettier --check .` and `npm run build` are clean. No Redis, database or network was reached by
 the tests.
+
+---
+
+### 7.8 — Say in the Privacy Policy that matching is a calculation, not a decision
+
+**Outcome:** The Privacy Policy draft says plainly how a student's data becomes a match, and that it
+decides nothing about them. The lawyer has the question in the same review.
+
+**Why (found 30 October 2026, checking the legal drafts against Version XI):** none of the matching work
+adds or moves data, so nothing in 5.40–5.45 needs a change here. But the drafts never say what matching
+is. Section 3 says only "Provide personalized program recommendations". IB Match scores the grades and
+preferences of people aged 16 to 19, and the words "profiling" and "automated decision" appear nowhere.
+GDPR Article 4(4) defines profiling, Article 22 covers decisions with legal or similar effects, and
+recitals 60 and 71 touch on telling people about profiling and on children. Whether any of it applies
+here is the lawyer's question, not ours. The likely answer is that nothing is decided, since no university
+sees a match. The honest paragraph is short either way.
+
+**Steps:**
+
+1. In `docs/legal-review/privacy-policy.proposed.md`, after the list in section 3, and in its redline:
+
+   > **How matching works.** We compare your subjects, grades, total points and chosen fields and
+   > countries with each program's published requirements, using fixed rules, not artificial intelligence.
+   > The result is shown to you, and to your school's coordinators if you have linked to a school. It is
+   > guidance only: it makes no decision about you, and universities do not see it. [LAWYER: is this
+   > profiling under Article 4(4), and does it need saying differently because students may be 16 or 17?]
+
+   Check each statement against the code first.
+2. Add question 13 to `lawyer-brief.md`, in its numbered list.
+3. Update the stale row in `product-today.md`: matches are cached under `matchesV10:…`, and `matches:…`
+   until 5.44 removes it.
+4. Note in 7.4's status that the draft changed after 24 October 2026.
+
+**Must not:** publish anything; change a consent flow; touch the Terms or the Cookie Policy, which need no
+change. No `[LAWYER: …]` tag may remain when it is published (7.4 step 5). Publish once, with the rest of
+7.4 on release day, since a later change means a second policy notice to every student.
+
+**Verify:** `npx prettier --check docs/legal-review`. The redline shows only this paragraph.
+
+**Load:** none. Docs only.
+
+**Session size:** Tiny. First in the matching order, so it reaches the lawyer with the rest.
 
 ---
 
