@@ -4,6 +4,18 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-30] - Version XI of the algorithm document
+
+### Documentation
+
+- **`DOC_2_matching-algo XI.md` is the baseline.** It describes production, written from the code. No
+  score changed. Version X is kept, marked as a specification: most of it never reached the score.
+  `calculateMatch` runs Version IX's core, and fit quality, selectivity, category and confidence are
+  attached after scoring and read by no screen. XI adds what neither version had: courses of their own,
+  the status, the order and the paths each caller takes.
+
+---
+
 ## [2026-10-27] - "Two of" rules stored as two requirements (MAINT 5.39)
 
 ### Changed
