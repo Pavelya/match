@@ -8,8 +8,8 @@ All notable changes to the matching algorithm are documented in this file.
 
 ### Documentation
 
-- **`DOC_2_matching-algo XI.md` is the baseline.** It describes production, written from the code. No
-  score changed. Version X is kept, marked as a specification: most of it never reached the score.
+- **`DOC_2_matching-algo XI.md` is the master version (owner, 30 October 2026).** It describes
+  production, written from the code, and lists its known problems (MAINT 5.43). No score changed. Version X is kept, marked as a specification: most of it never reached the score.
   `calculateMatch` runs Version IX's core, and fit quality, selectivity, category and confidence are
   attached after scoring and read by no screen. XI adds what neither version had: courses of their own,
   the status, the order and the paths each caller takes.

@@ -63,7 +63,7 @@ fit (the board D3.5 Sort · best fit and session 25 here); 7.4: the legal docume
 published on release day, and the public pages' wording, which is code (#157 and the SEO pull request #158) and
 may merge before it; and 5.26, a production bug that can go any
 time. Added 28 October 2026, changed 30 October: 5.40, no lower end to Matches' points window, so
-Matches and Explore's switch agree; one line of words, picked by the owner in chat. The order of all the open MAINT work is in that file's "Start here".
+Matches and Explore's switch agree; the one line of words is decided. The order of all the open MAINT work is in that file's "Start here".
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
@@ -1056,6 +1056,9 @@ phone" (row 11).
   countries near your total. Explore has every program, each with your fit." When the matcher widened
   its search (fewer than 10 candidates), the summary says "Few programs fit your fields and countries,
   so this list also includes others near your total"; the route needs to return the tier it used.
+  **Changed 30 October 2026 (owner, `MAINT_tasks.md` 5.40): words only.** The list ends "That's every
+  program in your fields and countries, apart from those far above your total. Explore has every
+  program, each with your fit." It takes effect with 5.40.
 - **The profile beside the list** (D4.6, desktop). A flat panel at 320px, sticky: the predicted total,
   the six subjects by short name, TOK and EE, fields, countries, and Edit to Academic, then the line
   about intakes. It comes in the matches response (no extra database read), so loading and a failed

@@ -3,7 +3,8 @@
 **Version:** XI (11.0)  
 **Supersedes:** Version X as the baseline  
 **Date:** 30 October 2026  
-**Status:** Describes production. Written from the code on `main`; no score changed to issue it.
+**Status:** Master (owner, 30 October 2026). Describes production, written from the code on `main`; no
+score changed to issue it.
 
 ---
 
@@ -18,6 +19,9 @@ gained rules neither document has: courses of their own (MAINT 5.18), the three-
 
 So XI states what runs. It proposes nothing. A change to the algorithm is a task in `MAINT_tasks.md`,
 and that task updates this document and `CHANGELOG.md` in the same pull request.
+
+Master means this is the reference for what runs, and what any change must update. It does not mean every
+rule is right: see [Known problems](#known-problems).
 
 ### Version X against production
 
@@ -258,6 +262,25 @@ Run through the production scorer on 30 October 2026 with `BALANCED`, not comput
 | 38, Maths HL 5                       | 40, Maths HL 6 critical, own field and country | 0.80 | G_M 0.85 × 0.8 = 0.68; raw 0.808; capped at 0.80  |
 | 40, Maths HL 6, no countries listed  | 38, no subjects, own field             | 1.00  | Weights 0.857 and 0.143                                   |
 | 42, no Physics                       | 40, Physics HL 5 critical, own field and country | 0.40 | G_M 0; raw 0.40, already under the 0.45 cap     |
+
+---
+
+## Known problems
+
+Found by running the production scorer on pairs that should differ, 30 October 2026. The status is right in
+all of them, and on the new Matches page it sets the groups, so students are not misled about which group a
+program is in. They affect the fit number, the order inside a group, today's page and the coordinator
+pages. MAINT 5.43 takes them up.
+
+| Problem                                                                                  | Evidence                                                                    | Next           |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------- |
+| More points short can score higher: the factor is 0.8 up to 3 short, then $1 - d/m$      | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 8 short 0.88 | Fix            |
+| Being open lowers the number: no fields gives F_M 0.5 with its weight kept               | A perfect match reads 95% with no fields, 93% with no fields or countries   | Fix            |
+| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone                | 301 of 1,676 programs, 280 in the US; a student on 24 and on 45 both get 1.00 | Owner decision |
+| Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
+
+Not a problem: being over the minimum costs nothing. The minimum is a poor measure of how hard a program
+is, and the order already puts the closest first.
 
 ---
 

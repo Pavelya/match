@@ -88,8 +88,9 @@ October 2026; a new finding gets a row here.
 
 | Session | Tasks | Size | Why now |
 |---|---|---|---|
-| Matches keeps every program the student qualifies for | 5.40 | small | The owner picks one line of words in chat first. Matches scores only programs near the student's total, so Explore's switch finds more: 8 against 2 for the owner. Removes the window's lower end; scores do not change; about +10% Upstash bandwidth per load, measured. Before release day |
+| Matches keeps every program the student qualifies for | 5.40 | small | Decided 30 October 2026, words included. Matches scores only programs near the student's total, so Explore's switch finds more: 8 against 2 for the owner. Removes the window's lower end; scores do not change; about +10% Upstash bandwidth per load, measured. Before release day |
 | Stop precomputing a match list nobody reads | 5.42 | small | Each profile save runs an Algolia search and a Redis write for a value Matches never reads. Saves usage. Independent |
+| Make the score fair | 5.43 | small, then a board | After 5.40. Two fixes: 4 to 7 points short scores above 1 to 3 short, and being open to every field lowers the number. Then two owner decisions on a change board: "Meets" for programs with no requirements at all, and field against country. Statuses do not change with the fixes
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -179,6 +180,7 @@ Phase 5 — quick wins
 - [ ] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
+- [ ] 5.43 Make the score fair (from the owner's question on Version XI)
 
 Phase 6 — dependency majors
 
@@ -992,7 +994,7 @@ match" in `REBRANDING_tasks.md` phase 2.
 groups put a level gap ("Missing a requirement") and a point gap ("Within reach") in different groups,
 so students see the difference regardless of the score. Accepted until then: a level gap can show a
 higher fit than a point gap, and 1 and 3 points short score the same. **The whole matching math will be
-revisited later** as its own piece of work. The findings below are kept for that review.
+revisited later** as its own piece of work (now 5.43). The findings below are kept for that review.
 
 **Outcome:** An owner decision, recorded here, on whether a requirement met only at the wrong level
 (SL where HL is required) should rank below being a point short. If so, a scoring change with the
@@ -2779,13 +2781,10 @@ bytes a result (5.41).
 
 **Steps:**
 
-1. **The owner picks the words** (rebranding gates: the wording is D4.6's, decided in 2.2; a words-only
-   change is approved in chat and recorded as D4.17's was for 5.38). One line stops being true, the
-   list's last: "That's every program in your fields and countries near your total." Recommended: "That's
-   every program in your fields and countries, apart from those far above your total." The Explore
-   sentence after it stays. The summary, the group lines and `WIDENED_SUMMARY` stay. Record it in
-   `REBRANDING_tasks.md` 2.2 (the Groups bullet) as "Changed <date> (owner, `MAINT_tasks.md` 5.40):
-   words only".
+1. **Words, decided 30 October 2026 (owner, words only; recorded in `REBRANDING_tasks.md` 2.2):** the
+   list's last line, "That's every program in your fields and countries near your total.", becomes
+   "That's every program in your fields and countries, apart from those far above your total." The
+   Explore sentence after it stays. The summary, the group lines and `WIDENED_SUMMARY` stay.
 2. **Build.**
    - `filterByPointsRange` keeps every bucket from 0 up to the top of the window, for every tier. The
      tiers at ±20 and ±30 already have almost no floor, so one rule costs the same as limiting it to tier
@@ -2823,8 +2822,8 @@ bytes a result (5.41).
 
 **Today's page.** Matches in today's design shows the first 50 by score, and ties keep catalogue order.
 Of the 163 profiles, 90 have more than 50 matches and 47 of those gain programs, so which 50 they see can
-change until R.1. Those ties are already arbitrary, so this is accepted unless the owner says otherwise;
-otherwise merge on release day.
+change until R.1. Those ties are already arbitrary, so the owner accepted this on 30 October 2026, and
+5.40 can merge before release day.
 
 **Must not:** change any score, `pointsMargin`, the tiers or the status; add a database query, Redis
 call or Algolia request; put a cap on the results (D4.6: group before any cap); touch `RecommendationsClient`.
@@ -2838,8 +2837,8 @@ and the two lists hold the same programs, Cultural Communication and Earth Scien
 too (CDP `setDeviceMetricsOverride`). A week after merging, the Upstash usage tab shows bandwidth in
 line with the table.
 
-**Session size:** Small: the owner's words in chat, then one build session. Before release day, so the
-new Matches page and Explore agree from the start. Independent of other open tasks.
+**Session size:** Small: one build session. Before release day, so the new Matches page and Explore
+agree from the start. Independent of other open tasks.
 
 ---
 
@@ -2858,8 +2857,10 @@ needs them once R.2 deletes that route.
 
 **The question for the owner:** should a program far under a student's total, or one well above what
 they need, ever score lower? Today it never does, and 139 programs tied at 100% for the D4.6 student.
-5.15 says the whole matching math will be revisited later; this is that review, and 5.15's findings go
-into it.
+5.43 takes up 5.15's review. **Recommended: delete, and adopt none of it.** The IB minimum is a poor measure
+of how hard a program is, so a fit-quality curve would mark down a program for stating the pass mark, and
+the order already puts the closest minimum first. Version X's surplus bonus would reward grades that a
+program does not ask for.
 
 **Steps:**
 
@@ -2906,6 +2907,81 @@ since the V10 key was added.
 script's figure falls by the saves, or stays flat.
 
 **Session size:** Small. Independent.
+
+---
+
+### 5.43 — Make the score fair
+
+**Outcome:** A bigger gap never scores higher than a smaller one, an open student's perfect match reads as
+perfect, and "Meets all requirements" means something for every program it covers. The first two are
+fixes. The last two are the owner's decisions, and one reverses a decision already made.
+
+**Why (owner, 30 October 2026):** on making Version XI the master, the owner asked whether it is the right
+way to calculate, or should be fairer. Most of it holds. The status decides the groups from the program's
+real requirements, and the score only orders a group. That is right, and it protects students from every
+problem below on the new Matches page. But the score is still shown ("Why this match") and still orders
+today's page and the coordinator pages, and these came out of running the production scorer on pairs that
+should differ, with counts from the catalogue.
+
+| # | Finding | Evidence | Kind |
+|---|---|---|---|
+| 1 | **More points short can score higher.** In `calculateFullRequirementsMatch` the factor is 0.8 for 1 to 3 short, then $1 - d/m$ from 4, which starts above 0.8 | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 7 short 0.895, 8 short 0.88. A program 5 short shows a higher fit than one 1 short | Bug |
+| 2 | **Being open lowers the number.** No fields listed gives F_M 0.5, though no countries gives L_M 1.0 with its weight removed | A perfect match reads 95% with no fields, 93% with no fields or countries, 100% with both listed. The order inside the list does not change | Bug |
+| 3 | **"Meets" can mean no bar at all.** A program with no minimum and no subjects scores 1.0 and "meets" for anyone | 301 of 1,676 programs, 280 of them in the US, and 241 of the 286 US programs are at universities admitting under 20%. A student on 24 and on 45 both get 1.00. Another 357 have the diploma pass mark, 24, as their minimum. Their chip and last place in the order soften it, but they count in the heading | Owner |
+| 4 | **Field counts for a third of country.** $w_F=0.1$, $w_L=0.3$ | Wrong field in their country 0.90; right field elsewhere 0.70. Law at home ranks above Medicine abroad for a student who chose Medicine, once a list reaches outside their preferences (29 of 163 today) and on Explore's Best fit | Owner |
+
+**Checked and fine, so no change:** with the critical flag, on 83% of requirement rows (5,397 of 6,474), a
+level gap scores below a point gap (SL 7 for HL 6, 0.80, against 1 point short, 0.88), so 5.15's worry
+belongs to the unflagged rows; and one missing subject scores 0.40 to 0.45 however many the program lists.
+On unflagged rows it runs from 0.40 to 0.69, which is not worth a rule of its own. Being over the minimum
+costs nothing, and that stays: the order puts the closest minimum first, and penalising a low minimum
+would push down programs like École polytechnique, whose real bar is far above it.
+
+**Steps:**
+
+1. **Fix 1.** One curve that falls with each point and does not depend on the program's minimum. Starting
+   proposal, $\max(0.5,\ 0.85 - 0.03(d-1))$, which gives with subjects met: 1 short 0.90, 2 short 0.892, 3
+   short 0.874, 4 short 0.856, 7 short 0.802, 10 short 0.748, 14 short or more 0.70. Check it on real
+   profiles with local runs. Points-only programs tie from 1 to 5 short under their 0.90 ceiling: make
+   them follow the same curve.
+2. **Fix 2.** No fields listed removes the field's weight, as no countries does, so a perfect match reads 100%.
+3. **The owner decides 3.** Options: a group of its own, "No IB minimum", beside the three, for programs
+   with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended: its own
+   group. "Meets all requirements" stays true for everything in it, and Explore's switch follows.
+   It reverses "The status stays Meets all requirements" (D2.7 change, D3.1), so it needs a change board.
+   Whether a 24 minimum is treated the same is part of the decision: recommended no, since those
+   programs do state a rule and many name subjects.
+4. **The owner decides 4.** Options: leave it; or equal weights, $w_L=w_F=0.2$; or field above country,
+   $w_L=0.1$, $w_F=0.3$. Recommended: decide after seeing the Explore order and 29 widened lists under each,
+   on the board. It changes 5.27's tier order, which Explore's switch relies on: the two must stay the same.
+5. **Docs:** `DOC_2_matching-algo XI.md`: move each fixed finding out of "Known problems", add the new rule, and
+   take the version to XI.1. A dated `CHANGELOG.md` entry.
+
+**Tests (Vitest, next to the code):**
+
+- `lib/matching/academic-matcher.test.ts`: for minimums 24, 30, 36 and 45, the score falls or stays equal
+  at every extra point short, from 1 to 21, and is below the score at 0 short. It fails today at 3 to 4.
+- The same for `POINTS_ONLY` and for a program with several requirements.
+- `lib/matching/field-matcher.test.ts` and `scorer.test.ts`: no fields listed gives 1.000 on a perfect
+  match, alone and with no countries; a student with fields keeps today's weights.
+- `lib/matching/match-why.test.ts`: the three parts of the fit still add up to the score with the new
+  weights.
+- Every status is unchanged: `deriveMatchStatus` does not read the score, and the fingerprint's `status`
+  fields stay identical.
+- The fingerprint moves, by design. Each change is its own commit, and the pull request explains every
+  kind of difference.
+- After 3 or 4, as their board decides: the group's membership on Matches equals Explore's switch, and
+  Best fit stays the same on both.
+
+**Must not:** change a status with fixes 1 or 2; add a read of any service: this is arithmetic; bring in
+Version X's fit quality without an owner decision (5.41).
+
+**Verify:** the tests and the standing verification commands. The findings' table re-run shows the new
+order. In the preview, "Why this match" on a program 5 short reads lower than on one 1 short. Clear the
+match cache after merging (`clearAllMatchCache`), since scores change: it costs one recompute per student.
+
+**Session size:** Small for 1 and 2, in one pull request after 5.40. Then a change board for 3 and 4,
+and a build. Subsumes the review 5.15 left for later.
 
 ---
 
