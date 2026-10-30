@@ -1,0 +1,75 @@
+/*
+ * Eid al-Fitr (rebranding 6.5, board "D1.7 Season · Eid al-Fitr", direction A, crescent and
+ * lanterns, chosen 28 October 2026): a crescent with a lit lantern after the name, lanterns and
+ * crescents in turn under "match", a crescent and three lanterns in the lime band, and on the 404 a
+ * string with one lantern fallen to the floor. The head script adds this file only while the season
+ * is on, so nobody downloads it otherwise. It fills the four slots app/globals.css places; each slot
+ * has a light and a dark drawing, and the browser fetches only the one for the theme in use. The
+ * band is lime in both themes, so it has one. Each drawing is asked for with `?v=` and the start of
+ * its SHA-256, since drawings are cached for a year as immutable (lib/seasons/art.test.ts).
+ */
+
+[data-season='eid-al-fitr'] [data-season-slot] {
+  display: block;
+}
+
+[data-season='eid-al-fitr'] [data-season-slot='mark'] {
+  background-image: url('mark-light.svg?v=c7d4b824');
+}
+
+[data-season='eid-al-fitr'] [data-season-slot='hero'] {
+  background-image: url('hero-light.svg?v=8511103f');
+}
+
+[data-season='eid-al-fitr'] [data-season-slot='band'] {
+  background-image: url('band.svg?v=6dbf5eca');
+}
+
+[data-season='eid-al-fitr'] [data-season-slot='404'] {
+  background-image: url('string-light.svg?v=6fdc9568');
+}
+
+@media (width >= 80rem) {
+  [data-season='eid-al-fitr'] [data-season-slot='404'] {
+    background-image: url('404-light.svg?v=2b62ce1e');
+  }
+}
+
+/* Dark: chosen in Appearance, or the OS's while Appearance follows it */
+[data-season='eid-al-fitr'][data-theme='dark'] [data-season-slot='mark'] {
+  background-image: url('mark-dark.svg?v=ee434885');
+}
+
+[data-season='eid-al-fitr'][data-theme='dark'] [data-season-slot='hero'] {
+  background-image: url('hero-dark.svg?v=3acd704f');
+}
+
+[data-season='eid-al-fitr'][data-theme='dark'] [data-season-slot='404'] {
+  background-image: url('string-dark.svg?v=f75e7ff4');
+}
+
+@media (width >= 80rem) {
+  [data-season='eid-al-fitr'][data-theme='dark'] [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=dccae6b9');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-season='eid-al-fitr']:not([data-theme='light']) [data-season-slot='mark'] {
+    background-image: url('mark-dark.svg?v=ee434885');
+  }
+
+  [data-season='eid-al-fitr']:not([data-theme='light']) [data-season-slot='hero'] {
+    background-image: url('hero-dark.svg?v=3acd704f');
+  }
+
+  [data-season='eid-al-fitr']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('string-dark.svg?v=f75e7ff4');
+  }
+}
+
+@media (prefers-color-scheme: dark) and (width >= 80rem) {
+  [data-season='eid-al-fitr']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=dccae6b9');
+  }
+}
