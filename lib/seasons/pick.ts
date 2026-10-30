@@ -74,8 +74,9 @@ function inline(value: unknown): string {
 /**
  * The head script, next to THEME_SCRIPT (lib/theme.ts), for the new design only. Under 600 bytes
  * with every season scheduled (a test checks). It does what pickSeason does, then marks <html>
- * and adds `/seasons/{key}/season.css`, so outside a season nothing is downloaded.
+ * and adds `/seasons/{key}/season.css`, so outside a season nothing is downloaded. The `try` block
+ * scopes its `let`, so nothing reaches the global scope.
  */
 export function seasonScript(schedule: readonly SeasonWindow[]): string {
-  return `(()=>{try{var s=${inline(schedule)},k=${inline(SEASON_KEYS)},n=new Date(),t=n.getFullYear()+'-'+('0'+(n.getMonth()+1)).slice(-2)+'-'+('0'+n.getDate()).slice(-2),c=new URLSearchParams(location.search).get('season'),d=document,l;c=k.includes(c)&&c;c||s.some(w=>w[1]<=t&&t<=w[2]&&(c=w[0]));if(c){d.documentElement.setAttribute('data-season',c);l=d.createElement('link');l.rel='stylesheet';l.href='/seasons/'+c+'/season.css';d.head.appendChild(l)}}catch{}})()`
+  return `try{let n=new Date(),p=x=>('0'+x).slice(-2),t=n.getFullYear()+'-'+p(n.getMonth()+1)+'-'+p(n.getDate()),c=new URLSearchParams(location.search).get('season'),d=document,l;${inline(SEASON_KEYS)}.includes(c)||(c=${inline(schedule)}.find(w=>w[1]<=t&&t<=w[2])?.[0]);if(c){d.documentElement.setAttribute('data-season',c);l=d.createElement('link');l.rel='stylesheet';l.href='/seasons/'+c+'/season.css';d.head.appendChild(l)}}catch{}`
 }

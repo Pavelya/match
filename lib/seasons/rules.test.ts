@@ -56,7 +56,8 @@ describe('parseScheduleInput', () => {
     seasons: [
       { key: 'winter', enabled: true, startsOn: '2026-12-14', endsOn: '2027-01-01' },
       { key: 'lunar-new-year', enabled: false, startsOn: null, endsOn: null },
-      { key: 'eid-al-fitr', enabled: false, startsOn: null, endsOn: null }
+      { key: 'eid-al-fitr', enabled: false, startsOn: null, endsOn: null },
+      { key: 'diwali', enabled: false, startsOn: null, endsOn: null }
     ]
   }
 
@@ -70,12 +71,14 @@ describe('parseScheduleInput', () => {
       seasons: [
         { key: 'winter', enabled: false, startsOn: '', endsOn: null },
         { key: 'lunar-new-year', enabled: false, startsOn: null, endsOn: '' },
-        { key: 'eid-al-fitr', enabled: false, startsOn: '', endsOn: '' }
+        { key: 'eid-al-fitr', enabled: false, startsOn: '', endsOn: '' },
+        { key: 'diwali', enabled: false, startsOn: '', endsOn: null }
       ]
     })
     expect(input?.seasons[0]).toMatchObject({ startsOn: null, endsOn: null })
     expect(input?.seasons[1]).toMatchObject({ startsOn: null, endsOn: null })
     expect(input?.seasons[2]).toMatchObject({ startsOn: null, endsOn: null })
+    expect(input?.seasons[3]).toMatchObject({ startsOn: null, endsOn: null })
   })
 
   it('refuses anything else', () => {
@@ -83,7 +86,7 @@ describe('parseScheduleInput', () => {
     expect(parseScheduleInput({ ...body, allOff: 'no' })).toBeNull()
     expect(parseScheduleInput({ ...body, seasons: [] })).toBeNull()
     expect(parseScheduleInput({ ...body, seasons: [body.seasons[0]] })).toBeNull()
-    expect(parseScheduleInput({ ...body, seasons: body.seasons.slice(0, 2) })).toBeNull()
+    expect(parseScheduleInput({ ...body, seasons: body.seasons.slice(0, 3) })).toBeNull()
     expect(
       parseScheduleInput({ ...body, seasons: [{ ...body.seasons[0], key: 'halloween' }] })
     ).toBeNull()
