@@ -1,5 +1,8 @@
 # Matching Algorithm Migration Plan: Version IX → X
 
+> **Superseded.** The master version of the algorithm is
+> [`DOC_2_matching-algo XI.md`](../matching/DOC_2_matching-algo%20XI.md), which states what runs. This is kept as a record.
+
 **Version:** 1.0  
 **Created:** December 2024  
 **Status:** Approved for Implementation  

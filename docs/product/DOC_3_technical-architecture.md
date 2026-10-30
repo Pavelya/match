@@ -646,6 +646,9 @@ model UniversityAgentProfile {
 
 ## Matching Algorithm Implementation
 
+> **Out of date, 30 October 2026.** This section is the original plan. What runs is in
+> [`DOC_2_matching-algo XI.md`](../matching/DOC_2_matching-algo%20XI.md), the master version.
+
 ### Architecture
 
 **Location**: `lib/matching/` directory

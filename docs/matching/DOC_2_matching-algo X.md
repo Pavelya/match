@@ -3,7 +3,13 @@
 **Version:** X (10.0)  
 **Supersedes:** Version IX  
 **Date:** December 2024  
-**Status:** Specification Complete
+**Status:** Specification Complete. **Superseded by [Version XI](./DOC_2_matching-algo%20XI.md).**
+
+> **Read this first (30 October 2026).** This is a specification, and most of it never reached
+> production. Fit quality, the selectivity boost, the unified penalties, the surplus bonus and the
+> preference scores below do not affect any score: `calculateMatch` runs Version IX's core. What went
+> live is the candidate filter and the labels attached after scoring. Version XI states what runs, and
+> lists the differences. Kept as the record of the design.
 
 ---
 

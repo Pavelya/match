@@ -1,5 +1,8 @@
 # IB Match Algorithm: Improvement Specification
 
+> **Superseded.** The master version of the algorithm is
+> [`DOC_2_matching-algo XI.md`](./DOC_2_matching-algo%20XI.md), which states what runs. This is kept as a record.
+
 **Version:** 2.0  
 **Date:** December 2024  
 **Status:** Ready for Implementation

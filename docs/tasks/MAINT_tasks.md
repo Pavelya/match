@@ -15,6 +15,76 @@ quota.
 
 ## Start here
 
+### The matching work: this order, one step at a time
+
+**The goal (owner, 30 October 2026).** Version XI (`docs/matching/DOC_2_matching-algo XI.md`) is the
+master version of the algorithm. When this table is finished the algorithm is fair, the code and XI say
+the same thing, and every service stays inside its free tier.
+
+**How to use it.** Find the first step that is not Done. Start a new session and paste the sentence in
+"Paste this". One step, one session, one pull request; merge it before starting the next. Do not skip
+ahead: each step relies on the one before. The session that finishes a step sets its Status to Done, with
+the date and pull request, and sets the next step to **Next**, in the same pull request. So **Next** is
+always where you are.
+
+| Step | Status | Paste this | What it does | What you do | Usage |
+|---|---|---|---|---|---|
+| 1 | **Next** | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
+| 2 | Waiting | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
+| 3 | Waiting | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
+| 4 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
+| 5 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
+| 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
+| 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
+| 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
+| 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
+
+**Where release day falls.** Steps 1–7 go before release day (R.1). Steps 8 and 9 should, but do not hold
+it up: if the board is not approved by then, they follow it. Step 10 waits for cleanup (R.2), because
+today's route still sends the labels it removes. Release and cleanup themselves are in
+`REBRANDING_tasks.md`, and nothing else in that file changes for this work.
+
+**Terms, policies and public pages: checked 30 October 2026 against steps 1–10.**
+
+| Page or document | Change needed | Why |
+|---|---|---|
+| Terms of Service | None | "Estimates", "do not guarantee admission" and section 11 already cover every step |
+| Privacy Policy | One paragraph, step 2 | It says nothing about matching being a calculation. Not caused by this work: no step adds or moves data, and its coordinator list and 30-minute cache stay true |
+| Cookie Policy | None | No step stores anything new in a browser |
+| Invitation consent box | None, and no new consent | It already lists "your program matches and saved programs", so step 5 shows coordinators nothing new |
+| How it works, FAQ | Words, step 7. Then step 9, if the weights or statuses change | "Every program gets a fit score" and "Fast, accurate matching" say too much; the FAQ leaves out what coordinators see |
+| Home, For schools, requirements hub, other guides | None | Their words stay true, and a test holds Home's preview to the matcher |
+| France guide | Step 9, if the board moves its programs | It says IB Match shows 24 where no minimum is published |
+
+**You are finished when:**
+
+- XI's "Known problems" is empty, or lists only what you decided to keep;
+- `lib/matching/worked-examples.test.ts` passes, so XI's examples are what the code does;
+- one path scores students' lists: `getCachedMatchesV10` for Matches and coordinators;
+- nothing imports Version X's scoring, or you decided to keep it and XI says what it does;
+- How it works, the FAQ and the Privacy Policy draft say what the matcher does;
+- the usage below is under every stop line.
+
+**The free-tier guard.** Together these steps should lower usage: steps 4, 5 and 10 remove more than step 3
+adds. No step may add a read of any service; each task's "Must not" says so. If a stop line below is
+crossed, finish the pull request in hand, start no new step, and find the cause first.
+
+| Service | Free limit a month | Stop line | Where to read it |
+|---|---|---|---|
+| Upstash bandwidth | 10 GB | 7 GB | Upstash console, Usage tab (you) |
+| Upstash commands | 500,000 | 350,000 | Upstash console, Usage tab (you) |
+| Upstash storage | 250 MB | 175 MB | Upstash console, Usage tab (you) |
+| Algolia requests | 10,000 | On pace for 8,000 | `npx tsx scripts/algolia-usage.ts` (a session can run it) |
+| Supabase egress | 5 GB | 4 GB | Supabase dashboard (you) |
+
+Look at these a week after steps 3 and 5, the two that move Upstash most. The last Upstash figures on
+record are 1 GB and 6.1K commands for 1–11 October 2026, before 5.19.
+
+---
+
+### Everything else
+
 **Reviewed 26 October 2026** against `REBRANDING_tasks.md`, the code on `main` and the open pull
 requests. The work is in three groups: what is done, what can be done now, before the rebranding is
 released and cleaned up, and what has to wait for that. Each row in groups 2 and 3 is a fresh AI
@@ -86,9 +156,7 @@ done or decided (#204–#213); what is left is the owner's, in its "Left for the
 release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
 October 2026; a new finding gets a row here.
 
-| Session | Tasks | Size | Why now |
-|---|---|---|---|
-| Matches' points window, in words | 5.40 | small | The owner picks the words in chat first. The new Matches page reads as every program the student qualifies for, but scores only those with a minimum near their total; Explore's switch finds more. Words only, no change to the matcher or its load. Before release day |
+The matching tasks 5.40–5.45 and 7.8 run in the order at the top of this section, not from here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -97,10 +165,11 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 
 | After | Session | Tasks | Size | Why it waits |
 |---|---|---|---|---|
-| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
+| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents, with 7.8's paragraph, in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
+| R.2 | Version X's unused scoring | 5.41 | small | The last step in the matching order at the top of this section |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 | R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
@@ -174,7 +243,12 @@ Phase 5 — quick wins
   (the Advisor's list and Vercel's old key wait for the owner)
 - [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
 - [x] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1) — 27 October 2026; 47 programs
-- [ ] 5.40 Say on Matches that it lists programs near the student's total, and where the rest are — words only, before release day
+- [ ] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged
+- [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
+- [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
+- [ ] 5.43 Make the score fair (from the owner's question on Version XI)
+- [ ] 5.44 Show coordinators the list the student sees (from 5.40)
+- [ ] 5.45 Correct what the public pages say about matching (from 5.40)
 
 Phase 6 — dependency majors
 
@@ -201,6 +275,7 @@ Phase 7 — structural
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Parts A and B done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
+- [ ] 7.8 Say in the Privacy Policy that matching is a calculation, not a decision (from 7.4 and 5.40)
 
 Owner tasks — not AI work
 
@@ -988,7 +1063,7 @@ match" in `REBRANDING_tasks.md` phase 2.
 groups put a level gap ("Missing a requirement") and a point gap ("Within reach") in different groups,
 so students see the difference regardless of the score. Accepted until then: a level gap can show a
 higher fit than a point gap, and 1 and 3 points short score the same. **The whole matching math will be
-revisited later** as its own piece of work. The findings below are kept for that review.
+revisited later** as its own piece of work (now 5.43). The findings below are kept for that review.
 
 **Outcome:** An owner decision, recorded here, on whether a requirement met only at the wrong level
 (SL where HL is required) should rank below being a point short. If so, a scoring change with the
@@ -1016,7 +1091,7 @@ The redesign groups matches by status first, so this affects order within a grou
 affects which programs are recommended at all.
 
 **Read first:** `lib/matching/subject-matcher.ts`, `penalties.ts`, `categorization.ts` (V10
-`SAFETY`/`MATCH`/`REACH`/`UNLIKELY`), `docs/matching/DOC_2_matching-algo X.md` and
+`SAFETY`/`MATCH`/`REACH`/`UNLIKELY`), `docs/matching/DOC_2_matching-algo XI.md` and
 `docs/matching/matching-algo-rollback-plan.md`.
 
 **Steps:**
@@ -2718,131 +2793,406 @@ Each university's page was re-read on 27 October; every one still states the "tw
 
 ---
 
-### 5.40 — Say on Matches that it lists programs near the student's total, and where the rest are
+### 5.40 — Keep every program a student qualifies for on Matches
 
-**Outcome:** A student who reads the new Matches page knows it holds the programs in their fields and
-countries whose minimum is near their total, not every program they qualify for, and has one link to
-the ones it leaves out. Words only: the matcher, its cache and every score stay as they are.
+**Outcome:** The "Meets all requirements" group on Matches holds every program in the student's fields
+and countries that they meet, the same programs as Explore with those filters and "Only ones I qualify
+for" on. Scores do not change. Programs far under the student's total are not hidden; they sit lower in
+the group, because the order already puts the minimum closest to the total first.
 
-**Why (owner, 28 October 2026):** with 36 points, three fields and six countries, Matches shows 2
-programs under "Meets all requirements". Explore, filtered to the same fields and countries with "Only
-ones I qualify for" on, shows 8. Both are right, and nothing on Matches says why they differ:
+**Rewritten 30 October 2026.** The first version (#221) was words only and said the score already
+handles an over-qualified student. It does not: see "Why". The owner then asked for the cost of the full
+change, it was measured, and the owner chose it.
 
-- **Matches scores only a window of the catalogue.** `getCachedMatchesV10` (`lib/matching/cache.ts`)
-  calls `calculateOptimizedMatches` with `pointsMargin: 10`. Tier 1 of `filterWithFallback`
-  (`lib/matching/optimized-matcher.ts`) keeps the programs in the student's fields **and** countries
-  **and** whose minimum is within ±10 of their total, in 5-point buckets (`filterByPointsRange`,
-  `lib/matching/program-index.ts`); a program with no minimum is always kept. For 36 that is minimums
-  25 to 49; for 38 the same; for 40, 30 to 54. The matcher widens only when fewer than 10 are left
-  (tier 2: ±20 in the same fields and countries; tiers 3–6 drop a preference, which the summary
-  already says, `WIDENED_SUMMARY`). The owner's 8 included École polytechnique's two programs at 24,
-  12 points under 36, so they were never scored.
-- **Explore applies no window.** `searchExplore` (`lib/explore/search.ts`) reads every program the
-  filters match and keeps those whose `programFit` status is "meets".
-- **The window was built for speed, not as a product rule.** The spec presents the program index as a
-  candidate filter, "5000 → ~200 programs", "25x reduction" (`docs/matching/DOC_2_matching-algo X.md`,
-  ProgramIndex; `ibmatch-algorithm-improvement-spec.md`, `getCandidates`). The algorithm handles an
-  over-qualified student in the score (fit quality and the selectivity tiers), not by leaving programs
-  out. And a low IB minimum is often a pass mark (24), not a sign the program is easy to enter.
-- **The page reads as complete.** The summary says "40 programs in your fields and countries, grouped
-  by how close you are", and the Meets group "Every requirement met. The minimum closest to your 36
-  comes first." Only the last line of the list says "near your total" (D4.6, rebranding 2.2).
-- **The upper end matters only for low totals.** The IB maximum is 45, so from 36 up nothing is left
-  out above. A 30 keeps minimums up to 44, a 28 up to 39; what the upper end drops is 10 or more points
-  out of reach, which would sit under "Missing a requirement" anyway.
+**Why (owner, 28 October 2026):** with 36 points, three fields and six countries, Matches shows 2 programs
+under "Meets all requirements". Explore, filtered the same way with the switch on, shows 8.
 
-**Why words, not the window (owner, 28 October 2026: "no impact on consuming the tools or performance;
-if we can't secure the current performance and usage, do the texts only").** Removing the window's
-lower end cannot be load-neutral. Every result the matcher returns is stored whole in Upstash under
-`matchesV10:…` (`redis.set(cacheKey, results)` in `getCachedMatchesV10`, about 3 KB a result, no cap,
-30-minute TTL), read back on each Matches load within that time, and sent to the page with no cap
-(`app/api/students/matches/list/route.ts`, D4.6: group before any cap). Each program the lower end
-adds grows the Redis write, every Redis read, the response and the matcher's CPU, by an amount that
-depends on the student. So the window stays, and the page says what it is. See "Not doing" below.
+- **Matches scores only a window of the catalogue.** `getCachedMatchesV10` calls
+  `calculateOptimizedMatches` with `pointsMargin: 10`. Tier 1 of `filterWithFallback` keeps programs in
+  the student's fields **and** countries **and** within ±10 of their total, in 5-point buckets
+  (`filterByPointsRange`, `lib/matching/program-index.ts`), plus any with no minimum. For 36 that is
+  minimums of 25 and up, so École polytechnique's two programs at 24 were never scored. The other four
+  of the six are at 24 or lower too (Explore's order shows it; their names were not read).
+- **Explore applies no window.** `searchExplore` keeps every program whose `programFit` status is "meets".
+- **The window is a speed measure, not a product rule.** The spec presents the index as a candidate
+  filter ("5000 → ~200 programs", `DOC_2_matching-algo X.md`). The catalogue is 1,676 programs.
+- **Nothing else treats a low minimum as a worse fit.** Version X's fit quality would have, but it never
+  reached the score (`DOC_2_matching-algo XI.md`): 36 against a minimum of 24, 34 or 36 all score 1.000.
+  A low minimum is often the 24 diploma pass mark, not a sign a program is easy to enter.
+- **The floor only bites from 35 up.** Under 35 it is below the IB's 24. Above the total the window stays:
+  a minimum more than 10 over is a gap either way, and it keeps the list and its cost down.
+
+**What it costs.** Measured 30 October 2026 on the 163 profiles with grades against the 1,676 programs,
+with the matcher's rules on grouped counts. The profile with 36 points, 3 fields and 6 countries goes from
+40 to 46, exactly the 6 the owner found.
+
+| Programs per student | Today | Without the lower end |
+|---|---|---|
+| Median | 68 | 74 |
+| Average | 121 | 133 (+10%) |
+| Largest | 666 | 789 |
+| Students whose list changes | | 74 of 163 |
+
+| Service | Change | Limit |
+|---|---|---|
+| Upstash commands | none | 500,000 a month |
+| Upstash bandwidth | about 0.40 to 0.44 MB a Matches load, taking 3.3 KB a result, the high end (the real matcher gave about 2 KB on made-up programs) | 10 GB a month |
+| Upstash storage | +10%, for 30 minutes at a time | 250 MB |
+| Largest value | about 2.2 to 2.6 MB | 10 MB a request |
+| Supabase, Algolia | none | |
+| Vercel | about 18 KB more per load uncompressed; matcher time up by under 1 ms on average. Largest response about 1.1 MB | 4.5 MB a response |
+
+33 students were active in the last 30 days. At 20 loads each that is 26 MB more a month, 0.3% of the 10
+GB. Match data alone would reach 10 GB at about 23,000 loads a month, against 25,000 today; at 10 loads a
+student, about 2,300 active students. Past that, Upstash's pay-as-you-go plan includes 200 GB of
+bandwidth. The change can be more than paid back after R.2: dropping the unused labels saves about 470
+bytes a result (5.41).
 
 **Steps:**
 
-1. **The owner picks the words** (rebranding gates: the wording is D4.6's, decided in 2.2; a words-only
-   change is approved in chat and recorded as D4.17's was for 5.38). Recommended, with the D4.6 student's
-   figures:
-   - **Summary.** Desktop: "40 programs in your fields and countries near your 36, grouped by how close
-     you are." Phone: "40 programs in your 3 fields and 6 countries near your 36, grouped by how close
-     you are." With neither fields nor countries: "40 programs near your 36, grouped by how close you
-     are." `WIDENED_SUMMARY` stays.
-   - **The Meets group's line**, in every sort, after today's sentences: "Ones with a much lower minimum
-     are on Explore." with "Explore" a link. Desktop with Best fit: "Every requirement met. The minimum
-     closest to your 36 comes first. Ones with a much lower minimum are on Explore." Phone: "Every
-     requirement met. Closest to your total first. Ones with a much lower minimum are on Explore."
-   - **The link** opens Explore with the student's fields, countries and "Only ones I qualify for" on,
-     and no sort, so Best fit is the default: the list the owner compared. "Open to anywhere" leaves
-     `countries` out, "every field" leaves `fields` out.
-   - **The list's last line** stays: it already says "near your total".
-   - Alternative, strictly no new link: the same words without the link ("…are on Explore, with Only
-     ones I qualify for on."). Record the choice in `REBRANDING_tasks.md` 2.2's "Decided on the boards"
-     (the Groups bullet) as "Changed <date> (owner, `MAINT_tasks.md` 5.40): words only".
+1. **Words, decided 30 October 2026 (owner, words only; recorded in `REBRANDING_tasks.md` 2.2):** the
+   list's last line, "That's every program in your fields and countries near your total.", becomes
+   "That's every program in your fields and countries, apart from those far above your total." The
+   Explore sentence after it stays. The summary, the group lines and `WIDENED_SUMMARY` stay.
 2. **Build.**
-   - `summaryText` (`lib/matching/match-groups.ts`) takes the student's total and says "near your N".
-     `Summary` in `app/student/matches/MatchesClient.tsx` passes `list.profile.total`.
-   - Move the Meets line out of `GroupHeading` into a pure helper beside `summaryText`, say
-     `meetsLine(total, order)`, returning `{ desktop, phone }`, so it can be tested without rendering.
-     The link is drawn by `GroupHeading` with the same classes as the last line's Explore link.
-   - The link's href is built **on the server**, in `profileSummary` (`lib/matching/match-list.ts`),
-     with `exploreHref({ ...EMPTY_QUERY, fields, countries, qualify: true })` from
-     `lib/explore/query.ts`, and sent as one string on `MatchesProfile` (say `qualifyHref`). The route's
-     profile query already selects each field's and country's `id`; widen `ListedProfile` to keep them.
-     Building it on the server keeps `lib/explore/query.ts` out of the Matches chunk.
-   - A comment on `filterByPointsRange` naming 5.40: Matches' words say "near your total" because of
-     this window, so a change to the window changes the words.
+   - `filterByPointsRange` keeps every bucket from 0 up to the top of the window, for every tier. The
+     tiers at ±20 and ±30 already have almost no floor, so one rule costs the same as limiting it to tier
+     1 (measured) and is simpler. Rename nothing else; `pointsMargin` now means how far above the total.
+   - Comments: `FilterCriteria.pointsMargin`, the `filterWithFallback` block, `isWidened` in
+     `lib/matching/match-list.ts`.
+   - The last line's words, in `app/student/matches/MatchesClient.tsx`, moved to a pure helper beside
+     `summaryText` in `lib/matching/match-groups.ts` so it can be tested.
 3. **Tests (Vitest, next to the code):**
-   - `lib/matching/match-groups.test.ts`, `summaryText`: desktop and phone (counted) with several fields
-     and countries; one field and one country; fields only; countries only; neither ("40 programs near
-     your 36"); one program ("1 program … near your 36"). Update the five existing cases.
-   - The same file, `meetsLine`: Best fit desktop and phone with the total in it; Lowest points needed
-     and Country (no "closest" sentence, the Explore sentence still there); the total is the student's,
-     not a constant.
-   - `lib/matching/match-list.test.ts`, `profileSummary`'s `qualifyHref`: fields, countries and
-     `qualify=1`, no `sort`, no `shown`; read back with `readExplore` it gives the same ids, `qualify:
-     true`, `sort: null`. Open to anywhere: no `countries`. Every field: no `fields`. Ids in the order
-     the profile lists them.
-   - `lib/matching/optimized-matcher.test.ts`, a new describe "points window (Matches' "near your
-     total", 5.40)", with more than 50 programs so the index is used and at least 10 in tier 1: for 36,
-     a program at 25 in the student's field and country is scored and one at 24 is not; one with no
-     minimum is; `fallbackTierUsed` is 1. For 40, 30 is scored and 29 is not. For 30, 44 is scored and
-     45 is not. It pins what the words describe, so changing the window fails here first.
-   - `app/api/students/matches/list/route.test.ts`, load-neutral: `findUnique` is called once with the
-     same `select` as today (compare the object); `redis.get` once and `redis.set` at most once, as
-     today; no other module is called (Algolia not imported). The response's `profile.qualifyHref` is a
-     path under `/programs/search` and the body grows by less than 1 KB for the fixture's profile
-     (`JSON.stringify` length before and after the field).
-   - The matcher untouched: `scripts/score-fingerprint.ts` before and after, `cmp` identical.
-4. **Docs:** 2.2's Groups bullet in `REBRANDING_tasks.md` (step 1), and this task's row moved to group 1.
+   - `lib/matching/program-index.test.ts`: for 36, minimums 24, 25, 40, 49 and none are kept and 50 is
+     not; for 30, 44 is kept and 45 is not; a program under the total outside the student's field or
+     country is not. Update `filterCandidates`' existing combined and typical-filter cases: if a reduction
+     figure changes, say so in the pull request.
+   - `lib/matching/optimized-matcher.test.ts`, a new describe "no lower end (5.40)", with more than 50
+     programs: a program 12 under the total in the student's field and country is scored; its score is
+     what `calculateMatch` gives alone; a student with 7 near their total and 5 far under stays in tier 1
+     where today they fall to tier 2.
+   - **The outcome**, in `lib/explore/fit.test.ts`: over one fixture of more than 50 programs (minimums
+     from 24 to 45, none, either/or groups, `ownCourse`), for totals 24, 30, 35, 36, 38 and 45, the
+     programs Matches gives status `meets` in the student's fields and countries are exactly those
+     `programFit` gives `meets` after the same two filters. In a widened case (tier 3), Explore's are a
+     subset of Matches'.
+   - `lib/matching/match-groups.test.ts`: at the same score, 28 comes before 24 for a total of 36, and
+     no minimum comes last; the last line with and without `widened`.
+   - `app/api/students/matches/list/route.test.ts`: a program at 24 for a student on 36 reaches the
+     response as `meets`; `findUnique` once with today's `select`; `redis.get` once and `redis.set` at
+     most once; nothing imported from `lib/algolia`.
+   - `lib/matching/worked-examples.test.ts`, new: XI's "Worked examples" table, row by row, through
+     `calculateMatch`, with a comment naming the section. A change to the algorithm then has to change
+     both, which is what would have caught Version X drifting from the code.
+   - The fingerprint: `npx tsx scripts/score-fingerprint.ts` on `main` and on the branch. `grep -v
+     '^optimized'` of the two is byte-identical: no score moved. The `optimized` lines differ, and every
+     `id:score` pair in the old line is in the new one with the same score.
+4. **Docs, in the same pull request:** `DOC_2_matching-algo XI.md`'s "Candidates" and the figures in its
+   "Cost", a dated `CHANGELOG.md` entry, and this task moved to group 1. Point the `Based on:` header of
+   the live modules (`scorer`, `academic-matcher`, `subject-matcher`, `penalties`, `location-matcher`,
+   `field-matcher`, `types`, `program-index`) at XI.
 
-**Must not:** change `pointsMargin`, the tiers, the index or any score; add a database query, a Redis
-call, an Algolia request or a field to the cached `matchesV10` value; import `lib/explore/*` into
-`MatchesClient.tsx`; touch today's Matches page (`RecommendationsClient`), which goes at R.2.
+**Today's page.** Matches in today's design shows the first 50 by score, and ties keep catalogue order.
+Of the 163 profiles, 90 have more than 50 matches and 47 of those gain programs, so which 50 they see can
+change until R.1. Those ties are already arbitrary, so the owner accepted this on 30 October 2026, and
+5.40 can merge before release day.
 
-**Load:** none on the server. The response grows by one href, about 0.3 KB for nine ids, next to about
-40 cards. A click on the new link costs what Explore costs: with the switch on, Best fit's one browse
-request when 1,000 programs or fewer match (5.27), against two for the unfiltered Explore the last
-line already links to. `scripts/algolia-usage.ts` weekly after release covers it, as 5.27 says.
+**Must not:** change any score, `pointsMargin`, the tiers or the status; add a database query, Redis
+call or Algolia request; put a cap on the results (D4.6: group before any cap); touch `RecommendationsClient`.
 
-**Verify:** the tests and the standing verification commands. In the preview, signed in as a student
-with grades whose fields and countries hold a program more than 10 under their total: the summary and
-the Meets line say "near your N"; the link opens Explore with the same fields, countries and the switch
-on, in Best fit, and that list's first rows are Matches' Meets cards, with the lower-minimum programs
-after them. Phone width too (CDP `setDeviceMetricsOverride`). A widened list still says
-`WIDENED_SUMMARY`.
+**Rollback:** revert the pull request. No data changes. Cached lists expire in 30 minutes, so nothing
+needs clearing in either direction.
 
-**Not doing: remove the window's lower end** so Matches' Meets group equals Explore's switch. Better
-for the student (the programs it adds are ones they qualify for, ranked last by the order already), but
-each one adds about 3 KB to the Upstash write and read and to the response, and matcher CPU, so it fails
-the owner's condition. If the owner ever accepts that cost, measure first, with aggregates only: per
-student, the programs in their fields and countries under the window's floor, against today's result
-count; then the change is `filterByPointsRange` keeping every bucket from 0 to the upper end, a
-fingerprint diff, and the cached matches cleared.
+**Verify:** the tests and the standing verification commands. In the preview, on the owner's account:
+"Meets all requirements" counts 8, the same as Explore with the same fields, countries and the switch on,
+and the two lists hold the same programs, Cultural Communication and Earth Sciences first. Phone width
+too (CDP `setDeviceMetricsOverride`). A week after merging, the Upstash usage tab shows bandwidth in
+line with the table.
 
-**Session size:** Small: the owner's words in chat, then one build session. Before release day, since
-the new Matches page is what every student sees then. Independent of other open tasks.
+**Session size:** Small: one build session. Before release day, so the new Matches page and Explore
+agree from the start. Independent of other open tasks.
+
+---
+
+### 5.41 — Decide what becomes of Version X's scoring
+
+**Outcome:** An owner decision on the parts of Version X that never reached the score, and the code that
+follows from it: adopted, or deleted. Today they are built, tested and cached, and change nothing.
+
+**Why (found 30 October 2026, in 5.40):** `calculateMatch` runs Version IX's core. Fit quality, the
+selectivity boost, `unified-penalties.ts` and `preference-validator.ts` affect no score, and category and
+confidence are attached and read by no screen (`DOC_2_matching-algo XI.md`). No commit ever connected
+them. They look like the algorithm to anyone reading the code or Version X, as they did in 5.40's first
+version. They also cost: about 470 bytes of every cached result, 23% of one with four requirements, which
+more than covers 5.40's +10%. Today's page passes them on to a client that ignores them, so nothing
+needs them once R.2 deletes that route.
+
+**The question for the owner:** should a program far under a student's total, or one well above what
+they need, ever score lower? Today it never does, and 139 programs tied at 100% for the D4.6 student.
+5.43 takes up 5.15's review. **Recommended: delete, and adopt none of it.** The IB minimum is a poor measure
+of how hard a program is, so a fit-quality curve would mark down a program for stating the pass mark, and
+the order already puts the closest minimum first. Version X's surplus bonus would reward grades that a
+program does not ask for.
+
+**Steps:**
+
+1. Research only, with local runs of `calculateMatch` and no database writes: what adopting fit quality
+   would do to a few real profiles, against what the order already does with its "closest minimum" key.
+2. The owner decides, for each part: adopt it, or delete it.
+3. Delete what is rejected, and drop the labels from `enhanceMatchResult`, so `getCachedMatchesV10`
+   stores less. With them go `lib/feature-flags/`' V10 flags, `MATCHING_V10_FULL` and the path it
+   switches to, which scores every program; `calculateMatches` if nothing else calls it; and the
+   commented flags in `.env`. Adopted parts go through the matching tests and the rollback plan
+   (`docs/matching/matching-algo-rollback-plan.md`), and take a new version of `DOC_2`.
+
+**Must not:** move a score before step 2, or remove a label while today's route still sends it.
+
+**Verify:** the fingerprint: identical for deletions, every difference explained for adoptions. `npm
+test`.
+
+**Session size:** Research small; the change small for deletions, medium for adoptions. After R.2: the last step
+in the order at the top of this file. Update XI so that it no longer lists these modules.
+
+---
+
+### 5.42 — Stop precomputing a match list nobody reads
+
+**Outcome:** Saving a profile no longer runs an Algolia search, a programs read and a Redis write for a
+value that is thrown away.
+
+**Why (found 30 October 2026, in 5.40):** `POST /api/students/matches/precompute` runs after each profile
+save and coordinator edit, "so /student/matches is always fast". It stores through `getCachedMatches`,
+under `matches:…:{count}`, with the count of the Algolia-filtered programs. Matches reads `matchesV10:…`,
+and the coordinator pages read `matches:…` under the whole catalogue's count. So the value is read only
+for a student with no fields or countries, whose list is not filtered. It has done nothing for Matches
+since the V10 key was added.
+
+**Steps:**
+
+1. Confirm with the code at the time that nothing else reads the key, and that `matchesV10:…` is empty
+   after a save, so Matches computes on the next load, as it does today.
+2. Remove the two `fetch` calls (`app/api/students/profile/route.ts`,
+   `app/api/coordinator/students/[id]/route.ts`), the route, and `searchCandidatePrograms` if nothing else
+   calls it. Then `INTERNAL_API_KEY`, if nothing else reads it.
+3. Update the 7.1 route tests that cover it.
+
+**Must not:** delay a profile change on Matches: `invalidateStudentCache` stays.
+
+**Verify:** `npm test`. In the preview, a saved profile shows on Matches at once. The Algolia usage
+script's figure falls by the saves, or stays flat.
+
+**Session size:** Small. Independent.
+
+---
+
+### 5.43 — Make the score fair
+
+**Outcome:** A bigger gap never scores higher than a smaller one, an open student's perfect match reads as
+perfect, and "Meets all requirements" means something for every program it covers. The first two are
+fixes (Part A). The last two are the owner's decisions, and one reverses a decision already made (Part B).
+
+**Why (owner, 30 October 2026):** on making Version XI the master, the owner asked whether it is the right
+way to calculate, or should be fairer. Most of it holds. The status decides the groups from the program's
+real requirements, and the score only orders a group. That is right, and it protects students from every
+problem below on the new Matches page. But the score is still shown ("Why this match") and still orders
+today's page and the coordinator pages, and these came out of running the production scorer on pairs that
+should differ, with counts from the catalogue.
+
+| # | Finding | Evidence | Kind |
+|---|---|---|---|
+| 1 | **More points short can score higher.** In `calculateFullRequirementsMatch` the factor is 0.8 for 1 to 3 short, then $1 - d/m$ from 4, which starts above 0.8 | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 7 short 0.895, 8 short 0.88. A program 5 short shows a higher fit than one 1 short | Bug |
+| 2 | **Being open lowers the number.** No fields listed gives F_M 0.5, though no countries gives L_M 1.0 with its weight removed | A perfect match reads 95% with no fields, 93% with no fields or countries, 100% with both listed. The order inside the list does not change | Bug |
+| 3 | **"Meets" can mean no bar at all.** A program with no minimum and no subjects scores 1.0 and "meets" for anyone with a Diploma | 301 of 1,676 programs, 280 of them in the US, and 241 of the 286 US programs are at universities admitting under 20%. A student on 24 and on 45 both get 1.00. Another 174 have a minimum of 24, the Diploma itself, and no subjects: Netherlands 45, Italy 29, Czechia 21, Japan 15, Austria 14 and others. In France that 24 is a stand-in ("Where no minimum is published, IB Match shows 24 points"). So up to 475, 28% of the catalogue. Their chip and low place in the order soften it, but they count in the heading | Owner |
+| 4 | **Field counts for a third of country.** $w_F=0.1$, $w_L=0.3$ | Wrong field in their country 0.90; right field elsewhere 0.70. Law at home ranks above Medicine abroad for a student who chose Medicine, once a list reaches outside their preferences (29 of 163 today) and on Explore's Best fit | Owner |
+
+**Checked and fine, so no change:** with the critical flag, on 83% of requirement rows (5,397 of 6,474), a
+level gap scores below a point gap (SL 7 for HL 6, 0.80, against 1 point short, 0.88), so 5.15's worry
+belongs to the unflagged rows; and one missing subject scores 0.40 to 0.45 however many the program lists.
+On unflagged rows it runs from 0.40 to 0.69, which is not worth a rule of its own. Being over the minimum
+costs nothing, and that stays: the order puts the closest minimum first, and penalising a low minimum
+would push down programs like École polytechnique, whose real bar is far above it.
+
+**Part A: the two fixes.** No board: statuses and screens do not change.
+
+1. **Fix 1.** One curve that falls with each point and does not depend on the program's minimum. Starting
+   proposal, $\max(0.5,\ 0.85 - 0.03(d-1))$, which gives with subjects met: 1 short 0.90, 2 short 0.892, 3
+   short 0.874, 4 short 0.856, 7 short 0.802, 10 short 0.748, 14 short or more 0.70. Check it on a few
+   profiles with local runs. Points-only programs tie from 1 to 5 short under their 0.90 ceiling: make
+   them follow the same curve.
+2. **Fix 2.** No fields listed removes the field's weight, as no countries does (`scorer.ts`), so a perfect
+   match reads 100%.
+3. **Docs:** in `DOC_2_matching-algo XI.md`, move both out of "Known problems", state the new rules and
+   take the version to XI.1. Update `lib/matching/worked-examples.test.ts`' cases to match, a dated
+   `CHANGELOG.md` entry, and this step in the order table.
+4. **After merging, once:** clear the cached matches, since scores changed. `clearAllMatchCache` from a
+   `npx tsx` one-liner; the session gives the owner the command. It costs one recompute per student at
+   their next load, and old values expire in 30 minutes anyway, so this only makes it immediate.
+
+**Tests for Part A (Vitest, next to the code):**
+
+- `lib/matching/academic-matcher.test.ts`: for minimums 24, 30, 36 and 45, the score falls or stays equal
+  at every extra point short, from 1 to 21, and is below the score at 0 short. It fails today at 3 to 4.
+- The same for `POINTS_ONLY` and for a program with several requirements.
+- `lib/matching/scorer.test.ts`: no fields listed gives 1.000 on a perfect match, alone and with no
+  countries; a student with fields keeps today's weights.
+- `lib/matching/match-why.test.ts`: the parts of the fit still add up to the score with the new weights.
+- Every status is unchanged: `deriveMatchStatus` does not read the score, and the fingerprint's `status`
+  fields stay identical.
+- The fingerprint's scores move, by design. Each fix is its own commit, and the pull request explains
+  every kind of difference.
+
+**Part B: the two decisions.** A change board, then build session 30 in
+`REBRANDING_tasks.md`.
+
+5. **The owner decides finding 3.** Options: a group of its own, "No IB minimum", beside the three, for
+   programs with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended:
+   its own group. "Meets all requirements" stays true for everything in it. It reverses "The status stays
+   Meets all requirements" (D2.7 change, D3.1), so it needs the board. Recommended: the 174 at 24 with no
+   subjects go with them, since any Diploma meets them, and the group's name fits both. The 183 at 24
+   that name subjects stay in Meets: those subjects are a real bar.
+6. **The owner decides finding 4.** Options: leave it; equal weights, $w_L=w_F=0.2$; or field above
+   country, $w_L=0.1$, $w_F=0.3$. Recommended: decide with the real lists under each on the board. It
+   changes 5.27's tier order, and Explore's Best fit must stay equal to Matches'.
+7. **Build what was decided**, in one pull request with everything that states it:
+   - the status or weights in `lib/matching/`, and Explore's switch and tiers (`lib/explore/`), so the two
+     pages stay the same;
+   - "How it works" in both designs until R.2: its 60%, 30% and 10%, and "What each status means"
+     (`app/how-it-works/NewHowItWorks.tsx`, `app/how-it-works/_components/MatchingEngine.tsx`);
+   - "Why this match" (`lib/matching/match-why.ts`);
+   - any other public page that states them: `git grep` for "60%" and the status names;
+   - the France guide's "IB Match shows 24 points", if its programs move, in both `guide.ts` and
+     `FranceContent.tsx`; `docs/legal-review/claims.md`'s H12 if the weights change;
+   - XI, to XI.2, with the worked examples test; `CHANGELOG.md`; this step in the order table.
+   Then clear the cached matches once, as in Part A.
+
+**Tests for Part B:** as the board decides, at least: the group's membership on Matches equals Explore's
+switch; Best fit is the same on both; "How it works" states the weights in `lib/matching/types.ts`, read
+from one place or checked by a test; a program with no minimum and no subjects lands in its group for a
+student on 24 and on 45.
+
+**Must not:** change a status in Part A; add a read of any service: this is arithmetic; bring in Version
+X's fit quality without an owner decision (5.41); let Matches and Explore disagree.
+
+**Verify:** the tests and the standing verification commands. The findings' table re-run shows the new
+order. In the preview, "Why this match" on a program 5 short reads lower than on one 1 short.
+
+**Rollback:** revert the pull request and clear the cached matches. No data changes.
+
+**Session size:** Part A small, after 5.44. Part B a change board, then a small to medium build. Subsumes
+the review 5.15 left for later.
+
+---
+
+### 5.44 — Show coordinators the list the student sees
+
+**Outcome:** A coordinator looking at a student sees the student's own list, in the student's own order.
+One path scores lists, and the second, much larger cached value goes.
+
+**Why (found 30 October 2026):** the coordinator pages take an older path, and it differs from Matches:
+
+| | Matches | Coordinator student page and matches route |
+|---|---|---|
+| Function | `getCachedMatchesV10` | `getCachedMatches` |
+| Programs scored | The tiers in XI | All 1,676 |
+| Order | Status, then closest minimum | Score alone, so ties fall in catalogue order |
+| Shown | Everything | Top 3 on the student page, top 10 on the route |
+
+So with many programs tied at 100%, a coordinator's "top 3" can be programs the student sees far down
+their list, or not at all. Each list is also stored whole: 1,676 results at about 1.6 KB is about 2.7 MB in
+Upstash, worked out from the size of a result rather than read. `app/coordinator/analytics/page.tsx`
+repeats that for up to 50 students, so up to about 135 MB on a cold cache for one page load.
+
+**Read first:** `lib/matching/cache.ts`; `lib/matching/match-list.ts`; `compareBestFit` and `GROUPS` in
+`lib/matching/match-groups.ts`; the callers below; `DOC_2_matching-algo XI.md`, "Where each path runs".
+
+**Steps:**
+
+1. Check the callers with grep, since 5.42 changes them. On 30 October 2026, after 5.42 the callers of
+   `getCachedMatches` are the three below and `app/api/coordinator/analytics/route.ts`, which nothing
+   calls; `getCachedMatch` has no caller outside its tests.
+2. A pure helper in `lib/matching/match-list.ts`, say `rankedResults(results, programs, total)`: the
+   results in the order the student's page shows them, by status as `GROUPS` lists them, then
+   `compareBestFit`. Results whose program has gone are left out, as in `matchItems`.
+3. Move to `getCachedMatchesV10` and the helper: `app/coordinator/students/[id]/page.tsx` (top 3) and
+   `app/api/coordinator/students/[id]/matches/route.ts` (top 10). The response keeps its shape: a V10
+   result holds everything a `MatchResult` does.
+4. Move `app/coordinator/analytics/page.tsx` to `getCachedMatchesV10`. The chart stays as it is:
+   `matches[0].overallScore` is still each student's highest score, and no screen changes, so no board.
+5. Delete what is left unused: `app/api/coordinator/analytics/route.ts`, with any case for it in
+   `app/api/coordinator/cross-school.test.ts`, `getCachedMatches`,
+   `getCachedMatch`, `getBatchCacheKey`, the `match:` and `matches:` scans in `invalidateStudentCache` and
+   `clearAllMatchCache`, and `invalidateProgramCache` with its one call in
+   `app/api/admin/programs/[id]/route.ts`: it only clears `match:` keys, which nothing writes by then. Old
+   `matches:` values expire within 30 minutes.
+6. Docs: "Where each path runs" and "Known problems" in XI, a dated `CHANGELOG.md` entry, and this step
+   in the order table.
+
+**Tests (Vitest, next to the code):**
+
+- `lib/matching/match-list.test.ts`, `rankedResults`: meets before close before gap; closest minimum first
+  inside a status; no minimum last; a result with no program left out; for one fixture, flattening the
+  student's groups gives the same ids in the same order.
+- `app/api/coordinator/students/[id]/matches/route.test.ts`, new: `redis.set` writes a `matchesV10:` key
+  and never `matches:`; a student who has just loaded Matches costs a cache hit, not a second
+  calculation; the top 10 come in `rankedResults`' order; no consent, no access and a revoked coordinator
+  are refused. Another school's student stays refused in `app/api/coordinator/cross-school.test.ts`.
+- `lib/matching/cache.test.ts`: `invalidateStudentCache` scans one pattern; a profile change still clears
+  the student's list.
+- The fingerprint: `cmp` byte-identical. This moves no score.
+
+**Must not:** change a consent or access check, the shape a coordinator screen reads, or any score; add a
+read of any service; add a cap to what Matches shows.
+
+**Load:** lower. About 2.7 MB to 0.4 MB per coordinator list, and up to about 135 MB to 20 MB for one cold
+analytics load. A coordinator and student now share one cached list. Each profile save runs one scan
+pattern, not three. Check it a week later in the free-tier guard.
+
+**Verify:** the tests and the standing verification commands. In the preview, as a coordinator with one
+consenting student: their top 3 are the first three of that student's Matches. `/coordinator/analytics`
+shows the same chart. Saving the student's profile shows on both at once.
+
+**Rollback:** revert the pull request. No data changes.
+
+**Session size:** Small. After 5.42, and independent of the rebranding: the coordinator portal keeps its
+design.
+
+---
+
+### 5.45 — Correct what the public pages say about matching
+
+**Outcome:** How it works and the FAQ say only what the matcher does.
+
+**Why (found 30 October 2026, checking the public pages against Version XI):**
+
+| Where | Today | Problem | Recommended |
+|---|---|---|---|
+| How it works, both designs (`NewHowItWorks.tsx`, `_components/MatchingEngine.tsx`) | "Every program gets a fit score from 0 to 100%" ("a compatibility score" in today's) | Only the programs on a student's list are scored | "Every match gets a fit score from 0 to 100%" |
+| How it works, both designs (`NewHowItWorks.tsx`, `_components/HowItWorksHero.tsx`) | "Fast, accurate matching" | The Terms disclaim accurate scores, section 11, and programs' data can be out of date | "Fast matching from published requirements" |
+| `app/how-it-works/page.tsx`, the structured data's `articleBody` | Three factors named IB Points Compatibility, Subject Match and Preference Alignment | Not the three on the page | Academic match, Location match and Field match, as the page has them |
+| `app/faqs/page.tsx`, "Can coordinators at my school see my information?" | "can view your academic profile" | Coordinators also see matches and saved programs, as the consent box, Settings and the Privacy Policy say | "can view your academic profile, matches and saved programs" |
+
+**Steps:**
+
+1. The owner approves the words in the pull request: words only, as for 5.38. Record it on D4.14 in
+   `REBRANDING_tasks.md`.
+2. Change each in both designs where it appears.
+3. Add a row for each to `docs/legal-review/claims.md`, and a line to `lawyer-brief.md`'s question 11 if
+   the lawyer has not answered yet.
+4. Bump `/how-it-works` in `lib/page-dates.ts`. Leave `/faqs` to #127, which sets it on release day. #127
+   changes three other FAQ answers, so the two do not meet.
+
+**Tests:** `app/public-claims.test.tsx`: "Every program gets" and "accurate matching" are refused.
+`app/public-seo-claims.test.tsx`: the structured data names the page's three factors. The FAQ answer names
+matches and saved programs.
+
+**Must not:** change a score, a weight or any page's layout; touch the 23 guides.
+
+**Verify:** the tests and the standing verification commands. Both designs of How it works read the new
+words. The pages stay static.
+
+**Load:** none. Words on prebuilt pages.
+
+**Session size:** Tiny. After 5.43 Part A.
 
 ---
 
@@ -4717,6 +5067,48 @@ the weights hash leaving out one weight: 6 fail; the V10 read never storing: 6 f
 `invalidateStudentCache` missing the V10 keys: 2 fail. `npm test`, type-check, `eslint . --max-warnings
 0`, `prettier --check .` and `npm run build` are clean. No Redis, database or network was reached by
 the tests.
+
+---
+
+### 7.8 — Say in the Privacy Policy that matching is a calculation, not a decision
+
+**Outcome:** The Privacy Policy draft says plainly how a student's data becomes a match, and that it
+decides nothing about them. The lawyer has the question in the same review.
+
+**Why (found 30 October 2026, checking the legal drafts against Version XI):** none of the matching work
+adds or moves data, so nothing in 5.40–5.45 needs a change here. But the drafts never say what matching
+is. Section 3 says only "Provide personalized program recommendations". IB Match scores the grades and
+preferences of people aged 16 to 19, and the words "profiling" and "automated decision" appear nowhere.
+GDPR Article 4(4) defines profiling, Article 22 covers decisions with legal or similar effects, and
+recitals 60 and 71 touch on telling people about profiling and on children. Whether any of it applies
+here is the lawyer's question, not ours. The likely answer is that nothing is decided, since no university
+sees a match. The honest paragraph is short either way.
+
+**Steps:**
+
+1. In `docs/legal-review/privacy-policy.proposed.md`, after the list in section 3, and in its redline:
+
+   > **How matching works.** We compare your subjects, grades, total points and chosen fields and
+   > countries with each program's published requirements, using fixed rules, not artificial intelligence.
+   > The result is shown to you, and to your school's coordinators if you have linked to a school. It is
+   > guidance only: it makes no decision about you, and universities do not see it. [LAWYER: is this
+   > profiling under Article 4(4), and does it need saying differently because students may be 16 or 17?]
+
+   Check each statement against the code first.
+2. Add question 13 to `lawyer-brief.md`, in its numbered list.
+3. Update the stale row in `product-today.md`: matches are cached under `matchesV10:…`, and `matches:…`
+   until 5.44 removes it.
+4. Note in 7.4's status that the draft changed after 24 October 2026.
+
+**Must not:** publish anything; change a consent flow; touch the Terms or the Cookie Policy, which need no
+change. No `[LAWYER: …]` tag may remain when it is published (7.4 step 5). Publish once, with the rest of
+7.4 on release day, since a later change means a second policy notice to every student.
+
+**Verify:** `npx prettier --check docs/legal-review`. The redline shows only this paragraph.
+
+**Load:** none. Docs only.
+
+**Session size:** Tiny. First in the matching order, so it reaches the lawyer with the rest.
 
 ---
 
