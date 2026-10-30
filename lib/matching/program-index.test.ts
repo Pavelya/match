@@ -52,17 +52,55 @@ const testPrograms = generateTestPrograms(100)
 const index = createProgramIndex(testPrograms)
 
 describe('filterByPoints', () => {
-  // Student with 38 points, ±10 margin = 28-48 range
+  // Student with 38 points, margin 10: every minimum up to the 45-49 bucket
   const pointsFilter = index.filterByPoints(38, 10)
 
   it('Filter by points: a reasonable count', () => {
-    // Most programs match, since the range covers 28-48 and includes the no-requirement bucket
+    // Every program matches: the minimums stop at 43, under the top of the window
     expect(pointsFilter.size).toBeGreaterThan(0)
     expectBetween(pointsFilter.size, 10, 100)
   })
 
   it('Filter by narrow points: fewer results', () => {
-    expect(index.filterByPoints(40, 3).size).toBeLessThan(pointsFilter.size)
+    expect(index.filterByPoints(30, 3).size).toBeLessThan(pointsFilter.size)
+  })
+})
+
+describe('no lower end (5.40)', () => {
+  function program(
+    programId: string,
+    minimumIBPoints: number | undefined,
+    fieldId = 'engineering',
+    countryId = 'uk'
+  ): ProgramRequirements {
+    return { ...testPrograms[0], programId, minimumIBPoints, fieldId, countryId }
+  }
+
+  const programs = [24, 25, 40, 44, 45, 49, 50].map((min) => program(`min-${min}`, min))
+  const window = createProgramIndex([...programs, program('no-minimum', undefined)])
+
+  it('keeps every minimum from 0 up to the top of the bucket 10 above the total', () => {
+    expect([...window.filterByPoints(36, 10)].sort()).toEqual(
+      ['min-24', 'min-25', 'min-40', 'min-44', 'min-45', 'min-49', 'no-minimum'].sort()
+    )
+  })
+
+  it('a lower total stops at a lower bucket', () => {
+    const kept = window.filterByPoints(30, 10)
+    expect(kept.has('min-24')).toBe(true)
+    expect(kept.has('min-44')).toBe(true)
+    expect(kept.has('min-45')).toBe(false)
+  })
+
+  it('a program under the total still has to be in the field and the country', () => {
+    const mixed = createProgramIndex([
+      program('theirs', 24),
+      program('other-field', 24, 'arts'),
+      program('other-country', 24, 'engineering', 'germany')
+    ])
+    expect(
+      mixed.filterCandidates({ studentPoints: 36, fieldIds: ['engineering'], countryIds: ['uk'] })
+    ).toEqual(['theirs'])
   })
 })
 
@@ -106,8 +144,8 @@ describe('filterCandidates', () => {
     countryIds: ['uk']
   })
 
-  it('Combined filter: has results', () => {
-    expect(combined.length).toBeGreaterThan(0)
+  it('Combined filter: every engineering program in the UK', () => {
+    expect(combined.length).toBe(20)
   })
 
   it('Combined filter: no more than either filter alone', () => {
@@ -131,7 +169,8 @@ describe('filterCandidates', () => {
       fieldIds: ['engineering', 'science'],
       countryIds: ['uk', 'germany', 'netherlands']
     })
-    expect(calculateReductionRatio(100, typicalFilter.length)).toBeGreaterThan(1)
+    expect(typicalFilter.length).toBe(20)
+    expect(calculateReductionRatio(100, typicalFilter.length)).toBe(5)
   })
 })
 

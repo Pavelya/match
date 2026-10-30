@@ -7,7 +7,7 @@
  * - Preferred Country or No Preference: 1.0
  * - Not Preferred: 0.0
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type { LocationMatchScore } from './types'

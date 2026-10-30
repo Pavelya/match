@@ -30,6 +30,7 @@ import {
   SORT_ORDERS,
   WIDENED_SUMMARY,
   jumpLabel,
+  listEndText,
   showMoreLabel,
   sortMatches,
   summaryText,
@@ -301,7 +302,7 @@ function MatchList({
 
       {matches.length > 0 && (
         <p className="mt-2 border-t border-border pt-5 text-body text-muted-foreground">
-          {widened ? '' : 'That’s every program in your fields and countries near your total. '}
+          {listEndText(widened)}
           <Link
             href={EXPLORE}
             className="font-semibold text-primary underline-offset-3 hover:underline"

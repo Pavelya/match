@@ -4,7 +4,7 @@
  * These types define the inputs, outputs, and configurations for the
  * university program matching algorithm.
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 // ============================================

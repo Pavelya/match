@@ -7,6 +7,7 @@ import {
   invalidateGlobalProgramIndex
 } from './optimized-matcher'
 import { createProgramIndex } from './program-index'
+import { calculateMatch } from './scorer'
 import type { StudentProfile, ProgramRequirements } from './types'
 
 const testStudent: StudentProfile = {
@@ -279,5 +280,49 @@ describe('tiered fallback', () => {
   it('Normal case: returns at least 10 results with no fallback (tier 1)', () => {
     expect(normalFallbackResult.results.length).toBeGreaterThanOrEqual(10)
     expect(normalFallbackResult.stats.fallbackTierUsed ?? 1).toBe(1)
+  })
+})
+
+describe('no lower end (5.40)', () => {
+  // 36 is the first case the old window hurt: its floor was the 25-29 bucket
+  const student: StudentProfile = {
+    ...testStudent,
+    totalIBPoints: 36,
+    interestedFields: ['engineering'],
+    preferredCountries: ['uk']
+  }
+  const theirs = (i: number, minimumIBPoints: number): ProgramRequirements => ({
+    ...pointsOnly(`theirs-${i}`, `Program ${i}`, i, 'engineering', 'uk'),
+    minimumIBPoints
+  })
+  const elsewhere = Array.from({ length: 50 }, (_, i) =>
+    pointsOnly(`elsewhere-${i}`, `Elsewhere ${i}`, i, 'arts', 'usa')
+  )
+
+  it('scores a program 12 under the total, as calculateMatch does alone', () => {
+    const low = theirs(0, 24)
+    const programs = [low, ...Array.from({ length: 10 }, (_, i) => theirs(i + 1, 35)), ...elsewhere]
+
+    const { results, stats } = calculateOptimizedMatches(student, programs)
+
+    expect(stats.fallbackTierUsed).toBe(1)
+    expect(results.find((r) => r.programId === low.programId)?.overallScore).toBe(
+      calculateMatch({ student, program: low }).overallScore
+    )
+  })
+
+  it('7 near the total and 5 far under stay in tier 1, with nothing widened', () => {
+    const programs = [
+      ...Array.from({ length: 7 }, (_, i) => theirs(i, 35)),
+      ...Array.from({ length: 5 }, (_, i) => theirs(i + 7, 24)),
+      ...elsewhere
+    ]
+
+    const { results, stats } = calculateOptimizedMatches(student, programs)
+
+    expect(stats.fallbackTierUsed).toBe(1)
+    expect(results.map((r) => r.programId).sort()).toEqual(
+      Array.from({ length: 12 }, (_, i) => `theirs-${i}`).sort()
+    )
   })
 })

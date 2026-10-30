@@ -31,8 +31,8 @@ always where you are.
 |---|---|---|---|---|---|
 | 1 | Done, 30 October 2026 (#223) | Nothing: no session | Version XI, this table and tasks 5.40–5.45 and 7.8 reach `main` (#223) | Merge #223. Give the 5.40 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
 | 2 | Done, 30 October 2026 (#226) | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
-| 3 | **Next** | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
-| 4 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
+| 3 | Done, 30 October 2026 (#227) | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
+| 4 | **Next** | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
@@ -79,7 +79,8 @@ crossed, finish the pull request in hand, start no new step, and find the cause 
 | Supabase egress | 5 GB | 4 GB | Supabase dashboard (you) |
 
 Look at these a week after steps 3 and 5, the two that move Upstash most. The last Upstash figures on
-record are 1 GB and 6.1K commands for 1–11 October 2026, before 5.19.
+record are 1 GB and 6.1K commands for 1–11 October 2026, before 5.19. 5.40 ran without October's figures,
+so the first reading after it is the starting point: record it here.
 
 ---
 
@@ -143,9 +144,10 @@ deletes today's design.
 | Node 24 on all three machines | 6.10 | 27 October 2026 | `engines` `24.x`, `.nvmrc` `24`, and CI reads `.nvmrc`, so CI tests on the Node and npm 11 that production runs. The matcher's fingerprint is identical on Node 22 and 24. The laptop moves when the owner installs Node 24 |
 | npm 12: the `allowScripts` list | 6.7, step 5 | 27 October 2026 | `allowScripts` denies the five dependency install scripts, none needed, and `.npmrc` sets `strict-allow-scripts=true`: an unreviewed script fails `npm ci`, so CI catches it before merge. npm 12 will change nothing here. 6.7 is done |
 | Matching in the Privacy Policy draft | 7.8 | 30 October 2026 | "How matching works" in section 3 of the draft and its redline, each statement checked against the code, and question 13 for the lawyer. Nothing published |
+| Matches keeps every program a student qualifies for | 5.40 | 30 October 2026 | The points window has no lower end, so "Meets all requirements" holds what Explore's switch holds: 8 on the owner's account, not 2. No score moved. `worked-examples.test.ts` holds XI's examples to the code |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.39 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -244,7 +246,7 @@ Phase 5 — quick wins
   (the Advisor's list and Vercel's old key wait for the owner)
 - [x] 5.38 Say "30-minute call" on For schools: the call is 30 minutes — 26 October 2026
 - [x] 5.39 Store the "two of" rules the matcher could not hold (from 5.18 step 1) — 27 October 2026; 47 programs
-- [ ] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged
+- [x] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged — 30 October 2026
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI)
@@ -2794,7 +2796,7 @@ Each university's page was re-read on 27 October; every one still states the "tw
 
 ---
 
-### 5.40 — Keep every program a student qualifies for on Matches
+### 5.40 — Keep every program a student qualifies for on Matches — **done**
 
 **Outcome:** The "Meets all requirements" group on Matches holds every program in the student's fields
 and countries that they meet, the same programs as Explore with those filters and "Only ones I qualify
@@ -2912,6 +2914,26 @@ line with the table.
 
 **Session size:** Small: one build session. Before release day, so the new Matches page and Explore
 agree from the start. Independent of other open tasks.
+
+**Done (30 October 2026, #227).**
+
+- **The real account, read-only:** the matcher on this branch against the cached 1,676 programs gives the
+  profile with 36 points, 3 fields and 6 countries 46 programs at tier 1 and 8 that meet all requirements.
+  They are exactly the 8 `programFit` gives with those fields and countries, Cultural Communication and
+  Earth Sciences first, then the six at 24. One Redis read and one small profile query; no write.
+- **Fingerprint:** every line but the `optimized` ones is byte-identical. Of the 60 `optimized` lines 18
+  differ: 257 programs gained, none lost, no score moved.
+- **Tests:** each fails with the lower end put back (11 failures), and the worked example fails when the
+  0.80 cap is changed. In `program-index.test.ts` the combined and typical-filter cases go from 19 to 20
+  programs, a reduction of 5.26× to 5×, both now pinned; "narrow points" moved to 30, because at 40 both
+  windows now hold the whole fixture.
+- **One effect the task did not list:** a student who fell from tier 1 to tier 2 for lack of programs near
+  their total now stays in tier 1, so they no longer see minimums more than about 10 over it, all gaps.
+  That is what the list's new last line says. None of the 60 fingerprint students lost a program this way.
+- **The version stays XI**, though "Changing this algorithm" asks for a new minor version when the scored
+  programs change: the order above gives XI.1 to 5.43, and XI's header says so.
+- **Left:** the owner's look in the preview. Phone width was not checked: the only change on the page is
+  the words of a paragraph that wraps. This month's Upstash figures were not given to the session.
 
 ---
 

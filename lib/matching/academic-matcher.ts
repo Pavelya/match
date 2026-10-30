@@ -9,7 +9,7 @@
  * - POINTS_ONLY: Only IB points cutoff
  * - SUBJECTS_ONLY: Only subject requirements
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type {

@@ -4,7 +4,7 @@
  * Main entry point for the matching algorithm.
  * Combines all components to produce a final match score.
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type { MatchInput, MatchResult, WeightConfig } from './types'

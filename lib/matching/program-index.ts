@@ -15,7 +15,7 @@
  *
  * Expected improvement: 25x reduction in candidates
  *
- * Based on: DOC_2_matching-algo X.md - Performance Optimizations
+ * Based on: DOC_2_matching-algo XI.md - Candidates
  */
 
 import type { ProgramRequirements } from './types'
@@ -49,7 +49,7 @@ export interface ProgramIndex {
 
 export interface FilterCriteria {
   studentPoints?: number
-  pointsMargin?: number // Default: 10 (±10 points)
+  pointsMargin?: number // How far above the total a minimum may be. Default: 10. No lower end
   fieldIds?: string[]
   countryIds?: string[]
   includeOpenFields?: boolean // Include programs if student is open to all fields
@@ -230,29 +230,21 @@ function addToIndex(
 // Filtering Functions
 // ============================================
 
+/**
+ * Every program whose minimum is no more than `margin` above the student's total, in 5-point
+ * buckets, and every program with no minimum. There is no lower end (MAINT 5.40): a program far
+ * under the total can still be one the student qualifies for.
+ */
 function filterByPointsRange(
   internal: InternalIndex,
   studentPoints: number,
   margin: number
 ): Set<string> {
   const result = new Set<string>()
-  const minPoints = studentPoints - margin
-  const maxPoints = studentPoints + margin
+  const maxBucket = Math.floor((studentPoints + margin) / 5) * 5
 
-  // Get all buckets in range
-  const minBucket = Math.floor(minPoints / 5) * 5
-  const maxBucket = Math.floor(maxPoints / 5) * 5
-
-  // Include bucket 0 (no requirement) always
-  const noPtsReq = internal.byPointsBucket.get(0)
-  if (noPtsReq) {
-    for (const id of noPtsReq) {
-      result.add(id)
-    }
-  }
-
-  // Include all buckets in range
-  for (let bucket = minBucket; bucket <= maxBucket; bucket += 5) {
+  // From bucket 0, which also holds the programs with no minimum
+  for (let bucket = 0; bucket <= maxBucket; bucket += 5) {
     const programIds = internal.byPointsBucket.get(bucket)
     if (programIds) {
       for (const id of programIds) {
