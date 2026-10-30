@@ -31,6 +31,12 @@ export const SEASONS = [
     key: 'eid-al-fitr',
     name: 'Eid al-Fitr',
     usualWindow: 'the expected first day and the three days after it (9 to 12 March in 2027)'
+  },
+  {
+    // 6.6: the date follows the lunar calendar, so the admin enters the days each year
+    key: 'diwali',
+    name: 'Diwali',
+    usualWindow: 'the five days from Dhanteras to Bhai Dooj (27 to 31 October in 2027)'
   }
 ] as const
 
