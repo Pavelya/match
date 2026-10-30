@@ -33,8 +33,8 @@ always where you are.
 | 2 | Done, 30 October 2026 (#226) | `Do MAINT 7.8.` | Adds a plain paragraph on how matching works to the Privacy Policy draft, and one question to the lawyer's brief. First, so the lawyer sees it with everything else | Send it to the lawyer with the rest of 7.4 | None |
 | 3 | Done, 30 October 2026 (#227) | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
 | 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
-| 5 | **Next** | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
-| 6 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
+| 6 | **Next** | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
 | 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
@@ -146,9 +146,10 @@ deletes today's design.
 | Matching in the Privacy Policy draft | 7.8 | 30 October 2026 | "How matching works" in section 3 of the draft and its redline, each statement checked against the code, and question 13 for the lawyer. Nothing published |
 | Matches keeps every program a student qualifies for | 5.40 | 30 October 2026 | The points window has no lower end, so "Meets all requirements" holds what Explore's switch holds: 8 on the owner's account, not 2. No score moved. `worked-examples.test.ts` holds XI's examples to the code |
 | Stop precomputing a list nobody reads | 5.42 | 30 October 2026 | The route, its two callers, `searchCandidatePrograms`, `isAlgoliaAvailable` and `INTERNAL_API_KEY` are gone. A save costs one Algolia search, one programs read and one Redis write less. Found 5.46 |
+| Coordinators see the student's list | 5.44 | 30 October 2026 | The student page, its matches page and analytics read `getCachedMatchesV10`, in the student's order through `rankedResults`. `getCachedMatches`, the two old key kinds and the unused analytics route are gone. No score moved. About 2.7 MB to 0.4 MB per coordinator list |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 5.44, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -255,7 +256,7 @@ Phase 5 — quick wins
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [x] 5.42 Stop precomputing a match list nobody reads (from 5.40) — 30 October 2026
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI)
-- [ ] 5.44 Show coordinators the list the student sees (from 5.40)
+- [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [ ] 5.45 Correct what the public pages say about matching (from 5.40)
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
 
@@ -3119,7 +3120,7 @@ the review 5.15 left for later.
 
 ---
 
-### 5.44 — Show coordinators the list the student sees
+### 5.44 — Show coordinators the list the student sees — **done**
 
 **Outcome:** A coordinator looking at a student sees the student's own list, in the student's own order.
 One path scores lists, and the second, much larger cached value goes.
@@ -3191,6 +3192,29 @@ shows the same chart. Saving the student's profile shows on both at once.
 
 **Session size:** Small. After 5.42, and independent of the rebranding: the coordinator portal keeps its
 design.
+
+**Done (30 October 2026, #229):** as the steps say, with no score moved: the fingerprint is byte-identical.
+
+**Beyond the steps:**
+
+| What | Why |
+|---|---|
+| A student without subjects gets no list from a coordinator page (`hasSubjects`) | They have none on Matches. It would have been a list only the coordinator sees, stored in Upstash. Analytics already skipped them. The empty states say why, and the shape does not change |
+| `getCacheStats` deleted too | Nothing called it, and it counted only the two removed kinds of key |
+| `totalMatches` counts `rankedResults`, so the coordinator's "Found N" leaves out a program that has gone | As the student's count does |
+| `app/coordinator/students/[id]/page.test.tsx`, new | The page swallows a matching error and shows no matches, so a route test alone would not show its top 3 arrive |
+| `docs/UX/coordinator-dashboard-component-guide.md` loses the analytics route | The route is gone |
+
+**Worth knowing:**
+
+- **The order is the new design's.** Until release, a student on today's design sees their list by score, so
+  compare a coordinator's top 3 with Matches in the new design (the preview switch). `sortMatches` is the
+  student's default, "Best fit"; a student who picks another sort sees their own choice.
+- **Analytics is the same chart on a narrower set.** It takes each student's highest score from their own
+  list, not from all 1,676 programs, so a student's bar falls only where their best score was outside that
+  list. Not measured: it would have meant reading every profile in production.
+- **The coordinator response carries four more fields per match** (`category`, `categoryInfo`, `confidence`,
+  `fitQuality`), about 470 bytes each and at most ten matches, which no screen reads. 5.41 removes them.
 
 ---
 

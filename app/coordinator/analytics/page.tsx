@@ -40,7 +40,7 @@ import {
   AlertTriangle
 } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import type { PrismaStudentWithRelations } from '@/lib/matching/transformers'
@@ -220,10 +220,11 @@ export default async function CoordinatorAnalyticsPage() {
           const transformedStudent = transformStudent(
             student as unknown as PrismaStudentWithRelations
           )
-          const matches = await getCachedMatches(
+          const matches = await getCachedMatchesV10(
             student.userId,
             transformedStudent,
-            transformedPrograms
+            transformedPrograms,
+            'BALANCED'
           )
 
           if (matches.length > 0) {

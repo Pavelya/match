@@ -671,7 +671,6 @@ export default async function CoordinatorLayout({ children }) {
 | `/api/coordinator/students/invite` | POST | Send student invitation |
 | `/api/coordinator/team` | GET | List coordinators at school |
 | `/api/coordinator/team/invite` | POST | Send coordinator invitation |
-| `/api/coordinator/analytics` | GET | School analytics (VIP only) |
 | `/api/coordinator/settings` | GET, PATCH | School settings |
 | `/api/coordinator/subscription` | GET | Get Stripe portal URL |
 

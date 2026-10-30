@@ -17,7 +17,8 @@ import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
+import { hasSubjects, rankedResults } from '@/lib/matching/match-list'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import {
   transformStudent,
@@ -168,7 +169,8 @@ export default async function StudentDetailPage({ params }: PageProps) {
     6: 'The Arts'
   }
 
-  // Fetch matches if coordinator has full access and student has consent
+  // Fetch matches if coordinator has full access and student has consent. A student without
+  // subjects has no list on Matches, so none here.
   let topMatches: Array<{
     programId: string
     overallScore: number
@@ -180,13 +182,13 @@ export default async function StudentDetailPage({ params }: PageProps) {
     } | null
   }> = []
 
-  if (hasConsent && access.hasFullAccess) {
+  if (hasConsent && access.hasFullAccess && hasSubjects(student)) {
     try {
       const allPrograms = await getCachedPrograms()
       // Cast student to expected type - the matching algorithm only needs the common fields
       const transformedStudent = transformStudent(student as unknown as PrismaStudentWithRelations)
       const transformedPrograms = transformPrograms(allPrograms)
-      const matches = await getCachedMatches(
+      const matches = await getCachedMatchesV10(
         student.userId,
         transformedStudent,
         transformedPrograms,
@@ -194,7 +196,8 @@ export default async function StudentDetailPage({ params }: PageProps) {
       )
 
       const programMap = new Map(allPrograms.map((p) => [p.id, p]))
-      topMatches = matches.slice(0, 3).map((match) => {
+      const ranked = rankedResults(matches, programMap, student.totalIBPoints ?? 0)
+      topMatches = ranked.slice(0, 3).map((match) => {
         const program = programMap.get(match.programId)
         return {
           programId: match.programId,
