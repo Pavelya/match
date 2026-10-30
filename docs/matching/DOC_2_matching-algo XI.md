@@ -239,13 +239,12 @@ are exported and not called. What becomes of all of these is MAINT 5.41.
 | ----------------------------------- | ---------------------- | ------------------- | ---------------------------------- |
 | Matches, both designs               | `getCachedMatchesV10`  | The tiers above     | `matchesV10:…`, 30 minutes         |
 | Coordinator pages                   | `getCachedMatches`     | The whole catalogue | `matches:…`, 30 minutes            |
-| Precompute, after a profile save    | `getCachedMatches`     | An Algolia search   | `matches:…`, under its own count   |
 | Explore                             | `programFit`           | The search records  | No Redis and no database for programs |
 
 `MATCHING_V10_FULL` chooses the first row's filter and labels. Off, it scores every program; production
 has it on. Today's Matches page shows the first 50 by score (`MAX_MATCHES_RETURNED`); the new page shows
 every match and groups them first. A save calls `invalidateStudentCache`, so a change to a profile shows
-at once.
+at once: the next load computes the list again, and nothing computes it ahead of that load.
 
 ---
 

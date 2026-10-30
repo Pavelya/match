@@ -34,8 +34,7 @@ const envSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
 
-  // Internal API
-  INTERNAL_API_KEY: z.string().optional(),
+  // Public base URL
   NEXT_PUBLIC_APP_URL: z.string().url().optional(),
 
   // Rebranding preview switch (lib/new-ui.ts). Neither is NEXT_PUBLIC_.

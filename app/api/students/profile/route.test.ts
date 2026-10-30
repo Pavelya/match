@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The profile API stores what matching reads, so it enforces the diploma rules itself and
 // computes the total from the core points matrix rather than trusting the client. The cases in
@@ -26,6 +26,7 @@ vi.mock('@/lib/reference-data', () => ({
 }))
 
 import { NextRequest } from 'next/server'
+import { invalidateStudentCache } from '@/lib/matching/cache'
 import { POST } from './route'
 
 /** Six subjects totalling 36, three at HL unless told otherwise. */
@@ -69,7 +70,23 @@ beforeEach(() => {
   prismaMock.studentProfile.update.mockResolvedValue({ id: 'profile-1' })
 })
 
+afterEach(() => vi.unstubAllGlobals())
+
 describe('POST /api/students/profile', () => {
+  // Clearing the student's list is what shows a save on Matches, whose next load computes it
+  // again. Nothing is computed ahead of that load: MAINT 5.42 removed a call that stored a list
+  // Matches never read
+  it('clears the cached matches on a save, and calls no other route', async () => {
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+
+    const res = await post({})
+
+    expect(res.status).toBe(200)
+    expect(invalidateStudentCache).toHaveBeenCalledWith('user-1')
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
   it.each([
     ['TOK', { tokGrade: 'E' }],
     ['the EE', { eeGrade: 'E' }]
