@@ -128,5 +128,5 @@ docs/           Architecture, product specs, matching algorithm, task records
 
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning behind each choice
 - `docs/product/DOC_1_ibmatch-requirements-doc.md` — product requirements
-- `docs/matching/` — matching algorithm design and changelog
+- `docs/matching/` — the matching algorithm: `DOC_2_matching-algo XI.md` is the master version, with the changelog
 - `docs/security/` — security audit history

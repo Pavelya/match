@@ -21,7 +21,8 @@ So XI states what runs. It proposes nothing. A change to the algorithm is a task
 and that task updates this document and `CHANGELOG.md` in the same pull request.
 
 Master means this is the reference for what runs, and what any change must update. It does not mean every
-rule is right: see [Known problems](#known-problems).
+rule is right: see [Known problems](#known-problems). The work left, in order, is the table at the top of
+"Start here" in `docs/tasks/MAINT_tasks.md`.
 
 ### Version X against production
 
@@ -279,6 +280,9 @@ pages. MAINT 5.43 takes them up.
 | "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone                | 301 of 1,676 programs, 280 in the US; a student on 24 and on 45 both get 1.00 | Owner decision |
 | Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
 
+Separately, coordinators see a different list from the student's: the second row of "Where each path
+runs", in score order alone. MAINT 5.44 moves them to the first row.
+
 Not a problem: being over the minimum costs nothing. The minimum is a poor measure of how hard a program
 is, and the order already puts the closest first.
 
@@ -333,7 +337,8 @@ MAX_MATCHES_RETURNED = 50, today's page only
    it byte-identical; any other change explains every difference.
 3. This document and `CHANGELOG.md` change in the same pull request. A change to scores or to which
    programs are scored takes a new minor version here; a new major version is for a new method.
-4. The matching tests pass: `npm test`.
+4. The matching tests pass: `npm test`. `lib/matching/worked-examples.test.ts` holds this document's
+   worked examples to the code (from MAINT 5.40).
 
 ---
 

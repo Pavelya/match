@@ -15,6 +15,61 @@ quota.
 
 ## Start here
 
+### The matching work: this order, one step at a time
+
+**The goal (owner, 30 October 2026).** Version XI (`docs/matching/DOC_2_matching-algo XI.md`) is the
+master version of the algorithm. When this table is finished the algorithm is fair, the code and XI say
+the same thing, and every service stays inside its free tier.
+
+**How to use it.** Find the first step that is not Done. Start a new session and paste the sentence in
+"Paste this". One step, one session, one pull request; merge it before starting the next. Do not skip
+ahead: each step relies on the one before. The session that finishes a step sets its Status to Done, with
+the date and pull request, and sets the next step to **Next**, in the same pull request. So **Next** is
+always where you are.
+
+| Step | Status | Paste this | What it does | What you do | Usage |
+|---|---|---|---|---|---|
+| 1 | **Next** | Nothing: no session | Version XI, this table and tasks 5.40–5.44 reach `main` (#223) | Merge #223. Give the step 2 session this month's Upstash figures: it records them under the free-tier guard, as the starting point | None |
+| 2 | Waiting | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
+| 3 | Waiting | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
+| 4 | Waiting | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
+| 5 | Waiting | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 6 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
+| 7 | Waiting | `/build 30` | Builds what you decided, with "How it works" and "Why this match" changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
+| 8 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
+
+**Where release day falls.** Steps 1–5 go before release day (R.1). Steps 6 and 7 should, but do not hold
+it up: if the board is not approved by then, they follow it. Step 8 waits for cleanup (R.2), because
+today's route still sends the labels it removes. Release and cleanup themselves are in
+`REBRANDING_tasks.md`, and nothing else in that file changes for this work.
+
+**You are finished when:**
+
+- XI's "Known problems" is empty, or lists only what you decided to keep;
+- `lib/matching/worked-examples.test.ts` passes, so XI's examples are what the code does;
+- one path scores students' lists: `getCachedMatchesV10` for Matches and coordinators;
+- nothing imports Version X's scoring, or you decided to keep it and XI says what it does;
+- the usage below is under every stop line.
+
+**The free-tier guard.** Together these steps should lower usage: steps 3, 4 and 8 remove more than step 2
+adds. No step may add a read of any service; each task's "Must not" says so. If a stop line below is
+crossed, finish the pull request in hand, start no new step, and find the cause first.
+
+| Service | Free limit a month | Stop line | Where to read it |
+|---|---|---|---|
+| Upstash bandwidth | 10 GB | 7 GB | Upstash console, Usage tab (you) |
+| Upstash commands | 500,000 | 350,000 | Upstash console, Usage tab (you) |
+| Upstash storage | 250 MB | 175 MB | Upstash console, Usage tab (you) |
+| Algolia requests | 10,000 | On pace for 8,000 | `npx tsx scripts/algolia-usage.ts` (a session can run it) |
+| Supabase egress | 5 GB | 4 GB | Supabase dashboard (you) |
+
+Look at these a week after steps 2 and 4, the two that move Upstash most. The last Upstash figures on
+record are 1 GB and 6.1K commands for 1–11 October 2026, before 5.19.
+
+---
+
+### Everything else
+
 **Reviewed 26 October 2026** against `REBRANDING_tasks.md`, the code on `main` and the open pull
 requests. The work is in three groups: what is done, what can be done now, before the rebranding is
 released and cleaned up, and what has to wait for that. Each row in groups 2 and 3 is a fresh AI
@@ -86,11 +141,7 @@ done or decided (#204–#213); what is left is the owner's, in its "Left for the
 release day, and settings in Vercel, Supabase, GitHub and the mailbox). Every other MAINT task that can run before release day was done by 27
 October 2026; a new finding gets a row here.
 
-| Session | Tasks | Size | Why now |
-|---|---|---|---|
-| Matches keeps every program the student qualifies for | 5.40 | small | Decided 30 October 2026, words included. Matches scores only programs near the student's total, so Explore's switch finds more: 8 against 2 for the owner. Removes the window's lower end; scores do not change; about +10% Upstash bandwidth per load, measured. Before release day |
-| Stop precomputing a match list nobody reads | 5.42 | small | Each profile save runs an Algolia search and a Redis write for a value Matches never reads. Saves usage. Independent |
-| Make the score fair | 5.43 | small, then a board | After 5.40. Two fixes: 4 to 7 points short scores above 1 to 3 short, and being open to every field lowers the number. Then two owner decisions on a change board: "Meets" for programs with no requirements at all, and field against country. Statuses do not change with the fixes
+The matching tasks 5.40–5.44 run in the order at the top of this section, not from here.
 
 **Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
 wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
@@ -103,7 +154,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
-| R.2 | Version X's unused scoring | 5.41 | research small | An owner decision, with 5.15's review of the matching math: adopt fit quality and the rest, or delete them. Dropping the labels needs today's route gone, and saves more than 5.40 adds |
+| R.2 | Version X's unused scoring | 5.41 | small | Step 8 in the matching order at the top of this section |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
 | R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
@@ -181,6 +232,7 @@ Phase 5 — quick wins
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [ ] 5.42 Stop precomputing a match list nobody reads (from 5.40)
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI)
+- [ ] 5.44 Show coordinators the list the student sees (from 5.40)
 
 Phase 6 — dependency majors
 
@@ -2812,6 +2864,9 @@ bytes a result (5.41).
    - `app/api/students/matches/list/route.test.ts`: a program at 24 for a student on 36 reaches the
      response as `meets`; `findUnique` once with today's `select`; `redis.get` once and `redis.set` at
      most once; nothing imported from `lib/algolia`.
+   - `lib/matching/worked-examples.test.ts`, new: XI's "Worked examples" table, row by row, through
+     `calculateMatch`, with a comment naming the section. A change to the algorithm then has to change
+     both, which is what would have caught Version X drifting from the code.
    - The fingerprint: `npx tsx scripts/score-fingerprint.ts` on `main` and on the branch. `grep -v
      '^optimized'` of the two is byte-identical: no score moved. The `optimized` lines differ, and every
      `id:score` pair in the old line is in the new one with the same score.
@@ -2868,7 +2923,9 @@ program does not ask for.
    would do to a few real profiles, against what the order already does with its "closest minimum" key.
 2. The owner decides, for each part: adopt it, or delete it.
 3. Delete what is rejected, and drop the labels from `enhanceMatchResult`, so `getCachedMatchesV10`
-   stores less. Adopted parts go through the matching tests and the rollback plan
+   stores less. With them go `lib/feature-flags/`' V10 flags, `MATCHING_V10_FULL` and the path it
+   switches to, which scores every program; `calculateMatches` if nothing else calls it; and the
+   commented flags in `.env`. Adopted parts go through the matching tests and the rollback plan
    (`docs/matching/matching-algo-rollback-plan.md`), and take a new version of `DOC_2`.
 
 **Must not:** move a score before step 2, or remove a label while today's route still sends it.
@@ -2876,7 +2933,8 @@ program does not ask for.
 **Verify:** the fingerprint: identical for deletions, every difference explained for adoptions. `npm
 test`.
 
-**Session size:** Research small; the change small for deletions, medium for adoptions. After R.2.
+**Session size:** Research small; the change small for deletions, medium for adoptions. After R.2: step 8
+in the order at the top of this file. Update XI so that it no longer lists these modules.
 
 ---
 
@@ -2914,7 +2972,7 @@ script's figure falls by the saves, or stays flat.
 
 **Outcome:** A bigger gap never scores higher than a smaller one, an open student's perfect match reads as
 perfect, and "Meets all requirements" means something for every program it covers. The first two are
-fixes. The last two are the owner's decisions, and one reverses a decision already made.
+fixes (Part A). The last two are the owner's decisions, and one reverses a decision already made (Part B).
 
 **Why (owner, 30 October 2026):** on making Version XI the master, the owner asked whether it is the right
 way to calculate, or should be fairer. Most of it holds. The status decides the groups from the program's
@@ -2937,51 +2995,146 @@ On unflagged rows it runs from 0.40 to 0.69, which is not worth a rule of its ow
 costs nothing, and that stays: the order puts the closest minimum first, and penalising a low minimum
 would push down programs like École polytechnique, whose real bar is far above it.
 
-**Steps:**
+**Part A: the two fixes** (step 5 in the order table). No board: statuses and screens do not change.
 
 1. **Fix 1.** One curve that falls with each point and does not depend on the program's minimum. Starting
    proposal, $\max(0.5,\ 0.85 - 0.03(d-1))$, which gives with subjects met: 1 short 0.90, 2 short 0.892, 3
-   short 0.874, 4 short 0.856, 7 short 0.802, 10 short 0.748, 14 short or more 0.70. Check it on real
+   short 0.874, 4 short 0.856, 7 short 0.802, 10 short 0.748, 14 short or more 0.70. Check it on a few
    profiles with local runs. Points-only programs tie from 1 to 5 short under their 0.90 ceiling: make
    them follow the same curve.
-2. **Fix 2.** No fields listed removes the field's weight, as no countries does, so a perfect match reads 100%.
-3. **The owner decides 3.** Options: a group of its own, "No IB minimum", beside the three, for programs
-   with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended: its own
-   group. "Meets all requirements" stays true for everything in it, and Explore's switch follows.
-   It reverses "The status stays Meets all requirements" (D2.7 change, D3.1), so it needs a change board.
-   Whether a 24 minimum is treated the same is part of the decision: recommended no, since those
-   programs do state a rule and many name subjects.
-4. **The owner decides 4.** Options: leave it; or equal weights, $w_L=w_F=0.2$; or field above country,
-   $w_L=0.1$, $w_F=0.3$. Recommended: decide after seeing the Explore order and 29 widened lists under each,
-   on the board. It changes 5.27's tier order, which Explore's switch relies on: the two must stay the same.
-5. **Docs:** `DOC_2_matching-algo XI.md`: move each fixed finding out of "Known problems", add the new rule, and
-   take the version to XI.1. A dated `CHANGELOG.md` entry.
+2. **Fix 2.** No fields listed removes the field's weight, as no countries does (`scorer.ts`), so a perfect
+   match reads 100%.
+3. **Docs:** in `DOC_2_matching-algo XI.md`, move both out of "Known problems", state the new rules and
+   take the version to XI.1. Update `lib/matching/worked-examples.test.ts`' cases to match, a dated
+   `CHANGELOG.md` entry, and step 5 in the order table.
+4. **After merging, once:** clear the cached matches, since scores changed. `clearAllMatchCache` from a
+   `npx tsx` one-liner; the session gives the owner the command. It costs one recompute per student at
+   their next load, and old values expire in 30 minutes anyway, so this only makes it immediate.
 
-**Tests (Vitest, next to the code):**
+**Tests for Part A (Vitest, next to the code):**
 
 - `lib/matching/academic-matcher.test.ts`: for minimums 24, 30, 36 and 45, the score falls or stays equal
   at every extra point short, from 1 to 21, and is below the score at 0 short. It fails today at 3 to 4.
 - The same for `POINTS_ONLY` and for a program with several requirements.
-- `lib/matching/field-matcher.test.ts` and `scorer.test.ts`: no fields listed gives 1.000 on a perfect
-  match, alone and with no countries; a student with fields keeps today's weights.
-- `lib/matching/match-why.test.ts`: the three parts of the fit still add up to the score with the new
-  weights.
+- `lib/matching/scorer.test.ts`: no fields listed gives 1.000 on a perfect match, alone and with no
+  countries; a student with fields keeps today's weights.
+- `lib/matching/match-why.test.ts`: the parts of the fit still add up to the score with the new weights.
 - Every status is unchanged: `deriveMatchStatus` does not read the score, and the fingerprint's `status`
   fields stay identical.
-- The fingerprint moves, by design. Each change is its own commit, and the pull request explains every
-  kind of difference.
-- After 3 or 4, as their board decides: the group's membership on Matches equals Explore's switch, and
-  Best fit stays the same on both.
+- The fingerprint's scores move, by design. Each fix is its own commit, and the pull request explains
+  every kind of difference.
 
-**Must not:** change a status with fixes 1 or 2; add a read of any service: this is arithmetic; bring in
-Version X's fit quality without an owner decision (5.41).
+**Part B: the two decisions** (steps 6 and 7). A change board, then build session 30 in
+`REBRANDING_tasks.md`.
+
+5. **The owner decides finding 3.** Options: a group of its own, "No IB minimum", beside the three, for
+   programs with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended:
+   its own group. "Meets all requirements" stays true for everything in it. It reverses "The status stays
+   Meets all requirements" (D2.7 change, D3.1), so it needs the board. A 24 minimum is treated
+   differently, recommended: those programs state a rule, and many name subjects.
+6. **The owner decides finding 4.** Options: leave it; equal weights, $w_L=w_F=0.2$; or field above
+   country, $w_L=0.1$, $w_F=0.3$. Recommended: decide with the real lists under each on the board. It
+   changes 5.27's tier order, and Explore's Best fit must stay equal to Matches'.
+7. **Build what was decided**, in one pull request with everything that states it:
+   - the status or weights in `lib/matching/`, and Explore's switch and tiers (`lib/explore/`), so the two
+     pages stay the same;
+   - "How it works" in both designs until R.2: its 60%, 30% and 10%, and "What each status means"
+     (`app/how-it-works/NewHowItWorks.tsx`, `app/how-it-works/_components/MatchingEngine.tsx`);
+   - "Why this match" (`lib/matching/match-why.ts`);
+   - any other public page that states them: `git grep` for "60%" and the status names;
+   - XI, to XI.2, with the worked examples test; `CHANGELOG.md`; step 7 in the order table.
+   Then clear the cached matches once, as in Part A.
+
+**Tests for Part B:** as the board decides, at least: the group's membership on Matches equals Explore's
+switch; Best fit is the same on both; "How it works" states the weights in `lib/matching/types.ts`, read
+from one place or checked by a test; a program with no minimum and no subjects lands in its group for a
+student on 24 and on 45.
+
+**Must not:** change a status in Part A; add a read of any service: this is arithmetic; bring in Version
+X's fit quality without an owner decision (5.41); let Matches and Explore disagree.
 
 **Verify:** the tests and the standing verification commands. The findings' table re-run shows the new
-order. In the preview, "Why this match" on a program 5 short reads lower than on one 1 short. Clear the
-match cache after merging (`clearAllMatchCache`), since scores change: it costs one recompute per student.
+order. In the preview, "Why this match" on a program 5 short reads lower than on one 1 short.
 
-**Session size:** Small for 1 and 2, in one pull request after 5.40. Then a change board for 3 and 4,
-and a build. Subsumes the review 5.15 left for later.
+**Rollback:** revert the pull request and clear the cached matches. No data changes.
+
+**Session size:** Part A small, after 5.44. Part B a change board, then a small to medium build. Subsumes
+the review 5.15 left for later.
+
+---
+
+### 5.44 — Show coordinators the list the student sees
+
+**Outcome:** A coordinator looking at a student sees the student's own list, in the student's own order.
+One path scores lists, and the second, much larger cached value goes.
+
+**Why (found 30 October 2026):** the coordinator pages take an older path, and it differs from Matches:
+
+| | Matches | Coordinator student page and matches route |
+|---|---|---|
+| Function | `getCachedMatchesV10` | `getCachedMatches` |
+| Programs scored | The tiers in XI | All 1,676 |
+| Order | Status, then closest minimum | Score alone, so ties fall in catalogue order |
+| Shown | Everything | Top 3 on the student page, top 10 on the route |
+
+So with many programs tied at 100%, a coordinator's "top 3" can be programs the student sees far down
+their list, or not at all. Each list is also stored whole: 1,676 results at about 1.6 KB is about 2.7 MB in
+Upstash, worked out from the size of a result rather than read. `app/coordinator/analytics/page.tsx`
+repeats that for up to 50 students, so up to about 135 MB on a cold cache for one page load.
+
+**Read first:** `lib/matching/cache.ts`; `lib/matching/match-list.ts`; `compareBestFit` and `GROUPS` in
+`lib/matching/match-groups.ts`; the callers below; `DOC_2_matching-algo XI.md`, "Where each path runs".
+
+**Steps:**
+
+1. Check the callers with grep, since 5.42 changes them. On 30 October 2026, after 5.42 the callers of
+   `getCachedMatches` are the three below and `app/api/coordinator/analytics/route.ts`, which nothing
+   calls; `getCachedMatch` has no caller outside its tests.
+2. A pure helper in `lib/matching/match-list.ts`, say `rankedResults(results, programs, total)`: the
+   results in the order the student's page shows them, by status as `GROUPS` lists them, then
+   `compareBestFit`. Results whose program has gone are left out, as in `matchItems`.
+3. Move to `getCachedMatchesV10` and the helper: `app/coordinator/students/[id]/page.tsx` (top 3) and
+   `app/api/coordinator/students/[id]/matches/route.ts` (top 10). The response keeps its shape: a V10
+   result holds everything a `MatchResult` does.
+4. Move `app/coordinator/analytics/page.tsx` to `getCachedMatchesV10`. The chart stays as it is:
+   `matches[0].overallScore` is still each student's highest score, and no screen changes, so no board.
+5. Delete what is left unused: `app/api/coordinator/analytics/route.ts`, with any case for it in
+   `app/api/coordinator/cross-school.test.ts`, `getCachedMatches`,
+   `getCachedMatch`, `getBatchCacheKey`, the `match:` and `matches:` scans in `invalidateStudentCache` and
+   `clearAllMatchCache`, and `invalidateProgramCache` with its one call in
+   `app/api/admin/programs/[id]/route.ts`: it only clears `match:` keys, which nothing writes by then. Old
+   `matches:` values expire within 30 minutes.
+6. Docs: "Where each path runs" and "Known problems" in XI, a dated `CHANGELOG.md` entry, and step 4
+   in the order table.
+
+**Tests (Vitest, next to the code):**
+
+- `lib/matching/match-list.test.ts`, `rankedResults`: meets before close before gap; closest minimum first
+  inside a status; no minimum last; a result with no program left out; for one fixture, flattening the
+  student's groups gives the same ids in the same order.
+- `app/api/coordinator/students/[id]/matches/route.test.ts`, new: `redis.set` writes a `matchesV10:` key
+  and never `matches:`; a student who has just loaded Matches costs a cache hit, not a second
+  calculation; the top 10 come in `rankedResults`' order; no consent, no access and a revoked coordinator
+  are refused. Another school's student stays refused in `app/api/coordinator/cross-school.test.ts`.
+- `lib/matching/cache.test.ts`: `invalidateStudentCache` scans one pattern; a profile change still clears
+  the student's list.
+- The fingerprint: `cmp` byte-identical. This moves no score.
+
+**Must not:** change a consent or access check, the shape a coordinator screen reads, or any score; add a
+read of any service; add a cap to what Matches shows.
+
+**Load:** lower. About 2.7 MB to 0.4 MB per coordinator list, and up to about 135 MB to 20 MB for one cold
+analytics load. A coordinator and student now share one cached list. Each profile save runs one scan
+pattern, not three. Check it a week later in the free-tier guard.
+
+**Verify:** the tests and the standing verification commands. In the preview, as a coordinator with one
+consenting student: their top 3 are the first three of that student's Matches. `/coordinator/analytics`
+shows the same chart. Saving the student's profile shows on both at once.
+
+**Rollback:** revert the pull request. No data changes.
+
+**Session size:** Small. After 5.42, and independent of the rebranding: the coordinator portal keeps its
+design.
 
 ---
 
