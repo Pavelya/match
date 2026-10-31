@@ -124,7 +124,7 @@ function techArticleSchema(logo: string) {
     abstract:
       'IB Match uses fast search technology and transparent scoring to match International Baccalaureate students with university programs. Our platform evaluates compatibility based on IB points, subject requirements, and student preferences without AI black boxes.',
     articleBody:
-      'IB Match leverages Algolia search to enable fast filtering across university programs. Our three-factor scoring system evaluates: (1) IB Points Compatibility - comparing student scores against program requirements, (2) Subject Match - analyzing HL/SL course alignment, and (3) Preference Alignment - considering student location and field preferences. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.',
+      "IB Match leverages Algolia search to enable fast filtering across university programs. Our three-factor scoring system evaluates: (1) Academic match - how well a student's IB points and subjects meet program requirements, (2) Location match - whether the program is in one of the student's preferred countries, and (3) Field match - whether the program is in one of the student's preferred study areas. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.",
     proficiencyLevel: 'Expert',
     dependencies: 'Algolia Search, Next.js, PostgreSQL',
     teaches: [

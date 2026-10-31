@@ -46,7 +46,7 @@ export function MatchingEngine() {
             Three-Factor Compatibility Scoring
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Every program gets a compatibility score from 0 to 100%. We calculate this using a
+            Every match gets a compatibility score from 0 to 100%. We calculate this using a
             weighted formula that prioritizes what matters most: your academic fit.
           </p>
         </div>

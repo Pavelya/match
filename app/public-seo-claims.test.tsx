@@ -5,7 +5,8 @@ import { describe, expect, it, vi } from 'vitest'
  * The titles, descriptions, keywords and structured data that search engines read say what the
  * legal review left standing (docs/legal-review/claims.md, MAINT 7.4): IB Match is not a
  * non-profit and not non-commercial (schools pay), and "the only" platform is a claim about every
- * competitor. Both designs share this copy, so it is checked once.
+ * competitor. Both designs share this copy, so it is checked once. The same goes for the FAQ list
+ * and for how the structured data describes the score (MAINT 5.45).
  */
 
 vi.mock('@/lib/new-ui', () => ({ showsNewUi: vi.fn(async () => false) }))
@@ -13,8 +14,11 @@ vi.mock('@/components/layout/StudentFooter', () => ({ StudentFooter: () => null 
 vi.mock('@/lib/brand/metadata', () => ({
   organizationLogo: () => ({ url: 'https://example.test/logo.png' })
 }))
+vi.mock('@/lib/legal-documents', () => ({ getPublishedDocument: vi.fn(async () => null) }))
 
 import HomePage, { metadata as homeMetadata } from './page'
+import FAQPage from './faqs/page'
+import { NewHowItWorks } from './how-it-works/NewHowItWorks'
 import HowItWorksPage from './how-it-works/page'
 import SupportUsPage, { metadata as supportMetadata } from './support-us/page'
 
@@ -60,5 +64,22 @@ describe('How it works', () => {
   it('does not promise instant filtering in its structured data', async () => {
     const data = jsonLd(renderToStaticMarkup(await HowItWorksPage()))
     expect(data).not.toMatch(/instant/i)
+  })
+
+  it('names the three factors the page names in its structured data', async () => {
+    const data = jsonLd(renderToStaticMarkup(await HowItWorksPage()))
+    const page = renderToStaticMarkup(NewHowItWorks())
+    for (const factor of ['Academic match', 'Location match', 'Field match']) {
+      expect(page).toContain(factor)
+      expect(data).toContain(factor)
+    }
+    expect(data).not.toMatch(/IB Points Compatibility|Subject Match|Preference Alignment/)
+  })
+})
+
+describe('FAQs', () => {
+  it('says what a coordinator can view, as the invitation does', async () => {
+    const data = jsonLd(renderToStaticMarkup(await FAQPage()))
+    expect(data).toContain('can view your academic profile, matches and saved programs')
   })
 })

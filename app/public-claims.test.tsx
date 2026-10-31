@@ -7,8 +7,9 @@ import { describe, expect, it, vi } from 'vitest'
  * stay off, in today's components and in the new design's pages. Each one was a claim the code
  * could not support: "non-profit" and "non-commercial" (schools pay), "100% goes to platform
  * costs", the "where your support goes" split, "most popular", "forever", "GDPR compliant", other
- * companies' names, and the mailboxes nobody reads. The titles, descriptions and structured data
- * are checked in app/public-seo-claims.test.tsx.
+ * companies' names, and the mailboxes nobody reads. Two more said too much about matching (MAINT
+ * 5.45): only a student's matches are scored, and the Terms disclaim accurate scores. The titles,
+ * descriptions and structured data are checked in app/public-seo-claims.test.tsx.
  */
 
 vi.mock('@/components/support/islands', () => ({ ProgramSuggestion: () => null }))
@@ -21,6 +22,7 @@ import { CoordinatorStory } from './for-coordinators/_components/CoordinatorStor
 import { NewForCoordinators } from './for-coordinators/NewForCoordinators'
 import { FilterSystem } from './how-it-works/_components/FilterSystem'
 import { HowItWorksHero } from './how-it-works/_components/HowItWorksHero'
+import { MatchingEngine } from './how-it-works/_components/MatchingEngine'
 import { ProgramDatabase } from './how-it-works/_components/ProgramDatabase'
 import { TechStack } from './how-it-works/_components/TechStack'
 import { NewHowItWorks } from './how-it-works/NewHowItWorks'
@@ -58,7 +60,9 @@ const RETIRED: [string, RegExp][] = [
     /what we hear from coordinators|balancing academic guidance/i
   ],
   ['"based on coordinator feedback"', /based on coordinator feedback/i],
-  ['"the only" platform', /the only (university )?matching platform/i]
+  ['"the only" platform', /the only (university )?matching platform/i],
+  ['"every program gets" a score', /every program gets/i],
+  ['"accurate matching"', /accurate matching/i]
 ]
 
 function html(Component: ComponentType): string {
@@ -74,6 +78,7 @@ const PAGES: [string, ComponentType][] = [
   ['NewSupportUs', NewSupportUs],
   ['HowItWorksHero', HowItWorksHero],
   ['ProgramDatabase', ProgramDatabase],
+  ['MatchingEngine', MatchingEngine],
   ['FilterSystem', FilterSystem],
   ['TechStack', TechStack],
   ['NewHowItWorks', NewHowItWorks],
@@ -94,6 +99,17 @@ describe.each(PAGES)('%s', (_name, Component) => {
 
   it.each(RETIRED)('does not say %s', (_what, pattern) => {
     expect(markup).not.toMatch(pattern)
+  })
+})
+
+describe('How it works', () => {
+  it('says what the matching rests on, and that a match is what gets a score, in both designs', () => {
+    for (const Component of [HowItWorksHero, NewHowItWorks]) {
+      expect(html(Component)).toContain('Fast matching from published requirements')
+    }
+    for (const Component of [MatchingEngine, NewHowItWorks]) {
+      expect(html(Component)).toContain('Every match gets a')
+    }
   })
 })
 
