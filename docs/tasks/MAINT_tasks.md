@@ -35,7 +35,7 @@ always where you are.
 | 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
-| 7 | Done, 31 October 2026 (#PR) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
+| 7 | Done, 31 October 2026 (#231) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | **Next** | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
 | 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
 | 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
@@ -3282,7 +3282,7 @@ words. The pages stay static.
 
 **Session size:** Tiny. After 5.43 Part A.
 
-**Done (31 October 2026, #PR).** The four changes, in the words recommended above, with one exception: today's
+**Done (31 October 2026, #231).** The four changes, in the words recommended above, with one exception: today's
 design keeps its own term, "Every match gets a compatibility score", under its heading of the same name. H14–H16 and
 M7 in `claims.md`, a line in `lawyer-brief.md`'s question 11, and D4.14's record. `/how-it-works` is dated 31 October
 2026; `/faqs` stays for #127.
