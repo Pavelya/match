@@ -4,6 +4,37 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-30] - Coordinators see the list the student sees (MAINT 5.44)
+
+### Changed
+
+- **One path scores lists.** The coordinator student page, its matches page and analytics move from
+  `getCachedMatches` to `getCachedMatchesV10`. A coordinator and a student share one cached value, about
+  0.4 MB in place of 2.7 MB, so the list a student has just loaded costs a coordinator a cache hit.
+- **The student's order.** `rankedResults` puts results in the order the new Matches page shows them: by
+  status as `GROUPS` lists them, then `compareBestFit`. The top 3 and top 10 are now the first of the
+  student's own list, not the highest scores in catalogue order.
+- **No list without subjects.** A student without subjects has no list on Matches, so a coordinator gets
+  none either, and nothing is computed or stored for them. The screens' empty states already say why.
+- **Analytics reads a narrower set.** The chart still takes each student's highest score, now from their
+  own list, not from all 1,676 programs. A student's bar moves only if their best score was outside it.
+- **No score moved.** `score-fingerprint.ts` is byte-identical.
+
+### Removed
+
+- `getCachedMatches`, `getCachedMatch`, `getBatchCacheKey`, `invalidateProgramCache`, `getCacheStats` and
+  the `match:` and `matches:` scans. A save now scans one pattern, not three. Old `matches:` values expire
+  within 30 minutes.
+- `GET /api/coordinator/analytics`, which nothing called. The analytics page computes its own figures.
+
+### Testing
+
+- `lib/matching/match-list.test.ts` holds `rankedResults` to the student's groups, flattened.
+- `app/api/coordinator/students/[id]/matches/route.test.ts` holds the shared key, the cache hit after
+  Matches, the order, and the refusals. `app/coordinator/students/[id]/page.test.tsx` renders the top 3.
+
+---
+
 ## [2026-10-30] - A save no longer precomputes a list (MAINT 5.42)
 
 ### Removed

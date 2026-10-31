@@ -9,7 +9,7 @@
 
 import { prisma } from '../lib/prisma'
 import { getCachedPrograms, warmProgramsCache } from '../lib/matching/program-cache'
-import { getCachedMatches } from '../lib/matching'
+import { getCachedMatchesV10 } from '../lib/matching'
 import { transformStudent, transformPrograms } from '../lib/matching/transformers'
 import { redis } from '../lib/redis/client'
 
@@ -58,7 +58,7 @@ async function runPerfTest() {
   console.log(`   IB Points: ${testStudent.totalIBPoints}`)
 
   // Step 5: Clear match cache for accurate test
-  const cacheKey = `matches:${testStudent.userId}:*`
+  const cacheKey = `matchesV10:${testStudent.userId}:*`
   const keys = await redis.keys(cacheKey)
   if (keys.length > 0) {
     await redis.del(...keys)
@@ -71,7 +71,7 @@ async function runPerfTest() {
   const transformedPrograms = transformPrograms(programs)
 
   const coldStart = performance.now()
-  const coldMatches = await getCachedMatches(
+  const coldMatches = await getCachedMatchesV10(
     testStudent.userId,
     transformedStudent,
     transformedPrograms,
@@ -84,7 +84,7 @@ async function runPerfTest() {
   // Step 7: Test match calculation (warm)
   console.log('\n🏃 Testing match calculation (warm)...')
   const warmMatchStart = performance.now()
-  const warmMatches = await getCachedMatches(
+  const warmMatches = await getCachedMatchesV10(
     testStudent.userId,
     transformedStudent,
     transformedPrograms,

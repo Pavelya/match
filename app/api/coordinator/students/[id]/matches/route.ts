@@ -14,7 +14,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
+import { hasSubjects, rankedResults } from '@/lib/matching/match-list'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import { logger } from '@/lib/logger'
@@ -108,6 +109,22 @@ export async function GET(request: NextRequest, context: RouteContext) {
       )
     }
 
+    const studentSummary = {
+      id: student.id,
+      name: student.user.name,
+      email: student.user.email
+    }
+
+    // A student without subjects has no list on Matches, so none here
+    if (!hasSubjects(student)) {
+      return NextResponse.json({
+        matches: [],
+        student: studentSummary,
+        totalMatches: 0,
+        returnedCount: 0
+      })
+    }
+
     // Fetch all programs from cache
     const allPrograms = await getCachedPrograms()
 
@@ -115,13 +132,17 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const transformedStudent = transformStudent(student)
     const transformedPrograms = transformPrograms(allPrograms)
 
-    // Get matches (with caching based on student's userId for consistency)
-    const matches = await getCachedMatches(
+    // The list the student's Matches page reads, from the same cached value, in the page's order
+    const results = await getCachedMatchesV10(
       student.userId,
       transformedStudent,
       transformedPrograms,
       'BALANCED'
     )
+
+    // Create lookup map for O(1) access
+    const programMap = new Map(allPrograms.map((p) => [p.id, p]))
+    const matches = rankedResults(results, programMap, student.totalIBPoints ?? 0)
 
     const totalDuration = Math.round(performance.now() - startTime)
 
@@ -134,9 +155,6 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
     // Return top 10 matches with full program data
     const topMatches = matches.slice(0, 10)
-
-    // Create lookup map for O(1) access
-    const programMap = new Map(allPrograms.map((p) => [p.id, p]))
 
     // Enrich matches with full program data
     const enrichedMatches = topMatches.map((match) => {
@@ -186,11 +204,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
     return NextResponse.json({
       matches: enrichedMatches,
-      student: {
-        id: student.id,
-        name: student.user.name,
-        email: student.user.email
-      },
+      student: studentSummary,
       totalMatches: matches.length,
       returnedCount: topMatches.length
     })

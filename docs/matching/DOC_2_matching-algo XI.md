@@ -238,13 +238,15 @@ are exported and not called. What becomes of all of these is MAINT 5.41.
 | Path                                | Function               | Candidates          | Key or read                        |
 | ----------------------------------- | ---------------------- | ------------------- | ---------------------------------- |
 | Matches, both designs               | `getCachedMatchesV10`  | The tiers above     | `matchesV10:…`, 30 minutes         |
-| Coordinator pages                   | `getCachedMatches`     | The whole catalogue | `matches:…`, 30 minutes            |
+| Coordinator pages                   | `getCachedMatchesV10`  | The same list       | The same key, shared with Matches  |
 | Explore                             | `programFit`           | The search records  | No Redis and no database for programs |
 
-`MATCHING_V10_FULL` chooses the first row's filter and labels. Off, it scores every program; production
+`MATCHING_V10_FULL` chooses the first two rows' filter and labels. Off, it scores every program; production
 has it on. Today's Matches page shows the first 50 by score (`MAX_MATCHES_RETURNED`); the new page shows
-every match and groups them first. A save calls `invalidateStudentCache`, so a change to a profile shows
-at once: the next load computes the list again, and nothing computes it ahead of that load.
+every match and groups them first. Coordinators read the new page's order (`rankedResults`): the first 3 on
+the student page, the first 10 on the matches page. A student without subjects has no list on any of them.
+A save calls `invalidateStudentCache`, so a change to a profile shows at once: the next load computes the
+list again, and nothing computes it ahead of that load.
 
 ---
 
@@ -286,9 +288,6 @@ pages. MAINT 5.43 takes them up.
 | Being open lowers the number: no fields gives F_M 0.5 with its weight kept               | A perfect match reads 95% with no fields, 93% with no fields or countries   | Fix            |
 | "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Owner decision |
 | Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
-
-Separately, coordinators see a different list from the student's: the second row of "Where each path
-runs", in score order alone. MAINT 5.44 moves them to the first row.
 
 Not a problem: being over the minimum costs nothing. The minimum is a poor measure of how hard a program
 is, and the order already puts the closest first.

@@ -11,6 +11,7 @@ import { cardChips, deriveMatchStatus, type MatchStatus } from './match-status'
 import { whyThisMatch, type WhyThisMatch } from './match-why'
 import {
   compareBestFit,
+  GROUPS,
   type MatchItem,
   type MatchesProfile,
   type ProfileStep
@@ -125,6 +126,23 @@ export function matchItems(
       return program ? [matchItem(r, program, studentPoints, now)] : []
     })
     .sort(compareBestFit(studentPoints))
+}
+
+/**
+ * The results in the order the student's page shows them: by status as GROUPS lists them, then
+ * best fit. For a coordinator's view of that list, which has no groups. Results whose program has
+ * gone are left out, as in matchItems.
+ */
+export function rankedResults<T extends ListedResult>(
+  results: T[],
+  programs: Map<string, CachedProgram>,
+  total: number
+): T[] {
+  const byProgram = new Map(results.map((r) => [r.programId, r]))
+  const items = matchItems(results, programs, total)
+  return GROUPS.flatMap(({ status }) => items.filter((m) => m.status === status)).flatMap(
+    (m) => byProgram.get(m.id) ?? []
+  )
 }
 
 /**

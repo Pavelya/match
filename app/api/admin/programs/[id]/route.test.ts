@@ -18,7 +18,7 @@ vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'admin-1' } })) }))
 vi.mock('@/lib/rate-limit', () => ({ applyRateLimit: vi.fn(async () => null) }))
 vi.mock('@/lib/matching/program-cache', () => ({ invalidateProgramsCache: vi.fn() }))
-vi.mock('@/lib/matching', () => ({ invalidateProgramCache: vi.fn(), clearAllMatchCache: vi.fn() }))
+vi.mock('@/lib/matching', () => ({ clearAllMatchCache: vi.fn() }))
 vi.mock('@/lib/algolia/sync', () => ({
   syncProgramToAlgolia: vi.fn(),
   deleteProgramFromAlgolia: vi.fn()

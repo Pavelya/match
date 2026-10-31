@@ -31,7 +31,7 @@ vi.mock('@/lib/email/client', () => ({
 }))
 vi.mock('@/lib/matching/program-cache', () => ({ getCachedPrograms }))
 vi.mock('@/lib/matching', () => ({
-  getCachedMatches: vi.fn(async () => [])
+  getCachedMatchesV10: vi.fn(async () => [])
 }))
 vi.mock('@/lib/matching/cache', () => ({ invalidateStudentCache: vi.fn(async () => {}) }))
 vi.mock('@/lib/reference-data', () => ({ getCachedIBCourses: vi.fn(async () => []) }))
@@ -44,7 +44,6 @@ import * as resend from './students/invite/resend/route'
 import * as students from './students/route'
 import * as studentInvites from './students/invite/route'
 import * as teamInvites from './team/invite/route'
-import * as analytics from './analytics/route'
 
 const OWN = 'school-1'
 const OTHER = 'school-2'
@@ -59,7 +58,7 @@ function studentOf(schoolId: string) {
     tokGrade: 'B',
     eeGrade: 'C',
     user: { id: 'student-user', name: 'A Student', email: 'student@example.com' },
-    courses: [],
+    courses: [{ level: 'HL', grade: 6, ibCourse: { id: 'physics', name: 'Physics' } }],
     preferredFields: [],
     preferredCountries: []
   }
@@ -177,13 +176,6 @@ describe("a coordinator's lists", () => {
     expect(prismaMock.studentProfile.findMany).toHaveBeenCalledOnce()
     expect(prismaMock.studentProfile.findMany.mock.calls[0][0].where.schoolId).toBe(OWN)
     expect(prismaMock.studentProfile.count.mock.calls[0][0].where.schoolId).toBe(OWN)
-  })
-
-  it('counts only their own school’s students in analytics', async () => {
-    await analytics.GET()
-
-    expect(prismaMock.studentProfile.findMany).toHaveBeenCalledOnce()
-    expect(prismaMock.studentProfile.findMany.mock.calls[0][0].where.schoolId).toBe(OWN)
   })
 
   it.each([

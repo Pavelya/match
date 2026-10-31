@@ -15,7 +15,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
-import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
+import { clearAllMatchCache } from '@/lib/matching'
 import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
 import { parseEntryYear, requirementsStamp } from '@/lib/programs/entry-year'
 import { canonicalDegreeType } from '@/lib/programs/degree-types'
@@ -304,11 +304,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     })
 
     // Invalidate caches to reflect changes immediately
-    await Promise.all([
-      invalidateProgramsCache(),
-      invalidateProgramCache(id),
-      syncProgramToAlgolia(id)
-    ])
+    await Promise.all([invalidateProgramsCache(), syncProgramToAlgolia(id)])
 
     return NextResponse.json(program)
   } catch (error) {
