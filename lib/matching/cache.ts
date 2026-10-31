@@ -30,6 +30,13 @@ import { isFeatureEnabled, getEnabledV10Features } from '@/lib/feature-flags'
 const CACHE_TTL = 1800
 
 /**
+ * Longest a save waits for its list to clear; it normally takes two round trips, about 60 ms.
+ * Upstash's client has no timeout of its own: a refused connection retries for about 4 seconds, and
+ * a hung one never returns.
+ */
+const INVALIDATE_TIMEOUT_MS = 2000
+
+/**
  * Most matches the student matches API returns, best first. The V10 candidate
  * filter can leave several hundred (63 at the median in October 2026), and each
  * match is about 3 KB of JSON.
@@ -59,23 +66,37 @@ function hashWeights(weights: WeightConfig): string {
   return `${weights.academic.toFixed(2)}_${weights.location.toFixed(2)}_${weights.field.toFixed(2)}`
 }
 
+async function deleteStudentKeys(studentId: string): Promise<void> {
+  // Find all keys for this student using SCAN (non-blocking)
+  const keys = await scanKeys(`matchesV10:${studentId}:*`)
+
+  if (keys.length > 0) {
+    await redis.del(...keys)
+    logger.info('Student cache invalidated', { studentId, deletedKeys: keys.length })
+  }
+}
+
 /**
  * Invalidate cache for a specific student
- * Call this when student profile is updated
+ * Call this when student profile is updated, and await it before answering (MAINT 5.46)
+ *
+ * It never throws, and it gives up after INVALIDATE_TIMEOUT_MS, so Redis cannot fail or hold up a
+ * save that has already committed.
  *
  * @param studentId - Student's user ID
  */
 export async function invalidateStudentCache(studentId: string): Promise<void> {
-  try {
-    // Find all keys for this student using SCAN (non-blocking)
-    const keys = await scanKeys(`matchesV10:${studentId}:*`)
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const timedOut = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('Timed out')), INVALIDATE_TIMEOUT_MS)
+  })
 
-    if (keys.length > 0) {
-      await redis.del(...keys)
-      logger.info('Student cache invalidated', { studentId, deletedKeys: keys.length })
-    }
+  try {
+    await Promise.race([deleteStudentKeys(studentId), timedOut])
   } catch (error) {
     logger.error('Failed to invalidate student cache', { error, studentId })
+  } finally {
+    clearTimeout(timer)
   }
 }
 

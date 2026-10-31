@@ -204,11 +204,9 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Fire-and-forget: Invalidate cache in background (don't block response)
-    // Cache will be rebuilt on next access if needed
-    invalidateStudentCache(studentId)
-      .then(() => logger.info('Student cache invalidated after profile update', { studentId }))
-      .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, studentId }))
+    // Before the answer: Vercel can freeze a function once it has answered, and the student's next
+    // load would read the old list (MAINT 5.46). Rebuilt on that load
+    await invalidateStudentCache(studentId)
 
     return NextResponse.json({
       success: true,

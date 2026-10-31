@@ -122,6 +122,29 @@ describe('PUT /api/students/profile/preferences', () => {
     expect(invalidateMock).toHaveBeenCalledWith('user-1')
   })
 
+  // As in ../route.test.ts: a clear left running after the answer may stall (MAINT 5.46)
+  it('answers only once the cached matches are cleared', async () => {
+    prismaMock.studentProfile.upsert.mockResolvedValue({ totalIBPoints: 38 })
+    let finishClear = () => {}
+    invalidateMock.mockReturnValueOnce(
+      new Promise<undefined>((resolve) => {
+        finishClear = () => resolve(undefined)
+      })
+    )
+    let answered = false
+
+    const answer = put({ step: 'countries', countries: ['ca'], anywhere: false }).then((res) => {
+      answered = true
+      return res
+    })
+    await vi.waitFor(() => expect(invalidateMock).toHaveBeenCalled())
+    await new Promise((resolve) => setTimeout(resolve))
+    expect(answered).toBe(false)
+
+    finishClear()
+    expect((await answer).status).toBe(200)
+  })
+
   it('refuses a bad step without writing', async () => {
     const response = await put({ step: 'countries', countries: [], anywhere: false })
     expect(response.status).toBe(400)

@@ -121,6 +121,28 @@ describe('PATCH /api/coordinator/students/[id]', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  // As in ../../../students/profile: a clear left running after the answer may stall (MAINT 5.46)
+  it('answers only once the student’s cached matches are cleared', async () => {
+    let finishClear = () => {}
+    vi.mocked(invalidateStudentCache).mockReturnValueOnce(
+      new Promise<void>((resolve) => {
+        finishClear = resolve
+      })
+    )
+    let answered = false
+
+    const answer = patch({ tokGrade: 'A' }).then((res) => {
+      answered = true
+      return res
+    })
+    await vi.waitFor(() => expect(invalidateStudentCache).toHaveBeenCalled())
+    await new Promise((resolve) => setTimeout(resolve))
+    expect(answered).toBe(false)
+
+    finishClear()
+    expect((await answer).status).toBe(200)
+  })
+
   it.each([
     ['TOK', { tokGrade: 'E' }],
     ['the EE', { eeGrade: 'E' }]

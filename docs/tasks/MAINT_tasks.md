@@ -153,9 +153,10 @@ deletes today's design.
 | No set grades, and field above country | 5.43 | 31 October 2026 | Rebranding session 30 finished the task: a fourth status for the 475 programs with nothing to check, on every screen that shows one; Explore's switch keeps them and splits its count; field 30%, country 10%, with Best fit's tiers and How it works. XI.2. Part A, the two scoring bugs, came first (#230). Clear the cached matches once after merging |
 | The public words on matching | 5.45 | 31 October 2026 | How it works and the FAQ say only what the matcher does, in both designs and the structured data; four rows in `claims.md`, and two tests hold the words. No score or layout moved
 | "Match probability" off the public pages | 5.47 | 31 October 2026 | Explore's questions and each program's description say the student sees how they stand against each requirement, and the answer on the database says more than 1,600 programs. Two rows in `claims.md`, and tests hold every fallback of the description |
+| A save clears the list before answering | 5.46 | 31 October 2026 | The three save routes wait for the clear, which gives up after 2 seconds, so a stalled clear no longer leaves the old list on Matches and a Redis outage still cannot fail a save. About 70 ms on a save, no new command. Found 5.48 |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.45, 5.47, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -169,7 +170,7 @@ October 2026; a new finding gets a row here.
 
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
-| A save clears the list before answering | 5.46 | small | Three save routes clear the cached list without waiting for it, so a save may not show on Matches at once. Unproven: from reading the code. Independent of the matching order |
+| A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
@@ -265,8 +266,9 @@ Phase 5 — quick wins
   Part B #233, rebranding session 30
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [x] 5.45 Correct what the public pages say about matching (from 5.40) — 31 October 2026
-- [ ] 5.46 Clear the cached list before a save answers (from 5.42)
+- [x] 5.46 Clear the cached list before a save answers (from 5.42) — 31 October 2026
 - [x] 5.47 Take "match probability" off the public pages (from 5.43) — 31 October 2026
+- [ ] 5.48 Keep a Matches load that outlasts a save from storing the old list (from 5.46)
 
 Phase 6 — dependency majors
 
@@ -3445,7 +3447,7 @@ above; the preview's are the known ones (logo URLs, breadcrumbs, headings). The 
 
 ---
 
-### 5.46 — Clear the cached list before a save answers
+### 5.46 — Clear the cached list before a save answers — **done**
 
 **Outcome:** Once a save has answered, Matches cannot read the list from before it.
 
@@ -3468,6 +3470,73 @@ already use `after()`. This comes from reading the code: nobody has seen it happ
 A save takes a few tens of milliseconds longer: one scan and one delete after 5.44.
 
 **Session size:** Small. Independent. After 5.44, whose `invalidateStudentCache` runs one scan, not three.
+
+**Done (31 October 2026, #237).** All three routes `await invalidateStudentCache(...)`, and it gives up after 2 seconds.
+The two deletion routes keep `after()`: nobody opens Matches after deleting their account.
+
+**Step 1, run locally rather than in a preview.** A preview means signing in and changing grades on an account in the
+production database, so the same check ran on the real routes through `next dev`, with a throwaway Postgres and a
+stand-in Redis at the 31 ms measured against Upstash: save, then load Matches the moment the answer lands.
+
+| Case | Reads with the old list | Failed saves | Save, median |
+|---|---|---|---|
+| Before, Redis at 31 ms | 0 of 15 | 0 | 56 ms |
+| Before, the clear stalled 1.5 seconds | 8 of 8 | 0 | 58 ms |
+| After, Redis at 31 ms | 0 of 15 | 0 | 124 ms |
+| After, the clear stalled 1.5 seconds | 0 of 8 | 0 | 1,629 ms |
+| After, Redis hung | 3 of 3, expected | 0 | 2,069 ms |
+
+So a page opened straight after a save did not beat the clear, and a clear that stalls did leave the old list. The
+stall was imitated: nothing here shows how often Vercel freezes a function, so it is still unproven that this
+happened in production.
+
+**Verified:** the standing commands, 3,008 tests. Each route's new test and the timeout's fail when that piece is taken
+out. The list a save clears and the list Matches reads have the same keys, the browser keeps no copy, and the three
+other routes that write a student's profile store only the school link and its consent, which the matcher does not
+read.
+
+**Beyond the steps:**
+
+- **The 2-second limit is new.** The task assumed that catching errors meant an outage could not fail a save. That
+  holds for an error, but Upstash's client has no timeout: against a local socket that accepts and never answers, a
+  scan was still waiting at 20 seconds, and a refused connection took 4.3 seconds of retries. A plain `await` would
+  have held a committed save until Vercel cut it off, and shown the student a failure. The limit sits in
+  `invalidateStudentCache`, so the deletion routes and inactive accounts get it too. If it trips the list stays for
+  up to 30 minutes, as a failed clear always has.
+- **The extra log lines went.** "Student cache invalidated after profile update" was logged even when the clear had
+  failed, because the function catches its own errors. It logs the clear itself, and the failure.
+
+**Worth knowing:**
+
+- **The save's cost is as the task said:** one scan and one delete. Redis held 1 key on 31 October 2026, so a scan
+  was one call of 31 ms. A scan walks every key, 100 a call, so it grows with the keyspace.
+- **The outcome has one exception:** a load already running when the save lands. That is 5.48.
+
+---
+
+### 5.48 — Keep a Matches load that outlasts a save from storing the old list
+
+**Outcome:** A Matches load that was already running when a save landed cannot leave the old list in the cache.
+
+**Why (found 31 October 2026, in 5.46):** `getCachedMatchesV10` is handed a profile read earlier in the request, and
+stores its result under a key that says nothing about that profile. If a load has read the profile, misses the cache,
+and a whole save and its clear finish before it stores, the old list goes in after the clear, for up to 30 minutes.
+Waiting for the clear cannot prevent that. It takes a miss and a save inside one load, so two tabs, or a coordinator
+editing while the student loads; a load on a cold programs cache is the widest window. This comes from reading the
+code: nobody has seen it happen.
+
+**Steps:**
+
+1. Decide whether it is worth a change. Leaving it is reasonable: the list corrects itself within 30 minutes, or on
+   the next save.
+2. If it is, add the profile's `updatedAt` to the key. It adds no read, as `lib/matching/cache.ts`'s callers already
+   read the profile, but every caller must select it, and any other write to the profile then starts a new list.
+
+**Must not:** add a read of any service.
+
+**Verify:** `npm test`, with a test where the clear lands between the read and the store.
+
+**Session size:** Small. Independent. Not a release step.
 
 ---
 

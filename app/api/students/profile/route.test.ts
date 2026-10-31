@@ -87,6 +87,29 @@ describe('POST /api/students/profile', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  // Vercel can freeze a function once it has answered, so a clear left running may stall, and
+  // the student's next load read the old list (MAINT 5.46)
+  it('answers only once the cached matches are cleared', async () => {
+    let finishClear = () => {}
+    vi.mocked(invalidateStudentCache).mockReturnValueOnce(
+      new Promise<void>((resolve) => {
+        finishClear = resolve
+      })
+    )
+    let answered = false
+
+    const answer = post({}).then((res) => {
+      answered = true
+      return res
+    })
+    await vi.waitFor(() => expect(invalidateStudentCache).toHaveBeenCalled())
+    await new Promise((resolve) => setTimeout(resolve))
+    expect(answered).toBe(false)
+
+    finishClear()
+    expect((await answer).status).toBe(200)
+  })
+
   it.each([
     ['TOK', { tokGrade: 'E' }],
     ['the EE', { eeGrade: 'E' }]
