@@ -34,8 +34,8 @@ always where you are.
 | 3 | Done, 30 October 2026 (#227) | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
 | 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
-| 6 | **Next** | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
-| 7 | Waiting | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
+| 6 | Done, 31 October 2026 (#PR) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 7 | **Next** | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
 | 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
 | 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
@@ -255,7 +255,8 @@ Phase 5 — quick wins
 - [x] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged — 30 October 2026
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [x] 5.42 Stop precomputing a match list nobody reads (from 5.40) — 30 October 2026
-- [ ] 5.43 Make the score fair (from the owner's question on Version XI)
+- [ ] 5.43 Make the score fair (from the owner's question on Version XI) — Part A done 31 October 2026;
+  Part B waits for the board
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [ ] 5.45 Correct what the public pages say about matching (from 5.40)
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
@@ -3063,7 +3064,11 @@ would push down programs like École polytechnique, whose real bar is far above 
    `CHANGELOG.md` entry, and this step in the order table.
 4. **After merging, once:** clear the cached matches, since scores changed. `clearAllMatchCache` from a
    `npx tsx` one-liner; the session gives the owner the command. It costs one recompute per student at
-   their next load, and old values expire in 30 minutes anyway, so this only makes it immediate.
+   their next load, and old values expire in 30 minutes anyway, so this only makes it immediate:
+
+   ```bash
+   npx tsx -e "require('dotenv').config(); require('./lib/matching/cache').clearAllMatchCache().then(() => { console.log('All matching cache cleared'); process.exit(0) })"
+   ```
 
 **Tests for Part A (Vitest, next to the code):**
 
@@ -3077,6 +3082,28 @@ would push down programs like École polytechnique, whose real bar is far above 
   fields stay identical.
 - The fingerprint's scores move, by design. Each fix is its own commit, and the pull request explains
   every kind of difference.
+
+**Part A done (31 October 2026, #PR).** Both fixes as proposed. No status moved and no program joined or
+left a list, on the fingerprint and on seven made-up profiles against the real 1,676 programs (one Redis
+read, no database, no student's data).
+
+- **Fix 1:** the curve reaches its floor at 13 short, not 14 as the proposal says: 12 short 0.712, 13 short
+  0.70. On the real catalogue the highest score at each shortfall, subjects met, now falls in every list.
+  For a student like the board's it was 0.88 at 1 short and 0.90 at 4; it is 0.90 and 0.856.
+- **Fix 2:** the field reads 1.0 with its weight 0, as the country does, so "Why this match" shows "100% ×
+  0%" for it, as it does for a country.
+- **Two things the task did not expect.** The order does change a little for an open student: the finding's
+  "does not change" holds for the bug, not the fix. Caps and floors keep their values while the sum is
+  rescaled, so a pair either side of a cap can swap (14,608 of 1,596,000 fingerprint pairs, each with a cap,
+  floor or penalty on one of the pair). And a student with no fields can now score 0, on a program outside
+  their countries, short on points and missing every subject, as a student with fields already could on
+  one outside them.
+- **Left as it is:** a program 2 or more short now often reads "Adds up to 89%. Nothing lowers it." in "Why
+  this match", because the sum falls under the 0.90 cap. That sentence is about caps and it already showed
+  for programs with subjects, but it reads oddly beside the shortfall. Words on a screen wait for a board,
+  so it can join step 8's.
+- **Left for the owner:** the cache clear, and the look in the preview. No screen changed, so only the
+  numbers can differ there.
 
 **Part B: the two decisions.** A change board, then build session 30 in
 `REBRANDING_tasks.md`.
