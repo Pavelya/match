@@ -14,7 +14,8 @@ type Grades = { maths?: 5 | 6 | 7; physics?: 7 }
 function student(
   totalIBPoints: number,
   { maths, physics }: Grades = {},
-  preferredCountries = [COUNTRY]
+  preferredCountries = [COUNTRY],
+  interestedFields = [FIELD]
 ): StudentProfile {
   return {
     totalIBPoints,
@@ -28,7 +29,7 @@ function student(
         ? [{ courseId: 'physics', courseName: 'Physics', level: 'HL' as const, grade: physics }]
         : [])
     ],
-    interestedFields: [FIELD],
+    interestedFields,
     preferredCountries
   }
 }
@@ -108,6 +109,20 @@ describe('XI, "Worked examples"', () => {
     const result = score(student(35, { maths: 6 }), program(40, [hl('maths', 'Maths', 6, false)]))
     expect(result.academicMatch.score).toBeCloseTo(0.73, 3)
     expect(result.overallScore).toBeCloseTo(0.838, 3)
+  })
+
+  it('40, no fields listed, against 38 with no subjects: weights 0.667 and 0.333, 1.00', () => {
+    const result = score(student(40, {}, [COUNTRY], []), program(38))
+    expect(result.weightsUsed.academic).toBeCloseTo(0.667, 3)
+    expect(result.weightsUsed.location).toBeCloseTo(0.333, 3)
+    expect(result.weightsUsed.field).toBe(0)
+    expect(result.overallScore).toBeCloseTo(1, 3)
+  })
+
+  it('40, no fields or countries listed, against 38 with no subjects: academics alone, 1.00', () => {
+    const result = score(student(40, {}, [], []), program(38))
+    expect(result.weightsUsed.academic).toBe(1)
+    expect(result.overallScore).toBeCloseTo(1, 3)
   })
 
   it('42, no Physics, against 40, Physics HL 5 critical: G_M 0, raw 0.40, under the 0.45 cap', () => {

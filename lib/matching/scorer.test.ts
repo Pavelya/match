@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { describe, expect, it, test } from 'vitest'
 import { calculateMatch, calculateMatches } from './scorer'
 import type { StudentProfile, ProgramRequirements, MatchInput } from './types'
 
@@ -113,14 +113,15 @@ test('A program further out of reach never scores higher (MAINT 5.43)', () => {
       mode: 'BALANCED'
     }).overallScore
 
-  // The table in MAINT 5.43: 1 short meets the 0.90 cap, and 14 short has reached the floor
+  // The table in MAINT 5.43: 1 short meets the 0.90 cap, and 13 short has reached the floor
   expect(short(1)).toBeCloseTo(0.9, 3)
   expect(short(2)).toBeCloseTo(0.892, 3)
   expect(short(3)).toBeCloseTo(0.874, 3)
   expect(short(4)).toBeCloseTo(0.856, 3)
   expect(short(7)).toBeCloseTo(0.802, 3)
   expect(short(10)).toBeCloseTo(0.748, 3)
-  expect(short(14)).toBeCloseTo(0.7, 3)
+  expect(short(12)).toBeCloseTo(0.712, 3)
+  expect(short(13)).toBeCloseTo(0.7, 3)
 
   // Where the old rule put 4 to 6 short above 1 to 3 short
   expect(short(5)).toBeLessThan(short(1))
@@ -180,6 +181,41 @@ test('No location preference → redistribute weights', () => {
   expect(result.weightsUsed.location).toBe(0)
   expect(result.weightsUsed.academic).toBeCloseTo(0.857, 2) // 0.6 / (0.6 + 0.1)
   expect(result.weightsUsed.field).toBeCloseTo(0.143, 2) // 0.1 / (0.6 + 0.1)
+})
+
+describe('Being open does not lower the score (MAINT 5.43)', () => {
+  const open = (preferences: Partial<StudentProfile>, program = perfectMatchProgram) =>
+    calculateMatch({ student: { ...strongStudent, ...preferences }, program, mode: 'BALANCED' })
+
+  it('no fields listed: a perfect match reads 1.000, with the field weight removed', () => {
+    const result = open({ interestedFields: [] })
+    expect(result.overallScore).toBeCloseTo(1, 3)
+    expect(result.weightsUsed.academic).toBeCloseTo(0.667, 3)
+    expect(result.weightsUsed.location).toBeCloseTo(0.333, 3)
+    expect(result.weightsUsed.field).toBe(0)
+    expect(result.fieldMatch).toEqual({ score: 1, isMatch: false, noPreferences: true })
+  })
+
+  it('no fields and no countries: a perfect match reads 1.000 on academics alone', () => {
+    const result = open({ interestedFields: [], preferredCountries: [] })
+    expect(result.overallScore).toBeCloseTo(1, 3)
+    expect(result.weightsUsed).toEqual({ academic: 1, location: 0, field: 0 })
+  })
+
+  it('no fields: a country outside the list still counts against the program', () => {
+    const elsewhere = { ...perfectMatchProgram, countryId: 'country-elsewhere' }
+    expect(open({ interestedFields: [] }, elsewhere).overallScore).toBeCloseTo(0.667, 3)
+  })
+
+  it('a student with fields and countries keeps the weights exactly', () => {
+    expect(open({}).weightsUsed).toEqual({ academic: 0.6, location: 0.3, field: 0.1 })
+  })
+
+  it('a student with fields and no countries keeps the same division', () => {
+    const { academic, field } = open({ preferredCountries: [] }).weightsUsed
+    expect(academic).toBe(0.6 * (1 / (0.6 + 0.1)))
+    expect(field).toBe(0.1 * (1 / (0.6 + 0.1)))
+  })
 })
 
 // === Test 5: Batch Processing ===

@@ -34,16 +34,21 @@ export function calculateMatch(input: MatchInput): MatchResult {
     ? input.weights
     : getWeights(input.mode, input.weights)
 
-  // Adjust weights if student has no location preference
+  // A preference the student hasn't stated has no weight, so being open can't lower the score
   let finalWeights = weights
-  if (input.student.preferredCountries.length === 0) {
-    // Set w_L = 0 and redistribute
-    // Example: w_G = 0.7, w_F = 0.3 (if original was 0.6/0.3/0.1)
-    const redistributionFactor = 1 / (weights.academic + weights.field)
+  const noCountries = input.student.preferredCountries.length === 0
+  const noFields = input.student.interestedFields.length === 0
+  if (noCountries || noFields) {
+    // Set the weight to 0 and redistribute
+    // Example: 0.6/0.3/0.1 becomes 0.857/0/0.143 with no countries, 0.667/0.333/0 with no fields,
+    // and 1/0/0 with neither
+    const location = noCountries ? 0 : weights.location
+    const field = noFields ? 0 : weights.field
+    const redistributionFactor = 1 / (weights.academic + location + field)
     finalWeights = {
       academic: weights.academic * redistributionFactor,
-      location: 0,
-      field: weights.field * redistributionFactor
+      location: location * redistributionFactor,
+      field: field * redistributionFactor
     }
   }
 
