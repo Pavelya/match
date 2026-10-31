@@ -25,18 +25,18 @@ test('Exact match: matches last in list → score 1.0', () => {
 })
 
 // Test 2: No Preferences
-test('No preferences: empty array → score 0.5', () => {
+test('No preferences: empty array → score 1.0', () => {
   const result = calculateFieldMatch([], 'field-engineering')
-  expect(result.score).toBe(0.5)
+  expect(result.score).toBe(1.0)
   expect(result.isMatch).toBe(false)
   expect(result.noPreferences).toBe(true)
 })
 
-test('No preferences: all programs get 0.5', () => {
+test('No preferences: all programs get 1.0', () => {
   const fields = ['field-engineering', 'field-medicine', 'field-business']
   fields.forEach((field) => {
     const result = calculateFieldMatch([], field)
-    expect(result.score).toBe(0.5)
+    expect(result.score).toBe(1.0)
     expect(result.noPreferences).toBe(true)
   })
 })

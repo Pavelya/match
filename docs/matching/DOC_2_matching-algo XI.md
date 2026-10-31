@@ -1,13 +1,13 @@
-# IB Match – University Program Matching Algorithm (Version XI)
+# IB Match – University Program Matching Algorithm (Version XI.1)
 
-**Version:** XI (11.0)  
+**Version:** XI.1 (11.1)  
 **Supersedes:** Version X as the baseline  
-**Date:** 30 October 2026  
-**Status:** Master (owner, 30 October 2026). Describes production, written from the code on `main`; no
-score changed to issue it.  
+**Date:** 30 October 2026; XI.1 on 31 October 2026  
+**Status:** Master (owner, 30 October 2026). Describes production, written from the code on `main`.  
+**XI.1, 31 October 2026, MAINT 5.43 Part A:** one curve for points short, and no fields listed works as
+no countries does. Scores move; no status does.  
 **Updated:** 30 October 2026, MAINT 5.40: the points window lost its lower end, so more programs are
-scored and no score moved. Still XI: the order in `MAINT_tasks.md` gives XI.1 to the first change to a
-score, MAINT 5.43.
+scored and no score moved.
 
 ---
 
@@ -37,7 +37,7 @@ rule is right: see [Known problems](#known-problems). The work left, in order, i
 | Selectivity boost                     | Up to +0.05 added to the score                       | Worked out, reported, never added                                               |
 | Penalties                             | One unified calculation                              | Version IX's caps, multiple-requirements penalty and floors                     |
 | No country preference                 | Weights 0.75 and 0.25                                | Weights 0.857 and 0.143                                                         |
-| Open to all fields                    | F_M 0.70                                             | F_M 0.5: the matcher reads an empty list, never the open-to-all setting         |
+| Open to all fields, or no list        | F_M 0.70                                             | F_M 1.0, with its weight 0: the matcher reads an empty list, never the open-to-all setting |
 | Open to all locations, or no list     | L_M 0.85 or 0.60                                     | L_M 1.0, with its weight 0                                                      |
 | Preferences must be explicit          | Validation error                                     | `preference-validator.ts` is not called                                         |
 | Category and confidence               | Part of the result students see                      | Worked out, cached, and read by no screen; the status replaced them             |
@@ -110,8 +110,18 @@ sign that a program is easy to enter.
 
 $$M = w_G \times G_M + w_L \times L_M + w_F \times F_M$$
 
-**Weights.** `BALANCED`: $w_G=0.6$, $w_L=0.3$, $w_F=0.1$. With no countries chosen, $w_L=0$ and the
-others are divided by their sum: $w_G=0.857$, $w_F=0.143$. `ACADEMIC_FOCUSED` (0.8, 0.1, 0.1) and
+**Weights.** `BALANCED`: $w_G=0.6$, $w_L=0.3$, $w_F=0.1$. A preference the student has not stated has
+no weight, so being open never lowers the number: its weight is 0 and the others are divided by their sum.
+
+| Student lists         | $w_G$ | $w_L$ | $w_F$ |
+| --------------------- | ----- | ----- | ----- |
+| Fields and countries  | 0.6   | 0.3   | 0.1   |
+| Fields, no countries  | 0.857 | 0     | 0.143 |
+| Countries, no fields  | 0.667 | 0.333 | 0     |
+| Neither               | 1     | 0     | 0     |
+
+So a perfect match reads 100% in all four. Caps and floors keep their values while the sum is rescaled, so
+an empty list can change which side of a cap a program falls on. `ACADEMIC_FOCUSED` (0.8, 0.1, 0.1) and
 `LOCATION_FOCUSED` (0.4, 0.5, 0.1) exist in `types.ts` but nothing passes them.
 
 ### Field Match (F_M)
@@ -119,7 +129,7 @@ others are divided by their sum: $w_G=0.857$, $w_F=0.143$. `ACADEMIC_FOCUSED` (0
 | Case                                        | F_M |
 | ------------------------------------------- | --- |
 | The program's field is one of theirs        | 1.0 |
-| They have no fields listed                  | 0.5 |
+| They have no fields listed                  | 1.0 |
 | They have fields and this is not one of them | 0.0 |
 
 ### Location Match (L_M)
@@ -136,13 +146,20 @@ others are divided by their sum: $w_G=0.857$, $w_F=0.143$. `ACADEMIC_FOCUSED` (0
 
 | Type                | Data                     | G_M                                                                   |
 | ------------------- | ------------------------ | --------------------------------------------------------------------- |
-| `FULL_REQUIREMENTS` | a minimum and subjects   | The subjects' average; when points are short, multiplied by a factor  |
-| `POINTS_ONLY`       | a minimum, no subjects   | 1.0 when met; otherwise $\max(0.3, \min(1 - d/m, 0.9))$               |
+| `FULL_REQUIREMENTS` | a minimum and subjects   | The subjects' average; when points are short, multiplied by the factor |
+| `POINTS_ONLY`       | a minimum, no subjects   | 1.0 when met; otherwise the factor                                    |
 | `SUBJECTS_ONLY`     | subjects, or neither     | The subjects' average; 1.0 with no subjects at all                    |
 
-Here $d$ is the points short and $m$ the minimum. The factor is 0.8 for 1 to 3 points short and
-$\max(0.5, 1 - d/m)$ beyond that. A minimum of 0 counts as none. Being over the minimum changes
-nothing.
+The factor is one curve for every program (`pointsShortFactor`): $\max(0.5,\ 0.85 - 0.03(d-1))$, where $d$
+is the points short. It does not read the program's minimum, so a bigger gap never scores higher.
+
+| Points short                                  | 1     | 2     | 3     | 4     | 7     | 10    | 13 or more |
+| --------------------------------------------- | ----- | ----- | ----- | ----- | ----- | ----- | ---------- |
+| Factor                                        | 0.85  | 0.82  | 0.79  | 0.76  | 0.67  | 0.58  | 0.50       |
+| Score: subjects met, own field and country    | 0.90  | 0.892 | 0.874 | 0.856 | 0.802 | 0.748 | 0.70       |
+
+One short adds up to 0.91 and meets the 0.90 cap. A minimum of 0 counts as none. Being over the minimum
+changes nothing.
 
 ### One subject requirement
 
@@ -262,15 +279,19 @@ kept in memory per server instance for five minutes (MAINT 5.19).
 
 ## Worked examples
 
-Run through the production scorer on 30 October 2026 with `BALANCED`, not computed by hand.
+Run through the production scorer on 31 October 2026 with `BALANCED`, not computed by hand.
 
 | Student                              | Program                                | Score | Why                                                       |
 | ------------------------------------ | -------------------------------------- | ----- | --------------------------------------------------------- |
 | 44, Maths HL 7, Physics HL 7         | 42, Maths HL 6, Physics HL 6, own field and country | 1.00 | Everything met                         |
 | 44, same                             | 28, no subjects, own field and country | 1.00  | Over the minimum costs nothing                            |
 | 36                                   | 24, no subjects, own field and country | 1.00  | The same at any margin                                    |
-| 38, Maths HL 5                       | 40, Maths HL 6 critical, own field and country | 0.80 | G_M 0.85 × 0.8 = 0.68; raw 0.808; capped at 0.80  |
+| 38, Maths HL 5                       | 40, Maths HL 6 critical, own field and country | 0.80 | G_M 0.85 × 0.82 = 0.697; raw 0.818; capped at 0.80 |
+| 39, Maths HL 6                       | 40, Maths HL 6, own field and country  | 0.90  | G_M 0.85; raw 0.91; capped at 0.90                        |
+| 35, Maths HL 6                       | 40, Maths HL 6, own field and country  | 0.838 | G_M 0.73: 5 short reads below 1 short                     |
 | 40, Maths HL 6, no countries listed  | 38, no subjects, own field             | 1.00  | Weights 0.857 and 0.143                                   |
+| 40, no fields listed                 | 38, no subjects, own country           | 1.00  | Weights 0.667 and 0.333                                   |
+| 40, no fields or countries listed    | 38, no subjects                        | 1.00  | Academics alone                                           |
 | 42, no Physics                       | 40, Physics HL 5 critical, own field and country | 0.40 | G_M 0; raw 0.40, already under the 0.45 cap     |
 
 ---
@@ -278,14 +299,13 @@ Run through the production scorer on 30 October 2026 with `BALANCED`, not comput
 ## Known problems
 
 Found by running the production scorer on pairs that should differ, 30 October 2026. The status is right in
-all of them, and on the new Matches page it sets the groups, so students are not misled about which group a
+both, and on the new Matches page it sets the groups, so students are not misled about which group a
 program is in. They affect the fit number, the order inside a group, today's page and the coordinator
-pages. MAINT 5.43 takes them up.
+pages. MAINT 5.43 Part B takes them up. Part A fixed the other two in XI.1: more points short could score
+higher, and being open lowered the number.
 
 | Problem                                                                                  | Evidence                                                                    | Next           |
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------- |
-| More points short can score higher: the factor is 0.8 up to 3 short, then $1 - d/m$      | Minimum 40, subjects met: 1 to 3 short 0.88, 4 to 6 short 0.90, 8 short 0.88 | Fix            |
-| Being open lowers the number: no fields gives F_M 0.5 with its weight kept               | A perfect match reads 95% with no fields, 93% with no fields or countries   | Fix            |
 | "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Owner decision |
 | Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
 
@@ -307,13 +327,11 @@ index used above 50 programs
 BALANCED = 0.6 / 0.3 / 0.1
 
 # Preferences (field-matcher.ts, location-matcher.ts)
-no fields listed = 0.5
+no fields listed = 1.0, with w_F = 0
 no countries listed = 1.0, with w_L = 0
 
 # Academic (academic-matcher.ts)
-points-only floor 0.30, ceiling 0.90
-near miss = 1 to 3 points, factor 0.8
-larger shortfall factor floor = 0.5
+points short factor = 0.85 at 1 short, less 0.03 a point, floor 0.5
 
 # Subjects (subject-matcher.ts)
 one grade short = 0.85 critical, 0.78 otherwise

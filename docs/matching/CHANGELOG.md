@@ -4,6 +4,52 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-31] - Version XI.1: a fairer score (MAINT 5.43 Part A)
+
+### Fixed
+
+- **A bigger gap never scores higher.** The factor was 0.8 for 1 to 3 points short and $1 - d/m$ from 4,
+  which starts above 0.8: with a minimum of 40, 5 short read 0.90 and 1 short 0.88. Every program now uses
+  one curve, `pointsShortFactor`, $\max(0.5,\ 0.85 - 0.03(d-1))$, which does not read the minimum.
+  Points-only programs had their own rule, which tied from 1 to 5 short and had a floor of 0.30. They
+  follow the curve too.
+- **Being open does not lower the number.** No fields gave F_M 0.5 with its weight kept. It now works as no
+  countries does: F_M 1.0, $w_F=0$, the rest divided by their sum (0.667 and 0.333, or 1 with neither). A
+  perfect match reads 100%, not 95% or 93%.
+
+### What moves
+
+- **No status, and no program joins or leaves a list.** `deriveMatchStatus` does not read the score. On the
+  fingerprint every `status` is identical and no `optimized` line changes programs.
+- **Fix 1, by kind:** with subjects, 1 and 2 short rise (0.88 to 0.90 and 0.892). From 3 short a score falls,
+  or stays where a cap or the floor decides it. Points-only programs fall too. The exception in both is a
+  total around half the minimum or less, which can rise to the curve's floor: on a points-only program
+  that reads 0.5 where it could read 0.30.
+- **Fix 2, by kind:** a program in the student's country, or with strong academics, rises. One outside it
+  with weak academics can fall a little, because 0.05 of unearned field score goes. So a student with no
+  fields can now score 0, on a program outside their countries, short on points and missing every subject,
+  as a student with fields already could on one outside them. Caps and floors keep their values while the
+  sum is rescaled, so a pair either side of a cap can swap: 14,608 of 1,596,000 fingerprint pairs, each with
+  a cap, floor or penalty on one of the pair. A student with both lists keeps exactly 0.6, 0.3, 0.1.
+- **Labels follow the score:** `category` and `categoryInfo` where a score crosses a line, and
+  `selectivityBoost` by rounding or by the score. No screen reads them.
+
+### Testing
+
+- `academic-matcher.test.ts`: for minimums 24, 30, 36 and 45 and four shapes of program, the score falls or
+  stays at each point from 1 to 21 short, is below 0 short, and does not depend on the minimum.
+- `scorer.test.ts`, `match-why.test.ts` and `worked-examples.test.ts`: the curve's table, the four sets of
+  weights, and the parts of the fit adding up to 100%.
+- Seven made-up profiles on the real 1,676 programs, old against new: no status and no program changed, and
+  the highest score at each shortfall, subjects met, now falls in every list.
+
+### After merging
+
+- Clear the cached matches once, with `clearAllMatchCache` (`docs/admin/maintenance-tools-guide.md`). Old
+  values expire in 30 minutes anyway.
+
+---
+
 ## [2026-10-30] - Coordinators see the list the student sees (MAINT 5.44)
 
 ### Changed

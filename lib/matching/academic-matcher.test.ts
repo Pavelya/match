@@ -1,5 +1,5 @@
-import { expect, test } from 'vitest'
-import { calculateAcademicMatch } from './academic-matcher'
+import { describe, expect, test } from 'vitest'
+import { calculateAcademicMatch, pointsShortFactor } from './academic-matcher'
 import type { StudentProfile, ProgramRequirements } from './types'
 
 // Test Student Profile
@@ -54,7 +54,7 @@ test('Points-only: student meets requirement → score 1.0', () => {
   expect(result.pointsShortfall).toBe(0)
 })
 
-test('Points-only: student 2 points below → capped at 0.90', () => {
+test('Points-only: student 2 points below → 0.82, on the same curve as every program', () => {
   const program: ProgramRequirements = {
     programId: 'prog-2',
     programName: 'Business Program',
@@ -69,7 +69,7 @@ test('Points-only: student 2 points below → capped at 0.90', () => {
   }
 
   const result = calculateAcademicMatch(weakerStudent, program)
-  expect(result.score).toBeCloseTo(0.9, 1)
+  expect(result.score).toBeCloseTo(0.82, 3)
   expect(result.meetsPointsRequirement).toBe(false)
   expect(result.pointsShortfall).toBe(2)
 })
@@ -185,7 +185,7 @@ test('Full requirements: meets subjects but not points → score scaled down', (
 
   const result = calculateAcademicMatch(weakerStudent, program) // 35 points vs 40
   // Subjects score = 1.0 (Bio HL 5 meets requirement)
-  // Points shortfall: 5 points -> penalty factor ~0.5-0.8
+  // Points shortfall: 5 points -> factor 0.73
   expect(result.score).toBeLessThan(1.0)
   expect(result.score).toBeGreaterThan(0.4)
   expect(result.meetsPointsRequirement).toBe(false)
@@ -217,4 +217,88 @@ test('Full requirements: meets points but not all subjects → lower score', () 
   expect(result.meetsPointsRequirement).toBe(true)
   expect(result.subjectsMatchScore).toBe(0.5)
   expect(result.missingCriticalCount).toBe(1)
+})
+
+// === Test 4: A bigger gap never scores higher (MAINT 5.43) ===
+
+describe('points short: one curve for every program', () => {
+  const MINIMUMS = [24, 30, 36, 45]
+  const SHORT = Array.from({ length: 21 }, (_, i) => i + 1)
+
+  const program = (
+    minimumIBPoints: number,
+    requiredSubjects: ProgramRequirements['requiredSubjects'] = []
+  ): ProgramRequirements => ({
+    programId: 'program',
+    programName: 'Program',
+    universityId: 'university',
+    universityName: 'University',
+    type: requiredSubjects.length > 0 ? 'FULL_REQUIREMENTS' : 'POINTS_ONLY',
+    fieldId: 'field-medicine',
+    countryId: 'country-usa',
+    minimumIBPoints,
+    requiredSubjects,
+    orGroupRequirements: []
+  })
+
+  const score = (p: ProgramRequirements, short: number) =>
+    calculateAcademicMatch({ ...strongStudent, totalIBPoints: (p.minimumIBPoints ?? 0) - short }, p)
+      .score
+
+  const SUBJECTS = {
+    'one subject, met': [
+      { courseId: 'bio', courseName: 'Biology', level: 'HL', minimumGrade: 6, isCritical: true }
+    ],
+    'several subjects, met': [
+      { courseId: 'bio', courseName: 'Biology', level: 'HL', minimumGrade: 6, isCritical: true },
+      { courseId: 'chem', courseName: 'Chemistry', level: 'HL', minimumGrade: 6, isCritical: false }
+    ],
+    'several subjects, one not taken': [
+      { courseId: 'bio', courseName: 'Biology', level: 'HL', minimumGrade: 6, isCritical: true },
+      { courseId: 'phys', courseName: 'Physics', level: 'HL', minimumGrade: 6, isCritical: false }
+    ]
+  } satisfies Record<string, ProgramRequirements['requiredSubjects']>
+
+  const SHAPES = { 'points only': [], ...SUBJECTS }
+
+  describe.each(Object.entries(SHAPES))('%s', (_, subjects) => {
+    test.each(MINIMUMS)('minimum %i: falls or stays with each point, under 0 short', (minimum) => {
+      const p = program(minimum, subjects)
+      const scores = [0, ...SHORT].map((short) => score(p, short))
+      scores.slice(1).forEach((value, i) => expect(value).toBeLessThanOrEqual(scores[i]))
+      expect(scores[1]).toBeLessThan(scores[0])
+    })
+
+    test('does not depend on the minimum', () => {
+      for (const short of SHORT) {
+        const [first, ...rest] = MINIMUMS.map((minimum) => score(program(minimum, subjects), short))
+        rest.forEach((value) => expect(value).toBeCloseTo(first, 10))
+      }
+    })
+  })
+
+  test('a points-only program and one with its subjects met score the same', () => {
+    const subjects = SUBJECTS['one subject, met']
+    for (const short of SHORT) {
+      expect(score(program(40), short)).toBeCloseTo(score(program(40, subjects), short), 10)
+    }
+  })
+
+  test('falls with every point until the floor, so nothing ties from 1 to 5 short', () => {
+    const factors = SHORT.map(pointsShortFactor)
+    factors.slice(1, 12).forEach((value, i) => expect(value).toBeLessThan(factors[i]))
+    expect(factors[11]).toBeCloseTo(0.52, 10)
+    expect(factors.slice(12)).toEqual(Array(9).fill(0.5))
+  })
+
+  test.each([
+    [1, 0.85],
+    [2, 0.82],
+    [3, 0.79],
+    [4, 0.76],
+    [7, 0.67],
+    [10, 0.58]
+  ])('%i short keeps %f', (short, factor) => {
+    expect(pointsShortFactor(short)).toBeCloseTo(factor, 10)
+  })
 })

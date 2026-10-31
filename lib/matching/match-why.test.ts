@@ -407,9 +407,40 @@ describe('the fit score and its working', () => {
   })
 
   it('a points shortfall alone', () => {
-    expect(why({ minIBPoints: 40 }).fit.sentence).toMatch(
-      /^Adds up to \d+%, capped at 90% because you’re 2 points short\.$/
+    expect(why({ minIBPoints: 39 }).fit.sentence).toBe(
+      'Adds up to 91%, capped at 90% because you’re 1 point short.'
     )
+  })
+
+  it.each([
+    ['no fields', { interestedFields: [] }, [67, 33, 0], '67%'],
+    ['no countries', { preferredCountries: [] }, [86, 0, 14], '86%'],
+    [
+      'no fields or countries',
+      { interestedFields: [], preferredCountries: [] },
+      [100, 0, 0],
+      '100%'
+    ]
+  ])('%s: the parts add up to a perfect 100%%', (_, preferences, values, academicWeight) => {
+    const { fit } = why({ minIBPoints: 30 }, preferences)
+    expect(fit.parts.map((p) => p.value)).toEqual(values)
+    expect(fit.parts[0].calc).toBe(`100% × ${academicWeight}`)
+    expect(fit.score).toBe(100)
+    expect(fit.parts.reduce((sum, p) => sum + p.value, 0)).toBe(fit.score)
+    expect(fit.sentence).toBe('Adds up to 100%. Nothing lowers it.')
+  })
+
+  it('no fields: the field is an open choice at 0%, as a country is', () => {
+    const { fit, field } = why({ minIBPoints: 30 }, { interestedFields: [] })
+    expect(fit.parts[2]).toEqual({ label: 'Field', calc: '100% × 0%', value: 0, percent: 100 })
+    expect(field).toEqual({
+      kind: 'info',
+      text: 'Business & Economics; you’re open to every field'
+    })
+  })
+
+  it('5 short reads lower than 1 short (MAINT 5.43)', () => {
+    expect(why({ minIBPoints: 43 }).fit.score).toBeLessThan(why({ minIBPoints: 39 }).fit.score)
   })
 })
 
