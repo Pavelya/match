@@ -100,6 +100,8 @@ npm test
 
 ## Where to look
 
+- `docs/tasks/RELEASE_RUNBOOK.md` — the go-live: every step from now to the old design's deletion, in
+  order. For the release's order it overrides the other task files
 - `docs/tasks/MAINT_tasks.md` — remaining work, grouped into sessions, with the full
   standing context and per-task verification
 - `docs/tasks/REBRANDING_tasks.md` — the redesign: design tasks (D…) on the canvas, build

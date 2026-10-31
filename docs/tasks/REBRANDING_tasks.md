@@ -3066,6 +3066,10 @@ with Keep or Change; the build changes every row marked Change, and no other.
 
 **Outcome:** Everyone sees the new design, in one deploy.
 
+**Run release day from [`RELEASE_RUNBOOK.md`](RELEASE_RUNBOOK.md), Stage 3 (31 October 2026).** Its order replaces
+the steps below: the variable is set first and #127's merge is the deploy, the legal documents and the second
+deploy follow the checks. This section stays as background.
+
 **Before step 1:** SEC-1, SEC-2, SEC-3 and SEC-11 in `docs/tasks/SEC_tasks.md` are merged, and the
 owner runs SEC-4's checklist alongside steps 4 and 5 (added 27 October 2026, security audit).
 
@@ -3091,6 +3095,9 @@ owner runs SEC-4's checklist alongside steps 4 and 5 (added 27 October 2026, sec
 ### R.2 — Cleanup
 
 **Outcome:** One design in the code.
+
+**Run cleanup from [`RELEASE_RUNBOOK.md`](RELEASE_RUNBOOK.md), Stage 5 (31 October 2026).** It splits this into three
+pull requests and lists what the steps below leave out, such as the old API routes.
 
 **Steps:** after about two stable weeks, once Search Console shows no fall in indexed pages or clicks
 against the baseline:

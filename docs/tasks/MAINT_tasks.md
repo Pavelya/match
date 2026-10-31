@@ -102,6 +102,9 @@ section in the same pull request:
 Groups 2 and 3 then hold only open work. A finding from a session becomes a new task and a row in group
 2 or 3, not a note in group 1.
 
+**The go-live has one file: [`RELEASE_RUNBOOK.md`](RELEASE_RUNBOOK.md)** (31 October 2026). It orders every open task
+that touches the release, and for that order it overrides groups 2 and 3 below.
+
 **Where the rebranding stands.** Release day (`REBRANDING_tasks.md` R.1) waits on the owner: Lens's
 clearance search and the Search Console baseline. The program card review (its 5.1) goes before it if
 it is ready. Cleanup (R.2) comes about two weeks after release, once Search Console shows no fall, and
