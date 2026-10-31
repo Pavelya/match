@@ -83,7 +83,8 @@ const RECORDS = [
 ]
 
 const names = (records: FitRecord[]) => records.map((r) => `${r.universityName} ${r.programName}`)
-const meets = (r: FitRecord) => programFit(STUDENT, fitProgram(r)).status === 'meets'
+const qualifies = (r: FitRecord) =>
+  ['meets', 'neutral'].includes(programFit(STUDENT, fitProgram(r)).status)
 
 describe('fitTier', () => {
   it('puts their fields and countries first, then their fields, then their countries', () => {
@@ -117,13 +118,13 @@ describe('fitTier', () => {
 
 describe('bestFitOrder', () => {
   it('with the switch on: their field and country, their field, their country, the rest', () => {
-    expect(names(bestFitOrder(RECORDS.filter(meets), STUDENT))).toEqual([
-      // Their fields and countries, from their own 38 down, then no minimum
+    expect(names(bestFitOrder(RECORDS.filter(qualifies), STUDENT))).toEqual([
+      // Their fields and countries, from their own 38 down, then no set grades
       'LSE Economics and Economic History',
       'UCL Information Management for Business',
       'Trinity College Dublin Computer Science',
       'University of Michigan Data Science',
-      // Their fields, another country: back to 38
+      // Their fields, another country: met, then no set grades
       'University of Toronto Economics',
       'University of Sydney Commerce',
       // Their countries, another field
@@ -133,9 +134,10 @@ describe('bestFitOrder', () => {
     ])
   })
 
-  it('with the switch on, is Matches’ own Best fit', () => {
+  it.each(['meets', 'neutral'])('inside %s, is Matches’ own Best fit', (status) => {
     for (const who of [STUDENT, student([])]) {
-      const met = RECORDS.filter((r) => programFit(who, fitProgram(r)).status === 'meets')
+      const met = RECORDS.filter((r) => programFit(who, fitProgram(r)).status === status)
+      expect(met.length).toBeGreaterThan(0)
       const items = met.map(
         (r) =>
           ({
@@ -155,16 +157,17 @@ describe('bestFitOrder', () => {
     }
   })
 
-  it('with the switch off: in each tier the ones met, then within reach, then the rest', () => {
+  it('with the switch off: in each tier met, within reach, no set grades, then the rest', () => {
     const order = names(bestFitOrder(RECORDS, STUDENT))
     expect(order.slice(0, 9)).toEqual([
       'LSE Economics and Economic History',
       'UCL Information Management for Business',
       'Trinity College Dublin Computer Science',
-      'University of Michigan Data Science',
       // Within reach, 1 point short before 3
       'LSE Accounting and Finance',
       'University of Cambridge Economics',
+      // No set grades
+      'University of Michigan Data Science',
       // Missing a requirement: a subject 1 point from their total, then 4 points short
       'University of Edinburgh Business and Law',
       'UCD Actuarial Studies',

@@ -132,7 +132,7 @@ describe('GET /api/students/matches/list', () => {
     vi.stubEnv('MATCHING_V10_FULL', 'true')
     redisMock.get.mockResolvedValue(null)
     programsMock.mockResolvedValue([
-      { ...program(0), minIBPoints: 24 },
+      { ...program(0), minIBPoints: 25 },
       ...Array.from({ length: 80 }, (_, i) => program(i + 1))
     ])
 
@@ -140,7 +140,7 @@ describe('GET /api/students/matches/list', () => {
     if (!body.complete) throw new Error('expected a list')
 
     expect(body.matches.find((m) => m.id === 'program-0')).toMatchObject({
-      minIBPoints: 24,
+      minIBPoints: 25,
       status: 'meets'
     })
     // No new read: the one profile query, one cache read and at most one cache write

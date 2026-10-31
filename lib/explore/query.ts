@@ -313,6 +313,17 @@ export function countParts(total: number, q: string): { figure: string; rest: st
   return { figure, rest: `${rest.join(' ')}${q ? ` for “${q}”` : ''}` }
 }
 
+/**
+ * Under the count with "Only ones I qualify for" on (D4.7 change): "128 meet every requirement,
+ * 475 have no set grades." Only when some have no set grades; otherwise every row meets.
+ */
+export function qualifySplit(total: number, noSetGrades: number): string | null {
+  if (noSetGrades === 0) return null
+  const meets = total - noSetGrades
+  const met = `${meets.toLocaleString('en')} ${meets === 1 ? 'meets' : 'meet'} every requirement`
+  return `${met}, ${noSetGrades.toLocaleString('en')} ${noSetGrades === 1 ? 'has' : 'have'} no set grades.`
+}
+
 /** The menu's and the sheet's button: "Show 43 programs"; null when the count didn't arrive */
 export function showLabel(total: number | null): string {
   if (total === null) return 'Show programs'

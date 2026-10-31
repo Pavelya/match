@@ -30,6 +30,8 @@ export interface ExploreResponse {
   rows: ExploreRow[]
   /** By program id, when a signed-in student has grades */
   fits?: Record<string, ExploreFit>
+  /** With "Only ones I qualify for" on: how many of the total have no set grades */
+  noSetGrades?: number
 }
 
 /**

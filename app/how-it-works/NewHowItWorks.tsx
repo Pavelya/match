@@ -46,6 +46,11 @@ const STATUSES: { status: MatchStatus; label: string; text: string }[] = [
     text: 'Up to 3 points short, one subject a grade short, or both.'
   },
   {
+    status: 'neutral',
+    label: 'No set grades',
+    text: 'No IB points or subjects beyond the Diploma, so there’s nothing to check your grades against. Getting in can still be hard.'
+  },
+  {
     status: 'gap',
     label: 'Missing a requirement',
     text: 'A subject you don’t take, a subject at SL where HL is needed, a grade 2 or more short, or 4 or more points short.'

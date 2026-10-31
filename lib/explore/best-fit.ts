@@ -6,12 +6,12 @@
  * - the tier: their fields and countries, their fields, their countries, then the rest, as the
  *   matcher decides it ("Open to anywhere" counts every country; field above country since board
  *   "D3.1 No IB minimum", 31 October 2026);
- * - the status: the ones they meet, within reach, then missing a requirement;
+ * - the status: the ones they meet, within reach, no set grades, then missing a requirement;
  * - the minimum closest to their total, then no minimum, then university and program A–Z.
  *
  * With "Only ones I qualify for" on, every program meets the academic part, and the matcher's
- * score (academic 60%, field 30%, country 10%) orders the tiers the same way, so this is
- * Matches' own order (`compareBestFit`). Pure: the search and its tests share it.
+ * score (academic 60%, field 30%, country 10%) orders the tiers the same way, so inside a status
+ * this is Matches' own order (`compareBestFit`). Pure: the search and its tests share it.
  */
 
 import { calculateFieldMatch } from '@/lib/matching/field-matcher'
@@ -44,7 +44,7 @@ export interface Placed {
   name: string
 }
 
-const STATUS_RANK: Record<CardStatus, number> = { meets: 0, close: 1, gap: 2 }
+const STATUS_RANK: Record<CardStatus, number> = { meets: 0, close: 1, neutral: 2, gap: 3 }
 
 export function compareExploreBestFit(total: number): (a: Placed, b: Placed) => number {
   const distance = (p: Placed) =>

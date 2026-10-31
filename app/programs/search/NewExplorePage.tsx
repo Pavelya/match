@@ -57,6 +57,7 @@ export async function NewExplorePage({
           total: list?.total ?? 0,
           rows: list?.rows ?? [],
           fits: list?.fits ?? {},
+          noSetGrades: list?.noSetGrades,
           failed: list === null
         }}
         viewer={viewer}

@@ -4,6 +4,7 @@ import {
   MAX_SHOWN,
   appliedChips,
   bestFitLine,
+  qualifySplit,
   catalogueSummary,
   chosenCount,
   clearAll,
@@ -161,6 +162,19 @@ describe('the sort (D3.5 Sort · best fit)', () => {
     expect(bestFitLine(viewer, 'lifted', true)).toBe(
       'Your fields and countries come first, then your fields anywhere; in each, the ones you meet, closest to your 38.'
     )
+  })
+})
+
+describe('qualifySplit (D4.7 change)', () => {
+  it('splits the switch’s count', () => {
+    expect(qualifySplit(603, 475)).toBe('128 meet every requirement, 475 have no set grades.')
+    expect(qualifySplit(1525, 475)).toBe('1,050 meet every requirement, 475 have no set grades.')
+    expect(qualifySplit(2, 1)).toBe('1 meets every requirement, 1 has no set grades.')
+    expect(qualifySplit(280, 280)).toBe('0 meet every requirement, 280 have no set grades.')
+  })
+
+  it('has nothing to split when every program meets', () => {
+    expect(qualifySplit(40, 0)).toBeNull()
   })
 })
 

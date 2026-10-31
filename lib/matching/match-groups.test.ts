@@ -98,6 +98,7 @@ describe('the words around the list', () => {
     expect(jumpLabel('meets', 139)).toBe('139 meet all requirements')
     expect(jumpLabel('meets', 1)).toBe('1 meets all requirements')
     expect(jumpLabel('close', 21)).toBe('21 within reach')
+    expect(jumpLabel('neutral', 85)).toBe('85 with no set grades')
     expect(jumpLabel('gap', 11)).toBe('11 missing a requirement')
   })
 
