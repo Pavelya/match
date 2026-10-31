@@ -59,7 +59,8 @@ next session: "steps 3 and 4 are done". It records them.
 | 6 SEO and marketing | | 50–54 | Open |
 
 **Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9) and your
-settings (10–19). Each list has its own **Next**. Steps 20 and 21 wait for the lawyer.
+settings (10–19). Each open list has its own **Next**. Steps 1–3 are done, and step 4 can wait. Step 20 needs your
+decisions on the legal review, and step 21 follows it.
 
 ### Dates
 
@@ -82,9 +83,9 @@ The repository is public, so totals only.
 
 | What | Baseline, before release | R+16 |
 |---|---|---|
-| Indexed pages | | |
-| Search clicks, last 3 months | | |
-| Top pages | | |
+| Indexed pages | 220| |
+| Search clicks, last 3 months |125 | |
+| Top pages | https://www.ibmatch.com/, https://www.ibmatch.com/study-in-portugal-with-ib-diploma, https://www.ibmatch.com/study-in-austria-with-ib-diploma, https://www.ibmatch.com/study-in-spain-with-ib-diploma, https://www.ibmatch.com/study-in-italy-with-ib-diploma| |
 | Rich Results items: Home, one guide, one program | | |
 | Upstash bandwidth and commands | | |
 | Supabase egress | | |
@@ -113,10 +114,10 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 
 | Step | Status | Who | What to do | Done when |
 |---|---|---|---|---|
-| 1 | **Next** | You | **Send the lawyer `docs/legal-review/` as it is now**, starting with `lawyer-brief.md`. There are seven `[LAWYER]` notes and thirteen questions. A copy from before 30 October is out of date. Ask how long it will take | The answers are back |
-| 2 | Open | You | **Commission the Lens clearance search:** EUIPO and USPTO, figurative marks, Nice classes 41 and 42. Ask how long it will take | The result is back and clear |
-| 3 | Open | You | **Confirm Search Console covers `www.ibmatch.com`.** The live site and the code have no verification tag, so it is either verified through DNS or not set up. Then fill in the first three rows of [Numbers to record](#numbers-to-record) | The numbers are noted |
-| 4 | Open | You | **Install Node 24 LTS on the laptop.** It is on 22.12.0. `node -v` should print 24, and `npm ci` should give no `EBADENGINE` | `node -v` prints 24 |
+| 1 | Done, 31 October 2026 (owner) | You | **Send the lawyer `docs/legal-review/` as it is now**, starting with `lawyer-brief.md`. There are seven `[LAWYER]` notes and thirteen questions. A copy from before 30 October is out of date. Ask how long it will take | The answers are back |
+| 2 | Done, 31 October 2026 (owner) | You | **Commission the Lens clearance search:** EUIPO and USPTO, figurative marks, Nice classes 41 and 42. Ask how long it will take | The result is back and clear |
+| 3 | Done, 31 October 2026 (owner) | You | **Confirm Search Console covers `www.ibmatch.com`.** The live site and the code have no verification tag, so it is either verified through DNS or not set up. Then fill in the first three rows of [Numbers to record](#numbers-to-record) | The numbers are noted |
+| 4 | Later, the owner's choice (31 October 2026): not a gate | You | **Install Node 24 LTS on the laptop.** It is on 22.12.0. `node -v` should print 24, and `npm ci` should give no `EBADENGINE` | `node -v` prints 24 |
 
 ### Sessions, in this order
 
@@ -150,7 +151,7 @@ be read from here.
 
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
-| 20 | Waiting on step 1 | Session | `Apply the lawyer's answers to the legal drafts.` | Updates each `.proposed.md` and its redline, until no `[OWNER` or `[LAWYER` note is left in them (the check is in `docs/legal-review/README.md`, "How to publish"). **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
+| 20 | **Next**, after your decisions | You, then a session | `Apply the lawyer's answers to the legal drafts.` | **You first:** the review of 31 October 2026 is in `docs/legal-review/legal-review-2026-10-31/`, on the laptop only, not in git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Then the session** updates each `.proposed.md` and its redline, until no `[OWNER` or `[LAWYER` note is left in them (the check is in `docs/legal-review/README.md`, "How to publish"). **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
 | 21 | Open | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
