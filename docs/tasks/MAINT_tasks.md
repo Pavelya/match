@@ -152,9 +152,10 @@ deletes today's design.
 | Coordinators see the student's list | 5.44 | 30 October 2026 | The student page, its matches page and analytics read `getCachedMatchesV10`, in the student's order through `rankedResults`. `getCachedMatches`, the two old key kinds and the unused analytics route are gone. No score moved. About 2.7 MB to 0.4 MB per coordinator list |
 | No set grades, and field above country | 5.43 | 31 October 2026 | Rebranding session 30 finished the task: a fourth status for the 475 programs with nothing to check, on every screen that shows one; Explore's switch keeps them and splits its count; field 30%, country 10%, with Best fit's tiers and How it works. XI.2. Part A, the two scoring bugs, came first (#230). Clear the cached matches once after merging |
 | The public words on matching | 5.45 | 31 October 2026 | How it works and the FAQ say only what the matcher does, in both designs and the structured data; four rows in `claims.md`, and two tests hold the words. No score or layout moved
+| "Match probability" off the public pages | 5.47 | 31 October 2026 | Explore's questions and each program's description say the student sees how they stand against each requirement, and the answer on the database says more than 1,600 programs. Two rows in `claims.md`, and tests hold every fallback of the description |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.45, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.45, 5.47, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -168,7 +169,6 @@ October 2026; a new finding gets a row here.
 
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
-| "Match probability" in public words | 5.47 | small | Explore's questions and every program page's description promise a "match probability", which the status model rules out. Structured data and metadata, so its own pull request |
 | A save clears the list before answering | 5.46 | small | Three save routes clear the cached list without waiting for it, so a save may not show on Matches at once. Unproven: from reading the code. Independent of the matching order |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
@@ -266,7 +266,7 @@ Phase 5 — quick wins
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [x] 5.45 Correct what the public pages say about matching (from 5.40) — 31 October 2026
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
-- [ ] 5.47 Take "match probability" off the public pages (from 5.43)
+- [x] 5.47 Take "match probability" off the public pages (from 5.43) — 31 October 2026
 
 Phase 6 — dependency majors
 
@@ -3392,7 +3392,7 @@ wording would not have been held.
 
 ---
 
-### 5.47 — Take "match probability" off the public pages
+### 5.47 — Take "match probability" off the public pages — **done**
 
 **Outcome:** Explore's questions and the program pages' descriptions say what IB Match does.
 
@@ -3411,6 +3411,37 @@ program's description.
 rebranding's Definition of done 12 asks, with the SEO snapshot of both page types.
 
 **Session size:** Small.
+
+**Done (31 October 2026, #236).** Explore's answer now ends "create a profile with your subjects and grades to see how
+you stand against each requirement", and each program's description ends "See how you stand against each requirement
+for 2026/27", or "See how you stand on each" where it has less room. M8 and M9 in `claims.md`.
+
+**Verified:** the standing commands, 3,003 tests, and the SEO snapshot of Explore and
+four programs, against the live site and with the preview link. The only differences with today's site are the words
+above; the preview's are the known ones (logo URLs, breadcrumbs, headings). The new tests fail on the old words.
+
+**Beyond the steps:**
+
+- **"Over 1000" became "more than 1,600",** from `count()`: 1,676 programs on 31 October 2026. Explore's heading shows
+  the exact figure; this answer is static, so it states a floor. H10's "1,000+" stays.
+- **Two sentences in the same two answers were no longer true,** with 307 programs on no IB minimum: "where the
+  university sets one", and "such as points and course requirements".
+
+**Worth knowing:**
+
+- **No program lost its subjects.** Each new ending is no longer than the one it replaced, so a description stays on
+  its fallback or moves to a longer one. The longest ending swaps "based on the 2026/27 cycle" for "for 2026/27" for
+  that reason.
+- **Two fallbacks keep their words,** because they never promised a probability: "Check if you match based on 2026/27
+  admission data", which the two McGill programs in the snapshot use, and "See match for 2026/27". Programs with no
+  minimum use the university's own text, as before.
+- **The shorter fallbacks are held by tests, not seen on a page:** the snapshot reached the longest ending, "Check if
+  you match" and the university's text.
+- **One sentence is left:** "Programs are displayed with their minimum IB points requirement" in "Can I filter programs
+  by IB points?". It is incomplete for the 307, as the two above were, but outside this task's two answers.
+- **`/programs/search` and the program pages have no line in `lib/page-dates.ts`,** so no date changes.
+- **`docs/tasks/seo-ai-seo-implementation-plan.md` and `task-1-2-verification-report.md` keep the old words:** they are
+  records of the January work. 7.3 replaces the plan.
 
 ---
 

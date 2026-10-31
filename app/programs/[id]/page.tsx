@@ -105,8 +105,9 @@ export async function generateMetadata({ params }: PageProps) {
 
   // SEO-optimized meta description with IB requirements (Task 1.2)
   // Format: "Explore IB admission requirements for [Program] at [University].
-  //          Minimum [X] IB points, [HL/SL subjects]. Check your match probability based on the 2026/27 cycle."
-  // Respects 160-char limit for optimal SEO performance
+  //          Minimum [X] IB points, [HL/SL subjects]. See how you stand against each requirement for 2026/27."
+  // Respects 160-char limit for optimal SEO performance. Each ending is no longer than the words
+  // it replaced (MAINT 5.47), so no program lost its subjects to a shorter fallback.
   const generateSEODescription = () => {
     const programName = program.name
     const universityName = program.university.name
@@ -130,21 +131,21 @@ export async function generateMetadata({ params }: PageProps) {
     // Build description with progressive fallbacks for length
     if (ibPoints) {
       // Full format with all details
-      const fullDesc = `Explore IB admission requirements for ${programName} at ${universityName}. Minimum ${ibPoints} IB points${subjectText}. Check your match probability based on the ${academicCycle} cycle.`
+      const fullDesc = `Explore IB admission requirements for ${programName} at ${universityName}. Minimum ${ibPoints} IB points${subjectText}. See how you stand against each requirement for ${academicCycle}.`
 
       if (fullDesc.length <= 160) {
         return fullDesc
       }
 
       // Shortened format: remove cycle year
-      const withoutCycle = `Explore IB admission requirements for ${programName} at ${universityName}. Minimum ${ibPoints} IB points${subjectText}. Check your match probability.`
+      const withoutCycle = `Explore IB admission requirements for ${programName} at ${universityName}. Minimum ${ibPoints} IB points${subjectText}. See how you stand on each.`
 
       if (withoutCycle.length <= 160) {
         return withoutCycle
       }
 
       // More concise: simplify intro
-      const concise = `IB requirements for ${programName} at ${universityName}: ${ibPoints} points${subjectText}. See your match probability.`
+      const concise = `IB requirements for ${programName} at ${universityName}: ${ibPoints} points${subjectText}. See how you stand on each.`
 
       if (concise.length <= 160) {
         return concise
@@ -158,7 +159,7 @@ export async function generateMetadata({ params }: PageProps) {
       }
 
       // Ultra-concise fallback
-      const minimal = `${programName} at ${universityName} requires ${ibPoints} IB points. See your match probability for ${academicCycle}.`
+      const minimal = `${programName} at ${universityName} requires ${ibPoints} IB points. See how you stand for ${academicCycle}.`
 
       if (minimal.length <= 160) {
         return minimal
