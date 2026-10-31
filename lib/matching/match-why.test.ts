@@ -407,9 +407,13 @@ describe('the fit score and its working', () => {
   })
 
   it('a points shortfall alone', () => {
-    expect(why({ minIBPoints: 40 }).fit.sentence).toMatch(
-      /^Adds up to \d+%, capped at 90% because you’re 2 points short\.$/
+    expect(why({ minIBPoints: 39 }).fit.sentence).toBe(
+      'Adds up to 91%, capped at 90% because you’re 1 point short.'
     )
+  })
+
+  it('5 short reads lower than 1 short (MAINT 5.43)', () => {
+    expect(why({ minIBPoints: 43 }).fit.score).toBeLessThan(why({ minIBPoints: 39 }).fit.score)
   })
 })
 

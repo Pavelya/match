@@ -22,6 +22,15 @@ import { calculateSubjectMatch, calculateORGroupMatch } from './subject-matcher'
 import { assignOwnCourses, type Requirement } from './own-course'
 
 /**
+ * What is kept of the academic match when points are short (MAINT 5.43): 0.85 at one short, 0.03
+ * less for each point after it, and never under 0.5. It does not read the program's minimum, so a
+ * bigger gap can never keep more than a smaller one.
+ */
+export function pointsShortFactor(pointsShortfall: number): number {
+  return Math.max(0.5, 0.85 - 0.03 * (pointsShortfall - 1))
+}
+
+/**
  * Calculate academic match score (G_M)
  *
  * @param student - Student's academic profile
@@ -69,11 +78,7 @@ function calculatePointsOnlyMatch(
   let score = 1.0
 
   if (!meetsPoints && program.minimumIBPoints) {
-    // Calculate proportional score for shortfall
-    const deficit = pointsShortfall
-    const raw = 1 - deficit / program.minimumIBPoints
-    // Cap at 0.90 and floor at 0.30
-    score = Math.max(0.3, Math.min(raw, 0.9))
+    score = pointsShortFactor(pointsShortfall)
   }
 
   return {
@@ -128,16 +133,7 @@ function calculateFullRequirementsMatch(
 
   // If student doesn't meet points requirement, scale down
   if (!meetsPoints && program.minimumIBPoints) {
-    // Calculate penalty factor based on how far below
-    const deficit = pointsShortfall
-    // Near miss (1-3 points): keep 80%
-    // Larger gap: scale down more
-    let penaltyFactor = 0.8
-    if (deficit > 3) {
-      penaltyFactor = Math.max(0.5, 1 - deficit / program.minimumIBPoints)
-    }
-
-    score = subjectsMatchScore * penaltyFactor
+    score = subjectsMatchScore * pointsShortFactor(pointsShortfall)
   }
 
   return {

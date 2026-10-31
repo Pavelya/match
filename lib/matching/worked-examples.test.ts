@@ -82,10 +82,10 @@ describe('XI, "Worked examples"', () => {
     expect(score(student(36), program(24)).overallScore).toBeCloseTo(1, 3)
   })
 
-  it('38, Maths HL 5, against 40, Maths HL 6 critical: G_M 0.68, raw 0.808, capped at 0.80', () => {
+  it('38, Maths HL 5, against 40, Maths HL 6 critical: G_M 0.697, raw 0.818, capped at 0.80', () => {
     const result = score(student(38, { maths: 5 }), program(40, [hl('maths', 'Maths', 6, true)]))
-    expect(result.academicMatch.score).toBeCloseTo(0.68, 3)
-    expect(result.adjustments.rawScore).toBeCloseTo(0.808, 3)
+    expect(result.academicMatch.score).toBeCloseTo(0.697, 3)
+    expect(result.adjustments.rawScore).toBeCloseTo(0.818, 3)
     expect(result.overallScore).toBeCloseTo(0.8, 3)
   })
 
@@ -95,6 +95,19 @@ describe('XI, "Worked examples"', () => {
     expect(result.weightsUsed.field).toBeCloseTo(0.143, 3)
     expect(result.weightsUsed.location).toBe(0)
     expect(result.overallScore).toBeCloseTo(1, 3)
+  })
+
+  it('39, Maths HL 6, against 40, Maths HL 6: 1 short, G_M 0.85, raw 0.91, capped at 0.90', () => {
+    const result = score(student(39, { maths: 6 }), program(40, [hl('maths', 'Maths', 6, false)]))
+    expect(result.academicMatch.score).toBeCloseTo(0.85, 3)
+    expect(result.adjustments.rawScore).toBeCloseTo(0.91, 3)
+    expect(result.overallScore).toBeCloseTo(0.9, 3)
+  })
+
+  it('35, Maths HL 6, against 40, Maths HL 6: 5 short, G_M 0.73, 0.838, below 1 short', () => {
+    const result = score(student(35, { maths: 6 }), program(40, [hl('maths', 'Maths', 6, false)]))
+    expect(result.academicMatch.score).toBeCloseTo(0.73, 3)
+    expect(result.overallScore).toBeCloseTo(0.838, 3)
   })
 
   it('42, no Physics, against 40, Physics HL 5 critical: G_M 0, raw 0.40, under the 0.45 cap', () => {

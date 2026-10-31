@@ -105,6 +105,30 @@ test('Near miss on points → capped at 0.90', () => {
 
 // === Test 3: Wrong Field ===
 
+test('A program further out of reach never scores higher (MAINT 5.43)', () => {
+  const short = (points: number) =>
+    calculateMatch({
+      student: { ...strongStudent, totalIBPoints: 40 - points },
+      program: { ...perfectMatchProgram, minimumIBPoints: 40 },
+      mode: 'BALANCED'
+    }).overallScore
+
+  // The table in MAINT 5.43: 1 short meets the 0.90 cap, and 14 short has reached the floor
+  expect(short(1)).toBeCloseTo(0.9, 3)
+  expect(short(2)).toBeCloseTo(0.892, 3)
+  expect(short(3)).toBeCloseTo(0.874, 3)
+  expect(short(4)).toBeCloseTo(0.856, 3)
+  expect(short(7)).toBeCloseTo(0.802, 3)
+  expect(short(10)).toBeCloseTo(0.748, 3)
+  expect(short(14)).toBeCloseTo(0.7, 3)
+
+  // Where the old rule put 4 to 6 short above 1 to 3 short
+  expect(short(5)).toBeLessThan(short(1))
+  for (let points = 1; points <= 20; points++) {
+    expect(short(points + 1)).toBeLessThanOrEqual(short(points))
+  }
+})
+
 test('Wrong field → lower score due to field mismatch', () => {
   const input: MatchInput = {
     student: strongStudent,
