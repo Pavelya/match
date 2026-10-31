@@ -132,7 +132,7 @@ describe('GET /api/coordinator/students/[id]/matches', () => {
     expect((await get()).status).toBe(200)
 
     expect(redisMock.set).toHaveBeenCalledTimes(1)
-    expect(redisMock.set.mock.calls[0][0]).toBe('matchesV10:student-user:0.60_0.30_0.10:80')
+    expect(redisMock.set.mock.calls[0][0]).toBe('matchesV10:student-user:0.60_0.10_0.30:80')
     expect([...store.keys()].filter((key) => key.startsWith('matches:'))).toEqual([])
   })
 

@@ -369,8 +369,8 @@ describe('the fit score and its working', () => {
     const { fit } = why({ minIBPoints: 39, requires: [['mathsAA', 'HL', 7, true]] })
     expect(fit.parts.map((p) => [p.label, p.calc.split(' × ')[1]])).toEqual([
       ['Academic', '60%'],
-      ['Country', '30%'],
-      ['Field', '10%']
+      ['Country', '10%'],
+      ['Field', '30%']
     ])
     expect(fit.parts.reduce((sum, p) => sum + p.value, 0)).toBeGreaterThan(fit.score)
     expect(fit.sentence).toMatch(
@@ -391,15 +391,15 @@ describe('the fit score and its working', () => {
         ['chemistry', 'SL', 4]
       ]
     })
-    expect(fit.parts.map((p) => p.value)).toEqual([48, 0, 10])
+    expect(fit.parts.map((p) => p.value)).toEqual([48, 0, 30])
     expect(fit).toMatchObject({
       score: 45,
-      sentence: 'Adds up to 58%, lowered to 45% because a required subject is missing.'
+      sentence: 'Adds up to 78%, lowered to 45% because a required subject is missing.'
     })
   })
 
   it('nothing lowers it; a program with no minimum says the score ignores admit rates', () => {
-    expect(why({ field: 'arts' }).fit.sentence).toBe('Adds up to 90%. Nothing lowers it.')
+    expect(why({ field: 'arts' }).fit.sentence).toBe('Adds up to 70%. Nothing lowers it.')
     expect(why({ minIBPoints: null, admitRate: 4.6 }).fit).toMatchObject({
       score: 100,
       sentence: 'Adds up to 100%. Nothing lowers it. The score doesn’t use admit rates.'
@@ -413,8 +413,8 @@ describe('the fit score and its working', () => {
   })
 
   it.each([
-    ['no fields', { interestedFields: [] }, [67, 33, 0], '67%'],
-    ['no countries', { preferredCountries: [] }, [86, 0, 14], '86%'],
+    ['no fields', { interestedFields: [] }, [86, 14, 0], '86%'],
+    ['no countries', { preferredCountries: [] }, [67, 0, 33], '67%'],
     [
       'no fields or countries',
       { interestedFields: [], preferredCountries: [] },

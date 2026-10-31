@@ -81,7 +81,7 @@ function matches(count: number) {
       },
       fieldMatch: { score: 1, isMatch: true, noPreferences: false },
       locationMatch: { score: 1, isMatch: true, noPreferences: false },
-      weightsUsed: { academic: 0.6, location: 0.3, field: 0.1 },
+      weightsUsed: { academic: 0.6, location: 0.1, field: 0.3 },
       adjustments: { rawScore: 1, finalScore: 1, caps: {}, reasons: [] }
     }
   })

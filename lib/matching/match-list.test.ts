@@ -129,14 +129,11 @@ describe('rankedResults', () => {
     program({ id: 'none', minIBPoints: null }),
     program({ id: 'far-under', minIBPoints: 24 }),
     program({ id: 'near-under', minIBPoints: 34 }),
-    // Met, in a country the student did not choose: it scores below the program 2 short
+    // Met, in a field the student did not choose: it scores below the program 2 short
     program({
       id: 'elsewhere',
       minIBPoints: 30,
-      university: {
-        ...program().university,
-        country: { id: 'jp', name: 'Japan', code: 'JP', flagEmoji: '' }
-      }
+      fieldOfStudy: { ...program().fieldOfStudy, id: 'arts', name: 'Arts & Humanities' }
     })
   ]
 

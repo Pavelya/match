@@ -47,30 +47,31 @@ export function shownSort(query: Pick<ExploreQuery, 'q' | 'sort'>, bestFit: bool
 }
 
 /**
- * The line under the count while the list is in Best fit, and Sort's description: "Your
- * countries and fields come first; in each, the ones you meet, closest to your 38." Open to
- * anywhere, every country is the student's, so their fields alone come first. The fallback
- * switch's one search (`lifted`) only lifts the countries and fields, so its line says only
- * that; with "Only ones I qualify for" on, the whole list is read anyway, in the full order.
+ * The line under the count while the list is in Best fit, and Sort's description: "Your fields
+ * and countries come first, then your fields anywhere; in each, the ones you meet, closest to
+ * your 38." Open to anywhere, every country is the student's, so their fields alone come first.
+ * The fallback switch's one search (`lifted`) only lifts the fields and countries, so its line
+ * says only that; with "Only ones I qualify for" on, the whole list is read anyway, in the full
+ * order.
  */
 export function bestFitLine(
   viewer: Pick<ExploreViewer, 'fields' | 'countries' | 'total'>,
   mode: Exclude<BestFitMode, 'off'>,
   qualify: boolean
 ): string | null {
-  const yours =
-    viewer.countries.length > 0 && viewer.fields.length > 0
-      ? 'Your countries and fields'
-      : viewer.countries.length > 0
-        ? 'Your countries'
-        : viewer.fields.length > 0
-          ? 'Your fields'
-          : null
+  const both = viewer.countries.length > 0 && viewer.fields.length > 0
+  const yours = both
+    ? 'Your fields and countries'
+    : viewer.countries.length > 0
+      ? 'Your countries'
+      : viewer.fields.length > 0
+        ? 'Your fields'
+        : null
   if (mode === 'lifted' && !qualify) return yours ? `${yours} come first.` : null
   const closest = viewer.total !== null ? `, closest to your ${viewer.total}` : ''
-  return yours
-    ? `${yours} come first; in each, the ones you meet${closest}.`
-    : `The ones you meet come first${closest}.`
+  if (!yours) return `The ones you meet come first${closest}.`
+  const then = both ? ', then your fields anywhere' : ''
+  return `${yours} come first${then}; in each, the ones you meet${closest}.`
 }
 
 export interface ExploreQuery {

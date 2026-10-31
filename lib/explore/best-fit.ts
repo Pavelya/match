@@ -3,13 +3,14 @@
  * 2026): the order Matches calls "Best fit", over a list that also holds programs outside the
  * student's countries and fields, and, with the switch off, programs they don't meet.
  *
- * - the tier: their countries and fields, their countries, their fields, then the rest, as the
- *   matcher decides it ("Open to anywhere" counts every country);
+ * - the tier: their fields and countries, their fields, their countries, then the rest, as the
+ *   matcher decides it ("Open to anywhere" counts every country; field above country since board
+ *   "D3.1 No IB minimum", 31 October 2026);
  * - the status: the ones they meet, within reach, then missing a requirement;
  * - the minimum closest to their total, then no minimum, then university and program A–Z.
  *
  * With "Only ones I qualify for" on, every program meets the academic part, and the matcher's
- * score (academic 60%, country 30%, field 10%) orders the tiers the same way, so this is
+ * score (academic 60%, field 30%, country 10%) orders the tiers the same way, so this is
  * Matches' own order (`compareBestFit`). Pure: the search and its tests share it.
  */
 
@@ -22,7 +23,7 @@ import { fitProgram, programFit, type FitRecord } from './fit'
 
 type Preferences = Pick<StudentProfile, 'interestedFields' | 'preferredCountries'>
 
-/** 0: their countries and fields; 1: their countries; 2: their fields; 3: neither */
+/** 0: their fields and countries; 1: their fields; 2: their countries; 3: neither */
 export function fitTier(
   student: Preferences,
   record: Pick<FitRecord, 'countryId' | 'fieldOfStudyId'>
@@ -31,7 +32,7 @@ export function fitTier(
   const field = calculateFieldMatch(student.interestedFields, record.fieldOfStudyId ?? '')
   const inCountries = country.isMatch || country.noPreferences
   const inFields = field.isMatch || field.noPreferences
-  return inCountries ? (inFields ? 0 : 1) : inFields ? 2 : 3
+  return inFields ? (inCountries ? 0 : 1) : inCountries ? 2 : 3
 }
 
 /** What the order reads of each program */
@@ -89,7 +90,7 @@ export function liftedOrder<T extends FitRecord>(records: readonly T[], student:
 }
 
 /**
- * The same tiers as `optionalFilters` for the search: a country of theirs scores 2, a field of
+ * The same tiers as `optionalFilters` for the search: a field of theirs scores 2, a country of
  * theirs 1, and a program's scores add up, so 3, 2, 1, 0 are the four tiers. Open to anywhere,
  * no country group: every country is theirs.
  */
@@ -97,8 +98,8 @@ export function liftingFilters(student: Preferences): string[][] {
   const countries = student.preferredCountries.filter(isId)
   const fields = student.interestedFields.filter(isId)
   return [
-    ...(countries.length > 0 ? [countries.map((id) => `countryId:${id}<score=2>`)] : []),
-    ...(fields.length > 0 ? [fields.map((id) => `fieldOfStudyId:${id}<score=1>`)] : [])
+    ...(fields.length > 0 ? [fields.map((id) => `fieldOfStudyId:${id}<score=2>`)] : []),
+    ...(countries.length > 0 ? [countries.map((id) => `countryId:${id}<score=1>`)] : [])
   ]
 }
 
