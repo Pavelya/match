@@ -70,8 +70,10 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
     for consumers and for school customers in the places served?
 11. **Public claims** (`claims.md`). Removing "non-profit", "non-commercial", "GDPR Compliant", "The only…" and the
     donation allocation; the four coordinator quotes if they are paraphrases; the brand names used as endorsements
-    (Stripe, Slack and Medium for Algolia; Instagram and Spotify for PostgreSQL), which are removed. Anything else you
-    would remove or qualify?
+    (Stripe, Slack and Medium for Algolia; Instagram and Spotify for PostgreSQL), which are removed. Added 31 October
+    2026 (MAINT 5.45): "Fast, accurate matching" becomes "Fast matching from published requirements", "Every program
+    gets a fit score" becomes "Every match", and the FAQ says coordinators can view matches and saved programs too
+    (H14–H16, M7). Anything else you would remove or qualify?
 12. **Subscriptions** (Terms 6). Refunds, cancellation, and what is said about "VIP" early adopter schools. VAT and
     income tax are for a tax adviser, not covered here.
 13. **Profiling** (Privacy 3, "How matching works"). Added 30 October 2026 (MAINT 7.8). IB Match scores the subjects,

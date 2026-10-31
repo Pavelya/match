@@ -35,8 +35,8 @@ always where you are.
 | 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
-| 7 | **Next** | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
-| 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
+| 7 | Done, 31 October 2026 (#PR) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
+| 8 | **Next** | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
 | 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
 | 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
 
@@ -147,9 +147,10 @@ deletes today's design.
 | Matches keeps every program a student qualifies for | 5.40 | 30 October 2026 | The points window has no lower end, so "Meets all requirements" holds what Explore's switch holds: 8 on the owner's account, not 2. No score moved. `worked-examples.test.ts` holds XI's examples to the code |
 | Stop precomputing a list nobody reads | 5.42 | 30 October 2026 | The route, its two callers, `searchCandidatePrograms`, `isAlgoliaAvailable` and `INTERNAL_API_KEY` are gone. A save costs one Algolia search, one programs read and one Redis write less. Found 5.46 |
 | Coordinators see the student's list | 5.44 | 30 October 2026 | The student page, its matches page and analytics read `getCachedMatchesV10`, in the student's order through `rankedResults`. `getCachedMatches`, the two old key kinds and the unused analytics route are gone. No score moved. About 2.7 MB to 0.4 MB per coordinator list |
+| The public words on matching | 5.45 | 31 October 2026 | How it works and the FAQ say only what the matcher does, in both designs and the structured data; four rows in `claims.md`, and two tests hold the words. No score or layout moved
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 5.44, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 5.44, 5.45, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -258,7 +259,7 @@ Phase 5 — quick wins
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI) — Part A done 31 October 2026;
   Part B waits for the board
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
-- [ ] 5.45 Correct what the public pages say about matching (from 5.40)
+- [x] 5.45 Correct what the public pages say about matching (from 5.40) — 31 October 2026
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
 
 Phase 6 — dependency majors
@@ -3245,7 +3246,7 @@ design.
 
 ---
 
-### 5.45 — Correct what the public pages say about matching
+### 5.45 — Correct what the public pages say about matching — **done**
 
 **Outcome:** How it works and the FAQ say only what the matcher does.
 
@@ -3280,6 +3281,29 @@ words. The pages stay static.
 **Load:** none. Words on prebuilt pages.
 
 **Session size:** Tiny. After 5.43 Part A.
+
+**Done (31 October 2026, #PR).** The four changes, in the words recommended above, with one exception: today's
+design keeps its own term, "Every match gets a compatibility score", under its heading of the same name. H14–H16 and
+M7 in `claims.md`, a line in `lawyer-brief.md`'s question 11, and D4.14's record. `/how-it-works` is dated 31 October
+2026; `/faqs` stays for #127.
+
+**Verified:** the standing commands, 2,958 tests, and `/how-it-works` still prebuilt. The seven new assertions fail on
+the old words.
+
+**Beyond the steps:** `MatchingEngine` joins the list in `app/public-claims.test.tsx`; it was not in it, so today's
+wording would not have been held.
+
+**Worth knowing:**
+
+- **The FAQ states the widest case.** A coordinator on a free school sees saved programs but no matches, so "can view
+  your academic profile, matches and saved programs" says more than that coordinator sees, and never less. The
+  consent box says the same, and the sentence is what a student needs to know before linking.
+- **The structured data states no weights,** so step 9 need not change it if the weights move.
+- **The longer tick wraps.** In the new design from 768px up, "Your data is never sold" moves to a second row, as the
+  ticks' list allows. In today's design, from 640px to just under 768px, each tick takes two lines. Measured at 390, 640,
+  768, 1024 and 1440px in both designs: no sideways scroll, and both read the new words.
+- **`/faqs` reads the list in the code.** The live page showed the old answer on 31 October 2026, so no FAQ document
+  is published over it. If one is published before release, make the change there too.
 
 ---
 
