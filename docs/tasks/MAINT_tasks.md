@@ -34,7 +34,7 @@ always where you are.
 | 3 | Done, 30 October 2026 (#227) | `Do MAINT 5.40.` | Matches keeps every program the student qualifies for, so it agrees with Explore's switch: 8 on the owner's account, not 2. No score moves. Adds the test that holds XI's worked examples to the code | Merge. In the preview, check that your account shows 8 | About +10% of Upstash bytes per Matches load |
 | 4 | Done, 30 October 2026 (#228) | `Do MAINT 5.42.` | Removes the precompute that writes a list nobody reads | Merge | Less: one Algolia search, one Redis write and one programs read per save |
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
-| 6 | Done, 31 October 2026 (#PR) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
+| 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | **Next** | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | Waiting | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
 | 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
@@ -3083,7 +3083,7 @@ would push down programs like École polytechnique, whose real bar is far above 
 - The fingerprint's scores move, by design. Each fix is its own commit, and the pull request explains
   every kind of difference.
 
-**Part A done (31 October 2026, #PR).** Both fixes as proposed. No status moved and no program joined or
+**Part A done (31 October 2026, #230).** Both fixes as proposed. No status moved and no program joined or
 left a list, on the fingerprint and on seven made-up profiles against the real 1,676 programs (one Redis
 read, no database, no student's data).
 
