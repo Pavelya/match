@@ -125,7 +125,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -134,7 +147,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-astrophysics.html'
       ],
       notes:
-        'Content 4.3: The stored Maths AA HL 6 and Physics HL 5 have no source: U of A names no level or grade beyond 4. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: The stored Maths AA HL 6 and Physics HL 5 have no source: U of A names no level or grade beyond 4. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -158,7 +171,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -167,7 +193,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-biochemistry.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science (Honors)".
     {
@@ -191,7 +217,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -200,7 +239,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-biochemistry.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -412,7 +451,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -421,7 +473,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-computing-science-software-practice-option.html'
       ],
       notes:
-        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science (Honors)".
     {
@@ -445,7 +497,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -454,7 +519,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-computing-science.html'
       ],
       notes:
-        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -536,7 +601,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -545,7 +623,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-ecology-evolution-and-environmental-biology.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -719,7 +797,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -728,7 +819,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-geology.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 30 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 30 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Arts (Honors)".
     {
@@ -836,7 +927,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -845,7 +949,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-immunology-and-infection.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -987,7 +1091,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -996,7 +1113,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-mathematics-and-economics.html'
       ],
       notes:
-        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: The stored Maths AA HL 6 has no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science (Honors)".
     {
@@ -1020,7 +1137,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1029,7 +1159,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-mathematics-and-finance.html'
       ],
       notes:
-        'Content 4.3: Not direct entry: "This program does not allow admission directly from high school"; students enter Year 2 with a 3.0 GPA in first-year Economics, Mathematics, Statistics and English courses. The program\'s own high-school requirements, stored here, are Science\'s. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The pages name no entry year, so checked for 2026.'
+        'Content 4.3: Not direct entry: "This program does not allow admission directly from high school"; students enter Year 2 with a 3.0 GPA in first-year Economics, Mathematics, Statistics and English courses. The program\'s own high-school requirements, stored here, are Science\'s. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The pages name no entry year, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -1053,7 +1183,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1062,7 +1205,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-mathematics-physics.html'
       ],
       notes:
-        'Content 4.3: The stored Maths AA HL 6 and Physics HL 5 have no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: The stored Maths AA HL 6 and Physics HL 5 have no source. Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -1135,7 +1278,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1144,7 +1300,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-molecular-cellular-and-developmental-biology.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake. Degree stored as "Bachelor of Science (Honors)".
     {
@@ -1168,7 +1324,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1177,7 +1346,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-molecular-cellular-and-developmental-biology.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -1279,7 +1448,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1288,7 +1470,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-honors-pharmacology.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 34 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     },
     // Stored: not checked for any intake.
     {
@@ -1649,7 +1831,20 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'MATH-AA'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -1658,7 +1853,7 @@ const refresh: RefreshFile = {
         'https://www.ualberta.ca/en/undergraduate-programs/bachelor-of-science-with-major-statistics.html'
       ],
       notes:
-        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL) and one critical group of Biology, Chemistry and Physics; the model cannot hold "two of" (as in 4.1), and Maths AA as Math 31 is already the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026.'
+        'Content 4.3: Faculty of Science, Edmonton. Admission subjects: English Language Arts 30-1, Mathematics 30-1, two of Biology 30, Chemistry 30, Physics 30, Mathematics 31 or Computing Science (advanced CTS), and one more subject. Stored: English, Maths (AA, or AI HL), and "two of" as two critical groups of Biology, Chemistry, Physics and Maths AA (as Math 31), each needing a course of its own; Maths AA may also be the Maths row. IB Computer Science counts only as a "Science 30-level" course in the chart, not as Computing Science, so it is not in the group. Each Alberta course is read through U of A\'s IB equivalents chart: English A or B (HL/SL) is English Language Arts 30-1; Maths AA (HL/SL) is Math 30-1 or Math 31, Maths AI HL is Math 30-1 and Maths AI SL is Math 30-2; Biology, Chemistry and Physics (HL/SL) are Biology 30, Chemistry 30 and Physics 30. Full-Diploma candidates must present six IB courses, five of them the required subjects, with "no grade less than 4", so every required subject is stored at 4. The remaining admission subjects are open choices from broad categories that any Diploma meets, and are not stored. U of A publishes no IB points figure per program. Its IB page asks full-Diploma candidates for "a competitive diploma score with no grade less than 4. Previous competitive scores range from 30-37 points depending on your program." The stored 32 lies inside that range; with no figure for this program, it is kept, not re-verified. The program page gives "Admissions Requirements for 2026 - 2027", September 2026 entry; 2027-28 requirements are not published yet, so checked for 2026. MAINT 5.39 (27 October 2026): the Faculty of Science\'s admission page, re-read, still lists "Two courses from: Biology 30; Chemistry 30; Mathematics 31; Physics 30; Computing Science Advanced Level (CTS)", and Alberta\'s IB equivalents give Maths AA (HL/SL) as "Math 30-1/Math 31", so Maths AA is one of the list. IB Computer Science is "Science 30-level", not Computing Science (CTS), so it is not.'
     }
   ]
 }

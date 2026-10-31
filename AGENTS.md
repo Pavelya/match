@@ -32,6 +32,9 @@ development database, so every Prisma command run here hits production.
   without one. App code imports `prisma` from `@/lib/prisma`; scripts and the seeder
   import it from `@/lib/prisma-standalone`.
 - Destructive SQL needs the user's explicit approval, and a backup taken first.
+- **Every table has Row Level Security on and no policies**, and an event trigger turns it on for new
+  tables (MAINT 5.37). The app connects as the owner, so it is unaffected. Never disable it or grant
+  anything to `anon` or `authenticated`. Supabase's Data API is off.
 
 ## Cost — Supabase is on a 5 GB free tier
 
@@ -55,12 +58,14 @@ traffic. Storage was restricted and every university image broke.
 - **Prettier owns formatting; ESLint owns code quality.** Do not add stylistic rules to
   `eslint.config.mjs` — that conflict once produced 670 errors that could not be fixed,
   because the two tools kept reverting each other.
-- **New tests are Vitest: `*.test.ts` next to the code, run by `npm test`.** Mock
-  `@/lib/prisma` rather than reaching the database. The older matching suite,
-  `lib/matching/*.verify.ts`, is standalone scripts run by
-  `npx tsx scripts/run-all-tests.ts` — not Vitest files, so don't rename them `.test.ts`.
+- **Tests are Vitest: `*.test.ts` next to the code, run by `npm test`.** Mock
+  `@/lib/prisma` rather than reaching the database. The matching algorithm's tests are
+  Vitest too, since 7.1 Part 4; there is no second suite.
 - **Import `prisma` from `@/lib/prisma`.** Never `new PrismaClient()` — the shared
   client is pooled and carries the Algolia sync extensions.
+- **Prisma types and enums come from `@/app/generated/prisma/client`**, or `/enums` for
+  enums alone, which client components must use. Never `@prisma/client`: it is no
+  longer generated (MAINT 6.6).
 - **Use `logger` from `@/lib/logger`.** `no-console` is an error outside scripts.
 - **Two TypeScript packages, on purpose.** `typescript` is an alias for
   `@typescript/typescript6` (the 6.0 JavaScript API, which typescript-eslint needs) and
@@ -71,27 +76,41 @@ traffic. Storage was restricted and every university image broke.
   Keep them static; dynamic rendering costs both latency and money.
 - `npm start` needs `AUTH_TRUST_HOST=true` outside Vercel, or every `/api/auth/*` route
   returns 500 with `UntrustedHost`. Auth.js v5 auto-trusts only in dev and on Vercel.
+- **Every admin and coordinator page calls `requireAdmin()` or `requireCoordinator()` first**
+  (`lib/auth/guards.ts`). A layout's check does not cover the pages under it; Next renders a page
+  alongside its layout. `app/page-guards.test.ts` fails for a page without one (SEC-1).
 
 ## Workflow
 
 **Merging `main` deploys to production.** Work on a branch, open a pull request, let CI
 pass, and let the user merge. Never commit to `main`. The user merges between sessions, so
 start every change from a new branch off `origin/main` and check the branch before committing.
+Finishing a task from `docs/tasks/MAINT_tasks.md` includes moving it to "1. Done" there, in the same
+pull request (the rule is at the top of its "Start here").
+
+**The repository is public.** A commit, pull request or doc that describes an unfixed vulnerability
+publishes it. Fix first, in neutral words; write the finding up once the fix is deployed.
 
 Verification — all free, and nothing reaches a third party except the build:
 
 ```bash
 npx tsc --noEmit && npx eslint . && npx prettier --check . && npm run build
-npm test && npx tsx scripts/run-all-tests.ts
+npm test
 ```
 
 ## Where to look
 
+- `docs/tasks/RELEASE_RUNBOOK.md` — the go-live: every step from now to the old design's deletion, in
+  order. For the release's order it overrides the other task files
 - `docs/tasks/MAINT_tasks.md` — remaining work, grouped into sessions, with the full
   standing context and per-task verification
 - `docs/tasks/REBRANDING_tasks.md` — the redesign: design tasks (D…) on the canvas, build
   sessions in code, and how each kind of session runs
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning
   behind each choice
+- `docs/matching/DOC_2_matching-algo XI.md` — the master version of the matching algorithm: what runs
+  and its known problems. Earlier versions are records. The work left on it is the order at the top of
+  `MAINT_tasks.md`, "Start here"
+- `docs/tasks/SEC_tasks.md` — security tasks from the audit of 27 October 2026, in priority order
 - `docs/security/security-audit-report-2026-01.md` — security audit history
 - `README.md` — setup, scripts, and database notes

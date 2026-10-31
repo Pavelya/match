@@ -11,6 +11,7 @@
  */
 
 import { notFound, redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import { auth } from '@/lib/auth/config'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
@@ -22,17 +23,19 @@ import type { MatchResult } from '@/lib/matching/types'
 import { requirementsCheck } from '@/lib/programs/entry-year'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string; programId: string }>
 }
 
 export default async function CoordinatorProgramDetailPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id: studentId, programId } = await params
 
   const session = await auth()
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school
@@ -129,6 +132,7 @@ export default async function CoordinatorProgramDetailPage({ params }: PageProps
           minGrade: true,
           isCritical: true,
           orGroupId: true,
+          ownCourse: true,
           ibCourse: {
             select: { id: true, name: true, code: true, group: true }
           }

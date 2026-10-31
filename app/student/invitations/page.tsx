@@ -12,6 +12,8 @@ import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { PageContainer, PageHeader } from '@/components/layout/PageContainer'
 import { PendingInvitationsClient } from './PendingInvitationsClient'
+import { InvitationsList } from '@/components/invitation/islands'
+import { showsNewUi } from '@/lib/new-ui'
 
 export const metadata = {
   title: 'School Invitations',
@@ -59,7 +61,11 @@ export default async function PendingInvitationsPage() {
       status: 'PENDING',
       expiresAt: { gt: new Date() }
     },
-    include: {
+    select: {
+      id: true,
+      token: true,
+      expiresAt: true,
+      createdAt: true,
       school: {
         select: {
           id: true,
@@ -100,6 +106,29 @@ export default async function PendingInvitationsPage() {
     expiresAt: inv.expiresAt.toISOString(),
     createdAt: inv.createdAt.toISOString()
   }))
+
+  // The new design's list (rebranding 4.3, board "D4.16 School invitation"): the same read, the
+  // dates written out here so the server and the browser agree on them
+  if (await showsNewUi()) {
+    const day = (date: Date) =>
+      date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    return (
+      <InvitationsList
+        invitations={pendingInvitations
+          .filter((inv) => inv.school)
+          .map((inv) => ({
+            id: inv.id,
+            school: {
+              name: inv.school!.name,
+              place: `${inv.school!.city}, ${inv.school!.country.name}`
+            },
+            coordinatorName: inv.invitedBy.name,
+            invited: day(inv.createdAt),
+            expires: day(inv.expiresAt)
+          }))}
+      />
+    )
+  }
 
   return (
     <PageContainer narrow>

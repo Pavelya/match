@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // A coordinator's edit is held to the same diploma rules as the student's own profile, and the
 // total comes from the core points matrix, never from the form. The cases in "answers as the
@@ -27,6 +27,7 @@ vi.mock('@/lib/reference-data', () => ({
 }))
 
 import { NextRequest } from 'next/server'
+import { invalidateStudentCache } from '@/lib/matching/cache'
 import { PATCH } from './route'
 
 const ID = 'student-1'
@@ -97,13 +98,51 @@ beforeEach(() => {
   vi.clearAllMocks()
   prismaMock.coordinatorProfile.findFirst.mockResolvedValue({
     id: 'coord-1',
+    isActive: true,
     school: { id: 'school-1', subscriptionTier: 'VIP', subscriptionStatus: 'ACTIVE' }
   })
   prismaMock.studentProfile.findUnique.mockResolvedValue(STORED_STUDENT)
   prismaMock.studentProfile.update.mockResolvedValue({ id: ID })
 })
 
+afterEach(() => vi.unstubAllGlobals())
+
 describe('PATCH /api/coordinator/students/[id]', () => {
+  // The cached list is keyed by the student's user id, not this route's profile id. As in
+  // ../../../students/profile, nothing is computed ahead of the next load (MAINT 5.42)
+  it('clears the student’s cached matches on an edit, and calls no other route', async () => {
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+
+    const res = await patch({ tokGrade: 'A' })
+
+    expect(res.status).toBe(200)
+    expect(invalidateStudentCache).toHaveBeenCalledWith('user-1')
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  // As in ../../../students/profile: a clear left running after the answer may stall (MAINT 5.46)
+  it('answers only once the student’s cached matches are cleared', async () => {
+    let finishClear = () => {}
+    vi.mocked(invalidateStudentCache).mockReturnValueOnce(
+      new Promise<void>((resolve) => {
+        finishClear = resolve
+      })
+    )
+    let answered = false
+
+    const answer = patch({ tokGrade: 'A' }).then((res) => {
+      answered = true
+      return res
+    })
+    await vi.waitFor(() => expect(invalidateStudentCache).toHaveBeenCalled())
+    await new Promise((resolve) => setTimeout(resolve))
+    expect(answered).toBe(false)
+
+    finishClear()
+    expect((await answer).status).toBe(200)
+  })
+
   it.each([
     ['TOK', { tokGrade: 'E' }],
     ['the EE', { eeGrade: 'E' }]

@@ -13,6 +13,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
+import { uploadUniversityImage, isBase64Image } from '@/lib/supabase/storage'
 
 interface RouteParams {
   params: Promise<{ id: string }>
@@ -91,9 +92,11 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const { id } = await params
 
-    // Check school exists
+    // Check school exists. The stored logo is read so an unchanged one is not
+    // uploaded again (see below).
     const existingSchool = await prisma.iBSchool.findUnique({
-      where: { id }
+      where: { id },
+      select: { id: true, logo: true }
     })
 
     if (!existingSchool) {
@@ -171,10 +174,6 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.subscriptionStatus = subscriptionStatus
     }
 
-    if (logo !== undefined) {
-      updateData.logo = logo || null
-    }
-
     if (websiteUrl !== undefined) {
       updateData.websiteUrl = websiteUrl?.trim() || null
     }
@@ -189,6 +188,36 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     if (isVerified !== undefined) {
       updateData.isVerified = Boolean(isVerified)
+    }
+
+    // Logos go to Storage and the column holds the URL, as for universities
+    // (MAINT 5.11). The edit form sends the stored logo back on every save, so an
+    // unchanged value is left alone rather than uploaded again. Last, so a request
+    // refused above uploads nothing.
+    if (logo !== undefined && logo !== existingSchool.logo) {
+      if (logo && typeof logo === 'string' && logo.length > 0) {
+        if (isBase64Image(logo)) {
+          try {
+            updateData.logo = await uploadUniversityImage(logo, `school-${id}-logo`)
+            logger.info('Uploaded updated school logo to Supabase', { schoolId: id })
+          } catch (uploadError) {
+            logger.error('Supabase logo upload failed; refusing to store inline base64', {
+              error: uploadError instanceof Error ? uploadError.message : String(uploadError),
+              schoolId: id
+            })
+            return NextResponse.json(
+              { error: 'Logo upload failed. No changes were saved. Please try again.' },
+              { status: 502 }
+            )
+          }
+        } else {
+          // Assume it's already a URL
+          updateData.logo = logo.trim()
+        }
+      } else {
+        // Logo was cleared
+        updateData.logo = null
+      }
     }
 
     const school = await prisma.iBSchool.update({

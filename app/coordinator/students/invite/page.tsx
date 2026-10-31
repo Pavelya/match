@@ -7,6 +7,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import { PageContainer, PageHeader, FormPageLayout, FormSection } from '@/components/admin/shared'
 import { UserPlus } from 'lucide-react'
@@ -16,12 +17,14 @@ import {
   FREEMIUM_MAX_STUDENTS
 } from '@/lib/auth/access-control'
 import { InviteStudentForm } from './InviteStudentForm'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function InviteStudentPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school

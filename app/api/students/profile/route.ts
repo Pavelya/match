@@ -204,31 +204,9 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Fire-and-forget: Invalidate cache in background (don't block response)
-    // Cache will be rebuilt on next access if needed
-    invalidateStudentCache(studentId)
-      .then(() => logger.info('Student cache invalidated after profile update', { studentId }))
-      .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, studentId }))
-
-    // Fire-and-forget: Pre-compute matches in background
-    // This ensures /student/matches is fast on first visit
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const internalKey = process.env.INTERNAL_API_KEY
-
-    if (internalKey) {
-      fetch(`${appUrl}/api/students/matches/precompute`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-internal-key': internalKey
-        },
-        body: JSON.stringify({ studentId })
-      }).catch((err) => {
-        // Don't block on precompute failure - it's optional optimization
-        logger.warn('Failed to trigger matches precompute', { error: err.message })
-      })
-      logger.info('Matches precompute triggered', { studentId })
-    }
+    // Before the answer: Vercel can freeze a function once it has answered, and the student's next
+    // load would read the old list (MAINT 5.46). Rebuilt on that load
+    await invalidateStudentCache(studentId)
 
     return NextResponse.json({
       success: true,

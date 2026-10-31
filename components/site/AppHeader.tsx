@@ -20,6 +20,7 @@ export function AppHeader({ user }: { user: AccountUser }) {
           href="/student/matches"
           label="IB Match, your matches"
           wordmarkClassName="md:max-lg:hidden"
+          season
           className="mr-auto md:mr-0"
         />
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">

@@ -1,6 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { AuthPage } from '@/components/sign-in/AuthPage'
+import { SignInErrorCard } from '@/components/sign-in/StatusCards'
+import { showsNewUi } from '@/lib/new-ui'
 
 export default async function AuthErrorPage({
   searchParams
@@ -8,6 +11,14 @@ export default async function AuthErrorPage({
   searchParams: Promise<{ error?: string }>
 }) {
   const params = await searchParams
+  // The new design's card (rebranding 4.3, board "D4.2 Sign-in")
+  if (await showsNewUi()) {
+    return (
+      <AuthPage>
+        <SignInErrorCard code={params.error} />
+      </AuthPage>
+    )
+  }
   const errorMessages: Record<string, string> = {
     Configuration: 'There is a problem with the server configuration.',
     AccessDenied: 'You do not have permission to sign in.',

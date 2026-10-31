@@ -11,6 +11,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import {
   PageContainer,
@@ -22,12 +23,14 @@ import { Users, UserPlus } from 'lucide-react'
 import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
 import { StudentsClient } from './StudentsClient'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorStudentsPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school with student data
@@ -114,7 +117,7 @@ export default async function CoordinatorStudentsPage() {
         {!access.hasFullAccess && (
           <UpgradePromptBanner
             feature="Unlimited Students"
-            description="Free plan is limited to 10 students. Upgrade to VIP for unlimited student management."
+            description="Free plan is limited to 10 students. Subscribe for unlimited student management."
             variant="subtle"
             className="mb-6"
           />
@@ -167,8 +170,8 @@ export default async function CoordinatorStudentsPage() {
             }
             description={
               remainingInvites > 0
-                ? 'Upgrade to VIP for unlimited students, advanced analytics, and more.'
-                : 'You&apos;ve reached the free plan limit of 10 students. Upgrade to VIP to invite more.'
+                ? 'Subscribe for unlimited students, advanced analytics, and more.'
+                : "You've reached the free plan limit of 10 students. Subscribe to invite more."
             }
             variant={remainingInvites > 3 ? 'subtle' : 'inline'}
             className="mb-6"

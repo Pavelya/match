@@ -21,14 +21,13 @@ export function saveToggleClasses({
   className?: string
 }) {
   return cn(
-    'inline-flex shrink-0 items-center justify-center rounded-control border text-body',
-    'transition-[color,background-color,border-color] duration-180 ease-standard',
+    'press inline-flex shrink-0 items-center justify-center rounded-control border text-body',
     word
       ? 'h-11 min-w-[118px] gap-2 px-4 font-medium'
-      : 'size-11 border-transparent not-aria-busy:hover:bg-muted',
+      : 'size-11 border-transparent not-aria-busy:hover:bg-muted not-aria-busy:pressed:bg-border',
     word &&
       !saved &&
-      'border-line-2 bg-card text-foreground not-aria-busy:hover:border-line-3 not-aria-busy:hover:bg-muted',
+      'border-line-2 bg-card text-foreground not-aria-busy:hover:border-line-3 not-aria-busy:hover:bg-muted not-aria-busy:pressed:border-line-3 not-aria-busy:pressed:bg-border',
     word && saved && 'border-primary bg-brand-soft font-semibold text-brand-ink',
     !word && (saved ? 'text-primary' : 'text-foreground'),
     saving && 'text-muted-foreground',

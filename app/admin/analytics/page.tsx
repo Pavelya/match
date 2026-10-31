@@ -26,8 +26,10 @@ import {
 } from 'lucide-react'
 import { PageContainer, PageHeader, StatCard, InfoCard } from '@/components/admin/shared'
 import { SubjectGroupIcon } from '@/lib/icons'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function AnalyticsPage() {
+  await requireAdmin()
   // Fetch analytics data
   const [
     totalStudents,

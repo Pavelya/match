@@ -1,19 +1,26 @@
 import 'server-only'
 import { unstable_cache } from 'next/cache'
 import { getAlgoliaClient, INDEX_NAMES } from '@/lib/algolia/client'
+import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
 import type { StudentProfile } from '@/lib/matching/types'
+import { bestFitOrder, liftedOrder, liftingFilters } from './best-fit'
 import { exploreFilters } from './filters'
-import { FIT_ATTRIBUTES, fitProgram, programFit } from './fit'
-import type { ExploreQuery } from './query'
+import { FIT_ATTRIBUTES, fitProgram, programFit, qualifying } from './fit'
+import { shownSort, type ExploreQuery } from './query'
 import { ROW_ATTRIBUTES, sortByPoints, toRow, type RowRecord } from './records'
-import type { ExploreFit, ExploreRow } from './types'
+import type { BestFitMode, ExploreFit, ExploreRow } from './types'
 
 /**
  * Explore's list from the search service (rebranding 2.3). In its own order (relevance, then
  * the highest minimum first) with no switch, a window of the list is one search, as on today's
- * page. The points sorts and "Only ones I qualify for" need every matching program: they are
- * read in full, filtered and sorted here, and the window cut from them.
+ * page; with nothing typed that order is "Highest points needed", so that sort is one search
+ * too. The other points sort and "Only ones I qualify for" need every matching program: they
+ * are read in full, filtered and sorted here, and the window cut from them.
+ *
+ * Best fit (MAINT_tasks.md 5.27) reads the full list with the search's browse alone, since it
+ * uses no ranking: one request up to 1,000 programs, two past that. `EXPLORE_BEST_FIT` can
+ * make it one search that lifts the student's countries and fields (`lifted`), or turn it off.
  *
  * With a student who has grades, the records come with their requirements and each row with
  * the student's fit, worked out here. Nothing else is read: no database, no programs cache.
@@ -32,6 +39,13 @@ export interface ExploreList {
   rows: ExploreRow[]
   /** By program id, when there is a student with grades */
   fits?: Record<string, ExploreFit>
+  /** With "Only ones I qualify for" on: how many of the total have no set grades */
+  noSetGrades?: number
+}
+
+/** The fallback switch's position; unset is the full order */
+export function bestFitMode(): BestFitMode {
+  return env.EXPLORE_BEST_FIT ?? 'full'
 }
 
 export async function searchExplore(
@@ -44,15 +58,23 @@ export async function searchExplore(
   const attributes = student ? [...ROW_ATTRIBUTES, ...FIT_ATTRIBUTES] : ROW_ATTRIBUTES
   const qualify = query.qualify && student ? student : null
   const end = window.offset + window.length
+  const mode = bestFitMode()
+  const sort = shownSort(query, Boolean(student) && mode !== 'off')
+  const best = sort === 'best' && student ? student : null
+  const lifted = best && mode === 'lifted' && !qualify ? best : null
 
+  // One search: the window in the search's own order, or lifted by the student's tiers
+  const searchOrder = sort === 'relevant' || (sort === 'high' && query.q === '') || lifted
   let total: number
   let records: RowRecord[]
-  if (query.sort === 'relevant' && !qualify && end <= SEARCH_WINDOW) {
+  let noSetGrades: number | undefined
+  if (searchOrder && !qualify && end <= SEARCH_WINDOW) {
     const page = await getAlgoliaClient().searchSingleIndex<RowRecord>({
       indexName: INDEX_NAMES.PROGRAMS,
       searchParams: {
         query: query.q,
         filters,
+        ...(lifted ? { optionalFilters: liftingFilters(lifted) } : {}),
         offset: window.offset,
         length: window.length,
         attributesToRetrieve: attributes,
@@ -62,14 +84,23 @@ export async function searchExplore(
     total = page.nbHits ?? page.hits.length
     records = page.hits
   } else {
-    let all = await everyMatch(query.q, filters, attributes)
-    if (qualify) all = all.filter((r) => programFit(qualify, fitProgram(r)).status === 'meets')
-    if (query.sort !== 'relevant') all = sortByPoints(all, query.sort)
+    let all =
+      best && !lifted
+        ? await everyBrowsed(query.q, filters, attributes)
+        : await everyMatch(query.q, filters, attributes)
+    if (qualify) ({ records: all, noSetGrades } = qualifying(all, qualify))
+    if (lifted) all = liftedOrder(all, lifted)
+    else if (best) all = bestFitOrder(all, best)
+    else if (sort === 'low' || sort === 'high') all = sortByPoints(all, sort)
     total = all.length
     records = all.slice(window.offset, end)
   }
 
-  const list: ExploreList = { total, rows: records.map(toRow) }
+  const list: ExploreList = {
+    total,
+    rows: records.map(toRow),
+    ...(noSetGrades !== undefined && { noSetGrades })
+  }
   if (student) {
     list.fits = Object.fromEntries(
       records.map((r) => [r.objectID, programFit(student, fitProgram(r))])
@@ -79,7 +110,8 @@ export async function searchExplore(
   logger.info('explore_search', {
     query: query.q || '(empty)',
     filters: filters ?? '(none)',
-    sort: query.sort,
+    sort,
+    ...(best ? { bestFit: mode } : {}),
     qualify: Boolean(qualify),
     offset: window.offset,
     total,
@@ -127,6 +159,31 @@ async function everyMatch(
     }
   })
   return [...first.hits, ...rest]
+}
+
+/**
+ * Every program the search and filters match, read with browse alone, in pages of 1,000. For
+ * Best fit, which orders them itself and needs no ranking, so no search comes first.
+ */
+async function everyBrowsed(
+  q: string,
+  filters: string | undefined,
+  attributes: string[]
+): Promise<RowRecord[]> {
+  const all: RowRecord[] = []
+  await getAlgoliaClient().browseObjects<RowRecord>({
+    indexName: INDEX_NAMES.PROGRAMS,
+    browseParams: {
+      query: q,
+      filters,
+      hitsPerPage: SEARCH_WINDOW,
+      attributesToRetrieve: attributes
+    },
+    aggregator: (response) => {
+      all.push(...response.hits)
+    }
+  })
+  return all
 }
 
 /**

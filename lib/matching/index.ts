@@ -18,14 +18,10 @@ export { calculateMatch, calculateMatches } from './scorer'
 
 // Cache functions
 export {
-  getCachedMatch,
-  getCachedMatches,
   getCachedMatchesV10,
   MAX_MATCHES_RETURNED,
   invalidateStudentCache,
-  invalidateProgramCache,
   clearAllMatchCache,
-  getCacheStats,
   type V10MatchResult
 } from './cache'
 

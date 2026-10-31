@@ -1,4 +1,4 @@
-import type { CourseLevel } from '@prisma/client'
+import type { CourseLevel } from '@/app/generated/prisma/enums'
 
 /**
  * Pure helpers for comparing a program's stored subject requirements with a target, and
@@ -14,6 +14,11 @@ export interface RequirementDef {
   level: CourseLevel
   grade: number
   critical?: boolean
+  /**
+   * Needs a course of its own (MAINT 5.18): the marked requirements of a program are each met by a
+   * different course. Left out: may share a course with another requirement.
+   */
+  ownCourse?: boolean
 }
 
 /** One option of a mixed OR group: a course at its own level and grade. */
@@ -30,6 +35,7 @@ export interface RequirementOption {
 export interface MixedRequirementDef {
   anyOf: RequirementOption[]
   critical?: boolean
+  ownCourse?: boolean
 }
 
 export type AnyRequirementDef = RequirementDef | MixedRequirementDef
@@ -41,6 +47,8 @@ export interface RequirementRow {
   grade: number
   critical: boolean
   group: string | null
+  /** Set on every row of a requirement that needs a course of its own; left out when false. */
+  ownCourse?: boolean
 }
 
 /** The fields the script compares and writes. */
@@ -54,19 +62,20 @@ export interface ProgramState {
 interface Group {
   options: RequirementRow[]
   critical: boolean
+  ownCourse: boolean
 }
 
 /**
  * Collect rows into requirements: rows sharing a `group` are one OR group, every row
  * without one stands alone. A group is critical if any option is, which is how
- * `lib/matching/transformers.ts` reads it.
+ * `lib/matching/transformers.ts` reads it, and needs a course of its own if any option does.
  */
 function toGroups(rows: RequirementRow[]): Group[] {
   const grouped = new Map<string, RequirementRow[]>()
   const groups: Group[] = []
   for (const row of rows) {
     if (row.group === null) {
-      groups.push({ options: [row], critical: row.critical })
+      groups.push({ options: [row], critical: row.critical, ownCourse: row.ownCourse === true })
       continue
     }
     const options = grouped.get(row.group)
@@ -75,11 +84,12 @@ function toGroups(rows: RequirementRow[]): Group[] {
     } else {
       const created = [row]
       grouped.set(row.group, created)
-      groups.push({ options: created, critical: false })
+      groups.push({ options: created, critical: false, ownCourse: false })
     }
   }
   for (const group of groups) {
     group.critical = group.options.some((o) => o.critical)
+    group.ownCourse = group.options.some((o) => o.ownCourse === true)
   }
   return groups
 }
@@ -89,13 +99,16 @@ function canonicalKey(rows: RequirementRow[]): string {
   return toGroups(rows)
     .map((g) => {
       const options = g.options.map((o) => `${o.code} ${o.level}${o.grade}`).sort()
-      return `${options.join('|')}${g.critical ? '' : ' nc'}`
+      return `${options.join('|')}${g.critical ? '' : ' nc'}${g.ownCourse ? ' own' : ''}`
     })
     .sort()
     .join(';')
 }
 
-/** `CHEM HL7; (BIO or PHYS) HL6 (nc)` — the notation used in the handoff files. */
+/**
+ * `CHEM HL7; (BIO or PHYS) HL6 (nc)` — the notation used in the handoff files. `(own)` marks a
+ * requirement that needs a course of its own.
+ */
 export function formatRequirements(rows: RequirementRow[]): string {
   const groups = toGroups(rows)
   if (groups.length === 0) return 'none'
@@ -110,7 +123,8 @@ export function formatRequirements(rows: RequirementRow[]): string {
       } else {
         text = `(${g.options.map((o) => `${o.code} ${o.level}${o.grade}`).join(' or ')})`
       }
-      return g.critical ? text : `${text} (nc)`
+      if (!g.critical) text = `${text} (nc)`
+      return g.ownCourse ? `${text} (own)` : text
     })
     .join('; ')
 }
@@ -134,7 +148,8 @@ export function rowsFromDefs(defs: AnyRequirementDef[]): RequirementRow[] {
       level: o.level,
       grade: o.grade,
       critical: def.critical ?? true,
-      group: options.length > 1 ? `def-${index}` : null
+      group: options.length > 1 ? `def-${index}` : null,
+      ...(def.ownCourse && { ownCourse: true })
     }))
   })
 }
@@ -152,17 +167,20 @@ export function defsFromRows(rows: RequirementRow[]): AnyRequirementDef[] {
   const defs = toGroups(rows).map((g): AnyRequirementDef => {
     const options = [...g.options].sort(byOption)
     const [first] = options
+    const own = g.ownCourse ? { ownCourse: true } : {}
     if (options.every((o) => o.level === first.level && o.grade === first.grade)) {
       return {
         courses: options.map((o) => o.code),
         level: first.level,
         grade: first.grade,
-        critical: g.critical
+        critical: g.critical,
+        ...own
       }
     }
     return {
       anyOf: options.map((o) => ({ course: o.code, level: o.level, grade: o.grade })),
-      critical: g.critical
+      critical: g.critical,
+      ...own
     }
   })
   // Critical first, then by first option: the order a reader expects, and the same every export.

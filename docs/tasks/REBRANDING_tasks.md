@@ -43,7 +43,7 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 | Order | Task | Who | Why before the rebranding |
 |---|---|---|---|
 | P1 | ~~Enable branch protection on `main`~~ **Done 7 October 2026** (`MAINT_tasks.md`, owner tasks) | Owner, minutes | The rebranding is 15+ pull requests, and merging `main` deploys. Today a red CI can still be merged |
-| P2 | ~~Choose the logo mark~~ **Done 7 October 2026: Lens, provisionally.** The owner decides on the final mark after seeing all screens in the preview. The clearance search waits for that decision | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
+| P2 | ~~Choose the logo mark~~ **Done: Lens, chosen provisionally on 7 October 2026 and confirmed as the final mark on 21 October 2026 (owner).** The clearance search on it is still to commission (owner decisions) | Owner | 1.3 is no longer blocked. Brand configuration makes a later swap a file change |
 | P3 | ~~`MAINT_tasks.md` 5.14: delete unused components~~ **Done 7 October 2026** | AI, tiny | Removes the dead `shared/Header.tsx` and `Footer.tsx` before 1.5 builds the new chrome, so no session builds on them by mistake |
 | P4 | ~~`MAINT_tasks.md` 5.8 with 5.13: TOK/EE core points, 3 or 4 HL subjects, E blocks saving, and the 20-row data fix (the owner approves the data fix)~~ **Done 7 October 2026**, data fix applied | AI, small | The new cards put the points total front and centre ("38 / 37 points"), so stored totals must be right. 3.2 builds on both helpers |
 | P5 | ~~`MAINT_tasks.md` 5.12: every match, not the top 10~~ **Done 7 October 2026**: up to 50. Profiles have 63 matches at the median and up to 592, so 77 of 142 still see the best 50 | AI, small | The status groups (2.2) are designed and reviewed on the full list |
@@ -56,7 +56,14 @@ live in their own files; this is the order to run them. Everything else in `MAIN
 **Not needed before the rebranding:**
 
 - `MAINT_tasks.md` 5.6, 5.9, 5.10, 5.11, 5.15 (level-gap scoring changes order, not design), 5.16 (admin
-  forms only), 6.6, 7.1.
+  forms only), 5.17, 5.18, 6.6, 7.1, 7.3, 7.5.
+
+**Needed before release day** (added since, 22 October 2026): `MAINT_tasks.md` 5.27, Explore's best
+fit (the board D3.5 Sort · best fit and session 25 here); 7.4: the legal documents, drafted before and
+published on release day, and the public pages' wording, which is code (#157 and the SEO pull request #158) and
+may merge before it; and 5.26, a production bug that can go any
+time. Added 28 October 2026, changed 30 October: 5.40, no lower end to Matches' points window, so
+Matches and Explore's switch agree; the one line of words is decided. The matching work has one order, at the top of that file's "Start here". The order of all the open MAINT work is in that file's "Start here".
 - `CONTENT_tasks.md` 5.3 (France), 5.4 (how competitive), 6 (USA), 7 (Germany).
 
 One coordination rule: country-page edits in CONTENT (France's new page, the US and German pages)
@@ -150,6 +157,8 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    one is a new board, reviewed again. New boards go in a new row, named as in the table.
 3. Draw everything in the row's "To add before review" column, to [the design gate](#step-2--design-first):
    phone and desktop, light and dark, every state that applies.
+   A season board (D1.7 Season · …) also draws whole pages at real size for every page type a slot
+   reaches, and passes the recognition check (6.1, "What changes", 25 October 2026).
 4. Use real content: real program, university and subject names and real requirements. Read the
    database with aggregates or a narrow `select` only (`AGENTS.md`, cost).
 5. **Design only:** no app code. Stop when the boards are ready, and tell the owner which boards to
@@ -158,7 +167,7 @@ A prompt such as "Do design task D1.2" or `/design D1.2` is enough: these are th
    in chat, write the date in the row's "Approved" column. Do it on a new branch from `origin/main`,
    in a docs pull request.
 
-**Where it stands, 18 October 2026.** The canvas has 83 boards. The owner approved in chat "B ·
+**Where it stands, 31 October 2026.** The canvas has 107 boards. The owner approved in chat "B ·
 Foundations", "Theme: System, Light, Dark" and the three "D1.2 Type" boards on 8 October (D1.1 to
 D1.4), then the seven row 2 boards (D2.1 to D2.5, D2.7, D2.8) and both "D1.4 Theme" change boards
 (chosen edge, phone size) on 9 October. The same day the owner decided the site chrome's open
@@ -197,8 +206,50 @@ Home · phone". Build 14's gate is complete. Then row 19 drew the country guide 
 guide whole and sections of five other guides, on desktop and phone, and the owner approved all three
 boards in chat with every recommendation, adding one rule, the same final heading on every guide:
 "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone". Build
-15's gate is complete, and the owner unlocked it the same day. Seven tasks have no board, D2.16 (the
-policy update banner) added by the owner on 18 October.
+15's gate is complete, and the owner unlocked it the same day. On 19 October row 20 drew sign-in, the
+requirements hub, the text and legal pages, the 404 and error pages and the school invitation, with the
+list 4.5 asked for, and the owner approved all eight boards in chat with every recommendation: "D4.2
+Sign-in", "D4.13 Requirements hub", "D4.13 Requirements hub · phone", "D4.14 Text pages", "D4.14 Text
+pages · phone", "D4.14 Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Build
+16's gate is complete. Approving D4.14 added For schools as D4.17, a board of its own. Later that day
+row 21 drew For schools on desktop and phone, and the owner approved both boards in chat with every
+recommendation: "D4.17 For schools" and "D4.17 For schools · phone". Build 21's gate is complete.
+On 20 October row 22 drew the policy update notice, and the owner approved the board in chat with every
+recommendation: "D2.16 Policy update banner". Build 20's gate is complete. Later that day row 23 drew the
+seven emails, and the owner approved all three boards in chat with every recommendation, including the
+sentence it adds to D4.11's page after deleting: "D4.18 Emails", "D4.18 Emails · support and account"
+and "D4.18 Emails · phone". Build 22's gate is complete. Later that day row 24 drew the one rule set for
+motion and feedback, from a review of every built component, and the owner approved it in chat with every
+recommendation: "D1.6 Motion and feedback". Build 19's gate is complete, and the owner unlocked it the same
+day, ahead of the program card review (5.1). D1.7, seasonal themes, was added on 20
+October 2026 for after release ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)).
+On 21 October 2026 the owner moved it ahead of release day, to test in the preview, with winter as the
+first season, and confirmed Lens as the final mark. On 22 October 2026 row 25 drew Explore's sort for
+a student with grades, for `MAINT_tasks.md` 5.27, and the owner approved it in chat with every
+recommendation, including the search requests it costs: "D3.5 Sort · best fit". Build 25's gate is
+complete. On 25 October 2026 row 26 drew the four seasonal slots and winter in each, and the owner
+approved the board in chat with every recommendation: "D1.7 Seasonal themes". Build 23's gate is
+complete, and the owner unlocked it the same day. Build 23 merged the same day (#162), and seen in
+the preview at real size winter's art did not work: the sparkles beside the name read as the AI
+sign, and on the pages with no other slot they were the only decoration. The owner asked for plainly
+Christmas instead, and for the band's decoration on every page with the band. That is a change board,
+"D1.7 Season · Christmas", and build 26 (6.3); what went wrong and what changes for every season
+board is in 6.1. Row 27 drew three Christmas directions on whole pages at real size the same day,
+and on 26 October 2026 the owner chose direction A, the tree. Its final approval is build 26's Vercel
+preview, with `?season=winter`. The same day row 28 drew the second season, "D1.7 Season · Lunar New
+Year", three directions on whole pages, and the owner chose direction A, lanterns. Its final approval
+is build 27's Vercel preview, with `?season=lunar-new-year`. The canvas has grown too heavy to open on
+the owner's laptop, so that board is also a page of its own (6.4). On 28 October 2026 row 31 drew the
+third season, "D1.7 Season · Eid al-Fitr", three directions on whole pages, and the owner chose
+direction A, crescent and lanterns, with every recommendation. Its final approval is build 29's Vercel
+preview, with `?season=eid-al-fitr`; the board is also a page of its own (6.5). On 30 October 2026
+row 32 drew the fourth season, "D1.7 Season · Diwali", three directions on whole pages, and the owner
+chose direction A, diyas and marigolds, with every recommendation, the window included. Its final
+approval is build 31's Vercel preview, with `?season=diwali`; the board is also a page of its own
+(6.6). On 31 October 2026 row 33 drew programs with no bar and field against country for
+`MAINT_tasks.md` 5.43 Part B, and the owner approved the board in chat with every recommendation: "D3.1
+No IB minimum". It changes D2.7, D3.1, D3.2, D3.3, D3.5 Sort · best fit, D3.7, D4.6, D4.7, D4.8, D4.10 and
+D4.14. Build 30's gate is complete. The board is also a page of its own. Built the same day (#233).
 
 ### Foundations
 
@@ -206,10 +257,15 @@ policy update banner) added by the owner on 18 October.
 |---|---|---|---|
 | D1.1 Colour tokens | "B · Foundations": every token in light and dark, with its contrast ratio, and the focus outline | Nothing | 8 October 2026 |
 | D1.2 Type | "B · Foundations": the desktop scale in Newsreader and Geist. "D1.2 Type · phone sizes", "D1.2 Type · phone, light" and "D1.2 Type · phone, dark": the sizes below 768px, the longest real names at 390px, and the rules that go with them | Nothing | 8 October 2026: the desktop scale, then the phone sizes |
-| D1.3 Space, radius, elevation, motion, icons | "B · Foundations" | Nothing | 8 October 2026 |
+| D1.3 Space, radius, elevation, motion, icons | "B · Foundations". **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the list-to-program view transition and the tab-switch transitions leave the system, and "only transform and opacity" means only they move things, while colours, edges and shadows may fade in 180ms | Nothing | 8 October 2026; the D1.6 change 20 October 2026 |
 | D1.4 Theme: System, Light, Dark | "Theme: System, Light, Dark": the account menu in light and dark, the public footer on desktop and phone. "Phone · Profile tab" has the Appearance row. Two changes in row 7: "D1.4 Theme · chosen edge" (the chosen option gets the 1px line-3 edge from D2.4) and "D1.4 Theme · phone size" (options 44px tall below 768px). A third in row 8: "D1.4 Account menu" (Settings, FAQs, Contact, Appearance, Sign out; "Profile and settings" and Shortlist leave, since Academic and Shortlist are in the nav, decided 9 October 2026) | Nothing | 8 October 2026; the chosen edge, the phone size and the account menu 9 October 2026 |
-| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark | Nothing | 9 October 2026 |
-| D1.6 Motion and feedback | None. The motion tokens are on "B · Foundations" (D1.3) | **No board.** Session 19 (5.2), before release day: go over every built screen and list what each interaction does, then draw one rule set for press, hover, focus, open and close, saving and moving between pages, in light, dark and reduced motion. Include whether a whole program card or row is tappable | |
+| D1.5 Logo: Lens | "Logo options and clearance": Lens, chosen provisionally on 7 October 2026. "D1.5 Logo: Lens" (row 9): two drawings of the mark, the page mark for 24px and up and a favicon with a lens 25% larger for 16 and 32px; the mark at 16, 32 and 180px in light and dark, in browser tabs, on a home screen and in Windows contrast themes; the email header; the seven files 1.3 makes. "D1.5 Share image" (row 9): the Open Graph image at 1200 × 630. **Decided 9 October 2026 (owner):** one mark in both themes, the #2B3FD6 square with the lime lens, rather than the lighter #8E9BFF square that D2.12 and D2.13 draw in dark. **Confirmed 21 October 2026 (owner):** Lens is the final mark | Nothing | 9 October 2026 |
+| D1.6 Motion and feedback | "D1.6 Motion and feedback" (row 24, interactive): the rule set, each kind of interaction once with its response, timing, class and reduced-motion form; a working demo in light, dark and reduced motion; every press at rest, hovered, pressed and opening a page, in light and dark; the match card and the Explore row as whole links; timing to scale; moving between pages; every built component today against the rule; reduced motion, forced colours and decorative motion. **Decided 20 October 2026 (owner), every recommendation:** the whole card or row is the link (Matches, Explore, Shortlist), with Save and "Why this match" above it; a press on everything tappable, 96%, 98% or 99% by size with a darker fill, 120ms, text links by colour, no grey tap flash; what was tapped stays pressed until the next page arrives; menus and popovers fade and drop 4px, 180 in and 120 out; no list-to-program transition; reduced motion drops movement and keeps fades; disclosures fade in at 180ms; "Updating…" on Explore after 300ms; the theme switch at once; one 480ms entrance on Home's hero for seasons (6.1). Decisions in 5.2 | Nothing | 20 October 2026 |
+| D1.7 Seasonal themes | "D1.7 Seasonal themes" (row 26, interactive): the four slots empty and then winter in each, at 1440px, 390px and 320px, light and dark, signed in and signed out, forced colours (hidden) and reduced motion, with the fullest phone header (signed in, 320px) measured; the seasons and their windows; the hero's entrance, playable; what each slot allows. **Added 20 October 2026 (owner); moved ahead of release day on 21 October 2026, to test in the preview, with winter as the first season** ([6.1](#61--seasonal-themes-the-slots-the-schedule-and-the-first-season)). **Decided 25 October 2026 (owner), every recommendation:** winter, Lunar New Year, Eid al-Fitr and Diwali, and no Halloween; winter is bulbs and sparkles, with no snowflake, tree or religious symbol; the header's accessory after the name, never on the mark, hidden from 768 to 1023px signed in and on the quiet pages; the hero's bulbs hang from the lime bar under "match" and get D1.6's one entrance; the band's string on Home and the guides only; the 404's large drawing from 1280px; a light and a dark drawing per slot. Decisions in 6.1. Each later season gets a board of its own, "D1.7 Season · {name}" (6.2) | Nothing | 25 October 2026. **Winter's art not kept** after the owner saw it in the preview the same day (6.1, Reviewed in the preview); the slots, the schedule and the other seasons stand |
+| D1.7 Season · Christmas | "D1.7 Season · Christmas" (row 27, interactive), a change board; "D1.7 Seasonal themes" stays as approved for the slots, the schedule and the other seasons. **Added 25 October 2026 (owner).** Three directions, A · Tree, B · Holly and C · Snow, drawn into the ten page types a slot reaches, captured whole from `main` at 1440px and 390px in light and dark (real programs, 76 real matches), each scrolled at real size; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against winter. **Direction chosen 26 October 2026 (owner): A, the tree,** with the recommendations drawn for it: the tree after the name; baubles under "match"; the band's drawing on all six pages with the band, its slot 330 × 60 from 768px; the 404's tree with a rolled-away bauble; a season-only pine green and berry red. Decisions in 6.3 | Nothing | Direction A chosen 26 October 2026. Approved in build 26's Vercel preview with `?season=winter`, before it merges |
+| D1.7 Season · Lunar New Year | "D1.7 Season · Lunar New Year" (row 28, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Lanterns, B · Blossom and C · Firecrackers, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the Hong Kong and Singapore guides captured from `main` on 26 October 2026 and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Christmas. Also on its own page, since the canvas no longer opens on the owner's laptop: https://claude.ai/artifact/HPYaCCUnSRRz16vEaU4ZZX (private to the owner). **Direction chosen 26 October 2026 (owner): A, lanterns,** with the recommendations drawn for it: one lantern after the name; five lanterns under "match"; four lanterns on a cord in the band, on all six pages with the band; the 404's string with one lantern fallen to the floor; a season-only lantern red and gold; no slot changes. Decisions in 6.4 | Nothing | Direction A chosen 26 October 2026. Approved in build 27's Vercel preview with `?season=lunar-new-year`, before it merges |
+| D1.7 Season · Eid al-Fitr | "D1.7 Season · Eid al-Fitr" (row 31, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Crescent and lanterns, B · Lanterns and C · Crescent and stars, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the UK and USA guides captured from `main` on 28 October 2026 (no guide is for the Gulf or Türkiye) and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Lunar New Year. Also on its own page: https://claude.ai/artifact/H4skLCkeKepKQnVX3LvH4p (private to the owner). **Direction chosen 28 October 2026 (owner): A, crescent and lanterns, with every recommendation:** a crescent with a lit lantern hanging from its upper horn after the name; lanterns and crescents in turn under "match"; a crescent and three lanterns in the band, on all six pages with the band; the 404's string with one lantern fallen to the floor; a season-only gold and green; the crescent never alone and no star and crescent; the window 9 to 12 March 2027; no slot changes. Decisions in 6.5 | Nothing | Direction A chosen 28 October 2026. Approved in build 29's Vercel preview with `?season=eid-al-fitr`, before it merges |
+| D1.7 Season · Diwali | "D1.7 Season · Diwali" (row 32, interactive), a season board (6.2); the slots, the schedule and the admin page stay as D1.7 and build 26 made them. Three directions, A · Diyas and marigolds, B · Rangoli and C · Marigolds, drawn into the eleven page types a slot reaches, whole at 1440px and 390px in light and dark, with the UK guide captured from `main` on 28 October 2026 and the Singapore guide on 26 October 2026 (no guide is for India) and the other nine pages from the Christmas board's captures; the recognition check, each drawing alone at real size; the slots per direction; forced colours, reduced motion and the cost against Eid al-Fitr. Also on its own page: https://claude.ai/artifact/C1i3C7zQVhpJYQJqKGvZLb (private to the owner). **Direction chosen 30 October 2026 (owner): A, diyas and marigolds,** with the recommendations drawn for it: one lit diya after the name, 15.8px wide; five lit diyas standing under "match"; four lit diyas on a marigold garland in the band, on all six pages with the band; the 404's toran with one strand short, its marigold on the floor, and every lamp lit; a season-only clay, flame, marigold and leaf green; no flame without its bowl; no slot changes. Decisions in 6.6 | Nothing | Direction A chosen 30 October 2026. Approved in build 31's Vercel preview with `?season=diwali`, before it merges |
 
 ### Components
 
@@ -224,7 +280,8 @@ theme switch are in D1.4.
 | D2.4 Segmented control | "D2.4 Segmented control" (row 7): level, grades 1–7 and TOK and EE A–E, with focus, disabled and an E blocking saving. The chosen segment gets a 1px line-3 edge (owner, 8 October 2026) | Nothing | 9 October 2026 |
 | D2.5 Chips | "D2.5 Chips" (row 7): filter, on/off and removable chips with "Clear all", in every state. No flags on country chips (owner, 8 October 2026); SVG flags in the country picker (D4.4) only if ever wanted | Nothing | 9 October 2026 |
 | D2.6 Checkbox rows and grid | "D2.6 Checkbox rows and grid" (row 15): the field row, the country tile, "Open to anywhere", the filter (empty, typed, no match) and the footer with the count and Continue, in every state, light and dark, at 358px and in the desktop's 880px column, and forced colours. **Decided 13 October 2026 (owner), every recommendation:** the whole row is the label, with Explore's box at its right end; chosen shows the tick, a 1px brand edge and the brand-soft fill, and nothing reflows; at five fields the other boxes are grey and aria-disabled, still reachable, and the footer says why ("You can choose up to 5. Untick one to choose Law."); examples wrap, never cut; Education gets Lucide Presentation and Media Newspaper. Decisions in 3.1 | Nothing | 13 October 2026 |
-| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none | Nothing | 9 October 2026; the two US chips 10 October 2026 |
+| D2.7 Status badge and requirement chip | "D2.7 Status badge and requirement chip" (row 7): every badge and every chip case in §9, light and dark. Notes carry Lucide's Info icon; "+N met" is green with a tick (owner, 8 October 2026). "D2.7 Chip · no IB minimum" (row 10), the two chips added after approval for programs with no IB minimum (`CONTENT_tasks.md` 6, US): "No IB minimum · admits 4.6%", the overall `University.admitRate`, and "No IB minimum · holistic admission" when a university reports none. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): a program with no bar takes the neutral badge, "No set grades", with no new colour or icon; "28 / 24 points" becomes "IB Diploma · 24 points" on it, and "No named subjects" goes; built in session 30 | Nothing | 9 October 2026; the two US chips 10 October 2026; no set grades 31 October 2026 |
+| D2.7 Chip · a second subject | "D2.7 Chip · a second subject" (row 29), drawn and approved 26 October 2026; also a page of its own, https://claude.ai/artifact/NjERtVCMgNzcL5DVqrS2g8, since the canvas is too heavy to open on the owner's laptop. **Approved 26 October 2026 (owner), every recommendation:** "Chemistry or Physics HL 5 · Biology counts once", the badge "Needs Chemistry or Physics HL", the row and note naming where the course went, "or …" lines and counts without the used course, and "A different subject from the HL 6 one" signed out. **Added 26 October 2026** for `MAINT_tasks.md` 5.18: a requirement that needs a course of its own and is left without one, because the student's subject for it went to another requirement (`SubjectMatchDetail.courseUsedElsewhere`). Today it reads as "not taken", which is wrong: the student took Biology | A change board to D2.7, D3.1, D3.2, D3.4 and D3.7: the chip on the match card, its line in "Why this match", its row in the requirement checklist and in the compare table, desktop and phone, light and dark, from the production matcher with flags set in a test: Manchester MBChB with Biology HL 6 alone ("another science"), Trinity Medicine with Biology HL 6 and Maths SL 5, Trinity Biochemistry with Maths HL 5 alone, and UCL Psychology with Biology HL 7 and Chemistry HL 5 (a second subject a grade short, today's chip: check it still reads right). Today's design is not drawn: the owner accepts its words for these programs until release day (26 October 2026) | 26 October 2026, every recommendation |
 | D2.8 Card and skeleton | "D2.8 Card and skeleton" (row 7): the card's surfaces and states; skeletons for the match card, the result row and the program page, desktop and phone. Card edges are a real border, not a box-shadow hairline | Nothing | 9 October 2026 |
 | D2.9 Toast | "D2.9 Toast" (row 11): every message (Saved, Removed with Undo, a failed save or removal, the save made after signing in), the action and close states, placement on desktop and phone, the longest name, forced colours, light and dark. Decisions in 2.2 | Nothing | 10 October 2026 |
 | D2.10 Confirm dialog | "D2.10 Confirm dialog" (row 17): Delete account, Unlink from school and "Leave without saving?" in every state (open, the word typed, hover, keyboard focus, pressed, working, failed), light, dark, forced colours and on a phone, and the danger button in every state beside its neighbours. It replaces today's two shadcn dialogs and the browser's `alert()` in Settings. **Decided 18 October 2026 (owner), every recommendation:** one `ConfirmDialog`, a native `<dialog>` with `role="alertdialog"`; focus starts on the safe button, Escape is Cancel, a click on the dimmed page does nothing; the primary on the right, side by side at 48px on a phone; a danger button (D2.1) only inside a dialog; "Type DELETE to confirm" kept, in any case; working and failing inside the dialog; centred on a phone too. Decisions in 3.3 | Nothing | 18 October 2026 |
@@ -233,41 +290,46 @@ theme switch are in D1.4.
 | D2.13 Footer | "D2.13 Footer" (row 8): desktop and phone, signed out and above the tab bar, light and dark. Three link groups on every page, Students, About and Legal, with Support us under About | Nothing | 9 October 2026 |
 | D2.14 Phone tab bar | "D2.14 Phone tab bar" (row 8): each tab current, every state, light and dark, and hiding on scroll. **Decided 9 October 2026 (owner):** Matches · Explore · Shortlist · Academic; the bar hides on scroll down and shows on scroll up, as today. Approved with the board: Lucide's List checks for Matches (the Rings mark was rejected on 8 October), a brand-soft pill behind the current tab's icon, no count on Shortlist | Nothing | 9 October 2026 |
 | D2.15 Bottom sheet | "D2.15 Bottom sheet" (row 12): Explore's filters on a phone, light and dark: open, a choice applied, "Only ones I qualify for" on, scrolled, no programs match, an IB points value it can't use, keyboard focus, signed out, the count not arriving, forced colours. Replaces "Phone · Filters sheet". **Decided 11 October 2026 (owner):** a choice applies at once and the button carries the count ("Show 43 programs"); closing never loses a choice; a native dialog, no drag handle; every section open in one scroll; "No programs match" disables the button; profile shortcuts "Use my fields", "Use my countries" and "Up to my 38", with no limit on how many boxes are ticked. **Changed 13 October 2026 (owner):** the no-minimum hint, as on D3.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
-| D2.16 Policy update banner | None | **No board.** "We've Updated Our Policies" (`components/shared/ReconsentBanner.tsx`) in the new design, built in 4.6: a signed-in page on desktop and phone (above the tab bar), light, dark and forced colours; the Terms, the Privacy Policy or both changed; accepting, an accept that fails (silent today), Remind me later; and with the cookie banner showing at the same time, which today's banner covers (found in build 14). Added 18 October 2026 (owner) | |
+| D2.16 Policy update banner | "D2.16 Policy update banner" (row 22): the notice over the approved Academic page at 1440px and 390 × 844, light, dark, forced colours and keyboard focus; the cookie banner first, then the notice; accepting, a failed accept, accepted with its toast, a toast while it shows; the panel's words at 420px for the Terms, the Privacy Policy or both changed, accepting, failed and signed out meanwhile, light and dark. Added 18 October 2026 (owner). **Decided 20 October 2026 (owner), every recommendation:** one at a time, the cookie banner first; the cookie banner's place and panel, no amber and no icon; today's words in sentence case, the documents as links in the sentence, no version labels and no change notes; "I accept the updated policies" and "Remind me later", no close button; a failure said in the panel, a success in a toast; it waits on pages with the steps' footer, and stays off Explore and program pages. Decisions in 4.6 | Nothing | 20 October 2026 |
 
 ### Patterns
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 | Nothing | 10 October 2026 |
-| D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the icon link to first run named "Save … : add your grades first" ("D2.1 Save · without grades", row 15), not a toggle; built in 3.1 | Nothing | 11 October 2026; Save before grades 13 October 2026 |
+| D3.1 Match card | "D3.1 Match card" (row 10): desktop, light and dark, 14 cases from the production matcher (every status, the worst long and either/or requirements, MIT and Arizona State), the save states, and the copy of every chip and badge. "D3.1 Match card · phone": the same cards at 390px. They replace "Match card: every state" and the cards on "Phone · Matches"; "B · Components" shows the new card. Decisions in 2.2 **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the whole card opens the program, through the name's link, with Save, "Why this match" and its panel above it; built in 5.2. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): "The status stays Meets all requirements" no longer holds for a program with no bar: it carries "No set grades" and notes only, no green; built in session 30 | Nothing | 10 October 2026; the whole card 20 October 2026; no set grades 31 October 2026 |
+| D3.1 No IB minimum | "D3.1 No IB minimum" (row 33), a change board to D2.7, D3.1, D3.2, D3.3, D3.5 Sort · best fit, D3.7, D4.6, D4.7, D4.8, D4.10 and D4.14 for `MAINT_tasks.md` 5.43 Part B; also a page of its own, https://claude.ai/artifact/AWKhmoBKCVn9EkWePTuy9t, since the canvas is too heavy to open on the owner's laptop. Who is in the group; Matches for a student on 28 and one on 45 under today, a line and a group; Explore's switch and its count; four names; Matches and Explore whole on desktop and phone; every screen that shows the status; the widened list and Explore's first rows under three weights; How it works for each; the sentence Part A left. All from the 1,676 programs in the production matcher, light and dark on one switch. **Decided 31 October 2026 (owner), every recommendation:** a group of their own, "No set grades", third of four, with the 174 at 24 joining the 301; D2.7's neutral badge and no green; no fit score on these programs; Explore's switch keeps them and splits its count; "Include programs with no IB minimum" stays; field above country, 30% field and 10% country; "The 2 points you’re short are counted in Academic." in place of "Nothing lowers it." on a program short of points. Decisions in `MAINT_tasks.md` 5.43 | Nothing | 31 October 2026 |
+| D3.2 Why this match | "D3.2 Why this match" (row 10): opened on desktop and phone, light and dark, for a program within reach, one with six requirements, the largest either/or and a US program. Replaces "Phone · Why this match, opened". Decisions in 2.2. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): a program with no bar has no fit score, and its note says there’s nothing to check your grades against; on a program short of points, "Adds up to 89%. The 2 points you’re short are counted in Academic."; built in session 30 | Nothing | 10 October 2026; no set grades 31 October 2026 |
+| D3.3 Result row | "D3.3 Result row" (row 12): desktop at 1192px and phone at 390, light and dark, signed in with and without a profile and signed out; meets, within reach, missing (the longest badge), a 110-character name, no image, no IB minimum, the fit loading; the name and Save in every state; three ways to show no IB minimum. Replaces the rows on "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** no IB minimum shows "None" with the admit rate under it; the fit is the Matches badge, word for word; no fit column signed out or before grades; an ordered list, not a table; thumbnails 56px on desktop, 48 on a phone; no hover on the whole row. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the icon link to first run named "Save … : add your grades first" ("D2.1 Save · without grades", row 15), not a toggle; built in 3.1. **Changed 20 October 2026 (owner)** by "D1.6 Motion and feedback" (row 24): the whole row opens the program, with Save above it, and on desktop the row takes a muted tint on hover, in place of "no hover on the whole row"; Shortlist's rows follow; built in 5.2. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): "No set grades" in the fit column, and in the muted colour on a phone; built in session 30 | Nothing | 11 October 2026; Save before grades 13 October 2026; the whole row 20 October 2026; no set grades 31 October 2026 |
 | D3.4 Requirement checklist | "D3.4 Requirement checklist" (row 10): signed in, signed out, signed in with no grades yet, short and long either/or groups, US programs and the entry-year line, desktop and phone, light and dark. Decisions in 2.4 | Nothing | 10 October 2026 |
-| D3.5 Filter toolbar | "D3.5 Filter toolbar" (row 12): the desktop toolbar with each chip's menu open (Field, Country, IB points, Length), light and dark; no programs match; an IB points value it can't use; "Only ones I qualify for" on; signed out; signed in before adding grades; the toolbar at 900px. Phones use the sheet (D2.15). **Decided 11 October 2026 (owner), every recommendation:** a choice applies at once, as in the sheet; menus are popovers holding a labelled dialog, not ARIA menus; no count beside each option; "Include programs with no IB minimum", ticked by default; Length 3 years, 4 years, 5 years or more; Sort: Most relevant, Lowest points needed, Highest points needed; signed out or without grades, a link in the switch's place. The profile shortcuts read "Use my fields", "Use my countries" and "Up to my 38", as on the sheet. **Changed 13 October 2026 (owner):** the hint under "Include programs with no IB minimum" reads "Mostly US universities, which admit on the whole application", in place of "All 12 US universities admit without one", since two German universities now set no minimum too (`CONTENT_tasks.md` 7); built in 2.5 | Nothing | 11 October 2026; the hint 13 October 2026 |
+| D3.5 Filter toolbar | "D3.5 Filter toolbar" (row 12): the desktop toolbar with each chip's menu open (Field, Country, IB points, Length), light and dark; no programs match; an IB points value it can't use; "Only ones I qualify for" on; signed out; signed in before adding grades; the toolbar at 900px. Phones use the sheet (D2.15). **Decided 11 October 2026 (owner), every recommendation:** a choice applies at once, as in the sheet; menus are popovers holding a labelled dialog, not ARIA menus; no count beside each option; "Include programs with no IB minimum", ticked by default; Length 3 years, 4 years, 5 years or more; Sort: Most relevant, Lowest points needed, Highest points needed; signed out or without grades, a link in the switch's place. The profile shortcuts read "Use my fields", "Use my countries" and "Up to my 38", as on the sheet. **Changed 13 October 2026 (owner):** the hint under "Include programs with no IB minimum" reads "Mostly US universities, which admit on the whole application", in place of "All 12 US universities admit without one", since two German universities now set no minimum too (`CONTENT_tasks.md` 7); built in 2.5. **Changed 22 October 2026 (owner)** by "D3.5 Sort · best fit" (row 25): Sort gains Best fit, the default for a student with grades, and "Most relevant" shows only once words are typed; built in `MAINT_tasks.md` 5.27 | Nothing | 11 October 2026; the hint 13 October 2026; the sort 22 October 2026 |
+| D3.5 Sort · best fit | "D3.5 Sort · best fit" (row 25), a change board to D3.5 and D4.7 for `MAINT_tasks.md` 5.27: the sort menu for each visitor, light and dark; where the reachable programs land with the switch off under three orders (status first, score alone, countries and fields first) and under `optionalFilters`; desktop with the switch on and off, words typed, Best fit kept while typing and signed out, in light and dark; the phone with Sort open, the sheet open and signed out, light and dark; the search requests per list and a month's figures. All from the D3.1 student against the 1,677 search records on 22 October 2026. It reverses D3.5's "no Best fit" and D4.7's "no search typed, highest minimum first". **Decided 22 October 2026 (owner), every recommendation:** "Best fit" the default for a student with grades and nothing typed, "Most relevant" once words are typed, a picked sort kept (`?sort=best`); no Best fit signed out or before grades; the label "Best fit", the same order as Matches; with nothing typed "Most relevant" leaves the menu, so signed out or before grades the select reads "Highest points needed"; with the switch off, the student's countries and fields first, then in each the ones they meet, within reach, then the rest, each closest to their total; the switch stays off by default; one line under the count, "Your countries and fields come first; in each, the ones you meet, closest to your 38.", Sort's description, only for Best fit; Sort stays out of the phone sheet; the full order read with the search's browse, one or two requests a list, about 5,000 to 6,600 a month after release, not `optionalFilters`. Decisions in 5.27. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): field above country: with the switch off, the student's fields and countries first, then their fields anywhere, then their countries, then the rest; the line reads "Your fields and countries come first, then your fields anywhere; in each, the ones you meet, closest to your 36."; built in session 30 | Nothing | 22 October 2026; the order 31 October 2026 |
 | D3.6 Subject editor | "D3.6 Subject editor" (row 16): a subject row at the desktop column's 880px and a phone's 358px in every state (empty, focus, the list open, filtered, a subject in another row, no match, the longest name, a second science in Group 6's row, a second Language A, a 1), TOK and the Extended Essay, the diploma checks under the subjects, and the footer in 14 states, light, dark and forced colours. It replaces the subject rows on "Academic profile" and "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** any subject in any row, the last "Group 6 · The arts, or another subject"; edit in place, keeping level and grade, with no defaults; one total, in the footer, "So far" until whole; each check where it applies and again in the footer as what Finish needs; the IB's other failing conditions still stop Finish, reworded in the helper; Lucide Lightbulb and Notebook pen; on a phone only "Mathematics: Applications and Interpretation" ends in an ellipsis. Decisions in 3.2 | Nothing | 14 October 2026 |
-| D3.7 Compare table | "D3.7 Compare table" (row 14): desktop at 1192px, light and dark, four, four and two programs from a real shortlist, the column heads' states, the "Choose programs" popover and the skeleton; MIT (no IB minimum, "Admits 4.6%"), Constructor University (no photo, "Holistic admission"), Nanyang's 110-character name, an earlier intake. "D3.7 Compare table · phone": two programs side by side at 390px, light and dark. They replace the table on "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** up to four programs on desktop, the first four until the student chooses; eight rows (fit, IB minimum, subjects, country, degree, length, checked for, official page); "None" with the admit rate or "Holistic admission"; subjects in the chip words; the earlier-intake caution in its column; 56px photos in the column heads. **On a phone, two side by side at most**, picked with two selects (owner, in place of the recommended 2 × 2 of four). Decisions in 2.5 | Nothing | 13 October 2026 |
+| D3.7 Compare table | "D3.7 Compare table" (row 14): desktop at 1192px, light and dark, four, four and two programs from a real shortlist, the column heads' states, the "Choose programs" popover and the skeleton; MIT (no IB minimum, "Admits 4.6%"), Constructor University (no photo, "Holistic admission"), Nanyang's 110-character name, an earlier intake. "D3.7 Compare table · phone": two programs side by side at 390px, light and dark. They replace the table on "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** up to four programs on desktop, the first four until the student chooses; eight rows (fit, IB minimum, subjects, country, degree, length, checked for, official page); "None" with the admit rate or "Holistic admission"; subjects in the chip words; the earlier-intake caution in its column; 56px photos in the column heads. **On a phone, two side by side at most**, picked with two selects (owner, in place of the recommended 2 × 2 of four). Decisions in 2.5. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): the fit row can read "No set grades"; built in session 30 | Nothing | 13 October 2026; no set grades 31 October 2026 |
 | D3.8 Program card in every list | "Program card · one for every list (D3.1, D3.3)" (row 12): on a phone, prototype A (48px, as approved), B (64px, one header for every list, recommended on the board) and C (72px), each in Matches, Explore and Shortlist, and B in dark | **Parked 11 October 2026 (owner):** A, as approved, stays until the whole design can be seen in the preview; reviewed again in [5.1](#51--the-program-card-in-every-list) | |
 
 ### Screens and flows
 
 | Task | On the canvas today | To add before review | Approved |
 |---|---|---|---|
-| D4.1 Home | "D4.1 Home" and "D4.1 Home · phone" (row 18): the whole page in light and dark on both, then the cookie banner on a first visit: keyboard focus, Customize, dark, forced colours, and on a signed-in page above the tab bar. The preview holds three real programs and their stored requirements, for D3.1's student. They replace "Home (logged out)". **Decided 18 October 2026 (owner), every recommendation:** today's h1 words; a preview of three real matches, one per status, with initials tiles and no photos, `inert`; no program count, and "23 countries" from code; a lime bar under the hero phrase and a lime final band in both themes; six sections carrying every fact today's page shows; the cookie banner keeps its three choices and its storage, with Essential only and Accept all at the same weight, bottom right on desktop, across the bottom on a phone, and on the tab bar signed in. Decisions in 4.1 | Nothing | 18 October 2026 |
-| D4.2 Sign-in | None | **No board.** Sign-in, "Check your email" and the sign-in error, phone and desktop | |
+| D4.1 Home | "D4.1 Home" and "D4.1 Home · phone" (row 18): the whole page in light and dark on both, then the cookie banner on a first visit: keyboard focus, Customize, dark, forced colours, and on a signed-in page above the tab bar. The preview holds three real programs and their stored requirements, for D3.1's student. They replace "Home (logged out)". **Decided 18 October 2026 (owner), every recommendation:** today's h1 words; a preview of three real matches, one per status, with initials tiles and no photos, `inert`; no program count, and "23 countries" from code; a lime bar under the hero phrase and a lime final band in both themes; six sections carrying every fact today's page shows; the cookie banner keeps its three choices and its storage, with Essential only and Accept all at the same weight, bottom right on desktop, across the bottom on a phone, and on the tab bar signed in. Decisions in 4.1 **Changed 20 October 2026 (owner), approving D2.16:** the banner waits while a page shows the steps’ footer (first run, Academic’s editing screens), built in 4.6 | Nothing | 18 October 2026 |
+| D4.2 Sign-in | "D4.2 Sign-in" (row 20): /auth/signin at 1440px and 390px, light and dark; the card in every state (first visit, Google focused, typing, an address it can't use, sending, not sent, too many attempts, "Create your account" from an invitation, before the script), dark and forced colours; "Check your email"; the sign-in error; the coordinator sign-in and its notice for a student's address (removed 27 October 2026, SEC-5). **Decided 19 October 2026 (owner), every recommendation:** no site header, the logo above one 440px card; today's words, with "We'll save your matches and shortlist to your account."; "Continue with Google" to Google's rules (white with a #747775 edge, #131314 with #8E918F in dark, the G on a white disc in dark), its label in Geist; the field labelled "Email", with D2.2's error when the button is pressed; "Email me a sign-in link"; **a link works for 10 minutes, set in the config, and every text says 10** (owner: "make sure all the texts are aligned"); failures in an alert in the card; the error page "We couldn't sign you in", two messages reworded; the coordinator sign-in in the same card; both consent lines word for word. Decisions in 4.3 | Nothing | 19 October 2026 |
 | D4.3 First run, step 1: interests | "D4.3 First run, step 1" and "D4.3 First run, step 1 · phone" (row 15): the step in light and dark on both, first visit, nothing chosen, five chosen with a sixth pressed, keyboard focus, saving, a failed save and after first run ("Update your profile"); then Save without grades start to finish: Save before it is pressed, first run with the program waiting, opening at a later step, "Save and exit" with a program waiting, back on the program and on Explore, and the save failing on return. They replace "Phone · First run, step 1". The change board for Save is "D2.1 Save · without grades". **Decided 13 October 2026 (owner), every recommendation:** "Set up your profile" (or "Update your profile") is the small h1 beside the step count, the question the step's h2; the waiting line under the step count on every step; "Save and exit" with a program waiting saves, then asks once (Keep going, Exit to Home); opening at a later step says what's kept; one toast back where Save was pressed, and Explore at the same search and row; desktop one 880px column; Continue needs one field. Phone: the header stays at the top; the footer fixed to the bottom, on the tab bar after first run; the Save and exit panel drops from the header; back on the program the page opens at the top. Decisions and words in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
 | D4.4 First run, step 2: countries | "D4.4 First run, step 2" and "D4.4 First run, step 2 · phone" (row 15): the step in light and dark on both, with the program waiting, filtering ("land"), a short name ("uk"), no country matching ("brazil"), "Open to anywhere", nothing chosen, keyboard focus, saving, a failed save, after first run, and scrolled on a phone. They replace "Phone · First run, step 2". **Decided 13 October 2026 (owner), every recommendation:** "Open to anywhere" is a checkbox row above the filter, saved as `openToAllLocations` with no countries, hiding the grid; Continue needs a country or "Open to anywhere"; the filter matches any part of a name and a few short names (UK, USA, Holland, Czechia); it hides tiles, never choices; four tiles to a row on desktop, two on a phone, alphabetical. Phone: 16px in the filter. Decisions in 3.1 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 13 October 2026; opened from Academic 18 October 2026 |
 | D4.5 First run, step 3: subjects | "D4.5 First run, step 3" and "D4.5 First run, step 3 · phone" (row 16): the step in light and dark on both, first visit, four subjects in, the list open, a group with no subject, ready, two at Higher Level, an E in TOK, the IB's other conditions, keyboard focus, finishing, a failed save, and after first run with and without a change; then Save without grades at step 3: opening with "Your interests and countries are saved." under the step count and the waiting line, ready, and Save and exit. They replace "Phone · First run, step 3". **Decided 14 October 2026 (owner), every recommendation:** the question "What are your subjects and grades?"; the button is Finish, and Save changes after first run, with the total before the change; desktop one 880px column, each subject on one line, the core a second panel; Save and exit keeps complete rows and the core as a draft without a total; Finish saves once. Where Save changes leads is D4.11's: back to Academic (18 October 2026). Phone: rows stack, grades at 46px; the open list's field comes up under the header. Decisions in 3.2 **Changed 18 October 2026 (owner):** after first run, Academic opens this step on its own ("D4.11 Academic profile", row 17): "Back to Academic profile", no step count, Save changes, and back to Academic; built in 3.3 | Nothing | 14 October 2026; opened from Academic 18 October 2026 |
-| D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2 | Nothing | 10 October 2026 |
-| D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width. **Changed 13 October 2026 (owner):** signed in before adding grades, the link in the switch's place reads "Add your grades to check your fit and save programs" ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 11 October 2026; the link 13 October 2026 |
-| D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the link to first run with "Add your grades first. We’ll save it when you finish." under it, and the panel's "Add your grades" comes back to the program, without `?save=1` ("D2.1 Save · without grades", row 15); built in 3.1 | Nothing | 12 October 2026; Save before grades 13 October 2026 |
+| D4.6 Matches | "D4.6 Matches" and "D4.6 Matches · phone" (row 11): the whole page in light and dark on both, then loading, a failed load, profile incomplete (`03-flows.md` F6), no matches, none meeting yet, the Missing group opened, the end of a long group (no images), a failed save, from the production matcher. They replace "Matches" and "Phone · Matches". Decisions in 2.2. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): a fourth group, "No set grades", between Within reach and Missing, open, five cards, then "Show 20 more"; a fourth jump link, "85 with no set grades"; built in session 30 | Nothing | 10 October 2026; no set grades 31 October 2026 |
+| D4.7 Explore | "D4.7 Explore" and "D4.7 Explore · phone" (row 12): the whole page in light and dark on both, then signed out, signed in before adding grades, the fit arriving, "Only ones I qualify for", programs with no IB minimum, loading the next 20, the next 20 failing, no results and a failed load, from real searches. They replace "Explore programs" and "Phone · Explore". **Decided 11 October 2026 (owner), every recommendation:** 20 at a time, then "Show 20 more", with how many are shown in the URL; signed out, no fit column and a sign-in link in the switch's place, no banner; the page's questions visible as eight collapsed answers; a filter change keeps the rows until new ones arrive; the summary "1,628 programs in 23 countries"; no search typed, highest minimum first, as today. Phone: one Filters button beside the switch; the count, applied chips and Sort on their own lines; "Show 20 more" full width. **Changed 13 October 2026 (owner):** signed in before adding grades, the link in the switch's place reads "Add your grades to check your fit and save programs" ("D2.1 Save · without grades", row 15); built in 3.1. **Changed 22 October 2026 (owner)** by "D3.5 Sort · best fit" (row 25): in place of "no search typed, highest minimum first", a student with grades gets Best fit, with its line under the count, and everyone else "Highest points needed", named; built in `MAINT_tasks.md` 5.27. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): with "Only ones I qualify for" on, the count gains "128 meet every requirement, 475 have no set grades."; the order follows "D3.5 Sort · best fit"'s change; built in session 30 | Nothing | 11 October 2026; the link 13 October 2026; the order 22 October 2026; no set grades 31 October 2026 |
+| D4.8 Program page | "D4.8 Program page" and "D4.8 Program page · phone" (row 13): signed in and signed out on both, light and dark, then signed in before adding grades, a requirement missing with the fit worked out, a US program with no IB minimum, no image, its admit rate and its "How competitive" section, the longest name, the image credit as a caption, back from sign-in with `?save=1`, a failed save, loading and not found, with real programs and the production matcher. They replace "Program detail" and "Phone · Program (dark)". **Decided 12 October 2026 (owner), every recommendation:** the trail stops above the page, and the country crumb opens the country's guide; the fit panel beside the requirements, the score behind "How the fit is worked out"; no "Similar programs" or "Rank in your matches" (they need the match list); descriptions cut at eight lines past ten, and "How competitive:" its own section; no image, a one-column hero; a not-found page of its own. Phone: the fit panel before the facts; no fixed bottom bar; the trail wraps. Decisions in 2.4. **Changed 13 October 2026 (owner):** signed in before adding grades, Save is the link to first run with "Add your grades first. We’ll save it when you finish." under it, and the panel's "Add your grades" comes back to the program, without `?save=1` ("D2.1 Save · without grades", row 15); built in 3.1. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): for a program with no bar, the panel has the neutral badge and no "How the fit is worked out"; built in session 30 | Nothing | 12 October 2026; Save before grades 13 October 2026; no set grades 31 October 2026 |
 | D4.9 University page | "D4.9 University page" and "D4.9 University page · phone" (row 13): signed in and signed out, light and dark, then a US university with no image and its admit rate, the longest list (Manchester, 68 programs in 12 fields), programs taught away from the main city (Sciences Po), the longest name (LSE), loading and not found. **Decided 12 October 2026 (owner), every recommendation:** the signed-in header for signed-in students; every program, grouped by field, with field links; no fit here, a link to Explore with the name typed; a US university's admit rate in its facts; "Also known as" only when the short name adds something; a program's campus city when it is taught elsewhere. Phone: field links wrap above the list; two-line rows; Contact and the guide after the programs. Decisions in 2.4 | Nothing | 12 October 2026 |
-| D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5 | Nothing | 13 October 2026 |
-| D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 | Nothing | 18 October 2026 |
+| D4.10 Shortlist | "D4.10 Shortlist" and "D4.10 Shortlist · phone" (row 14): List and Compare in light and dark on both, then choosing programs, a removal with Undo, a removal that failed, one program, an empty shortlist, profile incomplete, loading and a failed load, for the D4.6 student's eight-program shortlist. They replace "Shortlist and compare". **Decided 13 October 2026 (owner), every recommendation:** List and Compare as two links with their own address; the D3.3 rows with the fit; newest first, no sort; a removed program keeps its row until the student leaves the page; compare needs two; one read more than today, the student's subjects. Decisions in 2.5. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): the summary can say "1 has no set grades"; built in session 30 | Nothing | 13 October 2026; no set grades 31 October 2026 |
+| D4.11 Academic profile and settings | "D4.11 Academic profile" and "D4.11 Academic profile · phone" (row 17): the summary in light and dark on both, loading, the longest names with five fields and Open to anywhere, a profile the IB's rules stop, and before grades; then each screen it opens, with a change, leaving it unsaved, saving, a failed save, and back on Academic. "D4.11 Settings" and "D4.11 Settings · phone": not linked and linked to a school (the one school in production, 56 characters), no name yet, the name changed, saving, saved and failing, the download preparing and failing, unlinking, and deleting to the page after it, light and dark on both. They replace "Academic profile" and "Phone · Profile tab". **Decided 18 October 2026 (owner), every recommendation:** Academic is a summary in three panels, Subjects and grades, then Interests and Countries, each opening its own screen; each screen opens on its own, with Save changes, which goes back to Academic with a toast and See matches; leaving with changes not saved asks first (D2.10); a saved profile the IB's rules stop says why on the panel; before grades, Academic is first run. Settings keeps every feature in three panels, Account, School and Your data; the name saves on its own; Appearance and Sign out only in the account menu; "Preparing…" for the download; after deleting, a static "Your account is deleted" page. Decisions in 3.3 **Changed 20 October 2026 (owner), approving D4.18:** the page after deleting adds "We’re also emailing you a confirmation." after what was deleted, built in 4.7 | Nothing | 18 October 2026 |
 | D4.12 Country guide template | "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone" (row 19): Ireland's guide whole at 1440px and 390px, light and dark, then a jump from "On this page", questions open and focused, a source link, dark and forced colours; sections of the USA, Australia, Hong Kong, Belgium and the Czech Republic on the same template, and the longest title (the Netherlands). **Decided 18 October 2026 (owner), every recommendation:** the question is the h2, and the short label moves into "On this page"; "On this page" a sticky column from 1024px and a closed disclosure on a phone, with no mark for the section being read; one secondary "Explore programs in {country}" in the hero, no count; three callouts (short answer, note, caution) in place of today's coloured boxes and emoji, and plain bullets; one 720px column on the paper; the questions collapsed; "More country guides" and Home's lime band at the end; the update date shown; no flag and no breadcrumb trail. **And one rule:** every guide's final heading is "Ready to find your match in {country}?", Hong Kong, Poland and Portugal included. Decisions in 4.2 | Nothing | 18 October 2026 |
-| D4.13 Requirements hub | None | **No board.** `/ib-university-requirements`, including a country whose programs set no IB minimum (the USA) | |
-| D4.14 Text pages | None | **No board.** How it works, FAQs, Contact, Support us and the legal pages | |
-| D4.15 404 and error pages | None | **No board** | |
-| D4.16 School invitation | None | **No board.** Same flow, new look (`03-flows.md`) | |
+| D4.13 Requirements hub | "D4.13 Requirements hub" and "D4.13 Requirements hub · phone" (row 20): the whole page at 1440px and 390px, light and dark, a card focused, a question open, forced colours, with production's figures (1,677 programs in 23 countries; the USA 286 programs with no minimum). **Decided 19 October 2026 (owner), every recommendation:** the guide template's parts, Country guides current; each section's big line is its h2, its label an eyebrow; the 23 guides as link cards, A to Z, no flags; "No IB minimum" for the USA, one number where every program asks the same ("24 IB points"); the counts read when the page is built, weekly, as today; three figures and one "Explore programs" button in the hero, "Browse Country Guides" gone; twelve field rows with the first-run icons; plain bullets and plain cards; Home's lime band. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.14 Text pages | "D4.14 Text pages" and "D4.14 Text pages · phone" (row 20): How it works, FAQs, Contact (signed in and out, the form in every state, sent) and Support us, light, dark and forced colours. "D4.14 Legal pages" (row 20): Privacy whole, Terms and Cookies, desktop and phone, light, dark and forced colours, then the 4.5 list. **Decided 19 October 2026 (owner), every recommendation:** one text-page template; today's words with the content style (sentence case, no exclamation marks in headings or buttons, no "perfect"); How it works' four categories become the three statuses; FAQs collapsed, then "Still have questions?"; three FAQ answers change on release day (PR #127, label `go-live`); Contact shows the signed-in header to a signed-in student; Contact's categories are radio rows, errors on press; Support us keeps every section (**changed 23 October 2026 (owner, `MAINT_tasks.md` 7.4, #157):** except "Where your support goes", the "Most popular" badge and the tiers' "covers…" lines, which go because no donation has been received; and How it works' filters are six cards in three columns, with Length and "Only the ones you qualify for" added; **changed 31 October 2026 (owner, in the pull request, `MAINT_tasks.md` 5.45):** How it works' hero says "Fast matching from published requirements" and its engine section "Every match gets a fit score", and the FAQ on coordinators names matches and saved programs; words only, so the boards keep the older words); one legal template with "On this page", the version and its date under the h1, links between the three, the numbered headings in Geist; one h1 on /cookies; the legal pages prebuilt in the new design; For schools added as D4.17. Decisions in 4.3. **Changed 31 October 2026 (owner)** by "D3.1 No IB minimum" (row 33): How it works gains a "No set grades" row in "What each status means", and "How we score" reads Academic 60%, Field 30%, Location 10%; built in session 30 | Nothing | 19 October 2026; no set grades 31 October 2026 |
+| D4.15 404 and error pages | "D4.15 404 and error pages" (row 20): the 404 at 1440px and 390px, light, dark and forced colours, the search in use; a page failing signed out and signed in, trying again, without a reference; the root layout failing; the error inside sign-in. **Decided 19 October 2026 (owner), every recommendation:** one 404 for the whole site, "We can't find that page", with the search and three ways on; prebuilt with the signed-out header, drawing its own header and footer where the layout leaves it bare; one error page inside the page's own chrome, Try again ("Trying again…") and Home, with the digest as a reference; a bare page when the root layout fails; the error inside sign-in in D4.2's card; no codes or "Oops". Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.16 School invitation | "D4.16 School invitation" (row 20): /auth/accept-student-invite at 1440px and 390px, light and dark, the card in every state; the invalid, expired, accepted and wrong-type outcomes; "Check your email" after accepting; /student/invitations with the dialog open, connecting, failed, declined and none left; a coordinator's invitation; forced colours. **Decided 19 October 2026 (owner), every recommendation:** same flow, new look; the invitation a 520px card on /auth, the school in a panel without its flag; "You can unlink at any time in Settings." added to the consent; the button always pressable, and the box says why; "Sign in to accept it" for a student who already has an account; after accepting, "Check your email" (today's provider bug is `MAINT_tasks.md` 5.21, the dead end 5.22); accepting from School invitations in D2.10's dialog, then Settings with a toast; declining asks nothing, a toast confirms; a coordinator's invitation in the same card; the real school's 56-character name. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.17 For schools | "D4.17 For schools" and "D4.17 For schools · phone" (row 21): `/for-coordinators` whole at 1440px and 390px, light and dark, keyboard focus on the call and on the portal link, forced colours, Menu open with For schools current, and today's illustration kept, for comparison. Added 19 October 2026 (owner, approving D4.14's recommendation): otherwise it would be the one public page in today's design at release. **Decided 19 October 2026 (owner), every recommendation:** D4.14's text-page template, today's words in the content style; one label for the one call, "Schedule a 15-minute call", Calendly in a new tab; the illustration goes; "Sign in to the coordinator portal" beside the call, to /auth/coordinator; headings in order ("Why partner with us?" an eyebrow, "Coordinator dashboard" an h2, today's h4 a note); the four quotes in one panel and "How IB Match helps" in plain bullets; the dashboard's features as D4.14's cards, "Early adopter benefit" the guides' note; the dashboard's words and the founder story reworded before release (`MAINT_tasks.md` 7.4); the portal's sign-in redirect fixed (5.26). **Changed 23 October 2026 (owner, `MAINT_tasks.md` 7.4, #157):** the four quotes are not real and go, so "Why partner with us?" is one column ("How IB Match helps" and the note); the dashboard's cards are "School-level analytics", "Student overview", "Student invitations" and "Data export"; the founder story names Tal and Pavel. **Changed 26 October 2026 (owner, `MAINT_tasks.md` 5.38):** the call is 30 minutes, so the label is "Schedule a 30-minute call"; words only. Decisions in 4.3 | Nothing | 19 October 2026 |
+| D4.18 Emails | "D4.18 Emails", "D4.18 Emails · support and account" and "D4.18 Emails · phone" (row 23). Their header is on "D1.5 Logo: Lens" (row 9) | The seven emails Resend sends (`emails/`), built in 4.7: both sign-in links, the student invitation (a new account, an existing one, the reminder), the coordinator invitation, both support ticket emails, and "Account deleted" in its two versions, from Settings and by an admin (`MAINT_tasks.md` 5.24). Each at 600px and 390px, light as sent, in the emails' own dark colours, and as Gmail and Outlook invert them (simulated), with images off; the real school's 56-character name, no coordinator or student name, a long reply from support; the plain text and the inbox line beside each. Added 19 October 2026 (owner). **Decided 20 October 2026 (owner), every recommendation:** the emails carry dark colours of their own (`prefers-color-scheme`), and the light version is drawn to survive a partial and a full invert; one layout, left-aligned, the footer under the card; no "Hello," line; the sign-in and invitation links written out under the button; words in the content style, with buttons that say what they do ("Open the invitation" for every invitation); an existing account gets its own invitation; the reminder picks its version, with one read when a coordinator presses Resend; a plain-text body for every email; Contact's ticket category labels; D4.11's "Your account is deleted" page mentions the email. Decisions in 4.7 | 20 October 2026 |
+| D4.18 Emails · inactivity notice | "D4.18 Emails · inactivity notice" (row 30), drawn 27 October 2026; also a page of its own, https://claude.ai/artifact/Beec6HeoqVw5tW7aiCFAcD, since the canvas is too heavy to open on the owner's laptop. A new email on D4.18's approved layout, for `MAINT_tasks.md` 7.6 Part C: the one notice a student gets after 6 months without using IB Match, 30 days before the account is deleted. At 600px and 390px, light as sent, in the emails' own dark colours, as Gmail and Outlook invert it, with images off, a student linked to the real 56-character school, the plain text and the inbox line. **For the owner to decide, each with a recommendation:** the subject and heading name the deletion date; the button opens the sign-in page, with no token in the email; a linked student sees the school named in the list; one email for every silent student, the list whole; the date is the notice plus 30 whole days in UTC; "Inactive account" above the heading. **Approved 27 October 2026 (owner), every recommendation.** Decisions in `MAINT_tasks.md` 7.6 Part C | Nothing | 27 October 2026, every recommendation |
 
 **Decided 7 October 2026:** the match status model is **requirement-based** (Meets all requirements,
 Within reach, Missing a requirement). See [Open questions](#open-questions).
@@ -286,7 +348,7 @@ merges into `main`, behind the preview switch.**
 | 1 | Tokens, type and theme | 1.1, 1.4 | D1.1–D1.4 | medium | **Done 8 October 2026.** Same files (`app/globals.css`, `app/layout.tsx`). After this, the preview shows the new colours |
 | 2 | Primitives | 1.2 | D2.1–D2.5, D2.7, D2.8; the D1.4 changes | medium | **Done 9 October 2026.** Button, Input, Select, Chip, Segmented, StatusBadge, Card, Skeleton. Also the chosen edge and 44px phone options on `ThemeSwitch` |
 | 3 | Site chrome | 1.5 | D1.4 (with "D1.4 Account menu"), D2.12–D2.14 | medium | **Done 9 October 2026.** Header, footer and phone tab bar on every student-facing page; static pages stay static. First run's focus mode moved to 3.1 |
-| 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, provisionally, from `lib/brand/config.ts` and seven files in `public/brand/`. The final mark and the clearance search are needed before release day |
+| 4 | Logo | 1.3 | D1.5 | small | **Done 9 October 2026.** Lens, from `lib/brand/config.ts` and seven files in `public/brand/`; confirmed as the final mark on 21 October 2026. Its clearance search is needed before release day |
 | 5 | Match data | 2.1 | None | small | **Done 9 October 2026.** Requirement-based statuses (decided 7 October 2026): `deriveMatchStatus` in `lib/matching/match-status.ts`. Scores unchanged |
 | 6–7 | Match card and results | 2.2 | D2.9, D2.11, D3.1, D3.2, D3.4, D4.6 | large | **Done 11 October 2026.** The Matches page, match card, "Why this match", toast and empty states. `ProgramCard` stays for today's pages until cleanup; the result row moves to 8 |
 | 8 | Explore | 2.3 | D2.15, D3.3, D3.5, D4.7 | medium | **Done 11 October 2026.** Toolbar and menus, the phone sheet, result rows, 20 at a time. The fit and "Only ones I qualify for" are worked out on the server; the search index gained the length in years and the admit rate |
@@ -297,12 +359,23 @@ merges into `main`, behind the preview switch.**
 | 13 | Academic profile and settings | 3.3 | D2.10, D4.11 | medium | **Done 18 October 2026.** Academic is a summary in three panels, each opening its own screen at its own address, with no request between them; Save changes comes back with a toast, and leaving with a change asks first. Settings in three panels. One `ConfirmDialog` for Delete, Unlink and leaving unsaved, with a danger button. The delete route runs in one transaction, the export includes "Open to anywhere", and deleting ends on a static page |
 | 14 | Home | 4.1 | D4.1 | medium | **Done 18 October 2026.** Six sections, prebuilt, with no read: the preview's three cards are fixed in code, and a test runs the matcher over their stored requirements; the 23 guides and "23 countries" come from the guide list. The cookie banner in the new design sits first in Tab order after the skip link, and only a browser with no choice yet downloads it. CSS is now 31.9 of the 32 KB budget |
 | 15 | Country guides | 4.2 | D4.12 | large | **Done 18 October 2026.** All 23 guides from one template (`components/guide/`) and typed data (each guide's `guide.ts`), prebuilt, with no read and no JavaScript of their own; the metadata and JSON-LD stay in each page.tsx, unchanged. Ireland, the USA and Australia first, then the rest, each compared word for word with today's page. A test records how the two versions differ, so an edit to one alone fails it. CSS 32.2 of the 36 KB allowed until cleanup. This is `MAINT_tasks.md` 7.2, done once in the new design, but for the 23 page shells |
-| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | |
+| 16 | Other public pages and the guard | 4.3, 4.4 | D4.2, D4.13–D4.16 | medium | **Done 19 October 2026.** Sign-in, "Check your email", the sign-in error and the coordinator sign-in in one card; both invitations and School invitations; the requirements hub and the text pages on one template; the legal pages on another, prebuilt from release day; the 404 and error pages. A sign-in link works for 10 minutes and every text says so; `MAINT_tasks.md` 5.21 to 5.23 done for both designs. ESLint fails on raw palette classes outside today's files. For schools waits for D4.17 (session 21) |
+| 21 | For schools | 4.3 (`/for-coordinators`) | D4.17 | small | **Done 19 October 2026.** One text page on D4.14's template with today's words, the Calendly call under one label, a link to the coordinator sign-in and no illustration; prebuilt, no read, and the same HTML as before for everyone else. The 52px button now has its 17px label wherever a page calls `buttonVariants()` itself, Support us included |
 | After 16 | Program card review | 5.1 | D3.8 | small to medium | Parked 11 October 2026: decided once every screen can be seen in the preview. A build only if a prototype other than A wins |
-| 20 | Policy update banner | 4.6 | D2.16 | small | Added 18 October 2026 (owner). After 16, before release day: today's amber banner still shows on signed-in pages in the new design |
-| 19 | Motion and feedback | 5.2 | D1.6 | medium | After 16 and the program card review, before release day: one standard for how every component moves and answers a touch, from a review of every built screen (owner, 12 October 2026) |
+| 20 | Policy update banner | 4.6 | D2.16 | small | **Done 20 October 2026.** The notice in the cookie banner's panel and place, shared as `BottomPanel`, after the cookie choice; today's words in sentence case, no close button; a failed accept says so, a success shows a toast. Both panels wait while a page shows the steps' footer (a D4.1 change). The student layout's check feeds it, so no new read, and only a student with policies to accept downloads it |
+| 22 | Emails | 4.7 | D4.18 | small to medium | **Done 20 October 2026.** All seven emails on one layout in `components/email/`, with dark colours of their own and a plain-text body each; each template builds its subject, HTML and text in either design, switched by `NEW_UI_FOR_EVERYONE` alone. Until release they render byte for byte as on `main`, which a test checks against fixtures. The reminder reads the user by address in the new design only. `MAINT_tasks.md` 5.24 and 5.25 done for both designs (5.25's clean-up script waits for the owner), and D4.11's page mentions the email |
+| 19 | Motion and feedback | 5.2 | D1.6 | medium | **Done 20 October 2026.** Shared classes in `app/globals.css` (three presses, the `pressed:` variants, the stretched link, the small overlay, the disclosure fade) and one reduced-motion rule for the new design. Matches cards and Explore and Shortlist rows are whole links with Save and "Why this match" above them; a press holds while the next page loads, through `useLinkStatus` in client links only, so today's design downloads nothing new. "Updating…" on Explore, the theme switch at once. CSS 34.7 of the 36 KB allowed until cleanup |
+| 23 | Seasonal themes | 6.1 | D1.7 | small to medium | **Done 25 October 2026.** Four slots (beside the mark, Home's hero, the band on Home and the guides, the 404), the `SeasonalTheme` table (migration applied), `/admin/seasonal-themes`, and winter in `public/seasons/winter/`. The browser picks the season from a head script, so static pages stay static; one cached read of the schedule after each save, never per visit. Outside a season nothing is downloaded: CSS +0.26 KB gzipped, no JS. `?season=winter` previews it on any day. Winter shows from 14 December if the admin schedules it |
+| 25 | Explore best fit | `MAINT_tasks.md` 5.27 | D3.5 Sort · best fit | small to medium | **Done 22 October 2026.** A student with grades opens Explore on Best fit, Matches' order with the switch on, with one line under the count; words typed make "Most relevant" the default, and a picked sort stays in the URL. Signed out or before grades, "Highest points needed", named, at one request as before. Best fit browses the list (one or two requests); `EXPLORE_BEST_FIT` (`full`, `lifted`, `off`) can make it cheaper without a code change, and `scripts/algolia-usage.ts` prints the month's requests |
+| 28 | A second subject | `MAINT_tasks.md` 5.18, step 4 | D2.7 Chip · a second subject | small | **Done 26 October 2026.** `requirementFacts` in `lib/matching/match-status.ts` judges a program's requirements together: one left without its own course names the courses left ("Chemistry or Physics HL 5 · Biology counts once"), and "or …" lines and counts leave out a course used for another. "Why this match" says where the course went; signed out, the checklist says "A different subject from the HL 6 one". Four queries that fed the matcher without the flag (Shortlist, the program page's fit, saved programs, a coordinator's view) select it now. Design QA: https://claude.ai/artifact/2HLKLrfHzGDjf5ttqzcM7T. Then 5.18 step 5 sets the flags on the 18 programs, before release day (owner, 26 October 2026): today's design may show their requirement lines muddled until then, which is accepted |
 | 17 | Release day | R.1 | — | small | One variable and a redeploy |
 | 18 | Cleanup | R.2 | — | medium | About two weeks later |
+| 26 | Christmas | 6.3 | D1.7 Season · Christmas: direction A, the tree, chosen 26 October 2026; approved in this build's preview | small | **Added 25 October 2026 (owner)** after seeing winter in the preview: winter's art replaced by plainly Christmas, and the band's decoration on all six pages with the band. **Unlocked 26 October 2026:** the tree, drawn in 6.3's "Decided on the board". Merge by 10 December 2026, or winter stays off this year. **Built 26 October 2026**: the tree's nine drawings, the band's slot on all six pages, 330 × 60 from 768px; waits on the owner's look in the pull request's preview |
+| 27 | Lunar New Year | 6.4 | D1.7 Season · Lunar New Year: direction A, lanterns, chosen 26 October 2026; approved in this build's preview | small | **Unlocked 26 October 2026:** the lanterns, drawn in 6.4's "Decided on the board". A new season under the key `lunar-new-year`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 27 January 2027, a week before the window opens on 3 February. **Built 26 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; waits on the owner's look in the pull request's preview |
+| 29 | Eid al-Fitr | 6.5 | D1.7 Season · Eid al-Fitr: direction A, crescent and lanterns, chosen 28 October 2026; approved in this build's preview | small | **Unlocked 28 October 2026:** the crescent and lanterns, drawn in 6.5's "Decided on the board". A new season under the key `eid-al-fitr`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes. Merge by 1 March 2027, a week before the window opens on 9 March. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter to stay under 600 bytes with a third key; waits on the owner's look in the pull request's preview |
+| 30 | No IB minimum and field weight | `MAINT_tasks.md` 5.43 Part B | D3.1 No IB minimum | small to medium | **Done 31 October 2026 (#233).** "No set grades" as a fourth status on Matches, Explore, the program page and Shortlist, field above country, and the one sentence from Part A, with "How it works" and "Why this match" in the same pull request |
+| 31 | Diwali | 6.6 | D1.7 Season · Diwali: direction A, diyas and marigolds, chosen 30 October 2026; approved in this build's preview | small | **Unlocked 30 October 2026:** the diyas and marigolds, drawn in 6.6's "Decided on the board". A new season under the key `diwali`: a stylesheet, nine drawings and a line in `lib/seasons/seasons.ts`; no slot changes, but the head script needs 27 bytes saved or a higher limit. Merge by 20 October 2027, a week before the window opens on 27 October. **Built 30 October 2026**: the board's nine drawings byte for byte, no slot, CSS or component change; the head script made shorter again, 595 bytes with all four scheduled, so the limit stays; waits on the owner's look in the pull request's preview |
+| 24 and on | Each further season | 6.2 | That season's D1.7 board | small | One stylesheet, its SVGs and a key in the code's list. From then on the admin schedules it every year |
 
 ### Run order: design, approve, build
 
@@ -328,13 +401,24 @@ Rows 3 and 4 can share a design session.
 | 13 | `/design D2.10, D4.11`: confirm dialog, profile and settings | Those two boards | `/build 13`: profile tab and settings (3.3) | Done 18 October 2026 |
 | 14 | `/design D4.1`: Home on a phone | The Home board, with the cookie banner, which stays (owner, 10 October 2026) | `/build 14`: Home (4.1) | Done 18 October 2026 |
 | 15 | `/design D4.12`: country guide template | The template board | `/build 15`: country guides (4.2) | Done 18 October 2026 |
-| Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Added 18 October 2026 (owner) |
-| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | |
+| Before 16 | None. First the research in 4.5: which policy and privacy pages the redesign covers | The list in 4.5, which may add to D4.14 | None | Done 19 October 2026, in row 16's design session: the list is on "D4.14 Legal pages", approved with it |
+| 16 | `/design D4.2, D4.13–D4.16`: sign-in, requirements hub, text pages, 404 and error pages, school invitation | Those five boards | `/build 16`: other public pages and the guard (4.3, 4.4) | Done 19 October 2026 |
+| 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
-| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | After 16, before release day |
-| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | After 16, before release day |
-| 17 | None | Confirm the final logo. A new mark needs its clearance search back first. The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
+| 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
+| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
+| 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
+| 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | Done 25 October 2026. Winter first: the owner schedules 14 December to 1 January at `/admin/seasonal-themes` and checks it through the preview link (6.1, Verify) |
+| 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
+| 28 | `/design D2.7 Chip · a second subject`: a requirement left without a course of its own, on every screen that lists requirements | That change board | `/build 28`: a second subject (`MAINT_tasks.md` 5.18 step 4) | Board approved 26 October 2026, every recommendation; built the same day |
+| 30 | `/design D3.1 No IB minimum`: programs with no bar, and field against country | That change board | `/build 30`: what the board decides (`MAINT_tasks.md` 5.43 Part B) | Board approved 31 October 2026, every recommendation. Built the same day (#233) |
+| 17 | None | Lens's clearance search is back (the mark was confirmed on 21 October 2026). The Search Console baseline is noted (owner decisions) | `/build 17`: release day (R.1). You set `NEW_UI_FOR_EVERYONE=true` | |
 | 18 | None | None | `/build 18`: cleanup (R.2) | About two weeks after release |
+| 26 | `/design D1.7 Season · Christmas`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, the tree, 26 October 2026), then **the build's Vercel preview with `?season=winter`**, before it merges | `/build 26`: Christmas (6.3) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges |
+| 27 | `/design D1.7 Season · Lunar New Year`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, lanterns, 26 October 2026), then **the build's Vercel preview with `?season=lunar-new-year`**, before it merges | `/build 27`: Lunar New Year (6.4) | Design done 26 October 2026. Built 26 October 2026; the owner approves it in the pull request's preview, then merges, by 27 January 2027 |
+| 29 | `/design D1.7 Season · Eid al-Fitr`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, crescent and lanterns, 28 October 2026), then **the build's Vercel preview with `?season=eid-al-fitr`**, before it merges | `/build 29`: Eid al-Fitr (6.5) | Design done 28 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 1 March 2027 |
+| 31 | `/design D1.7 Season · Diwali`: directions drawn as whole pages at real size, every page type a slot reaches | A direction on the board (A, diyas and marigolds, 30 October 2026), then **the build's Vercel preview with `?season=diwali`**, before it merges | `/build 31`: Diwali (6.6) | Design done 30 October 2026. Built 30 October 2026; the owner approves it in the pull request's preview, then merges, by 20 October 2027 |
+| 24 and on | `/design D1.7 {season}`: one more season | Its board | `/build 24`: that season (6.2) | One per season, a few weeks before it |
 
 ### How a build session works
 
@@ -386,15 +470,25 @@ Phase 4 — Public pages
 
 - [x] 4.1 Home page (18 October 2026)
 - [x] 4.2 Country guides on one template (18 October 2026)
-- [ ] 4.3 Other public pages
-- [ ] 4.4 Guard against raw palette classes
-- [ ] 4.5 Policy and privacy pages: what the redesign covers (research)
-- [ ] 4.6 The policy update banner
+- [x] 4.3 Other public pages (19 October 2026; For schools, `/for-coordinators`, in session 21 the same day)
+- [x] 4.4 Guard against raw palette classes (19 October 2026)
+- [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
+- [x] 4.6 The policy update banner (20 October 2026)
+- [x] 4.7 The emails (20 October 2026; the real sends to the owner's inboxes still to do)
 
 Phase 5 — After the whole preview
 
 - [ ] 5.1 The program card in every list (review)
-- [ ] 5.2 Motion and feedback in every component
+- [x] 5.2 Motion and feedback in every component (20 October 2026)
+
+Phase 6 — Seasonal themes
+
+- [x] 6.1 Seasonal themes: the slots, the schedule and the first season (25 October 2026)
+- [ ] 6.2 Each further season
+- [x] 6.3 Christmas: winter redrawn (26 October 2026; merged once the owner approved it in the preview)
+- [x] 6.4 Lunar New Year (26 October 2026; merged once the owner approves it in the preview)
+- [x] 6.5 Eid al-Fitr (30 October 2026; merged once the owner approves it in the preview)
+- [x] 6.6 Diwali (30 October 2026; merged once the owner approves it in the preview)
 
 Release
 
@@ -405,9 +499,10 @@ Owner decisions — not AI work
 
 - [x] Choose the logo mark: **Lens, provisionally** (7 October 2026). Final decision after seeing all
   screens in the preview
+- [x] Confirm the final mark: **Lens** (21 October 2026)
 - [x] Choose how the redesign reaches production: **a preview switch on `main`** (7–8 October 2026)
-- [ ] Before release day, confirm the final mark. If it is a new mark (Lens or another), commission
-  a trademark clearance search: EUIPO and USPTO, figurative marks, Nice classes 41 and 42
+- [ ] Before release day, commission a trademark clearance search on Lens: EUIPO and USPTO,
+  figurative marks, Nice classes 41 and 42
 - [x] Set the preview key in Vercel and bookmark the link (S2, 8 October 2026)
 - [ ] Optional: share the preview link with a few students for feedback before release
 - [x] Choose the match status model: **requirement-based** (7 October 2026)
@@ -441,7 +536,7 @@ Owner decisions — not AI work
 | Direction | B, "Ultramarine" |
 | Colour | Brand #2B3FD6 on paper #F7F6F2; lime #D5F36B for brand moments only |
 | Type | Newsreader for display (22px and up), Geist for UI; Geist Mono dropped |
-| Logo | **Lens, provisionally** (7 October 2026); the final decision comes after seeing all screens. A new mark needs a clearance search before release. **Loaded from configuration, never hard-coded** |
+| Logo | **Lens**, chosen provisionally on 7 October 2026 and confirmed as the final mark on 21 October 2026. It needs a clearance search before release. **Loaded from configuration, never hard-coded** |
 | Where the work lives | **On `main`, behind a preview switch** (7–8 October 2026): the owner sees the new design through a secret link, everyone else sees today's site. Release is one variable and a redeploy |
 | Match score | Status first; the percentage only inside "Why this match" |
 | Dark mode | Follows the OS by default, with a toggle in the account menu behind the avatar (desktop and phone, since 9 October 2026) and in the footer |
@@ -463,8 +558,8 @@ animation patches the audit first proposed.
 3. **Focus:** a visible outline that survives Windows High Contrast (forced colours). Never only a
    box-shadow ring (audit 6.5).
 4. **No emoji in interface chrome**; Lucide icons, per `docs/UX/icons-reference.md` (audit 2.7).
-5. **No infinite animations.** Only transform and opacity; reduced motion swaps movement for a fade
-   (audit 6.7).
+5. **No infinite animations.** Only transform and opacity move things; colours, edges and shadows may
+   fade (D1.6). Reduced motion swaps movement for a fade (audit 6.7).
 6. **Static pages stay static.** The 23 `study-in-*` guides, `/` and `/ib-university-requirements` are
    prerendered. Nothing may call `auth()`, `cookies()` or `headers()` on them. `showsNewUi()` (0.1) is
    the one exception: Draft Mode keeps them static. `npm run build` must still list them `○ (Static)`.
@@ -477,8 +572,8 @@ animation patches the audit first proposed.
 8. **Budget** (production, 5 October 2026: JS 171 KB, CSS 22 KB, fonts 52 KB, CLS 0): no more JS,
    CSS at most 32 KB, fonts at most 60 KB, CLS stays 0. **Until cleanup, CSS may reach 36 KB**
    (owner, 18 October 2026): the one stylesheet carries both designs until R.2 deletes today's
-   styles, and it reached 31.9 KB with Home (4.1). From R.2 on, 32 KB holds again, and R.2 checks
-   it. CSS is measured gzipped, every stylesheet `/` loads.
+   styles, and it reached 31.9 KB with Home (4.1) and 32.9 KB with the public pages (4.3). From R.2
+   on, 32 KB holds again, and R.2 checks it. CSS is measured gzipped, every stylesheet `/` loads.
 9. **Every OS:** Chrome on Windows, Safari on macOS and iOS, at 1440px and 390px, light, dark and
    forced colours, 200% zoom.
 10. **Tests:** Vitest for new pure helpers, plus the AGENTS.md verification commands.
@@ -492,7 +587,8 @@ animation patches the audit first proposed.
       breadcrumbs (2.4). Any other change to titles, descriptions or structured data is a separate
       pull request.
     - **One `<h1>`** with the same meaning as today, headings in order with no skipped level, and the
-      logo is not a heading. Every fact the old page showed is still on the page.
+      logo is not a heading. Every fact the old page showed is still on the page, except the claims
+      `MAINT_tasks.md` 7.4 removes because the code cannot support them (`docs/legal-review/claims.md`).
     - **Text stays in the server HTML.** Whatever the structured data describes (FAQ answers,
       requirements) is visible on the page. A collapsed section is fine; text fetched on click is not.
     - Real `<a href>` links for navigation and breadcrumbs. Descriptive `alt` text on content images,
@@ -632,8 +728,8 @@ rather than #FFFFFF.
 
 ### 1.3 — Brand configuration and the new logo
 
-**Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance"). The
-final mark is decided before release day, and swapping it must be a change to the config and
+**Uses Lens** (owner, 7 October 2026, provisional; canvas board "Logo options and clearance";
+confirmed as the final mark on 21 October 2026). Swapping it must still be a change to the config and
 asset files only.
 
 **Outcome:** One module (`lib/brand/config.ts`, `04-design-system.md` §8) names every brand asset,
@@ -844,6 +940,12 @@ Departures from the boards, each small:
 
 **Design gate:** none; nothing on screen changes.
 
+**Built 19 October 2026 (build 16):** `eslint/raw-palette.mjs`, a `no-restricted-syntax` rule over
+every string in `app/`, `components/` and `lib/`, failing on a palette colour with a shade. Staff
+areas and tests are outside it, and so are today's student-facing files, listed by name in the same
+file: R.2 deletes them and the list. A new file is checked from its first line.
+`eslint/raw-palette.test.ts` lints snippets through the repo's config.
+
 **Must-haves:**
 - An additive change to `SubjectMatchDetail` (`lib/matching/types.ts`): `kind` (`met`, `grade_short`,
   `level_short`, `not_taken`), `gradeGap`, `studentLevel` and `studentGrade`. Today the detail does
@@ -937,7 +1039,8 @@ phone" (row 11).
 - **No IB minimum** (D2.7 change, D3.1). The chip is "No IB minimum · admits 4.6%", the overall
   `admitRate` with one decimal, first among the notes, with hidden text " of first-year applicants";
   "No IB minimum · holistic admission" when the rate is null. The status stays "Meets all
-  requirements".
+  requirements" (changed 31 October 2026 by "D3.1 No IB minimum": a program with no bar reads "No set
+  grades", `MAINT_tasks.md` 5.43; built in session 30).
 - **"Why this match"** (D3.2). The button keeps its name when open; aria-expanded and a turning
   chevron carry the state. The panel lists every requirement, the ones in "+N met" too, in the D3.4
   table at 14px, with the other courses at their own levels and grades. Groups of more than eight
@@ -968,6 +1071,9 @@ phone" (row 11).
   countries near your total. Explore has every program, each with your fit." When the matcher widened
   its search (fewer than 10 candidates), the summary says "Few programs fit your fields and countries,
   so this list also includes others near your total"; the route needs to return the tier it used.
+  **Changed 30 October 2026 (owner, `MAINT_tasks.md` 5.40): words only.** The list ends "That's every
+  program in your fields and countries, apart from those far above your total. Explore has every
+  program, each with your fit." It takes effect with 5.40.
 - **The profile beside the list** (D4.6, desktop). A flat panel at 320px, sticky: the predicted total,
   the six subjects by short name, TOK and EE, fields, countries, and Edit to Academic, then the line
   about intakes. It comes in the matches response (no extra database read), so loading and a failed
@@ -1135,7 +1241,8 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   Length: 3 years, 4 years, 5 years or more, from the 9 stored values (3½ counts as 3, 4½ and "4–5"
   as 4, "5 years (4+1)" as 5); the search index needs the length as a number of years. Sort: Most
   relevant, Lowest points needed, Highest points needed, with programs that have no IB minimum last
-  in both points sorts; no "Best fit". Signed out, the switch's place holds "Sign in to see which
+  in both points sorts; no "Best fit" (changed 22 October 2026 by "D3.5 Sort · best fit": Best fit
+  for a student with grades, built in `MAINT_tasks.md` 5.27). Signed out, the switch's place holds "Sign in to see which
   ones you qualify for", which returns to this search; signed in before adding grades, "Add your
   grades to see which ones you qualify for", to Academic. "Only ones I qualify for", when on, is
   also a removable chip. The URL holds all of it: the search, fields, countries, the points range
@@ -1159,7 +1266,9 @@ Images are 48–64px thumbnails, not full width (audit 3.3).
   where the switch would be; no banner. The first 20 are in the server HTML for everyone, as today;
   the fit follows in its column. 2.3 decides where the fit is computed: one narrow profile read per
   search, or the matches already cached for the student; signed out, nothing is read. With no
-  search typed the list opens at the highest minimum, as today (the search service's ranking). No
+  search typed the list opens at the highest minimum, as today (the search service's ranking);
+  changed 22 October 2026 by "D3.5 Sort · best fit": Best fit for a student with grades, and
+  "Highest points needed" named as the default for everyone else (`MAINT_tasks.md` 5.27). No
   results and a failed load use D2.11's panel in the list's place ("No programs match these
   filters", naming the filters, with "Clear all filters"; "Programs didn't load", "Try again"), with
   the search, toolbar and applied chips still usable. **The page's questions become visible**: the
@@ -2317,13 +2426,198 @@ owner to confirm in the pull request:
 the legal pages, sign-in, the school invitation pages, and the 404 and error pages move to the new
 design, using tokens only. Geist Mono is removed with `NoAISection.tsx`.
 
-**Design gate:** D4.2 and D4.13 to D4.16, approved ([Step 2](#step-2--design-first)). Which pages
-count as "the legal pages" is settled first, by the research in
+**Design gate:** D4.2 and D4.13 to D4.16, approved 19 October 2026 ([Step 2](#step-2--design-first)).
+For schools (`/for-coordinators`), D4.17, approved 19 October 2026, lands in its own pull request
+(session 21). The legal pages are `/privacy`, `/terms` and `/cookies`, settled by
 [4.5](#45--policy-and-privacy-pages-what-the-redesign-covers-research).
 
 **Must-haves:** the FAQs page's structured data and its visible questions keep coming from one list
 (today both read `faqs` in `app/faqs/page.tsx`, from the CMS or `FALLBACK_FAQS`). Every page passes
 the SEO snapshot comparison (Definition of done 12).
+
+**Decided on the boards (every recommendation approved 19 October 2026).** Canvas row 20: "D4.2
+Sign-in", "D4.13 Requirements hub" and its phone board, "D4.14 Text pages" and its phone board, "D4.14
+Legal pages", "D4.15 404 and error pages" and "D4.16 School invitation". Each board's numbered list
+holds the full words; these are what the build must do.
+
+- **Sign-in (D4.2).** /auth keeps its own chrome: no site header, the logo (a link Home) above one card,
+  440px, radius 20, on the paper; the cookie banner stays off /auth. "Welcome to IB Match", "Whether
+  you're new or returning, we'll get you started. We'll save your matches and shortlist to your
+  account." Continue with Google first, to Google's rules (fill, edge and text colours per theme, the
+  G unchanged and on a white disc in dark), the label in Geist 500 15px. "Or continue with email",
+  then the field labelled "Email" (D2.2: its error, "Enter an email address like name@example.com", on
+  press, never while typing), then "Email me a sign-in link" ("Sending…" while it works). Failures are
+  an alert in the card: "We couldn't send your sign-in link. Please try again." and "Too many sign-in
+  attempts. Please wait a moment and try again."; the address stays. The consent line, word for word,
+  under the button. "Create your account" (`?declineInvite=true`) puts today's words in a note. The
+  card's boxes, static, before the script. The coordinator sign-in is the same card with "IB
+  coordinator portal" above "Welcome back", its notice for a student's address and "Are you a
+  student? Sign in here". **The notice was removed on 27 October 2026 (owner, `SEC_tasks.md` SEC-5):**
+  it told anyone whether an address had a student account. Every address now gets "Check your
+  email", and a student who signs in there lands on Matches. "Are you a student? Sign in here"
+  stays.
+- **A link works for 10 minutes, and every text says so** (owner, 19 October 2026). Nothing sets it
+  today, so Auth.js's default of 24 hours applies. Set `maxAge: 10 * 60` on the Resend provider in
+  `lib/auth/config.ts`. The change reaches both designs at once, so the same pull request makes every
+  text say 10: today's `app/auth/verify-request/page.tsx` says 15; the new sign-in helper and "Check
+  your email" say 10; `emails/magic-link.tsx`, `emails/coordinator-magic-link.tsx` and the plain-text
+  bodies in `lib/auth/config.ts` already say 10. A test pins the number in one place.
+- **"Check your email" and the sign-in error.** The first is today's words in the card with a
+  brand-soft MailCheck tile. The error page: "We couldn't sign you in", today's message for each code,
+  except Verification ("The sign-in link is no longer valid. It may have expired, or been used
+  already: each link works once.") and Configuration ("Something went wrong on our side. Please try
+  again in a few minutes."); Try again, and "If it keeps happening, contact us."
+- **School invitation (D4.16).** The same flow. The new-account invitation is a 520px card: "School
+  invitation", "Join {school}", the school in a panel (no flag), "What coordinators can access" with
+  today's three lines and "You can unlink at any time in Settings.", the consent box, then "Accept and
+  create account" ("Creating your account…"). Pressed without the tick, the box says "Tick the box to
+  accept the invitation."; the button never greys out. Today's outcomes (invalid, expired, already
+  accepted, not a student invitation) in D4.2's card. A student who already has an account gets "Sign
+  in to accept it", to sign-in returning to `/student/invitations`, and after accepting the student
+  reaches "Check your email": both are `MAINT_tasks.md` 5.22 and 5.21, done here for both designs if
+  still open. School invitations: each invitation a panel with Accept invitation and Decline
+  ("Declining…", then a toast, no Undo); Accept opens D2.10's dialog ("Connect with {school}?", focus on
+  Cancel, the consent box as its field, "Connecting…", failures inside); then Settings with "You're
+  connected to {school}." None left: D2.11's panel, without "You have pending invitations". A
+  coordinator's invitation (/auth/accept-invite) is the same card; the portal stays today's.
+- **The requirements hub (D4.13).** Prebuilt as today, the same reads at build time. Country guides
+  current in the header. The hero: the eyebrow, "IB Diploma admission rules by country", the intro
+  without bold, three figures (countries, programs, the points range) and one secondary "Explore
+  programs". Sections on the paper, each with today's label as an eyebrow and today's big line as the
+  h2. The 23 guides as link cards (`.country-card`), A to Z, three to a row from 1024px: the name,
+  today's summary, "{n} programs · {min}–{max} IB points", one number when they are equal, "No IB
+  minimum" when none is set. The explainer's cards plain, its HL list in plain bullets. Twelve field
+  rows with `fieldIcon`, "{n} programs · average {x} IB points", each to Explore with the field. The
+  questions as the guides' details panel. Home's lime band, with today's paragraph.
+- **Text pages (D4.14).** One template: a hero in the 1240px column, sections on the paper divided by
+  hairlines, today's label as an eyebrow and today's big line as the h2, D4.12's cards, Home's lime band
+  where today's page ends on a call to action. Content style: sentence case, no exclamation marks in
+  headings or buttons, no "perfect" (How it works' band: "discover programs that fit you"; Support us'
+  band: "find the right university"; its community line without the emoji). "Get Started — It's Free"
+  becomes Get my matches; the "← Back to Home" links go; no emoji anywhere.
+  - How it works: "Match categories" becomes "What each status means", the three statuses in D2.7's
+    badges with the words on the board; the scoring intro says the score orders matches within each
+    group and sits under "Why this match". The No-AI eyebrow "f(x) = result" in Geist; `NoAISection.tsx`
+    and Geist Mono go (04 §2).
+  - FAQs: one panel of details (summaries `.faq-question`, answers `.faq-answer`), then "Still have
+    questions?" as D2.11's panel with Contact support and Email us. Three answers change on release
+    day, not here: draft PR #127, labelled `go-live`, is in R.1.
+  - Contact: **the signed-in header for a signed-in student.** Give `/contact` a layout of its own that
+    reads the session (the page already calls `auth()`: the JWT cookie, no database read) and draws the
+    app header when signed in and the public header otherwise, as `/universities` does since 2.4; add
+    `contact` to `OWN_CHROME` in `components/site/nav.ts` so the root layout leaves it. Only the new
+    design's branch changes. The categories are radio rows in a fieldset (two to a row from 768px);
+    errors on press beside each field ("Choose a category", today's two length messages); the counts
+    stay; "Send request" ("Sending…"); a failure in an alert; sent: "Request sent" with the ticket
+    number. Signed out: "Sign in to contact us", its Sign in returning to `/contact`.
+  - Support us: every section; the allocation as a list of bars with each share written beside it;
+    every outside link says it opens a new tab.
+- **Legal pages (D4.14 Legal pages).** One template for `/privacy`, `/terms` and `/cookies`: links
+  between the three (a nav named "Legal") above the h1; the h1 in Display L; "Last updated {date} ·
+  Version {label}" under it; "On this page" from the document's `##` headings (the guides' sticky
+  column from 1024px, a closed disclosure below); one 720px column; `##` as h2 in Geist 22/30, `###`
+  as h3; tables and quotes as D4.12's table and note; no lime band. **One h1:** drop a leading `# `
+  line from the Markdown (`MAINT_tasks.md` 5.23 does it for today's design). **Prebuilt:** the new
+  design's branch calls no `auth()`; from release day, when it is the only branch, the three are
+  prebuilt with today's one-hour revalidate, so the published document is read at most once an hour
+  per page instead of on every view. `npm run build` lists them Static from then. The words are the
+  owner's to update (`MAINT_tasks.md` 7.4).
+- **404 and error pages (D4.15).** `app/not-found.tsx`: "We can't find that page", the sentence, the
+  search (a plain form to Explore, as the program 404) and three ways on (Explore programs, Country
+  guides, Home); prebuilt with the signed-out header; on paths whose layout draws its own chrome
+  (/student, /auth, …) the page draws the public header and footer itself; title "Page not found",
+  status 404. `app/error.tsx` and `app/student/error.tsx`: one panel inside the layout's chrome,
+  "Something went wrong", "This page didn't load. Try again, or go back to Home.", Try again
+  (`reset()`, "Trying again…") and Home, and "If it keeps happening, contact us and quote this
+  reference: {digest}." when there is a digest; focus moves to the h1. `app/global-error.tsx`: the
+  logo, the same words and Try again, light or dark from the system. `AuthErrorBoundary`: D4.2's card,
+  today's words.
+- **For schools (D4.17, session 21).** Approved 19 October 2026, every recommendation; canvas row 21,
+  "D4.17 For schools" and its phone board. `/for-coordinators` on `components/text-page/`, prebuilt as
+  today (`force-static`, the hourly revalidate), with no read. The metadata and the WebPage JSON-LD stay
+  in `page.tsx`, outside the switch; the page's own `StudentFooter` stays in today's branch only, since
+  the chrome draws the footer. For schools is current in the header and "For IB coordinators" in the
+  footer, as `components/site/nav.ts` already marks them.
+  - The hero: "Partner with us" as the eyebrow; the h1 "Help your students navigate university
+    admissions with confidence", no word in blue; today's intro. Then "Schedule a 30-minute call", the
+    primary button, to today's Calendly link in a new tab with the external-link icon and "(opens in a
+    new tab)", and beside it "Sign in to the coordinator portal" to `/auth/coordinator`. No
+    illustration: `/images/landing/coordinator-hero.png` stays for today's design until R.2.
+  - "Built by former IB students who understand your challenges" (h2) with today's three paragraphs,
+    the last in ink.
+  - "Why partner with us?" as the eyebrow over today's big line, "Managing university guidance
+    shouldn't be another overwhelming task", the h2. Two columns from 1024px: "What we hear from
+    coordinators" (h3), the four quotes as blockquotes in one panel, hairlines between, a serif quote
+    mark, not in italics; "How IB Match helps" (h3), plain bullets, then the guides' note led by "We
+    need coordinator expertise to build this right."
+  - "Coordinator dashboard", the h2 (a paragraph today), with today's sentence; four cards, four to a
+    row from 1024px, with Lucide ChartColumn, Users, Upload and FileText in a sunken tile and the
+    titles in sentence case; then the note "Early adopter benefit: …".
+  - Home's lime band: "Ready to help shape IB Match?", today's paragraph and the same call.
+  - Everything but the band in an `<article>`, and the four descriptions carry `.feature-description`,
+    so the JSON-LD's speakable selectors (h1, h2, `.feature-description`, `article p`) find text; today
+    only h1 and h2 match.
+  - On a phone, one column; the call full width with the link under it.
+  - The words are today's, as on the board, except where `MAINT_tasks.md` 7.4 reworded them (#157, 23 October 2026,
+    with the changes listed on D4.17 above). The rewording is in both designs,
+    before release day.
+
+**Found on the boards, outside this task:** `MAINT_tasks.md` 5.21 (the invitation's sign-in provider),
+5.22 (the dead end for a student with an account), 5.23 (two h1s on /cookies) and 7.4 (bring the
+legal pages up to date). On D4.17: 5.26 (the portal sends a signed-out coordinator to a 404) and For
+schools' claims, added to 7.4.
+
+**Built 19 October 2026 (build 16),** every board state compared with its frame on a production
+build. Where it lives: `components/sign-in/` and `components/invitation/` (the cards, client ones as
+lazy islands), `components/text-page/` (the hub's and the text pages' template),
+`components/legal/LegalPage.tsx`, `components/site/` (the 404, the error screen and the bare page),
+each page's `New*.tsx` beside today's. 5.21 to 5.23 are done for both designs, with
+`lib/auth/accept-student-invite.ts` shared by both invitation cards; a student already signed in
+with the invited address goes straight to School invitations (5.22's optional step). Departures and
+what the build settled:
+
+- **Error boundaries where the board places them,** `app/error.tsx`, `app/student/error.tsx` and
+  sign-in's `app/auth/error.tsx`. Next loads an `error.tsx` with every page below it, so each one
+  costs today's visitors about 0.5 KB; /programs, /universities and /contact get the root's, which
+  draws the public header and footer round the panel.
+- **`AuthErrorBoundary` is mounted nowhere,** so the error inside sign-in is `app/auth/error.tsx` in
+  D4.2's card, with its words. The class goes at R.2.
+- **Try again calls `retry()`,** Next 16.3's stable replacement for `reset()`: it fetches the page
+  again in a transition, which is what "Trying again…" follows.
+- **`app/global-error.tsx` follows the release flag, read at build time** (`next.config.ts`,
+  `NEW_UI_RELEASED`): it replaces the root layout, so it can't ask for the preview. Until release
+  Next's own page shows, and the preview doesn't show the bare page either.
+- **The 404 decides its chrome from the route tree, not the address:** PublicFrame reads the root
+  layout's segment (`ownsChrome`), so the prebuilt 404 hydrates without a mismatch on any path, and a
+  context tells the 404 and the error panel whether a layout's chrome is round them.
+- **The tab title** is "Page not found" on every 404 and "Something went wrong" on an error from the
+  server; after an error in the browser, Next renders the page's own title again, which wins.
+- **Geist Mono is no longer preloaded,** rather than removed: today's How it works and the admin
+  still use it (their pages download it on demand), and the new design never does. It goes with
+  `NoAISection.tsx` at R.2.
+- **`/cookies` gained the hourly revalidate** of `/privacy` and `/terms`: prebuilt from release day,
+  it would otherwise never show a Cookie Policy published in the admin.
+- **Measured against `main`, today's design:** the same HTML on 25 pages but for the intended fixes
+  (one h1 on the legal fallbacks, 10 minutes on "Check your email"); the same route table, revalidate
+  times included; the emails byte for byte; fonts 23.5 KB lighter on most pages (no Geist Mono);
+  JavaScript 0.7 KB more on a plain page, up to 2.2 KB where links prefetch sign-in and the
+  invitation (the error boundaries and the islands' loaders). CSS 32.9 KB of the 36 allowed.
+
+**Built 19 October 2026 (build 21),** For schools: every frame of both D4.17 boards compared with
+the build in the preview, on a production build. `app/for-coordinators/NewForCoordinators.tsx`
+sits beside today's components; the switch is in `page.tsx`, with the metadata and the JSON-LD
+outside it and today's `StudentFooter` in today's branch only. `CardGrid` takes a `textClassName`,
+which puts `.feature-description` on the four descriptions. What the build settled:
+
+- **The 52px button has a 17px label wherever it is called.** Primary and secondary set
+  `text-body` and the large size `text-body-l`. Through `cn()` the size won, but a page that calls
+  `buttonVariants()` itself kept both, and the stylesheet's order picked 15px. The size now sets the
+  text (`components/ds/button-variants.ts`), and a test checks that every variant and size has one
+  text size. Three buttons change, each to its approved board: For schools' call, and Support us'
+  "Support on Ko-fi" and "Open email to submit".
+- **Nothing changes for anyone else:** the same HTML on `/for-coordinators` and six other public
+  pages, the same route table with the same revalidate times, the same JavaScript and fonts, and CSS
+  34 bytes heavier, gzipped.
 
 ### 4.4 — Guard against raw palette classes
 
@@ -2332,6 +2626,12 @@ student-facing code, so the two styling systems cannot drift apart again (audit 
 rule, not a formatting one, so it does not conflict with Prettier.
 
 **Design gate:** none; nothing on screen changes.
+
+**Built 19 October 2026 (build 16):** `eslint/raw-palette.mjs`, a `no-restricted-syntax` rule over
+every string in `app/`, `components/` and `lib/`, failing on a palette colour with a shade. Staff
+areas and tests are outside it, and so are today's student-facing files, listed by name in the same
+file: R.2 deletes them and the list. A new file is checked from its first line.
+`eslint/raw-palette.test.ts` lints snippets through the repo's config.
 
 ### 4.5 — Policy and privacy pages: what the redesign covers (research)
 
@@ -2343,25 +2643,29 @@ Added 18 October 2026 (owner).
 **Design gate:** none. Research and a docs pull request only; run it before row 16's design
 session, so D4.14 is drawn with the full list.
 
-**Known so far (18 October 2026):**
+**Done 19 October 2026,** in row 16's design session, and approved by the owner with its boards: the
+list is on "D4.14 Legal pages" (canvas row 20). It adds no page to D4.14 beyond the three legal pages.
 
-- `/privacy`, `/terms` and `/cookies`, the "legal pages" of 4.3 and D4.14, which has no board yet.
-  Privacy and Terms show the version published in the admin's legal content
-  (`getPublishedDocument`, `lib/legal-documents/`) as Markdown, with text in the page as a fallback.
-  All three call `auth()` to draw today's header, so `npm run build` lists them as Dynamic (ƒ) and
-  each view renders on the server. The new design's header doesn't need the session, so they could
-  be prebuilt like the other text pages: a cost question for the owner.
-- "We've Updated Our Policies", the banner on signed-in pages when the Terms or the Privacy Policy
-  has a newer version than the user accepted: its own task, 4.6 (board D2.16).
-- The consent line on student and coordinator sign-in, and on the student invitation form, which
-  link to `/terms` and `/privacy`: sign-in is D4.2 and the invitation D4.16. Confirm both cover it.
-- The cookie banner: done in 4.1.
-- The admin's legal content editor (`/admin/legal-content`): staff only, so out of scope unless the
-  owner says otherwise.
+| What shows a policy or asks for consent | In the redesign | Where, and how |
+|---|---|---|
+| `/privacy`, `/terms`, `/cookies` | Redesigned in 4.3 | "D4.14 Legal pages": one template, today's words, prebuilt from release day (the cost question: yes) |
+| "We've Updated Our Policies", on signed-in pages | Its own task, 4.6 | D2.16. On coordinator pages it stays today's, with the portal |
+| The consent line under student and coordinator sign-in | Redesigned in 4.3 | D4.2: the same words, under the button |
+| The student invitation's consent: the card, and the dialog on School invitations | Redesigned in 4.3 | D4.16: today's list and box, and "You can unlink at any time in Settings." |
+| A coordinator's invitation, with its Terms line | Redesigned in 4.3 | D4.16: the same card |
+| The cookie banner | Done in 4.1 | D4.1 |
+| The FAQ about coordinators seeing a student's data | Redesigned in 4.3 | "D4.14 Text pages": today's answer |
+| Settings: the school link's date, Unlink, Download, Delete | Done in 3.3 | D4.11 |
+| The footer's Legal links | Done in 1.5 | D2.13 |
+| The seven emails' footer links | Its own task, 4.7 (added 19 October 2026) | D4.18: the links named after the pages' titles. Until then they switch with the header at release (1.3) |
+| The coordinator portal's consent notice when inviting a student | Left as it is | The coordinator portal keeps today's design |
+| The admin's legal content editor | Left as it is | Staff only |
 
-**To check:** any other page, email or coordinator screen that shows policy text or asks for
-consent; whether the legal pages need more than the text-page template (a contents list, the
-version and its date, links between the three); and SEO parity for each (Definition of done 12).
+**Found while checking, for the owner** (words, not design): `MAINT_tasks.md` 7.4 collects them. The
+Cookie Policy names Auth.js v4's cookies and describes Customize as switches; the Privacy Policy's
+sub-processors leave out Supabase and Google; both published versions are labelled 2026-03-23 but take
+effect on 23 February 2026; nothing deletes invitation records after the 90 days the Privacy Policy
+promises. `/cookies` has two h1s: `MAINT_tasks.md` 5.23.
 
 ### 4.6 — The policy update banner
 
@@ -2380,6 +2684,238 @@ raw palette classes and title case, keeps showing for today's design. Added 18 O
   14). D2.16 decides the order. On a phone it sits above the tab bar, as the cookie banner does.
 - **A failed accept says so** and offers to try again; today it fails silently.
 - No emoji, real buttons and links, and the Definition of done.
+
+**Decided on the board (20 October 2026, owner, every recommendation).** Canvas row 22, "D2.16 Policy
+update banner". The coordinator portal keeps today's banner (4.5).
+
+- **One at a time, the cookie banner first.** When both are due, the cookie banner shows as on every
+  page; the notice is in the page but hidden until a cookie choice is stored (`lib/cookie-consent`, read
+  in the browser as the cookie banner does), then rises in the banner's place. They never overlap and
+  never stack.
+- **The cookie banner's place and panel** (4.1): desktop bottom right, 420px, 24px from the edges; a
+  phone across the bottom, sitting on the tab bar, which stays put while it shows instead of hiding on
+  scroll; a toast rises 12px above it (the `--cookie-banner` measure, or one shared for both). Surface,
+  1px line, the overlay shadow; no amber and no icon. Not modal, takes no focus, and sits first in Tab
+  order after the skip link, in the cookie banner's slot (`components/site/cookie-slot.tsx`). A region
+  named by its h2.
+- **The words.** h2 "We’ve updated our policies". Then today's sentence with the documents as its
+  links: "Our Terms of Service and Privacy Policy have been updated. Please review and accept to
+  continue using IB Match." With one document: "Our Terms of Service has been updated." or "Our Privacy
+  Policy has been updated.", then the same second sentence. Each link is named after its page's title,
+  opens it in a new tab as today, with the external-link icon and "(opens in a new tab)". No version
+  in the links and no icons before them; the admin's change notes are not shown.
+- **Actions, in this order:** "I accept the updated policies" (primary; 44px on desktop, full width at
+  48px on a phone), then "Remind me later" (a link-style button, under it on a phone). The close button
+  goes. Remind me later hides the notice until the next full page load, as today.
+- **Accepting:** "Accepting…", `aria-busy` and `aria-disabled`, no spinner; Remind me later is
+  unavailable until the answer comes. On success the notice fades out, focus moves to the page's
+  content if it was inside (as the cookie banner's `focusMain`), the toast says "You’ve accepted the
+  updated policies.", and the page refreshes as today. `ReconsentChecker` moves inside the signed-in
+  frame, where the toast provider is (AppFrame); no new read.
+- **A failure, in the panel** (`role="alert"`, above the actions), with the button back and focus kept
+  on it: "Your acceptance wasn’t saved. Check your connection and try again." for any error, 429
+  included; on 401, "You’ve been signed out, so your acceptance wasn’t saved. Sign in again to accept.",
+  "Sign in again" linking to sign-in with a return to the page.
+- **Where it shows:** every signed-in student page, except while a page shows the steps' footer
+  (`data-step-footer`: first run and the Academic editing screens), where it waits for the next page.
+  Not on Explore and program pages, which have no notice today: it would read the database on every
+  program view.
+- **The cookie banner waits there too** (owner, 20 October 2026; a change to D4.1, found drawing
+  D2.16). Today it covers the steps' footer: on a phone the whole footer, on desktop its right end,
+  where Continue or Save changes is, because both are fixed to the bottom and nothing orders them.
+  While a page shows `data-step-footer`, the cookie banner (`components/site/CookieBanner.tsx`) is not
+  shown; it appears on the next page without the footer, half a second after it shows, as on any
+  page. A choice made on Home before sign-in means it never shows there. New design only; today's
+  `CookieConsentBanner` is unchanged.
+- **Motion:** the cookie banner's. It rises 8px and fades in over 240ms, fades out in 180ms; reduced
+  motion keeps only the fades. After a cookie choice the banner fades out, then the notice rises. Fixed,
+  so CLS stays 0.
+
+**Built 20 October 2026 (build 20).** Every state on "D2.16 Policy update banner" compared with the
+build in the preview, on a production build, at 1440px and 390px, light, dark and forced colours.
+What the build settled:
+
+- **The check moved, not the component.** The student layout's new-design branch calls
+  `checkConsentStatus` itself (the same three reads `ReconsentChecker` made) and passes
+  `policyUpdate` through `SignedInChrome` to `AppFrame`, which lazy-loads
+  `components/site/PolicyNotice.tsx` inside its toast provider only when there is one: the other
+  students download nothing. `ReconsentChecker` stays for today's design and the coordinator portal.
+  `/programs` passes nothing, so no notice there.
+- **One panel for both.** `components/site/bottom-panel.tsx` holds what the cookie banner had: the
+  place, the entrance and exit, the slot after the skip link, `focusMain`, and the measure for the
+  toast, now `--bottom-panel` on `[data-bottom-panel]` (`app/globals.css`), and
+  `useStepFooterShown`, which both use to wait while `[data-step-footer]` is in the page.
+- **The cookie choice is announced by the new banner** (`lib/cookie-choice.ts`), not by
+  `lib/cookie-consent.ts`, which today's banner imports: putting it there added 68 B to every page
+  in today's design. The notice reads a stored choice, or the cookie where localStorage is blocked.
+- **Accepting keeps the brand fill** with "Accepting…", as D2.1's `Button` does everywhere; the board
+  drew it greyed. In forced colours, Remind me later is drawn as a button, as the cookie banner's
+  Customize is.
+
+### 4.7 — The emails
+
+**Outcome:** The seven emails IB Match sends through Resend look and read like the new design, and
+switch to it on release day with the rest of the site. Today only their header and brand colour
+switch (1.3). Added 19 October 2026 (owner).
+
+**Design gate:** D4.18, approved ([Step 2](#step-2--design-first)).
+
+**What they are today** (19 October 2026):
+
+| Email | Template | Sent from | To | Subject |
+|---|---|---|---|---|
+| Sign-in link | `emails/magic-link.tsx` | `lib/auth/config.ts` | Students | "Sign in to IB Match" |
+| Coordinator sign-in link | `emails/coordinator-magic-link.tsx` | `lib/auth/config.ts` | Coordinators and admins | "Sign in to IB Match" |
+| Student invitation | `emails/student-invite.tsx` | `app/api/coordinator/students/invite/route.ts`, and `invite/resend/route.ts` for the reminder | Students, with or without an account | "You're invited to join {school} on IB Match", "{school} wants to connect with your IB Match account", "Reminder: …" |
+| Coordinator invitation | `emails/coordinator-invite.tsx` | `app/api/coordinator/team/invite/route.ts`, `app/api/admin/invite/route.ts` and its `resend/route.ts` | Coordinators | "You're invited to join {school} on IB Match", "Reminder: …" |
+| Support ticket received | `emails/ticket-created.tsx` | `lib/email/support-tickets.ts`, from `app/api/support/tickets/route.ts` | Whoever sent Contact or the coordinator support form | "Support Ticket {number} - We've Received Your Request" |
+| Support ticket resolved | `emails/ticket-resolved.tsx` | `lib/email/support-tickets.ts`, from `app/api/admin/support/[id]/route.ts` | The same | "Support Ticket {number} - Your Request Has Been Resolved" |
+| Account deleted | `emails/account-deleted.tsx` | `lib/email/account-emails.ts`, from `app/api/admin/students/[id]/route.ts`, and from `app/api/students/account/delete/route.ts` once `MAINT_tasks.md` 5.24 is done | A student an admin deletes, or who deletes their own account in Settings (5.24) | "Your IB Match Account Has Been Deleted" |
+
+Each template carries its own copy of the same styles: the system font stack, a #F5F5F7 page, a
+white 560px card, title-case headings at 28px bold, grey text, a centred button, and a footer with
+"© {year} IB Match. All rights reserved." and "Terms And Conditions · Privacy Policy". None has
+dark-mode styles, so each mail app darkens them its own way. Only the two sign-in emails send a
+plain-text body, written by hand in `lib/auth/config.ts`. Each renders 5–7 KB of HTML.
+
+**Must-haves:**
+
+- **One layout for all seven,** in `components/email/` beside `EmailHeader`: the page, the card, the
+  heading, text, the button, a details panel (a ticket's number, category and subject, the admin's
+  reply) and the footer. Each template keeps only its words. Colours are D1.1's tokens written as hex,
+  since mail apps don't read CSS variables.
+- **Readable in dark mail apps.** Gmail, Outlook and Apple Mail darken an email partly or fully: text
+  never sits on an image, the mark keeps its square (1.3), and the button and links keep WCAG AA in
+  each. They carry dark colours of their own (`prefers-color-scheme`, which Apple Mail reads and Gmail
+  ignores), decided on D4.18 (below).
+- **Words in the content style** (D4.14): sentence case in subjects, headings and buttons, no
+  exclamation marks, today's meaning. The button says what it does, as the sign-in card does, and
+  the sign-in link's lifetime still comes from `lib/auth/sign-in-link.ts`. Subjects are set in the
+  senders, so they switch with the same flag. The footer names its links after the pages' titles
+  ("Terms of Service", "Privacy Policy"); the legal words themselves are `MAINT_tasks.md` 7.4.
+- **A plain-text body for every email,** from the same words, for mail apps that show text and for
+  spam filters. The sign-in emails' hand-written ones move into the templates.
+- **Accessible:** `lang="en"`, one heading, the button a real link with its words, `alt=""` on the
+  mark beside the name, text at least 14px, and the link's address written out where an image-off
+  or plain-text reader needs it.
+- **Switches with `NEW_UI_FOR_EVERYONE` alone,** through `emailBrand()` (`lib/brand/email.ts`), as 1.3
+  does: emails reach students, so never through the owner's preview. Until release, all seven render
+  byte for byte as on `main`, subject and plain text included, and a Vitest test checks each one.
+- **No new reads,** but one: the senders keep their queries, and the mark stays a file in
+  `public/brand/`, served by Vercel, never by Supabase. The one is the reminder's, decided on D4.18: the
+  user by the invitation's address, one row by a unique key, only when someone presses Resend.
+- Well under Gmail's 102 KB, past which it clips a message.
+
+**Checks:**
+
+- Every email in both designs in React Email's preview (`npm run email:dev`, and
+  `NEW_UI_FOR_EVERYONE=true npm run email:dev` for the new one), with screenshots beside D4.18.
+- One real send of each to the owner's own inboxes, with a live key and the owner's go-ahead: Gmail
+  on the web and on a phone, Outlook, and Apple Mail on iOS, light and dark. Only a real send shows
+  how each app darkens them.
+
+**Decided on the boards (20 October 2026, owner, every recommendation).** Canvas row 23: "D4.18
+Emails" (the decisions, the layout's spec, the sign-in email in each mail app, the inbox, then the sign-in
+and invitation emails), "D4.18 Emails · support and account" (the ticket and account emails, and the
+change to D4.11) and "D4.18 Emails · phone". The words on the boards are the words to build, subjects,
+previews and plain text included.
+
+- **Dark colours of their own.** Each email declares `<meta name="color-scheme" content="light dark">`
+  and `<meta name="supported-color-schemes" content="light dark">`, and a `prefers-color-scheme: dark`
+  block in its head swaps D1.1's dark tokens in by class (`!important`, since the light ones are inline):
+  paper #0E1014, card #161920 with a #2A2F3A edge, panel #1D2129, text #F1F0EB / #BBBFC9 / #9095A2, the
+  button #8E9BFF with #0B0E2B text, links #8E9BFF. Apple Mail and Outlook for Mac use them. Gmail and
+  Outlook.com ignore them and invert the light version, which is drawn to hold up both ways: the button
+  is a solid colour with its label in text, links are underlined, and the mark keeps its square.
+- **The layout,** in `components/email/`, as the spec table on "D4.18 Emails" (section 1): the paper
+  around a centred 560px column, 24px above and 20px at the sides (12px on a phone); the card #FFFFFF
+  with a 1px #E3E1D9 edge, 16px corners and 40px inside (24px on a phone; classic Outlook draws it
+  square); the header as built (1.3); an optional line above the heading, 14/20 600 #464B57 ("IB
+  coordinator portal", "School invitation", "Reminder · school invitation"); the one h1, 26/32 600, which
+  wraps a 56-character school, never cuts it; text 16/26 #464B57; small print 14/22 #686D79; the button
+  #2B3FD6 with white 16/24 600, 12px × 24px, 10px corners, left-aligned; the details panel #EFEEE8, 12px
+  corners, 20px × 24px, a 16px title and 15px rows or list; the footer under the card on the paper, 14/22
+  #686D79: "IB Match connects IB students with university programs worldwide.", "Terms of Service ·
+  Privacy Policy" and "© {year} IB Match. All rights reserved." Nothing under 14px.
+- **No "Hello," line,** in any email: the heading opens it. `userName` goes unused.
+- **The link written out** under the button in the sign-in and invitation emails: "Button not working?
+  Paste this link into your browser:", then the address, `word-break: break-all`.
+- **The words, email by email** (each board shows them whole):
+  - Sign-in: subject "Sign in to IB Match"; h1 "Sign in to IB Match"; "Use this link to sign in. It works
+    for 10 minutes, and only once. If it’s your first time, we’ll create your account."; button "Sign in
+    to IB Match"; "If you didn’t ask for this link, you can ignore this email. Nobody can sign in without
+    it." The coordinator's adds "IB coordinator portal" above its h1, "to the coordinator portal" in its
+    sentence, and the button "Sign in to the coordinator portal". The time comes from
+    `lib/auth/sign-in-link.ts`.
+  - Student invitation, a new account: "School invitation" above "Join {school} on IB Match"; "Your
+    coordinator at {school} has invited you to create an IB Match account linked to their school."
+    (with a name: "{name}, your IB coordinator at {school}, has invited you…"); the panel "What
+    coordinators can access" with D4.16's list and "You can unlink at any time in Settings."; button
+    "Open the invitation"; "Don’t want to link your account? Create a regular account instead"; "The
+    invitation expires in 7 days. If you didn’t expect it, you can ignore this email."
+  - Student invitation, an existing account: subject "{school} wants to connect with your IB Match
+    account"; h1 "Connect with {school}"; the link to `/student/invitations`; no "Create a regular
+    account instead"; "You’ll sign in first if you aren’t signed in." before the expiry line.
+  - The reminder: "Reminder · school invitation" above the heading, subject "Reminder: you’re invited
+    to join {school} on IB Match", and "This is a new link: the one in the first email no longer works."
+    **It picks its version:** the resend route reads the user by the invitation's address (one row, by a
+    unique key, only when a coordinator presses Resend) and sends the existing account's email and link
+    when there is one. The coordinator's reminder works the same way, with its own words.
+  - Coordinator invitation: "IB coordinator portal" above "Join {school} on IB Match"; "You’ve been
+    invited to join {school} as an IB coordinator on IB Match." (with a name: "{name} has invited you
+    to join…", fixing today's "You have been invited you"); the second paragraph in sentence case;
+    "Open the invitation"; the expiry line.
+  - Ticket received: subject "Support ticket {number}: we’ve received your request"; h1 "We’ve received
+    your request"; the panel "Ticket {number}" with Category and Subject rows, the category in Contact's
+    labels ("Matching question", "Data & privacy", "General inquiry"…). Resolved: subject "Support ticket
+    {number}: your request is resolved"; h1 "Your request is resolved"; the ticket panel, then "Our
+    reply" in a second panel, its line breaks kept (`pre-wrap`) and never cut; "If this doesn’t fully
+    answer your question, send us a new request from Contact."
+  - Account deleted: subject "Your IB Match account has been deleted"; h1 "Your account is deleted"; "An
+    IB Match administrator has deleted your account." or, from Settings, 5.24's "This email confirms that
+    you deleted your IB Match account in Settings."; the panel "What was deleted" (your account and how
+    you signed in; your subjects and grades; your interests, countries and shortlist; your support
+    tickets; your link to your school, and any school invitations sent to you, true once
+    `MAINT_tasks.md` 5.25 is done); then "If you think this was a mistake…" or "If you didn’t do this,
+    contact us straight away at support@ibmatch.com."; "You can make a new account with the same email
+    any time."
+- **A preview line for each,** as drawn in the inbox section, through `<Preview>`.
+- **D4.11's page after deleting** adds "We’re also emailing you a confirmation." after what was deleted,
+  in the new design only.
+
+**"Account deleted" from Settings** (owner, 19 October 2026): today only an admin's deletion sends it.
+`MAINT_tasks.md` 5.24 sends it when a student deletes their own account, with words for that case.
+This task designs both versions, and does 5.24 for both designs if it is still open.
+
+**Done 20 October 2026.** `components/email/`: `EmailLayout` draws an `EmailContent` (`content.ts`, the
+words as data) and `toPlainText` writes the plain text from the same object, so the two can't drift;
+`tokens.ts` holds the colours, the dark block and the phone padding, and `tokens.test.ts` measures every
+pair at 4.5:1 in both. Each template in `emails/` now exports a message builder (`signInMessage`,
+`studentInviteMessage`, …) that returns the subject, the React and the text, in today's design or the
+new one through `emailBrand()`; the senders spread it into Resend's call. Today's templates moved to
+`components/email/legacy/` and go at cleanup (R.2). `lib/email/emails.test.tsx` renders all twelve
+versions in today's design and compares them byte for byte, subject and plain text included, with
+fixtures rendered from `main` before the move (`lib/email/__fixtures__/legacy/`); the one intended
+difference is the list line 5.25 adds to "Account deleted". In the new design it checks each email's
+words, subject and inbox line against the boards, one h1, `lang`, the dark metas, nothing under 14px,
+and the size: 7–9 KB each.
+
+Choices the boards left open, made in the build:
+- **The reminder's read happens only in the new design,** so today's reminder stays as on `main`
+  until release day, including its new-account link to an existing account.
+- **A reminder to an existing account** drops "This is a new link…": its link is School invitations,
+  which a new token doesn't change. Its subject is "Reminder: {school} wants to connect with your IB
+  Match account", its inbox line the existing account's.
+- **The coordinator's reminder** reads "Reminder · IB coordinator portal" above the heading. Coordinator
+  invitations only go to addresses without an account, so it needs no read.
+- **With a coordinator's name,** an existing account reads "{name}, your IB coordinator at {school}, has
+  invited you to link your IB Match account to their school."
+- `lib/email/client.ts` no longer builds the client when it loads (5.24), so the five invite routes call
+  `getResendClient()`.
+
+Not checked here: React Email's preview, since `npm run email:dev` asks to install
+`@react-email/preview-server`, which the project doesn't have; the screenshots come from the same
+`render()` Resend uses, in Chrome. The real sends to the owner's inboxes are still to do.
 
 ---
 
@@ -2429,8 +2965,9 @@ with a grey fill, while Matches cards and Explore rows give no response at all. 
 and "How the fit is worked out" fade in, and chevrons turn. The list-to-program view transition
 D1.3 describes was never built. The owner wants one standard, chosen after looking at every screen.
 
-**When:** session 19, after session 16 and the program card review (5.1), before release day. Built
-behind the preview switch, like every session before release.
+**When:** session 19, before release day. Built behind the preview switch, like every session before
+release. **Unlocked 20 October 2026 (owner),** ahead of the program card review (5.1): the card's tap
+rule is the same for A, B or C, so if 5.1 later changes the card, the new card keeps this rule.
 
 **Design gate:** D1.6, approved ([Step 2](#step-2--design-first)).
 
@@ -2446,12 +2983,80 @@ behind the preview switch, like every session before release.
     card through the name's link, with Save and "Why this match" above it. If 5.1 changed the card,
     review the card it chose;
   - hover on desktop only, and never the only sign that something is a link;
-  - the list-to-program view transition in D1.3: build it, or drop it from the system.
+  - the list-to-program view transition in D1.3: build it, or drop it from the system;
+  - decorative motion, which the seasonal themes follow (6.1): none at all, or one
+    entrance on Home's hero, transform and opacity, under 5 seconds and never repeating, and none
+    with reduced motion. Nothing here is built for them in 5.2.
 - **Keep the Definition of done:** only transform and opacity, no infinite animations, a fade with
   reduced motion, and no more JavaScript than the rules need.
 - **The build:** apply the approved rules to every component in one pull request, through shared
   classes or tokens rather than each component's own, so later work follows them by default.
   Screenshots beside the board, as in every build.
+
+**Decided on the board (20 October 2026, owner, every recommendation).** Canvas row 24, "D1.6 Motion
+and feedback". The board's table "Every built screen today, and what changes" lists each component
+with Keep or Change; the build changes every row marked Change, and no other.
+
+- **The whole card or row is the link** on Matches (`MatchCard`), Explore (`ResultRow`) and
+  Shortlist's rows. The name's `<Link>` stays the only link and is stretched over the card in CSS
+  (an `::after` covering it); Save, "Why this match" and the opened panel sit above it with their own
+  targets. Tab order and the accessible name don't change. Desktop hover: the card takes the link
+  cards' edge and shadow from D2.8, a row a muted tint, and the name underlines. Focus stays on the
+  name.
+- **Press, on everything tappable, 120ms:** 96% for targets under 64px wide (the tab bar's pill), 98%
+  for controls (buttons, chips, Save, segmented buttons, menu buttons, toast actions), 99% for cards
+  and rows (match cards, Explore and Shortlist rows, link cards, checkbox rows and tiles, Contact's
+  and the invitation's choice rows), each with its one-step-darker fill. Text links turn brand-ink and
+  underline, with no shrink. `-webkit-tap-highlight-color: transparent` in the new design. Check
+  `:active` on a real iPhone.
+- **Opening a page holds the pressed look** until the next page arrives, on cards, rows, names, the
+  tab bar and the nav, through Next.js' `useLinkStatus` (read
+  `node_modules/next/dist/docs/01-app/03-api-reference/04-functions/use-link-status.md` first) in a
+  small client component inside each link. It must not shift the layout. No spinner, no progress bar,
+  no `loading.tsx`. This is the only new JavaScript, a few hundred bytes.
+- **Small overlays** (the account menu, Menu's panel, the filter menus, "Choose programs", Save and
+  exit's question, and their scrims): fade in and drop 4px, 180ms; fade out, 120ms, with
+  `@starting-style` and `transition-behavior: allow-discrete` for the popovers. A browser without them
+  shows and hides them at once. **Large overlays, the sheet, the toast and the tab bar** keep what they
+  do.
+- **Inline disclosures** ("Why this match", "How the fit is worked out", Read more, the guides' and
+  Explore's questions, requirement groups): the content fades in over 180ms and the chevron turns in
+  180ms; nothing slides open; closing is instant.
+- **Reduced motion:** one rule for the new design, in place of today's global `0.01ms` and the six
+  components' overrides: no scale, translate or rotate transitions; opacity and colour transitions keep
+  their times. Presses keep their fill.
+- **Explore:** while a filter change loads, after 300ms, the count reads "Updating…"; the rows stay at
+  full strength.
+- **The theme switch** changes every colour at once: transitions are off for the frame it applies.
+- **Loading** stays still skeletons, and content replaces them without a fade. Jumps to a section
+  stay instant.
+- **No view transitions:** the list-to-program morph and the tab switches leave the system (D1.3,
+  `04-design-system.md` §3).
+- **Decorative motion, for 6.1 only:** one entrance on Home's hero, a fade and an 8px rise over
+  480ms, once per page load, and none with reduced motion. Nothing is built for it here.
+- **Budget:** CSS under 1 KB more, gzipped; JS only the link-status component. Today's unused motion
+  tokens (`--duration-*`, `--ease-spring`, `.hover-lift`, the shimmer keyframes) belong to today's
+  design and go at R.2.
+
+**Built (20 October 2026, session 19).** One pull request, every row the board marks Change:
+- **Shared classes** in `app/globals.css`, under "Motion and feedback": `press` (98%), `press-sm`
+  (96%) and `press-lg` (99%), each with the component's own darker fill through the `pressed:`
+  variant (a press, or a link whose page is loading); `link-pressed:` and `link-hover:` for a card
+  or row whose name's link (`data-stretched-link`) covers it; `overlay-sm` for menus, popovers,
+  the account and Menu panels, Save and exit's question and the scrims; `disclose` for an inline
+  disclosure's 180ms fade. Each component uses them instead of its own transition and scale.
+- **Reduced motion:** one rule for the new design limits every transition to opacity and colour,
+  so the six components' overrides went; today's design keeps its global `0.01ms` rule.
+- **The held press** is `components/ds/LinkPending.tsx`, inside the links of client components
+  only: Matches cards, Explore and Shortlist rows, the compare table's names, "Open the program
+  page", the tab bar, and every `CurrentLink` (the nav, Menu, the account panel, the footer). A
+  server page that imports it would add it to that page's download in today's design too (measured:
+  +86 B gzipped on Home, +65 B on a guide), so `ButtonLink`, `CardLink` and
+  the university page's program names press but don't hold yet. R.2 adds it to them.
+- **Not on the board's table, left as built:** the "Missing a requirement" bar on Matches, whose
+  chevron still turns in 240ms and whose cards appear without a fade; the "On this page"
+  disclosures on the guides and legal pages; the Menu and account panels' rows, which change
+  fill without shrinking. Each is a one-line change if the owner wants the rule on them.
 
 ---
 
@@ -2461,20 +3066,38 @@ behind the preview switch, like every session before release.
 
 **Outcome:** Everyone sees the new design, in one deploy.
 
+**Run release day from [`RELEASE_RUNBOOK.md`](RELEASE_RUNBOOK.md), Stage 3 (31 October 2026).** Its order replaces
+the steps below: the variable is set first and #127's merge is the deploy, the legal documents and the second
+deploy follow the checks. This section stays as background.
+
+**Before step 1:** SEC-1, SEC-2, SEC-3 and SEC-11 in `docs/tasks/SEC_tasks.md` are merged, and the
+owner runs SEC-4's checklist alongside steps 4 and 5 (added 27 October 2026, security audit).
+
 **Steps:**
-1. Confirm the final logo. If it is a new mark, the clearance search must be back.
+1. The final logo is Lens (confirmed 21 October 2026, owner); its clearance search must be back.
 2. Confirm the owner has the Search Console baseline (owner decisions).
-3. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
-   rebuilds the static pages in the new design, and emails switch too.
-4. Check every page logged out and logged in, light and dark, on a phone and on Windows.
-5. Run the home page, one guide and one program page through Google's Rich Results Test: the same
+3. Merge every open pull request labelled `go-live`, updated with `main` and each with its own
+   checklist done. So far: #127, three FAQ answers in the new design's words (D4.14). They change
+   words both designs share, so they merge on this day and no earlier.
+4. Set `NEW_UI_FOR_EVERYONE=true` in Vercel's **Production** environment, then redeploy. The redeploy
+   rebuilds the static pages in the new design, and the emails switch too (1.3, 4.7), as does the bare page for a
+   failed root layout (`app/global-error.tsx` reads the flag at build time). `npm run build` now
+   lists `/privacy`, `/terms` and `/cookies` as Static, with a one-hour revalidate (4.3).
+5. Check every page logged out and logged in, light and dark, on a phone and on Windows.
+   Open `/admin/seasonal-themes` (6.1): a season scheduled across release day shows to everyone from
+   this redeploy, so check its slots with the rest, or switch it off.
+6. Run the home page, one guide and one program page through Google's Rich Results Test: the same
    items as before release, plus the breadcrumbs.
 
-**Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not.
+**Rollback:** set the variable to `false` and redeploy. Every page goes back, static or not. Revert the
+`go-live` pull requests too.
 
 ### R.2 — Cleanup
 
 **Outcome:** One design in the code.
+
+**Run cleanup from [`RELEASE_RUNBOOK.md`](RELEASE_RUNBOOK.md), Stage 5 (31 October 2026).** It splits this into three
+pull requests and lists what the steps below leave out, such as the old API routes.
 
 **Steps:** after about two stable weeks, once Search Console shows no fall in indexed pages or clicks
 against the baseline:
@@ -2482,11 +3105,658 @@ against the baseline:
   onboarding components, `StudentHeader`, `MobileBottomNav`, the old country pages: the 23
   `<Country>Content.tsx` files and the test in `lib/guides/guides.test.ts` that compares them with
   each `guide.ts`, keeping its checks of the data);
-- delete the switch, the preview routes and bar, both variables and the old logo files;
+- delete the switch, the preview routes and bar, both variables and the old logo files, and
+  `NEW_UI_RELEASED` in `next.config.ts` (4.3);
+- from 4.3: `NoAISection.tsx` and `Geist_Mono` in `app/layout.tsx`; the unused `AuthErrorBoundary`;
+  the `throw` that sends today's errors to Next's own page (`components/site/root-error.tsx`,
+  `layout-error.tsx`, `components/sign-in/auth-error.tsx`); the old branch of `signInDestination`;
+  the islands modules, once the pages import their cards; and `TODAYS_DESIGN` in
+  `eslint/raw-palette.mjs`, with the files it lists;
+- from 4.7, today's emails (added 20 October 2026, owner):
+  - the seven old templates in `components/email/legacy/`;
+  - in each builder in `emails/`, the `if (!emailBrand().newUi)` branch with its old subject and,
+    in the two sign-in builders, the old hand-written plain text;
+  - `emailBrand()` (`lib/brand/email.ts` and its test): the builders and `EmailHeader` read `brand`
+    straight from `lib/brand/config.ts`; `EmailHeader` loses its centred 60px logo, and
+    `legacyBrand.emailLogo` and `public/logo-email.png` go with the old logo files;
+  - in the student reminder (`app/api/coordinator/students/invite/resend/route.ts`), the
+    `emailBrand().newUi &&` before its read: the read stays, for every reminder;
+  - `userName` on the ticket and "Account deleted" builders and their senders: only today's
+    "Hello {name}," uses it. The "Account deleted" builder keeps `deletedBy`, since both versions
+    stay;
+  - in the tests: `lib/email/__fixtures__/legacy/` and its line in `.prettierignore`, the "until
+    release day" block of `lib/email/emails.test.tsx`, the today's-design cases in
+    `lib/auth/sign-in-link.test.ts` and the resend route's test, and every `NEW_UI_FOR_EVERYONE`
+    stub left in them. The new design's checks stay, without the stub;
+  - the "today's design" words in `components/email/message.tsx` and the `emails/` headers;
+- from 5.2: put `LinkPending` in `ButtonLink`, `CardLink` and the university page's program names,
+  so they hold their press too; delete today's reduced-motion rule in `app/globals.css` (the
+  `:root:not([data-ui='next'])` block) and today's motion tokens (`--duration-*`, `--ease-out`,
+  `--ease-in-out`, `--ease-spring`, `.hover-lift`, `.hover-scale`, the shimmer), once nothing uses them;
 - move the scoped tokens to `:root`, and turn on Newsreader's preload (1.1);
 - re-run the full verification and the budget check. **CSS must be back to 32 KB or less**
   (gzipped, every stylesheet `/` loads): the 36 KB allowed while both designs shipped ends here
   (Definition of done 8). If it is still over, find what kept it there before R.2 is done.
+
+---
+
+## Phase 6 — Seasonal themes
+
+### 6.1 — Seasonal themes: the slots, the schedule and the first season
+
+**Outcome:** For a few days around a holiday, four fixed places in the design wear that holiday's
+decoration. An admin page turns each season on or off and sets its dates, with no code change and no
+deploy. Outside a season every page renders as before. Added 20 October 2026 (owner).
+
+**Why it is this small** (research, 20 October 2026). The students are making a decision that
+matters, often under deadline, so decoration stays where people arrive and browse, and away from where
+they work or are asked to trust the site. A falling-snow layer was considered and left out: it is an
+infinite animation (Definition of done 5), WCAG 2.2.2 (Pause, Stop, Hide) would then require a pause
+control, it drains phone batteries, and it sits over the content.
+
+**When:** before release day (R.1), behind the preview switch, so the owner tests it in the preview
+first (owner, 21 October 2026; first planned for after release). It touches only the new design's
+files and the admin area, so it never delays release: if it is not merged by then, release goes ahead
+without it. Until release only the preview shows a season; from release day, whatever is scheduled
+shows to everyone. The first season is winter (owner, 21 October 2026), if this is merged by
+1 December 2026. Otherwise Lunar New Year goes first.
+
+**Design gate:** D1.7, approved ([Step 2](#step-2--design-first)), and D1.6's rule for decorative motion.
+
+**Must-haves:**
+
+- **Four slots, and nowhere else:**
+  - beside the mark in the header, public and signed in, desktop and phone. The mark and the name never
+    change, since the mark still waits on its clearance search (R.1);
+  - Home's hero, hanging from the lime bar under "match" (`app/NewHomePage.tsx`); the word gets a span
+    of its own, with no visible change;
+  - the lime band that ends Home and every guide (`components/home/LimeBand.tsx`), and only those: For
+    schools, How it works, the requirements hub and Support us keep a plain band;
+  - the 404 (`components/site/NotFoundPage.tsx`).
+
+  Each slot is an empty `aria-hidden` element placed absolutely inside a box that already exists, so
+  it never moves the layout (CLS stays 0) and never takes a tap (`pointer-events: none`). It never
+  covers text or a control, at 320px, 390px or 1440px.
+- **The header's accessory stays off the quiet pages:** sign-in, the invitations, Academic, Settings,
+  the legal pages and the error page carry a mark, as first run does for focus mode, and the slot
+  hides there. First run's focus header has no slot.
+- **Never touched:** match cards, Explore and Shortlist rows, status badges and requirement chips
+  (their colours carry meaning), forms, first run and its focus mode, the subject editor, Academic,
+  Settings, sign-in and invitations (a sign-in page that suddenly looks different invites doubt), the
+  legal pages, the cookie and policy panels, toasts, dialogs, the error page, emails, the favicon and
+  the share image, the tab bar, and the coordinator and admin areas. No token changes, so the contrast
+  that `app/globals.test.ts` checks stays.
+- **Decoration only, no words.** No greeting, so there is nothing to translate or to word for every
+  faith, and nothing for SEO parity (Definition of done 12) to explain. The art is drawn from Lucide
+  icons, already a dependency (`snowflake`, `sparkles`, `moon-star`, `lamp`, `ghost` and others), and
+  the design's tokens, in light and dark. It is hidden in forced colours and in print.
+- **Motion** follows D1.6's rule for decorative motion: at most one entrance on Home's hero, transform
+  and opacity, under 5 seconds and never repeated, and nothing with reduced motion. Everything else
+  stays still.
+- **The schedule is data; the art is code.**
+  - A `SeasonalTheme` table, added in one migration applied with `prisma migrate deploy`. It has `key`
+    (unique, naming a season built in code), `enabled`, `startsOn` and `endsOn` (dates, both inclusive)
+    and `updatedAt`. There is no free text and no upload, so nothing an admin types reaches a page.
+  - `/admin/seasonal-themes` uses today's admin style, since staff areas keep today's design (4.5). It
+    saves through a route under `app/api/admin/`, as the other admin pages do, and only the admin role
+    can use it. It lists every season built in code with its switch, its dates and a Preview link, plus
+    one "All seasonal decorations off" switch for a day when decoration would be wrong. It refuses a
+    window longer than 21 days, an end before the start, and two seasons that overlap.
+  - Saving calls `revalidateTag('seasonal-themes', { expire: 0 })`, as
+    `app/api/admin/cache/invalidate` does. Each prebuilt page then renders again on its next visit,
+    with the new schedule.
+- **The browser picks the season, so static pages stay static.**
+  - The root layout reads the schedule through `unstable_cache`, tagged `seasonal-themes`, with no time
+    limit, as `lib/reference-data.ts` does. It reads only for the new design, uses `select`, and skips
+    seasons that are over.
+  - It writes the schedule into a small inline head script, next to `THEME_SCRIPT`. Before first paint
+    the script compares it with the visitor's local date and sets `data-season` on `<html>`.
+  - A season therefore starts and ends on time in the visitor's own time zone, without any page
+    rendering again. Pages render again only when the admin changes the schedule.
+  - A failed read means no season. It never fails a page or the build.
+  - This is the feature's one new read (Definition of done 7, raised with the owner on 20 October
+    2026). It is one small query each time the cache fills, which is after a save or when the cache is
+    cleared, never per visit. Redis and search are not read.
+- **Nothing is downloaded outside a season.** Each season's styles are a stylesheet of their own in
+  `public/seasons/`, next to its SVGs. The head script adds that stylesheet only while the season is on.
+  The site's stylesheet gains only the slot rules, under 0.3 KB gzipped. No JavaScript bundle grows,
+  and the head script stays under 600 bytes.
+- **Preview any season on any day** with `?season={key}` on any page. Only the head script reads it, in
+  the browser, so pages stay static. It works before a season is scheduled, and in design QA.
+- Vitest covers the helper that picks the season and the admin route's checks, with `@/lib/prisma`
+  mocked. Cases for the helper: an inclusive end, overlaps, the visitor's midnight, an empty or broken
+  schedule, the preview parameter, and everything switched off.
+
+**Decided on the board (D1.7, every recommendation approved 25 October 2026; canvas row 26):**
+
+- **Seasons:** winter, Lunar New Year, Eid al-Fitr and Diwali, with the windows in 6.2. Halloween is
+  left out: it falls on the eve of US Early Decision, and in 2027 Diwali (29 October) lands in its
+  window.
+- **Winter** is a string of small bulbs and four-point sparkles (Lucide `sparkle`; the bulbs and their
+  wire are circles and a curve), in ultramarine and lime in light, lime and #8E9BFF in dark. No
+  snowflake (December is summer in Australia), no tree, no gift, no religious symbol.
+- **Beside the mark:** a pair of sparkles, 15px and 9px, in a 20 × 20 box inside the logo's link, 8px
+  after the name, its top 9px into the 44px link. Never on the mark. Hidden from 768 to 1023px signed
+  in, where the header hides the name. At 320px signed in (measured with Geist) the name ends at 121px
+  and Guides' box starts at 161px, so the pair (129–149px) leaves 12px; signed out has 73px.
+- **Home's hero:** five bulbs hang from the lime bar's lower edge, as wide as "match" and 0.33em deep
+  (about 156 × 19 on desktop, 111 × 13 on a phone), 11px above the paragraph at every width. Never
+  wider than the word, so never off the page (sparkles after the word would stick out between about
+  928px and 992px). They get D1.6's one entrance: a fade and an 8px rise over 480ms on the standard
+  curve, once per page load, none with reduced motion. Every other slot is still.
+- **The lime band:** a string of six bulbs in the band's top padding, its right end on the content's
+  edge: 220 × 40, 16px from the top, from 768px; 150 × 27, 8px from the top, below. Ultramarine and
+  white bulbs on an ink wire in both themes, since the band is lime in both. 13px above the heading
+  on a phone; 24px or more from the buttons on desktop.
+- **The 404:** from 1280px, a 440 × 200 drawing (a longer string with sparkles under it) right of the
+  words, 56px from the top, 112px clear of them at 1440px. Below 1280px, the band's small string in the
+  top padding (220 × 40 from 768px, 150 × 27 below), 17px above the heading on a phone.
+- **Files:** each slot has a light and a dark drawing; the season's stylesheet points at the one for
+  the theme in use, following the Appearance setting, so the browser fetches only that one, and only
+  in season.
+
+**Built (25 October 2026, session 23).** One pull request:
+- **Data:** `SeasonalTheme` (`key` as the id, `enabled`, `startsOn`, `endsOn`, `updatedAt`; dates
+  nullable, so a season can be off without dates), migration `20261025120000_add_seasonal_theme`,
+  applied with `prisma migrate deploy`. The "All seasonal decorations off" switch is one more row,
+  key `all-off`, with no dates.
+- **Code:** `lib/seasons/` holds the seasons built in code (`seasons.ts`, today only `winter`), the
+  admin checks (`rules.ts`), the helper that picks the season and the head script it must agree
+  with (`pick.ts`; a test runs the script against the helper), and the root layout's cached read
+  (`schedule.ts`). The slots are `components/site/SeasonSlot.tsx`, placed in `SiteLogo` (the public
+  and signed-in headers only), `app/NewHomePage.tsx`, `LimeBand` (`season`, on Home and the guides)
+  and `NotFoundPage`; their geometry, the hero's entrance and the hiding rules are in
+  `app/globals.css`. Quiet pages carry `data-quiet`: Academic, Settings, School invitations, the
+  legal pages and the error page; sign-in and the invitation pages under `/auth` have no header slot.
+- **Admin:** `/admin/seasonal-themes` (today's admin style, in the sidebar) saves through `PUT
+  /api/admin/seasonal-themes`, which checks the role and the rules, writes every row in one
+  transaction and calls `revalidateTag('seasonal-themes', { expire: 0 })`.
+- **Winter:** `public/seasons/winter/season.css` and nine drawings (a light and a dark per slot, the
+  404's small and large, and one band drawing, which is lime in both themes).
+- **Measured:** the same Static pages and revalidate times; without the preview the prebuilt HTML of
+  `/`, a guide and the 404 is the same as on `main`, and every page's JS too; the site's CSS +259 B
+  gzipped (34.6 of the 36 KB allowed). The head script is 475 bytes, 511 with winter scheduled. In
+  season, Home downloads the stylesheet and three drawings, 1.6 KB gzipped. Draft Mode skips the
+  cache, so the preview reads the schedule on each of the owner's views; nobody else's do.
+- **Left as built:** the hero's entrance plays again when a student comes back to Home through a link
+  in the site, since that is a new page. The drawings are fetched once the season's stylesheet has
+  arrived, so on a first visit the bulbs may be partway through their fade when they appear.
+
+**Reviewed in the preview (owner, 25 October 2026): winter's art is not kept.** Seen on production
+through the preview link with `?season=winter`, after #162 merged:
+- The pair of sparkles beside the name reads as the AI sign, or a compass, and not as Christmas or
+  winter. Lucide's `sparkle` is the mark most products put on their AI features.
+- On How it works, For schools and the requirements hub the pair is the only decoration on the page,
+  which looks stranger still: their band stays plain (D1.7), so nothing else says it is a season.
+- Winter is to be plainly Christmas. Lunar New Year, Eid al-Fitr and Diwali are each explicit to
+  their own communities, so Christmas can be too; the generic "lights and stars, no religious
+  symbol" was a caution the list of seasons no longer needs.
+- **A decoration on a shared component shows wherever that component does** (owner rule): the band's
+  decoration goes on all six pages with the band, not on Home and the guides alone.
+
+The slots, the schedule, the admin page and the other three seasons stand. Winter is not scheduled
+until 6.3 replaces its art.
+
+**What went wrong:**
+1. **The board never drew a whole page.** Each slot was drawn on its own, cropped, some at twice real
+   size. The pages where only the header's slot shows (How it works, For schools, the hub, Explore,
+   Matches, the program pages) were never drawn, so the approval covered a state nobody had seen.
+2. **The motif was chosen by what to avoid**, no snowflake, tree, gift or religious symbol, rather
+   than by whether anyone would recognise it. Nothing checked that the smallest drawing named the
+   holiday on its own, and the 20px pair, the one drawing on every page, said the least.
+3. **The icon's existing meaning was not checked.** Sparkles mean AI in today's interfaces.
+4. **The first look at real size came after the merge.** The board was approved in chat with every
+   recommendation, and the build followed it.
+5. **The build's QA repeated the board's blind spot:** it showed each slot cropped beside the board's
+   measurements, not whole pages, so it confirmed sizes and missed how the pages read.
+
+**What changes, for D1.7 Season · Christmas and every season board after it (6.2):**
+- **Whole pages at real size**, 1440px and 390px, for every page type a slot reaches, including the
+  pages where only the header's slot shows. A slot that looks wrong alone on a page either reads on
+  its own or comes off.
+- **A recognition check:** each drawing at real size, alone and without a caption, names its holiday.
+  A shape that already means something in interfaces (sparkles: AI; a star: favourite; a bell:
+  notifications; a compass) is not used on its own.
+- **Approved in the preview, not on the canvas.** The slots and the schedule exist now, so a season is
+  a stylesheet and its drawings. The owner picks a direction on the board; the build puts it on a pull
+  request, and the owner approves it in that pull request's Vercel preview with `?season={key}` before
+  it merges.
+- **The build's QA shows whole pages,** every page type with a slot, not crops.
+
+**Verify:**
+
+- `npm run build` lists the same pages as Static, with the same revalidate times.
+- Without the preview, the HTML of `/`, a guide and Matches is the same as on `main`: today's design
+  reads no schedule and writes no script.
+- In the preview, with no season on:
+  - against `main`, the HTML of `/`, a guide and Matches differs only by the head script;
+  - the gzipped CSS differs only by the slot rules, and the JS does not change;
+  - nothing in `public/seasons/` is downloaded.
+- With `?season=` set to the first season:
+  - check every slot at 320px, 390px and 1440px, in light, dark, forced colours (hidden) and reduced
+    motion;
+  - CLS stays 0, and nothing covers a link or a button;
+  - Lighthouse reports the same LCP element as before.
+- On production, through the preview link (before release, only the preview shows a season):
+  1. Schedule a test window that includes today.
+  2. Open Home and a guide; each shows the season by its second visit at the latest.
+  3. Switch everything off and check that the season is gone.
+
+### 6.2 — Each further season
+
+**Outcome:** One more season that the admin can schedule every year. Each one adds a board, one
+stylesheet with its SVGs, and a key in the code's list of seasons. The stylesheet asks for each SVG
+with `?v=` and the start of its SHA-256, as `lib/seasons/art.test.ts` checks, since drawings are
+cached for a year. The slots, the admin page and the schedule stay as 6.1 built them.
+
+**Design gate:** that season's board, "D1.7 Season · {name}": a direction chosen on the board, then
+approved in the build's Vercel preview before it merges. Every season board follows 6.1's "What
+changes": whole pages at real size for every page type a slot reaches, the recognition check, and a
+decoration on a shared component on every page that has the component.
+
+**The seasons, decided on D1.7** (owner, 25 October 2026). The list is short and balanced across
+traditions. A site for IB students in many countries shows either a fair set of holidays or none,
+never one faith's holidays alone. Each season is plainly its own holiday (owner, 25 October 2026,
+after seeing winter in the preview): Lunar New Year, Eid al-Fitr and Diwali are each explicit to their
+communities, and so is Christmas. The dates were checked on 25 October 2026 and must be checked each
+year: three of these seasons follow lunar calendars, so the admin enters their dates each year.
+
+| Season | Key | Next date | Window | Notes |
+|---|---|---|---|---|
+| Christmas and New Year | `winter` | Christmas, 1 January 2027 | 14 December to 1 January (19 days) | The widest reach, so the first season. Drawn on D1.7 as generic lights and stars; **redrawn as plainly Christmas in 6.3** (owner, 25 October 2026), snow allowed: a decorated tree, chosen on "D1.7 Season · Christmas" on 26 October 2026. The key stays `winter`, so the table and the schedule don't change |
+| Lunar New Year | `lunar-new-year` | 6 February 2027 | 3 to 12 February 2027 (10 days) | Large IB communities in East and Southeast Asia. Hong Kong and Singapore have guides. First, if winter misses 1 December 2026. Drawn on "D1.7 Season · Lunar New Year" (row 28): **red lanterns, chosen 26 October 2026** (owner); 6.4 |
+| Eid al-Fitr | `eid-al-fitr` | 9 or 10 March 2027, set by the moon sighting | 9 to 12 March 2027 (4 days), scheduled ahead: it covers the first three days from either start, so nobody changes the schedule the night before (owner, 28 October 2026) | Large IB communities in the Gulf and Türkiye. Drawn on "D1.7 Season · Eid al-Fitr" (row 31): **a crescent and lanterns, chosen 28 October 2026** (owner); 6.5 |
+| Diwali | `diwali` | 29 October 2027 (8 November 2026 is too soon: a season shows to everyone only after R.1) | 27 to 31 October 2027 (5 days, Dhanteras to Bhai Dooj; checked 30 October 2026) | A large IB community in India. Drawn on "D1.7 Season · Diwali" (row 32): **diyas and marigolds, chosen 30 October 2026** (owner); 6.6 |
+
+**Halloween is not a season** (D1.7): it falls on the eve of US Early Decision (1 November), when
+students are under the most pressure, and in 2027 its window would overlap Diwali.
+
+**No season during the IB's May exams** (about 23 April to 19 May 2027). No season runs around results
+days either (early July and early January): those days are for a message students can use, not
+decoration. Eid al-Adha is not a season for that reason: in 2027 it falls inside the May exams (about
+16 May). **The November session is allowed** (board "D1.7 Season · Diwali", 30 October 2026): it is
+the smaller one, and Diwali, which cannot move, falls inside it (23 October to 13 November in 2026).
+Diwali's window also ends on the eve of US Early Decision, the reason Halloween is left out; it stays
+for the five days, since the slots keep away from the pages where students work.
+
+
+### 6.3 — Christmas: winter redrawn
+
+**Outcome:** In winter's window the site plainly says Christmas and New Year, alike on every landing
+page. Added 25 October 2026 (owner), after the review in the preview (6.1).
+
+**When:** before 14 December 2026, when winter's window opens. If it isn't merged by 10 December,
+winter stays off this year (the admin doesn't schedule it) and Lunar New Year goes first. Release day
+never waits for it.
+
+**Design gate:** "D1.7 Season · Christmas" ([Step 2](#step-2--design-first)): a direction chosen on
+the board, then approved in this build's Vercel preview with `?season=winter`, before it merges.
+
+**Must-haves:**
+- Winter's stylesheet and drawings in `public/seasons/winter/` replaced by the approved ones. The key
+  stays `winter`, so the table, the admin page and the schedule don't change; its name in
+  `lib/seasons/seasons.ts` becomes "Christmas and New Year".
+- The band's slot on every page with the lime band: Home, the 23 guides, How it works, For schools,
+  the requirements hub and Support us.
+- A change to the slots themselves (a new place, a slot dropped, a new size) only as the board draws
+  it, and still empty, absolutely placed, untappable, CLS 0, and hidden in forced colours and print.
+- Everything else in 6.1 holds: no words; no falling snow or other infinite animation (WCAG 2.2.2),
+  so the hero's one entrance stays the only motion; nothing downloaded outside a season; the mark
+  never changes while its clearance search is open.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them.
+
+**Decided on the board ("D1.7 Season · Christmas", canvas row 27; direction A, the tree, chosen by the
+owner on 26 October 2026).** The drawings are in `D17SeasonChristmas.dc.html`'s files on the canvas
+(`project/xmas/a/`); the build copies them, then the owner judges them in the preview.
+
+- **The header:** a decorated tree, a star on top and four baubles, in winter's 20 × 20 slot after
+  the name (top 9px in the 44px link, 8px after the name), never on the mark. Hidden as before from
+  768 to 1023px signed in and on the quiet pages. At 320px signed in it takes 129 to 149px, 12px
+  clear of Guides. It passes the recognition check alone, so it is fine as the only decoration on
+  Explore, Matches, Shortlist and the program and university pages.
+- **Home's hero:** five baubles with caps and hooks on threads from the lime bar under "match", in
+  winter's slot (the word's width, 0.33em deep, 11px above the paragraph), in berry red, ultramarine
+  and pine, the dark shades in dark, and D1.6's one entrance. Nothing may stand
+  after the word: at 600px it ends 1px from the column's edge, and at 844px 3px from it (measured at
+  every width from 320 to 1440px). On a phone the baubles are 7px and read beside the header's tree.
+- **The lime band, on all six pages with it** (Home, the 23 guides, How it works, For schools, the
+  requirements hub and Support us' Ko-fi band): three decorated trees and two gifts at the slot's
+  right end, one drawing, as the band is lime in both themes. LimeBand always renders its slot, and
+  `season` goes. **The slot grows from 768px to 330 × 60**, 12px from the top, its right end on the
+  content's edge, 8px above the heading's line; below 768px it stays 150 × 27, 8px from the top. The
+  same drawing serves both sizes (drawn at 220 × 40, shown 1.5×).
+- **The 404:** from 1280px, a decorated tree with a garland, two gifts and one bauble rolled away on
+  the floor, in the 440 × 200 slot. Below 1280px, the band's trees on paper, at the band's new sizes.
+- **Colours:** a pine green and a berry red, each with a light and a dark shade (light #1F6E43 and
+  #C62B3B; dark #4FB27A and #FF6B74; on the band, the light ones), beside ultramarine and lime, used
+  only in the season's drawings: never for text and never as tokens, so `app/globals.test.ts` is
+  untouched. The trunk is #7B4B2A (dark #A8774F).
+- **Not used:** sparkles, a star or a gift on its own, a bell, snowflakes drawn as six strokes, any
+  figure, any nativity scene. No words; nothing moves but the hero's entrance.
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` replace winter's in
+  `public/seasons/winter/`; `season.css` keeps its shape. In season, gzipped: Home about 2.5 KB
+  (winter 1.6), a guide or a text page 2.0, a page with only the header 1.0, the 404 at 1440px 1.9.
+  The site's stylesheet changes only by the band's new size.
+
+**Built (26 October 2026, session 26).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=winter` before it merges:
+- **Art:** the nine drawings from the board's `project/xmas/a/` replace winter's in
+  `public/seasons/winter/`, byte for byte; `season.css` keeps its shape, with a new header comment.
+  The season's name in `lib/seasons/seasons.ts` is "Christmas and New Year"; the key stays `winter`.
+- **Slots:** `LimeBand` always renders its slot and the `season` prop is gone, so the band's drawing
+  shows on all six pages with the band. In `app/globals.css` the band's slot, and the 404's below
+  1280px, are 330 × 60 at 12px from the top from 768px (220 × 40 at 16px before); nothing else
+  moved.
+- **Measured** (`next dev` with the new design, headless Chrome): every slot's box is the board's
+  (header 215, 19 at 1440px and 129, 15 at 390px; band 330 × 60 at 1010 from 768px; 404 900, 121); the
+  band 8px above its heading at 768px and 13px on a phone; the tree 12px clear of Guides at 320px
+  signed in; hidden in forced colours, signed in at 900px and on Settings; the hero still with
+  reduced motion. `npm run build` lists the same 38 Static pages as `main`; without the preview the
+  prebuilt HTML of `/`, a guide, the 404, How it works and Support us is the same as `main`'s once
+  build ids are normalised. The site's CSS +1 B gzipped (34.6 of 36 KB); the only JS change is the
+  admin chunk's season name. In season, gzipped: Home 2.6 KB, a guide or text page 2.0, header only
+  1.1, the 404 at 1440px 2.0.
+- **QA:** whole pages, every page type with a slot, 1440px and 390px, light and dark:
+  https://claude.ai/artifact/2s2gfx6ZC4mz83UCadvH49 (private to the owner).
+- **After the merge (26 October 2026):** the preview still showed winter's art. `next.config.ts`
+  serves every `.svg` for a year as immutable, and the tree kept winter's file names, so a browser
+  that had seen winter kept its drawings (`season.css` itself is revalidated, so it arrived). Each
+  season's stylesheet now asks for every drawing with `?v=` and the first 8 hex digits of its
+  SHA-256, and `lib/seasons/art.test.ts` fails when a drawing changes without its version. A
+  redraw in a later season does the same.
+
+### 6.4 — Lunar New Year
+
+**Outcome:** For ten days around Lunar New Year the site plainly says so, alike on every landing
+page. The second season after Christmas, and the first one 6.2 adds as a new key.
+
+**When:** before 3 February 2027, when the window opens (the new year falls on 6 February). Merge by
+27 January 2027, so there is a week to schedule it and look at it in the preview. Release day never
+waits for it.
+
+**Design gate:** "D1.7 Season · Lunar New Year" ([Step 2](#step-2--design-first)): a direction chosen
+on the board, then approved in this build's Vercel preview with `?season=lunar-new-year`, before it
+merges.
+
+**Must-haves:**
+- A new season in code: `public/seasons/lunar-new-year/` with `season.css` and the nine drawings, and
+  a line in `SEASONS` in `lib/seasons/seasons.ts`: key `lunar-new-year`, name "Lunar New Year" (never
+  "Chinese New Year"). Its usual window changes every year, since the festival follows the lunar
+  calendar; the admin enters the dates each year (6.2).
+- `season.css` has winter's shape, under `[data-season='lunar-new-year']`, and asks for every drawing
+  with `?v=` and the first 8 hex digits of its SHA-256, which `lib/seasons/art.test.ts` checks.
+- No slot changes: every drawing fits the slots as build 26 left them, so `app/globals.css` and the
+  components are untouched.
+- Everything else in 6.1 holds: no words; nothing moves but the hero's one entrance; nothing
+  downloaded outside the season; the mark never changes; hidden in forced colours and print.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them, including the Hong Kong and Singapore guides.
+
+**Decided on the board ("D1.7 Season · Lunar New Year", canvas row 28; direction A, lanterns, chosen
+by the owner on 26 October 2026).** The drawings are in the board's files on the canvas
+(`project/lny/a/`) and on its standalone page,
+https://claude.ai/artifact/HPYaCCUnSRRz16vEaU4ZZX (private to the owner, `lny/a/`). The build copies
+them, then the owner judges them in the preview.
+
+- **The header:** one round red lantern with gold caps, ribs and a tassel, on a short cord from the
+  top of the 20 × 20 slot after the name, never on the mark. Hidden as before from 768 to 1023px
+  signed in and on the quiet pages; at 320px signed in it takes 129 to 149px, 12px clear of Guides.
+  It passes the recognition check alone, so it is fine as the only decoration on Explore, Matches,
+  Shortlist and the program and university pages.
+- **Home's hero:** five lanterns on cords of different lengths from the lime bar under "match", the
+  middle one largest, in the hero's slot (the word's width, 0.33em deep, 11px above the paragraph),
+  with D1.6's one entrance. On a phone they are 7px wide and read beside the header's lantern, not
+  alone (weak on the check, as Christmas's baubles were).
+- **The lime band, on all six pages with it:** four lanterns on a sagging ink cord at the slot's
+  right end, one drawing, as the band is lime in both themes: 330 × 60 from 768px, 150 × 27 below.
+- **The 404:** from 1280px, a string of lanterns with one missing, its hook empty and its cord
+  snapped, and that lantern on its side on the floor, in the 440 × 200 slot. Below 1280px, the
+  band's lanterns on paper, at the band's sizes.
+- **Colours:** a lantern red and a gold, each with a light and a dark shade (light red #CF2A1D, ribs
+  #8C1A12, gold #E3A21A; dark red #FF6552, ribs #B5301F, gold #F4C04A; on the band, the light ones
+  with an ink cord and the tassels' gold edge #8A5A00), used only in the season's drawings: never
+  for text and never as tokens, so `app/globals.test.ts` is untouched. Cords are #858277 in light
+  and #9095A2 in dark, as Christmas's threads.
+- **Not used:** the year's animal (the goat in 2027; it changes every year), the character 福 or any
+  writing, a red envelope on its own (mail), gold coins or ingots (money), a dragon or lion dance,
+  fireworks bursts (they read as sparkles). Korea's Seollal has no red lanterns; the lantern is the
+  sign shared by the Chinese and Vietnamese new year and recognised internationally, and the name
+  stays "Lunar New Year".
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` in
+  `public/seasons/lunar-new-year/`. In season, gzipped: Home about 2.5 KB, a guide or a text page
+  1.8, a page with only the header 1.2, the 404 at 1440px 2.0 (Christmas as built: 2.6, 2.0, 1.1,
+  2.0).
+
+**Built (26 October 2026, session 27).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=lunar-new-year` before it merges:
+- **Art:** the nine drawings from the board's `lny/a/` in `public/seasons/lunar-new-year/`, byte for
+  byte, and `season.css` in winter's shape under `[data-season='lunar-new-year']`, each drawing asked
+  for with `?v=` and its SHA-256's first 8 hex digits. `SEASONS` gains `lunar-new-year`, "Lunar New
+  Year", with the usual window written as "three days before the new year to six days after (3 to 12
+  February in 2027)", which the admin page shows. The admin page lists it; its schedule needs no
+  migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  both seasons (the route refuses a body without every season built in code), the overlap check uses
+  the real second season, and the head script is checked against the helper for the new key.
+- **Measured** (`next dev` with the new design, headless Chrome): every slot's box and position is
+  build 26's (header 215, 19 at 1440px and 129, 15 at 390px; band 330 × 60 at 1010 from 768px; 404
+  440 × 200); the band 8px above its heading at 768px and 13px on a phone; the lantern 12px clear of
+  Guides at 320px signed in; hidden in forced colours, signed in at 900px and on the legal pages; the
+  hero still with reduced motion; CLS under 0.0001 on every public page. `npm run build` lists the
+  same Static pages and revalidate times; no prerendered HTML names the season, and the only JS
+  change is the admin chunk. The head script stays under 600 bytes with both seasons scheduled. In
+  season, gzipped: Home 2.4 KB, a guide or text page 1.8, header only 1.2, the 404 at 1440px 2.0
+  (Christmas, measured the same way: 2.7, 2.2, 1.3, 2.2).
+- **Left as drawn:** the band's two middle lanterns' tassels run 1.9 units past the drawing's
+  40-unit height, so their tips are cut by about 3px at 330 × 60, as on the board. The board's
+  notes name a gold edge #8A5A00 for the band's tassels; the chosen drawing has none.
+- **QA:** whole pages, every page type with a slot including the Hong Kong and Singapore guides,
+  1440px and 390px, light and dark: https://claude.ai/artifact/NFfNDjQtE5FKcig3UpSmiS (private to the
+  owner).
+
+### 6.5 — Eid al-Fitr
+
+**Outcome:** For the first days of Eid al-Fitr the site plainly says so, alike on every landing page.
+The third season after Christmas and Lunar New Year.
+
+**When:** before 9 March 2027, when the window opens. Merge by 1 March 2027, so there is a week to
+schedule it and look at it in the preview. Release day never waits for it.
+
+**Design gate:** "D1.7 Season · Eid al-Fitr" ([Step 2](#step-2--design-first)): a direction chosen on
+the board, then approved in this build's Vercel preview with `?season=eid-al-fitr`, before it merges.
+
+**Must-haves:**
+- A new season in code: `public/seasons/eid-al-fitr/` with `season.css` and the nine drawings, and a
+  line in `SEASONS` in `lib/seasons/seasons.ts`: key `eid-al-fitr`, name "Eid al-Fitr". The date
+  follows the moon, so the admin enters it each year (6.2); the usual window is the expected first
+  day and the three days after it, which covers the first three days of Eid if it starts a day late.
+- `season.css` has winter's shape, under `[data-season='eid-al-fitr']`, and asks for every drawing
+  with `?v=` and the first 8 hex digits of its SHA-256, which `lib/seasons/art.test.ts` checks.
+- No slot changes: every drawing fits the slots as build 26 left them, so `app/globals.css` and the
+  components are untouched.
+- Everything else in 6.1 holds: no words; nothing moves but the hero's one entrance; nothing
+  downloaded outside the season; the mark never changes; hidden in forced colours and print.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them, including the UK and USA guides.
+
+**Decided on the board ("D1.7 Season · Eid al-Fitr", canvas row 31; direction A, crescent and
+lanterns, chosen by the owner on 28 October 2026 with every recommendation).** The drawings are in the
+board's files on the canvas (`project/eid/a/`) and on its standalone page,
+https://claude.ai/artifact/H4skLCkeKepKQnVX3LvH4p (private to the owner, `eid/a/`). The build copies
+them, then the owner judges them in the preview.
+
+- **The header:** a gold crescent opening to the right, with a lit green lantern (a fanous: ring, dome,
+  six-sided body with a lit window, pointed base) hanging from its upper horn inside its curve, in the
+  20 × 20 slot after the name, never on the mark. Hidden as before from 768 to 1023px signed in and on
+  the quiet pages; at 320px signed in it takes 129 to 149px, 12px clear of Guides. It passes the
+  recognition check alone, so it is fine as the only decoration on Explore, Matches, Shortlist and the
+  program and university pages.
+- **The crescent never appears alone, and there is no star and crescent.** A crescent on its own is
+  the Dark button of the theme switch (Lucide's `moon`, in the footer and the account menu); a star
+  and crescent is the flag of Türkiye and of several other countries.
+- **Home's hero:** a lantern, a crescent, the largest lantern, a crescent and a lantern, on cords from
+  the lime bar under "match", in the hero's slot (the word's width, 0.33em deep, 11px above the
+  paragraph), with D1.6's one entrance. On a phone they are 7px wide and read beside the header's
+  drawing, not alone (weak on the check, as the earlier seasons' heroes were).
+- **The lime band, on all six pages with it:** a crescent and three lanterns hanging on ink cords from
+  the band's top edge at the slot's right end, one drawing, as the band is lime in both themes: 330 ×
+  60 from 768px, 150 × 27 below.
+- **The 404:** from 1280px, a sagging string of lanterns and crescents with one hook empty and its
+  cord snapped, and that lantern on its side on the floor, still lit, in the 440 × 200 slot. Below
+  1280px, the band's drawing on paper, at the band's sizes.
+- **Colours:** a gold and a green, each with a light and a dark shade (light gold #B98512, dark edge
+  #7E5A06, green #0E7A5A, lit window #F3D27A; dark gold #F2C14E, green #3CC795, window #FFE7A3; on the
+  band, gold #8A5F00 with the light green and window #F7E9A8, and ink cords), used only in the
+  season's drawings: never for text and never as tokens, so `app/globals.test.ts` is untouched. The
+  green is near the "Meets all requirements" green (`--ok`), so it only ever fills a lantern's body
+  inside a gold frame, never a dot, a bar or a chip. Cords are #858277 in light and #9095A2 in dark.
+- **Not used:** a mosque, a dome or a minaret; any figure, or hands raised in prayer; "Eid Mubarak" or
+  any other writing; the Kaaba and prayer beads; dates and sweets; a sheep (Eid al-Adha's sign).
+  Ramadan itself is not a season.
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` in
+  `public/seasons/eid-al-fitr/`. In season, gzipped: Home about 2.7 KB, a guide or a text page 2.0, a
+  page with only the header 1.3, the 404 at 1440px 2.2 (Lunar New Year's drawings, measured the same
+  way: 2.4, 1.7, 1.1, 1.9).
+
+**Built (30 October 2026, session 29).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=eid-al-fitr` before it merges:
+- **Art:** the nine drawings from the board's `eid/a/` in `public/seasons/eid-al-fitr/`, byte for byte
+  (each checked against the board's SHA-256), and `season.css` in winter's shape under
+  `[data-season='eid-al-fitr']`, each drawing asked for with `?v=` and its SHA-256's first 8 hex
+  digits. `SEASONS` gains `eid-al-fitr`, "Eid al-Fitr", with the usual window written as "the expected
+  first day and the three days after it (9 to 12 March in 2027)", which the admin page shows. The
+  admin page lists it; its schedule needs no migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  all three seasons, and the head script is checked against the helper for the new key.
+- **The head script (`lib/seasons/pick.ts`):** the third key took it to 629 bytes with every season
+  scheduled, over 6.1's 600, so it was written shorter with the same behaviour (arrow functions,
+  `includes`, `some`, one name for `document`; Next's browser targets all have them). It is 580 bytes
+  with all three scheduled and 457 with none. **Diwali's key will take it to about 626**, so that
+  build has to find 27 bytes more or ask the owner to raise the limit.
+- **Measured** (`next start` with the preview, headless Chrome): every slot's box and position is
+  build 27's; the band 8px above its heading at 768px and 13px on a phone; the drawing 129 to 149px
+  at 320px signed in, Guides from 162px; at 1440px signed in its ink ends 4.5px before the Matches
+  pill; hidden in forced colours, in print, signed in at 900px and on the legal pages; the hero still
+  with reduced motion; CLS 0 on every public page, and Matches' 0.046 is the same with no season.
+  Against a build of `main`, `npm run build` lists the same pages, Static pages and revalidate times;
+  no prerendered HTML names the season, and the only JS change is the admin chunk. Winter and Lunar
+  New Year still load. In season, gzipped: Home 2.7 KB, a guide or text page 2.0, header only 1.2, the
+  404 at 1440px 2.2, as the board said.
+- **Left as drawn:** the band's cords start 12px below its top edge (8px on a phone), where the slot
+  starts, although the notes above say they hang from the edge. The board placed the drawing in the
+  same box, and the slots don't change for a season. Below 1280px, the 404's cords hang from nothing
+  on paper, for the same reason.
+- **QA:** whole pages, every page type with a slot including the UK and USA guides, 1440px and 390px,
+  light and dark: https://claude.ai/artifact/4QYQuDgvo71PJ5xJzw2XRQ (private to the owner). Chrome on
+  macOS only; Safari, iOS and Windows are for the owner's look in the preview. The admin page was not
+  opened, since it needs an admin session: it lists seasons from `SEASONS`, and its route's tests pass.
+
+### 6.6 — Diwali
+
+**Outcome:** For the five days of Diwali the site plainly says so, alike on every landing page. The
+fourth season after Christmas, Lunar New Year and Eid al-Fitr.
+
+**When:** before 27 October 2027, when the window opens. Merge by 20 October 2027, so there is a week
+to schedule it and look at it in the preview. Release day never waits for it, and there is no hurry:
+8 November 2026 cannot be met, since before release day only the preview shows a season.
+
+**Design gate:** "D1.7 Season · Diwali" ([Step 2](#step-2--design-first)): a direction chosen on the
+board, then approved in this build's Vercel preview with `?season=diwali`, before it merges.
+
+**Must-haves:**
+- A new season in code: `public/seasons/diwali/` with `season.css` and the nine drawings, and a line
+  in `SEASONS` in `lib/seasons/seasons.ts`: key `diwali`, name "Diwali", which only the admin page
+  shows. The date follows the lunar calendar, so the admin enters it each year (6.2); the usual window
+  is the five days from Dhanteras to Bhai Dooj.
+- `season.css` has winter's shape, under `[data-season='diwali']`, and asks for every drawing with
+  `?v=` and the first 8 hex digits of its SHA-256, which `lib/seasons/art.test.ts` checks.
+- No slot changes: every drawing fits the slots as build 26 left them, so `app/globals.css` and the
+  components are untouched.
+- **The head script stays under 600 bytes, or the owner raises the limit.** The fourth key takes it
+  to about 626 with every season scheduled (6.5, Built), so it needs 27 bytes saved with the same
+  behaviour; the test that runs it against the helper must still pass.
+- Everything else in 6.1 holds: no words; nothing moves but the hero's one entrance; nothing
+  downloaded outside the season; the mark never changes; hidden in forced colours and print.
+- QA in whole pages, at 1440px and 390px, light and dark, for every page type with a slot, as the
+  pull request's Vercel preview shows them, including the UK and Singapore guides.
+
+**Decided on the board ("D1.7 Season · Diwali", canvas row 32; direction A, diyas and marigolds, chosen
+by the owner on 30 October 2026).** The drawings are in the board's files on the canvas
+(`project/diwali/a/`) and on its standalone page,
+https://claude.ai/artifact/C1i3C7zQVhpJYQJqKGvZLb (private to the owner, `diwali/a/`). The build
+copies them, then the owner judges them in the preview.
+
+- **The header:** one lit clay diya, 15.8px wide, against the left edge of the 20 × 20 slot after the
+  name, never on the mark. It is narrower than the slot because signed in at 1440px the Matches pill
+  starts exactly where the slot ends: this leaves about 4px. Hidden as before from 768 to 1023px
+  signed in and on the quiet pages; at 320px signed in it stays inside 129 to 149px, 12px clear of
+  Guides. It passes the recognition check alone, so it is fine as the only decoration on Explore,
+  Matches, Shortlist and the program and university pages.
+- **The flame never appears without its bowl.** A flame alone means a streak, or something "hot".
+- **Home's hero:** five lit diyas, the middle one largest, in the hero's slot (the word's width, 0.33em
+  deep, 11px above the paragraph), with D1.6's one entrance. They stand under the lime bar rather than
+  hang from it, since a diya is set down, never hung. On a phone each is about 12px wide and reads
+  without the header's help, unlike the three heroes before it.
+- **The lime band, on all six pages with it:** four lit diyas standing on a marigold garland laid
+  flat, at the slot's right end, one drawing, as the band is lime in both themes: 330 × 60 from 768px,
+  150 × 27 below.
+- **The 404:** from 1280px, a toran with one strand short, its thread loose and its marigold on the
+  floor under it, above four lit diyas, in the 440 × 200 slot. Below 1280px, the band's drawing on
+  paper, at the band's sizes. **Every lamp stays lit:** a lamp knocked over or gone out is the wrong
+  picture for the festival of lights, so what has gone astray is a flower.
+- **Colours:** a clay, a flame with a lighter core, a marigold and a mango-leaf green, each with a
+  light and a dark shade (light clay #A9481C, flame #EE8A06, core #FFD65C, marigold #E8820C, leaf
+  #2F7D4A; dark clay #D2703A, flame #FFA62B, core #FFE48F, marigold #FFA53A, leaf #4FB27A; on the band,
+  clay #8F3A14, flame #E25A00, marigold #E0650A), used only in the season's drawings: never for text and
+  never as tokens, so `app/globals.test.ts` is untouched. The orange is near the "Within reach" amber
+  (`--close`), so it only ever fills a flame or a flower, never a plain dot, a bar or a chip. Threads
+  are #858277 in light and #9095A2 in dark.
+- **Not used:** Lakshmi, Ganesh, Rama or any other figure, and Lakshmi's footprints; the Om; the
+  swastika, a holy sign in Hinduism and Jainism that reads as a hate symbol to much of the world;
+  "Happy Diwali" or any other writing; fireworks and sparklers (sparkles mean AI, and firecrackers are
+  restricted in parts of India); the akash kandil, a third lantern after Lunar New Year and Eid, and
+  regional; sweets and gold coins. The flames do not flicker.
+- **Files:** `mark-light.svg`, `mark-dark.svg`, `hero-light.svg`, `hero-dark.svg`, `band.svg`,
+  `404-light.svg`, `404-dark.svg`, `string-light.svg` and `string-dark.svg` in
+  `public/seasons/diwali/`. In season, gzipped: Home about 2.9 KB, a guide or a text page 2.1, a page
+  with only the header 1.2, the 404 at 1440px 2.6 (Eid al-Fitr's drawings, measured the same way: 2.7,
+  2.0, 1.3, 2.2).
+
+**Built (30 October 2026, session 31).** One pull request, waiting on the owner's look in its Vercel
+preview with `?season=diwali` before it merges:
+- **Art:** the nine drawings from the board's `diwali/a/` in `public/seasons/diwali/`, byte for byte
+  (each checked against the board's SHA-256), and `season.css` in winter's shape under
+  `[data-season='diwali']`, each drawing asked for with `?v=` and its SHA-256's first 8 hex digits.
+  `SEASONS` gains `diwali`, "Diwali", with the usual window written as "the five days from Dhanteras
+  to Bhai Dooj (27 to 31 October in 2027)", which the admin page shows. The admin page lists it; its
+  schedule needs no migration, since a season without a row is off.
+- **Unchanged:** `app/globals.css`, the slots and the components. Tests that post a schedule now send
+  all four seasons, and the head script is checked against the helper for the new key.
+- **The head script (`lib/seasons/pick.ts`):** the fourth key took it to 626 bytes with every season
+  scheduled, as 6.5 expected, so it was written shorter with the same behaviour and the limit stays:
+  no function around it, since `try` scopes its `let`; the two lists written where they are used;
+  `find` for `some`; one helper to pad the month and the day. It is 595 bytes with all four scheduled
+  and 435 with none. The fake page in its tests did not change. In Chrome it adds no name to `window`
+  and picks the visitor's own date at UTC+14, UTC−12, Kolkata and Prague. **A fifth season adds about
+  45 bytes**, so it needs the limit raised or more saved; no further season is planned.
+- **Measured** (`next start` with the preview, headless Chrome): every slot's box is build 29's; the
+  band 8px above its heading at 768px and 13px on a phone; the drawing 129 to 149px at 320px signed
+  in, Guides from 162px; at 1440px signed in its ink ends 4.2px before the Matches pill; hidden in
+  forced colours, in print, signed in at 900px and on the legal pages; the hero still with reduced
+  motion and its one 0.48s entrance otherwise; CLS 0 on every public page, and Matches' 0.046 is the
+  same with no season. Against a build of `main`, `npm run build` lists the same pages, Static pages
+  and revalidate times; no prerendered HTML names the season, the CSS is the same, and the only JS
+  change is the admin chunk. Winter and Lunar New Year still load. In season, gzipped: Home 2.9 KB,
+  a guide or text page 2.1, header only 1.2, the 404 at 1440px 2.6, as the board said.
+- **QA:** whole pages, every page type with a slot including the UK and Singapore guides, 1440px and
+  390px, light and dark: https://claude.ai/artifact/82acjDANMnXZfxD8MbBkMs (private to the owner).
+  Chrome on macOS only; Safari, iOS and Windows are for the owner's look in the preview. The admin
+  page was not opened, since it needs an admin session: it lists seasons from `SEASONS`, and its
+  route's tests pass.
 
 ---
 
@@ -2519,7 +3789,13 @@ Both are decided; kept here for the reasoning.
 | 5.13 | `MAINT_tasks.md` | 3 or 4 HL subjects. Do it with 5.8, before 3.2 |
 | 5.14 | `MAINT_tasks.md` | Delete unused components. Independent |
 | 5.15 | `MAINT_tasks.md` | How a level gap scores. Decided 7 October 2026: no change now; revisit with the whole matching math later |
-| 5.17 | `MAINT_tasks.md` | University pages in the sitemap. Independent; any time |
-| 7.2 | `MAINT_tasks.md` | Country pages collapse. Done as 4.2 |
+| 5.17 | `MAINT_tasks.md` | University pages in the sitemap. Done 22 October 2026, before the Search Console baseline, so the baseline already counts them |
+| 5.18 | `MAINT_tasks.md` | One course counted for two requirements. The chip copy needs a board; with the matching review |
+| 5.26 | `MAINT_tasks.md` | The coordinator portal sent a signed-out visitor to a 404. Found on D4.17. Done 22 October 2026 |
+| 5.27 | `MAINT_tasks.md` | Explore's best fit. The board D3.5 Sort · best fit approved 22 October 2026; session 25, before release day |
+| 5.43 | `MAINT_tasks.md` | Make the score fair. Part B's board D3.1 No IB minimum approved 31 October 2026; session 30 |
+| 6.6 | `MAINT_tasks.md` | The `prisma-client` generator. After R.2, which deletes many of the 53 files it touches |
+| 7.2 | `MAINT_tasks.md` | Country pages collapse. The content is one template since 4.2; the 23 page shells wait for R.2 |
 | 7.3 | `MAINT_tasks.md` | Refresh the SEO and AI search plan. After R.1 |
+| 7.4 | `MAINT_tasks.md` | Legal pages and the public pages' claims. The legal documents are drafted before release and published on release day; the public pages' wording is code (#157, #158) and merges before it |
 | 8.1–8.3 | `CONTENT_tasks.md` | Fields of study (used by 3.1), campus city and image credits (used by 2.4) |

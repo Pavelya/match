@@ -376,6 +376,43 @@ describe('planRefresh', () => {
     ])
   })
 
+  it('writes a requirement newly needing a course of its own as a change of subjects', () => {
+    const now = stored({
+      degreeType: 'Bachelor of Science',
+      requirements: [
+        { code: 'PHYS', level: 'HL', grade: 5, critical: true, group: 'a' },
+        { code: 'CHEM', level: 'HL', grade: 5, critical: true, group: 'a' }
+      ]
+    })
+    const file = withProgram([now], {
+      ...checked,
+      requirements: [
+        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 5, ownCourse: true },
+        { courses: ['CHEM', 'PHYS'], level: 'HL', grade: 5, ownCourse: true }
+      ]
+    })
+    const [write] = planRefresh(file, [now], lookups, TODAY).writes
+    expect(write.changes).toEqual([
+      'Subjects: (PHYS or CHEM) HL5 → (CHEM or PHYS) HL5 (own); (CHEM or PHYS) HL5 (own)'
+    ])
+    expect(write.requirementsChanged).toBe(true)
+    expect(write.target.requirements.every((r) => r.ownCourse === true)).toBe(true)
+  })
+
+  it('refuses one requirement alone needing a course of its own, or a flag that is not true or false', () => {
+    const file = withProgram([stored()], {
+      ...checked,
+      requirements: [
+        { courses: ['PHYS'], level: 'HL', grade: 6, ownCourse: true },
+        { courses: ['CHEM'], level: 'HL', grade: 5, ownCourse: 'yes' as unknown as boolean }
+      ]
+    })
+    expect(planRefresh(file, [stored()], lookups, TODAY).errors).toEqual([
+      'Physics (p1): requirement 2: ownCourse is not true or false',
+      'Physics (p1): only one requirement has ownCourse: mark the requirement it differs from too'
+    ])
+  })
+
   it('requires a note when a checked program has no subject requirements', () => {
     const file = withProgram([stored()], { ...checked, requirements: [] })
     expect(planRefresh(file, [stored()], lookups, TODAY).errors).toEqual([

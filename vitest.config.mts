@@ -6,8 +6,6 @@ export default defineConfig({
     tsconfigPaths: true
   },
   test: {
-    // `*.test.ts` only. The matching suite (`lib/matching/*.verify.ts`) is a set of
-    // standalone scripts run by `scripts/run-all-tests.ts`, not Vitest files.
     include: ['**/*.test.{ts,tsx}'],
     exclude: [...configDefaults.exclude, '.next/**'],
     environment: 'node'

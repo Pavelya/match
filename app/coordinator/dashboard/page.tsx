@@ -8,11 +8,12 @@
  * - Student count and average IB score
  * - Coordinator team count
  * - Quick actions (invite student, invite coordinator)
- * - VIP-only features with upgrade prompts for Regular tier
+ * - Subscription features with subscribe prompts for Regular tier
  */
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import {
@@ -34,12 +35,14 @@ import {
 } from '@/components/admin/shared'
 import { FadeIn } from '@/components/ui/fade-in'
 import { getCoordinatorAccess, getRemainingStudentInvites } from '@/lib/auth/access-control'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function CoordinatorDashboardPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school data
@@ -116,7 +119,7 @@ export default async function CoordinatorDashboardPage() {
         <FadeIn direction="up" delay={100}>
           <UpgradePromptBanner
             feature={`${remainingInvites} student invite${remainingInvites === 1 ? '' : 's'} remaining`}
-            description="Upgrade to VIP for unlimited student invitations and full access to all features."
+            description="Subscribe for unlimited student invitations and full access to all features."
             variant="subtle"
             upgradeHref="/coordinator/settings/subscription"
             className="mb-6"
@@ -268,7 +271,7 @@ function QuickActionLink({
           </div>
           <div>
             <span className="text-sm font-medium text-foreground">{label}</span>
-            <p className="text-xs text-amber-600">VIP Feature</p>
+            <p className="text-xs text-amber-600">With a subscription</p>
           </div>
         </div>
         <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />

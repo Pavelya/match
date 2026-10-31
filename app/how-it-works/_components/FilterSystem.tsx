@@ -1,4 +1,4 @@
-import { Globe, BookOpen, GraduationCap, Filter } from 'lucide-react'
+import { Globe, BookOpen, GraduationCap, Clock, BadgeCheck, Filter } from 'lucide-react'
 
 const filters = [
   {
@@ -18,6 +18,16 @@ const filters = [
     description:
       'Filter by minimum IB points required. Find programs that match your predicted or final scores.',
     icon: GraduationCap
+  },
+  {
+    name: 'Length',
+    description: 'Choose how many years you want to study, from a short degree to a long one.',
+    icon: Clock
+  },
+  {
+    name: 'Only the Ones You Qualify For',
+    description: 'With your grades saved, show only the programs where you meet every requirement.',
+    icon: BadgeCheck
   },
   {
     name: 'Smart Combinations',
@@ -42,7 +52,7 @@ export function FilterSystem() {
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {filters.map((filter) => (
               <div key={filter.name} className="flex flex-col">
                 <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">

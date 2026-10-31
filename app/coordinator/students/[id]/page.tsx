@@ -13,10 +13,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
+import { hasSubjects, rankedResults } from '@/lib/matching/match-list'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import {
   transformStudent,
@@ -47,17 +49,19 @@ import {
 } from 'lucide-react'
 import { getAvatarColor } from '@/lib/avatar-utils'
 import { cn } from '@/lib/utils'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function StudentDetailPage({ params }: PageProps) {
+  await requireCoordinator()
   const { id } = await params
 
   const session = await auth()
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school
@@ -165,7 +169,8 @@ export default async function StudentDetailPage({ params }: PageProps) {
     6: 'The Arts'
   }
 
-  // Fetch matches if coordinator has full access and student has consent
+  // Fetch matches if coordinator has full access and student has consent. A student without
+  // subjects has no list on Matches, so none here.
   let topMatches: Array<{
     programId: string
     overallScore: number
@@ -177,13 +182,13 @@ export default async function StudentDetailPage({ params }: PageProps) {
     } | null
   }> = []
 
-  if (hasConsent && access.hasFullAccess) {
+  if (hasConsent && access.hasFullAccess && hasSubjects(student)) {
     try {
       const allPrograms = await getCachedPrograms()
       // Cast student to expected type - the matching algorithm only needs the common fields
       const transformedStudent = transformStudent(student as unknown as PrismaStudentWithRelations)
       const transformedPrograms = transformPrograms(allPrograms)
-      const matches = await getCachedMatches(
+      const matches = await getCachedMatchesV10(
         student.userId,
         transformedStudent,
         transformedPrograms,
@@ -191,7 +196,8 @@ export default async function StudentDetailPage({ params }: PageProps) {
       )
 
       const programMap = new Map(allPrograms.map((p) => [p.id, p]))
-      topMatches = matches.slice(0, 3).map((match) => {
+      const ranked = rankedResults(matches, programMap, student.totalIBPoints ?? 0)
+      topMatches = ranked.slice(0, 3).map((match) => {
         const program = programMap.get(match.programId)
         return {
           programId: match.programId,
@@ -532,9 +538,7 @@ export default async function StudentDetailPage({ params }: PageProps) {
             ) : (
               <div className="text-center py-6">
                 <LineChart className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">
-                  Upgrade to VIP to view student matches
-                </p>
+                <p className="text-sm text-muted-foreground">Subscribe to view student matches</p>
               </div>
             )}
           </InfoCard>

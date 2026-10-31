@@ -1,7 +1,7 @@
 /**
  * The Matches list as the page shows it (rebranding 2.2, boards "D4.6 Matches" and "D4.6
  * Matches · phone", approved 10 October 2026): what the matches API sends for each match, the
- * three status groups, the three sort orders and the words around them. The page and the API
+ * four status groups, the three sort orders and the words around them. The page and the API
  * share it, so it stays small and imports nothing that runs: the browser downloads it.
  */
 
@@ -56,7 +56,7 @@ export type MatchesResponse =
       matches: MatchItem[]
       /**
        * The list goes beyond the student's fields and countries: the matcher found fewer than
-       * ten programs in them near their total and widened its search.
+       * ten programs in them, apart from those far above their total, and widened its search.
        */
       widened: boolean
       /** The student's shortlist, so each Save starts in the right state */
@@ -100,6 +100,7 @@ export function sortMatches(items: MatchItem[], order: SortOrder, total: number)
 export const GROUPS: { status: CardStatus; id: string; title: string }[] = [
   { status: 'meets', id: 'meets-all', title: 'Meets all requirements' },
   { status: 'close', id: 'within-reach', title: 'Within reach' },
+  { status: 'neutral', id: 'no-set-grades', title: 'No set grades' },
   { status: 'gap', id: 'missing', title: 'Missing a requirement' }
 ]
 
@@ -107,10 +108,11 @@ export const GROUPS: { status: CardStatus; id: string; title: string }[] = [
 export const FIRST_SHOWN = 5
 export const SHOW_MORE = 20
 
-/** "139 meet all requirements", "21 within reach", "11 missing a requirement" */
+/** "139 meet all requirements", "21 within reach", "85 with no set grades", "11 missing a requirement" */
 export function jumpLabel(status: CardStatus, count: number): string {
   if (status === 'meets') return `${count} ${count === 1 ? 'meets' : 'meet'} all requirements`
   if (status === 'close') return `${count} within reach`
+  if (status === 'neutral') return `${count} with no set grades`
   return `${count} missing a requirement`
 }
 
@@ -145,6 +147,13 @@ export function summaryText(
 
 export const WIDENED_SUMMARY =
   'Few programs fit your fields and countries, so this list also includes others near your total.'
+
+/** The list's last line before the sentence on Explore. A widened list is not every program. */
+export function listEndText(widened: boolean): string {
+  return widened
+    ? ''
+    : 'That’s every program in your fields and countries, apart from those far above your total. '
+}
 
 function byName(a: MatchItem, b: MatchItem): number {
   return a.university.localeCompare(b.university, 'en') || a.name.localeCompare(b.name, 'en')

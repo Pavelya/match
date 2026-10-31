@@ -8,6 +8,7 @@ import {
   isCurrentPage,
   isInSection,
   nextTabBarScroll,
+  ownsChrome,
   type TabBarScroll
 } from './nav'
 
@@ -78,6 +79,7 @@ describe('hasOwnChrome', () => {
       '/programs/search',
       '/programs/abc',
       '/universities/abc',
+      '/contact',
       '/admin/dashboard',
       '/coordinator/students',
       '/auth/signin'
@@ -97,6 +99,21 @@ describe('hasOwnChrome', () => {
     ]) {
       expect(hasOwnChrome(path)).toBe(false)
     }
+  })
+})
+
+describe('ownsChrome', () => {
+  it('decides from the root layout segment as hasOwnChrome does from the path', () => {
+    for (const segment of ['student', 'programs', 'universities', 'admin', 'coordinator', 'auth']) {
+      expect(ownsChrome(segment)).toBe(true)
+    }
+    for (const segment of [null, 'how-it-works', 'study-in-uk-with-ib-diploma', 'privacy']) {
+      expect(ownsChrome(segment)).toBe(false)
+    }
+  })
+
+  it('gives the prebuilt 404 the public chrome on any path, /student/a-typo included', () => {
+    expect(ownsChrome('/_not-found')).toBe(false)
   })
 })
 

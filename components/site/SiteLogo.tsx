@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { BrandMark } from '@/components/brand/BrandMark'
 import { brand } from '@/lib/brand/config'
 import { cn } from '@/lib/utils'
+import { SeasonSlot } from './SeasonSlot'
 
 interface SiteLogoProps {
   /** Where the logo goes. Without it the logo is not a link (focus mode, D2.12). */
@@ -12,6 +13,8 @@ interface SiteLogoProps {
   size?: number
   /** For hiding the wordmark from 768 to 1023px, signed in. */
   wordmarkClassName?: string
+  /** The header's season slot, after the name (D1.7). Not on the footer, sign-in or first run. */
+  season?: boolean
   className?: string
 }
 
@@ -20,7 +23,14 @@ interface SiteLogoProps {
  * Logo: Lens"). The name follows the theme and Windows contrast themes. The logo is a link or a
  * plain span, never a heading.
  */
-export function SiteLogo({ href, label, size = 28, wordmarkClassName, className }: SiteLogoProps) {
+export function SiteLogo({
+  href,
+  label,
+  size = 28,
+  wordmarkClassName,
+  season = false,
+  className
+}: SiteLogoProps) {
   const content = (
     <>
       <BrandMark size={size} />
@@ -32,9 +42,14 @@ export function SiteLogo({ href, label, size = 28, wordmarkClassName, className 
       >
         {brand.name}
       </span>
+      {season && <SeasonSlot slot="mark" />}
     </>
   )
-  const classes = cn('inline-flex h-11 shrink-0 items-center gap-2 md:gap-2.5', className)
+  const classes = cn(
+    'inline-flex h-11 shrink-0 items-center gap-2 md:gap-2.5',
+    season && 'relative',
+    className
+  )
 
   if (!href) return <span className={classes}>{content}</span>
   return (

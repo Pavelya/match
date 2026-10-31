@@ -7,9 +7,15 @@
  * Part of Task 4.4: Student Invitation System
  */
 
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { AuthLogo } from '@/components/brand/AuthLogo'
+import { StudentInviteCard } from '@/components/invitation/islands'
+import { OutcomeCard, type InvitationOutcome } from '@/components/invitation/OutcomeCard'
+import { AuthPage } from '@/components/sign-in/AuthPage'
+import { INVITATIONS_PATH } from '@/lib/auth/callback-url'
+import { auth } from '@/lib/auth/config'
+import { showsNewUi } from '@/lib/new-ui'
 import { prisma } from '@/lib/prisma'
 import { AcceptStudentInviteForm } from './AcceptStudentInviteForm'
 
@@ -17,15 +23,32 @@ interface PageProps {
   params: Promise<{ token: string }>
 }
 
+/**
+ * Where the link ends before the card, in today's order: no such invitation, expired, accepted,
+ * cancelled (the 404), not a student's. Null: the card.
+ */
+function invitationOutcome(
+  invitation: { expiresAt: Date; status: string; role: string } | null
+): InvitationOutcome | 'cancelled' | null {
+  if (!invitation) return 'invalid'
+  if (invitation.expiresAt < new Date()) return 'expired'
+  if (invitation.status === 'ACCEPTED') return 'accepted'
+  if (invitation.status === 'CANCELLED') return 'cancelled'
+  if (invitation.role !== 'STUDENT') return 'not-for-students'
+  return null
+}
+
 export default async function AcceptStudentInvitePage({ params }: PageProps) {
   const { token } = await params
-  // The logo follows the design (rebranding 1.3)
-  const logo = <AuthLogo legacySize={48} />
 
-  // Validate token
+  // The page's one read: the invitation, its school's name and place, and who sent it
   const invitation = await prisma.invitation.findUnique({
     where: { token },
-    include: {
+    select: {
+      email: true,
+      status: true,
+      role: true,
+      expiresAt: true,
       school: {
         select: {
           id: true,
@@ -42,8 +65,44 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
     }
   })
 
+  const outcome = invitationOutcome(invitation)
+  if (outcome === 'cancelled') notFound()
+
+  // A student already signed in with the invited address accepts on School invitations, where the
+  // invitation is listed (MAINT 5.22). The session cookie, with no read.
+  if (invitation && !outcome) {
+    const session = await auth()
+    if (session?.user?.email?.toLowerCase() === invitation.email.toLowerCase()) {
+      redirect(INVITATIONS_PATH)
+    }
+  }
+
+  // The new design's card (rebranding 4.3, board "D4.16 School invitation")
+  if (await showsNewUi()) {
+    return (
+      <AuthPage>
+        {outcome || !invitation ? (
+          <OutcomeCard outcome={outcome ?? 'invalid'} />
+        ) : (
+          <StudentInviteCard
+            token={token}
+            email={invitation.email}
+            school={{
+              name: invitation.school!.name,
+              place: `${invitation.school!.city}, ${invitation.school!.country.name}`
+            }}
+            coordinatorName={invitation.invitedBy.name}
+          />
+        )}
+      </AuthPage>
+    )
+  }
+
+  // The logo follows the design (rebranding 1.3)
+  const logo = <AuthLogo legacySize={48} />
+
   // Token not found
-  if (!invitation) {
+  if (outcome === 'invalid' || !invitation) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
@@ -63,7 +122,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
   }
 
   // Check if expired
-  if (invitation.expiresAt < new Date()) {
+  if (outcome === 'expired') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
@@ -83,7 +142,7 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
   }
 
   // Check if already accepted
-  if (invitation.status === 'ACCEPTED') {
+  if (outcome === 'accepted') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">
@@ -105,13 +164,8 @@ export default async function AcceptStudentInvitePage({ params }: PageProps) {
     )
   }
 
-  // Check if cancelled
-  if (invitation.status === 'CANCELLED') {
-    notFound()
-  }
-
   // Must be STUDENT role
-  if (invitation.role !== 'STUDENT') {
+  if (outcome === 'not-for-students') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
         <div className="w-full max-w-md text-center">

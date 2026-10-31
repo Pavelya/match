@@ -7,11 +7,13 @@
  * - Course requirements notation parser (AND/OR groups)
  * - Strict validation against reference data (fields, courses)
  * - Detailed error reporting with row/field context
+ * - Warnings, which never block a row: a field the fields-of-study rule disagrees with
  *
  * @module lib/bulk-upload/csv-parser
  */
 
 import { DEGREE_TYPES, canonicalDegreeType } from '@/lib/programs/degree-types'
+import { suggestField } from '@/lib/programs/fields-of-study'
 
 // =============================================================================
 // TYPE DEFINITIONS
@@ -53,6 +55,7 @@ export interface RawProgramData {
   minIBPoints: string
   programUrl: string
   courseRequirements: string
+  campusCity: string
 }
 
 /**
@@ -66,6 +69,8 @@ export interface ValidatedProgram {
   duration: string
   minIBPoints: number | null
   programUrl: string | null
+  /** Where it is taught when that is not the university's city; null means the university's. */
+  campusCity: string | null
   courseRequirements: ParsedRequirement[]
 }
 
@@ -85,6 +90,8 @@ export interface RowValidationResult {
   rowNumber: number
   isValid: boolean
   errors: FieldError[]
+  /** Worth a look, but the row still uploads. */
+  warnings: FieldError[]
   data: RawProgramData
   validated?: ValidatedProgram
 }
@@ -97,6 +104,8 @@ export interface ParseResult {
   totalRows: number
   validRows: number
   invalidRows: number
+  /** Rows with a warning, valid or not. */
+  warningRows: number
   rows: RowValidationResult[]
   headerErrors: string[]
 }
@@ -107,7 +116,7 @@ export interface ParseResult {
 
 const REQUIRED_HEADERS = ['name', 'description', 'field_of_study', 'degree_type', 'duration']
 
-const OPTIONAL_HEADERS = ['min_ib_points', 'program_url', 'course_requirements']
+const OPTIONAL_HEADERS = ['min_ib_points', 'program_url', 'course_requirements', 'campus_city']
 
 const ALL_HEADERS = [...REQUIRED_HEADERS, ...OPTIONAL_HEADERS]
 
@@ -376,6 +385,21 @@ function validateFieldOfStudy(
 }
 
 /**
+ * A warning when the fields-of-study rule files the program's name under another field
+ * (MAINT 5.16). Never an error: an admin can keep a different field on purpose.
+ */
+function fieldWarning(raw: RawProgramData): FieldError | null {
+  const suggestion = suggestField(raw.name.trim())
+  if (!suggestion) return null
+  if (suggestion.field.toLowerCase() === raw.fieldOfStudy.toLowerCase().trim()) return null
+  return {
+    field: 'field_of_study',
+    message: `The fields-of-study rule files this name under ${suggestion.field} (${suggestion.reason})`,
+    value: raw.fieldOfStudy
+  }
+}
+
+/**
  * Validate degree type
  */
 function validateDegreeType(
@@ -450,6 +474,7 @@ function validateURL(value: string): { url: string | null; error: string | null 
  */
 function validateRow(raw: RawProgramData, context: ValidationContext): RowValidationResult {
   const errors: FieldError[] = []
+  const warnings: FieldError[] = []
   let validated: ValidatedProgram | undefined
 
   // Validate required text fields
@@ -473,6 +498,9 @@ function validateRow(raw: RawProgramData, context: ValidationContext): RowValida
   const fieldResult = validateFieldOfStudy(raw.fieldOfStudy, context.fieldMap)
   if (fieldResult.error) {
     errors.push({ field: 'field_of_study', message: fieldResult.error, value: raw.fieldOfStudy })
+  } else {
+    const warning = fieldWarning(raw)
+    if (warning) warnings.push(warning)
   }
 
   // Validate degree type
@@ -510,6 +538,7 @@ function validateRow(raw: RawProgramData, context: ValidationContext): RowValida
       duration: raw.duration.trim(),
       minIBPoints: pointsResult.points,
       programUrl: urlResult.url,
+      campusCity: raw.campusCity.trim() || null,
       courseRequirements: reqResult.requirements
     }
   }
@@ -518,6 +547,7 @@ function validateRow(raw: RawProgramData, context: ValidationContext): RowValida
     rowNumber: raw.rowNumber,
     isValid,
     errors,
+    warnings,
     data: raw,
     validated
   }
@@ -546,6 +576,7 @@ export function parseCSV(content: string, context: ValidationContext): ParseResu
       totalRows: 0,
       validRows: 0,
       invalidRows: 0,
+      warningRows: 0,
       rows: [],
       headerErrors: ['CSV file is empty or has no valid headers']
     }
@@ -571,6 +602,7 @@ export function parseCSV(content: string, context: ValidationContext): ParseResu
       totalRows: 0,
       validRows: 0,
       invalidRows: 0,
+      warningRows: 0,
       rows: [],
       headerErrors
     }
@@ -592,7 +624,8 @@ export function parseCSV(content: string, context: ValidationContext): ParseResu
       duration: obj['duration'] || '',
       minIBPoints: obj['min_ib_points'] || '',
       programUrl: obj['program_url'] || '',
-      courseRequirements: obj['course_requirements'] || ''
+      courseRequirements: obj['course_requirements'] || '',
+      campusCity: obj['campus_city'] || ''
     }
 
     const result = validateRow(raw, context)
@@ -607,6 +640,7 @@ export function parseCSV(content: string, context: ValidationContext): ParseResu
     totalRows: validatedRows.length,
     validRows,
     invalidRows,
+    warningRows: validatedRows.filter((r) => r.warnings.length > 0).length,
     rows: validatedRows,
     headerErrors: []
   }
@@ -667,4 +701,13 @@ export function formatErrors(result: ParseResult): string[] {
   }
 
   return messages
+}
+
+/**
+ * Format warnings for display. They never block an upload.
+ */
+export function formatWarnings(result: ParseResult): string[] {
+  return result.rows.flatMap((row) =>
+    row.warnings.map((w) => `Row ${row.rowNumber}, ${w.field}: ${w.message}`)
+  )
 }

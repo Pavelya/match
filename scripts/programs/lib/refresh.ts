@@ -278,7 +278,14 @@ function checkFields(p: RefreshProgram, file: RefreshFile, lookups: Lookups): st
         problems.push(`requirement ${i + 1}: grade ${o.grade} is not 1 to 7`)
       }
     }
+    if (def.ownCourse !== undefined && typeof def.ownCourse !== 'boolean') {
+      problems.push(`requirement ${i + 1}: ownCourse is not true or false`)
+    }
   })
+  // MAINT 5.18: a requirement needs a course of its own only beside another that does.
+  if (p.requirements.filter((def) => def.ownCourse === true).length === 1) {
+    problems.push('only one requirement has ownCourse: mark the requirement it differs from too')
+  }
   if (p.checkedFor !== null) {
     if (
       !Number.isInteger(p.checkedFor) ||

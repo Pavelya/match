@@ -10,7 +10,7 @@
  * - REGULAR schools WITHOUT subscription: Limited/freemium access
  */
 
-import type { SubscriptionTier, SubscriptionStatus } from '@prisma/client'
+import type { SubscriptionTier, SubscriptionStatus } from '@/app/generated/prisma/enums'
 
 /**
  * Access level returned by getCoordinatorAccess

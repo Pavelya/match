@@ -103,7 +103,20 @@ const refresh: RefreshFile = {
             { course: 'PHYS', level: 'HL', grade: 5 },
             { course: 'PHYS', level: 'SL', grade: 6 }
           ],
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -113,7 +126,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Bachelor of Arts and Science (B.A. & Sc.), jointly offered by Arts and Science. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 37 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Biology or Chemistry or Physics HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: Bachelor of Arts and Science (B.A. & Sc.), jointly offered by Arts and Science. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Typical minimum range 35 to 37 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Biology or Chemistry or Physics HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -145,7 +158,20 @@ const refresh: RefreshFile = {
             { course: 'PHYS', level: 'HL', grade: 5 },
             { course: 'PHYS', level: 'SL', grade: 6 }
           ],
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -155,7 +181,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Biochemistry is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology HL 6; Chemistry HL 6; Maths AA HL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Biochemistry is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology HL 6; Chemistry HL 6; Maths AA HL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -221,7 +247,20 @@ const refresh: RefreshFile = {
             { course: 'PHYS', level: 'HL', grade: 5 },
             { course: 'PHYS', level: 'SL', grade: 6 }
           ],
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          anyOf: [
+            { course: 'BIO', level: 'HL', grade: 5 },
+            { course: 'BIO', level: 'SL', grade: 6 },
+            { course: 'CHEM', level: 'HL', grade: 5 },
+            { course: 'CHEM', level: 'SL', grade: 6 },
+            { course: 'PHYS', level: 'HL', grade: 5 },
+            { course: 'PHYS', level: 'SL', grade: 6 }
+          ],
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -231,7 +270,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Biology is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology or Chemistry HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Biology is in McGill\'s Biological, Biomedical and Life Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 6 (5 to 6 if HL)", stored as 5 at HL or 6 at SL. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Typical minimum range 36 to 39 subject points out of 42 (core excluded); the bottom, 36, is stored, as 3.4 did; it replaces the stored 37. Stored before: Biology or Chemistry HL 6; Maths AA HL 6; Biology or Chemistry or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -254,7 +293,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -263,7 +309,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Bioresource Engineering (B.Eng.(Bioresource)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: Bioresource Engineering (B.Eng.(Bioresource)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -333,7 +379,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -342,7 +395,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Chemistry is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Chemistry HL 6; Maths AA HL 6; Biology or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Chemistry is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 37. Stored before: Chemistry HL 6; Maths AA HL 6; Biology or Physics SL 6. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -489,7 +542,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -498,7 +558,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Computer Science is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Computer Science is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -520,7 +580,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -529,7 +596,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: School of Human Nutrition (Macdonald campus). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: School of Human Nutrition (Macdonald campus). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -667,7 +734,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -676,7 +750,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: The Faculty of Agricultural and Environmental Sciences\' B.Sc.(Ag.Env.Sc.) programs ("All B.Sc.(Ag.Env.Sc.) programs": 28-30). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: The Faculty of Agricultural and Environmental Sciences\' B.Sc.(Ag.Env.Sc.) programs ("All B.Sc.(Ag.Env.Sc.) programs": 28-30). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry or Physics SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -699,7 +773,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -708,7 +789,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Food Science (B.Sc.(F.Sc.)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: Food Science (B.Sc.(F.Sc.)) is admitted with the Faculty of Agricultural and Environmental Sciences (Macdonald campus), whose range and prerequisites it shares. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. Typical minimum range 28 to 30 subject points out of 42 (core excluded); the bottom, 28, is stored, as 3.4 did; it replaces the stored 30. Stored before: Biology or Chemistry SL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -777,7 +858,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -786,7 +874,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: renamed Kinesiology: the stored degree is the B.Sc., and "Kinesiology and Physical Education" is the department, which also offers the B.Ed. stored separately as Physical Education. The URL moves from the department to the Kinesiology (B.Sc.) catalogue page. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. SL Maths AI, accepted before, is not. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. Typical minimum range 30 to 31 subject points out of 42 (core excluded); the bottom, 30, is stored, as 3.4 did; the stored 30 is confirmed. Stored before: Maths AA or Maths AI SL 5 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: renamed Kinesiology: the stored degree is the B.Sc., and "Kinesiology and Physical Education" is the department, which also offers the B.Ed. stored separately as Physical Education. The URL moves from the department to the Kinesiology (B.Sc.) catalogue page. Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5. SL Maths AI, accepted before, is not. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. Typical minimum range 30 to 31 subject points out of 42 (core excluded); the bottom, 30, is stored, as 3.4 did; the stored 30 is confirmed. Stored before: Maths AA or Maths AI SL 5 (critical); Biology or Chemistry or Physics SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -810,7 +898,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -819,7 +914,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Mathematics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science): Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". Requirements unchanged. Typical minimum range 35 to 38 subject points out of 42 (core excluded); 35 is stored, unchanged. Re-read after 3.4, which stamped it 2026: the page now names Fall 2027. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. 3.4\'s note: Content 3.4: the catalogue moved the page from math-stats/ to mathematics-statistics/; same program, Mathematics Major (B.Sc.). McGill\'s IB page names no entry year, so checked for 2026 (rule 2). Science, Physical, Earth, Math and Computer Sciences group: typical minimum range 35 to 38 subject points out of 42 (core points excluded, as Lausanne\'s 32/42 is stored); 35 is stored. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; each math and science 5 to 6 with at least one 6, and 6 if SL Math AA. SL Math AI is not accepted. The model cannot hold "two of", "at least one at HL" or "at least one 6": the science group needs only one. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Mathematics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science): Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". Requirements unchanged. Typical minimum range 35 to 38 subject points out of 42 (core excluded); 35 is stored, unchanged. Re-read after 3.4, which stamped it 2026: the page now names Fall 2027. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. 3.4\'s note: Content 3.4: the catalogue moved the page from math-stats/ to mathematics-statistics/; same program, Mathematics Major (B.Sc.). McGill\'s IB page names no entry year, so checked for 2026 (rule 2). Science, Physical, Earth, Math and Computer Sciences group: typical minimum range 35 to 38 subject points out of 42 (core points excluded, as Lausanne\'s 32/42 is stored); 35 is stored. Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; each math and science 5 to 6 with at least one 6, and 6 if SL Math AA. SL Math AI is not accepted. The model cannot hold "at least one at HL" or "at least one 6". "Two of" is stored as two science groups, each needing a course of its own. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -931,7 +1026,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -940,7 +1042,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Ingram School of Nursing, B.Sc.(N.). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5; "Proof of French proficiency" is also required. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The stored Biology or Chemistry HL 5 had no source. Typical minimum: 30 subject points out of 42 (core excluded), stored as 3.4 stored McGill\'s figures; the stored 30 is confirmed. Stored before: Biology or Chemistry HL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee.'
+        'Content 4.4: Ingram School of Nursing, B.Sc.(N.). Prerequisites: Mathematics and two of Biology, Chemistry or Physics, at HL or SL; each math and science 5; "Proof of French proficiency" is also required. McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The stored Biology or Chemistry HL 5 had no source. Typical minimum: 30 subject points out of 42 (core excluded), stored as 3.4 stored McGill\'s figures; the stored 30 is confirmed. Stored before: Biology or Chemistry HL 5; Biology or Chemistry or Physics SL 5; Maths AA or Maths AI SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {
@@ -1010,7 +1112,14 @@ const refresh: RefreshFile = {
           ],
           critical: true
         },
-        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'PHYS'],
+          level: 'SL',
+          grade: 5,
+          critical: true,
+          ownCourse: true
+        },
+        { courses: ['BIO', 'CHEM', 'PHYS'], level: 'SL', grade: 5, critical: true, ownCourse: true }
       ],
       checkedFor: 2027,
       sources: [
@@ -1019,7 +1128,7 @@ const refresh: RefreshFile = {
         'https://web.archive.org/web/20260203120041/https://www.mcgill.ca/undergraduate-admissions/apply/requirements/international/ib'
       ],
       notes:
-        'Content 4.4: Physics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". The model cannot hold "two of": one critical group of the three is stored, which one subject satisfies. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Physics HL 6; Biology or Chemistry SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh.'
+        'Content 4.4: Physics is in McGill\'s Physical, Environmental, Math and Computer Sciences Group (Faculty of Science). Prerequisites: Mathematics and two of Biology, Chemistry or Physics at HL or SL, at least one math/science at HL; "Each math & science: 5 to 6 (and at least one 6); 6 if SL Math AA". McGill: "The Diploma with grades of 5 or better on each Higher and Standard Level subject is the minimum expected for most programs"; where maths is a prerequisite it takes Maths AA (HL or SL) or Maths AI HL, and "SL Math AI is not accepted". Stored as two critical groups of the three, each needing a course of its own, so two different sciences are needed. The model cannot hold "at least one math/science at HL". Nor can it hold "at least one 6". Typical minimum range 35 to 38 subject points out of 42 (core excluded); the bottom, 35, is stored, as 3.4 did; it replaces the stored 36. Stored before: Maths AA HL 6 (critical); Physics HL 6; Biology or Chemistry SL 5. McGill\'s IB page lists the Science program groups applicants choose from, including an "Earth, Geographic, and Climate Sciences Group — TBD (new stream for Fall 2027)", and it replaced the version the Internet Archive holds from 3 February 2026, which gave "last year\'s cut-offs" for 2026 applicants; so it describes 2027 entry and the program is checked for 2027. Its ranges are "typical minimum admission grades ranges", a guide, not a guarantee. Content 5.4 (9 October 2026): the description\'s last paragraph, "How competitive", gives the typical minimum admission range on McGill\'s IB page ("the minimum grades ranges (out of 42) typically admitted"; "minimum grades for entry fluctuate from year to year"); update it at each refresh. MAINT 5.39 (27 October 2026): McGill\'s IB page, re-read, still gives "Mathematics and two of Biology, Chemistry or Physics, at Higher or Standard Level"; the second science group added and both marked. Maths is not one of the two.'
     },
     // Stored: not checked for any intake.
     {

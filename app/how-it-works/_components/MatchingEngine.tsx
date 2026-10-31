@@ -1,23 +1,26 @@
 import { Calculator, Target, TrendingUp, CheckCircle2 } from 'lucide-react'
+import { WEIGHT_CONFIGS } from '@/lib/matching/types'
+
+const { academic, field, location } = WEIGHT_CONFIGS.BALANCED
 
 const scoringFactors = [
   {
     name: 'Academic Match',
-    weight: '60%',
+    weight: `${academic * 100}%`,
     description: 'How well your IB points and subjects meet program requirements',
     icon: Calculator
   },
   {
-    name: 'Location Match',
-    weight: '30%',
-    description: 'Whether the program is in one of your preferred countries',
-    icon: Target
-  },
-  {
     name: 'Field Match',
-    weight: '10%',
+    weight: `${field * 100}%`,
     description: 'Whether the program is in one of your preferred study areas',
     icon: TrendingUp
+  },
+  {
+    name: 'Location Match',
+    weight: `${location * 100}%`,
+    description: 'Whether the program is in one of your preferred countries',
+    icon: Target
   }
 ]
 
@@ -46,7 +49,7 @@ export function MatchingEngine() {
             Three-Factor Compatibility Scoring
           </p>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Every program gets a compatibility score from 0 to 100%. We calculate this using a
+            Every match gets a compatibility score from 0 to 100%. We calculate this using a
             weighted formula that prioritizes what matters most: your academic fit.
           </p>
         </div>

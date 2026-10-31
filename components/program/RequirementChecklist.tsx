@@ -199,6 +199,7 @@ function RequirementName({
       {children}
       {graded && row.reason && <span className={cn(sub, STATUS[row.kind].text)}>{row.reason}</span>}
       {row.detail && <span className={cn(sub, 'text-muted-foreground')}>{row.detail}</span>}
+      {row.own && <span className="text-[0.8125rem]/[1.1875rem] font-medium">{row.own}</span>}
       {row.options && (
         <details className="group mt-0.5">
           <summary className="flex min-h-8 w-fit cursor-pointer list-none items-center gap-1 rounded-chip text-small font-semibold text-primary [&::-webkit-details-marker]:hidden">
@@ -210,7 +211,7 @@ function RequirementName({
               className="transition-transform duration-180 ease-standard group-open:rotate-180"
             />
           </summary>
-          <dl className="mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5">
+          <dl className="mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5 group-open:disclose">
             {row.options.groups.map((group) => (
               <div key={group.label} className="flex flex-col gap-0.5">
                 <dt className="text-label text-muted-foreground tabular-nums">{group.label}</dt>
@@ -253,7 +254,10 @@ function EntryYear({
   const where = programUrl ? (
     <>
       on the{' '}
-      <a href={programUrl} className="text-primary underline underline-offset-3">
+      <a
+        href={programUrl}
+        className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+      >
         university’s page
       </a>
     </>

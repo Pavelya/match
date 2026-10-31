@@ -8,6 +8,8 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
+import { NewForCoordinators } from './NewForCoordinators'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -85,22 +87,30 @@ function jsonLd(logo: string) {
 }
 
 export default async function CoordinatorLandingPage() {
+  const newUi = await showsNewUi()
   // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
-  const logo = organizationLogo(baseUrl, await showsNewUi()).url
+  const logo = organizationLogo(baseUrl, newUi).url
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd(logo)) }}
       />
-      <main className="flex min-h-screen flex-col">
-        <CoordinatorHero />
-        <CoordinatorStory />
-        <CoordinatorFeatures />
-        <CoordinatorDashboard />
-        <CoordinatorCTA />
-        <StudentFooter />
-      </main>
+      {newUi ? <NewForCoordinators /> : <TodaysForCoordinators />}
     </>
+  )
+}
+
+/** Today's page, until release (rebranding 4.3); the new design's chrome draws the footer */
+function TodaysForCoordinators() {
+  return (
+    <main className="flex min-h-screen flex-col">
+      <CoordinatorHero />
+      <CoordinatorStory />
+      <CoordinatorFeatures />
+      <CoordinatorDashboard />
+      <CoordinatorCTA />
+      <StudentFooter />
+    </main>
   )
 }

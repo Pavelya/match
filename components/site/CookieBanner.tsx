@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { createPortal, flushSync } from 'react-dom'
+import { flushSync } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ds/Button'
@@ -12,17 +12,19 @@ import {
   storeConsent,
   type CookieChoice
 } from '@/lib/cookie-consent'
+import { announceCookieChoice } from '@/lib/cookie-choice'
 import { cn } from '@/lib/utils'
-import { useCookieSlot } from './cookie-slot'
+import { BottomPanel, focusMain, useStepFooterShown } from './bottom-panel'
 
 /*
  * The cookie banner in the new design (rebranding 4.1, boards "D4.1 Home" and "D4.1 Home ·
  * phone"). Today's three choices, stored as today (lib/cookie-consent.ts), half a second after
  * the page shows, and still not on /auth. Not modal: it takes no focus, and sits first in Tab
  * order after the skip link (cookie-slot.tsx). Essential only and Accept all carry the same
- * weight. Desktop: 420px, bottom right. A phone: across the bottom, or on the tab bar signed in,
- * where the bar stays put while it shows and a toast rises above both (app/globals.css). The
- * public frame renders it on every page, so only the new design downloads it.
+ * weight. Its place and panel are BottomPanel's, which the policy update notice (D2.16) shares; the
+ * notice waits for this choice. Both wait while a page shows the steps' footer (owner, 20 October
+ * 2026), and this one appears half a second after the next page without it. The public frame
+ * renders it on every page, so only the new design downloads it.
  */
 
 const KINDS = [
@@ -37,12 +39,10 @@ const choiceClass = 'px-4'
 export function CookieBanner() {
   const pathname = usePathname()
   const onAuth = pathname?.startsWith('/auth') ?? false
-  const slot = useCookieSlot()
+  const stepFooter = useStepFooterShown()
 
   const [shown, setShown] = useState(false)
   const [leaving, setLeaving] = useState(false)
-  /** Once it has risen in. A new slot then takes it without a second entrance. */
-  const [entered, setEntered] = useState(false)
   const [settings, setSettings] = useState(false)
 
   const panel = useRef<HTMLElement>(null)
@@ -50,10 +50,10 @@ export function CookieBanner() {
   const customize = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    if (onAuth || hasConsentChoice()) return
+    if (onAuth || stepFooter || hasConsentChoice()) return
     const timer = window.setTimeout(() => setShown(true), 500)
     return () => window.clearTimeout(timer)
-  }, [onAuth])
+  }, [onAuth, stepFooter])
 
   // Out: a 180ms fade, then gone
   useEffect(() => {
@@ -62,33 +62,12 @@ export function CookieBanner() {
     return () => window.clearTimeout(timer)
   }, [leaving])
 
-  // A toast rises above the banner: --cookie-banner is how far its top is from the bottom of
-  // the screen, tab bar included (app/globals.css). From layout, not the box on screen, which
-  // is lower while the banner rises in.
-  const visible = shown && !onAuth
-  useEffect(() => {
-    const element = panel.current
-    if (!visible || !element) return
-    const style = document.body.style
-    const measure = () =>
-      style.setProperty(
-        '--cookie-banner',
-        `${element.offsetHeight + parseFloat(getComputedStyle(element).bottom)}px`
-      )
-    const observer = new ResizeObserver(measure)
-    observer.observe(element)
-    window.addEventListener('resize', measure)
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('resize', measure)
-      style.removeProperty('--cookie-banner')
-    }
-  }, [visible, slot])
-
+  const visible = shown && !onAuth && !stepFooter
   if (!visible) return null
 
   function choose(choice: CookieChoice) {
     storeConsent(choice)
+    announceCookieChoice()
     // Focus inside goes to the page's content, never to the top of the document
     if (panel.current?.contains(document.activeElement)) focusMain()
     setLeaving(true)
@@ -105,25 +84,8 @@ export function CookieBanner() {
   }
 
   const titleId = settings ? 'cookie-settings-title' : 'cookie-banner-title'
-  const banner = (
-    <section
-      ref={panel}
-      aria-labelledby={titleId}
-      data-cookie-banner=""
-      onTransitionEnd={() => setEntered(true)}
-      className={cn(
-        // Below the header, scrolling inside when it would reach it
-        'fixed inset-x-0 bottom-0 z-50 flex max-h-[calc(100dvh-7rem)] flex-col gap-3.5 overflow-y-auto overscroll-contain',
-        'rounded-2xl border border-border bg-card px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] text-foreground shadow-overlay max-md:rounded-b-none',
-        'md:inset-x-auto md:right-6 md:bottom-6 md:w-105 md:gap-4 md:p-5 md:px-6',
-        // In: an 8px rise and a fade, 240ms; out: a 180ms fade. Reduced motion keeps the fades,
-        // which the important durations let through the global reduced-motion rule
-        'transition-[opacity,translate] duration-240 ease-standard motion-reduce:transition-opacity motion-reduce:duration-240!',
-        !entered &&
-          'starting:translate-y-2 starting:opacity-0 motion-reduce:starting:translate-y-0',
-        leaving && 'pointer-events-none opacity-0 duration-180 motion-reduce:duration-180!'
-      )}
-    >
+  return (
+    <BottomPanel labelledBy={titleId} leaving={leaving} panelRef={panel}>
       {settings ? (
         <>
           <div className="flex flex-col gap-1">
@@ -172,7 +134,7 @@ export function CookieBanner() {
             cookies or only essential ones.{' '}
             <Link
               href="/cookies"
-              className="rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover"
+              className="rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline"
             >
               Cookie policy
             </Link>
@@ -202,24 +164,6 @@ export function CookieBanner() {
           Accept all
         </Button>
       </div>
-    </section>
+    </BottomPanel>
   )
-
-  return slot ? createPortal(banner, slot) : banner
-}
-
-/**
- * Focus on the page's content (SiteFrame's #main), without scrolling. It takes focus only for
- * this, so a click elsewhere in the page never lands on it.
- */
-function focusMain() {
-  const main = document.getElementById('main')
-  if (!main) {
-    const active = document.activeElement
-    if (active instanceof HTMLElement) active.blur()
-    return
-  }
-  main.setAttribute('tabindex', '-1')
-  main.addEventListener('blur', () => main.removeAttribute('tabindex'), { once: true })
-  main.focus({ preventScroll: true })
 }

@@ -4,6 +4,7 @@ import { ButtonLink } from '@/components/ds/ButtonLink'
 import { GuideLinks, GuidesHubLink } from '@/components/home/GuideLinks'
 import { LimeBand } from '@/components/home/LimeBand'
 import { MatchesPreview } from '@/components/home/MatchesPreview'
+import { SeasonSlot } from '@/components/site/SeasonSlot'
 import { containerClass } from '@/components/site/styles'
 import { COUNTRY_GUIDES } from '@/lib/programs/country-guides'
 import { cn } from '@/lib/utils'
@@ -81,13 +82,20 @@ function Hero() {
     >
       <div className="flex min-w-0 flex-col gap-5 md:gap-6">
         <p className="inline-flex min-h-8 items-center self-start rounded-full border border-border bg-card px-3.5 py-1.5 text-small text-muted-foreground">
-          Built by a former IB student who wished this existed
+          Started by a former IB student who wished this existed
         </p>
         <h1 className="text-display-xl">
           Find your perfect{' '}
           {/* A lime bar under the letters, not a marker behind them: light letters on lime
-              are 1.1:1 in dark (04-design-system.md §1) */}
-          <span className="lime-bar">university match</span>
+              are 1.1:1 in dark (04-design-system.md §1). In season, a drawing hangs from the bar
+              under "match" (D1.7), so the word has a span of its own. */}
+          <span className="lime-bar">
+            university{' '}
+            <span className="relative">
+              match
+              <SeasonSlot slot="hero" />
+            </span>
+          </span>
         </h1>
         <p className="hero-description max-w-xl text-body-l text-muted-foreground">
           Use your predicted IB grades to find university programs that match your profile. IB Match
@@ -106,7 +114,7 @@ function Hero() {
         <ul className="flex flex-col gap-2 text-body text-muted-foreground md:flex-row md:gap-6">
           <li className="inline-flex items-center gap-2">
             <Check aria-hidden="true" size={16} strokeWidth={2.4} className="shrink-0 text-ok" />
-            Free for students, always
+            Free for students
           </li>
           <li className="inline-flex items-center gap-2">
             <Check aria-hidden="true" size={16} strokeWidth={2.4} className="shrink-0 text-ok" />
@@ -224,7 +232,7 @@ function FounderNote() {
           “
         </span>
         <p className="text-body-l text-foreground md:text-[1.25rem]/8">
-          I built IB Match because I remember how overwhelming the university search was during my
+          I started IB Match because I remember how overwhelming the university search was during my
           own IB years. Generic search tools didn’t understand that my HL Physics meant something
           different than just “Physics”. I wanted to create the tool I wished I had.
         </p>
@@ -241,7 +249,7 @@ function FounderNote() {
         <div className="flex flex-col gap-1 rounded-card border border-border bg-card px-6 py-5">
           <p className="text-h3">Free for students</p>
           <p className="text-body text-muted-foreground">
-            Always: there is nothing to pay to see your matches.
+            We have no plans to charge students. There is nothing to pay to see your matches.
           </p>
         </div>
         <div className="flex flex-col gap-1 rounded-card border border-border bg-card px-6 py-5">
@@ -250,7 +258,7 @@ function FounderNote() {
             Missing a university?{' '}
             <Link
               href="/contact"
-              className="rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover"
+              className="rounded-chip font-semibold text-primary underline underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover pressed:text-brand-ink pressed:underline"
             >
               Tell us which one
             </Link>

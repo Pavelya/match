@@ -9,10 +9,8 @@
  * - Provides sidebar with school context
  */
 
-import { auth } from '@/lib/auth/config'
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import { readCoordinator } from '@/lib/auth/guards'
 import { CoordinatorSidebar } from '@/components/coordinator/CoordinatorSidebar'
 import { getAvatarColor, getAvatarInitial } from '@/lib/avatar-utils'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
@@ -22,51 +20,12 @@ import { LegacyLogo } from '@/components/brand/LegacyLogo'
 import { showsNewUi } from '@/lib/new-ui'
 
 export default async function CoordinatorLayout({ children }: { children: React.ReactNode }) {
-  const session = await auth()
-
-  // Redirect to sign-in if not authenticated
-  if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
-  }
-
-  // Verify user is a coordinator and get their school
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      id: true,
-      role: true,
-      email: true,
-      name: true,
-      image: true,
-      coordinatorProfile: {
-        select: {
-          isActive: true,
-          school: {
-            select: {
-              id: true,
-              name: true,
-              subscriptionTier: true,
-              subscriptionStatus: true
-            }
-          }
-        }
-      }
-    }
-  })
-
-  // Redirect if user is not a coordinator
-  if (user?.role !== 'COORDINATOR') {
-    redirect('/')
-  }
-
-  // Redirect if coordinator profile or school doesn't exist
-  if (!user.coordinatorProfile?.school) {
-    // Coordinator exists but no school linked - this shouldn't happen in normal flow
-    redirect('/')
-  }
+  // Signed in as a coordinator with a school, or redirected. Each page checks again (SEC-1), and
+  // refuses a revoked coordinator: this layout only chooses what surrounds the page
+  const user = await readCoordinator()
 
   // Check if coordinator access is revoked
-  if (!user.coordinatorProfile.isActive) {
+  if (!user.isActive) {
     // Show access revoked message
     return (
       <div className="min-h-screen flex items-center justify-center bg-muted/30 p-8">
@@ -102,7 +61,7 @@ export default async function CoordinatorLayout({ children }: { children: React.
     )
   }
 
-  const school = user.coordinatorProfile.school
+  const school = user.school
 
   // Calculate full access based on tier and subscription status
   const access = getCoordinatorAccess(school)

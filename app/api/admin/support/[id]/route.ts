@@ -18,7 +18,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { TicketStatus, TicketPriority } from '@prisma/client'
+import { TicketStatus, TicketPriority } from '@/app/generated/prisma/enums'
 import { sendTicketResolvedEmail } from '@/lib/email/support-tickets'
 
 // Validation schema for ticket update

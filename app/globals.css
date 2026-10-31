@@ -21,6 +21,25 @@
   }
 }
 
+/*
+ * Motion and feedback (rebranding 5.2, board "D1.6 Motion and feedback"). pressed: a press, or a
+ * link whose page is on its way (components/ds/LinkPending.tsx), so the pressed look holds until
+ * the page arrives. link-pressed and link-hover: the same for a card or row that its name's link
+ * covers (data-stretched-link), and not for Save or "Why this match" above it.
+ */
+@custom-variant pressed (&:is(:active, :has([data-pending])));
+
+/* Hover first: a variant registered later wins, and a press must beat the hover under it */
+@custom-variant link-hover {
+  @media (hover: hover) {
+    &:has([data-stretched-link]:hover) {
+      @slot;
+    }
+  }
+}
+
+@custom-variant link-pressed (&:has([data-stretched-link]:active, [data-pending]));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -393,33 +412,245 @@
 }
 
 /*
- * The cookie banner (D4.1, components/site/CookieBanner.tsx). Signed in on a phone it sits on the
- * tab bar, and the bar stays put while it shows instead of hiding on scroll. A toast rises 12px
- * above it: the banner measures its top's distance from the bottom into --cookie-banner.
+ * The cookie banner (D4.1) and the policy update notice (D2.16), one at a time in one panel
+ * (components/site/bottom-panel.tsx). Signed in on a phone it sits on the tab bar, and the bar
+ * stays put while it shows instead of hiding on scroll. A toast rises 12px above it: the panel
+ * measures its top's distance from the bottom into --bottom-panel.
  */
-[data-ui='next'] body:has([data-cookie-banner]) .ds-toast-region {
-  bottom: calc(var(--cookie-banner) + 0.75rem);
+[data-ui='next'] body:has([data-bottom-panel]) .ds-toast-region {
+  bottom: calc(var(--bottom-panel) + 0.75rem);
   translate: none;
 }
 
 @media (width < 48rem) {
-  [data-ui='next'] body:has([data-tab-bar]) [data-cookie-banner] {
+  [data-ui='next'] body:has([data-tab-bar]) [data-bottom-panel] {
     bottom: var(--tab-bar-height);
     max-height: calc(100dvh - var(--tab-bar-height) - 7rem);
     padding-bottom: 1.25rem;
   }
 
-  [data-ui='next'] body:has([data-cookie-banner]) [data-tab-bar] {
+  [data-ui='next'] body:has([data-bottom-panel]) [data-tab-bar] {
     translate: none;
     opacity: 1;
     pointer-events: auto;
   }
 }
 
+/*
+ * Motion and feedback (rebranding 5.2, board "D1.6 Motion and feedback"), as shared classes so
+ * every component answers the same way. Timings are D1.3's: 120ms for a press, 180ms for hover
+ * and state, one easing. Each thing answers for itself, so the browser's grey tap flash goes.
+ */
+[data-ui='next'] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@layer components {
+  /*
+   * A press: 98% for controls, 96% for targets under 64px wide, 99% for cards and rows, each
+   * with the component's own darker fill (pressed:). 120ms in, 180 back. A card or row whose
+   * name's link covers it presses with that link, and a link opening a page holds it. Reduced
+   * motion keeps the fill and drops the shrink.
+   */
+  .press,
+  .press-sm,
+  .press-lg {
+    transition-property:
+      color, background-color, border-color, box-shadow, text-decoration-color, scale;
+    transition-duration: 180ms;
+    transition-timing-function: var(--ease-standard);
+  }
+
+  /* Each sets its own, since a custom property inherits: Save inside a row stays at 98% */
+  .press {
+    --press: 0.98;
+  }
+
+  .press-sm {
+    --press: 0.96;
+  }
+
+  .press-lg {
+    --press: 0.99;
+  }
+
+  :is(.press, .press-sm, .press-lg):is(:active, :has([data-pending])):not(
+      [aria-disabled='true'],
+      :has(> input:disabled, [data-stretched-link])
+    ),
+  .press-lg:has([data-stretched-link]:active, [data-pending]) {
+    transition-duration: 120ms;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scale: var(--press);
+    }
+  }
+
+  /* The name's link, stretched over its card or row (the nearest positioned ancestor) */
+  [data-stretched-link]::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+  }
+
+  /*
+   * A small overlay: menus, popovers, the account and Menu panels, Save and exit's question, and
+   * their scrims. In, a fade and a 4px drop from its button over 180ms; out, 120. It opens and
+   * closes by the hidden attribute, a popover or a dialog. A browser without @starting-style or
+   * allow-discrete shows and hides it at once. Scrims set --overlay-drop to 0.
+   */
+  .overlay-sm {
+    transition-property: opacity, translate, display, overlay;
+    transition-duration: 180ms;
+    transition-timing-function: var(--ease-standard);
+    transition-behavior: allow-discrete;
+
+    @starting-style {
+      opacity: 0;
+      translate: 0 var(--overlay-drop, -4px);
+    }
+  }
+
+  .overlay-sm:is([hidden], [popover]:not(:popover-open), dialog:not([open])) {
+    opacity: 0;
+    translate: 0 var(--overlay-drop, -4px);
+    transition-duration: 120ms;
+  }
+
+  /* A backdrop may not inherit the easing's custom property, so it is written out */
+  .overlay-sm::backdrop {
+    transition: 180ms cubic-bezier(0.2, 0.8, 0.2, 1) allow-discrete;
+    transition-property: opacity, display, overlay;
+  }
+
+  .overlay-sm:not([open])::backdrop {
+    opacity: 0;
+    transition-duration: 120ms;
+  }
+
+  @starting-style {
+    .overlay-sm[open]::backdrop {
+      opacity: 0;
+    }
+  }
+}
+
+/* Explore's count while a change loads (D1.6): after 300ms "Updating…" takes its place */
+.explore-count > :last-child,
+.explore-count[data-updating] > * {
+  visibility: hidden;
+}
+
+.explore-count[data-updating] > * {
+  transition: visibility 0s 300ms;
+}
+
+.explore-count[data-updating] > :last-child {
+  visibility: visible;
+}
+
+/* An inline disclosure's content fades in as it opens; nothing slides, and closing is instant */
+@keyframes disclose-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@utility disclose {
+  animation: disclose-in 180ms var(--ease-standard);
+}
+
 /* Home's highlighted phrase (D4.1): a lime bar under the letters, not a marker behind them */
 [data-ui='next'] .lime-bar {
   background: linear-gradient(var(--lime), var(--lime)) 0 88% / 100% 0.14em no-repeat;
   box-decoration-break: clone;
+}
+
+/*
+ * Seasonal themes' four slots (rebranding 6.1, board "D1.7 Seasonal themes"): beside the mark,
+ * under "match" in Home's hero, in the lime band on every page with it (6.3), and on the 404.
+ * Each is empty and placed inside a box the page already has, so it never moves the layout or
+ * takes a tap. A season's own stylesheet (public/seasons/{key}/season.css) shows them and draws
+ * in them. The hero's drawing gets the one entrance D1.6 allows; every other slot is still.
+ */
+[data-season-slot] {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+  background: no-repeat top / contain;
+}
+
+[data-season-slot='mark'] {
+  top: 9px;
+  left: calc(100% + 8px);
+  width: 20px;
+  height: 20px;
+}
+
+/* Hanging from the lime bar's lower edge (.lime-bar), as wide as the word */
+[data-season-slot='hero'] {
+  inset: calc(88% + 0.017em) 0 auto;
+  height: 0.33em;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: season-in 480ms var(--ease-standard) both;
+  }
+}
+
+@keyframes season-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+[data-season-slot='band'],
+[data-season-slot='404'] {
+  top: 8px;
+  right: 1rem;
+  width: 150px;
+  height: 27px;
+}
+
+[data-season-slot='404'] {
+  top: 12px;
+}
+
+/* 330 × 60 from 768px ("D1.7 Season · Christmas"): 8px above the band's heading, at 220 × 40 a
+   drawing was lost on a wide band */
+@media (width >= 48rem) {
+  [data-season-slot='band'],
+  [data-season-slot='404'] {
+    top: 12px;
+    right: 1.5rem;
+    width: 330px;
+    height: 60px;
+  }
+}
+
+@media (width >= 80rem) {
+  [data-season-slot='404'] {
+    top: 3.5rem;
+    width: 440px;
+    height: 200px;
+  }
+}
+
+/* Where the header hides the name for room (signed in, 768 to 1023px), and on the quiet pages */
+@media (48rem <= width < 64rem) {
+  [data-app-chrome] [data-season-slot='mark'] {
+    display: none !important;
+  }
+}
+
+body:has([data-quiet]) [data-season-slot='mark'] {
+  display: none !important;
+}
+
+@media (forced-colors: active), print {
+  [data-season-slot] {
+    display: none !important;
+  }
 }
 
 /* Focus moves here when a cookie choice closes the banner: the content, without an outline */
@@ -650,16 +881,39 @@
   *,
   *::before,
   *::after {
-    /* Disable animations */
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-
-    /* Disable transitions */
-    transition-duration: 0.01ms !important;
-
     /* Disable smooth scrolling */
     scroll-behavior: auto !important;
   }
+
+  /* Today's design: every animation and transition ends at once */
+  :root:not([data-ui='next']) *,
+  :root:not([data-ui='next']) *::before,
+  :root:not([data-ui='next']) *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /*
+   * The new design (D1.6): no movement, but no less feedback. Nothing scales, slides, rises or
+   * turns; fades and colour changes keep their times, so components need no rule of their own.
+   */
+  [data-ui='next'] *,
+  [data-ui='next'] *::before,
+  [data-ui='next'] *::after,
+  [data-ui='next'] *::backdrop {
+    transition-property:
+      opacity, color, background-color, border-color, outline-color, text-decoration-color, fill,
+      stroke, box-shadow, visibility, display, overlay !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* The theme switch changes every colour at once (D1.6): no transition in the frame it applies */
+html[data-theme-switching] *,
+html[data-theme-switching] *::before,
+html[data-theme-switching] *::after {
+  transition: none !important;
 }
 
 /* ==========================================

@@ -121,8 +121,8 @@ export function FilterMenu({
           }
         }}
         className={cn(
-          // The popover's own placement is replaced by the chip's position
-          'fixed inset-auto m-0 flex-col overflow-hidden rounded-card border border-border bg-popover p-0 text-popover-foreground shadow-overlay open:flex'
+          // The popover's own placement is replaced by the chip's position. A small overlay (D1.6)
+          'overlay-sm fixed inset-auto m-0 flex-col overflow-hidden rounded-card border border-border bg-popover p-0 text-popover-foreground shadow-overlay open:flex'
         )}
       >
         <div className="flex min-h-0 flex-col gap-2 overflow-y-auto overscroll-contain px-4 pt-4 pb-2">
@@ -139,7 +139,9 @@ export function FilterMenu({
             onClick={() => canClear && onClear()}
             className={cn(
               '-ml-1.5 inline-flex h-11 items-center rounded-chip px-1.5 text-body font-medium underline-offset-3',
-              canClear ? 'text-primary underline hover:text-brand-hover' : 'text-ink-3'
+              canClear
+                ? 'text-primary underline hover:text-brand-hover pressed:text-brand-ink pressed:underline'
+                : 'text-ink-3'
             )}
           >
             Clear

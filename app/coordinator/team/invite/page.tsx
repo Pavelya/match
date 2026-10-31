@@ -9,6 +9,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import {
   PageContainer,
@@ -19,12 +20,14 @@ import {
 import { UserCog } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
 import { InviteCoordinatorForm } from './InviteCoordinatorForm'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 export default async function InviteCoordinatorPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator profile and school

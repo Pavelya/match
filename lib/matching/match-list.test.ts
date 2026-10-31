@@ -3,10 +3,13 @@ import {
   hasSubjects,
   isWidened,
   matchItem,
+  matchItems,
   profileSteps,
   profileSummary,
+  rankedResults,
   type ListedProfile
 } from './match-list'
+import { GROUPS, sortMatches } from './match-groups'
 import type { CachedProgram } from './program-cache'
 import { calculateMatch } from './scorer'
 import { transformProgram, transformStudent } from './transformers'
@@ -85,15 +88,14 @@ describe('matchItem', () => {
       initials: 'MIT',
       minIBPoints: null,
       score: 100,
-      status: 'meets',
-      badge: 'Meets all requirements',
+      status: 'neutral',
+      badge: 'No set grades',
       chips: [
         {
           kind: 'info',
           label: 'No IB minimum · admits 4.6%',
           spokenAfter: ' of first-year applicants'
         },
-        { kind: 'info', label: 'No named subjects' },
         { kind: 'info', label: 'Checked for 2026 entry' }
       ]
     })
@@ -102,6 +104,99 @@ describe('matchItem', () => {
     )
     expect(item.why.intake).toEqual({ status: 'older', entryYear: 2026, currentYear: 2027 })
     expect(item.why.programUrl).toBe('https://economics.mit.edu')
+  })
+})
+
+describe('rankedResults', () => {
+  const STUDENT = { ...PROFILE, totalIBPoints: 36 }
+
+  /** Physics HL at the given grade is required, which this student's HL 6 meets at 5 */
+  const physics = (minGrade: number): CachedProgram['courseRequirements'] => [
+    {
+      id: 'req-physics',
+      ibCourse: { id: 'physics', name: 'Physics', code: 'PHYS', group: 4 },
+      requiredLevel: 'HL',
+      minGrade,
+      isCritical: true,
+      orGroupId: null
+    }
+  ]
+
+  const CATALOGUE = [
+    program({ id: 'gap', minIBPoints: 45 }),
+    program({ id: 'close', minIBPoints: 38 }),
+    program({ id: 'none', minIBPoints: null, courseRequirements: physics(5) }),
+    program({ id: 'open', minIBPoints: null }),
+    program({ id: 'far-under', minIBPoints: 25 }),
+    program({ id: 'near-under', minIBPoints: 34 }),
+    // Met, in a field the student did not choose: it scores below the program 2 short
+    program({
+      id: 'elsewhere',
+      minIBPoints: 30,
+      fieldOfStudy: { ...program().fieldOfStudy, id: 'arts', name: 'Arts & Humanities' }
+    })
+  ]
+
+  const score = (programs: CachedProgram[]) =>
+    programs.map((p) =>
+      calculateMatch({ student: transformStudent(STUDENT), program: transformProgram(p) })
+    )
+
+  const byId = new Map(CATALOGUE.map((p) => [p.id, p]))
+
+  it('puts meets, close, no set grades and gap in that order, whatever the scores', () => {
+    const results = score(CATALOGUE)
+    const of = (id: string) => results.find((r) => r.programId === id)!.overallScore
+    expect(of('elsewhere')).toBeLessThan(of('close'))
+
+    expect(rankedResults(results, byId, 36).map((r) => r.programId)).toEqual([
+      'near-under',
+      'far-under',
+      'none',
+      'elsewhere',
+      'close',
+      'open',
+      'gap'
+    ])
+  })
+
+  it('inside a status, the closest minimum comes first and no minimum last', () => {
+    const results = score(
+      CATALOGUE.filter((p) => ['near-under', 'far-under', 'none'].includes(p.id))
+    )
+
+    expect(rankedResults(results, byId, 36).map((r) => r.programId)).toEqual([
+      'near-under',
+      'far-under',
+      'none'
+    ])
+  })
+
+  it('leaves out a result whose program has gone', () => {
+    const results = score(CATALOGUE)
+    const left = new Map(CATALOGUE.filter((p) => p.id !== 'close').map((p) => [p.id, p]))
+
+    expect(rankedResults(results, left, 36).map((r) => r.programId)).not.toContain('close')
+  })
+
+  it('returns the results themselves, with everything the coordinator response spreads', () => {
+    const results = score(CATALOGUE).map((r) => ({ ...r, category: 'MATCH' as const }))
+
+    const ranked = rankedResults(results, byId, 36)
+
+    expect(ranked).toHaveLength(results.length)
+    expect(ranked[0]).toBe(results.find((r) => r.programId === 'near-under'))
+  })
+
+  it('gives the same ids in the same order as flattening the student’s groups', () => {
+    const results = score(CATALOGUE)
+    // What MatchesClient does with the route's cards, in its default order
+    const sorted = sortMatches(matchItems(results, byId, 36), 'fit', 36)
+    const groups = GROUPS.flatMap((g) => sorted.filter((m) => m.status === g.status))
+
+    expect(rankedResults(results, byId, 36).map((r) => r.programId)).toEqual(
+      groups.map((m) => m.id)
+    )
   })
 })
 

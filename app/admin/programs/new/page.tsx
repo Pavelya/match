@@ -7,8 +7,10 @@
 import { prisma } from '@/lib/prisma'
 import { ProgramForm } from '@/components/admin/programs/ProgramForm'
 import { FormPageLayout } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function NewProgramPage() {
+  await requireAdmin()
   // Fetch all reference data needed for the form
   const [universities, fieldsOfStudy, ibCourses] = await Promise.all([
     prisma.university.findMany({
@@ -16,6 +18,8 @@ export default async function NewProgramPage() {
       select: {
         id: true,
         name: true,
+        // The campus city input's placeholder
+        city: true,
         country: {
           select: { flagEmoji: true, name: true }
         }

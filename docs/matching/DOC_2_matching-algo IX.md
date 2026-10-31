@@ -1,5 +1,8 @@
 # IB Match – University Program Matching Algorithm (Revised)
 
+> **Superseded.** The master version of the algorithm is
+> [`DOC_2_matching-algo XI.md`](./DOC_2_matching-algo%20XI.md), which states what runs. This is kept as a record.
+
 This algorithm computes a **compatibility score** (0 to 1) between a student’s IB profile and a university program. A higher score means a better fit. The score is based on three factors:
 
 - **Academic Match (G_M):** How well the student’s IB points and subjects meet the program’s requirements.

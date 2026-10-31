@@ -18,11 +18,11 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { resend } from '@/lib/email/client'
+import { getResendClient } from '@/lib/email/client'
 import { logger } from '@/lib/logger'
 import { env } from '@/lib/env'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import StudentInviteEmail from '@/emails/student-invite'
+import { studentInviteMessage } from '@/emails/student-invite'
 import { applyRateLimit } from '@/lib/rate-limit'
 
 // Token expiry: 7 days
@@ -90,15 +90,15 @@ async function createLinkRequestInvitation({
   const baseUrl = env.NEXT_PUBLIC_APP_URL || env.NEXTAUTH_URL
   const inviteUrl = `${baseUrl}/student/invitations`
 
-  const { error: emailError } = await resend.emails.send({
+  const { error: emailError } = await getResendClient().emails.send({
     from: env.EMAIL_FROM,
     to: existingUser.email,
-    subject: `${school.name} wants to connect with your IB Match account`,
-    react: StudentInviteEmail({
+    ...studentInviteMessage({
       inviteUrl,
       schoolName: school.name,
       coordinatorName: coordinator.user.name || undefined,
-      expiresInDays: INVITATION_EXPIRY_DAYS
+      expiresInDays: INVITATION_EXPIRY_DAYS,
+      existingAccount: true
     })
   })
 
@@ -266,12 +266,10 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // User exists but isn't a student (could be coordinator or other role)
+      // User exists but isn't a student (could be coordinator or other role). The answer doesn't
+      // say which kind of account it is (SEC-5)
       if (existingUser.role !== 'STUDENT') {
-        return NextResponse.json(
-          { error: 'This email is already registered with a different account type' },
-          { status: 409 }
-        )
+        return NextResponse.json({ error: "This address can't be invited" }, { status: 409 })
       }
 
       // User exists, is a student, but has no school linked - create link request invitation
@@ -326,11 +324,10 @@ export async function POST(request: NextRequest) {
     const inviteUrl = `${baseUrl}/auth/accept-student-invite/${token}`
 
     // 10. Send invitation email
-    const { error: emailError } = await resend.emails.send({
+    const { error: emailError } = await getResendClient().emails.send({
       from: env.EMAIL_FROM,
       to: normalizedEmail,
-      subject: `You're invited to join ${school.name} on IB Match`,
-      react: StudentInviteEmail({
+      ...studentInviteMessage({
         inviteUrl,
         schoolName: school.name,
         coordinatorName: coordinator.user.name || undefined,
@@ -398,6 +395,9 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
+    const rateLimited = await applyRateLimit('api', session.user.id)
+    if (rateLimited) return rateLimited
+
     const coordinator = await prisma.coordinatorProfile.findFirst({
       where: { userId: session.user.id },
       include: {
@@ -411,6 +411,14 @@ export async function GET() {
       return NextResponse.json(
         { error: 'Coordinator profile or school not found' },
         { status: 404 }
+      )
+    }
+
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
       )
     }
 

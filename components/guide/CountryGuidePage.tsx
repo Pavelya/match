@@ -16,6 +16,7 @@ import {
 import type { CountryGuide, GuideSection } from '@/lib/guides/types'
 import { cn } from '@/lib/utils'
 import { GuideBlocks, GuideSources } from './GuideBlocks'
+import { QuestionsPanel, disclosureChevron } from './QuestionsPanel'
 import { ExternalAnchor, RichText } from './RichText'
 
 /*
@@ -31,8 +32,6 @@ import { ExternalAnchor, RichText } from './RichText'
  */
 
 const container = cn(containerClass, 'px-4 md:px-6')
-const disclosureChevron =
-  'shrink-0 text-muted-foreground transition-transform duration-180 ease-standard group-open:rotate-180 motion-reduce:transition-none'
 
 export function CountryGuidePage({ guide }: { guide: CountryGuide }) {
   const name = countryName(guide)
@@ -216,7 +215,7 @@ function ArrowLink({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="rounded-chip font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline"
+      className="rounded-chip font-semibold text-primary underline-offset-3 transition-colors duration-180 ease-standard hover:text-brand-hover hover:underline pressed:text-brand-ink pressed:underline"
     >
       <LastWordWith label={label}>
         <ArrowRight
@@ -259,34 +258,22 @@ function Questions({ guide }: { guide: CountryGuide }) {
       <h2 id={`${QUESTIONS_ID}-heading`} className="mb-1 text-h1">
         {heading}
       </h2>
-      <div className="rounded-card border border-border bg-card">
-        {items.map((item) => (
-          <details key={item.question} className="group not-first:border-t not-first:border-border">
-            <summary className="grid min-h-14 cursor-pointer list-none grid-cols-[minmax(0,1fr)_1.25rem] items-start gap-x-4 px-4 py-3.5 group-first:rounded-t-card focus-visible:outline-offset-[-2px] md:px-5 md:py-4 [&::-webkit-details-marker]:hidden">
-              <h3 className="text-h3">{item.question}</h3>
-              <ChevronDown
-                aria-hidden="true"
-                size={20}
-                strokeWidth={2}
-                className={cn('mt-0.5', disclosureChevron)}
-              />
-            </summary>
-            <div className="flex flex-col gap-2.5 px-4 pb-4 md:pr-14 md:pb-5 md:pl-5">
-              <p className="faq-answer text-body-l">{item.answer}</p>
-              {item.source && (
-                <p className="text-body text-muted-foreground">
-                  Source:{' '}
-                  {item.source.href ? (
-                    <ExternalAnchor href={item.source.href} label={item.source.label} />
-                  ) : (
-                    item.source.label
-                  )}
-                </p>
+      <QuestionsPanel
+        items={items.map((item) => ({
+          question: item.question,
+          answer: item.answer,
+          after: item.source && (
+            <p className="text-body text-muted-foreground">
+              Source:{' '}
+              {item.source.href ? (
+                <ExternalAnchor href={item.source.href} label={item.source.label} />
+              ) : (
+                item.source.label
               )}
-            </div>
-          </details>
-        ))}
-      </div>
+            </p>
+          )
+        }))}
+      />
       <p className="mt-1 text-body-l text-muted-foreground">
         <RichText text={after} />
       </p>

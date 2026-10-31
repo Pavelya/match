@@ -197,7 +197,7 @@ export function NewUniversityPage({
                 </span>
                 <Link
                   href={fitLink.href}
-                  className="inline-flex min-h-8 items-center rounded-chip font-semibold text-primary underline-offset-3 hover:underline md:inline md:min-h-0"
+                  className="inline-flex min-h-8 items-center rounded-chip font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline md:inline md:min-h-0"
                 >
                   {fitLink.text}
                 </Link>
@@ -225,7 +225,7 @@ export function NewUniversityPage({
                   <dd className="text-body [overflow-wrap:anywhere]">
                     <a
                       href={item.href}
-                      className="rounded-chip text-primary underline underline-offset-3"
+                      className="rounded-chip text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
                     >
                       {item.text}
                     </a>

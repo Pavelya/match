@@ -11,8 +11,10 @@
 import { Ticket } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { SupportTicketsListClient } from '@/components/admin/support/SupportTicketsListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
-export default function AdminSupportPage() {
+export default async function AdminSupportPage() {
+  await requireAdmin()
   return (
     <PageContainer>
       <PageHeader

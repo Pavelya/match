@@ -8,6 +8,7 @@ import { ConfirmDialog } from '@/components/ds/ConfirmDialog'
 import { Input } from '@/components/ds/Input'
 import { useToast } from '@/components/ds/Toast'
 import { signOutAfterDeleting } from '@/components/site/sign-out'
+import { clearShortlistCount } from '@/lib/shortlist/count'
 import { ACCOUNT_DELETED_PATH, isDeleteWord, NAME_MAX, nameToSave } from '@/lib/student/settings'
 
 /*
@@ -199,6 +200,8 @@ export function SettingsClient(props: SettingsProps) {
       setDeleteError(DELETE_FAILED)
       return
     }
+    // The nav's count was theirs too (MAINT 5.25)
+    clearShortlistCount()
     try {
       // Signs out, then goes to the page; "Deleting…" stays until it arrives
       await signOutAfterDeleting()
@@ -214,7 +217,11 @@ export function SettingsClient(props: SettingsProps) {
   })
 
   return (
-    <div className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-5 md:px-6 md:pt-10 md:pb-24">
+    // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+    <div
+      data-quiet=""
+      className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-5 md:px-6 md:pt-10 md:pb-24"
+    >
       <div className="flex flex-col gap-1.5">
         <h1 className="text-h1">Settings</h1>
         <p className="text-body text-muted-foreground md:text-body-l">

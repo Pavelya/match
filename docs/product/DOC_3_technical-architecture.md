@@ -646,6 +646,9 @@ model UniversityAgentProfile {
 
 ## Matching Algorithm Implementation
 
+> **Out of date, 30 October 2026.** This section is the original plan. What runs is in
+> [`DOC_2_matching-algo XI.md`](../matching/DOC_2_matching-algo%20XI.md), the master version.
+
 ### Architecture
 
 **Location**: `lib/matching/` directory
@@ -787,16 +790,21 @@ app/api/
 
 ### Middleware & Protection
 
-**Authentication middleware** (`middleware.ts` or `proxy.ts` in Next.js 16):
-- Verify JWT token
-- Inject user context
-- Role-based route protection
-- **Next.js 16**: Use proxy.ts for clearer network boundaries
+**As built (October 2026; `docs/tasks/SEC_tasks.md` has the reasoning):**
 
-**Rate limiting** (Upstash Redis):
-- API calls: 100 requests/minute per user
-- Magic link emails: 5 requests/hour per email
-- Search queries: 50 requests/minute per user (logged in)
+- **`proxy.ts`** sends a signed-out visitor from `/student`, `/admin` and `/coordinator` to sign-in,
+  and a signed-in user in an area that isn't theirs to their own start page. It reads the role in the
+  JWT, which can be up to 5 minutes old, so it is the quick first layer only.
+- **Every admin and coordinator page** calls `requireAdmin()` or `requireCoordinator()`
+  (`lib/auth/guards.ts`), which read the role from the database. A layout's check does not cover the
+  pages under it in Next 16 (SEC-1).
+- **Every API route** checks the session, the role from the database and ownership itself.
+
+**Rate limiting** (Upstash Redis, `lib/rate-limit.ts`; it fails open except for sign-in emails):
+- Auth endpoints: 5 per 10 seconds per IP; callbacks 60 a minute per IP
+- Sign-in emails: 3 per 15 minutes and 10 a day per address, 60 an hour per IP, failing closed
+- Signed-in API calls: 60 a minute per user (profile 10, matches 20, invitations 60 an hour)
+- Explore: 30 a minute per signed-in student, 120 a minute per IP signed out
 
 ---
 
@@ -1219,10 +1227,10 @@ const schoolsNeedingRenewal = await db.iBSchool.findMany({
 
 ### Authentication Security
 
-**Magic link security**:
-- **Token expiry**: 15 minutes
+**Magic link security** (as built):
+- **Token expiry**: 10 minutes, and every text says so
 - **Single-use tokens**: Invalidated after first use
-- **Rate limiting**: Max 5 magic link requests per hour per email
+- **Rate limiting**: 3 per 15 minutes and 10 a day per address (SEC-2)
 - **HTTPS only**
 
 **Password-less advantages**:
@@ -1230,15 +1238,17 @@ const schoolsNeedingRenewal = await db.iBSchool.findMany({
 - No weak passwords
 - Better UX
 
-**Session management**:
-- **Secure cookies**: `httpOnly`, `secure`, `sameSite=strict`
-- **Session expiry**: 7 days for students, 24 hours for admin roles
-- **Logout**: Explicit session revocation
+**Session management** (as built):
+- **JWT sessions** in `httpOnly`, `secure`, `sameSite=lax` cookies, 30 days for every role
+- **The role is re-read from the database every 5 minutes** (`lib/auth/session-token.ts`); a deleted
+  account is signed out at that read (SEC-6)
+- **No server-side revocation**: sessions are JWTs, so "sign out everywhere" isn't built (SEC-6
+  Part B, decided against for now)
 
 ### Data Access Control
 
 **Role-based access control (RBAC)**:
-- Middleware/proxy.ts enforces route-level permissions
+- proxy.ts turns away the wrong role early; each page and API route checks again from the database
 - API endpoints verify user role before data access
 - Database queries filter by user ownership (e.g., coordinators only see their school's students)
 

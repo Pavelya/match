@@ -32,12 +32,16 @@ import {
   Breadcrumbs
 } from '@/components/admin/shared'
 import { StudentDetailActions } from '@/components/admin/students/StudentDetailActions'
+import { SilentLabel } from '@/components/admin/students/SilentLabel'
+import { isSilent } from '@/lib/account/inactivity'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function StudentDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   // id can be either userId or profileId, try both
@@ -85,6 +89,7 @@ export default async function StudentDetailPage({ params }: PageProps) {
 
   const profile = student.studentProfile
   const hasProfile = !!profile
+  const silent = isSilent(student, new Date())
 
   // Calculate IB points from courses if available
   const hlCourses = profile?.courses.filter((c) => c.level === 'HL') || []
@@ -135,6 +140,8 @@ export default async function StudentDetailPage({ params }: PageProps) {
           {hasProfile ? 'Profile Complete' : 'No Profile'}
         </span>
 
+        {silent && <SilentLabel />}
+
         {profile?.school && (
           <div className="flex items-center gap-1 text-muted-foreground text-sm">
             <GraduationCap className="h-4 w-4" />
@@ -163,6 +170,19 @@ export default async function StudentDetailPage({ params }: PageProps) {
                   month: 'short',
                   year: 'numeric'
                 })}
+              />
+              <InfoRow
+                label="Last active"
+                value={
+                  student.lastActiveAt
+                    ? student.lastActiveAt.toLocaleDateString('en-GB', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                        timeZone: 'UTC'
+                      })
+                    : 'Never'
+                }
               />
               <InfoRow label="Profile Status" value={hasProfile ? 'Complete' : 'Not Created'} />
             </InfoCard>

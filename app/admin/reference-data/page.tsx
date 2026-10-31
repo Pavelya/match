@@ -1,6 +1,8 @@
 import { ReferenceDataClient } from '@/components/admin/reference/ReferenceDataClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
-export default function ReferenceDataPage() {
+export default async function ReferenceDataPage() {
+  await requireAdmin()
   return (
     <div className="p-8">
       {/* Page Header */}

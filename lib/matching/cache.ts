@@ -6,9 +6,9 @@
  *
  * Cache Strategy:
  * - TTL: 30 minutes (1800 seconds)
- * - Key Format: match:{studentId}:{programId}:{weightsHash}
- * - Batch Key: matches:{studentId}:{weightsHash}
- * - V10 Key: matchesV10:{studentId}:{weightsHash}:{programCount}
+ * - Key: matchesV10:{studentId}:{weightsHash}:{programCount}
+ *
+ * One list per student: Matches and the coordinator pages read the same key (MAINT 5.44).
  *
  * Note: V10 cache works correctly with tiered fallback filtering (see optimized-matcher.ts).
  * The fallback tier is NOT included in the cache key - we cache final results regardless
@@ -17,17 +17,24 @@
  */
 
 import { redis } from '@/lib/redis/client'
-import { calculateMatch, calculateMatches } from './scorer'
+import { calculateMatches } from './scorer'
 import { calculateOptimizedMatches } from './optimized-matcher'
 import { enhanceMatchResult } from './enhanced-match-result'
 import { createMatchingMetrics, recordMatchingMetrics } from './matching-metrics'
-import type { MatchInput, MatchResult, WeightConfig } from './types'
+import { WEIGHT_CONFIGS, type MatchInput, type MatchResult, type WeightConfig } from './types'
 import type { MatchCategory } from './categorization'
 import { logger } from '@/lib/logger'
 import { isFeatureEnabled, getEnabledV10Features } from '@/lib/feature-flags'
 
 // Cache TTL in seconds (30 minutes)
 const CACHE_TTL = 1800
+
+/**
+ * Longest a save waits for its list to clear; it normally takes two round trips, about 60 ms.
+ * Upstash's client has no timeout of its own: a refused connection retries for about 4 seconds, and
+ * a hung one never returns.
+ */
+const INVALIDATE_TIMEOUT_MS = 2000
 
 /**
  * Most matches the student matches API returns, best first. The V10 candidate
@@ -59,157 +66,37 @@ function hashWeights(weights: WeightConfig): string {
   return `${weights.academic.toFixed(2)}_${weights.location.toFixed(2)}_${weights.field.toFixed(2)}`
 }
 
-/**
- * Generate cache key for a single match
- */
-function getCacheKey(studentId: string, programId: string, weights: WeightConfig): string {
-  const weightsHash = hashWeights(weights)
-  return `match:${studentId}:${programId}:${weightsHash}`
-}
+async function deleteStudentKeys(studentId: string): Promise<void> {
+  // Find all keys for this student using SCAN (non-blocking)
+  const keys = await scanKeys(`matchesV10:${studentId}:*`)
 
-/**
- * Generate cache key for batch matches
- * Includes program count to ensure different program sets get different cache entries
- */
-function getBatchCacheKey(studentId: string, weights: WeightConfig, programCount: number): string {
-  const weightsHash = hashWeights(weights)
-  return `matches:${studentId}:${weightsHash}:${programCount}`
-}
-
-/**
- * Get cached match result or calculate and cache if not found
- *
- * @param studentId - Student's user ID
- * @param input - Match input
- * @returns Match result (from cache or freshly calculated)
- */
-export async function getCachedMatch(studentId: string, input: MatchInput): Promise<MatchResult> {
-  const weightsUsed = input.weights || { academic: 0.6, location: 0.3, field: 0.1 } // Default
-
-  const cacheKey = getCacheKey(studentId, input.program.programId, weightsUsed)
-
-  try {
-    // Try to get from cache
-    const cached = await redis.get<MatchResult>(cacheKey)
-
-    if (cached) {
-      logger.debug('Match cache hit', { cacheKey, hit: true })
-      return cached
-    }
-
-    logger.debug('Match cache miss', { cacheKey, hit: false })
-
-    // Calculate fresh result
-    const result = calculateMatch(input)
-
-    // Cache the result
-    await redis.set(cacheKey, result, { ex: CACHE_TTL })
-
-    return result
-  } catch (error) {
-    // If Redis fails, fall back to direct calculation
-    logger.error('Redis cache error, falling back to direct calculation', { error, cacheKey })
-    return calculateMatch(input)
-  }
-}
-
-/**
- * Get cached batch match results or calculate and cache if not found
- *
- * @param studentId - Student's user ID
- * @param student - Student profile
- * @param programs - Array of programs to match
- * @param mode - Matching mode
- * @param weights - Custom weights
- * @returns Sorted array of match results
- */
-export async function getCachedMatches(
-  studentId: string,
-  student: MatchInput['student'],
-  programs: MatchInput['program'][],
-  mode?: MatchInput['mode'],
-  weights?: MatchInput['weights']
-): Promise<MatchResult[]> {
-  const weightsUsed = weights || { academic: 0.6, location: 0.3, field: 0.1 } // Default
-
-  const cacheKey = getBatchCacheKey(studentId, weightsUsed, programs.length)
-
-  try {
-    // Try to get from cache
-    const cached = await redis.get<MatchResult[]>(cacheKey)
-
-    if (cached) {
-      logger.debug('Batch matches cache hit', { cacheKey, hit: true, count: cached.length })
-      return cached
-    }
-
-    logger.debug('Batch matches cache miss', {
-      cacheKey,
-      hit: false,
-      programCount: programs.length
-    })
-
-    // Calculate fresh results
-    const results = calculateMatches(student, programs, mode, weights)
-
-    // Cache the results
-    await redis.set(cacheKey, results, { ex: CACHE_TTL })
-
-    return results
-  } catch (error) {
-    // If Redis fails, fall back to direct calculation
-    logger.error('Redis batch cache error, falling back to direct calculation', { error, cacheKey })
-    return calculateMatches(student, programs, mode, weights)
+  if (keys.length > 0) {
+    await redis.del(...keys)
+    logger.info('Student cache invalidated', { studentId, deletedKeys: keys.length })
   }
 }
 
 /**
  * Invalidate cache for a specific student
- * Call this when student profile is updated
+ * Call this when student profile is updated, and await it before answering (MAINT 5.46)
+ *
+ * It never throws, and it gives up after INVALIDATE_TIMEOUT_MS, so Redis cannot fail or hold up a
+ * save that has already committed.
  *
  * @param studentId - Student's user ID
  */
 export async function invalidateStudentCache(studentId: string): Promise<void> {
+  let timer: ReturnType<typeof setTimeout> | undefined
+  const timedOut = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error('Timed out')), INVALIDATE_TIMEOUT_MS)
+  })
+
   try {
-    // Find all keys for this student using SCAN (non-blocking)
-    const pattern = `match:${studentId}:*`
-    const batchPattern = `matches:${studentId}:*`
-    const v10Pattern = `matchesV10:${studentId}:*`
-
-    const matchKeys = await scanKeys(pattern)
-    const batchKeys = await scanKeys(batchPattern)
-    const v10Keys = await scanKeys(v10Pattern)
-
-    const allKeys = [...matchKeys, ...batchKeys, ...v10Keys]
-
-    if (allKeys.length > 0) {
-      await redis.del(...allKeys)
-      logger.info('Student cache invalidated', { studentId, deletedKeys: allKeys.length })
-    }
+    await Promise.race([deleteStudentKeys(studentId), timedOut])
   } catch (error) {
     logger.error('Failed to invalidate student cache', { error, studentId })
-  }
-}
-
-/**
- * Invalidate cache for a specific program
- * Call this when program requirements are updated
- *
- * @param programId - Program ID
- */
-export async function invalidateProgramCache(programId: string): Promise<void> {
-  try {
-    // Find all keys for this program using SCAN (non-blocking)
-    const pattern = `match:*:${programId}:*`
-
-    const keys = await scanKeys(pattern)
-
-    if (keys.length > 0) {
-      await redis.del(...keys)
-      logger.info('Program cache invalidated', { programId, deletedKeys: keys.length })
-    }
-  } catch (error) {
-    logger.error('Failed to invalidate program cache', { error, programId })
+  } finally {
+    clearTimeout(timer)
   }
 }
 
@@ -219,42 +106,14 @@ export async function invalidateProgramCache(programId: string): Promise<void> {
  */
 export async function clearAllMatchCache(): Promise<void> {
   try {
-    const matchKeys = await scanKeys('match:*')
-    const batchKeys = await scanKeys('matches:*')
-    const v10Keys = await scanKeys('matchesV10:*')
+    const keys = await scanKeys('matchesV10:*')
 
-    const allKeys = [...matchKeys, ...batchKeys, ...v10Keys]
-
-    if (allKeys.length > 0) {
-      await redis.del(...allKeys)
-      logger.info('All match cache cleared', { deletedKeys: allKeys.length })
+    if (keys.length > 0) {
+      await redis.del(...keys)
+      logger.info('All match cache cleared', { deletedKeys: keys.length })
     }
   } catch (error) {
     logger.error('Failed to clear match cache', { error })
-  }
-}
-
-/**
- * Get cache statistics
- * Useful for monitoring and debugging
- */
-export async function getCacheStats(): Promise<{
-  matchKeys: number
-  batchKeys: number
-  totalKeys: number
-}> {
-  try {
-    const matchKeys = await scanKeys('match:*')
-    const batchKeys = await scanKeys('matches:*')
-
-    return {
-      matchKeys: matchKeys.length,
-      batchKeys: batchKeys.length,
-      totalKeys: matchKeys.length + batchKeys.length
-    }
-  } catch (error) {
-    logger.error('Failed to get cache stats', { error })
-    return { matchKeys: 0, batchKeys: 0, totalKeys: 0 }
   }
 }
 
@@ -322,7 +181,7 @@ export async function getCachedMatchesV10(
   weights?: MatchInput['weights']
 ): Promise<V10MatchResult[]> {
   const startTime = performance.now()
-  const weightsUsed = weights || { academic: 0.6, location: 0.3, field: 0.1 }
+  const weightsUsed = weights || WEIGHT_CONFIGS.BALANCED
   const context = { userId: studentId }
 
   // Check if V10 is enabled

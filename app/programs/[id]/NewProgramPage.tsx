@@ -157,7 +157,7 @@ export async function NewProgramPage({
           <p className="text-body text-muted-foreground md:text-body-l">
             <Link
               href={`/universities/${university.id}`}
-              className="rounded-chip font-medium text-foreground underline underline-offset-3"
+              className="rounded-chip font-medium text-foreground underline underline-offset-3 pressed:text-brand-ink pressed:underline"
             >
               {university.name}
             </Link>{' '}

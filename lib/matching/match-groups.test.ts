@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   compareBestFit,
   jumpLabel,
+  listEndText,
   showMoreLabel,
   sortMatches,
   summaryText,
@@ -55,6 +56,19 @@ describe('best fit (D4.6)', () => {
     ])
   })
 
+  it('at one score, a minimum far under the total comes after a closer one, no minimum last', () => {
+    const items = [
+      item('Far under', 'A', 100, 24),
+      item('No minimum', 'B', 100, null),
+      item('Closer', 'C', 100, 28)
+    ]
+    expect(names([...items].sort(compareBestFit(36)))).toEqual([
+      'C Closer',
+      'A Far under',
+      'B No minimum'
+    ])
+  })
+
   it('lowest points needed and country put no minimum last', () => {
     const items = [
       item('A', 'MIT', 100, null, 'United States'),
@@ -84,6 +98,7 @@ describe('the words around the list', () => {
     expect(jumpLabel('meets', 139)).toBe('139 meet all requirements')
     expect(jumpLabel('meets', 1)).toBe('1 meets all requirements')
     expect(jumpLabel('close', 21)).toBe('21 within reach')
+    expect(jumpLabel('neutral', 85)).toBe('85 with no set grades')
     expect(jumpLabel('gap', 11)).toBe('11 missing a requirement')
   })
 
@@ -108,5 +123,12 @@ describe('the words around the list', () => {
     expect(summaryText(1, 0, 0, true)).toBe(
       '1 program near your total, grouped by how close you are.'
     )
+  })
+
+  it('ends the list with what it leaves out, and says nothing of the kind when widened', () => {
+    expect(listEndText(false)).toBe(
+      'That’s every program in your fields and countries, apart from those far above your total. '
+    )
+    expect(listEndText(true)).toBe('')
   })
 })

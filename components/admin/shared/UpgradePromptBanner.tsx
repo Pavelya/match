@@ -6,7 +6,7 @@
  *
  * Usage:
  * - Display when a feature is locked for Regular tier schools
- * - Show inline within sections that require VIP access
+ * - Show inline within sections that need a subscription
  * - Provide clear CTA to upgrade
  */
 
@@ -21,7 +21,7 @@ export interface UpgradePromptBannerProps {
   description?: string
   /** Link to upgrade page */
   upgradeHref?: string
-  /** Button label (default: "Upgrade to VIP") */
+  /** Button label (default: "Subscribe") */
   buttonLabel?: string
   /** Visual variant */
   variant?: 'inline' | 'card' | 'subtle'
@@ -35,7 +35,7 @@ export function UpgradePromptBanner({
   feature,
   description,
   upgradeHref = '/coordinator/settings/subscription',
-  buttonLabel = 'Upgrade to VIP',
+  buttonLabel = 'Subscribe',
   variant = 'inline',
   icon: Icon = Crown,
   className
@@ -51,14 +51,14 @@ export function UpgradePromptBanner({
         <div className="flex items-center gap-2">
           <Icon className="h-4 w-4 text-amber-600" />
           <span className="text-sm text-amber-800">
-            <span className="font-medium">{feature}</span> requires VIP
+            <span className="font-medium">{feature}</span> needs a subscription
           </span>
         </div>
         <Link
           href={upgradeHref}
           className="text-xs font-medium text-amber-700 hover:text-amber-900 underline-offset-2 hover:underline"
         >
-          Upgrade
+          Subscribe
         </Link>
       </div>
     )

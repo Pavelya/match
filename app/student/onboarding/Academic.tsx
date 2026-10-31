@@ -319,7 +319,11 @@ export function Academic(props: AcademicProps) {
   if (!screen) {
     const lines = subjectLines(saved.subjects.rows, courses)
     return (
-      <div className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-6 md:px-6 md:pt-10 md:pb-24">
+      // A quiet page: the header's season accessory hides on it (D1.7, app/globals.css)
+      <div
+        data-quiet=""
+        className="mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-5 pb-16 md:gap-6 md:px-6 md:pt-10 md:pb-24"
+      >
         <AcademicHeading />
         <div className="flex flex-col gap-4 md:gap-6">
           <AcademicSummary
@@ -358,6 +362,7 @@ export function Academic(props: AcademicProps) {
 
   return (
     <div
+      data-quiet=""
       className={cn(
         'mx-auto flex w-full max-w-[58rem] flex-col gap-4 px-4 pt-4 md:gap-5 md:px-6 md:pt-8',
         'pb-[calc(var(--step-footer)+2.5rem)]'

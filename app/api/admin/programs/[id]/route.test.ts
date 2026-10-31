@@ -18,7 +18,7 @@ vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'admin-1' } })) }))
 vi.mock('@/lib/rate-limit', () => ({ applyRateLimit: vi.fn(async () => null) }))
 vi.mock('@/lib/matching/program-cache', () => ({ invalidateProgramsCache: vi.fn() }))
-vi.mock('@/lib/matching', () => ({ invalidateProgramCache: vi.fn(), clearAllMatchCache: vi.fn() }))
+vi.mock('@/lib/matching', () => ({ clearAllMatchCache: vi.fn() }))
 vi.mock('@/lib/algolia/sync', () => ({
   syncProgramToAlgolia: vi.fn(),
   deleteProgramFromAlgolia: vi.fn()
@@ -170,6 +170,36 @@ describe('PATCH /api/admin/programs/[id] — degree type', () => {
 
     expect(res.status).toBe(400)
     expect(prismaMock.programCourseRequirement.deleteMany).not.toHaveBeenCalled()
+    expect(prismaMock.academicProgram.update).not.toHaveBeenCalled()
+  })
+})
+
+// MAINT 5.16: where the program is taught when that is not its university's city.
+describe('PATCH /api/admin/programs/[id] — campus city', () => {
+  it('stores the campus city trimmed', async () => {
+    const res = await patch({ ...FORM, campusCity: ' Kelowna ' })
+
+    expect(res.status).toBe(200)
+    expect(written().campusCity).toBe('Kelowna')
+  })
+
+  it("stores null for an empty one, meaning the university's city", async () => {
+    const res = await patch({ ...FORM, campusCity: '  ' })
+
+    expect(res.status).toBe(200)
+    expect(written().campusCity).toBeNull()
+  })
+
+  it('leaves it alone when the form does not send it', async () => {
+    await patch({ name: FORM.name })
+
+    expect(written()).not.toHaveProperty('campusCity')
+  })
+
+  it('refuses a campus city that is not text', async () => {
+    const res = await patch({ ...FORM, campusCity: 42 })
+
+    expect(res.status).toBe(400)
     expect(prismaMock.academicProgram.update).not.toHaveBeenCalled()
   })
 })

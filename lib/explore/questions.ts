@@ -2,9 +2,8 @@
  * The questions Explore answers (rebranding 2.3, board "D4.7 Explore"). The page's FAQPage
  * structured data has said them to search engines since the January 2026 SEO work; the new
  * design also shows them, collapsed, at the end of the page, because structured data must
- * describe what the page shows (Definition of done 12). One copy for both, words unchanged.
- * Two answers are out of date ("match probability", "over 1000 university programs"); rewording
- * them is its own pull request.
+ * describe what the page shows (Definition of done 12). One copy for both. IB Match gives no
+ * probability (`04-design-system.md` §9, MAINT 5.47), so an answer says what the student sees.
  */
 
 export const EXPLORE_QUESTIONS: readonly { question: string; answer: string }[] = [
@@ -31,7 +30,7 @@ export const EXPLORE_QUESTIONS: readonly { question: string; answer: string }[] 
   {
     question: 'How do I know if I meet the IB requirements?',
     answer:
-      'Each program card shows the minimum IB points required. Click on a program to see detailed IB requirements including specific course requirements (HL/SL subjects and minimum grades). You can also create a profile to see your match probability.'
+      'Each program card shows the minimum IB points required, where the university sets one. Click on a program to see detailed IB requirements including specific course requirements (HL/SL subjects and minimum grades). You can also create a profile with your subjects and grades to see how you stand against each requirement.'
   },
   {
     question: 'Can I search for programs with specific IB course requirements?',
@@ -41,7 +40,7 @@ export const EXPLORE_QUESTIONS: readonly { question: string; answer: string }[] 
   {
     question: 'How many programs are in the database?',
     answer:
-      'The database includes over 1000 university programs from top institutions worldwide. All programs accept the IB Diploma and display IB-specific admission requirements including points and course requirements.'
+      'The database includes more than 1,600 university programs from top institutions worldwide. All programs accept the IB Diploma and display IB-specific admission requirements, such as points and course requirements.'
   },
   {
     question: 'How do I apply to programs I find?',

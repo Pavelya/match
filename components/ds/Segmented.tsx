@@ -101,7 +101,7 @@ export function Segmented<T extends SegmentValue>({
       >
         {track && chosen >= 0 && !disabled && (
           // The chosen thumb: surface with a 1px line-3 edge, 3.3:1 against the track. It slides
-          // with transform only; reduced motion makes it jump (globals.css).
+          // with transform only; reduced motion makes it jump (globals.css, D1.6).
           <span
             aria-hidden="true"
             style={{ '--i': chosen } as CSSProperties}
@@ -132,8 +132,7 @@ export function Segmented<T extends SegmentValue>({
                     ]
                   : [
                       // Never under 44 by 44, even in a container that shrinks to fit.
-                      'h-11 min-w-11 rounded-control border border-line-2 bg-card text-foreground',
-                      'transition-[color,background-color,border-color] duration-180 ease-standard',
+                      'press h-11 min-w-11 rounded-control border border-line-2 bg-card text-foreground',
                       'not-has-checked:not-has-disabled:hover:border-line-3 not-has-checked:not-has-disabled:hover:bg-muted',
                       red
                         ? 'has-checked:border-transparent has-checked:bg-gap has-checked:text-background'

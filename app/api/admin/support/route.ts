@@ -21,7 +21,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { TicketCategory, TicketStatus, UserRole, Prisma } from '@prisma/client'
+import { TicketCategory, TicketStatus, UserRole, Prisma } from '@/app/generated/prisma/client'
 
 export async function GET(request: NextRequest) {
   try {

@@ -8,7 +8,7 @@ This guide documents all available admin scripts and API endpoints for maintaini
 
 | Task | Command/URL | When to Use |
 |------|-------------|-------------|
-| **Run all tests** | `npx tsx scripts/run-all-tests.ts` | Before deploying changes or after bug fixes |
+| **Run all tests** | `npm test` | Before deploying changes or after bug fixes |
 | **Invalidate all caches** | `/api/admin/cache/invalidate` | After bulk imports or direct DB changes |
 | **Clear matching cache** | See [After Matching Algorithm Changes](#after-matching-algorithm-code-changes) | After deploying matching code changes |
 | **Sync programs to Algolia** | `npx tsx scripts/sync-to-algolia-standalone.ts` | After bulk imports |
@@ -99,7 +99,8 @@ npx tsx scripts/manual-algolia-sync.ts
 ```bash
 npx tsx scripts/sync-universities-algolia.ts
 ```
-**Purpose:** Syncs all universities to the universities_production Algolia index.
+**Purpose:** Syncs all universities to the universities_production Algolia index, then deletes
+every record whose id has no University row and prints how many it removed.
 
 **Use when:** After adding or updating universities.
 
@@ -123,10 +124,14 @@ npx tsx scripts/configure-algolia-settings.ts
 # Check for orphan records
 npx tsx scripts/find-algolia-orphans.ts
 
-# Delete orphan records
+# One index only (programs or universities)
+npx tsx scripts/find-algolia-orphans.ts --index universities
+
+# Delete orphan records (saves their JSON to scripts/backups/ first)
 npx tsx scripts/find-algolia-orphans.ts --delete
 ```
-**Purpose:** Finds records in Algolia that no longer exist in the database.
+**Purpose:** Finds records in Algolia that no longer exist in the database, in both
+programs_production and universities_production.
 
 **Use when:** 
 - After deleting programs
@@ -230,180 +235,38 @@ npx tsx scripts/perf-test.ts
 
 ---
 
-### Verification Tests
+### Matching algorithm tests
 
-The matching algorithm has a comprehensive verification test suite. All test files use the `.verify.ts` extension and can be run individually or all at once.
+The matching algorithm's tests are Vitest files next to the code, `lib/matching/*.test.ts`
+(and `lib/feature-flags/matching-v10.test.ts`). `npm test` runs them with every other test,
+and CI runs `npm test` on every pull request. Until 7.1 Part 4 (26 October 2026) they were
+standalone `*.verify.ts` scripts run by `scripts/run-all-tests.ts`; both are gone.
 
-#### Run All Verification Tests
 ```bash
-npx tsx scripts/run-all-tests.ts
+npm test                                   # every test, matching included
+npx vitest run lib/matching                # the matching algorithm only
+npx vitest run lib/matching/scorer.test.ts # one file
+npm run test:watch                         # re-run on every save
 ```
 
-**Purpose:** Runs all 20+ verification tests for the matching algorithm.
+**Use before** deploying matching changes, after fixing a matching bug, and after any change
+to `lib/matching/types.ts`.
 
-**When to use:**
-- Before deploying matching algorithm changes
-- After fixing bugs in the matching logic
-- To verify system integrity after updates
-- As part of CI/CD pipeline
+| Area | Files in `lib/matching/` |
+|---|---|
+| Core matching | `academic-matcher`, `subject-matcher` (with OR-groups), `or-group-display`, `field-matcher`, `location-matcher` |
+| Scoring and categories | `scorer`, `fit-quality`, `confidence`, `categorization`, `selectivity` |
+| Penalties | `unified-penalties`, `penalties` |
+| Performance | `optimized-matcher`, `program-index`, `student-capability-vector`, `memo-cache` |
+| Utilities | `preference-validator`, `enhanced-match-result`, `matching-metrics` |
+| Cards (rebranding) | `match-status`, `match-why`, `match-list`, `match-groups`, `program-cache` |
 
-**Expected output:**
-```
-🎉 All tests passed! Matching algorithm is working correctly.
+`lib/matching/cache.ts`, the Redis match cache, has no tests.
 
-📈 Overall Results:
-   ✅ Passed: 20/20
-   ❌ Failed: 0/20
-   📊 Success Rate: 100.0%
-```
-
-**What it tests:**
-- Academic matching logic
-- Subject requirement matching (including OR-groups)
-- Field of study matching
-- Location/country matching
-- Points and grade calculations
-- Cache operations (Redis & memoization)
-- Penalty system
-- Confidence scoring
-- Fit quality scoring
-- Match categorization (SAFETY/MATCH/REACH/UNLIKELY)
-- Performance optimizations
-- Data validation
-
----
-
-#### Run Individual Verification Tests
-
-All test files are in `/lib/matching/` with the `.verify.ts` extension.
-
-**Core Matching:**
-```bash
-# Academic matching (subjects, grades, levels)
-npx tsx lib/matching/academic-matcher.verify.ts
-
-# Subject requirement matching
-npx tsx lib/matching/subject-matcher.verify.ts
-
-# OR-group display fix verification
-npx tsx lib/matching/or-group-display-verify.ts
-
-# Field of study matching
-npx tsx lib/matching/field-matcher.verify.ts
-
-# Location/country matching
-npx tsx lib/matching/location-matcher.verify.ts
-```
-
-**Scoring & Categorization:**
-```bash
-# Overall score calculation
-npx tsx lib/matching/scorer.verify.ts
-
-# Points fit quality
-npx tsx lib/matching/fit-quality.verify.ts
-
-# Confidence scoring (High/Medium/Low)
-npx tsx lib/matching/confidence.verify.ts
-
-# Match categories (SAFETY/MATCH/REACH)
-npx tsx lib/matching/categorization.verify.ts
-
-# Selectivity boost for top programs
-npx tsx lib/matching/selectivity.verify.ts
-```
-
-**Penalties & Requirements:**
-```bash
-# Unified penalty system
-npx tsx lib/matching/unified-penalties.verify.ts
-
-# Individual penalties
-npx tsx lib/matching/penalties.verify.ts
-```
-
-**Performance & Optimization:**
-```bash
-# Optimized matcher with candidate filtering
-npx tsx lib/matching/optimized-matcher.verify.ts
-
-# Program index for fast filtering
-npx tsx lib/matching/program-index.verify.ts
-
-# Student capability vector (O(1) lookups)
-npx tsx lib/matching/student-capability-vector.verify.ts
-
-# Cache operations
-npx tsx lib/matching/cache.verify.ts
-
-# Memoization cache
-npx tsx lib/matching/memo-cache.verify.ts
-```
-
-**Utilities:**
-```bash
-# Preference validation & anti-gaming
-npx tsx lib/matching/preference-validator.verify.ts
-
-# Enhanced match result structure
-npx tsx lib/matching/enhanced-match-result.verify.ts
-
-# Matching metrics tracking
-npx tsx lib/matching/matching-metrics.verify.ts
-```
-
----
-
-#### Understanding Test Output
-
-**Passing test:**
-```
-✅ PASS: [Test Name]
-```
-
-**Failing test:**
-```
-❌ FAIL: [Test Name]
-   Error: [description]
-```
-
-**Detailed test output:**
-Each verification script includes detailed output showing:
-- Test scenario descriptions
-- Expected vs actual values
-- Assertion results
-- Performance metrics (when applicable)
-
-**Example from OR-group display verification:**
-```
-📋 Test 1: Full match - Computer Science (not Biology)
-✅ PASS: Status is FULL_MATCH
-✅ PASS: Score is 1.0
-✅ PASS: matchedCourseId is cs-hl
-✅ PASS: matchedCourseName is Computer Science
-✅ PASS: Reason includes Computer Science
-✅ PASS: Reason does NOT include Biology
-```
-
----
-
-#### When Tests Fail
-
-If tests fail after making changes:
-
-1. **Review the error message** - Each test shows what was expected vs what was received
-2. **Check recent changes** - Review modifications to matching algorithm code
-3. **Run specific test** - Isolate the failing test for detailed debugging:
-   ```bash
-   npx tsx lib/matching/[failing-test].verify.ts
-   ```
-4. **Verify data integrity** - Ensure test data matches current types/interfaces
-5. **Check dependencies** - Ensure all imports and types are up to date
-
-**Common issues:**
-- Type mismatches after interface updates
-- Logic changes that alter expected scores
-- Cache state affecting results (restart Redis if needed)
+**When a test fails,** Vitest prints the test's name, the expected and received values and
+the line. Re-run that file alone, check the latest change to the matching code, and check
+that the test data still fits `lib/matching/types.ts`. A test that pins a score is meant to
+fail when a score moves: change the expected value only when the new score is intended.
 
 ---
 

@@ -10,11 +10,16 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
-import { getStripe, getOrCreateStripeCustomer, createCheckoutSession } from '@/lib/stripe/server'
+import {
+  getStripe,
+  getOrCreateStripeCustomer,
+  createCheckoutSession,
+  hasLiveSubscription
+} from '@/lib/stripe/server'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
     const session = await auth()
 
@@ -49,6 +54,14 @@ export async function POST(req: Request) {
       )
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const school = coordinator.school
 
     // VIP schools don't need to subscribe
@@ -61,6 +74,15 @@ export async function POST(req: Request) {
       return NextResponse.json(
         { error: 'School already has an active subscription' },
         { status: 400 }
+      )
+    }
+
+    // Nor one whose Stripe customer still has a live subscription: a second checkout opened in
+    // another tab would bill the school twice (MAINT 5.34). Only a returning customer can have one.
+    if (school.stripeCustomerId && (await hasLiveSubscription(school.stripeCustomerId))) {
+      return NextResponse.json(
+        { error: 'School already has a subscription. Manage it from the billing portal.' },
+        { status: 409 }
       )
     }
 
@@ -110,12 +132,10 @@ export async function POST(req: Request) {
       })
     }
 
-    // Parse request body for URLs
-    const body = await req.json().catch(() => ({}))
+    // Always our own pages: Stripe sends the browser wherever these say (MAINT 5.36)
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const successUrl =
-      body.successUrl || `${baseUrl}/coordinator/settings/subscription?success=true`
-    const cancelUrl = body.cancelUrl || `${baseUrl}/coordinator/settings/subscription?canceled=true`
+    const successUrl = `${baseUrl}/coordinator/settings/subscription?success=true`
+    const cancelUrl = `${baseUrl}/coordinator/settings/subscription?canceled=true`
 
     // Create checkout session
     const checkoutUrl = await createCheckoutSession({

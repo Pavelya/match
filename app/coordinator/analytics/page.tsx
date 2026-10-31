@@ -18,6 +18,7 @@
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 import {
@@ -39,12 +40,13 @@ import {
   AlertTriangle
 } from 'lucide-react'
 import { getCoordinatorAccess } from '@/lib/auth/access-control'
-import { getCachedMatches } from '@/lib/matching'
+import { getCachedMatchesV10 } from '@/lib/matching'
 import { getCachedPrograms } from '@/lib/matching/program-cache'
 import { transformStudent, transformPrograms } from '@/lib/matching/transformers'
 import type { PrismaStudentWithRelations } from '@/lib/matching/transformers'
 import { FieldIcon, SubjectGroupIcon } from '@/lib/icons'
 import { cn } from '@/lib/utils'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 // Simple horizontal bar component for visualization
 function HorizontalBar({
@@ -76,10 +78,11 @@ function HorizontalBar({
 }
 
 export default async function CoordinatorAnalyticsPage() {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school
@@ -217,10 +220,11 @@ export default async function CoordinatorAnalyticsPage() {
           const transformedStudent = transformStudent(
             student as unknown as PrismaStudentWithRelations
           )
-          const matches = await getCachedMatches(
+          const matches = await getCachedMatchesV10(
             student.userId,
             transformedStudent,
-            transformedPrograms
+            transformedPrograms,
+            'BALANCED'
           )
 
           if (matches.length > 0) {

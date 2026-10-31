@@ -113,6 +113,21 @@ describe('the summary', () => {
     )
   })
 
+  it('counts the programs with no set grades, third of four', () => {
+    expect(
+      shortlistSummary(['gap', 'neutral', 'meets', 'meets', 'meets', 'meets', 'close', 'close'])
+    ).toBe(
+      '8 programs. 4 meet all requirements, 2 are within reach, 1 has no set grades and 1 is missing a requirement.'
+    )
+    expect(shortlistSummary(['neutral', 'neutral', 'meets'])).toBe(
+      '3 programs. 1 meets all requirements and 2 have no set grades.'
+    )
+    expect(shortlistSummary(['neutral'])).toBe('1 program, and it has no set grades.')
+    expect(shortlistSummary(['neutral', 'neutral'])).toBe(
+      '2 programs, and both have no set grades.'
+    )
+  })
+
   it('reads well for one program and for one status', () => {
     expect(shortlistSummary(['meets'])).toBe('1 program, and it meets all requirements.')
     expect(shortlistSummary(['gap'])).toBe('1 program, and it is missing a requirement.')

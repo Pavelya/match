@@ -2,18 +2,20 @@
  * Coordinator Subscription Management Page
  *
  * Shows subscription status and allows:
- * - Upgrading to VIP (create checkout session)
+ * - Subscribing (create checkout session)
  * - Managing subscription (Stripe Portal)
  * - Viewing subscription details
  */
 
 import { auth } from '@/lib/auth/config'
 import { redirect } from 'next/navigation'
+import { COORDINATOR_SIGN_IN_PATH } from '@/lib/auth/callback-url'
 import { prisma } from '@/lib/prisma'
 import { PageContainer, PageHeader, InfoCard } from '@/components/admin/shared'
 import { CreditCard, Check, AlertCircle, CheckCircle } from 'lucide-react'
 import { getCoordinatorAccess, FREEMIUM_MAX_STUDENTS } from '@/lib/auth/access-control'
 import { SubscriptionActions } from './SubscriptionActions'
+import { requireCoordinator } from '@/lib/auth/guards'
 
 interface SearchParams {
   success?: string
@@ -25,10 +27,11 @@ export default async function CoordinatorSubscriptionPage({
 }: {
   searchParams: Promise<SearchParams>
 }) {
+  await requireCoordinator()
   const session = await auth()
 
   if (!session?.user?.id) {
-    redirect('/auth/coordinator/signin')
+    redirect(COORDINATOR_SIGN_IN_PATH)
   }
 
   // Get coordinator's school

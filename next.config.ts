@@ -88,6 +88,14 @@ const nextConfig: NextConfig = {
   // Turbopack is default in Next.js 16
   // React Compiler will be enabled when available
 
+  env: {
+    // The release flag, read when the app is built (rebranding 4.3). app/global-error.tsx replaces
+    // the root layout, so it can't ask lib/new-ui.ts or the preview cookie: it follows the release
+    // alone, as the emails do, and today's design's builds drop the new page. Release day sets
+    // NEW_UI_FOR_EVERYONE and redeploys, which builds again. Goes at cleanup (R.2).
+    NEW_UI_RELEASED: process.env.NEW_UI_FOR_EVERYONE === 'true' ? 'true' : 'false'
+  },
+
   // Experimental features for Vercel Pro optimization
   experimental: {
     // Stale times for client-side router cache

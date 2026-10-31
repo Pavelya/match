@@ -9,7 +9,7 @@
  * Run with: npx tsx scripts/seed-mcgill-programs.ts
  */
 
-import { CourseLevel } from '@prisma/client'
+import { CourseLevel } from '@/app/generated/prisma/enums'
 import { prisma } from '@/lib/prisma-standalone'
 
 // Program definitions with IB requirements

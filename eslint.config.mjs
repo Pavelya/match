@@ -3,6 +3,8 @@ import nextVitals from 'eslint-config-next/core-web-vitals'
 import nextTs from 'eslint-config-next/typescript'
 import prettierConfig from 'eslint-config-prettier'
 import tseslint from '@typescript-eslint/eslint-plugin'
+import { NOT_STUDENT_FACING, TODAYS_DESIGN, rawPaletteRule } from './eslint/raw-palette.mjs'
+import { inlineJsonPlugin } from './eslint/inline-json.mjs'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -33,6 +35,17 @@ const eslintConfig = defineConfig([
     }
   },
   {
+    // No bare JSON.stringify written into a page as HTML (SEC-3; eslint/inline-json.mjs)
+    plugins: { local: inlineJsonPlugin },
+    rules: { 'local/no-unescaped-inline-json': 'error' }
+  },
+  {
+    // No raw palette classes in student-facing code (rebranding 4.4; eslint/raw-palette.mjs)
+    files: ['app/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}', 'lib/**/*.{ts,tsx}'],
+    ignores: [...NOT_STUDENT_FACING, ...TODAYS_DESIGN],
+    rules: rawPaletteRule
+  },
+  {
     // Allow console in config files and scripts
     files: ['*.config.{js,mjs,ts}', 'scripts/**', 'prisma/**'],
     rules: {
@@ -40,11 +53,9 @@ const eslintConfig = defineConfig([
     }
   },
   {
-    // Allow console and unused vars in verification test files
-    files: ['**/*.verify.ts'],
+    // The V10 flag helpers are named `use…` but are not React hooks
+    files: ['lib/feature-flags/matching-v10.test.ts'],
     rules: {
-      'no-console': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
       'react-hooks/rules-of-hooks': 'off'
     }
   },
@@ -53,7 +64,9 @@ const eslintConfig = defineConfig([
     '.next/**',
     'out/**',
     'build/**',
-    'next-env.d.ts'
+    'next-env.d.ts',
+    // The Prisma client, written by `prisma generate` (postinstall) and gitignored
+    'app/generated/**'
   ])
 ])
 

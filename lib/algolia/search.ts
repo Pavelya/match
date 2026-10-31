@@ -1,19 +1,11 @@
 /**
  * Algolia Search Functions
  *
- * Pre-filters programs using Algolia to reduce matching candidates.
- * Much faster than fetching all programs from DB when filtering by:
- * - Field of study
- * - Country
- * - IB points requirement
+ * Text search over programs and universities, for the search pages.
  */
 
 import { getAlgoliaClient, INDEX_NAMES } from './client'
-import type { AlgoliaProgramRecord } from './sync'
 import { logger } from '@/lib/logger'
-
-// Maximum candidates to return for matching
-const MAX_CANDIDATES = 300
 
 /**
  * Regex for validating CUID format (used by Prisma)
@@ -27,110 +19,6 @@ const CUID_REGEX = /^c[a-z0-9]{24}$/
  */
 function isValidCuid(id: string): boolean {
   return typeof id === 'string' && CUID_REGEX.test(id)
-}
-
-/**
- * Pre-filter programs using Algolia based on student preferences
- *
- * Filters:
- * - fieldOfStudyId IN student's preferred fields (if any)
- * - countryId IN student's preferred countries (if any)
- * - minimumIBPoints <= student's points + 5 (near-eligible)
- *
- * @param studentFields - Student's preferred field IDs
- * @param studentCountries - Student's preferred country IDs
- * @param studentPoints - Student's total IB points
- * @returns Array of program IDs to use for detailed matching
- */
-export async function searchCandidatePrograms(
-  studentFields: string[],
-  studentCountries: string[],
-  studentPoints: number
-): Promise<string[]> {
-  try {
-    // Validate and filter IDs to prevent injection
-    const validFields = studentFields.filter(isValidCuid)
-    const validCountries = studentCountries.filter(isValidCuid)
-
-    // Log if any invalid IDs were filtered out
-    if (validFields.length !== studentFields.length) {
-      logger.warn('Invalid field IDs filtered out', {
-        original: studentFields.length,
-        valid: validFields.length
-      })
-    }
-    if (validCountries.length !== studentCountries.length) {
-      logger.warn('Invalid country IDs filtered out', {
-        original: studentCountries.length,
-        valid: validCountries.length
-      })
-    }
-
-    // Build filter string for Algolia
-    const filters: string[] = []
-
-    // Field filter (OR within, if any preferences)
-    if (validFields.length > 0) {
-      const fieldFilter = validFields.map((f) => `fieldOfStudyId:${f}`).join(' OR ')
-      filters.push(`(${fieldFilter})`)
-    }
-
-    // Country filter (OR within, if any preferences)
-    if (validCountries.length > 0) {
-      const countryFilter = validCountries.map((c) => `countryId:${c}`).join(' OR ')
-      filters.push(`(${countryFilter})`)
-    }
-
-    // Points filter - include programs where student is within 5 points of requirement
-    // This catches near-misses that should still appear in results. Programs that set no IB
-    // minimum have no minimumIBPoints, so they need their own clause (content 6).
-    const pointsThreshold = studentPoints + 5
-    filters.push(`(minimumIBPoints <= ${pointsThreshold} OR noIBMinimum = 1)`)
-
-    const filterString = filters.length > 0 ? filters.join(' AND ') : ''
-
-    logger.debug('Algolia search filters', {
-      studentFields: validFields.length,
-      studentCountries: validCountries.length,
-      studentPoints,
-      filterString
-    })
-
-    // Search Algolia with filters
-    const result = await getAlgoliaClient().searchSingleIndex<AlgoliaProgramRecord>({
-      indexName: INDEX_NAMES.PROGRAMS,
-      searchParams: {
-        query: '', // Empty query = return all matching filters
-        filters: filterString,
-        hitsPerPage: MAX_CANDIDATES,
-        attributesToRetrieve: ['objectID', 'programId'] // Only need IDs
-      }
-    })
-
-    const programIds = result.hits.map((hit) => hit.programId || hit.objectID)
-
-    logger.info('Algolia pre-filter complete', {
-      candidateCount: programIds.length,
-      maxCandidates: MAX_CANDIDATES
-    })
-
-    return programIds
-  } catch (error) {
-    logger.error('Algolia search failed, returning empty array', { error })
-    // Return empty array on error - caller should fall back to full fetch
-    return []
-  }
-}
-
-/**
- * Check if Algolia is available and properly configured
- */
-export function isAlgoliaAvailable(): boolean {
-  try {
-    return !!process.env.ALGOLIA_APP_ID && !!process.env.ALGOLIA_ADMIN_API_KEY
-  } catch {
-    return false
-  }
 }
 
 // ============================================================

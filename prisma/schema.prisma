@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -27,6 +28,12 @@ model User {
   termsVersion         String?   // Version of terms accepted (e.g., "2025-12-09")
   privacyAcceptedAt    DateTime? // When user accepted privacy policy
   privacyPolicyVersion String?   // Version of privacy policy accepted
+
+  // Inactive accounts (MAINT 7.6). The last day the user was seen signed in, written at most once a
+  // day by the jwt callback (lib/auth/last-active.ts); and when the inactivity notice was sent,
+  // cleared by that same write when the user comes back
+  lastActiveAt           DateTime?
+  inactivityNoticeSentAt DateTime?
 
   // Role-specific relations
   studentProfile     StudentProfile?
@@ -201,7 +208,7 @@ model IBSchool {
   stripeSubscriptionId String? @unique
 
   studentCount Int?
-  logo         String? @db.Text // Base64 encoded image data (max ~500KB)
+  logo         String? @db.Text // Public Supabase Storage URL. Never base64: see app/api/admin/schools
   websiteUrl   String? // School website URL
   email        String?
   phone        String?
@@ -365,6 +372,10 @@ model ProgramCourseRequirement {
   requiredLevel CourseLevel // HL, SL
   minGrade      Int // 1-7
   isCritical    Boolean     @default(false)
+  // Needs a course of its own (MAINT 5.18): the program's requirements that have it are each
+  // met by a different course ("two of Biology, Chemistry, Physics"); the others may share one.
+  // The same on every row of an OR group.
+  ownCourse     Boolean     @default(false)
 
   @@index([programId])
   @@index([ibCourseId])
@@ -609,4 +620,17 @@ enum DocumentStatus {
   PENDING_REVIEW
   PUBLISHED
   ARCHIVED
+}
+
+// When each seasonal decoration shows (rebranding 6.1, board "D1.7 Seasonal themes"). The art is
+// code: `key` names a season built in lib/seasons/seasons.ts, and there is no free text, so nothing
+// an admin types reaches a page. One more row, key "all-off", is the "All seasonal decorations off"
+// switch, with no dates. Dates are calendar days, both inclusive, compared with each visitor's own
+// date in the browser. Written only by /admin/seasonal-themes.
+model SeasonalTheme {
+  key       String    @id
+  enabled   Boolean   @default(false)
+  startsOn  DateTime? @db.Date
+  endsOn    DateTime? @db.Date
+  updatedAt DateTime  @updatedAt
 }

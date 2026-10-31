@@ -9,17 +9,23 @@ import { PublicChrome } from '@/components/site/chrome'
 import { ToastProvider } from '@/components/providers/toast-provider'
 import { brandIcons, organizationLogo, shareImage } from '@/lib/brand/metadata'
 import { newUiForEveryone, showsNewUi } from '@/lib/new-ui'
+import { seasonScript } from '@/lib/seasons/pick'
+import { seasonSchedule } from '@/lib/seasons/schedule'
 import { THEME_SCRIPT } from '@/lib/theme'
-import { cn } from '@/lib/utils'
+import { cn, serializeJsonLd } from '@/lib/utils'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin']
 })
 
+// Today's design only: How it works' "f(x) = result" and the admin's codes. Not preloaded, so it
+// downloads only where one of them shows, and the new design, which uses the system's monospace,
+// never downloads it (rebranding 4.3, 04 §2). It goes with NoAISection.tsx at cleanup (R.2).
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
-  subsets: ['latin']
+  subsets: ['latin'],
+  preload: false
 })
 
 // The new design's display face (rebranding 1.1): Newsreader 500, the only weight its styles
@@ -138,6 +144,8 @@ export default async function RootLayout({
   // Which design this request gets (rebranding task 0.1). `data-ui="next"` is the hook for the
   // new design's scoped tokens; for everyone else `<html>` stays exactly as it is.
   const newUi = await showsNewUi()
+  // The seasons' schedule (rebranding 6.1), for the new design only: today's design reads nothing
+  const seasons = newUi ? await seasonSchedule() : []
 
   // Centralized Organization schema for consistent E-E-A-T signals across the site
   const organizationSchema = {
@@ -183,12 +191,14 @@ export default async function RootLayout({
       {/*
        * The new design follows the OS, or the student's choice (rebranding 1.4). The script sets
        * data-theme before first paint; it is the reason for suppressHydrationWarning. Today's
-       * design stays forced light until release, or its screens would change on a dark OS.
+       * design stays forced light until release, or its screens would change on a dark OS. The
+       * second script picks the season by the visitor's own date (lib/seasons/pick.ts).
        */}
       {newUi && (
         <head>
           <meta name="color-scheme" content="light dark" />
           <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+          <script dangerouslySetInnerHTML={{ __html: seasonScript(seasons) }} />
         </head>
       )}
       <body
@@ -203,7 +213,7 @@ export default async function RootLayout({
         {/* Centralized Organization schema for AI search engines */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationSchema) }}
         />
         <CountryFlagPolyfill />
         <ToastProvider>

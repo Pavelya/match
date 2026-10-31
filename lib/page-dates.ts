@@ -22,12 +22,12 @@ interface PageDates {
 }
 
 export const PAGE_DATES = {
-  '/': { published: '2025-12-23', modified: '2025-12-23' },
-  '/for-coordinators': { published: '2025-12-23', modified: '2025-12-23' },
+  '/': { published: '2025-12-23', modified: '2026-10-23' },
+  '/for-coordinators': { published: '2025-12-23', modified: '2026-10-23' },
   // The fallback text. When a FAQ document is published in the CMS, the page uses
   // that document's date instead.
-  '/faqs': { published: '2025-12-23', modified: '2026-10-19' },
-  '/how-it-works': { published: '2026-01-14', modified: '2026-09-25' },
+  '/faqs': { published: '2025-12-23', modified: '2026-10-31' },
+  '/how-it-works': { published: '2026-01-14', modified: '2026-10-31' },
   '/ib-university-requirements': { published: '2026-01-29', modified: '2026-10-10' },
 
   // Country pages. `COUNTRY-PAGE-BASELINE.md` §3.2 asks every new one to add a line.
@@ -41,7 +41,7 @@ export const PAGE_DATES = {
   '/study-in-france-with-ib-diploma': { published: '2026-10-08', modified: '2026-10-08' },
   '/study-in-germany-with-ib-diploma': { published: '2026-02-03', modified: '2026-10-12' },
   '/study-in-hong-kong-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
-  '/study-in-ireland-with-ib-diploma': { published: '2026-02-25', modified: '2026-09-25' },
+  '/study-in-ireland-with-ib-diploma': { published: '2026-02-25', modified: '2026-10-28' },
   '/study-in-israel-with-ib-diploma': { published: '2026-02-26', modified: '2026-09-25' },
   '/study-in-italy-with-ib-diploma': { published: '2026-02-03', modified: '2026-09-25' },
   '/study-in-japan-with-ib-diploma': { published: '2026-02-26', modified: '2026-09-25' },

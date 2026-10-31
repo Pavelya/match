@@ -11,6 +11,7 @@ import { cardChips, deriveMatchStatus, type MatchStatus } from './match-status'
 import { whyThisMatch, type WhyThisMatch } from './match-why'
 import {
   compareBestFit,
+  GROUPS,
   type MatchItem,
   type MatchesProfile,
   type ProfileStep
@@ -128,10 +129,27 @@ export function matchItems(
 }
 
 /**
+ * The results in the order the student's page shows them: by status as GROUPS lists them, then
+ * best fit. For a coordinator's view of that list, which has no groups. Results whose program has
+ * gone are left out, as in matchItems.
+ */
+export function rankedResults<T extends ListedResult>(
+  results: T[],
+  programs: Map<string, CachedProgram>,
+  total: number
+): T[] {
+  const byProgram = new Map(results.map((r) => [r.programId, r]))
+  const items = matchItems(results, programs, total)
+  return GROUPS.flatMap(({ status }) => items.filter((m) => m.status === status)).flatMap(
+    (m) => byProgram.get(m.id) ?? []
+  )
+}
+
+/**
  * True when the list reaches beyond the student's fields and countries. The matcher widens its
- * search only when fewer than ten programs in them are near the student's total (tier 3 and
- * up, optimized-matcher.ts), and every widened tier adds programs outside them; tiers 1 and 2
- * never do. So the results say it, and the shared match cache keeps its shape.
+ * search only when fewer than ten programs in them are at or under the top of its points window
+ * (tier 3 and up, optimized-matcher.ts), and every widened tier adds programs outside them; tiers
+ * 1 and 2 never do. So the results say it, and the shared match cache keeps its shape.
  */
 export function isWidened(results: Pick<MatchResult, 'fieldMatch' | 'locationMatch'>[]): boolean {
   return results.some(

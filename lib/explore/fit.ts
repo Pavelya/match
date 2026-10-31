@@ -3,7 +3,7 @@
  * for word. The status is requirement-based (2.1), so it needs only the academic match: the
  * student's points and subjects against the program's minimum and named subjects. Field and
  * country are notes on a card, never the status, and Explore lists programs outside both.
- * "Only ones I qualify for" keeps the programs whose status is "meets".
+ * "Only ones I qualify for" keeps the programs whose status is "meets" or "No set grades".
  *
  * The program's side comes from its search record, which the list fetches anyway: the minimum
  * and every requirement with its either/or group. So Explore never reads the programs cache, a
@@ -38,6 +38,7 @@ export interface FitRecord {
     minimumGrade: number
     isCritical: boolean
     orGroupId?: string | null
+    ownCourse?: boolean
   }[]
 }
 
@@ -63,10 +64,31 @@ export function fitProgram(record: FitRecord): FitProgram {
         requiredLevel: req.level,
         minGrade: req.minimumGrade,
         isCritical: req.isCritical,
-        orGroupId: req.orGroupId ?? null
+        orGroupId: req.orGroupId ?? null,
+        ownCourse: req.ownCourse
       }))
     })
   }
+}
+
+/**
+ * "Only ones I qualify for": the programs the student can apply to as they stand, and how many of
+ * them have no set grades. Dropped, a student who filters to the US would see almost nothing
+ * (board "D3.1 No IB minimum").
+ */
+export function qualifying<T extends FitRecord>(
+  records: readonly T[],
+  student: StudentProfile
+): { records: T[]; noSetGrades: number } {
+  const kept: T[] = []
+  let noSetGrades = 0
+  for (const record of records) {
+    const { status } = programFit(student, fitProgram(record))
+    if (status !== 'meets' && status !== 'neutral') continue
+    kept.push(record)
+    if (status === 'neutral') noSetGrades++
+  }
+  return { records: kept, noSetGrades }
 }
 
 /** Field and country don't decide the status, so they are left out of it */

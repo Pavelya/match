@@ -33,6 +33,7 @@ import {
   parseCSV,
   buildValidationContext,
   formatErrors,
+  formatWarnings,
   getValidPrograms,
   type ParseResult
 } from '@/lib/bulk-upload'
@@ -234,7 +235,8 @@ export function BulkUploadForm({ universities, fieldsOfStudy, ibCourses }: BulkU
       'duration',
       'min_ib_points',
       'program_url',
-      'course_requirements'
+      'course_requirements',
+      'campus_city'
     ]
 
     const exampleRow = [
@@ -245,7 +247,8 @@ export function BulkUploadForm({ universities, fieldsOfStudy, ibCourses }: BulkU
       '3 years',
       '36',
       'https://university.edu/cs',
-      '(MATH-AA:HL:5|MATH-AI:HL:6)'
+      '(MATH-AA:HL:5|MATH-AI:HL:6)',
+      ''
     ]
 
     const csv = [headers.join(','), exampleRow.map((v) => `"${v}"`).join(',')].join('\n')
@@ -412,7 +415,41 @@ export function BulkUploadForm({ universities, fieldsOfStudy, ibCourses }: BulkU
                 <span className="font-medium">{parseResult.invalidRows} invalid</span>
               </div>
             )}
+            {parseResult.warningRows > 0 && (
+              <div className="flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 rounded-lg">
+                <AlertTriangle className="h-5 w-5" />
+                <span className="font-medium">{parseResult.warningRows} to check</span>
+              </div>
+            )}
           </div>
+
+          {/* Field warnings (MAINT 5.16): worth a look, but the rows still upload */}
+          {parseResult.warningRows > 0 && (
+            <div className="border border-amber-300 rounded-lg p-4 bg-amber-50/50">
+              <div className="flex items-center gap-2 text-amber-700 font-medium mb-1">
+                <AlertTriangle className="h-5 w-5" />
+                Field of study to check (these rows still upload)
+              </div>
+              <p className="text-xs text-muted-foreground mb-3">
+                Keep a field only if the name misleads the rule. A field kept on purpose stays on
+                the field inventory&apos;s outlier list until the program&apos;s id is added to{' '}
+                <code>KEPT</code> in <code>lib/programs/fields-of-study.ts</code> with the
+                owner&apos;s reason.
+              </p>
+              <ul className="space-y-1 text-sm text-amber-800">
+                {formatWarnings(parseResult)
+                  .slice(0, 20)
+                  .map((warning, i) => (
+                    <li key={i}>{warning}</li>
+                  ))}
+                {formatWarnings(parseResult).length > 20 && (
+                  <li className="text-muted-foreground">
+                    ...and {formatWarnings(parseResult).length - 20} more
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
 
           {/* Validation Errors */}
           {!parseResult.isValid && (
@@ -461,10 +498,15 @@ export function BulkUploadForm({ universities, fieldsOfStudy, ibCourses }: BulkU
                     <tr key={row.rowNumber} className={cn(!row.isValid && 'bg-destructive/5')}>
                       <td className="px-4 py-3 text-muted-foreground">{row.rowNumber}</td>
                       <td className="px-4 py-3">
-                        {row.isValid ? (
-                          <CheckCircle2 className="h-4 w-4 text-green-600" />
-                        ) : (
+                        {!row.isValid ? (
                           <XCircle className="h-4 w-4 text-red-600" />
+                        ) : row.warnings.length > 0 ? (
+                          <AlertTriangle
+                            className="h-4 w-4 text-amber-600"
+                            aria-label={row.warnings.map((w) => w.message).join('; ')}
+                          />
+                        ) : (
+                          <CheckCircle2 className="h-4 w-4 text-green-600" />
                         )}
                       </td>
                       <td className="px-4 py-3 font-medium">{row.data.name}</td>

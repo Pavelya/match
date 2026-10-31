@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // The new Matches page groups what this route returns, so it must return every match, with no
 // cap (D4.6: group before any cap), and read nothing beyond the one profile query.
@@ -14,6 +14,10 @@ vi.mock('@/lib/redis/client', () => ({ redis: redisMock }))
 vi.mock('@/lib/matching/program-cache', () => ({ getCachedPrograms: programsMock }))
 vi.mock('@/lib/auth/config', () => ({ auth: vi.fn(async () => ({ user: { id: 'user-1' } })) }))
 vi.mock('@/lib/rate-limit', () => ({ applyRateLimit: vi.fn(async () => null) }))
+// The route must not reach Algolia: importing its client fails every test here
+vi.mock('@/lib/algolia/client', () => {
+  throw new Error('The Matches route imported Algolia')
+})
 
 import { MAX_MATCHES_RETURNED } from '@/lib/matching'
 import type { MatchesResponse } from '@/lib/matching/match-groups'
@@ -77,7 +81,7 @@ function matches(count: number) {
       },
       fieldMatch: { score: 1, isMatch: true, noPreferences: false },
       locationMatch: { score: 1, isMatch: true, noPreferences: false },
-      weightsUsed: { academic: 0.6, location: 0.3, field: 0.1 },
+      weightsUsed: { academic: 0.6, location: 0.1, field: 0.3 },
       adjustments: { rawScore: 1, finalScore: 1, caps: {}, reasons: [] }
     }
   })
@@ -91,6 +95,10 @@ beforeEach(() => {
   vi.clearAllMocks()
   prismaMock.studentProfile.findUnique.mockResolvedValue(PROFILE)
   programsMock.mockResolvedValue(Array.from({ length: 200 }, (_, i) => program(i)))
+})
+
+afterEach(() => {
+  vi.unstubAllEnvs()
 })
 
 describe('GET /api/students/matches/list', () => {
@@ -118,6 +126,43 @@ describe('GET /api/students/matches/list', () => {
     if (!body.complete) throw new Error('expected a list')
 
     expect(body.matches.map((m) => m.minIBPoints)).toEqual([36, 35, 34, 33, 32, 31, 30, 37, 38, 39])
+  })
+
+  it('on a miss, a program far under the total reaches the page as meets (5.40)', async () => {
+    vi.stubEnv('MATCHING_V10_FULL', 'true')
+    redisMock.get.mockResolvedValue(null)
+    programsMock.mockResolvedValue([
+      { ...program(0), minIBPoints: 25 },
+      ...Array.from({ length: 80 }, (_, i) => program(i + 1))
+    ])
+
+    const body = await get()
+    if (!body.complete) throw new Error('expected a list')
+
+    expect(body.matches.find((m) => m.id === 'program-0')).toMatchObject({
+      minIBPoints: 25,
+      status: 'meets'
+    })
+    // No new read: the one profile query, one cache read and at most one cache write
+    expect(prismaMock.studentProfile.findUnique).toHaveBeenCalledTimes(1)
+    expect(prismaMock.studentProfile.findUnique).toHaveBeenCalledWith({
+      where: { userId: 'user-1' },
+      select: {
+        totalIBPoints: true,
+        tokGrade: true,
+        eeGrade: true,
+        openToAllFields: true,
+        openToAllLocations: true,
+        courses: {
+          select: { level: true, grade: true, ibCourse: { select: { id: true, name: true } } }
+        },
+        preferredFields: { select: { id: true, name: true } },
+        preferredCountries: { select: { id: true, name: true } },
+        savedPrograms: { select: { programId: true } }
+      }
+    })
+    expect(redisMock.get).toHaveBeenCalledTimes(1)
+    expect(redisMock.set.mock.calls.length).toBeLessThanOrEqual(1)
   })
 
   it('a profile without subjects gets first run’s steps, and no matching', async () => {

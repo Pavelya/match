@@ -5,10 +5,11 @@ import { emailBrand } from '@/lib/brand/email'
 /**
  * The top of every email. From release day it is the mark at 40px, left-aligned, beside the name
  * as text ("D1.5 Logo: Lens", rebranding 1.3): mail apps in dark mode recolour text but never
- * images, so the name can't be drawn into the PNG. Until then, today's centred 60px logo.
+ * images, so the name can't be drawn into the PNG. Until then, today's centred 60px logo, unless
+ * the email is only ever sent in the new design (`newUi`, the inactivity notice).
  */
-export function EmailHeader({ baseUrl }: { baseUrl: string }) {
-  const { newUi, logo } = emailBrand()
+export function EmailHeader({ baseUrl, newUi: pinned }: { baseUrl: string; newUi?: boolean }) {
+  const { newUi, logo } = emailBrand(pinned)
 
   if (!newUi) {
     return (
@@ -25,7 +26,10 @@ export function EmailHeader({ baseUrl }: { baseUrl: string }) {
           {/* The name beside it says it */}
           <Img src={`${baseUrl}${logo}`} width="40" height="40" alt="" style={mark} />
         </Column>
-        <Column style={name}>{brand.name}</Column>
+        {/* Its dark colour comes from the layout's stylesheet (4.7) */}
+        <Column className="em-ink" style={name}>
+          {brand.name}
+        </Column>
       </Row>
     </Section>
   )

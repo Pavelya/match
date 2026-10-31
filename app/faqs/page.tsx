@@ -6,6 +6,9 @@ import { FAQAccordion } from './_components/FAQAccordion'
 import { StudentFooter } from '@/components/layout/StudentFooter'
 import { getPublishedDocument } from '@/lib/legal-documents'
 import { pageDates } from '@/lib/page-dates'
+import { showsNewUi } from '@/lib/new-ui'
+import { NewFaqs } from './NewFaqs'
+import { serializeJsonLd } from '@/lib/utils'
 
 // ISR - page fetches CMS content but is cached for 1 hour
 export const revalidate = 3600
@@ -71,12 +74,12 @@ const FALLBACK_FAQS = [
   {
     question: 'How many programs will I be matched with?',
     answer:
-      'The number of matches depends on your profile and preferences. We show every match, grouped by status: the programs whose requirements you meet, those within reach, and those missing a requirement. You can also browse and search our full database to discover more options. New programs are added regularly as we grow.'
+      'The number of matches depends on your profile and preferences. We show every match, grouped by status: the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement. You can also browse and search our full database to discover more options. New programs are added regularly as we grow.'
   },
   {
     question: 'Can coordinators at my school see my information?',
     answer:
-      'Only if you accept an invitation to link your account with your school. If you do, your IB coordinator can view your academic profile to help guide you. You can unlink at any time from your settings. Your data is never shared without your consent.'
+      'Only if you accept an invitation to link your account with your school. If you do, your IB coordinator can view your academic profile, matches and saved programs to help guide you. You can unlink at any time from your settings. We never sell your data.'
   },
   {
     question: 'What should I do if I find incorrect program information?',
@@ -140,12 +143,37 @@ export default async function FAQPage() {
     }
   }
 
+  const structuredData = (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+    />
+  )
+
+  // The new design (rebranding 4.3, board "D4.14 Text pages"), from the same list
+  if (await showsNewUi()) {
+    return (
+      <>
+        {structuredData}
+        <NewFaqs
+          faqs={faqs}
+          updated={
+            cmsContent?.effectiveDate
+              ? new Date(cmsContent.effectiveDate).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric'
+                })
+              : null
+          }
+        />
+      </>
+    )
+  }
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {structuredData}
       <PageContainer>
         <div className="mx-auto max-w-3xl py-12 sm:py-16">
           {/* Header */}

@@ -16,10 +16,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
-
-// Current policy versions (same as auth/config.ts)
-const CURRENT_TERMS_VERSION = '2025-12-09'
-const CURRENT_PRIVACY_VERSION = '2025-12-09'
+import { getCurrentVersionLabels } from '@/lib/legal-documents'
 
 export async function POST(request: NextRequest) {
   try {
@@ -76,6 +73,9 @@ export async function POST(request: NextRequest) {
     }
 
     // 3. Create user and coordinator profile in transaction
+    // The published labels, so the policy update notice does not follow at once (MAINT 5.30)
+    const policyVersions = await getCurrentVersionLabels()
+
     const result = await prisma.$transaction(async (tx) => {
       // Create user with COORDINATOR role
       const user = await tx.user.create({
@@ -85,9 +85,9 @@ export async function POST(request: NextRequest) {
           role: 'COORDINATOR',
           emailVerified: new Date(), // Mark as verified since they clicked the invite link
           termsAcceptedAt: new Date(),
-          termsVersion: CURRENT_TERMS_VERSION,
+          termsVersion: policyVersions.terms,
           privacyAcceptedAt: new Date(),
-          privacyPolicyVersion: CURRENT_PRIVACY_VERSION
+          privacyPolicyVersion: policyVersions.privacy
         }
       })
 

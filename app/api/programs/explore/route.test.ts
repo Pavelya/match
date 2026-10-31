@@ -3,9 +3,12 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 // Explore's list (rebranding 2.3): one search in the search service's own order; every match,
 // past its 1,000-hit window, for the points sorts and "Only ones I qualify for"; the fit only
 // for a signed-in student with grades, from one narrow read and the search records themselves.
-// Nothing reads the programs cache (3 MB from Upstash each time, MAINT_tasks.md 5.19).
+// Best fit (MAINT_tasks.md 5.27) browses the whole list, one or two requests and no search, or
+// is one search with EXPLORE_BEST_FIT=lifted. Nothing reads the programs cache (3 MB from
+// Upstash each time, MAINT_tasks.md 5.19).
 
-const { authMock, prismaMock, programsMock, searchMock, browseMock } = vi.hoisted(() => ({
+const { envMock, authMock, prismaMock, programsMock, searchMock, browseMock } = vi.hoisted(() => ({
+  envMock: {} as { EXPLORE_BEST_FIT?: 'full' | 'lifted' | 'off' },
   authMock: vi.fn(),
   prismaMock: { studentProfile: { findUnique: vi.fn() } },
   programsMock: vi.fn(),
@@ -14,6 +17,7 @@ const { authMock, prismaMock, programsMock, searchMock, browseMock } = vi.hoiste
 }))
 
 vi.mock('server-only', () => ({}))
+vi.mock('@/lib/env', () => ({ env: envMock }))
 vi.mock('next/cache', () => ({ unstable_cache: (fn: unknown) => fn }))
 vi.mock('@/lib/auth/config', () => ({ auth: authMock }))
 vi.mock('@/lib/prisma', () => ({ prisma: prismaMock }))
@@ -27,8 +31,11 @@ vi.mock('@/lib/algolia/client', () => ({
   getAlgoliaClient: () => ({ searchSingleIndex: searchMock, browseObjects: browseMock })
 }))
 
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { applyRateLimit } from '@/lib/rate-limit'
+import { bestFitOrder, fitTier } from '@/lib/explore/best-fit'
 import { EMPTY_QUERY, exploreListUrl } from '@/lib/explore/query'
+import { transformStudent } from '@/lib/matching/transformers'
 import type { ExploreResponse } from '@/lib/explore/types'
 import { GET } from './route'
 
@@ -40,13 +47,19 @@ const id = (i: number) => `program-${i}`
 /** Every hundredth program asks for Chemistry or Biology at HL 5, which the student hasn't got */
 const needsScience = (i: number) => i % 100 === 5
 
+const UK = 'cmcountry0000000000000001'
+const CANADA = 'cmcountry0000000000000002'
+const BUSINESS = 'cmfield000000000000000001'
+const LAW = 'cmfield000000000000000002'
+
 const records = Array.from({ length: COUNT }, (_, i) => ({
   objectID: id(i),
   programName: `Program ${i}`,
   universityId: 'u',
   universityName: 'University of Toronto',
-  countryId: 'ca',
-  fieldOfStudyId: 'f',
+  // A third in the student's country, half in their field
+  countryId: i % 3 === 0 ? UK : CANADA,
+  fieldOfStudyId: i % 2 === 0 ? BUSINESS : LAW,
   country: { name: 'Canada' },
   duration: '4 years',
   requiredCourses: needsScience(i)
@@ -68,15 +81,18 @@ const records = Array.from({ length: COUNT }, (_, i) => ({
           orGroupId: null
         }
       ],
-  ...(minimum(i) === null ? { admitRate: 4.6 } : { minimumIBPoints: minimum(i) })
+  ...(minimum(i) === null ? { admitRate: 4.6 } : { minimumIBPoints: minimum(i) ?? undefined })
 }))
 
 const PROFILE = {
   totalIBPoints: 38,
   tokGrade: 'B',
   eeGrade: 'B',
-  courses: [{ level: 'HL', grade: 6, ibCourse: { id: 'physics', name: 'Physics' } }]
+  courses: [{ level: 'HL', grade: 6, ibCourse: { id: 'physics', name: 'Physics' } }],
+  preferredFields: [{ id: BUSINESS }],
+  preferredCountries: [{ id: UK }]
 }
+const STUDENT = transformStudent(PROFILE)
 
 /** The search service, as far as the route uses it: its order is the records' order */
 type SearchArgs = {
@@ -95,6 +111,7 @@ async function get(search: string): Promise<ExploreResponse> {
 
 beforeEach(() => {
   vi.clearAllMocks()
+  delete envMock.EXPLORE_BEST_FIT
   authMock.mockResolvedValue(null)
   prismaMock.studentProfile.findUnique.mockResolvedValue(PROFILE)
   searchMock.mockImplementation(async ({ searchParams: p }: SearchArgs) => {
@@ -130,7 +147,9 @@ describe('GET /api/programs/explore', () => {
 
   it('signed in with grades: each row comes with its fit, from its own search record', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
-    const body = await get('')
+    // Words typed: Most relevant, one search in its own order
+    const body = await get('q=toronto')
+    expect(body.rows.map((r) => r.id)).toEqual(records.slice(0, 20).map((r) => r.objectID))
     expect(body.rows).toHaveLength(20)
     expect(Object.keys(body.fits ?? {})).toEqual(body.rows.map((r) => r.id))
     // program-0 has no minimum, program-17 needs 41 (three points short is within reach), and
@@ -149,20 +168,59 @@ describe('GET /api/programs/explore', () => {
     )
     expect(programsMock).not.toHaveBeenCalled()
     expect(prismaMock.studentProfile.findUnique).toHaveBeenCalledOnce()
-    expect(prismaMock.studentProfile.findUnique.mock.calls[0][0].select).not.toHaveProperty(
-      'savedPrograms'
-    )
+    const select = prismaMock.studentProfile.findUnique.mock.calls[0][0].select
+    expect(select).not.toHaveProperty('savedPrograms')
+    // Best fit's countries and fields come in the same read
+    expect(select).toMatchObject({
+      preferredFields: { select: { id: true } },
+      preferredCountries: { select: { id: true } }
+    })
   })
 
   it('"Only ones I qualify for" counts every match, past the search window', async () => {
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     const meets = records.filter((_, i) => (minimum(i) ?? 0) <= 38 && !needsScience(i))
-    const body = await get('qualify=1&offset=0&limit=20')
+    const body = await get('q=toronto&qualify=1&offset=0&limit=20')
     expect(body.total).toBe(meets.length)
     expect(body.rows.map((r) => r.id)).toEqual(meets.slice(0, 20).map((r) => r.objectID))
     expect(Object.values(body.fits ?? {}).every((fit) => fit?.status === 'meets')).toBe(true)
+    expect(body.noSetGrades).toBe(0)
     expect(browseMock).toHaveBeenCalledOnce()
     expect(programsMock).not.toHaveBeenCalled()
+  })
+
+  it('"Only ones I qualify for" keeps no set grades, and counts them from the same read', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    const open = (objectID: string, minimumIBPoints?: number) => ({
+      ...records[1],
+      objectID,
+      minimumIBPoints,
+      requiredCourses: []
+    })
+    const hits = [
+      open('no-minimum'),
+      open('diploma', 24),
+      open('points', 30),
+      records[0],
+      records[5]
+    ]
+    browseMock.mockImplementation(async ({ aggregator }) => aggregator({ hits }))
+
+    const body = await get('qualify=1')
+
+    const fits = body.fits ?? {}
+    expect(body.total).toBe(4)
+    expect(body.noSetGrades).toBe(2)
+    expect(fits['no-minimum']).toEqual({ status: 'neutral', badge: 'No set grades' })
+    expect(fits['diploma']).toEqual({ status: 'neutral', badge: 'No set grades' })
+    expect(Object.values(fits).filter((fit) => fit?.status === 'meets')).toHaveLength(2)
+    expect(browseMock).toHaveBeenCalledOnce()
+    expect(searchMock).not.toHaveBeenCalled()
+  })
+
+  it('with the switch off, the count stays one number', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    expect((await get('')).noSetGrades).toBeUndefined()
   })
 
   it('keeps the Length filter beside the window, as the page asks for it', async () => {
@@ -193,9 +251,131 @@ describe('GET /api/programs/explore', () => {
     expect(last.rows[0].admitRate).toBe(4.6)
   })
 
+  it('with grades and nothing typed: Best fit, the whole list browsed, two requests, no search', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    const pages = vi.fn()
+    browseMock.mockImplementation(async ({ browseParams, aggregator }) => {
+      expect(browseParams.hitsPerPage).toBe(1000)
+      for (let i = 0; i < COUNT; i += 1000) {
+        pages()
+        aggregator({ hits: records.slice(i, i + 1000) })
+      }
+    })
+    const body = await get('offset=0&limit=20')
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(pages).toHaveBeenCalledTimes(2)
+    expect(body.total).toBe(COUNT)
+    expect(body.rows.map((r) => r.id)).toEqual(
+      bestFitOrder(records, STUDENT)
+        .slice(0, 20)
+        .map((r) => r.objectID)
+    )
+    // Their country and field, met, from their own 38
+    expect(body.rows[0].minIBPoints).toBe(38)
+    expect(body.rows.every((r) => body.fits?.[r.id]?.status === 'meets')).toBe(true)
+    expect(records.find((r) => r.objectID === body.rows[19].id)).toMatchObject({
+      countryId: UK,
+      fieldOfStudyId: BUSINESS
+    })
+  })
+
+  it('Best fit with the switch on reads the list once, then keeps the ones met', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    const body = await get('qualify=1&offset=0&limit=400')
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(browseMock).toHaveBeenCalledOnce()
+    const tiers = body.rows.map((r) =>
+      fitTier(
+        STUDENT,
+        records.find((x) => x.objectID === r.id)!
+      )
+    )
+    expect(tiers).toEqual([...tiers].sort())
+  })
+
+  it('a picked Best fit stays while typing; Most relevant keeps the search’s order', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    await get('q=economics&sort=best')
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(browseMock.mock.calls[0][0].browseParams.query).toBe('economics')
+
+    vi.clearAllMocks()
+    const relevant = await get('q=economics')
+    expect(searchMock).toHaveBeenCalledOnce()
+    expect(relevant.rows.map((r) => r.id)).toEqual(records.slice(0, 20).map((r) => r.objectID))
+  })
+
+  it('signed out, nothing typed: Highest points needed in one search; a Best fit link too', async () => {
+    for (const search of ['', 'sort=best', 'sort=relevant']) {
+      vi.clearAllMocks()
+      await get(search)
+      expect(searchMock).toHaveBeenCalledOnce()
+      expect(searchMock.mock.calls[0][0].searchParams).not.toHaveProperty('optionalFilters')
+      expect(browseMock).not.toHaveBeenCalled()
+    }
+  })
+
+  it('EXPLORE_BEST_FIT=lifted: one search lifting their fields and countries', async () => {
+    envMock.EXPLORE_BEST_FIT = 'lifted'
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    await get('')
+    expect(searchMock).toHaveBeenCalledOnce()
+    expect(browseMock).not.toHaveBeenCalled()
+    expect(searchMock.mock.calls[0][0].searchParams.optionalFilters).toEqual([
+      [`fieldOfStudyId:${BUSINESS}<score=2>`],
+      [`countryId:${UK}<score=1>`]
+    ])
+  })
+
+  it('EXPLORE_BEST_FIT=lifted with the switch on: the full order, at no extra cost', async () => {
+    envMock.EXPLORE_BEST_FIT = 'lifted'
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    await get('qualify=1')
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(browseMock).toHaveBeenCalledOnce()
+  })
+
+  it('EXPLORE_BEST_FIT=off: a student with grades gets the signed-out default, one search', async () => {
+    envMock.EXPLORE_BEST_FIT = 'off'
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    for (const search of ['', 'sort=best']) {
+      vi.clearAllMocks()
+      const body = await get(search)
+      expect(searchMock).toHaveBeenCalledOnce()
+      expect(searchMock.mock.calls[0][0].searchParams).not.toHaveProperty('optionalFilters')
+      expect(browseMock).not.toHaveBeenCalled()
+      expect(body.rows.map((r) => r.id)).toEqual(records.slice(0, 20).map((r) => r.objectID))
+    }
+  })
+
   it('says so when the search fails', async () => {
     searchMock.mockRejectedValue(new Error('unreachable'))
     const response = await GET(request(''))
     expect(response.status).toBe(500)
+  })
+})
+
+// SEC-11: a school's students share one address, so a signed-in student's searches count against
+// their own account; signed out, against the address, with a looser limit
+describe('GET /api/programs/explore: the limit', () => {
+  it('counts a signed-in student against their account', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    await get('q=science')
+    expect(applyRateLimit).toHaveBeenCalledExactlyOnceWith('search', 'user-1')
+  })
+
+  it('counts a signed-out visitor against their address, on the looser limiter', async () => {
+    await get('q=science')
+    expect(applyRateLimit).toHaveBeenCalledExactlyOnceWith('searchIp', '127.0.0.1')
+  })
+
+  it('searches nothing once refused', async () => {
+    vi.mocked(applyRateLimit).mockResolvedValueOnce(
+      NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    )
+    const response = await GET(request('q=science'))
+    expect(response.status).toBe(429)
+    expect(searchMock).not.toHaveBeenCalled()
+    expect(browseMock).not.toHaveBeenCalled()
   })
 })

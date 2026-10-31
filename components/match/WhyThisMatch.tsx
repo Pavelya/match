@@ -4,6 +4,7 @@ import { useId, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { ChevronDown, CircleAlert } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LinkPending } from '@/components/ds/LinkPending'
 import type { WhyRow, WhyThisMatch as WhyData } from '@/lib/matching/match-why'
 import { REQUIREMENT_STATUS as STATUS, YOU_TEXT as YOU } from './requirement-status'
 
@@ -12,7 +13,8 @@ import { REQUIREMENT_STATUS as STATUS, YOU_TEXT as YOU } from './requirement-sta
  * approved 10 October 2026). Every requirement against the student's grades, in the D3.4
  * checklist at 14px: a table on desktop, a list on a phone. Then what would close the gap, the
  * caution line for an older intake, field and country, and the fit score with its working: the
- * only place the percentage appears. Everything is in the match the list already loaded, so
+ * only place the percentage appears. A program with no set grades has no score, and the column
+ * goes with it. Everything is in the match the list already loaded, so
  * opening it fetches nothing. Replaces MatchBreakdown's dialog.
  */
 
@@ -21,9 +23,10 @@ interface WhyThisMatchProps {
   programId: string
   programName: string
   why: WhyData
+  className?: string
 }
 
-export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchProps) {
+export function WhyThisMatch({ id, programId, programName, why, className }: WhyThisMatchProps) {
   const { note, intake, fit } = why
   const noteStatus = STATUS[note.kind]
 
@@ -33,9 +36,11 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
       role="region"
       aria-label={`Why this match: ${programName}`}
       className={cn(
-        'grid gap-3 border-t border-border pt-3 md:grid-cols-[minmax(0,1fr)_272px] md:gap-5 md:pt-4',
-        // Opens with a 240ms fade; the height doesn't animate (only transform and opacity do)
-        'transition-opacity duration-240 ease-standard starting:opacity-0 motion-reduce:duration-240!'
+        'grid gap-3 border-t border-border pt-3 md:gap-5 md:pt-4',
+        fit && 'md:grid-cols-[minmax(0,1fr)_272px]',
+        // Fades in as it opens, 180ms (D1.6); nothing slides
+        'disclose',
+        className
       )}
     >
       <div className="flex min-w-0 flex-col gap-3">
@@ -77,7 +82,10 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
               {why.programUrl ? (
                 <>
                   on the{' '}
-                  <a href={why.programUrl} className="text-primary underline underline-offset-3">
+                  <a
+                    href={why.programUrl}
+                    className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+                  >
                     university’s page
                   </a>
                 </>
@@ -120,50 +128,55 @@ export function WhyThisMatch({ id, programId, programName, why }: WhyThisMatchPr
         </ul>
       </div>
 
-      <div className="flex flex-col gap-2.5 self-start rounded-[0.75rem] bg-muted p-3.5 md:gap-3 md:p-4">
-        <div className="flex items-baseline justify-between">
-          <span className="text-label text-muted-foreground">Fit score</span>
-          <span className="font-[family-name:var(--font-newsreader)] text-[2rem]/9 font-medium tabular-nums md:text-[2.5rem]/11">
-            {fit.score}%
-          </span>
-        </div>
-        {fit.parts.map((part) => (
-          <div key={part.label} className="flex flex-col gap-1">
-            <div className="flex justify-between gap-2 text-small font-normal tabular-nums">
-              <span>
-                <strong className="font-semibold">{part.label}</strong>{' '}
-                <span className="text-muted-foreground">{part.calc}</span>
-              </span>
-              <span className="font-semibold">{part.value}</span>
-            </div>
-            <div aria-hidden="true" className="h-1.5 overflow-hidden rounded-full bg-border">
-              <div
-                className="h-1.5 rounded-full bg-primary"
-                style={{ width: `${part.percent}%` }}
-              />
-            </div>
-          </div>
-        ))}
-        <p className="border-t border-border pt-2.5 text-small/5 font-normal tabular-nums">
-          {fit.sentence}
-        </p>
-        <p className="text-small/5 font-normal text-muted-foreground">
-          Fit orders programs within a status. It isn’t a chance of admission.{' '}
-          <Link
-            href="/how-it-works"
-            className="font-semibold text-primary underline-offset-3 hover:underline"
-          >
-            How ranking works
-          </Link>
-        </p>
-      </div>
+      {fit && <FitScore fit={fit} />}
 
       <Link
         href={`/programs/${programId}`}
-        className="inline-flex min-h-11 items-center justify-self-start text-[0.875rem]/5 font-semibold text-primary underline-offset-3 hover:underline md:col-span-2 md:min-h-0"
+        className="inline-flex min-h-11 items-center justify-self-start text-[0.875rem]/5 font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline md:col-span-2 md:min-h-0"
       >
         Open the program page
+        <LinkPending />
       </Link>
+    </div>
+  )
+}
+
+/** The score, its parts and the sentence on what changed it. */
+function FitScore({ fit }: { fit: NonNullable<WhyData['fit']> }) {
+  return (
+    <div className="flex flex-col gap-2.5 self-start rounded-[0.75rem] bg-muted p-3.5 md:gap-3 md:p-4">
+      <div className="flex items-baseline justify-between">
+        <span className="text-label text-muted-foreground">Fit score</span>
+        <span className="font-[family-name:var(--font-newsreader)] text-[2rem]/9 font-medium tabular-nums md:text-[2.5rem]/11">
+          {fit.score}%
+        </span>
+      </div>
+      {fit.parts.map((part) => (
+        <div key={part.label} className="flex flex-col gap-1">
+          <div className="flex justify-between gap-2 text-small font-normal tabular-nums">
+            <span>
+              <strong className="font-semibold">{part.label}</strong>{' '}
+              <span className="text-muted-foreground">{part.calc}</span>
+            </span>
+            <span className="font-semibold">{part.value}</span>
+          </div>
+          <div aria-hidden="true" className="h-1.5 overflow-hidden rounded-full bg-border">
+            <div className="h-1.5 rounded-full bg-primary" style={{ width: `${part.percent}%` }} />
+          </div>
+        </div>
+      ))}
+      <p className="border-t border-border pt-2.5 text-small/5 font-normal tabular-nums">
+        {fit.sentence}
+      </p>
+      <p className="text-small/5 font-normal text-muted-foreground">
+        Fit orders programs within a status. It isn’t a chance of admission.{' '}
+        <Link
+          href="/how-it-works"
+          className="font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
+        >
+          How ranking works
+        </Link>
+      </p>
     </div>
   )
 }
@@ -300,7 +313,7 @@ function AllOptions({ options }: { options: NonNullable<WhyRow['options']> }) {
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
         onClick={() => setOpen((o) => !o)}
-        className="-my-1.5 inline-flex h-8 items-center gap-1 self-start rounded-chip text-small font-semibold text-primary underline-offset-3 hover:underline"
+        className="-my-1.5 inline-flex h-8 items-center gap-1 self-start rounded-chip text-small font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
       >
         All {options.count} options
         <ChevronDown
@@ -313,7 +326,7 @@ function AllOptions({ options }: { options: NonNullable<WhyRow['options']> }) {
       {open && (
         <dl
           id={listId}
-          className="mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5"
+          className="disclose mt-1 flex flex-col gap-2 rounded-[0.625rem] border border-border bg-background px-3 py-2.5"
         >
           {options.groups.map((group) => (
             <div key={group.label} className="flex flex-col gap-0.5">

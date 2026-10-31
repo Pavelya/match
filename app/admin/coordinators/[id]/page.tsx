@@ -37,12 +37,14 @@ import {
   QuickStat,
   Breadcrumbs
 } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function CoordinatorDetailPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const coordinator = await prisma.coordinatorProfile.findUnique({

@@ -5,7 +5,7 @@
  * This ensures type safety without using 'as any' workarounds.
  */
 
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 import type {
   StudentProfile,
   ProgramRequirements,
@@ -72,6 +72,8 @@ export interface TransformableProgram {
     minGrade: number
     isCritical: boolean
     orGroupId: string | null
+    /** Absent, as in the programs cache when it is false, means false */
+    ownCourse?: boolean
   }>
 }
 
@@ -142,7 +144,9 @@ export function transformProgram(program: TransformableProgram): ProgramRequirem
       courseName: req.ibCourse.name,
       level: req.requiredLevel as 'HL' | 'SL',
       minimumGrade: req.minGrade as 1 | 2 | 3 | 4 | 5 | 6 | 7,
-      isCritical: req.isCritical
+      isCritical: req.isCritical,
+      // Only when set, so a program without it gives the same requirements as before
+      ...(req.ownCourse && { ownCourse: true })
     }
 
     if (req.orGroupId) {
@@ -163,7 +167,8 @@ export function transformProgram(program: TransformableProgram): ProgramRequirem
     const isCritical = options.some((opt) => opt.isCritical)
     orGroupRequirements.push({
       options,
-      isCritical
+      isCritical,
+      ...(options.some((opt) => opt.ownCourse) && { ownCourse: true })
     })
   }
 

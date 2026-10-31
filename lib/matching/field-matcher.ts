@@ -4,11 +4,10 @@
  * Calculates how well a program's field aligns with student's interests.
  *
  * Rules:
- * - Exact Match: Program field in student's preferences → 1.0
- * - No Preferences: Student has no field preferences → 0.5
+ * - Exact Match or No Preference: 1.0
  * - Mismatch: Program field not in student's preferences → 0.0
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type { FieldMatchScore } from './types'
@@ -26,9 +25,9 @@ import type { FieldMatchScore } from './types'
  * calculateFieldMatch(['field-engineering', 'field-medicine'], 'field-engineering')
  * // Returns: { score: 1.0, isMatch: true, noPreferences: false }
  *
- * // No preferences
+ * // No preferences - all fields acceptable
  * calculateFieldMatch([], 'field-engineering')
- * // Returns: { score: 0.5, isMatch: false, noPreferences: true }
+ * // Returns: { score: 1.0, isMatch: false, noPreferences: true }
  *
  * // Mismatch
  * calculateFieldMatch(['field-engineering'], 'field-medicine')
@@ -40,10 +39,10 @@ export function calculateFieldMatch(
   programField: string
 ): FieldMatchScore {
   // Case 1: Student has no field preferences
-  // Treat all fields as moderately acceptable (0.5)
+  // All fields are acceptable (score 1.0)
   if (studentFields.length === 0) {
     return {
-      score: 0.5,
+      score: 1.0,
       isMatch: false,
       noPreferences: true
     }

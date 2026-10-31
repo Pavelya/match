@@ -455,7 +455,15 @@ const refresh: RefreshFile = {
           courses: ['BIO', 'CHEM', 'PHYS', 'ECON', 'GEOG', 'ESS'],
           level: 'HL',
           grade: 4,
-          critical: true
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'PHYS', 'ECON', 'GEOG', 'ESS'],
+          level: 'SL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
         }
       ],
       checkedFor: 2027,
@@ -465,7 +473,7 @@ const refresh: RefreshFile = {
         'https://www.universiteitleiden.nl/en/education/study-programmes/bachelor/science-for-sustainable-societies'
       ],
       notes:
-        'Content 4.6: BSc Science for Sustainable Societies (Faculty of Science, The Hague). Leiden\'s "Specific diploma requirements for science and medical programmes 2027-2028": "Analysis & Approaches SL/HL or Applications & Interpretation HL + 1 HL and 1 SL subject in the following subjects: Biology, Chemistry, Physics, Economics, Geography, Environmental Systems and Societies". No grades are named; 4 is stored. Stored: Maths AA SL 4 or Maths AI HL 4, one critical group, and Biology, Chemistry, Physics, Economics, Geography or ESS at HL 4, one critical group. The model cannot hold the second subject from the list at SL (a "two of" rule); it is in these notes. The stored rows (Maths AI HL and Maths AA SL as two separate, non-critical rows) required both maths courses and no science. Leiden\'s "General admission: diploma requirements 2027/2028" (16 September 2026): "The International Baccalaureate Diploma (IB DP) is required for general admission"; individual IB certificates are not accepted, and only programmes in the sciences, medicine, classics, cyber security and economics & society "require knowledge of compulsory subjects at Dutch VWO (pre-university diploma) level". An IB Diploma taught in English or with English A HL exempts from the English test. Leiden publishes no IB points figure for this programme: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AI HL 4; Maths AA SL 4.'
+        'Content 4.6: BSc Science for Sustainable Societies (Faculty of Science, The Hague). Leiden\'s "Specific diploma requirements for science and medical programmes 2027-2028": "Analysis & Approaches SL/HL or Applications & Interpretation HL + 1 HL and 1 SL subject in the following subjects: Biology, Chemistry, Physics, Economics, Geography, Environmental Systems and Societies". No grades are named; 4 is stored. Stored: Maths AA SL 4 or Maths AI HL 4, one critical group, and Biology, Chemistry, Physics, Economics, Geography or ESS at HL 4, one critical group. The second subject is stored as the same list at SL 4; the two each need a course of their own. The stored rows (Maths AI HL and Maths AA SL as two separate, non-critical rows) required both maths courses and no science. Leiden\'s "General admission: diploma requirements 2027/2028" (16 September 2026): "The International Baccalaureate Diploma (IB DP) is required for general admission"; individual IB certificates are not accepted, and only programmes in the sciences, medicine, classics, cyber security and economics & society "require knowledge of compulsory subjects at Dutch VWO (pre-university diploma) level". An IB Diploma taught in English or with English A HL exempts from the English test. Leiden publishes no IB points figure for this programme: 24, the Diploma\'s own minimum, is kept. Checked for 2027. Stored before: Maths AI HL 4; Maths AA SL 4. MAINT 5.39 (27 October 2026): Leiden\'s "Specific diploma requirements for science and medical programmes 2027-2028", re-read, still says "Analysis & Approaches SL/HL or Applications & Interpretation HL + 1 HL and 1 SL subject in the following subjects: Biology, Chemistry, Physics, Economics, Geography, Environmental Systems and Societies"; the SL group added and both marked. Two at HL also meet it.'
     },
     // Stored: checked for 2026 entry on 2026-01-08.
     {

@@ -27,7 +27,9 @@ export function ExploreQuestions() {
                 className="shrink-0 text-muted-foreground transition-transform duration-180 ease-standard group-open:rotate-180"
               />
             </summary>
-            <p className="mb-4 max-w-[72ch] text-body text-muted-foreground">{answer}</p>
+            <p className="mb-4 max-w-[72ch] text-body text-muted-foreground group-open:disclose">
+              {answer}
+            </p>
           </details>
         ))}
       </div>

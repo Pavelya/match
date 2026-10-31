@@ -96,7 +96,8 @@ describe('requirementsStamp', () => {
       [chem, bio, { ...phys, orGroupId: null }],
       [{ ...chem, orGroupId: 'g1' }, bio, phys],
       [chem, bio],
-      [{ ...chem, isCritical: false }, bio, phys]
+      [{ ...chem, isCritical: false }, bio, phys],
+      [chem, { ...bio, ownCourse: true }, { ...phys, ownCourse: true }]
     ]
     for (const courseRequirements of edits) {
       expect(

@@ -50,7 +50,7 @@ import { BarChart3 } from 'lucide-react'
   value={0}
   icon={BarChart3}
   locked={school.subscriptionTier !== 'VIP'}
-  lockedMessage="Upgrade to VIP"
+  lockedMessage="Subscribe"
 />
 ```
 
@@ -108,7 +108,7 @@ const canInviteMore = school.subscriptionTier === 'VIP' ||
 {!canInviteMore && (
   <UpgradePromptBanner
     feature={`Student Limit Reached (${MAX_STUDENTS_REGULAR})`}
-    description="Upgrade to VIP for unlimited student invitations"
+    description="Subscribe for unlimited student invitations"
     variant="inline"
   />
 )}
@@ -239,7 +239,7 @@ export default async function CoordinatorDashboard() {
           value={0}
           icon={TrendingUp}
           locked={!isVIP}
-          lockedMessage="VIP Feature"
+          lockedMessage="With a subscription"
         />
       </div>
 
@@ -352,7 +352,7 @@ export default async function CoordinatorStudents() {
       {!isVIP && students.length >= MAX_STUDENTS_REGULAR - 2 && (
         <UpgradePromptBanner
           feature={`${MAX_STUDENTS_REGULAR - students.length} invites remaining`}
-          description="Upgrade to VIP for unlimited student invitations"
+          description="Subscribe for unlimited student invitations"
           variant="subtle"
           className="mb-4"
         />
@@ -671,7 +671,6 @@ export default async function CoordinatorLayout({ children }) {
 | `/api/coordinator/students/invite` | POST | Send student invitation |
 | `/api/coordinator/team` | GET | List coordinators at school |
 | `/api/coordinator/team/invite` | POST | Send coordinator invitation |
-| `/api/coordinator/analytics` | GET | School analytics (VIP only) |
 | `/api/coordinator/settings` | GET, PATCH | School settings |
 | `/api/coordinator/subscription` | GET | Get Stripe portal URL |
 

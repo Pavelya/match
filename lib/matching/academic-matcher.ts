@@ -9,7 +9,7 @@
  * - POINTS_ONLY: Only IB points cutoff
  * - SUBJECTS_ONLY: Only subject requirements
  *
- * Based on: DOC_2_matching-algo IX.md
+ * Based on: DOC_2_matching-algo XI.md
  */
 
 import type {
@@ -19,6 +19,16 @@ import type {
   SubjectMatchDetail
 } from './types'
 import { calculateSubjectMatch, calculateORGroupMatch } from './subject-matcher'
+import { assignOwnCourses, type Requirement } from './own-course'
+
+/**
+ * What is kept of the academic match when points are short (MAINT 5.43): 0.85 at one short, 0.03
+ * less for each point after it, and never under 0.5. It does not read the program's minimum, so a
+ * bigger gap can never keep more than a smaller one.
+ */
+export function pointsShortFactor(pointsShortfall: number): number {
+  return Math.max(0.5, 0.85 - 0.03 * (pointsShortfall - 1))
+}
 
 /**
  * Calculate academic match score (G_M)
@@ -68,11 +78,7 @@ function calculatePointsOnlyMatch(
   let score = 1.0
 
   if (!meetsPoints && program.minimumIBPoints) {
-    // Calculate proportional score for shortfall
-    const deficit = pointsShortfall
-    const raw = 1 - deficit / program.minimumIBPoints
-    // Cap at 0.90 and floor at 0.30
-    score = Math.max(0.3, Math.min(raw, 0.9))
+    score = pointsShortFactor(pointsShortfall)
   }
 
   return {
@@ -127,16 +133,7 @@ function calculateFullRequirementsMatch(
 
   // If student doesn't meet points requirement, scale down
   if (!meetsPoints && program.minimumIBPoints) {
-    // Calculate penalty factor based on how far below
-    const deficit = pointsShortfall
-    // Near miss (1-3 points): keep 80%
-    // Larger gap: scale down more
-    let penaltyFactor = 0.8
-    if (deficit > 3) {
-      penaltyFactor = Math.max(0.5, 1 - deficit / program.minimumIBPoints)
-    }
-
-    score = subjectsMatchScore * penaltyFactor
+    score = subjectsMatchScore * pointsShortFactor(pointsShortfall)
   }
 
   return {
@@ -167,6 +164,19 @@ function evaluateAllRequirements(
   // Evaluate OR-group requirements
   for (const orGroup of program.orGroupRequirements) {
     matches.push(calculateORGroupMatch(orGroup, student.courses))
+  }
+
+  // Requirements that need a course of their own get different ones (MAINT 5.18). A program
+  // without any is left exactly as above.
+  const requirements: Requirement[] = [...program.requiredSubjects, ...program.orGroupRequirements]
+  const own = requirements.flatMap((r, i) => (r.ownCourse ? [i] : []))
+  if (own.length > 1) {
+    const assigned = assignOwnCourses(
+      own.map((i) => requirements[i]),
+      student.courses,
+      own.map((i) => matches[i])
+    )
+    own.forEach((i, k) => (matches[i] = assigned[k]))
   }
 
   return matches

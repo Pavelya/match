@@ -75,6 +75,7 @@ export async function GET(request: Request, context: RouteContext) {
             minGrade: true,
             isCritical: true,
             orGroupId: true,
+            ownCourse: true,
             ibCourse: { select: { id: true, name: true } }
           }
         }

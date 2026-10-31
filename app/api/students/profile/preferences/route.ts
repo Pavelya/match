@@ -101,9 +101,7 @@ export async function PUT(request: NextRequest) {
 
     // A student with grades who changes their choices has matches to work out again
     if (profile.totalIBPoints !== null) {
-      invalidateStudentCache(userId).catch((err) =>
-        logger.warn('Cache invalidation failed', { error: err.message, studentId: userId })
-      )
+      await invalidateStudentCache(userId)
     }
     return NextResponse.json({ success: true })
   } catch (error) {

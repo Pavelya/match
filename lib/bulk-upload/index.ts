@@ -15,6 +15,7 @@ export {
   buildValidationContext,
   getValidPrograms,
   formatErrors,
+  formatWarnings,
 
   // Types
   type ValidationContext,

@@ -11,3 +11,48 @@ export function returnPath(callbackUrl: string | null | undefined): string | nul
   if (/[\\\u0000-\u001f\u007f]/.test(callbackUrl)) return null
   return callbackUrl
 }
+
+/**
+ * School invitations. The new-account invitation link sends a student who already has an account
+ * here through sign-in (MAINT 5.22), so today's design follows this one return too.
+ */
+export const INVITATIONS_PATH = '/student/invitations'
+
+/**
+ * The coordinator sign-in, `app/auth/coordinator/page.tsx`. The coordinator portal sends a visitor
+ * with no session here (MAINT 5.26: it used to send them to a route that didn't exist, a 404).
+ */
+export const COORDINATOR_SIGN_IN_PATH = '/auth/coordinator'
+
+/**
+ * Where sign-in goes once signed in. The new design returns to the page that sent the visitor
+ * (rebranding 2.4); today's design goes to /student, except for School invitations. Deleted with
+ * today's sign-in at cleanup (R.2), when `returnPath(…) ?? '/student'` is all it needs.
+ */
+export function signInDestination(
+  callbackUrl: string | null | undefined,
+  followCallback: boolean
+): string {
+  const path = returnPath(callbackUrl)
+  if (followCallback) return path ?? '/student'
+  return path === INVITATIONS_PATH ? path : '/student'
+}
+
+/**
+ * Where each role starts once signed in: where sign-in sends them, and where they go from an area
+ * that isn't theirs (SEC-5). A student who signs in through the coordinator page, whose link
+ * returns to /coordinator/dashboard, lands on Matches rather than the home page.
+ */
+export function startPageFor(role: string | null | undefined): string {
+  switch (role) {
+    case 'STUDENT':
+      return '/student/matches'
+    case 'COORDINATOR':
+      return '/coordinator/dashboard'
+    case 'PLATFORM_ADMIN':
+      return '/admin/dashboard'
+    default:
+      // A university agent has no area yet, and an unknown role none at all
+      return '/'
+  }
+}

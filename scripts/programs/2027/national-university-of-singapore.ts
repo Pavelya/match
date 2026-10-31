@@ -522,7 +522,20 @@ const refresh: RefreshFile = {
       programUrl:
         'https://medicine.nus.edu.sg/nursing/education-programmes/undergraduate/bachelor-of-science-nursing-honours/',
       requirements: [
-        { courses: ['BIO', 'CHEM', 'CS', 'MATH-AA', 'PHYS'], level: 'HL', grade: 4, critical: true }
+        {
+          courses: ['BIO', 'CHEM', 'CS', 'MATH-AA', 'PHYS'],
+          level: 'HL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        },
+        {
+          courses: ['BIO', 'CHEM', 'CS', 'MATH-AA', 'PHYS'],
+          level: 'HL',
+          grade: 4,
+          critical: true,
+          ownCourse: true
+        }
       ],
       checkedFor: 2026,
       sources: [
@@ -530,7 +543,7 @@ const refresh: RefreshFile = {
         'https://www.nus.edu.sg/oam/docs/default-source/international-baccalaureate/faqs-for-international-baccalaureate.pdf'
       ],
       notes:
-        'Content 4.5: "Any two passes in HL Biology, HL Chemistry, HL Computer Science, HL MAA, or HL Physics"; the model holds one of the list, and "two of" is recorded here. Selection test or interview; Nursing must be ranked among the first three choices. Subjects unchanged. NUS asks for a "pass", "good pass" or "very good pass" without a number; 4, the IB pass, is stored for each, and a higher grade named only in words is a limit recorded here. NUS\'s IB prerequisites for single degree programmes say "Information accurate as of December 2025", and its IB FAQ is "Updated as of December 2025 for AY2026-2027 Admissions" (applications 17 December 2025 to 23 February 2026); nothing for the 2027-28 exercise is published yet. Checked for 2026. Points: NUS publishes no IB figure. Its IB FAQ: entry "is very competitive and applicants who gain admission typically attain very good scores"; its askadmissions answer (read through the search index; the site did not resolve) says the IB sample is too small for an indicative grade profile and admitted IB students "typically have a mix of mostly 6\'s and 7\'s". The stored 30 predates this check and has no official source; it is kept, not re-verified (as for NTU). nus.edu.sg pages, the faculty sites included, answer scripts and WebFetch with an Incapsula challenge, so the programme page was not re-read; the prerequisites come from NUS\'s PDFs under /oam/docs/, which download.'
+        'Content 4.5: "Any two passes in HL Biology, HL Chemistry, HL Computer Science, HL MAA, or HL Physics"; stored as two groups of the list, each needing a course of its own. Selection test or interview; Nursing must be ranked among the first three choices. Subjects unchanged. NUS asks for a "pass", "good pass" or "very good pass" without a number; 4, the IB pass, is stored for each, and a higher grade named only in words is a limit recorded here. NUS\'s IB prerequisites for single degree programmes say "Information accurate as of December 2025", and its IB FAQ is "Updated as of December 2025 for AY2026-2027 Admissions" (applications 17 December 2025 to 23 February 2026); nothing for the 2027-28 exercise is published yet. Checked for 2026. Points: NUS publishes no IB figure. Its IB FAQ: entry "is very competitive and applicants who gain admission typically attain very good scores"; its askadmissions answer (read through the search index; the site did not resolve) says the IB sample is too small for an indicative grade profile and admitted IB students "typically have a mix of mostly 6\'s and 7\'s". The stored 30 predates this check and has no official source; it is kept, not re-verified (as for NTU). nus.edu.sg pages, the faculty sites included, answer scripts and WebFetch with an Incapsula challenge, so the programme page was not re-read; the prerequisites come from NUS\'s PDFs under /oam/docs/, which download. MAINT 5.39 (27 October 2026): the IB prerequisites PDF, re-read (still "Information accurate as of December 2025"), still says "Any two passes"; the second group added and both marked.'
     }
   ]
 }

@@ -43,7 +43,7 @@ import { randomUUID } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@/app/generated/prisma/client'
 import { prisma } from '@/lib/prisma-standalone'
 import { syncProgramsBatch } from '@/lib/algolia/sync'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
@@ -137,6 +137,7 @@ const PROGRAM_SELECT = {
       requiredLevel: true,
       minGrade: true,
       isCritical: true,
+      ownCourse: true,
       ibCourse: { select: { code: true } }
     },
     orderBy: { id: 'asc' }
@@ -162,7 +163,8 @@ async function loadStored(where: Prisma.AcademicProgramWhereInput): Promise<Stor
         level: r.requiredLevel,
         grade: r.minGrade,
         critical: r.isCritical,
-        group: r.orGroupId
+        group: r.orGroupId,
+        ...(r.ownCourse && { ownCourse: true })
       }))
     },
     stamps: {
@@ -324,6 +326,7 @@ function requirementRows(rows: RequirementRow[], ref: Reference) {
     requiredLevel: r.level,
     minGrade: r.grade,
     isCritical: r.critical,
+    ownCourse: r.ownCourse === true,
     orGroupId: r.orGroupId
   }))
 }

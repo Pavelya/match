@@ -1,7 +1,9 @@
 /**
  * Sync Universities to Algolia
  *
- * Creates/updates the universities_production index with all universities.
+ * Creates/updates the universities_production index with all universities, then
+ * deletes every record whose id has no University row, so a deleted university
+ * leaves nothing behind (MAINT 5.9).
  * Run with: npx tsx scripts/sync-universities-algolia.ts
  */
 
@@ -94,6 +96,25 @@ async function syncUniversities() {
     })
 
     console.log(`   ✅ Synced ${records.length} universities\n`)
+
+    // Remove records with no University row. saveObjects only upserts, which once
+    // left four sample universities in the index for ten months.
+    console.log('3️⃣b Removing records with no university...')
+    const ids = new Set(records.map((r) => r.objectID))
+    const stale: string[] = []
+    await client.browseObjects({
+      indexName,
+      browseParams: { query: '', attributesToRetrieve: ['objectID'], hitsPerPage: 1000 },
+      aggregator: (response) => {
+        for (const hit of response.hits) {
+          if (!ids.has(hit.objectID)) stale.push(hit.objectID)
+        }
+      }
+    })
+    if (stale.length > 0) {
+      await client.deleteObjects({ indexName, objectIDs: stale, waitForTasks: true })
+    }
+    console.log(`   ✅ Removed ${stale.length} records\n`)
 
     // Configure searchable attributes
     console.log('4️⃣  Configuring index settings...')

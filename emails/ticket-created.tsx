@@ -1,218 +1,76 @@
-/**
- * Ticket Created Confirmation Email Template
- *
- * Sent to users when they submit a support ticket.
- * Confirms receipt and provides ticket number for reference.
- *
- * Styled consistently with IB Match branding using the primary blue color.
+import type { TicketCategory } from '@/app/generated/prisma/enums'
+import LegacyTicketCreatedEmail from '@/components/email/legacy/ticket-created'
+import { designedMessage, type EmailMessage } from '@/components/email/message'
+import { emailBrand } from '@/lib/brand/email'
+
+/*
+ * Sent when someone sends Contact or the coordinator support form (rebranding 4.7, board "D4.18
+ * Emails · support and account", section 10). The number is in the subject and the panel.
  */
 
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Link,
-  Preview,
-  Section,
-  Text
-} from '@react-email/components'
-import { EmailHeader } from '@/components/email/EmailHeader'
-import { emailBrand } from '@/lib/brand/email'
-import { TicketCategory } from '@prisma/client'
+/** Contact's own labels (D4.14), in sentence case */
+export const TICKET_CATEGORY_LABELS: Record<TicketCategory, string> = {
+  ACCOUNT_ISSUE: 'Account issue',
+  TECHNICAL_PROBLEM: 'Technical problem',
+  MATCHING_QUESTION: 'Matching question',
+  SUBSCRIPTION_BILLING: 'Subscription & billing',
+  DATA_PRIVACY: 'Data & privacy',
+  FEATURE_REQUEST: 'Feature request',
+  OTHER: 'General inquiry'
+}
 
-interface TicketCreatedEmailProps {
+interface TicketCreatedProps {
   ticketNumber: string
   category: TicketCategory
   subject: string
+  /** Today's design greets by name; the new one has no greeting */
   userName?: string
 }
 
-// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
-const PRIMARY_COLOR = emailBrand().color
+export function ticketCreatedMessage(props: TicketCreatedProps): EmailMessage {
+  const { ticketNumber, category, subject } = props
+  if (!emailBrand().newUi) {
+    return {
+      subject: `Support Ticket ${ticketNumber} - We've Received Your Request`,
+      react: LegacyTicketCreatedEmail(props)
+    }
+  }
 
-// Map category enum to human-readable labels
-const categoryLabels: Record<TicketCategory, string> = {
-  ACCOUNT_ISSUE: 'Account Issue',
-  TECHNICAL_PROBLEM: 'Technical Problem',
-  MATCHING_QUESTION: 'Matching Question',
-  SUBSCRIPTION_BILLING: 'Subscription & Billing',
-  DATA_PRIVACY: 'Data & Privacy',
-  FEATURE_REQUEST: 'Feature Request',
-  OTHER: 'General Inquiry'
+  return designedMessage(`Support ticket ${ticketNumber}: we’ve received your request`, {
+    preview: 'We typically respond within 24–48 hours during business days.',
+    heading: 'We’ve received your request',
+    blocks: [
+      {
+        type: 'text',
+        content: [
+          'Thanks for contacting IB Match support. We’ll reply to this address. We typically respond within 24–48 hours during business days.'
+        ]
+      },
+      {
+        type: 'panel',
+        title: `Ticket ${ticketNumber}`,
+        rows: [
+          ['Category', TICKET_CATEGORY_LABELS[category]],
+          ['Subject', subject]
+        ]
+      },
+      {
+        type: 'small',
+        content: [
+          'Keep the ticket number if you write to us about this request. You don’t need to reply to this email.'
+        ]
+      }
+    ]
+  })
 }
 
-export default function TicketCreatedEmail({
-  ticketNumber,
-  category,
-  subject,
-  userName
-}: TicketCreatedEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
-
-  return (
-    <Html>
-      <Head />
-      <Preview>Support ticket {ticketNumber} received - IB Match</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <EmailHeader baseUrl={baseUrl} />
-          <Heading style={h1}>We&apos;ve Received Your Request</Heading>
-
-          <Text style={text}>Hello{userName ? ` ${userName}` : ''},</Text>
-
-          <Text style={text}>
-            Thank you for contacting IB Match support. We&apos;ve received your request and will get
-            back to you as soon as possible.
-          </Text>
-
-          <Section style={ticketBox}>
-            <Text style={ticketLabel}>Your Ticket Number</Text>
-            <Text style={ticketNumberStyle}>{ticketNumber}</Text>
-            <Text style={ticketDetails}>
-              <strong>Category:</strong> {categoryLabels[category]}
-            </Text>
-            <Text style={ticketDetails}>
-              <strong>Subject:</strong> {subject}
-            </Text>
-          </Section>
-
-          <Text style={text}>
-            Please save your ticket number for reference. We typically respond within 24-48 hours
-            during business days.
-          </Text>
-
-          <Text style={disclaimerText}>
-            You don&apos;t need to reply to this email. We&apos;ll contact you at this email address
-            when we have an update on your request.
-          </Text>
-
-          <Hr style={hr} />
-
-          <Text style={footerDescription}>
-            IB Match helps connect IB students with university programs worldwide.
-          </Text>
-
-          <Text style={footerCopyright}>
-            © {new Date().getFullYear()} IB Match. All rights reserved.
-          </Text>
-
-          <Text style={footerLinks}>
-            <Link href={`${baseUrl}/terms`} style={linkStyle}>
-              Terms And Conditions
-            </Link>
-            {' · '}
-            <Link href={`${baseUrl}/privacy`} style={linkStyle}>
-              Privacy Policy
-            </Link>
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  )
+/** For React Email's preview (`npm run email:dev`), in the design `NEW_UI_FOR_EVERYONE` gives */
+export default function TicketCreatedEmail(props: TicketCreatedProps) {
+  return ticketCreatedMessage(props).react
 }
 
-// Clean, professional styling matching IB Match brand
-const main = {
-  backgroundColor: '#f5f5f7',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
-}
-
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '40px auto',
-  padding: '40px 48px',
-  maxWidth: '560px',
-  borderRadius: '8px'
-}
-
-const h1 = {
-  color: '#222',
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0 0 32px 0',
-  padding: '0',
-  lineHeight: '32px'
-}
-
-const text = {
-  color: '#484848',
-  fontSize: '16px',
-  lineHeight: '26px',
-  margin: '16px 0'
-}
-
-const ticketBox = {
-  backgroundColor: '#f0f7ff',
-  borderRadius: '8px',
-  padding: '24px',
-  margin: '24px 0',
-  textAlign: 'center' as const
-}
-
-const ticketLabel = {
-  color: '#767676',
-  fontSize: '12px',
-  fontWeight: '600',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.5px',
-  margin: '0 0 8px 0'
-}
-
-const ticketNumberStyle = {
-  color: PRIMARY_COLOR,
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0 0 16px 0',
-  letterSpacing: '1px'
-}
-
-const ticketDetails = {
-  color: '#484848',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '4px 0',
-  textAlign: 'left' as const
-}
-
-const disclaimerText = {
-  color: '#767676',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '24px 0 0 0'
-}
-
-const hr = {
-  borderColor: '#e5e5e5',
-  borderTop: '1px solid #e5e5e5',
-  margin: '32px 0 24px 0'
-}
-
-const footerDescription = {
-  color: '#9ca299',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '0 0 16px 0'
-}
-
-const footerCopyright = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0 0 8px 0'
-}
-
-const footerLinks = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0'
-}
-
-const linkStyle = {
-  color: PRIMARY_COLOR,
-  textDecoration: 'underline'
-}
+TicketCreatedEmail.PreviewProps = {
+  ticketNumber: 'TKT-7KQ4ZP',
+  category: 'MATCHING_QUESTION',
+  subject: 'Why is Imperial “within reach”?'
+} satisfies TicketCreatedProps

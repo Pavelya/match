@@ -8,12 +8,14 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { ProgramEditForm } from '@/components/admin/programs/ProgramEditForm'
 import { FormPageLayout } from '@/components/admin/shared'
+import { requireAdmin } from '@/lib/auth/guards'
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default async function ProgramEditPage({ params }: PageProps) {
+  await requireAdmin()
   const { id } = await params
 
   const [program, universities, fieldsOfStudy, ibCourses] = await Promise.all([
@@ -32,6 +34,7 @@ export default async function ProgramEditPage({ params }: PageProps) {
         minIBPoints: true,
         programUrl: true,
         requirementsEntryYear: true,
+        campusCity: true,
         courseRequirements: {
           select: {
             id: true,
@@ -39,7 +42,8 @@ export default async function ProgramEditPage({ params }: PageProps) {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
-            orGroupId: true
+            orGroupId: true,
+            ownCourse: true
           }
         }
       }
@@ -49,6 +53,8 @@ export default async function ProgramEditPage({ params }: PageProps) {
       select: {
         id: true,
         name: true,
+        // The campus city input's placeholder
+        city: true,
         country: { select: { flagEmoji: true, name: true } }
       }
     }),

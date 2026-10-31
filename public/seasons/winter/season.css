@@ -1,0 +1,75 @@
+/*
+ * Christmas and New Year (rebranding 6.3, board "D1.7 Season · Christmas", direction A, the tree,
+ * chosen 26 October 2026; it replaces 6.1's bulbs and sparkles, and keeps the key `winter`): a
+ * decorated tree after the name, baubles under "match", trees and gifts on the lime band, and on
+ * the 404 a tree with one bauble rolled away. The head script adds this file only while the season
+ * is on, so nobody downloads it otherwise. It fills the four slots app/globals.css places; each
+ * slot has a light and a dark drawing, and the browser fetches only the one for the theme in use.
+ * The band is lime in both themes, so it has one. Each drawing is asked for with `?v=` and the start
+ * of its SHA-256, since drawings are cached for a year as immutable (lib/seasons/art.test.ts).
+ */
+
+[data-season='winter'] [data-season-slot] {
+  display: block;
+}
+
+[data-season='winter'] [data-season-slot='mark'] {
+  background-image: url('mark-light.svg?v=50567974');
+}
+
+[data-season='winter'] [data-season-slot='hero'] {
+  background-image: url('hero-light.svg?v=d34dcd60');
+}
+
+[data-season='winter'] [data-season-slot='band'] {
+  background-image: url('band.svg?v=ed57d769');
+}
+
+[data-season='winter'] [data-season-slot='404'] {
+  background-image: url('string-light.svg?v=fa655e29');
+}
+
+@media (width >= 80rem) {
+  [data-season='winter'] [data-season-slot='404'] {
+    background-image: url('404-light.svg?v=c23de6bd');
+  }
+}
+
+/* Dark: chosen in Appearance, or the OS's while Appearance follows it */
+[data-season='winter'][data-theme='dark'] [data-season-slot='mark'] {
+  background-image: url('mark-dark.svg?v=657f0378');
+}
+
+[data-season='winter'][data-theme='dark'] [data-season-slot='hero'] {
+  background-image: url('hero-dark.svg?v=6429f16e');
+}
+
+[data-season='winter'][data-theme='dark'] [data-season-slot='404'] {
+  background-image: url('string-dark.svg?v=371baef9');
+}
+
+@media (width >= 80rem) {
+  [data-season='winter'][data-theme='dark'] [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=6ac50c7b');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='mark'] {
+    background-image: url('mark-dark.svg?v=657f0378');
+  }
+
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='hero'] {
+    background-image: url('hero-dark.svg?v=6429f16e');
+  }
+
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('string-dark.svg?v=371baef9');
+  }
+}
+
+@media (prefers-color-scheme: dark) and (width >= 80rem) {
+  [data-season='winter']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=6ac50c7b');
+  }
+}

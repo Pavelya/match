@@ -9,6 +9,7 @@ import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
 import { NewHomePage } from './NewHomePage'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -20,7 +21,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.ibmatch.com'
 export const metadata: Metadata = {
   title: 'IB Match - Find Your Perfect University Program',
   description:
-    'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide. 100% free for students.',
+    'A university matching platform built for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide. 100% free for students.',
   keywords: [
     'IB university matching',
     'International Baccalaureate universities',
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'IB Match - Find Your Perfect University Program',
     description:
-      'Match your IB profile with universities worldwide. Built by an IB graduate who wished this existed. 100% free for students.',
+      'Match your IB profile with universities worldwide. Started by a former IB student who wished this existed. 100% free for students.',
     type: 'website',
     url: baseUrl,
     siteName: 'IB Match'
@@ -90,7 +91,7 @@ function jsonLd(logo: string) {
         '@id': baseUrl,
         name: 'IB Match - Find Your Perfect University Program',
         description:
-          'The only university matching platform built exclusively for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
+          'A university matching platform built for IB Diploma students. Match your predicted IB grades, HL/SL subjects, and TOK/EE scores with university programs worldwide.',
         ...pageDates('/'),
         speakable: {
           '@type': 'SpeakableSpecification',
@@ -109,7 +110,7 @@ export default async function HomePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd(logo)) }}
       />
       {/* The new design's Home (rebranding 4.1); the root layout draws its header and footer */}
       {newUi ? (

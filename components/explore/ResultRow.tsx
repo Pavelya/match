@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { Check, Minus, X, type LucideIcon } from 'lucide-react'
+import { Check, Info, Minus, X, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { LinkPending } from '@/components/ds/LinkPending'
 import { SaveToggle } from '@/components/ds/SaveToggle'
 import { Skeleton, SkeletonLine } from '@/components/ds/Skeleton'
 import { StatusBadge } from '@/components/ds/StatusBadge'
@@ -17,7 +18,9 @@ import { formatRate } from '@/lib/programs/ib-minimum'
  * Shortlist) and the row's only link, Save its only other control. From 1024px the values sit in columns under headings drawn for sighted
  * readers; each value carries its own label for screen readers ("Length 4 years"). Below that
  * the row stacks: the name, university and country, the fit in its status colour, and the
- * minimum on the right. No hover on the row; the name underlines. Names wrap in full.
+ * minimum on the right. Names wrap in full. The name's link covers the whole row, with Save above
+ * it (D1.6): hover tints the row and underlines the name, and a press holds while the program
+ * loads.
  */
 
 /** With the fit: thumbnail, program, country, length, minimum, fit, Save, 16 apart */
@@ -34,9 +37,13 @@ const rowClasses = (fitColumn: boolean) =>
     fitColumn ? WITH_FIT : WITHOUT_FIT
   )
 
+/** The whole row is the link (D1.6), and a row's press: 99%, one step darker than its hover */
+const rowLink = 'press-lg relative link-hover:bg-muted link-pressed:bg-border'
+
 const STATUS: Record<CardStatus, { Icon: LucideIcon; text: string }> = {
   meets: { Icon: Check, text: 'text-ok' },
   close: { Icon: Minus, text: 'text-close' },
+  neutral: { Icon: Info, text: 'text-muted-foreground' },
   gap: { Icon: X, text: 'text-gap' }
 }
 
@@ -69,7 +76,7 @@ export function ResultRow({
   heading: Heading = 'h3'
 }: ResultRowProps) {
   return (
-    <li className={rowClasses(fitColumn)}>
+    <li className={cn(rowClasses(fitColumn), rowLink)}>
       <UniversityThumb image={row.image} initials={row.initials} />
 
       <div className="flex min-w-0 flex-col">
@@ -77,9 +84,11 @@ export function ResultRow({
           <Link
             id={`explore-${row.id}`}
             href={`/programs/${row.id}`}
+            data-stretched-link=""
             className="rounded-chip text-foreground underline-offset-3 hover:underline"
           >
             {row.name}
+            <LinkPending />
           </Link>
         </Heading>
         <span className="text-small font-normal break-words text-muted-foreground">
@@ -126,7 +135,7 @@ export function ResultRow({
         programName={`${row.name}, ${row.university}`}
         signInHref={signInHref}
         firstRunHref={firstRunHref}
-        className="max-lg:-mt-2.5"
+        className="relative z-[1] max-lg:-mt-2.5"
       />
     </li>
   )

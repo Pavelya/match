@@ -18,7 +18,7 @@ import { auth } from '@/lib/auth/config'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@/app/generated/prisma/client'
 
 // GET: List students for coordinator's school
 export async function GET(request: NextRequest) {
@@ -43,6 +43,14 @@ export async function GET(request: NextRequest) {
 
     if (!coordinator?.school) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
+    }
+
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
     }
 
     const schoolId = coordinator.school.id

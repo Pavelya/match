@@ -6,6 +6,11 @@ on:
   push:
     branches: [main]
 
+# The jobs only read the code: no job writes to the repository, its pull requests or its packages,
+# so the token GitHub hands them can't either (SEC-9).
+permissions:
+  contents: read
+
 # A newer push to the same branch cancels the previous run.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -29,7 +34,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
@@ -51,8 +56,8 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
 
-    # Neither suite connects to a database or any external service. These are
-    # the same placeholders the checks job needs for `prisma generate`.
+    # The tests connect to no database or external service. These are the same
+    # placeholders the checks job needs for `prisma generate`.
     env:
       DATABASE_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
       DIRECT_URL: postgres://placeholder:placeholder@localhost:5432/placeholder
@@ -62,7 +67,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
@@ -70,11 +75,6 @@ jobs:
 
       - name: Unit tests
         run: npm test
-
-      # Runs even when the unit tests fail, so one red run reports both suites.
-      - name: Matching algorithm tests
-        if: ${{ !cancelled() }}
-        run: npx tsx scripts/run-all-tests.ts
 
   build:
     name: Production build
@@ -115,7 +115,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
@@ -123,6 +123,14 @@ jobs:
 
       - name: Build the database from migrations
         run: npx prisma migrate deploy
+
+      # Every table in `public` starts with Row Level Security on, through the event trigger in
+      # migration 20261026120000 (MAINT 5.37). A later migration that turns it off fails here.
+      - name: Every table has Row Level Security
+        run: |
+          off=$(psql "$DIRECT_URL" --tuples-only --no-align --command "SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace WHERE n.nspname = 'public' AND c.relkind IN ('r', 'p') AND NOT c.relrowsecurity")
+          echo "Tables without Row Level Security: $off"
+          test "$off" = 0
 
       - name: Build
         run: npm run build

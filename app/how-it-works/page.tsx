@@ -10,6 +10,8 @@ import { StudentFooter } from '@/components/layout/StudentFooter'
 import { organizationLogo } from '@/lib/brand/metadata'
 import { showsNewUi } from '@/lib/new-ui'
 import { pageDates } from '@/lib/page-dates'
+import { NewHowItWorks } from './NewHowItWorks'
+import { serializeJsonLd } from '@/lib/utils'
 
 // Static generation - page is pre-rendered at build time
 // Revalidate every hour to pick up any changes
@@ -122,7 +124,7 @@ function techArticleSchema(logo: string) {
     abstract:
       'IB Match uses fast search technology and transparent scoring to match International Baccalaureate students with university programs. Our platform evaluates compatibility based on IB points, subject requirements, and student preferences without AI black boxes.',
     articleBody:
-      'IB Match leverages Algolia search to enable instant filtering across university programs. Our three-factor scoring system evaluates: (1) IB Points Compatibility - comparing student scores against program requirements, (2) Subject Match - analyzing HL/SL course alignment, and (3) Preference Alignment - considering student location and field preferences. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.',
+      "IB Match leverages Algolia search to enable fast filtering across university programs. Our three-factor scoring system evaluates: (1) Academic match - how well a student's IB points and subjects meet program requirements, (2) Location match - whether the program is in one of the student's preferred countries, and (3) Field match - whether the program is in one of the student's preferred study areas. Unlike AI-based systems, our deterministic algorithm provides explainable, transparent results that students can trust.",
     proficiencyLevel: 'Expert',
     dependencies: 'Algolia Search, Next.js, PostgreSQL',
     teaches: [
@@ -138,20 +140,30 @@ function techArticleSchema(logo: string) {
 }
 
 export default async function HowItWorksPage() {
+  const newUi = await showsNewUi()
   // The logo follows the design (rebranding 1.3); the rest of the structured data is shared
-  const logo = organizationLogo(baseUrl, await showsNewUi()).url
+  const logo = organizationLogo(baseUrl, newUi).url
   return (
     <>
       {/* WebPage schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(webPageSchema) }}
       />
       {/* TechArticle schema for E-E-A-T */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(techArticleSchema(logo)) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(techArticleSchema(logo)) }}
       />
+      {newUi ? <NewHowItWorks /> : <TodaysHowItWorks />}
+    </>
+  )
+}
+
+/** Today's page, until release (rebranding 4.3) */
+function TodaysHowItWorks() {
+  return (
+    <>
       <main className="flex min-h-screen flex-col">
         <HowItWorksHero />
         <ProgramDatabase />

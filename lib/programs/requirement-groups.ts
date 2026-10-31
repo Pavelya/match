@@ -26,6 +26,8 @@ export interface RequirementRow {
   requiredLevel: string
   minGrade: number
   orGroupId?: string | null
+  /** Needs a course of its own (MAINT 5.18); the same on every row of a group */
+  ownCourse?: boolean
   ibCourse: { id: string; name: string }
 }
 

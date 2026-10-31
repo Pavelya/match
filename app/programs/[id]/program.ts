@@ -48,6 +48,7 @@ export const getProgram = cache((id: string) =>
           minGrade: true,
           isCritical: true,
           orGroupId: true,
+          ownCourse: true,
           ibCourse: {
             select: { id: true, name: true, code: true, group: true }
           }

@@ -15,7 +15,7 @@ import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit } from '@/lib/rate-limit'
 import { invalidateProgramsCache } from '@/lib/matching/program-cache'
-import { invalidateProgramCache, clearAllMatchCache } from '@/lib/matching'
+import { clearAllMatchCache } from '@/lib/matching'
 import { deleteProgramFromAlgolia, syncProgramToAlgolia } from '@/lib/algolia/sync'
 import { parseEntryYear, requirementsStamp } from '@/lib/programs/entry-year'
 import { canonicalDegreeType } from '@/lib/programs/degree-types'
@@ -106,7 +106,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
             requiredLevel: true,
             minGrade: true,
             isCritical: true,
-            orGroupId: true
+            orGroupId: true,
+            ownCourse: true
           }
         }
       }
@@ -127,7 +128,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       minIBPoints,
       programUrl,
       courseRequirements,
-      requirementsEntryYear
+      requirementsEntryYear,
+      campusCity
     } = body
 
     // Build update object
@@ -222,6 +224,14 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       updateData.programUrl = programUrl?.trim() || null
     }
 
+    // Where it is taught when that is not the university's city; empty means the university's
+    if (campusCity !== undefined) {
+      if (campusCity !== null && typeof campusCity !== 'string') {
+        return NextResponse.json({ error: 'Invalid campus city' }, { status: 400 })
+      }
+      updateData.campusCity = campusCity?.trim() || null
+    }
+
     // Date the requirements when they or the entry year change. The form sends every
     // field on each save, so a presence check would re-date them on any edit.
     const stamp = requirementsStamp(existingProgram, {
@@ -249,13 +259,15 @@ export async function PATCH(request: Request, { params }: RouteParams) {
               minGrade: number
               isCritical?: boolean
               orGroupId?: string
+              ownCourse?: boolean
             }) => ({
               programId: id,
               ibCourseId: req.ibCourseId,
               requiredLevel: req.requiredLevel,
               minGrade: req.minGrade,
               isCritical: req.isCritical || false,
-              orGroupId: req.orGroupId || null
+              orGroupId: req.orGroupId || null,
+              ownCourse: req.ownCourse === true
             })
           )
         })
@@ -278,6 +290,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
         duration: true,
         minIBPoints: true,
         programUrl: true,
+        campusCity: true,
         requirementsVerified: true,
         requirementsUpdatedAt: true,
         requirementsEntryYear: true,
@@ -291,11 +304,7 @@ export async function PATCH(request: Request, { params }: RouteParams) {
     })
 
     // Invalidate caches to reflect changes immediately
-    await Promise.all([
-      invalidateProgramsCache(),
-      invalidateProgramCache(id),
-      syncProgramToAlgolia(id)
-    ])
+    await Promise.all([invalidateProgramsCache(), syncProgramToAlgolia(id)])
 
     return NextResponse.json(program)
   } catch (error) {

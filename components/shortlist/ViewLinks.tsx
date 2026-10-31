@@ -47,7 +47,7 @@ export function ViewLinks({
           className={cn(
             'flex items-center justify-center rounded-[0.5rem] border border-transparent text-body font-medium text-muted-foreground underline-offset-3',
             'transition-colors duration-180 ease-standard',
-            'not-aria-[current=page]:hover:text-foreground not-aria-[current=page]:hover:underline',
+            'not-aria-[current=page]:hover:text-foreground not-aria-[current=page]:hover:underline pressed:text-brand-ink pressed:underline',
             // The chosen view: surface with the 1px line-3 edge of a chosen segment (D2.4)
             'aria-[current=page]:border-line-3 aria-[current=page]:bg-card aria-[current=page]:font-semibold aria-[current=page]:text-foreground dark:aria-[current=page]:bg-border',
             // Forced colours drop the fills, so the current view takes the system highlight

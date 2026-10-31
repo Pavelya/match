@@ -1,5 +1,9 @@
 # Matching Algorithm Rollback Plan: Version X → IX
 
+> **Out of date, 30 October 2026.** This assumes a Version X scorer and flags that do not match the code:
+> production scores run Version IX's core ([Version XI](./DOC_2_matching-algo%20XI.md) is the master). To roll back a
+> change to the algorithm today, revert its pull request and clear the cached matches.
+
 **Version:** 1.0  
 **Created:** December 2024  
 **Status:** CRITICAL DOCUMENT  

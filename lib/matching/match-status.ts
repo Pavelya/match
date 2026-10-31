@@ -4,8 +4,10 @@
  * never changes a score.
  *
  * The status is requirement-based (owner, 7 October 2026): Meets all requirements, Within
- * reach, or Missing a requirement. The V10 `category` stays unused by the UI. Scores only order
- * cards within a status and appear inside "Why this match".
+ * reach, or Missing a requirement. A program that asks for nothing beyond the Diploma has no bar
+ * to meet, so it reads "No set grades" (board "D3.1 No IB minimum", 31 October 2026). The V10
+ * `category` stays unused by the UI. Scores only order cards within a status and appear inside
+ * "Why this match".
  *
  * Course names are short ("Maths AA", `lib/ib/course-names.ts`). For an either/or the chip
  * names the course the student took, at every level and grade the group accepts it, as the
@@ -34,13 +36,18 @@ import {
   type RequirementOption
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
-import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE, formatRate } from '@/lib/programs/ib-minimum'
+import {
+  DIPLOMA_POINTS,
+  NO_IB_MINIMUM,
+  NO_IB_MINIMUM_NOTE,
+  formatRate
+} from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
 
 export { formatRate }
 
-/** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
-export type CardStatus = 'meets' | 'close' | 'gap'
+/** The card's status, as `StatusBadge` takes it: meets all, within reach, no set grades, missing one. */
+export type CardStatus = 'meets' | 'close' | 'neutral' | 'gap'
 
 /** A chip's look, as `RequirementChip` takes it. */
 export type ChipKind = 'met' | 'close' | 'gap' | 'info'
@@ -77,7 +84,10 @@ export interface MatchStatusInput {
 
 export interface MatchStatus {
   status: CardStatus
-  /** "Meets all requirements", "Within reach · 1 point short", "Needs Biology HL and Chemistry HL" */
+  /**
+   * "Meets all requirements", "Within reach · 1 point short", "No set grades", "Needs Biology HL
+   * and Chemistry HL"
+   */
   badge: string
   /** Every chip: missing, then within reach, met, notes. `cardChips` fits them on a card. */
   chips: MatchChip[]
@@ -109,8 +119,15 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
 
   const assessed: Assessed[] = []
   const points = assessPoints(input.studentPoints, input.minIBPoints)
-  if (points) assessed.push(points)
-  for (const detail of academicMatch.subjectMatches) assessed.push(assessSubject(detail))
+  // No set grades: no named subjects, and no minimum or the Diploma's own 24, which they reach.
+  // A student under 24 is short of it, so it is a bar for them and stays one.
+  const noSetGrades =
+    academicMatch.subjectMatches.length === 0 &&
+    (!points || (input.minIBPoints === DIPLOMA_POINTS && points.chip.kind === 'met'))
+  if (points && !noSetGrades) assessed.push(points)
+  for (const facts of requirementFacts(academicMatch.subjectMatches)) {
+    assessed.push(assessSubject(facts))
+  }
 
   const notes: MatchChip[] = []
   const note = (label: string, spokenAfter?: string) =>
@@ -122,7 +139,9 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
     else
       note(`${NO_IB_MINIMUM} · admits ${formatRate(input.admitRate)}`, ' of first-year applicants')
   }
-  if (academicMatch.subjectMatches.length === 0) note('No named subjects')
+  if (points && noSetGrades) note(`IB Diploma · ${DIPLOMA_POINTS} points`)
+  // The group says it for a program with no set grades (D2.7 change)
+  if (academicMatch.subjectMatches.length === 0 && !noSetGrades) note('No named subjects')
   if (!fieldMatch.isMatch && !fieldMatch.noPreferences) {
     note(`${input.fieldName} · not your field`)
   }
@@ -144,6 +163,7 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
   const closeSubjects = close.filter((a) => a.source === 'subject').length
   const pointsShort = close.find((a) => a.source === 'points')?.pointsShort ?? 0
 
+  if (noSetGrades) return { status: 'neutral', badge: 'No set grades', chips }
   if (gaps.length === 0 && close.length === 0) {
     return { status: 'meets', badge: 'Meets all requirements', chips }
   }
@@ -159,7 +179,7 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
  * where a card collapses the met ones. Empty when the program names no subjects.
  */
 export function subjectChips(subjectMatches: SubjectMatchDetail[]): MatchChip[] {
-  const chips = subjectMatches.map((detail) => assessSubject(detail).chip)
+  const chips = requirementFacts(subjectMatches).map((facts) => assessSubject(facts).chip)
   return KIND_ORDER.flatMap((kind) => chips.filter((chip) => chip.kind === kind))
 }
 
@@ -212,13 +232,93 @@ export interface SubjectFacts {
   option?: RequirementOption
   /** Distinct courses the requirement accepts */
   courseCount: number
+  /**
+   * The student's course for it went to another requirement that needs a course of its own
+   * (MAINT 5.18): its short name, and what that other requirement asks for ("HL 6"), the
+   * same as this one's or not. `group` then holds only the courses left.
+   */
+  usedElsewhere?: { name: string; usedFor: string; sameNeed: boolean }
 }
 
-export function subjectFacts(detail: SubjectMatchDetail): SubjectFacts {
+/**
+ * What one requirement leaves out, when it needs a course of its own (MAINT 5.18,
+ * "D2.7 Chip · a second subject"): the courses the student uses for the program's other such
+ * requirements, so its "or …" lines and counts don't offer them again.
+ */
+export interface OwnCourseContext {
+  exclude: Set<string>
+  usedElsewhere?: SubjectFacts['usedElsewhere']
+}
+
+/**
+ * Every requirement of one program, judged together: as `subjectFacts`, with what each that
+ * needs a course of its own leaves out. A program without any gives the same facts as before.
+ */
+export function requirementFacts(subjectMatches: SubjectMatchDetail[]): SubjectFacts[] {
+  const own = subjectMatches.map((d) => d.requirement.ownCourse === true)
+  if (!own.some(Boolean)) return subjectMatches.map((d) => subjectFacts(d))
+  const used = subjectMatches.map(usedCourseId)
+  return subjectMatches.map((detail, i) => {
+    if (!own[i]) return subjectFacts(detail)
+    const exclude = new Set<string>()
+    subjectMatches.forEach((_, j) => {
+      if (j !== i && own[j] && used[j]) exclude.add(used[j])
+    })
+    const elsewhere = detail.courseUsedElsewhere
+    let usedElsewhere: SubjectFacts['usedElsewhere']
+    if (elsewhere) {
+      exclude.add(elsewhere.courseId)
+      // The requirement it went to: one that needs a course of its own, never an unmarked row
+      // that may share it (Trinity's maths, which Maths AA HL also meets)
+      const j = subjectMatches.findIndex(
+        (_, k) => k !== i && own[k] && used[k] === elsewhere.courseId
+      )
+      const usedFor =
+        j >= 0
+          ? formatLevelGrades(
+              optionsForCourse(groupOf(subjectMatches[j].requirement), elsewhere.courseId)[0]
+                ?.levelGrades ?? []
+            )
+          : ''
+      const need = levelsOf(withoutCourses(groupOf(detail.requirement), exclude))
+      usedElsewhere = {
+        name: shortCourseName(elsewhere.courseName),
+        usedFor,
+        sameNeed: usedFor === need
+      }
+    }
+    if (used[i]) exclude.delete(used[i])
+    return subjectFacts(detail, { exclude, usedElsewhere })
+  })
+}
+
+/** The course a requirement was met or partly met with; none when nothing was taken */
+function usedCourseId(detail: SubjectMatchDetail): string | null {
+  if (detail.score === 0) return null
+  return 'options' in detail.requirement
+    ? (detail.matchedCourseId ?? null)
+    : detail.requirement.courseId
+}
+
+/** The group without some courses; unchanged if that would leave none */
+function withoutCourses(group: RequirementGroup, exclude: Set<string>): RequirementGroup {
+  if (exclude.size === 0) return group
+  const options = group.options
+    .map((o) => ({ ...o, courses: o.courses.filter((c) => !exclude.has(c.id)) }))
+    .filter((o) => o.courses.length > 0)
+  return options.length > 0 ? { ...group, options } : group
+}
+
+/** Every level and grade a group asks for, once each: "HL 5", "HL 5 or SL 6" */
+function levelsOf(group: RequirementGroup): string {
+  return [...new Set(group.options.map((o) => formatLevelGrades(o.levelGrades)))].join(' or ')
+}
+
+export function subjectFacts(detail: SubjectMatchDetail, context?: OwnCourseContext): SubjectFacts {
   let kind = kindOf(detail)
   let { gradeGap } = detail
   const { studentLevel, studentGrade } = detail
-  const group = groupOf(detail.requirement)
+  const group = withoutCourses(groupOf(detail.requirement), context?.exclude ?? new Set())
   const courseId =
     'options' in detail.requirement ? detail.matchedCourseId : detail.requirement.courseId
   const option = kind !== 'not_taken' && courseId ? optionsForCourse(group, courseId)[0] : undefined
@@ -239,13 +339,13 @@ export function subjectFacts(detail: SubjectMatchDetail): SubjectFacts {
     isCritical: detail.requirement.isCritical,
     group,
     option,
-    courseCount: group.options.reduce((n, o) => n + o.courses.length, 0)
+    courseCount: group.options.reduce((n, o) => n + o.courses.length, 0),
+    ...(context?.usedElsewhere && { usedElsewhere: context.usedElsewhere })
   }
 }
 
-function assessSubject(detail: SubjectMatchDetail): Assessed {
-  const { kind, gradeGap, studentLevel, studentGrade, group, option, courseCount } =
-    subjectFacts(detail)
+function assessSubject(facts: SubjectFacts): Assessed {
+  const { kind, gradeGap, studentLevel, studentGrade, group, option, courseCount } = facts
   const named = option
     ? `${formatCourses(option.courses)} ${formatLevelGrades(option.levelGrades)}`
     : describeRequirement(group)
@@ -283,9 +383,12 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
       const courses = group.options.flatMap((o) => o.courses)
       const groupLevels = new Set(group.options.flatMap((o) => o.levelGrades.map((lg) => lg.level)))
       const atLevel = groupLevels.size === 1 ? ` ${[...groupLevels][0]}` : ''
+      // The student took one, but it counts for another requirement (D2.7 Chip · a second
+      // subject): "Chemistry or Physics HL 5 · Biology counts once"
+      const why = facts.usedElsewhere ? `${facts.usedElsewhere.name} counts once` : 'not taken'
       if (courses.length <= NAMED_COURSES) {
         return {
-          chip: { kind: 'gap', label: `${named} · not taken` },
+          chip: { kind: 'gap', label: `${named} · ${why}` },
           source: 'subject',
           need: `${formatCourses(courses)}${atLevel}`
         }
@@ -297,7 +400,7 @@ function assessSubject(detail: SubjectMatchDetail): Assessed {
       return {
         chip: {
           kind: 'gap',
-          label: `${first.courses[0].name} ${formatLevelGrades(first.levelGrades)} ${rest} · not taken`
+          label: `${first.courses[0].name} ${formatLevelGrades(first.levelGrades)} ${rest} · ${why}`
         },
         source: 'subject',
         need: `${first.courses[0].name} ${rest}${atLevel ? ` at${atLevel}` : ''}`

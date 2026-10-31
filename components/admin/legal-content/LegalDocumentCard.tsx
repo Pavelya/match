@@ -10,7 +10,7 @@
 import Link from 'next/link'
 import { FileText, Edit, Eye, Plus, Clock, CheckCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { LegalDocumentType, DocumentStatus } from '@prisma/client'
+import { LegalDocumentType, DocumentStatus } from '@/app/generated/prisma/enums'
 
 interface PublishedVersion {
   id: string

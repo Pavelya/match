@@ -134,7 +134,9 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
   `next/font/google` can't pin an optical size, hence the local files: latin (23.8 KB) and latin-ext
   (14.6 KB, loaded only for names that need it, such as "Łódzki"). Built 8 October 2026 (1.1); the
   owner chose it over the variable font the same day.
-  `Geist_Mono` goes when 4.3 rebuilds How it works.
+  `Geist_Mono` is no longer preloaded since 4.3 (19 October 2026): only today's How it works
+  eyebrow and the admin's codes use it, and the new design sets code in the system's monospace, so it
+  never downloads it. It goes with `NoAISection.tsx` at cleanup (R.2).
 - Serif only at 22px and above. Never set body text in it. On a phone the smallest serif is H1 at 30px.
 - Hierarchy uses 400 against 600, not 500 against 600 (Windows ClearType flattens 500).
 - **The token changes, not the component.** Each style is one class (`text-display-xl`), and its value
@@ -157,7 +159,7 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 - **Spacing:** 4px base: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96. Cards use 16–20 padding, page sections 64–96.
 - **Radius:** 6 (small chips in tables) · **10 (buttons, inputs, thumbnails)** · **14 (cards)** · 20 (sheets, panels, hero images) · full (pills, avatars). Set `--radius: 0.875rem` and derive the rest; remove ad-hoc `rounded-2xl` and `rounded-3xl`.
 - **Elevation:** flat (1px `--line`) for lists and panels; raised (`0 1px 2px rgb(20 22 27/.06)` plus the border) for cards that open, deepening to `0 4px 12px -4px rgb(20 22 27/.14)` on hover; overlay (`0 12px 32px -12px rgb(20 22 27/.22)` plus the border) for menus, sheets and dialogs. Nothing else. The edge is a real 1px border, never a box-shadow hairline, so it survives forced colours (D2.8).
-- **Motion:** 120ms press · 180ms hover and state · 240ms sheets, dialogs and list-to-detail. Easing `cubic-bezier(0.2, 0.8, 0.2, 1)`. Only transform and opacity. No infinite animations (remove `animate-ping` and the shimmer). Reduced motion swaps movement for opacity, as `globals.css` already does globally. View transitions through React `<ViewTransition>` for list → program (thumbnail to hero image) and tab switches.
+- **Motion:** 120ms press · 180ms hover and state · 240ms sheets, dialogs and list-to-detail. Easing `cubic-bezier(0.2, 0.8, 0.2, 1)`. Only transform and opacity. No infinite animations (remove `animate-ping` and the shimmer). Colours, edges and shadows may fade in 180ms, since they move nothing. Reduced motion drops movement and keeps fades and colour changes. No view transitions: the list → program morph and tab switches were dropped on 20 October 2026 by D1.6 (canvas row 24), which holds the rest of the motion and feedback rules. Built in 5.2 as shared classes in `app/globals.css`: `press`, `press-sm`, `press-lg` with the `pressed:` variant, `link-pressed:` and `link-hover:` with `data-stretched-link` for whole-card links, `overlay-sm`, `disclose`, and `LinkPending` (`components/ds/LinkPending.tsx`) to hold a press while a page loads. New components use them rather than their own transitions.
 - **Focus:** `outline: 2px solid var(--ring); outline-offset: 2px` on every interactive element, replacing `outline-none` plus a box-shadow ring in `components/ui/button.tsx` and `input.tsx`. Add `@media (forced-colors: active)` checks for selected states (use `CanvasText` and `Highlight` system colours where a selected state is shown only by background).
 - **Sticky chrome:** `scroll-padding-top: 80px; scroll-padding-bottom: 96px` on `html` (phone) so focus is never hidden under the header or tab bar (WCAG 2.4.11).
 
@@ -183,11 +185,16 @@ the phone sizes on the three "D1.2 Type" boards. Bold marks a size that differs 
 | `SubjectRow` and `ProfileEditor` | `SubjectSelectorDialog`, `DetailedGradesInput`, `QuickScoreInput`, `StepIndicator` | One editor for first run and edit. A row per IB group, any subject in any row: the picker, then level and grade as radio groups, on one line on desktop and stacked on a phone; TOK and the EE below. One total, in the footer, "So far" until whole; each diploma check where it applies and again in the footer as what Finish needs. Canvas: "D3.6 Subject editor", "D4.5 First run, step 3" (approved 14 October 2026). Built 14 October 2026: `components/profile-editor/ProfileEditor.tsx`, with its rules in `lib/student/subject-editor.ts`. |
 | `CompareTable` | none | Shortlist compare view: a table with the programs as column headers and eight rows (fit, IB minimum, subjects, country, degree, length, checked for, official page). Up to four programs on desktop, chosen in a popover; two on a phone, side by side, each picked with a select (13 October 2026). Built 13 October 2026 (`components/shortlist/`): a real table from 768px, the same table with its roles spelled out below it. Canvas: "D3.7 Compare table", "D3.7 Compare table · phone". |
 | `CountryGuide` template and data files | the 22 `*Content.tsx` files (about 20,000 lines) | Same sections as `docs/countries/COUNTRY-PAGE-BASELINE.md`, rendered from typed data. Pages stay static with `revalidate` of one week. Canvas: "D4.12 Country guide", "D4.12 Country guide · other guides" and "D4.12 Country guide · phone" (approved 18 October 2026): the question is the h2 and the short label an entry in "On this page" (a sticky column from 1024px, a closed disclosure below it); one 720px column on the paper; eleven blocks, among them three callouts (short answer, note, caution) in place of coloured boxes, tables with numbers in tabular figures, a timeline and the sources under each section; the questions collapsed; "More country guides" and Home's lime band, whose heading is "Ready to find your match in {country}?" on every guide. Decisions in `REBRANDING_tasks.md` 4.2. |
+| `AuthCard` | the shadcn `Card` on `/auth` pages and the invitation pages | One card under the logo, with no site header: sign-in (student and coordinator), "Check your email", the sign-in error, the error inside sign-in, and both invitations (520px for the student's consent). Continue with Google to Google's own rules. Canvas: "D4.2 Sign-in", "D4.16 School invitation" (approved 19 October 2026). Built in 4.3: `components/sign-in/` (`AuthPage`, `AuthCard`, the cards) and `components/invitation/`; the client cards are lazy islands. |
+| `TextPage` and `LegalPage` | each page's own hero and grey and white bands (How it works, FAQs, Contact, Support us), and `PageContainer` with `MarkdownContent` on the legal pages | A hero in the 1240px column, then sections on the paper divided by hairlines, the label an eyebrow and the big line the h2; D4.12's cards; Home's lime band where a page ends on a call to action. The legal pages add links between the three, the version and its date, and "On this page" from the document's headings, with one h1. Canvas: "D4.14 Text pages", "D4.14 Legal pages" (approved 19 October 2026); For schools on the same template, "D4.17 For schools" (approved 19 October 2026, built in session 21). Built in 4.3: `components/text-page/TextPage.tsx` (also the requirements hub's, D4.13), `components/legal/LegalPage.tsx` (the Markdown rendered on the server), and `QuestionsPanel` and `Callout`, which the guides share. |
+| `NotFoundPage` and `ErrorPanel` | Next's bare 404 and "Application error" | The 404 for the whole site, with the search and three ways on, and one error panel inside each layout's chrome, with Try again and a reference. Canvas: "D4.15 404 and error pages" (approved 19 October 2026). Built in 4.3: `app/not-found.tsx`, `app/error.tsx`, `app/student/error.tsx`, `app/auth/error.tsx` and `app/global-error.tsx`; `components/site/ErrorScreen.tsx`, `NotFoundPage.tsx`, `BareErrorPage.tsx`. |
 | `Skeleton` | `animate-shimmer`, `.skeleton-bg` | Static tint, same box as the final card. |
 | `Toast` | `components/ui/toast.tsx` (slides from the right, progress bar) | The other theme: foreground and background swapped. One at a time; bottom centre on desktop, above the tab bar on a phone; an action and a close button; 5 s for success, 10 s for failure, paused on hover or focus; one polite live region. Canvas: "D2.9 Toast". |
 | `BottomSheet` (phone) | the expandable filter `Card` in `SearchClient` | Explore's filters below 768px. A native `<dialog>` opened with `showModal`, 92% of the screen, radius 20 on top, overlay elevation and a real 1px edge; header (title, close) and footer (Clear all, the count button) fixed. Choices apply at once; the button carries the count and is aria-disabled at zero. No drag handle. 240ms slide in, 180ms out, a fade with reduced motion. Canvas: "D2.15 Bottom sheet" (approved 11 October 2026). Built in 2.3: `components/explore/FilterSheet.tsx`. |
 | `ConfirmDialog` | the shadcn `Dialog` in Settings (delete account, unlink from school) and `alert()` | A native `<dialog>` with `role="alertdialog"`: a title that asks, a sentence or a short list, an optional field, two buttons with the primary on the right. Focus starts on the safe button; Escape is Cancel; a click on the dimmed page does nothing. 480px on desktop, centred on a phone too. A danger `Button` variant (#B3261E light, #FF8E85 dark) appears only here. Working and failing stay inside it. Delete account, Unlink, and "Leave without saving?". Canvas: "D2.10 Confirm dialog" (approved 18 October 2026). Built 18 October 2026: `components/ds/ConfirmDialog.tsx`, and `danger` in `components/ds/button-variants.ts`. |
-| `CookieBanner` | `components/shared/CookieConsentBanner.tsx` (emoji title, Accept all the only filled button) | Today's three choices and storage, new words. Customize is a link-style button that opens the settings in place (four rows, no switches, only Essential used); Essential only and Accept all are secondary, at the same weight. Not modal: no focus on open, first after the skip link. Bottom right at 420px on desktop; across the bottom on a phone, on the tab bar when signed in, which stays put while it shows. Canvas: "D4.1 Home" and "D4.1 Home · phone" (approved 18 October 2026). Built 18 October 2026: `components/site/CookieBanner.tsx`, placed after the skip link by `cookie-slot.tsx`; both designs store the choice through `lib/cookie-consent.ts`. |
+| `CookieBanner` | `components/shared/CookieConsentBanner.tsx` (emoji title, Accept all the only filled button) | Today's three choices and storage, new words. Customize is a link-style button that opens the settings in place (four rows, no switches, only Essential used); Essential only and Accept all are secondary, at the same weight. Not modal: no focus on open, first after the skip link. Bottom right at 420px on desktop; across the bottom on a phone, on the tab bar when signed in, which stays put while it shows. Canvas: "D4.1 Home" and "D4.1 Home · phone" (approved 18 October 2026). Built 18 October 2026: `components/site/CookieBanner.tsx`, placed after the skip link by `cookie-slot.tsx`; both designs store the choice through `lib/cookie-consent.ts`. Waits while a page shows the steps’ footer (20 October 2026, with D2.16; built in 4.6). |
+| `PolicyNotice` | `components/shared/ReconsentBanner.tsx` (amber, title case, a close button and Remind me later, a failed accept silent) | The cookie banner's panel and place, shown after the cookie choice, never with it. Today's words in sentence case, the documents as links in the sentence; "I accept the updated policies" then "Remind me later", no close button. A failure in the panel, a success in a toast. Waits while the steps' footer shows. Built in `components/site/PolicyNotice.tsx` on `bottom-panel.tsx`, which the cookie banner shares. Canvas: "D2.16 Policy update banner" (row 22) |
+| `EmailLayout` and its parts | Seven templates in `emails/`, each with its own copy of the styles: centred logo and button, title-case headings, a blue left-edged reply box, no dark styles | One layout in `components/email/` beside `EmailHeader`: the paper around a 560px column, the card, an optional line above the one h1, text, a left-aligned button, the link written out, a details panel, small print and the footer under the card. D1.1’s tokens as hex, with the dark ones in a `prefers-color-scheme` block that Apple Mail and Outlook for Mac read; the light version holds up when Gmail and Outlook invert it. A plain-text body for every email. Canvas: "D4.18 Emails" and its two boards (row 23, approved 20 October 2026). Built in 4.7: `EmailLayout`, `content.ts` (the words as data), `plain-text.ts`, `tokens.ts` and `message.tsx`; each template in `emails/` builds its message in either design, today's from `components/email/legacy/` |
 | `EmptyState` | `CompleteProfileCTA`, the full-screen blocks in `RecommendationsClient` | One flat panel in a list's place: icon tile, h2, a sentence or two, up to two buttons, an optional step list. No matches, no results, empty shortlist, failed load ("Trying again…"), profile call to action. Canvas: "D2.11 Empty and error states". |
 | `CountryFlag` (SVG, only the 22 used) | flag emoji and the Windows polyfill font | Identical on every OS; drops a font download on Windows. Optional, phase 4. |
 
@@ -312,9 +319,12 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | `NO_MATCH`, not taken | × Biology HL 5 · not taken | gap |
 | Either/or of three or more courses, the student's short of it | × Spanish B HL 5 or 5 others · you SL | gap |
 | Either/or, none taken | × French B or Spanish B HL 5 · not taken; three or more: × French B HL 6 or 11 others · not taken | gap |
+| Needs a course of its own, and the student's went to another requirement (`courseUsedElsewhere`, MAINT 5.18): the courses left | × Chemistry or Physics HL 5 · Biology counts once; three or more: × Biology HL 5 or 5 others · Maths AA counts once | gap |
+| Needs a course of its own, short of it: the count leaves out the course used for the other requirement | – Chemistry HL 6 or 4 others · you 5 | close |
 | No IB minimum (`minIBPoints` null: US, holistic; content 6) and no admit rate | • No IB minimum · holistic admission | info |
 | No IB minimum, and the university reports an admit rate (`University.admitRate`, the overall rate; first among the notes) | • No IB minimum · admits 4.6% | info |
-| No named subjects (`POINTS_ONLY`) | • No named subjects | info |
+| No named subjects (`POINTS_ONLY`), and a bar to meet | • No named subjects | info |
+| A minimum of 24 they reach, no named subjects (the "No set grades" group) | • IB Diploma · 24 points, in place of the points chip and "No named subjects" | info |
 | Field or country not preferred | • Medicine & Health · not your field | info |
 | Requirements from an earlier intake | • Checked for 2026 entry | info |
 
@@ -329,18 +339,28 @@ copy promises an admission likelihood IB Match cannot know, and "Reach" mixes fi
 Scores are unchanged for now (`MAINT_tasks.md` 5.15). They order cards within a group and appear only
 in "Why this match".
 
-**Card status**: **Meets all requirements** if every chip is met. **Within reach** if there is no gap and at
-most one subject is close, whether or not points are close. **Missing a requirement** otherwise. Badge copy is specific:
+**Card status**: **No set grades** (`neutral`) if the program names no subjects and has no minimum, or a
+minimum of 24 the student reaches: nothing to check. **Meets all requirements** if every chip is met. **Within
+reach** if there is no gap and at most one subject is close, whether or not points are close. **Missing a
+requirement** otherwise. Approved on "D3.1 No IB minimum" (owner, 31 October 2026), with D2.7's `neutral`
+badge, no new colour or icon, and the muted colour on a phone's row. Badge copy is specific:
 "Within reach · 1 point short", "Within reach · 1 grade short", "Within reach · 1 point, 1 grade",
 "Needs German B HL", "Needs Biology HL and Chemistry HL", "Needs a 7 in Maths AA", "Needs 6 more points",
-and for a long group with no course taken, "Needs French B or 11 others at HL".
+and for a long group with no course taken, "Needs French B or 11 others at HL". A requirement whose course went to another
+(MAINT 5.18) names the courses left: "Needs Chemistry or Physics HL", "Needs Biology or 5 others at HL". In "Why this match"
+and the checklist its row says where the course went ("Your Biology counts once, for the HL 6 requirement", or "for the other
+HL 6 requirement"), and the note: "Biology counts once, so the other requirement needs Chemistry or Physics at HL 5. Better
+grades alone won't meet it." "Or …" lines leave out a course the student uses for the other requirement. Signed out, each
+such row says "A different subject from the HL 6 one". Approved on "D2.7 Chip · a second subject" (owner, 26 October 2026).
 
 **Lists**: grouped by status (the "Missing a requirement" group is collapsed by default, unless it is
 the only group), then sorted by `overallScore` within each group. Ties, which are common, go to the
 minimum closest to the student's total, then programs with no IB minimum, then university and program
 A–Z. Group **before** any cap on the list, never after: a student with 139 programs at 100% would
-otherwise see nothing but "Meets all". Each group shows five cards, then "Show 20 more"; three jump
-links (a three-row panel on a phone) lead to the groups. Approved on "D4.6 Matches" and "D4.6
+otherwise see nothing but "Meets all". The order is Meets all requirements, Within reach, No set grades,
+Missing a requirement. Each group shows five cards, then "Show 20 more"; a jump link for each (a panel of
+rows on a phone) leads to the groups: "85 with no set grades"; on a phone, "No set grades" with its count.
+"Nothing meets the requirements yet" does not show while No set grades has programs. Approved on "D4.6 Matches" and "D4.6
 Matches · phone" (owner, 10 October 2026). Running the production algorithm on real programs showed
 why the score cannot lead on its own:
 
@@ -365,6 +385,15 @@ Approved on "D3.2 Why this match" (owner, 10 October 2026): the button keeps its
 requirement is listed, the ones in "+N met" too, with the other courses at their own levels and grades,
 and a group of more than eight courses opens from "All N options"; a US program's points row gives the
 admit rate; the panel ends with a link to the program page.
+
+**No set grades** has no fit score and no "How the fit is worked out": the status would be the same for every
+student, and a 100% would say nothing. The points row is `info`, with "24 is the Diploma itself." at 24. The
+note: "There's nothing here to check your grades against, so we can't say how you compare. See how the
+university decides on its own page."; for a US program, "US universities read the whole application, not a
+points total, so we can't say how you compare." The program page's panel says the same.
+
+On a program short of points where nothing caps the score, the sentence reads "Adds up to 89%. The 2 points
+you're short are counted in Academic."; everything else keeps "Nothing lowers it." ("D3.1 No IB minimum".)
 
 This is the only place the percentage appears. Built in 2.2 (`lib/matching/match-why.ts`) from the
 logic of `MatchBreakdown.tsx`, without its dialog; that file is deleted.

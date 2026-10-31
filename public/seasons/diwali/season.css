@@ -1,0 +1,75 @@
+/*
+ * Diwali (rebranding 6.6, board "D1.7 Season · Diwali", direction A, diyas and marigolds, chosen 30
+ * October 2026): one lit diya after the name, five lit diyas standing under "match", four lit diyas
+ * on a marigold garland in the lime band, and on the 404 a toran with one strand short, its marigold
+ * on the floor, above four lit diyas. The head script adds this file only while the season is on, so
+ * nobody downloads it otherwise. It fills the four slots app/globals.css places; each slot has a
+ * light and a dark drawing, and the browser fetches only the one for the theme in use. The band is
+ * lime in both themes, so it has one. Each drawing is asked for with `?v=` and the start of its
+ * SHA-256, since drawings are cached for a year as immutable (lib/seasons/art.test.ts).
+ */
+
+[data-season='diwali'] [data-season-slot] {
+  display: block;
+}
+
+[data-season='diwali'] [data-season-slot='mark'] {
+  background-image: url('mark-light.svg?v=a9ec8e9e');
+}
+
+[data-season='diwali'] [data-season-slot='hero'] {
+  background-image: url('hero-light.svg?v=8bea7b0c');
+}
+
+[data-season='diwali'] [data-season-slot='band'] {
+  background-image: url('band.svg?v=7bd8b934');
+}
+
+[data-season='diwali'] [data-season-slot='404'] {
+  background-image: url('string-light.svg?v=f8d34dc9');
+}
+
+@media (width >= 80rem) {
+  [data-season='diwali'] [data-season-slot='404'] {
+    background-image: url('404-light.svg?v=6d2beec4');
+  }
+}
+
+/* Dark: chosen in Appearance, or the OS's while Appearance follows it */
+[data-season='diwali'][data-theme='dark'] [data-season-slot='mark'] {
+  background-image: url('mark-dark.svg?v=a0c2a37e');
+}
+
+[data-season='diwali'][data-theme='dark'] [data-season-slot='hero'] {
+  background-image: url('hero-dark.svg?v=15cf1185');
+}
+
+[data-season='diwali'][data-theme='dark'] [data-season-slot='404'] {
+  background-image: url('string-dark.svg?v=4afcbbef');
+}
+
+@media (width >= 80rem) {
+  [data-season='diwali'][data-theme='dark'] [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=4b51b7df');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-season='diwali']:not([data-theme='light']) [data-season-slot='mark'] {
+    background-image: url('mark-dark.svg?v=a0c2a37e');
+  }
+
+  [data-season='diwali']:not([data-theme='light']) [data-season-slot='hero'] {
+    background-image: url('hero-dark.svg?v=15cf1185');
+  }
+
+  [data-season='diwali']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('string-dark.svg?v=4afcbbef');
+  }
+}
+
+@media (prefers-color-scheme: dark) and (width >= 80rem) {
+  [data-season='diwali']:not([data-theme='light']) [data-season-slot='404'] {
+    background-image: url('404-dark.svg?v=4b51b7df');
+  }
+}

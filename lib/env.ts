@@ -7,7 +7,6 @@ const envSchema = z.object({
 
   // Supabase
   NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
 
   // NextAuth
@@ -29,15 +28,13 @@ const envSchema = z.object({
   // Search (Algolia)
   ALGOLIA_APP_ID: z.string().optional(),
   ALGOLIA_ADMIN_API_KEY: z.string().optional(),
-  NEXT_PUBLIC_ALGOLIA_SEARCH_KEY: z.string().optional(),
 
   // Payments (Stripe)
   STRIPE_SECRET_KEY: z.string().optional(),
   STRIPE_WEBHOOK_SECRET: z.string().optional(),
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
 
-  // Internal API
-  INTERNAL_API_KEY: z.string().optional(),
+  // Public base URL
   NEXT_PUBLIC_APP_URL: z.string().url().optional(),
 
   // Rebranding preview switch (lib/new-ui.ts). Neither is NEXT_PUBLIC_.
@@ -45,6 +42,16 @@ const envSchema = z.object({
   NEW_UI_FOR_EVERYONE: z.enum(['true', 'false']).optional(),
   // The secret in /api/preview?key=..., which turns the new design on for one browser.
   NEW_UI_PREVIEW_KEY: z.string().min(32).optional(),
+
+  // Explore's Best fit (MAINT_tasks.md 5.27), a fallback if it eats the search quota. "full" (or
+  // unset) reads the whole list, one or two requests; "lifted" is one search that lifts the
+  // student's countries and fields; "off" gives every visitor the signed-out sorts.
+  EXPLORE_BEST_FIT: z.enum(['full', 'lifted', 'off']).optional(),
+
+  // Inactive accounts (MAINT_tasks.md 7.6 Part D): "true" lets the admin send the inactivity
+  // notices and delete the accounts due. Off until the Privacy Policy that sets the rule is
+  // published (release day); with it off, the admin's page lists them and its buttons say why not.
+  INACTIVE_ACCOUNTS_ENABLED: z.enum(['true', 'false']).optional(),
 
   // Node environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')

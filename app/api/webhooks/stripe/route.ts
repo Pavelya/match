@@ -4,14 +4,18 @@
  * POST /api/webhooks/stripe
  *
  * Handles Stripe webhook events for subscription lifecycle:
- * - checkout.session.completed → Activate subscription
- * - customer.subscription.deleted → Deactivate subscription
- * - customer.subscription.updated → Handle upgrades/downgrades
+ * - checkout.session.completed → the school takes this subscription
+ * - customer.subscription.created / .updated / .deleted → the school's status follows it
+ *
+ * Stripe does not deliver events in order, and retries a failed one for up to three days. So every
+ * event is only a prompt: the route asks Stripe what the subscription is now and writes that,
+ * never the event's own status, and only for the school's current subscription (MAINT 5.34).
  */
 
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { getStripe } from '@/lib/stripe/server'
+import { getStripe, getSubscriptionStatus } from '@/lib/stripe/server'
+import { schoolStatusFor, isLive } from '@/lib/stripe/subscription-status'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import type Stripe from 'stripe'
@@ -75,15 +79,10 @@ export async function POST(req: Request) {
       }
 
       case 'customer.subscription.created':
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object as Stripe.Subscription
-        await handleSubscriptionUpdate(subscription)
-        break
-      }
-
+      case 'customer.subscription.updated':
       case 'customer.subscription.deleted': {
         const subscription = event.data.object as Stripe.Subscription
-        await handleSubscriptionDeleted(subscription)
+        await handleSubscriptionEvent(subscription)
         break
       }
 
@@ -98,119 +97,123 @@ export async function POST(req: Request) {
   }
 }
 
+/** The school's ID and current subscription: all any handler needs from the row. */
+const SCHOOL_SELECT = { id: true, stripeSubscriptionId: true } as const
+
+type School = { id: string; stripeSubscriptionId: string | null }
+
 /**
  * Handle successful checkout session completion
  */
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const schoolId = session.metadata?.schoolId
   const customerId = session.customer as string
-  const subscriptionId = session.subscription as string
+  const subscriptionId = session.subscription as string | null
 
-  if (!schoolId) {
-    logger.error('Checkout session missing schoolId metadata', { sessionId: session.id })
+  if (!schoolId || !subscriptionId) {
+    logger.error('Checkout session missing schoolId metadata or subscription', {
+      sessionId: session.id
+    })
+    return
+  }
+
+  const school = await prisma.iBSchool.findUnique({
+    where: { id: schoolId },
+    select: SCHOOL_SELECT
+  })
+
+  if (!school) {
+    logger.error('Checkout completed for a school that does not exist', { schoolId })
     return
   }
 
   logger.info('Checkout completed', { schoolId, customerId, subscriptionId })
 
-  // Update school with subscription info
-  await prisma.iBSchool.update({
-    where: { id: schoolId },
-    data: {
-      stripeCustomerId: customerId,
-      stripeSubscriptionId: subscriptionId,
-      subscriptionStatus: 'ACTIVE'
-    }
-  })
-
-  logger.info('School subscription activated', { schoolId })
+  await applySubscription(school, subscriptionId, { stripeCustomerId: customerId })
 }
 
 /**
- * Handle subscription updates (status changes, upgrades, etc.)
+ * Handle a subscription being created, changed or deleted
  */
-async function handleSubscriptionUpdate(subscription: Stripe.Subscription) {
+async function handleSubscriptionEvent(subscription: Stripe.Subscription) {
   const schoolId = subscription.metadata?.schoolId
   const customerId = subscription.customer as string
 
-  // Try to find school by subscription ID or customer ID
-  let school = schoolId ? await prisma.iBSchool.findUnique({ where: { id: schoolId } }) : null
+  // Try to find school by schoolId, then subscription ID, then customer ID
+  let school: School | null = schoolId
+    ? await prisma.iBSchool.findUnique({ where: { id: schoolId }, select: SCHOOL_SELECT })
+    : null
 
   if (!school) {
     school = await prisma.iBSchool.findFirst({
-      where: { stripeSubscriptionId: subscription.id }
+      where: { stripeSubscriptionId: subscription.id },
+      select: SCHOOL_SELECT
     })
   }
 
   if (!school) {
     school = await prisma.iBSchool.findFirst({
-      where: { stripeCustomerId: customerId }
+      where: { stripeCustomerId: customerId },
+      select: SCHOOL_SELECT
     })
   }
 
   if (!school) {
-    logger.error('Could not find school for subscription update', {
+    logger.error('Could not find school for subscription event', {
       subscriptionId: subscription.id,
       customerId
     })
     return
   }
 
-  // Map Stripe subscription status to our status
-  const isActive = subscription.status === 'active' || subscription.status === 'trialing'
+  await applySubscription(school, subscription.id)
+}
+
+/**
+ * Make this subscription the school's, with the status Stripe gives it now.
+ *
+ * A school that stores a different subscription keeps it while that one is still live: the event
+ * is about an old subscription, or a second one opened in another tab. Once the stored one has
+ * ended, or Stripe no longer has it, this one takes its place — a school that cancelled and
+ * subscribed again, whose `created` arrived before its checkout.
+ */
+async function applySubscription(
+  school: School,
+  subscriptionId: string,
+  extra: { stripeCustomerId?: string } = {}
+) {
+  const storedId = school.stripeSubscriptionId
+
+  if (storedId && storedId !== subscriptionId) {
+    const storedStatus = await getSubscriptionStatus(storedId)
+    if (storedStatus && isLive(storedStatus)) {
+      logger.info("Ignored an event for a subscription that is not the school's current one", {
+        schoolId: school.id,
+        subscriptionId,
+        currentSubscriptionId: storedId
+      })
+      return
+    }
+  }
+
+  const stripeStatus = await getSubscriptionStatus(subscriptionId)
+
+  if (!stripeStatus) {
+    // No retry can find it either, so answer 200
+    logger.error('Stripe has no such subscription', { schoolId: school.id, subscriptionId })
+    return
+  }
+
+  const subscriptionStatus = schoolStatusFor(stripeStatus)
 
   await prisma.iBSchool.update({
     where: { id: school.id },
-    data: {
-      stripeSubscriptionId: subscription.id,
-      subscriptionStatus: isActive ? 'ACTIVE' : 'INACTIVE'
-    }
+    data: { ...extra, stripeSubscriptionId: subscriptionId, subscriptionStatus }
   })
 
   logger.info('School subscription updated', {
     schoolId: school.id,
-    stripeStatus: subscription.status,
-    ourStatus: isActive ? 'ACTIVE' : 'INACTIVE'
+    stripeStatus,
+    ourStatus: subscriptionStatus
   })
-}
-
-/**
- * Handle subscription cancellation/deletion
- */
-async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
-  const schoolId = subscription.metadata?.schoolId
-  const customerId = subscription.customer as string
-
-  // Try to find school
-  let school = schoolId ? await prisma.iBSchool.findUnique({ where: { id: schoolId } }) : null
-
-  if (!school) {
-    school = await prisma.iBSchool.findFirst({
-      where: { stripeSubscriptionId: subscription.id }
-    })
-  }
-
-  if (!school) {
-    school = await prisma.iBSchool.findFirst({
-      where: { stripeCustomerId: customerId }
-    })
-  }
-
-  if (!school) {
-    logger.error('Could not find school for subscription deletion', {
-      subscriptionId: subscription.id,
-      customerId
-    })
-    return
-  }
-
-  // Update school status to cancelled
-  await prisma.iBSchool.update({
-    where: { id: school.id },
-    data: {
-      subscriptionStatus: 'CANCELLED'
-    }
-  })
-
-  logger.info('School subscription cancelled', { schoolId: school.id })
 }

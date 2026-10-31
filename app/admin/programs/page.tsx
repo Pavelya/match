@@ -16,8 +16,10 @@ import { prisma } from '@/lib/prisma'
 import { Plus, BookOpen } from 'lucide-react'
 import { PageContainer, PageHeader } from '@/components/admin/shared'
 import { ProgramsListClient } from '@/components/admin/programs/ProgramsListClient'
+import { requireAdmin } from '@/lib/auth/guards'
 
 export default async function ProgramsPage() {
+  await requireAdmin()
   // Selected rather than included. `include` pulled every column of every
   // joined row, which meant the full University record - including its image,
   // stored inline as base64 - for all 1,282 programs on every page load. One

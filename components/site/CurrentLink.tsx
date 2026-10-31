@@ -3,6 +3,7 @@
 import type { ComponentProps } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { LinkPending } from '@/components/ds/LinkPending'
 import { isCurrentPage, isInSection } from './nav'
 
 interface CurrentLinkProps extends ComponentProps<typeof Link> {
@@ -12,10 +13,24 @@ interface CurrentLinkProps extends ComponentProps<typeof Link> {
   section?: readonly string[]
 }
 
-/** A link that says when it is the current page, with aria-current, which its classes style. */
-export function CurrentLink({ href, match = 'section', section, ...props }: CurrentLinkProps) {
+/**
+ * A link that says when it is the current page, with aria-current, which its classes style, and
+ * keeps its pressed look while the page it opens loads (D1.6).
+ */
+export function CurrentLink({
+  href,
+  match = 'section',
+  section,
+  children,
+  ...props
+}: CurrentLinkProps) {
   const pathname = usePathname()
   const current =
     match === 'page' ? isCurrentPage(href, pathname) : isInSection({ href, section }, pathname)
-  return <Link href={href} aria-current={current ? 'page' : undefined} {...props} />
+  return (
+    <Link href={href} aria-current={current ? 'page' : undefined} {...props}>
+      {children}
+      <LinkPending />
+    </Link>
+  )
 }

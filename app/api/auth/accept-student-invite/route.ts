@@ -15,8 +15,10 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { logger } from '@/lib/logger'
 import { applyRateLimit, getClientIp } from '@/lib/rate-limit'
+import { getCurrentVersionLabels } from '@/lib/legal-documents'
 
-// Current consent version - update when consent language changes
+// Version of the coordinator-access box on the invitation page - update when its wording changes.
+// The Terms and Privacy versions are the published labels, read when the invitation is accepted.
 const CONSENT_VERSION = '2025-12-14'
 
 export async function POST(request: Request) {
@@ -83,6 +85,8 @@ export async function POST(request: Request) {
 
     // 3. Create user and student profile in a transaction
     const now = new Date()
+    // The published labels, so the policy update notice does not follow at once (MAINT 5.30)
+    const policyVersions = await getCurrentVersionLabels()
 
     const result = await prisma.$transaction(async (tx) => {
       // Create User with name from invitation (if provided by coordinator)
@@ -93,9 +97,9 @@ export async function POST(request: Request) {
           role: 'STUDENT',
           // Consent to terms when accepting invite
           termsAcceptedAt: now,
-          termsVersion: CONSENT_VERSION,
+          termsVersion: policyVersions.terms,
           privacyAcceptedAt: now,
-          privacyPolicyVersion: CONSENT_VERSION
+          privacyPolicyVersion: policyVersions.privacy
         }
       })
 

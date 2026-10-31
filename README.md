@@ -21,7 +21,7 @@ buy a subscription for full coordinator access or run on a limited freemium tier
 
 ## Getting started
 
-Requires **Node 22+** (see `.nvmrc`).
+Requires **Node 24** (see `.nvmrc`), the version Vercel builds and runs on.
 
 ```bash
 cp .env.example .env      # then fill in the values
@@ -49,6 +49,7 @@ correctly anywhere without `AUTH_TRUST_HOST`.
 | `npm run format` | `prettier --write .` |
 | `npm test` | Vitest, once. `npm run test:watch` re-runs on save |
 | `npm run email:dev` | Preview the React Email templates |
+| `npx tsx scripts/algolia-usage.ts` | Algolia search requests this month against the free plan's 10,000, the last 30 days and the month's pace. Read-only, one request; run it weekly after release (MAINT 5.27) |
 
 CI runs type-check, lint, `prettier --check`, both test suites and a production build on
 every pull request.
@@ -62,24 +63,22 @@ needed. Installing plain `typescript@7` over the alias makes `npm run lint` fail
 
 ## Testing
 
-Two suites, both run in CI:
+One suite, run in CI:
 
 ```bash
-npm test                          # Vitest: every *.test.ts file
-npx tsx scripts/run-all-tests.ts  # matching algorithm: lib/matching/*.verify.ts
+npm test            # Vitest: every *.test.ts file
+npm run test:watch  # the same, re-run on every save
 ```
 
-**New tests use Vitest.** Put them next to the code they cover as `*.test.ts` —
-`lib/auth/access-control.test.ts` is the first. Import `describe`/`it`/`expect` from
-`vitest`; globals are off. The `@/` alias resolves as it does in the app.
+Put tests next to the code they cover as `*.test.ts`. Import `describe`/`it`/`expect`
+from `vitest`; globals are off. The `@/` alias resolves as it does in the app.
 
 Tests must never reach the production database that `.env` points at. Mock the client
 with `vi.mock('@/lib/prisma')`, or run against a local Postgres built with
 `prisma migrate deploy`, the way the CI build job does.
 
-The matching algorithm predates Vitest. Its 20 `*.verify.ts` files are standalone
-scripts — each exits non-zero on failure — and `scripts/run-all-tests.ts` runs them.
-They are not Vitest files, so `npm test` does not pick them up.
+The matching algorithm's tests (`lib/matching/*.test.ts`) were standalone `*.verify.ts`
+scripts run by `scripts/run-all-tests.ts` until 7.1 Part 4 moved them into Vitest.
 
 ## Database
 
@@ -129,5 +128,5 @@ docs/           Architecture, product specs, matching algorithm, task records
 
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning behind each choice
 - `docs/product/DOC_1_ibmatch-requirements-doc.md` — product requirements
-- `docs/matching/` — matching algorithm design and changelog
+- `docs/matching/` — the matching algorithm: `DOC_2_matching-algo XI.md` is the master version, with the changelog
 - `docs/security/` — security audit history

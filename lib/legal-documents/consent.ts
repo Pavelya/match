@@ -6,7 +6,7 @@
  */
 
 import { prisma } from '@/lib/prisma'
-import { LegalDocumentType } from '@prisma/client'
+import { LegalDocumentType } from '@/app/generated/prisma/enums'
 
 /**
  * Result of version comparison

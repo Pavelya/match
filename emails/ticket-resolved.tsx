@@ -1,248 +1,74 @@
-/**
- * Ticket Resolved Notification Email Template
- *
- * Sent to users when an admin resolves their support ticket.
- * Includes the admin's response to their inquiry.
- *
- * Styled consistently with IB Match branding using the primary blue color.
+import type { TicketCategory } from '@/app/generated/prisma/enums'
+import LegacyTicketResolvedEmail from '@/components/email/legacy/ticket-resolved'
+import { designedMessage, type EmailMessage } from '@/components/email/message'
+import { emailBaseUrl } from '@/components/email/tokens'
+import { emailBrand } from '@/lib/brand/email'
+import { TICKET_CATEGORY_LABELS } from './ticket-created'
+
+/*
+ * Sent when an admin resolves a support ticket (rebranding 4.7, board "D4.18 Emails · support and
+ * account", section 11): the ticket, then the reply in a panel of its own, its line breaks kept
+ * and never cut.
  */
 
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Link,
-  Preview,
-  Section,
-  Text
-} from '@react-email/components'
-import { EmailHeader } from '@/components/email/EmailHeader'
-import { emailBrand } from '@/lib/brand/email'
-import { TicketCategory } from '@prisma/client'
-
-interface TicketResolvedEmailProps {
+interface TicketResolvedProps {
   ticketNumber: string
   category: TicketCategory
   subject: string
   adminResponse: string
+  /** Today's design greets by name; the new one has no greeting */
   userName?: string
 }
 
-// The brand colour: today's blue until release day, then the new design's (lib/brand/email.ts)
-const PRIMARY_COLOR = emailBrand().color
+export function ticketResolvedMessage(props: TicketResolvedProps): EmailMessage {
+  const { ticketNumber, category, subject, adminResponse } = props
+  if (!emailBrand().newUi) {
+    return {
+      subject: `Support Ticket ${ticketNumber} - Your Request Has Been Resolved`,
+      react: LegacyTicketResolvedEmail(props)
+    }
+  }
 
-// Map category enum to human-readable labels
-const categoryLabels: Record<TicketCategory, string> = {
-  ACCOUNT_ISSUE: 'Account Issue',
-  TECHNICAL_PROBLEM: 'Technical Problem',
-  MATCHING_QUESTION: 'Matching Question',
-  SUBSCRIPTION_BILLING: 'Subscription & Billing',
-  DATA_PRIVACY: 'Data & Privacy',
-  FEATURE_REQUEST: 'Feature Request',
-  OTHER: 'General Inquiry'
+  const contact = `${emailBaseUrl()}/contact`
+
+  return designedMessage(`Support ticket ${ticketNumber}: your request is resolved`, {
+    preview: 'Our reply to your request is inside.',
+    heading: 'Your request is resolved',
+    blocks: [
+      { type: 'text', content: ['We’ve answered your support request. Our reply is below.'] },
+      {
+        type: 'panel',
+        title: `Ticket ${ticketNumber}`,
+        rows: [
+          ['Category', TICKET_CATEGORY_LABELS[category]],
+          ['Subject', subject]
+        ]
+      },
+      { type: 'panel', title: 'Our reply', body: adminResponse },
+      {
+        type: 'text',
+        content: [
+          'If this doesn’t fully answer your question, send us a new request from ',
+          { text: 'Contact', href: contact },
+          '.'
+        ],
+        plain: `If this doesn’t fully answer your question, send us a new request from Contact: ${contact}`
+      },
+      { type: 'small', content: ['Thank you for using IB Match.'] }
+    ]
+  })
 }
 
-export default function TicketResolvedEmail({
-  ticketNumber,
-  category,
-  subject,
-  adminResponse,
-  userName
-}: TicketResolvedEmailProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.ibmatch.com'
-
-  return (
-    <Html>
-      <Head />
-      <Preview>Your support ticket {ticketNumber} has been resolved - IB Match</Preview>
-      <Body style={main}>
-        <Container style={container}>
-          <EmailHeader baseUrl={baseUrl} />
-          <Heading style={h1}>Your Request Has Been Resolved</Heading>
-
-          <Text style={text}>Hello{userName ? ` ${userName}` : ''},</Text>
-
-          <Text style={text}>
-            Good news! Your support ticket has been reviewed and resolved by our team.
-          </Text>
-
-          <Section style={ticketBox}>
-            <Text style={ticketLabel}>Ticket</Text>
-            <Text style={ticketNumberStyle}>{ticketNumber}</Text>
-            <Text style={ticketDetails}>
-              <strong>Category:</strong> {categoryLabels[category]}
-            </Text>
-            <Text style={ticketDetails}>
-              <strong>Subject:</strong> {subject}
-            </Text>
-          </Section>
-
-          <Section style={responseBox}>
-            <Text style={responseLabel}>Our Response</Text>
-            <Text style={responseText}>{adminResponse}</Text>
-          </Section>
-
-          <Text style={text}>
-            If you have any further questions or if this doesn&apos;t fully address your concern,
-            please don&apos;t hesitate to submit a new support request.
-          </Text>
-
-          <Text style={disclaimerText}>
-            Thank you for using IB Match. We appreciate your patience and feedback.
-          </Text>
-
-          <Hr style={hr} />
-
-          <Text style={footerDescription}>
-            IB Match helps connect IB students with university programs worldwide.
-          </Text>
-
-          <Text style={footerCopyright}>
-            © {new Date().getFullYear()} IB Match. All rights reserved.
-          </Text>
-
-          <Text style={footerLinks}>
-            <Link href={`${baseUrl}/terms`} style={linkStyle}>
-              Terms And Conditions
-            </Link>
-            {' · '}
-            <Link href={`${baseUrl}/privacy`} style={linkStyle}>
-              Privacy Policy
-            </Link>
-          </Text>
-        </Container>
-      </Body>
-    </Html>
-  )
+/** For React Email's preview (`npm run email:dev`), in the design `NEW_UI_FOR_EVERYONE` gives */
+export default function TicketResolvedEmail(props: TicketResolvedProps) {
+  return ticketResolvedMessage(props).react
 }
 
-// Clean, professional styling matching IB Match brand
-const main = {
-  backgroundColor: '#f5f5f7',
-  fontFamily:
-    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif'
-}
-
-const container = {
-  backgroundColor: '#ffffff',
-  margin: '40px auto',
-  padding: '40px 48px',
-  maxWidth: '560px',
-  borderRadius: '8px'
-}
-
-const h1 = {
-  color: '#222',
-  fontSize: '28px',
-  fontWeight: '700',
-  margin: '0 0 32px 0',
-  padding: '0',
-  lineHeight: '32px'
-}
-
-const text = {
-  color: '#484848',
-  fontSize: '16px',
-  lineHeight: '26px',
-  margin: '16px 0'
-}
-
-const ticketBox = {
-  backgroundColor: '#f5f5f7',
-  borderRadius: '8px',
-  padding: '20px 24px',
-  margin: '24px 0',
-  textAlign: 'center' as const
-}
-
-const ticketLabel = {
-  color: '#767676',
-  fontSize: '12px',
-  fontWeight: '600',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.5px',
-  margin: '0 0 4px 0'
-}
-
-const ticketNumberStyle = {
-  color: '#222',
-  fontSize: '20px',
-  fontWeight: '700',
-  margin: '0 0 12px 0',
-  letterSpacing: '0.5px'
-}
-
-const ticketDetails = {
-  color: '#484848',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '4px 0',
-  textAlign: 'left' as const
-}
-
-const responseBox = {
-  backgroundColor: '#f0f7ff',
-  borderLeft: `4px solid ${PRIMARY_COLOR}`,
-  borderRadius: '0 8px 8px 0',
-  padding: '20px 24px',
-  margin: '24px 0'
-}
-
-const responseLabel = {
-  color: PRIMARY_COLOR,
-  fontSize: '12px',
-  fontWeight: '600',
-  textTransform: 'uppercase' as const,
-  letterSpacing: '0.5px',
-  margin: '0 0 12px 0'
-}
-
-const responseText = {
-  color: '#484848',
-  fontSize: '15px',
-  lineHeight: '26px',
-  margin: '0',
-  whiteSpace: 'pre-wrap' as const
-}
-
-const disclaimerText = {
-  color: '#767676',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '24px 0 0 0'
-}
-
-const hr = {
-  borderColor: '#e5e5e5',
-  borderTop: '1px solid #e5e5e5',
-  margin: '32px 0 24px 0'
-}
-
-const footerDescription = {
-  color: '#9ca299',
-  fontSize: '14px',
-  lineHeight: '22px',
-  margin: '0 0 16px 0'
-}
-
-const footerCopyright = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0 0 8px 0'
-}
-
-const footerLinks = {
-  color: '#9ca299',
-  fontSize: '13px',
-  lineHeight: '20px',
-  margin: '0'
-}
-
-const linkStyle = {
-  color: PRIMARY_COLOR,
-  textDecoration: 'underline'
-}
+TicketResolvedEmail.PreviewProps = {
+  ticketNumber: 'TKT-7KQ4ZP',
+  category: 'MATCHING_QUESTION',
+  subject: 'Why is Imperial “within reach”?',
+  // A long reply, as on the board: production's one resolved ticket has 3 characters
+  adminResponse:
+    'Hi,\n\nThanks for asking. Within reach means you’re close on everything you don’t yet meet: up to 3 points short overall, and at most one subject one grade short. You’re 1 point short of Imperial’s 39, and one grade short of the 7 in Mathematics: Analysis and Approaches HL, so Economics, Finance and Data Science is within reach. A bigger gap, or a second subject short, would show as missing a requirement.\n\nWe checked Imperial’s page for 2027 entry this week, and both figures are unchanged. If your predicted grades go up, update them in Academic and your matches change straight away.\n\nImperial also reads your personal statement and your reference, which IB Match doesn’t score, so read their own page before you decide. The program page links to it.\n\nIB Match support'
+} satisfies TicketResolvedProps

@@ -5,14 +5,12 @@
  * Includes ticket creation confirmation and resolution notification emails.
  */
 
-import { Resend } from 'resend'
-import { TicketCategory } from '@prisma/client'
+import { TicketCategory } from '@/app/generated/prisma/enums'
 import { logger } from '@/lib/logger'
-import TicketCreatedEmail from '@/emails/ticket-created'
-import TicketResolvedEmail from '@/emails/ticket-resolved'
-
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY)
+import { getResendClient } from '@/lib/email/client'
+import { redactEmailAddress } from '@/lib/email/redact'
+import { ticketCreatedMessage } from '@/emails/ticket-created'
+import { ticketResolvedMessage } from '@/emails/ticket-resolved'
 
 // Email sender configuration
 const FROM_EMAIL = process.env.EMAIL_FROM || 'IB Match <support@ibmatch.com>'
@@ -31,11 +29,10 @@ export async function sendTicketCreatedEmail(params: {
   userName?: string
 }): Promise<boolean> {
   try {
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResendClient().emails.send({
       from: FROM_EMAIL,
       to: params.to,
-      subject: `Support Ticket ${params.ticketNumber} - We've Received Your Request`,
-      react: TicketCreatedEmail({
+      ...ticketCreatedMessage({
         ticketNumber: params.ticketNumber,
         category: params.category,
         subject: params.subject,
@@ -47,7 +44,7 @@ export async function sendTicketCreatedEmail(params: {
       logger.error('Failed to send ticket created email', {
         error: error.message,
         ticketNumber: params.ticketNumber,
-        to: params.to
+        to: redactEmailAddress(params.to)
       })
       return false
     }
@@ -55,7 +52,7 @@ export async function sendTicketCreatedEmail(params: {
     logger.info('Ticket created email sent', {
       emailId: data?.id,
       ticketNumber: params.ticketNumber,
-      to: params.to
+      to: redactEmailAddress(params.to)
     })
     return true
   } catch (error) {
@@ -82,11 +79,10 @@ export async function sendTicketResolvedEmail(params: {
   userName?: string
 }): Promise<boolean> {
   try {
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResendClient().emails.send({
       from: FROM_EMAIL,
       to: params.to,
-      subject: `Support Ticket ${params.ticketNumber} - Your Request Has Been Resolved`,
-      react: TicketResolvedEmail({
+      ...ticketResolvedMessage({
         ticketNumber: params.ticketNumber,
         category: params.category,
         subject: params.subject,
@@ -99,7 +95,7 @@ export async function sendTicketResolvedEmail(params: {
       logger.error('Failed to send ticket resolved email', {
         error: error.message,
         ticketNumber: params.ticketNumber,
-        to: params.to
+        to: redactEmailAddress(params.to)
       })
       return false
     }
@@ -107,7 +103,7 @@ export async function sendTicketResolvedEmail(params: {
     logger.info('Ticket resolved email sent', {
       emailId: data?.id,
       ticketNumber: params.ticketNumber,
-      to: params.to
+      to: redactEmailAddress(params.to)
     })
     return true
   } catch (error) {

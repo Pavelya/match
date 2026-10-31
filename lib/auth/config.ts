@@ -5,15 +5,19 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import { render } from '@react-email/components'
 import { env } from '@/lib/env'
 import { logger } from '@/lib/logger'
-import MagicLinkEmail from '@/emails/magic-link'
-import CoordinatorMagicLinkEmail from '@/emails/coordinator-magic-link'
+import { signInMessage } from '@/emails/magic-link'
+import { coordinatorSignInMessage } from '@/emails/coordinator-magic-link'
 import { prisma } from '@/lib/prisma'
+import { SIGN_IN_LINK_MAX_AGE } from './sign-in-link'
+import { refreshSessionToken } from './session-token'
 
-/** How long a role claim in the JWT is trusted before being re-read. */
-const ROLE_REFRESH_MS = 5 * 60 * 1000
+// The adapter types its argument as the `PrismaClient` from `@prisma/client`, which the
+// `prisma-client` generator no longer fills (the client is in app/generated/prisma). It only
+// calls the model delegates (`prisma.user`, `prisma.session`, …), which are the same.
+type AdapterClient = Parameters<typeof PrismaAdapter>[0]
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma as unknown as AdapterClient),
   // Auth.js v5 does not read host trust from NEXTAUTH_URL (that is the v4
   // name); it auto-trusts only in development and on Vercel, so a production
   // build served anywhere else returned 500 on every /api/auth/* route unless
@@ -26,6 +30,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Resend({
       apiKey: env.RESEND_API_KEY,
       from: env.EMAIL_FROM,
+      // A link works for 10 minutes, as every text says (lib/auth/sign-in-link.ts)
+      maxAge: SIGN_IN_LINK_MAX_AGE,
       async sendVerificationRequest({ identifier: email, url, provider }) {
         try {
           // Check if this email belongs to a coordinator (existing user or pending invitation)
@@ -48,13 +54,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             existingUser?.role === 'PLATFORM_ADMIN' ||
             pendingInvitation !== null
 
-          // Choose the appropriate email template
-          const EmailTemplate = isCoordinator ? CoordinatorMagicLinkEmail : MagicLinkEmail
-          const html = await render(EmailTemplate({ url }))
-
-          const text = isCoordinator
-            ? `Sign in to IB Match Coordinator Dashboard\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
-            : `Sign in to IB Match\n\nClick the link below to sign in:\n${url}\n\nThis link will expire in 10 minutes.\n\nIf you didn't request this, you can safely ignore this email.`
+          // The subject, HTML and plain text, in the design the emails are in (rebranding 4.7)
+          const { subject, react, text } = (
+            isCoordinator ? coordinatorSignInMessage : signInMessage
+          )({ url })
+          const html = await render(react)
 
           const response = await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -65,7 +69,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             body: JSON.stringify({
               from: provider.from,
               to: email,
-              subject: 'Sign in to IB Match',
+              subject,
               html,
               text
             })
@@ -104,32 +108,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user }) {
-      // On initial sign-in, fetch and attach role to the token
-      if (user?.id) {
-        const dbUser = await prisma.user.findUnique({
-          where: { id: user.id },
-          select: { role: true }
-        })
-        token.role = dbUser?.role || 'STUDENT'
-        token.roleCheckedAt = Date.now()
-        return token
-      }
-
-      // Re-read the role periodically. Previously it was read only at sign-in,
-      // so demoting an admin or deactivating a coordinator had no effect until
-      // their token expired - up to 30 days. Falling back to STUDENT means a
-      // deleted account loses its privileges rather than keeping them.
-      const lastChecked = token.roleCheckedAt ?? 0
-      if (token.sub && Date.now() - lastChecked > ROLE_REFRESH_MS) {
-        const dbUser = await prisma.user.findUnique({
-          where: { id: token.sub },
-          select: { role: true }
-        })
-        token.role = dbUser?.role || 'STUDENT'
-        token.roleCheckedAt = Date.now()
-      }
-
-      return token
+      // The role, read at sign-in and re-read every few minutes; null ends the session when the
+      // account no longer exists (lib/auth/session-token.ts, SEC-6)
+      return refreshSessionToken(token, user?.id)
     },
     async session({ session, token }) {
       if (token && session.user) {

@@ -66,7 +66,6 @@ async function initializeAlgolia() {
     console.log('  1. Add credentials to .env:')
     console.log('     ALGOLIA_APP_ID=GG2AJQZ9U4')
     console.log('     ALGOLIA_ADMIN_API_KEY=<your_admin_key>')
-    console.log('     NEXT_PUBLIC_ALGOLIA_SEARCH_KEY=<your_search_key>')
     console.log('  2. Create sync service')
     console.log('  3. Seed program data\n')
   } catch (error) {

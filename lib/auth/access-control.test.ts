@@ -1,4 +1,4 @@
-import type { SubscriptionStatus, SubscriptionTier } from '@prisma/client'
+import type { SubscriptionStatus, SubscriptionTier } from '@/app/generated/prisma/enums'
 import { describe, expect, it } from 'vitest'
 
 import {

@@ -149,7 +149,10 @@ export function ShortlistClient() {
             <>
               {' '}
               If it keeps happening,{' '}
-              <Link href="/contact" className="text-primary underline underline-offset-3">
+              <Link
+                href="/contact"
+                className="text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+              >
                 contact us
               </Link>
               .
@@ -211,11 +214,17 @@ export function ShortlistClient() {
       {graded && programs.length === 1 && (
         <p className="text-body text-muted-foreground">
           Save one more program and you can compare them side by side here.{' '}
-          <Link href={MATCHES} className="font-semibold text-primary underline underline-offset-3">
+          <Link
+            href={MATCHES}
+            className="font-semibold text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+          >
             See your matches
           </Link>{' '}
           or{' '}
-          <Link href={EXPLORE} className="font-semibold text-primary underline underline-offset-3">
+          <Link
+            href={EXPLORE}
+            className="font-semibold text-primary underline underline-offset-3 pressed:text-brand-ink pressed:underline"
+          >
             explore programs
           </Link>
           .

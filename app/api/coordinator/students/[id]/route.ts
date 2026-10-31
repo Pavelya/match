@@ -72,6 +72,14 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     // Fetch student
     const student = await prisma.studentProfile.findUnique({
       where: { id },
@@ -158,14 +166,19 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: 'Coordinator profile not found' }, { status: 403 })
     }
 
+    // Check if coordinator is active
+    if (!coordinator.isActive) {
+      return NextResponse.json(
+        { error: 'Your coordinator access has been revoked' },
+        { status: 403 }
+      )
+    }
+
     const access = getCoordinatorAccess(coordinator.school)
 
     // Check if coordinator can edit student data
     if (!access.canEditStudentData) {
-      return NextResponse.json(
-        { error: 'Upgrade to VIP or subscribe to edit student data' },
-        { status: 403 }
-      )
+      return NextResponse.json({ error: 'Subscribe to edit student data' }, { status: 403 })
     }
 
     // Fetch student
@@ -277,28 +290,8 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       updatedFields: Object.keys(updateData)
     })
 
-    // Invalidate student cache to trigger match recalculation
-    const userId = student.userId
-    invalidateStudentCache(userId)
-      .then(() => logger.info('Student cache invalidated after coordinator update', { userId }))
-      .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, userId }))
-
-    // Trigger match precompute in background
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-    const internalKey = process.env.INTERNAL_API_KEY
-
-    if (internalKey) {
-      fetch(`${appUrl}/api/students/matches/precompute`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-internal-key': internalKey
-        },
-        body: JSON.stringify({ studentId: userId })
-      }).catch((err) => {
-        logger.warn('Failed to trigger matches precompute', { error: err.message })
-      })
-    }
+    // Before the answer, as the student's own save does (MAINT 5.46)
+    await invalidateStudentCache(student.userId)
 
     return NextResponse.json({
       success: true,

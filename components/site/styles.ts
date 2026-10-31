@@ -13,14 +13,14 @@ export const headerRowClass = `${containerClass} relative flex h-14 items-center
 
 /**
  * A header link: 36px to look at, with a 44px hit area (D2.1); 44px on a phone, where it is
- * used. The current page gets the surface fill and the 1px line-3 edge of a chosen segment.
+ * used. A press holds while its page loads (D1.6). The current page gets the surface fill and the
+ * 1px line-3 edge of a chosen segment.
  * Forced colours draw transparent borders, so only the current link keeps one there.
  */
 export const navLinkClass = [
-  "relative inline-flex h-9 shrink-0 items-center gap-2 rounded-control border border-transparent px-3 text-body font-medium whitespace-nowrap text-muted-foreground before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']",
-  'transition-[color,background-color,scale] duration-180 ease-standard active:duration-120',
+  "press relative inline-flex h-9 shrink-0 items-center gap-2 rounded-control border border-transparent px-3 text-body font-medium whitespace-nowrap text-muted-foreground before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']",
   'not-aria-[current=page]:hover:bg-muted not-aria-[current=page]:hover:text-foreground',
-  'not-aria-[current=page]:active:bg-border not-aria-[current=page]:active:text-foreground motion-safe:active:scale-[0.98]',
+  'not-aria-[current=page]:pressed:bg-border not-aria-[current=page]:pressed:text-foreground',
   'aria-[current=page]:border-line-3 aria-[current=page]:bg-card aria-[current=page]:font-semibold aria-[current=page]:text-foreground dark:aria-[current=page]:bg-border',
   'forced-colors:not-aria-[current=page]:border-0'
 ].join(' ')
@@ -31,6 +31,6 @@ export const panelRowClass = [
   'transition-colors duration-180 ease-standard hover:bg-muted active:bg-border'
 ].join(' ')
 
-/** The scrim under a panel that drops from the phone header. */
+/** The scrim under a panel that drops from the phone header: it fades with it, without the drop */
 export const scrimClass =
-  'absolute inset-x-0 top-full h-dvh bg-[rgb(20_22_27/0.32)] dark:bg-black/50'
+  'overlay-sm absolute inset-x-0 top-full h-dvh bg-[rgb(20_22_27/0.32)] [--overlay-drop:0] dark:bg-black/50'
