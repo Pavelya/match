@@ -60,7 +60,11 @@ export function NewHowItWorks() {
           eyebrow="Under the hood"
           title="Built smart, engineered for IB"
           intro="Curious how we match you with university programs? Here’s a peek behind the curtain at the technology that powers your personalized recommendations."
-          ticks={['Fast, accurate matching', 'Transparent algorithm', 'Your data is never sold']}
+          ticks={[
+            'Fast matching from published requirements',
+            'Transparent algorithm',
+            'Your data is never sold'
+          ]}
         />
 
         <TextSection
@@ -96,7 +100,7 @@ export function NewHowItWorks() {
           id="engine"
           eyebrow="Matching engine"
           title="Three-factor compatibility scoring"
-          intro="Every program gets a fit score from 0 to 100%, from a weighted formula that puts what matters most first: your academic fit. Your matches are grouped by status, which says whether you meet each requirement; the score orders programs within each group, and you’ll find it under “Why this match”."
+          intro="Every match gets a fit score from 0 to 100%, from a weighted formula that puts what matters most first: your academic fit. Your matches are grouped by status, which says whether you meet each requirement; the score orders programs within each group, and you’ll find it under “Why this match”."
         >
           <div className="grid items-start gap-7 lg:grid-cols-2 lg:gap-8">
             <div className="flex min-w-0 flex-col gap-3">

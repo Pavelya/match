@@ -79,7 +79,7 @@ const FALLBACK_FAQS = [
   {
     question: 'Can coordinators at my school see my information?',
     answer:
-      'Only if you accept an invitation to link your account with your school. If you do, your IB coordinator can view your academic profile to help guide you. You can unlink at any time from your settings. We never sell your data.'
+      'Only if you accept an invitation to link your account with your school. If you do, your IB coordinator can view your academic profile, matches and saved programs to help guide you. You can unlink at any time from your settings. We never sell your data.'
   },
   {
     question: 'What should I do if I find incorrect program information?',

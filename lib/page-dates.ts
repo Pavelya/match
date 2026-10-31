@@ -27,7 +27,7 @@ export const PAGE_DATES = {
   // The fallback text. When a FAQ document is published in the CMS, the page uses
   // that document's date instead.
   '/faqs': { published: '2025-12-23', modified: '2026-10-23' },
-  '/how-it-works': { published: '2026-01-14', modified: '2026-10-23' },
+  '/how-it-works': { published: '2026-01-14', modified: '2026-10-31' },
   '/ib-university-requirements': { published: '2026-01-29', modified: '2026-10-10' },
 
   // Country pages. `COUNTRY-PAGE-BASELINE.md` §3.2 asks every new one to add a line.

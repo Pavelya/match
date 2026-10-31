@@ -26,7 +26,7 @@ export function HowItWorksHero() {
           <div className="mt-10 flex flex-col items-center justify-center gap-y-4 sm:flex-row sm:gap-x-8">
             <div className="flex items-center gap-x-2 text-sm text-gray-600">
               <Sparkles className="h-4 w-4 text-blue-500" />
-              <span>Fast, accurate matching</span>
+              <span>Fast matching from published requirements</span>
             </div>
             <div className="flex items-center gap-x-2 text-sm text-gray-600">
               <Sparkles className="h-4 w-4 text-blue-500" />
