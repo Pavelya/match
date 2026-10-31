@@ -113,8 +113,8 @@ export function chosenLine(chosen: number): string {
 
 /**
  * The summary under the title, counting each status as Matches does (D4.10): "8 programs. 4
- * meet all requirements, 3 are within reach and 1 is missing a requirement." Only the programs
- * still saved count, so it drops as soon as one is removed.
+ * meet all requirements, 2 are within reach, 1 has no set grades and 1 is missing a requirement."
+ * Only the programs still saved count, so it drops as soon as one is removed.
  */
 export function shortlistSummary(statuses: readonly CardStatus[]): string {
   const total = statuses.length
@@ -132,11 +132,12 @@ export function shortlistSummary(statuses: readonly CardStatus[]): string {
   return `${total} programs. ${joinWithAnd(phrases)}.`
 }
 
-const ORDER: CardStatus[] = ['meets', 'close', 'gap']
+const ORDER: CardStatus[] = ['meets', 'close', 'neutral', 'gap']
 
 const PHRASES: Record<CardStatus, (count: number) => string> = {
   meets: (n) => `${n === 1 ? 'meets' : 'meet'} all requirements`,
   close: (n) => `${n === 1 ? 'is' : 'are'} within reach`,
+  neutral: (n) => `${n === 1 ? 'has' : 'have'} no set grades`,
   gap: (n) => `${n === 1 ? 'is' : 'are'} missing a requirement`
 }
 

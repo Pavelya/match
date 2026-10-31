@@ -4,6 +4,7 @@ import {
   MAX_SHOWN,
   appliedChips,
   bestFitLine,
+  qualifySplit,
   catalogueSummary,
   chosenCount,
   clearAll,
@@ -145,18 +146,35 @@ describe('the sort (D3.5 Sort · best fit)', () => {
   it('says what Best fit puts first, under the count', () => {
     const viewer = { fields: [CS], countries: [CA, UK], total: 38 }
     expect(bestFitLine(viewer, 'full', false)).toBe(
-      'Your countries and fields come first; in each, the ones you meet, closest to your 38.'
+      'Your fields and countries come first, then your fields anywhere; in each, the ones you meet, closest to your 38.'
     )
     // Open to anywhere: every country is theirs
     expect(bestFitLine({ ...viewer, countries: [] }, 'full', false)).toBe(
       'Your fields come first; in each, the ones you meet, closest to your 38.'
     )
+    // Their countries alone
+    expect(bestFitLine({ ...viewer, fields: [] }, 'full', false)).toBe(
+      'Your countries come first; in each, the ones you meet, closest to your 38.'
+    )
     // The fallback's one search lifts the tiers and says nothing more…
-    expect(bestFitLine(viewer, 'lifted', false)).toBe('Your countries and fields come first.')
+    expect(bestFitLine(viewer, 'lifted', false)).toBe('Your fields and countries come first.')
     // …unless the switch is on, which reads the whole list in the full order anyway
     expect(bestFitLine(viewer, 'lifted', true)).toBe(
-      'Your countries and fields come first; in each, the ones you meet, closest to your 38.'
+      'Your fields and countries come first, then your fields anywhere; in each, the ones you meet, closest to your 38.'
     )
+  })
+})
+
+describe('qualifySplit (D4.7 change)', () => {
+  it('splits the switch’s count', () => {
+    expect(qualifySplit(603, 475)).toBe('128 meet every requirement, 475 have no set grades.')
+    expect(qualifySplit(1525, 475)).toBe('1,050 meet every requirement, 475 have no set grades.')
+    expect(qualifySplit(2, 1)).toBe('1 meets every requirement, 1 has no set grades.')
+    expect(qualifySplit(280, 280)).toBe('0 meet every requirement, 280 have no set grades.')
+  })
+
+  it('has nothing to split when every program meets', () => {
+    expect(qualifySplit(40, 0)).toBeNull()
   })
 })
 

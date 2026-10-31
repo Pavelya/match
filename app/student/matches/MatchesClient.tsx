@@ -7,6 +7,7 @@ import {
   Check,
   ChevronDown,
   CircleAlert,
+  Info,
   ListChecks,
   Minus,
   X,
@@ -43,9 +44,9 @@ import {
 /*
  * Matches in the new design (rebranding 2.2, canvas boards "D4.6 Matches" and "D4.6 Matches ·
  * phone", approved 10 October 2026). Every match, grouped by status before any cap, with true
- * counts: Meets all requirements, Within reach, then Missing a requirement, collapsed unless it
- * is the only group. Five cards a group, then "Show 20 more". Three jump links under the
- * summary, the sort, and on desktop the profile beside the list, all from one response. The
+ * counts: Meets all requirements, Within reach, No set grades, then Missing a requirement,
+ * collapsed unless it is the only group. Five cards a group, then "Show 20 more". A jump link
+ * for each under the summary, the sort, and on desktop the profile beside the list, all from one response. The
  * header and title stay while it loads or fails. Replaces RecommendationsClient, which today's
  * design keeps until release.
  */
@@ -58,6 +59,7 @@ type PageState =
 const STATUS_STYLE: Record<CardStatus, { Icon: LucideIcon; text: string; soft: string }> = {
   meets: { Icon: Check, text: 'text-ok', soft: 'bg-ok-soft' },
   close: { Icon: Minus, text: 'text-close', soft: 'bg-close-soft' },
+  neutral: { Icon: Info, text: 'text-muted-foreground', soft: 'bg-muted' },
   gap: { Icon: X, text: 'text-gap', soft: 'bg-gap-soft' }
 }
 
@@ -188,6 +190,7 @@ function MatchList({
   const [shown, setShown] = useState<Record<CardStatus, number>>({
     meets: FIRST_SHOWN,
     close: FIRST_SHOWN,
+    neutral: FIRST_SHOWN,
     gap: FIRST_SHOWN
   })
   const onlyMissing = matches.length > 0 && matches.every((m) => m.status === 'gap')
@@ -246,12 +249,11 @@ function MatchList({
       )}
 
       {groups.map((group) => {
-        const missing = group.status === 'gap'
-        const open = !missing || missingOpen
+        const open = group.status !== 'gap' || missingOpen
         const visible = group.items.slice(0, shown[group.status])
         return (
           <section key={group.id} aria-labelledby={group.id} className="flex flex-col gap-3">
-            {missing ? (
+            {group.status === 'gap' ? (
               <MissingBar
                 id={group.id}
                 count={group.items.length}
@@ -323,7 +325,7 @@ function JumpLinks({
 }) {
   return (
     <nav aria-label="Groups">
-      {/* Desktop: three links in a row */}
+      {/* Desktop: the links in a row */}
       <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 max-md:hidden">
         {groups.map((g) => {
           const { Icon, text } = STATUS_STYLE[g.status]
@@ -340,7 +342,7 @@ function JumpLinks({
           )
         })}
       </ul>
-      {/* A phone: a panel of three rows, each a 48px target */}
+      {/* A phone: a panel of rows, each a 48px target */}
       <ul className="overflow-hidden rounded-card border border-border bg-card md:hidden">
         {groups.map((g) => {
           const { Icon, text, soft } = STATUS_STYLE[g.status]
@@ -389,7 +391,8 @@ function SortSelect({
       value={order}
       disabled={disabled}
       onChange={(event) => onChange?.(event.target.value as SortOrder)}
-      className="flex-row items-center gap-2.5 [&>div]:w-50 [&>label]:text-muted-foreground"
+      // On the right, also when the jump links fill the row above it
+      className="flex-row items-center gap-2.5 md:ml-auto [&>div]:w-50 [&>label]:text-muted-foreground"
     >
       {SORT_ORDERS.map((o) => (
         <option key={o.value} value={o.value}>
@@ -400,11 +403,16 @@ function SortSelect({
   )
 }
 
-const GROUP_LINES: Record<'meets' | 'close', { desktop: string; phone: string }> = {
+const GROUP_LINES: Record<Exclude<CardStatus, 'gap'>, { desktop: string; phone: string }> = {
   meets: { desktop: 'Every requirement met.', phone: 'Every requirement met.' },
   close: {
     desktop: 'Up to 3 points short, or one subject one grade short, or both.',
     phone: 'Up to 3 points or one grade short, or both.'
+  },
+  neutral: {
+    desktop:
+      'No IB points or subjects beyond the Diploma, so there’s nothing to check your grades against. Getting in can still be hard.',
+    phone: 'Nothing to check your grades against. Getting in can still be hard.'
   }
 }
 
@@ -417,14 +425,14 @@ function GroupHeading({
   order
 }: {
   id: string
-  status: CardStatus
+  status: Exclude<CardStatus, 'gap'>
   title: string
   count: number
   total: number
   order: SortOrder
 }) {
   const { Icon, text, soft } = STATUS_STYLE[status]
-  const lines = GROUP_LINES[status === 'meets' ? 'meets' : 'close']
+  const lines = GROUP_LINES[status]
   // Best fit puts the minimum closest to the student's total first; say so where it shows
   const closest =
     status === 'meets' && order === 'fit'

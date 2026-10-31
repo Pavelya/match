@@ -21,7 +21,7 @@ import { calculateMatches } from './scorer'
 import { calculateOptimizedMatches } from './optimized-matcher'
 import { enhanceMatchResult } from './enhanced-match-result'
 import { createMatchingMetrics, recordMatchingMetrics } from './matching-metrics'
-import type { MatchInput, MatchResult, WeightConfig } from './types'
+import { WEIGHT_CONFIGS, type MatchInput, type MatchResult, type WeightConfig } from './types'
 import type { MatchCategory } from './categorization'
 import { logger } from '@/lib/logger'
 import { isFeatureEnabled, getEnabledV10Features } from '@/lib/feature-flags'
@@ -160,7 +160,7 @@ export async function getCachedMatchesV10(
   weights?: MatchInput['weights']
 ): Promise<V10MatchResult[]> {
   const startTime = performance.now()
-  const weightsUsed = weights || { academic: 0.6, location: 0.3, field: 0.1 }
+  const weightsUsed = weights || WEIGHT_CONFIGS.BALANCED
   const context = { userId: studentId }
 
   // Check if V10 is enabled

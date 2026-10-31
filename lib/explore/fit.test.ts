@@ -4,8 +4,9 @@ import { calculateOptimizedMatches } from '@/lib/matching/optimized-matcher'
 import type { CachedProgram } from '@/lib/matching/program-cache'
 import { calculateMatch } from '@/lib/matching/scorer'
 import { transformProgram, transformStudent } from '@/lib/matching/transformers'
+import type { CardStatus } from '@/lib/matching/match-status'
 import type { StudentProfile } from '@/lib/matching/types'
-import { fitProgram, programFit } from './fit'
+import { fitProgram, programFit, qualifying, type FitRecord } from './fit'
 
 // The D3.1 student, 38 points, with no preferences: Explore lists programs outside them anyway
 const STUDENT = transformStudent({
@@ -75,6 +76,45 @@ function program(overrides: Partial<CachedProgram> = {}): CachedProgram {
 const fit = (p: CachedProgram) =>
   programFit(STUDENT, { requirements: transformProgram(p), minIBPoints: p.minIBPoints })
 
+describe('qualifying', () => {
+  const record = (objectID: string, minimumIBPoints?: number, course?: string): FitRecord => ({
+    objectID,
+    programName: objectID,
+    universityName: 'University',
+    ...(minimumIBPoints === undefined ? {} : { minimumIBPoints }),
+    requiredCourses: course
+      ? [
+          {
+            courseId: course,
+            courseName: course,
+            level: 'HL',
+            minimumGrade: 5,
+            isCritical: true
+          }
+        ]
+      : []
+  })
+  const RECORDS = [
+    record('real-bar', 30),
+    record('no-minimum'),
+    record('diploma', 24),
+    record('diploma-with-a-subject', 24, 'biology'),
+    record('too-high', 45)
+  ]
+
+  it('keeps what the student meets and what has no set grades, and counts the second', () => {
+    const { records, noSetGrades } = qualifying(RECORDS, STUDENT)
+    expect(records.map((r) => r.objectID)).toEqual(['real-bar', 'no-minimum', 'diploma'])
+    expect(noSetGrades).toBe(2)
+  })
+
+  it('its split adds up to its total', () => {
+    const { records, noSetGrades } = qualifying(RECORDS, STUDENT)
+    const meets = records.filter((r) => programFit(STUDENT, fitProgram(r)).status === 'meets')
+    expect(meets.length + noSetGrades).toBe(records.length)
+  })
+})
+
 describe('programFit', () => {
   it('meets every requirement, whatever the field and country', () => {
     expect(fit(program())).toEqual({ status: 'meets', badge: 'Meets all requirements' })
@@ -104,10 +144,10 @@ describe('programFit', () => {
     ).toEqual({ status: 'gap', badge: 'Needs Chemistry HL' })
   })
 
-  it('meets a program with no IB minimum and no named subjects', () => {
+  it('has no set grades for a program with no IB minimum and no named subjects', () => {
     expect(fit(program({ minIBPoints: null, courseRequirements: [] }))).toEqual({
-      status: 'meets',
-      badge: 'Meets all requirements'
+      status: 'neutral',
+      badge: 'No set grades'
     })
   })
 
@@ -257,8 +297,10 @@ describe('Matches agrees with "Only ones I qualify for" (5.40)', () => {
     }
   }
 
-  /** The ids Matches gives "meets", as getCachedMatchesV10 calls it, and the tier it used */
-  function matchesMeets(s: StudentProfile, programs: CachedProgram[]) {
+  const QUALIFY: CardStatus[] = ['meets', 'neutral']
+
+  /** The ids Matches gives each status, as getCachedMatchesV10 calls it, and the tier it used */
+  function matchesMeets(s: StudentProfile, programs: CachedProgram[], statuses = QUALIFY) {
     const byId = new Map(programs.map((p) => [p.id, p]))
     const { results, stats } = calculateOptimizedMatches(s, programs.map(transformProgram), {
       useIndex: true,
@@ -267,16 +309,15 @@ describe('Matches agrees with "Only ones I qualify for" (5.40)', () => {
     })
     const meets = results.filter((result) => {
       const p = byId.get(result.programId)!
-      return (
-        deriveMatchStatus({
-          result,
-          studentPoints: s.totalIBPoints,
-          minIBPoints: p.minIBPoints,
-          fieldName: p.fieldOfStudy.name,
-          countryName: p.university.country.name,
-          requirementsEntryYear: p.requirementsEntryYear
-        }).status === 'meets'
-      )
+      const { status } = deriveMatchStatus({
+        result,
+        studentPoints: s.totalIBPoints,
+        minIBPoints: p.minIBPoints,
+        fieldName: p.fieldOfStudy.name,
+        countryName: p.university.country.name,
+        requirementsEntryYear: p.requirementsEntryYear
+      })
+      return statuses.includes(status)
     })
     return { meets: meets.map((r) => byId.get(r.programId)!), tier: stats.fallbackTierUsed }
   }
@@ -286,14 +327,11 @@ describe('Matches agrees with "Only ones I qualify for" (5.40)', () => {
     s.interestedFields.includes(p.fieldOfStudyId) &&
     s.preferredCountries.includes(p.university.country.id)
 
-  const exploreMeets = (s: StudentProfile, programs: CachedProgram[]) =>
-    programs
-      .filter(inPreferences(s))
-      .filter(
-        (p) =>
-          programFit(s, { requirements: transformProgram(p), minIBPoints: p.minIBPoints })
-            .status === 'meets'
-      )
+  const exploreMeets = (s: StudentProfile, programs: CachedProgram[], statuses = QUALIFY) =>
+    programs.filter(inPreferences(s)).filter((p) => {
+      const fit = programFit(s, { requirements: transformProgram(p), minIBPoints: p.minIBPoints })
+      return statuses.includes(fit.status)
+    })
 
   const ids = (programs: CachedProgram[]) => programs.map((p) => p.id).sort()
 
@@ -308,6 +346,18 @@ describe('Matches agrees with "Only ones I qualify for" (5.40)', () => {
     expect(ids(meets.filter(inPreferences(s)))).toEqual(ids(explore))
     // Holds at 24 and up, so from 35 this is a program the old window dropped
     expect(explore.some((p) => p.minIBPoints === 24)).toBe(true)
+  })
+
+  it.each([24, 30, 38, 45])('agrees on who has no set grades, for a total of %i', (total) => {
+    const s = student(total, ['cs', 'law'], ['ca', 'uk'])
+    const group: CardStatus[] = ['neutral']
+
+    const explore = exploreMeets(s, CATALOGUE, group)
+
+    expect(explore.length).toBeGreaterThan(0)
+    expect(ids(matchesMeets(s, CATALOGUE, group).meets.filter(inPreferences(s)))).toEqual(
+      ids(explore)
+    )
   })
 
   it('a widened list holds everything Explore finds, and more', () => {

@@ -90,10 +90,24 @@ describe('XI, "Worked examples"', () => {
     expect(result.overallScore).toBeCloseTo(0.8, 3)
   })
 
-  it('40, Maths HL 6, no countries, against 38 with no subjects: weights 0.857 and 0.143, 1.00', () => {
+  it('40 against 38 with no subjects, own field, another country: field above country, 0.90', () => {
+    expect(score(student(40), { ...program(38), countryId: 'elsewhere' }).overallScore).toBeCloseTo(
+      0.9,
+      3
+    )
+  })
+
+  it('40 against 38 with no subjects, own country, another field: 0.70', () => {
+    expect(score(student(40), { ...program(38), fieldId: 'other' }).overallScore).toBeCloseTo(
+      0.7,
+      3
+    )
+  })
+
+  it('40, Maths HL 6, no countries, against 38 with no subjects: weights 0.667 and 0.333, 1.00', () => {
     const result = score(student(40, { maths: 6 }, []), program(38))
-    expect(result.weightsUsed.academic).toBeCloseTo(0.857, 3)
-    expect(result.weightsUsed.field).toBeCloseTo(0.143, 3)
+    expect(result.weightsUsed.academic).toBeCloseTo(0.667, 3)
+    expect(result.weightsUsed.field).toBeCloseTo(0.333, 3)
     expect(result.weightsUsed.location).toBe(0)
     expect(result.overallScore).toBeCloseTo(1, 3)
   })
@@ -111,10 +125,10 @@ describe('XI, "Worked examples"', () => {
     expect(result.overallScore).toBeCloseTo(0.838, 3)
   })
 
-  it('40, no fields listed, against 38 with no subjects: weights 0.667 and 0.333, 1.00', () => {
+  it('40, no fields listed, against 38 with no subjects: weights 0.857 and 0.143, 1.00', () => {
     const result = score(student(40, {}, [COUNTRY], []), program(38))
-    expect(result.weightsUsed.academic).toBeCloseTo(0.667, 3)
-    expect(result.weightsUsed.location).toBeCloseTo(0.333, 3)
+    expect(result.weightsUsed.academic).toBeCloseTo(0.857, 3)
+    expect(result.weightsUsed.location).toBeCloseTo(0.143, 3)
     expect(result.weightsUsed.field).toBe(0)
     expect(result.overallScore).toBeCloseTo(1, 3)
   })

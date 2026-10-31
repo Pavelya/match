@@ -1,9 +1,12 @@
-# IB Match – University Program Matching Algorithm (Version XI.1)
+# IB Match – University Program Matching Algorithm (Version XI.2)
 
-**Version:** XI.1 (11.1)  
+**Version:** XI.2 (11.2)  
 **Supersedes:** Version X as the baseline  
-**Date:** 30 October 2026; XI.1 on 31 October 2026  
+**Date:** 30 October 2026; XI.1 and XI.2 on 31 October 2026  
 **Status:** Master (owner, 30 October 2026). Describes production, written from the code on `main`.  
+**XI.2, 31 October 2026, MAINT 5.43 Part B:** field above country, $w_F=0.3$ and $w_L=0.1$, and a fourth
+status, "No set grades", for programs with nothing to check. The weights move scores; the status moves no
+score.  
 **XI.1, 31 October 2026, MAINT 5.43 Part A:** one curve for points short, and no fields listed works as
 no countries does. Scores move; no status does.  
 **Updated:** 30 October 2026, MAINT 5.40: the points window lost its lower end, so more programs are
@@ -36,7 +39,7 @@ rule is right: see [Known problems](#known-problems). The work left, in order, i
 | Grade above the requirement           | Bonus up to +0.05                                    | No bonus; a met requirement scores 1.0                                          |
 | Selectivity boost                     | Up to +0.05 added to the score                       | Worked out, reported, never added                                               |
 | Penalties                             | One unified calculation                              | Version IX's caps, multiple-requirements penalty and floors                     |
-| No country preference                 | Weights 0.75 and 0.25                                | Weights 0.857 and 0.143                                                         |
+| No country preference                 | Weights 0.75 and 0.25                                | Weights 0.667 and 0.333                                                         |
 | Open to all fields, or no list        | F_M 0.70                                             | F_M 1.0, with its weight 0: the matcher reads an empty list, never the open-to-all setting |
 | Open to all locations, or no list     | L_M 0.85 or 0.60                                     | L_M 1.0, with its weight 0                                                      |
 | Preferences must be explicit          | Validation error                                     | `preference-validator.ts` is not called                                         |
@@ -53,7 +56,7 @@ rule is right: see [Known problems](#known-problems). The work left, in order, i
 3. Score            M = w_G × G_M + w_L × L_M + w_F × F_M, then caps and floors
 4. Labels           category, confidence, fit quality (attached, unused)
 5. Cache            Redis, 30 minutes
-6. Status           meets, close or gap, from the requirements alone
+6. Status           meets, close, neutral or gap, from the requirements alone
 7. Order            status group, then best fit
 ```
 
@@ -110,14 +113,16 @@ sign that a program is easy to enter.
 
 $$M = w_G \times G_M + w_L \times L_M + w_F \times F_M$$
 
-**Weights.** `BALANCED`: $w_G=0.6$, $w_L=0.3$, $w_F=0.1$. A preference the student has not stated has
+**Weights.** `BALANCED`: $w_G=0.6$, $w_L=0.1$, $w_F=0.3$: field above country (owner, 31 October 2026,
+MAINT 5.43), which agrees with the candidate tiers, where a widened list drops the country before the
+field. How it works reads these from `WEIGHT_CONFIGS`. A preference the student has not stated has
 no weight, so being open never lowers the number: its weight is 0 and the others are divided by their sum.
 
 | Student lists         | $w_G$ | $w_L$ | $w_F$ |
 | --------------------- | ----- | ----- | ----- |
-| Fields and countries  | 0.6   | 0.3   | 0.1   |
-| Fields, no countries  | 0.857 | 0     | 0.143 |
-| Countries, no fields  | 0.667 | 0.333 | 0     |
+| Fields and countries  | 0.6   | 0.1   | 0.3   |
+| Fields, no countries  | 0.667 | 0     | 0.333 |
+| Countries, no fields  | 0.857 | 0.143 | 0     |
 | Neither               | 1     | 0     | 0     |
 
 So a perfect match reads 100% in all four. Caps and floors keep their values while the sum is rescaled, so
@@ -214,21 +219,33 @@ short, not as a level gap.
 
 | Status                         | Rule                                        |
 | ------------------------------ | ------------------------------------------- |
+| `neutral`: No set grades        | No named subjects, and no minimum, or a minimum of 24 the student reaches |
 | `meets`: Meets all requirements | No gap and nothing close                   |
 | `close`: Within reach           | No gap, and at most one subject close      |
 | `gap`: Missing a requirement    | Anything else                              |
+
+**No set grades** (MAINT 5.43): 475 of 1,676 programs, 301 with no minimum and 174 at 24, the Diploma itself.
+There is nothing to check, so "meets" would say nothing, and 236 of the 301 are at universities admitting
+under 20%. The 183 at 24 that name subjects stay in `meets`. A student under 24 is short of the 174, so
+they keep `close` or `gap` there. The score stays underneath, for today's design and the coordinator chart;
+"Why this match" and the program page show none for these programs. The group's chips and words are in
+`04-design-system.md` §9.
 
 ---
 
 ## Order
 
-**Matches** groups by status, then, in Best fit (`compareBestFit`): score, the minimum closest to the
+**Matches** groups by status (`GROUPS`: meets, close, neutral, gap), then, in Best fit (`compareBestFit`): score, the minimum closest to the
 student's total, no minimum last, then university and program A–Z. Many programs tie at 100%, so the
 second key does most of the work. This is the only place a program far under the total lands lower: it
 is closer to the bottom of its group, at the same score.
 
-**Explore** Best fit (`compareExploreBestFit`, MAINT 5.27): their countries and fields, their countries,
-their fields, the rest; then status; then the same closeness; then A–Z.
+**Explore** Best fit (`compareExploreBestFit`, MAINT 5.27): their fields and countries, their fields,
+their countries, the rest (`fitTier`); then status, in `GROUPS`' order; then the same closeness; then A–Z.
+Inside a status it is Matches' own order, and the score's weights order the tiers the same way.
+
+"Only ones I qualify for" keeps `meets` and `neutral`, and the two pages agree on who is in each. Dropped,
+a student on 28 who filters to the US would see none of 280 programs.
 
 ---
 
@@ -285,12 +302,14 @@ Run through the production scorer on 31 October 2026 with `BALANCED`, not comput
 | ------------------------------------ | -------------------------------------- | ----- | --------------------------------------------------------- |
 | 44, Maths HL 7, Physics HL 7         | 42, Maths HL 6, Physics HL 6, own field and country | 1.00 | Everything met                         |
 | 44, same                             | 28, no subjects, own field and country | 1.00  | Over the minimum costs nothing                            |
-| 36                                   | 24, no subjects, own field and country | 1.00  | The same at any margin                                    |
+| 36                                   | 24, no subjects, own field and country | 1.00  | The same at any margin; status `neutral`, score not shown |
 | 38, Maths HL 5                       | 40, Maths HL 6 critical, own field and country | 0.80 | G_M 0.85 × 0.82 = 0.697; raw 0.818; capped at 0.80 |
 | 39, Maths HL 6                       | 40, Maths HL 6, own field and country  | 0.90  | G_M 0.85; raw 0.91; capped at 0.90                        |
 | 35, Maths HL 6                       | 40, Maths HL 6, own field and country  | 0.838 | G_M 0.73: 5 short reads below 1 short                     |
-| 40, Maths HL 6, no countries listed  | 38, no subjects, own field             | 1.00  | Weights 0.857 and 0.143                                   |
-| 40, no fields listed                 | 38, no subjects, own country           | 1.00  | Weights 0.667 and 0.333                                   |
+| 40                                   | 38, no subjects, own field, elsewhere  | 0.90  | Field above country: 0.6 + 0.3                            |
+| 40                                   | 38, no subjects, own country, another field | 0.70 | 0.6 + 0.1                                            |
+| 40, Maths HL 6, no countries listed  | 38, no subjects, own field             | 1.00  | Weights 0.667 and 0.333                                   |
+| 40, no fields listed                 | 38, no subjects, own country           | 1.00  | Weights 0.857 and 0.143                                   |
 | 40, no fields or countries listed    | 38, no subjects                        | 1.00  | Academics alone                                           |
 | 42, no Physics                       | 40, Physics HL 5 critical, own field and country | 0.40 | G_M 0; raw 0.40, already under the 0.45 cap     |
 
@@ -298,16 +317,9 @@ Run through the production scorer on 31 October 2026 with `BALANCED`, not comput
 
 ## Known problems
 
-Found by running the production scorer on pairs that should differ, 30 October 2026. The status is right in
-both, and on the new Matches page it sets the groups, so students are not misled about which group a
-program is in. They affect the fit number, the order inside a group, today's page and the coordinator
-pages. MAINT 5.43 Part B takes them up. Part A fixed the other two in XI.1: more points short could score
-higher, and being open lowered the number.
-
-| Problem                                                                                  | Evidence                                                                    | Next           |
-| ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------- |
-| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Decided 31 October 2026, build 30 |
-| Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Decided 31 October 2026, build 30 |
+None open. MAINT 5.43 took up all four found on 30 October 2026: more points short could score higher,
+and being open lowered the number (XI.1); "meets" could mean no bar, and a field counted for a third of a
+country (XI.2).
 
 Not a problem: being over the minimum costs nothing. The minimum is a poor measure of how hard a program
 is, and the order already puts the closest first.
@@ -324,7 +336,7 @@ bucket size = 5
 index used above 50 programs
 
 # Weights (types.ts)
-BALANCED = 0.6 / 0.3 / 0.1
+BALANCED = 0.6 / 0.1 / 0.3
 
 # Preferences (field-matcher.ts, location-matcher.ts)
 no fields listed = 1.0, with w_F = 0
@@ -346,6 +358,7 @@ minimum when points are met 0.15
 
 # Status (match-status.ts)
 CLOSE_POINTS = 3
+DIPLOMA_POINTS = 24 (ib-minimum.ts)
 
 # Cache (cache.ts)
 CACHE_TTL = 1800 seconds

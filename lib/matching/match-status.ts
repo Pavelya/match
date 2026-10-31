@@ -4,8 +4,10 @@
  * never changes a score.
  *
  * The status is requirement-based (owner, 7 October 2026): Meets all requirements, Within
- * reach, or Missing a requirement. The V10 `category` stays unused by the UI. Scores only order
- * cards within a status and appear inside "Why this match".
+ * reach, or Missing a requirement. A program that asks for nothing beyond the Diploma has no bar
+ * to meet, so it reads "No set grades" (board "D3.1 No IB minimum", 31 October 2026). The V10
+ * `category` stays unused by the UI. Scores only order cards within a status and appear inside
+ * "Why this match".
  *
  * Course names are short ("Maths AA", `lib/ib/course-names.ts`). For an either/or the chip
  * names the course the student took, at every level and grade the group accepts it, as the
@@ -34,13 +36,18 @@ import {
   type RequirementOption
 } from '@/lib/programs/requirement-groups'
 import { requirementsCheck } from '@/lib/programs/entry-year'
-import { NO_IB_MINIMUM, NO_IB_MINIMUM_NOTE, formatRate } from '@/lib/programs/ib-minimum'
+import {
+  DIPLOMA_POINTS,
+  NO_IB_MINIMUM,
+  NO_IB_MINIMUM_NOTE,
+  formatRate
+} from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
 
 export { formatRate }
 
-/** The card's status, as `StatusBadge` takes it: meets all, within reach, missing one. */
-export type CardStatus = 'meets' | 'close' | 'gap'
+/** The card's status, as `StatusBadge` takes it: meets all, within reach, no set grades, missing one. */
+export type CardStatus = 'meets' | 'close' | 'neutral' | 'gap'
 
 /** A chip's look, as `RequirementChip` takes it. */
 export type ChipKind = 'met' | 'close' | 'gap' | 'info'
@@ -77,7 +84,10 @@ export interface MatchStatusInput {
 
 export interface MatchStatus {
   status: CardStatus
-  /** "Meets all requirements", "Within reach · 1 point short", "Needs Biology HL and Chemistry HL" */
+  /**
+   * "Meets all requirements", "Within reach · 1 point short", "No set grades", "Needs Biology HL
+   * and Chemistry HL"
+   */
   badge: string
   /** Every chip: missing, then within reach, met, notes. `cardChips` fits them on a card. */
   chips: MatchChip[]
@@ -109,7 +119,12 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
 
   const assessed: Assessed[] = []
   const points = assessPoints(input.studentPoints, input.minIBPoints)
-  if (points) assessed.push(points)
+  // No set grades: no named subjects, and no minimum or the Diploma's own 24, which they reach.
+  // A student under 24 is short of it, so it is a bar for them and stays one.
+  const noSetGrades =
+    academicMatch.subjectMatches.length === 0 &&
+    (!points || (input.minIBPoints === DIPLOMA_POINTS && points.chip.kind === 'met'))
+  if (points && !noSetGrades) assessed.push(points)
   for (const facts of requirementFacts(academicMatch.subjectMatches)) {
     assessed.push(assessSubject(facts))
   }
@@ -124,7 +139,9 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
     else
       note(`${NO_IB_MINIMUM} · admits ${formatRate(input.admitRate)}`, ' of first-year applicants')
   }
-  if (academicMatch.subjectMatches.length === 0) note('No named subjects')
+  if (points && noSetGrades) note(`IB Diploma · ${DIPLOMA_POINTS} points`)
+  // The group says it for a program with no set grades (D2.7 change)
+  if (academicMatch.subjectMatches.length === 0 && !noSetGrades) note('No named subjects')
   if (!fieldMatch.isMatch && !fieldMatch.noPreferences) {
     note(`${input.fieldName} · not your field`)
   }
@@ -146,6 +163,7 @@ export function deriveMatchStatus(input: MatchStatusInput): MatchStatus {
   const closeSubjects = close.filter((a) => a.source === 'subject').length
   const pointsShort = close.find((a) => a.source === 'points')?.pointsShort ?? 0
 
+  if (noSetGrades) return { status: 'neutral', badge: 'No set grades', chips }
   if (gaps.length === 0 && close.length === 0) {
     return { status: 'meets', badge: 'Meets all requirements', chips }
   }

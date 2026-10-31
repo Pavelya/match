@@ -334,10 +334,55 @@ describe('the note: what would close it', () => {
     })
   })
 
-  it('no IB minimum, in the US', () => {
-    expect(why({ minIBPoints: null, countryCode: 'US' }).note).toEqual({
+  it('no IB minimum, in the US, with its subjects met', () => {
+    expect(
+      why({ minIBPoints: null, countryCode: 'US', requires: [['mathsAA', 'HL', 5]] }).note
+    ).toEqual({
       kind: 'info',
       text: 'Meeting the requirements doesn’t secure a place. US universities read the whole application, not a points total.'
+    })
+  })
+})
+
+describe('no set grades (board "D3.1 No IB minimum")', () => {
+  it('has no fit score, at 24 or with no minimum', () => {
+    expect(why({ minIBPoints: 24 }).fit).toBeNull()
+    expect(why({ minIBPoints: null }).fit).toBeNull()
+  })
+
+  it('still has one for a student under 24, for whom the 24 is a bar', () => {
+    expect(why({ minIBPoints: 24 }, { totalIBPoints: 22 }).fit).not.toBeNull()
+  })
+
+  it('at 24: the points row is a note, and the Diploma itself', () => {
+    const { rows, note } = why({ minIBPoints: 24 })
+    expect(rows).toEqual([
+      {
+        kind: 'info',
+        type: 'points',
+        name: 'IB Diploma points',
+        needed: '24',
+        you: '38',
+        detail: '24 is the Diploma itself.'
+      },
+      { kind: 'info', type: 'none', name: 'Named subjects', needed: 'None', you: '–' }
+    ])
+    expect(note).toEqual({
+      kind: 'info',
+      text: 'There’s nothing here to check your grades against, so we can’t say how you compare. See how the university decides on its own page.'
+    })
+  })
+
+  it('with no minimum: the admit rate stays in the points row', () => {
+    const { rows } = why({ minIBPoints: null, admitRate: 4.6 })
+    expect(rows[0]).toMatchObject({ kind: 'info', needed: 'No minimum', you: '38' })
+    expect(rows[0].detail).toMatch(/^Holistic admission\. /)
+  })
+
+  it('in the US', () => {
+    expect(why({ minIBPoints: null, countryCode: 'US' }).note).toEqual({
+      kind: 'info',
+      text: 'US universities read the whole application, not a points total, so we can’t say how you compare.'
     })
   })
 })
@@ -364,13 +409,20 @@ describe('field, country and the intake', () => {
   })
 })
 
+/** The score's panel, for a program that has one */
+function fitOf(...args: Parameters<typeof why>) {
+  const { fit } = why(...args)
+  if (!fit) throw new Error('no fit score')
+  return fit
+}
+
 describe('the fit score and its working', () => {
   it('shows the three weighted parts and a cap in plain words (Imperial)', () => {
-    const { fit } = why({ minIBPoints: 39, requires: [['mathsAA', 'HL', 7, true]] })
+    const fit = fitOf({ minIBPoints: 39, requires: [['mathsAA', 'HL', 7, true]] })
     expect(fit.parts.map((p) => [p.label, p.calc.split(' × ')[1]])).toEqual([
       ['Academic', '60%'],
-      ['Country', '30%'],
-      ['Field', '10%']
+      ['Country', '10%'],
+      ['Field', '30%']
     ])
     expect(fit.parts.reduce((sum, p) => sum + p.value, 0)).toBeGreaterThan(fit.score)
     expect(fit.sentence).toMatch(
@@ -380,7 +432,7 @@ describe('the fit score and its working', () => {
   })
 
   it('a missing required subject (TUM)', () => {
-    const { fit } = why({
+    const fit = fitOf({
       minIBPoints: 38,
       country: 'de',
       requires: [
@@ -391,30 +443,32 @@ describe('the fit score and its working', () => {
         ['chemistry', 'SL', 4]
       ]
     })
-    expect(fit.parts.map((p) => p.value)).toEqual([48, 0, 10])
+    expect(fit.parts.map((p) => p.value)).toEqual([48, 0, 30])
     expect(fit).toMatchObject({
       score: 45,
-      sentence: 'Adds up to 58%, lowered to 45% because a required subject is missing.'
+      sentence: 'Adds up to 78%, lowered to 45% because a required subject is missing.'
     })
   })
 
   it('nothing lowers it; a program with no minimum says the score ignores admit rates', () => {
-    expect(why({ field: 'arts' }).fit.sentence).toBe('Adds up to 90%. Nothing lowers it.')
-    expect(why({ minIBPoints: null, admitRate: 4.6 }).fit).toMatchObject({
+    expect(fitOf({ field: 'arts' }).sentence).toBe('Adds up to 70%. Nothing lowers it.')
+    expect(
+      fitOf({ minIBPoints: null, admitRate: 4.6, requires: [['mathsAA', 'HL', 5]] })
+    ).toMatchObject({
       score: 100,
       sentence: 'Adds up to 100%. Nothing lowers it. The score doesn’t use admit rates.'
     })
   })
 
   it('a points shortfall alone', () => {
-    expect(why({ minIBPoints: 39 }).fit.sentence).toBe(
+    expect(fitOf({ minIBPoints: 39 }).sentence).toBe(
       'Adds up to 91%, capped at 90% because you’re 1 point short.'
     )
   })
 
   it.each([
-    ['no fields', { interestedFields: [] }, [67, 33, 0], '67%'],
-    ['no countries', { preferredCountries: [] }, [86, 0, 14], '86%'],
+    ['no fields', { interestedFields: [] }, [86, 14, 0], '86%'],
+    ['no countries', { preferredCountries: [] }, [67, 0, 33], '67%'],
     [
       'no fields or countries',
       { interestedFields: [], preferredCountries: [] },
@@ -422,7 +476,7 @@ describe('the fit score and its working', () => {
       '100%'
     ]
   ])('%s: the parts add up to a perfect 100%%', (_, preferences, values, academicWeight) => {
-    const { fit } = why({ minIBPoints: 30 }, preferences)
+    const fit = fitOf({ minIBPoints: 30 }, preferences)
     expect(fit.parts.map((p) => p.value)).toEqual(values)
     expect(fit.parts[0].calc).toBe(`100% × ${academicWeight}`)
     expect(fit.score).toBe(100)
@@ -431,7 +485,8 @@ describe('the fit score and its working', () => {
   })
 
   it('no fields: the field is an open choice at 0%, as a country is', () => {
-    const { fit, field } = why({ minIBPoints: 30 }, { interestedFields: [] })
+    const { field } = why({ minIBPoints: 30 }, { interestedFields: [] })
+    const fit = fitOf({ minIBPoints: 30 }, { interestedFields: [] })
     expect(fit.parts[2]).toEqual({ label: 'Field', calc: '100% × 0%', value: 0, percent: 100 })
     expect(field).toEqual({
       kind: 'info',
@@ -439,8 +494,18 @@ describe('the fit score and its working', () => {
     })
   })
 
+  it('a shortfall nothing caps is counted in Academic, not “Nothing lowers it”', () => {
+    expect(fitOf({ minIBPoints: 40 }).sentence).toBe(
+      'Adds up to 89%. The 2 points you’re short are counted in Academic.'
+    )
+    expect(fitOf({ minIBPoints: 39 }, { interestedFields: [] }).sentence).toMatch(
+      /^Adds up to \d+%\. The 1 point you’re short is counted in Academic\.$/
+    )
+    expect(fitOf({ minIBPoints: 30 }).sentence).toBe('Adds up to 100%. Nothing lowers it.')
+  })
+
   it('5 short reads lower than 1 short (MAINT 5.43)', () => {
-    expect(why({ minIBPoints: 43 }).fit.score).toBeLessThan(why({ minIBPoints: 39 }).fit.score)
+    expect(fitOf({ minIBPoints: 43 }).score).toBeLessThan(fitOf({ minIBPoints: 39 }).score)
   })
 })
 

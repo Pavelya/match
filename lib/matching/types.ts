@@ -218,8 +218,8 @@ export type MatchingMode = 'BALANCED' | 'ACADEMIC_FOCUSED' | 'LOCATION_FOCUSED'
 export const WEIGHT_CONFIGS: Record<MatchingMode, WeightConfig> = {
   BALANCED: {
     academic: 0.6,
-    location: 0.3,
-    field: 0.1
+    location: 0.1,
+    field: 0.3
   },
   ACADEMIC_FOCUSED: {
     academic: 0.8,

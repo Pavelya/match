@@ -184,8 +184,43 @@ describe('GET /api/programs/explore', () => {
     expect(body.total).toBe(meets.length)
     expect(body.rows.map((r) => r.id)).toEqual(meets.slice(0, 20).map((r) => r.objectID))
     expect(Object.values(body.fits ?? {}).every((fit) => fit?.status === 'meets')).toBe(true)
+    expect(body.noSetGrades).toBe(0)
     expect(browseMock).toHaveBeenCalledOnce()
     expect(programsMock).not.toHaveBeenCalled()
+  })
+
+  it('"Only ones I qualify for" keeps no set grades, and counts them from the same read', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    const open = (objectID: string, minimumIBPoints?: number) => ({
+      ...records[1],
+      objectID,
+      minimumIBPoints,
+      requiredCourses: []
+    })
+    const hits = [
+      open('no-minimum'),
+      open('diploma', 24),
+      open('points', 30),
+      records[0],
+      records[5]
+    ]
+    browseMock.mockImplementation(async ({ aggregator }) => aggregator({ hits }))
+
+    const body = await get('qualify=1')
+
+    const fits = body.fits ?? {}
+    expect(body.total).toBe(4)
+    expect(body.noSetGrades).toBe(2)
+    expect(fits['no-minimum']).toEqual({ status: 'neutral', badge: 'No set grades' })
+    expect(fits['diploma']).toEqual({ status: 'neutral', badge: 'No set grades' })
+    expect(Object.values(fits).filter((fit) => fit?.status === 'meets')).toHaveLength(2)
+    expect(browseMock).toHaveBeenCalledOnce()
+    expect(searchMock).not.toHaveBeenCalled()
+  })
+
+  it('with the switch off, the count stays one number', async () => {
+    authMock.mockResolvedValue({ user: { id: 'user-1' } })
+    expect((await get('')).noSetGrades).toBeUndefined()
   })
 
   it('keeps the Length filter beside the window, as the page asks for it', async () => {
@@ -280,15 +315,15 @@ describe('GET /api/programs/explore', () => {
     }
   })
 
-  it('EXPLORE_BEST_FIT=lifted: one search lifting their countries and fields', async () => {
+  it('EXPLORE_BEST_FIT=lifted: one search lifting their fields and countries', async () => {
     envMock.EXPLORE_BEST_FIT = 'lifted'
     authMock.mockResolvedValue({ user: { id: 'user-1' } })
     await get('')
     expect(searchMock).toHaveBeenCalledOnce()
     expect(browseMock).not.toHaveBeenCalled()
     expect(searchMock.mock.calls[0][0].searchParams.optionalFilters).toEqual([
-      [`countryId:${UK}<score=2>`],
-      [`fieldOfStudyId:${BUSINESS}<score=1>`]
+      [`fieldOfStudyId:${BUSINESS}<score=2>`],
+      [`countryId:${UK}<score=1>`]
     ])
   })
 

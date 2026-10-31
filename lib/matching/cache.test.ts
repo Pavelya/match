@@ -88,7 +88,7 @@ const program = (i: number, minimumIBPoints: number): ProgramRequirements => ({
 })
 
 const programs = [program(1, 34), program(2, 36), program(3, 38)]
-const BALANCED: WeightConfig = { academic: 0.6, location: 0.3, field: 0.1 }
+const BALANCED: WeightConfig = { academic: 0.6, location: 0.1, field: 0.3 }
 const ACADEMIC: WeightConfig = { academic: 0.8, location: 0.1, field: 0.1 }
 
 beforeEach(() => {
@@ -118,7 +118,7 @@ describe('getCachedMatchesV10', () => {
       expect(result.confidence).toBeDefined()
       expect(result.fitQuality).toBeDefined()
     }
-    expect(redisMock.set).toHaveBeenCalledWith('matchesV10:student-1:0.60_0.30_0.10:3', results, {
+    expect(redisMock.set).toHaveBeenCalledWith('matchesV10:student-1:0.60_0.10_0.30:3', results, {
       ex: 1800
     })
   })
@@ -130,7 +130,7 @@ describe('getCachedMatchesV10', () => {
     expect(calculateMatches).toHaveBeenCalledTimes(1)
     expect(results).toHaveLength(3)
     expect(results.every((result) => result.category !== undefined)).toBe(true)
-    expect(store.has('matchesV10:student-1:0.60_0.30_0.10:3')).toBe(true)
+    expect(store.has('matchesV10:student-1:0.60_0.10_0.30:3')).toBe(true)
   })
 
   it('a hit returns the stored results without computing', async () => {
@@ -153,7 +153,7 @@ describe('getCachedMatchesV10', () => {
 
     expect(calculateMatches).toHaveBeenCalledTimes(2)
     expect([...store.keys()]).toEqual([
-      'matchesV10:student-1:0.60_0.30_0.10:3',
+      'matchesV10:student-1:0.60_0.10_0.30:3',
       'matchesV10:student-1:0.80_0.10_0.10:3'
     ])
   })
@@ -184,7 +184,7 @@ describe('invalidation', () => {
 
     await invalidateStudentCache('student-1')
 
-    expect([...store.keys()]).toEqual(['matchesV10:student-10:0.60_0.30_0.10:3'])
+    expect([...store.keys()]).toEqual(['matchesV10:student-10:0.60_0.10_0.30:3'])
   })
 
   it('invalidateStudentCache scans one pattern (5.44)', async () => {
@@ -200,8 +200,8 @@ describe('invalidation', () => {
   it('invalidateStudentCache follows the SCAN cursor past the first page', async () => {
     // 150 lists for student-1 among 150 of student-2's: SCAN examines 100 keys a call
     for (let i = 0; i < 150; i++) {
-      store.set(`matchesV10:student-2:0.60_0.30_0.10:${i}`, '[]')
-      store.set(`matchesV10:student-1:0.60_0.30_0.10:${i}`, '[]')
+      store.set(`matchesV10:student-2:0.60_0.10_0.30:${i}`, '[]')
+      store.set(`matchesV10:student-1:0.60_0.10_0.30:${i}`, '[]')
     }
 
     await invalidateStudentCache('student-1')

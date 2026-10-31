@@ -13,7 +13,8 @@ import { REQUIREMENT_STATUS as STATUS, YOU_TEXT as YOU } from './requirement-sta
  * approved 10 October 2026). Every requirement against the student's grades, in the D3.4
  * checklist at 14px: a table on desktop, a list on a phone. Then what would close the gap, the
  * caution line for an older intake, field and country, and the fit score with its working: the
- * only place the percentage appears. Everything is in the match the list already loaded, so
+ * only place the percentage appears. A program with no set grades has no score, and the column
+ * goes with it. Everything is in the match the list already loaded, so
  * opening it fetches nothing. Replaces MatchBreakdown's dialog.
  */
 
@@ -35,7 +36,8 @@ export function WhyThisMatch({ id, programId, programName, why, className }: Why
       role="region"
       aria-label={`Why this match: ${programName}`}
       className={cn(
-        'grid gap-3 border-t border-border pt-3 md:grid-cols-[minmax(0,1fr)_272px] md:gap-5 md:pt-4',
+        'grid gap-3 border-t border-border pt-3 md:gap-5 md:pt-4',
+        fit && 'md:grid-cols-[minmax(0,1fr)_272px]',
         // Fades in as it opens, 180ms (D1.6); nothing slides
         'disclose',
         className
@@ -126,43 +128,7 @@ export function WhyThisMatch({ id, programId, programName, why, className }: Why
         </ul>
       </div>
 
-      <div className="flex flex-col gap-2.5 self-start rounded-[0.75rem] bg-muted p-3.5 md:gap-3 md:p-4">
-        <div className="flex items-baseline justify-between">
-          <span className="text-label text-muted-foreground">Fit score</span>
-          <span className="font-[family-name:var(--font-newsreader)] text-[2rem]/9 font-medium tabular-nums md:text-[2.5rem]/11">
-            {fit.score}%
-          </span>
-        </div>
-        {fit.parts.map((part) => (
-          <div key={part.label} className="flex flex-col gap-1">
-            <div className="flex justify-between gap-2 text-small font-normal tabular-nums">
-              <span>
-                <strong className="font-semibold">{part.label}</strong>{' '}
-                <span className="text-muted-foreground">{part.calc}</span>
-              </span>
-              <span className="font-semibold">{part.value}</span>
-            </div>
-            <div aria-hidden="true" className="h-1.5 overflow-hidden rounded-full bg-border">
-              <div
-                className="h-1.5 rounded-full bg-primary"
-                style={{ width: `${part.percent}%` }}
-              />
-            </div>
-          </div>
-        ))}
-        <p className="border-t border-border pt-2.5 text-small/5 font-normal tabular-nums">
-          {fit.sentence}
-        </p>
-        <p className="text-small/5 font-normal text-muted-foreground">
-          Fit orders programs within a status. It isn’t a chance of admission.{' '}
-          <Link
-            href="/how-it-works"
-            className="font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
-          >
-            How ranking works
-          </Link>
-        </p>
-      </div>
+      {fit && <FitScore fit={fit} />}
 
       <Link
         href={`/programs/${programId}`}
@@ -171,6 +137,46 @@ export function WhyThisMatch({ id, programId, programName, why, className }: Why
         Open the program page
         <LinkPending />
       </Link>
+    </div>
+  )
+}
+
+/** The score, its parts and the sentence on what changed it. */
+function FitScore({ fit }: { fit: NonNullable<WhyData['fit']> }) {
+  return (
+    <div className="flex flex-col gap-2.5 self-start rounded-[0.75rem] bg-muted p-3.5 md:gap-3 md:p-4">
+      <div className="flex items-baseline justify-between">
+        <span className="text-label text-muted-foreground">Fit score</span>
+        <span className="font-[family-name:var(--font-newsreader)] text-[2rem]/9 font-medium tabular-nums md:text-[2.5rem]/11">
+          {fit.score}%
+        </span>
+      </div>
+      {fit.parts.map((part) => (
+        <div key={part.label} className="flex flex-col gap-1">
+          <div className="flex justify-between gap-2 text-small font-normal tabular-nums">
+            <span>
+              <strong className="font-semibold">{part.label}</strong>{' '}
+              <span className="text-muted-foreground">{part.calc}</span>
+            </span>
+            <span className="font-semibold">{part.value}</span>
+          </div>
+          <div aria-hidden="true" className="h-1.5 overflow-hidden rounded-full bg-border">
+            <div className="h-1.5 rounded-full bg-primary" style={{ width: `${part.percent}%` }} />
+          </div>
+        </div>
+      ))}
+      <p className="border-t border-border pt-2.5 text-small/5 font-normal tabular-nums">
+        {fit.sentence}
+      </p>
+      <p className="text-small/5 font-normal text-muted-foreground">
+        Fit orders programs within a status. It isn’t a chance of admission.{' '}
+        <Link
+          href="/how-it-works"
+          className="font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
+        >
+          How ranking works
+        </Link>
+      </p>
     </div>
   )
 }

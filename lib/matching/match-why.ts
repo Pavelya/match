@@ -28,6 +28,7 @@ import {
   type RequirementRow
 } from '@/lib/programs/requirement-groups'
 import { currentEntryYear, requirementsCheck } from '@/lib/programs/entry-year'
+import { DIPLOMA_POINTS } from '@/lib/programs/ib-minimum'
 import { shortCourseName } from '@/lib/ib/course-names'
 
 /** An either/or lists up to eight courses in its row; more open from "All N options" (D3.2). */
@@ -80,7 +81,8 @@ export interface WhyThisMatch {
   programUrl: string | null
   field: { kind: 'met' | 'info'; text: string }
   country: { kind: 'met' | 'info'; text: string }
-  fit: { score: number; parts: FitPart[]; sentence: string }
+  /** Null for a program with no set grades: every student would read 100%, which says nothing */
+  fit: { score: number; parts: FitPart[]; sentence: string } | null
 }
 
 export interface WhyInput {
@@ -135,7 +137,7 @@ export function whyThisMatch(input: WhyInput): WhyThisMatch {
     programUrl: input.programUrl,
     field: preference(input.result.fieldMatch, input.fieldName, 'field', 'fields'),
     country: preference(input.result.locationMatch, input.countryName, 'country', 'countries'),
-    fit: fit(input, facts)
+    fit: input.status === 'neutral' ? null : fit(input, facts)
   }
 }
 
@@ -149,6 +151,16 @@ function pointsRow(input: WhyInput): WhyRow {
       needed: 'No minimum',
       you,
       detail: holisticDetail(input)
+    }
+  }
+  if (input.status === 'neutral') {
+    return {
+      kind: 'info',
+      type: 'points',
+      name: 'IB Diploma points',
+      needed: String(input.minIBPoints),
+      you,
+      detail: `${DIPLOMA_POINTS} is the Diploma itself.`
     }
   }
   const short = Math.max(0, input.minIBPoints - input.studentPoints)
@@ -380,6 +392,16 @@ function optionGroups(
 function note(input: WhyInput, facts: SubjectFacts[]): WhyThisMatch['note'] {
   const pointsShort = input.minIBPoints ? Math.max(0, input.minIBPoints - input.studentPoints) : 0
 
+  if (input.status === 'neutral') {
+    return {
+      kind: 'info',
+      text:
+        input.countryCode === 'US'
+          ? 'US universities read the whole application, not a points total, so we can’t say how you compare.'
+          : 'There’s nothing here to check your grades against, so we can’t say how you compare. See how the university decides on its own page.'
+    }
+  }
+
   if (input.status === 'meets') {
     if (!input.minIBPoints) {
       const who =
@@ -505,6 +527,11 @@ function fitSentence(
   const start = `Adds up to ${raw}%`
 
   if (final === raw) {
+    const short = input.minIBPoints ? Math.max(0, input.minIBPoints - input.studentPoints) : 0
+    if (short > 0) {
+      const points = short === 1 ? '1 point you’re short is' : `${short} points you’re short are`
+      return `${start}. The ${points} counted in Academic.`
+    }
     const rates =
       !input.minIBPoints && input.admitRate != null ? ' The score doesn’t use admit rates.' : ''
     return `${start}. Nothing lowers it.${rates}`

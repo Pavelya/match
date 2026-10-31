@@ -179,8 +179,8 @@ test('No location preference → redistribute weights', () => {
 
   // w_L should be 0, others redistributed
   expect(result.weightsUsed.location).toBe(0)
-  expect(result.weightsUsed.academic).toBeCloseTo(0.857, 2) // 0.6 / (0.6 + 0.1)
-  expect(result.weightsUsed.field).toBeCloseTo(0.143, 2) // 0.1 / (0.6 + 0.1)
+  expect(result.weightsUsed.academic).toBeCloseTo(0.667, 2) // 0.6 / (0.6 + 0.3)
+  expect(result.weightsUsed.field).toBeCloseTo(0.333, 2) // 0.3 / (0.6 + 0.3)
 })
 
 describe('Being open does not lower the score (MAINT 5.43)', () => {
@@ -190,8 +190,8 @@ describe('Being open does not lower the score (MAINT 5.43)', () => {
   it('no fields listed: a perfect match reads 1.000, with the field weight removed', () => {
     const result = open({ interestedFields: [] })
     expect(result.overallScore).toBeCloseTo(1, 3)
-    expect(result.weightsUsed.academic).toBeCloseTo(0.667, 3)
-    expect(result.weightsUsed.location).toBeCloseTo(0.333, 3)
+    expect(result.weightsUsed.academic).toBeCloseTo(0.857, 3)
+    expect(result.weightsUsed.location).toBeCloseTo(0.143, 3)
     expect(result.weightsUsed.field).toBe(0)
     expect(result.fieldMatch).toEqual({ score: 1, isMatch: false, noPreferences: true })
   })
@@ -204,17 +204,17 @@ describe('Being open does not lower the score (MAINT 5.43)', () => {
 
   it('no fields: a country outside the list still counts against the program', () => {
     const elsewhere = { ...perfectMatchProgram, countryId: 'country-elsewhere' }
-    expect(open({ interestedFields: [] }, elsewhere).overallScore).toBeCloseTo(0.667, 3)
+    expect(open({ interestedFields: [] }, elsewhere).overallScore).toBeCloseTo(0.857, 3)
   })
 
   it('a student with fields and countries keeps the weights exactly', () => {
-    expect(open({}).weightsUsed).toEqual({ academic: 0.6, location: 0.3, field: 0.1 })
+    expect(open({}).weightsUsed).toEqual({ academic: 0.6, location: 0.1, field: 0.3 })
   })
 
   it('a student with fields and no countries keeps the same division', () => {
     const { academic, field } = open({ preferredCountries: [] }).weightsUsed
-    expect(academic).toBe(0.6 * (1 / (0.6 + 0.1)))
-    expect(field).toBe(0.1 * (1 / (0.6 + 0.1)))
+    expect(academic).toBe(0.6 * (1 / (0.6 + 0.3)))
+    expect(field).toBe(0.3 * (1 / (0.6 + 0.3)))
   })
 })
 

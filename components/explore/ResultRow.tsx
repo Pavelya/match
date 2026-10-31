@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Check, Minus, X, type LucideIcon } from 'lucide-react'
+import { Check, Info, Minus, X, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { LinkPending } from '@/components/ds/LinkPending'
 import { SaveToggle } from '@/components/ds/SaveToggle'
@@ -43,6 +43,7 @@ const rowLink = 'press-lg relative link-hover:bg-muted link-pressed:bg-border'
 const STATUS: Record<CardStatus, { Icon: LucideIcon; text: string }> = {
   meets: { Icon: Check, text: 'text-ok' },
   close: { Icon: Minus, text: 'text-close' },
+  neutral: { Icon: Info, text: 'text-muted-foreground' },
   gap: { Icon: X, text: 'text-gap' }
 }
 

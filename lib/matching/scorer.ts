@@ -40,7 +40,7 @@ export function calculateMatch(input: MatchInput): MatchResult {
   const noFields = input.student.interestedFields.length === 0
   if (noCountries || noFields) {
     // Set the weight to 0 and redistribute
-    // Example: 0.6/0.3/0.1 becomes 0.857/0/0.143 with no countries, 0.667/0.333/0 with no fields,
+    // Example: 0.6/0.1/0.3 becomes 0.667/0/0.333 with no countries, 0.857/0.143/0 with no fields,
     // and 1/0/0 with neither
     const location = noCountries ? 0 : weights.location
     const field = noFields ? 0 : weights.field

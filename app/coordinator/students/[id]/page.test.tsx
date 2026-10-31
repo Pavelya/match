@@ -116,7 +116,7 @@ describe('Top Matches on the coordinator student page', () => {
 
     expect(shown(html)).toEqual(['exact', 'near-under', 'under'])
     expect(redisMock.set).toHaveBeenCalledWith(
-      'matchesV10:student-user:0.60_0.30_0.10:5',
+      'matchesV10:student-user:0.60_0.10_0.30:5',
       expect.any(Array),
       { ex: 1800 }
     )

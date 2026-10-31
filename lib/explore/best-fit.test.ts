@@ -5,8 +5,8 @@ import { transformStudent } from '@/lib/matching/transformers'
 import { bestFitOrder, fitTier, liftedOrder, liftingFilters } from './best-fit'
 import { fitProgram, programFit, type FitRecord } from './fit'
 
-// Explore's Best fit (MAINT_tasks.md 5.27, board "D3.5 Sort · best fit"): the student's countries
-// and fields first, then the ones they meet, closest to their total; with the switch on, exactly
+// Explore's Best fit (MAINT_tasks.md 5.27, board "D3.5 Sort · best fit"): the student's fields and
+// countries first, then the ones they meet, closest to their total; with the switch on, exactly
 // Matches' "Best fit".
 
 const BUSINESS = 'cmfield000000000000000001'
@@ -83,44 +83,61 @@ const RECORDS = [
 ]
 
 const names = (records: FitRecord[]) => records.map((r) => `${r.universityName} ${r.programName}`)
-const meets = (r: FitRecord) => programFit(STUDENT, fitProgram(r)).status === 'meets'
+const qualifies = (r: FitRecord) =>
+  ['meets', 'neutral'].includes(programFit(STUDENT, fitProgram(r)).status)
 
 describe('fitTier', () => {
-  it('puts their countries and fields first, then their countries, then their fields', () => {
+  it('puts their fields and countries first, then their fields, then their countries', () => {
     expect(fitTier(STUDENT, { countryId: UK, fieldOfStudyId: BUSINESS })).toBe(0)
-    expect(fitTier(STUDENT, { countryId: UK, fieldOfStudyId: MEDICINE })).toBe(1)
-    expect(fitTier(STUDENT, { countryId: AU, fieldOfStudyId: CS })).toBe(2)
+    expect(fitTier(STUDENT, { countryId: AU, fieldOfStudyId: CS })).toBe(1)
+    expect(fitTier(STUDENT, { countryId: UK, fieldOfStudyId: MEDICINE })).toBe(2)
     expect(fitTier(STUDENT, { countryId: AU, fieldOfStudyId: MEDICINE })).toBe(3)
+  })
+
+  it('follows the weights: each tier scores above the next on a program they meet', () => {
+    const program = (countryId: string, fieldOfStudyId: string) =>
+      fitProgram(record('University', 'Program', countryId, fieldOfStudyId, 30)).requirements
+    const score = (countryId: string, fieldOfStudyId: string) =>
+      calculateMatch({ student: STUDENT, program: program(countryId, fieldOfStudyId) }).overallScore
+    const tiers = [
+      score(UK, BUSINESS),
+      score(AU, BUSINESS),
+      score(UK, MEDICINE),
+      score(AU, MEDICINE)
+    ]
+    expect(tiers).toEqual([...tiers].sort((a, b) => b - a))
+    expect(new Set(tiers).size).toBe(4)
   })
 
   it('counts every country for a student open to anywhere', () => {
     const anywhere = student([])
     expect(fitTier(anywhere, { countryId: AU, fieldOfStudyId: CS })).toBe(0)
-    expect(fitTier(anywhere, { countryId: AU, fieldOfStudyId: MEDICINE })).toBe(1)
+    expect(fitTier(anywhere, { countryId: AU, fieldOfStudyId: MEDICINE })).toBe(2)
   })
 })
 
 describe('bestFitOrder', () => {
-  it('with the switch on: their country and field, their country, their field, the rest', () => {
-    expect(names(bestFitOrder(RECORDS.filter(meets), STUDENT))).toEqual([
-      // Their countries and fields, from their own 38 down, then no minimum
+  it('with the switch on: their field and country, their field, their country, the rest', () => {
+    expect(names(bestFitOrder(RECORDS.filter(qualifies), STUDENT))).toEqual([
+      // Their fields and countries, from their own 38 down, then no set grades
       'LSE Economics and Economic History',
       'UCL Information Management for Business',
       'Trinity College Dublin Computer Science',
       'University of Michigan Data Science',
-      // Their countries, another field: back to 38
-      'Imperial College London Biomaterials',
-      // Their fields, another country
+      // Their fields, another country: met, then no set grades
       'University of Toronto Economics',
       'University of Sydney Commerce',
+      // Their countries, another field
+      'Imperial College London Biomaterials',
       // Neither
       'University of Melbourne Arts'
     ])
   })
 
-  it('with the switch on, is Matches’ own Best fit', () => {
+  it.each(['meets', 'neutral'])('inside %s, is Matches’ own Best fit', (status) => {
     for (const who of [STUDENT, student([])]) {
-      const met = RECORDS.filter((r) => programFit(who, fitProgram(r)).status === 'meets')
+      const met = RECORDS.filter((r) => programFit(who, fitProgram(r)).status === status)
+      expect(met.length).toBeGreaterThan(0)
       const items = met.map(
         (r) =>
           ({
@@ -140,35 +157,36 @@ describe('bestFitOrder', () => {
     }
   })
 
-  it('with the switch off: in each tier the ones met, then within reach, then the rest', () => {
+  it('with the switch off: in each tier met, within reach, no set grades, then the rest', () => {
     const order = names(bestFitOrder(RECORDS, STUDENT))
     expect(order.slice(0, 9)).toEqual([
       'LSE Economics and Economic History',
       'UCL Information Management for Business',
       'Trinity College Dublin Computer Science',
-      'University of Michigan Data Science',
       // Within reach, 1 point short before 3
       'LSE Accounting and Finance',
       'University of Cambridge Economics',
+      // No set grades
+      'University of Michigan Data Science',
       // Missing a requirement: a subject 1 point from their total, then 4 points short
       'University of Edinburgh Business and Law',
       'UCD Actuarial Studies',
-      // Their countries, another field: met first again
-      'Imperial College London Biomaterials'
+      // Their fields, another country: met first again
+      'University of Toronto Economics'
     ])
     expect(order.at(-1)).toBe('University of Sydney Medicine')
   })
 })
 
 describe('the fallback switch’s one search (lifted)', () => {
-  it('lifts their countries by 2 and their fields by 1, so the scores add up to the tiers', () => {
+  it('lifts their fields by 2 and their countries by 1, so the scores add up to the tiers', () => {
     expect(liftingFilters(STUDENT)).toEqual([
-      [`countryId:${UK}<score=2>`, `countryId:${IE}<score=2>`],
-      [`fieldOfStudyId:${BUSINESS}<score=1>`, `fieldOfStudyId:${CS}<score=1>`]
+      [`fieldOfStudyId:${BUSINESS}<score=2>`, `fieldOfStudyId:${CS}<score=2>`],
+      [`countryId:${UK}<score=1>`, `countryId:${IE}<score=1>`]
     ])
     // Open to anywhere: the fields alone
     expect(liftingFilters(student([]))).toEqual([
-      [`fieldOfStudyId:${BUSINESS}<score=1>`, `fieldOfStudyId:${CS}<score=1>`]
+      [`fieldOfStudyId:${BUSINESS}<score=2>`, `fieldOfStudyId:${CS}<score=2>`]
     ])
   })
 

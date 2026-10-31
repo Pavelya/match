@@ -47,30 +47,31 @@ export function shownSort(query: Pick<ExploreQuery, 'q' | 'sort'>, bestFit: bool
 }
 
 /**
- * The line under the count while the list is in Best fit, and Sort's description: "Your
- * countries and fields come first; in each, the ones you meet, closest to your 38." Open to
- * anywhere, every country is the student's, so their fields alone come first. The fallback
- * switch's one search (`lifted`) only lifts the countries and fields, so its line says only
- * that; with "Only ones I qualify for" on, the whole list is read anyway, in the full order.
+ * The line under the count while the list is in Best fit, and Sort's description: "Your fields
+ * and countries come first, then your fields anywhere; in each, the ones you meet, closest to
+ * your 38." Open to anywhere, every country is the student's, so their fields alone come first.
+ * The fallback switch's one search (`lifted`) only lifts the fields and countries, so its line
+ * says only that; with "Only ones I qualify for" on, the whole list is read anyway, in the full
+ * order.
  */
 export function bestFitLine(
   viewer: Pick<ExploreViewer, 'fields' | 'countries' | 'total'>,
   mode: Exclude<BestFitMode, 'off'>,
   qualify: boolean
 ): string | null {
-  const yours =
-    viewer.countries.length > 0 && viewer.fields.length > 0
-      ? 'Your countries and fields'
-      : viewer.countries.length > 0
-        ? 'Your countries'
-        : viewer.fields.length > 0
-          ? 'Your fields'
-          : null
+  const both = viewer.countries.length > 0 && viewer.fields.length > 0
+  const yours = both
+    ? 'Your fields and countries'
+    : viewer.countries.length > 0
+      ? 'Your countries'
+      : viewer.fields.length > 0
+        ? 'Your fields'
+        : null
   if (mode === 'lifted' && !qualify) return yours ? `${yours} come first.` : null
   const closest = viewer.total !== null ? `, closest to your ${viewer.total}` : ''
-  return yours
-    ? `${yours} come first; in each, the ones you meet${closest}.`
-    : `The ones you meet come first${closest}.`
+  if (!yours) return `The ones you meet come first${closest}.`
+  const then = both ? ', then your fields anywhere' : ''
+  return `${yours} come first${then}; in each, the ones you meet${closest}.`
 }
 
 export interface ExploreQuery {
@@ -310,6 +311,17 @@ export function programsCount(count: number): string {
 export function countParts(total: number, q: string): { figure: string; rest: string } {
   const [figure, ...rest] = programsCount(total).split(' ')
   return { figure, rest: `${rest.join(' ')}${q ? ` for “${q}”` : ''}` }
+}
+
+/**
+ * Under the count with "Only ones I qualify for" on (D4.7 change): "128 meet every requirement,
+ * 475 have no set grades." Only when some have no set grades; otherwise every row meets.
+ */
+export function qualifySplit(total: number, noSetGrades: number): string | null {
+  if (noSetGrades === 0) return null
+  const meets = total - noSetGrades
+  const met = `${meets.toLocaleString('en')} ${meets === 1 ? 'meets' : 'meet'} every requirement`
+  return `${met}, ${noSetGrades.toLocaleString('en')} ${noSetGrades === 1 ? 'has' : 'have'} no set grades.`
 }
 
 /** The menu's and the sheet's button: "Show 43 programs"; null when the count didn't arrive */

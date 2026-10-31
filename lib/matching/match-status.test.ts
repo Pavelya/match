@@ -116,6 +116,71 @@ function status(
 
 const chip = (kind: MatchChip['kind'], label: string): MatchChip => ({ kind, label })
 
+describe('no set grades (board "D3.1 No IB minimum")', () => {
+  const NO_SET_GRADES = { status: 'neutral', badge: 'No set grades' }
+
+  it.each([24, 28, 45])(
+    'a program with no minimum and no subjects, for a student on %i',
+    (total) => {
+      expect(status({ minIBPoints: null }, { totalIBPoints: total })).toMatchObject(NO_SET_GRADES)
+      expect(status({ minIBPoints: 0 }, { totalIBPoints: total })).toMatchObject(NO_SET_GRADES)
+    }
+  )
+
+  it.each([24, 28, 45])('the Diploma’s own 24 and no subjects, for a student on %i', (total) => {
+    const result = status({ minIBPoints: 24 }, { totalIBPoints: total })
+    expect(result).toMatchObject(NO_SET_GRADES)
+    expect(result.chips).toEqual([chip('info', 'IB Diploma · 24 points')])
+  })
+
+  it('a student under 24 keeps today’s status at 24: it is a bar for them', () => {
+    const close = status({ minIBPoints: 24 }, { totalIBPoints: 22 })
+    expect(close).toMatchObject({ status: 'close', badge: 'Within reach · 2 points short' })
+    expect(close.chips).toEqual([
+      chip('close', '22 / 24 points'),
+      chip('info', 'No named subjects')
+    ])
+    expect(status({ minIBPoints: 24 }, { totalIBPoints: 20 })).toMatchObject({ status: 'gap' })
+  })
+
+  it('a student under 24 has no set grades where there is no minimum at all', () => {
+    expect(status({ minIBPoints: null }, { totalIBPoints: 22 })).toMatchObject(NO_SET_GRADES)
+  })
+
+  it('a named subject is a real bar: 24 with subjects stays in Meets', () => {
+    const result = status({ minIBPoints: 24, requires: [['englishLit', 'SL', 4]] })
+    expect(result).toMatchObject({ status: 'meets', badge: 'Meets all requirements' })
+    expect(result.chips).toContainEqual(chip('met', '38 / 24 points'))
+  })
+
+  it('so is a minimum above the Diploma, with no subjects', () => {
+    const result = status({ minIBPoints: 28 })
+    expect(result.status).toBe('meets')
+    expect(result.chips).toEqual([chip('met', '38 / 28 points'), chip('info', 'No named subjects')])
+  })
+
+  it('so are subjects with no minimum', () => {
+    const result = status({ minIBPoints: null, requires: [['mathsAA', 'HL', 5]] })
+    expect(result.status).toBe('meets')
+  })
+
+  it('keeps the other notes', () => {
+    const result = status({
+      minIBPoints: 24,
+      field: 'medicine',
+      country: 'de',
+      requirementsEntryYear: 2026
+    })
+    expect(result.status).toBe('neutral')
+    expect(result.chips.map((c) => c.label)).toEqual([
+      'IB Diploma · 24 points',
+      'Medicine & Health · not your field',
+      'Germany · not one of your countries',
+      'Checked for 2026 entry'
+    ])
+  })
+})
+
 describe('requirement chips (04-design-system.md §9)', () => {
   it('points met: ✓ 38 / 37 points', () => {
     expect(status({ minIBPoints: 37 }).chips).toContainEqual(chip('met', '38 / 37 points'))
@@ -263,13 +328,10 @@ describe('requirement chips (04-design-system.md §9)', () => {
     ])
   })
 
-  it('no IB minimum (US, content 6): • No IB minimum · holistic admission, and meets all', () => {
+  it('no IB minimum (US, content 6): • No IB minimum · holistic admission, no set grades', () => {
     const result = status({ minIBPoints: null }, { totalIBPoints: 26 })
-    expect(result.chips).toEqual([
-      chip('info', 'No IB minimum · holistic admission'),
-      chip('info', 'No named subjects')
-    ])
-    expect(result.status).toBe('meets')
+    expect(result.chips).toEqual([chip('info', 'No IB minimum · holistic admission')])
+    expect(result.status).toBe('neutral')
   })
 
   it('no IB minimum, and an admit rate: • No IB minimum · admits 4.6%, first among the notes', () => {
@@ -280,10 +342,9 @@ describe('requirement chips (04-design-system.md §9)', () => {
         label: 'No IB minimum · admits 4.6%',
         spokenAfter: ' of first-year applicants'
       },
-      chip('info', 'No named subjects'),
       chip('info', 'Medicine & Health · not your field')
     ])
-    expect(result.status).toBe('meets')
+    expect(result.status).toBe('neutral')
     // One decimal, always
     expect(status({ minIBPoints: null }, {}, 16).chips[0].label).toBe(
       'No IB minimum · admits 16.0%'

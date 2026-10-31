@@ -35,6 +35,7 @@ import {
   noResultsText,
   pointsRange,
   programsCount,
+  qualifySplit,
   readExplore,
   removeChip,
   SAVE_PARAM,
@@ -69,6 +70,8 @@ export interface ExploreInitial {
   rows: ExploreRow[]
   /** The rows' fit, signed in with grades: in the server HTML with them */
   fits: Record<string, ExploreFit>
+  /** With the switch on: how many of the total have no set grades */
+  noSetGrades?: number
   failed: boolean
 }
 
@@ -86,6 +89,8 @@ interface List {
   total: number
   /** By program id, signed in with grades */
   fits: Record<string, ExploreFit>
+  /** With the switch on: how many of the total have no set grades */
+  noSetGrades?: number
 }
 
 /** A pause after typing or ticking before the list asks again, as today's page waits */
@@ -103,7 +108,8 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
   const [list, setList] = useState<List>({
     rows: initial.rows,
     total: initial.total,
-    fits: initial.fits
+    fits: initial.fits,
+    noSetGrades: initial.noSetGrades
   })
   const [phase, setPhase] = useState<'ready' | 'busy' | 'failed'>(
     initial.failed ? 'failed' : 'ready'
@@ -156,7 +162,12 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
     try {
       const data = await fetchList(next, 0, length)
       if (id !== request.current) return
-      setList({ rows: data.rows, total: data.total, fits: data.fits ?? {} })
+      setList({
+        rows: data.rows,
+        total: data.total,
+        fits: data.fits ?? {},
+        noSetGrades: data.noSetGrades
+      })
       setPhase('ready')
       setFailures(0)
       setMore('idle')
@@ -249,7 +260,8 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
       setList((l) => ({
         rows: [...l.rows, ...added],
         total: data.total,
-        fits: { ...l.fits, ...data.fits }
+        fits: { ...l.fits, ...data.fits },
+        noSetGrades: data.noSetGrades
       }))
       setMore('idle')
       setAnnouncement(`${added.length} more shown`)
@@ -281,6 +293,8 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
   const fitColumn = viewer.hasGrades
   const range = pointsRange(query.from, query.to)
   const { figure, rest } = countParts(list.total, query.q)
+  // The switch's count in two (D4.7 change); with it off, one number
+  const split = list.noSetGrades === undefined ? null : qualifySplit(list.total, list.noSetGrades)
 
   const shortcuts = shortcutsFor(viewer, apply)
 
@@ -491,10 +505,23 @@ export function ExploreClient({ initial, viewer, fields, countries, summary }: E
             >
               <span>
                 <strong className="font-semibold">{figure}</strong> {rest}
+                {split && <span className="sr-only"> {split}</span>}
               </span>
               <span aria-hidden="true">Updating…</span>
             </span>
           </RemovableChipGroup>
+          {split && (
+            <p
+              aria-hidden="true"
+              className={cn(
+                'text-body text-muted-foreground md:-mt-1.5',
+                // Hidden with the count while a change loads, keeping its place
+                phase === 'busy' && 'invisible transition-[visibility] delay-300 duration-0'
+              )}
+            >
+              {split}
+            </p>
+          )}
           <div className="flex justify-end md:hidden">{sortSelect}</div>
           {/* Under the count on desktop, under Sort on a phone; Sort's description */}
           {line && (

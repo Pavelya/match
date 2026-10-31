@@ -88,15 +88,14 @@ describe('matchItem', () => {
       initials: 'MIT',
       minIBPoints: null,
       score: 100,
-      status: 'meets',
-      badge: 'Meets all requirements',
+      status: 'neutral',
+      badge: 'No set grades',
       chips: [
         {
           kind: 'info',
           label: 'No IB minimum · admits 4.6%',
           spokenAfter: ' of first-year applicants'
         },
-        { kind: 'info', label: 'No named subjects' },
         { kind: 'info', label: 'Checked for 2026 entry' }
       ]
     })
@@ -111,7 +110,7 @@ describe('matchItem', () => {
 describe('rankedResults', () => {
   const STUDENT = { ...PROFILE, totalIBPoints: 36 }
 
-  /** Physics HL at the given grade is required, so a 7 is one this student misses */
+  /** Physics HL at the given grade is required, which this student's HL 6 meets at 5 */
   const physics = (minGrade: number): CachedProgram['courseRequirements'] => [
     {
       id: 'req-physics',
@@ -124,19 +123,17 @@ describe('rankedResults', () => {
   ]
 
   const CATALOGUE = [
-    program({ id: 'gap', minIBPoints: 36, courseRequirements: physics(7) }),
+    program({ id: 'gap', minIBPoints: 45 }),
     program({ id: 'close', minIBPoints: 38 }),
-    program({ id: 'none', minIBPoints: null }),
-    program({ id: 'far-under', minIBPoints: 24 }),
+    program({ id: 'none', minIBPoints: null, courseRequirements: physics(5) }),
+    program({ id: 'open', minIBPoints: null }),
+    program({ id: 'far-under', minIBPoints: 25 }),
     program({ id: 'near-under', minIBPoints: 34 }),
-    // Met, in a country the student did not choose: it scores below the program 2 short
+    // Met, in a field the student did not choose: it scores below the program 2 short
     program({
       id: 'elsewhere',
       minIBPoints: 30,
-      university: {
-        ...program().university,
-        country: { id: 'jp', name: 'Japan', code: 'JP', flagEmoji: '' }
-      }
+      fieldOfStudy: { ...program().fieldOfStudy, id: 'arts', name: 'Arts & Humanities' }
     })
   ]
 
@@ -147,7 +144,7 @@ describe('rankedResults', () => {
 
   const byId = new Map(CATALOGUE.map((p) => [p.id, p]))
 
-  it('puts meets before close before gap, whatever the scores', () => {
+  it('puts meets, close, no set grades and gap in that order, whatever the scores', () => {
     const results = score(CATALOGUE)
     const of = (id: string) => results.find((r) => r.programId === id)!.overallScore
     expect(of('elsewhere')).toBeLessThan(of('close'))
@@ -158,6 +155,7 @@ describe('rankedResults', () => {
       'none',
       'elsewhere',
       'close',
+      'open',
       'gap'
     ])
   })

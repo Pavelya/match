@@ -2,6 +2,7 @@ import { BadgeCheck, BookOpen, Clock, Funnel, Globe, GraduationCap, Lock } from 
 import { StatusBadge, type MatchStatus } from '@/components/ds/StatusBadge'
 import { LimeBand } from '@/components/home/LimeBand'
 import { CardGrid, PlainList, TextHero, TextSection } from '@/components/text-page/TextPage'
+import { WEIGHT_CONFIGS } from '@/lib/matching/types'
 
 /*
  * How it works in the new design (rebranding 4.3, boards "D4.14 Text pages" and "… · phone",
@@ -13,21 +14,23 @@ import { CardGrid, PlainList, TextHero, TextSection } from '@/components/text-pa
  * metadata and JSON-LD stay in page.tsx.
  */
 
+const { academic, field, location } = WEIGHT_CONFIGS.BALANCED
+
 const WEIGHTS = [
   {
     name: 'Academic match',
-    weight: '60%',
+    weight: `${academic * 100}%`,
     text: 'How well your IB points and subjects meet program requirements'
   },
   {
-    name: 'Location match',
-    weight: '30%',
-    text: 'Whether the program is in one of your preferred countries'
+    name: 'Field match',
+    weight: `${field * 100}%`,
+    text: 'Whether the program is in one of your preferred study areas'
   },
   {
-    name: 'Field match',
-    weight: '10%',
-    text: 'Whether the program is in one of your preferred study areas'
+    name: 'Location match',
+    weight: `${location * 100}%`,
+    text: 'Whether the program is in one of your preferred countries'
   }
 ]
 
@@ -41,6 +44,11 @@ const STATUSES: { status: MatchStatus; label: string; text: string }[] = [
     status: 'close',
     label: 'Within reach',
     text: 'Up to 3 points short, one subject a grade short, or both.'
+  },
+  {
+    status: 'neutral',
+    label: 'No set grades',
+    text: 'No IB points or subjects beyond the Diploma, so there’s nothing to check your grades against. Getting in can still be hard.'
   },
   {
     status: 'gap',

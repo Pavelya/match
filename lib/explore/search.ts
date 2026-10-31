@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger'
 import type { StudentProfile } from '@/lib/matching/types'
 import { bestFitOrder, liftedOrder, liftingFilters } from './best-fit'
 import { exploreFilters } from './filters'
-import { FIT_ATTRIBUTES, fitProgram, programFit } from './fit'
+import { FIT_ATTRIBUTES, fitProgram, programFit, qualifying } from './fit'
 import { shownSort, type ExploreQuery } from './query'
 import { ROW_ATTRIBUTES, sortByPoints, toRow, type RowRecord } from './records'
 import type { BestFitMode, ExploreFit, ExploreRow } from './types'
@@ -39,6 +39,8 @@ export interface ExploreList {
   rows: ExploreRow[]
   /** By program id, when there is a student with grades */
   fits?: Record<string, ExploreFit>
+  /** With "Only ones I qualify for" on: how many of the total have no set grades */
+  noSetGrades?: number
 }
 
 /** The fallback switch's position; unset is the full order */
@@ -65,6 +67,7 @@ export async function searchExplore(
   const searchOrder = sort === 'relevant' || (sort === 'high' && query.q === '') || lifted
   let total: number
   let records: RowRecord[]
+  let noSetGrades: number | undefined
   if (searchOrder && !qualify && end <= SEARCH_WINDOW) {
     const page = await getAlgoliaClient().searchSingleIndex<RowRecord>({
       indexName: INDEX_NAMES.PROGRAMS,
@@ -85,7 +88,7 @@ export async function searchExplore(
       best && !lifted
         ? await everyBrowsed(query.q, filters, attributes)
         : await everyMatch(query.q, filters, attributes)
-    if (qualify) all = all.filter((r) => programFit(qualify, fitProgram(r)).status === 'meets')
+    if (qualify) ({ records: all, noSetGrades } = qualifying(all, qualify))
     if (lifted) all = liftedOrder(all, lifted)
     else if (best) all = bestFitOrder(all, best)
     else if (sort === 'low' || sort === 'high') all = sortByPoints(all, sort)
@@ -93,7 +96,11 @@ export async function searchExplore(
     records = all.slice(window.offset, end)
   }
 
-  const list: ExploreList = { total, rows: records.map(toRow) }
+  const list: ExploreList = {
+    total,
+    rows: records.map(toRow),
+    ...(noSetGrades !== undefined && { noSetGrades })
+  }
   if (student) {
     list.fits = Object.fromEntries(
       records.map((r) => [r.objectID, programFit(student, fitProgram(r))])

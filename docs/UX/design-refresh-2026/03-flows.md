@@ -65,7 +65,7 @@ Home ─ "Get my matches" ─▶ Sign in (unchanged) ─▶ 1 Interests ─▶ 2
      each row: type-ahead subject · SL/HL · grade 1–7   = 3 per subject, 18 in all
      TOK, EE                                             2
      live total and diploma checks, "Finish"             1
-  ─▶ Matches in three status groups, with reasons
+  ─▶ Matches in four status groups, with reasons
 ```
 
 About **30 interactions after sign-in**, down from about 50.

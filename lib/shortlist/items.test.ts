@@ -129,8 +129,8 @@ describe('a saved program', () => {
     })
     const item = shortlistItem(mit, VIEWER, NOW)
     expect(item.fit).toEqual({
-      status: 'meets',
-      badge: 'Meets all requirements',
+      status: 'neutral',
+      badge: 'No set grades',
       points: null,
       subjects: []
     })

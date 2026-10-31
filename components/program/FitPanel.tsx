@@ -12,7 +12,8 @@ import type { WhyThisMatch } from '@/lib/matching/match-why'
  * Beside the requirements on a program page (rebranding 2.4, board "D4.8 Program page"): how the
  * student stands, or how to find out. With grades: the status badge (D2.7), one sentence on what
  * it means, field and country as in "Why this match" (D3.2), and the fit score behind "How the fit
- * is worked out", so the percentage is never the headline. Without them, "Do you meet these?" and
+ * is worked out", so the percentage is never the headline; a program with no set grades has none.
+ * Without them, "Do you meet these?" and
  * the way to sign in or to Academic. It stays in view beside the requirements from 1024px, and
  * comes before the facts on a phone.
  */
@@ -70,7 +71,9 @@ export function FitPanel({
           )
         })}
       </ul>
-      <FitWorking score={why.fit.score} parts={why.fit.parts} sentence={why.fit.sentence} />
+      {why.fit && (
+        <FitWorking score={why.fit.score} parts={why.fit.parts} sentence={why.fit.sentence} />
+      )}
       <Link
         href={academicHref}
         className="self-start rounded-chip text-body font-semibold text-primary underline-offset-3 hover:underline pressed:text-brand-ink pressed:underline"
