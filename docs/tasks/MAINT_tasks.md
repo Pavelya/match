@@ -36,7 +36,7 @@ always where you are.
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Done, 31 October 2026 (#231) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
-| 8 | Done, 31 October 2026 (#PRNUM) | `/design D3.1 No IB minimum` | Drew one board, as its own light page, for your two decisions: programs with no bar, and field against country. Approved with every recommendation | Merge | None |
+| 8 | Done, 31 October 2026 (#232) | `/design D3.1 No IB minimum` | Drew one board, as its own light page, for your two decisions: programs with no bar, and field against country. Approved with every recommendation | Merge | None |
 | 9 | **Next** | `/build 30` | Builds what you decided: "No set grades" and field above country, with How it works and Why this match changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview. Run the cache clear the task names, once | None |
 | 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
 
