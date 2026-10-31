@@ -123,8 +123,8 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
-| 5 | **Next** | Session | `Do MAINT 5.47.` | Takes "match probability" off Explore's questions and every program page's description. First, because it changes every program page, so it settles well before release |
-| 6 | Open | Session | `Do MAINT 5.46.` | Clears the cached list before a save answers |
+| 5 | Done, 31 October 2026 (#236) | Session | `Do MAINT 5.47.` | Takes "match probability" off Explore's questions and every program page's description. First, because it changes every program page, so it settles well before release |
+| 6 | **Next** | Session | `Do MAINT 5.46.` | Clears the cached list before a save answers |
 | 7 | Open | Session | `Bring npm audit back to 0, as in MAINT 6.9.` | SEC-4 needs 0, and the audit reported 23 on 31 October (19 moderate, 4 low), nearly all in lint and email tooling. npm's own suggested fix for most of them is a major downgrade: don't take it. If one can't be cleared safely, say so, and you decide at step 23 |
 | 8 | Open | Session | `Refresh #127 for release day.` | Solves the conflict in `lib/page-dates.ts` and adds the fourth status to "How many programs will I be matched with?": "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approve the words. **It stays unmerged until step 27** |
 | 9 | Open | Session, then you | `Write a script that sends each email to my inboxes, then run it.` | The real send build 22 still owes, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses you give in the session and never commit. Needs your go-ahead and a live key. Look at each in Gmail on the web and on a phone, Outlook and Apple Mail on iOS, light and dark. Stays under Resend's 100 a day |
@@ -309,7 +309,7 @@ user: batch those changes.
 
 | File | Use it for |
 |---|---|
-| `docs/tasks/MAINT_tasks.md` | 5.41, 5.46, 5.47, 6.11, 7.2–7.6, the free-tier guard and the standing rules |
+| `docs/tasks/MAINT_tasks.md` | 5.41, 5.46, 6.11, 7.2–7.6, the free-tier guard and the standing rules |
 | `docs/tasks/REBRANDING_tasks.md` | R.1 and R.2's background, 5.1, the Definition of done |
 | `docs/tasks/SEC_tasks.md` | SEC-4 and the owner's security settings |
 | `docs/legal-review/README.md` | How the legal documents are published, and every decision behind them |
