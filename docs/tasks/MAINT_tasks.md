@@ -36,8 +36,8 @@ always where you are.
 | 5 | Done, 30 October 2026 (#229) | `Do MAINT 5.44.` | Coordinators see the list the student sees, and the old second path goes | Merge. Open one student in the portal and compare with their Matches | Less: about 2.7 MB to 0.4 MB per coordinator list |
 | 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Done, 31 October 2026 (#231) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
-| 8 | **Next** | `/design D3.1 No IB minimum` | Draws one board, as its own light page, for your two decisions: programs with no bar, and field against country | ✋ Decide both on the board | None |
-| 9 | Waiting | `/build 30` | Builds what you decided, with How it works, Why this match and the France guide changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview | None |
+| 8 | Done, 31 October 2026 (#PRNUM) | `/design D3.1 No IB minimum` | Drew one board, as its own light page, for your two decisions: programs with no bar, and field against country. Approved with every recommendation | Merge | None |
+| 9 | **Next** | `/build 30` | Builds what you decided: "No set grades" and field above country, with How it works and Why this match changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview. Run the cache clear the task names, once | None |
 | 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
 
 **Where release day falls.** Steps 1–7 go before release day (R.1). Steps 8 and 9 should, but do not hold
@@ -53,9 +53,9 @@ today's route still sends the labels it removes. Release and cleanup themselves 
 | Privacy Policy | One paragraph, step 2 | It says nothing about matching being a calculation. Not caused by this work: no step adds or moves data, and its coordinator list and 30-minute cache stay true |
 | Cookie Policy | None | No step stores anything new in a browser |
 | Invitation consent box | None, and no new consent | It already lists "your program matches and saved programs", so step 5 shows coordinators nothing new |
-| How it works, FAQ | Words, step 7. Then step 9, if the weights or statuses change | "Every program gets a fit score" and "Fast, accurate matching" say too much; the FAQ leaves out what coordinators see |
+| How it works, FAQ | Words, step 7. Then step 9: both the weights and the statuses change | "Every program gets a fit score" and "Fast, accurate matching" say too much; the FAQ leaves out what coordinators see |
 | Home, For schools, requirements hub, other guides | None | Their words stay true, and a test holds Home's preview to the matcher |
-| France guide | Step 9, if the board moves its programs | It says IB Match shows 24 where no minimum is published |
+| France guide | None | It says IB Match shows 24 where no minimum is published, and the board keeps 24 on the card (31 October 2026) |
 
 **You are finished when:**
 
@@ -257,7 +257,7 @@ Phase 5 — quick wins
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [x] 5.42 Stop precomputing a match list nobody reads (from 5.40) — 30 October 2026
 - [ ] 5.43 Make the score fair (from the owner's question on Version XI) — Part A done 31 October 2026;
-  Part B waits for the board
+  Part B's board approved the same day, build 30 next
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [x] 5.45 Correct what the public pages say about matching (from 5.40) — 31 October 2026
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
@@ -3102,20 +3102,68 @@ read, no database, no student's data).
 - **Left as it is:** a program 2 or more short now often reads "Adds up to 89%. Nothing lowers it." in "Why
   this match", because the sum falls under the 0.90 cap. That sentence is about caps and it already showed
   for programs with subjects, but it reads oddly beside the shortfall. Words on a screen wait for a board,
-  so it can join step 8's.
+  so it can join step 8's. It did: see "Decided on the board" below.
 - **Left for the owner:** the cache clear, and the look in the preview. No screen changed, so only the
   numbers can differ there.
 
 **Part B: the two decisions.** A change board, then build session 30 in
 `REBRANDING_tasks.md`.
 
-5. **The owner decides finding 3.** Options: a group of its own, "No IB minimum", beside the three, for
+**Decided on the board (owner, 31 October 2026), every recommendation.** "D3.1 No IB minimum", canvas row 33,
+also https://claude.ai/artifact/AWKhmoBKCVn9EkWePTuy9t, which draws every case below. Steps 5 and 6 are kept as the question; this is the answer.
+
+*Programs with no bar: a group of their own, "No set grades".*
+
+| | Decided |
+|---|---|
+| Who | Status "meets" today, a minimum of none, 0 or 24, and no course requirements: 475 programs. The 183 at 24 that name subjects stay in Meets. A student under 24 is short of the 174, so they keep today's Within reach or Missing |
+| Order | Meets, Within reach, No set grades, Missing, on Matches and inside each tier of Best fit. Open, five cards, then "Show 20 more", like Meets |
+| Heading | "No set grades", with "No IB points or subjects beyond the Diploma, so there’s nothing to check your grades against. Getting in can still be hard."; on a phone, "Nothing to check your grades against. Getting in can still be hard." |
+| Jump link | "85 with no set grades"; on a phone the row reads "No set grades" with its count |
+| Badge | D2.7's `neutral`, already approved: no new colour or icon. On a phone's row, the muted colour |
+| Chips | "28 / 24 points" becomes "IB Diploma · 24 points" (`info`); "No named subjects" goes; "No IB minimum · admits 4.6%" and the other notes stay |
+| "Why this match" | No fit score and no "How the fit is worked out" on these programs. The points row is `info`, with "24 is the Diploma itself." at 24. The note: "There’s nothing here to check your grades against, so we can’t say how you compare. See how the university decides on its own page."; for a US program, "US universities read the whole application, not a points total, so we can’t say how you compare." |
+| Program page | The same note in the panel, with the large neutral badge |
+| Explore's switch | Keeps them and splits its count under the total: "128 meet every requirement, 475 have no set grades." With the switch off, one number, as today. Dropped, a student on 28 who filters to the US would see 0 of 280 programs |
+| "Include programs with no IB minimum" | Stays as it is: it covers the 307 with no minimum, and it needs no new search field |
+| Shortlist | The summary counts them: "1 has no set grades", "2 have no set grades". The compare table's fit row shows the badge |
+| How it works | A fourth row in "What each status means", third, with the heading's words |
+| Empty state | "Nothing meets the requirements yet" does not show while this group has programs |
+
+The score does not move: it stays underneath, for today's design and the coordinator chart. Only the status does.
+
+*Field against country: field above country, $w_F=0.3$, $w_L=0.1$.*
+
+| | Decided |
+|---|---|
+| Tiers | `fitTier`: their fields and countries, their fields, their countries, then the rest. `liftingFilters`' scores swap to match |
+| Best fit's line | "Your fields and countries come first, then your fields anywhere; in each, the ones you meet, closest to your 36." With the fallback switch's one search, "Your fields and countries come first." The lines for fields alone or countries alone stay |
+| How it works | "How we score" reads Academic 60%, Field 30%, Location 10%, in that order |
+| "Why this match" | Its rows stay Academic, Country, Field |
+
+*One sentence from Part A.* On a program short of points where nothing caps the score: "Adds up to 89%. The 2
+points you’re short are counted in Academic." ("The 1 point you’re short is …"). Everything else keeps
+"Nothing lowers it."
+
+**A correction to finding 4, from the real lists on the board.** Matches can't show Law at home above Medicine
+abroad. With a field listed the fallback stops at tier 3, "their field, any country": run for all 12 fields at
+24, 28, 36 and 45, no list left the student's field, since the smallest field holds 22 programs. For a Medicine
+student on 36 in the Netherlands and Germany, the first 104 of 126 rows keep their order under all three weights,
+and only 9 to 15 rows in Missing move. So on Matches the decision changes the number in "Why this match". It
+counts on Explore's Best fit, where that student reaches Medicine abroad at row 184 today and at row 4 now. The
+fallback already put field before country, so the weights now agree with it.
+
+**Worth knowing:** the same student, if they can only study in their countries, now meets other fields there at
+row 127, not row 4. "Use my countries" brings them back with one press. The first rows don't change for a student
+with many programs in their fields and countries: 123 for the D3.1 student.
+
+5. **The owner decides finding 3 (decided above).** Options: a group of its own, "No IB minimum", beside the three, for
    programs with no minimum and no subjects; or a line under the Meets heading; or leave it. Recommended:
    its own group. "Meets all requirements" stays true for everything in it. It reverses "The status stays
    Meets all requirements" (D2.7 change, D3.1), so it needs the board. Recommended: the 174 at 24 with no
    subjects go with them, since any Diploma meets them, and the group's name fits both. The 183 at 24
    that name subjects stay in Meets: those subjects are a real bar.
-6. **The owner decides finding 4.** Options: leave it; equal weights, $w_L=w_F=0.2$; or field above
+6. **The owner decides finding 4 (decided above).** Options: leave it; equal weights, $w_L=w_F=0.2$; or field above
    country, $w_L=0.1$, $w_F=0.3$. Recommended: decide with the real lists under each on the board. It
    changes 5.27's tier order, and Explore's Best fit must stay equal to Matches'.
 7. **Build what was decided**, in one pull request with everything that states it:
@@ -3125,15 +3173,19 @@ read, no database, no student's data).
      (`app/how-it-works/NewHowItWorks.tsx`, `app/how-it-works/_components/MatchingEngine.tsx`);
    - "Why this match" (`lib/matching/match-why.ts`);
    - any other public page that states them: `git grep` for "60%" and the status names;
-   - the France guide's "IB Match shows 24 points", if its programs move, in both `guide.ts` and
-     `FranceContent.tsx`; `docs/legal-review/claims.md`'s H12 if the weights change;
+   - every screen that shows the status, beyond those: `components/ds/StatusBadge.tsx`'s callers, the
+     program page's `FitPanel`, `lib/shortlist/view.ts`, `CompareTable`, `ResultRow`'s phone fit;
+   - `04-design-system.md` §9, and `docs/legal-review/claims.md`'s H12. The France guide stays: its 24 is still
+     on the card;
    - XI, to XI.2, with the worked examples test; `CHANGELOG.md`; this step in the order table.
    Then clear the cached matches once, as in Part A.
 
 **Tests for Part B:** as the board decides, at least: the group's membership on Matches equals Explore's
 switch; Best fit is the same on both; "How it works" states the weights in `lib/matching/types.ts`, read
 from one place or checked by a test; a program with no minimum and no subjects lands in its group for a
-student on 24 and on 45.
+student on 24 and on 45; Explore's split adds up to its total; a student under 24 keeps today's status at 24;
+no fit score reaches the panel for the group; Best fit's tiers follow the weights. The fingerprint's `status` and
+score fields move, by design, and the pull request explains every kind of difference.
 
 **Must not:** change a status in Part A; add a read of any service: this is arithmetic; bring in Version
 X's fit quality without an owner decision (5.41); let Matches and Explore disagree.
@@ -3142,6 +3194,10 @@ X's fit quality without an owner decision (5.41); let Matches and Explore disagr
 order. In the preview, "Why this match" on a program 5 short reads lower than on one 1 short.
 
 **Rollback:** revert the pull request and clear the cached matches. No data changes.
+
+**Load (Part B):** none. Matches works the group out from the list it already holds; Explore from the search
+records it already fetches for a student with grades, and the count from the same pass. No search field is
+added and no sync is needed, so the requests per list stay as they are.
 
 **Session size:** Part A small, after 5.44. Part B a change board, then a small to medium build. Subsumes
 the review 5.15 left for later.

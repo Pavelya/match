@@ -306,8 +306,8 @@ higher, and being open lowered the number.
 
 | Problem                                                                                  | Evidence                                                                    | Next           |
 | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | -------------- |
-| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Owner decision |
-| Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Owner decision |
+| "Meets" can mean no bar: no minimum and no subjects scores 1.0 for anyone | 301 programs, 280 in the US, and 174 more at 24 with no subjects, so up to 475 of 1,676; a student on 24 and on 45 both get 1.00 | Decided 31 October 2026, build 30 |
+| Field counts for a third of country                                                      | Wrong field at home 0.90; right field elsewhere 0.70                        | Decided 31 October 2026, build 30 |
 
 Not a problem: being over the minimum costs nothing. The minimum is a poor measure of how hard a program
 is, and the order already puts the closest first.
