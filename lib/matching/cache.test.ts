@@ -229,6 +229,33 @@ describe('invalidation', () => {
     expect(loggerMock.error).toHaveBeenCalledTimes(1)
   })
 
+  it('invalidateStudentCache gives up on a Redis that never answers', async () => {
+    // Saves wait for it (MAINT 5.46), and Upstash's client has no timeout of its own
+    vi.useFakeTimers()
+    try {
+      redisMock.scan.mockReturnValueOnce(new Promise<[string, string[]]>(() => {}))
+
+      const clear = invalidateStudentCache('student-1')
+      await vi.advanceTimersByTimeAsync(2000)
+
+      await expect(clear).resolves.toBeUndefined()
+      expect(loggerMock.error).toHaveBeenCalledTimes(1)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('invalidateStudentCache leaves no timer behind', async () => {
+    vi.useFakeTimers()
+    try {
+      await invalidateStudentCache('student-1')
+
+      expect(vi.getTimerCount()).toBe(0)
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
   it('clearAllMatchCache removes every list and nothing else', async () => {
     await fillTwoStudents()
     store.set('ratelimit:someone', '1')

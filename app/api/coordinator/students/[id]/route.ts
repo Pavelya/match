@@ -290,11 +290,8 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       updatedFields: Object.keys(updateData)
     })
 
-    // Invalidate student cache to trigger match recalculation
-    const userId = student.userId
-    invalidateStudentCache(userId)
-      .then(() => logger.info('Student cache invalidated after coordinator update', { userId }))
-      .catch((err) => logger.warn('Cache invalidation failed', { error: err.message, userId }))
+    // Before the answer, as the student's own save does (MAINT 5.46)
+    await invalidateStudentCache(student.userId)
 
     return NextResponse.json({
       success: true,
