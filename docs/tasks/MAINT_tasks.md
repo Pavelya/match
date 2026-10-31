@@ -37,8 +37,8 @@ always where you are.
 | 6 | Done, 31 October 2026 (#230) | `Do MAINT 5.43 Part A.` | Fixes the two scoring bugs: a bigger gap never scores higher, and a perfect match reads 100% for an open student. XI becomes XI.1 | Merge. Run the cache clear the task names, once | None |
 | 7 | Done, 31 October 2026 (#231) | `Do MAINT 5.45.` | Corrects the public words on How it works and the FAQ, now the matcher is right | OK the words in the pull request. Merge | None |
 | 8 | Done, 31 October 2026 (#232) | `/design D3.1 No IB minimum` | Drew one board, as its own light page, for your two decisions: programs with no bar, and field against country. Approved with every recommendation | Merge | None |
-| 9 | **Next** | `/build 30` | Builds what you decided: "No set grades" and field above country, with How it works and Why this match changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview. Run the cache clear the task names, once | None |
-| 10 | Waiting | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
+| 9 | Done, 31 October 2026 (#233) | `/build 30` | Builds what you decided: "No set grades" and field above country, with How it works and Why this match changed in the same pull request. XI becomes XI.2 | Merge after looking at the preview. Run the cache clear the task names, once | None |
+| 10 | **Next**, once cleanup (R.2) is done | `Do MAINT 5.41.` | After cleanup (R.2). ✋ Your decision on Version X's unused scoring (recommended: delete), then removes it and the V10 flags | Decide in the session. Merge | Less: about 470 bytes per cached result, 23% of one |
 
 **Where release day falls.** Steps 1–7 go before release day (R.1). Steps 8 and 9 should, but do not hold
 it up: if the board is not approved by then, they follow it. Step 10 waits for cleanup (R.2), because
@@ -147,10 +147,11 @@ deletes today's design.
 | Matches keeps every program a student qualifies for | 5.40 | 30 October 2026 | The points window has no lower end, so "Meets all requirements" holds what Explore's switch holds: 8 on the owner's account, not 2. No score moved. `worked-examples.test.ts` holds XI's examples to the code |
 | Stop precomputing a list nobody reads | 5.42 | 30 October 2026 | The route, its two callers, `searchCandidatePrograms`, `isAlgoliaAvailable` and `INTERNAL_API_KEY` are gone. A save costs one Algolia search, one programs read and one Redis write less. Found 5.46 |
 | Coordinators see the student's list | 5.44 | 30 October 2026 | The student page, its matches page and analytics read `getCachedMatchesV10`, in the student's order through `rankedResults`. `getCachedMatches`, the two old key kinds and the unused analytics route are gone. No score moved. About 2.7 MB to 0.4 MB per coordinator list |
+| No set grades, and field above country | 5.43 | 31 October 2026 | Rebranding session 30 finished the task: a fourth status for the 475 programs with nothing to check, on every screen that shows one; Explore's switch keeps them and splits its count; field 30%, country 10%, with Best fit's tiers and How it works. XI.2. Part A, the two scoring bugs, came first (#230). Clear the cached matches once after merging |
 | The public words on matching | 5.45 | 31 October 2026 | How it works and the FAQ say only what the matcher does, in both designs and the structured data; four rows in `claims.md`, and two tests hold the words. No score or layout moved
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42, 5.44, 5.45, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.45, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -164,6 +165,7 @@ October 2026; a new finding gets a row here.
 
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
+| "Match probability" in public words | 5.47 | small | Explore's questions and every program page's description promise a "match probability", which the status model rules out. Structured data and metadata, so its own pull request |
 | A save clears the list before answering | 5.46 | small | Three save routes clear the cached list without waiting for it, so a save may not show on Matches at once. Unproven: from reading the code. Independent of the matching order |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
@@ -256,11 +258,12 @@ Phase 5 — quick wins
 - [x] 5.40 Keep every program a student qualifies for on Matches — no lower end to the points window; scores unchanged — 30 October 2026
 - [ ] 5.41 Decide what becomes of Version X's scoring (from 5.40), after R.2
 - [x] 5.42 Stop precomputing a match list nobody reads (from 5.40) — 30 October 2026
-- [ ] 5.43 Make the score fair (from the owner's question on Version XI) — Part A done 31 October 2026;
-  Part B's board approved the same day, build 30 next
+- [x] 5.43 Make the score fair (from the owner's question on Version XI) — 31 October 2026; Part A #230,
+  Part B #233, rebranding session 30
 - [x] 5.44 Show coordinators the list the student sees (from 5.40) — 30 October 2026
 - [x] 5.45 Correct what the public pages say about matching (from 5.40) — 31 October 2026
 - [ ] 5.46 Clear the cached list before a save answers (from 5.42)
+- [ ] 5.47 Take "match probability" off the public pages (from 5.43)
 
 Phase 6 — dependency majors
 
@@ -3024,7 +3027,7 @@ the change. The owner removes `INTERNAL_API_KEY` from Vercel and from `.env`.
 
 ---
 
-### 5.43 — Make the score fair
+### 5.43 — Make the score fair — **done**
 
 **Outcome:** A bigger gap never scores higher than a smaller one, an open student's perfect match reads as
 perfect, and "Meets all requirements" means something for every program it covers. The first two are
@@ -3202,6 +3205,29 @@ added and no sync is needed, so the requests per list stay as they are.
 **Session size:** Part A small, after 5.44. Part B a change board, then a small to medium build. Subsumes
 the review 5.15 left for later.
 
+**Part B done (31 October 2026, #233, rebranding session 30).** As the board decided, in two commits, so the
+fingerprint reads apart.
+
+- **Weights:** 22,857 of 72,060 lines moved, all `BALANCED` and `optimized`, and no status. `hashWeights` puts
+  the weights in the cache key, so old lists stop being read at once; the clear only removes them.
+- **Status:** 1,233 lines moved, 411 in each mode, every one `meets` to `neutral`, and no score.
+- **Checked against the real catalogue** (one Redis read, no database, made-up students): every figure on the
+  board reproduces: 475 in the group, 301 and 174; 183 stay in Meets; 3, 85 and 21 for the student on 28; 71
+  and 102 on 45; the switch at 603 and 1,525, split 128 and 1,050 with 475; Medicine abroad at row 4 and other
+  fields at row 127. Matches' group equals Explore's split for both students. The rule read every program for
+  totals of 24, 28, 36 and 45 with no mismatch.
+- **Seen in a browser,** on a throwaway local database with the live search index: Matches, "Why this match",
+  the program page, Shortlist and compare, Explore and How it works, desktop and phone, light and dark.
+- **The rule's edges, decided in the build.** A student under 24 reads No set grades on a program with no
+  minimum at all: the table above says so, and the note in "For the build" that says "for a student on 24 or
+  more" is about the 174 at 24. The split hides when no program has no set grades, as "40 meet every
+  requirement, 0 have no set grades." adds nothing; with none that meet it reads "0 meet every requirement,
+  280 have no set grades." The board drew neither.
+- **Found:** Explore's answer on "How do I know if I meet the IB requirements?" promises a "match
+  probability". It is 5.47.
+- **Left for the owner:** the look in the preview, and the cache clear, once, after merging, with Part A's
+  command.
+
 ---
 
 ### 5.44 — Show coordinators the list the student sees — **done**
@@ -3360,6 +3386,28 @@ wording would not have been held.
   768, 1024 and 1440px in both designs: no sideways scroll, and both read the new words.
 - **`/faqs` reads the list in the code.** The live page showed the old answer on 31 October 2026, so no FAQ document
   is published over it. If one is published before release, make the change there too.
+
+---
+
+### 5.47 — Take "match probability" off the public pages
+
+**Outcome:** Explore's questions and the program pages' descriptions say what IB Match does.
+
+**Why (seen 31 October 2026, in 5.43):** rebranding 2.3 kept Explore's questions word for word and left two
+answers for a pull request of their own, which no task held. IB Match gives no probability: the status model
+dropped that copy on purpose (`04-design-system.md` §9), and "Why this match" says the fit "isn't a chance
+of admission".
+
+**Where:** `lib/explore/questions.ts`, "You can also create a profile to see your match probability" and
+"over 1000 university programs", which is the page's FAQ structured data too; `generateMetadata` in
+`app/programs/[id]/page.tsx`, "Check your match probability" and "See your match probability", in each
+program's description.
+
+**Steps:** reword them to say the student sees how they stand against each requirement, and add the phrase to
+`app/public-seo-claims.test.tsx`, with a row in `docs/legal-review/claims.md`. Its own pull request, as
+rebranding's Definition of done 12 asks, with the SEO snapshot of both page types.
+
+**Session size:** Small.
 
 ---
 

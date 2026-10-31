@@ -4,6 +4,50 @@ All notable changes to the matching algorithm are documented in this file.
 
 ---
 
+## [2026-10-31] - Version XI.2: no set grades, and field above country (MAINT 5.43 Part B)
+
+The owner's two decisions on the board "D3.1 No IB minimum", built in rebranding session 30.
+
+### Changed
+
+- **Field above country.** `BALANCED` is 0.6, 0.1, 0.3 ($w_L=0.1$, $w_F=0.3$), not 0.6, 0.3, 0.1. With every
+  requirement met, the right field abroad reads 90% and the wrong field at home 70%, not 70% and 90%. No
+  countries listed gives 0.667 and 0.333; no fields, 0.857 and 0.143. `fitTier` and `liftingFilters` swap to
+  match, so Explore's Best fit stays Matches' order. The fallback already dropped the country before the
+  field; the weights now agree with it.
+- **A fourth status, "No set grades".** `neutral` in `deriveMatchStatus`: no named subjects, and no minimum,
+  or a minimum of 24 the student reaches. 475 of 1,676 programs. Third of four groups, third inside each tier
+  of Best fit. D2.7's neutral badge, no fit score in "Why this match" or on the program page, and "IB Diploma ·
+  24 points" in place of "28 / 24 points" and "No named subjects".
+- **"Only ones I qualify for" keeps them** and splits its count, from the records it already reads.
+- **"Nothing lowers it."** On a program short of points where nothing caps the score: "Adds up to 89%. The
+  2 points you're short are counted in Academic."
+
+### What moves
+
+- **The weights moved 22,857 of 72,060 fingerprint lines:** every `BALANCED` result where field and country
+  differ, or where the non-academic floor reads them ($0.8 \times (w_L L_M + w_F F_M)$ is now 0.24 for a field
+  match and 0.08 for a country match), and the 57 `optimized` lines. `ACADEMIC_FOCUSED` and `LOCATION_FOCUSED`
+  stay as they are, and nothing passes them. No status moved in this step.
+- **The status moved 1,233 lines, 411 in each mode:** each `meets` to `neutral`, with its badge and chips. No
+  score, category or label moved in this step.
+- **On Matches, the order barely moves.** A list's tier decides who is in it, and it already put field first.
+  For a Medicine student on 36 in the Netherlands and Germany only 9 to 15 rows of 126 swap, all in Missing.
+  What changes there is the number in "Why this match". On Explore's Best fit that student reaches Medicine
+  abroad at row 4, not row 184, and other fields in their countries at row 127, not row 4.
+- **No program joins or leaves a list**, and Explore's switch keeps the same programs: 603 for the board's
+  student on 28, now 128 and 475; 1,525 on 45, now 1,050 and 475.
+- **Coordinators' lists** follow `GROUPS`, so these programs now come after Within reach. The chart reads
+  the score, which moved only with the weights.
+- **Today's design** gets the weights, not the group: it keeps its own page until release.
+- **After merging, once:** the cache key holds the weights, so old lists are no longer read and expire
+  within 30 minutes; `clearAllMatchCache` removes them at once.
+
+Reads of the real catalogue on 31 October 2026 (one Redis read, no database, no student's data) reproduce
+every figure on the board. Nothing new is read on any page.
+
+---
+
 ## [2026-10-31] - Version XI.1: a fairer score (MAINT 5.43 Part A)
 
 ### Fixed

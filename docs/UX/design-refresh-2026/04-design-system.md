@@ -323,7 +323,8 @@ student's own `studentLevel` and `studentGrade`. That way the UI does not parse 
 | Needs a course of its own, short of it: the count leaves out the course used for the other requirement | – Chemistry HL 6 or 4 others · you 5 | close |
 | No IB minimum (`minIBPoints` null: US, holistic; content 6) and no admit rate | • No IB minimum · holistic admission | info |
 | No IB minimum, and the university reports an admit rate (`University.admitRate`, the overall rate; first among the notes) | • No IB minimum · admits 4.6% | info |
-| No named subjects (`POINTS_ONLY`) | • No named subjects | info |
+| No named subjects (`POINTS_ONLY`), and a bar to meet | • No named subjects | info |
+| A minimum of 24 they reach, no named subjects (the "No set grades" group) | • IB Diploma · 24 points, in place of the points chip and "No named subjects" | info |
 | Field or country not preferred | • Medicine & Health · not your field | info |
 | Requirements from an earlier intake | • Checked for 2026 entry | info |
 
@@ -338,8 +339,11 @@ copy promises an admission likelihood IB Match cannot know, and "Reach" mixes fi
 Scores are unchanged for now (`MAINT_tasks.md` 5.15). They order cards within a group and appear only
 in "Why this match".
 
-**Card status**: **Meets all requirements** if every chip is met. **Within reach** if there is no gap and at
-most one subject is close, whether or not points are close. **Missing a requirement** otherwise. Badge copy is specific:
+**Card status**: **No set grades** (`neutral`) if the program names no subjects and has no minimum, or a
+minimum of 24 the student reaches: nothing to check. **Meets all requirements** if every chip is met. **Within
+reach** if there is no gap and at most one subject is close, whether or not points are close. **Missing a
+requirement** otherwise. Approved on "D3.1 No IB minimum" (owner, 31 October 2026), with D2.7's `neutral`
+badge, no new colour or icon, and the muted colour on a phone's row. Badge copy is specific:
 "Within reach · 1 point short", "Within reach · 1 grade short", "Within reach · 1 point, 1 grade",
 "Needs German B HL", "Needs Biology HL and Chemistry HL", "Needs a 7 in Maths AA", "Needs 6 more points",
 and for a long group with no course taken, "Needs French B or 11 others at HL". A requirement whose course went to another
@@ -353,8 +357,10 @@ such row says "A different subject from the HL 6 one". Approved on "D2.7 Chip ·
 the only group), then sorted by `overallScore` within each group. Ties, which are common, go to the
 minimum closest to the student's total, then programs with no IB minimum, then university and program
 A–Z. Group **before** any cap on the list, never after: a student with 139 programs at 100% would
-otherwise see nothing but "Meets all". Each group shows five cards, then "Show 20 more"; three jump
-links (a three-row panel on a phone) lead to the groups. Approved on "D4.6 Matches" and "D4.6
+otherwise see nothing but "Meets all". The order is Meets all requirements, Within reach, No set grades,
+Missing a requirement. Each group shows five cards, then "Show 20 more"; a jump link for each (a panel of
+rows on a phone) leads to the groups: "85 with no set grades"; on a phone, "No set grades" with its count.
+"Nothing meets the requirements yet" does not show while No set grades has programs. Approved on "D4.6 Matches" and "D4.6
 Matches · phone" (owner, 10 October 2026). Running the production algorithm on real programs showed
 why the score cannot lead on its own:
 
@@ -379,6 +385,15 @@ Approved on "D3.2 Why this match" (owner, 10 October 2026): the button keeps its
 requirement is listed, the ones in "+N met" too, with the other courses at their own levels and grades,
 and a group of more than eight courses opens from "All N options"; a US program's points row gives the
 admit rate; the panel ends with a link to the program page.
+
+**No set grades** has no fit score and no "How the fit is worked out": the status would be the same for every
+student, and a 100% would say nothing. The points row is `info`, with "24 is the Diploma itself." at 24. The
+note: "There's nothing here to check your grades against, so we can't say how you compare. See how the
+university decides on its own page."; for a US program, "US universities read the whole application, not a
+points total, so we can't say how you compare." The program page's panel says the same.
+
+On a program short of points where nothing caps the score, the sentence reads "Adds up to 89%. The 2 points
+you're short are counted in Academic."; everything else keeps "Nothing lowers it." ("D3.1 No IB minimum".)
 
 This is the only place the percentage appears. Built in 2.2 (`lib/matching/match-why.ts`) from the
 logic of `MatchBreakdown.tsx`, without its dialog; that file is deleted.

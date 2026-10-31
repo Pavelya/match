@@ -391,7 +391,8 @@ function SortSelect({
       value={order}
       disabled={disabled}
       onChange={(event) => onChange?.(event.target.value as SortOrder)}
-      className="flex-row items-center gap-2.5 [&>div]:w-50 [&>label]:text-muted-foreground"
+      // On the right, also when the jump links fill the row above it
+      className="flex-row items-center gap-2.5 md:ml-auto [&>div]:w-50 [&>label]:text-muted-foreground"
     >
       {SORT_ORDERS.map((o) => (
         <option key={o.value} value={o.value}>
