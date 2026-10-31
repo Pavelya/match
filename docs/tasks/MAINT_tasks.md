@@ -154,6 +154,7 @@ deletes today's design.
 | The public words on matching | 5.45 | 31 October 2026 | How it works and the FAQ say only what the matcher does, in both designs and the structured data; four rows in `claims.md`, and two tests hold the words. No score or layout moved
 | "Match probability" off the public pages | 5.47 | 31 October 2026 | Explore's questions and each program's description say the student sees how they stand against each requirement, and the answer on the database says more than 1,600 programs. Two rows in `claims.md`, and tests hold every fallback of the description |
 | A save clears the list before answering | 5.46 | 31 October 2026 | The three save routes wait for the clear, which gives up after 2 seconds, so a stalled clear no longer leaves the old list on Matches and a Redis outage still cannot fail a save. About 70 ms on a save, no new command. Found 5.48 |
+| The advisories of 31 October | 6.12 | 31 October 2026 | `npm audit` 23 → 0, from three advisories, with three `overrides`: `@react-email/render` 2.2.0, `glob` 14 under `react-email`, and `minimatch` 11 everywhere. ESLint decides the same on every file and finds the same faults. One tag leaves every email's `<head>`, and nothing else moves |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
@@ -284,6 +285,7 @@ Phase 6 — dependency majors
 - [x] 6.9 The other advisories (from 6.7) — 27 October 2026
 - [x] 6.10 Node 24 on all three machines (from 6.7) — 27 October 2026; the laptop waits for the owner
 - [ ] 6.11 `eslint-config-next` 16.4 and the React Compiler lint rules (from 6.8), after R.2
+- [x] 6.12 The advisories of 31 October (release runbook, step 7) — 31 October 2026
 
 Phase 7 — structural
 
@@ -323,14 +325,14 @@ documentation and has been correct every time it was consulted.
 
 | | |
 |---|---|
-| Vulnerabilities | **0** again since 6.9 (27 October 2026). 12 had been published since 6.4 left 0: 6.8 closed `next`'s critical ones and `sharp`, 6.9 the other ten. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
+| Vulnerabilities | **0** again since 6.12 (31 October 2026), which closed 23 from three new advisories. Before that, 12 had been published since 6.4 left 0: 6.8 closed `next`'s critical ones and `sharp`, 6.9 the other ten. Before that, session 3 closed all 4 high, session 4 closed `qs` with Stripe 22, session 5 closed the last moderate (`@humanfs/node`, via eslint) |
 | Type check / lint / format | clean — 0 errors, 0 warnings |
 | CI | type-check, lint (`--max-warnings 0`), `prettier --check`, both test suites, and a production build against a throwaway Postgres |
 | Tests | Vitest 5 (`npm test`), the only suite since 7.1 Part 4 moved the matching algorithm's scripts into it (26 October 2026). Session 8 added tests to CI; before that CI ran none |
 | Migrations | 5, and a fresh database can be rebuilt from them |
 | Rate limits | 61 of 62 API routes (Stripe webhook excluded deliberately) |
 | Programs cache | working — ~2.2 MB payload, 6-hour TTL |
-| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8), the advisories (6.9) and Node 24 everywhere (6.10). npm 12's `allowScripts` list (6.7). Left in phase 6: 6.11 (`eslint-config-next` 16.4, after R.2) |
+| Dependency majors | `prisma` 7, `stripe` 22, `lucide-react` 1 and `typescript` 7 all landed. The `prisma-client` generator (6.6) too. `next` 16.4 (6.8), the advisories (6.9, 6.12) and Node 24 everywhere (6.10). npm 12's `allowScripts` list (6.7). Left in phase 6: 6.11 (`eslint-config-next` 16.4, after R.2) |
 | Branch protection | **on** since 7 October 2026 — ruleset "Protect main": a pull request is required, and so are the three CI checks and Vercel, with the branch up to date; deletion and force pushes are blocked; no bypass |
 
 ### Hard rules — production safety
@@ -4085,6 +4087,74 @@ Vercel preview: Save on a card, Matches, Explore, the Shortlist, the coordinator
 legal-content editor, support tickets and the contact form.
 
 **Session size:** small to medium, depending on what R.2 leaves.
+
+---
+
+### 6.12 — The advisories of 31 October — **done**
+
+**Outcome:** `npm audit` at 0 again, which SEC-4 needs on the release commit.
+
+**Why:** release runbook, step 7. On 31 October 2026 the audit reported 23 (19 moderate, 4 low). They
+were three advisories; the other 20 entries were packages that depend on those three. npm's own offer
+for most of them was a major downgrade (`eslint-config-next` 0.2.4, `react-email` 1.9.5), not taken.
+
+| Advisory | Severity | Installed | Comes from | Fixed in |
+|---|---|---|---|---|
+| `deepmerge`, GHSA-gcqx-w48m-w2h4 | low | 4.3.1 | `@react-email/components` → `@react-email/render` → `html-to-text` 9 | Nowhere: 4.3.1 is its latest |
+| `glob`, GHSA-3g3m-2fjr-6pw4 | moderate | 11.1.0 | `react-email`, the `email` command | 14.0.2 |
+| `minimatch`, GHSA-g3hv-75wg-m249 | moderate | 3.1.5, 10.2.6 | `eslint` and its plugins; `@typescript-eslint/typescript-estree`; `glob` | 11.0.1 |
+
+**Done 31 October 2026.** `npm audit`: 23 → **0**, no exceptions. Three `overrides`, the lockfile and one
+line of `lib/email/emails.test.tsx`; no application code. 28 packages left the tree and 3 joined it, and
+no new install script.
+
+- **`@react-email/render` `^2.2.0`.** `@react-email/components` 1.0.12, the latest, pins 2.0.6 exactly.
+  2.2.0 is the same major and moves to `html-to-text` 10, which uses `deepmerge-ts`, so `deepmerge` leaves.
+  Every email in both designs, 26 renders, compared with 2.0.6: **one change**, the `<link rel="preload"
+  as="image">` React writes into `<head>` is gone, 78 to 84 bytes. Mail apps never used it. Body, subject
+  and plain text are byte-identical. The test holding today's design to its fixtures removes that tag from
+  the expected HTML, as it does for 5.25's one change, and the fixtures stay as they were rendered.
+- **`glob` `^14.0.3`, under `react-email` only.** `react-email` 5.0.5 asks for `^11`, and upgrading wouldn't
+  help: its latest, 6.11.6, asks for `^13.0.6`, also affected. It calls `glob.sync` once, in `email export`,
+  which ran on 14.0.3 and found the built templates. The app itself never imports `glob`.
+- **`minimatch` `^11.0.3`, everywhere.** No 3.x or 10.x release has the fix, and `eslint-plugin-import`,
+  `eslint-plugin-jsx-a11y` and `eslint-plugin-react`, all at their latest, still ask for `^3`. The 10.x users
+  call it by name, which 11 keeps. For 3.1.5 the advisory is wider than the bug: it describes
+  `firstPhasePreProcess`, which 3.1.5 doesn't have, but it lists every version below 11.0.1.
+
+**This goes further than 6.9 allowed.** 6.9's rule was no major version change. `glob` and `minimatch` are
+majors outside what their parents ask for, because nothing inside those ranges is fixed. Everything they
+touch is tooling: neither runs in a request.
+
+**`minimatch` 11 has no callable default export, and that is the one trap.** ESLint itself and
+`@eslint/config-array` and `@eslint/eslintrc` only use `.Minimatch`, which 11 keeps. But 14 files in the
+three plugins, 12 rules and two `jsx-a11y` helpers, call `minimatch(…)` directly, and would throw `TypeError`
+when they reach it. None of those rules is on: of the 90 enabled here, none is `import/order`,
+`import/no-extraneous-dependencies`, `jsx-a11y/label-has-associated-control`, `react/no-danger`,
+`react/jsx-pascal-case` or the others. **If a later session turns one on, lint will crash
+with that `TypeError`.** Take the `minimatch` override out first, or leave the rule off. It can only fail
+in lint, loudly.
+
+**When to remove them.** Each is one line.
+
+- `@react-email/render`: when `@react-email/components` depends on 2.2 or later itself.
+- `glob`: when `react-email` asks for 14.0.2 or later.
+- `minimatch`: when the advisory no longer lists 3.x, or the three plugins move to 11. The
+  `brace-expansion@1` override matches nothing while this one stands; it is kept because it applies again
+  the day this one goes.
+
+**Verified:** a clean `npm ci` from the new lockfile, then `npm audit` at 0. Type-check, lint at
+`--max-warnings 0`, `prettier --check`, 3008 tests, and `npm run build`, whose prerender read production.
+`calculateConfigForFile` and `isPathIgnored` on all 1,258 tracked paths gave identical results on `minimatch`
+3.1.5 and 11.0.3, and a probe file with 49 deliberate faults, in four folders, gave identical findings, so
+the `files` and `ignores` patterns hold and the rules still fire. The sign-in email rendered through
+Next's bundler in `next dev`, on dummy service URLs, and matched the test's render but for the URL. No email code reached
+`.next/static`.
+
+**Not checked:** a real send, which runbook step 9 does for every email. `npm run email:dev`, which still
+asks to install `@react-email/preview-server`, as in 6.9. `email export` stops at `inactivity-notice`, whose
+template needs its dates as props; that is the template, not `glob`. `eslint-config-next` 16.4 (6.11) wasn't
+tried with these overrides.
 
 ---
 

@@ -108,7 +108,8 @@ describe('until release day', () => {
   it.each(Object.keys(EMAILS))('%s is as on main', async (name) => {
     const message = EMAILS[name]()
     const expected = fixture(name)
-    let html = expected.html
+    // @react-email/render 2.2 leaves out React's image preload, which mail apps never used (MAINT 6.12)
+    let html = expected.html.replace(/<link rel="preload" as="image" href="[^"]*"\/>/, '')
     if (name === 'account-deleted') {
       // The one change, approved with MAINT 5.25: the list names what 5.25 now deletes
       html = html.replace(

@@ -119,8 +119,8 @@ are those of `22aab89`.
   [Considered, not doing now](#considered-not-doing-now)).
 - **Logs.** The logger redacts emails, tokens and the fields named like ids, and the routes redact
   addresses by hand as well.
-- **Dependencies.** `npm audit` found 0 vulnerabilities on 27 October 2026 (6.9). `strict-allow-scripts`
-  is on (6.7).
+- **Dependencies.** `npm audit` found 0 vulnerabilities on 27 October 2026 (6.9), and again on
+  31 October after three new advisories (6.12). `strict-allow-scripts` is on (6.7).
 - **Git history.** Searched on 27 October 2026 for Stripe, Resend, Google, AWS and JWT keys, and for
   Postgres URLs with passwords. Every hit is a placeholder or a test stub. No `.env` was ever
   committed, only `.env.example`.
