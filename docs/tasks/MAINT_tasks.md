@@ -194,8 +194,8 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 turn off sign-ups to Supabase Auth, delete `NEXT_PUBLIC_SUPABASE_ANON_KEY` in Vercel, check for a
 publishable key, and upload one image in the admin; compare Upstash bandwidth around 5.19, merged 12 October (owner task 5);
 check Supabase egress (owner task 2); approve deleting 5.25's two old invitations, with a backup
-first (owner task 6); the lawyer's review of 7.4's drafts. For the rebranding: one real send of each
-email (build 22), Lens's clearance search and the Search Console baseline.
+first (owner task 6); the lawyer's review of 7.4's drafts. For the rebranding: the look at the real
+send of each email (runbook step 9), Lens's clearance search and the Search Console baseline.
 
 ### Rules for grouping
 
