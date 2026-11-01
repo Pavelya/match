@@ -406,7 +406,7 @@ Rows 3 and 4 can share a design session.
 | 21 | `/design D4.17`: For schools | The board | `/build 21`: For schools (4.3) | Done 19 October 2026 |
 | After 16 | `/design D3.8`: the program card in every list, reviewed against the built screens | D3.8 | 5.1, only if a prototype other than A wins | Parked 11 October 2026 |
 | 20 | `/design D2.16`: the policy update banner | The banner board | `/build 20`: the policy update banner (4.6) | Done 20 October 2026 |
-| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. One real send of each to the owner's inboxes is still to do |
+| 22 | `/design D4.18`: the seven emails, in light and dark mail apps | The three emails boards | `/build 22`: the emails (4.7) | Done 20 October 2026. The real send of each went to the owner's Gmail on 1 November 2026; the owner's look is `RELEASE_RUNBOOK.md` step 9 |
 | 19 | `/design D1.6`: go over every built screen's interactions and draw one rule set | D1.6 | `/build 19`: motion and feedback (5.2) | Done 20 October 2026 |
 | 23 | `/design D1.7`: the four slots and the first season | D1.7, with the list of seasons | `/build 23`: seasonal themes (6.1) | Done 25 October 2026. Winter first: the owner schedules 14 December to 1 January at `/admin/seasonal-themes` and checks it through the preview link (6.1, Verify) |
 | 25 | `/design D3.5 Sort · best fit`: Explore's sort for a student with grades | D3.5 Sort · best fit, and the Algolia requests per list | `/build 25`: Explore best fit (`MAINT_tasks.md` 5.27) | Done 22 October 2026 |
@@ -474,7 +474,7 @@ Phase 4 — Public pages
 - [x] 4.4 Guard against raw palette classes (19 October 2026)
 - [x] 4.5 Policy and privacy pages: what the redesign covers (research) (19 October 2026)
 - [x] 4.6 The policy update banner (20 October 2026)
-- [x] 4.7 The emails (20 October 2026; the real sends to the owner's inboxes still to do)
+- [x] 4.7 The emails (20 October 2026; sent to the owner's Gmail 1 November 2026, the look is runbook step 9)
 
 Phase 5 — After the whole preview
 
@@ -2915,7 +2915,8 @@ Choices the boards left open, made in the build:
 
 Not checked here: React Email's preview, since `npm run email:dev` asks to install
 `@react-email/preview-server`, which the project doesn't have; the screenshots come from the same
-`render()` Resend uses, in Chrome. The real sends to the owner's inboxes are still to do.
+`render()` Resend uses, in Chrome. The real sends came later: `scripts/send-sample-emails.ts` sent all
+eight, with the inactivity notice, to the owner's Gmail on 1 November 2026 (`RELEASE_RUNBOOK.md` step 9).
 
 ---
 
