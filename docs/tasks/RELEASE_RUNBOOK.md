@@ -126,8 +126,8 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 | 5 | Done, 31 October 2026 (#236) | Session | `Do MAINT 5.47.` | Takes "match probability" off Explore's questions and every program page's description. First, because it changes every program page, so it settles well before release |
 | 6 | Done, 31 October 2026 (#237) | Session | `Do MAINT 5.46.` | Clears the cached list before a save answers |
 | 7 | Done, 31 October 2026 (#238) | Session | `Bring npm audit back to 0, as in MAINT 6.9.` | 23 → 0, with three overrides and no exceptions (MAINT 6.12). One tag leaves every email's `<head>`; nothing else moves. Lint crashes if a later session turns on a rule that calls `minimatch` directly: 6.12 says which and what to do |
-| 8 | **Next** | Session | `Refresh #127 for release day.` | Solves the conflict in `lib/page-dates.ts` and adds the fourth status to "How many programs will I be matched with?": "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approve the words. **It stays unmerged until step 27** |
-| 9 | Open | Session, then you | `Write a script that sends each email to my inboxes, then run it.` | The real send build 22 still owes, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses you give in the session and never commit. Needs your go-ahead and a live key. Look at each in Gmail on the web and on a phone, Outlook and Apple Mail on iOS, light and dark. Stays under Resend's 100 a day |
+| 8 | Done, 1 November 2026 (#127) | Session | `Refresh #127 for release day.` | The conflict in `lib/page-dates.ts` is solved, and "How many programs will I be matched with?" has the fourth status: "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approved the words on 1 November. **It stays unmerged, and a draft, until step 24** |
+| 9 | **Next** | Session, then you | `Write a script that sends each email to my inboxes, then run it.` | The real send build 22 still owes, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses you give in the session and never commit. Needs your go-ahead and a live key. Look at each in Gmail on the web and on a phone, Outlook and Apple Mail on iOS, light and dark. Stays under Resend's 100 a day |
 
 ### You: settings, any order
 
@@ -199,7 +199,7 @@ pages, so the second deploy does that, and closes the preview and turns on the a
 
 | Step | Status | Who | What to do | Check |
 |---|---|---|---|---|
-| 24 | Open | Session | **Paste:** `Next step in the release runbook.` It updates #127 with `main` and sets `/faqs`' `modified` in `lib/page-dates.ts` to today | #127 is green and mergeable |
+| 24 | Open | Session | **Paste:** `Next step in the release runbook.` It takes #127 out of draft, as GitHub won't merge a draft, updates it with `main` and sets `/faqs`' `modified` in `lib/page-dates.ts` to today | #127 is green and mergeable |
 | 25 | Open | You | **SEC-4 steps 1–4.** `npm audit` on the release commit. Vercel → Deployment Protection: previews protected. Vercel → Production: `STRIPE_WEBHOOK_SECRET` set, `INACTIVE_ACCOUNTS_ENABLED` unset or `false`, nothing secret named `NEXT_PUBLIC_` | All four pass |
 | 26 | Open | You | **Vercel → Production:** set `NEW_UI_FOR_EVERYONE=true`. Production only. Nothing changes until the next deploy | The variable is saved |
 | 27 | Open | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
