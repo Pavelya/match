@@ -1439,8 +1439,7 @@ enforces.
 
 **Why:** 156 spellings of the same few things: "Bachelor of Science" (316), "Bachelor of
 Science (B.Sc.)" (47), "BSc" (20), "Bachelor of Science (BSc)" (8), plain "Bachelor"
-(209). The admin "Other degrees" count in `docs/investigation-91-other-degrees.md` is a
-symptom.
+(209). The admin's count of 91 "Other" degrees is a symptom.
 
 **Steps:**
 1. Read the investigation doc. Get the full list with

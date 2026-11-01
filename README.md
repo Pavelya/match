@@ -127,7 +127,10 @@ docs/           Architecture, product specs, matching algorithm, task records
 
 ## Documentation
 
-- `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning behind each choice
-- `docs/product/DOC_1_ibmatch-requirements-doc.md` — product requirements
+- `docs/tasks/RELEASE_RUNBOOK.md` — the go-live, step by step
+- `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning behind each choice; a December 2025
+  proposal, so read its banner first
+- `docs/product/subscription-access-model.md` — school tiers and what each can access
 - `docs/matching/` — the matching algorithm: `DOC_2_matching-algo XI.md` is the master version, with the changelog
-- `docs/security/` — security audit history
+- `docs/tasks/SEC_tasks.md` — security tasks from the audit of 27 October 2026
+- `docs/archive/` — old records, kept for reference
