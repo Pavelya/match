@@ -26,7 +26,7 @@ export const PAGE_DATES = {
   '/for-coordinators': { published: '2025-12-23', modified: '2026-10-23' },
   // The fallback text. When a FAQ document is published in the CMS, the page uses
   // that document's date instead.
-  '/faqs': { published: '2025-12-23', modified: '2026-10-23' },
+  '/faqs': { published: '2025-12-23', modified: '2026-10-31' },
   '/how-it-works': { published: '2026-01-14', modified: '2026-10-31' },
   '/ib-university-requirements': { published: '2026-01-29', modified: '2026-10-10' },
 
