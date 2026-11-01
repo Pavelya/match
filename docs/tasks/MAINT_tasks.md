@@ -3320,7 +3320,7 @@ design.
 | `getCacheStats` deleted too | Nothing called it, and it counted only the two removed kinds of key |
 | `totalMatches` counts `rankedResults`, so the coordinator's "Found N" leaves out a program that has gone | As the student's count does |
 | `app/coordinator/students/[id]/page.test.tsx`, new | The page swallows a matching error and shows no matches, so a route test alone would not show its top 3 arrive |
-| `docs/UX/coordinator-dashboard-component-guide.md` loses the analytics route | The route is gone |
+| `docs/archive/coordinator-dashboard-component-guide.md` loses the analytics route | The route is gone |
 
 **Worth knowing:**
 
@@ -3444,8 +3444,8 @@ above; the preview's are the known ones (logo URLs, breadcrumbs, headings). The 
 - **One sentence is left:** "Programs are displayed with their minimum IB points requirement" in "Can I filter programs
   by IB points?". It is incomplete for the 307, as the two above were, but outside this task's two answers.
 - **`/programs/search` and the program pages have no line in `lib/page-dates.ts`,** so no date changes.
-- **`docs/tasks/seo-ai-seo-implementation-plan.md` and `task-1-2-verification-report.md` keep the old words:** they are
-  records of the January work. 7.3 replaces the plan.
+- **`docs/tasks/seo-ai-seo-implementation-plan.md` keeps the old words:** it is a record of the January work. 7.3
+  replaces the plan. Its verification report was deleted on 1 November 2026 (git tag `docs-before-cleanup`).
 
 ---
 

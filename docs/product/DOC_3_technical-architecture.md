@@ -1,4 +1,11 @@
 # IB Match Platform - Technical Architecture Proposal
+
+> **Out of date, 1 November 2026.** This is the December 2025 proposal, not a description of what runs. Production
+> keeps its database and images on Supabase, not Vercel Postgres or Vercel Blob, and is on Prisma 7, whose connection
+> URLs live in `prisma.config.ts`. `AGENTS.md` and the code win wherever they differ. The matching algorithm is in
+> [`DOC_2_matching-algo XI.md`](../matching/DOC_2_matching-algo%20XI.md). `docs/tasks/RELEASE_RUNBOOK.md`, step 49,
+> rewrites this file.
+
 **Version:** 1.1 (Updated December 2025)  
 **Last Updated:** December 2, 2025
 

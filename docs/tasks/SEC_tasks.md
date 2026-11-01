@@ -803,4 +803,4 @@ Security work done in `MAINT_tasks.md` since then: 5.4 (`trustHost`), 5.28 (no a
 by the limiters), 5.34 (late Stripe events), 5.35 (the last six rate limits), 5.36 (revoked
 coordinators in the API), 5.37 (Row Level Security and the Data API), 6.7–6.9 (install scripts and
 every advisory), and 7.1 (tests of every route's gate). The January 2026 report is
-`docs/security/security-audit-report-2026-01.md`, kept as history.
+`docs/archive/security-audit-report-2026-01.md`, kept as history.

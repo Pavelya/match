@@ -151,7 +151,7 @@ be read from here.
 
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
-| 20 | **Next**, after your decisions | You, then a session | `Apply the lawyer's answers to the legal drafts.` | **You first:** the review of 31 October 2026 is in `docs/legal-review/legal-review-2026-10-31/`, on the laptop only, not in git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Then the session** updates each `.proposed.md` and its redline, until no `[OWNER` or `[LAWYER` note is left in them (the check is in `docs/legal-review/README.md`, "How to publish"). **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
+| 20 | **Next**, after your decisions | You, then a session | `Apply the lawyer's answers to the legal drafts.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Then the session** updates each `.proposed.md` and its redline, until no `[OWNER` or `[LAWYER` note is left in them (the check is in `docs/legal-review/README.md`, "How to publish"). **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
 | 21 | Open | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
@@ -247,7 +247,7 @@ Part E, the daily job, is built only if you ask, after this round has gone well.
 
 | Step | Status | Who | When | What to do |
 |---|---|---|---|---|
-| 39 | Open | Session | R+1 to R+3 | `Do MAINT 7.4 task C.` Updates `docs/templates/legal/*.md` and `FALLBACK_CONTENT` in `app/privacy/page.tsx`, `app/terms/page.tsx` and `app/cookies/page.tsx` to the published text |
+| 39 | Open | Session | R+1 to R+3 | `Do MAINT 7.4 task C.` Updates `docs/templates/legal/*.md` and `FALLBACK_CONTENT` in `app/privacy/page.tsx`, `app/terms/page.tsx` and `app/cookies/page.tsx` to the published text. In the same pull request, moves the three `.proposed.md` drafts, the three redlines and `lawyer-brief.md` to `docs/archive/legal-2026/`, and corrects "paying customers" in `docs/legal-review/README.md` and `claims.md` |
 | 40 | Open | You | Weekly, and daily in the first few days | Vercel errors, then usage against the stop lines. `npx tsx scripts/algolia-usage.ts` for Algolia: Best fit costs more requests per list. Schedule Christmas at `/admin/seasonal-themes`, 14 December to 1 January, if it's wanted this year |
 
 ### Search Console check
@@ -280,12 +280,12 @@ git grep -nE "\bR\.2\b|at cleanup|until cleanup" -- app components lib emails es
 |---|---|---|---|---|
 | 42 | Open | Session | `Do R.2, part 1 of 3: old screens and routes.` | Pages, components, country content, old routes and every list above. Each page loses its `showsNewUi()` branch |
 | 43 | Open | Session | `Do R.2, part 2 of 3: emails.` | R.2's "from 4.7" list. The inactivity notice's `{ newUi: true }` goes too |
-| 44 | Open | Session | `Do R.2, part 3 of 3: the switch, CSS and tokens.` | `lib/new-ui.ts`, the preview routes and bar, `NEW_UI_RELEASED`, scoped tokens to `:root`, Newsreader's preload, `LinkPending` in `ButtonLink` and `CardLink`. **CSS back to 32 KB or less.** The `git grep` above finds nothing left |
+| 44 | Open | Session | `Do R.2, part 3 of 3: the switch, CSS and tokens.` | `lib/new-ui.ts`, the preview routes and bar, `NEW_UI_RELEASED`, scoped tokens to `:root`, Newsreader's preload, `LinkPending` in `ButtonLink` and `CardLink`. **CSS back to 32 KB or less.** The `git grep` above finds nothing left. Moves `docs/UX/design-refresh-2026/` to `docs/archive/`, except `04-design-system.md`, which moves to `docs/UX/` and stays current |
 | 45 | Open | You | Nothing to paste | **Only after step 44 is merged and deployed:** delete `NEW_UI_FOR_EVERYONE` from Vercel. Deleted earlier, the next deploy brings the old design back. `INACTIVE_ACCOUNTS_ENABLED` stays |
-| 46 | Open | Session | `Do MAINT 5.41.` | Step 10 of the matching order. You decide on Version X's unused scoring (recommended: delete) |
+| 46 | Open | Session | `Do MAINT 5.41.` | Step 10 of the matching order. You decide on Version X's unused scoring (recommended: delete). Then moves `DOC_2_matching-algo X.md`, `matching-algo-rollback-plan.md` and `5.18-shared-courses.md` to `docs/archive/`, and updates the code comments that cite them |
 | 47 | Open | Session | `Do MAINT 6.11.` | `eslint-config-next` 16.4. Count the errors again first: R.2 deletes some of them |
 | 48 | Open | Session | `Do MAINT 7.2.` | One route for the 23 guides. URLs, metadata and JSON-LD stay identical |
-| 49 | Open | Session | `Close the release runbook.` | Marks R.2 done, checks that `MAINT_tasks.md` and `REBRANDING_tasks.md` agree with this file, and moves any open row to them |
+| 49 | Open | Session | `Close the release runbook.` | Marks R.2 done, checks that `MAINT_tasks.md` and `REBRANDING_tasks.md` agree with this file, and moves any open row to them. Finishes the docs: `DOC_3_technical-architecture.md` rewritten short and current, finished tasks moved out of `MAINT_tasks.md`, `REBRANDING_tasks.md` and `CONTENT_tasks.md` into `docs/archive/`, and the seven code comments that cite deleted `docs/countries/` files corrected |
 
 ---
 
@@ -297,7 +297,7 @@ user: batch those changes.
 
 | Step | Status | Who | When | Paste this | What it does |
 |---|---|---|---|---|---|
-| 50 | Open | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site |
+| 50 | Open | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
 | 51 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part C.` | Planning only: how to bring students back without annoying them. You approve the options |
 | 52 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part D.` | Planning only: social media, LinkedIn for coordinators first. You approve the plan |
 | 53 | Open | You | After a stable first week, with Lens clear | Nothing to paste | Create the accounts and start organic posts, from step 52's plan. Footer links and `sameAs` wait for step 54 |
@@ -315,6 +315,6 @@ user: batch those changes.
 | `docs/legal-review/README.md` | How the legal documents are published, and every decision behind them |
 | `docs/legal-review/lawyer-brief.md` | What goes to the lawyer |
 
-**Not part of the release:** `CONTENT_tasks.md` has nothing that gates it. `DOC_4_implementation_plan.md`,
-`PERF_tasks.md`, `UI_animation-tasks.md` and the older one-topic plans in `docs/tasks/` from before March 2026 are
-records. `seo-ai-seo-implementation-plan.md` is background until step 50 replaces it.
+**Not part of the release:** `CONTENT_tasks.md` has nothing that gates it. `docs/archive/` holds old records. Docs
+deleted on 1 November 2026 stay readable at the git tag `docs-before-cleanup`. `seo-ai-seo-implementation-plan.md` is
+background until step 50 replaces it.

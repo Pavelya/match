@@ -107,10 +107,10 @@ npm test
 - `docs/tasks/REBRANDING_tasks.md` — the redesign: design tasks (D…) on the canvas, build
   sessions in code, and how each kind of session runs
 - `docs/product/DOC_3_technical-architecture.md` — architecture and the reasoning
-  behind each choice
+  behind each choice. A December 2025 proposal: read its banner first; this file and the code win
 - `docs/matching/DOC_2_matching-algo XI.md` — the master version of the matching algorithm: what runs
   and its known problems. Earlier versions are records. The work left on it is the order at the top of
   `MAINT_tasks.md`, "Start here"
 - `docs/tasks/SEC_tasks.md` — security tasks from the audit of 27 October 2026, in priority order
-- `docs/security/security-audit-report-2026-01.md` — security audit history
+- `docs/archive/` — old records, such as the January 2026 security audit. Not current
 - `README.md` — setup, scripts, and database notes
