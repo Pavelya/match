@@ -65,7 +65,6 @@ start of a Google sign-in (no account was signed in or created):
 | `__Secure-authjs.session-token` | After signing in | 30 days (`session.maxAge` in `lib/auth/config.ts`) | Config, not observed |
 | `cookie-consent` (cookie and `localStorage`) | Choosing in the banner | Cookie: 1 year; `localStorage`: no expiry | `lib/cookie-consent.ts` |
 | `ibm-theme` (`localStorage`) | The student picks a theme | No expiry | `lib/theme.ts`; new design only |
-| `shortlist-count` (`localStorage`) | A signed-in student's visit | No expiry; removed on account deletion | `lib/shortlist/count.ts`; new design only |
 
 The names are Auth.js v5's (`authjs.*`), not v4's (`next-auth.*`). The Google sign-in redirect asks for
 `scope=openid profile email` only. No third-party script or font loads: `next/font` self-hosts Geist, the

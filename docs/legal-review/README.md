@@ -140,8 +140,8 @@ flow in this pull request and nothing may reach production before approval.
 - **F1. Today's cookie banner has no switches either.** The task text says it does. `components/shared/CookieConsentBanner.tsx`
   shows four static rows ("Not currently used") under Customize. So the published Cookie Policy's "choose which
   categories to enable" is wrong for both designs, and the sentence can change before release day. The other new
-  facts in the draft (`ibm-theme`, `shortlist-count`) exist only in the new design, so publishing everything on
-  release day is simplest.
+  fact in the draft (`ibm-theme`) exists only in the new design, so publishing everything on release day is
+  simplest.
 - **F2. A coordinator who has invited anyone cannot be deleted by the admin button.** `Invitation.invitedBy` has no
   `onDelete`, so Prisma restricts it (`prisma/schema.prisma:447`). Read from the schema and the route; not run
   against production. `scripts/cleanup-user-invitations.sql` is the manual workaround. **Fixed by MAINT 5.29

@@ -155,9 +155,10 @@ deletes today's design.
 | "Match probability" off the public pages | 5.47 | 31 October 2026 | Explore's questions and each program's description say the student sees how they stand against each requirement, and the answer on the database says more than 1,600 programs. Two rows in `claims.md`, and tests hold every fallback of the description |
 | A save clears the list before answering | 5.46 | 31 October 2026 | The three save routes wait for the clear, which gives up after 2 seconds, so a stalled clear no longer leaves the old list on Matches and a Redis outage still cannot fail a save. About 70 ms on a save, no new command. Found 5.48 |
 | The advisories of 31 October | 6.12 | 31 October 2026 | `npm audit` 23 → 0, from three advisories, with three `overrides`: `@react-email/render` 2.2.0, `glob` 14 under `react-email`, and `minimatch` 11 everywhere. ESLint decides the same on every file and finds the same faults. One tag leaves every email's `<head>`, and nothing else moves |
+| The Shortlist count in memory | 5.49 | 2 November 2026 | The number beside Shortlist lives in the page's memory and nothing of it reaches the browser's storage, as the Cookie Policy for release says. It survives moving between pages; a reload or a new tab starts with no number until Matches, Explore or the Shortlist loads. The drafts in `docs/legal-review/` say the same. Runbook step 30's gate clears once this is merged and deployed |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -172,7 +173,6 @@ October 2026; a new finding gets a row here.
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
 | A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
-| The Shortlist count in memory | 5.49 | small | The number beside Shortlist stops being saved in the browser, as the Cookie Policy for release says. Runbook step 9a, and step 30 waits for it |
 | Old invitations and sign-in records | 5.50 | small | A script for the three-monthly deletion the Privacy Policy for release describes, and the routine that runs it. Runbook steps 9b and 40a. Not a gate |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
@@ -272,7 +272,7 @@ Phase 5 — quick wins
 - [x] 5.46 Clear the cached list before a save answers (from 5.42) — 31 October 2026
 - [x] 5.47 Take "match probability" off the public pages (from 5.43) — 31 October 2026
 - [ ] 5.48 Keep a Matches load that outlasts a save from storing the old list (from 5.46)
-- [ ] 5.49 Keep the Shortlist count in memory, not in the browser's storage (from the legal text for release); gates runbook step 30
+- [x] 5.49 Keep the Shortlist count in memory, not in the browser's storage (from the legal text for release); gates runbook step 30 — 2 November 2026
 - [ ] 5.50 Delete old invitations and sign-in records every three months (from the legal text for release)
 
 Phase 6 — dependency majors
@@ -3546,7 +3546,7 @@ code: nobody has seen it happen.
 
 ---
 
-### 5.49 — Keep the Shortlist count in memory, not in the browser's storage
+### 5.49 — Keep the Shortlist count in memory, not in the browser's storage — **done**
 
 **Outcome:** The number beside Shortlist is never written to the browser's storage. It still shows, and still moves
 with each save, while the student uses the site.
@@ -3585,6 +3585,15 @@ has no `shortlist-count`.
 **Worth knowing:** no live student has the key. `AppFrame` is the new design's, so today only preview browsers do, and
 merged before release day this needs no clean-up. If it slips past runbook step 27, students start to get the key, and
 this task adds one `localStorage.removeItem` to take it away again.
+
+**Done 2 November 2026.** Steps 1–4, merged before step 27, so no clean-up. Step 4 went further than its list, for the
+same reason: `privacy-policy.proposed.md` and its redline also said the count is kept in the browser, and the lawyer's
+question 9 and the cookie redline's note named it. In `cookie-policy.proposed.md` the sentence is a paragraph after the
+local-storage list, as a line in that list would have contradicted its heading. Run in Chrome with the new design on a
+local database and Redis stand-in: the number moved on a confirmed save and stayed across client navigation, a reload
+cleared it until the Shortlist loaded, a planted old key was ignored, and local storage, session storage and readable
+cookies held nothing of it. A browser that used a preview before this keeps its old key, unread, until its data is
+cleared, so check the Verify step in a fresh profile.
 
 ---
 

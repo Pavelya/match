@@ -25,7 +25,8 @@ The `cookie-consent` choice is also kept in your browser's local storage, under 
 These stay on your device and are never sent to us. They have no expiry.
 
 - **`ibm-theme`**: remembers your light or dark choice, only if you pick one yourself. Otherwise the site follows your device.
-- **`shortlist-count`**: the number beside Shortlist in the menu, for the signed-in student it belongs to. It is removed when you delete your account.
+
+The number beside Shortlist in the menu is kept in memory while you use the service and is not saved on your device. Your saved programs are held in your account, as described in the Privacy Policy.
 
 ### Analytics, preference and marketing cookies
 

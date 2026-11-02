@@ -9,7 +9,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 
 1. **The cookie names.** The published policy names `next-auth.session-token`, `next-auth.csrf-token` and `next-auth.callback-url`, which are Auth.js v4's. The live site sets `__Host-authjs.csrf-token`, `__Secure-authjs.callback-url` and, when Google sign-in starts, `__Secure-authjs.pkce.code_verifier` (15 minutes), and after sign-in `__Secure-authjs.session-token` (30 days). A list now gives each name, what it does and how long it lasts.
 2. **When they are set.** The csrf and callback cookies are set on a visitor's first page, before any sign-in (seen in the live `Set-Cookie` headers on `/`). The old text implied login.
-3. **What the policy left out.** The `cookie-consent` choice (a cookie, one year, and the same name in `localStorage`) and the new design's `ibm-theme` and `shortlist-count` in `localStorage`. The Privacy Policy says "remembering your preferences" and this is what it means.
+3. **What the policy left out.** The `cookie-consent` choice (a cookie, one year, and the same name in `localStorage`) and the new design's `ibm-theme` in `localStorage`. The number beside Shortlist is kept in memory, not on the device, and the policy says so. The Privacy Policy says "remembering your preferences" and this is what it means.
 4. **"Customize: choose which categories to enable".** Not true of either banner: today's Customize shows four static rows ("Not currently used") and has no switches (`components/shared/CookieConsentBanner.tsx`), and the new one's only informs (approved on rebranding D4.1). The new text says what the three buttons do and that both choices leave the same cookies today.
 5. **The three optional categories** (analytics, preference, marketing: each "Currently not used") become one paragraph that promises to list any such cookie here first and ask before setting it.
 6. **Other companies.** New: no third-party scripts or fonts load (CSP; the live pages); Google's pages and picture, Stripe's checkout, and the Ko-fi and Calendly links have their own policies.
@@ -26,7 +26,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 ```diff
 --- published
 +++ proposed
-@@ -2,27 +2,44 @@
+@@ -2,27 +2,45 @@
  
 -Cookies are small text files stored on your device when you visit a website. They help websites remember your preferences and provide a better experience.
 +Cookies are small text files stored on your device when you visit a website. They help websites remember who you are and what you chose. Websites can also keep small items in your browser's local storage, which works much like a cookie, and this policy covers those too.
@@ -66,7 +66,8 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
  
 -### Marketing Cookies (Optional)
 +- **`ibm-theme`**: remembers your light or dark choice, only if you pick one yourself. Otherwise the site follows your device.
-+- **`shortlist-count`**: the number beside Shortlist in the menu, for the signed-in student it belongs to. It is removed when you delete your account.
++
++The number beside Shortlist in the menu is kept in memory while you use the service and is not saved on your device. Your saved programs are held in your account, as described in the Privacy Policy.
  
 -Currently not used. These would be used for advertising and retargeting purposes.
 +### Analytics, Preference and Marketing Cookies
@@ -81,7 +82,7 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 +- A school subscription is paid on Stripe's pages, which set their own cookies.
 +- The links on our Support us and For schools pages lead to Ko-fi and Calendly, which have their own cookie policies.
  
-@@ -30,9 +47,8 @@
+@@ -30,9 +48,8 @@
  
 -When you first visit IB Match, you'll see a cookie banner where you can:
 +When you first visit IB Match, a banner offers three buttons:
@@ -95,18 +96,18 @@ Lines starting with `-` are the published words, `+` the proposed ones. Blank li
 -You can change your preferences at any time by clearing your browser cookies and visiting the site again.
 +To see the banner again, clear this site's cookies and stored data in your browser.
  
-@@ -47,3 +63,3 @@
+@@ -47,3 +64,3 @@
  
 -Check your browser's help documentation for specific instructions.
 +If you block the essential cookies above, you will not be able to sign in. Check your browser's help documentation for specific instructions.
  
-@@ -52,3 +68,4 @@
+@@ -52,3 +69,4 @@
  If you have questions about our use of cookies, please contact us at:
 -- Email: privacy@ibmatch.com
 +
 +- **Email:** [privacy@ibmatch.com](mailto:privacy@ibmatch.com)
  
-@@ -56,2 +73,2 @@
+@@ -56,2 +74,2 @@
  
 -We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated effective date.
 +We may update this Cookie Policy from time to time. Changes will be posted on this page with an updated date and version.

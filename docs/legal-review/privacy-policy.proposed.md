@@ -107,7 +107,7 @@ We do not share personal data with advertisers.
 
 ## 6. Cookies and tracking
 
-IB Match sets only the cookies it needs to sign you in and keep your account secure, and remembers your cookie choice, your light or dark setting and your shortlist count in your browser. It sets no analytics, advertising or tracking cookies. For the list and the lifetimes, see our [Cookie Policy](/cookies).
+IB Match sets only the cookies it needs to sign you in and keep your account secure, and remembers your cookie choice and your light or dark setting in your browser. It sets no analytics, advertising or tracking cookies. For the list and the lifetimes, see our [Cookie Policy](/cookies).
 
 ## 7. Data security
 
