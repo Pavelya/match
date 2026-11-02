@@ -172,6 +172,8 @@ October 2026; a new finding gets a row here.
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
 | A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
+| The Shortlist count in memory | 5.49 | small | The number beside Shortlist stops being saved in the browser, as the Cookie Policy for release says. Runbook step 9a, and step 30 waits for it |
+| Old invitations and sign-in records | 5.50 | small | A script for the three-monthly deletion the Privacy Policy for release describes, and the routine that runs it. Runbook steps 9b and 40a. Not a gate |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
@@ -182,7 +184,7 @@ wait for the lawyer's seven `[LAWYER]` notes; they are published on release day 
 
 | After | Session | Tasks | Size | Why it waits |
 |---|---|---|---|---|
-| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents, with 7.8's paragraph, in `/admin/legal-content` on release day, so the new words go live with the new design. Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
+| R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents, with 7.8's paragraph, in `/admin/legal-content` on release day, so the new words go live with the new design. 5.49 must be merged and deployed first (runbook step 30). Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
 | R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
@@ -270,6 +272,8 @@ Phase 5 — quick wins
 - [x] 5.46 Clear the cached list before a save answers (from 5.42) — 31 October 2026
 - [x] 5.47 Take "match probability" off the public pages (from 5.43) — 31 October 2026
 - [ ] 5.48 Keep a Matches load that outlasts a save from storing the old list (from 5.46)
+- [ ] 5.49 Keep the Shortlist count in memory, not in the browser's storage (from the legal text for release); gates runbook step 30
+- [ ] 5.50 Delete old invitations and sign-in records every three months (from the legal text for release)
 
 Phase 6 — dependency majors
 
@@ -3539,6 +3543,102 @@ code: nobody has seen it happen.
 **Verify:** `npm test`, with a test where the clear lands between the read and the store.
 
 **Session size:** Small. Independent. Not a release step.
+
+---
+
+### 5.49 — Keep the Shortlist count in memory, not in the browser's storage
+
+**Outcome:** The number beside Shortlist is never written to the browser's storage. It still shows, and still moves
+with each save, while the student uses the site.
+
+**Why (owner, 2 November 2026):** the Cookie Policy written for release
+(`../match-private/legal-for-release/cookie-policy.md`, beside the repository and out of git) says the count is kept in
+memory and is not saved on the device. `lib/shortlist/count.ts` writes it to `localStorage`. The code has to agree
+before that policy goes up, so **runbook step 30 waits for this task.**
+
+**What a student notices:** the count now lasts as long as the page. It survives moving between pages, but a reload or
+a new tab starts with no number until Matches, Explore or the Shortlist loads, and a save in another tab no longer
+moves it. Both are the "count unknown" state the link already has, so this needs no board.
+
+**Steps:**
+
+1. In `lib/shortlist/count.ts`, keep only the module's `written` value. The read, write, change and clear functions
+   stop touching `localStorage`, and `subscribeToShortlistCount` drops the `storage` listener, which only served other
+   tabs. `clearShortlistCount` stays: Settings calls it after an account is deleted.
+2. Correct the comments that say the count is kept in the browser's storage, in that file and in
+   `components/site/shortlist-count.tsx`.
+3. In `lib/shortlist/count.test.ts`, replace the storage cases with one that holds nothing being written to
+   `localStorage`. Keep the rest: unknown until recorded, one student's count, moved by each change, the header told at
+   once, gone with the account.
+4. In `docs/legal-review/`, make the drafts agree, so no text that could be published says otherwise: the
+   `shortlist-count` line of `cookie-policy.proposed.md` and its redline take the release text's words,
+   `product-today.md` loses its row, and `README.md` its mention.
+
+**Must not:** add a read of any service. Move the count to `sessionStorage` or a cookie: both are saved on the device.
+
+**Verify:** the standing commands. `git grep -n localStorage -- lib/shortlist components/site/shortlist-count.tsx`
+finds only the new test. Signed in on the new design, save a program: the number moves, and the browser's local storage
+has no `shortlist-count`.
+
+**Session size:** Small. Independent. Runbook step 9a.
+
+**Worth knowing:** no live student has the key. `AppFrame` is the new design's, so today only preview browsers do, and
+merged before release day this needs no clean-up. If it slips past runbook step 27, students start to get the key, and
+this task adds one `localStorage.removeItem` to take it away again.
+
+---
+
+### 5.50 — Delete old invitations and sign-in records every three months
+
+**Outcome:** One command shows how many old records are due, and with `--apply` deletes them. It runs at least every
+three months from the day the Privacy Policy is published.
+
+**Why (owner, 2 November 2026):** the Privacy Policy written for release
+(`../match-private/legal-for-release/privacy-policy.md`, section 8) says that a review at least every three months
+deletes invitations that have expired, been declined or been cancelled, and expired sign-in records. It was written as
+a script and a calendar routine on purpose: no app code, no scheduled job and no new service.
+
+**What is due, from the code:**
+
+| Table | Due when | Why that test |
+|---|---|---|
+| `Invitation` | `status` is `CANCELLED` or `EXPIRED` | There is no declined status: a decline writes `CANCELLED` (`app/api/students/invitations/decline/route.ts`) |
+| `Invitation` | `status` is `PENDING` and `expiresAt` has passed | **Nothing writes `EXPIRED`.** An expired invitation stays `PENDING` and the screens work it out from the date, so a script that went by status alone would delete none |
+| `VerificationToken` | `expires` has passed | A used one is removed when used; an unused one stays |
+
+An `ACCEPTED` invitation is never due: the policy keeps it as evidence of the student's permission until the account is
+deleted. None of the tests read `schoolId`, so unaccepted invitations left after a school is removed go the same way,
+once they expire, within seven days.
+
+**Steps:**
+
+1. Add `scripts/purge-expired-records.ts`, on the pattern of `scripts/delete-orphaned-student-invitations.ts`: `prisma`
+   from `@/lib/prisma-standalone`, a count for each row of the table above, and a delete only with `--apply`.
+2. `--apply` first writes the rows it will delete to `scripts/backups/` (git-ignored), as `scripts/merge-ib-courses.ts`
+   does.
+3. Correct that script's header, which says 7.4 covers pending and expired invitations: it is this task.
+4. Say the routine in the new script's header: every three months, owner's approval, the backup deleted afterwards.
+
+**The routine (owner):** run it by three months after the publishing day, then every three months (runbook step 40a,
+which stays here once the runbook closes). Each `--apply` still needs the owner's approval and a backup (AGENTS.md).
+Once the counts are right, delete that backup: these are the records the policy says are gone, and it holds addresses.
+
+**What changes for people:**
+
+- A deleted invitation's link shows the invalid-link page, not "Invitation Expired" or the 404 a cancelled one gets.
+- Coordinators and admins can resend an invitation that has expired but is still `PENDING`, and
+  `/admin/coordinators/invitation/[id]` shows it. Once it is deleted they send a new one. Invite limits don't move:
+  they count unexpired invitations only.
+
+**Must not:** add a route, a scheduled job or a read to the app. Print a row: counts only. Delete an `ACCEPTED`
+invitation.
+
+**Verify:** the standing commands. On a throwaway local Postgres, one row in each state: `--apply` deletes the due rows
+and leaves `ACCEPTED`, unexpired `PENDING` and live sign-in records. On production, a run without `--apply` prints the
+counts and deletes nothing.
+
+**Session size:** Small. Independent. Runbook step 9b. Not a gate for release: the first review falls due three months
+after publishing.
 
 ---
 
