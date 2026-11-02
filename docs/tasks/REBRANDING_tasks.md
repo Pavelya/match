@@ -1661,14 +1661,15 @@ side by side):**
   (`academicFit`, extracted from `programFit` in `lib/explore/fit.ts`), the subjects in the D3.1 chip
   words (`subjectChips` in `lib/matching/match-status.ts`), worked out on the server from the rows
   the query returns (`lib/shortlist/items.ts`). No programs cache, no search.
-- **The nav count** (from 2.2) is kept in the browser for the signed-in student
-  (`lib/shortlist/count.ts`, `components/site/shortlist-count.tsx`), as the theme is, with no read of
-  its own: Matches, Explore and the Shortlist record it from the shortlist they load anyway, and every
-  save or removal the server confirms moves it. Every signed-in page shows it; another account in the
-  same browser never sees it. A save made on another device shows once one of those three pages
-  loads, and until a count is known the link shows none. The server can't see browser storage, so the
-  count appears as the page wakes: a layout shift of 0.00014 on a full load of a signed-in page with
-  a count (none on navigation between pages, none on public pages).
+- **The nav count** (from 2.2) is kept in the page's memory for the signed-in student, never the
+  browser's storage since MAINT 5.49 (`lib/shortlist/count.ts`, `components/site/shortlist-count.tsx`),
+  with no read of its own: Matches, Explore and the Shortlist record it from the shortlist they load
+  anyway, and every save or removal the server confirms moves it. It lasts while the student moves
+  between pages; another account in the same tab never sees it. A save made in another tab or on
+  another device shows once one of those three pages loads, and until a count is known, as after a
+  reload, the link shows none. The server never has it, so the count appears as the page wakes: a
+  layout shift of 0.00014 on a full load of a signed-in page with a count (none on navigation between
+  pages, none on public pages).
 - **The hint** under "Include programs with no IB minimum" reads "Mostly US universities, which admit
   on the whole application" (`components/explore/FilterParts.tsx`).
 - **Checked.** Without the preview, eleven pages (the Shortlist, Matches and Academic signed in,

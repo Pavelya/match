@@ -63,8 +63,8 @@ Each is tagged `[LAWYER: …]` in the drafts where it arises.
    Added 27 October 2026 (MAINT 7.6): a student account unused for 6 months gets one warning email, and is deleted
    30 days later unless the student uses it again; no email follows the deletion. Is one email enough notice, and
    should the Terms (14, Termination) say it too?
-9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice and a
-   shortlist count. Are those exempt under ePrivacy Article 5(3)? Both banner buttons ("Accept all", "Essential only")
+9. **Cookies and local storage** (Cookie Policy). Essential cookies only, plus `localStorage` for a theme choice.
+   Are those exempt under ePrivacy Article 5(3)? Both banner buttons ("Accept all", "Essential only")
    leave the same cookies today: is that acceptable, or should the banner change?
 10. **Limitation of liability and disclaimers** (Terms 11 and 12), unchanged from the published Terms: will they hold
     for consumers and for school customers in the places served?

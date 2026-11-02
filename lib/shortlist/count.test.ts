@@ -1,28 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-// The nav's Shortlist count lives in the browser, never the database (rebranding 2.5): it must
-// belong to one student, survive blocked storage, and never guess.
-
-class FakeStorage {
-  values = new Map<string, string>()
-  getItem(key: string) {
-    return this.values.get(key) ?? null
-  }
-  setItem(key: string, value: string) {
-    this.values.set(key, value)
-  }
-  removeItem(key: string) {
-    this.values.delete(key)
-  }
-}
-
-let storage: FakeStorage
+// The nav's Shortlist count lives in the page's memory, never the database (rebranding 2.5) or
+// the browser's storage, which the Cookie Policy promises (MAINT 5.49): it must belong to one
+// student and never guess.
 
 beforeEach(() => {
   vi.resetModules()
-  storage = new FakeStorage()
-  vi.stubGlobal('localStorage', storage)
-  vi.stubGlobal('window', { addEventListener: vi.fn(), removeEventListener: vi.fn() })
 })
 
 afterEach(() => vi.unstubAllGlobals())
@@ -59,26 +42,35 @@ describe('the Shortlist count', () => {
     expect(readShortlistCount('maya')).toBeNull()
   })
 
-  it('ignores a value it didn’t write', async () => {
-    const { readShortlistCount } = await load()
-    storage.setItem('shortlist-count', 'not json')
-    expect(readShortlistCount('maya')).toBeNull()
-    storage.setItem('shortlist-count', JSON.stringify({ user: 'maya', count: 'eight' }))
-    expect(readShortlistCount('maya')).toBeNull()
-  })
-
-  it('lasts as long as the tab where storage is blocked', async () => {
-    vi.stubGlobal('localStorage', {
-      getItem: () => {
-        throw new Error('blocked')
-      },
-      setItem: () => {
-        throw new Error('blocked')
-      }
+  it('is never saved in, or read from, the browser’s storage', async () => {
+    const storage = () => ({
+      getItem: vi.fn(() => JSON.stringify({ user: 'maya', count: 8 })),
+      setItem: vi.fn(),
+      removeItem: vi.fn()
     })
-    const { readShortlistCount, writeShortlistCount } = await load()
+    const local = storage()
+    const session = storage()
+    vi.stubGlobal('localStorage', local)
+    vi.stubGlobal('sessionStorage', session)
+    const {
+      changeShortlistCount,
+      clearShortlistCount,
+      readShortlistCount,
+      subscribeToShortlistCount,
+      writeShortlistCount
+    } = await load()
+
+    expect(readShortlistCount('maya')).toBeNull()
+    subscribeToShortlistCount(() => {})()
     writeShortlistCount('maya', 3)
-    expect(readShortlistCount('maya')).toBe(3)
+    changeShortlistCount('maya', 1)
+    clearShortlistCount()
+
+    for (const used of [local, session]) {
+      expect(used.getItem).not.toHaveBeenCalled()
+      expect(used.setItem).not.toHaveBeenCalled()
+      expect(used.removeItem).not.toHaveBeenCalled()
+    }
   })
 
   it('tells the header at once', async () => {
@@ -92,11 +84,10 @@ describe('the Shortlist count', () => {
     expect(listener).toHaveBeenCalledTimes(1)
   })
 
-  it('goes from the browser with the account (MAINT 5.25)', async () => {
+  it('goes from the page with the account (MAINT 5.25)', async () => {
     const { clearShortlistCount, readShortlistCount, writeShortlistCount } = await load()
     writeShortlistCount('maya', 8)
     clearShortlistCount()
-    expect(storage.values.has('shortlist-count')).toBe(false)
     expect(readShortlistCount('maya')).toBeNull()
   })
 })
