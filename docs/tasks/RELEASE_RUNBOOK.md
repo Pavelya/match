@@ -58,7 +58,7 @@ next session: "steps 3 and 4 are done". It records them.
 | 5 Watch, then cleanup | 5 | 39–49 | Open |
 | 6 SEO and marketing | | 50–54 | Open |
 
-**Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9) and your
+**Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9b) and your
 settings (10–19). Each open list has its own **Next**. Steps 1–3 are done, and step 4 can wait. Step 20 needs your
 decisions on the legal review, and step 21 follows it.
 
@@ -76,6 +76,7 @@ dips and the Search Console comparison means something.
 | R+1 to R+3 | Legal task C | By 20 November | |
 | R+16 | Search Console check, then cleanup | Thursday 3 December | |
 | Each notice + 30 days | Delete accounts that didn't come back | From 18 and 19 December | |
+| R + 3 months | First review of old invitations and sign-in records (step 40a) | By 17 February 2027 | |
 
 ### Numbers to record
 
@@ -128,6 +129,8 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 | 7 | Done, 31 October 2026 (#238) | Session | `Bring npm audit back to 0, as in MAINT 6.9.` | 23 → 0, with three overrides and no exceptions (MAINT 6.12). One tag leaves every email's `<head>`; nothing else moves. Lint crashes if a later session turns on a rule that calls `minimatch` directly: 6.12 says which and what to do |
 | 8 | Done, 1 November 2026 (#127) | Session | `Refresh #127 for release day.` | The conflict in `lib/page-dates.ts` is solved, and "How many programs will I be matched with?" has the fourth status: "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approved the words on 1 November. **It stays unmerged, and a draft, until step 24** |
 | 9 | **Next**, your look. Sent to your Gmail only, 1 November 2026 (#240) | You | Look at each in Gmail on the web and on a phone, light and dark. For Outlook and Apple Mail on iOS, add that mailbox to those apps, or ask a session for another run with other addresses: `npx tsx scripts/send-sample-emails.ts --send <addresses>`, with the live key in `.env` | The real send build 22 still owed, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses given in the session and never committed. Resend accepted all eight; its key is send-only, so delivery shows only in the inbox and the dashboard. The sample sign-in and invitation links carry made-up tokens, so they don't work. Each run counts towards Resend's 100 a day, and the script refuses more than 50 |
+| 9a | **Next** for a session: it doesn't wait for step 9 | Session | `Do MAINT 5.49.` | Keeps the number beside Shortlist in memory, not in the browser's storage, as the Cookie Policy for release says. **Step 30 can't run until this is merged and deployed.** A reload shows no number until Matches, Explore or the Shortlist loads |
+| 9b | Open | Session | `Do MAINT 5.50.` | A script that counts, and with `--apply` deletes, old invitations and sign-in records, for the three-monthly review in the Privacy Policy for release. Not a gate: nothing is deleted until step 40a |
 
 ### You: settings, any order
 
@@ -179,7 +182,7 @@ be read from here.
 - [ ] The lawyer's answers are in the drafts (step 20)
 - [ ] Lens is clear (step 2). If it isn't, stop: a new mark is a file change in `lib/brand/config.ts`, but it needs a design session first
 - [ ] Search Console baseline noted (step 3)
-- [ ] Steps 5–9, 20 and 21 are done
+- [ ] Steps 5–9a, 20 and 21 are done
 - [ ] Steps 10–19 are done, or you have decided to leave one until after release
 - [ ] `npm audit` is at 0, or you accept what is left
 - [ ] CI is green on `main`
@@ -205,7 +208,7 @@ pages, so the second deploy does that, and closes the preview and turns on the a
 | 27 | Open | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
 | 28 | Open | You | **Check every page:** signed out and signed in, light and dark, on a phone and on Windows. Sign in as a student: Matches, Explore, a program, Shortlist, Academic, Settings. Open `/faqs`, a guide, For schools and the coordinator sign-in. Open `/admin/seasonal-themes` | Nothing is broken. If something is, see [Rollback](#rollback) |
 | 29 | Open | You | **Rich Results Test:** Home, one guide, one program | The same items as before, plus the breadcrumbs |
-| 30 | Open | You | **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its `.proposed.md`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
+| 30 | Open | You | **First, check step 9a (MAINT 5.49) is merged and deployed. If it isn't, stop here:** the Cookie Policy says the Shortlist count isn't saved on the device, and until then it is. **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its `.proposed.md`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
 | 31 | Open | You | **In Vercel:** delete `NEW_UI_PREVIEW_KEY` from Production and Preview, set `INACTIVE_ACCOUNTS_ENABLED=true` in Production, then **Redeploy**. Nothing is sent: the variable only enables the admin's buttons | The deployment is Ready |
 | 32 | Open | You or a session | **SEC-4 steps 6–7.** The headers on `/` and `/programs/search`, and `curl -s https://www.ibmatch.com/admin/students \| grep -c @` gives 0, also with `-H 'RSC: 1'`. `/api/preview?key=<old key>` answers 404 | All pass |
 | 33 | Open | You | **Check the legal pages:** `/privacy`, `/terms` and `/cookies` show the new text and today's date, and `/privacy#8-data-retention` opens section 8. Sign in as a student: the notice shows in the new design, and Accept works. Ask for a sign-in link: it comes in the new design | All pass |
@@ -249,6 +252,12 @@ Part E, the daily job, is built only if you ask, after this round has gone well.
 |---|---|---|---|---|
 | 39 | Open | Session | R+1 to R+3 | `Do MAINT 7.4 task C.` Updates `docs/templates/legal/*.md` and `FALLBACK_CONTENT` in `app/privacy/page.tsx`, `app/terms/page.tsx` and `app/cookies/page.tsx` to the published text. In the same pull request, moves the three `.proposed.md` drafts, the three redlines and `lawyer-brief.md` to `docs/archive/legal-2026/`, and corrects "paying customers" in `docs/legal-review/README.md` and `claims.md` |
 | 40 | Open | You | Weekly, and daily in the first few days | Vercel errors, then usage against the stop lines. `npx tsx scripts/algolia-usage.ts` for Algolia: Best fit costs more requests per list. Schedule Christmas at `/admin/seasonal-themes`, 14 December to 1 January, if it's wanted this year |
+
+### Every three months
+
+| Step | Status | Who | When | What to do |
+|---|---|---|---|---|
+| 40a | Open | You | By R + 3 months, then every three months | **The review the Privacy Policy promises.** Put it on your calendar on release day. Approve the run of `scripts/purge-expired-records.ts`, after a backup, then delete the backup. `MAINT_tasks.md` 5.50 has the routine, and keeps it after this file closes |
 
 ### Search Console check
 
@@ -309,7 +318,7 @@ user: batch those changes.
 
 | File | Use it for |
 |---|---|
-| `docs/tasks/MAINT_tasks.md` | 5.41, 5.48, 6.11, 7.2–7.6, the free-tier guard and the standing rules |
+| `docs/tasks/MAINT_tasks.md` | 5.41, 5.48–5.50, 6.11, 7.2–7.6, the free-tier guard and the standing rules |
 | `docs/tasks/REBRANDING_tasks.md` | R.1 and R.2's background, 5.1, the Definition of done |
 | `docs/tasks/SEC_tasks.md` | SEC-4 and the owner's security settings |
 | `docs/legal-review/README.md` | How the legal documents are published, and every decision behind them |
