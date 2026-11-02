@@ -174,11 +174,13 @@ October 2026; a new finding gets a row here.
 | A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
 | The Shortlist count in memory | 5.49 | small | The number beside Shortlist stops being saved in the browser, as the Cookie Policy for release says. Runbook step 9a, and step 30 waits for it |
 | Old invitations and sign-in records | 5.50 | small | A script for the three-monthly deletion the Privacy Policy for release describes, and the routine that runs it. Runbook steps 9b and 40a. Not a gate |
+| "Open to all fields" in the account export | 5.51 | small | The student's download holds "open to all locations" but not its partner, so it leaves out one stated preference. Not a gate |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
-**Waiting on the owner, not a session:** 7.4's three legal drafts are done (`docs/legal-review/`) and
-wait for the lawyer's seven `[LAWYER]` notes; they are published on release day (group 3).
+**Waiting on the owner, not a session:** the text to publish is in `../match-private/legal-for-release/`, out of git
+(2 November 2026), and replaces 7.4's drafts in `docs/legal-review/`. It waits for the owner's postal address, and is
+published on release day (runbook steps 20 and 30).
 
 ### 3. Wait for release day (R.1) or cleanup (R.2)
 
@@ -274,6 +276,7 @@ Phase 5 — quick wins
 - [ ] 5.48 Keep a Matches load that outlasts a save from storing the old list (from 5.46)
 - [ ] 5.49 Keep the Shortlist count in memory, not in the browser's storage (from the legal text for release); gates runbook step 30
 - [ ] 5.50 Delete old invitations and sign-in records every three months (from the legal text for release)
+- [ ] 5.51 Add "open to all fields" to the student's account export (from the check of the release text)
 
 Phase 6 — dependency majors
 
@@ -3639,6 +3642,24 @@ counts and deletes nothing.
 
 **Session size:** Small. Independent. Runbook step 9b. Not a gate for release: the first review falls due three months
 after publishing.
+
+---
+
+### 5.51 — Add "open to all fields" to the student's account export
+
+**Outcome:** The download in Settings holds both of the student's "open to all" choices.
+
+**Why (found 2 November 2026, checking the release text against the code):** the Privacy Policy says the export
+includes preferences. `app/api/students/account/export/route.ts` selects and returns `openToAllLocations` but not
+`openToAllFields`.
+
+**Steps:** add `openToAllFields` to the route's `select` and to the response beside `openToAllLocations`, with a test.
+
+**Must not:** add a read: it is one column of the row the route already reads.
+
+**Verify:** the standing commands.
+
+**Session size:** Small. Independent. Not a release step.
 
 ---
 
