@@ -60,7 +60,7 @@ next session: "steps 3 and 4 are done". It records them.
 
 **Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9b) and your
 settings (10–19). Each open list has its own **Next**. Steps 1–3 are done, and step 4 can wait. Step 20 needs your
-decisions on the legal review, and step 21 follows it.
+decisions on the legal review and your address, and step 21 follows it.
 
 ### Dates
 
@@ -150,11 +150,11 @@ be read from here.
 | 18 | Open | You, then a session | **Approve deleting 5.25's two old invitations**, after a Supabase backup. Then `Do MAINT 5.25 step 6.` | `MAINT_tasks.md` 5.25 |
 | 19 | Open | You | **Usage:** note Upstash and Supabase in [Numbers to record](#numbers-to-record), and check them against the stop lines | `MAINT_tasks.md`, "The free-tier guard" |
 
-### When the lawyer's answers are back
+### The legal text
 
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
-| 20 | **Next**, after your decisions | You, then a session | `Apply the lawyer's answers to the legal drafts.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Then the session** updates each `.proposed.md` and its redline, until no `[OWNER` or `[LAWYER` note is left in them (the check is in `docs/legal-review/README.md`, "How to publish"). **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
+| 20 | **Next**, after your decisions | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
 | 21 | Open | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
@@ -179,7 +179,7 @@ be read from here.
 
 **The list:**
 
-- [ ] The lawyer's answers are in the drafts (step 20)
+- [ ] Your decisions and your address are in the release text (step 20)
 - [ ] Lens is clear (step 2). If it isn't, stop: a new mark is a file change in `lib/brand/config.ts`, but it needs a design session first
 - [ ] Search Console baseline noted (step 3)
 - [ ] Steps 5–9a, 20 and 21 are done
@@ -208,7 +208,7 @@ pages, so the second deploy does that, and closes the preview and turns on the a
 | 27 | Open | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
 | 28 | Open | You | **Check every page:** signed out and signed in, light and dark, on a phone and on Windows. Sign in as a student: Matches, Explore, a program, Shortlist, Academic, Settings. Open `/faqs`, a guide, For schools and the coordinator sign-in. Open `/admin/seasonal-themes` | Nothing is broken. If something is, see [Rollback](#rollback) |
 | 29 | Open | You | **Rich Results Test:** Home, one guide, one program | The same items as before, plus the breadcrumbs |
-| 30 | Open | You | **First, check step 9a (MAINT 5.49) is merged and deployed. If it isn't, stop here:** the Cookie Policy says the Shortlist count isn't saved on the device, and until then it is. **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its `.proposed.md`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
+| 30 | Open | You | **First, check step 9a (MAINT 5.49) is merged and deployed. If it isn't, stop here:** the Cookie Policy says the Shortlist count isn't saved on the device, and until then it is. **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its file in `../match-private/legal-for-release/`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
 | 31 | Open | You | **In Vercel:** delete `NEW_UI_PREVIEW_KEY` from Production and Preview, set `INACTIVE_ACCOUNTS_ENABLED=true` in Production, then **Redeploy**. Nothing is sent: the variable only enables the admin's buttons | The deployment is Ready |
 | 32 | Open | You or a session | **SEC-4 steps 6–7.** The headers on `/` and `/programs/search`, and `curl -s https://www.ibmatch.com/admin/students \| grep -c @` gives 0, also with `-H 'RSC: 1'`. `/api/preview?key=<old key>` answers 404 | All pass |
 | 33 | Open | You | **Check the legal pages:** `/privacy`, `/terms` and `/cookies` show the new text and today's date, and `/privacy#8-data-retention` opens section 8. Sign in as a student: the notice shows in the new design, and Accept works. Ask for a sign-in link: it comes in the new design | All pass |

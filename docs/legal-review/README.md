@@ -1,5 +1,9 @@
 # Legal pages and public claims: review for the owner
 
+**The text to publish is not here.** It is in `../match-private/legal-for-release/`, beside the repository and out of
+git (owner, 2 November 2026). The three `.proposed.md` drafts and their redlines are the record of what went to the
+lawyer: don't publish from them or update them. Runbook step 39 archives them after release.
+
 MAINT 7.4, steps 1 to 4. Drafted 23 October 2026. **Nothing here is published, and no code or consent flow was
 changed.** Step 5 (publishing) waits for the owner's answers below. This is research and drafting, not legal advice.
 
@@ -11,7 +15,7 @@ changed.** Step 5 (publishing) waits for the owner's answers below. This is rese
 | `product-today.md` | Step 1. What IB Match does with data today, from the code and the live site |
 | `providers.md` | Step 2. Vercel, Supabase, Upstash, Algolia, Resend, Stripe, Google and Ko-fi, read from their own pages on 23 October 2026 |
 | `privacy-policy.redline.md`, `terms-of-service.redline.md`, `cookie-policy.redline.md` | Step 4. For each: what changed and why, then the diff against the published words |
-| `privacy-policy.proposed.md`, `terms-of-service.proposed.md`, `cookie-policy.proposed.md` | The proposed text, ready to paste into `/admin/legal-content` once the `[OWNER …]` notes are settled |
+| `privacy-policy.proposed.md`, `terms-of-service.proposed.md`, `cookie-policy.proposed.md` | The proposed text as it went to the lawyer. Replaced by the release text: not for publishing |
 | `claims.md` | Step 4. Every claim on Support us, How it works, For schools, Home and FAQs: the evidence, the decision and the proposed words |
 | `lawyer-brief.md` | What the lawyer should read, and the thirteen questions the drafts leave to them |
 
@@ -184,10 +188,10 @@ flow in this pull request and nothing may reach production before approval.
 
 ## How to publish (step 5)
 
-1. Answer the open questions above, and have the lawyer read the three drafts. Settle every `[OWNER …]` and `[LAWYER …]` note.
-   Check: `grep -n "\[OWNER\|\[LAWYER" docs/legal-review/*.proposed.md` returns nothing.
-2. Fill in the regions, plans and entity in the drafts; keep the structure and the numbered `##` headings.
-3. In `/admin/legal-content`, for each of Terms, Privacy and Cookie Policy: create the version from the proposed
+1. Runbook steps 20 and 30 are the order. Publish from `../match-private/legal-for-release/`, not from this folder.
+2. Fill in the address in the release text; keep the structure and the numbered `##` headings.
+   Check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` returns nothing.
+3. In `/admin/legal-content`, for each of Terms, Privacy and Cookie Policy: create the version from the release
    text, give it the publishing day as its label (`YYYY-MM-DD`), publish with "effective now". Terms and Privacy
    trigger the notice for signed-in users immediately; Cookie Policy does not. Drop a leading `# ` heading if you
    paste one (5.23).
