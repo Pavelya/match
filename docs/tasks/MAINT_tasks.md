@@ -156,9 +156,10 @@ deletes today's design.
 | A save clears the list before answering | 5.46 | 31 October 2026 | The three save routes wait for the clear, which gives up after 2 seconds, so a stalled clear no longer leaves the old list on Matches and a Redis outage still cannot fail a save. About 70 ms on a save, no new command. Found 5.48 |
 | The advisories of 31 October | 6.12 | 31 October 2026 | `npm audit` 23 → 0, from three advisories, with three `overrides`: `@react-email/render` 2.2.0, `glob` 14 under `react-email`, and `minimatch` 11 everywhere. ESLint decides the same on every file and finds the same faults. One tag leaves every email's `<head>`, and nothing else moves |
 | The Shortlist count in memory | 5.49 | 2 November 2026 | The number beside Shortlist lives in the page's memory and nothing of it reaches the browser's storage, as the Cookie Policy for release says. It survives moving between pages; a reload or a new tab starts with no number until Matches, Explore or the Shortlist loads. The drafts in `docs/legal-review/` say the same. Runbook step 30's gate clears once this is merged and deployed |
+| Old invitations and sign-in records | 5.50 | 2 November 2026 | `scripts/purge-expired-records.ts` counts what the Privacy Policy for release says goes, and with `--apply` backs those rows up and deletes them. Nothing was deleted: the first run is runbook step 40a, and production held 26 expired sign-in records and no due invitations |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 5.50, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -173,7 +174,6 @@ October 2026; a new finding gets a row here.
 | Session | Tasks | Size | What it is |
 |---|---|---|---|
 | A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
-| Old invitations and sign-in records | 5.50 | small | A script for the three-monthly deletion the Privacy Policy for release describes, and the routine that runs it. Runbook steps 9b and 40a. Not a gate |
 | "Open to all fields" in the account export | 5.51 | small | The student's download holds "open to all locations" but not its partner, so it leaves out one stated preference. Not a gate |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
@@ -275,7 +275,7 @@ Phase 5 — quick wins
 - [x] 5.47 Take "match probability" off the public pages (from 5.43) — 31 October 2026
 - [ ] 5.48 Keep a Matches load that outlasts a save from storing the old list (from 5.46)
 - [x] 5.49 Keep the Shortlist count in memory, not in the browser's storage (from the legal text for release); gates runbook step 30 — 2 November 2026
-- [ ] 5.50 Delete old invitations and sign-in records every three months (from the legal text for release)
+- [x] 5.50 Delete old invitations and sign-in records every three months (from the legal text for release) — 2 November 2026; the routine stays with the owner
 - [ ] 5.51 Add "open to all fields" to the student's account export (from the check of the release text)
 
 Phase 6 — dependency majors
@@ -3600,7 +3600,7 @@ cleared, so check the Verify step in a fresh profile.
 
 ---
 
-### 5.50 — Delete old invitations and sign-in records every three months
+### 5.50 — Delete old invitations and sign-in records every three months — **done**
 
 **Outcome:** One command shows how many old records are due, and with `--apply` deletes them. It runs at least every
 three months from the day the Privacy Policy is published.
@@ -3651,6 +3651,17 @@ counts and deletes nothing.
 
 **Session size:** Small. Independent. Runbook step 9b. Not a gate for release: the first review falls due three months
 after publishing.
+
+**Done 2 November 2026.** Steps 1–4. The routine above stays open: it is the owner's, from runbook step 40a. Two things
+beyond the list: the delete takes only rows in the backup that are still due, so an invitation resent or accepted
+while the script runs stays, and the backup is readable by its owner alone. With nothing due, `--apply` writes no
+backup. On a throwaway local Postgres, `--apply` deleted the 5 due invitations and 2 expired sign-in records and left
+2 `ACCEPTED`, an unexpired `PENDING` and a live sign-in record; a second run found nothing. On production, without
+`--apply`: 0 closed invitations, 0 past their date, 26 expired sign-in records, and nothing deleted.
+
+**Worth knowing:** these date columns are `timestamp` with no time zone, and Prisma writes UTC. A test row seeded with
+SQL `now()` on a machine outside UTC lands hours off, and it looks as if the script missed it: use
+`now() AT TIME ZONE 'UTC'`.
 
 ---
 

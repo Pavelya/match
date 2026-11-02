@@ -14,6 +14,7 @@ This guide documents all available admin scripts and API endpoints for maintaini
 | **Sync programs to Algolia** | `npx tsx scripts/sync-to-algolia-standalone.ts` | After bulk imports |
 | **Check Algolia status** | `npx tsx scripts/check-algolia.ts` | Verify search index health |
 | **Invalidate Redis cache** | `npx tsx scripts/invalidate-program-cache.ts` | After university updates |
+| **Delete old invitations and sign-in records** | `npx tsx scripts/purge-expired-records.ts` | Every three months, see [Purge Expired Records](#purge-expired-records) |
 
 
 ---
@@ -190,6 +191,32 @@ npx tsx scripts/fix-university-images.ts
 5. Invalidates program cache, when an image changed
 
 A university already on URLs is skipped, so the script is safe to rerun.
+
+---
+
+#### Purge Expired Records
+```bash
+# See how many records are due. Deletes nothing
+npx tsx scripts/purge-expired-records.ts
+
+# Delete them (saves the rows to scripts/backups/purge-expired-records/ first)
+npx tsx scripts/purge-expired-records.ts --apply
+```
+**Purpose:** Deletes what the Privacy Policy promises to delete in its review at least every three months: invitations that were declined, cancelled or have expired, and expired sign-in records. Accepted invitations are never deleted, because they are the record of a student's permission.
+
+**Use when:** By three months after the Privacy Policy is published, then every three months (MAINT 5.50, runbook step 40a).
+
+> **Warning:** `.env` points at production, so `--apply` deletes production records. Each run with `--apply` needs the owner's explicit approval.
+
+**What to do:**
+1. Run it without `--apply` and read the three counts. It prints counts only, never a row
+2. Get the owner's approval, then run it with `--apply`
+3. Check that the numbers deleted match the counts
+4. Delete the backup file it names. These are the records the policy says are gone, and the file holds email addresses
+
+With nothing due, `--apply` writes no backup, so there is nothing to delete afterwards.
+
+**What people notice:** a deleted invitation's link shows the invalid-link page. Coordinators and admins send a new invitation, as there is no longer one to resend.
 
 ---
 

@@ -4,8 +4,8 @@
  * Before 5.25, deleting a student's account left their `Invitation` rows: the address, the name
  * the coordinator typed, the school. This counts the accepted student invitations whose address
  * no account has, and deletes them only with --apply. Only accepted ones: a pending or expired
- * invitation to an address with no account may be someone who never signed up (MAINT 7.4 covers
- * those).
+ * invitation to an address with no account may be someone who never signed up
+ * (scripts/purge-expired-records.ts, MAINT 5.50, covers those).
  *
  * It reads aggregates only, never the rows. The delete changes production: run --apply only with
  * the owner's explicit approval, after a backup (AGENTS.md).

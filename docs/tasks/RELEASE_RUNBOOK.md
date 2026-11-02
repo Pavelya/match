@@ -130,7 +130,7 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 | 8 | Done, 1 November 2026 (#127) | Session | `Refresh #127 for release day.` | The conflict in `lib/page-dates.ts` is solved, and "How many programs will I be matched with?" has the fourth status: "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approved the words on 1 November. **It stays unmerged, and a draft, until step 24** |
 | 9 | **Next**, your look. Sent to your Gmail only, 1 November 2026 (#240) | You | Look at each in Gmail on the web and on a phone, light and dark. For Outlook and Apple Mail on iOS, add that mailbox to those apps, or ask a session for another run with other addresses: `npx tsx scripts/send-sample-emails.ts --send <addresses>`, with the live key in `.env` | The real send build 22 still owed, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses given in the session and never committed. Resend accepted all eight; its key is send-only, so delivery shows only in the inbox and the dashboard. The sample sign-in and invitation links carry made-up tokens, so they don't work. Each run counts towards Resend's 100 a day, and the script refuses more than 50 |
 | 9a | Done, 2 November 2026 (#243) | Session | `Do MAINT 5.49.` | Keeps the number beside Shortlist in memory, not in the browser's storage, as the Cookie Policy for release says. **Step 30 can't run until this is merged and deployed.** A reload shows no number until Matches, Explore or the Shortlist loads |
-| 9b | **Next** for a session: it doesn't wait for step 9 | Session | `Do MAINT 5.50.` | A script that counts, and with `--apply` deletes, old invitations and sign-in records, for the three-monthly review in the Privacy Policy for release. Not a gate: nothing is deleted until step 40a |
+| 9b | Done, 2 November 2026 (#245) | Session | `Do MAINT 5.50.` | A script that counts, and with `--apply` deletes, old invitations and sign-in records, for the three-monthly review in the Privacy Policy for release. Not a gate: nothing is deleted until step 40a |
 
 ### You: settings, any order
 
@@ -257,7 +257,7 @@ Part E, the daily job, is built only if you ask, after this round has gone well.
 
 | Step | Status | Who | When | What to do |
 |---|---|---|---|---|
-| 40a | Open | You | By R + 3 months, then every three months | **The review the Privacy Policy promises.** Put it on your calendar on release day. Approve the run of `scripts/purge-expired-records.ts`, after a backup, then delete the backup. `MAINT_tasks.md` 5.50 has the routine, and keeps it after this file closes |
+| 40a | Open | You | By R + 3 months, then every three months | **The review the Privacy Policy promises.** Put it on your calendar on release day. Approve the run of `scripts/purge-expired-records.ts --apply`, which writes its own backup first, then delete the backup. `MAINT_tasks.md` 5.50 has the routine, and keeps it after this file closes |
 
 ### Search Console check
 
