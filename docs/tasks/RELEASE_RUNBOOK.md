@@ -156,7 +156,7 @@ be read from here.
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
 | 20 | **Next**, after your decisions | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
-| 21 | **Next**, your Rich Results Test. The session's checks passed, 2 November 2026 (#PR) | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
+| 21 | **Next**, your Rich Results Test. The session's checks passed, 2 November 2026 (#246) | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
 
