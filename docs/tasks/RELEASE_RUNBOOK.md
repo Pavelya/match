@@ -60,7 +60,8 @@ next session: "steps 3 and 4 are done". It records them.
 
 **Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9b) and your
 settings (10–19). Each open list has its own **Next**. Steps 1–3 are done, and step 4 can wait. Step 20 needs your
-decisions on the legal review and your address, and step 21 follows it.
+decisions on the legal review and your address. Step 21 ran ahead of it on 2 November, at your request, and its
+last part, the Rich Results Test, is yours.
 
 ### Dates
 
@@ -155,7 +156,7 @@ be read from here.
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
 | 20 | **Next**, after your decisions | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
-| 21 | Open | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
+| 21 | **Next**, your Rich Results Test. The session's checks passed, 2 November 2026 (#PR) | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
 
@@ -167,6 +168,35 @@ be read from here.
 4. CSS is at or under 36 KB.
 5. **You:** run Home, one guide and one program through Google's Rich Results Test on the live site, and record
    the items in [Numbers to record](#numbers-to-record). Step 29 compares against them.
+
+**Result, 2 November 2026.** One local build of `38e110e`, the commit production was running, then `next start` on
+the laptop. No deploy. Steps 10 and 20 were still open. **If anything that changes code merges before R, such as a
+program card from step 10, repeat checks 1–4.** Words in the release text don't need it.
+
+| Check | Result |
+|---|---|
+| 1. Build with the flag | Passed first time. Node 22.12 on the laptop, against 24 in production (step 4) |
+| 2. Static pages | `/privacy`, `/terms`, `/cookies` and the 23 guides are Static, the guides with their one-week revalidate |
+| 3. Against the live site | Home, the Portugal guide, Explore, one program and McGill. Against the live preview: **no difference on any of the five.** Against today's design: only the differences below |
+| 4. CSS | **34.5 KB gzipped, of 36.** The same as live, apart from font file names, so the flag adds nothing |
+| 5. Rich Results Test | Yours |
+
+**Every difference from today's design:**
+
+- **Headings:** the approved boards' words on all five, including Home's and Explore's `h1` and the final guide headings.
+- **JSON-LD images:** the logo becomes `/brand/logo-512.png` and the page image `/brand/og-image.png`
+  (`lib/brand/metadata.ts`). Both answer 200 on the live site at their declared sizes.
+- **Breadcrumbs:** program and university pages gain `BreadcrumbList`. Home and the guide don't change, so in step 29
+  "plus the breadcrumbs" applies to the program only.
+- **Share image:** pages that have one move to the 1200×630 image. The 31 that have no `og:image` keep none (step 52a).
+
+**Not changed, beyond the five:** title, description, canonical, robots and JSON-LD types on all 35 public pages of
+the sitemap, each in the new design; `robots.txt`; the sitemap's 1,815 URLs.
+
+**What only the flag can show, and passed:** no preview bar; `/` and the guides answer with their static cache
+headers; the 404 is in the new design; `/api/preview` without a key answers 404; student, coordinator and admin pages
+redirect signed-out visitors. The redirects named localhost only because that build used the laptop's `.env`. The
+404's `noindex` sits beside the layout's `index, follow`, as it does on the live site; a 404 isn't indexed either way.
 
 ---
 
@@ -309,6 +339,7 @@ user: batch those changes.
 | 50 | Open | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
 | 51 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part C.` | Planning only: how to bring students back without annoying them. You approve the options |
 | 52 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part D.` | Planning only: social media, LinkedIn for coordinators first. You approve the plan |
+| 52a | Open | Session | Before the first post in step 53 | `Give every public page a share image.` | 31 of the 35 public pages in the sitemap have no `og:image`, Home and all 23 guides among them, in either design, so a link to them shows no picture (`REBRANDING_tasks.md` 1.3). The dress rehearsal found it wider than that note says. Adds the image to their metadata. Titles, URLs, robots rules and structured data stay as they are, so the rule before step 41 allows it |
 | 53 | Open | You | After a stable first week, with Lens clear | Nothing to paste | Create the accounts and start organic posts, from step 52's plan. Footer links and `sameAs` wait for step 54 |
 | 54 | Open | Session | After step 41 | `Next task in the SEO plan.` | Carries out step 50's tasks and the site changes from steps 51 and 52, one per session. Footer links need a change board first (`REBRANDING_tasks.md`, Step 2) |
 
