@@ -15,10 +15,9 @@ export function CoordinatorStory() {
 
           <div className="space-y-6 text-lg leading-8 text-gray-600">
             <p>
-              IB Match was started by Tal, an IB Diploma graduate who lived through the IB
-              experience: the stress of predicting grades, the confusion of translating IB scores to
-              university requirements, and the overwhelming task of finding the right programs. It
-              is built together with Pavel.
+              IB Match was started by an IB Diploma graduate who lived through the IB experience:
+              the stress of predicting grades, the confusion of translating IB scores to university
+              requirements, and the overwhelming task of finding the right programs.
             </p>
             <p>
               Now, as we build this platform, we keep both sides in mind: the student stress and

@@ -86,7 +86,7 @@ export function NewSupportUs() {
         <TextHero
           eyebrow="Community-powered project"
           title="Help us keep IB Match free for all students"
-          intro="IB Match was started by Tal, an IB Diploma graduate, and is built together with Pavel. It is free for students, and we have no plans to charge them. Your support helps pay for hosting, the database, search and email."
+          intro="IB Match was started by an IB Diploma graduate. It is free for students, and we have no plans to charge them. Your support helps pay for hosting, the database, search and email."
           ticks={['Free for students', 'An independent project']}
           actions={
             <a

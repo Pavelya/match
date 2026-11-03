@@ -19,9 +19,9 @@ export function SupportHero() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-600">
-            IB Match was started by Tal, an IB Diploma graduate, and is built together with Pavel.
-            It is free for students, and we have no plans to charge them. Your support helps pay for
-            hosting, the database, search and email.
+            IB Match was started by an IB Diploma graduate. It is free for students, and we have no
+            plans to charge them. Your support helps pay for hosting, the database, search and
+            email.
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
