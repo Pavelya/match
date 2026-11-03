@@ -120,8 +120,8 @@ describe('Support us', () => {
     }
   })
 
-  it('names the founder and the builder the same way in both designs', () => {
-    const sentence = 'started by Tal, an IB Diploma graduate'
+  it('describes the founder the same way in both designs, without names', () => {
+    const sentence = 'started by an IB Diploma graduate.'
     expect(html(SupportHero)).toContain(sentence)
     expect(html(NewSupportUs)).toContain(sentence)
   })

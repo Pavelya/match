@@ -71,10 +71,9 @@ export function NewForCoordinators() {
         >
           <div className="flex max-w-180 flex-col gap-5 text-body-l">
             <p className="text-muted-foreground">
-              IB Match was started by Tal, an IB Diploma graduate who lived through the IB
-              experience: the stress of predicting grades, the confusion of translating IB scores to
-              university requirements, and the overwhelming task of finding the right programs. It
-              is built together with Pavel.
+              IB Match was started by an IB Diploma graduate who lived through the IB experience:
+              the stress of predicting grades, the confusion of translating IB scores to university
+              requirements, and the overwhelming task of finding the right programs.
             </p>
             <p className="text-muted-foreground">
               Now, as we build this platform, we keep both sides in mind: the student stress and
