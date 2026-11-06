@@ -51,7 +51,7 @@ next session: "steps 3 and 4 are done". It records them.
 
 | Stage | End result | Steps | Status |
 |---|---|---|---|
-| 1 Before go-live | 1 | 1–21 | Done but for 4, 11–19 and 21's Rich Results Test |
+| 1 Before go-live | 1 | 1–21 | Done but for 4 and 11–19 |
 | 2 Go or no-go | 1 | 22–23 | Overtaken: the site went live |
 | 3 Release day | 2 and 3 | 24–34 | **Now** |
 | 4 Silent accounts | 4 | 35–38 | Open |
@@ -89,7 +89,7 @@ The repository is public, so totals only.
 | Indexed pages | 220| |
 | Search clicks, last 3 months |125 | |
 | Top pages | https://www.ibmatch.com/, https://www.ibmatch.com/study-in-portugal-with-ib-diploma, https://www.ibmatch.com/study-in-austria-with-ib-diploma, https://www.ibmatch.com/study-in-spain-with-ib-diploma, https://www.ibmatch.com/study-in-italy-with-ib-diploma| |
-| Rich Results items: Home, one guide, one program | | |
+| Rich Results items: Home, one guide, one program | Not taken: the site was live before the test. 6 November, new design: Home 1 valid (Organization); program 3 valid (Breadcrumbs 1, Organization 2, with non-critical issues); guide not readable from the shared link | |
 | Upstash bandwidth and commands | | |
 | Supabase egress | | |
 
@@ -157,7 +157,7 @@ be read from here.
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
 | 20 | Done, 6 November 2026 (owner). The address is in, and the `grep` finds nothing | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
-| 21 | **Next**, your Rich Results Test. The session's checks passed, 2 November 2026 (#246) | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
+| 21 | Done, 6 November 2026 (owner). The session's checks passed, 2 November 2026 (#246). Part 5 ran on the new design, after the site went live, so it is also step 29 | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
 
@@ -180,7 +180,7 @@ program card from step 10, repeat checks 1–4.** Words in the release text don'
 | 2. Static pages | `/privacy`, `/terms`, `/cookies` and the 23 guides are Static, the guides with their one-week revalidate |
 | 3. Against the live site | Home, the Portugal guide, Explore, one program and McGill. Against the live preview: **no difference on any of the five.** Against today's design: only the differences below |
 | 4. CSS | **34.5 KB gzipped, of 36.** The same as live, apart from font file names, so the flag adds nothing |
-| 5. Rich Results Test | Yours |
+| 5. Rich Results Test | Ran on 6 November 2026, on the new design, because the site was already live. No baseline from the old design; the results are in [Numbers to record](#numbers-to-record) |
 
 **Every difference from today's design:**
 
@@ -238,7 +238,7 @@ pages, so the second deploy does that, and closes the preview and turns on the a
 | 26 | Open | You | **Vercel → Production:** set `NEW_UI_FOR_EVERYONE=true`. Production only. Nothing changes until the next deploy | The variable is saved |
 | 27 | Open | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
 | 28 | Open | You | **Check every page:** signed out and signed in, light and dark, on a phone and on Windows. Sign in as a student: Matches, Explore, a program, Shortlist, Academic, Settings. Open `/faqs`, a guide, For schools and the coordinator sign-in. Open `/admin/seasonal-themes` | Nothing is broken. If something is, see [Rollback](#rollback) |
-| 29 | Open | You | **Rich Results Test:** Home, one guide, one program | The same items as before, plus the breadcrumbs |
+| 29 | Done, 6 November 2026 (owner), with step 21: Home and the program valid, the program with its breadcrumbs | You | **Rich Results Test:** Home, one guide, one program | The same items as before, plus the breadcrumbs |
 | 30 | Open | You | **First, check step 9a (MAINT 5.49) is merged and deployed. If it isn't, stop here:** the Cookie Policy says the Shortlist count isn't saved on the device, and until then it is. **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its file in `../match-private/legal-for-release/`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
 | 31 | Open | You | **In Vercel:** delete `NEW_UI_PREVIEW_KEY` from Production and Preview, set `INACTIVE_ACCOUNTS_ENABLED=true` in Production, then **Redeploy**. Nothing is sent: the variable only enables the admin's buttons | The deployment is Ready |
 | 32 | Open | You or a session | **SEC-4 steps 6–7.** The headers on `/` and `/programs/search`, and `curl -s https://www.ibmatch.com/admin/students \| grep -c @` gives 0, also with `-H 'RSC: 1'`. `/api/preview?key=<old key>` answers 404 | All pass |
