@@ -51,17 +51,18 @@ next session: "steps 3 and 4 are done". It records them.
 
 | Stage | End result | Steps | Status |
 |---|---|---|---|
-| 1 Before go-live | 1 | 1–21 | **Now** |
-| 2 Go or no-go | 1 | 22–23 | Open |
-| 3 Release day | 2 and 3 | 24–34 | Open |
+| 1 Before go-live | 1 | 1–21 | Done but for 4, 11–19 and 21's Rich Results Test |
+| 2 Go or no-go | 1 | 22–23 | Overtaken: the site went live |
+| 3 Release day | 2 and 3 | 24–34 | **Now** |
 | 4 Silent accounts | 4 | 35–38 | Open |
 | 5 Watch, then cleanup | 5 | 39–49 | Open |
 | 6 SEO and marketing | | 50–54 | Open |
 
-**Stage 1 has three lists that run side by side:** your outside requests (steps 1–4), the sessions (5–9b) and your
-settings (10–19). Each open list has its own **Next**. Steps 1–3 are done, and step 4 can wait. Step 20 needs your
-decisions on the legal review and your address. Step 21 ran ahead of it on 2 November, at your request, and its
-last part, the Rich Results Test, is yours.
+**Live with the new UI by 6 November 2026 (owner).** Checked from outside that day: Home, the guides and the
+program pages answer in the new design (Home's new `h1`, the new logo in the JSON-LD, `BreadcrumbList` on a program),
+and `/privacy`, `/terms` and `/cookies` show version 2026-11-06, with "8. Data retention" in place. `curl -s
+https://www.ibmatch.com/admin/students | grep -c @` gives 0. **#127 is still an unmerged draft**, so `/faqs` has today's
+three answers, not the new words. Which of steps 24–34 are done is for the owner to say; the next session records them.
 
 ### Dates
 
@@ -129,7 +130,7 @@ Privacy are labelled 2026-03-23, and no Cookie Policy is published in the admin.
 | 6 | Done, 31 October 2026 (#237) | Session | `Do MAINT 5.46.` | Clears the cached list before a save answers |
 | 7 | Done, 31 October 2026 (#238) | Session | `Bring npm audit back to 0, as in MAINT 6.9.` | 23 → 0, with three overrides and no exceptions (MAINT 6.12). One tag leaves every email's `<head>`; nothing else moves. Lint crashes if a later session turns on a rule that calls `minimatch` directly: 6.12 says which and what to do |
 | 8 | Done, 1 November 2026 (#127) | Session | `Refresh #127 for release day.` | The conflict in `lib/page-dates.ts` is solved, and "How many programs will I be matched with?" has the fourth status: "…the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement." You approved the words on 1 November. **It stays unmerged, and a draft, until step 24** |
-| 9 | **Next**, your look. Sent to your Gmail only, 1 November 2026 (#240) | You | Look at each in Gmail on the web and on a phone, light and dark. For Outlook and Apple Mail on iOS, add that mailbox to those apps, or ask a session for another run with other addresses: `npx tsx scripts/send-sample-emails.ts --send <addresses>`, with the live key in `.env` | The real send build 22 still owed, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses given in the session and never committed. Resend accepted all eight; its key is send-only, so delivery shows only in the inbox and the dashboard. The sample sign-in and invitation links carry made-up tokens, so they don't work. Each run counts towards Resend's 100 a day, and the script refuses more than 50 |
+| 9 | Done, 6 November 2026 (owner). Sent to your Gmail only, 1 November 2026 (#240) | You | Look at each in Gmail on the web and on a phone, light and dark. For Outlook and Apple Mail on iOS, add that mailbox to those apps, or ask a session for another run with other addresses: `npx tsx scripts/send-sample-emails.ts --send <addresses>`, with the live key in `.env` | The real send build 22 still owed, plus the inactivity notice: eight emails in the new design, with sample data, no production read, to addresses given in the session and never committed. Resend accepted all eight; its key is send-only, so delivery shows only in the inbox and the dashboard. The sample sign-in and invitation links carry made-up tokens, so they don't work. Each run counts towards Resend's 100 a day, and the script refuses more than 50 |
 | 9a | Done, 2 November 2026 (#243) | Session | `Do MAINT 5.49.` | Keeps the number beside Shortlist in memory, not in the browser's storage, as the Cookie Policy for release says. **Step 30 can't run until this is merged and deployed.** A reload shows no number until Matches, Explore or the Shortlist loads |
 | 9b | Done, 2 November 2026 (#245) | Session | `Do MAINT 5.50.` | A script that counts, and with `--apply` deletes, old invitations and sign-in records, for the three-monthly review in the Privacy Policy for release. Not a gate: nothing is deleted until step 40a |
 
@@ -140,7 +141,7 @@ be read from here.
 
 | Step | Status | Who | What to do | Details |
 |---|---|---|---|---|
-| 10 | **Next** | You | **Choose the program card.** Look at Matches, Explore and Shortlist on a real phone through the preview link. A closes the task. B or C adds a build session before step 21. Undecided by step 21 means A | `REBRANDING_tasks.md` 5.1 |
+| 10 | Done, 6 November 2026 (owner): A stays, the 48px card. Nothing else was built, and A is what went live | You | **Choose the program card.** Look at Matches, Explore and Shortlist on a real phone through the preview link. A closes the task. B or C adds a build session before step 21. Undecided by step 21 means A | `REBRANDING_tasks.md` 5.1 |
 | 11 | Open | You | **Vercel:** the rate-limit rule on `/api/` (Log first) and usage alerts | `SEC_tasks.md` SEC-7 |
 | 12 | Open | You | **Vercel:** delete `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `NEXT_PUBLIC_ALGOLIA_SEARCH_KEY` | `MAINT_tasks.md` 5.37, `SEC_tasks.md` SEC-8 |
 | 13 | Open | You, then a session | **Supabase:** export the Security Advisor's list for a session to answer, turn off Auth sign-ups, check for a publishable key, upload one image in the admin | `MAINT_tasks.md` 5.37 |
@@ -155,7 +156,7 @@ be read from here.
 
 | Step | Status | Who | Paste this | What it does |
 |---|---|---|---|---|
-| 20 | **Next**, after your decisions | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
+| 20 | Done, 6 November 2026 (owner). The address is in, and the `grep` finds nothing | You, then a session | `Apply my decisions to the release text.` | **You first:** the review of 31 October 2026 is in `../match-private/legal-review-2026-10-31/`, beside the repository on the laptop, and stays out of git. Decide which of its actions, LR-01 to LR-18 in `operational-actions.md`, come before publishing, and whether any of it changes steps 30 and 36–38. **Fill in your postal address** in `privacy-policy.md` and `terms-of-service.md` in `../match-private/legal-for-release/`: the review says a name and email aren't enough. **Then the session**, only if your decisions change the words, edits those three files, which are the text step 30 publishes. The `.proposed.md` drafts in `docs/legal-review/` are replaced and aren't updated. The check: `grep -n "\[YOUR" ../match-private/legal-for-release/*.md` finds nothing. **Section 8 must stay "8. Data retention"**: the inactivity notice links to `/privacy#8-data-retention`. If the number changes, the email changes in the same pull request |
 | 21 | **Next**, your Rich Results Test. The session's checks passed, 2 November 2026 (#246) | Session, then you | `Run the release dress rehearsal.` | See below. The last session before the gate |
 
 **The dress rehearsal (step 21).** The flag has not been used for a production build yet, so try it where nobody sees it:
