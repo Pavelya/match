@@ -4966,6 +4966,8 @@ and the board can run now. Runbook step 54 (`Next task in the SEO plan.`) means 
 |---|---|---|---|---|---|
 | 1 | Done, 6 November 2026 (owner) | You | Nothing to paste | Bing Webmaster Tools, and the Search Console and Bing exports. Owner task 7. Read the same day: [The exports](#the-exports-read-6-november-2026) | Now |
 | 2 | **Next**: partly done, 6 November 2026 (owner) | You | Nothing to paste | Three fixes outside the code: ask Google to index the 10 guides it left out (**requested 6 November**), make the bare domain's redirect permanent, and give Bing the `www` site. Owner task 8 | Now |
+| 2a | Open | You | Nothing to paste | Bing's manual URL Submission, 100 a day: the lists `day-1.txt` to `day-5.txt` in `../match-private/seo-2026-11/bing-manual-submission/` (Home, the hub, the guides, the 104 universities, then the 343 programs Google has shown). Days 1–3 are the must-haves. Owner task 8 | Now, best after step 2's redirect fix |
+| 2b | Open | You, then a session if needed | Nothing to paste | **The IndexNow check**, two weeks after step 2: Bing's Site Explorer. If it lists `www` pages with programs or universities, nothing to do. If it still holds no program page, one bulk IndexNow submission of the sitemap: a key file in `public/` and a script that sends the live sitemap once, no database read. Owner task 8 | About 20 November 2026 |
 | 3 | Done, 6 November 2026 | Session | `Do MAINT 7.13.` | Why Google reads program pages and leaves them out: the page was mostly the university's own text, and where the university states its IB points, Google keeps the original. You chose a board for the program page | Now |
 | 4 | Open | Session | `/design D4.12 Guide · universities` | The change board for 7.9: each guide lists its country's universities (`REBRANDING_tasks.md`, session 32) | Now |
 | 5 | Open | Session | `/design D4.8 Program page · what it adds` | The change board for 7.14: what a program page says that the university's own page doesn't (`REBRANDING_tasks.md`, session 33) | Now |
@@ -6229,7 +6231,7 @@ Recorded so nobody re-opens them without new information.
 | **`llms.txt`** | No major AI search engine has said it reads one, and Google says AI Overviews need no special files. Owner, 6 November 2026 (7.3). Revisit if one does |
 | **Blocking AI crawlers** | The owner allows every crawler, search and training (7.3, 6 November 2026): the data is public, and being cited is how a small site is found |
 | **More `FAQPage` or `HowTo` markup** | Neither earns a rich result here since 2023. The existing blocks stay, since they describe their pages (7.3) |
-| **IndexNow** | Bing suggests it (7.3, "The exports"), but Bing's gap is which domain it holds and what it can reach, not how fast it hears of a change. Programs change a few times a year, and the sitemap's `lastmod` is accurate. Revisit after owner task 8 if Bing still holds no program page |
+| **IndexNow on every change** | Bing suggests it (7.3, "The exports"), but Bing's gap is which domain it holds and what it can reach, not how fast it hears of a change. Programs change a few times a year, and the sitemap's `lastmod` is accurate. A one-time submission is the SEO order's step 2b, only if Bing still holds no program page after owner task 8 |
 | **Sitemap `priority` and `changefreq` tuning** | Google ignores both (7.3) |
 | **A calculator page, or a blog** | Rejected in January 2026 and again in 7.3: a calculator brings searchers looking for something else, and a blog needs writing every week |
 | **Removing `'unsafe-inline'` from `script-src`** | Next emits inline bootstrap and hydration scripts. Needs nonces or SRI — see above. |
@@ -6282,3 +6284,8 @@ Not AI work, but they gate real value.
    Two weeks later (about 20 November 2026), Search Console's Pages report for the 10 guides, and Bing's
    Site Explorer count. With it, export Search Console's list for **"Duplicate without user-selected
    canonical"** into `../match-private/seo-2026-11/` (7.13, step 5): 7.10 checks it is the sign-in page.
+   - **Bing → URL Submission** (100 a day), one list a day from
+     `../match-private/seo-2026-11/bing-manual-submission/` (made 6 November 2026, from the live sitemap; its
+     README says the order). Days 1–3 are the must-haves. URLs stay out of the repository.
+   - **The IndexNow check** at the two-week mark (SEO order, step 2b): if Bing's Site Explorer still lists
+     no program page, a session sends the sitemap once through IndexNow.
