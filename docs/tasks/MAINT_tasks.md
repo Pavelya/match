@@ -157,9 +157,10 @@ deletes today's design.
 | The advisories of 31 October | 6.12 | 31 October 2026 | `npm audit` 23 → 0, from three advisories, with three `overrides`: `@react-email/render` 2.2.0, `glob` 14 under `react-email`, and `minimatch` 11 everywhere. ESLint decides the same on every file and finds the same faults. One tag leaves every email's `<head>`, and nothing else moves |
 | The Shortlist count in memory | 5.49 | 2 November 2026 | The number beside Shortlist lives in the page's memory and nothing of it reaches the browser's storage, as the Cookie Policy for release says. It survives moving between pages; a reload or a new tab starts with no number until Matches, Explore or the Shortlist loads. The drafts in `docs/legal-review/` say the same. Runbook step 30's gate clears once this is merged and deployed |
 | Old invitations and sign-in records | 5.50 | 2 November 2026 | `scripts/purge-expired-records.ts` counts what the Privacy Policy for release says goes, and with `--apply` backs those rows up and deletes them. Nothing was deleted: the first run is runbook step 40a, and production held 26 expired sign-in records and no due invitations |
+| The SEO and AI search plan | 7.3 | 6 November 2026 | The January plan, deleted, became 7.9–7.12 in "The SEO order" in 7.3, from the live site: 220 of 1,815 sitemap URLs indexed, nothing below the guides linked, doubled titles. The owner allows every crawler, wants no `llms.txt`, and adds Bing (owner task 7). Nothing on the site changed |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
-which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 5.50, 6.1–6.10, 7.1, 7.7 and 7.8. Each section below records what
+which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 5.50, 6.1–6.10, 7.1, 7.3, 7.7 and 7.8. Each section below records what
 was done.
 
 ### 2. Can be done now — before release day and cleanup
@@ -187,11 +188,14 @@ published on release day (runbook steps 20 and 30).
 | After | Session | Tasks | Size | Why it waits |
 |---|---|---|---|---|
 | R.1 | Publish the legal pages | 7.4, step 5 and task C | owner, then small | The owner publishes the three documents, with 7.8's paragraph, in `/admin/legal-content` on release day, so the new words go live with the new design. 5.49 must be merged and deployed first (runbook step 30). Then task C: the templates and code fallbacks updated to the published text. Pull request #127 (three FAQ answers) also merges that day |
-| R.1 | SEO and AI search plan | 7.3 | small | Planning only. The redesign changes page templates and headings, and the plan starts from the Search Console baseline |
 | R.1 and 7.4 published | Returning students: ways back, social media | 7.5 Parts C and D | medium | Anything that emails or tracks changes the Privacy Policy, so it waits for the new one |
 | R.1 | Inactive accounts: the first round | 7.6 Part D's switch | owner | Once the Privacy Policy that sets the rule is published: turn `INACTIVE_ACCOUNTS_ENABLED` on, send the first notices over a few days under Resend's daily limit, and press Delete 30 days later |
 | R.2 | Version X's unused scoring | 5.41 | small | The last step in the matching order at the top of this section |
 | R.2 | Country page shells | 7.2, the rest | medium | One route for the 23 guides, once R.2 deletes the 23 `<Country>Content.tsx` files |
+| Runbook step 41 | Titles and descriptions | 7.10 | small | First of the SEO tasks, in the order in 7.3. No title changes before the Search Console check |
+| R.2 and a board | Links to every university and program | 7.9 | small | The board "D4.12 Guide · universities" can be drawn now; the build waits for cleanup so only one design gets it |
+| 7.9 | Structured data | 7.12 | small | After 7.9, one change at a time |
+| 7.10 + 2 weeks | "Official" in the guides' titles | 7.11 | tiny | The owner decides the word. Apart from 7.10, so a change in the guides' clicks has one cause |
 | R.2 | `eslint-config-next` 16.4 | 6.11 | small to medium | Its React Compiler rules find 19 errors in 14 client components, some of which R.2 deletes; fix what is left |
 
 **For the owner, now:** install Node 24 LTS on the laptop (6.10); then `node -v` prints 24 and `npm ci` has no `EBADENGINE`. 5.37's last steps: export the Security Advisor's list for a session to answer,
@@ -299,12 +303,16 @@ Phase 7 — structural
 - [x] 7.1 Test coverage beyond the matching algorithm (26 October 2026)
 - [ ] 7.2 Collapse the 23 country landing pages: the content is one template since rebranding 4.2
   (18 October 2026); the 23 page shells are left, for after R.2
-- [ ] 7.3 Refresh the SEO and AI search plan, after the rebranding
+- [x] 7.3 Refresh the SEO and AI search plan, after the rebranding — 6 November 2026
 - [ ] 7.4 Review the legal pages, and every claim the public pages make, and bring them up to date
 - [ ] 7.5 Returning students and social media: measure where it stands, and plan how to bring students back and reach new ones — Parts A and B done 27 October 2026
 - [ ] 7.6 Inactive accounts: mark them silent, warn them, then delete them
 - [x] 7.7 Close three gaps in the matching tests (from 7.1 Part 4) (26 October 2026)
 - [x] 7.8 Say in the Privacy Policy that matching is a calculation, not a decision (from 7.4 and 5.40) — 30 October 2026
+- [ ] 7.9 Links that reach every university and program (from 7.3), after runbook step 44 and its board
+- [ ] 7.10 Titles and descriptions on program, university and Explore pages (from 7.3), after runbook step 41
+- [ ] 7.11 "Official" in the guides' titles (from 7.3), two weeks after 7.10
+- [ ] 7.12 Structured data that says what the page says (from 7.3), after 7.9
 
 Owner tasks — not AI work
 
@@ -3451,8 +3459,8 @@ above; the preview's are the known ones (logo URLs, breadcrumbs, headings). The 
 - **One sentence is left:** "Programs are displayed with their minimum IB points requirement" in "Can I filter programs
   by IB points?". It is incomplete for the 307, as the two above were, but outside this task's two answers.
 - **`/programs/search` and the program pages have no line in `lib/page-dates.ts`,** so no date changes.
-- **`docs/tasks/seo-ai-seo-implementation-plan.md` keeps the old words:** it is a record of the January work. 7.3
-  replaces the plan. Its verification report was deleted on 1 November 2026 (git tag `docs-before-cleanup`).
+- **`docs/tasks/seo-ai-seo-implementation-plan.md` kept the old words:** it was a record of the January work. 7.3
+  replaced the plan and deleted the file (6 November 2026). Its verification report was deleted on 1 November 2026 (git tag `docs-before-cleanup`).
 
 ---
 
@@ -4902,7 +4910,7 @@ do the rest.
 
 ---
 
-### 7.3 — Refresh the SEO and AI search plan, after the rebranding
+### 7.3 — Refresh the SEO and AI search plan, after the rebranding — **done**
 
 **Outcome:** `docs/tasks/seo-ai-seo-implementation-plan.md` is replaced by a short, current, ordered
 task list, each task checked against the live site.
@@ -4939,6 +4947,100 @@ data. The file does not say what is left.
 is its own session.
 
 **Session size:** Small. Reading and writing, no code.
+
+**Done (6 November 2026, the day of release; runbook step 50).** The January plan is deleted (it stays
+readable in git history before this pull request). What is left of it, and what the live site showed, is
+four tasks, 7.9–7.12, in the order below. Nothing on the site changed.
+
+#### The SEO order
+
+One step, one session, one pull request, as everywhere else. **No site change before runbook step 41**
+(the Search Console check), because a change before it gives a fall two possible causes. The owner's steps
+and the board can run now. Runbook step 54 (`Next task in the SEO plan.`) means the first open row here.
+
+| Step | Status | Who | Paste this | What it does | When |
+|---|---|---|---|---|---|
+| 1 | **Next** | You | Nothing to paste | Import the site into Bing Webmaster Tools from Search Console, and take the two Search Console exports in [The data](#the-data-6-november-2026). Owner task 7 | Now |
+| 2 | Open | Session | `/design D4.12 Guide · universities` | The change board for 7.9: each guide lists its country's universities (`REBRANDING_tasks.md`, session 32) | Now |
+| 3 | Open | Session | `Do MAINT 7.10.` | Titles and descriptions of program, university and Explore pages; `keywords` removed | After runbook step 41 |
+| 4 | Open | Session | `Do MAINT 7.9.` | Builds the board: every university and program is reachable by links | After step 3, runbook step 44 (R.2) and the board approved |
+| 5 | Open | Session | `Do MAINT 7.12.` | Structured data says what the page says | After step 4 |
+| 6 | Open | Session | `Do MAINT 7.11.` | "Official" in 12 guide titles: your decision, then the change | Two weeks after step 3, so a change in clicks has one cause |
+
+If the owner's export shows most unindexed pages as "Crawled – currently not indexed" rather than
+"Discovered – currently not indexed", step 4 is not the answer on its own: Google read those pages and left
+them out. The 7.9 session says so before building, and a new task looks at what the program pages say that
+the university's own page doesn't.
+
+#### What the January plan asked for, and where it is now
+
+| January task | Status | Where |
+|---|---|---|
+| 1.1 Program titles with IB points | Done, with faults | `generateMetadata` in `app/programs/[id]/page.tsx`. The faults are 7.10 |
+| 1.2 Program descriptions | Done, with one fault | Same function; "match probability" left in 5.47. The year is 7.10 |
+| 1.3 Keywords | Done, and of no use | Google does not read the keywords tag. 7.10 removes it |
+| 2.1 `Course` for IB requirements | Done, under the wrong property | `programJsonLd` in `app/programs/[id]/page.tsx`. 7.12 |
+| 2.2 IB Diploma as a credential | Done, under the wrong property | Same function. 7.12 |
+| 2.3 University structured data | Done, with faults | `app/universities/[id]/page.tsx`. 7.12 |
+| 3.1 Explore's title and description | Done, title doubled | `app/programs/search/page.tsx`. 7.10 |
+| 3.2 Explore's `FAQPage` | Done | Same file. Earns no rich result (below); it stays because it describes the page |
+| 4 `/ib-university-requirements` | Done | `app/ib-university-requirements/page.tsx`, in the sitemap at 0.9 |
+| 5 How it works as a "source of truth" | Done | `app/how-it-works/` with `TechArticle`; its words rewritten by 5.45 and rebranding build 30 |
+| 6.1 Sitemap priorities | Not doing | Google ignores `priority` and `changefreq` |
+| 6.2 Real `lastmod` dates | Done | `app/sitemap.ts` and `lib/page-dates.ts`; university pages added by 5.17 |
+| 7 Search Console | Done | Runbook step 3, by the owner, 31 October 2026 |
+
+The January plan's rejected ideas (a calculator page, a blog) stay rejected: see
+[Deliberately not doing](#deliberately-not-doing).
+
+#### Current guidance, read 6 November 2026
+
+- **Google, AI Overviews and AI Mode**
+  ([AI features](https://developers.google.com/search/docs/appearance/ai-features)): "There are no
+  additional requirements to appear in AI Overviews or AI Mode, nor other special optimizations
+  necessary", and no "new machine readable files, AI text files, or markup". Crawlable pages, internal
+  links, text and structured data that matches the visible page are what counts. `Google-Extended`
+  controls Gemini's training and grounding, not Search.
+- **Rich results.** FAQ rich results went to government and health sites in 2023, and HowTo's were
+  dropped. In June 2025 Google retired seven more, Course Info among them
+  ([announcement](https://developers.google.com/search/blog/2025/06/simplifying-search-results)). The
+  Rich Results Test on 6 November found Breadcrumbs and Organization on a program page and nothing for the
+  program itself. So structured data here serves AI systems and Bing reading facts, which is why 7.12 makes
+  it accurate rather than larger. The 26 `FAQPage`, 2 `HowTo` and 28 `SpeakableSpecification` blocks stay:
+  they describe their pages. None are added.
+- **Sitemaps:** "Google ignores `<priority>` and `<changefreq>` values", and uses `lastmod` only when it
+  is accurate, which it is here.
+- **Keywords tag:** "not used by Google Search, and it has no effect on indexing and ranking at all".
+- **AI crawlers** (each company's page, read the same day). Every one obeys robots.txt by its own token:
+  OpenAI's `OAI-SearchBot` (ChatGPT search) and `GPTBot` (training); Anthropic's `Claude-SearchBot`
+  (search), `ClaudeBot` (training) and `Claude-User`; Perplexity's `PerplexityBot`. `ChatGPT-User` and
+  `Perplexity-User` fetch a page a person asked about and may not read robots.txt at all.
+- **Bing.** Bing's index feeds Microsoft Copilot. Bing Webmaster Tools imports a site verified in Search
+  Console, and since early 2026 has an AI Performance report: Copilot citations per page, with no clicks.
+
+#### The owner's decisions, 6 November 2026
+
+| Question | Decision | What follows |
+|---|---|---|
+| Which AI crawlers may read the site | **All of them**, search and training | `app/robots.ts` stays as it is |
+| `llms.txt` | **No, not now** | Revisit only if a major engine says it reads one. In Deliberately not doing |
+| Bing Webmaster Tools | **Yes**, imported from Search Console | Owner task 7. No code and no DNS change |
+
+#### The data, 6 November 2026
+
+From the runbook's [Numbers to record](RELEASE_RUNBOOK.md#numbers-to-record) and the live site:
+
+- **220 pages indexed of the 1,815 in the sitemap (12%):** 1,676 programs, 104 universities and 35 other
+  pages. 125 clicks in the three months before release. The top five pages are Home and the Portugal,
+  Austria, Spain and Italy guides. No program or university page is among them.
+- **Only the guides are well linked.** Home and the requirements hub link to all 23. Below them, a
+  crawler finds programs only in Explore's first 20 results, which the server renders, and in a
+  university's own list; it finds universities only on program pages. The guides link to Explore and its
+  country filter, nothing deeper. Everything else is found through the sitemap alone. That is 7.9.
+- **Titles that say "IB Match" twice**, or cut a word: `/programs/search`, every university, a program
+  with no IB minimum and a short name, and a program whose title runs past 60 characters. That is 7.10.
+- **Not recorded yet:** the queries that bring the clicks, and why Search Console leaves pages out. Owner
+  task 7 takes both. The 7.9 session reads them first.
 
 ---
 
@@ -5692,6 +5794,183 @@ hold the seven `[LAWYER]` notes group 2 counts; it was six before.
 
 ---
 
+### 7.9 — Links that reach every university and program
+
+**Outcome:** A crawler that starts at Home reaches every university page with programs by ordinary links,
+and every program through its university's page. Search Console's indexed count rises from the 220
+recorded before release.
+
+**Why (7.3, 6 November 2026):** 220 of the sitemap's 1,815 URLs are indexed. The 23 guides are linked
+from Home and the requirements hub, but below them the only links into the 104 university pages are on
+program pages, and the only program links a crawler sees are Explore's first 20 results and a university's
+own list. The guides link to Explore and its country filter, nothing deeper. Google finds everything else
+through the sitemap alone, and a page that nothing links to is crawled late or left out. The guides are
+also where the clicks come from, so their links carry the most weight.
+
+**When:** the board first: "D4.12 Guide · universities" (`REBRANDING_tasks.md`, session 32), which can be
+drawn now. The build after runbook step 44, so only the new design gets it and R.2 deletes nothing new.
+7.10 goes before it.
+
+**Steps:**
+
+1. **Read the owner's Search Console export first** (owner task 7): how many pages are left out, under
+   each reason. Record the totals here, not the URLs. If "Crawled – currently not indexed" outnumbers
+   "Discovered – currently not indexed", stop and tell the owner: Google read those pages and judged them,
+   so links alone won't fix it, and a new task looks at what a program page says that its university's
+   page doesn't.
+2. **Build the approved board.** Expected from the board's question: a section on each guide listing that
+   country's universities with programs, each a link to its page, read on the server at the guide's
+   weekly revalidate.
+3. **One read per guide per week:** a `select` of `id`, `name` and `city` from universities with at least
+   one program in the country. 23 small reads a week in all. Tell the owner before building
+   (UI work is expected to add no load).
+
+**Must not:** change a URL, a title or a guide's words; render the list in the browser; read in
+`generateMetadata`; make a guide dynamic (its one-week revalidate stays, `AGENTS.md`).
+
+**Verify:** for three guides, `curl -s <guide> | grep -o 'href="/universities/[^"]*"' | sort -u | wc -l`
+equals a `count()` of that country's universities with programs. `npm run build` lists the guides as
+static with a one-week revalidate. A month after deploy, the owner notes the indexed count against 220.
+
+**Load:** 23 narrow reads a week.
+
+**Session size:** Small, after the board.
+
+---
+
+### 7.10 — Titles and descriptions on program, university and Explore pages
+
+**Outcome:** No page's title says "IB Match" twice or cuts a word, each program's description names the
+intake its requirements were checked for, and no page sends a `keywords` tag.
+
+**Why (7.3, 6 November 2026, from the live site):** the root layout adds " | IB Match" to every title
+(`app/layout.tsx`, `title.template`), and three pages add it again:
+
+| Page | Live title | Cause |
+|---|---|---|
+| Explore | "Search IB Programs - Find Universities by IB Points \| IB Match \| IB Match" | `app/programs/search/page.tsx` ends its title with "\| IB Match" |
+| A university | "McGill University - IB Match \| IB Match" | `app/universities/[id]/page.tsx`: `` `${name} - IB Match` `` |
+| A program with no minimum | "Journalism at Arizona State University \| IB Match \| IB Match" | The fallback in `generateSEOTitle` ends with "\| IB Match" |
+
+And the program title's 60-character budget leaves the suffix out, so it cuts anyway, mid-word:
+"IB: Information and Communications Engineerin at AAU | 24pts | IB Match", where AAU is the University of
+Klagenfurt's German initials, and "IB: Modern Languages and Lin at University of Oxford | 38pts". Google
+measures titles by width and rewrites poor ones; a cut word reads worse than a long title it shortens
+itself.
+
+The description's year comes from the clock, not the data: `generateSEODescription` writes
+`getFullYear()`, so every program says "2026/27" now, while the guides say 2027 entry and
+`currentEntryYear()` has been 2027 since 1 September; in January it becomes "2027/28" for all of them,
+whatever was checked. A university's description is `slice(0, 160)`, mid-word with no ellipsis.
+
+The `keywords` tag is in 33 files, and Google doesn't read it.
+
+**When:** after runbook step 41. First of the SEO tasks: no board, and the faults are on indexed pages.
+
+**Steps:**
+
+1. Explore, the university title and the program fallback: no "IB Match" of their own; the template adds it.
+2. Program titles: never cut a word, and no initials a reader won't know. Budget 60 characters with the
+   suffix counted, and when it doesn't fit, drop "IB Requirements:" before the university's name. A test
+   holds it over every shape the function has (with and without points, a long program, a long
+   university).
+3. The description's year from `requirementsEntryYear` (`lib/programs/entry-year.ts`), and no year for a
+   program never checked. Check `getProgram` already selects the column; if not, add it to that `select`,
+   which is one read the page shares with its metadata.
+4. Cut every description at a word, with an ellipsis.
+5. Delete `keywords` from all 33 files, `app/layout.tsx` included. `app/public-seo-claims.test.tsx` checks
+   keywords: drop those assertions, not the others.
+
+**Must not:** change a URL, the structured data, a guide's title (7.11) or the words of a description
+beyond its year and its cut.
+
+**Verify:** `curl -s <page> | grep -o '<title>[^<]*</title>'` on the five pages in Why:
+`/programs/search`, `/universities/cmjyl1oq400017mpfc4iv4vr3` (McGill),
+`/programs/cmv2aqaq1000jkc7mwex0o3dt` (Arizona State), `/programs/cmutgqe61004zlj7mtottu1bn` (Klagenfurt)
+and `/programs/cmkr3lklu00217mc2ttufv5vo` (Oxford); and on `/programs/cmjzmxs7v00277metma0vg6oq`
+(McGill Education), which keeps its title. `grep -c '<meta name="keywords"'` gives 0
+on Home, a guide and a program. `npm test`.
+
+**Load:** none.
+
+**Session size:** Small.
+
+---
+
+### 7.11 — "Official" in the guides' titles
+
+**Outcome:** The owner has decided whether a guide's title may say "Official", and the 23 titles,
+descriptions and headlines agree with the decision.
+
+**Why (7.3, 6 November 2026):** 12 guides call themselves official in their title, such as "Study in the
+UK with IB Diploma | Official UCAS Guide (2027)", and in their description and `Article` headline. IB
+Match is not UCAS, CIMEA or uni-assist, and none of them endorses the guide; what is official is the
+sources it cites. A reader may take the title as the body's own guide. It is a claim, as in 7.4's list.
+
+**When:** two weeks after 7.10 deploys, so a change in the guides' clicks has one cause. They bring most of
+the site's clicks.
+
+**Steps:**
+
+1. List each guide's title, description and headline with "Official".
+2. ✋ **The owner decides.** Recommended: drop the word and keep the rest ("Study in the UK with IB
+   Diploma | UCAS Guide (2027)"), with the description saying the guide is built from official sources.
+3. Change the 12, in both places the guide's words live if R.2 hasn't merged (the old-vs-new snapshot test
+   says where), and add a row to `docs/legal-review/claims.md`.
+
+**Must not:** change a URL, a guide's body, its dates in `lib/page-dates.ts` or another guide's title.
+
+**Verify:** `git grep -n "Official" -- 'app/study-in-*'` finds only the source lists in comments and the
+body's own words. `npm test`. Four weeks later, the owner compares the guides' clicks with the four weeks
+before.
+
+**Load:** none.
+
+**Session size:** Tiny, after the decision.
+
+---
+
+### 7.12 — Structured data that says what the page says
+
+**Outcome:** Every property in a program's and a university's JSON-LD is a schema.org property used for its
+meaning, and says nothing the page doesn't.
+
+**Why (7.3, 6 November 2026):** no rich result depends on this markup (7.3, "Current guidance"), but AI
+systems and Bing read it as facts, and some of those facts are wrong:
+
+- **Program** (`programJsonLd` in `app/programs/[id]/page.tsx`): the IB courses are under `hasCourse`,
+  which schema.org defines as a course "that is one of the learning opportunities that constitute" the
+  program, and the IB Diploma is under `educationalCredentialAwarded`, the credential the program awards.
+  Read literally, Oxford's Modern Languages awards an IB Diploma. Both belong in `programPrerequisites`,
+  which takes a `Course` and an `EducationalOccupationalCredential`.
+- **University** (`app/universities/[id]/page.tsx`): `acceptsCredential` is not a schema.org property
+  (its page answers 404); the catalogue repeats `educationalCredentialAwarded`; `alumni` is an invented
+  organisation, "McGill University Alumni", where schema.org expects people; `sameAs` repeats `url`; and
+  `logo` is the university's image, which may be a photo.
+
+**When:** after 7.9.
+
+**Steps:**
+
+1. Program: `hasCourse` and `educationalCredentialAwarded` move into `programPrerequisites`, unchanged
+   inside.
+2. University: `programPrerequisites` in the catalogue; `acceptsCredential`, `alumni` and `sameAs` go;
+   `logo` stays only if the image is a logo (check five in Storage).
+3. A test for each that holds the property names, as `public-seo-claims.test.tsx` holds the words.
+
+**Must not:** add `FAQPage`, `HowTo` or any other type, remove the existing ones, or change what the page
+shows.
+
+**Verify:** the Schema Markup Validator (validator.schema.org) shows no unknown property on one program
+and one university. The Rich Results Test finds the same items as in the runbook's Numbers to record:
+Home Organization; a program Breadcrumbs and Organization. `npm test`.
+
+**Load:** none.
+
+**Session size:** Small.
+
+---
+
 ## Deliberately not doing
 
 Recorded so nobody re-opens them without new information.
@@ -5701,6 +5980,11 @@ Recorded so nobody re-opens them without new information.
 | **Nonce-based CSP** | Per the Next 16 CSP guide, nonces force every page into dynamic rendering — ISR disabled, no CDN caching, higher cost. Bad trade for an app that loads no third-party scripts. `'unsafe-eval'` is already gone from production. Revisit if `experimental.sri` stops being experimental. |
 | **Rate limiting the Stripe webhook** | Throttling it makes Stripe retry and eventually drop events. It is guarded by signature verification instead. |
 | **Shortening the 30-day session** | Role revocation now takes effect within 5 minutes, so session length is a product preference rather than a security control. Change it if the user wants shorter, not for security. |
+| **`llms.txt`** | No major AI search engine has said it reads one, and Google says AI Overviews need no special files. Owner, 6 November 2026 (7.3). Revisit if one does |
+| **Blocking AI crawlers** | The owner allows every crawler, search and training (7.3, 6 November 2026): the data is public, and being cited is how a small site is found |
+| **More `FAQPage` or `HowTo` markup** | Neither earns a rich result here since 2023. The existing blocks stay, since they describe their pages (7.3) |
+| **Sitemap `priority` and `changefreq` tuning** | Google ignores both (7.3) |
+| **A calculator page, or a blog** | Rejected in January 2026 and again in 7.3: a calculator brings searchers looking for something else, and a blog needs writing every week |
 | **Removing `'unsafe-inline'` from `script-src`** | Next emits inline bootstrap and hydration scripts. Needs nonces or SRI — see above. |
 
 ---
@@ -5730,3 +6014,10 @@ Not AI work, but they gate real value.
    rebranding QA. If it does not fall, or Matches still dominates, do 5.19's step 3.
 6. **Approve deleting the two invitations 5.25 left behind**, after a Supabase backup:
    `scripts/delete-orphaned-student-invitations.ts --apply` (5.25, step 6).
+7. **Bing, and two Search Console exports** (7.3, 6 November 2026; runbook step 50a). No code.
+   - In Bing Webmaster Tools, import `www.ibmatch.com` from Search Console. Bing verifies it and takes
+     the sitemap. A week later note its indexed pages and, under AI Performance, its Copilot citations.
+   - In Search Console, **Pages** → "Why pages aren't indexed": each reason with its count.
+   - **Performance** → Search results, last 3 months → Queries: the top 20 with clicks and impressions.
+   Paste both into the 7.9 session. The repository is public, so it records totals and reasons; the
+   queries stay in the session.

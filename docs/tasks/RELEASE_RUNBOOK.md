@@ -56,13 +56,13 @@ next session: "steps 3 and 4 are done". It records them.
 | 3 Release day | 2 and 3 | 24–34 | **Now** |
 | 4 Silent accounts | 4 | 35–38 | Open |
 | 5 Watch, then cleanup | 5 | 39–49 | Open |
-| 6 SEO and marketing | | 50–54 | Open |
+| 6 SEO and marketing | | 50–54 | Planning started: step 50 done 6 November 2026 |
 
 **Live with the new UI by 6 November 2026 (owner).** Checked from outside that day: Home, the guides and the
 program pages answer in the new design (Home's new `h1`, the new logo in the JSON-LD, `BreadcrumbList` on a program),
 and `/privacy`, `/terms` and `/cookies` show version 2026-11-06, with "8. Data retention" in place. `curl -s
-https://www.ibmatch.com/admin/students | grep -c @` gives 0. **#127 is still an unmerged draft**, so `/faqs` has today's
-three answers, not the new words. Which of steps 24–34 are done is for the owner to say; the next session records them.
+https://www.ibmatch.com/admin/students | grep -c @` gives 0. #127 merged the same day (10:53), and `/faqs`
+shows its three answers (steps 24 and 27). Which of steps 24–34 are done is for the owner to say; the next session records them.
 
 ### Dates
 
@@ -73,10 +73,10 @@ dips and the Search Console comparison means something.
 | When | What | Target | Real date |
 |---|---|---|---|
 | Now | Steps 1–4 sent | Monday 2 November 2026 | |
-| R | Release day. A Tuesday or Wednesday, with the rest of the day free | Tuesday 17 November | |
+| R | Release day. A Tuesday or Wednesday, with the rest of the day free | Tuesday 17 November | Friday 6 November 2026 (owner) |
 | R+1, R+2 | Silent-account notices | 18 and 19 November | |
 | R+1 to R+3 | Legal task C | By 20 November | |
-| R+16 | Search Console check, then cleanup | Thursday 3 December | |
+| R+16 | Search Console check, then cleanup | Thursday 3 December | From Sunday 22 November 2026 |
 | Each notice + 30 days | Delete accounts that didn't come back | From 18 and 19 December | |
 | R + 3 months | First review of old invitations and sign-in records (step 40a) | By 17 February 2027 | |
 
@@ -233,10 +233,10 @@ pages, so the second deploy does that, and closes the preview and turns on the a
 
 | Step | Status | Who | What to do | Check |
 |---|---|---|---|---|
-| 24 | Open | Session | **Paste:** `Next step in the release runbook.` It takes #127 out of draft, as GitHub won't merge a draft, updates it with `main` and sets `/faqs`' `modified` in `lib/page-dates.ts` to today | #127 is green and mergeable |
+| 24 | Done, 6 November 2026 (#127) | Session | **Paste:** `Next step in the release runbook.` It takes #127 out of draft, as GitHub won't merge a draft, updates it with `main` and sets `/faqs`' `modified` in `lib/page-dates.ts` to today | #127 is green and mergeable |
 | 25 | Open | You | **SEC-4 steps 1–4.** `npm audit` on the release commit. Vercel → Deployment Protection: previews protected. Vercel → Production: `STRIPE_WEBHOOK_SECRET` set, `INACTIVE_ACCOUNTS_ENABLED` unset or `false`, nothing secret named `NEXT_PUBLIC_` | All four pass |
 | 26 | Open | You | **Vercel → Production:** set `NEW_UI_FOR_EVERYONE=true`. Production only. Nothing changes until the next deploy | The variable is saved |
-| 27 | Open | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
+| 27 | Done, 6 November 2026 (owner) | You | **Merge #127.** The merge deploys production. No separate redeploy | The deployment is Ready, and `/` shows the new design in a private window |
 | 28 | Open | You | **Check every page:** signed out and signed in, light and dark, on a phone and on Windows. Sign in as a student: Matches, Explore, a program, Shortlist, Academic, Settings. Open `/faqs`, a guide, For schools and the coordinator sign-in. Open `/admin/seasonal-themes` | Nothing is broken. If something is, see [Rollback](#rollback) |
 | 29 | Done, 6 November 2026 (owner), with step 21: Home and the program valid, the program with its breadcrumbs | You | **Rich Results Test:** Home, one guide, one program | The same items as before, plus the breadcrumbs |
 | 30 | Open | You | **First, check step 9a (MAINT 5.49) is merged and deployed. If it isn't, stop here:** the Cookie Policy says the Shortlist count isn't saved on the device, and until then it is. **Publish the three documents** in `/admin/legal-content`, one straight after the other: Privacy, Terms, Cookie Policy. For each: create the version from its file in `../match-private/legal-for-release/`, label it with today's date as `YYYY-MM-DD`, publish "effective now". The Cookie Policy's first version creates its document. The policy notice shows to signed-in users at once; the Cookie Policy doesn't trigger it | All three show as published with today's label |
@@ -337,12 +337,13 @@ user: batch those changes.
 
 | Step | Status | Who | When | Paste this | What it does |
 |---|---|---|---|---|---|
-| 50 | Open | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
+| 50 | Done, 6 November 2026 (#PR) | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
+| 50a | Open | You | Now | Nothing to paste | **Bing and two Search Console exports** (`MAINT_tasks.md` owner task 7): import the site into Bing Webmaster Tools from Search Console; in Search Console, the Pages report's reasons with their counts, and the top 20 queries for the last 3 months. Paste the exports into the 7.9 session. No code |
 | 51 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part C.` | Planning only: how to bring students back without annoying them. You approve the options |
 | 52 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part D.` | Planning only: social media, LinkedIn for coordinators first. You approve the plan |
 | 52a | Open | Session | Before the first post in step 53 | `Give every public page a share image.` | 31 of the 35 public pages in the sitemap have no `og:image`, Home and all 23 guides among them, in either design, so a link to them shows no picture (`REBRANDING_tasks.md` 1.3). The dress rehearsal found it wider than that note says. Adds the image to their metadata. Titles, URLs, robots rules and structured data stay as they are, so the rule before step 41 allows it |
 | 53 | Open | You | After a stable first week, with Lens clear | Nothing to paste | Create the accounts and start organic posts, from step 52's plan. Footer links and `sameAs` wait for step 54 |
-| 54 | Open | Session | After step 41 | `Next task in the SEO plan.` | Carries out step 50's tasks and the site changes from steps 51 and 52, one per session. Footer links need a change board first (`REBRANDING_tasks.md`, Step 2) |
+| 54 | Open | Session | After step 41 | `Next task in the SEO plan.` | Runs the first open row of "The SEO order" in `MAINT_tasks.md` 7.3 (7.10, 7.9, 7.12, 7.11), then the site changes from steps 51 and 52, one per session. The board for 7.9 (`/design D4.12 Guide · universities`) can be drawn before step 41. Footer links need a change board first (`REBRANDING_tasks.md`, Step 2) |
 
 ---
 
@@ -357,5 +358,5 @@ user: batch those changes.
 | `docs/legal-review/lawyer-brief.md` | What goes to the lawyer |
 
 **Not part of the release:** `CONTENT_tasks.md` has nothing that gates it. `docs/archive/` holds old records. Docs
-deleted on 1 November 2026 stay readable at the git tag `docs-before-cleanup`. `seo-ai-seo-implementation-plan.md` is
-background until step 50 replaces it.
+deleted on 1 November 2026 stay readable at the git tag `docs-before-cleanup`. `seo-ai-seo-implementation-plan.md` was
+deleted by step 50; its tasks are `MAINT_tasks.md` 7.9–7.12.
