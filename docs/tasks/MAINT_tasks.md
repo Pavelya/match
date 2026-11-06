@@ -176,6 +176,7 @@ October 2026; a new finding gets a row here.
 |---|---|---|---|
 | A Matches load that outlasts a save | 5.48 | small | A load already running when a save lands can store the old list after the clear, for up to 30 minutes. Rare, and from reading the code. Not a release step |
 | "Open to all fields" in the account export | 5.51 | small | The student's download holds "open to all locations" but not its partner, so it leaves out one stated preference. Not a gate |
+| Why Google turns down program pages | 7.13 | small | Read-only, from the owner's Search Console exports (7.3). First of the SEO order's sessions, before 7.9's board, since 7.9 links to these pages |
 
 The matching tasks 5.40–5.45 run in the order at the top of this section, not from here.
 
@@ -313,6 +314,7 @@ Phase 7 — structural
 - [ ] 7.10 Titles and descriptions on program, university and Explore pages (from 7.3), after runbook step 41
 - [ ] 7.11 "Official" in the guides' titles (from 7.3), two weeks after 7.10
 - [ ] 7.12 Structured data that says what the page says (from 7.3), after 7.9
+- [ ] 7.13 Why Google reads program pages and leaves them out (from 7.3's exports), before 7.9
 
 Owner tasks — not AI work
 
@@ -4960,17 +4962,19 @@ and the board can run now. Runbook step 54 (`Next task in the SEO plan.`) means 
 
 | Step | Status | Who | Paste this | What it does | When |
 |---|---|---|---|---|---|
-| 1 | **Next** | You | Nothing to paste | Import the site into Bing Webmaster Tools from Search Console, and take the two Search Console exports in [The data](#the-data-6-november-2026). Owner task 7 | Now |
-| 2 | Open | Session | `/design D4.12 Guide · universities` | The change board for 7.9: each guide lists its country's universities (`REBRANDING_tasks.md`, session 32) | Now |
-| 3 | Open | Session | `Do MAINT 7.10.` | Titles and descriptions of program, university and Explore pages; `keywords` removed | After runbook step 41 |
-| 4 | Open | Session | `Do MAINT 7.9.` | Builds the board: every university and program is reachable by links | After step 3, runbook step 44 (R.2) and the board approved |
-| 5 | Open | Session | `Do MAINT 7.12.` | Structured data says what the page says | After step 4 |
-| 6 | Open | Session | `Do MAINT 7.11.` | "Official" in 12 guide titles: your decision, then the change | Two weeks after step 3, so a change in clicks has one cause |
+| 1 | Done, 6 November 2026 (owner) | You | Nothing to paste | Bing Webmaster Tools, and the Search Console and Bing exports. Owner task 7. Read the same day: [The exports](#the-exports-read-6-november-2026) | Now |
+| 2 | **Next** | You | Nothing to paste | Three fixes outside the code: ask Google to index the 10 guides it left out, make the bare domain's redirect permanent, and give Bing the `www` site. Owner task 8 | Now |
+| 3 | Open | Session | `Do MAINT 7.13.` | Why Google reads program pages and leaves them out. Read-only: it decides what 7.9 links to | Now |
+| 4 | Open | Session | `/design D4.12 Guide · universities` | The change board for 7.9: each guide lists its country's universities (`REBRANDING_tasks.md`, session 32) | After step 3 |
+| 5 | Open | Session | `Do MAINT 7.10.` | Titles and descriptions of Home, program, university and Explore pages; `keywords` removed | After runbook step 41 |
+| 6 | Open | Session | `Do MAINT 7.9.` | Builds the board: every university and program is reachable by links | After step 5, runbook step 44 (R.2) and the board approved |
+| 7 | Open | Session | `Do MAINT 7.12.` | Structured data says what the page says | After step 6 |
+| 8 | Open | Session | `Do MAINT 7.11.` | "Official" in 12 guide titles: your decision, then the change | Two weeks after step 5, so a change in clicks has one cause |
 
-If the owner's export shows most unindexed pages as "Crawled – currently not indexed" rather than
-"Discovered – currently not indexed", step 4 is not the answer on its own: Google read those pages and left
-them out. The 7.9 session says so before building, and a new task looks at what the program pages say that
-the university's own page doesn't.
+**Why this order (from the exports):** half the left-out pages were read and judged ("Crawled – currently
+not indexed", 757) and half never read ("Discovered – currently not indexed", 783). Links (7.9) answer the
+second half only, and send Google more of the pages it is already turning down, so 7.13 finds out why it
+turns them down first. The owner's three fixes cost nothing and touch no page.
 
 #### What the January plan asked for, and where it is now
 
@@ -5039,8 +5043,76 @@ From the runbook's [Numbers to record](RELEASE_RUNBOOK.md#numbers-to-record) and
   country filter, nothing deeper. Everything else is found through the sitemap alone. That is 7.9.
 - **Titles that say "IB Match" twice**, or cut a word: `/programs/search`, every university, a program
   with no IB minimum and a short name, and a program whose title runs past 60 characters. That is 7.10.
-- **Not recorded yet:** the queries that bring the clicks, and why Search Console leaves pages out. Owner
-  task 7 takes both. The 7.9 session reads them first.
+
+#### The exports, read 6 November 2026
+
+The owner's exports from Search Console (Pages, the "Crawled – currently not indexed" list, and three months
+of Performance) and Bing Webmaster Tools (Site Explorer, Search Performance, SEO Analysis) are in
+`../match-private/seo-2026-11/`, out of git. The repository is public, so this records totals, never a
+URL or a student's query.
+
+**Google: what is left out, and why** (all known pages, 6 November)
+
+| Reason | Pages | What it means |
+|---|---|---|
+| Discovered – currently not indexed | 783 | Known, never read. Links help (7.9) |
+| Crawled – currently not indexed | 757 | Read and turned down: 727 programs, 14 universities, **10 guides**, 6 other |
+| Page with redirect | 10 | The bare domain and `http`. Expected |
+| Duplicate without user-selected canonical | 8 | Small. 7.13 looks at which |
+| Not found (404) | 1 | |
+
+- **10 of the 23 guides are turned down**, among them the UK, the USA, Australia, Singapore and Ireland:
+  the biggest destinations. Google last read most of them between May and July, before the content
+  refresh of October and the new design. Owner task 8 asks it to read them again.
+- **Indexed pages fell** from 267 on 10 August to 198 on 19 October, then 220 on 20 October.
+- **Most turned-down programs were last read in May** (466 of 727). A sample of 10 indexed and 10
+  turned-down program pages showed no difference in length: 150 to 360 words each, 25–60% of them the
+  same on every program page. So length is not the cause; 7.13 looks further.
+
+**Google: what brings clicks** (4 August to 3 November: 129 clicks, 19,103 impressions)
+
+| Pages | Clicks | Impressions | Average position |
+|---|---|---|---|
+| Home | 64 | 293 | 7 |
+| 15 guides | 49 | 11,398 | 46 |
+| 345 programs | 15 | 4,777 | 40 |
+| The requirements hub | 0 | 1,940 | 65 |
+| 48 universities | 0 | 204 | 49 |
+| Everything else | 1 | 491 | |
+
+- **Search Console shows queries for a third of the impressions** (6,501), and only 19 of the clicks.
+  Of those 6,501, by kind:
+  - **52% (3,411) are two searches joined by ";"**, nearly all in Portuguese or Spanish, about taking the
+    IB abroad (Denmark above all). No clicks, average position about 50. They read as machine-made, not
+    typed by students: leave them out of any decision. They are most of the Denmark guide's 3,418
+    impressions, and of Spain's and Portugal's.
+  - **Searching for IB schools** (taking the IB in Hong Kong or the Netherlands): 796, no clicks. Not the
+    site's audience.
+  - **University admission with the IB**: 649, one click. General searches rank about 80th; a search
+    naming a university and a program ranks about 9th when its page is indexed. The long tail works where
+    Google keeps the page.
+  - **Program names without "IB"**: 630, no clicks.
+  - **The site's own name, "ib match"**: 77 impressions and 16 clicks at an **average position of 3**.
+    The site does not come first for its own name. 7.10 looks at Home's title.
+- **No search appearance at all**: no rich result of any kind in three months.
+- **Phones convert, desktops don't:** 1,767 phone impressions at position 16 with 2.6% clicking; 16,455
+  desktop impressions at position 49 with 0.5%.
+- **Clicks are flat**, about 40 a month, while impressions moved between 4,157 (September) and 7,117
+  (August).
+
+**Bing** (6 August to 3 November)
+
+- **99 clicks and 6,013 impressions**, three-quarters of Google's clicks. The hub has 15 clicks on Bing
+  and none on Google; the Germany, Spain and Canada guides 12 to 13 each.
+- **Site Explorer lists 33 URLs, every one on the bare domain `ibmatch.com`**: Home, the hub, the 23
+  guides and the text pages. **No program or university page.** The bare domain answers with a 307, a
+  temporary redirect, which search engines treat as a weak signal for which address is the real one.
+  Owner task 8.
+- **No backlinks**, on any page. Off the site: 7.5 Part D (runbook step 52) is where links from elsewhere
+  come from.
+- **SEO Analysis:** 12 titles too long, exactly the 12 guides with "Official" (66 to 87 characters with
+  " | IB Match"): 7.11. It also suggests IndexNow (in Deliberately not doing) and notes no links from
+  quality sites.
 
 ---
 
@@ -5807,17 +5879,15 @@ own list. The guides link to Explore and its country filter, nothing deeper. Goo
 through the sitemap alone, and a page that nothing links to is crawled late or left out. The guides are
 also where the clicks come from, so their links carry the most weight.
 
-**When:** the board first: "D4.12 Guide · universities" (`REBRANDING_tasks.md`, session 32), which can be
-drawn now. The build after runbook step 44, so only the new design gets it and R.2 deletes nothing new.
-7.10 goes before it.
+**When:** 7.13 first, then the board "D4.12 Guide · universities" (`REBRANDING_tasks.md`, session 32).
+The build after runbook step 44, so only the new design gets it and R.2 deletes nothing new. 7.10 goes
+before it.
 
 **Steps:**
 
-1. **Read the owner's Search Console export first** (owner task 7): how many pages are left out, under
-   each reason. Record the totals here, not the URLs. If "Crawled – currently not indexed" outnumbers
-   "Discovered – currently not indexed", stop and tell the owner: Google read those pages and judged them,
-   so links alone won't fix it, and a new task looks at what a program page says that its university's
-   page doesn't.
+1. **Start from 7.13's answer.** The exports (7.3, "The exports") found 783 pages never read and 757 read
+   and turned down. If 7.13 changes what a program page says, or leaves some out of the index, the links
+   follow that: never link to a page that is marked `noindex`.
 2. **Build the approved board.** Expected from the board's question: a section on each guide listing that
    country's universities with programs, each a link to its page, read on the server at the guide's
    weekly revalidate.
@@ -5840,7 +5910,7 @@ static with a one-week revalidate. A month after deploy, the owner notes the ind
 
 ### 7.10 — Titles and descriptions on program, university and Explore pages
 
-**Outcome:** No page's title says "IB Match" twice or cuts a word, each program's description names the
+**Outcome:** Home's title starts with the site's name, no page's title says "IB Match" twice or cuts a word, each program's description names the
 intake its requirements were checked for, and no page sends a `keywords` tag.
 
 **Why (7.3, 6 November 2026, from the live site):** the root layout adds " | IB Match" to every title
@@ -5878,7 +5948,12 @@ The `keywords` tag is in 33 files, and Google doesn't read it.
    program never checked. Check `getProgram` already selects the column; if not, add it to that `select`,
    which is one read the page shares with its metadata.
 4. Cut every description at a word, with an ellipsis.
-5. Delete `keywords` from all 33 files, `app/layout.tsx` included. `app/public-seo-claims.test.tsx` checks
+5. ✋ **Home's title**, with the owner. It is "IB Match - Find Your Perfect University Program", and the
+   site comes third on average for its own name (7.3, "The exports"). It also breaks the content style
+   ("perfect", D4.14). Recommended: the name first, then what it is, in the content style, such as "IB
+   Match: university programs for IB Diploma students". Search Console's position for "ib match" a month
+   later says whether it helped.
+6. Delete `keywords` from all 33 files, `app/layout.tsx` included. `app/public-seo-claims.test.tsx` checks
    keywords: drop those assertions, not the others.
 
 **Must not:** change a URL, the structured data, a guide's title (7.11) or the words of a description
@@ -5905,7 +5980,8 @@ descriptions and headlines agree with the decision.
 **Why (7.3, 6 November 2026):** 12 guides call themselves official in their title, such as "Study in the
 UK with IB Diploma | Official UCAS Guide (2027)", and in their description and `Article` headline. IB
 Match is not UCAS, CIMEA or uni-assist, and none of them endorses the guide; what is official is the
-sources it cites. A reader may take the title as the body's own guide. It is a claim, as in 7.4's list.
+sources it cites. A reader may take the title as the body's own guide. It is a claim, as in 7.4's list. Bing also flags
+exactly these 12 titles as too long: 66 to 87 characters with " | IB Match" (7.3, "The exports").
 
 **When:** two weeks after 7.10 deploys, so a change in the guides' clicks has one cause. They bring most of
 the site's clicks.
@@ -5971,6 +6047,52 @@ Home Organization; a program Breadcrumbs and Organization. `npm test`.
 
 ---
 
+### 7.13 — Why Google reads program pages and leaves them out
+
+**Outcome:** A short answer, with evidence, to why Google turned down 727 program pages it had read, and a
+decision by the owner on what to do: change what a program page says (a board), keep some out of the
+index, or nothing yet.
+
+**Why (7.3, "The exports", 6 November 2026):** 727 programs are "Crawled – currently not indexed", against
+about 350 that earned an impression. A sample of 20 showed no difference in length. Google's guidance is
+that it may leave out pages it finds of little value, and judges a site partly as a whole, so 1,600 pages
+it turns down may also weigh on the guides, 10 of which it turned down too. 7.9 sends crawlers to more of
+these pages, so it waits for this answer.
+
+**When:** now. Read-only, so the rule before runbook step 41 does not stop it.
+
+**Steps:**
+
+1. **Two lists**, from `../match-private/seo-2026-11/`: the programs in the Performance export (shown in
+   search, so indexed at some point) and the 727 turned down. Join them to one narrow `select` of every
+   program: `id`, country, field, `minIBPoints` set or not, the number of course requirements,
+   `length(description)`, `requirementsEntryYear`, `createdAt`. One read of about 1,700 short rows.
+2. **Compare the two lists** on each of those: is a country, a field, an age, a missing minimum or a
+   short description over-represented among the turned-down? Totals only in this file.
+3. **Is the description someone else's text?** For 10 turned-down and 10 indexed programs, search one
+   exact sentence of the description. A description that repeats the university's own page loses to it,
+   and Google keeps the original.
+4. **What the page offers that the university's own page doesn't:** read three turned-down pages whole,
+   beside their official pages. Today it is the requirements in one place, the IB points and how a
+   student stands; say whether a crawler can see that without signing in.
+5. **The 8 duplicates without a canonical:** Search Console's list for that reason (the owner exports
+   it), and why.
+6. ✋ **Owner decides** between: a change board for the program page (what it adds); `noindex` for a
+   group the data singles out, with the sitemap left in step; or nothing until 7.9 has run. Write the
+   decision here and adjust "The SEO order".
+
+**Must not:** change any page, robots rule or the sitemap; read whole tables; write a URL or a query into
+the repository.
+
+**Verify:** the totals add up to the export's 727 and the Performance list's count. The decision is
+recorded.
+
+**Load:** one narrow read of the programs table.
+
+**Session size:** Small.
+
+---
+
 ## Deliberately not doing
 
 Recorded so nobody re-opens them without new information.
@@ -5983,6 +6105,7 @@ Recorded so nobody re-opens them without new information.
 | **`llms.txt`** | No major AI search engine has said it reads one, and Google says AI Overviews need no special files. Owner, 6 November 2026 (7.3). Revisit if one does |
 | **Blocking AI crawlers** | The owner allows every crawler, search and training (7.3, 6 November 2026): the data is public, and being cited is how a small site is found |
 | **More `FAQPage` or `HowTo` markup** | Neither earns a rich result here since 2023. The existing blocks stay, since they describe their pages (7.3) |
+| **IndexNow** | Bing suggests it (7.3, "The exports"), but Bing's gap is which domain it holds and what it can reach, not how fast it hears of a change. Programs change a few times a year, and the sitemap's `lastmod` is accurate. Revisit after owner task 8 if Bing still holds no program page |
 | **Sitemap `priority` and `changefreq` tuning** | Google ignores both (7.3) |
 | **A calculator page, or a blog** | Rejected in January 2026 and again in 7.3: a calculator brings searchers looking for something else, and a blog needs writing every week |
 | **Removing `'unsafe-inline'` from `script-src`** | Next emits inline bootstrap and hydration scripts. Needs nonces or SRI — see above. |
@@ -6014,10 +6137,22 @@ Not AI work, but they gate real value.
    rebranding QA. If it does not fall, or Matches still dominates, do 5.19's step 3.
 6. **Approve deleting the two invitations 5.25 left behind**, after a Supabase backup:
    `scripts/delete-orphaned-student-invitations.ts --apply` (5.25, step 6).
-7. **Bing, and two Search Console exports** (7.3, 6 November 2026; runbook step 50a). No code.
+7. ~~**Bing, and two Search Console exports**~~ Done 6 November 2026: the exports are in
+   `../match-private/seo-2026-11/`, read in 7.3 ("The exports"). (7.3; runbook step 50a.) No code.
    - In Bing Webmaster Tools, import `www.ibmatch.com` from Search Console. Bing verifies it and takes
      the sitemap. A week later note its indexed pages and, under AI Performance, its Copilot citations.
    - In Search Console, **Pages** → "Why pages aren't indexed": each reason with its count.
    - **Performance** → Search results, last 3 months → Queries: the top 20 with clicks and impressions.
-   Paste both into the 7.9 session. The repository is public, so it records totals and reasons; the
-   queries stay in the session.
+   The repository is public, so it records totals and reasons; the queries stay out of it.
+8. **Three fixes outside the code** (7.3, "The exports", 6 November 2026; runbook step 50b). None changes a
+   page, so the rule before runbook step 41 allows them.
+   - **Search Console → URL Inspection** for each of the 10 guides it turned down (the UK, the USA,
+     Australia, Singapore, Ireland, Israel, Japan, Estonia, the Czech Republic, Belgium): **Request
+     indexing**. Google read most of them before October's refresh. A few a day is fine.
+   - **Vercel → Project → Domains → `ibmatch.com` → Edit:** the redirect to `www.ibmatch.com` answers 307,
+     a temporary redirect. Make it permanent (308) if the dialog offers a status. Check with
+     `curl -sI https://ibmatch.com/ | head -1`.
+   - **Bing Webmaster Tools:** check that the property is `https://www.ibmatch.com`, not only the bare
+     domain, and that `https://www.ibmatch.com/sitemap.xml` is submitted and read. Bing lists 33 pages,
+     all on the bare domain, and no program or university.
+   Two weeks later, Search Console's Pages report for the 10 guides, and Bing's Site Explorer count.
