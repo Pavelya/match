@@ -49,7 +49,7 @@ const FALLBACK_FAQS = [
   {
     question: 'Is IB Match free to use?',
     answer:
-      'Yes! IB Match is 100% free for students. You can browse programs, create your academic profile, see your matches, and save your favorites — all at no cost.'
+      'Yes! IB Match is 100% free for students. You can browse programs, create your academic profile, see your matches, and save programs to your shortlist — all at no cost.'
   },
   {
     question: 'How accurate are the program recommendations?',
@@ -64,7 +64,7 @@ const FALLBACK_FAQS = [
   {
     question: 'How do I update my predicted grades?',
     answer:
-      'You can update your predicted grades anytime from your Academic Profile. Just click "Academic Profile" in the header (or "Academic" in the bottom navigation on mobile) to access and update your grades. Your matches will automatically recalculate to reflect your changes.'
+      'You can update your predicted grades anytime. Open Academic, in the header or in the tab bar on a phone, and choose "Edit subjects and grades". Your matches will automatically recalculate to reflect your changes.'
   },
   {
     question: "What if I'm not sure about my predicted grades?",
@@ -74,7 +74,7 @@ const FALLBACK_FAQS = [
   {
     question: 'How many programs will I be matched with?',
     answer:
-      'The number of matches depends on your profile and preferences. We show your top recommendations first, but you can also browse and search our full database to discover more options. New programs are added regularly as we grow.'
+      'The number of matches depends on your profile and preferences. We show every match, grouped by status: the programs whose requirements you meet, those within reach, those with no set grades, and those missing a requirement. You can also browse and search our full database to discover more options. New programs are added regularly as we grow.'
   },
   {
     question: 'Can coordinators at my school see my information?',
