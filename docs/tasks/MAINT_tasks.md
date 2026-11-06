@@ -157,7 +157,7 @@ deletes today's design.
 | The advisories of 31 October | 6.12 | 31 October 2026 | `npm audit` 23 → 0, from three advisories, with three `overrides`: `@react-email/render` 2.2.0, `glob` 14 under `react-email`, and `minimatch` 11 everywhere. ESLint decides the same on every file and finds the same faults. One tag leaves every email's `<head>`, and nothing else moves |
 | The Shortlist count in memory | 5.49 | 2 November 2026 | The number beside Shortlist lives in the page's memory and nothing of it reaches the browser's storage, as the Cookie Policy for release says. It survives moving between pages; a reload or a new tab starts with no number until Matches, Explore or the Shortlist loads. The drafts in `docs/legal-review/` say the same. Runbook step 30's gate clears once this is merged and deployed |
 | Old invitations and sign-in records | 5.50 | 2 November 2026 | `scripts/purge-expired-records.ts` counts what the Privacy Policy for release says goes, and with `--apply` backs those rows up and deletes them. Nothing was deleted: the first run is runbook step 40a, and production held 26 expired sign-in records and no due invitations |
-| The SEO and AI search plan | 7.3 | 6 November 2026 | The January plan, deleted, became 7.9–7.12 in "The SEO order" in 7.3, from the live site: 220 of 1,815 sitemap URLs indexed, nothing below the guides linked, doubled titles. The owner allows every crawler, wants no `llms.txt`, and adds Bing (owner task 7). Nothing on the site changed |
+| The SEO and AI search plan | 7.3 | 6 November 2026 | #250. The January plan, deleted, became 7.9–7.12 in "The SEO order" in 7.3, from the live site: 220 of 1,815 sitemap URLs indexed, nothing below the guides linked, doubled titles. The owner allows every crawler, wants no `llms.txt`, and adds Bing (owner task 7). Nothing on the site changed |
 
 **All done tasks:** 5.1–5.28 (5.15 decided: no change for now; 5.25 but for its step 6,
 which waits for the owner), 5.29–5.40 (5.37 but for the owner's part of steps 4 and 5), 5.42–5.47, 5.49, 5.50, 6.1–6.10, 7.1, 7.3, 7.7 and 7.8. Each section below records what
@@ -4948,7 +4948,7 @@ is its own session.
 
 **Session size:** Small. Reading and writing, no code.
 
-**Done (6 November 2026, the day of release; runbook step 50).** The January plan is deleted (it stays
+**Done (6 November 2026, the day of release; runbook step 50, #250).** The January plan is deleted (it stays
 readable in git history before this pull request). What is left of it, and what the live site showed, is
 four tasks, 7.9–7.12, in the order below. Nothing on the site changed.
 

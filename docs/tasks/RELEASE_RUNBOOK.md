@@ -337,7 +337,7 @@ user: batch those changes.
 
 | Step | Status | Who | When | Paste this | What it does |
 |---|---|---|---|---|---|
-| 50 | Done, 6 November 2026 (#PR) | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
+| 50 | Done, 6 November 2026 (#250) | Session | From R+1 | `Do MAINT 7.3.` | Planning only: the January SEO plan becomes a short current list, ordered by the Search Console data, with your decisions on AI crawlers, `llms.txt` and Bing. It changes nothing on the site. Deletes `seo-ai-seo-implementation-plan.md` once the new list is in |
 | 50a | Open | You | Now | Nothing to paste | **Bing and two Search Console exports** (`MAINT_tasks.md` owner task 7): import the site into Bing Webmaster Tools from Search Console; in Search Console, the Pages report's reasons with their counts, and the top 20 queries for the last 3 months. Paste the exports into the 7.9 session. No code |
 | 51 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part C.` | Planning only: how to bring students back without annoying them. You approve the options |
 | 52 | Open | Session, then you | From R+1 | `Do MAINT 7.5 Part D.` | Planning only: social media, LinkedIn for coordinators first. You approve the plan |
